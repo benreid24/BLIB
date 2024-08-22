@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['y_8151',['Y',['../a03132.html#a0ad76dfeab6a857e006035aaea668bfd',1,'bl::input::controllers::Xbox360']]]
+  ['y_8204',['Y',['../a03169.html#a0ad76dfeab6a857e006035aaea668bfd',1,'bl::input::controllers::Xbox360']]]
 ];

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Primitives/Color.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Observer.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,53 +66,64 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_b201fd9fa14a04c5ac17d47204a891a8.html">Primitives</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Color.hpp</div>  </div>
+<div class="title">Observer.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00965.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_PRIMITIVES_COLOR_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_PRIMITIVES_COLOR_HPP</span></div>
+<a href="a00965.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_OBSERVER_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_OBSERVER_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00659.html">BLIB/Logging.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/Color.hpp&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;initializer_list&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02284.html#ad4a800523b68683bf6404075cf431179">   17</a></span>&#160;<span class="keyword">inline</span> glm::vec4 <a class="code" href="a02284.html#ad4a800523b68683bf6404075cf431179">sfcol</a>(<span class="keyword">const</span> sf::Color&amp; color) {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">return</span> {<span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(color.r) / 255.f,</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;            <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(color.g) / 255.f,</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;            <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(color.b) / 255.f,</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;            <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(color.a) / 255.f};</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a02284.html#aac91a8546cad82baeee76f3d941ddc2c">   30</a></span>&#160;<span class="keyword">inline</span> glm::vec4 <a class="code" href="a02284.html#ad4a800523b68683bf6404075cf431179">sfcol</a>(std::initializer_list&lt;float&gt; color) {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span>* c = color.begin();</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">if</span> (color.size() == 3) { <span class="keywordflow">return</span> glm::vec4(c[0], c[1], c[2], 1.f); }</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (color.size() == 4) { <span class="keywordflow">return</span> glm::vec4(c[0], c[1], c[2], c[3]); }</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <a class="code" href="a00653.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Unsupported number of color elements: &quot;</span> &lt;&lt; color.size();</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordflow">return</span> glm::vec4(1.f, 1.f, 1.f, 1.f);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    }</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;}</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00653_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00653.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00653_source.html#l00101">Logger.hpp:101</a></div></div>
-<div class="ttc" id="aa00659_html"><div class="ttname"><a href="a00659.html">Logging.hpp</a></div></div>
-<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02284_html_ad4a800523b68683bf6404075cf431179"><div class="ttname"><a href="a02284.html#ad4a800523b68683bf6404075cf431179">bl::sfcol</a></div><div class="ttdeci">glm::vec4 sfcol(const sf::Color &amp;color)</div><div class="ttdoc">Helper method to convert SFML colors to BLIB colors.</div><div class="ttdef"><b>Definition:</b> <a href="a00965_source.html#l00017">Color.hpp:17</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00986.html">BLIB/Render/RenderTarget.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">class </span>Renderer;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a04033.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04033.html">Observer</a> : <span class="keyword">public</span> <a class="code" href="a04069.html">RenderTarget</a> {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a04033.html#acea151d2fae28aee7abb0577d580696c">   25</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a04033.html#acea151d2fae28aee7abb0577d580696c">~Observer</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04033.html#abbbfc65202bc680194e8c3746fe4a3bc">assignRegion</a>(<span class="keyword">const</span> VkRect2D&amp; region);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">bool</span> isCommon;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">bool</span> isVirtual;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="comment">// called by Renderer</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="a04033.html">Observer</a>(<a class="code" href="a02833.html">engine::Engine</a>&amp; <a class="code" href="a04069.html#aa62c9f37a9d355054b20acffbf670766">engine</a>, <a class="code" href="a04061.html">Renderer</a>&amp; <a class="code" href="a04069.html#a21fdab9a34a506f40d648e4fcabcd1d1">renderer</a>, <a class="code" href="a03925.html">rg::AssetFactory</a>&amp; factory, <span class="keywordtype">bool</span> isCommon,</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;             <span class="keywordtype">bool</span> isVirtual);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04033.html#abbbfc65202bc680194e8c3746fe4a3bc">assignRegion</a>(<span class="keyword">const</span> sf::Vector2u&amp; windowSize, <span class="keyword">const</span> sf::Rect&lt;std::uint32_t&gt;&amp; parentRegion,</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                      <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> observerCount, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index, <span class="keywordtype">bool</span> topBottomFirst);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a04033.html#a1fc8c4ea65463b448e068f1287349540">   44</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a04061.html">bl::rc::Renderer</a>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;};</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00986_html"><div class="ttname"><a href="a00986.html">RenderTarget.hpp</a></div></div>
+<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02833_html"><div class="ttname"><a href="a02833.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06269_source.html#l00033">Engine.hpp:33</a></div></div>
+<div class="ttc" id="aa03925_html"><div class="ttname"><a href="a03925.html">bl::rc::rg::AssetFactory</a></div><div class="ttdoc">Factory for render graph assets. Manages the set of providers keyed on tag.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00021">AssetFactory.hpp:21</a></div></div>
+<div class="ttc" id="aa04033_html"><div class="ttname"><a href="a04033.html">bl::rc::Observer</a></div><div class="ttdoc">Top level class for observers in the renderer. Corresponds to Engine Actors. Each observer may have i...</div><div class="ttdef"><b>Definition:</b> <a href="a00965_source.html#l00020">Observer.hpp:20</a></div></div>
+<div class="ttc" id="aa04033_html_abbbfc65202bc680194e8c3746fe4a3bc"><div class="ttname"><a href="a04033.html#abbbfc65202bc680194e8c3746fe4a3bc">bl::rc::Observer::assignRegion</a></div><div class="ttdeci">void assignRegion(const VkRect2D &amp;region)</div><div class="ttdoc">Assigns the screen region to render to. Only valid for virtual observers.</div><div class="ttdef"><b>Definition:</b> <a href="a01955_source.html#l00115">Observer.cpp:115</a></div></div>
+<div class="ttc" id="aa04033_html_acea151d2fae28aee7abb0577d580696c"><div class="ttname"><a href="a04033.html#acea151d2fae28aee7abb0577d580696c">bl::rc::Observer::~Observer</a></div><div class="ttdeci">virtual ~Observer()=default</div><div class="ttdoc">Releases resources.</div></div>
+<div class="ttc" id="aa04061_html"><div class="ttname"><a href="a04061.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a06320_source.html#l00042">Renderer.hpp:42</a></div></div>
+<div class="ttc" id="aa04069_html"><div class="ttname"><a href="a04069.html">bl::rc::RenderTarget</a></div><div class="ttdef"><b>Definition:</b> <a href="a00986_source.html#l00026">RenderTarget.hpp:26</a></div></div>
+<div class="ttc" id="aa04069_html_a21fdab9a34a506f40d648e4fcabcd1d1"><div class="ttname"><a href="a04069.html#a21fdab9a34a506f40d648e4fcabcd1d1">bl::rc::RenderTarget::renderer</a></div><div class="ttdeci">Renderer &amp; renderer</div><div class="ttdef"><b>Definition:</b> <a href="a00986_source.html#l00204">RenderTarget.hpp:204</a></div></div>
+<div class="ttc" id="aa04069_html_aa62c9f37a9d355054b20acffbf670766"><div class="ttname"><a href="a04069.html#aa62c9f37a9d355054b20acffbf670766">bl::rc::RenderTarget::engine</a></div><div class="ttdeci">engine::Engine &amp; engine</div><div class="ttdef"><b>Definition:</b> <a href="a00986_source.html#l00203">RenderTarget.hpp:203</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

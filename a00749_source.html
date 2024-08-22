@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Particles/Renderer.inl Source File</title>
+<title>BLIB: include/BLIB/Particles/ParticleSystem.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,164 +71,149 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Renderer.inl</div>  </div>
+<div class="title">ParticleSystem.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00749.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_PARTICLES_RENDERER_INL</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno"><a class="line" href="a00749.html#ae42cfb8ee5904d8f4ef6bc983c0d556a">    2</a></span>&#160;<span class="preprocessor">#define BLIB_PARTICLES_RENDERER_INL</span></div>
+<a href="a00749.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_PARTICLES_PARTICLESYSTEM_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_PARTICLES_PARTICLESYSTEM_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06232.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06280.html">BLIB/Particles/Renderer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>pcl</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06278.html">BLIB/Engine/System.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00740.html">BLIB/Particles/ParticleManager.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;typeindex&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a03664.html#a7d805719044651314f78710e38841942">   12</a></span>&#160;<a class="code" href="a03664.html#a7d805719044651314f78710e38841942">Renderer&lt;T&gt;::Renderer</a>()</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;: engine(nullptr)</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, system(nullptr)</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;, entity(ecs::<a class="code" href="a02299.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>)</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;, component(nullptr)</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;, link(nullptr) {}</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03664.html#a398f234142b10adc7f49cc4fd1e1cc6d">   20</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03664.html#a398f234142b10adc7f49cc4fd1e1cc6d">Renderer&lt;T&gt;::init</a>(<a class="code" href="a02812.html">engine::Engine</a>&amp; e) {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">using</span> TEngineSystem = <a class="code" href="a04124.html">sys::DrawableSystem&lt;TComponent&gt;</a>;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">if</span> constexpr (<a class="code" href="a03660.html">RenderConfigMap&lt;T&gt;::CreateRenderPipeline</a>) {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">bool</span> created = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordflow">if</span> (!created) {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            created = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            VkPipelineDepthStencilStateCreateInfo depthStencil{};</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            depthStencil.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            depthStencil.depthTestEnable =</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                <a class="code" href="a03660.html">RenderConfigMap&lt;T&gt;::EnableDepthTesting</a> ? VK_TRUE : VK_FALSE;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            depthStencil.depthWriteEnable      = depthStencil.depthTestEnable;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            depthStencil.depthCompareOp        = VK_COMPARE_OP_LESS_OR_EQUAL;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            depthStencil.depthBoundsTestEnable = VK_FALSE;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            depthStencil.minDepthBounds        = 0.0f; <span class="comment">// Optional</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            depthStencil.maxDepthBounds        = 1.0f; <span class="comment">// Optional</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            depthStencil.stencilTestEnable     = VK_FALSE;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            depthStencil.front                 = {}; <span class="comment">// Optional (Stencil)</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            depthStencil.back                  = {}; <span class="comment">// Optional (Stencil)</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            VkPipelineRasterizationStateCreateInfo rasterizer{};</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            rasterizer.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            rasterizer.depthClampEnable        = VK_FALSE;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            rasterizer.rasterizerDiscardEnable = VK_FALSE;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            rasterizer.polygonMode             = VK_POLYGON_MODE_FILL;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            rasterizer.lineWidth               = 1.0f;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            rasterizer.cullMode                = VK_CULL_MODE_NONE;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            rasterizer.frontFace               = VK_FRONT_FACE_COUNTER_CLOCKWISE;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            rasterizer.depthBiasEnable         = VK_FALSE;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            rasterizer.depthBiasConstantFactor = 0.0f; <span class="comment">// Optional</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            rasterizer.depthBiasClamp          = 0.0f; <span class="comment">// Optional</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            rasterizer.depthBiasSlopeFactor    = 0.0f; <span class="comment">// Optional</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <span class="keyword">using</span> DescriptorList = <span class="keyword">typename</span> <a class="code" href="a03656.html">RenderConfigMap&lt;T&gt;::DescriptorSets</a>;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            <a class="code" href="a04288.html">bl::rc::vk::PipelineParameters</a> params(<a class="code" href="a03660.html">RenderConfigMap&lt;T&gt;::RenderPassIds</a>);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            params.<a class="code" href="a04288.html#aeddc4614e9d26aef1eeaa72eae595c9f">withShaders</a>(<a class="code" href="a03660.html">RenderConfigMap&lt;T&gt;::VertexShader</a>,</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                               <a class="code" href="a03660.html">RenderConfigMap&lt;T&gt;::FragmentShader</a>);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            params.<a class="code" href="a04288.html#aa7371c1c4690f0fd0b3b74db933d3835">withPrimitiveType</a>(<a class="code" href="a03660.html">RenderConfigMap&lt;T&gt;::Topology</a>);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            DescriptorList::addParameters(params);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            params.<a class="code" href="a04288.html#ab7408542445a62a8f222f2e50da9a0af">withRasterizer</a>(rasterizer);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            params.<a class="code" href="a04288.html#a4c65ab8d0986145067d0072d058440b5">withDepthStencilState</a>(&amp;depthStencil);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            e.<a class="code" href="a02812.html#a04332dee562be55a73c43b5eed176837">renderer</a>().<a class="code" href="a04024.html#ac527c80b50845b0459712c2b708e1ec2">pipelineCache</a>().<a class="code" href="a04052.html#ab22abbcd5f0da2c18dbd75928e5c66fc">createPipline</a>(PipelineId, params.<a class="code" href="a04288.html#aa5d82d8652c3d79571b6c9e4cc6267df">build</a>());</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    }</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    engine    = &amp;e;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    component = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;}</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="a03664.html#a766a801e4def751dbce2c8cb05af6e02">   72</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03664.html#a766a801e4def751dbce2c8cb05af6e02">Renderer&lt;T&gt;::addToScene</a>(<a class="code" href="a04128.html">rc::Scene</a>* scene) {</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">using</span> TEngineSystem = <a class="code" href="a04124.html">sys::DrawableSystem&lt;TComponent&gt;</a>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    entity    = engine-&gt;ecs().createEntity();</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    component = engine-&gt;ecs().emplaceComponent&lt;<a class="code" href="a03664.html#a3920f869a922a3f140fbb91de17c943f">TComponent</a>&gt;(</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        entity, *engine, ContainsTransparency, PipelineId);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    link          = engine-&gt;ecs().emplaceComponent&lt;<a class="code" href="a03628.html">Link&lt;T&gt;</a>&gt;(entity);</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    link-&gt;<a class="code" href="a03628.html#a9f60beea39d59410d2284bd95ab92e5e">globals</a> = &amp;globals;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    component-&gt;addToSceneWithPipeline(</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        engine-&gt;ecs(), entity, scene, <a class="code" href="a02270.html#gga305dcc5dda3e28bd193ab31444664848a971fd8cc345d8bd9f92e9f7d88fdf20c">bl::rc::UpdateSpeed::Dynamic</a>, PipelineId);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;}</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="a03664.html#ac6b4cf9400bb049f9c3399af560a6d09">   85</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03664.html#ac6b4cf9400bb049f9c3399af560a6d09">Renderer&lt;T&gt;::removeFromScene</a>() {</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    engine-&gt;ecs().destroyEntity(entity);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    component = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;}</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="a03664.html#a9063df222a8a7c47fdc9dc7b5e2e383e">   91</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03664.html#a9063df222a8a7c47fdc9dc7b5e2e383e">Renderer&lt;T&gt;::notifyData</a>(T* particles, std::size_t length) {</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordflow">if</span> (component) {</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        component-&gt;getDrawParametersForEdit().instanceCount = length;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        component-&gt;syncDrawParamsToScene();</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        link-&gt;base = particles;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        link-&gt;len  = length;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    }</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;}</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="a03664.html#a92614a98a3700a3dd2f02f1ceb2577d3">  101</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="a03664.html#a3920f869a922a3f140fbb91de17c943f">Renderer&lt;T&gt;::TComponent</a>* <a class="code" href="a03664.html#a92614a98a3700a3dd2f02f1ceb2577d3">Renderer&lt;T&gt;::getComponent</a>() {</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordflow">return</span> engine-&gt;ecs().getComponent&lt;<a class="code" href="a03664.html#a3920f869a922a3f140fbb91de17c943f">TComponent</a>&gt;(entity);</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;}</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="a03664.html#afcb6d4f43e15aad2ba5fe860e75bf2ec">  106</a></span>&#160;<a class="code" href="a03628.html">Link&lt;T&gt;</a>* <a class="code" href="a03664.html#afcb6d4f43e15aad2ba5fe860e75bf2ec">Renderer&lt;T&gt;::getLink</a>() {</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordflow">return</span> engine-&gt;ecs().getComponent&lt;<a class="code" href="a03628.html">Link&lt;T&gt;</a>&gt;(entity);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;}</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="a03664.html#aba6f3150ba4c922ed8334e272cde154b">  111</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03664.html#aba6f3150ba4c922ed8334e272cde154b">Renderer&lt;T&gt;::draw</a>(<a class="code" href="a04108.html">rc::scene::CodeScene::RenderContext</a>&amp; ctx) {</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    ctx.<a class="code" href="a04108.html#a574e2bdfd78517820fd2d687d482a9e9">renderObject</a>(*component);</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;}</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;} <span class="comment">// namespace pcl</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>pcl</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03681.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03681.html">ParticleSystem</a> : <span class="keyword">public</span> <a class="code" href="a02897.html">engine::System</a> {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="a03681.html#a4c6552f1650e03c7ffad57a595d454d6">ParticleSystem</a>();</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a03681.html#ada94300b1a168d67b2a5a384b306b210">   30</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03681.html#ada94300b1a168d67b2a5a384b306b210">~ParticleSystem</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="a03625.html">ParticleManager&lt;T&gt;</a>&amp; <a class="code" href="a03681.html#a92a33de932996c242117ccad2b09c864">getUniqueSystem</a>();</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03681.html#aa33758a7c85e88b2b5357b47c2dfc582">removeUniqueSystem</a>();</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03681.html#aa33758a7c85e88b2b5357b47c2dfc582">removeUniqueSystem</a>(<a class="code" href="a03677.html">ParticleManagerBase</a>* system);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03681.html#aa8f24db3e0920d850a38440b127b71cd">removeUniqueSystems</a>();</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="a03625.html">ParticleManager&lt;T&gt;</a>&amp; <a class="code" href="a03681.html#a53922412b546ed04a623ac7a43773a18">addRepeatedSystem</a>();</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03681.html#a8359999b11988088a2313b76d577aa85">removeRepeatedSystem</a>(<a class="code" href="a03677.html">ParticleManagerBase</a>* system);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03681.html#a8359999b11988088a2313b76d577aa85">removeRepeatedSystem</a>(<a class="code" href="a03625.html">ParticleManager&lt;T&gt;</a>* system);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03681.html#a1ffee189ffe523078e6dac84438a0e6c">removeRepeatedSystems</a>();</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03681.html#adc6c4968d193150641babd3f10b70f36">removeAllSystems</a>();</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <a class="code" href="a02833.html">engine::Engine</a>* engine;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    std::mutex mutex;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <a class="code" href="a05097.html">util::ThreadPool</a>* engineThreadpool;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <a class="code" href="a05097.html">util::ThreadPool</a> particleThreadpool;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    std::unordered_map&lt;std::type_index, std::unique_ptr&lt;ParticleManagerBase&gt;&gt; singleSystems;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    std::unordered_map&lt;std::type_index, std::vector&lt;std::unique_ptr&lt;ParticleManagerBase&gt;&gt;&gt;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        multiSystems;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    std::vector&lt;std::future&lt;void&gt;&gt; futures;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> init(<a class="code" href="a02833.html">engine::Engine</a>&amp; engine) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> update(std::mutex&amp; stageMutex, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span> realDt, <span class="keywordtype">float</span> residual,</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                        <span class="keywordtype">float</span> realResidual) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> earlyCleanup() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;};</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02270_html_gga305dcc5dda3e28bd193ab31444664848a971fd8cc345d8bd9f92e9f7d88fdf20c"><div class="ttname"><a href="a02270.html#gga305dcc5dda3e28bd193ab31444664848a971fd8cc345d8bd9f92e9f7d88fdf20c">bl::rc::UpdateSpeed::Dynamic</a></div><div class="ttdeci">@ Dynamic</div><div class="ttdoc">Objects or data are expected to update once per frame or similar.</div></div>
-<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02299_html_a01655307bcb32baf2884e18213123917"><div class="ttname"><a href="a02299.html#a01655307bcb32baf2884e18213123917">bl::ecs::InvalidEntity</a></div><div class="ttdeci">constexpr Entity InvalidEntity</div><div class="ttdoc">Special value to indicate that an Entity is not valid.</div><div class="ttdef"><b>Definition:</b> <a href="a00176_source.html#l00167">Entity.hpp:167</a></div></div>
-<div class="ttc" id="aa02812_html"><div class="ttname"><a href="a02812.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06232_source.html#l00033">Engine.hpp:33</a></div></div>
-<div class="ttc" id="aa02812_html_a04332dee562be55a73c43b5eed176837"><div class="ttname"><a href="a02812.html#a04332dee562be55a73c43b5eed176837">bl::engine::Engine::renderer</a></div><div class="ttdeci">rc::Renderer &amp; renderer()</div><div class="ttdoc">Returns the rendering system of the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a06232_source.html#l00234">Engine.hpp:234</a></div></div>
-<div class="ttc" id="aa03628_html"><div class="ttname"><a href="a03628.html">bl::pcl::Link</a></div><div class="ttdoc">ECS component that provides the link between descriptor sets and particle systems.</div><div class="ttdef"><b>Definition:</b> <a href="a00725_source.html#l00019">Link.hpp:19</a></div></div>
-<div class="ttc" id="aa03628_html_a9f60beea39d59410d2284bd95ab92e5e"><div class="ttname"><a href="a03628.html#a9f60beea39d59410d2284bd95ab92e5e">bl::pcl::Link::globals</a></div><div class="ttdeci">TGlobalPayload * globals</div><div class="ttdef"><b>Definition:</b> <a href="a00725_source.html#l00024">Link.hpp:24</a></div></div>
-<div class="ttc" id="aa03656_html"><div class="ttname"><a href="a03656.html">bl::pcl::RenderConfigDescriptorList</a></div><div class="ttdoc">Helper struct to encode a variable list of descriptor sets for render pipeline creation.</div><div class="ttdef"><b>Definition:</b> <a href="a00746_source.html#l00042">RenderConfigMap.hpp:42</a></div></div>
-<div class="ttc" id="aa03660_html"><div class="ttname"><a href="a03660.html">bl::pcl::RenderConfigMap</a></div><div class="ttdoc">Compile-time mapping struct for use with the default Renderer&lt;T&gt; implementation. Specialize this for ...</div><div class="ttdef"><b>Definition:</b> <a href="a00746_source.html#l00057">RenderConfigMap.hpp:57</a></div></div>
-<div class="ttc" id="aa03664_html_a3920f869a922a3f140fbb91de17c943f"><div class="ttname"><a href="a03664.html#a3920f869a922a3f140fbb91de17c943f">bl::pcl::Renderer::TComponent</a></div><div class="ttdeci">typename RenderComponentMap&lt; T &gt;::TComponent TComponent</div><div class="ttdef"><b>Definition:</b> <a href="a06280_source.html#l00031">Renderer.hpp:31</a></div></div>
-<div class="ttc" id="aa03664_html_a398f234142b10adc7f49cc4fd1e1cc6d"><div class="ttname"><a href="a03664.html#a398f234142b10adc7f49cc4fd1e1cc6d">bl::pcl::Renderer::init</a></div><div class="ttdeci">void init(engine::Engine &amp;engine)</div><div class="ttdoc">Called once after being constructed.</div><div class="ttdef"><b>Definition:</b> <a href="a00749_source.html#l00020">Renderer.inl:20</a></div></div>
-<div class="ttc" id="aa03664_html_a766a801e4def751dbce2c8cb05af6e02"><div class="ttname"><a href="a03664.html#a766a801e4def751dbce2c8cb05af6e02">bl::pcl::Renderer::addToScene</a></div><div class="ttdeci">void addToScene(rc::Scene *scene)</div><div class="ttdoc">Called when the particle manager should be rendered in the given scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00749_source.html#l00072">Renderer.inl:72</a></div></div>
-<div class="ttc" id="aa03664_html_a7d805719044651314f78710e38841942"><div class="ttname"><a href="a03664.html#a7d805719044651314f78710e38841942">bl::pcl::Renderer::Renderer</a></div><div class="ttdeci">Renderer()</div><div class="ttdoc">Creates the default renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a00749_source.html#l00012">Renderer.inl:12</a></div></div>
-<div class="ttc" id="aa03664_html_a9063df222a8a7c47fdc9dc7b5e2e383e"><div class="ttname"><a href="a03664.html#a9063df222a8a7c47fdc9dc7b5e2e383e">bl::pcl::Renderer::notifyData</a></div><div class="ttdeci">void notifyData(T *particles, std::size_t length)</div><div class="ttdoc">Called when the particle data changes.</div><div class="ttdef"><b>Definition:</b> <a href="a00749_source.html#l00091">Renderer.inl:91</a></div></div>
-<div class="ttc" id="aa03664_html_a92614a98a3700a3dd2f02f1ceb2577d3"><div class="ttname"><a href="a03664.html#a92614a98a3700a3dd2f02f1ceb2577d3">bl::pcl::Renderer::getComponent</a></div><div class="ttdeci">TComponent * getComponent()</div><div class="ttdoc">Returns the renderable component. Only valid after addToScene is called.</div><div class="ttdef"><b>Definition:</b> <a href="a00749_source.html#l00101">Renderer.inl:101</a></div></div>
-<div class="ttc" id="aa03664_html_aba6f3150ba4c922ed8334e272cde154b"><div class="ttname"><a href="a03664.html#aba6f3150ba4c922ed8334e272cde154b">bl::pcl::Renderer::draw</a></div><div class="ttdeci">void draw(rc::scene::CodeScene::RenderContext &amp;ctx)</div><div class="ttdoc">Manually issue the required commands to draw this object. Must be called within the context of a Code...</div><div class="ttdef"><b>Definition:</b> <a href="a00749_source.html#l00111">Renderer.inl:111</a></div></div>
-<div class="ttc" id="aa03664_html_ac6b4cf9400bb049f9c3399af560a6d09"><div class="ttname"><a href="a03664.html#ac6b4cf9400bb049f9c3399af560a6d09">bl::pcl::Renderer::removeFromScene</a></div><div class="ttdeci">void removeFromScene()</div><div class="ttdoc">Called when the particles should be removed from its current scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00749_source.html#l00085">Renderer.inl:85</a></div></div>
-<div class="ttc" id="aa03664_html_afcb6d4f43e15aad2ba5fe860e75bf2ec"><div class="ttname"><a href="a03664.html#afcb6d4f43e15aad2ba5fe860e75bf2ec">bl::pcl::Renderer::getLink</a></div><div class="ttdeci">Link&lt; T &gt; * getLink()</div><div class="ttdoc">Returns the link component. Only valid after addToScene is called.</div><div class="ttdef"><b>Definition:</b> <a href="a00749_source.html#l00106">Renderer.inl:106</a></div></div>
-<div class="ttc" id="aa04024_html_ac527c80b50845b0459712c2b708e1ec2"><div class="ttname"><a href="a04024.html#ac527c80b50845b0459712c2b708e1ec2">bl::rc::Renderer::pipelineCache</a></div><div class="ttdeci">res::PipelineCache &amp; pipelineCache()</div><div class="ttdoc">Returns the pipeline cache of this renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a06283_source.html#l00286">Renderer.hpp:286</a></div></div>
-<div class="ttc" id="aa04052_html_ab22abbcd5f0da2c18dbd75928e5c66fc"><div class="ttname"><a href="a04052.html#ab22abbcd5f0da2c18dbd75928e5c66fc">bl::rc::res::PipelineCache::createPipline</a></div><div class="ttdeci">vk::Pipeline &amp; createPipline(std::uint32_t pipelineId, vk::PipelineParameters &amp;&amp;params)</div><div class="ttdoc">Creates a new pipeline in the cache. Id should be unique.</div><div class="ttdef"><b>Definition:</b> <a href="a01961_source.html#l00028">PipelineCache.cpp:28</a></div></div>
-<div class="ttc" id="aa04108_html"><div class="ttname"><a href="a04108.html">bl::rc::scene::CodeScene::RenderContext</a></div><div class="ttdoc">Context that gets passed to the render callback.</div><div class="ttdef"><b>Definition:</b> <a href="a01016_source.html#l00029">CodeScene.hpp:29</a></div></div>
-<div class="ttc" id="aa04108_html_a574e2bdfd78517820fd2d687d482a9e9"><div class="ttname"><a href="a04108.html#a574e2bdfd78517820fd2d687d482a9e9">bl::rc::scene::CodeScene::RenderContext::renderObject</a></div><div class="ttdeci">void renderObject(rcom::DrawableBase &amp;object)</div><div class="ttdoc">Issues the commands to render the given object. All BLIB renderable classes provide their own methods...</div><div class="ttdef"><b>Definition:</b> <a href="a01985_source.html#l00117">CodeScene.cpp:117</a></div></div>
-<div class="ttc" id="aa04124_html"><div class="ttname"><a href="a04124.html">bl::sys::DrawableSystem</a></div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00024">Scene.hpp:24</a></div></div>
-<div class="ttc" id="aa04128_html"><div class="ttname"><a href="a04128.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00056">Scene.hpp:56</a></div></div>
-<div class="ttc" id="aa04288_html"><div class="ttname"><a href="a04288.html">bl::rc::vk::PipelineParameters</a></div><div class="ttdoc">Parameters used to create a Pipeline. This class performs some basic validation and provides sane def...</div><div class="ttdef"><b>Definition:</b> <a href="a01112_source.html#l00031">PipelineParameters.hpp:31</a></div></div>
-<div class="ttc" id="aa04288_html_a4c65ab8d0986145067d0072d058440b5"><div class="ttname"><a href="a04288.html#a4c65ab8d0986145067d0072d058440b5">bl::rc::vk::PipelineParameters::withDepthStencilState</a></div><div class="ttdeci">PipelineParameters &amp; withDepthStencilState(VkPipelineDepthStencilStateCreateInfo *depthStencil)</div><div class="ttdoc">Configures depth and stencil testing for this pipeline.</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00157">PipelineParameters.cpp:157</a></div></div>
-<div class="ttc" id="aa04288_html_aa5d82d8652c3d79571b6c9e4cc6267df"><div class="ttname"><a href="a04288.html#aa5d82d8652c3d79571b6c9e4cc6267df">bl::rc::vk::PipelineParameters::build</a></div><div class="ttdeci">PipelineParameters &amp;&amp; build()</div><div class="ttdoc">Performs final validation and defaulting, then returns an rvalue reference to this object to be used ...</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00181">PipelineParameters.cpp:181</a></div></div>
-<div class="ttc" id="aa04288_html_aa7371c1c4690f0fd0b3b74db933d3835"><div class="ttname"><a href="a04288.html#aa7371c1c4690f0fd0b3b74db933d3835">bl::rc::vk::PipelineParameters::withPrimitiveType</a></div><div class="ttdeci">PipelineParameters &amp; withPrimitiveType(VkPrimitiveTopology primitiveType)</div><div class="ttdoc">Sets the primitive type that the vertices within this pipeline represent. Defaults to triangle list.</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00099">PipelineParameters.cpp:99</a></div></div>
-<div class="ttc" id="aa04288_html_ab7408542445a62a8f222f2e50da9a0af"><div class="ttname"><a href="a04288.html#ab7408542445a62a8f222f2e50da9a0af">bl::rc::vk::PipelineParameters::withRasterizer</a></div><div class="ttdeci">PipelineParameters &amp; withRasterizer(const VkPipelineRasterizationStateCreateInfo &amp;rasterizer)</div><div class="ttdoc">Configures the rasterizer for this pipeline. Defaults to sane values.</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00104">PipelineParameters.cpp:104</a></div></div>
-<div class="ttc" id="aa04288_html_aeddc4614e9d26aef1eeaa72eae595c9f"><div class="ttname"><a href="a04288.html#aeddc4614e9d26aef1eeaa72eae595c9f">bl::rc::vk::PipelineParameters::withShaders</a></div><div class="ttdeci">PipelineParameters &amp; withShaders(const std::string &amp;vertexPath, const std::string &amp;fragPath)</div><div class="ttdoc">Helper method to setup vertex and fragment shaders for the pipeline.</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00070">PipelineParameters.cpp:70</a></div></div>
-<div class="ttc" id="aa06232_html"><div class="ttname"><a href="a06232.html">Engine.hpp</a></div></div>
-<div class="ttc" id="aa06280_html"><div class="ttname"><a href="a06280.html">Renderer.hpp</a></div></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="a03681.html#a92a33de932996c242117ccad2b09c864">  121</a></span>&#160;<a class="code" href="a03625.html">ParticleManager&lt;T&gt;</a>&amp; <a class="code" href="a03681.html#a92a33de932996c242117ccad2b09c864">ParticleSystem::getUniqueSystem</a>() {</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keyword">using</span> U = <a class="code" href="a03625.html">ParticleManager&lt;T&gt;</a>;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    std::unique_lock lock(mutex);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keyword">auto</span> it = singleSystems.find(<span class="keyword">typeid</span>(T));</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordflow">if</span> (it == singleSystems.end()) {</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        it = singleSystems.try_emplace(<span class="keyword">typeid</span>(T), std::make_unique&lt;U&gt;()).first;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        it-&gt;second-&gt;init(*engine);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    }</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>U&amp;<span class="keyword">&gt;</span>(*it-&gt;second);</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;}</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00135"></a><span class="lineno"><a class="line" href="a03681.html#aa33758a7c85e88b2b5357b47c2dfc582">  135</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03681.html#aa33758a7c85e88b2b5357b47c2dfc582">ParticleSystem::removeUniqueSystem</a>() {</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    std::unique_lock lock(mutex);</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    singleSystems.erase(<span class="keyword">typeid</span>(T));</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;}</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00141"></a><span class="lineno"><a class="line" href="a03681.html#a53922412b546ed04a623ac7a43773a18">  141</a></span>&#160;<a class="code" href="a03625.html">ParticleManager&lt;T&gt;</a>&amp; <a class="code" href="a03681.html#a53922412b546ed04a623ac7a43773a18">ParticleSystem::addRepeatedSystem</a>() {</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keyword">using</span> U = <a class="code" href="a03625.html">ParticleManager&lt;T&gt;</a>;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    std::unique_lock lock(mutex);</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keyword">auto</span>&amp; list  = multiSystems[<span class="keyword">typeid</span>(T)];</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="keyword">auto</span>&amp; added = list.emplace_back(std::make_unique&lt;U&gt;());</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    added-&gt;init(*engine);</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>U&amp;<span class="keyword">&gt;</span>(*added);</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;}</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00153"></a><span class="lineno"><a class="line" href="a03681.html#ad431eba025e584e9625544e654e78d0f">  153</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03681.html#a8359999b11988088a2313b76d577aa85">ParticleSystem::removeRepeatedSystem</a>(<a class="code" href="a03625.html">ParticleManager&lt;T&gt;</a>* system) {</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keyword">using</span> U = <a class="code" href="a03625.html">ParticleManager&lt;T&gt;</a>;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    std::unique_lock lock(mutex);</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> it = multiSystems.find(<span class="keyword">typeid</span>(T));</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keywordflow">if</span> (it != multiSystems.end()) {</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> mit = it-&gt;second.begin(); mit != it-&gt;second.end(); ++mit) {</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;            <span class="keywordflow">if</span> (mit-&gt;get() == <span class="keyword">static_cast&lt;</span><a class="code" href="a03677.html">ParticleManagerBase</a>*<span class="keyword">&gt;</span>(system)) {</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                it-&gt;second.erase(mit);</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;            }</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        }</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    }</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;}</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00170"></a><span class="lineno"><a class="line" href="a03681.html#a1ffee189ffe523078e6dac84438a0e6c">  170</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03681.html#a1ffee189ffe523078e6dac84438a0e6c">ParticleSystem::removeRepeatedSystems</a>() {</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    std::unique_lock lock(mutex);</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    multiSystems.erase(<span class="keyword">typeid</span>(T));</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;}</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;} <span class="comment">// namespace pcl</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00740_html"><div class="ttname"><a href="a00740.html">ParticleManager.hpp</a></div></div>
+<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02833_html"><div class="ttname"><a href="a02833.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06269_source.html#l00033">Engine.hpp:33</a></div></div>
+<div class="ttc" id="aa02897_html"><div class="ttname"><a href="a02897.html">bl::engine::System</a></div><div class="ttdoc">Base class for Engine systems which can be registered in the Systems registry.</div><div class="ttdef"><b>Definition:</b> <a href="a06278_source.html#l00018">System.hpp:18</a></div></div>
+<div class="ttc" id="aa03625_html"><div class="ttname"><a href="a03625.html">bl::pcl::ParticleManager</a></div><div class="ttdoc">Particle manager for a specific type of particle. Instances are owned by the ParticleSystem and shoul...</div><div class="ttdef"><b>Definition:</b> <a href="a00740_source.html#l00029">ParticleManager.hpp:29</a></div></div>
+<div class="ttc" id="aa03677_html"><div class="ttname"><a href="a03677.html">bl::pcl::ParticleManagerBase</a></div><div class="ttdoc">Base class for particle managers. Particle managers own and manage specific particle types.</div><div class="ttdef"><b>Definition:</b> <a href="a00746_source.html#l00025">ParticleManagerBase.hpp:25</a></div></div>
+<div class="ttc" id="aa03681_html"><div class="ttname"><a href="a03681.html">bl::pcl::ParticleSystem</a></div><div class="ttdoc">Top level engine system for the BLIB particle system. Owns all the ParticleManagers for each particle...</div><div class="ttdef"><b>Definition:</b> <a href="a00749_source.html#l00020">ParticleSystem.hpp:20</a></div></div>
+<div class="ttc" id="aa03681_html_a1ffee189ffe523078e6dac84438a0e6c"><div class="ttname"><a href="a03681.html#a1ffee189ffe523078e6dac84438a0e6c">bl::pcl::ParticleSystem::removeRepeatedSystems</a></div><div class="ttdeci">void removeRepeatedSystems()</div><div class="ttdoc">Removes all particle managers of the given type.</div><div class="ttdef"><b>Definition:</b> <a href="a00749_source.html#l00170">ParticleSystem.hpp:170</a></div></div>
+<div class="ttc" id="aa03681_html_a4c6552f1650e03c7ffad57a595d454d6"><div class="ttname"><a href="a03681.html#a4c6552f1650e03c7ffad57a595d454d6">bl::pcl::ParticleSystem::ParticleSystem</a></div><div class="ttdeci">ParticleSystem()</div><div class="ttdoc">Initializes the particle system.</div><div class="ttdef"><b>Definition:</b> <a href="a01853_source.html#l00009">ParticleSystem.cpp:9</a></div></div>
+<div class="ttc" id="aa03681_html_a53922412b546ed04a623ac7a43773a18"><div class="ttname"><a href="a03681.html#a53922412b546ed04a623ac7a43773a18">bl::pcl::ParticleSystem::addRepeatedSystem</a></div><div class="ttdeci">ParticleManager&lt; T &gt; &amp; addRepeatedSystem()</div><div class="ttdoc">Adds a new particle manager for the given particle type. Always creates a new one....</div><div class="ttdef"><b>Definition:</b> <a href="a00749_source.html#l00141">ParticleSystem.hpp:141</a></div></div>
+<div class="ttc" id="aa03681_html_a8359999b11988088a2313b76d577aa85"><div class="ttname"><a href="a03681.html#a8359999b11988088a2313b76d577aa85">bl::pcl::ParticleSystem::removeRepeatedSystem</a></div><div class="ttdeci">void removeRepeatedSystem(ParticleManagerBase *system)</div><div class="ttdoc">Removes the specific entity level particle manager.</div><div class="ttdef"><b>Definition:</b> <a href="a01853_source.html#l00029">ParticleSystem.cpp:29</a></div></div>
+<div class="ttc" id="aa03681_html_a92a33de932996c242117ccad2b09c864"><div class="ttname"><a href="a03681.html#a92a33de932996c242117ccad2b09c864">bl::pcl::ParticleSystem::getUniqueSystem</a></div><div class="ttdeci">ParticleManager&lt; T &gt; &amp; getUniqueSystem()</div><div class="ttdoc">Returns a particle manager for the given particle type. Ensures only one manager is created....</div><div class="ttdef"><b>Definition:</b> <a href="a00749_source.html#l00121">ParticleSystem.hpp:121</a></div></div>
+<div class="ttc" id="aa03681_html_aa33758a7c85e88b2b5357b47c2dfc582"><div class="ttname"><a href="a03681.html#aa33758a7c85e88b2b5357b47c2dfc582">bl::pcl::ParticleSystem::removeUniqueSystem</a></div><div class="ttdeci">void removeUniqueSystem()</div><div class="ttdoc">Removes the unique particle manager for the given particle type.</div><div class="ttdef"><b>Definition:</b> <a href="a00749_source.html#l00135">ParticleSystem.hpp:135</a></div></div>
+<div class="ttc" id="aa03681_html_aa8f24db3e0920d850a38440b127b71cd"><div class="ttname"><a href="a03681.html#aa8f24db3e0920d850a38440b127b71cd">bl::pcl::ParticleSystem::removeUniqueSystems</a></div><div class="ttdeci">void removeUniqueSystems()</div><div class="ttdoc">Removes all unique particle managers.</div><div class="ttdef"><b>Definition:</b> <a href="a01853_source.html#l00024">ParticleSystem.cpp:24</a></div></div>
+<div class="ttc" id="aa03681_html_ada94300b1a168d67b2a5a384b306b210"><div class="ttname"><a href="a03681.html#ada94300b1a168d67b2a5a384b306b210">bl::pcl::ParticleSystem::~ParticleSystem</a></div><div class="ttdeci">virtual ~ParticleSystem()=default</div><div class="ttdoc">Destroys the particle system.</div></div>
+<div class="ttc" id="aa03681_html_adc6c4968d193150641babd3f10b70f36"><div class="ttname"><a href="a03681.html#adc6c4968d193150641babd3f10b70f36">bl::pcl::ParticleSystem::removeAllSystems</a></div><div class="ttdeci">void removeAllSystems()</div><div class="ttdoc">Removes all particle managers.</div><div class="ttdef"><b>Definition:</b> <a href="a01853_source.html#l00042">ParticleSystem.cpp:42</a></div></div>
+<div class="ttc" id="aa05097_html"><div class="ttname"><a href="a05097.html">bl::util::ThreadPool</a></div><div class="ttdoc">Provides a thread pool with variable concurrency and support for draining.</div><div class="ttdef"><b>Definition:</b> <a href="a01388_source.html#l00024">ThreadPool.hpp:24</a></div></div>
+<div class="ttc" id="aa06278_html"><div class="ttname"><a href="a06278.html">System.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

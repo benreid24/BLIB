@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Transfers/TransferContext.cpp Source File</title>
+<title>BLIB: src/Render/Scenes/SceneObject.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,94 +66,47 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_7607afd44543cedc5723cabe6929dc94.html">Transfers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_90555a6f6bc1bb4149f0b831943ef307.html">Scenes</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">TransferContext.cpp</div>  </div>
+<div class="title">SceneObject.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a02015.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01058.html">BLIB/Render/Transfers/TransferContext.hpp</a>&gt;</span></div>
+<a href="a02015.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01043.html">BLIB/Render/Scenes/SceneObject.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01148.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00797.html">BLIB/Render/Components/SceneObjectRef.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>tfr</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>scene</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a04188.html#a9895ebe07a88d4990699ce7bc1c6975b">   11</a></span>&#160;<a class="code" href="a04188.html#a9895ebe07a88d4990699ce7bc1c6975b">TransferContext::TransferContext</a>(std::mutex&amp; bucketMutex, <a class="code" href="a04368.html">vk::VulkanState</a>&amp; vs,</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;                                 std::vector&lt;VkBuffer&gt;&amp; stagingBuffers,</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;                                 std::vector&lt;VmaAllocation&gt;&amp; stagingAllocs,</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;                                 std::vector&lt;VkMemoryBarrier&gt;&amp; memoryBarriers,</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                                 std::vector&lt;VkBufferMemoryBarrier&gt;&amp; bufferBarriers,</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;                                 std::vector&lt;VkImageMemoryBarrier&gt;&amp; imageBarriers)</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;: bucketMutex(bucketMutex)</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;, vulkanState(vs)</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;, stagingBuffers(stagingBuffers)</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;, stagingAllocs(stagingAllocs)</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;, memoryBarriers(memoryBarriers)</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;, bufferBarriers(bufferBarriers)</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;, imageBarriers(imageBarriers) {}</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a04188.html#a0095891b196aaca7b289210a8a774bee">   25</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04188.html#a0095891b196aaca7b289210a8a774bee">TransferContext::createTemporaryStagingBuffer</a>(VkDeviceSize size, VkBuffer&amp; bufferHandle,</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;                                                   <span class="keywordtype">void</span>** mapped) {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    VmaAllocation alloc;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    VmaAllocationInfo allocInfo;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    vulkanState.<a class="code" href="a04368.html#a570efdaea45eb7a14a67901db5cce8d4">createBuffer</a>(</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        size,</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        VK_BUFFER_USAGE_TRANSFER_SRC_BIT,</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        VMA_ALLOCATION_CREATE_HOST_ACCESS_SEQUENTIAL_WRITE_BIT | VMA_ALLOCATION_CREATE_MAPPED_BIT,</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        &amp;bufferHandle,</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        &amp;alloc,</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        &amp;allocInfo);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    std::unique_lock lock(bucketMutex);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    stagingBuffers.emplace_back(bufferHandle);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    stagingAllocs.emplace_back(alloc);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    *mapped = allocInfo.pMappedData;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a04188.html#a0516ada22d07c935ad2a1dbff375a55f">   44</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04188.html#a0516ada22d07c935ad2a1dbff375a55f">TransferContext::registerMemoryBarrier</a>(<span class="keyword">const</span> VkMemoryBarrier&amp; barrier) {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    std::unique_lock lock(bucketMutex);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    memoryBarriers.emplace_back(barrier);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="a04188.html#ad3498b85b2352fb77251503598d24bf0">   49</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04188.html#ad3498b85b2352fb77251503598d24bf0">TransferContext::registerBufferBarrier</a>(<span class="keyword">const</span> VkBufferMemoryBarrier&amp; barrier) {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    std::unique_lock lock(bucketMutex);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    bufferBarriers.emplace_back(barrier);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;}</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="a04188.html#ab4518b0ecbee6232e04ea2aab04f05aa">   54</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04188.html#ab4518b0ecbee6232e04ea2aab04f05aa">TransferContext::registerImageBarrier</a>(<span class="keyword">const</span> VkImageMemoryBarrier&amp; barrier) {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    std::unique_lock lock(bucketMutex);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    imageBarriers.emplace_back(barrier);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a04188.html#a37f3aa2f09d5a38a8c6761f09ac26d8c">   59</a></span>&#160;VkDevice <a class="code" href="a04188.html#a37f3aa2f09d5a38a8c6761f09ac26d8c">TransferContext::device</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> vulkanState.<a class="code" href="a04368.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>; }</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;} <span class="comment">// namespace tfr</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01058_html"><div class="ttname"><a href="a01058.html">TransferContext.hpp</a></div></div>
-<div class="ttc" id="aa01148_html"><div class="ttname"><a href="a01148.html">VulkanState.hpp</a></div></div>
-<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04188_html_a0095891b196aaca7b289210a8a774bee"><div class="ttname"><a href="a04188.html#a0095891b196aaca7b289210a8a774bee">bl::rc::tfr::TransferContext::createTemporaryStagingBuffer</a></div><div class="ttdeci">void createTemporaryStagingBuffer(VkDeviceSize size, VkBuffer &amp;bufferResult, void **mappedMemory)</div><div class="ttdoc">Creates a staging buffer of the given size. Should only be called from Transferable::executeTransferA...</div><div class="ttdef"><b>Definition:</b> <a href="a02015_source.html#l00025">TransferContext.cpp:25</a></div></div>
-<div class="ttc" id="aa04188_html_a0516ada22d07c935ad2a1dbff375a55f"><div class="ttname"><a href="a04188.html#a0516ada22d07c935ad2a1dbff375a55f">bl::rc::tfr::TransferContext::registerMemoryBarrier</a></div><div class="ttdeci">void registerMemoryBarrier(const VkMemoryBarrier &amp;barrier)</div><div class="ttdoc">Registers the given barrier to be recorded after all transfers are started.</div><div class="ttdef"><b>Definition:</b> <a href="a02015_source.html#l00044">TransferContext.cpp:44</a></div></div>
-<div class="ttc" id="aa04188_html_a37f3aa2f09d5a38a8c6761f09ac26d8c"><div class="ttname"><a href="a04188.html#a37f3aa2f09d5a38a8c6761f09ac26d8c">bl::rc::tfr::TransferContext::device</a></div><div class="ttdeci">VkDevice device() const</div><div class="ttdoc">Returns the logical device to be used.</div><div class="ttdef"><b>Definition:</b> <a href="a02015_source.html#l00059">TransferContext.cpp:59</a></div></div>
-<div class="ttc" id="aa04188_html_a9895ebe07a88d4990699ce7bc1c6975b"><div class="ttname"><a href="a04188.html#a9895ebe07a88d4990699ce7bc1c6975b">bl::rc::tfr::TransferContext::TransferContext</a></div><div class="ttdeci">TransferContext(std::mutex &amp;bucketMutex, vk::VulkanState &amp;vulkanState, std::vector&lt; VkBuffer &gt; &amp;stagingBuffers, std::vector&lt; VmaAllocation &gt; &amp;stagingAllocs, std::vector&lt; VkMemoryBarrier &gt; &amp;memoryBarriers, std::vector&lt; VkBufferMemoryBarrier &gt; &amp;bufferBarriers, std::vector&lt; VkImageMemoryBarrier &gt; &amp;imageBarriers)</div><div class="ttdoc">Internal constructor, do not use.</div><div class="ttdef"><b>Definition:</b> <a href="a02015_source.html#l00011">TransferContext.cpp:11</a></div></div>
-<div class="ttc" id="aa04188_html_ab4518b0ecbee6232e04ea2aab04f05aa"><div class="ttname"><a href="a04188.html#ab4518b0ecbee6232e04ea2aab04f05aa">bl::rc::tfr::TransferContext::registerImageBarrier</a></div><div class="ttdeci">void registerImageBarrier(const VkImageMemoryBarrier &amp;barrier)</div><div class="ttdoc">Registers the given barrier to be recorded after all transfers are started.</div><div class="ttdef"><b>Definition:</b> <a href="a02015_source.html#l00054">TransferContext.cpp:54</a></div></div>
-<div class="ttc" id="aa04188_html_ad3498b85b2352fb77251503598d24bf0"><div class="ttname"><a href="a04188.html#ad3498b85b2352fb77251503598d24bf0">bl::rc::tfr::TransferContext::registerBufferBarrier</a></div><div class="ttdeci">void registerBufferBarrier(const VkBufferMemoryBarrier &amp;barrier)</div><div class="ttdoc">Registers the given barrier to be recorded after all transfers are started.</div><div class="ttdef"><b>Definition:</b> <a href="a02015_source.html#l00049">TransferContext.cpp:49</a></div></div>
-<div class="ttc" id="aa04368_html"><div class="ttname"><a href="a04368.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00039">VulkanState.hpp:39</a></div></div>
-<div class="ttc" id="aa04368_html_a570efdaea45eb7a14a67901db5cce8d4"><div class="ttname"><a href="a04368.html#a570efdaea45eb7a14a67901db5cce8d4">bl::rc::vk::VulkanState::createBuffer</a></div><div class="ttdeci">void createBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VmaAllocationCreateFlags allocFlags, VkMemoryPropertyFlags properties, VkBuffer *buffer, VmaAllocation *vmaAlloc, VmaAllocationInfo *vmaAllocInfo)</div><div class="ttdoc">Helper function to create a VkBuffer with some parameters.</div><div class="ttdef"><b>Definition:</b> <a href="a02096_source.html#l00465">VulkanState.cpp:465</a></div></div>
-<div class="ttc" id="aa04368_html_a6ad0249d08d9ffb87af35b42f11a1db5"><div class="ttname"><a href="a04368.html#a6ad0249d08d9ffb87af35b42f11a1db5">bl::rc::vk::VulkanState::device</a></div><div class="ttdeci">VkDevice device</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00214">VulkanState.hpp:214</a></div></div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a04181.html#ae9ccabc5eaa5c7a787d525d9796cd234">   11</a></span>&#160;<a class="code" href="a04181.html#ae9ccabc5eaa5c7a787d525d9796cd234">SceneObject::SceneObject</a>()</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: hidden(false)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, drawParams{}</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, refToThis(nullptr) {}</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a04181.html#a447cba0c539b80e3041459f49be3dba1">   16</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04181.html#a447cba0c539b80e3041459f49be3dba1">SceneObject::updateRefToThis</a>() {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">if</span> (refToThis) { refToThis-&gt;<a class="code" href="a03773.html#a273ff1de9ff2bba46ea348e0b0237e25">object</a> = <span class="keyword">this</span>; }</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// namespace scene</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00797_html"><div class="ttname"><a href="a00797.html">SceneObjectRef.hpp</a></div></div>
+<div class="ttc" id="aa01043_html"><div class="ttname"><a href="a01043.html">SceneObject.hpp</a></div></div>
+<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03773_html_a273ff1de9ff2bba46ea348e0b0237e25"><div class="ttname"><a href="a03773.html#a273ff1de9ff2bba46ea348e0b0237e25">bl::rc::rcom::SceneObjectRef::object</a></div><div class="ttdeci">scene::SceneObject * object</div><div class="ttdef"><b>Definition:</b> <a href="a00797_source.html#l00029">SceneObjectRef.hpp:29</a></div></div>
+<div class="ttc" id="aa04181_html_a447cba0c539b80e3041459f49be3dba1"><div class="ttname"><a href="a04181.html#a447cba0c539b80e3041459f49be3dba1">bl::rc::scene::SceneObject::updateRefToThis</a></div><div class="ttdeci">void updateRefToThis()</div><div class="ttdoc">Called by BatchedScene when when scene object addresses change.</div><div class="ttdef"><b>Definition:</b> <a href="a02015_source.html#l00016">SceneObject.cpp:16</a></div></div>
+<div class="ttc" id="aa04181_html_ae9ccabc5eaa5c7a787d525d9796cd234"><div class="ttname"><a href="a04181.html#ae9ccabc5eaa5c7a787d525d9796cd234">bl::rc::scene::SceneObject::SceneObject</a></div><div class="ttdeci">SceneObject()</div><div class="ttdoc">Construct a new SceneObject.</div><div class="ttdef"><b>Definition:</b> <a href="a02015_source.html#l00011">SceneObject.cpp:11</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

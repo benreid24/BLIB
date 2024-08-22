@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Transfers/TextureExporter.cpp Source File</title>
+<title>BLIB: src/Render/Scenes/Scene2D.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,116 +66,65 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_7607afd44543cedc5723cabe6929dc94.html">Transfers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_90555a6f6bc1bb4149f0b831943ef307.html">Scenes</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">TextureExporter.cpp</div>  </div>
+<div class="title">Scene2D.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a02009.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01052.html">BLIB/Render/Transfers/TextureExporter.hpp</a>&gt;</span></div>
+<a href="a02009.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01037.html">BLIB/Render/Scenes/Scene2D.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06283.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>tfr</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;TextureExporter::TextureExporter(Renderer&amp; owner)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: owner(owner) {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    queuedExports.reserve(4);</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    inProgressExports.reserve(4);</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keywordtype">void</span> TextureExporter::cleanup() {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    queuedExports.clear();</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    inProgressExports.clear();</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    exports.clear();</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00023.html">BLIB/Cameras/2D/Camera2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00818.html">BLIB/Render/Descriptors/Builtin/Scene2DFactory.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>scene</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;constexpr <span class="keywordtype">float</span> DefaultNear = 0.f;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;constexpr <span class="keywordtype">float</span> DefaultFar  = 1000.f;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a04173.html#a2f2d22fdda116259119c86a527e22f8a">   18</a></span>&#160;<a class="code" href="a04173.html#a2f2d22fdda116259119c86a527e22f8a">Scene2D::Scene2D</a>(<a class="code" href="a02833.html">engine::Engine</a>&amp; e)</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;: <a class="code" href="a04125.html">BatchedScene</a>(e)</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;, lighting(static_cast&lt;ds::Scene2DInstance*&gt;(descriptorSets.getDescriptorSet(</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;      descriptorFactories.getOrCreateFactory&lt;ds::Scene2DFactory&gt;()))) {}</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keywordtype">void</span> TextureExporter::release(TextureExport* te) {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">if</span> (!te-&gt;imageReady()) {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <a class="code" href="a00653.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; <span class="stringliteral">&quot;Releasing an in-progress texture export&quot;</span>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        te-&gt;wait();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    }</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a04173.html#ad8c1d742fe524a90c34a53716dc7a580">   23</a></span>&#160;std::unique_ptr&lt;cam::Camera&gt; <a class="code" href="a04173.html#ad8c1d742fe524a90c34a53716dc7a580">Scene2D::createDefaultCamera</a>() {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">auto</span> cam = std::make_unique&lt;cam::Camera2D&gt;(sf::FloatRect{0.f, 0.f, 1920.f, 1080.f});</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    cam-&gt;setNearAndFarPlanes(DefaultNear, -DefaultFar);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">return</span> cam;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    std::unique_lock lock(mutex);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = exports.begin(); it != exports.end(); ++it) {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">if</span> (&amp;*it == te) {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            exports.erase(it);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        }</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keywordtype">void</span> TextureExporter::onFrameEnd() {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">if</span> (!inProgressExports.empty()) {</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        std::unique_lock lock(mutex);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = inProgressExports.begin(); it != inProgressExports.end();) {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="keywordflow">if</span> ((*it)-&gt;checkComplete()) { it = inProgressExports.erase(it); }</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <span class="keywordflow">else</span> { ++it; }</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        }</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    }</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">if</span> (!queuedExports.empty()) {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        std::unique_lock lock(mutex);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span>* te : queuedExports) {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            te-&gt;performCopy();</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            inProgressExports.emplace_back(te);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        }</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        queuedExports.clear();</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="a04180.html#ac9c08543164c70a29a6515002be1d014">   57</a></span>&#160;<a class="code" href="a04176.html">TextureExport</a>* TextureExporter::exportSwapImage() {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; frame =</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        owner.vulkanState().<a class="code" href="a04368.html#ad65744964148cb039de261945ec1ebd3">swapchain</a>.<a class="code" href="a04344.html#a98e8b93674459dc0c9d440c1a1aab183">swapFrameAtIndex</a>(owner.vulkanState().currentFrameIndex());</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">auto</span>&amp; te =</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        exports.emplace_back(owner.vulkanState(),</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                             *<span class="keyword">this</span>,</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                             frame.colorImage(),</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                             VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                             VkExtent3D{frame.renderExtent().width, frame.renderExtent().height, 1},</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                             VK_IMAGE_ASPECT_COLOR_BIT,</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                             owner.vulkanState().swapchain.swapImageFormat());</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    queuedExports.emplace_back(&amp;te);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordflow">return</span> &amp;te;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="a04180.html#a605328d7e7a7f724ca73bd9028353a7d">   72</a></span>&#160;<a class="code" href="a04176.html">TextureExport</a>* TextureExporter::exportTexture(<span class="keyword">const</span> <a class="code" href="a04084.html">res::TextureRef</a>&amp; t) {</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">auto</span>&amp; te = exports.emplace_back(owner.vulkanState(),</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                                    *<span class="keyword">this</span>,</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                                    t-&gt;<a class="code" href="a04356.html#a90c9e797bca5aa0c7f5d6e9e4f96497a">getCurrentImage</a>(),</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                                    t-&gt;<a class="code" href="a04356.html#a4fb3c7f70070ae9d0f0f90e5781552b4">getCurrentImageLayout</a>(),</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                                    VkExtent3D{t-&gt;rawSize().x, t-&gt;rawSize().y, 1},</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                                    VK_IMAGE_ASPECT_COLOR_BIT,</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                                    t-&gt;<a class="code" href="a04356.html#a3b7f4262b840faf3353e6fee925e7529">getFormat</a>());</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    queuedExports.emplace_back(&amp;te);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordflow">return</span> &amp;te;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;}</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;} <span class="comment">// namespace tfr</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00653_html_af954e63cd52a20dcd7087a8c569f373f"><div class="ttname"><a href="a00653.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a></div><div class="ttdeci">#define BL_LOG_WARN</div><div class="ttdoc">Helper macro to log at warn level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00653_source.html#l00104">Logger.hpp:104</a></div></div>
-<div class="ttc" id="aa01052_html"><div class="ttname"><a href="a01052.html">TextureExporter.hpp</a></div></div>
-<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04084_html"><div class="ttname"><a href="a04084.html">bl::rc::res::TextureRef</a></div><div class="ttdoc">Lightweight reference to a texture inside of a TexturePool. Once all references to a texture are dest...</div><div class="ttdef"><b>Definition:</b> <a href="a01010_source.html#l00027">TextureRef.hpp:27</a></div></div>
-<div class="ttc" id="aa04176_html"><div class="ttname"><a href="a04176.html">bl::rc::tfr::TextureExport</a></div><div class="ttdoc">An instance of a texture export command. Use TextureExporter to get this.</div><div class="ttdef"><b>Definition:</b> <a href="a01049_source.html#l00029">TextureExport.hpp:29</a></div></div>
-<div class="ttc" id="aa04344_html_a98e8b93674459dc0c9d440c1a1aab183"><div class="ttname"><a href="a04344.html#a98e8b93674459dc0c9d440c1a1aab183">bl::rc::vk::Swapchain::swapFrameAtIndex</a></div><div class="ttdeci">const StandardAttachmentSet &amp; swapFrameAtIndex(unsigned int i) const</div><div class="ttdoc">Returns the StandardAttachmentSet of the swap chain at the given index.</div><div class="ttdef"><b>Definition:</b> <a href="a01136_source.html#l00132">Swapchain.hpp:132</a></div></div>
-<div class="ttc" id="aa04356_html_a3b7f4262b840faf3353e6fee925e7529"><div class="ttname"><a href="a04356.html#a3b7f4262b840faf3353e6fee925e7529">bl::rc::vk::TextureBase::getFormat</a></div><div class="ttdeci">virtual VkFormat getFormat() const =0</div><div class="ttdoc">Returns the color format of the texture.</div></div>
-<div class="ttc" id="aa04356_html_a4fb3c7f70070ae9d0f0f90e5781552b4"><div class="ttname"><a href="a04356.html#a4fb3c7f70070ae9d0f0f90e5781552b4">bl::rc::vk::TextureBase::getCurrentImageLayout</a></div><div class="ttdeci">virtual VkImageLayout getCurrentImageLayout() const =0</div><div class="ttdoc">Returns the current image layout of the image for the current frame.</div></div>
-<div class="ttc" id="aa04356_html_a90c9e797bca5aa0c7f5d6e9e4f96497a"><div class="ttname"><a href="a04356.html#a90c9e797bca5aa0c7f5d6e9e4f96497a">bl::rc::vk::TextureBase::getCurrentImage</a></div><div class="ttdeci">virtual VkImage getCurrentImage() const =0</div><div class="ttdoc">Returns the VkImage for the current frame.</div></div>
-<div class="ttc" id="aa04368_html_ad65744964148cb039de261945ec1ebd3"><div class="ttname"><a href="a04368.html#ad65744964148cb039de261945ec1ebd3">bl::rc::vk::VulkanState::swapchain</a></div><div class="ttdeci">Swapchain swapchain</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00219">VulkanState.hpp:219</a></div></div>
-<div class="ttc" id="aa06283_html"><div class="ttname"><a href="a06283.html">Renderer.hpp</a></div></div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a04173.html#ac981b461c72a08b16cdb7635fcdb4b79">   29</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04173.html#ac981b461c72a08b16cdb7635fcdb4b79">Scene2D::setDefaultNearAndFarPlanes</a>(<a class="code" href="a02497.html">cam::Camera</a>&amp; cam)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    cam.<a class="code" href="a02497.html#a60e436aa6a89793a9e3fd8c3b0378fbf">setNearAndFarPlanes</a>(DefaultNear, -DefaultFar);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;}</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace scene</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00023_html"><div class="ttname"><a href="a00023.html">Camera2D.hpp</a></div></div>
+<div class="ttc" id="aa00818_html"><div class="ttname"><a href="a00818.html">Scene2DFactory.hpp</a></div></div>
+<div class="ttc" id="aa01037_html"><div class="ttname"><a href="a01037.html">Scene2D.hpp</a></div></div>
+<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02497_html"><div class="ttname"><a href="a02497.html">bl::cam::Camera</a></div><div class="ttdoc">Base class for all cameras.</div><div class="ttdef"><b>Definition:</b> <a href="a00047_source.html#l00017">Camera.hpp:17</a></div></div>
+<div class="ttc" id="aa02497_html_a60e436aa6a89793a9e3fd8c3b0378fbf"><div class="ttname"><a href="a02497.html#a60e436aa6a89793a9e3fd8c3b0378fbf">bl::cam::Camera::setNearAndFarPlanes</a></div><div class="ttdeci">void setNearAndFarPlanes(float nearValue, float farValue)</div><div class="ttdoc">Sets the distance to the near and far planes.</div><div class="ttdef"><b>Definition:</b> <a href="a01442_source.html#l00029">Camera.cpp:29</a></div></div>
+<div class="ttc" id="aa02833_html"><div class="ttname"><a href="a02833.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06269_source.html#l00033">Engine.hpp:33</a></div></div>
+<div class="ttc" id="aa04125_html"><div class="ttname"><a href="a04125.html">bl::rc::scene::BatchedScene</a></div><div class="ttdoc">Primary scene class for the renderer. Provides batched rendering of objects by pipeline....</div><div class="ttdef"><b>Definition:</b> <a href="a01022_source.html#l00019">BatchedScene.hpp:19</a></div></div>
+<div class="ttc" id="aa04173_html_a2f2d22fdda116259119c86a527e22f8a"><div class="ttname"><a href="a04173.html#a2f2d22fdda116259119c86a527e22f8a">bl::rc::scene::Scene2D::Scene2D</a></div><div class="ttdeci">Scene2D(engine::Engine &amp;engine)</div><div class="ttdoc">Creates the scene.</div><div class="ttdef"><b>Definition:</b> <a href="a02009_source.html#l00018">Scene2D.cpp:18</a></div></div>
+<div class="ttc" id="aa04173_html_ac981b461c72a08b16cdb7635fcdb4b79"><div class="ttname"><a href="a04173.html#ac981b461c72a08b16cdb7635fcdb4b79">bl::rc::scene::Scene2D::setDefaultNearAndFarPlanes</a></div><div class="ttdeci">virtual void setDefaultNearAndFarPlanes(cam::Camera &amp;camera) const override</div><div class="ttdoc">Sets the default near and far planes on the given camera.</div><div class="ttdef"><b>Definition:</b> <a href="a02009_source.html#l00029">Scene2D.cpp:29</a></div></div>
+<div class="ttc" id="aa04173_html_ad8c1d742fe524a90c34a53716dc7a580"><div class="ttname"><a href="a04173.html#ad8c1d742fe524a90c34a53716dc7a580">bl::rc::scene::Scene2D::createDefaultCamera</a></div><div class="ttdeci">virtual std::unique_ptr&lt; cam::Camera &gt; createDefaultCamera() override</div><div class="ttdoc">Creates a 2d camera.</div><div class="ttdef"><b>Definition:</b> <a href="a02009_source.html#l00023">Scene2D.cpp:23</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

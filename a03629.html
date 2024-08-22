@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::pcl::Affector&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,24 +66,145 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02284.html">bl</a></li><li class="navelem"><a class="el" href="a02326.html">pcl</a></li><li class="navelem"><a class="el" href="a03632.html">MetaUpdater</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02303.html">bl</a></li><li class="navelem"><a class="el" href="a02346.html">pcl</a></li><li class="navelem"><a class="el" href="a03629.html">Affector</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a03626.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::pcl::MetaUpdater&lt; T &gt; Member List</div>  </div>
+<div class="title">bl::pcl::Affector&lt; T &gt; Class Template Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a02288.html">Particles</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a03632.html">bl::pcl::MetaUpdater&lt; T &gt;</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a03632.html#a8b3a65bd4558b99291e0e44022b1a693">update</a>(Proxy &amp;proxy, float dt, float realDt)=0</td><td class="entry"><a class="el" href="a03632.html">bl::pcl::MetaUpdater&lt; T &gt;</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a03632.html#aebf2a66e440af3704459ac533a2f92d6">~MetaUpdater</a>()=default</td><td class="entry"><a class="el" href="a03632.html">bl::pcl::MetaUpdater&lt; T &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>Base class for all particle affectors. Provides the interface used by ParticleManagers.  
+ <a href="a03629.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00710_source.html">Affector.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03633.html">Proxy</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03633.html" title="Proxy object that provides the interface for affectors to use.">Proxy</a> object that provides the interface for affectors to use.  <a href="a03633.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aaef6083d71ebe88cb6edad6a709fb6a2"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03629.html#aaef6083d71ebe88cb6edad6a709fb6a2">~Affector</a> ()=default</td></tr>
+<tr class="memdesc:aaef6083d71ebe88cb6edad6a709fb6a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the affector.  <a href="a03629.html#aaef6083d71ebe88cb6edad6a709fb6a2">More...</a><br /></td></tr>
+<tr class="separator:aaef6083d71ebe88cb6edad6a709fb6a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c4c5e36387c0526a9eda91e9044f50c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03629.html#a8c4c5e36387c0526a9eda91e9044f50c">update</a> (<a class="el" href="a03633.html">Proxy</a> &amp;proxy, float dt, float realDt)=0</td></tr>
+<tr class="memdesc:a8c4c5e36387c0526a9eda91e9044f50c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called once per frame to update particles.  <a href="a03629.html#a8c4c5e36387c0526a9eda91e9044f50c">More...</a><br /></td></tr>
+<tr class="separator:a8c4c5e36387c0526a9eda91e9044f50c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+class bl::pcl::Affector&lt; T &gt;</h3>
+
+<p>Base class for all particle affectors. Provides the interface used by ParticleManagers. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of particle the affector works with </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00020">20</a> of file <a class="el" href="a00710_source.html">Affector.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aaef6083d71ebe88cb6edad6a709fb6a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaef6083d71ebe88cb6edad6a709fb6a2">&#9670;&nbsp;</a></span>~Affector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="a03629.html">bl::pcl::Affector</a>&lt; T &gt;::~<a class="el" href="a03629.html">Affector</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destroys the affector. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a8c4c5e36387c0526a9eda91e9044f50c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c4c5e36387c0526a9eda91e9044f50c">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="a03629.html">bl::pcl::Affector</a>&lt; T &gt;::update </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03633.html">Proxy</a> &amp;&#160;</td>
+          <td class="paramname"><em>proxy</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>realDt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called once per frame to update particles. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">proxy</td><td>The proxy object containing update information </td></tr>
+    <tr><td class="paramname">dt</td><td>Simulation time elapsed since last call to update, in seconds </td></tr>
+    <tr><td class="paramname">realDt</td><td>Real time elapsed since last call to update, in seconds </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Particles/<a class="el" href="a00710_source.html">Affector.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:57 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:57:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

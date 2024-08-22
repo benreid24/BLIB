@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Graphics/Triangle.cpp Source File</title>
+<title>BLIB: src/Graphics/Rectangle.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,43 +71,37 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Triangle.cpp</div>  </div>
+<div class="title">Rectangle.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01574.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00368.html">BLIB/Graphics/Triangle.hpp</a>&gt;</span></div>
+<a href="a01574.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00350.html">BLIB/Graphics/Rectangle.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>gfx</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a03104.html#aa215470453c62bd420e5062cec5eb6b9">    7</a></span>&#160;<a class="code" href="a03104.html#aa215470453c62bd420e5062cec5eb6b9">Triangle::Triangle</a>()</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: TriangleBase() {}</div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a03073.html#afa055c8fb3d6ed1e54a87ac0db39c06f">    7</a></span>&#160;<a class="code" href="a03073.html#afa055c8fb3d6ed1e54a87ac0db39c06f">Rectangle::Rectangle</a>()</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: RectangleBase() {}</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a03104.html#a245aef412d10f0e2314d1ac05e3ca03e">   10</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03104.html#a245aef412d10f0e2314d1ac05e3ca03e">Triangle::create</a>(<a class="code" href="a02812.html">engine::Engine</a>&amp; engine, <span class="keyword">const</span> glm::vec2&amp; p0, <span class="keyword">const</span> glm::vec2&amp; p1,</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;                      <span class="keyword">const</span> glm::vec2&amp; p2) {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <a class="code" href="a03064.html#aec63bf250e507e530e966ad8e2517399">setPoints</a>(p0, p1, p2);</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    SingleShape2D::create(<a class="code" href="a02720.html#ad29553a8037da3a396535700891bf39f">engine</a>);</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a03104.html#a968de743b7a3c67d4fff7a9163ce89c7">   16</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03104.html#a245aef412d10f0e2314d1ac05e3ca03e">Triangle::create</a>(<a class="code" href="a02812.html">engine::Engine</a>&amp; engine, <span class="keyword">const</span> std::array&lt;glm::vec2, 3&gt;&amp; p) {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="a03064.html#aec63bf250e507e530e966ad8e2517399">setPoints</a>(p);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    SingleShape2D::create(<a class="code" href="a02720.html#ad29553a8037da3a396535700891bf39f">engine</a>);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00368_html"><div class="ttname"><a href="a00368.html">Triangle.hpp</a></div></div>
-<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02720_html_ad29553a8037da3a396535700891bf39f"><div class="ttname"><a href="a02720.html#ad29553a8037da3a396535700891bf39f">bl::ecs::EntityBacked::engine</a></div><div class="ttdeci">engine::Engine &amp; engine()</div><div class="ttdoc">Returns the game engine instance. Only call after create()</div><div class="ttdef"><b>Definition:</b> <a href="a00179_source.html#l00137">EntityBacked.hpp:137</a></div></div>
-<div class="ttc" id="aa02812_html"><div class="ttname"><a href="a02812.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06232_source.html#l00033">Engine.hpp:33</a></div></div>
-<div class="ttc" id="aa03064_html_aec63bf250e507e530e966ad8e2517399"><div class="ttname"><a href="a03064.html#aec63bf250e507e530e966ad8e2517399">bl::gfx::s2d::TriangleBase&lt; s2d::SingleShape2D &gt;::setPoints</a></div><div class="ttdeci">void setPoints(const glm::vec2 &amp;p0, const glm::vec2 &amp;p1, const glm::vec2 &amp;p2)</div><div class="ttdoc">Sets the points to make the triangle with.</div><div class="ttdef"><b>Definition:</b> <a href="a00359_source.html#l00037">TriangleBase.hpp:79</a></div></div>
-<div class="ttc" id="aa03104_html_a245aef412d10f0e2314d1ac05e3ca03e"><div class="ttname"><a href="a03104.html#a245aef412d10f0e2314d1ac05e3ca03e">bl::gfx::Triangle::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, const glm::vec2 &amp;p0, const glm::vec2 &amp;p1, const glm::vec2 &amp;p2)</div><div class="ttdoc">Creates the triangle shape from 3 points (should not be co-linear)</div><div class="ttdef"><b>Definition:</b> <a href="a01574_source.html#l00010">Triangle.cpp:10</a></div></div>
-<div class="ttc" id="aa03104_html_aa215470453c62bd420e5062cec5eb6b9"><div class="ttname"><a href="a03104.html#aa215470453c62bd420e5062cec5eb6b9">bl::gfx::Triangle::Triangle</a></div><div class="ttdeci">Triangle()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a01574_source.html#l00007">Triangle.cpp:7</a></div></div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a03073.html#a30f0c3275154cc47eb8684e2b21f16cc">   10</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03073.html#a30f0c3275154cc47eb8684e2b21f16cc">Rectangle::create</a>(<a class="code" href="a02833.html">engine::Engine</a>&amp; engine, <span class="keyword">const</span> glm::vec2&amp; s) {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <a class="code" href="a03089.html#a4b3d96bb6df94422c124505381fa4b15">setSize</a>(s);</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    SingleShape2D::create(<a class="code" href="a02741.html#ad29553a8037da3a396535700891bf39f">engine</a>);</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace gfx</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00350_html"><div class="ttname"><a href="a00350.html">Rectangle.hpp</a></div></div>
+<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02741_html_ad29553a8037da3a396535700891bf39f"><div class="ttname"><a href="a02741.html#ad29553a8037da3a396535700891bf39f">bl::ecs::EntityBacked::engine</a></div><div class="ttdeci">engine::Engine &amp; engine()</div><div class="ttdoc">Returns the game engine instance. Only call after create()</div><div class="ttdef"><b>Definition:</b> <a href="a00179_source.html#l00137">EntityBacked.hpp:137</a></div></div>
+<div class="ttc" id="aa02833_html"><div class="ttname"><a href="a02833.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06269_source.html#l00033">Engine.hpp:33</a></div></div>
+<div class="ttc" id="aa03073_html_a30f0c3275154cc47eb8684e2b21f16cc"><div class="ttname"><a href="a03073.html#a30f0c3275154cc47eb8684e2b21f16cc">bl::gfx::Rectangle::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, const glm::vec2 &amp;size)</div><div class="ttdoc">Creates the rectangle entity and components.</div><div class="ttdef"><b>Definition:</b> <a href="a01574_source.html#l00010">Rectangle.cpp:10</a></div></div>
+<div class="ttc" id="aa03073_html_afa055c8fb3d6ed1e54a87ac0db39c06f"><div class="ttname"><a href="a03073.html#afa055c8fb3d6ed1e54a87ac0db39c06f">bl::gfx::Rectangle::Rectangle</a></div><div class="ttdeci">Rectangle()</div><div class="ttdoc">Initializes the object.</div><div class="ttdef"><b>Definition:</b> <a href="a01574_source.html#l00007">Rectangle.cpp:7</a></div></div>
+<div class="ttc" id="aa03089_html_a4b3d96bb6df94422c124505381fa4b15"><div class="ttname"><a href="a03089.html#a4b3d96bb6df94422c124505381fa4b15">bl::gfx::s2d::RectangleBase&lt; s2d::SingleShape2D &gt;::setSize</a></div><div class="ttdeci">void setSize(const glm::vec2 &amp;size)</div><div class="ttdoc">Sets the local size of the rectangle in world units. This is the size prior to the transform....</div><div class="ttdef"><b>Definition:</b> <a href="a00362_source.html#l00035">RectangleBase.hpp:93</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::sys::VelocitySystem Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,23 +66,170 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02284.html">bl</a></li><li class="navelem"><a class="el" href="a02350.html">util</a></li><li class="navelem"><a class="el" href="a04964.html">Vector3Hash</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02303.html">bl</a></li><li class="navelem"><a class="el" href="a02310.html">sys</a></li><li class="navelem"><a class="el" href="a04961.html">VelocitySystem</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a04958.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::util::Vector3Hash&lt; T &gt; Member List</div>  </div>
+<div class="title">bl::sys::VelocitySystem Class Reference<div class="ingroups"><a class="el" href="a02293.html">Systems</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a04964.html">bl::util::Vector3Hash&lt; T &gt;</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a04964.html#a685b1dd7655533e88c6c2b54baf8b40c">operator()</a>(const sf::Vector3&lt; T &gt; &amp;value) const</td><td class="entry"><a class="el" href="a04964.html">bl::util::Vector3Hash&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-</table></div><!-- contents -->
+<p>System that applies velocity to positions over time.  
+ <a href="a04961.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a01331_source.html">VelocitySystem.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::sys::VelocitySystem:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a04961.png" usemap="#bl::sys::VelocitySystem_map" alt=""/>
+  <map id="bl::sys::VelocitySystem_map" name="bl::sys::VelocitySystem_map">
+<area href="a02897.html" title="Base class for Engine systems which can be registered in the Systems registry." alt="bl::engine::System" shape="rect" coords="0,0,139,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a494c01b83516a88fa055529e354c6807"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04961.html#a494c01b83516a88fa055529e354c6807">VelocitySystem</a> ()</td></tr>
+<tr class="memdesc:a494c01b83516a88fa055529e354c6807"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the system.  <a href="a04961.html#a494c01b83516a88fa055529e354c6807">More...</a><br /></td></tr>
+<tr class="separator:a494c01b83516a88fa055529e354c6807"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d45df25b1993c7f0c9ffbf3d52be752"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04961.html#a0d45df25b1993c7f0c9ffbf3d52be752">~VelocitySystem</a> ()=default</td></tr>
+<tr class="memdesc:a0d45df25b1993c7f0c9ffbf3d52be752"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the system.  <a href="a04961.html#a0d45df25b1993c7f0c9ffbf3d52be752">More...</a><br /></td></tr>
+<tr class="separator:a0d45df25b1993c7f0c9ffbf3d52be752"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad54860ab304e448edd55571f4e039634"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02897.html#ad54860ab304e448edd55571f4e039634">notifyFrameStart</a> ()</td></tr>
+<tr class="memdesc:ad54860ab304e448edd55571f4e039634"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called once each frame immediately after OS events are processed and before update.  <a href="a02897.html#ad54860ab304e448edd55571f4e039634">More...</a><br /></td></tr>
+<tr class="separator:ad54860ab304e448edd55571f4e039634"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ea4afb54444b6a57c92edf15e07e54e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02897.html#a0ea4afb54444b6a57c92edf15e07e54e">earlyCleanup</a> ()</td></tr>
+<tr class="memdesc:a0ea4afb54444b6a57c92edf15e07e54e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optional early cleanup hook that is called when the engine is destructing prior to entities and resources all being freed.  <a href="a02897.html#a0ea4afb54444b6a57c92edf15e07e54e">More...</a><br /></td></tr>
+<tr class="separator:a0ea4afb54444b6a57c92edf15e07e54e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>System that applies velocity to positions over time. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01331_source.html#l00018">18</a> of file <a class="el" href="a01331_source.html">VelocitySystem.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a494c01b83516a88fa055529e354c6807"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a494c01b83516a88fa055529e354c6807">&#9670;&nbsp;</a></span>VelocitySystem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::sys::VelocitySystem::VelocitySystem </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates the system. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02243_source.html#l00009">9</a> of file <a class="el" href="a02243_source.html">VelocitySystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0d45df25b1993c7f0c9ffbf3d52be752"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d45df25b1993c7f0c9ffbf3d52be752">&#9670;&nbsp;</a></span>~VelocitySystem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bl::sys::VelocitySystem::~VelocitySystem </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destroys the system. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a0ea4afb54444b6a57c92edf15e07e54e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ea4afb54444b6a57c92edf15e07e54e">&#9670;&nbsp;</a></span>earlyCleanup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::engine::System::earlyCleanup </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Optional early cleanup hook that is called when the engine is destructing prior to entities and resources all being freed. </p>
+
+<p class="definition">Definition at line <a class="el" href="a06278_source.html#l00055">55</a> of file <a class="el" href="a06278_source.html">System.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad54860ab304e448edd55571f4e039634"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad54860ab304e448edd55571f4e039634">&#9670;&nbsp;</a></span>notifyFrameStart()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::engine::System::notifyFrameStart </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called once each frame immediately after OS events are processed and before update. </p>
+
+<p class="definition">Definition at line <a class="el" href="a06278_source.html#l00049">49</a> of file <a class="el" href="a06278_source.html">System.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Systems/<a class="el" href="a01331_source.html">VelocitySystem.hpp</a></li>
+<li>src/Systems/<a class="el" href="a02243_source.html">VelocitySystem.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:57:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

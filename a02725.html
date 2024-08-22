@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::ecs::ComponentSet&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt; &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,23 +66,369 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02284.html">bl</a></li><li class="navelem"><a class="el" href="a02299.html">ecs</a></li><li class="navelem"><a class="el" href="a02302.html">event</a></li><li class="navelem"><a class="el" href="a02728.html">EntityDestroyed</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02303.html">bl</a></li><li class="navelem"><a class="el" href="a02318.html">ecs</a></li><li class="navelem"><a class="el" href="a02725.html">ComponentSet&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt; &gt;</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="a02722.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::ecs::event::EntityDestroyed Member List</div>  </div>
+<div class="title">bl::ecs::ComponentSet&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt; &gt; Class Template Reference<div class="ingroups"><a class="el" href="a02278.html">ECS</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02728.html">bl::ecs::event::EntityDestroyed</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02728.html#a237200a5901a590457d686c2bc0da014">entity</a></td><td class="entry"><a class="el" href="a02728.html">bl::ecs::event::EntityDestroyed</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>The actual <a class="el" href="a02721.html" title="Contains a set of components for a single entity. May not always be valid. Does not update if compone...">ComponentSet</a> specialization that should be used.  
+ <a href="a02725.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00170_source.html">ComponentSetImpl.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::ecs::ComponentSet&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt; &gt;:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a02725.png" usemap="#bl::ecs::ComponentSet_3C_20Require_3C_20TReqComs..._20_3E_2C_20Optional_3C_20TOptComs..._20_3E_20_3E_map" alt=""/>
+  <map id="bl::ecs::ComponentSet_3C_20Require_3C_20TReqComs..._20_3E_2C_20Optional_3C_20TOptComs..._20_3E_20_3E_map" name="bl::ecs::ComponentSet_3C_20Require_3C_20TReqComs..._20_3E_2C_20Optional_3C_20TOptComs..._20_3E_20_3E_map">
+<area href="a02717.html" alt="bl::ecs::priv::ComponentSetMember&lt; TReqComs &gt;" shape="rect" coords="0,0,447,24"/>
+<area href="a02717.html" alt="bl::ecs::priv::ComponentSetMember&lt; TOptComs &gt;" shape="rect" coords="457,0,904,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ae570dc03e0ce3372820a4ef0d66a1c77"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02725.html#ae570dc03e0ce3372820a4ef0d66a1c77">ComponentSet</a> (<a class="el" href="a02781.html">Registry</a> &amp;registry, <a class="el" href="a02733.html">Entity</a> owner)</td></tr>
+<tr class="memdesc:ae570dc03e0ce3372820a4ef0d66a1c77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the set and fetches each component type.  <a href="a02725.html#ae570dc03e0ce3372820a4ef0d66a1c77">More...</a><br /></td></tr>
+<tr class="separator:ae570dc03e0ce3372820a4ef0d66a1c77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1be96368d15a087a42d397d42dd0686d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02725.html#a1be96368d15a087a42d397d42dd0686d">refresh</a> (<a class="el" href="a02781.html">Registry</a> &amp;registry)</td></tr>
+<tr class="memdesc:a1be96368d15a087a42d397d42dd0686d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refreshes the components in the set. Call when pools resize.  <a href="a02725.html#a1be96368d15a087a42d397d42dd0686d">More...</a><br /></td></tr>
+<tr class="separator:a1be96368d15a087a42d397d42dd0686d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a114cdff6220c70c5f177a1084d569c5f"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="a02733.html">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02725.html#a114cdff6220c70c5f177a1084d569c5f">entity</a> () const</td></tr>
+<tr class="memdesc:a114cdff6220c70c5f177a1084d569c5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the entity that the components belong to.  <a href="a02725.html#a114cdff6220c70c5f177a1084d569c5f">More...</a><br /></td></tr>
+<tr class="separator:a114cdff6220c70c5f177a1084d569c5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae44470314841bebc6824bee491db32cf"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ae44470314841bebc6824bee491db32cf"><td class="memTemplItemLeft" align="right" valign="top">constexpr T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02725.html#ae44470314841bebc6824bee491db32cf">get</a> ()</td></tr>
+<tr class="memdesc:ae44470314841bebc6824bee491db32cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the single component in the set.  <a href="a02725.html#ae44470314841bebc6824bee491db32cf">More...</a><br /></td></tr>
+<tr class="separator:ae44470314841bebc6824bee491db32cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae26670724a4505462fe46f7a64fa2a3c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ae26670724a4505462fe46f7a64fa2a3c"><td class="memTemplItemLeft" align="right" valign="top">constexpr const T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02725.html#ae26670724a4505462fe46f7a64fa2a3c">get</a> () const</td></tr>
+<tr class="memdesc:ae26670724a4505462fe46f7a64fa2a3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the single component in the set.  <a href="a02725.html#ae26670724a4505462fe46f7a64fa2a3c">More...</a><br /></td></tr>
+<tr class="separator:ae26670724a4505462fe46f7a64fa2a3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47052b169abe8e280cd9139c9f29621f"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02725.html#a47052b169abe8e280cd9139c9f29621f">isValid</a> () const</td></tr>
+<tr class="memdesc:a47052b169abe8e280cd9139c9f29621f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not all components are present and non-null.  <a href="a02725.html#a47052b169abe8e280cd9139c9f29621f">More...</a><br /></td></tr>
+<tr class="separator:a47052b169abe8e280cd9139c9f29621f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab54eb3e129f9a42964febed09fd0b4bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02725.html#ab54eb3e129f9a42964febed09fd0b4bb">removeComponent</a> (void *com)</td></tr>
+<tr class="memdesc:ab54eb3e129f9a42964febed09fd0b4bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method to null a component in the component set. Intended to be used internally.  <a href="a02725.html#ab54eb3e129f9a42964febed09fd0b4bb">More...</a><br /></td></tr>
+<tr class="separator:ab54eb3e129f9a42964febed09fd0b4bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:add5fa405b967feb2fb54a4756b8f2d09"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02717.html#add5fa405b967feb2fb54a4756b8f2d09">populate</a> (<a class="el" href="a02781.html">Registry</a> &amp;registry, <a class="el" href="a02733.html">Entity</a> owner)</td></tr>
+<tr class="separator:add5fa405b967feb2fb54a4756b8f2d09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7365a98e7ac0be555352a31d2dba628"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02717.html#af7365a98e7ac0be555352a31d2dba628">nullout</a> (void *com)</td></tr>
+<tr class="separator:af7365a98e7ac0be555352a31d2dba628"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a819b0aa66bf6e3ca7c4564b158a5ccda"><td class="memItemLeft" align="right" valign="top">TOptComs *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02717.html#a819b0aa66bf6e3ca7c4564b158a5ccda">component</a></td></tr>
+<tr class="separator:a819b0aa66bf6e3ca7c4564b158a5ccda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename... TReqComs, typename... TOptComs&gt;<br />
+class bl::ecs::ComponentSet&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt; &gt;</h3>
+
+<p>The actual <a class="el" href="a02721.html" title="Contains a set of components for a single entity. May not always be valid. Does not update if compone...">ComponentSet</a> specialization that should be used. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">...TReqComs</td><td>The set of required components </td></tr>
+    <tr><td class="paramname">...TOptComs</td><td>The set of optional components </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00039">39</a> of file <a class="el" href="a00170_source.html">ComponentSetImpl.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ae570dc03e0ce3372820a4ef0d66a1c77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae570dc03e0ce3372820a4ef0d66a1c77">&#9670;&nbsp;</a></span>ComponentSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... TReqComs, typename... TOptComs&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02721.html">bl::ecs::ComponentSet</a>&lt; <a class="el" href="a02785.html">Require</a>&lt; TReqComs... &gt;, <a class="el" href="a02789.html">Optional</a>&lt; TOptComs... &gt; &gt;::<a class="el" href="a02721.html">ComponentSet</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02781.html">Registry</a> &amp;&#160;</td>
+          <td class="paramname"><em>registry</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02733.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>owner</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates the set and fetches each component type. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">registry</td><td>The registry to get components from </td></tr>
+    <tr><td class="paramname">owner</td><td>The entity to get components for </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00049">49</a> of file <a class="el" href="a00170_source.html">ComponentSetImpl.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a114cdff6220c70c5f177a1084d569c5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a114cdff6220c70c5f177a1084d569c5f">&#9670;&nbsp;</a></span>entity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... TReqComs, typename... TOptComs&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="a02733.html">Entity</a> <a class="el" href="a02721.html">bl::ecs::ComponentSet</a>&lt; <a class="el" href="a02785.html">Require</a>&lt; TReqComs... &gt;, <a class="el" href="a02789.html">Optional</a>&lt; TOptComs... &gt; &gt;::entity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the entity that the components belong to. </p>
+<dl class="section return"><dt>Returns</dt><dd>constexpr <a class="el" href="a02733.html" title="Entity is simply an id. Components are added via a Registry and they own all the relevant properties....">Entity</a> The entity that the components belong to </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00084">84</a> of file <a class="el" href="a00170_source.html">ComponentSetImpl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae44470314841bebc6824bee491db32cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae44470314841bebc6824bee491db32cf">&#9670;&nbsp;</a></span>get() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... TReqComs, typename... TOptComs&gt; </div>
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr T* <a class="el" href="a02721.html">bl::ecs::ComponentSet</a>&lt; <a class="el" href="a02785.html">Require</a>&lt; TReqComs... &gt;, <a class="el" href="a02789.html">Optional</a>&lt; TOptComs... &gt; &gt;::get </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Access the single component in the set. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The component type to get </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>T* Pointer to the given component. May be nullptr </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00093">93</a> of file <a class="el" href="a00170_source.html">ComponentSetImpl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae26670724a4505462fe46f7a64fa2a3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae26670724a4505462fe46f7a64fa2a3c">&#9670;&nbsp;</a></span>get() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... TReqComs, typename... TOptComs&gt; </div>
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr const T* <a class="el" href="a02721.html">bl::ecs::ComponentSet</a>&lt; <a class="el" href="a02785.html">Require</a>&lt; TReqComs... &gt;, <a class="el" href="a02789.html">Optional</a>&lt; TOptComs... &gt; &gt;::get </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Access the single component in the set. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The component type to get </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>const T* Pointer to the given component. May be nullptr </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00104">104</a> of file <a class="el" href="a00170_source.html">ComponentSetImpl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a47052b169abe8e280cd9139c9f29621f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47052b169abe8e280cd9139c9f29621f">&#9670;&nbsp;</a></span>isValid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... TReqComs, typename... TOptComs&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool <a class="el" href="a02721.html">bl::ecs::ComponentSet</a>&lt; <a class="el" href="a02785.html">Require</a>&lt; TReqComs... &gt;, <a class="el" href="a02789.html">Optional</a>&lt; TOptComs... &gt; &gt;::isValid </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether or not all components are present and non-null. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if all components were found, false if some were not </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00113">113</a> of file <a class="el" href="a00170_source.html">ComponentSetImpl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1be96368d15a087a42d397d42dd0686d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1be96368d15a087a42d397d42dd0686d">&#9670;&nbsp;</a></span>refresh()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... TReqComs, typename... TOptComs&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a02721.html">bl::ecs::ComponentSet</a>&lt; <a class="el" href="a02785.html">Require</a>&lt; TReqComs... &gt;, <a class="el" href="a02789.html">Optional</a>&lt; TOptComs... &gt; &gt;::refresh </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02781.html">Registry</a> &amp;&#160;</td>
+          <td class="paramname"><em>registry</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Refreshes the components in the set. Call when pools resize. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">registry</td><td>The ECS registry </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the set is still valid, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00061">61</a> of file <a class="el" href="a00170_source.html">ComponentSetImpl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab54eb3e129f9a42964febed09fd0b4bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab54eb3e129f9a42964febed09fd0b4bb">&#9670;&nbsp;</a></span>removeComponent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... TReqComs, typename... TOptComs&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a02721.html">bl::ecs::ComponentSet</a>&lt; <a class="el" href="a02785.html">Require</a>&lt; TReqComs... &gt;, <a class="el" href="a02789.html">Optional</a>&lt; TOptComs... &gt; &gt;::removeComponent </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>com</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Helper method to null a component in the component set. Intended to be used internally. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">com</td><td>Pointer to the component to null </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00120">120</a> of file <a class="el" href="a00170_source.html">ComponentSetImpl.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/ECS/<a class="el" href="a00170_source.html">ComponentSetImpl.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:57:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

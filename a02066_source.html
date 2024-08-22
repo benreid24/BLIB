@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Vulkan/SharedCommandPool.cpp Source File</title>
+<title>BLIB: src/Render/Vulkan/PipelineLayout.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,115 +71,131 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">SharedCommandPool.cpp</div>  </div>
+<div class="title">PipelineLayout.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a02066.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01127.html">BLIB/Render/Vulkan/SharedCommandPool.hpp</a>&gt;</span></div>
+<a href="a02066.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01118.html">BLIB/Render/Vulkan/PipelineLayout.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01148.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06320.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>vk</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a04328.html#af782bc5464aff3d384350c492b79e087">   11</a></span>&#160;<a class="code" href="a04328.html#af782bc5464aff3d384350c492b79e087">SharedCommandPool::SharedCommandPool</a>()</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: vs(nullptr) {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    allocations.reserve(4);</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a04328.html#abee357eb62593adc15a467ce4f6ef756">   16</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04328.html#abee357eb62593adc15a467ce4f6ef756">SharedCommandPool::create</a>(<a class="code" href="a04368.html">VulkanState</a>&amp; vulkanState) {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    vs = &amp;vulkanState;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    pool.<a class="code" href="a04256.html#a3cfb2b7b7c657e6fe15fab6403d75721">init</a>(vulkanState, [&amp;vulkanState](VkCommandPool&amp; pool) {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        pool = vulkanState.<a class="code" href="a04368.html#acf5368fb8dcc89c2a0952b6d33dd4ccb">createCommandPool</a>(VK_COMMAND_POOL_CREATE_TRANSIENT_BIT);</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    });</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a04328.html#a2dfae4d9578520cc6cb0256077a0aad8">   23</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04328.html#a2dfae4d9578520cc6cb0256077a0aad8">SharedCommandPool::onFrameStart</a>() { vkResetCommandPool(vs-&gt;<a class="code" href="a04368.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, pool.<a class="code" href="a04256.html#a76f94a32e0a5e764699b33b49b629547">current</a>(), 0); }</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a04328.html#a8719204443dcf57dfaf8f8a755cb548b">   25</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04328.html#a8719204443dcf57dfaf8f8a755cb548b">SharedCommandPool::cleanup</a>() {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; alloc : allocations) { vkDestroyFence(vs-&gt;<a class="code" href="a04368.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, alloc.fence, <span class="keyword">nullptr</span>); }</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    pool.<a class="code" href="a04256.html#ad0bfc6a2c72077a7f2a11c620acfc68b">cleanup</a>([<span class="keyword">this</span>](VkCommandPool p) { vkDestroyCommandPool(vs-&gt;<a class="code" href="a04368.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, p, <span class="keyword">nullptr</span>); });</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a04328.html#ae09cf3a9764408f8a9ef74fc48913983">   30</a></span>&#160;<a class="code" href="a04324.html">SharedCommandBuffer</a> <a class="code" href="a04328.html#ae09cf3a9764408f8a9ef74fc48913983">SharedCommandPool::createBuffer</a>(VkCommandBufferUsageFlags flags) {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    mutex.lock();</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = allocations.begin(); it != allocations.end();) {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">if</span> (VK_SUCCESS == vkGetFenceStatus(vs-&gt;<a class="code" href="a04368.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, it-&gt;fence)) {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            vkFreeCommandBuffers(vs-&gt;<a class="code" href="a04368.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, it-&gt;pool, 1, &amp;it-&gt;buffer);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            vkDestroyFence(vs-&gt;<a class="code" href="a04368.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, it-&gt;fence, <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            it = allocations.erase(it);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        }</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">else</span> { ++it; }</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    }</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    VkCommandBufferAllocateInfo allocInfo{};</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    allocInfo.sType              = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    allocInfo.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    allocInfo.commandPool        = pool.<a class="code" href="a04256.html#a76f94a32e0a5e764699b33b49b629547">current</a>();</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    allocInfo.commandBufferCount = 1;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">auto</span>&amp; alloc                    = allocations.emplace_back();</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    VkCommandBuffer&amp; commandBuffer = alloc.buffer;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    VkFence&amp; fence                 = alloc.fence;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    alloc.pool                     = pool.<a class="code" href="a04256.html#a76f94a32e0a5e764699b33b49b629547">current</a>();</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    VkFenceCreateInfo fenceInfo{};</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="a01145.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkCreateFence(vs-&gt;<a class="code" href="a04368.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, &amp;fenceInfo, <span class="keyword">nullptr</span>, &amp;fence));</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="a01145.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkAllocateCommandBuffers(vs-&gt;<a class="code" href="a04368.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, &amp;allocInfo, &amp;commandBuffer));</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    VkCommandBufferBeginInfo beginInfo{};</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    beginInfo.flags = flags | VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="a01145.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkBeginCommandBuffer(commandBuffer, &amp;beginInfo));</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">return</span> {<span class="keyword">this</span>, fence, commandBuffer};</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keywordtype">void</span> SharedCommandPool::submit(<a class="code" href="a04324.html">SharedCommandBuffer</a>&amp; <a class="code" href="a01406.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>) {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    VkCommandBuffer lb = <a class="code" href="a01406.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <a class="code" href="a01145.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkEndCommandBuffer(<a class="code" href="a01406.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>));</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    VkSubmitInfo submitInfo{};</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    submitInfo.sType              = VK_STRUCTURE_TYPE_SUBMIT_INFO;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    submitInfo.commandBufferCount = 1;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    submitInfo.pCommandBuffers    = &amp;lb;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    vs-&gt;<a class="code" href="a04368.html#a285e8da7cb141e8af5d83b3b0a687010">submitCommandBuffer</a>(submitInfo, <a class="code" href="a01406.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>.fence);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    mutex.unlock();</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;}</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;} <span class="comment">// namespace vk</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01127_html"><div class="ttname"><a href="a01127.html">SharedCommandPool.hpp</a></div></div>
-<div class="ttc" id="aa01145_html_a95c2f7535355f5f3855410ab629f9310"><div class="ttname"><a href="a01145.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a></div><div class="ttdeci">#define vkCheck(expr)</div><div class="ttdef"><b>Definition:</b> <a href="a01145_source.html#l00015">VkCheck.hpp:15</a></div></div>
-<div class="ttc" id="aa01148_html"><div class="ttname"><a href="a01148.html">VulkanState.hpp</a></div></div>
-<div class="ttc" id="aa01406_html_ad2ae6b0ac080ea0ac45f7a06ccc480ba"><div class="ttname"><a href="a01406.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a></div><div class="ttdeci">SoundHandle buffer</div><div class="ttdef"><b>Definition:</b> <a href="a01406_source.html#l00025">AudioSystem.cpp:25</a></div></div>
-<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04256_html_a3cfb2b7b7c657e6fe15fab6403d75721"><div class="ttname"><a href="a04256.html#a3cfb2b7b7c657e6fe15fab6403d75721">bl::rc::vk::PerFrame::init</a></div><div class="ttdeci">void init(VulkanState &amp;vulkanState, const U &amp;visitor)</div><div class="ttdoc">Initialize the buffer and each contained object.</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00270">VulkanState.hpp:270</a></div></div>
-<div class="ttc" id="aa04256_html_a76f94a32e0a5e764699b33b49b629547"><div class="ttname"><a href="a04256.html#a76f94a32e0a5e764699b33b49b629547">bl::rc::vk::PerFrame::current</a></div><div class="ttdeci">T &amp; current()</div><div class="ttdoc">Returns the active buffered object for the current frame.</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00294">VulkanState.hpp:294</a></div></div>
-<div class="ttc" id="aa04256_html_ad0bfc6a2c72077a7f2a11c620acfc68b"><div class="ttname"><a href="a04256.html#ad0bfc6a2c72077a7f2a11c620acfc68b">bl::rc::vk::PerFrame::cleanup</a></div><div class="ttdeci">void cleanup(const U &amp;visitor)</div><div class="ttdoc">General buffered object visitor intended primarily for cleanup but could be used for anything else re...</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00277">VulkanState.hpp:277</a></div></div>
-<div class="ttc" id="aa04324_html"><div class="ttname"><a href="a04324.html">bl::rc::vk::SharedCommandBuffer</a></div><div class="ttdoc">Wrapper around a command buffer allocated from a SharedCommandPool.</div><div class="ttdef"><b>Definition:</b> <a href="a01124_source.html#l00019">SharedCommandBuffer.hpp:19</a></div></div>
-<div class="ttc" id="aa04328_html_a2dfae4d9578520cc6cb0256077a0aad8"><div class="ttname"><a href="a04328.html#a2dfae4d9578520cc6cb0256077a0aad8">bl::rc::vk::SharedCommandPool::onFrameStart</a></div><div class="ttdeci">void onFrameStart()</div><div class="ttdoc">Called once at the beginning of each frame.</div><div class="ttdef"><b>Definition:</b> <a href="a02066_source.html#l00023">SharedCommandPool.cpp:23</a></div></div>
-<div class="ttc" id="aa04328_html_a8719204443dcf57dfaf8f8a755cb548b"><div class="ttname"><a href="a04328.html#a8719204443dcf57dfaf8f8a755cb548b">bl::rc::vk::SharedCommandPool::cleanup</a></div><div class="ttdeci">void cleanup()</div><div class="ttdoc">Frees the shared command pool.</div><div class="ttdef"><b>Definition:</b> <a href="a02066_source.html#l00025">SharedCommandPool.cpp:25</a></div></div>
-<div class="ttc" id="aa04328_html_abee357eb62593adc15a467ce4f6ef756"><div class="ttname"><a href="a04328.html#abee357eb62593adc15a467ce4f6ef756">bl::rc::vk::SharedCommandPool::create</a></div><div class="ttdeci">void create(VulkanState &amp;vulkanState)</div><div class="ttdoc">Creates the shared command pool.</div><div class="ttdef"><b>Definition:</b> <a href="a02066_source.html#l00016">SharedCommandPool.cpp:16</a></div></div>
-<div class="ttc" id="aa04328_html_ae09cf3a9764408f8a9ef74fc48913983"><div class="ttname"><a href="a04328.html#ae09cf3a9764408f8a9ef74fc48913983">bl::rc::vk::SharedCommandPool::createBuffer</a></div><div class="ttdeci">SharedCommandBuffer createBuffer(VkCommandBufferUsageFlags usage=0)</div><div class="ttdoc">Allocates a buffer from the shared pool.</div><div class="ttdef"><b>Definition:</b> <a href="a02066_source.html#l00030">SharedCommandPool.cpp:30</a></div></div>
-<div class="ttc" id="aa04328_html_af782bc5464aff3d384350c492b79e087"><div class="ttname"><a href="a04328.html#af782bc5464aff3d384350c492b79e087">bl::rc::vk::SharedCommandPool::SharedCommandPool</a></div><div class="ttdeci">SharedCommandPool()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a02066_source.html#l00011">SharedCommandPool.cpp:11</a></div></div>
-<div class="ttc" id="aa04368_html"><div class="ttname"><a href="a04368.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00039">VulkanState.hpp:39</a></div></div>
-<div class="ttc" id="aa04368_html_a285e8da7cb141e8af5d83b3b0a687010"><div class="ttname"><a href="a04368.html#a285e8da7cb141e8af5d83b3b0a687010">bl::rc::vk::VulkanState::submitCommandBuffer</a></div><div class="ttdeci">VkResult submitCommandBuffer(const VkSubmitInfo &amp;submitInfo, VkFence fence=VK_NULL_HANDLE)</div><div class="ttdoc">Performs a synchronized submission of the command buffer to the graphics queue.</div><div class="ttdef"><b>Definition:</b> <a href="a02096_source.html#l00515">VulkanState.cpp:515</a></div></div>
-<div class="ttc" id="aa04368_html_a6ad0249d08d9ffb87af35b42f11a1db5"><div class="ttname"><a href="a04368.html#a6ad0249d08d9ffb87af35b42f11a1db5">bl::rc::vk::VulkanState::device</a></div><div class="ttdeci">VkDevice device</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00214">VulkanState.hpp:214</a></div></div>
-<div class="ttc" id="aa04368_html_acf5368fb8dcc89c2a0952b6d33dd4ccb"><div class="ttname"><a href="a04368.html#acf5368fb8dcc89c2a0952b6d33dd4ccb">bl::rc::vk::VulkanState::createCommandPool</a></div><div class="ttdeci">VkCommandPool createCommandPool(VkCommandPoolCreateFlags flags)</div><div class="ttdoc">Helper method to create a command pool for graphics queue commands.</div><div class="ttdef"><b>Definition:</b> <a href="a02096_source.html#l00409">VulkanState.cpp:409</a></div></div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a04309.html#afd07422197f239f279a335ef941b9128">   11</a></span>&#160;<a class="code" href="a04309.html#afd07422197f239f279a335ef941b9128">PipelineLayout::PipelineLayout</a>(<a class="code" href="a04061.html">Renderer</a>&amp; renderer, <a class="code" href="a04313.html">LayoutParams</a>&amp;&amp; params)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: renderer(renderer)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, dsCount(params.dsCount) {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="comment">// setup descriptors</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    std::array&lt;VkDescriptorSetLayout, 4&gt; descriptorLayouts;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; params.dsCount; ++i) {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        descriptorSets[i] = renderer.<a class="code" href="a04061.html#a9d713705da6a846ef5e022620625f5fc">descriptorFactoryCache</a>().<a class="code" href="a03857.html#a28f61c708e0e041938fce05317a1c071">getOrAddFactory</a>(</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;            params.descriptorSets[i].factoryType, std::move(params.descriptorSets[i].factory));</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        descriptorLayouts[i] = descriptorSets[i]-&gt;getDescriptorLayout();</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    }</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="comment">// create pipeline layout</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    VkPipelineLayoutCreateInfo pipelineLayoutInfo{};</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    pipelineLayoutInfo.sType                  = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    pipelineLayoutInfo.setLayoutCount         = params.dsCount;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    pipelineLayoutInfo.pSetLayouts            = descriptorLayouts.data();</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    pipelineLayoutInfo.pushConstantRangeCount = params.pcCount;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    pipelineLayoutInfo.pPushConstantRanges    = params.pushConstants.data();</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">if</span> (vkCreatePipelineLayout(</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            renderer.<a class="code" href="a04061.html#afdefecf57155696e1523bb6b256fc8bd">vulkanState</a>().<a class="code" href="a04405.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, &amp;pipelineLayoutInfo, <span class="keyword">nullptr</span>, &amp;layout) != VK_SUCCESS) {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to create pipeline layout&quot;</span>);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    }</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a04309.html#ab5a116fee2de3f7efa68f1a00e35afd8">   35</a></span>&#160;<a class="code" href="a04309.html#ab5a116fee2de3f7efa68f1a00e35afd8">PipelineLayout::~PipelineLayout</a>() {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    vkDestroyPipelineLayout(renderer.<a class="code" href="a04061.html#afdefecf57155696e1523bb6b256fc8bd">vulkanState</a>().<a class="code" href="a04405.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, layout, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a04309.html#ad74117021580edf3d9ea22bd1af76c0c">   39</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04309.html#ad74117021580edf3d9ea22bd1af76c0c">PipelineLayout::createDescriptorSets</a>(</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="a03865.html">ds::DescriptorSetInstanceCache</a>&amp; cache,</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    std::vector&lt;ds::DescriptorSetInstance*&gt;&amp; descriptors)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    descriptors.resize(dsCount);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="a04309.html#ac66079fcf26aa15012b69a0fa0498ef0">initDescriptorSets</a>(cache, descriptors.data());</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;}</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a04309.html#ac66079fcf26aa15012b69a0fa0498ef0">   46</a></span>&#160;std::uint32_t <a class="code" href="a04309.html#ac66079fcf26aa15012b69a0fa0498ef0">PipelineLayout::initDescriptorSets</a>(<a class="code" href="a03865.html">ds::DescriptorSetInstanceCache</a>&amp; cache,</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                                                 <a class="code" href="a03861.html">ds::DescriptorSetInstance</a>** sets)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; dsCount; ++i) {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        sets[i] = cache.<a class="code" href="a03865.html#a8dcb4b2f5b976a9adc001e56814c9907">getDescriptorSet</a>(descriptorSets[i]);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">return</span> dsCount;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;}</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="a04309.html#a27b1610be279faa912219d7a8c9fd327">   54</a></span>&#160;std::uint32_t <a class="code" href="a04309.html#a27b1610be279faa912219d7a8c9fd327">PipelineLayout::updateDescriptorSets</a>(<a class="code" href="a03865.html">ds::DescriptorSetInstanceCache</a>&amp; cache,</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                                                   <a class="code" href="a03861.html">ds::DescriptorSetInstance</a>** sets,</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                                                   std::uint32_t descriptorCount,</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                                                   <a class="code" href="a02733.html">ecs::Entity</a> entity, std::uint32_t sceneId,</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                                                   <a class="code" href="a02289.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> updateSpeed)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">const</span> <a class="code" href="a04153.html">scene::Key</a> key{updateSpeed, sceneId};</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="comment">// capture old sets</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    std::array&lt;ds::DescriptorSetInstance*, 4&gt; ogSets{<span class="keyword">nullptr</span>, <span class="keyword">nullptr</span>, <span class="keyword">nullptr</span>, <span class="keyword">nullptr</span>};</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">for</span> (std::uint32_t i = 0; i &lt; descriptorCount; ++i) { ogSets[i] = sets[i]; }</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="comment">// create new sets</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">const</span> std::uint32_t newSetCount = <a class="code" href="a04309.html#ac66079fcf26aa15012b69a0fa0498ef0">initDescriptorSets</a>(cache, sets);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="comment">// call allocate for new descriptor sets</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordflow">for</span> (std::uint8_t i = 0; i &lt; newSetCount; ++i) {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">for</span> (std::uint8_t j = 0; j &lt; descriptorCount; ++j) {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            <span class="keywordflow">if</span> (ogSets[j] == sets[i]) {</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                ogSets[j] = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                <span class="keywordflow">goto</span> noAdd;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            }</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        }</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordflow">if</span> (!sets[i]-&gt;allocateObject(entity, key)) {</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <a class="code" href="a00662.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Unable to update entity &quot;</span> &lt;&lt; entity &lt;&lt; <span class="stringliteral">&quot; (scene id: &quot;</span> &lt;&lt; sceneId</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                         &lt;&lt; <span class="stringliteral">&quot;) to new layout due to descriptor data missing&quot;</span>;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        }</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    noAdd:</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    }</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="comment">// call remove for ones we no longer use</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordflow">for</span> (std::uint8_t i = 0; i &lt; descriptorCount; ++i) {</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keywordflow">if</span> (ogSets[i] != <span class="keyword">nullptr</span>) { ogSets[i]-&gt;releaseObject(entity, key); }</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    }</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordflow">return</span> newSetCount;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;}</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;} <span class="comment">// namespace vk</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00662_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00662.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00662_source.html#l00101">Logger.hpp:101</a></div></div>
+<div class="ttc" id="aa01118_html"><div class="ttname"><a href="a01118.html">PipelineLayout.hpp</a></div></div>
+<div class="ttc" id="aa02289_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a02289.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition:</b> <a href="a01073_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
+<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02733_html"><div class="ttname"><a href="a02733.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00176_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa03857_html_a28f61c708e0e041938fce05317a1c071"><div class="ttname"><a href="a03857.html#a28f61c708e0e041938fce05317a1c071">bl::rc::ds::DescriptorSetFactoryCache::getOrAddFactory</a></div><div class="ttdeci">DescriptorSetFactory * getOrAddFactory(std::type_index derivedType, std::unique_ptr&lt; DescriptorSetFactory &gt; &amp;&amp;factory)</div><div class="ttdoc">Returns a pointer to the correct instance of the factory to use for the given derived type....</div><div class="ttdef"><b>Definition:</b> <a href="a01889_source.html#l00015">DescriptorSetFactoryCache.cpp:15</a></div></div>
+<div class="ttc" id="aa03861_html"><div class="ttname"><a href="a03861.html">bl::rc::ds::DescriptorSetInstance</a></div><div class="ttdoc">Base class for descriptor sets that exist for each scene. Derived classes are created by DescriptorSe...</div><div class="ttdef"><b>Definition:</b> <a href="a06359_source.html#l00030">DescriptorSetInstance.hpp:30</a></div></div>
+<div class="ttc" id="aa03865_html"><div class="ttname"><a href="a03865.html">bl::rc::ds::DescriptorSetInstanceCache</a></div><div class="ttdoc">Utility class to ensure that descriptor sets are created only once across a set of pipelines present ...</div><div class="ttdef"><b>Definition:</b> <a href="a00851_source.html#l00023">DescriptorSetInstanceCache.hpp:23</a></div></div>
+<div class="ttc" id="aa03865_html_a8dcb4b2f5b976a9adc001e56814c9907"><div class="ttname"><a href="a03865.html#a8dcb4b2f5b976a9adc001e56814c9907">bl::rc::ds::DescriptorSetInstanceCache::getDescriptorSet</a></div><div class="ttdeci">DescriptorSetInstance * getDescriptorSet(DescriptorSetFactory *factory)</div><div class="ttdoc">Fetches or creates a descriptor set for the given descriptor set factory.</div><div class="ttdef"><b>Definition:</b> <a href="a01895_source.html#l00015">DescriptorSetInstanceCache.cpp:15</a></div></div>
+<div class="ttc" id="aa04061_html"><div class="ttname"><a href="a04061.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a06320_source.html#l00042">Renderer.hpp:42</a></div></div>
+<div class="ttc" id="aa04061_html_a9d713705da6a846ef5e022620625f5fc"><div class="ttname"><a href="a04061.html#a9d713705da6a846ef5e022620625f5fc">bl::rc::Renderer::descriptorFactoryCache</a></div><div class="ttdeci">ds::DescriptorSetFactoryCache &amp; descriptorFactoryCache()</div><div class="ttdoc">Returns a reference to the descriptor set factory cache used by this renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a06320_source.html#l00292">Renderer.hpp:292</a></div></div>
+<div class="ttc" id="aa04061_html_afdefecf57155696e1523bb6b256fc8bd"><div class="ttname"><a href="a04061.html#afdefecf57155696e1523bb6b256fc8bd">bl::rc::Renderer::vulkanState</a></div><div class="ttdeci">vk::VulkanState &amp; vulkanState()</div><div class="ttdoc">Returns the Vulkan state of the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a06320_source.html#l00276">Renderer.hpp:276</a></div></div>
+<div class="ttc" id="aa04153_html"><div class="ttname"><a href="a04153.html">bl::rc::scene::Key</a></div><div class="ttdoc">Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...</div><div class="ttdef"><b>Definition:</b> <a href="a01031_source.html#l00022">Key.hpp:22</a></div></div>
+<div class="ttc" id="aa04309_html_a27b1610be279faa912219d7a8c9fd327"><div class="ttname"><a href="a04309.html#a27b1610be279faa912219d7a8c9fd327">bl::rc::vk::PipelineLayout::updateDescriptorSets</a></div><div class="ttdeci">std::uint32_t updateDescriptorSets(ds::DescriptorSetInstanceCache &amp;cache, ds::DescriptorSetInstance **sets, std::uint32_t descriptorCount, ecs::Entity entity, std::uint32_t sceneId, UpdateSpeed updateSpeed) const</div><div class="ttdoc">Updates the existing descriptor sets to the new ones for this layout. Only calls allocate/release for...</div><div class="ttdef"><b>Definition:</b> <a href="a02066_source.html#l00054">PipelineLayout.cpp:54</a></div></div>
+<div class="ttc" id="aa04309_html_ab5a116fee2de3f7efa68f1a00e35afd8"><div class="ttname"><a href="a04309.html#ab5a116fee2de3f7efa68f1a00e35afd8">bl::rc::vk::PipelineLayout::~PipelineLayout</a></div><div class="ttdeci">~PipelineLayout()</div><div class="ttdoc">Frees Vulkan resources.</div><div class="ttdef"><b>Definition:</b> <a href="a02066_source.html#l00035">PipelineLayout.cpp:35</a></div></div>
+<div class="ttc" id="aa04309_html_ac66079fcf26aa15012b69a0fa0498ef0"><div class="ttname"><a href="a04309.html#ac66079fcf26aa15012b69a0fa0498ef0">bl::rc::vk::PipelineLayout::initDescriptorSets</a></div><div class="ttdeci">std::uint32_t initDescriptorSets(ds::DescriptorSetInstanceCache &amp;cache, ds::DescriptorSetInstance **sets) const</div><div class="ttdoc">Initializes the given array of descriptor sets and returns the number of sets.</div><div class="ttdef"><b>Definition:</b> <a href="a02066_source.html#l00046">PipelineLayout.cpp:46</a></div></div>
+<div class="ttc" id="aa04309_html_ad74117021580edf3d9ea22bd1af76c0c"><div class="ttname"><a href="a04309.html#ad74117021580edf3d9ea22bd1af76c0c">bl::rc::vk::PipelineLayout::createDescriptorSets</a></div><div class="ttdeci">void createDescriptorSets(ds::DescriptorSetInstanceCache &amp;cache, std::vector&lt; ds::DescriptorSetInstance * &gt; &amp;descriptors) const</div><div class="ttdoc">Creates descriptor set instances for this layout.</div><div class="ttdef"><b>Definition:</b> <a href="a02066_source.html#l00039">PipelineLayout.cpp:39</a></div></div>
+<div class="ttc" id="aa04309_html_afd07422197f239f279a335ef941b9128"><div class="ttname"><a href="a04309.html#afd07422197f239f279a335ef941b9128">bl::rc::vk::PipelineLayout::PipelineLayout</a></div><div class="ttdeci">PipelineLayout(Renderer &amp;renderer, LayoutParams &amp;&amp;params)</div><div class="ttdoc">Creates the new pipeline layout.</div><div class="ttdef"><b>Definition:</b> <a href="a02066_source.html#l00011">PipelineLayout.cpp:11</a></div></div>
+<div class="ttc" id="aa04313_html"><div class="ttname"><a href="a04313.html">bl::rc::vk::PipelineLayout::LayoutParams</a></div><div class="ttdoc">Internal struct to manage layout creation and fetching.</div><div class="ttdef"><b>Definition:</b> <a href="a01118_source.html#l00035">PipelineLayout.hpp:35</a></div></div>
+<div class="ttc" id="aa04405_html_a6ad0249d08d9ffb87af35b42f11a1db5"><div class="ttname"><a href="a04405.html#a6ad0249d08d9ffb87af35b42f11a1db5">bl::rc::vk::VulkanState::device</a></div><div class="ttdeci">VkDevice device</div><div class="ttdef"><b>Definition:</b> <a href="a01157_source.html#l00214">VulkanState.hpp:214</a></div></div>
+<div class="ttc" id="aa06320_html"><div class="ttname"><a href="a06320.html">Renderer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

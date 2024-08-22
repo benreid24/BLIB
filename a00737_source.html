@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Particles/ParticleManagerBase.hpp Source File</title>
+<title>BLIB: include/BLIB/Particles/MetaUpdater.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,63 +71,93 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ParticleManagerBase.hpp</div>  </div>
+<div class="title">MetaUpdater.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00737.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_PARTICLES_PARTICLEMANAGERBASE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_PARTICLES_PARTICLEMANAGERBASE_HPP</span></div>
+<a href="a00737.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_PARTICLES_METAUPDATER_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_PARTICLES_METAUPDATER_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01379.html">BLIB/Util/ThreadPool.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>engine</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">class </span>Engine;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;}</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00710.html">BLIB/Particles/Affector.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00728.html">BLIB/Particles/Emitter.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00764.html">BLIB/Particles/Sink.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>pcl</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">class </span>Scene;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">class </span>ParticleManager;</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>pcl</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a03640.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03640.html">ParticleManagerBase</a> {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a03669.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03669.html">MetaUpdater</a> {</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a03640.html#a1194bc0eb50f94c735db26b839b245ab">   30</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03640.html#a1194bc0eb50f94c735db26b839b245ab">~ParticleManagerBase</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a03640.html#a4f3f17a0aaef2a36f3edc89b13f61970">   37</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03640.html#a4f3f17a0aaef2a36f3edc89b13f61970">init</a>(<a class="code" href="a02812.html">engine::Engine</a>&amp; engine) = 0;</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a03673.html">   27</a></span>&#160;    <span class="keyword">class </span><a class="code" href="a03673.html">Proxy</a> {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a03673.html#ab4d54cd88d87197d9b541655cbc4b795">   32</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a03673.html#ab4d54cd88d87197d9b541655cbc4b795">eraseMe</a>() { erased = <span class="keyword">true</span>; }</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a03673.html#afe54e58b596138dff45ae4eaedcff5ad">   37</a></span>&#160;        <a class="code" href="a03625.html">ParticleManager&lt;T&gt;</a>&amp; <a class="code" href="a03673.html#afe54e58b596138dff45ae4eaedcff5ad">getManager</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> manager; }</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a03640.html#aefd57e33311977e45b7c9753a99397d8">   46</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03640.html#aefd57e33311977e45b7c9753a99397d8">update</a>(<a class="code" href="a05060.html">util::ThreadPool</a>&amp; threadPool, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span> realDt) = 0;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a03640.html#a847efab86bc8aa104a7db11b51bb669a">   51</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03640.html#a847efab86bc8aa104a7db11b51bb669a">clearAndReset</a>() = 0;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a03640.html#ad9ffb033c516945471e183b2c06156a8">   59</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03640.html#ad9ffb033c516945471e183b2c06156a8">addToScene</a>(<a class="code" href="a04128.html">rc::Scene</a>* scene) = 0;</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="a03673.html#ac187bcf1b5c833d02c4b13ab52f9a1a2">   42</a></span>&#160;        <span class="keyword">const</span> std::vector&lt;std::unique_ptr&lt;Affector&lt;T&gt;&gt;&gt;&amp; <a class="code" href="a03673.html#ac187bcf1b5c833d02c4b13ab52f9a1a2">getAffectors</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> affectors; }</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="a03673.html#a8bb637cc7650540a2df05b481cf1f232">   47</a></span>&#160;        <span class="keyword">const</span> std::vector&lt;std::unique_ptr&lt;Emitter&lt;T&gt;&gt;&gt;&amp; <a class="code" href="a03673.html#a8bb637cc7650540a2df05b481cf1f232">getEmitters</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> emitters; }</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a03673.html#a5f7c659c7192b42f07bdacdb7fad6675">   52</a></span>&#160;        <span class="keyword">const</span> std::vector&lt;std::unique_ptr&lt;Sink&lt;T&gt;&gt;&gt;&amp; <a class="code" href="a03673.html#a5f7c659c7192b42f07bdacdb7fad6675">getSinks</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> sinks; }</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <a class="code" href="a03625.html">ParticleManager&lt;T&gt;</a>&amp; manager;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keyword">const</span> std::vector&lt;std::unique_ptr&lt;Affector&lt;T&gt;&gt;&gt;&amp; affectors;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keyword">const</span> std::vector&lt;std::unique_ptr&lt;Emitter&lt;T&gt;&gt;&gt;&amp; emitters;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keyword">const</span> std::vector&lt;std::unique_ptr&lt;Sink&lt;T&gt;&gt;&gt;&amp; sinks;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordtype">bool</span> erased;</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="a03640.html#ae39442d15d865d0033d19e2fbf7463fc">   64</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03640.html#ae39442d15d865d0033d19e2fbf7463fc">removeFromScene</a>() = 0;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;} <span class="comment">// namespace pcl</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01379_html"><div class="ttname"><a href="a01379.html">ThreadPool.hpp</a></div></div>
-<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02812_html"><div class="ttname"><a href="a02812.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06232_source.html#l00033">Engine.hpp:33</a></div></div>
-<div class="ttc" id="aa03640_html"><div class="ttname"><a href="a03640.html">bl::pcl::ParticleManagerBase</a></div><div class="ttdoc">Base class for particle managers. Particle managers own and manage specific particle types.</div><div class="ttdef"><b>Definition:</b> <a href="a00737_source.html#l00025">ParticleManagerBase.hpp:25</a></div></div>
-<div class="ttc" id="aa03640_html_a1194bc0eb50f94c735db26b839b245ab"><div class="ttname"><a href="a03640.html#a1194bc0eb50f94c735db26b839b245ab">bl::pcl::ParticleManagerBase::~ParticleManagerBase</a></div><div class="ttdeci">virtual ~ParticleManagerBase()=default</div><div class="ttdoc">Destroys the particle manager.</div></div>
-<div class="ttc" id="aa03640_html_a4f3f17a0aaef2a36f3edc89b13f61970"><div class="ttname"><a href="a03640.html#a4f3f17a0aaef2a36f3edc89b13f61970">bl::pcl::ParticleManagerBase::init</a></div><div class="ttdeci">virtual void init(engine::Engine &amp;engine)=0</div><div class="ttdoc">Called once after being constructed.</div></div>
-<div class="ttc" id="aa03640_html_a847efab86bc8aa104a7db11b51bb669a"><div class="ttname"><a href="a03640.html#a847efab86bc8aa104a7db11b51bb669a">bl::pcl::ParticleManagerBase::clearAndReset</a></div><div class="ttdeci">virtual void clearAndReset()=0</div><div class="ttdoc">Destroys all particles, affectors, emitters, and sinks.</div></div>
-<div class="ttc" id="aa03640_html_ad9ffb033c516945471e183b2c06156a8"><div class="ttname"><a href="a03640.html#ad9ffb033c516945471e183b2c06156a8">bl::pcl::ParticleManagerBase::addToScene</a></div><div class="ttdeci">virtual void addToScene(rc::Scene *scene)=0</div><div class="ttdoc">Called when the particle manager should be rendered in the given scene. May be called multiple times ...</div></div>
-<div class="ttc" id="aa03640_html_ae39442d15d865d0033d19e2fbf7463fc"><div class="ttname"><a href="a03640.html#ae39442d15d865d0033d19e2fbf7463fc">bl::pcl::ParticleManagerBase::removeFromScene</a></div><div class="ttdeci">virtual void removeFromScene()=0</div><div class="ttdoc">Called when the particles should be removed from its current scene.</div></div>
-<div class="ttc" id="aa03640_html_aefd57e33311977e45b7c9753a99397d8"><div class="ttname"><a href="a03640.html#aefd57e33311977e45b7c9753a99397d8">bl::pcl::ParticleManagerBase::update</a></div><div class="ttdeci">virtual void update(util::ThreadPool &amp;threadPool, float dt, float realDt)=0</div><div class="ttdoc">Updates all the particles in the particle manager.</div></div>
-<div class="ttc" id="aa04128_html"><div class="ttname"><a href="a04128.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00056">Scene.hpp:56</a></div></div>
-<div class="ttc" id="aa05060_html"><div class="ttname"><a href="a05060.html">bl::util::ThreadPool</a></div><div class="ttdoc">Provides a thread pool with variable concurrency and support for draining.</div><div class="ttdef"><b>Definition:</b> <a href="a01379_source.html#l00024">ThreadPool.hpp:24</a></div></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <a class="code" href="a03673.html">Proxy</a>(<a class="code" href="a03625.html">ParticleManager&lt;T&gt;</a>&amp; manager,</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;              <span class="keyword">const</span> std::vector&lt;std::unique_ptr&lt;<a class="code" href="a03629.html">Affector&lt;T&gt;</a>&gt;&gt;&amp; affectors,</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;              <span class="keyword">const</span> std::vector&lt;std::unique_ptr&lt;<a class="code" href="a03653.html">Emitter&lt;T&gt;</a>&gt;&gt;&amp; emitters,</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;              <span class="keyword">const</span> std::vector&lt;std::unique_ptr&lt;<a class="code" href="a03709.html">Sink&lt;T&gt;</a>&gt;&gt;&amp; sinks)</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        : manager(manager)</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        , affectors(affectors)</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        , emitters(emitters)</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        , sinks(sinks)</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        , erased(false) {}</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="a03673.html#a2ebd68a709a096e577a8a554b5d28f32">   71</a></span>&#160;        <span class="keywordtype">void</span> reset() { erased = <span class="keyword">false</span>; }</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03625.html">ParticleManager</a>&lt;T&gt;;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    };</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="a03669.html#aebf2a66e440af3704459ac533a2f92d6">   79</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03669.html#aebf2a66e440af3704459ac533a2f92d6">~MetaUpdater</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="a03669.html#a8b3a65bd4558b99291e0e44022b1a693">   88</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03669.html#a8b3a65bd4558b99291e0e44022b1a693">update</a>(<a class="code" href="a03673.html">Proxy</a>&amp; proxy, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span> realDt) = 0;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;};</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;} <span class="comment">// namespace pcl</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00710_html"><div class="ttname"><a href="a00710.html">Affector.hpp</a></div></div>
+<div class="ttc" id="aa00728_html"><div class="ttname"><a href="a00728.html">Emitter.hpp</a></div></div>
+<div class="ttc" id="aa00764_html"><div class="ttname"><a href="a00764.html">Sink.hpp</a></div></div>
+<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03625_html"><div class="ttname"><a href="a03625.html">bl::pcl::ParticleManager</a></div><div class="ttdoc">Particle manager for a specific type of particle. Instances are owned by the ParticleSystem and shoul...</div><div class="ttdef"><b>Definition:</b> <a href="a00740_source.html#l00029">ParticleManager.hpp:29</a></div></div>
+<div class="ttc" id="aa03629_html"><div class="ttname"><a href="a03629.html">bl::pcl::Affector</a></div><div class="ttdoc">Base class for all particle affectors. Provides the interface used by ParticleManagers.</div><div class="ttdef"><b>Definition:</b> <a href="a00710_source.html#l00020">Affector.hpp:20</a></div></div>
+<div class="ttc" id="aa03653_html"><div class="ttname"><a href="a03653.html">bl::pcl::Emitter</a></div><div class="ttdoc">Base class for all particle emitters. Provides the interface used by ParticleManagers.</div><div class="ttdef"><b>Definition:</b> <a href="a00728_source.html#l00020">Emitter.hpp:20</a></div></div>
+<div class="ttc" id="aa03669_html"><div class="ttname"><a href="a03669.html">bl::pcl::MetaUpdater</a></div><div class="ttdoc">Generic plugin base for update logic to be applied to particle systems prior to sinks,...</div><div class="ttdef"><b>Definition:</b> <a href="a00737_source.html#l00025">MetaUpdater.hpp:25</a></div></div>
+<div class="ttc" id="aa03669_html_a8b3a65bd4558b99291e0e44022b1a693"><div class="ttname"><a href="a03669.html#a8b3a65bd4558b99291e0e44022b1a693">bl::pcl::MetaUpdater::update</a></div><div class="ttdeci">virtual void update(Proxy &amp;proxy, float dt, float realDt)=0</div><div class="ttdoc">Called once per frame before emitters, sinks, and affectors.</div></div>
+<div class="ttc" id="aa03669_html_aebf2a66e440af3704459ac533a2f92d6"><div class="ttname"><a href="a03669.html#aebf2a66e440af3704459ac533a2f92d6">bl::pcl::MetaUpdater::~MetaUpdater</a></div><div class="ttdeci">virtual ~MetaUpdater()=default</div><div class="ttdoc">Destroys the updater.</div></div>
+<div class="ttc" id="aa03673_html"><div class="ttname"><a href="a03673.html">bl::pcl::MetaUpdater::Proxy</a></div><div class="ttdef"><b>Definition:</b> <a href="a00737_source.html#l00027">MetaUpdater.hpp:27</a></div></div>
+<div class="ttc" id="aa03673_html_a5f7c659c7192b42f07bdacdb7fad6675"><div class="ttname"><a href="a03673.html#a5f7c659c7192b42f07bdacdb7fad6675">bl::pcl::MetaUpdater::Proxy::getSinks</a></div><div class="ttdeci">const std::vector&lt; std::unique_ptr&lt; Sink&lt; T &gt; &gt; &gt; &amp; getSinks() const</div><div class="ttdoc">Returns the full list of current sinks in the particle system.</div><div class="ttdef"><b>Definition:</b> <a href="a00737_source.html#l00052">MetaUpdater.hpp:52</a></div></div>
+<div class="ttc" id="aa03673_html_a8bb637cc7650540a2df05b481cf1f232"><div class="ttname"><a href="a03673.html#a8bb637cc7650540a2df05b481cf1f232">bl::pcl::MetaUpdater::Proxy::getEmitters</a></div><div class="ttdeci">const std::vector&lt; std::unique_ptr&lt; Emitter&lt; T &gt; &gt; &gt; &amp; getEmitters() const</div><div class="ttdoc">Returns the full list of current emitters in the particle system.</div><div class="ttdef"><b>Definition:</b> <a href="a00737_source.html#l00047">MetaUpdater.hpp:47</a></div></div>
+<div class="ttc" id="aa03673_html_ab4d54cd88d87197d9b541655cbc4b795"><div class="ttname"><a href="a03673.html#ab4d54cd88d87197d9b541655cbc4b795">bl::pcl::MetaUpdater::Proxy::eraseMe</a></div><div class="ttdeci">void eraseMe()</div><div class="ttdoc">Call to erase this sink.</div><div class="ttdef"><b>Definition:</b> <a href="a00737_source.html#l00032">MetaUpdater.hpp:32</a></div></div>
+<div class="ttc" id="aa03673_html_ac187bcf1b5c833d02c4b13ab52f9a1a2"><div class="ttname"><a href="a03673.html#ac187bcf1b5c833d02c4b13ab52f9a1a2">bl::pcl::MetaUpdater::Proxy::getAffectors</a></div><div class="ttdeci">const std::vector&lt; std::unique_ptr&lt; Affector&lt; T &gt; &gt; &gt; &amp; getAffectors() const</div><div class="ttdoc">Returns the full list of current affectors in the particle system.</div><div class="ttdef"><b>Definition:</b> <a href="a00737_source.html#l00042">MetaUpdater.hpp:42</a></div></div>
+<div class="ttc" id="aa03673_html_afe54e58b596138dff45ae4eaedcff5ad"><div class="ttname"><a href="a03673.html#afe54e58b596138dff45ae4eaedcff5ad">bl::pcl::MetaUpdater::Proxy::getManager</a></div><div class="ttdeci">ParticleManager&lt; T &gt; &amp; getManager() const</div><div class="ttdoc">Access the particle manager that owns this sink.</div><div class="ttdef"><b>Definition:</b> <a href="a00737_source.html#l00037">MetaUpdater.hpp:37</a></div></div>
+<div class="ttc" id="aa03709_html"><div class="ttname"><a href="a03709.html">bl::pcl::Sink</a></div><div class="ttdoc">Base class for all particle sinks. Provides the interface used by ParticleManagers.</div><div class="ttdef"><b>Definition:</b> <a href="a00764_source.html#l00022">Sink.hpp:22</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/Utilities/GhostWriter.hpp Source File</title>
+<title>BLIB: include/BLIB/Interfaces/Menu/Selector.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,82 +66,73 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_bd38bb28b50b461429505567a858f136.html">Utilities</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_e645930b0d1a2310fc6bb1d1038eb64b.html">Menu</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">GhostWriter.hpp</div>  </div>
+<div class="title">Selector.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00641.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_INTERFACES_UTILITIES_GHOSTWRITER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_INTERFACES_UTILITIES_GHOSTWRITER_HPP</span></div>
+<a href="a00641.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_MENU_SELECTOR_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_MENU_SELECTOR_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06199.html">BLIB/Graphics/Text.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;string_view&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a02321.html">   11</a></span>&#160;<span class="keyword">namespace </span>interface</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00176.html">BLIB/ECS/Entity.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00968.html">BLIB/Render/Overlays/Overlay.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01025.html">BLIB/Render/Scenes/CodeScene.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>engine</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03520.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03520.html">GhostWriter</a> {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="a03520.html#ac3e6ba246fc0e9cec8eae65a6702998d">GhostWriter</a>();</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="a03520.html#ac3e6ba246fc0e9cec8eae65a6702998d">GhostWriter</a>(<span class="keyword">const</span> std::string&amp; content);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03520.html#a3baa128cabca4d11a196cfa2deceb10b">setContent</a>(<span class="keyword">const</span> std::string&amp; content);</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span>Engine;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>menu</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a03545.html">   24</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03545.html">Selector</a> {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a03545.html#afc2ee695075a4244d7962da15e64fea1">   26</a></span>&#160;    <span class="keyword">typedef</span> std::shared_ptr&lt;Selector&gt; <a class="code" href="a03545.html#afc2ee695075a4244d7962da15e64fea1">Ptr</a>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a03545.html#aaa7eb324681c7f99cb4d6f16c168b105">   31</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03545.html#aaa7eb324681c7f99cb4d6f16c168b105">~Selector</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a03545.html#ae8623583994f4f420d6f78f063aa7b5f">   39</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03545.html#ae8623583994f4f420d6f78f063aa7b5f">doCreate</a>(<a class="code" href="a02833.html">engine::Engine</a>&amp; engine, <a class="code" href="a02733.html">ecs::Entity</a> parent) = 0;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="a03520.html#a905ee8e94ae389c4a4025bb94458df22">getContent</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    std::string_view <a class="code" href="a03520.html#a1f44b42d6074a27161940c7104501ae2">getVisible</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a03520.html#a40c732d31f2ac5b10eade6baba81d5d9">update</a>(<span class="keywordtype">float</span> dt);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03520.html#abbc49a8343e43cc5829c52999c3368a7">showAll</a>();</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a03520.html#ab0849712c86901dea7556e87ac77778e">finished</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="a03545.html#a43106a5cc47fcb5d4b6bcbbf857d68e2">   47</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03545.html#a43106a5cc47fcb5d4b6bcbbf857d68e2">notifySelection</a>(<a class="code" href="a02733.html">ecs::Entity</a> item, sf::FloatRect itemArea) = 0;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="a03545.html#a32991fbb1d26f7c74765cf9597715396">   54</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03545.html#a32991fbb1d26f7c74765cf9597715396">doSceneAdd</a>(<a class="code" href="a04165.html">rc::Scene</a>* scene) = 0;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a03545.html#a576771798bbcdac04f22a7ce1ef60c1a">   59</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03545.html#a576771798bbcdac04f22a7ce1ef60c1a">doSceneRemove</a>() = 0;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="a03545.html#a23629efab0e807b9d99c1fa1b4e336fa">   66</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03545.html#a23629efab0e807b9d99c1fa1b4e336fa">draw</a>(<a class="code" href="a04145.html">rc::scene::CodeScene::RenderContext</a>&amp; ctx) = 0;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;};</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03520.html#aa43023f9933e4675d2be09e5853fd9ba">manage</a>(<a class="code" href="a03092.html">gfx::Text</a>&amp; text);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03520.html#aa43023f9933e4675d2be09e5853fd9ba">manage</a>(<a class="code" href="a03076.html">gfx::txt::BasicText</a>&amp; section);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03520.html#a389e510116010f8b73ef6d4cdaf55dac">stopManaging</a>();</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> speed;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    std::string content;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> showing;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordtype">float</span> residual;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <a class="code" href="a03076.html">gfx::txt::BasicText</a>* managing;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordtype">void</span> syncText();</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;};</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;} <span class="comment">// namespace interface</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03076_html"><div class="ttname"><a href="a03076.html">bl::gfx::txt::BasicText</a></div><div class="ttdoc">Drawable for a single section of text. Similar to sf::Text. Do not use directly, use Text class to cr...</div><div class="ttdef"><b>Definition:</b> <a href="a00362_source.html#l00030">BasicText.hpp:30</a></div></div>
-<div class="ttc" id="aa03092_html"><div class="ttname"><a href="a03092.html">bl::gfx::Text</a></div><div class="ttdoc">Drawable component for format-able text. Similar to sf::Text except that multiple formatted sections ...</div><div class="ttdef"><b>Definition:</b> <a href="a06199_source.html#l00032">Text.hpp:35</a></div></div>
-<div class="ttc" id="aa03520_html"><div class="ttname"><a href="a03520.html">bl::interface::GhostWriter</a></div><div class="ttdoc">Basic string wrapper that allows for text to be unhidden over time. The speed of text reveal,...</div><div class="ttdef"><b>Definition:</b> <a href="a00641_source.html#l00020">GhostWriter.hpp:20</a></div></div>
-<div class="ttc" id="aa03520_html_a1f44b42d6074a27161940c7104501ae2"><div class="ttname"><a href="a03520.html#a1f44b42d6074a27161940c7104501ae2">bl::interface::GhostWriter::getVisible</a></div><div class="ttdeci">std::string_view getVisible() const</div><div class="ttdoc">Returns the visible portion of the content of the writer.</div><div class="ttdef"><b>Definition:</b> <a href="a01805_source.html#l00031">GhostWriter.cpp:31</a></div></div>
-<div class="ttc" id="aa03520_html_a389e510116010f8b73ef6d4cdaf55dac"><div class="ttname"><a href="a03520.html#a389e510116010f8b73ef6d4cdaf55dac">bl::interface::GhostWriter::stopManaging</a></div><div class="ttdeci">void stopManaging()</div><div class="ttdoc">The ghost writer will stop managing graphical text.</div><div class="ttdef"><b>Definition:</b> <a href="a01805_source.html#l00069">GhostWriter.cpp:69</a></div></div>
-<div class="ttc" id="aa03520_html_a3baa128cabca4d11a196cfa2deceb10b"><div class="ttname"><a href="a03520.html#a3baa128cabca4d11a196cfa2deceb10b">bl::interface::GhostWriter::setContent</a></div><div class="ttdeci">void setContent(const std::string &amp;content)</div><div class="ttdoc">Set the content to display. Resets to showing 0 characters.</div><div class="ttdef"><b>Definition:</b> <a href="a01805_source.html#l00023">GhostWriter.cpp:23</a></div></div>
-<div class="ttc" id="aa03520_html_a40c732d31f2ac5b10eade6baba81d5d9"><div class="ttname"><a href="a03520.html#a40c732d31f2ac5b10eade6baba81d5d9">bl::interface::GhostWriter::update</a></div><div class="ttdeci">bool update(float dt)</div><div class="ttdoc">Updates the writer and reveals more characters based on time elapsed.</div><div class="ttdef"><b>Definition:</b> <a href="a01805_source.html#l00033">GhostWriter.cpp:33</a></div></div>
-<div class="ttc" id="aa03520_html_a905ee8e94ae389c4a4025bb94458df22"><div class="ttname"><a href="a03520.html#a905ee8e94ae389c4a4025bb94458df22">bl::interface::GhostWriter::getContent</a></div><div class="ttdeci">const std::string &amp; getContent() const</div><div class="ttdoc">Returns the full content of the writer.</div><div class="ttdef"><b>Definition:</b> <a href="a01805_source.html#l00029">GhostWriter.cpp:29</a></div></div>
-<div class="ttc" id="aa03520_html_aa43023f9933e4675d2be09e5853fd9ba"><div class="ttname"><a href="a03520.html#aa43023f9933e4675d2be09e5853fd9ba">bl::interface::GhostWriter::manage</a></div><div class="ttdeci">void manage(gfx::Text &amp;text)</div><div class="ttdoc">The ghost writer will update the first section of text.</div><div class="ttdef"><b>Definition:</b> <a href="a01805_source.html#l00059">GhostWriter.cpp:59</a></div></div>
-<div class="ttc" id="aa03520_html_ab0849712c86901dea7556e87ac77778e"><div class="ttname"><a href="a03520.html#ab0849712c86901dea7556e87ac77778e">bl::interface::GhostWriter::finished</a></div><div class="ttdeci">bool finished() const</div><div class="ttdoc">Returns whether or not all characters are visible.</div><div class="ttdef"><b>Definition:</b> <a href="a01805_source.html#l00052">GhostWriter.cpp:52</a></div></div>
-<div class="ttc" id="aa03520_html_abbc49a8343e43cc5829c52999c3368a7"><div class="ttname"><a href="a03520.html#abbc49a8343e43cc5829c52999c3368a7">bl::interface::GhostWriter::showAll</a></div><div class="ttdeci">void showAll()</div><div class="ttdoc">Immediately shows all characters.</div><div class="ttdef"><b>Definition:</b> <a href="a01805_source.html#l00054">GhostWriter.cpp:54</a></div></div>
-<div class="ttc" id="aa03520_html_ac3e6ba246fc0e9cec8eae65a6702998d"><div class="ttname"><a href="a03520.html#ac3e6ba246fc0e9cec8eae65a6702998d">bl::interface::GhostWriter::GhostWriter</a></div><div class="ttdeci">GhostWriter()</div><div class="ttdoc">Construct a new GhostWriter with empty content.</div><div class="ttdef"><b>Definition:</b> <a href="a01805_source.html#l00010">GhostWriter.cpp:10</a></div></div>
-<div class="ttc" id="aa06199_html"><div class="ttname"><a href="a06199.html">Text.hpp</a></div></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;} <span class="comment">// namespace menu</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00176_html"><div class="ttname"><a href="a00176.html">Entity.hpp</a></div></div>
+<div class="ttc" id="aa00968_html"><div class="ttname"><a href="a00968.html">Overlay.hpp</a></div></div>
+<div class="ttc" id="aa01025_html"><div class="ttname"><a href="a01025.html">CodeScene.hpp</a></div></div>
+<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02733_html"><div class="ttname"><a href="a02733.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00176_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa02833_html"><div class="ttname"><a href="a02833.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06269_source.html#l00033">Engine.hpp:33</a></div></div>
+<div class="ttc" id="aa03545_html"><div class="ttname"><a href="a03545.html">bl::menu::Selector</a></div><div class="ttdoc">Base class for selector items that indicate which Menu item is active.</div><div class="ttdef"><b>Definition:</b> <a href="a00641_source.html#l00024">Selector.hpp:24</a></div></div>
+<div class="ttc" id="aa03545_html_a23629efab0e807b9d99c1fa1b4e336fa"><div class="ttname"><a href="a03545.html#a23629efab0e807b9d99c1fa1b4e336fa">bl::menu::Selector::draw</a></div><div class="ttdeci">virtual void draw(rc::scene::CodeScene::RenderContext &amp;ctx)=0</div><div class="ttdoc">Manually draw the selector.</div></div>
+<div class="ttc" id="aa03545_html_a32991fbb1d26f7c74765cf9597715396"><div class="ttname"><a href="a03545.html#a32991fbb1d26f7c74765cf9597715396">bl::menu::Selector::doSceneAdd</a></div><div class="ttdeci">virtual void doSceneAdd(rc::Scene *scene)=0</div><div class="ttdoc">Called when the selector should be added to the scene.</div></div>
+<div class="ttc" id="aa03545_html_a43106a5cc47fcb5d4b6bcbbf857d68e2"><div class="ttname"><a href="a03545.html#a43106a5cc47fcb5d4b6bcbbf857d68e2">bl::menu::Selector::notifySelection</a></div><div class="ttdeci">virtual void notifySelection(ecs::Entity item, sf::FloatRect itemArea)=0</div><div class="ttdoc">Called when the selector should select an item.</div></div>
+<div class="ttc" id="aa03545_html_a576771798bbcdac04f22a7ce1ef60c1a"><div class="ttname"><a href="a03545.html#a576771798bbcdac04f22a7ce1ef60c1a">bl::menu::Selector::doSceneRemove</a></div><div class="ttdeci">virtual void doSceneRemove()=0</div><div class="ttdoc">Called when the selector should be removed from the scene.</div></div>
+<div class="ttc" id="aa03545_html_aaa7eb324681c7f99cb4d6f16c168b105"><div class="ttname"><a href="a03545.html#aaa7eb324681c7f99cb4d6f16c168b105">bl::menu::Selector::~Selector</a></div><div class="ttdeci">virtual ~Selector()=default</div><div class="ttdoc">Destroys the selector.</div></div>
+<div class="ttc" id="aa03545_html_ae8623583994f4f420d6f78f063aa7b5f"><div class="ttname"><a href="a03545.html#ae8623583994f4f420d6f78f063aa7b5f">bl::menu::Selector::doCreate</a></div><div class="ttdeci">virtual void doCreate(engine::Engine &amp;engine, ecs::Entity parent)=0</div><div class="ttdoc">Called when the selector is added to a menu.</div></div>
+<div class="ttc" id="aa03545_html_afc2ee695075a4244d7962da15e64fea1"><div class="ttname"><a href="a03545.html#afc2ee695075a4244d7962da15e64fea1">bl::menu::Selector::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Selector &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00641_source.html#l00026">Selector.hpp:26</a></div></div>
+<div class="ttc" id="aa04145_html"><div class="ttname"><a href="a04145.html">bl::rc::scene::CodeScene::RenderContext</a></div><div class="ttdoc">Context that gets passed to the render callback.</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00029">CodeScene.hpp:29</a></div></div>
+<div class="ttc" id="aa04165_html"><div class="ttname"><a href="a04165.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition:</b> <a href="a01034_source.html#l00056">Scene.hpp:56</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

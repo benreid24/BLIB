@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Vulkan/SharedCommandBuffer.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Vulkan/RenderPass.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,66 +71,56 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">SharedCommandBuffer.hpp</div>  </div>
+<div class="title">RenderPass.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01124.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_SHAREDCOMMANDBUFFER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_SHAREDCOMMANDBUFFER_HPP</span></div>
+<a href="a01124.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_RENDERPASS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_RENDERPASS_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01403.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>vk</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span>SharedCommandPool;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a04324.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04324.html">SharedCommandBuffer</a> {</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01127.html">BLIB/Render/Vulkan/RenderPassParameters.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01157.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>vk</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a04337.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04337.html">RenderPass</a> {</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="a04324.html">SharedCommandBuffer</a>(<a class="code" href="a04324.html">SharedCommandBuffer</a>&amp;&amp; move);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="a04324.html#a3d4ca4bd67e357a4a5580b1b1aa0cd52">~SharedCommandBuffer</a>();</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a04324.html#ae75d11501e1a6cf450305876b89b5bd0">   36</a></span>&#160;    <span class="keyword">operator</span> VkCommandBuffer() { <span class="keywordflow">return</span> buffer; }</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="a04324.html#a851b76460f481d6fa35c8f7145778a6c">   41</a></span>&#160;    VkCommandBuffer <a class="code" href="a04324.html#a851b76460f481d6fa35c8f7145778a6c">get</a>() { <span class="keywordflow">return</span> buffer; }</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04324.html#a9672efb9777484cc47217323b31567b4">submit</a>();</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="a04328.html">SharedCommandPool</a>* owner;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    VkFence fence;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    VkCommandBuffer buffer;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="a04324.html">SharedCommandBuffer</a>(<a class="code" href="a04328.html">SharedCommandPool</a>* owner, VkFence fence, VkCommandBuffer buffer);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="a04337.html#ad011998d18306cfe27a9e94d15cf2460">RenderPass</a>(<a class="code" href="a04405.html">VulkanState</a>&amp; vulkanState, <a class="code" href="a04341.html">RenderPassParameters</a>&amp;&amp; params);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="a04337.html#abd170528aea214831e7e4f49d515dd62">~RenderPass</a>();</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    constexpr VkRenderPass <a class="code" href="a04337.html#a2b408d041da558b67ed167df55f17339">rawPass</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="a04405.html">VulkanState</a>&amp; vulkanState;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    VkRenderPass renderPass;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;};</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="a04337.html#a2b408d041da558b67ed167df55f17339">   49</a></span>&#160;constexpr VkRenderPass <a class="code" href="a04337.html#a2b408d041da558b67ed167df55f17339">RenderPass::rawPass</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> renderPass; }</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;} <span class="comment">// namespace vk</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;} <span class="comment">// namespace bl</span></div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="a04324.html">SharedCommandBuffer</a>()                                      = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="a04324.html">SharedCommandBuffer</a>(<span class="keyword">const</span> <a class="code" href="a04324.html">SharedCommandBuffer</a>&amp;)            = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="a04324.html">SharedCommandBuffer</a>&amp; operator=(<span class="keyword">const</span> <a class="code" href="a04324.html">SharedCommandBuffer</a>&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <a class="code" href="a04324.html">SharedCommandBuffer</a>&amp; operator=(<a class="code" href="a04324.html">SharedCommandBuffer</a>&amp;&amp; move) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="a04324.html#a6ac3aafff0382c8f5ab76dc990667e5b">   60</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a04328.html">SharedCommandPool</a>;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;};</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;} <span class="comment">// namespace vk</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01403_html"><div class="ttname"><a href="a01403.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04324_html"><div class="ttname"><a href="a04324.html">bl::rc::vk::SharedCommandBuffer</a></div><div class="ttdoc">Wrapper around a command buffer allocated from a SharedCommandPool.</div><div class="ttdef"><b>Definition:</b> <a href="a01124_source.html#l00019">SharedCommandBuffer.hpp:19</a></div></div>
-<div class="ttc" id="aa04324_html_a3d4ca4bd67e357a4a5580b1b1aa0cd52"><div class="ttname"><a href="a04324.html#a3d4ca4bd67e357a4a5580b1b1aa0cd52">bl::rc::vk::SharedCommandBuffer::~SharedCommandBuffer</a></div><div class="ttdeci">~SharedCommandBuffer()</div><div class="ttdoc">Releases the lock on the pool if not already submitted.</div><div class="ttdef"><b>Definition:</b> <a href="a02063_source.html#l00026">SharedCommandBuffer.cpp:26</a></div></div>
-<div class="ttc" id="aa04324_html_a851b76460f481d6fa35c8f7145778a6c"><div class="ttname"><a href="a04324.html#a851b76460f481d6fa35c8f7145778a6c">bl::rc::vk::SharedCommandBuffer::get</a></div><div class="ttdeci">VkCommandBuffer get()</div><div class="ttdoc">Access the underlying command buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a01124_source.html#l00041">SharedCommandBuffer.hpp:41</a></div></div>
-<div class="ttc" id="aa04324_html_a9672efb9777484cc47217323b31567b4"><div class="ttname"><a href="a04324.html#a9672efb9777484cc47217323b31567b4">bl::rc::vk::SharedCommandBuffer::submit</a></div><div class="ttdeci">void submit()</div><div class="ttdoc">Submits the buffer and releases the lock on the pool.</div><div class="ttdef"><b>Definition:</b> <a href="a02063_source.html#l00033">SharedCommandBuffer.cpp:33</a></div></div>
-<div class="ttc" id="aa04328_html"><div class="ttname"><a href="a04328.html">bl::rc::vk::SharedCommandPool</a></div><div class="ttdoc">Wrapper around a Vulkan command pool that is intended to be shared for short-lived command buffers....</div><div class="ttdef"><b>Definition:</b> <a href="a01127_source.html#l00023">SharedCommandPool.hpp:23</a></div></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01127_html"><div class="ttname"><a href="a01127.html">RenderPassParameters.hpp</a></div></div>
+<div class="ttc" id="aa01157_html"><div class="ttname"><a href="a01157.html">VulkanState.hpp</a></div></div>
+<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04337_html"><div class="ttname"><a href="a04337.html">bl::rc::vk::RenderPass</a></div><div class="ttdoc">Represents a render pass in the renderer. A scene is comprised of a sequence of render passes and eac...</div><div class="ttdef"><b>Definition:</b> <a href="a01124_source.html#l00019">RenderPass.hpp:19</a></div></div>
+<div class="ttc" id="aa04337_html_a2b408d041da558b67ed167df55f17339"><div class="ttname"><a href="a04337.html#a2b408d041da558b67ed167df55f17339">bl::rc::vk::RenderPass::rawPass</a></div><div class="ttdeci">constexpr VkRenderPass rawPass() const</div><div class="ttdoc">Returns the Vulkan render pass handle.</div><div class="ttdef"><b>Definition:</b> <a href="a01124_source.html#l00049">RenderPass.hpp:49</a></div></div>
+<div class="ttc" id="aa04337_html_abd170528aea214831e7e4f49d515dd62"><div class="ttname"><a href="a04337.html#abd170528aea214831e7e4f49d515dd62">bl::rc::vk::RenderPass::~RenderPass</a></div><div class="ttdeci">~RenderPass()</div><div class="ttdoc">Destroy the Render Pass object.</div><div class="ttdef"><b>Definition:</b> <a href="a02072_source.html#l00038">RenderPass.cpp:38</a></div></div>
+<div class="ttc" id="aa04337_html_ad011998d18306cfe27a9e94d15cf2460"><div class="ttname"><a href="a04337.html#ad011998d18306cfe27a9e94d15cf2460">bl::rc::vk::RenderPass::RenderPass</a></div><div class="ttdeci">RenderPass(VulkanState &amp;vulkanState, RenderPassParameters &amp;&amp;params)</div><div class="ttdoc">Construct a new Render Pass.</div><div class="ttdef"><b>Definition:</b> <a href="a02072_source.html#l00009">RenderPass.cpp:9</a></div></div>
+<div class="ttc" id="aa04341_html"><div class="ttname"><a href="a04341.html">bl::rc::vk::RenderPassParameters</a></div><div class="ttdoc">Parameter builder class used to construct RenderPass objects in the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a01127_source.html#l00022">RenderPassParameters.hpp:22</a></div></div>
+<div class="ttc" id="aa04405_html"><div class="ttname"><a href="a04405.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01157_source.html#l00039">VulkanState.hpp:39</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

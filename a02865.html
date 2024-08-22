@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::engine::FrameStage Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,28 +66,102 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02284.html">bl</a></li><li class="navelem"><a class="el" href="a02292.html">engine</a></li><li class="navelem"><a class="el" href="a02868.html">Systems</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02303.html">bl</a></li><li class="navelem"><a class="el" href="a02311.html">engine</a></li><li class="navelem"><a class="el" href="a02865.html">FrameStage</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="a02862.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::engine::Systems Member List</div>  </div>
+<div class="title">bl::engine::FrameStage Struct Reference<div class="ingroups"><a class="el" href="a02279.html">Engine</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02868.html">bl::engine::Systems</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02868.html#a39e6933ef7ed45bc11f58f7b77429137">addFrameTask</a>(FrameStage::V stage, Task &amp;&amp;task)</td><td class="entry"><a class="el" href="a02868.html">bl::engine::Systems</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02868.html#a3e1914489e4bed4f9f23cdeab34a43dc">Engine</a> class</td><td class="entry"><a class="el" href="a02868.html">bl::engine::Systems</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02868.html#aafefb6bd9fcc7e73f643e47167f79849">getSystem</a>()</td><td class="entry"><a class="el" href="a02868.html">bl::engine::Systems</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02868.html#a788c0446b4fa16bb8ffd597bd5297036">getSystemMaybe</a>()</td><td class="entry"><a class="el" href="a02868.html">bl::engine::Systems</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02868.html#af6f6893bd894724ccd19ea8c8f17b117">registerSystem</a>(FrameStage::V stage, StateMask::V stateMask, TArgs &amp;&amp;... args)</td><td class="entry"><a class="el" href="a02868.html">bl::engine::Systems</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02868.html#a0f4d079b76e506c0a630dfe30c0cbc2f">Task</a> typedef</td><td class="entry"><a class="el" href="a02868.html">bl::engine::Systems</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Container for the names of each stage of a frame in the engine. Used by <a class="el" href="a02901.html" title="Central registry for systems in the engine. Systems should be registered here before the engine is st...">Systems</a> to bucket systems by when they should run.  
+ <a href="a02865.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00248_source.html">FrameStage.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:af6ea181be91b7069f9f52557a1445e1a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02865.html#af6ea181be91b7069f9f52557a1445e1a">V</a> : std::uint32_t { <br />
+&#160;&#160;<a class="el" href="a02865.html#af6ea181be91b7069f9f52557a1445e1aa15e5f3b76e514e80175827b422de3053">FrameStart</a> = 0
+, <a class="el" href="a02865.html#af6ea181be91b7069f9f52557a1445e1aae1841fb58eed03ad746e8c4b86240cec">Update0</a> = 0
+, <a class="el" href="a02865.html#af6ea181be91b7069f9f52557a1445e1aa62af1c83438baa6083a75cc9b8607c63">Update1</a> = 1
+, <a class="el" href="a02865.html#af6ea181be91b7069f9f52557a1445e1aacacbc2d4e0d3c6f3073620730d0145eb">Update2</a> = 2
+, <br />
+&#160;&#160;<a class="el" href="a02865.html#af6ea181be91b7069f9f52557a1445e1aa7328b8a6a44b06374ea2f74db68b927d">Animate</a> = 3
+, <a class="el" href="a02865.html#af6ea181be91b7069f9f52557a1445e1aae39ab93e73fa7414f95b3748e3f333c7">MARKER_OncePerTick</a> = 3
+, <a class="el" href="a02865.html#af6ea181be91b7069f9f52557a1445e1aa7e7062476254536759fa6e3886642c34">MARKER_OncePerFrame</a> = 4
+, <a class="el" href="a02865.html#af6ea181be91b7069f9f52557a1445e1aa0b3d729fd10d15d7696ceeb159514bee">RenderEarlyRefresh</a> = 4
+, <br />
+&#160;&#160;<a class="el" href="a02865.html#af6ea181be91b7069f9f52557a1445e1aaa021f1980f88350a8b51b37a7ded6e9f">RenderDescriptorRefresh</a> = 5
+, <a class="el" href="a02865.html#af6ea181be91b7069f9f52557a1445e1aab76b45a8908b6932899af2250df0bcb0">Render</a> = 6
+, <a class="el" href="a02865.html#af6ea181be91b7069f9f52557a1445e1aacb8614a4b4f9a01a7106f99aac12cb3b">FrameEnd</a> = 7
+, <a class="el" href="a02865.html#af6ea181be91b7069f9f52557a1445e1aa26b344c7b826a7fab5414d6bd9ee6ae2">COUNT</a> = 8
+<br />
+ }</td></tr>
+<tr class="memdesc:af6ea181be91b7069f9f52557a1445e1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value-type for engine stage ids.  <a href="a02865.html#af6ea181be91b7069f9f52557a1445e1a">More...</a><br /></td></tr>
+<tr class="separator:af6ea181be91b7069f9f52557a1445e1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Container for the names of each stage of a frame in the engine. Used by <a class="el" href="a02901.html" title="Central registry for systems in the engine. Systems should be registered here before the engine is st...">Systems</a> to bucket systems by when they should run. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00248_source.html#l00016">16</a> of file <a class="el" href="a00248_source.html">FrameStage.hpp</a>.</p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="af6ea181be91b7069f9f52557a1445e1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6ea181be91b7069f9f52557a1445e1a">&#9670;&nbsp;</a></span>V</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a02865.html#af6ea181be91b7069f9f52557a1445e1a">bl::engine::FrameStage::V</a> : std::uint32_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Value-type for engine stage ids. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af6ea181be91b7069f9f52557a1445e1aa15e5f3b76e514e80175827b422de3053"></a>FrameStart&#160;</td><td class="fielddoc"><p>Stages 0-2 are for user-defined systems. Note that <a class="el" href="a02889.html#a075c706b2991a968665ffbb7bf322271" title="Perform logic updates. This is called before any systems are invoked once per tick.">State::update</a> is called before any systems are called into </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af6ea181be91b7069f9f52557a1445e1aae1841fb58eed03ad746e8c4b86240cec"></a>Update0&#160;</td><td class="fielddoc"><p>Generic update stage. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af6ea181be91b7069f9f52557a1445e1aa62af1c83438baa6083a75cc9b8607c63"></a>Update1&#160;</td><td class="fielddoc"><p>Generic update stage. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af6ea181be91b7069f9f52557a1445e1aacacbc2d4e0d3c6f3073620730d0145eb"></a>Update2&#160;</td><td class="fielddoc"><p>Generic update stage. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af6ea181be91b7069f9f52557a1445e1aa7328b8a6a44b06374ea2f74db68b927d"></a>Animate&#160;</td><td class="fielddoc"><p>Renderer components such as Animation update here. Also when velocity is applied to transforms </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af6ea181be91b7069f9f52557a1445e1aae39ab93e73fa7414f95b3748e3f333c7"></a>MARKER_OncePerTick&#160;</td><td class="fielddoc"><p>This stage and earlier are called once per engine tick. Stages later than this are called once per frame (render + present). There may be more than one tick per frame </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af6ea181be91b7069f9f52557a1445e1aa7e7062476254536759fa6e3886642c34"></a>MARKER_OncePerFrame&#160;</td><td class="fielddoc"><p>This stage and later are called once per frame. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af6ea181be91b7069f9f52557a1445e1aa0b3d729fd10d15d7696ceeb159514bee"></a>RenderEarlyRefresh&#160;</td><td class="fielddoc"><p>Separate stage for descriptors to be modified prior to syncing into scene buffers. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af6ea181be91b7069f9f52557a1445e1aaa021f1980f88350a8b51b37a7ded6e9f"></a>RenderDescriptorRefresh&#160;</td><td class="fielddoc"><p>Syncs dirty descriptor components (ie transforms) into scene-local descriptor sets. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af6ea181be91b7069f9f52557a1445e1aab76b45a8908b6932899af2250df0bcb0"></a>Render&#160;</td><td class="fielddoc"><p>Records command buffers and submits to the GPU. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af6ea181be91b7069f9f52557a1445e1aacb8614a4b4f9a01a7106f99aac12cb3b"></a>FrameEnd&#160;</td><td class="fielddoc"><p>Slot for more user-defined operations. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af6ea181be91b7069f9f52557a1445e1aa26b344c7b826a7fab5414d6bd9ee6ae2"></a>COUNT&#160;</td><td class="fielddoc"><p>The number of engine stages. </p>
+</td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a00248_source.html#l00018">18</a> of file <a class="el" href="a00248_source.html">FrameStage.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Engine/<a class="el" href="a00248_source.html">FrameStage.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:57 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:57:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

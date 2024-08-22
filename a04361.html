@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::rc::vk::SharedCommandBuffer Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,26 +66,215 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02284.html">bl</a></li><li class="navelem"><a class="el" href="a02294.html">rc</a></li><li class="navelem"><a class="el" href="a02295.html">vk</a></li><li class="navelem"><a class="el" href="a04360.html">TextureDoubleBuffered</a></li><li class="navelem"><a class="el" href="a04364.html">Image</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02303.html">bl</a></li><li class="navelem"><a class="el" href="a02313.html">rc</a></li><li class="navelem"><a class="el" href="a02314.html">vk</a></li><li class="navelem"><a class="el" href="a04361.html">SharedCommandBuffer</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
+<a href="a04358.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::rc::vk::TextureDoubleBuffered::Image Member List</div>  </div>
+<div class="title">bl::rc::vk::SharedCommandBuffer Class Reference<div class="ingroups"><a class="el" href="a02289.html">Renderer</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a04364.html">bl::rc::vk::TextureDoubleBuffered::Image</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a04364.html#ad7af26dab01d9bdcf59b560f3ea625a4">alloc</a></td><td class="entry"><a class="el" href="a04364.html">bl::rc::vk::TextureDoubleBuffered::Image</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a04364.html#a575bf3206e766a503c55c5a632cfdc94">allocInfo</a></td><td class="entry"><a class="el" href="a04364.html">bl::rc::vk::TextureDoubleBuffered::Image</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a04364.html#ae561f11874ed0b3f20d21e0e443705a0">image</a></td><td class="entry"><a class="el" href="a04364.html">bl::rc::vk::TextureDoubleBuffered::Image</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a04364.html#a763313e844a5247d3f80a8159ead8af5">view</a></td><td class="entry"><a class="el" href="a04364.html">bl::rc::vk::TextureDoubleBuffered::Image</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Wrapper around a command buffer allocated from a <a class="el" href="a04365.html" title="Wrapper around a Vulkan command pool that is intended to be shared for short-lived command buffers....">SharedCommandPool</a>.  
+ <a href="a04361.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a01133_source.html">SharedCommandBuffer.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a3df3e5d5f1ba7bb4b432b8410768330f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04361.html#a3df3e5d5f1ba7bb4b432b8410768330f">SharedCommandBuffer</a> (<a class="el" href="a04361.html">SharedCommandBuffer</a> &amp;&amp;move)</td></tr>
+<tr class="memdesc:a3df3e5d5f1ba7bb4b432b8410768330f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move constructor.  <a href="a04361.html#a3df3e5d5f1ba7bb4b432b8410768330f">More...</a><br /></td></tr>
+<tr class="separator:a3df3e5d5f1ba7bb4b432b8410768330f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d4ca4bd67e357a4a5580b1b1aa0cd52"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04361.html#a3d4ca4bd67e357a4a5580b1b1aa0cd52">~SharedCommandBuffer</a> ()</td></tr>
+<tr class="memdesc:a3d4ca4bd67e357a4a5580b1b1aa0cd52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the lock on the pool if not already submitted.  <a href="a04361.html#a3d4ca4bd67e357a4a5580b1b1aa0cd52">More...</a><br /></td></tr>
+<tr class="separator:a3d4ca4bd67e357a4a5580b1b1aa0cd52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae75d11501e1a6cf450305876b89b5bd0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04361.html#ae75d11501e1a6cf450305876b89b5bd0">operator VkCommandBuffer</a> ()</td></tr>
+<tr class="memdesc:ae75d11501e1a6cf450305876b89b5bd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the underlying command buffer.  <a href="a04361.html#ae75d11501e1a6cf450305876b89b5bd0">More...</a><br /></td></tr>
+<tr class="separator:ae75d11501e1a6cf450305876b89b5bd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a851b76460f481d6fa35c8f7145778a6c"><td class="memItemLeft" align="right" valign="top">VkCommandBuffer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04361.html#a851b76460f481d6fa35c8f7145778a6c">get</a> ()</td></tr>
+<tr class="memdesc:a851b76460f481d6fa35c8f7145778a6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the underlying command buffer.  <a href="a04361.html#a851b76460f481d6fa35c8f7145778a6c">More...</a><br /></td></tr>
+<tr class="separator:a851b76460f481d6fa35c8f7145778a6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9672efb9777484cc47217323b31567b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04361.html#a9672efb9777484cc47217323b31567b4">submit</a> ()</td></tr>
+<tr class="memdesc:a9672efb9777484cc47217323b31567b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Submits the buffer and releases the lock on the pool.  <a href="a04361.html#a9672efb9777484cc47217323b31567b4">More...</a><br /></td></tr>
+<tr class="separator:a9672efb9777484cc47217323b31567b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a6ac3aafff0382c8f5ab76dc990667e5b"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04361.html#a6ac3aafff0382c8f5ab76dc990667e5b">SharedCommandPool</a></td></tr>
+<tr class="separator:a6ac3aafff0382c8f5ab76dc990667e5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Wrapper around a command buffer allocated from a <a class="el" href="a04365.html" title="Wrapper around a Vulkan command pool that is intended to be shared for short-lived command buffers....">SharedCommandPool</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01133_source.html#l00019">19</a> of file <a class="el" href="a01133_source.html">SharedCommandBuffer.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a3df3e5d5f1ba7bb4b432b8410768330f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3df3e5d5f1ba7bb4b432b8410768330f">&#9670;&nbsp;</a></span>SharedCommandBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::vk::SharedCommandBuffer::SharedCommandBuffer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04361.html">SharedCommandBuffer</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>move</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Move constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">move</td><td>The command buffer to move from </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02081_source.html#l00013">13</a> of file <a class="el" href="a02081_source.html">SharedCommandBuffer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3d4ca4bd67e357a4a5580b1b1aa0cd52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d4ca4bd67e357a4a5580b1b1aa0cd52">&#9670;&nbsp;</a></span>~SharedCommandBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::vk::SharedCommandBuffer::~SharedCommandBuffer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Releases the lock on the pool if not already submitted. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02081_source.html#l00026">26</a> of file <a class="el" href="a02081_source.html">SharedCommandBuffer.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a851b76460f481d6fa35c8f7145778a6c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a851b76460f481d6fa35c8f7145778a6c">&#9670;&nbsp;</a></span>get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkCommandBuffer bl::rc::vk::SharedCommandBuffer::get </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Access the underlying command buffer. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01133_source.html#l00041">41</a> of file <a class="el" href="a01133_source.html">SharedCommandBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae75d11501e1a6cf450305876b89b5bd0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae75d11501e1a6cf450305876b89b5bd0">&#9670;&nbsp;</a></span>operator VkCommandBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::vk::SharedCommandBuffer::operator VkCommandBuffer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Access the underlying command buffer. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01133_source.html#l00036">36</a> of file <a class="el" href="a01133_source.html">SharedCommandBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a9672efb9777484cc47217323b31567b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9672efb9777484cc47217323b31567b4">&#9670;&nbsp;</a></span>submit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::vk::SharedCommandBuffer::submit </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Submits the buffer and releases the lock on the pool. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02081_source.html#l00033">33</a> of file <a class="el" href="a02081_source.html">SharedCommandBuffer.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a6ac3aafff0382c8f5ab76dc990667e5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ac3aafff0382c8f5ab76dc990667e5b">&#9670;&nbsp;</a></span>SharedCommandPool</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a04365.html">SharedCommandPool</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01133_source.html#l00060">60</a> of file <a class="el" href="a01133_source.html">SharedCommandBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Render/Vulkan/<a class="el" href="a01133_source.html">SharedCommandBuffer.hpp</a></li>
+<li>src/Render/Vulkan/<a class="el" href="a02081_source.html">SharedCommandBuffer.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:57:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

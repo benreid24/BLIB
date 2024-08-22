@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::pcl::ParticleManagerBase Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,32 +66,280 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02284.html">bl</a></li><li class="navelem"><a class="el" href="a02328.html">particle</a></li><li class="navelem"><a class="el" href="a03680.html">System</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02303.html">bl</a></li><li class="navelem"><a class="el" href="a02346.html">pcl</a></li><li class="navelem"><a class="el" href="a03677.html">ParticleManagerBase</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a03674.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::particle::System&lt; T &gt; Member List</div>  </div>
+<div class="title">bl::pcl::ParticleManagerBase Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a02288.html">Particles</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a03680.html">bl::particle::System&lt; T &gt;</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a03680.html#a0d009bfaf92233041239e98d35ebcc83">CreateFunction</a> typedef</td><td class="entry"><a class="el" href="a03680.html">bl::particle::System&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a03680.html#a37becae7fd8c8406c359d52b4342976e">particleCount</a>() const</td><td class="entry"><a class="el" href="a03680.html">bl::particle::System&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03680.html#a7d9f45995a7bf9bebb0979a786f94dc6">render</a>(const RenderFunction &amp;renderCb) const</td><td class="entry"><a class="el" href="a03680.html">bl::particle::System&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a03680.html#a6d65a82dfabc27d663f4422009e9c315">RenderFunction</a> typedef</td><td class="entry"><a class="el" href="a03680.html">bl::particle::System&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03680.html#ab2225537806f8d8a67edfcd641761e22">setCreateRate</a>(float createPerSecond)</td><td class="entry"><a class="el" href="a03680.html">bl::particle::System&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a03680.html#ab09259f65b61c222d9a8b21495527e69">setReplaceDestroyed</a>(bool replace)</td><td class="entry"><a class="el" href="a03680.html">bl::particle::System&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03680.html#a1f7b5ed87b4f3769a0e41e2328350377">setTargetCount</a>(unsigned int target)</td><td class="entry"><a class="el" href="a03680.html">bl::particle::System&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a03680.html#a32abd191fe590ed2e66b5f36ab6df945">System</a>(CreateFunction createFunction, unsigned int target, float createPerSecond)</td><td class="entry"><a class="el" href="a03680.html">bl::particle::System&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03680.html#a0ecdaa91ac7baccc80912e0f8b1058fb">update</a>(const UpdateFunction &amp;updateCb, float dt)</td><td class="entry"><a class="el" href="a03680.html">bl::particle::System&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a03680.html#ac97bdc4a2d1ce6d95ecff6419ce49fab">UpdateFunction</a> typedef</td><td class="entry"><a class="el" href="a03680.html">bl::particle::System&lt; T &gt;</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Base class for particle managers. Particle managers own and manage specific particle types.  
+ <a href="a03677.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00746_source.html">ParticleManagerBase.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::pcl::ParticleManagerBase:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a03677.png" usemap="#bl::pcl::ParticleManagerBase_map" alt=""/>
+  <map id="bl::pcl::ParticleManagerBase_map" name="bl::pcl::ParticleManagerBase_map">
+<area href="a03625.html" title="Particle manager for a specific type of particle. Instances are owned by the ParticleSystem and shoul..." alt="bl::pcl::ParticleManager&lt; T &gt;" shape="rect" coords="0,56,176,80"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a1194bc0eb50f94c735db26b839b245ab"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03677.html#a1194bc0eb50f94c735db26b839b245ab">~ParticleManagerBase</a> ()=default</td></tr>
+<tr class="memdesc:a1194bc0eb50f94c735db26b839b245ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the particle manager.  <a href="a03677.html#a1194bc0eb50f94c735db26b839b245ab">More...</a><br /></td></tr>
+<tr class="separator:a1194bc0eb50f94c735db26b839b245ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f3f17a0aaef2a36f3edc89b13f61970"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03677.html#a4f3f17a0aaef2a36f3edc89b13f61970">init</a> (<a class="el" href="a02833.html">engine::Engine</a> &amp;engine)=0</td></tr>
+<tr class="memdesc:a4f3f17a0aaef2a36f3edc89b13f61970"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called once after being constructed.  <a href="a03677.html#a4f3f17a0aaef2a36f3edc89b13f61970">More...</a><br /></td></tr>
+<tr class="separator:a4f3f17a0aaef2a36f3edc89b13f61970"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefd57e33311977e45b7c9753a99397d8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03677.html#aefd57e33311977e45b7c9753a99397d8">update</a> (<a class="el" href="a05097.html">util::ThreadPool</a> &amp;threadPool, float dt, float realDt)=0</td></tr>
+<tr class="memdesc:aefd57e33311977e45b7c9753a99397d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates all the particles in the particle manager.  <a href="a03677.html#aefd57e33311977e45b7c9753a99397d8">More...</a><br /></td></tr>
+<tr class="separator:aefd57e33311977e45b7c9753a99397d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a847efab86bc8aa104a7db11b51bb669a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03677.html#a847efab86bc8aa104a7db11b51bb669a">clearAndReset</a> ()=0</td></tr>
+<tr class="memdesc:a847efab86bc8aa104a7db11b51bb669a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys all particles, affectors, emitters, and sinks.  <a href="a03677.html#a847efab86bc8aa104a7db11b51bb669a">More...</a><br /></td></tr>
+<tr class="separator:a847efab86bc8aa104a7db11b51bb669a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9ffb033c516945471e183b2c06156a8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03677.html#ad9ffb033c516945471e183b2c06156a8">addToScene</a> (<a class="el" href="a04165.html">rc::Scene</a> *scene)=0</td></tr>
+<tr class="memdesc:ad9ffb033c516945471e183b2c06156a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the particle manager should be rendered in the given scene. May be called multiple times in order for multiple observers to view the same particles.  <a href="a03677.html#ad9ffb033c516945471e183b2c06156a8">More...</a><br /></td></tr>
+<tr class="separator:ad9ffb033c516945471e183b2c06156a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae39442d15d865d0033d19e2fbf7463fc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03677.html#ae39442d15d865d0033d19e2fbf7463fc">removeFromScene</a> ()=0</td></tr>
+<tr class="memdesc:ae39442d15d865d0033d19e2fbf7463fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the particles should be removed from its current scene.  <a href="a03677.html#ae39442d15d865d0033d19e2fbf7463fc">More...</a><br /></td></tr>
+<tr class="separator:ae39442d15d865d0033d19e2fbf7463fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Base class for particle managers. Particle managers own and manage specific particle types. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00746_source.html#l00025">25</a> of file <a class="el" href="a00746_source.html">ParticleManagerBase.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a1194bc0eb50f94c735db26b839b245ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1194bc0eb50f94c735db26b839b245ab">&#9670;&nbsp;</a></span>~ParticleManagerBase()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bl::pcl::ParticleManagerBase::~ParticleManagerBase </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destroys the particle manager. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad9ffb033c516945471e183b2c06156a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9ffb033c516945471e183b2c06156a8">&#9670;&nbsp;</a></span>addToScene()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::pcl::ParticleManagerBase::addToScene </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04165.html">rc::Scene</a> *&#160;</td>
+          <td class="paramname"><em>scene</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when the particle manager should be rendered in the given scene. May be called multiple times in order for multiple observers to view the same particles. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scene</td><td>The scene to add to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="a03625.html#a80d46bd829d453d2ebd0e3f7fdcab4c0">bl::pcl::ParticleManager&lt; T &gt;</a>.</p>
+
+</div>
+</div>
+<a id="a847efab86bc8aa104a7db11b51bb669a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a847efab86bc8aa104a7db11b51bb669a">&#9670;&nbsp;</a></span>clearAndReset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::pcl::ParticleManagerBase::clearAndReset </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destroys all particles, affectors, emitters, and sinks. </p>
+
+<p>Implemented in <a class="el" href="a03625.html#ab1e612263002cb2335ffe286d9912fdc">bl::pcl::ParticleManager&lt; T &gt;</a>.</p>
+
+</div>
+</div>
+<a id="a4f3f17a0aaef2a36f3edc89b13f61970"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f3f17a0aaef2a36f3edc89b13f61970">&#9670;&nbsp;</a></span>init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::pcl::ParticleManagerBase::init </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02833.html">engine::Engine</a> &amp;&#160;</td>
+          <td class="paramname"><em>engine</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called once after being constructed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">engine</td><td>The game engine instance </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="a03625.html#aa47f81d2b7655817085cf9d3258532b1">bl::pcl::ParticleManager&lt; T &gt;</a>.</p>
+
+</div>
+</div>
+<a id="ae39442d15d865d0033d19e2fbf7463fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae39442d15d865d0033d19e2fbf7463fc">&#9670;&nbsp;</a></span>removeFromScene()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::pcl::ParticleManagerBase::removeFromScene </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when the particles should be removed from its current scene. </p>
+
+<p>Implemented in <a class="el" href="a03625.html#afc43e653dc91c5aac23ef311c1932c03">bl::pcl::ParticleManager&lt; T &gt;</a>.</p>
+
+</div>
+</div>
+<a id="aefd57e33311977e45b7c9753a99397d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefd57e33311977e45b7c9753a99397d8">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::pcl::ParticleManagerBase::update </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a05097.html">util::ThreadPool</a> &amp;&#160;</td>
+          <td class="paramname"><em>threadPool</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>realDt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Updates all the particles in the particle manager. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">threadPool</td><td>The threadpool to use </td></tr>
+    <tr><td class="paramname">dt</td><td>Elapsed simulation time in seconds </td></tr>
+    <tr><td class="paramname">realDt</td><td>Elapsed real time in seconds </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="a03625.html#a4291bcdf8d04baf3d4a574c733d736c1">bl::pcl::ParticleManager&lt; T &gt;</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Particles/<a class="el" href="a00746_source.html">ParticleManagerBase.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:57 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:57:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

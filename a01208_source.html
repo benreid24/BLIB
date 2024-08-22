@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Resources.hpp Source File</title>
+<title>BLIB: include/BLIB/Resources/Ref.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,59 +66,284 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_70ae3ed4186da77d71126d34066606f0.html">Resources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Resources.hpp</div>  </div>
+<div class="title">Ref.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01208.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RESOURCES_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RESOURCES_HPP</span></div>
+<a href="a01208.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RESOURCES_REF_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RESOURCES_REF_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01190.html">BLIB/Resources/FileSystem.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01193.html">BLIB/Resources/GarbageCollector.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01196.html">BLIB/Resources/Loader.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01199.html">BLIB/Resources/Ref.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01202.html">BLIB/Resources/Resource.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01205.html">BLIB/Resources/ResourceManager.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01154.html">BLIB/Resources/Bundler.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01163.html">BLIB/Resources/Bundling/BundleMetadata.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01169.html">BLIB/Resources/Bundling/BundleSource.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01160.html">BLIB/Resources/Bundling/BundledFileMetadata.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06301.html">BLIB/Resources/Bundling/Config.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01172.html">BLIB/Resources/Bundling/FileHandler.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01175.html">BLIB/Resources/Bundling/FileHandlerContext.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01178.html">BLIB/Resources/Bundling/FileHandlers/AnimationHandler.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01181.html">BLIB/Resources/Bundling/FileHandlers/DefaultHandler.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01184.html">BLIB/Resources/Bundling/FileHandlers/PlaylistHandler.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01187.html">BLIB/Resources/Bundling/Manifest.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01154_html"><div class="ttname"><a href="a01154.html">Bundler.hpp</a></div></div>
-<div class="ttc" id="aa01160_html"><div class="ttname"><a href="a01160.html">BundledFileMetadata.hpp</a></div></div>
-<div class="ttc" id="aa01163_html"><div class="ttname"><a href="a01163.html">BundleMetadata.hpp</a></div></div>
-<div class="ttc" id="aa01169_html"><div class="ttname"><a href="a01169.html">BundleSource.hpp</a></div></div>
-<div class="ttc" id="aa01172_html"><div class="ttname"><a href="a01172.html">FileHandler.hpp</a></div></div>
-<div class="ttc" id="aa01175_html"><div class="ttname"><a href="a01175.html">FileHandlerContext.hpp</a></div></div>
-<div class="ttc" id="aa01178_html"><div class="ttname"><a href="a01178.html">AnimationHandler.hpp</a></div></div>
-<div class="ttc" id="aa01181_html"><div class="ttname"><a href="a01181.html">DefaultHandler.hpp</a></div></div>
-<div class="ttc" id="aa01184_html"><div class="ttname"><a href="a01184.html">PlaylistHandler.hpp</a></div></div>
-<div class="ttc" id="aa01187_html"><div class="ttname"><a href="a01187.html">Manifest.hpp</a></div></div>
-<div class="ttc" id="aa01190_html"><div class="ttname"><a href="a01190.html">FileSystem.hpp</a></div></div>
-<div class="ttc" id="aa01193_html"><div class="ttname"><a href="a01193.html">GarbageCollector.hpp</a></div></div>
-<div class="ttc" id="aa01196_html"><div class="ttname"><a href="a01196.html">Loader.hpp</a></div></div>
-<div class="ttc" id="aa01199_html"><div class="ttname"><a href="a01199.html">Ref.hpp</a></div></div>
-<div class="ttc" id="aa01202_html"><div class="ttname"><a href="a01202.html">Resource.hpp</a></div></div>
-<div class="ttc" id="aa01205_html"><div class="ttname"><a href="a01205.html">ResourceManager.hpp</a></div></div>
-<div class="ttc" id="aa06301_html"><div class="ttname"><a href="a06301.html">Config.hpp</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01211.html">BLIB/Resources/Resource.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06275.html">BLIB/Resources/State.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>gui</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">struct </span>Font;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>resource</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">class </span>ResourceManager;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TResourceType&gt;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a04529.html">   26</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04529.html">Ref</a> {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a04529.html#a456218f5b8fddcd2ab7698c3ccf97cbf">   31</a></span>&#160;    <a class="code" href="a04529.html#a456218f5b8fddcd2ab7698c3ccf97cbf">Ref</a>();</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a04529.html#aefbe2d35674fbc2880676de2d48f562e">   38</a></span>&#160;    <a class="code" href="a04529.html#aefbe2d35674fbc2880676de2d48f562e">Ref</a>(<span class="keyword">const</span> <a class="code" href="a04529.html">Ref</a>&amp; copy);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a04529.html#a3a5f210e53b7e03216a22605d6bfd9b6">   45</a></span>&#160;    <a class="code" href="a04529.html#a3a5f210e53b7e03216a22605d6bfd9b6">Ref</a>(<a class="code" href="a04529.html">Ref</a>&amp;&amp; copy);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TOther&gt;</div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="a04529.html#ade7991698d75aeb7d3d388125096868f">   54</a></span>&#160;    <a class="code" href="a04529.html#ade7991698d75aeb7d3d388125096868f">Ref</a>(<span class="keyword">const</span> <a class="code" href="a04529.html">Ref&lt;TOther&gt;</a>&amp; copy);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TOther&gt;</div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="a04529.html#a5b033ccde6eadc0c3065fc5c375961a0">   63</a></span>&#160;    <a class="code" href="a04529.html#a5b033ccde6eadc0c3065fc5c375961a0">Ref</a>(<a class="code" href="a04529.html">Ref&lt;TOther&gt;</a>&amp;&amp; move);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="a04529.html#a0c55db25c96fa9e7ab3e56fccdd1f040">   68</a></span>&#160;    <a class="code" href="a04529.html#a0c55db25c96fa9e7ab3e56fccdd1f040">~Ref</a>();</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="a04529.html#abaea3846d5c6f42711e7a84a80356de0">   76</a></span>&#160;    <a class="code" href="a04529.html">Ref</a>&amp; <a class="code" href="a04529.html#abaea3846d5c6f42711e7a84a80356de0">operator=</a>(<span class="keyword">const</span> <a class="code" href="a04529.html">Ref</a>&amp; copy);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TOther&gt;</div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="a04529.html#acb7ac9a4e77bed6cd0415587da5163b1">   86</a></span>&#160;    <a class="code" href="a04529.html">Ref</a>&amp; <a class="code" href="a04529.html#acb7ac9a4e77bed6cd0415587da5163b1">operator=</a>(<span class="keyword">const</span> <a class="code" href="a04529.html">Ref&lt;TOther&gt;</a>&amp; copy);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="a04529.html#a683c10e69eec08df622b9902fca1c115">   94</a></span>&#160;    <a class="code" href="a04529.html">Ref</a>&amp; <a class="code" href="a04529.html#a683c10e69eec08df622b9902fca1c115">operator=</a>(<a class="code" href="a04529.html">Ref</a>&amp;&amp; copy) noexcept;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TOther&gt;</div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="a04529.html#ad09a45390d9f533d5624c9bd13b40a3b">  104</a></span>&#160;    <a class="code" href="a04529.html">Ref</a>&amp; <a class="code" href="a04529.html#ad09a45390d9f533d5624c9bd13b40a3b">operator=</a>(<a class="code" href="a04529.html">Ref&lt;TOther&gt;</a>&amp;&amp; move) noexcept;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="a04529.html#a6018425045a28689ecb3c2665083d60e">  111</a></span>&#160;    constexpr TResourceType&amp; <a class="code" href="a04529.html#a6018425045a28689ecb3c2665083d60e">operator*</a>();</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="a04529.html#afcddf98fab49bc55e0d4b0d93e0768b0">  118</a></span>&#160;    constexpr <span class="keyword">const</span> TResourceType&amp; <a class="code" href="a04529.html#afcddf98fab49bc55e0d4b0d93e0768b0">operator*</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="a04529.html#a9c25de9b6f9e367dcf4219925ff59d04">  125</a></span>&#160;    constexpr TResourceType* <a class="code" href="a04529.html#a9c25de9b6f9e367dcf4219925ff59d04">operator-&gt;</a>();</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
+<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="a04529.html#a5697eeb0148d6768d395865cd8bde361">  132</a></span>&#160;    constexpr <span class="keyword">const</span> TResourceType* <a class="code" href="a04529.html#a5697eeb0148d6768d395865cd8bde361">operator-&gt;</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
+<div class="line"><a name="l00139"></a><span class="lineno"><a class="line" href="a04529.html#a356bff39b6254c3d12d522b33de2bd66">  139</a></span>&#160;    constexpr TResourceType* <a class="code" href="a04529.html#a356bff39b6254c3d12d522b33de2bd66">get</a>();</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
+<div class="line"><a name="l00146"></a><span class="lineno"><a class="line" href="a04529.html#a00b466b079ddda423c3f2d661af19cc6">  146</a></span>&#160;    constexpr <span class="keyword">const</span> TResourceType* <a class="code" href="a04529.html#a00b466b079ddda423c3f2d661af19cc6">get</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
+<div class="line"><a name="l00153"></a><span class="lineno"><a class="line" href="a04529.html#a38eb67a2dbd29a87cfa4859dc11b0290">  153</a></span>&#160;    <span class="keyword">operator</span> bool() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
+<div class="line"><a name="l00161"></a><span class="lineno"><a class="line" href="a04529.html#a1f478c0a2406af99110fc7f31d69587d">  161</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04529.html#a1f478c0a2406af99110fc7f31d69587d">forceInCache</a>(<span class="keywordtype">bool</span> force = <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
+<div class="line"><a name="l00166"></a><span class="lineno"><a class="line" href="a04529.html#a50fd528f3507d277bd2466cafac037d9">  166</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04529.html#a50fd528f3507d277bd2466cafac037d9">release</a>();</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    TResourceType* data;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>* refCount;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordtype">bool</span>* forceCache;</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <a class="code" href="a04529.html#aed701787ab4897bc9a5cdc70f97c3292">Ref</a>(<a class="code" href="a04533.html">Resource&lt;TResourceType&gt;</a>* resource);</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TOther&gt;</div>
+<div class="line"><a name="l00176"></a><span class="lineno"><a class="line" href="a04529.html#aed701787ab4897bc9a5cdc70f97c3292">  176</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a04529.html">Ref</a>;</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a04525.html">ResourceManager</a>&lt;TResourceType&gt;;</div>
+<div class="line"><a name="l00178"></a><span class="lineno"><a class="line" href="a04529.html#ab4971339d6bc377a1679c552cd3069b1">  178</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">struct </span><a class="code" href="a05165.html">gui::Font</a>;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;};</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00184"></a><span class="lineno"><a class="line" href="a04529.html#a456218f5b8fddcd2ab7698c3ccf97cbf">  184</a></span>&#160;<a class="code" href="a04529.html#aed701787ab4897bc9a5cdc70f97c3292">Ref&lt;T&gt;::Ref</a>()</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;: data(nullptr)</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;, refCount(nullptr)</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;, forceCache(nullptr) {}</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00190"></a><span class="lineno"><a class="line" href="a04529.html#a627ef3be4856fa56a1ac781755650d8a">  190</a></span>&#160;<a class="code" href="a04529.html#aed701787ab4897bc9a5cdc70f97c3292">Ref&lt;T&gt;::Ref</a>(<a class="code" href="a04533.html">Resource&lt;T&gt;</a>* r)</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;: data(&amp;r-&gt;data)</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;, refCount(&amp;r-&gt;refCount)</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;, forceCache(&amp;r-&gt;forceInCache) {</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    ++(*refCount);</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;}</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160; </div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00198"></a><span class="lineno"><a class="line" href="a04529.html#aefbe2d35674fbc2880676de2d48f562e">  198</a></span>&#160;<a class="code" href="a04529.html#aed701787ab4897bc9a5cdc70f97c3292">Ref&lt;T&gt;::Ref</a>(<span class="keyword">const</span> <a class="code" href="a04529.html">Ref</a>&amp; copy)</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;: data(copy.data)</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;, refCount(copy.refCount)</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;, forceCache(copy.forceCache) {</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    <span class="keywordflow">if</span> (refCount) { ++(*refCount); }</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;}</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160; </div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
+<div class="line"><a name="l00207"></a><span class="lineno"><a class="line" href="a04529.html#a1f7b5f358fde0e945fba47b50a38c053">  207</a></span>&#160;<a class="code" href="a04529.html#aed701787ab4897bc9a5cdc70f97c3292">Ref&lt;T&gt;::Ref</a>(<span class="keyword">const</span> <a class="code" href="a04529.html">Ref&lt;U&gt;</a>&amp; copy)</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;: data(copy.data)</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;, refCount(copy.refCount)</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;, forceCache(copy.forceCache) {</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    static_assert(std::is_base_of_v&lt;T, U&gt;, <span class="stringliteral">&quot;Ref may only be converted to Ref of base&quot;</span>);</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <span class="keywordflow">if</span> (refCount) { ++(*refCount); }</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;}</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160; </div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00216"></a><span class="lineno"><a class="line" href="a04529.html#a3a5f210e53b7e03216a22605d6bfd9b6">  216</a></span>&#160;<a class="code" href="a04529.html#aed701787ab4897bc9a5cdc70f97c3292">Ref&lt;T&gt;::Ref</a>(<a class="code" href="a04529.html">Ref</a>&amp;&amp; copy)</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;: data(copy.data)</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;, refCount(copy.refCount)</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;, forceCache(copy.forceCache) {</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    copy.data       = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    copy.refCount   = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    copy.forceCache = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;}</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160; </div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
+<div class="line"><a name="l00227"></a><span class="lineno"><a class="line" href="a04529.html#a8f8ad2f7af3beb3f3b4b669254d71585">  227</a></span>&#160;<a class="code" href="a04529.html#aed701787ab4897bc9a5cdc70f97c3292">Ref&lt;T&gt;::Ref</a>(<a class="code" href="a04529.html">Ref&lt;U&gt;</a>&amp;&amp; copy)</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;: data(copy.data)</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;, refCount(copy.refCount)</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;, forceCache(copy.forceCache) {</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    static_assert(std::is_base_of_v&lt;T, U&gt;, <span class="stringliteral">&quot;Ref may only be converted to Ref of base&quot;</span>);</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    copy.data       = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    copy.refCount   = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    copy.forceCache = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;}</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160; </div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00238"></a><span class="lineno"><a class="line" href="a04529.html#a0c55db25c96fa9e7ab3e56fccdd1f040">  238</a></span>&#160;<a class="code" href="a04529.html#a0c55db25c96fa9e7ab3e56fccdd1f040">Ref&lt;T&gt;::~Ref</a>() {</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    release();</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;}</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160; </div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00243"></a><span class="lineno"><a class="line" href="a04529.html#abaea3846d5c6f42711e7a84a80356de0">  243</a></span>&#160;<a class="code" href="a04529.html">Ref&lt;T&gt;</a>&amp; <a class="code" href="a04529.html#abaea3846d5c6f42711e7a84a80356de0">Ref&lt;T&gt;::operator=</a>(<span class="keyword">const</span> <a class="code" href="a04529.html">Ref</a>&amp; copy) {</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    release();</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    data       = copy.data;</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    refCount   = copy.refCount;</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    forceCache = copy.forceCache;</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    <span class="keywordflow">if</span> (refCount) { ++(*refCount); }</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;}</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160; </div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
+<div class="line"><a name="l00254"></a><span class="lineno"><a class="line" href="a04529.html#a12872e3b777473949985a4c81e5f11f6">  254</a></span>&#160;<a class="code" href="a04529.html">Ref&lt;T&gt;</a>&amp; <a class="code" href="a04529.html#abaea3846d5c6f42711e7a84a80356de0">Ref&lt;T&gt;::operator=</a>(<span class="keyword">const</span> <a class="code" href="a04529.html">Ref&lt;U&gt;</a>&amp; copy) {</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    static_assert(std::is_base_of_v&lt;T, U&gt;, <span class="stringliteral">&quot;Ref may only be converted to Ref of base&quot;</span>);</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160; </div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    release();</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    data       = copy.data;</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    refCount   = copy.refCount;</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    forceCache = copy.forceCache;</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    <span class="keywordflow">if</span> (refCount) { ++(*refCount); }</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;}</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160; </div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00266"></a><span class="lineno"><a class="line" href="a04529.html#a683c10e69eec08df622b9902fca1c115">  266</a></span>&#160;<a class="code" href="a04529.html">Ref&lt;T&gt;</a>&amp; <a class="code" href="a04529.html#abaea3846d5c6f42711e7a84a80356de0">Ref&lt;T&gt;::operator=</a>(<a class="code" href="a04529.html">Ref</a>&amp;&amp; copy) noexcept {</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    release();</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    data            = copy.data;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    refCount        = copy.refCount;</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    forceCache      = copy.forceCache;</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    copy.data       = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    copy.refCount   = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    copy.forceCache = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;}</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160; </div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
+<div class="line"><a name="l00279"></a><span class="lineno"><a class="line" href="a04529.html#abd913e921472daaa59873d3f5c4430fd">  279</a></span>&#160;<a class="code" href="a04529.html">Ref&lt;T&gt;</a>&amp; <a class="code" href="a04529.html#abaea3846d5c6f42711e7a84a80356de0">Ref&lt;T&gt;::operator=</a>(<a class="code" href="a04529.html">Ref&lt;U&gt;</a>&amp;&amp; copy) noexcept {</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    static_assert(std::is_base_of_v&lt;T, U&gt;, <span class="stringliteral">&quot;Ref may only be converted to Ref of base&quot;</span>);</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160; </div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    release();</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    data            = copy.data;</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    refCount        = copy.refCount;</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    forceCache      = copy.forceCache;</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    copy.data       = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    copy.refCount   = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    copy.forceCache = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;}</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160; </div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00293"></a><span class="lineno"><a class="line" href="a04529.html#a6018425045a28689ecb3c2665083d60e">  293</a></span>&#160;constexpr T&amp; <a class="code" href="a04529.html#a6018425045a28689ecb3c2665083d60e">Ref&lt;T&gt;::operator*</a>() {</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    <span class="keywordflow">return</span> *data;</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;}</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160; </div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00298"></a><span class="lineno"><a class="line" href="a04529.html#afcddf98fab49bc55e0d4b0d93e0768b0">  298</a></span>&#160;constexpr <span class="keyword">const</span> T&amp; <a class="code" href="a04529.html#a6018425045a28689ecb3c2665083d60e">Ref&lt;T&gt;::operator*</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    <span class="keywordflow">return</span> *data;</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;}</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160; </div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00303"></a><span class="lineno"><a class="line" href="a04529.html#a9c25de9b6f9e367dcf4219925ff59d04">  303</a></span>&#160;constexpr T* <a class="code" href="a04529.html#a9c25de9b6f9e367dcf4219925ff59d04">Ref&lt;T&gt;::operator-&gt;</a>() {</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    <span class="keywordflow">return</span> data;</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;}</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160; </div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00308"></a><span class="lineno"><a class="line" href="a04529.html#a5697eeb0148d6768d395865cd8bde361">  308</a></span>&#160;constexpr <span class="keyword">const</span> T* <a class="code" href="a04529.html#a9c25de9b6f9e367dcf4219925ff59d04">Ref&lt;T&gt;::operator-&gt;</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    <span class="keywordflow">return</span> data;</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;}</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160; </div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00313"></a><span class="lineno"><a class="line" href="a04529.html#a356bff39b6254c3d12d522b33de2bd66">  313</a></span>&#160;constexpr T* <a class="code" href="a04529.html#a356bff39b6254c3d12d522b33de2bd66">Ref&lt;T&gt;::get</a>() {</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    <span class="keywordflow">return</span> data;</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;}</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160; </div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00318"></a><span class="lineno"><a class="line" href="a04529.html#a00b466b079ddda423c3f2d661af19cc6">  318</a></span>&#160;constexpr <span class="keyword">const</span> T* <a class="code" href="a04529.html#a356bff39b6254c3d12d522b33de2bd66">Ref&lt;T&gt;::get</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    <span class="keywordflow">return</span> data;</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;}</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160; </div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00323"></a><span class="lineno"><a class="line" href="a04529.html#a38eb67a2dbd29a87cfa4859dc11b0290">  323</a></span>&#160;<a class="code" href="a04529.html">Ref&lt;T&gt;::operator</a> bool()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    <span class="keywordflow">return</span> data != <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;}</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160; </div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00328"></a><span class="lineno"><a class="line" href="a04529.html#a1f478c0a2406af99110fc7f31d69587d">  328</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04529.html#a1f478c0a2406af99110fc7f31d69587d">Ref&lt;T&gt;::forceInCache</a>(<span class="keywordtype">bool</span> f) {</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    *forceCache = f;</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;}</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160; </div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00333"></a><span class="lineno"><a class="line" href="a04529.html#a50fd528f3507d277bd2466cafac037d9">  333</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04529.html#a50fd528f3507d277bd2466cafac037d9">Ref&lt;T&gt;::release</a>() {</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    <span class="keywordflow">if</span> (refCount &amp;&amp; !State::appExiting) {</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;        --(*refCount);</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;        data       = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;        refCount   = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;        forceCache = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;    }</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;}</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160; </div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;} <span class="comment">// namespace resource</span></div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160; </div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01211_html"><div class="ttname"><a href="a01211.html">Resource.hpp</a></div></div>
+<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04525_html"><div class="ttname"><a href="a04525.html">bl::resource::ResourceManager</a></div><div class="ttdoc">Single template based resource management class. Meant for storing data exactly once,...</div><div class="ttdef"><b>Definition:</b> <a href="a01214_source.html#l00052">ResourceManager.hpp:54</a></div></div>
+<div class="ttc" id="aa04529_html"><div class="ttname"><a href="a04529.html">bl::resource::Ref</a></div><div class="ttdoc">Represents a reference to a managed resource. Performs reference counting, but resources are never de...</div><div class="ttdef"><b>Definition:</b> <a href="a01208_source.html#l00026">Ref.hpp:26</a></div></div>
+<div class="ttc" id="aa04529_html_a00b466b079ddda423c3f2d661af19cc6"><div class="ttname"><a href="a04529.html#a00b466b079ddda423c3f2d661af19cc6">bl::resource::Ref::get</a></div><div class="ttdeci">constexpr const TResourceType * get() const</div><div class="ttdoc">Directly get the pointer to the underlying resource.</div><div class="ttdef"><b>Definition:</b> <a href="a01208_source.html#l00318">Ref.hpp:318</a></div></div>
+<div class="ttc" id="aa04529_html_a0c55db25c96fa9e7ab3e56fccdd1f040"><div class="ttname"><a href="a04529.html#a0c55db25c96fa9e7ab3e56fccdd1f040">bl::resource::Ref::~Ref</a></div><div class="ttdeci">~Ref()</div><div class="ttdoc">Destroy the Ref.</div><div class="ttdef"><b>Definition:</b> <a href="a01208_source.html#l00238">Ref.hpp:238</a></div></div>
+<div class="ttc" id="aa04529_html_a1f478c0a2406af99110fc7f31d69587d"><div class="ttname"><a href="a04529.html#a1f478c0a2406af99110fc7f31d69587d">bl::resource::Ref::forceInCache</a></div><div class="ttdeci">void forceInCache(bool force=true)</div><div class="ttdoc">Calling this will keep the underlying resource in memory even if all references are released.</div><div class="ttdef"><b>Definition:</b> <a href="a01208_source.html#l00328">Ref.hpp:328</a></div></div>
+<div class="ttc" id="aa04529_html_a356bff39b6254c3d12d522b33de2bd66"><div class="ttname"><a href="a04529.html#a356bff39b6254c3d12d522b33de2bd66">bl::resource::Ref::get</a></div><div class="ttdeci">constexpr TResourceType * get()</div><div class="ttdoc">Directly get the pointer to the underlying resource.</div><div class="ttdef"><b>Definition:</b> <a href="a01208_source.html#l00313">Ref.hpp:313</a></div></div>
+<div class="ttc" id="aa04529_html_a3a5f210e53b7e03216a22605d6bfd9b6"><div class="ttname"><a href="a04529.html#a3a5f210e53b7e03216a22605d6bfd9b6">bl::resource::Ref::Ref</a></div><div class="ttdeci">Ref(Ref &amp;&amp;copy)</div><div class="ttdoc">Construct a new Ref from a Ref to be copied.</div><div class="ttdef"><b>Definition:</b> <a href="a01208_source.html#l00216">Ref.hpp:216</a></div></div>
+<div class="ttc" id="aa04529_html_a456218f5b8fddcd2ab7698c3ccf97cbf"><div class="ttname"><a href="a04529.html#a456218f5b8fddcd2ab7698c3ccf97cbf">bl::resource::Ref::Ref</a></div><div class="ttdeci">Ref()</div><div class="ttdoc">Construct an empty Ref that does not refer to any resource.</div><div class="ttdef"><b>Definition:</b> <a href="a01208_source.html#l00184">Ref.hpp:184</a></div></div>
+<div class="ttc" id="aa04529_html_a50fd528f3507d277bd2466cafac037d9"><div class="ttname"><a href="a04529.html#a50fd528f3507d277bd2466cafac037d9">bl::resource::Ref::release</a></div><div class="ttdeci">void release()</div><div class="ttdoc">Releases the held resource.</div><div class="ttdef"><b>Definition:</b> <a href="a01208_source.html#l00333">Ref.hpp:333</a></div></div>
+<div class="ttc" id="aa04529_html_a5697eeb0148d6768d395865cd8bde361"><div class="ttname"><a href="a04529.html#a5697eeb0148d6768d395865cd8bde361">bl::resource::Ref::operator-&gt;</a></div><div class="ttdeci">constexpr const TResourceType * operator-&gt;() const</div><div class="ttdoc">Dereference the ref into the underlying resource.</div><div class="ttdef"><b>Definition:</b> <a href="a01208_source.html#l00308">Ref.hpp:308</a></div></div>
+<div class="ttc" id="aa04529_html_a5b033ccde6eadc0c3065fc5c375961a0"><div class="ttname"><a href="a04529.html#a5b033ccde6eadc0c3065fc5c375961a0">bl::resource::Ref::Ref</a></div><div class="ttdeci">Ref(Ref&lt; TOther &gt; &amp;&amp;move)</div><div class="ttdoc">Helper to cast between compatible pointer types.</div></div>
+<div class="ttc" id="aa04529_html_a6018425045a28689ecb3c2665083d60e"><div class="ttname"><a href="a04529.html#a6018425045a28689ecb3c2665083d60e">bl::resource::Ref::operator*</a></div><div class="ttdeci">constexpr TResourceType &amp; operator*()</div><div class="ttdoc">Dereference the ref into the underlying resource.</div><div class="ttdef"><b>Definition:</b> <a href="a01208_source.html#l00293">Ref.hpp:293</a></div></div>
+<div class="ttc" id="aa04529_html_a683c10e69eec08df622b9902fca1c115"><div class="ttname"><a href="a04529.html#a683c10e69eec08df622b9902fca1c115">bl::resource::Ref::operator=</a></div><div class="ttdeci">Ref &amp; operator=(Ref &amp;&amp;copy) noexcept</div><div class="ttdoc">Copies this Ref from another one and invalidates the original.</div><div class="ttdef"><b>Definition:</b> <a href="a01208_source.html#l00266">Ref.hpp:266</a></div></div>
+<div class="ttc" id="aa04529_html_a9c25de9b6f9e367dcf4219925ff59d04"><div class="ttname"><a href="a04529.html#a9c25de9b6f9e367dcf4219925ff59d04">bl::resource::Ref::operator-&gt;</a></div><div class="ttdeci">constexpr TResourceType * operator-&gt;()</div><div class="ttdoc">Dereference the ref into the underlying resource.</div><div class="ttdef"><b>Definition:</b> <a href="a01208_source.html#l00303">Ref.hpp:303</a></div></div>
+<div class="ttc" id="aa04529_html_abaea3846d5c6f42711e7a84a80356de0"><div class="ttname"><a href="a04529.html#abaea3846d5c6f42711e7a84a80356de0">bl::resource::Ref::operator=</a></div><div class="ttdeci">Ref &amp; operator=(const Ref &amp;copy)</div><div class="ttdoc">Copies this Ref from another one.</div><div class="ttdef"><b>Definition:</b> <a href="a01208_source.html#l00243">Ref.hpp:243</a></div></div>
+<div class="ttc" id="aa04529_html_acb7ac9a4e77bed6cd0415587da5163b1"><div class="ttname"><a href="a04529.html#acb7ac9a4e77bed6cd0415587da5163b1">bl::resource::Ref::operator=</a></div><div class="ttdeci">Ref &amp; operator=(const Ref&lt; TOther &gt; &amp;copy)</div><div class="ttdoc">Helper to cast between compatible pointer types.</div></div>
+<div class="ttc" id="aa04529_html_ad09a45390d9f533d5624c9bd13b40a3b"><div class="ttname"><a href="a04529.html#ad09a45390d9f533d5624c9bd13b40a3b">bl::resource::Ref::operator=</a></div><div class="ttdeci">Ref &amp; operator=(Ref&lt; TOther &gt; &amp;&amp;move) noexcept</div><div class="ttdoc">Helper to cast between compatible pointer types.</div></div>
+<div class="ttc" id="aa04529_html_ade7991698d75aeb7d3d388125096868f"><div class="ttname"><a href="a04529.html#ade7991698d75aeb7d3d388125096868f">bl::resource::Ref::Ref</a></div><div class="ttdeci">Ref(const Ref&lt; TOther &gt; &amp;copy)</div><div class="ttdoc">Helper to cast between compatible pointer types.</div></div>
+<div class="ttc" id="aa04529_html_aed701787ab4897bc9a5cdc70f97c3292"><div class="ttname"><a href="a04529.html#aed701787ab4897bc9a5cdc70f97c3292">bl::resource::Ref::Ref</a></div><div class="ttdeci">friend class Ref</div><div class="ttdef"><b>Definition:</b> <a href="a01208_source.html#l00176">Ref.hpp:176</a></div></div>
+<div class="ttc" id="aa04529_html_aefbe2d35674fbc2880676de2d48f562e"><div class="ttname"><a href="a04529.html#aefbe2d35674fbc2880676de2d48f562e">bl::resource::Ref::Ref</a></div><div class="ttdeci">Ref(const Ref &amp;copy)</div><div class="ttdoc">Construct a new Ref from a Ref to be copied.</div><div class="ttdef"><b>Definition:</b> <a href="a01208_source.html#l00198">Ref.hpp:198</a></div></div>
+<div class="ttc" id="aa04529_html_afcddf98fab49bc55e0d4b0d93e0768b0"><div class="ttname"><a href="a04529.html#afcddf98fab49bc55e0d4b0d93e0768b0">bl::resource::Ref::operator*</a></div><div class="ttdeci">constexpr const TResourceType &amp; operator*() const</div><div class="ttdoc">Dereference the ref into the underlying resource.</div><div class="ttdef"><b>Definition:</b> <a href="a01208_source.html#l00298">Ref.hpp:298</a></div></div>
+<div class="ttc" id="aa04533_html"><div class="ttname"><a href="a04533.html">bl::resource::Resource</a></div><div class="ttdoc">Internal struct used by ResourceManager. Use Ref externally.</div><div class="ttdef"><b>Definition:</b> <a href="a01211_source.html#l00019">Resource.hpp:19</a></div></div>
+<div class="ttc" id="aa05165_html"><div class="ttname"><a href="a05165.html">bl::gui::Font</a></div><div class="ttdoc">Data struct that provides access to the built in font. The font may be left out of the build by defin...</div><div class="ttdef"><b>Definition:</b> <a href="a01634_source.html#l00019">Font.hpp:19</a></div></div>
+<div class="ttc" id="aa06275_html"><div class="ttname"><a href="a06275.html">State.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

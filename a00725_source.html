@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Particles/Link.hpp Source File</title>
+<title>BLIB: include/BLIB/Particles/EcsComponent.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,50 +71,66 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Link.hpp</div>  </div>
+<div class="title">EcsComponent.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00725.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_PARTICLES_LINK_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_PARTICLES_LINK_HPP</span></div>
+<a href="a00725.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_PARTICLES_ECSCOMPONENT_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_PARTICLES_ECSCOMPONENT_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00722.html">BLIB/Particles/GlobalParticleSystemInfo.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00746.html">BLIB/Particles/RenderConfigMap.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;cstddef&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06254.html">BLIB/Render/Buffers/VertexBuffer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00794.html">BLIB/Render/Components/DrawableBase.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01019.html">BLIB/Render/Resources/TextureRef.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>pcl</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>engine</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a03628.html">   19</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a03628.html">Link</a> {</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03628.html#a11085274a4667b51b5bf008e94dc2c76">   20</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a03628.html#a11085274a4667b51b5bf008e94dc2c76">TGlobalPayload</a> = <span class="keyword">typename</span> <a class="code" href="a03660.html#a5f61f0310bc1642e54f3c93009e48657">RenderConfigMap&lt;T&gt;::GlobalShaderPayload</a>;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03628.html#ac8a3c656e258106274db8925d3e452eb">   22</a></span>&#160;    T* <a class="code" href="a03628.html#ac8a3c656e258106274db8925d3e452eb">base</a>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a03628.html#a26dd6593a69152ceeb51f5d78f6e9389">   23</a></span>&#160;    std::size_t <a class="code" href="a03628.html#a26dd6593a69152ceeb51f5d78f6e9389">len</a>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a03628.html#a9f60beea39d59410d2284bd95ab92e5e">   24</a></span>&#160;    <a class="code" href="a03628.html#a11085274a4667b51b5bf008e94dc2c76">TGlobalPayload</a>* <a class="code" href="a03628.html#a9f60beea39d59410d2284bd95ab92e5e">globals</a>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a03628.html#a17e8843930c97fac9ea79a487bd6fddb">   25</a></span>&#160;    <a class="code" href="a03624.html">priv::GlobalParticleSystemInfo</a>* <a class="code" href="a03628.html#a17e8843930c97fac9ea79a487bd6fddb">systemInfo</a>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;};</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span>Engine;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>pcl</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a03649.html">   25</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a03649.html">EcsComponent</a> : <span class="keyword">public</span> <a class="code" href="a03769.html">bl::rc::rcom::DrawableBase</a> {</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a03649.html#a27a700e8dad30da017b2fd1ceec4e8fc">   26</a></span>&#160;    <a class="code" href="a03761.html">rc::buf::VertexBuffer</a> <a class="code" href="a03649.html#a27a700e8dad30da017b2fd1ceec4e8fc">vertexBuffer</a>;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;} <span class="comment">// namespace pcl</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00722_html"><div class="ttname"><a href="a00722.html">GlobalParticleSystemInfo.hpp</a></div></div>
-<div class="ttc" id="aa00746_html"><div class="ttname"><a href="a00746.html">RenderConfigMap.hpp</a></div></div>
-<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03624_html"><div class="ttname"><a href="a03624.html">bl::pcl::priv::GlobalParticleSystemInfo</a></div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00010">GlobalParticleSystemInfo.hpp:10</a></div></div>
-<div class="ttc" id="aa03628_html"><div class="ttname"><a href="a03628.html">bl::pcl::Link</a></div><div class="ttdoc">ECS component that provides the link between descriptor sets and particle systems.</div><div class="ttdef"><b>Definition:</b> <a href="a00725_source.html#l00019">Link.hpp:19</a></div></div>
-<div class="ttc" id="aa03628_html_a11085274a4667b51b5bf008e94dc2c76"><div class="ttname"><a href="a03628.html#a11085274a4667b51b5bf008e94dc2c76">bl::pcl::Link::TGlobalPayload</a></div><div class="ttdeci">typename RenderConfigMap&lt; T &gt;::GlobalShaderPayload TGlobalPayload</div><div class="ttdef"><b>Definition:</b> <a href="a00725_source.html#l00020">Link.hpp:20</a></div></div>
-<div class="ttc" id="aa03628_html_a17e8843930c97fac9ea79a487bd6fddb"><div class="ttname"><a href="a03628.html#a17e8843930c97fac9ea79a487bd6fddb">bl::pcl::Link::systemInfo</a></div><div class="ttdeci">priv::GlobalParticleSystemInfo * systemInfo</div><div class="ttdef"><b>Definition:</b> <a href="a00725_source.html#l00025">Link.hpp:25</a></div></div>
-<div class="ttc" id="aa03628_html_a26dd6593a69152ceeb51f5d78f6e9389"><div class="ttname"><a href="a03628.html#a26dd6593a69152ceeb51f5d78f6e9389">bl::pcl::Link::len</a></div><div class="ttdeci">std::size_t len</div><div class="ttdef"><b>Definition:</b> <a href="a00725_source.html#l00023">Link.hpp:23</a></div></div>
-<div class="ttc" id="aa03628_html_a9f60beea39d59410d2284bd95ab92e5e"><div class="ttname"><a href="a03628.html#a9f60beea39d59410d2284bd95ab92e5e">bl::pcl::Link::globals</a></div><div class="ttdeci">TGlobalPayload * globals</div><div class="ttdef"><b>Definition:</b> <a href="a00725_source.html#l00024">Link.hpp:24</a></div></div>
-<div class="ttc" id="aa03628_html_ac8a3c656e258106274db8925d3e452eb"><div class="ttname"><a href="a03628.html#ac8a3c656e258106274db8925d3e452eb">bl::pcl::Link::base</a></div><div class="ttdeci">T * base</div><div class="ttdef"><b>Definition:</b> <a href="a00725_source.html#l00022">Link.hpp:22</a></div></div>
-<div class="ttc" id="aa03660_html_a5f61f0310bc1642e54f3c93009e48657"><div class="ttname"><a href="a03660.html#a5f61f0310bc1642e54f3c93009e48657">bl::pcl::RenderConfigMap::GlobalShaderPayload</a></div><div class="ttdeci">typename RenderConfigDefaults&lt; T &gt;::GlobalShaderPayload GlobalShaderPayload</div><div class="ttdoc">Type of the global struct for the default descriptor set implementation.</div><div class="ttdef"><b>Definition:</b> <a href="a00746_source.html#l00088">RenderConfigMap.hpp:88</a></div></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="a03649.html#abed4c4db32e67427e9b0fdd33da84f75">EcsComponent</a>(<a class="code" href="a02833.html">engine::Engine</a>&amp; engine, <span class="keywordtype">bool</span> transparency, std::uint32_t <a class="code" href="a03769.html#ae75ff4332cec695e0a276152ee96227b">pipeline</a>);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03649.html#a24ed746ea5a4dc39a67f3bfb4436a6d6">makeSprite</a>(<span class="keyword">const</span> <a class="code" href="a04121.html">rc::res::TextureRef</a>&amp; texture);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="a03649.html#a4a91fa88817b9be187bfa52c64bf357e">   47</a></span>&#160;    <span class="keyword">virtual</span> std::uint32_t <a class="code" href="a03649.html#a4a91fa88817b9be187bfa52c64bf357e">getDefaultScenePipelineId</a>()<span class="keyword"> const override </span>{</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a03769.html#a88ec37c9eeed54dea08cd298cf46b4f7">getCurrentPipeline</a>();</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    }</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="a03649.html#ad6efadf7f0ca98e4266dcd32e8724e70">   54</a></span>&#160;    <span class="keyword">virtual</span> std::uint32_t <a class="code" href="a03649.html#ad6efadf7f0ca98e4266dcd32e8724e70">getDefaultOverlayPipelineId</a>()<span class="keyword"> const override </span>{</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a03769.html#a88ec37c9eeed54dea08cd298cf46b4f7">getCurrentPipeline</a>();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;};</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;} <span class="comment">// namespace pcl</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00794_html"><div class="ttname"><a href="a00794.html">DrawableBase.hpp</a></div></div>
+<div class="ttc" id="aa01019_html"><div class="ttname"><a href="a01019.html">TextureRef.hpp</a></div></div>
+<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02833_html"><div class="ttname"><a href="a02833.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06269_source.html#l00033">Engine.hpp:33</a></div></div>
+<div class="ttc" id="aa03649_html"><div class="ttname"><a href="a03649.html">bl::pcl::EcsComponent</a></div><div class="ttdoc">Default drawable component for particle systems. Used by the default Renderer&lt;T&gt; implementation....</div><div class="ttdef"><b>Definition:</b> <a href="a00725_source.html#l00025">EcsComponent.hpp:25</a></div></div>
+<div class="ttc" id="aa03649_html_a24ed746ea5a4dc39a67f3bfb4436a6d6"><div class="ttname"><a href="a03649.html#a24ed746ea5a4dc39a67f3bfb4436a6d6">bl::pcl::EcsComponent::makeSprite</a></div><div class="ttdeci">void makeSprite(const rc::res::TextureRef &amp;texture)</div><div class="ttdoc">Resizes the vertex buffer to 4 points and populates them as a rectangle like a sprite.</div><div class="ttdef"><b>Definition:</b> <a href="a01850_source.html#l00026">EcsComponent.cpp:26</a></div></div>
+<div class="ttc" id="aa03649_html_a27a700e8dad30da017b2fd1ceec4e8fc"><div class="ttname"><a href="a03649.html#a27a700e8dad30da017b2fd1ceec4e8fc">bl::pcl::EcsComponent::vertexBuffer</a></div><div class="ttdeci">rc::buf::VertexBuffer vertexBuffer</div><div class="ttdef"><b>Definition:</b> <a href="a00725_source.html#l00026">EcsComponent.hpp:26</a></div></div>
+<div class="ttc" id="aa03649_html_a4a91fa88817b9be187bfa52c64bf357e"><div class="ttname"><a href="a03649.html#a4a91fa88817b9be187bfa52c64bf357e">bl::pcl::EcsComponent::getDefaultScenePipelineId</a></div><div class="ttdeci">virtual std::uint32_t getDefaultScenePipelineId() const override</div><div class="ttdoc">Returns the default pipeline for regular scenes.</div><div class="ttdef"><b>Definition:</b> <a href="a00725_source.html#l00047">EcsComponent.hpp:47</a></div></div>
+<div class="ttc" id="aa03649_html_abed4c4db32e67427e9b0fdd33da84f75"><div class="ttname"><a href="a03649.html#abed4c4db32e67427e9b0fdd33da84f75">bl::pcl::EcsComponent::EcsComponent</a></div><div class="ttdeci">EcsComponent(engine::Engine &amp;engine, bool transparency, std::uint32_t pipeline)</div><div class="ttdoc">Creates the component and vertex buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a01850_source.html#l00009">EcsComponent.cpp:9</a></div></div>
+<div class="ttc" id="aa03649_html_ad6efadf7f0ca98e4266dcd32e8724e70"><div class="ttname"><a href="a03649.html#ad6efadf7f0ca98e4266dcd32e8724e70">bl::pcl::EcsComponent::getDefaultOverlayPipelineId</a></div><div class="ttdeci">virtual std::uint32_t getDefaultOverlayPipelineId() const override</div><div class="ttdoc">Returns the default pipeline for overlays.</div><div class="ttdef"><b>Definition:</b> <a href="a00725_source.html#l00054">EcsComponent.hpp:54</a></div></div>
+<div class="ttc" id="aa03761_html"><div class="ttname"><a href="a03761.html">bl::rc::buf::VertexBufferT</a></div><div class="ttdoc">Basic vertex buffer class built on top of vk::Buffer. Intended for static mesh data.</div><div class="ttdef"><b>Definition:</b> <a href="a06254_source.html#l00025">VertexBuffer.hpp:25</a></div></div>
+<div class="ttc" id="aa03769_html"><div class="ttname"><a href="a03769.html">bl::rc::rcom::DrawableBase</a></div><div class="ttdoc">Base class for drawable scene components for the ECS. Provides common members.</div><div class="ttdef"><b>Definition:</b> <a href="a00794_source.html#l00038">DrawableBase.hpp:38</a></div></div>
+<div class="ttc" id="aa03769_html_a88ec37c9eeed54dea08cd298cf46b4f7"><div class="ttname"><a href="a03769.html#a88ec37c9eeed54dea08cd298cf46b4f7">bl::rc::rcom::DrawableBase::getCurrentPipeline</a></div><div class="ttdeci">std::uint32_t getCurrentPipeline() const</div><div class="ttdoc">Returns the current pipeline used to render this component.</div><div class="ttdef"><b>Definition:</b> <a href="a00794_source.html#l00113">DrawableBase.hpp:113</a></div></div>
+<div class="ttc" id="aa03769_html_ae75ff4332cec695e0a276152ee96227b"><div class="ttname"><a href="a03769.html#ae75ff4332cec695e0a276152ee96227b">bl::rc::rcom::DrawableBase::pipeline</a></div><div class="ttdeci">std::uint32_t pipeline</div><div class="ttdef"><b>Definition:</b> <a href="a00794_source.html#l00153">DrawableBase.hpp:153</a></div></div>
+<div class="ttc" id="aa04121_html"><div class="ttname"><a href="a04121.html">bl::rc::res::TextureRef</a></div><div class="ttdoc">Lightweight reference to a texture inside of a TexturePool. Once all references to a texture are dest...</div><div class="ttdef"><b>Definition:</b> <a href="a01019_source.html#l00027">TextureRef.hpp:27</a></div></div>
+<div class="ttc" id="aa06254_html"><div class="ttname"><a href="a06254.html">VertexBuffer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

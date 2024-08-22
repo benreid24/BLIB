@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Tilemap/Direction.hpp Source File</title>
+<title>BLIB: include/BLIB/Systems/TogglerSystem.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,56 +66,57 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_371518b0c1a3e83dfdc031931ecd4922.html">Tilemap</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_daaf59349fe9c08c8ba4d716035ae7ff.html">Systems</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Direction.hpp</div>  </div>
+<div class="title">TogglerSystem.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01325.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_TILEMAP_DIRECTION_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_TILEMAP_DIRECTION_HPP</span></div>
+<a href="a01325.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SYSTEMS_TOGGLERSYSTEM_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SYSTEMS_TOGGLERSYSTEM_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a02349.html">    9</a></span>&#160;<span class="keyword">namespace </span>tmap</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02275.html#ga718359d5f56e8650998bc14f045c3f64">   16</a></span>&#160;<span class="keyword">enum struct</span> <a class="code" href="a02275.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> : std::uint8_t { <a class="code" href="a02275.html#gga718359d5f56e8650998bc14f045c3f64a258f49887ef8d14ac268c92b02503aaa">Up</a> = 0, <a class="code" href="a02275.html#gga718359d5f56e8650998bc14f045c3f64a92b09c7c48c520c3c55e497875da437c">Right</a> = 1, <a class="code" href="a02275.html#gga718359d5f56e8650998bc14f045c3f64a08a38277b0309070706f6652eeae9a53">Down</a> = 2, <a class="code" href="a02275.html#gga718359d5f56e8650998bc14f045c3f64a945d5e233cf7d6240f6b783b36a374ff">Left</a> = 3 };</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<a class="code" href="a02275.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> <a class="code" href="a02275.html#ga1d948d110c8c972bc5b6f45d06c9e3f9">oppositeDirection</a>(<a class="code" href="a02275.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> dir);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<a class="code" href="a02275.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> <a class="code" href="a02275.html#ga220339ef558132abe716abe33a18dadb">nextClockwiseDirection</a>(<a class="code" href="a02275.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> dir);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<a class="code" href="a02275.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> <a class="code" href="a02275.html#ga887ba83d0d54b0b5bd9ffb0ee4018fb7">nextCounterClockwiseDirection</a>(<a class="code" href="a02275.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> dir);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<a class="code" href="a02275.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> <a class="code" href="a02275.html#ga50423a802de9a1c43478aab60328719e">directionFromString</a>(<span class="keyword">const</span> std::string&amp; dir);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;std::string <a class="code" href="a02275.html#ga74da6f2d6ed6515b52ebdb22ecce7997">directionToString</a>(<a class="code" href="a02275.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> dir);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;} <span class="comment">// namespace tmap</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02275_html_ga1d948d110c8c972bc5b6f45d06c9e3f9"><div class="ttname"><a href="a02275.html#ga1d948d110c8c972bc5b6f45d06c9e3f9">bl::tmap::oppositeDirection</a></div><div class="ttdeci">Direction oppositeDirection(Direction dir)</div><div class="ttdoc">Returns the Direction that is opposite of the given direction.</div><div class="ttdef"><b>Definition:</b> <a href="a02228_source.html#l00009">Direction.cpp:9</a></div></div>
-<div class="ttc" id="aa02275_html_ga220339ef558132abe716abe33a18dadb"><div class="ttname"><a href="a02275.html#ga220339ef558132abe716abe33a18dadb">bl::tmap::nextClockwiseDirection</a></div><div class="ttdeci">Direction nextClockwiseDirection(Direction dir)</div><div class="ttdoc">Returns the next clockwise direction from the given current direction.</div><div class="ttdef"><b>Definition:</b> <a href="a02228_source.html#l00025">Direction.cpp:25</a></div></div>
-<div class="ttc" id="aa02275_html_ga50423a802de9a1c43478aab60328719e"><div class="ttname"><a href="a02275.html#ga50423a802de9a1c43478aab60328719e">bl::tmap::directionFromString</a></div><div class="ttdeci">Direction directionFromString(const std::string &amp;dir)</div><div class="ttdoc">Converts the given string into a direction.</div><div class="ttdef"><b>Definition:</b> <a href="a02228_source.html#l00057">Direction.cpp:57</a></div></div>
-<div class="ttc" id="aa02275_html_ga718359d5f56e8650998bc14f045c3f64"><div class="ttname"><a href="a02275.html#ga718359d5f56e8650998bc14f045c3f64">bl::tmap::Direction</a></div><div class="ttdeci">Direction</div><div class="ttdoc">Which direction an entity is facing in a tilemap.</div><div class="ttdef"><b>Definition:</b> <a href="a01325_source.html#l00016">Direction.hpp:16</a></div></div>
-<div class="ttc" id="aa02275_html_ga74da6f2d6ed6515b52ebdb22ecce7997"><div class="ttname"><a href="a02275.html#ga74da6f2d6ed6515b52ebdb22ecce7997">bl::tmap::directionToString</a></div><div class="ttdeci">std::string directionToString(Direction dir)</div><div class="ttdoc">Converts the given direction to a string.</div><div class="ttdef"><b>Definition:</b> <a href="a02228_source.html#l00070">Direction.cpp:70</a></div></div>
-<div class="ttc" id="aa02275_html_ga887ba83d0d54b0b5bd9ffb0ee4018fb7"><div class="ttname"><a href="a02275.html#ga887ba83d0d54b0b5bd9ffb0ee4018fb7">bl::tmap::nextCounterClockwiseDirection</a></div><div class="ttdeci">Direction nextCounterClockwiseDirection(Direction dir)</div><div class="ttdoc">Returns the next counterclockwise direction from the given current direction.</div><div class="ttdef"><b>Definition:</b> <a href="a02228_source.html#l00041">Direction.cpp:41</a></div></div>
-<div class="ttc" id="aa02275_html_gga718359d5f56e8650998bc14f045c3f64a08a38277b0309070706f6652eeae9a53"><div class="ttname"><a href="a02275.html#gga718359d5f56e8650998bc14f045c3f64a08a38277b0309070706f6652eeae9a53">bl::tmap::Direction::Down</a></div><div class="ttdeci">@ Down</div></div>
-<div class="ttc" id="aa02275_html_gga718359d5f56e8650998bc14f045c3f64a258f49887ef8d14ac268c92b02503aaa"><div class="ttname"><a href="a02275.html#gga718359d5f56e8650998bc14f045c3f64a258f49887ef8d14ac268c92b02503aaa">bl::tmap::Direction::Up</a></div><div class="ttdeci">@ Up</div></div>
-<div class="ttc" id="aa02275_html_gga718359d5f56e8650998bc14f045c3f64a92b09c7c48c520c3c55e497875da437c"><div class="ttname"><a href="a02275.html#gga718359d5f56e8650998bc14f045c3f64a92b09c7c48c520c3c55e497875da437c">bl::tmap::Direction::Right</a></div><div class="ttdeci">@ Right</div></div>
-<div class="ttc" id="aa02275_html_gga718359d5f56e8650998bc14f045c3f64a945d5e233cf7d6240f6b783b36a374ff"><div class="ttname"><a href="a02275.html#gga718359d5f56e8650998bc14f045c3f64a945d5e233cf7d6240f6b783b36a374ff">bl::tmap::Direction::Left</a></div><div class="ttdeci">@ Left</div></div>
-<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00104.html">BLIB/Components/Toggler.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00221.html">BLIB/ECS.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06278.html">BLIB/Engine/System.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>sys</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a04953.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04953.html">TogglerSystem</a> : <span class="keyword">public</span> <a class="code" href="a02897.html">engine::System</a> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a04953.html#a18753732afc1c31c4356a0fe3eb3a6cc">   22</a></span>&#160;    <a class="code" href="a04953.html#a18753732afc1c31c4356a0fe3eb3a6cc">TogglerSystem</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a04953.html#ae5e54cf8c385bd341ae56417fea4181c">   27</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a04953.html#ae5e54cf8c385bd341ae56417fea4181c">~TogglerSystem</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="a02709.html">ecs::ComponentPool&lt;com::Toggler&gt;</a>* pool;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> init(<a class="code" href="a02833.html">engine::Engine</a>&amp; engine) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> update(std::mutex&amp; stageMutex, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;};</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;} <span class="comment">// namespace sys</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00104_html"><div class="ttname"><a href="a00104.html">Toggler.hpp</a></div></div>
+<div class="ttc" id="aa00221_html"><div class="ttname"><a href="a00221.html">ECS.hpp</a></div></div>
+<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02709_html"><div class="ttname"><a href="a02709.html">bl::ecs::ComponentPool</a></div><div class="ttdoc">Provides storage and management for components in the ECS. Used internally in the Registry.</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00070">ComponentPool.hpp:70</a></div></div>
+<div class="ttc" id="aa02833_html"><div class="ttname"><a href="a02833.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06269_source.html#l00033">Engine.hpp:33</a></div></div>
+<div class="ttc" id="aa02897_html"><div class="ttname"><a href="a02897.html">bl::engine::System</a></div><div class="ttdoc">Base class for Engine systems which can be registered in the Systems registry.</div><div class="ttdef"><b>Definition:</b> <a href="a06278_source.html#l00018">System.hpp:18</a></div></div>
+<div class="ttc" id="aa04953_html"><div class="ttname"><a href="a04953.html">bl::sys::TogglerSystem</a></div><div class="ttdoc">Basic system to update Toggler components.</div><div class="ttdef"><b>Definition:</b> <a href="a01325_source.html#l00017">TogglerSystem.hpp:17</a></div></div>
+<div class="ttc" id="aa04953_html_a18753732afc1c31c4356a0fe3eb3a6cc"><div class="ttname"><a href="a04953.html#a18753732afc1c31c4356a0fe3eb3a6cc">bl::sys::TogglerSystem::TogglerSystem</a></div><div class="ttdeci">TogglerSystem()=default</div><div class="ttdoc">Creates the system.</div></div>
+<div class="ttc" id="aa04953_html_ae5e54cf8c385bd341ae56417fea4181c"><div class="ttname"><a href="a04953.html#ae5e54cf8c385bd341ae56417fea4181c">bl::sys::TogglerSystem::~TogglerSystem</a></div><div class="ttdeci">virtual ~TogglerSystem()=default</div><div class="ttdoc">Destroys the system.</div></div>
+<div class="ttc" id="aa06278_html"><div class="ttname"><a href="a06278.html">System.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

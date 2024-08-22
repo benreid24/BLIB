@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::gfx::BatchIcon Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,26 +66,1016 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02284.html">bl</a></li><li class="navelem"><a class="el" href="a02296.html">gfx</a></li><li class="navelem"><a class="el" href="a02297.html">bcom</a></li><li class="navelem"><a class="el" href="a03016.html">Textured</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02303.html">bl</a></li><li class="navelem"><a class="el" href="a02315.html">gfx</a></li><li class="navelem"><a class="el" href="a03013.html">BatchIcon</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="a03010.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::gfx::bcom::Textured Member List</div>  </div>
+<div class="title">bl::gfx::BatchIcon Class Reference<div class="ingroups"><a class="el" href="a02282.html">Graphics</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a03016.html">bl::gfx::bcom::Textured</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a03016.html#a317f6474c485e51d7696aaabf1b152fa">create</a>(ecs::Registry &amp;registry, ecs::Entity entity, TArgs &amp;&amp;... args)</td><td class="entry"><a class="el" href="a03016.html">bl::gfx::bcom::Textured</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a03016.html#af7fe2449a04882eb53417e73ea284134">getTexture</a>() const</td><td class="entry"><a class="el" href="a03016.html">bl::gfx::bcom::Textured</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03016.html#a79d8b21916f163236dd37ecb6f1b8ac8">setTexture</a>(const rc::res::TextureRef &amp;texture)</td><td class="entry"><a class="el" href="a03016.html">bl::gfx::bcom::Textured</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a03016.html#ad282d57c51ee8abc4f699fa587f6a693">Textured</a>()=default</td><td class="entry"><a class="el" href="a03016.html">bl::gfx::bcom::Textured</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>A renderable icon comprised of vertices. Can be batched with other shapes.  
+ <a href="a03013.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00311_source.html">BatchIcon.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::gfx::BatchIcon:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a03013.png" usemap="#bl::gfx::BatchIcon_map" alt=""/>
+  <map id="bl::gfx::BatchIcon_map" name="bl::gfx::BatchIcon_map">
+<area href="a03085.html" alt="bl::gfx::s2d::IconBase&lt; s2d::BatchShape2D &gt;" shape="rect" coords="0,112,263,136"/>
+<area href="a03077.html" title="Base class for batched 2d shapes." alt="bl::gfx::s2d::BatchShape2D" shape="rect" coords="0,56,263,80"/>
+<area href="a03093.html" title="Base class for all 2d shapes. Provides part of the interface, as well as index buffer population...." alt="bl::gfx::s2d::Shape2D" shape="rect" coords="0,0,263,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:aaf42e3e7c236dd1342a29176cea971a8"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03013.html#aaf42e3e7c236dd1342a29176cea971a8">Type</a> = IconBase::Type</td></tr>
+<tr class="memdesc:aaf42e3e7c236dd1342a29176cea971a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The various types of icons.  <a href="a03013.html#aaf42e3e7c236dd1342a29176cea971a8">More...</a><br /></td></tr>
+<tr class="separator:aaf42e3e7c236dd1342a29176cea971a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a562f2363f10cc202144dc388878455b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03013.html#a562f2363f10cc202144dc388878455b0">BatchIcon</a> (<a class="el" href="a03013.html#aaf42e3e7c236dd1342a29176cea971a8">Type</a> type, const glm::vec2 &amp;size={16.f, 16.f})</td></tr>
+<tr class="memdesc:a562f2363f10cc202144dc388878455b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an icon of the given type.  <a href="a03013.html#a562f2363f10cc202144dc388878455b0">More...</a><br /></td></tr>
+<tr class="separator:a562f2363f10cc202144dc388878455b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad82a1685265e3e041401da14c372def7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03013.html#ad82a1685265e3e041401da14c372def7">create</a> (<a class="el" href="a02833.html">engine::Engine</a> &amp;engine, <a class="el" href="a03001.html">BatchedShapes2D</a> &amp;owner)</td></tr>
+<tr class="memdesc:ad82a1685265e3e041401da14c372def7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the icon entity and renderer resources.  <a href="a03013.html#ad82a1685265e3e041401da14c372def7">More...</a><br /></td></tr>
+<tr class="separator:ad82a1685265e3e041401da14c372def7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d110807ead876a9cf03c2923faf249b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03085.html#a7d110807ead876a9cf03c2923faf249b">setSize</a> (const glm::vec2 &amp;size)</td></tr>
+<tr class="memdesc:a7d110807ead876a9cf03c2923faf249b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the local size of the icon in world units. This is the size prior to the transform. The vertices of the icon are updated.  <a href="a03085.html#a7d110807ead876a9cf03c2923faf249b">More...</a><br /></td></tr>
+<tr class="separator:a7d110807ead876a9cf03c2923faf249b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44403e44db37b5734dfe9d6d9cc9266d"><td class="memItemLeft" align="right" valign="top">const glm::vec2 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03085.html#a44403e44db37b5734dfe9d6d9cc9266d">getSize</a> () const</td></tr>
+<tr class="memdesc:a44403e44db37b5734dfe9d6d9cc9266d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the local size of the icon.  <a href="a03085.html#a44403e44db37b5734dfe9d6d9cc9266d">More...</a><br /></td></tr>
+<tr class="separator:a44403e44db37b5734dfe9d6d9cc9266d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29811af2d6d84e7e785cda93149c0c39"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a02581.html">com::Transform2D</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03077.html#a29811af2d6d84e7e785cda93149c0c39">getLocalTransform</a> () const</td></tr>
+<tr class="memdesc:a29811af2d6d84e7e785cda93149c0c39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the local transform of the shape. Determines the positions of the vertices within the batch.  <a href="a03077.html#a29811af2d6d84e7e785cda93149c0c39">More...</a><br /></td></tr>
+<tr class="separator:a29811af2d6d84e7e785cda93149c0c39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8b8d545c7feebb1ac38281ac8d59b1d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02581.html">com::Transform2D</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03077.html#af8b8d545c7feebb1ac38281ac8d59b1d">getLocalTransform</a> ()</td></tr>
+<tr class="memdesc:af8b8d545c7feebb1ac38281ac8d59b1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the local transform of the shape. Determines the positions of the vertices within the batch. This override assumes the transform is modified and marks dirty.  <a href="a03077.html#af8b8d545c7feebb1ac38281ac8d59b1d">More...</a><br /></td></tr>
+<tr class="separator:af8b8d545c7feebb1ac38281ac8d59b1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab82a256d174d391e722dc2fd8a284aa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03077.html#aab82a256d174d391e722dc2fd8a284aa">remove</a> ()</td></tr>
+<tr class="memdesc:aab82a256d174d391e722dc2fd8a284aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the shape from the batch.  <a href="a03077.html#aab82a256d174d391e722dc2fd8a284aa">More...</a><br /></td></tr>
+<tr class="separator:aab82a256d174d391e722dc2fd8a284aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a313a15523bc624a4b5e915e06392db0c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03077.html#a313a15523bc624a4b5e915e06392db0c">isCreated</a> () const</td></tr>
+<tr class="memdesc:a313a15523bc624a4b5e915e06392db0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the shape has been created.  <a href="a03077.html#a313a15523bc624a4b5e915e06392db0c">More...</a><br /></td></tr>
+<tr class="separator:a313a15523bc624a4b5e915e06392db0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f4d1477126bc28a156317771a5b9ac5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03077.html#a0f4d1477126bc28a156317771a5b9ac5">commit</a> ()</td></tr>
+<tr class="memdesc:a0f4d1477126bc28a156317771a5b9ac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call to manually commit geometry updates to the owning batch.  <a href="a03077.html#a0f4d1477126bc28a156317771a5b9ac5">More...</a><br /></td></tr>
+<tr class="separator:a0f4d1477126bc28a156317771a5b9ac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f4a690a301f32cffe664638dd9abdf3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03093.html#a7f4a690a301f32cffe664638dd9abdf3">setFillColor</a> (const glm::vec4 &amp;color)</td></tr>
+<tr class="memdesc:a7f4a690a301f32cffe664638dd9abdf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the color to fill the shape with.  <a href="a03093.html#a7f4a690a301f32cffe664638dd9abdf3">More...</a><br /></td></tr>
+<tr class="separator:a7f4a690a301f32cffe664638dd9abdf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a651d1a02cd4d432059fa0f4883cba046"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03093.html#a651d1a02cd4d432059fa0f4883cba046">setFillColor</a> (const sf::Color &amp;color)</td></tr>
+<tr class="memdesc:a651d1a02cd4d432059fa0f4883cba046"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the color to fill the shape with.  <a href="a03093.html#a651d1a02cd4d432059fa0f4883cba046">More...</a><br /></td></tr>
+<tr class="separator:a651d1a02cd4d432059fa0f4883cba046"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d87cdca27f401c457b429fec1a46c13"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03093.html#a4d87cdca27f401c457b429fec1a46c13">setFillColor</a> (std::initializer_list&lt; float &gt; color)</td></tr>
+<tr class="memdesc:a4d87cdca27f401c457b429fec1a46c13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the color to fill the shape with.  <a href="a03093.html#a4d87cdca27f401c457b429fec1a46c13">More...</a><br /></td></tr>
+<tr class="separator:a4d87cdca27f401c457b429fec1a46c13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58ce929d0ee1a4f4ee305cb397218bbf"><td class="memItemLeft" align="right" valign="top">const glm::vec4 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03093.html#a58ce929d0ee1a4f4ee305cb397218bbf">getFillColor</a> () const</td></tr>
+<tr class="memdesc:a58ce929d0ee1a4f4ee305cb397218bbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the color the shape is filled with.  <a href="a03093.html#a58ce929d0ee1a4f4ee305cb397218bbf">More...</a><br /></td></tr>
+<tr class="separator:a58ce929d0ee1a4f4ee305cb397218bbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a481a4f2f12d0eb5e5db75e9db468e46c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03093.html#a481a4f2f12d0eb5e5db75e9db468e46c">setOutlineColor</a> (const glm::vec4 &amp;color)</td></tr>
+<tr class="memdesc:a481a4f2f12d0eb5e5db75e9db468e46c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the color the outline will be filled with.  <a href="a03093.html#a481a4f2f12d0eb5e5db75e9db468e46c">More...</a><br /></td></tr>
+<tr class="separator:a481a4f2f12d0eb5e5db75e9db468e46c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c3ecdc7738142110fa08b8a60ef9f70"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03093.html#a8c3ecdc7738142110fa08b8a60ef9f70">setOutlineColor</a> (const sf::Color &amp;color)</td></tr>
+<tr class="memdesc:a8c3ecdc7738142110fa08b8a60ef9f70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the color the outline will be filled with.  <a href="a03093.html#a8c3ecdc7738142110fa08b8a60ef9f70">More...</a><br /></td></tr>
+<tr class="separator:a8c3ecdc7738142110fa08b8a60ef9f70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4463d122e3a6d78f163800a89da53026"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03093.html#a4463d122e3a6d78f163800a89da53026">setOutlineColor</a> (std::initializer_list&lt; float &gt; color)</td></tr>
+<tr class="memdesc:a4463d122e3a6d78f163800a89da53026"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the color the outline will be filled with.  <a href="a03093.html#a4463d122e3a6d78f163800a89da53026">More...</a><br /></td></tr>
+<tr class="separator:a4463d122e3a6d78f163800a89da53026"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd88eaa00774156911eaf42886967a37"><td class="memItemLeft" align="right" valign="top">const glm::vec4 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03093.html#abd88eaa00774156911eaf42886967a37">getOutlineColor</a> () const</td></tr>
+<tr class="memdesc:abd88eaa00774156911eaf42886967a37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the color of the outline.  <a href="a03093.html#abd88eaa00774156911eaf42886967a37">More...</a><br /></td></tr>
+<tr class="separator:abd88eaa00774156911eaf42886967a37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af84399690523725879fa511691aeab53"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03093.html#af84399690523725879fa511691aeab53">setOutlineThickness</a> (float thickness)</td></tr>
+<tr class="memdesc:af84399690523725879fa511691aeab53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the thickness of the outline. Negative outline will render inside the bounds of the shape. Setting to 0 disables the outline.  <a href="a03093.html#af84399690523725879fa511691aeab53">More...</a><br /></td></tr>
+<tr class="separator:af84399690523725879fa511691aeab53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad87ee4eae6b8230c45f138337c045557"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03093.html#ad87ee4eae6b8230c45f138337c045557">getOutlineThickness</a> () const</td></tr>
+<tr class="memdesc:ad87ee4eae6b8230c45f138337c045557"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the thickness of the outline.  <a href="a03093.html#ad87ee4eae6b8230c45f138337c045557">More...</a><br /></td></tr>
+<tr class="separator:ad87ee4eae6b8230c45f138337c045557"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec7d0a9a2b19c98d9de976bcf0b78aba"><td class="memItemLeft" align="right" valign="top">const sf::FloatRect &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03093.html#aec7d0a9a2b19c98d9de976bcf0b78aba">getLocalBounds</a> ()</td></tr>
+<tr class="memdesc:aec7d0a9a2b19c98d9de976bcf0b78aba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the bounds of the shape. Bounds only computed if the shape is created first.  <a href="a03093.html#aec7d0a9a2b19c98d9de976bcf0b78aba">More...</a><br /></td></tr>
+<tr class="separator:aec7d0a9a2b19c98d9de976bcf0b78aba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:ae72cfba3b165030282323fad73d107c6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03077.html#ae72cfba3b165030282323fad73d107c6">notifyDirty</a> () override</td></tr>
+<tr class="memdesc:ae72cfba3b165030282323fad73d107c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call whenever the shape geometry needs to be updated.  <a href="a03077.html#ae72cfba3b165030282323fad73d107c6">More...</a><br /></td></tr>
+<tr class="separator:ae72cfba3b165030282323fad73d107c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f433d3dbf63ad72084b44c2e4f659be"><td class="memItemLeft" align="right" valign="top">virtual glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03093.html#a1f433d3dbf63ad72084b44c2e4f659be">getCenterColor</a> (const glm::vec4 &amp;avgColor) const</td></tr>
+<tr class="memdesc:a1f433d3dbf63ad72084b44c2e4f659be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allows derived classes to set the color of the center vertex. Simply return the computed average color if no explicit center color is desired (default behavior).  <a href="a03093.html#a1f433d3dbf63ad72084b44c2e4f659be">More...</a><br /></td></tr>
+<tr class="separator:a1f433d3dbf63ad72084b44c2e4f659be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01468d8790d0dc6bfbae1a7888e04801"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03093.html#a01468d8790d0dc6bfbae1a7888e04801">calculateRequiredVertices</a> () const</td></tr>
+<tr class="memdesc:a01468d8790d0dc6bfbae1a7888e04801"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates and returns the number of vertices required for the shape.  <a href="a03093.html#a01468d8790d0dc6bfbae1a7888e04801">More...</a><br /></td></tr>
+<tr class="separator:a01468d8790d0dc6bfbae1a7888e04801"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac42d54a60bfc3d8209f8da79b475bb3d"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03093.html#ac42d54a60bfc3d8209f8da79b475bb3d">calculateRequiredIndices</a> () const</td></tr>
+<tr class="memdesc:ac42d54a60bfc3d8209f8da79b475bb3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates and returns the number of indices required for the shape.  <a href="a03093.html#ac42d54a60bfc3d8209f8da79b475bb3d">More...</a><br /></td></tr>
+<tr class="separator:ac42d54a60bfc3d8209f8da79b475bb3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa49016719fef78f8825ee9792e905422"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03093.html#aa49016719fef78f8825ee9792e905422">update</a> (<a class="el" href="a04057.html">rc::prim::Vertex</a> *vertices, std::uint32_t *indices)</td></tr>
+<tr class="memdesc:aa49016719fef78f8825ee9792e905422"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the index buffer to render this shape. Storage should be large enough for calculated size.  <a href="a03093.html#aa49016719fef78f8825ee9792e905422">More...</a><br /></td></tr>
+<tr class="separator:aa49016719fef78f8825ee9792e905422"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a487b4b02b6f9dbd180b5948de037d800"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03013.html#aaf42e3e7c236dd1342a29176cea971a8">Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03085.html#a487b4b02b6f9dbd180b5948de037d800">iconType</a></td></tr>
+<tr class="separator:a487b4b02b6f9dbd180b5948de037d800"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A renderable icon comprised of vertices. Can be batched with other shapes. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00311_source.html#l00016">16</a> of file <a class="el" href="a00311_source.html">BatchIcon.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="aaf42e3e7c236dd1342a29176cea971a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf42e3e7c236dd1342a29176cea971a8">&#9670;&nbsp;</a></span>Type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a03013.html#aaf42e3e7c236dd1342a29176cea971a8">bl::gfx::BatchIcon::Type</a> =  IconBase::Type</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The various types of icons. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00311_source.html#l00019">19</a> of file <a class="el" href="a00311_source.html">BatchIcon.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a562f2363f10cc202144dc388878455b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a562f2363f10cc202144dc388878455b0">&#9670;&nbsp;</a></span>BatchIcon()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::gfx::BatchIcon::BatchIcon </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03013.html#aaf42e3e7c236dd1342a29176cea971a8">Type</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const glm::vec2 &amp;&#160;</td>
+          <td class="paramname"><em>size</em> = <code>{16.f,&#160;16.f}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an icon of the given type. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type of icon to create </td></tr>
+    <tr><td class="paramname">size</td><td>The size of the icon </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01541_source.html#l00007">7</a> of file <a class="el" href="a01541_source.html">BatchIcon.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ac42d54a60bfc3d8209f8da79b475bb3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac42d54a60bfc3d8209f8da79b475bb3d">&#9670;&nbsp;</a></span>calculateRequiredIndices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t bl::gfx::s2d::Shape2D::calculateRequiredIndices </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calculates and returns the number of indices required for the shape. </p>
+
+<p class="definition">Definition at line <a class="el" href="a06410_source.html#l00057">57</a> of file <a class="el" href="a06410_source.html">Shape2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a01468d8790d0dc6bfbae1a7888e04801"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01468d8790d0dc6bfbae1a7888e04801">&#9670;&nbsp;</a></span>calculateRequiredVertices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t bl::gfx::s2d::Shape2D::calculateRequiredVertices </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calculates and returns the number of vertices required for the shape. </p>
+
+<p class="definition">Definition at line <a class="el" href="a06410_source.html#l00051">51</a> of file <a class="el" href="a06410_source.html">Shape2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0f4d1477126bc28a156317771a5b9ac5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f4d1477126bc28a156317771a5b9ac5">&#9670;&nbsp;</a></span>commit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gfx::s2d::BatchShape2D::commit </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Call to manually commit geometry updates to the owning batch. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01577_source.html#l00041">41</a> of file <a class="el" href="a01577_source.html">BatchShape2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad82a1685265e3e041401da14c372def7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad82a1685265e3e041401da14c372def7">&#9670;&nbsp;</a></span>create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gfx::BatchIcon::create </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02833.html">engine::Engine</a> &amp;&#160;</td>
+          <td class="paramname"><em>engine</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a03001.html">BatchedShapes2D</a> &amp;&#160;</td>
+          <td class="paramname"><em>owner</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates the icon entity and renderer resources. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">engine</td><td>The game engine instance </td></tr>
+    <tr><td class="paramname">owner</td><td>The set of batched shapes to be a part of </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01541_source.html#l00010">10</a> of file <a class="el" href="a01541_source.html">BatchIcon.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1f433d3dbf63ad72084b44c2e4f659be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f433d3dbf63ad72084b44c2e4f659be">&#9670;&nbsp;</a></span>getCenterColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::vec4 bl::gfx::s2d::Shape2D::getCenterColor </td>
+          <td>(</td>
+          <td class="paramtype">const glm::vec4 &amp;&#160;</td>
+          <td class="paramname"><em>avgColor</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Allows derived classes to set the color of the center vertex. Simply return the computed average color if no explicit center color is desired (default behavior). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">avgColor</td><td>The computed average color of all the vertices </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The color of the center vertex that is managed by this class </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a06410_source.html#l00049">49</a> of file <a class="el" href="a06410_source.html">Shape2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a58ce929d0ee1a4f4ee305cb397218bbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58ce929d0ee1a4f4ee305cb397218bbf">&#9670;&nbsp;</a></span>getFillColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const glm::vec4 &amp; bl::gfx::s2d::Shape2D::getFillColor </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the color the shape is filled with. </p>
+
+<p class="definition">Definition at line <a class="el" href="a06410_source.html#l00028">28</a> of file <a class="el" href="a06410_source.html">Shape2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aec7d0a9a2b19c98d9de976bcf0b78aba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec7d0a9a2b19c98d9de976bcf0b78aba">&#9670;&nbsp;</a></span>getLocalBounds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const sf::FloatRect &amp; bl::gfx::s2d::Shape2D::getLocalBounds </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the bounds of the shape. Bounds only computed if the shape is created first. </p>
+
+<p class="definition">Definition at line <a class="el" href="a06410_source.html#l00044">44</a> of file <a class="el" href="a06410_source.html">Shape2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af8b8d545c7feebb1ac38281ac8d59b1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8b8d545c7feebb1ac38281ac8d59b1d">&#9670;&nbsp;</a></span>getLocalTransform() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02581.html">com::Transform2D</a> &amp; bl::gfx::s2d::BatchShape2D::getLocalTransform </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the local transform of the shape. Determines the positions of the vertices within the batch. This override assumes the transform is modified and marks dirty. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01577_source.html#l00036">36</a> of file <a class="el" href="a01577_source.html">BatchShape2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a29811af2d6d84e7e785cda93149c0c39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29811af2d6d84e7e785cda93149c0c39">&#9670;&nbsp;</a></span>getLocalTransform() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a02581.html">com::Transform2D</a>&amp; bl::gfx::s2d::BatchShape2D::getLocalTransform </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the local transform of the shape. Determines the positions of the vertices within the batch. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00353_source.html#l00033">33</a> of file <a class="el" href="a00353_source.html">BatchShape2D.hpp</a>.</p>
+
+</div>
+</div>
+<a id="abd88eaa00774156911eaf42886967a37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd88eaa00774156911eaf42886967a37">&#9670;&nbsp;</a></span>getOutlineColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const glm::vec4 &amp; bl::gfx::s2d::Shape2D::getOutlineColor </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the color of the outline. </p>
+
+<p class="definition">Definition at line <a class="el" href="a06410_source.html#l00035">35</a> of file <a class="el" href="a06410_source.html">Shape2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad87ee4eae6b8230c45f138337c045557"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad87ee4eae6b8230c45f138337c045557">&#9670;&nbsp;</a></span>getOutlineThickness()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float bl::gfx::s2d::Shape2D::getOutlineThickness </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the thickness of the outline. </p>
+
+<p class="definition">Definition at line <a class="el" href="a06410_source.html#l00042">42</a> of file <a class="el" href="a06410_source.html">Shape2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a44403e44db37b5734dfe9d6d9cc9266d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44403e44db37b5734dfe9d6d9cc9266d">&#9670;&nbsp;</a></span>getSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const glm::vec2 &amp; <a class="el" href="a03085.html">bl::gfx::s2d::IconBase</a>&lt; <a class="el" href="a03077.html">s2d::BatchShape2D</a>  &gt;::getSize</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the local size of the icon. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00359_source.html#l00053">53</a> of file <a class="el" href="a00359_source.html">IconBase.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a313a15523bc624a4b5e915e06392db0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a313a15523bc624a4b5e915e06392db0c">&#9670;&nbsp;</a></span>isCreated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::gfx::s2d::BatchShape2D::isCreated </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether or not the shape has been created. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01577_source.html#l00101">101</a> of file <a class="el" href="a01577_source.html">BatchShape2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae72cfba3b165030282323fad73d107c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae72cfba3b165030282323fad73d107c6">&#9670;&nbsp;</a></span>notifyDirty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gfx::s2d::BatchShape2D::notifyDirty </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Call whenever the shape geometry needs to be updated. </p>
+
+<p>Implements <a class="el" href="a03093.html#aeeb54568280b732f37d78d2dce430781">bl::gfx::s2d::Shape2D</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01577_source.html#l00028">28</a> of file <a class="el" href="a01577_source.html">BatchShape2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aab82a256d174d391e722dc2fd8a284aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab82a256d174d391e722dc2fd8a284aa">&#9670;&nbsp;</a></span>remove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gfx::s2d::BatchShape2D::remove </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes the shape from the batch. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01577_source.html#l00091">91</a> of file <a class="el" href="a01577_source.html">BatchShape2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7f4a690a301f32cffe664638dd9abdf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f4a690a301f32cffe664638dd9abdf3">&#9670;&nbsp;</a></span>setFillColor() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gfx::s2d::Shape2D::setFillColor </td>
+          <td>(</td>
+          <td class="paramtype">const glm::vec4 &amp;&#160;</td>
+          <td class="paramname"><em>color</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the color to fill the shape with. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">color</td><td>The color to fill the shape with </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a06410_source.html#l00023">23</a> of file <a class="el" href="a06410_source.html">Shape2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a651d1a02cd4d432059fa0f4883cba046"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a651d1a02cd4d432059fa0f4883cba046">&#9670;&nbsp;</a></span>setFillColor() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gfx::s2d::Shape2D::setFillColor </td>
+          <td>(</td>
+          <td class="paramtype">const sf::Color &amp;&#160;</td>
+          <td class="paramname"><em>color</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the color to fill the shape with. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">color</td><td>The color to fill the shape with </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a06218_source.html#l00042">42</a> of file <a class="el" href="a06218_source.html">Shape2D.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4d87cdca27f401c457b429fec1a46c13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d87cdca27f401c457b429fec1a46c13">&#9670;&nbsp;</a></span>setFillColor() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gfx::s2d::Shape2D::setFillColor </td>
+          <td>(</td>
+          <td class="paramtype">std::initializer_list&lt; float &gt;&#160;</td>
+          <td class="paramname"><em>color</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the color to fill the shape with. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">color</td><td>The color to fill the shape with </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a06218_source.html#l00049">49</a> of file <a class="el" href="a06218_source.html">Shape2D.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a481a4f2f12d0eb5e5db75e9db468e46c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a481a4f2f12d0eb5e5db75e9db468e46c">&#9670;&nbsp;</a></span>setOutlineColor() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gfx::s2d::Shape2D::setOutlineColor </td>
+          <td>(</td>
+          <td class="paramtype">const glm::vec4 &amp;&#160;</td>
+          <td class="paramname"><em>color</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the color the outline will be filled with. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">color</td><td>The color to outline the shape with </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a06410_source.html#l00030">30</a> of file <a class="el" href="a06410_source.html">Shape2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8c3ecdc7738142110fa08b8a60ef9f70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c3ecdc7738142110fa08b8a60ef9f70">&#9670;&nbsp;</a></span>setOutlineColor() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gfx::s2d::Shape2D::setOutlineColor </td>
+          <td>(</td>
+          <td class="paramtype">const sf::Color &amp;&#160;</td>
+          <td class="paramname"><em>color</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the color the outline will be filled with. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">color</td><td>The color to outline the shape with </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a06218_source.html#l00068">68</a> of file <a class="el" href="a06218_source.html">Shape2D.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4463d122e3a6d78f163800a89da53026"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4463d122e3a6d78f163800a89da53026">&#9670;&nbsp;</a></span>setOutlineColor() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gfx::s2d::Shape2D::setOutlineColor </td>
+          <td>(</td>
+          <td class="paramtype">std::initializer_list&lt; float &gt;&#160;</td>
+          <td class="paramname"><em>color</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the color the outline will be filled with. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">color</td><td>The color to outline the shape with </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a06218_source.html#l00075">75</a> of file <a class="el" href="a06218_source.html">Shape2D.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af84399690523725879fa511691aeab53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af84399690523725879fa511691aeab53">&#9670;&nbsp;</a></span>setOutlineThickness()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gfx::s2d::Shape2D::setOutlineThickness </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>thickness</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the thickness of the outline. Negative outline will render inside the bounds of the shape. Setting to 0 disables the outline. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">thickness</td><td>The thickness of the outline. In the same units as the shape size </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a06410_source.html#l00037">37</a> of file <a class="el" href="a06410_source.html">Shape2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7d110807ead876a9cf03c2923faf249b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d110807ead876a9cf03c2923faf249b">&#9670;&nbsp;</a></span>setSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a03085.html">bl::gfx::s2d::IconBase</a>&lt; <a class="el" href="a03077.html">s2d::BatchShape2D</a>  &gt;::setSize </td>
+          <td>(</td>
+          <td class="paramtype">const glm::vec2 &amp;&#160;</td>
+          <td class="paramname"><em>size</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the local size of the icon in world units. This is the size prior to the transform. The vertices of the icon are updated. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>The local size of the icon in world units </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00359_source.html#l00048">48</a> of file <a class="el" href="a00359_source.html">IconBase.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa49016719fef78f8825ee9792e905422"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa49016719fef78f8825ee9792e905422">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gfx::s2d::Shape2D::update </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04057.html">rc::prim::Vertex</a> *&#160;</td>
+          <td class="paramname"><em>vertices</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t *&#160;</td>
+          <td class="paramname"><em>indices</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Updates the index buffer to render this shape. Storage should be large enough for calculated size. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vertices</td><td>Pointer to the vertices for the shape </td></tr>
+    <tr><td class="paramname">indices</td><td>Pointer to the indices for the shape </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a06410_source.html#l00064">64</a> of file <a class="el" href="a06410_source.html">Shape2D.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a487b4b02b6f9dbd180b5948de037d800"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a487b4b02b6f9dbd180b5948de037d800">&#9670;&nbsp;</a></span>iconType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03013.html#aaf42e3e7c236dd1342a29176cea971a8">Type</a> <a class="el" href="a03085.html">bl::gfx::s2d::IconBase</a>&lt; <a class="el" href="a03077.html">s2d::BatchShape2D</a>  &gt;::iconType</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00359_source.html#l00056">56</a> of file <a class="el" href="a00359_source.html">IconBase.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Graphics/<a class="el" href="a00311_source.html">BatchIcon.hpp</a></li>
+<li>src/Graphics/<a class="el" href="a01541_source.html">BatchIcon.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:57 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:57:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

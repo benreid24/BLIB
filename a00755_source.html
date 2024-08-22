@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Particles/Sink.hpp Source File</title>
+<title>BLIB: include/BLIB/Particles/RenderConfigMap.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,85 +71,99 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Sink.hpp</div>  </div>
+<div class="title">RenderConfigMap.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00755.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_PARTICLES_SINK_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_PARTICLES_SINK_HPP</span></div>
+<a href="a00755.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_PARTICLES_RENDERCONFIGMAP_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_PARTICLES_RENDERCONFIGMAP_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;span&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>pcl</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span>ParticleManager;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03672.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03672.html">Sink</a> {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a03676.html">   27</a></span>&#160;    <span class="keyword">class </span><a class="code" href="a03676.html">Proxy</a> {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a03676.html#a8f37d9accdac0cddc97503025ce3b6a8">   33</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a03676.html#a8f37d9accdac0cddc97503025ce3b6a8">destroy</a>(<span class="keyword">const</span> T&amp; particle)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            <span class="keyword">const</span> std::size_t i = (&amp;particle) - base;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            std::unique_lock lock(mutex);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <span class="keywordflow">if</span> (!freed[i]) {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                freed[i] = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                freeList.emplace_back(i);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            }</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        }</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a03676.html#a4cc8842d8efca97b3c7c79cf4abd7635">   46</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a03676.html#a4cc8842d8efca97b3c7c79cf4abd7635">eraseMe</a>() { erased = <span class="keyword">true</span>; }</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06335.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01121.html">BLIB/Render/Vulkan/PipelineParameters.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;initializer_list&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;limits&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;variant&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>pcl</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>priv</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02347.html#a6440cd46fa8bd78cf63c4a2a5b14d1e1">   17</a></span>&#160;constexpr std::uint32_t <a class="code" href="a02347.html#a6440cd46fa8bd78cf63c4a2a5b14d1e1">PipelineNotSet</a> = std::numeric_limits&lt;std::uint32_t&gt;::max();</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a03689.html">   28</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a03689.html">RenderConfigDefaults</a> {</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a03689.html#afef82e6b89b93082486a97d5dbb703c8">   29</a></span>&#160;    <span class="keyword">static</span> constexpr std::initializer_list&lt;std::uint32_t&gt; <a class="code" href="a03689.html#afef82e6b89b93082486a97d5dbb703c8">RenderPassIds</a> = {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <a class="code" href="a03789.html#af0040b2fa84aa37da07fa82ce16ce316">bl::rc::Config::RenderPassIds::StandardAttachmentDefault</a>,</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <a class="code" href="a03789.html#abc433a9b9389284b6be2af69564ec75d">bl::rc::Config::RenderPassIds::SwapchainDefault</a>};</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a03689.html#a2b72136f866f4355fbab46ddea50ea79">   32</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a03689.html#a2b72136f866f4355fbab46ddea50ea79">GlobalShaderPayload</a> = std::monostate;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;};</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TFactories&gt;</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="a03693.html">   42</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a03693.html">RenderConfigDescriptorList</a> {</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a03693.html#aeb009b80dfdca7bbf93d496b561bb4b1">   43</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a03693.html#aeb009b80dfdca7bbf93d496b561bb4b1">addParameters</a>(<a class="code" href="a04325.html">rc::vk::PipelineParameters</a>&amp; params) {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        (params.<a class="code" href="a04325.html#ae74424489b454f5d8d65fa47ddd96ea8">addDescriptorSet</a>&lt;TFactories&gt;(), ...);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    }</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;};</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a03676.html#aee1a9948ab967b48ea663776489bfc51">   51</a></span>&#160;        <span class="keyword">const</span> <a class="code" href="a03588.html">ParticleManager&lt;T&gt;</a>&amp; <a class="code" href="a03676.html#aee1a9948ab967b48ea663776489bfc51">getManager</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> manager; }</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        std::mutex&amp; mutex;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <a class="code" href="a03588.html">ParticleManager&lt;T&gt;</a>&amp; manager;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        T* base;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        std::vector&lt;std::size_t&gt;&amp; freeList;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        std::vector&lt;bool&gt;&amp; freed;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordtype">bool</span> erased;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="a03697.html">   57</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a03697.html">RenderConfigMap</a> {</div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a03697.html#a819802a7f11d3762520ed4c528c03090">   59</a></span>&#160;    <span class="keyword">static</span> constexpr std::uint32_t <a class="code" href="a03697.html#a819802a7f11d3762520ed4c528c03090">PipelineId</a> = <a class="code" href="a02347.html#a6440cd46fa8bd78cf63c4a2a5b14d1e1">priv::PipelineNotSet</a>;</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="a03676.html#a2ebd68a709a096e577a8a554b5d28f32">   61</a></span>&#160;        <a class="code" href="a03676.html">Proxy</a>(std::mutex&amp; mutex, <a class="code" href="a03588.html">ParticleManager&lt;T&gt;</a>&amp; manager, T* base,</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;              std::vector&lt;std::size_t&gt;&amp; freeList, std::vector&lt;bool&gt;&amp; freed)</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        : mutex(mutex)</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        , manager(manager)</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        , base(base)</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        , freeList(freeList)</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        , freed(freed)</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        , erased(false) {}</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03588.html">ParticleManager</a>&lt;T&gt;;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    };</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="a03672.html#ac5ffdda75be828f83d82b57877bc276c">   76</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03672.html#ac5ffdda75be828f83d82b57877bc276c">~Sink</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="a03672.html#af7585d1dbf5f406bc2ab00642ca4f625">   86</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03672.html#af7585d1dbf5f406bc2ab00642ca4f625">update</a>(<a class="code" href="a03676.html">Proxy</a>&amp; proxy, std::span&lt;T&gt; particles, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span> realDt) = 0;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;};</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;} <span class="comment">// namespace pcl</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03588_html"><div class="ttname"><a href="a03588.html">bl::pcl::ParticleManager</a></div><div class="ttdoc">Particle manager for a specific type of particle. Instances are owned by the ParticleSystem and shoul...</div><div class="ttdef"><b>Definition:</b> <a href="a00731_source.html#l00029">ParticleManager.hpp:29</a></div></div>
-<div class="ttc" id="aa03672_html"><div class="ttname"><a href="a03672.html">bl::pcl::Sink</a></div><div class="ttdoc">Base class for all particle sinks. Provides the interface used by ParticleManagers.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00022">Sink.hpp:22</a></div></div>
-<div class="ttc" id="aa03672_html_ac5ffdda75be828f83d82b57877bc276c"><div class="ttname"><a href="a03672.html#ac5ffdda75be828f83d82b57877bc276c">bl::pcl::Sink::~Sink</a></div><div class="ttdeci">virtual ~Sink()=default</div><div class="ttdoc">Destroys the Sink.</div></div>
-<div class="ttc" id="aa03672_html_af7585d1dbf5f406bc2ab00642ca4f625"><div class="ttname"><a href="a03672.html#af7585d1dbf5f406bc2ab00642ca4f625">bl::pcl::Sink::update</a></div><div class="ttdeci">virtual void update(Proxy &amp;proxy, std::span&lt; T &gt; particles, float dt, float realDt)=0</div><div class="ttdoc">Called once per frame. Sinks should destroy particles in here.</div></div>
-<div class="ttc" id="aa03676_html"><div class="ttname"><a href="a03676.html">bl::pcl::Sink::Proxy</a></div><div class="ttdoc">Proxy interface for sinks to destroy particles.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00027">Sink.hpp:27</a></div></div>
-<div class="ttc" id="aa03676_html_a4cc8842d8efca97b3c7c79cf4abd7635"><div class="ttname"><a href="a03676.html#a4cc8842d8efca97b3c7c79cf4abd7635">bl::pcl::Sink::Proxy::eraseMe</a></div><div class="ttdeci">void eraseMe()</div><div class="ttdoc">Call to erase this sink.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00046">Sink.hpp:46</a></div></div>
-<div class="ttc" id="aa03676_html_a8f37d9accdac0cddc97503025ce3b6a8"><div class="ttname"><a href="a03676.html#a8f37d9accdac0cddc97503025ce3b6a8">bl::pcl::Sink::Proxy::destroy</a></div><div class="ttdeci">void destroy(const T &amp;particle) const</div><div class="ttdoc">Call to destroy the given particle.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00033">Sink.hpp:33</a></div></div>
-<div class="ttc" id="aa03676_html_aee1a9948ab967b48ea663776489bfc51"><div class="ttname"><a href="a03676.html#aee1a9948ab967b48ea663776489bfc51">bl::pcl::Sink::Proxy::getManager</a></div><div class="ttdeci">const ParticleManager&lt; T &gt; &amp; getManager() const</div><div class="ttdoc">Access the particle manager that owns this sink.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00051">Sink.hpp:51</a></div></div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="a03697.html#a7929bdd140667caca3aabd0edb8f2b29">   62</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> <a class="code" href="a03697.html#a7929bdd140667caca3aabd0edb8f2b29">ContainsTransparency</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="a03697.html#a7076dec1a2f946b37b0b85bc4f013630">   65</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> <a class="code" href="a03697.html#a7076dec1a2f946b37b0b85bc4f013630">CreateRenderPipeline</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="a03697.html#afc4405f9edc57bf75143137c3239699e">   69</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a03693.html">DescriptorSets</a> = <a class="code" href="a03693.html">RenderConfigDescriptorList&lt;&gt;</a>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="a03697.html#a9fc09f057e3e6d3778fe8bf31366892d">   72</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> <a class="code" href="a03697.html#a9fc09f057e3e6d3778fe8bf31366892d">EnableDepthTesting</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="a03697.html#a9a7608f3ae6e39515a00fbc2239fddf7">   75</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="a03697.html#a9a7608f3ae6e39515a00fbc2239fddf7">VertexShader</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="a03697.html#a894cefebd3a90b01be968b868ecd62de">   78</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="a03697.html#a894cefebd3a90b01be968b868ecd62de">FragmentShader</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="a03697.html#a93dd4eb85d01358346467feacc7aa46e">   81</a></span>&#160;    <span class="keyword">static</span> constexpr std::initializer_list&lt;std::uint32_t&gt; <a class="code" href="a03697.html#a93dd4eb85d01358346467feacc7aa46e">RenderPassIds</a> =</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <a class="code" href="a03689.html">RenderConfigDefaults&lt;T&gt;::RenderPassIds</a>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="a03697.html#a1d41febc5d039b42ac4dab48e69a9b64">   85</a></span>&#160;    <span class="keyword">static</span> constexpr VkPrimitiveTopology <a class="code" href="a03697.html#a1d41febc5d039b42ac4dab48e69a9b64">Topology</a> = VK_PRIMITIVE_TOPOLOGY_POINT_LIST;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="a03697.html#a5f61f0310bc1642e54f3c93009e48657">   88</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a03697.html#a5f61f0310bc1642e54f3c93009e48657">GlobalShaderPayload</a> = <span class="keyword">typename</span> <a class="code" href="a03689.html#a2b72136f866f4355fbab46ddea50ea79">RenderConfigDefaults&lt;T&gt;::GlobalShaderPayload</a>;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;};</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;} <span class="comment">// namespace pcl</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01121_html"><div class="ttname"><a href="a01121.html">PipelineParameters.hpp</a></div></div>
+<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02347_html_a6440cd46fa8bd78cf63c4a2a5b14d1e1"><div class="ttname"><a href="a02347.html#a6440cd46fa8bd78cf63c4a2a5b14d1e1">bl::pcl::priv::PipelineNotSet</a></div><div class="ttdeci">constexpr std::uint32_t PipelineNotSet</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00017">RenderConfigMap.hpp:17</a></div></div>
+<div class="ttc" id="aa03689_html"><div class="ttname"><a href="a03689.html">bl::pcl::RenderConfigDefaults</a></div><div class="ttdoc">Helper struct that provides some sane defaults for the various render settings specified in RenderCon...</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00028">RenderConfigMap.hpp:28</a></div></div>
+<div class="ttc" id="aa03689_html_a2b72136f866f4355fbab46ddea50ea79"><div class="ttname"><a href="a03689.html#a2b72136f866f4355fbab46ddea50ea79">bl::pcl::RenderConfigDefaults::GlobalShaderPayload</a></div><div class="ttdeci">std::monostate GlobalShaderPayload</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00032">RenderConfigMap.hpp:32</a></div></div>
+<div class="ttc" id="aa03689_html_afef82e6b89b93082486a97d5dbb703c8"><div class="ttname"><a href="a03689.html#afef82e6b89b93082486a97d5dbb703c8">bl::pcl::RenderConfigDefaults::RenderPassIds</a></div><div class="ttdeci">static constexpr std::initializer_list&lt; std::uint32_t &gt; RenderPassIds</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00029">RenderConfigMap.hpp:29</a></div></div>
+<div class="ttc" id="aa03693_html"><div class="ttname"><a href="a03693.html">bl::pcl::RenderConfigDescriptorList</a></div><div class="ttdoc">Helper struct to encode a variable list of descriptor sets for render pipeline creation.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00042">RenderConfigMap.hpp:42</a></div></div>
+<div class="ttc" id="aa03693_html_aeb009b80dfdca7bbf93d496b561bb4b1"><div class="ttname"><a href="a03693.html#aeb009b80dfdca7bbf93d496b561bb4b1">bl::pcl::RenderConfigDescriptorList::addParameters</a></div><div class="ttdeci">static void addParameters(rc::vk::PipelineParameters &amp;params)</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00043">RenderConfigMap.hpp:43</a></div></div>
+<div class="ttc" id="aa03697_html"><div class="ttname"><a href="a03697.html">bl::pcl::RenderConfigMap</a></div><div class="ttdoc">Compile-time mapping struct for use with the default Renderer&lt;T&gt; implementation. Specialize this for ...</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00057">RenderConfigMap.hpp:57</a></div></div>
+<div class="ttc" id="aa03697_html_a1d41febc5d039b42ac4dab48e69a9b64"><div class="ttname"><a href="a03697.html#a1d41febc5d039b42ac4dab48e69a9b64">bl::pcl::RenderConfigMap::Topology</a></div><div class="ttdeci">static constexpr VkPrimitiveTopology Topology</div><div class="ttdoc">The topology type the pipeline should be created with.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00085">RenderConfigMap.hpp:85</a></div></div>
+<div class="ttc" id="aa03697_html_a5f61f0310bc1642e54f3c93009e48657"><div class="ttname"><a href="a03697.html#a5f61f0310bc1642e54f3c93009e48657">bl::pcl::RenderConfigMap::GlobalShaderPayload</a></div><div class="ttdeci">typename RenderConfigDefaults&lt; T &gt;::GlobalShaderPayload GlobalShaderPayload</div><div class="ttdoc">Type of the global struct for the default descriptor set implementation.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00088">RenderConfigMap.hpp:88</a></div></div>
+<div class="ttc" id="aa03697_html_a7076dec1a2f946b37b0b85bc4f013630"><div class="ttname"><a href="a03697.html#a7076dec1a2f946b37b0b85bc4f013630">bl::pcl::RenderConfigMap::CreateRenderPipeline</a></div><div class="ttdeci">static constexpr bool CreateRenderPipeline</div><div class="ttdoc">Whether to create the GPU pipeline or not.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00065">RenderConfigMap.hpp:65</a></div></div>
+<div class="ttc" id="aa03697_html_a7929bdd140667caca3aabd0edb8f2b29"><div class="ttname"><a href="a03697.html#a7929bdd140667caca3aabd0edb8f2b29">bl::pcl::RenderConfigMap::ContainsTransparency</a></div><div class="ttdeci">static constexpr bool ContainsTransparency</div><div class="ttdoc">The transparency setting to render the particle system with.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00062">RenderConfigMap.hpp:62</a></div></div>
+<div class="ttc" id="aa03697_html_a819802a7f11d3762520ed4c528c03090"><div class="ttname"><a href="a03697.html#a819802a7f11d3762520ed4c528c03090">bl::pcl::RenderConfigMap::PipelineId</a></div><div class="ttdeci">static constexpr std::uint32_t PipelineId</div><div class="ttdoc">The id of the pipeline to render the particle system with.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00059">RenderConfigMap.hpp:59</a></div></div>
+<div class="ttc" id="aa03697_html_a894cefebd3a90b01be968b868ecd62de"><div class="ttname"><a href="a03697.html#a894cefebd3a90b01be968b868ecd62de">bl::pcl::RenderConfigMap::FragmentShader</a></div><div class="ttdeci">static constexpr const char * FragmentShader</div><div class="ttdoc">The fragment shader to create the pipeline with.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00078">RenderConfigMap.hpp:78</a></div></div>
+<div class="ttc" id="aa03697_html_a93dd4eb85d01358346467feacc7aa46e"><div class="ttname"><a href="a03697.html#a93dd4eb85d01358346467feacc7aa46e">bl::pcl::RenderConfigMap::RenderPassIds</a></div><div class="ttdeci">static constexpr std::initializer_list&lt; std::uint32_t &gt; RenderPassIds</div><div class="ttdoc">The list of render pass ids the pipeline will be used with.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00081">RenderConfigMap.hpp:81</a></div></div>
+<div class="ttc" id="aa03697_html_a9a7608f3ae6e39515a00fbc2239fddf7"><div class="ttname"><a href="a03697.html#a9a7608f3ae6e39515a00fbc2239fddf7">bl::pcl::RenderConfigMap::VertexShader</a></div><div class="ttdeci">static constexpr const char * VertexShader</div><div class="ttdoc">The vertex shader to create the pipeline with.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00075">RenderConfigMap.hpp:75</a></div></div>
+<div class="ttc" id="aa03697_html_a9fc09f057e3e6d3778fe8bf31366892d"><div class="ttname"><a href="a03697.html#a9fc09f057e3e6d3778fe8bf31366892d">bl::pcl::RenderConfigMap::EnableDepthTesting</a></div><div class="ttdeci">static constexpr bool EnableDepthTesting</div><div class="ttdoc">Whether to enable depth testing in the created pipeline.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00072">RenderConfigMap.hpp:72</a></div></div>
+<div class="ttc" id="aa03789_html_abc433a9b9389284b6be2af69564ec75d"><div class="ttname"><a href="a03789.html#abc433a9b9389284b6be2af69564ec75d">bl::rc::Config::RenderPassIds::SwapchainDefault</a></div><div class="ttdeci">static constexpr std::uint32_t SwapchainDefault</div><div class="ttdef"><b>Definition:</b> <a href="a06335_source.html#l00097">Config.hpp:97</a></div></div>
+<div class="ttc" id="aa03789_html_af0040b2fa84aa37da07fa82ce16ce316"><div class="ttname"><a href="a03789.html#af0040b2fa84aa37da07fa82ce16ce316">bl::rc::Config::RenderPassIds::StandardAttachmentDefault</a></div><div class="ttdeci">static constexpr std::uint32_t StandardAttachmentDefault</div><div class="ttdef"><b>Definition:</b> <a href="a06335_source.html#l00096">Config.hpp:96</a></div></div>
+<div class="ttc" id="aa04325_html"><div class="ttname"><a href="a04325.html">bl::rc::vk::PipelineParameters</a></div><div class="ttdoc">Parameters used to create a Pipeline. This class performs some basic validation and provides sane def...</div><div class="ttdef"><b>Definition:</b> <a href="a01121_source.html#l00031">PipelineParameters.hpp:31</a></div></div>
+<div class="ttc" id="aa04325_html_ae74424489b454f5d8d65fa47ddd96ea8"><div class="ttname"><a href="a04325.html#ae74424489b454f5d8d65fa47ddd96ea8">bl::rc::vk::PipelineParameters::addDescriptorSet</a></div><div class="ttdeci">PipelineParameters &amp; addDescriptorSet(TArgs &amp;&amp;... args)</div><div class="ttdoc">Adds a descriptor set factory to the pipeline. The factory is allocated here and then deduped on actu...</div><div class="ttdef"><b>Definition:</b> <a href="a01121_source.html#l00253">PipelineParameters.hpp:253</a></div></div>
+<div class="ttc" id="aa06335_html"><div class="ttname"><a href="a06335.html">Config.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

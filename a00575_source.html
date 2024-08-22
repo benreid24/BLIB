@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/GUI/Renderer/NullComponent.hpp Source File</title>
+<title>BLIB: include/BLIB/Interfaces/GUI/Renderer/FactoryTable.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,61 +71,112 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">NullComponent.hpp</div>  </div>
+<div class="title">FactoryTable.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00575.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GUI_RENDERER_NULLCOMPONENT_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GUI_RENDERER_NULLCOMPONENT_HPP</span></div>
+<a href="a00575.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GUI_RENDERER_FACTORYTABLE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GUI_RENDERER_FACTORYTABLE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00560.html">BLIB/Interfaces/GUI/Renderer/Component.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>gui</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rdr</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a03416.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03416.html">NullComponent</a> : <span class="keyword">public</span> <a class="code" href="a03392.html">rdr::Component</a> {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03416.html#a99a96017121074d7fcd0466b86157c21">   22</a></span>&#160;    <a class="code" href="a03416.html#a99a96017121074d7fcd0466b86157c21">NullComponent</a>()</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    : <a class="code" href="a03392.html">Component</a>(<a class="code" href="a03392.html#ad04144636950185c959ad6394f0c5c52">HighlightState</a>::IgnoresMouse) {}</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a03416.html#a065388da17ce96f9798d0b93d0b08e3b">   28</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03416.html#a065388da17ce96f9798d0b93d0b08e3b">~NullComponent</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> setVisible(<span class="keywordtype">bool</span>)<span class="keyword"> override </span>{}</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> onElementUpdated()<span class="keyword"> override </span>{}</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> onRenderSettingChange() {}</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02712.html">ecs::Entity</a> getEntity()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> <a class="code" href="a02299.html#a01655307bcb32baf2884e18213123917">ecs::InvalidEntity</a>; }</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doCreate(engine::Engine&amp;, <a class="code" href="a03392.html#a70538530bc36e033e360880ef311df61">Renderer</a>&amp;)<span class="keyword"> override </span>{}</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doSceneAdd(rc::Overlay*)<span class="keyword"> override </span>{}</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doSceneRemove()<span class="keyword"> override </span>{}</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> notifyUIState(<a class="code" href="a03392.html#ae8067b9f5370e7a570688e694a15f6ef">UIState</a>)<span class="keyword"> override </span>{}</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleAcquisition()<span class="keyword"> override </span>{}</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleMove()<span class="keyword"> override </span>{}</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;};</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// namespace rdr</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;} <span class="comment">// namespace gui</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00560_html"><div class="ttname"><a href="a00560.html">Component.hpp</a></div></div>
-<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02299_html_a01655307bcb32baf2884e18213123917"><div class="ttname"><a href="a02299.html#a01655307bcb32baf2884e18213123917">bl::ecs::InvalidEntity</a></div><div class="ttdeci">constexpr Entity InvalidEntity</div><div class="ttdoc">Special value to indicate that an Entity is not valid.</div><div class="ttdef"><b>Definition:</b> <a href="a00176_source.html#l00167">Entity.hpp:167</a></div></div>
-<div class="ttc" id="aa02712_html"><div class="ttname"><a href="a02712.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00176_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa03392_html"><div class="ttname"><a href="a03392.html">bl::gui::rdr::Component</a></div><div class="ttdoc">Base class for renderer components. Each GUI element owns a handle to a component owned by the render...</div><div class="ttdef"><b>Definition:</b> <a href="a00560_source.html#l00031">Component.hpp:31</a></div></div>
-<div class="ttc" id="aa03392_html_a70538530bc36e033e360880ef311df61"><div class="ttname"><a href="a03392.html#a70538530bc36e033e360880ef311df61">bl::gui::rdr::Component::Renderer</a></div><div class="ttdeci">friend class Renderer</div><div class="ttdef"><b>Definition:</b> <a href="a00560_source.html#l00243">Component.hpp:243</a></div></div>
-<div class="ttc" id="aa03392_html_ad04144636950185c959ad6394f0c5c52"><div class="ttname"><a href="a03392.html#ad04144636950185c959ad6394f0c5c52">bl::gui::rdr::Component::HighlightState</a></div><div class="ttdeci">HighlightState</div><div class="ttdoc">How the component responds to mouse over state.</div><div class="ttdef"><b>Definition:</b> <a href="a00560_source.html#l00039">Component.hpp:39</a></div></div>
-<div class="ttc" id="aa03392_html_ae8067b9f5370e7a570688e694a15f6ef"><div class="ttname"><a href="a03392.html#ae8067b9f5370e7a570688e694a15f6ef">bl::gui::rdr::Component::UIState</a></div><div class="ttdeci">UIState</div><div class="ttdoc">Visible state of the element.</div><div class="ttdef"><b>Definition:</b> <a href="a00560_source.html#l00036">Component.hpp:36</a></div></div>
-<div class="ttc" id="aa03416_html"><div class="ttname"><a href="a03416.html">bl::gui::rdr::NullComponent</a></div><div class="ttdoc">Empty component that noops all operations and renders nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a00575_source.html#l00017">NullComponent.hpp:17</a></div></div>
-<div class="ttc" id="aa03416_html_a065388da17ce96f9798d0b93d0b08e3b"><div class="ttname"><a href="a03416.html#a065388da17ce96f9798d0b93d0b08e3b">bl::gui::rdr::NullComponent::~NullComponent</a></div><div class="ttdeci">virtual ~NullComponent()=default</div><div class="ttdoc">Destroys the component.</div></div>
-<div class="ttc" id="aa03416_html_a99a96017121074d7fcd0466b86157c21"><div class="ttname"><a href="a03416.html#a99a96017121074d7fcd0466b86157c21">bl::gui::rdr::NullComponent::NullComponent</a></div><div class="ttdeci">NullComponent()</div><div class="ttdoc">Creates a new NullComponent.</div><div class="ttdef"><b>Definition:</b> <a href="a00575_source.html#l00022">NullComponent.hpp:22</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00452.html">BLIB/Interfaces/GUI/Elements/Element.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00572.html">BLIB/Interfaces/GUI/Renderer/ComponentFactory.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00578.html">BLIB/Interfaces/GUI/Renderer/FlashProvider.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00581.html">BLIB/Interfaces/GUI/Renderer/HighlightProvider.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00602.html">BLIB/Interfaces/GUI/Renderer/TooltipProvider.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;typeindex&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>gui</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>rdr</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a03441.html">   24</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03441.html">FactoryTable</a> {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="a03441.html#a1e2dad8a1002c160a1f5f0598454c9cf">FactoryTable</a>(<span class="keywordtype">bool</span> populateWithDefaults = <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">static</span> <a class="code" href="a03441.html">FactoryTable</a>&amp; <a class="code" href="a03441.html#ab74787af56f35179cb8db85af92292ef">getDefaultTable</a>();</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03441.html#aa51390a6ea90905a49692097d22dd737">setFlashProviderFactory</a>(<a class="code" href="a03445.html#a524da658eb2cd3d9cf115aeb702a74e5">FlashProvider::Factory</a>&amp;&amp; factory);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03441.html#a87ab84c25b422da7b0500c40e637ba55">setHighlightProviderFactory</a>(<a class="code" href="a03449.html#a5bdd75df981da3a3f6502e36b8935076">HighlightProvider::Factory</a>&amp;&amp; factory);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03441.html#a56cdd69dbbedc85cdac60298f5d79ab0">setTooltipProviderFactory</a>(<a class="code" href="a03477.html#a7318c30bf125234762f9bb09151d73d6">TooltipProvider::Factory</a>&amp;&amp; factory);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TElem&gt;</div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="a03441.html#a5ddccc850391bf930e37283b9c0b96be">   66</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03441.html#a5ddccc850391bf930e37283b9c0b96be">registerFactoryForElement</a>(<a class="code" href="a03433.html#a93c04bfc46919ebdb430f1951d3c011c">ComponentFactory::Ptr</a>&amp;&amp; factory) {</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        static_assert(std::is_base_of_v&lt;Element, TElem&gt;, <span class="stringliteral">&quot;TElem must be derived from Element&quot;</span>);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        table[<span class="keyword">typeid</span>(TElem)] = std::move(factory);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TElem, <span class="keyword">typename</span> TCom&gt;</div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="a03441.html#ab71bb75847185b8730e872097224bf09">   78</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03441.html#ab71bb75847185b8730e872097224bf09">registerFactoryForElement</a>() {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        static_assert(std::is_base_of_v&lt;Element, TElem&gt;, <span class="stringliteral">&quot;TElem must be derived from Element&quot;</span>);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        table[<span class="keyword">typeid</span>(TElem)] = std::make_unique&lt;<a class="code" href="a03437.html">GenericFactory&lt;TCom&gt;</a>&gt;();</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TElem&gt;</div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="a03441.html#ad7b3908717e69c9ed4b781ecdbb275b8">   90</a></span>&#160;    <a class="code" href="a03429.html#a947a8f9a8831f3c495cb9aa7ca89a374">Component::Ptr</a> <a class="code" href="a03441.html#ad7b3908717e69c9ed4b781ecdbb275b8">createComponent</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> it = table.find(<span class="keyword">typeid</span>(TElem));</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordflow">if</span> (it == table.end()) {</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            <a class="code" href="a00662.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to find Component creator for Element: &quot;</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                         &lt;&lt; <span class="keyword">typeid</span>(TElem).name();</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Missing ComponentFactory&quot;</span>);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        }</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keywordflow">return</span> it-&gt;second-&gt;create();</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    }</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <a class="code" href="a03445.html#a485529a3d684527236054427f96c570e">FlashProvider::Ptr</a> <a class="code" href="a03441.html#a7f95525f0333652c3b7eb1f226b7fd8e">createFlashProvider</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <a class="code" href="a03449.html#a66ac6d9dbccb33fbf459435d7e99ed24">HighlightProvider::Ptr</a> <a class="code" href="a03441.html#a02c652b4fefc228451c377e4b437efc6">createHighlightProvider</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <a class="code" href="a03477.html#a7d4cab9c1462843ae39dde6fd247e664">TooltipProvider::Ptr</a> <a class="code" href="a03441.html#a0971cc069b548d6e3b4ffeb5ffa510c7">createTooltipProvider</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    std::unordered_map&lt;std::type_index, ComponentFactory::Ptr&gt; table;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <a class="code" href="a03445.html#a524da658eb2cd3d9cf115aeb702a74e5">FlashProvider::Factory</a> flashFactory;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <a class="code" href="a03449.html#a5bdd75df981da3a3f6502e36b8935076">HighlightProvider::Factory</a> highlightFactory;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <a class="code" href="a03477.html#a7318c30bf125234762f9bb09151d73d6">TooltipProvider::Factory</a> tooltipFactory;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;};</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;} <span class="comment">// namespace rdr</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;} <span class="comment">// namespace gui</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00452_html"><div class="ttname"><a href="a00452.html">Element.hpp</a></div></div>
+<div class="ttc" id="aa00572_html"><div class="ttname"><a href="a00572.html">ComponentFactory.hpp</a></div></div>
+<div class="ttc" id="aa00578_html"><div class="ttname"><a href="a00578.html">FlashProvider.hpp</a></div></div>
+<div class="ttc" id="aa00581_html"><div class="ttname"><a href="a00581.html">HighlightProvider.hpp</a></div></div>
+<div class="ttc" id="aa00602_html"><div class="ttname"><a href="a00602.html">TooltipProvider.hpp</a></div></div>
+<div class="ttc" id="aa00662_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00662.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00662_source.html#l00101">Logger.hpp:101</a></div></div>
+<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03429_html_a947a8f9a8831f3c495cb9aa7ca89a374"><div class="ttname"><a href="a03429.html#a947a8f9a8831f3c495cb9aa7ca89a374">bl::gui::rdr::Component::Ptr</a></div><div class="ttdeci">std::unique_ptr&lt; Component &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00569_source.html#l00033">Component.hpp:33</a></div></div>
+<div class="ttc" id="aa03433_html_a93c04bfc46919ebdb430f1951d3c011c"><div class="ttname"><a href="a03433.html#a93c04bfc46919ebdb430f1951d3c011c">bl::gui::rdr::ComponentFactory::Ptr</a></div><div class="ttdeci">std::unique_ptr&lt; ComponentFactory &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00572_source.html#l00020">ComponentFactory.hpp:20</a></div></div>
+<div class="ttc" id="aa03437_html"><div class="ttname"><a href="a03437.html">bl::gui::rdr::GenericFactory</a></div><div class="ttdoc">Generic factory for components with simple constructors. Provided for convenience.</div><div class="ttdef"><b>Definition:</b> <a href="a00572_source.html#l00040">ComponentFactory.hpp:40</a></div></div>
+<div class="ttc" id="aa03441_html"><div class="ttname"><a href="a03441.html">bl::gui::rdr::FactoryTable</a></div><div class="ttdoc">Managed mapping of GUI Element to ComponentFactory. Allows swapping out render behavior for specific ...</div><div class="ttdef"><b>Definition:</b> <a href="a00575_source.html#l00024">FactoryTable.hpp:24</a></div></div>
+<div class="ttc" id="aa03441_html_a02c652b4fefc228451c377e4b437efc6"><div class="ttname"><a href="a03441.html#a02c652b4fefc228451c377e4b437efc6">bl::gui::rdr::FactoryTable::createHighlightProvider</a></div><div class="ttdeci">HighlightProvider::Ptr createHighlightProvider() const</div><div class="ttdoc">Creates a highlight provider.</div><div class="ttdef"><b>Definition:</b> <a href="a01784_source.html#l00086">FactoryTable.cpp:86</a></div></div>
+<div class="ttc" id="aa03441_html_a0971cc069b548d6e3b4ffeb5ffa510c7"><div class="ttname"><a href="a03441.html#a0971cc069b548d6e3b4ffeb5ffa510c7">bl::gui::rdr::FactoryTable::createTooltipProvider</a></div><div class="ttdeci">TooltipProvider::Ptr createTooltipProvider() const</div><div class="ttdoc">Creates a tooltip provider.</div><div class="ttdef"><b>Definition:</b> <a href="a01784_source.html#l00088">FactoryTable.cpp:88</a></div></div>
+<div class="ttc" id="aa03441_html_a1e2dad8a1002c160a1f5f0598454c9cf"><div class="ttname"><a href="a03441.html#a1e2dad8a1002c160a1f5f0598454c9cf">bl::gui::rdr::FactoryTable::FactoryTable</a></div><div class="ttdeci">FactoryTable(bool populateWithDefaults=true)</div><div class="ttdoc">Creates a new factory table.</div><div class="ttdef"><b>Definition:</b> <a href="a01784_source.html#l00037">FactoryTable.cpp:37</a></div></div>
+<div class="ttc" id="aa03441_html_a56cdd69dbbedc85cdac60298f5d79ab0"><div class="ttname"><a href="a03441.html#a56cdd69dbbedc85cdac60298f5d79ab0">bl::gui::rdr::FactoryTable::setTooltipProviderFactory</a></div><div class="ttdeci">void setTooltipProviderFactory(TooltipProvider::Factory &amp;&amp;factory)</div><div class="ttdoc">Sets the callback to use to create tooltip providers.</div><div class="ttdef"><b>Definition:</b> <a href="a01784_source.html#l00080">FactoryTable.cpp:80</a></div></div>
+<div class="ttc" id="aa03441_html_a5ddccc850391bf930e37283b9c0b96be"><div class="ttname"><a href="a03441.html#a5ddccc850391bf930e37283b9c0b96be">bl::gui::rdr::FactoryTable::registerFactoryForElement</a></div><div class="ttdeci">void registerFactoryForElement(ComponentFactory::Ptr &amp;&amp;factory)</div><div class="ttdoc">Adds a factory to the table.</div><div class="ttdef"><b>Definition:</b> <a href="a00575_source.html#l00066">FactoryTable.hpp:66</a></div></div>
+<div class="ttc" id="aa03441_html_a7f95525f0333652c3b7eb1f226b7fd8e"><div class="ttname"><a href="a03441.html#a7f95525f0333652c3b7eb1f226b7fd8e">bl::gui::rdr::FactoryTable::createFlashProvider</a></div><div class="ttdeci">FlashProvider::Ptr createFlashProvider() const</div><div class="ttdoc">Creates a flash provider.</div><div class="ttdef"><b>Definition:</b> <a href="a01784_source.html#l00084">FactoryTable.cpp:84</a></div></div>
+<div class="ttc" id="aa03441_html_a87ab84c25b422da7b0500c40e637ba55"><div class="ttname"><a href="a03441.html#a87ab84c25b422da7b0500c40e637ba55">bl::gui::rdr::FactoryTable::setHighlightProviderFactory</a></div><div class="ttdeci">void setHighlightProviderFactory(HighlightProvider::Factory &amp;&amp;factory)</div><div class="ttdoc">Sets the callback to use to create highlight providers.</div><div class="ttdef"><b>Definition:</b> <a href="a01784_source.html#l00076">FactoryTable.cpp:76</a></div></div>
+<div class="ttc" id="aa03441_html_aa51390a6ea90905a49692097d22dd737"><div class="ttname"><a href="a03441.html#aa51390a6ea90905a49692097d22dd737">bl::gui::rdr::FactoryTable::setFlashProviderFactory</a></div><div class="ttdeci">void setFlashProviderFactory(FlashProvider::Factory &amp;&amp;factory)</div><div class="ttdoc">Sets the callback to use to create flash providers.</div><div class="ttdef"><b>Definition:</b> <a href="a01784_source.html#l00072">FactoryTable.cpp:72</a></div></div>
+<div class="ttc" id="aa03441_html_ab71bb75847185b8730e872097224bf09"><div class="ttname"><a href="a03441.html#ab71bb75847185b8730e872097224bf09">bl::gui::rdr::FactoryTable::registerFactoryForElement</a></div><div class="ttdeci">void registerFactoryForElement()</div><div class="ttdoc">Convenience method to use the GenericFactory for the given element.</div><div class="ttdef"><b>Definition:</b> <a href="a00575_source.html#l00078">FactoryTable.hpp:78</a></div></div>
+<div class="ttc" id="aa03441_html_ab74787af56f35179cb8db85af92292ef"><div class="ttname"><a href="a03441.html#ab74787af56f35179cb8db85af92292ef">bl::gui::rdr::FactoryTable::getDefaultTable</a></div><div class="ttdeci">static FactoryTable &amp; getDefaultTable()</div><div class="ttdoc">Returns the global default table. GUI's use this table unless overridden.</div><div class="ttdef"><b>Definition:</b> <a href="a01784_source.html#l00067">FactoryTable.cpp:67</a></div></div>
+<div class="ttc" id="aa03441_html_ad7b3908717e69c9ed4b781ecdbb275b8"><div class="ttname"><a href="a03441.html#ad7b3908717e69c9ed4b781ecdbb275b8">bl::gui::rdr::FactoryTable::createComponent</a></div><div class="ttdeci">Component::Ptr createComponent() const</div><div class="ttdoc">Uses the registered factory to create a Component for the given element type.</div><div class="ttdef"><b>Definition:</b> <a href="a00575_source.html#l00090">FactoryTable.hpp:90</a></div></div>
+<div class="ttc" id="aa03445_html_a485529a3d684527236054427f96c570e"><div class="ttname"><a href="a03445.html#a485529a3d684527236054427f96c570e">bl::gui::rdr::FlashProvider::Ptr</a></div><div class="ttdeci">std::unique_ptr&lt; FlashProvider &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00578_source.html#l00023">FlashProvider.hpp:23</a></div></div>
+<div class="ttc" id="aa03445_html_a524da658eb2cd3d9cf115aeb702a74e5"><div class="ttname"><a href="a03445.html#a524da658eb2cd3d9cf115aeb702a74e5">bl::gui::rdr::FlashProvider::Factory</a></div><div class="ttdeci">std::function&lt; Ptr()&gt; Factory</div><div class="ttdef"><b>Definition:</b> <a href="a00578_source.html#l00024">FlashProvider.hpp:24</a></div></div>
+<div class="ttc" id="aa03449_html_a5bdd75df981da3a3f6502e36b8935076"><div class="ttname"><a href="a03449.html#a5bdd75df981da3a3f6502e36b8935076">bl::gui::rdr::HighlightProvider::Factory</a></div><div class="ttdeci">std::function&lt; Ptr()&gt; Factory</div><div class="ttdef"><b>Definition:</b> <a href="a00581_source.html#l00024">HighlightProvider.hpp:24</a></div></div>
+<div class="ttc" id="aa03449_html_a66ac6d9dbccb33fbf459435d7e99ed24"><div class="ttname"><a href="a03449.html#a66ac6d9dbccb33fbf459435d7e99ed24">bl::gui::rdr::HighlightProvider::Ptr</a></div><div class="ttdeci">std::unique_ptr&lt; HighlightProvider &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00581_source.html#l00023">HighlightProvider.hpp:23</a></div></div>
+<div class="ttc" id="aa03477_html_a7318c30bf125234762f9bb09151d73d6"><div class="ttname"><a href="a03477.html#a7318c30bf125234762f9bb09151d73d6">bl::gui::rdr::TooltipProvider::Factory</a></div><div class="ttdeci">std::function&lt; Ptr()&gt; Factory</div><div class="ttdef"><b>Definition:</b> <a href="a00602_source.html#l00024">TooltipProvider.hpp:24</a></div></div>
+<div class="ttc" id="aa03477_html_a7d4cab9c1462843ae39dde6fd247e664"><div class="ttname"><a href="a03477.html#a7d4cab9c1462843ae39dde6fd247e664">bl::gui::rdr::TooltipProvider::Ptr</a></div><div class="ttdeci">std::unique_ptr&lt; TooltipProvider &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00602_source.html#l00023">TooltipProvider.hpp:23</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

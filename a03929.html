@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::rc::rg::AssetPool Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,26 +66,379 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02284.html">bl</a></li><li class="navelem"><a class="el" href="a02294.html">rc</a></li><li class="navelem"><a class="el" href="a02336.html">rg</a></li><li class="navelem"><a class="el" href="a03932.html">GraphAsset</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02303.html">bl</a></li><li class="navelem"><a class="el" href="a02313.html">rc</a></li><li class="navelem"><a class="el" href="a02356.html">rg</a></li><li class="navelem"><a class="el" href="a03929.html">AssetPool</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a03926.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::rc::rg::GraphAsset Member List</div>  </div>
+<div class="title">bl::rc::rg::AssetPool Class Reference<div class="ingroups"><a class="el" href="a02289.html">Renderer</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a03932.html">bl::rc::rg::GraphAsset</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a03932.html#a6215eb2ba33408469b3d677370b66c1c">asset</a></td><td class="entry"><a class="el" href="a03932.html">bl::rc::rg::GraphAsset</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a03932.html#a4c84c9c08de0afb30a3e03df8a8ecff1">firstAvailableStep</a></td><td class="entry"><a class="el" href="a03932.html">bl::rc::rg::GraphAsset</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03932.html#aeb346b0d37370e4a771426f047c99d4e">GraphAsset</a>(Asset *asset)</td><td class="entry"><a class="el" href="a03932.html">bl::rc::rg::GraphAsset</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a03932.html#a2b2ef0e611f7d31a41a329d90272b52e">outputtedBy</a></td><td class="entry"><a class="el" href="a03932.html">bl::rc::rg::GraphAsset</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p><a class="el" href="a04033.html" title="Top level class for observers in the renderer. Corresponds to Engine Actors. Each observer may have i...">Observer</a> level asset pool that owns assets directly.  
+ <a href="a03929.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00893_source.html">AssetPool.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:abe1ade1da0f7318602d4a64e3de881c5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03929.html#abe1ade1da0f7318602d4a64e3de881c5">AssetPool</a> (<a class="el" href="a03925.html">AssetFactory</a> &amp;factory, <a class="el" href="a04069.html">RenderTarget</a> *observer)</td></tr>
+<tr class="memdesc:abe1ade1da0f7318602d4a64e3de881c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new asset pool.  <a href="a03929.html#abe1ade1da0f7318602d4a64e3de881c5">More...</a><br /></td></tr>
+<tr class="separator:abe1ade1da0f7318602d4a64e3de881c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59cdd3971bc6b22c5e640a2792525140"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03929.html#a59cdd3971bc6b22c5e640a2792525140">cleanup</a> ()</td></tr>
+<tr class="memdesc:a59cdd3971bc6b22c5e640a2792525140"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys all contained assets.  <a href="a03929.html#a59cdd3971bc6b22c5e640a2792525140">More...</a><br /></td></tr>
+<tr class="separator:a59cdd3971bc6b22c5e640a2792525140"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06c7c7349d3c903bcde098c2bc585917"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03929.html#a06c7c7349d3c903bcde098c2bc585917">releaseUnused</a> ()</td></tr>
+<tr class="memdesc:a06c7c7349d3c903bcde098c2bc585917"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys assets that are not referenced by anything.  <a href="a03929.html#a06c7c7349d3c903bcde098c2bc585917">More...</a><br /></td></tr>
+<tr class="separator:a06c7c7349d3c903bcde098c2bc585917"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37a92b67a2a1afb525ff1d45099610a6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03921.html">Asset</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03929.html#a37a92b67a2a1afb525ff1d45099610a6">getAsset</a> (std::string_view tag, <a class="el" href="a03973.html">GraphAssetPool</a> *requester)</td></tr>
+<tr class="memdesc:a37a92b67a2a1afb525ff1d45099610a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches an existing asset from the pool.  <a href="a03929.html#a37a92b67a2a1afb525ff1d45099610a6">More...</a><br /></td></tr>
+<tr class="separator:a37a92b67a2a1afb525ff1d45099610a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6af42836614b9d28b9227bb2d9665876"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03921.html">Asset</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03929.html#a6af42836614b9d28b9227bb2d9665876">getOrCreateAsset</a> (std::string_view tag, <a class="el" href="a03973.html">GraphAssetPool</a> *requester)</td></tr>
+<tr class="memdesc:a6af42836614b9d28b9227bb2d9665876"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or creates an asset of the given tag for the given pool.  <a href="a03929.html#a6af42836614b9d28b9227bb2d9665876">More...</a><br /></td></tr>
+<tr class="separator:a6af42836614b9d28b9227bb2d9665876"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54629e194ebffb4a0f275b5526f7ba1e"><td class="memTemplParams" colspan="2">template&lt;typename T , typename... TArgs&gt; </td></tr>
+<tr class="memitem:a54629e194ebffb4a0f275b5526f7ba1e"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03929.html#a54629e194ebffb4a0f275b5526f7ba1e">putAsset</a> (TArgs &amp;&amp;... args)</td></tr>
+<tr class="memdesc:a54629e194ebffb4a0f275b5526f7ba1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manually puts an asset into the pool, bypassing the <a class="el" href="a03925.html" title="Factory for render graph assets. Manages the set of providers keyed on tag.">AssetFactory</a>.  <a href="a03929.html#a54629e194ebffb4a0f275b5526f7ba1e">More...</a><br /></td></tr>
+<tr class="separator:a54629e194ebffb4a0f275b5526f7ba1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0e140a816adb3e2ec536e0a45a128ec"><td class="memTemplParams" colspan="2">template&lt;typename T , typename... TArgs&gt; </td></tr>
+<tr class="memitem:ac0e140a816adb3e2ec536e0a45a128ec"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03929.html#ac0e140a816adb3e2ec536e0a45a128ec">replaceAsset</a> (TArgs &amp;&amp;... args)</td></tr>
+<tr class="memdesc:ac0e140a816adb3e2ec536e0a45a128ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manually puts an asset into the pool, bypassing the <a class="el" href="a03925.html" title="Factory for render graph assets. Manages the set of providers keyed on tag.">AssetFactory</a>. Replaces the existing assets with the same tag.  <a href="a03929.html#ac0e140a816adb3e2ec536e0a45a128ec">More...</a><br /></td></tr>
+<tr class="separator:ac0e140a816adb3e2ec536e0a45a128ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1114e2e38473ee5b1842e1a7362cb27a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03929.html#a1114e2e38473ee5b1842e1a7362cb27a">notifyResize</a> (glm::u32vec2 newSize)</td></tr>
+<tr class="memdesc:a1114e2e38473ee5b1842e1a7362cb27a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intended to be called by observer when it resizes.  <a href="a03929.html#a1114e2e38473ee5b1842e1a7362cb27a">More...</a><br /></td></tr>
+<tr class="separator:a1114e2e38473ee5b1842e1a7362cb27a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab583deaf609eccab3a4d1bc42bbe5b6d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03929.html#ab583deaf609eccab3a4d1bc42bbe5b6d">reset</a> (<a class="el" href="a03973.html">GraphAssetPool</a> *pool)</td></tr>
+<tr class="memdesc:ab583deaf609eccab3a4d1bc42bbe5b6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets resources used by the given pool.  <a href="a03929.html#ab583deaf609eccab3a4d1bc42bbe5b6d">More...</a><br /></td></tr>
+<tr class="separator:ab583deaf609eccab3a4d1bc42bbe5b6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="a04033.html" title="Top level class for observers in the renderer. Corresponds to Engine Actors. Each observer may have i...">Observer</a> level asset pool that owns assets directly. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00893_source.html#l00033">33</a> of file <a class="el" href="a00893_source.html">AssetPool.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="abe1ade1da0f7318602d4a64e3de881c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe1ade1da0f7318602d4a64e3de881c5">&#9670;&nbsp;</a></span>AssetPool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::rg::AssetPool::AssetPool </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03925.html">AssetFactory</a> &amp;&#160;</td>
+          <td class="paramname"><em>factory</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a04069.html">RenderTarget</a> *&#160;</td>
+          <td class="paramname"><em>observer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a new asset pool. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">factory</td><td>The <a class="el" href="a03925.html" title="Factory for render graph assets. Manages the set of providers keyed on tag.">AssetFactory</a> to use </td></tr>
+    <tr><td class="paramname">observer</td><td>The observer that the pool belongs to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01907_source.html#l00011">11</a> of file <a class="el" href="a01907_source.html">AssetPool.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a59cdd3971bc6b22c5e640a2792525140"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59cdd3971bc6b22c5e640a2792525140">&#9670;&nbsp;</a></span>cleanup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::rg::AssetPool::cleanup </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Destroys all contained assets. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01907_source.html#l00015">15</a> of file <a class="el" href="a01907_source.html">AssetPool.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a37a92b67a2a1afb525ff1d45099610a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37a92b67a2a1afb525ff1d45099610a6">&#9670;&nbsp;</a></span>getAsset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03921.html">Asset</a> * bl::rc::rg::AssetPool::getAsset </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>tag</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a03973.html">GraphAssetPool</a> *&#160;</td>
+          <td class="paramname"><em>requester</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fetches an existing asset from the pool. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tag</td><td>The tag of the asset to fetch </td></tr>
+    <tr><td class="paramname">requester</td><td>The pool requesting the asset </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to an asset with the given tag, nullptr if none exist </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01907_source.html#l00029">29</a> of file <a class="el" href="a01907_source.html">AssetPool.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6af42836614b9d28b9227bb2d9665876"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6af42836614b9d28b9227bb2d9665876">&#9670;&nbsp;</a></span>getOrCreateAsset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03921.html">Asset</a> * bl::rc::rg::AssetPool::getOrCreateAsset </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>tag</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a03973.html">GraphAssetPool</a> *&#160;</td>
+          <td class="paramname"><em>requester</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets or creates an asset of the given tag for the given pool. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tag</td><td>The tag to get or create an asset for </td></tr>
+    <tr><td class="paramname">requester</td><td>The pool requesting the asset </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the asset to use </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01907_source.html#l00043">43</a> of file <a class="el" href="a01907_source.html">AssetPool.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1114e2e38473ee5b1842e1a7362cb27a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1114e2e38473ee5b1842e1a7362cb27a">&#9670;&nbsp;</a></span>notifyResize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::rg::AssetPool::notifyResize </td>
+          <td>(</td>
+          <td class="paramtype">glm::u32vec2&#160;</td>
+          <td class="paramname"><em>newSize</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Intended to be called by observer when it resizes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">newSize</td><td>The new size of the observer render region </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01907_source.html#l00058">58</a> of file <a class="el" href="a01907_source.html">AssetPool.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a54629e194ebffb4a0f275b5526f7ba1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54629e194ebffb4a0f275b5526f7ba1e">&#9670;&nbsp;</a></span>putAsset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename... TArgs&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T* bl::rc::rg::AssetPool::putAsset </td>
+          <td>(</td>
+          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Manually puts an asset into the pool, bypassing the <a class="el" href="a03925.html" title="Factory for render graph assets. Manages the set of providers keyed on tag.">AssetFactory</a>. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The asset type to add </td></tr>
+    <tr><td class="paramname">...TArgs</td><td>Argument types to the asset's constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">...args</td><td>Arguments to the asset's constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the newly added asset </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00893_source.html#l00080">80</a> of file <a class="el" href="a00893_source.html">AssetPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a06c7c7349d3c903bcde098c2bc585917"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06c7c7349d3c903bcde098c2bc585917">&#9670;&nbsp;</a></span>releaseUnused()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::rg::AssetPool::releaseUnused </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Destroys assets that are not referenced by anything. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01907_source.html#l00017">17</a> of file <a class="el" href="a01907_source.html">AssetPool.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac0e140a816adb3e2ec536e0a45a128ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0e140a816adb3e2ec536e0a45a128ec">&#9670;&nbsp;</a></span>replaceAsset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename... TArgs&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T* bl::rc::rg::AssetPool::replaceAsset </td>
+          <td>(</td>
+          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Manually puts an asset into the pool, bypassing the <a class="el" href="a03925.html" title="Factory for render graph assets. Manages the set of providers keyed on tag.">AssetFactory</a>. Replaces the existing assets with the same tag. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The asset type to add </td></tr>
+    <tr><td class="paramname">...TArgs</td><td>Argument types to the asset's constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">...args</td><td>Arguments to the asset's constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the newly added asset </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00893_source.html#l00100">100</a> of file <a class="el" href="a00893_source.html">AssetPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab583deaf609eccab3a4d1bc42bbe5b6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab583deaf609eccab3a4d1bc42bbe5b6d">&#9670;&nbsp;</a></span>reset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::rg::AssetPool::reset </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03973.html">GraphAssetPool</a> *&#160;</td>
+          <td class="paramname"><em>pool</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Resets resources used by the given pool. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pool</td><td>The pool to reset resources for </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01907_source.html#l00073">73</a> of file <a class="el" href="a01907_source.html">AssetPool.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Render/Graph/<a class="el" href="a00893_source.html">AssetPool.hpp</a></li>
+<li>src/Render/Graph/<a class="el" href="a01907_source.html">AssetPool.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:57:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

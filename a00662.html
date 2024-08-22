@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Math/Constants.hpp File Reference</title>
+<title>BLIB: include/BLIB/Logging/Logger.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,43 +66,198 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_e9abbcd9e0c082db5b09973bee2e6f6b.html">Math</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_cde0df6af65f4871d5c46345537df011.html">Logging</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#define-members">Macros</a>  </div>
   <div class="headertitle">
-<div class="title">Constants.hpp File Reference</div>  </div>
+<div class="title">Logger.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
+<div class="textblock"><code>#include &lt;<a class="el" href="a06332_source.html">BLIB/Logging/Config.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00665_source.html">BLIB/Logging/Outputters.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01370_source.html">BLIB/Util/NonCopyable.hpp</a>&gt;</code><br />
+<code>#include &lt;SFML/Graphics/Rect.hpp&gt;</code><br />
+<code>#include &lt;SFML/System/Vector2.hpp&gt;</code><br />
+<code>#include &lt;SFML/System/Vector3.hpp&gt;</code><br />
+<code>#include &lt;cstring&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
+<code>#include &lt;type_traits&gt;</code><br />
+</div>
 <p><a href="a00662_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:a02284"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02284.html">bl</a></td></tr>
-<tr class="memdesc:a02284"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02323"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02323.html">bl::math</a></td></tr>
-<tr class="memdesc:a02323"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of functions and constants for doing math. <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03565.html">bl::logging::Logger</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Actual logging class. Provides several static methods to begin log output. Instances of <a class="el" href="a03565.html" title="Actual logging class. Provides several static methods to begin log output. Instances of Logger only l...">Logger</a> only live long enough to build the log line and flush it via the LoggerConfig singleton instance.  <a href="a03565.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a5d956eb5741fd61ccb4d7a18bd6fd431"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02323.html#a5d956eb5741fd61ccb4d7a18bd6fd431">bl::math::Pi</a> = 3.14159265359f</td></tr>
-<tr class="memdesc:a5d956eb5741fd61ccb4d7a18bd6fd431"><td class="mdescLeft">&#160;</td><td class="mdescRight">It's pi.  <a href="a02323.html#a5d956eb5741fd61ccb4d7a18bd6fd431">More...</a><br /></td></tr>
-<tr class="separator:a5d956eb5741fd61ccb4d7a18bd6fd431"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3a423513a47db1897e38716543ce9ad"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02323.html#ae3a423513a47db1897e38716543ce9ad">bl::math::Tau</a> = 2.f * Pi</td></tr>
-<tr class="memdesc:ae3a423513a47db1897e38716543ce9ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controversial brother of Pi.  <a href="a02323.html#ae3a423513a47db1897e38716543ce9ad">More...</a><br /></td></tr>
-<tr class="separator:ae3a423513a47db1897e38716543ce9ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a02303"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02303.html">bl</a></td></tr>
+<tr class="memdesc:a02303"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02342"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02342.html">bl::logging</a></td></tr>
+<tr class="memdesc:a02342"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logging utility. Supports a configurable log environment and multiple outputs. Threadsafe. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a5fccb4fc71e44089a1b1a77fc76c0b68"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00662.html#a5fccb4fc71e44089a1b1a77fc76c0b68">__FILENAME__</a>&#160;&#160;&#160;(std::strrchr(__FILE__, '/') ? std::strrchr(__FILE__, '/') + 1 : std::strrchr(__FILE__, '\\') ? std::strrchr(__FILE__, '\\') + 1 :  __FILE__)</td></tr>
+<tr class="separator:a5fccb4fc71e44089a1b1a77fc76c0b68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab250887595d9e02b1f0b670fe342683"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00662.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a>&#160;&#160;&#160;<a class="el" href="a03565.html#a36d91bbd3134b0a9d49d8d77a88cb8b5">bl::logging::Logger::critical</a>() &lt;&lt; <a class="el" href="a00662.html#a5fccb4fc71e44089a1b1a77fc76c0b68">__FILENAME__</a> &lt;&lt; &quot;:&quot; &lt;&lt; __LINE__ &lt;&lt;  &quot; &quot; &lt;&lt; __FUNCTION__ &lt;&lt; &quot;()&quot; &lt;&lt; &quot; - &quot;</td></tr>
+<tr class="memdesc:aab250887595d9e02b1f0b670fe342683"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro to log at critical level and include file, function, and line information.  <a href="a00662.html#aab250887595d9e02b1f0b670fe342683">More...</a><br /></td></tr>
+<tr class="separator:aab250887595d9e02b1f0b670fe342683"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a927270d671e83a1c6b5382f30bfbf895"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00662.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a>&#160;&#160;&#160;<a class="el" href="a03565.html#a6fa6adfe984a64fb906c37591be6caa6">bl::logging::Logger::error</a>() &lt;&lt; <a class="el" href="a00662.html#a5fccb4fc71e44089a1b1a77fc76c0b68">__FILENAME__</a> &lt;&lt; &quot;:&quot; &lt;&lt; __LINE__ &lt;&lt;  &quot; &quot; &lt;&lt; __FUNCTION__ &lt;&lt; &quot;()&quot; &lt;&lt; &quot; - &quot;</td></tr>
+<tr class="memdesc:a927270d671e83a1c6b5382f30bfbf895"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro to log at error level and include file, function, and line information.  <a href="a00662.html#a927270d671e83a1c6b5382f30bfbf895">More...</a><br /></td></tr>
+<tr class="separator:a927270d671e83a1c6b5382f30bfbf895"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af954e63cd52a20dcd7087a8c569f373f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00662.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a>&#160;&#160;&#160;<a class="el" href="a03565.html#aceeb9b5121a77f94e4c52382ecca0b20">bl::logging::Logger::warn</a>() &lt;&lt; <a class="el" href="a00662.html#a5fccb4fc71e44089a1b1a77fc76c0b68">__FILENAME__</a> &lt;&lt;  &quot;:&quot; &lt;&lt; __LINE__ &lt;&lt;  &quot; &quot; &lt;&lt; __FUNCTION__ &lt;&lt; &quot;()&quot; &lt;&lt; &quot; - &quot;</td></tr>
+<tr class="memdesc:af954e63cd52a20dcd7087a8c569f373f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro to log at warn level and include file, function, and line information.  <a href="a00662.html#af954e63cd52a20dcd7087a8c569f373f">More...</a><br /></td></tr>
+<tr class="separator:af954e63cd52a20dcd7087a8c569f373f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a459f7ea96e34815206480bf681ee2a2f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00662.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a>&#160;&#160;&#160;<a class="el" href="a03565.html#a9a2a3f45661caa993573918c1facda31">bl::logging::Logger::info</a>() &lt;&lt; <a class="el" href="a00662.html#a5fccb4fc71e44089a1b1a77fc76c0b68">__FILENAME__</a> &lt;&lt; &quot;:&quot; &lt;&lt; __LINE__ &lt;&lt;  &quot; &quot; &lt;&lt; __FUNCTION__ &lt;&lt; &quot;()&quot; &lt;&lt; &quot; - &quot;</td></tr>
+<tr class="memdesc:a459f7ea96e34815206480bf681ee2a2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro to log at info level and include file, function, and line information.  <a href="a00662.html#a459f7ea96e34815206480bf681ee2a2f">More...</a><br /></td></tr>
+<tr class="separator:a459f7ea96e34815206480bf681ee2a2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b4a6c9a77636c98a3c0821ae6a4c119"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00662.html#a6b4a6c9a77636c98a3c0821ae6a4c119">BL_LOG_DEBUG</a>&#160;&#160;&#160;<a class="el" href="a03565.html#aed4a225248fd95298110965be134530c">bl::logging::Logger::debug</a>() &lt;&lt; <a class="el" href="a00662.html#a5fccb4fc71e44089a1b1a77fc76c0b68">__FILENAME__</a> &lt;&lt; &quot;:&quot; &lt;&lt; __LINE__ &lt;&lt;  &quot; &quot; &lt;&lt; __FUNCTION__ &lt;&lt; &quot;()&quot; &lt;&lt; &quot; - &quot;</td></tr>
+<tr class="memdesc:a6b4a6c9a77636c98a3c0821ae6a4c119"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro to log at debug level and include file, function, and line information.  <a href="a00662.html#a6b4a6c9a77636c98a3c0821ae6a4c119">More...</a><br /></td></tr>
+<tr class="separator:a6b4a6c9a77636c98a3c0821ae6a4c119"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16aada998c9d444cc2e38cbc9c15511f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00662.html#a16aada998c9d444cc2e38cbc9c15511f">BL_LOG_TRACE</a>&#160;&#160;&#160;<a class="el" href="a03565.html#a7df75dafbd91fae955cfe5772963e786">bl::logging::Logger::trace</a>() &lt;&lt; <a class="el" href="a00662.html#a5fccb4fc71e44089a1b1a77fc76c0b68">__FILENAME__</a> &lt;&lt; &quot;:&quot; &lt;&lt; __LINE__ &lt;&lt;  &quot; &quot; &lt;&lt; __FUNCTION__ &lt;&lt; &quot;()&quot; &lt;&lt; &quot; - &quot;</td></tr>
+<tr class="memdesc:a16aada998c9d444cc2e38cbc9c15511f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro to log at trace level and include file, function, and line information.  <a href="a00662.html#a16aada998c9d444cc2e38cbc9c15511f">More...</a><br /></td></tr>
+<tr class="separator:a16aada998c9d444cc2e38cbc9c15511f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a5fccb4fc71e44089a1b1a77fc76c0b68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5fccb4fc71e44089a1b1a77fc76c0b68">&#9670;&nbsp;</a></span>__FILENAME__</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __FILENAME__&#160;&#160;&#160;(std::strrchr(__FILE__, '/') ? std::strrchr(__FILE__, '/') + 1 : std::strrchr(__FILE__, '\\') ? std::strrchr(__FILE__, '\\') + 1 :  __FILE__)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00662_source.html#l00095">95</a> of file <a class="el" href="a00662_source.html">Logger.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aab250887595d9e02b1f0b670fe342683"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab250887595d9e02b1f0b670fe342683">&#9670;&nbsp;</a></span>BL_LOG_CRITICAL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BL_LOG_CRITICAL&#160;&#160;&#160;<a class="el" href="a03565.html#a36d91bbd3134b0a9d49d8d77a88cb8b5">bl::logging::Logger::critical</a>() &lt;&lt; <a class="el" href="a00662.html#a5fccb4fc71e44089a1b1a77fc76c0b68">__FILENAME__</a> &lt;&lt; &quot;:&quot; &lt;&lt; __LINE__ &lt;&lt;  &quot; &quot; &lt;&lt; __FUNCTION__ &lt;&lt; &quot;()&quot; &lt;&lt; &quot; - &quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Helper macro to log at critical level and include file, function, and line information. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00662_source.html#l00098">98</a> of file <a class="el" href="a00662_source.html">Logger.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6b4a6c9a77636c98a3c0821ae6a4c119"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b4a6c9a77636c98a3c0821ae6a4c119">&#9670;&nbsp;</a></span>BL_LOG_DEBUG</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BL_LOG_DEBUG&#160;&#160;&#160;<a class="el" href="a03565.html#aed4a225248fd95298110965be134530c">bl::logging::Logger::debug</a>() &lt;&lt; <a class="el" href="a00662.html#a5fccb4fc71e44089a1b1a77fc76c0b68">__FILENAME__</a> &lt;&lt; &quot;:&quot; &lt;&lt; __LINE__ &lt;&lt;  &quot; &quot; &lt;&lt; __FUNCTION__ &lt;&lt; &quot;()&quot; &lt;&lt; &quot; - &quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Helper macro to log at debug level and include file, function, and line information. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00662_source.html#l00110">110</a> of file <a class="el" href="a00662_source.html">Logger.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a927270d671e83a1c6b5382f30bfbf895"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a927270d671e83a1c6b5382f30bfbf895">&#9670;&nbsp;</a></span>BL_LOG_ERROR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BL_LOG_ERROR&#160;&#160;&#160;<a class="el" href="a03565.html#a6fa6adfe984a64fb906c37591be6caa6">bl::logging::Logger::error</a>() &lt;&lt; <a class="el" href="a00662.html#a5fccb4fc71e44089a1b1a77fc76c0b68">__FILENAME__</a> &lt;&lt; &quot;:&quot; &lt;&lt; __LINE__ &lt;&lt;  &quot; &quot; &lt;&lt; __FUNCTION__ &lt;&lt; &quot;()&quot; &lt;&lt; &quot; - &quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Helper macro to log at error level and include file, function, and line information. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00662_source.html#l00101">101</a> of file <a class="el" href="a00662_source.html">Logger.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a459f7ea96e34815206480bf681ee2a2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a459f7ea96e34815206480bf681ee2a2f">&#9670;&nbsp;</a></span>BL_LOG_INFO</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BL_LOG_INFO&#160;&#160;&#160;<a class="el" href="a03565.html#a9a2a3f45661caa993573918c1facda31">bl::logging::Logger::info</a>() &lt;&lt; <a class="el" href="a00662.html#a5fccb4fc71e44089a1b1a77fc76c0b68">__FILENAME__</a> &lt;&lt; &quot;:&quot; &lt;&lt; __LINE__ &lt;&lt;  &quot; &quot; &lt;&lt; __FUNCTION__ &lt;&lt; &quot;()&quot; &lt;&lt; &quot; - &quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Helper macro to log at info level and include file, function, and line information. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00662_source.html#l00107">107</a> of file <a class="el" href="a00662_source.html">Logger.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a16aada998c9d444cc2e38cbc9c15511f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16aada998c9d444cc2e38cbc9c15511f">&#9670;&nbsp;</a></span>BL_LOG_TRACE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BL_LOG_TRACE&#160;&#160;&#160;<a class="el" href="a03565.html#a7df75dafbd91fae955cfe5772963e786">bl::logging::Logger::trace</a>() &lt;&lt; <a class="el" href="a00662.html#a5fccb4fc71e44089a1b1a77fc76c0b68">__FILENAME__</a> &lt;&lt; &quot;:&quot; &lt;&lt; __LINE__ &lt;&lt;  &quot; &quot; &lt;&lt; __FUNCTION__ &lt;&lt; &quot;()&quot; &lt;&lt; &quot; - &quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Helper macro to log at trace level and include file, function, and line information. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00662_source.html#l00113">113</a> of file <a class="el" href="a00662_source.html">Logger.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af954e63cd52a20dcd7087a8c569f373f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af954e63cd52a20dcd7087a8c569f373f">&#9670;&nbsp;</a></span>BL_LOG_WARN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BL_LOG_WARN&#160;&#160;&#160;<a class="el" href="a03565.html#aceeb9b5121a77f94e4c52382ecca0b20">bl::logging::Logger::warn</a>() &lt;&lt; <a class="el" href="a00662.html#a5fccb4fc71e44089a1b1a77fc76c0b68">__FILENAME__</a> &lt;&lt;  &quot;:&quot; &lt;&lt; __LINE__ &lt;&lt;  &quot; &quot; &lt;&lt; __FUNCTION__ &lt;&lt; &quot;()&quot; &lt;&lt; &quot; - &quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Helper macro to log at warn level and include file, function, and line information. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00662_source.html#l00104">104</a> of file <a class="el" href="a00662_source.html">Logger.hpp</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

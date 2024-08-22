@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Vulkan/Framebuffer.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Vulkan/DedicatedCommandBuffers.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,77 +71,77 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Framebuffer.hpp</div>  </div>
+<div class="title">DedicatedCommandBuffers.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01094.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_FRAMEBUFFER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_FRAMEBUFFER_HPP</span></div>
+<a href="a01094.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_DEDICATEDCOMMANDBUFFERS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_DEDICATEDCOMMANDBUFFERS_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01073.html">BLIB/Render/Vulkan/AttachmentSet.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01403.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01106.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01370.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01412.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>vk</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">struct </span>VulkanState;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">class </span>Swapchain;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a04252.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04252.html">Framebuffer</a> {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="a04252.html#aad02c212251c31f9524dbe1dbe1448a7">Framebuffer</a>();</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="a04252.html#a70c511ea95f29b9e581c1d88797d0923">~Framebuffer</a>();</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04252.html#a87b11f36b2c275c83ad0d07302eb3ae6">create</a>(<a class="code" href="a04368.html">VulkanState</a>&amp; vulkanState, VkRenderPass renderPass, <span class="keyword">const</span> <a class="code" href="a04208.html">vk::AttachmentSet</a>&amp; target);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04252.html#acfaf7d553d0d09a4fdaa0df2677495a9">recreateIfChanged</a>(<span class="keyword">const</span> <a class="code" href="a04208.html">vk::AttachmentSet</a>&amp; target);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04252.html#a78b12eff614ce0a570bd72ed3c20ed6d">cleanup</a>();</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04252.html#ab37b7f6a5cf70cbfad202b58b83a7f3a">deferCleanup</a>();</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a04261.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04261.html">DedicatedCommandBuffers</a> : <span class="keyword">private</span> <a class="code" href="a05029.html">util::NonCopyable</a> {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="a04261.html#a834671906be956f14cf1ebb37fdcdc0c">DedicatedCommandBuffers</a>();</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="a04261.html#aee78f24e2fee733f3295332c00b22093">~DedicatedCommandBuffers</a>();</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04261.html#afef96678788def53b43389cb3ea1d512">create</a>(<a class="code" href="a04405.html">VulkanState</a>&amp; vulkanState);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04261.html#ad931b2e935c77b713f746bbe7f7aaee9">destroy</a>();</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    VkCommandBuffer <a class="code" href="a04261.html#a95e1beae39a9c20fb19dc405b8809933">begin</a>();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04261.html#a6a4f7585da17a006452b474700dbfab3">submit</a>();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">struct </span>Payload {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        VkCommandPool pool;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        VkCommandBuffer <a class="code" href="a01415.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        VkFence fence;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a04261.html#afef96678788def53b43389cb3ea1d512">create</a>(<a class="code" href="a04405.html">VulkanState</a>&amp; vs);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordtype">void</span> cleanup(<a class="code" href="a04405.html">VulkanState</a>&amp; vs);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    };</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04252.html#ad293c2a38590323eaad5eb1db8a8cab9">beginRender</a>(VkCommandBuffer commandBuffer, <span class="keyword">const</span> VkRect2D&amp; region,</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                     <span class="keyword">const</span> VkClearValue* clearColors, std::uint32_t clearColorCount,</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                     <span class="keywordtype">bool</span> setViewport = <span class="keyword">true</span>, VkRenderPass renderPass = <span class="keyword">nullptr</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04252.html#a89578f57aa18fa98319129860fb930ca">finishRender</a>(VkCommandBuffer commandBuffer) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <a class="code" href="a04368.html">VulkanState</a>* vulkanState;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    VkRenderPass renderPass;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">const</span> <a class="code" href="a04208.html">vk::AttachmentSet</a>* target;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    VkFramebuffer framebuffer;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    VkImageView cachedAttachment;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;};</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;} <span class="comment">// namespace vk</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01073_html"><div class="ttname"><a href="a01073.html">AttachmentSet.hpp</a></div></div>
-<div class="ttc" id="aa01403_html"><div class="ttname"><a href="a01403.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04208_html"><div class="ttname"><a href="a04208.html">bl::rc::vk::AttachmentSet</a></div><div class="ttdoc">Base class representing an attachment set that can be rendered to. Derived classes can provide additi...</div><div class="ttdef"><b>Definition:</b> <a href="a01073_source.html#l00020">AttachmentSet.hpp:20</a></div></div>
-<div class="ttc" id="aa04252_html"><div class="ttname"><a href="a04252.html">bl::rc::vk::Framebuffer</a></div><div class="ttdoc">Utility struct that wraps a Vulkan framebuffer.</div><div class="ttdef"><b>Definition:</b> <a href="a01094_source.html#l00022">Framebuffer.hpp:22</a></div></div>
-<div class="ttc" id="aa04252_html_a70c511ea95f29b9e581c1d88797d0923"><div class="ttname"><a href="a04252.html#a70c511ea95f29b9e581c1d88797d0923">bl::rc::vk::Framebuffer::~Framebuffer</a></div><div class="ttdeci">~Framebuffer()</div><div class="ttdoc">Destroy the Framebuffer object.</div><div class="ttdef"><b>Definition:</b> <a href="a02042_source.html#l00017">Framebuffer.cpp:17</a></div></div>
-<div class="ttc" id="aa04252_html_a78b12eff614ce0a570bd72ed3c20ed6d"><div class="ttname"><a href="a04252.html#a78b12eff614ce0a570bd72ed3c20ed6d">bl::rc::vk::Framebuffer::cleanup</a></div><div class="ttdeci">void cleanup()</div><div class="ttdoc">Frees owned resources and invalidates this object.</div><div class="ttdef"><b>Definition:</b> <a href="a02042_source.html#l00088">Framebuffer.cpp:88</a></div></div>
-<div class="ttc" id="aa04252_html_a87b11f36b2c275c83ad0d07302eb3ae6"><div class="ttname"><a href="a04252.html#a87b11f36b2c275c83ad0d07302eb3ae6">bl::rc::vk::Framebuffer::create</a></div><div class="ttdeci">void create(VulkanState &amp;vulkanState, VkRenderPass renderPass, const vk::AttachmentSet &amp;target)</div><div class="ttdoc">Creates (or recreates) the framebuffer.</div><div class="ttdef"><b>Definition:</b> <a href="a02042_source.html#l00021">Framebuffer.cpp:21</a></div></div>
-<div class="ttc" id="aa04252_html_a89578f57aa18fa98319129860fb930ca"><div class="ttname"><a href="a04252.html#a89578f57aa18fa98319129860fb930ca">bl::rc::vk::Framebuffer::finishRender</a></div><div class="ttdeci">void finishRender(VkCommandBuffer commandBuffer) const</div><div class="ttdoc">Ends the render pass.</div><div class="ttdef"><b>Definition:</b> <a href="a02042_source.html#l00084">Framebuffer.cpp:84</a></div></div>
-<div class="ttc" id="aa04252_html_aad02c212251c31f9524dbe1dbe1448a7"><div class="ttname"><a href="a04252.html#aad02c212251c31f9524dbe1dbe1448a7">bl::rc::vk::Framebuffer::Framebuffer</a></div><div class="ttdeci">Framebuffer()</div><div class="ttdoc">Construct an empty Framebuffer.</div><div class="ttdef"><b>Definition:</b> <a href="a02042_source.html#l00011">Framebuffer.cpp:11</a></div></div>
-<div class="ttc" id="aa04252_html_ab37b7f6a5cf70cbfad202b58b83a7f3a"><div class="ttname"><a href="a04252.html#ab37b7f6a5cf70cbfad202b58b83a7f3a">bl::rc::vk::Framebuffer::deferCleanup</a></div><div class="ttdeci">void deferCleanup()</div><div class="ttdoc">Queues the framebuffer to be cleaned up later. Invalidates the object immediately.</div><div class="ttdef"><b>Definition:</b> <a href="a02042_source.html#l00093">Framebuffer.cpp:93</a></div></div>
-<div class="ttc" id="aa04252_html_acfaf7d553d0d09a4fdaa0df2677495a9"><div class="ttname"><a href="a04252.html#acfaf7d553d0d09a4fdaa0df2677495a9">bl::rc::vk::Framebuffer::recreateIfChanged</a></div><div class="ttdeci">void recreateIfChanged(const vk::AttachmentSet &amp;target)</div><div class="ttdoc">Recreates the framebuffer if the underlying target has changed.</div><div class="ttdef"><b>Definition:</b> <a href="a02042_source.html#l00047">Framebuffer.cpp:47</a></div></div>
-<div class="ttc" id="aa04252_html_ad293c2a38590323eaad5eb1db8a8cab9"><div class="ttname"><a href="a04252.html#ad293c2a38590323eaad5eb1db8a8cab9">bl::rc::vk::Framebuffer::beginRender</a></div><div class="ttdeci">void beginRender(VkCommandBuffer commandBuffer, const VkRect2D &amp;region, const VkClearValue *clearColors, std::uint32_t clearColorCount, bool setViewport=true, VkRenderPass renderPass=nullptr) const</div><div class="ttdoc">Begins the render pass, recreating the framebuffer if necessary. Scissor is set.</div><div class="ttdef"><b>Definition:</b> <a href="a02042_source.html#l00051">Framebuffer.cpp:51</a></div></div>
-<div class="ttc" id="aa04368_html"><div class="ttname"><a href="a04368.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00039">VulkanState.hpp:39</a></div></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="a04405.html">VulkanState</a>* vs;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="a04293.html">PerFrame&lt;Payload&gt;</a> payloads;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;} <span class="comment">// namespace vk</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01106_html"><div class="ttname"><a href="a01106.html">PerFrame.hpp</a></div></div>
+<div class="ttc" id="aa01370_html"><div class="ttname"><a href="a01370.html">NonCopyable.hpp</a></div></div>
+<div class="ttc" id="aa01412_html"><div class="ttname"><a href="a01412.html">Vulkan.hpp</a></div></div>
+<div class="ttc" id="aa01415_html_ad2ae6b0ac080ea0ac45f7a06ccc480ba"><div class="ttname"><a href="a01415.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a></div><div class="ttdeci">SoundHandle buffer</div><div class="ttdef"><b>Definition:</b> <a href="a01415_source.html#l00025">AudioSystem.cpp:25</a></div></div>
+<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04261_html"><div class="ttname"><a href="a04261.html">bl::rc::vk::DedicatedCommandBuffers</a></div><div class="ttdoc">Helper class that provides per-frame command buffers intended for reuse.</div><div class="ttdef"><b>Definition:</b> <a href="a01094_source.html#l00019">DedicatedCommandBuffers.hpp:19</a></div></div>
+<div class="ttc" id="aa04261_html_a6a4f7585da17a006452b474700dbfab3"><div class="ttname"><a href="a04261.html#a6a4f7585da17a006452b474700dbfab3">bl::rc::vk::DedicatedCommandBuffers::submit</a></div><div class="ttdeci">void submit()</div><div class="ttdoc">Submits the current command buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00046">DedicatedCommandBuffers.cpp:46</a></div></div>
+<div class="ttc" id="aa04261_html_a834671906be956f14cf1ebb37fdcdc0c"><div class="ttname"><a href="a04261.html#a834671906be956f14cf1ebb37fdcdc0c">bl::rc::vk::DedicatedCommandBuffers::DedicatedCommandBuffers</a></div><div class="ttdeci">DedicatedCommandBuffers()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00011">DedicatedCommandBuffers.cpp:11</a></div></div>
+<div class="ttc" id="aa04261_html_a95e1beae39a9c20fb19dc405b8809933"><div class="ttname"><a href="a04261.html#a95e1beae39a9c20fb19dc405b8809933">bl::rc::vk::DedicatedCommandBuffers::begin</a></div><div class="ttdeci">VkCommandBuffer begin()</div><div class="ttdoc">Waits for the command buffer to enter a valid state, begins recording, and returns it.</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00030">DedicatedCommandBuffers.cpp:30</a></div></div>
+<div class="ttc" id="aa04261_html_ad931b2e935c77b713f746bbe7f7aaee9"><div class="ttname"><a href="a04261.html#ad931b2e935c77b713f746bbe7f7aaee9">bl::rc::vk::DedicatedCommandBuffers::destroy</a></div><div class="ttdeci">void destroy()</div><div class="ttdoc">Releases the command pools.</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00023">DedicatedCommandBuffers.cpp:23</a></div></div>
+<div class="ttc" id="aa04261_html_aee78f24e2fee733f3295332c00b22093"><div class="ttname"><a href="a04261.html#aee78f24e2fee733f3295332c00b22093">bl::rc::vk::DedicatedCommandBuffers::~DedicatedCommandBuffers</a></div><div class="ttdeci">~DedicatedCommandBuffers()</div><div class="ttdoc">Releases the command pools.</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00014">DedicatedCommandBuffers.cpp:14</a></div></div>
+<div class="ttc" id="aa04261_html_afef96678788def53b43389cb3ea1d512"><div class="ttname"><a href="a04261.html#afef96678788def53b43389cb3ea1d512">bl::rc::vk::DedicatedCommandBuffers::create</a></div><div class="ttdeci">void create(VulkanState &amp;vulkanState)</div><div class="ttdoc">Creates the command pools and buffers.</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00018">DedicatedCommandBuffers.cpp:18</a></div></div>
+<div class="ttc" id="aa04293_html"><div class="ttname"><a href="a04293.html">bl::rc::vk::PerFrame&lt; Payload &gt;</a></div></div>
+<div class="ttc" id="aa04405_html"><div class="ttname"><a href="a04405.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01157_source.html#l00039">VulkanState.hpp:39</a></div></div>
+<div class="ttc" id="aa05029_html"><div class="ttname"><a href="a05029.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition:</b> <a href="a01370_source.html#l00013">NonCopyable.hpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

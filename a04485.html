@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::resource::NullLoader&lt; TResourceType &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,34 +66,164 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02284.html">bl</a></li><li class="navelem"><a class="el" href="a02341.html">resource</a></li><li class="navelem"><a class="el" href="a04488.html">ResourceManager</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02303.html">bl</a></li><li class="navelem"><a class="el" href="a02361.html">resource</a></li><li class="navelem"><a class="el" href="a04485.html">NullLoader</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a04482.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::resource::ResourceManager&lt; TResourceType &gt; Member List</div>  </div>
+<div class="title">bl::resource::NullLoader&lt; TResourceType &gt; Struct Template Reference<div class="ingroups"><a class="el" href="a02290.html">Resources</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a04488.html">bl::resource::ResourceManager&lt; TResourceType &gt;</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a04488.html#a817d31a21cdcf759a576c452d7e7094b">available</a>(const std::string &amp;uri)</td><td class="entry"><a class="el" href="a04488.html">bl::resource::ResourceManager&lt; TResourceType &gt;</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a04488.html#adcaa9695896b853eec24a69393c85fc6">freeAndDestroyAll</a>()</td><td class="entry"><a class="el" href="a04488.html">bl::resource::ResourceManager&lt; TResourceType &gt;</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a04488.html#a0502ee55455411458ba8e343657395e8">getOrCreateGenerated</a>(const std::string &amp;uri)</td><td class="entry"><a class="el" href="a04488.html">bl::resource::ResourceManager&lt; TResourceType &gt;</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a04488.html#a7fd748c4ae1dd7d7734050340b5c9432">initializeExisting</a>(const std::string &amp;uri, TResourceType &amp;resource)</td><td class="entry"><a class="el" href="a04488.html">bl::resource::ResourceManager&lt; TResourceType &gt;</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a04488.html#af02621cfacc5df330a9d0caff0f80d2b">installLoader</a>(TArgs &amp;&amp;... loaderArgs)</td><td class="entry"><a class="el" href="a04488.html">bl::resource::ResourceManager&lt; TResourceType &gt;</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a04488.html#a35c615388beefafe126b6ca8481c976d">load</a>(const std::string &amp;uri)</td><td class="entry"><a class="el" href="a04488.html">bl::resource::ResourceManager&lt; TResourceType &gt;</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a04488.html#a95771a059f2268cd269952ddcf73069d">put</a>(const std::string &amp;uri, TResourceType &amp;resource)</td><td class="entry"><a class="el" href="a04488.html">bl::resource::ResourceManager&lt; TResourceType &gt;</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a04504.html#aefb504334dee80cd3692d5cd7492c48e">ResourceManagerBase</a>()</td><td class="entry"><a class="el" href="a04504.html">bl::resource::ResourceManagerBase</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a04488.html#a67c75d43b319455c763f57c99e2b9e30">setGarbageCollectionPeriod</a>(unsigned int period)</td><td class="entry"><a class="el" href="a04488.html">bl::resource::ResourceManager&lt; TResourceType &gt;</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a04504.html#aa056d7f00c7176bf9f0871883a02b9ca">setGCPeriod</a>(unsigned int period)</td><td class="entry"><a class="el" href="a04504.html">bl::resource::ResourceManagerBase</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a04504.html#a772009bb487d321e8bd0d6fef65cd701">unregister</a>()</td><td class="entry"><a class="el" href="a04504.html">bl::resource::ResourceManagerBase</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a04488.html#a243efcdfc8b79955196173f2bd3d8313">~ResourceManager</a>()</td><td class="entry"><a class="el" href="a04488.html">bl::resource::ResourceManager&lt; TResourceType &gt;</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Helper loader to use if no more of a given resource type should be loaded. Does not perform any loading and logs warnings when resource loading is attempted.  
+ <a href="a04485.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a01205_source.html">Loader.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::resource::NullLoader&lt; TResourceType &gt;:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a04485.png" usemap="#bl::resource::NullLoader_3C_20TResourceType_20_3E_map" alt=""/>
+  <map id="bl::resource::NullLoader_3C_20TResourceType_20_3E_map" name="bl::resource::NullLoader_3C_20TResourceType_20_3E_map">
+<area href="a04481.html" title="Templated resource loader. Must be implemented for any resource type that is intended to be managed." alt="bl::resource::LoaderBase&lt; TResourceType &gt;" shape="rect" coords="0,0,266,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ad80f4e9b908e39fb17e6c100f48c1b43"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04485.html#ad80f4e9b908e39fb17e6c100f48c1b43">~NullLoader</a> ()=default</td></tr>
+<tr class="memdesc:ad80f4e9b908e39fb17e6c100f48c1b43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Null Loader object.  <a href="a04485.html#ad80f4e9b908e39fb17e6c100f48c1b43">More...</a><br /></td></tr>
+<tr class="separator:ad80f4e9b908e39fb17e6c100f48c1b43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44e6ac4ed2dd18ef58156991af81942b"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04485.html#a44e6ac4ed2dd18ef58156991af81942b">load</a> (const std::string &amp;path, const char *, std::size_t, std::istream &amp;, TResourceType &amp;) override</td></tr>
+<tr class="memdesc:a44e6ac4ed2dd18ef58156991af81942b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logs a warning if called.  <a href="a04485.html#a44e6ac4ed2dd18ef58156991af81942b">More...</a><br /></td></tr>
+<tr class="separator:a44e6ac4ed2dd18ef58156991af81942b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename TResourceType&gt;<br />
+struct bl::resource::NullLoader&lt; TResourceType &gt;</h3>
+
+<p>Helper loader to use if no more of a given resource type should be loaded. Does not perform any loading and logs warnings when resource loading is attempted. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TResourceType</td><td>The resource type to not load </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01205_source.html#l00054">54</a> of file <a class="el" href="a01205_source.html">Loader.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ad80f4e9b908e39fb17e6c100f48c1b43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad80f4e9b908e39fb17e6c100f48c1b43">&#9670;&nbsp;</a></span>~NullLoader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TResourceType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="a04485.html">bl::resource::NullLoader</a>&lt; TResourceType &gt;::~<a class="el" href="a04485.html">NullLoader</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destroy the Null Loader object. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a44e6ac4ed2dd18ef58156991af81942b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44e6ac4ed2dd18ef58156991af81942b">&#9670;&nbsp;</a></span>load()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TResourceType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool <a class="el" href="a04485.html">bl::resource::NullLoader</a>&lt; TResourceType &gt;::load </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::istream &amp;&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TResourceType &amp;&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Logs a warning if called. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>Path to the resource to load </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>False always </dd></dl>
+
+<p>Implements <a class="el" href="a04481.html#a60bcbb603a810caf73adec7ea14f105a">bl::resource::LoaderBase&lt; TResourceType &gt;</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01205_source.html#l00067">67</a> of file <a class="el" href="a01205_source.html">Loader.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Resources/<a class="el" href="a01205_source.html">Loader.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:57:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

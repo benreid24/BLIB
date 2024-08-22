@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/GUI/Renderer/TextEntryComponentBase.hpp Source File</title>
+<title>BLIB: include/BLIB/Interfaces/GUI/Renderer/NullHighlightProvider.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,55 +71,52 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">TextEntryComponentBase.hpp</div>  </div>
+<div class="title">NullHighlightProvider.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00590.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GUI_RENDERER_TEXTENTRYCOMPONENTBASE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GUI_RENDERER_TEXTENTRYCOMPONENTBASE_HPP</span></div>
+<a href="a00590.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GUI_RENDERER_NULLHIGHLIGHTPROVIDER_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GUI_RENDERER_NULLHIGHLIGHTPROVIDER_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00560.html">BLIB/Interfaces/GUI/Renderer/Component.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00581.html">BLIB/Interfaces/GUI/Renderer/HighlightProvider.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>gui</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rdr</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a03436.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03436.html">TextEntryComponentBase</a> : <span class="keyword">public</span> <a class="code" href="a03392.html">Component</a> {</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a03461.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03461.html">NullHighlightProvider</a> : <span class="keyword">public</span> <a class="code" href="a03449.html">HighlightProvider</a> {</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03436.html#aae45ebb0c6c1a855fc5b6ac713243386">   22</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03436.html#aae45ebb0c6c1a855fc5b6ac713243386">~TextEntryComponentBase</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03461.html#a3d3916370c7ecc971aeed68a309488ca">   22</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03461.html#a3d3916370c7ecc971aeed68a309488ca">~NullHighlightProvider</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a03436.html#a448b09e0ab4d3607f39b02c1c8283cc4">   30</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="a03436.html#a448b09e0ab4d3607f39b02c1c8283cc4">findCursorPosition</a>(<span class="keyword">const</span> sf::Vector2f&amp; overlayPos) <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a03436.html#a489472fdb69660af52fd27bd8984ae82">   35</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03436.html#a489472fdb69660af52fd27bd8984ae82">onCaratStateUpdate</a>() = 0;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> update(<span class="keywordtype">float</span>)<span class="keyword"> override </span>{}</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> notifyUIState(<a class="code" href="a03253.html">Element</a>*, <a class="code" href="a03429.html#ae8067b9f5370e7a570688e694a15f6ef">Component::UIState</a>)<span class="keyword"> override </span>{}</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doCreate(<a class="code" href="a02833.html">engine::Engine</a>&amp;)<span class="keyword"> override </span>{}</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doSceneAdd(<a class="code" href="a04037.html">rc::Overlay</a>*)<span class="keyword"> override </span>{}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doSceneRemove()<span class="keyword"> override </span>{}</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> notifyDestroyed(<span class="keyword">const</span> Element*)<span class="keyword"> override </span>{}</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;};</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace rdr</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace gui</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace bl</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a03436.html#a8eb787fab7432c5d02a885bfcdc34c7b">   40</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03436.html#a8eb787fab7432c5d02a885bfcdc34c7b">resetCaratFlash</a>() = 0;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a03436.html#a792165dab949e3ea28bf583c4b1b242b">   48</a></span>&#160;    <a class="code" href="a03436.html#a792165dab949e3ea28bf583c4b1b242b">TextEntryComponentBase</a>(<a class="code" href="a03392.html#ad04144636950185c959ad6394f0c5c52">Component::HighlightState</a> highlightState)</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    : <a class="code" href="a03392.html">Component</a>(highlightState) {}</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;};</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;} <span class="comment">// namespace rdr</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;} <span class="comment">// namespace gui</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00560_html"><div class="ttname"><a href="a00560.html">Component.hpp</a></div></div>
-<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03392_html"><div class="ttname"><a href="a03392.html">bl::gui::rdr::Component</a></div><div class="ttdoc">Base class for renderer components. Each GUI element owns a handle to a component owned by the render...</div><div class="ttdef"><b>Definition:</b> <a href="a00560_source.html#l00031">Component.hpp:31</a></div></div>
-<div class="ttc" id="aa03392_html_ad04144636950185c959ad6394f0c5c52"><div class="ttname"><a href="a03392.html#ad04144636950185c959ad6394f0c5c52">bl::gui::rdr::Component::HighlightState</a></div><div class="ttdeci">HighlightState</div><div class="ttdoc">How the component responds to mouse over state.</div><div class="ttdef"><b>Definition:</b> <a href="a00560_source.html#l00039">Component.hpp:39</a></div></div>
-<div class="ttc" id="aa03436_html"><div class="ttname"><a href="a03436.html">bl::gui::rdr::TextEntryComponentBase</a></div><div class="ttdoc">Intermediate base class for components of TextEntry elements.</div><div class="ttdef"><b>Definition:</b> <a href="a00590_source.html#l00017">TextEntryComponentBase.hpp:17</a></div></div>
-<div class="ttc" id="aa03436_html_a448b09e0ab4d3607f39b02c1c8283cc4"><div class="ttname"><a href="a03436.html#a448b09e0ab4d3607f39b02c1c8283cc4">bl::gui::rdr::TextEntryComponentBase::findCursorPosition</a></div><div class="ttdeci">virtual unsigned int findCursorPosition(const sf::Vector2f &amp;overlayPos) const =0</div><div class="ttdoc">Called to determine what index the carat should move to when the text is clicked.</div></div>
-<div class="ttc" id="aa03436_html_a489472fdb69660af52fd27bd8984ae82"><div class="ttname"><a href="a03436.html#a489472fdb69660af52fd27bd8984ae82">bl::gui::rdr::TextEntryComponentBase::onCaratStateUpdate</a></div><div class="ttdeci">virtual void onCaratStateUpdate()=0</div><div class="ttdoc">Called when the carat changes position or toggles visibility.</div></div>
-<div class="ttc" id="aa03436_html_a792165dab949e3ea28bf583c4b1b242b"><div class="ttname"><a href="a03436.html#a792165dab949e3ea28bf583c4b1b242b">bl::gui::rdr::TextEntryComponentBase::TextEntryComponentBase</a></div><div class="ttdeci">TextEntryComponentBase(Component::HighlightState highlightState)</div><div class="ttdoc">Calls the base Component constructor.</div><div class="ttdef"><b>Definition:</b> <a href="a00590_source.html#l00048">TextEntryComponentBase.hpp:48</a></div></div>
-<div class="ttc" id="aa03436_html_a8eb787fab7432c5d02a885bfcdc34c7b"><div class="ttname"><a href="a03436.html#a8eb787fab7432c5d02a885bfcdc34c7b">bl::gui::rdr::TextEntryComponentBase::resetCaratFlash</a></div><div class="ttdeci">virtual void resetCaratFlash()=0</div><div class="ttdoc">Called when the carat flash timer should be reset.</div></div>
-<div class="ttc" id="aa03436_html_aae45ebb0c6c1a855fc5b6ac713243386"><div class="ttname"><a href="a03436.html#aae45ebb0c6c1a855fc5b6ac713243386">bl::gui::rdr::TextEntryComponentBase::~TextEntryComponentBase</a></div><div class="ttdeci">virtual ~TextEntryComponentBase()=default</div><div class="ttdoc">Destroys the component.</div></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00581_html"><div class="ttname"><a href="a00581.html">HighlightProvider.hpp</a></div></div>
+<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02833_html"><div class="ttname"><a href="a02833.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06269_source.html#l00033">Engine.hpp:33</a></div></div>
+<div class="ttc" id="aa03253_html"><div class="ttname"><a href="a03253.html">bl::gui::Element</a></div><div class="ttdoc">Base class for all GUI elements. Provides the common interface used for positioning,...</div><div class="ttdef"><b>Definition:</b> <a href="a00452_source.html#l00031">Element.hpp:33</a></div></div>
+<div class="ttc" id="aa03429_html_ae8067b9f5370e7a570688e694a15f6ef"><div class="ttname"><a href="a03429.html#ae8067b9f5370e7a570688e694a15f6ef">bl::gui::rdr::Component::UIState</a></div><div class="ttdeci">UIState</div><div class="ttdoc">Visible state of the element.</div><div class="ttdef"><b>Definition:</b> <a href="a00569_source.html#l00036">Component.hpp:36</a></div></div>
+<div class="ttc" id="aa03449_html"><div class="ttname"><a href="a03449.html">bl::gui::rdr::HighlightProvider</a></div><div class="ttdoc">Base class for providers of element highlights. This provider type handles when elements are clicked ...</div><div class="ttdef"><b>Definition:</b> <a href="a00581_source.html#l00021">HighlightProvider.hpp:21</a></div></div>
+<div class="ttc" id="aa03461_html"><div class="ttname"><a href="a03461.html">bl::gui::rdr::NullHighlightProvider</a></div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a00590_source.html#l00017">NullHighlightProvider.hpp:17</a></div></div>
+<div class="ttc" id="aa03461_html_a3d3916370c7ecc971aeed68a309488ca"><div class="ttname"><a href="a03461.html#a3d3916370c7ecc971aeed68a309488ca">bl::gui::rdr::NullHighlightProvider::~NullHighlightProvider</a></div><div class="ttdeci">virtual ~NullHighlightProvider()=default</div><div class="ttdoc">Destroys the provider.</div></div>
+<div class="ttc" id="aa04037_html"><div class="ttname"><a href="a04037.html">bl::rc::Overlay</a></div><div class="ttdoc">Special type of scene specialized for 2d overlays with fixed cameras. Objects are organized into a tr...</div><div class="ttdef"><b>Definition:</b> <a href="a00968_source.html#l00036">Overlay.hpp:39</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

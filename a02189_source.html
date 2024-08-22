@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Serialization/Buffers/MemoryOutputBuffer.cpp Source File</title>
+<title>BLIB: src/Scripts/ScriptLibrary.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,51 +66,41 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_e7c9606de6dc9534b0042ecacee5f21f.html">Serialization</a></li><li class="navelem"><a class="el" href="dir_47ff02213d38b4fcd8e0172b7fa926fb.html">Buffers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3ac9928fc2e7e2cbc53db7c1a11acda2.html">Scripts</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">MemoryOutputBuffer.cpp</div>  </div>
+<div class="title">ScriptLibrary.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a02189.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01268.html">BLIB/Serialization/Buffers/MemoryOutputBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;cstring&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>serial</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a04704.html#a29aafd9858e2a2a245f348a457f8a4ad">    9</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04704.html#a29aafd9858e2a2a245f348a457f8a4ad">MemoryOutputBuffer::reserve</a>(std::size_t s) { buffer.reserve(s); }</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a04704.html#aa14425bbf68b5d3a49ea56ca30c2f15b">   11</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a04704.html#aa14425bbf68b5d3a49ea56ca30c2f15b">MemoryOutputBuffer::write</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* buf, std::size_t len) {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">const</span> std::size_t pos = buffer.size();</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    buffer.resize(buffer.size() + len);</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    std::memcpy(&amp;buffer[pos], buf, len);</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
+<a href="a02189.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SCRIPT_LIBRARY_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SCRIPT_LIBRARY_HPP</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01241.html">BLIB/Scripts/SymbolTable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>script</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a05201.html">   14</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a05201.html">Library</a> {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a05201.html#ace07fac924c00874885a109b4fb8ad2d">addBuiltIns</a>(<a class="code" href="a04589.html">SymbolTable</a>&amp; table);</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;};</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a04704.html#ab78ef537e0bd074e9c965e4535632fb0">   18</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a04704.html#ab78ef537e0bd074e9c965e4535632fb0">MemoryOutputBuffer::good</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a04704.html#a652db0ba56ef55f634172448d71f6909">   20</a></span>&#160;<span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="a04704.html#a652db0ba56ef55f634172448d71f6909">MemoryOutputBuffer::data</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> buffer.data(); }</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a04704.html#a97c1d806d711f9bf2837d0f193e390f1">   22</a></span>&#160;std::size_t <a class="code" href="a04704.html#a97c1d806d711f9bf2837d0f193e390f1">MemoryOutputBuffer::size</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> buffer.size(); }</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;} <span class="comment">// namespace serial</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01268_html"><div class="ttname"><a href="a01268.html">MemoryOutputBuffer.hpp</a></div></div>
-<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04704_html_a29aafd9858e2a2a245f348a457f8a4ad"><div class="ttname"><a href="a04704.html#a29aafd9858e2a2a245f348a457f8a4ad">bl::serial::MemoryOutputBuffer::reserve</a></div><div class="ttdeci">void reserve(std::size_t capacity)</div><div class="ttdoc">Reserves capacity for the serialized output.</div><div class="ttdef"><b>Definition:</b> <a href="a02189_source.html#l00009">MemoryOutputBuffer.cpp:9</a></div></div>
-<div class="ttc" id="aa04704_html_a652db0ba56ef55f634172448d71f6909"><div class="ttname"><a href="a04704.html#a652db0ba56ef55f634172448d71f6909">bl::serial::MemoryOutputBuffer::data</a></div><div class="ttdeci">const char * data() const</div><div class="ttdoc">Returns a pointer to the contained data.</div><div class="ttdef"><b>Definition:</b> <a href="a02189_source.html#l00020">MemoryOutputBuffer.cpp:20</a></div></div>
-<div class="ttc" id="aa04704_html_a97c1d806d711f9bf2837d0f193e390f1"><div class="ttname"><a href="a04704.html#a97c1d806d711f9bf2837d0f193e390f1">bl::serial::MemoryOutputBuffer::size</a></div><div class="ttdeci">std::size_t size() const</div><div class="ttdoc">Returns the size of the buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a02189_source.html#l00022">MemoryOutputBuffer.cpp:22</a></div></div>
-<div class="ttc" id="aa04704_html_aa14425bbf68b5d3a49ea56ca30c2f15b"><div class="ttname"><a href="a04704.html#aa14425bbf68b5d3a49ea56ca30c2f15b">bl::serial::MemoryOutputBuffer::write</a></div><div class="ttdeci">virtual bool write(const char *data, std::size_t len) override</div><div class="ttdoc">Write some data to the buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a02189_source.html#l00011">MemoryOutputBuffer.cpp:11</a></div></div>
-<div class="ttc" id="aa04704_html_ab78ef537e0bd074e9c965e4535632fb0"><div class="ttname"><a href="a04704.html#ab78ef537e0bd074e9c965e4535632fb0">bl::serial::MemoryOutputBuffer::good</a></div><div class="ttdeci">virtual bool good() const override</div><div class="ttdoc">Returns whether or not the buffer is in a good state.</div><div class="ttdef"><b>Definition:</b> <a href="a02189_source.html#l00018">MemoryOutputBuffer.cpp:18</a></div></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace script</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01241_html"><div class="ttname"><a href="a01241.html">SymbolTable.hpp</a></div></div>
+<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04589_html"><div class="ttname"><a href="a04589.html">bl::script::SymbolTable</a></div><div class="ttdoc">Stack aware symbol table for managing functions and variables Each Script holds a single instance.</div><div class="ttdef"><b>Definition:</b> <a href="a01241_source.html#l00026">SymbolTable.hpp:26</a></div></div>
+<div class="ttc" id="aa05201_html"><div class="ttname"><a href="a05201.html">bl::script::Library</a></div><div class="ttdoc">Static helper to add built-in functions to each script.</div><div class="ttdef"><b>Definition:</b> <a href="a02189_source.html#l00014">ScriptLibrary.hpp:14</a></div></div>
+<div class="ttc" id="aa05201_html_ace07fac924c00874885a109b4fb8ad2d"><div class="ttname"><a href="a05201.html#ace07fac924c00874885a109b4fb8ad2d">bl::script::Library::addBuiltIns</a></div><div class="ttdeci">static void addBuiltIns(SymbolTable &amp;table)</div><div class="ttdef"><b>Definition:</b> <a href="a02186_source.html#l00102">ScriptLibrary.cpp:102</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

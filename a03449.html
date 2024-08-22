@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::gui::rdr::HighlightProvider Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,31 +66,361 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02284.html">bl</a></li><li class="navelem"><a class="el" href="a02320.html">menu</a></li><li class="navelem"><a class="el" href="a03452.html">MouseDriver</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02303.html">bl</a></li><li class="navelem"><a class="el" href="a02336.html">gui</a></li><li class="navelem"><a class="el" href="a02339.html">rdr</a></li><li class="navelem"><a class="el" href="a03449.html">HighlightProvider</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a03446.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::menu::MouseDriver Member List</div>  </div>
+<div class="title">bl::gui::rdr::HighlightProvider Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a02284.html">Interface</a> &raquo; <a class="el" href="a02298.html">GUI</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a03452.html">bl::menu::MouseDriver</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02908.html#ab97aa9e4eb4dcdb8f571309a90796447">Listener</a>()</td><td class="entry"><a class="el" href="a02908.html">bl::event::Listener&lt; sf::Event &gt;</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a03452.html#a51b5c9e92209da473bf63d0b4932eb6a">MouseDriver</a>(Menu &amp;menu, bool allowClickActivate=true, sf::Mouse::Button activateButton=sf::Mouse::Left)</td><td class="entry"><a class="el" href="a03452.html">bl::menu::MouseDriver</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03452.html#aaa57126748fdfef3f300ceec40761725">observe</a>(const sf::Event &amp;event) override</td><td class="entry"><a class="el" href="a03452.html">bl::menu::MouseDriver</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02904.html#ae5297276cfbb757ede3391eb9d525832">Listener&lt; sf::Event &gt;::observe</a>(const TEvents &amp;event)=0</td><td class="entry"><a class="el" href="a02904.html">bl::event::ListenerBase&lt; TEvents &gt;</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03452.html#a4a9cc6c526d12fe1b7a4e2010a8fbeec">setAllowButtonActivate</a>(bool allow)</td><td class="entry"><a class="el" href="a03452.html">bl::menu::MouseDriver</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a03452.html#a78b5b19a962df1aba0380023a65f5aab">setMouseActivateButton</a>(sf::Mouse::Button activateButton)</td><td class="entry"><a class="el" href="a03452.html">bl::menu::MouseDriver</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02908.html#a86f9cc35c59d1a12d10d3798405bdd40">~Listener</a>()</td><td class="entry"><a class="el" href="a02908.html">bl::event::Listener&lt; sf::Event &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02904.html#a36c44a860cf98c5a39ca4a3064152585">~ListenerBase</a>()=default</td><td class="entry"><a class="el" href="a02904.html">bl::event::ListenerBase&lt; TEvents &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03452.html#a176cf3a02017ff46359e4bb97e60fc42">~MouseDriver</a>()=default</td><td class="entry"><a class="el" href="a03452.html">bl::menu::MouseDriver</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>Base class for providers of element highlights. This provider type handles when elements are clicked and moused over.  
+ <a href="a03449.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00581_source.html">HighlightProvider.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::gui::rdr::HighlightProvider:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a03449.png" usemap="#bl::gui::rdr::HighlightProvider_map" alt=""/>
+  <map id="bl::gui::rdr::HighlightProvider_map" name="bl::gui::rdr::HighlightProvider_map">
+<area href="a03389.html" title="Provides mouse highlights by rendering a partially transparent rectangle over the target." alt="bl::gui::defcoms::OverlayHighlightProvider" shape="rect" coords="0,56,248,80"/>
+<area href="a03461.html" title="Does nothing." alt="bl::gui::rdr::NullHighlightProvider" shape="rect" coords="258,56,506,80"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a66ac6d9dbccb33fbf459435d7e99ed24"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03449.html#a66ac6d9dbccb33fbf459435d7e99ed24">Ptr</a> = std::unique_ptr&lt; <a class="el" href="a03449.html">HighlightProvider</a> &gt;</td></tr>
+<tr class="separator:a66ac6d9dbccb33fbf459435d7e99ed24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bdd75df981da3a3f6502e36b8935076"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03449.html#a5bdd75df981da3a3f6502e36b8935076">Factory</a> = std::function&lt; <a class="el" href="a03449.html#a66ac6d9dbccb33fbf459435d7e99ed24">Ptr</a>()&gt;</td></tr>
+<tr class="separator:a5bdd75df981da3a3f6502e36b8935076"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ab8b0917b9f805603fc131256e73faa5f"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03449.html#ab8b0917b9f805603fc131256e73faa5f">~HighlightProvider</a> ()=default</td></tr>
+<tr class="memdesc:ab8b0917b9f805603fc131256e73faa5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the provider.  <a href="a03449.html#ab8b0917b9f805603fc131256e73faa5f">More...</a><br /></td></tr>
+<tr class="separator:ab8b0917b9f805603fc131256e73faa5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a260abd6d749fc5fb4e19850a0fe439d1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03449.html#a260abd6d749fc5fb4e19850a0fe439d1">update</a> (float dt)=0</td></tr>
+<tr class="memdesc:a260abd6d749fc5fb4e19850a0fe439d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the provider.  <a href="a03449.html#a260abd6d749fc5fb4e19850a0fe439d1">More...</a><br /></td></tr>
+<tr class="separator:a260abd6d749fc5fb4e19850a0fe439d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60749735671cf295f331f83de84dbd33"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03449.html#a60749735671cf295f331f83de84dbd33">notifyUIState</a> (<a class="el" href="a03253.html">Element</a> *element, <a class="el" href="a03429.html#ae8067b9f5370e7a570688e694a15f6ef">Component::UIState</a> state)=0</td></tr>
+<tr class="memdesc:a60749735671cf295f331f83de84dbd33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when an element changes state and needs a new highlight.  <a href="a03449.html#a60749735671cf295f331f83de84dbd33">More...</a><br /></td></tr>
+<tr class="separator:a60749735671cf295f331f83de84dbd33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afeac24b34c2ab45d921dec8894078b72"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03449.html#afeac24b34c2ab45d921dec8894078b72">doCreate</a> (<a class="el" href="a02833.html">engine::Engine</a> &amp;engine)=0</td></tr>
+<tr class="memdesc:afeac24b34c2ab45d921dec8894078b72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called once before use. Derived classes should create resources here.  <a href="a03449.html#afeac24b34c2ab45d921dec8894078b72">More...</a><br /></td></tr>
+<tr class="separator:afeac24b34c2ab45d921dec8894078b72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bff69c3498ec327c58ebbca397f6208"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03449.html#a1bff69c3498ec327c58ebbca397f6208">doSceneAdd</a> (<a class="el" href="a04037.html">rc::Overlay</a> *overlay)=0</td></tr>
+<tr class="memdesc:a1bff69c3498ec327c58ebbca397f6208"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the provider should be added to a scene.  <a href="a03449.html#a1bff69c3498ec327c58ebbca397f6208">More...</a><br /></td></tr>
+<tr class="separator:a1bff69c3498ec327c58ebbca397f6208"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff9a93395070b9c72494a2949b5907c8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03449.html#aff9a93395070b9c72494a2949b5907c8">doSceneRemove</a> ()=0</td></tr>
+<tr class="memdesc:aff9a93395070b9c72494a2949b5907c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the provider should be removed from the scene.  <a href="a03449.html#aff9a93395070b9c72494a2949b5907c8">More...</a><br /></td></tr>
+<tr class="separator:aff9a93395070b9c72494a2949b5907c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a933e9bc39a62e6852148900c01ede638"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03449.html#a933e9bc39a62e6852148900c01ede638">notifyDestroyed</a> (const <a class="el" href="a03253.html">Element</a> *element)=0</td></tr>
+<tr class="memdesc:a933e9bc39a62e6852148900c01ede638"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when an element is destroyed or removed.  <a href="a03449.html#a933e9bc39a62e6852148900c01ede638">More...</a><br /></td></tr>
+<tr class="separator:a933e9bc39a62e6852148900c01ede638"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Base class for providers of element highlights. This provider type handles when elements are clicked and moused over. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00581_source.html#l00021">21</a> of file <a class="el" href="a00581_source.html">HighlightProvider.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a5bdd75df981da3a3f6502e36b8935076"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bdd75df981da3a3f6502e36b8935076">&#9670;&nbsp;</a></span>Factory</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a03449.html#a5bdd75df981da3a3f6502e36b8935076">bl::gui::rdr::HighlightProvider::Factory</a> =  std::function&lt;<a class="el" href="a03449.html#a66ac6d9dbccb33fbf459435d7e99ed24">Ptr</a>()&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00581_source.html#l00024">24</a> of file <a class="el" href="a00581_source.html">HighlightProvider.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a66ac6d9dbccb33fbf459435d7e99ed24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66ac6d9dbccb33fbf459435d7e99ed24">&#9670;&nbsp;</a></span>Ptr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a03449.html#a66ac6d9dbccb33fbf459435d7e99ed24">bl::gui::rdr::HighlightProvider::Ptr</a> =  std::unique_ptr&lt;<a class="el" href="a03449.html">HighlightProvider</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00581_source.html#l00023">23</a> of file <a class="el" href="a00581_source.html">HighlightProvider.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ab8b0917b9f805603fc131256e73faa5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8b0917b9f805603fc131256e73faa5f">&#9670;&nbsp;</a></span>~HighlightProvider()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bl::gui::rdr::HighlightProvider::~HighlightProvider </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destroys the provider. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="afeac24b34c2ab45d921dec8894078b72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afeac24b34c2ab45d921dec8894078b72">&#9670;&nbsp;</a></span>doCreate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::gui::rdr::HighlightProvider::doCreate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02833.html">engine::Engine</a> &amp;&#160;</td>
+          <td class="paramname"><em>engine</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called once before use. Derived classes should create resources here. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">engine</td><td>The game engine instance </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="a03389.html#a740d36b089f662d35b6e69c441ec441d">bl::gui::defcoms::OverlayHighlightProvider</a>.</p>
+
+</div>
+</div>
+<a id="a1bff69c3498ec327c58ebbca397f6208"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bff69c3498ec327c58ebbca397f6208">&#9670;&nbsp;</a></span>doSceneAdd()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::gui::rdr::HighlightProvider::doSceneAdd </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04037.html">rc::Overlay</a> *&#160;</td>
+          <td class="paramname"><em>overlay</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when the provider should be added to a scene. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">overlay</td><td>The scene to add to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="a03389.html#a099623e811b66ecfb7f0b08bf588ca7b">bl::gui::defcoms::OverlayHighlightProvider</a>.</p>
+
+</div>
+</div>
+<a id="aff9a93395070b9c72494a2949b5907c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff9a93395070b9c72494a2949b5907c8">&#9670;&nbsp;</a></span>doSceneRemove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::gui::rdr::HighlightProvider::doSceneRemove </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when the provider should be removed from the scene. </p>
+
+<p>Implemented in <a class="el" href="a03389.html#aa4b4bf4391515858de9ef72e7ca3156a">bl::gui::defcoms::OverlayHighlightProvider</a>.</p>
+
+</div>
+</div>
+<a id="a933e9bc39a62e6852148900c01ede638"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a933e9bc39a62e6852148900c01ede638">&#9670;&nbsp;</a></span>notifyDestroyed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::gui::rdr::HighlightProvider::notifyDestroyed </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a03253.html">Element</a> *&#160;</td>
+          <td class="paramname"><em>element</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when an element is destroyed or removed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">element</td><td>The element being destroyed or removed </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="a03389.html#add9103c0360fa97cbae4674ac74ea4b5">bl::gui::defcoms::OverlayHighlightProvider</a>.</p>
+
+</div>
+</div>
+<a id="a60749735671cf295f331f83de84dbd33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60749735671cf295f331f83de84dbd33">&#9670;&nbsp;</a></span>notifyUIState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::gui::rdr::HighlightProvider::notifyUIState </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03253.html">Element</a> *&#160;</td>
+          <td class="paramname"><em>element</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a03429.html#ae8067b9f5370e7a570688e694a15f6ef">Component::UIState</a>&#160;</td>
+          <td class="paramname"><em>state</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when an element changes state and needs a new highlight. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">element</td><td>The element changing state </td></tr>
+    <tr><td class="paramname">state</td><td>The new state of the element </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="a03389.html#a6d60ee47a321ccc8264cb74fb0ce1e0c">bl::gui::defcoms::OverlayHighlightProvider</a>.</p>
+
+</div>
+</div>
+<a id="a260abd6d749fc5fb4e19850a0fe439d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a260abd6d749fc5fb4e19850a0fe439d1">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::gui::rdr::HighlightProvider::update </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Updates the provider. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dt</td><td>Elapsed time in seconds </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="a03389.html#a816693bc40064599840321c37d39e890">bl::gui::defcoms::OverlayHighlightProvider</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Interfaces/GUI/Renderer/<a class="el" href="a00581_source.html">HighlightProvider.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:57 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:57:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Systems/TogglerSystem.hpp Source File</title>
+<title>BLIB: include/BLIB/Systems/OverlayScalerSystem.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,52 +71,87 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">TogglerSystem.hpp</div>  </div>
+<div class="title">OverlayScalerSystem.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01316.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SYSTEMS_TOGGLERSYSTEM_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SYSTEMS_TOGGLERSYSTEM_HPP</span></div>
+<a href="a01316.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SYSTEMS_OVERLAYSCALER_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SYSTEMS_OVERLAYSCALER_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00104.html">BLIB/Components/Toggler.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00221.html">BLIB/ECS.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06241.html">BLIB/Engine/System.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>sys</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a04916.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04916.html">TogglerSystem</a> : <span class="keyword">public</span> <a class="code" href="a02864.html">engine::System</a> {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a04916.html#a18753732afc1c31c4356a0fe3eb3a6cc">   22</a></span>&#160;    <a class="code" href="a04916.html#a18753732afc1c31c4356a0fe3eb3a6cc">TogglerSystem</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a04916.html#ae5e54cf8c385bd341ae56417fea4181c">   27</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a04916.html#ae5e54cf8c385bd341ae56417fea4181c">~TogglerSystem</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="a02688.html">ecs::ComponentPool&lt;com::Toggler&gt;</a>* pool;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> init(<a class="code" href="a02812.html">engine::Engine</a>&amp; engine) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> update(std::mutex&amp; stageMutex, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;};</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;} <span class="comment">// namespace sys</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00080.html">BLIB/Components/OverlayScaler.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06245.html">BLIB/Components/Transform2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00221.html">BLIB/ECS.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06278.html">BLIB/Engine/System.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00797.html">BLIB/Render/Components/SceneObjectRef.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00971.html">BLIB/Render/Overlays/OverlayObject.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">class </span>Overlay;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">namespace </span>sys</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a04941.html">   27</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04941.html">OverlayScalerSystem</a> : <span class="keyword">public</span> <a class="code" href="a02897.html">engine::System</a> {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a04941.html#a75639242703a1261289a6009aa8ecd4d">   32</a></span>&#160;    <a class="code" href="a04941.html#a75639242703a1261289a6009aa8ecd4d">OverlayScalerSystem</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a04941.html#a0ad29736ce5c3a7f845d77df11881700">   37</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a04941.html#a0ad29736ce5c3a7f845d77df11881700">~OverlayScalerSystem</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00104_html"><div class="ttname"><a href="a00104.html">Toggler.hpp</a></div></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">using</span> <a class="code" href="a02785.html">Required</a> = <a class="code" href="a02785.html">ecs::Require&lt;rc::ovy::OverlayObject, com::OverlayScaler, com::Transform2D&gt;</a>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">using</span> <a class="code" href="a02789.html">Optional</a> = <a class="code" href="a02789.html">ecs::Optional&lt;&gt;</a>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">using</span> <a class="code" href="a02721.html">Result</a>   = <a class="code" href="a02721.html">ecs::ComponentSet&lt;Required, Optional&gt;</a>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="a02781.html">ecs::Registry</a>* registry;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    std::vector&lt;rc::Overlay*&gt; overlays;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="a02701.html">ecs::View&lt;Required, Optional&gt;</a>* view;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="a02709.html">ecs::ComponentPool&lt;com::OverlayScaler&gt;</a>* scalerPool;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> init(<a class="code" href="a02833.html">engine::Engine</a>&amp; engine) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> update(std::mutex&amp; stageMutex, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="comment">// called by Overlay</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">void</span> refreshObjectAndChildren(<a class="code" href="a04041.html">rc::ovy::OverlayObject</a>&amp; obj);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">void</span> refreshObjectAndChildren(<a class="code" href="a02721.html">Result</a>&amp; row);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> refreshEntity(<a class="code" href="a02721.html">Result</a>&amp; row);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> updateScissor(<a class="code" href="a02721.html">Result</a>&amp; cset, <span class="keywordtype">float</span> xScale, <span class="keywordtype">float</span> yScale);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a04941.html#a39c5d4176e64d9904d9d4b68edcb0b73">   59</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a04037.html">bl::rc::Overlay</a>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;};</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;} <span class="comment">// namespace sys</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00080_html"><div class="ttname"><a href="a00080.html">OverlayScaler.hpp</a></div></div>
 <div class="ttc" id="aa00221_html"><div class="ttname"><a href="a00221.html">ECS.hpp</a></div></div>
-<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02688_html"><div class="ttname"><a href="a02688.html">bl::ecs::ComponentPool</a></div><div class="ttdoc">Provides storage and management for components in the ECS. Used internally in the Registry.</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00070">ComponentPool.hpp:70</a></div></div>
-<div class="ttc" id="aa02812_html"><div class="ttname"><a href="a02812.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06232_source.html#l00033">Engine.hpp:33</a></div></div>
-<div class="ttc" id="aa02864_html"><div class="ttname"><a href="a02864.html">bl::engine::System</a></div><div class="ttdoc">Base class for Engine systems which can be registered in the Systems registry.</div><div class="ttdef"><b>Definition:</b> <a href="a06241_source.html#l00018">System.hpp:18</a></div></div>
-<div class="ttc" id="aa04916_html"><div class="ttname"><a href="a04916.html">bl::sys::TogglerSystem</a></div><div class="ttdoc">Basic system to update Toggler components.</div><div class="ttdef"><b>Definition:</b> <a href="a01316_source.html#l00017">TogglerSystem.hpp:17</a></div></div>
-<div class="ttc" id="aa04916_html_a18753732afc1c31c4356a0fe3eb3a6cc"><div class="ttname"><a href="a04916.html#a18753732afc1c31c4356a0fe3eb3a6cc">bl::sys::TogglerSystem::TogglerSystem</a></div><div class="ttdeci">TogglerSystem()=default</div><div class="ttdoc">Creates the system.</div></div>
-<div class="ttc" id="aa04916_html_ae5e54cf8c385bd341ae56417fea4181c"><div class="ttname"><a href="a04916.html#ae5e54cf8c385bd341ae56417fea4181c">bl::sys::TogglerSystem::~TogglerSystem</a></div><div class="ttdeci">virtual ~TogglerSystem()=default</div><div class="ttdoc">Destroys the system.</div></div>
-<div class="ttc" id="aa06241_html"><div class="ttname"><a href="a06241.html">System.hpp</a></div></div>
+<div class="ttc" id="aa00797_html"><div class="ttname"><a href="a00797.html">SceneObjectRef.hpp</a></div></div>
+<div class="ttc" id="aa00971_html"><div class="ttname"><a href="a00971.html">OverlayObject.hpp</a></div></div>
+<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02701_html"><div class="ttname"><a href="a02701.html">bl::ecs::View</a></div><div class="ttdoc">Base definition of the View class. Use the tagged specialization.</div><div class="ttdef"><b>Definition:</b> <a href="a00215_source.html#l00062">View.hpp:62</a></div></div>
+<div class="ttc" id="aa02709_html"><div class="ttname"><a href="a02709.html">bl::ecs::ComponentPool</a></div><div class="ttdoc">Provides storage and management for components in the ECS. Used internally in the Registry.</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00070">ComponentPool.hpp:70</a></div></div>
+<div class="ttc" id="aa02721_html"><div class="ttname"><a href="a02721.html">bl::ecs::ComponentSet</a></div><div class="ttdoc">Contains a set of components for a single entity. May not always be valid. Does not update if compone...</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00041">ComponentSet.hpp:41</a></div></div>
+<div class="ttc" id="aa02781_html"><div class="ttname"><a href="a02781.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition:</b> <a href="a00194_source.html#l00032">Registry.hpp:32</a></div></div>
+<div class="ttc" id="aa02785_html"><div class="ttname"><a href="a02785.html">bl::ecs::Require</a></div><div class="ttdef"><b>Definition:</b> <a href="a00197_source.html#l00015">Tags.hpp:15</a></div></div>
+<div class="ttc" id="aa02789_html"><div class="ttname"><a href="a02789.html">bl::ecs::Optional</a></div><div class="ttdef"><b>Definition:</b> <a href="a00197_source.html#l00018">Tags.hpp:18</a></div></div>
+<div class="ttc" id="aa02833_html"><div class="ttname"><a href="a02833.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06269_source.html#l00033">Engine.hpp:33</a></div></div>
+<div class="ttc" id="aa02897_html"><div class="ttname"><a href="a02897.html">bl::engine::System</a></div><div class="ttdoc">Base class for Engine systems which can be registered in the Systems registry.</div><div class="ttdef"><b>Definition:</b> <a href="a06278_source.html#l00018">System.hpp:18</a></div></div>
+<div class="ttc" id="aa04037_html"><div class="ttname"><a href="a04037.html">bl::rc::Overlay</a></div><div class="ttdoc">Special type of scene specialized for 2d overlays with fixed cameras. Objects are organized into a tr...</div><div class="ttdef"><b>Definition:</b> <a href="a00968_source.html#l00036">Overlay.hpp:39</a></div></div>
+<div class="ttc" id="aa04041_html"><div class="ttname"><a href="a04041.html">bl::rc::ovy::OverlayObject</a></div><div class="ttdef"><b>Definition:</b> <a href="a00971_source.html#l00027">OverlayObject.hpp:30</a></div></div>
+<div class="ttc" id="aa04941_html"><div class="ttname"><a href="a04941.html">bl::sys::OverlayScalerSystem</a></div><div class="ttdoc">System that processes entities that are scaled for overlays. Keeps scales up-to-date as overlay size ...</div><div class="ttdef"><b>Definition:</b> <a href="a01316_source.html#l00027">OverlayScalerSystem.hpp:27</a></div></div>
+<div class="ttc" id="aa04941_html_a0ad29736ce5c3a7f845d77df11881700"><div class="ttname"><a href="a04941.html#a0ad29736ce5c3a7f845d77df11881700">bl::sys::OverlayScalerSystem::~OverlayScalerSystem</a></div><div class="ttdeci">virtual ~OverlayScalerSystem()=default</div><div class="ttdoc">Destroys the system.</div></div>
+<div class="ttc" id="aa04941_html_a75639242703a1261289a6009aa8ecd4d"><div class="ttname"><a href="a04941.html#a75639242703a1261289a6009aa8ecd4d">bl::sys::OverlayScalerSystem::OverlayScalerSystem</a></div><div class="ttdeci">OverlayScalerSystem()=default</div><div class="ttdoc">Creates the system.</div></div>
+<div class="ttc" id="aa06245_html"><div class="ttname"><a href="a06245.html">Transform2D.hpp</a></div></div>
+<div class="ttc" id="aa06278_html"><div class="ttname"><a href="a06278.html">System.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

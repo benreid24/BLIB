@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::serial::SerializableField&lt; Id, C, T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,25 +66,773 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02284.html">bl</a></li><li class="navelem"><a class="el" href="a02291.html">sys</a></li><li class="navelem"><a class="el" href="a04884.html">Animation2DSystem</a></li><li class="navelem"><b>VertexAnimation</b></li><li class="navelem"><a class="el" href="a04896.html">DrawIndices</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02303.html">bl</a></li><li class="navelem"><a class="el" href="a02306.html">serial</a></li><li class="navelem"><a class="el" href="a04893.html">SerializableField</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a04890.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::sys::Animation2DSystem::VertexAnimation::DrawIndices Member List</div>  </div>
+<div class="title">bl::serial::SerializableField&lt; Id, C, T &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a04896.html">bl::sys::Animation2DSystem::VertexAnimation::DrawIndices</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a04896.html#a4286e288b32cad1448126722d98201a2">indexCount</a></td><td class="entry"><a class="el" href="a04896.html">bl::sys::Animation2DSystem::VertexAnimation::DrawIndices</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a04896.html#a3dafc5df0318f1476f37a3b964453150">indexStart</a></td><td class="entry"><a class="el" href="a04896.html">bl::sys::Animation2DSystem::VertexAnimation::DrawIndices</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a04896.html#af95f70c6adfe48edff99f36d46887742">vertexStart</a></td><td class="entry"><a class="el" href="a04896.html">bl::sys::Animation2DSystem::VertexAnimation::DrawIndices</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Represents a field in a class that can be serialized. Serializable objects should inherit from <a class="el" href="a04913.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> and make their data fields of type <a class="el" href="a04893.html" title="Represents a field in a class that can be serialized. Serializable objects should inherit from Serial...">SerializableField</a>. Serialization is builtin for primitive json types, vectors, maps, and nested <a class="el" href="a04913.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> members. Specializations of Serializer may be created to support other types which are not easily represented as Serializable objects.  
+ <a href="a04893.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a01298_source.html">SerializableField.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::serial::SerializableField&lt; Id, C, T &gt;:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a04893.png" usemap="#bl::serial::SerializableField_3C_20Id_2C_20C_2C_20T_20_3E_map" alt=""/>
+  <map id="bl::serial::SerializableField_3C_20Id_2C_20C_2C_20T_20_3E_map" name="bl::serial::SerializableField_3C_20Id_2C_20C_2C_20T_20_3E_map">
+<area href="a04881.html" title="Base class for SerializableField objects. Not to be used directly." alt="bl::serial::SerializableFieldBase" shape="rect" coords="0,56,227,80"/>
+<area href="a05029.html" title="Helper class to make derived classes impossible for user to copy directly." alt="bl::util::NonCopyable" shape="rect" coords="0,0,227,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ad4c151a8c9408cc0549c02dbdb817171"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04893.html#ad4c151a8c9408cc0549c02dbdb817171">SerializableField</a> (const std::string &amp;<a class="el" href="a04881.html#aab279c4c2eb76237dff61c8425b30649">name</a>, <a class="el" href="a04909.html">SerializableObjectBase</a> &amp;owner, T C::*member, <a class="el" href="a04889.html">SerializableFieldBase::Required</a> &amp;&amp;)</td></tr>
+<tr class="memdesc:ad4c151a8c9408cc0549c02dbdb817171"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new required field descriptor.  <a href="a04893.html#ad4c151a8c9408cc0549c02dbdb817171">More...</a><br /></td></tr>
+<tr class="separator:ad4c151a8c9408cc0549c02dbdb817171"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab357669c5babe1c71eaecd839de559d6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04893.html#ab357669c5babe1c71eaecd839de559d6">SerializableField</a> (const std::string &amp;<a class="el" href="a04881.html#aab279c4c2eb76237dff61c8425b30649">name</a>, <a class="el" href="a04909.html">SerializableObjectBase</a> &amp;owner, T C::*member, <a class="el" href="a04885.html">SerializableFieldBase::Optional</a> &amp;&amp;)</td></tr>
+<tr class="memdesc:ab357669c5babe1c71eaecd839de559d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new optional field descriptor.  <a href="a04893.html#ab357669c5babe1c71eaecd839de559d6">More...</a><br /></td></tr>
+<tr class="separator:ab357669c5babe1c71eaecd839de559d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a3c82e19ccb1ef0365d5bfe6c8e670d"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04893.html#a5a3c82e19ccb1ef0365d5bfe6c8e670d">deserializeJSON</a> (const <a class="el" href="a04769.html">json::Value</a> &amp;json, void *object) const override</td></tr>
+<tr class="memdesc:a5a3c82e19ccb1ef0365d5bfe6c8e670d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the value of this field from the json data.  <a href="a04893.html#a5a3c82e19ccb1ef0365d5bfe6c8e670d">More...</a><br /></td></tr>
+<tr class="separator:a5a3c82e19ccb1ef0365d5bfe6c8e670d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a14eb22dfa158cb4ef9e830c3e12e7f"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="a04769.html">json::Value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04893.html#a6a14eb22dfa158cb4ef9e830c3e12e7f">serializeJSON</a> (const void *object) const override</td></tr>
+<tr class="memdesc:a6a14eb22dfa158cb4ef9e830c3e12e7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializes the held value of this field to JSON.  <a href="a04893.html#a6a14eb22dfa158cb4ef9e830c3e12e7f">More...</a><br /></td></tr>
+<tr class="separator:a6a14eb22dfa158cb4ef9e830c3e12e7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65945fa3565edd3d4403d7e70326dd4a"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04893.html#a65945fa3565edd3d4403d7e70326dd4a">serializeJsonStream</a> (std::ostream &amp;stream, const void *object, unsigned int tabSize, unsigned int currentIndent=0) const override</td></tr>
+<tr class="memdesc:a65945fa3565edd3d4403d7e70326dd4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializes the given object directly into the given stream as json.  <a href="a04893.html#a65945fa3565edd3d4403d7e70326dd4a">More...</a><br /></td></tr>
+<tr class="separator:a65945fa3565edd3d4403d7e70326dd4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb00190b970b54f2c673839fc555e643"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04893.html#afb00190b970b54f2c673839fc555e643">deserializeJsonStream</a> (std::istream &amp;stream, void *object) const override</td></tr>
+<tr class="memdesc:afb00190b970b54f2c673839fc555e643"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deserializes the given object directly from the given stream as json.  <a href="a04893.html#afb00190b970b54f2c673839fc555e643">More...</a><br /></td></tr>
+<tr class="separator:afb00190b970b54f2c673839fc555e643"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5a642dfaad34f1fabaee344d11a6d19"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04893.html#ac5a642dfaad34f1fabaee344d11a6d19">serializeBinary</a> (<a class="el" href="a04609.html">binary::OutputStream</a> &amp;stream, const void *object) const override</td></tr>
+<tr class="memdesc:ac5a642dfaad34f1fabaee344d11a6d19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializes the object at the given address to the given stream.  <a href="a04893.html#ac5a642dfaad34f1fabaee344d11a6d19">More...</a><br /></td></tr>
+<tr class="separator:ac5a642dfaad34f1fabaee344d11a6d19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0e0d61b81b526f1eb12c6bfb3628513"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04893.html#af0e0d61b81b526f1eb12c6bfb3628513">deserializeBinary</a> (<a class="el" href="a04601.html">binary::InputStream</a> &amp;stream, void *object) const override</td></tr>
+<tr class="memdesc:af0e0d61b81b526f1eb12c6bfb3628513"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deserializes the object at the given address to the given stream.  <a href="a04893.html#af0e0d61b81b526f1eb12c6bfb3628513">More...</a><br /></td></tr>
+<tr class="separator:af0e0d61b81b526f1eb12c6bfb3628513"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf2241e88c25d8f48c565bc5c231896b"><td class="memItemLeft" align="right" valign="top">virtual std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04893.html#abf2241e88c25d8f48c565bc5c231896b">binarySize</a> (const void *object) const override</td></tr>
+<tr class="memdesc:abf2241e88c25d8f48c565bc5c231896b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the serialized size of the field in the given object.  <a href="a04893.html#abf2241e88c25d8f48c565bc5c231896b">More...</a><br /></td></tr>
+<tr class="separator:abf2241e88c25d8f48c565bc5c231896b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2369c1242ef9a251982285e059396a7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04893.html#af2369c1242ef9a251982285e059396a7">makeDefault</a> (void *object) const override</td></tr>
+<tr class="memdesc:af2369c1242ef9a251982285e059396a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the object to the given default value, if any.  <a href="a04893.html#af2369c1242ef9a251982285e059396a7">More...</a><br /></td></tr>
+<tr class="separator:af2369c1242ef9a251982285e059396a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af27212a643abbdb4bef32ebb4d1002e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04893.html#af27212a643abbdb4bef32ebb4d1002e5">createDefault</a> ()</td></tr>
+<tr class="memdesc:af27212a643abbdb4bef32ebb4d1002e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the default value for deserialization to a default-constructed value.  <a href="a04893.html#af27212a643abbdb4bef32ebb4d1002e5">More...</a><br /></td></tr>
+<tr class="separator:af27212a643abbdb4bef32ebb4d1002e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cf4edeb942ec068859c21280bac75da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04893.html#a3cf4edeb942ec068859c21280bac75da">setDefault</a> (T &amp;&amp;defaultValue)</td></tr>
+<tr class="memdesc:a3cf4edeb942ec068859c21280bac75da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the default value for deserialization if the field is not present.  <a href="a04893.html#a3cf4edeb942ec068859c21280bac75da">More...</a><br /></td></tr>
+<tr class="separator:a3cf4edeb942ec068859c21280bac75da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb17cc7491c70788ba4c1180e7323656"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04893.html#abb17cc7491c70788ba4c1180e7323656">getDefault</a> ()</td></tr>
+<tr class="memdesc:abb17cc7491c70788ba4c1180e7323656"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a modifiable reference to the default value for more fine-grained control. <a class="el" href="a04893.html#af27212a643abbdb4bef32ebb4d1002e5" title="Sets the default value for deserialization to a default-constructed value.">createDefault()</a> or <a class="el" href="a04893.html#a3cf4edeb942ec068859c21280bac75da" title="Set the default value for deserialization if the field is not present.">setDefault()</a> should be called first.  <a href="a04893.html#abb17cc7491c70788ba4c1180e7323656">More...</a><br /></td></tr>
+<tr class="separator:abb17cc7491c70788ba4c1180e7323656"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a106ca06f45f5cc36f15b22889a64445d"><td class="memItemLeft" align="right" valign="top">std::uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04881.html#a106ca06f45f5cc36f15b22889a64445d">id</a> () const</td></tr>
+<tr class="memdesc:a106ca06f45f5cc36f15b22889a64445d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the id of the field.  <a href="a04881.html#a106ca06f45f5cc36f15b22889a64445d">More...</a><br /></td></tr>
+<tr class="separator:a106ca06f45f5cc36f15b22889a64445d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab279c4c2eb76237dff61c8425b30649"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04881.html#aab279c4c2eb76237dff61c8425b30649">name</a> () const</td></tr>
+<tr class="memdesc:aab279c4c2eb76237dff61c8425b30649"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the name of this field in json.  <a href="a04881.html#aab279c4c2eb76237dff61c8425b30649">More...</a><br /></td></tr>
+<tr class="separator:aab279c4c2eb76237dff61c8425b30649"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ec5ed8febe37ce001e5e6fc60eb11b3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04881.html#a9ec5ed8febe37ce001e5e6fc60eb11b3">optional</a> () const</td></tr>
+<tr class="memdesc:a9ec5ed8febe37ce001e5e6fc60eb11b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether or not this field is optional.  <a href="a04881.html#a9ec5ed8febe37ce001e5e6fc60eb11b3">More...</a><br /></td></tr>
+<tr class="separator:a9ec5ed8febe37ce001e5e6fc60eb11b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;std::uint16_t Id, typename C, typename T&gt;<br />
+class bl::serial::SerializableField&lt; Id, C, T &gt;</h3>
+
+<p>Represents a field in a class that can be serialized. Serializable objects should inherit from <a class="el" href="a04913.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> and make their data fields of type <a class="el" href="a04893.html" title="Represents a field in a class that can be serialized. Serializable objects should inherit from Serial...">SerializableField</a>. Serialization is builtin for primitive json types, vectors, maps, and nested <a class="el" href="a04913.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> members. Specializations of Serializer may be created to support other types which are not easily represented as Serializable objects. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Id</td><td>Integer id of this field </td></tr>
+    <tr><td class="paramname">C</td><td>The object type the field belongs to </td></tr>
+    <tr><td class="paramname">T</td><td>The underlying type of the field </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01298_source.html#l00203">203</a> of file <a class="el" href="a01298_source.html">SerializableField.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ad4c151a8c9408cc0549c02dbdb817171"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4c151a8c9408cc0549c02dbdb817171">&#9670;&nbsp;</a></span>SerializableField() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::uint16_t Id, typename C , typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04893.html">bl::serial::SerializableField</a>&lt; Id, C, T &gt;::<a class="el" href="a04893.html">SerializableField</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a04909.html">SerializableObjectBase</a> &amp;&#160;</td>
+          <td class="paramname"><em>owner</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T C::*&#160;</td>
+          <td class="paramname"><em>member</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a04889.html">SerializableFieldBase::Required</a> &amp;&amp;&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a new required field descriptor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>Name to use when serializing and deserializing </td></tr>
+    <tr><td class="paramname">owner</td><td>The parent Serializable object to register with </td></tr>
+    <tr><td class="paramname">member</td><td>Pointer to the member to serialize </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01298_source.html#l00382">382</a> of file <a class="el" href="a01298_source.html">SerializableField.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab357669c5babe1c71eaecd839de559d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab357669c5babe1c71eaecd839de559d6">&#9670;&nbsp;</a></span>SerializableField() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::uint16_t Id, typename C , typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04893.html">bl::serial::SerializableField</a>&lt; Id, C, T &gt;::<a class="el" href="a04893.html">SerializableField</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a04909.html">SerializableObjectBase</a> &amp;&#160;</td>
+          <td class="paramname"><em>owner</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T C::*&#160;</td>
+          <td class="paramname"><em>member</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a04885.html">SerializableFieldBase::Optional</a> &amp;&amp;&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a new optional field descriptor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>Name to use when serializing and deserializing </td></tr>
+    <tr><td class="paramname">owner</td><td>The parent Serializable object to register with </td></tr>
+    <tr><td class="paramname">member</td><td>Pointer to the member to serialize </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01298_source.html#l00389">389</a> of file <a class="el" href="a01298_source.html">SerializableField.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="abf2241e88c25d8f48c565bc5c231896b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf2241e88c25d8f48c565bc5c231896b">&#9670;&nbsp;</a></span>binarySize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::uint16_t Id, typename C , typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t <a class="el" href="a04893.html">bl::serial::SerializableField</a>&lt; Id, C, T &gt;::binarySize </td>
+          <td>(</td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>object</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the serialized size of the field in the given object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">object</td><td>The object to get the field value from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::uint32_t The size of the field when serialized, in bytes </dd></dl>
+
+<p>Implements <a class="el" href="a04881.html#a8ba2308a66999c75b073170ae0b1b593">bl::serial::SerializableFieldBase</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01298_source.html#l00435">435</a> of file <a class="el" href="a01298_source.html">SerializableField.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af27212a643abbdb4bef32ebb4d1002e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af27212a643abbdb4bef32ebb4d1002e5">&#9670;&nbsp;</a></span>createDefault()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::uint16_t Id, typename C , typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a04893.html">bl::serial::SerializableField</a>&lt; Id, C, T &gt;::createDefault</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the default value for deserialization to a default-constructed value. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01298_source.html#l00452">452</a> of file <a class="el" href="a01298_source.html">SerializableField.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af0e0d61b81b526f1eb12c6bfb3628513"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0e0d61b81b526f1eb12c6bfb3628513">&#9670;&nbsp;</a></span>deserializeBinary()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::uint16_t Id, typename C , typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a04893.html">bl::serial::SerializableField</a>&lt; Id, C, T &gt;::deserializeBinary </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04601.html">binary::InputStream</a> &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>object</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Deserializes the object at the given address to the given stream. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>The stream to deserialize to </td></tr>
+    <tr><td class="paramname">object</td><td>The object to deserialize </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
+
+<p>Implements <a class="el" href="a04881.html#a66d6760471ec774a94378916cda64134">bl::serial::SerializableFieldBase</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01298_source.html#l00429">429</a> of file <a class="el" href="a01298_source.html">SerializableField.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5a3c82e19ccb1ef0365d5bfe6c8e670d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a3c82e19ccb1ef0365d5bfe6c8e670d">&#9670;&nbsp;</a></span>deserializeJSON()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::uint16_t Id, typename C , typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a04893.html">bl::serial::SerializableField</a>&lt; Id, C, T &gt;::deserializeJSON </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a04769.html">json::Value</a> &amp;&#160;</td>
+          <td class="paramname"><em>json</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>object</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Updates the value of this field from the json data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">json</td><td>JSON value to deserialize from </td></tr>
+    <tr><td class="paramname">object</td><td>Address of the object being deserialized </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if successfully deserialized, false on error </dd></dl>
+
+<p>Implements <a class="el" href="a04881.html#ad31cd8565c78ec9c3372c6108956f195">bl::serial::SerializableFieldBase</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01298_source.html#l00396">396</a> of file <a class="el" href="a01298_source.html">SerializableField.hpp</a>.</p>
+
+</div>
+</div>
+<a id="afb00190b970b54f2c673839fc555e643"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb00190b970b54f2c673839fc555e643">&#9670;&nbsp;</a></span>deserializeJsonStream()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::uint16_t Id, typename C , typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a04893.html">bl::serial::SerializableField</a>&lt; Id, C, T &gt;::deserializeJsonStream </td>
+          <td>(</td>
+          <td class="paramtype">std::istream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>object</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Deserializes the given object directly from the given stream as json. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>The stream to read json from </td></tr>
+    <tr><td class="paramname">object</td><td>The object to deserialize </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
+
+<p>Implements <a class="el" href="a04881.html#ad89776f829632b3f3eb986ee4f69c85e">bl::serial::SerializableFieldBase</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01298_source.html#l00408">408</a> of file <a class="el" href="a01298_source.html">SerializableField.hpp</a>.</p>
+
+</div>
+</div>
+<a id="abb17cc7491c70788ba4c1180e7323656"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb17cc7491c70788ba4c1180e7323656">&#9670;&nbsp;</a></span>getDefault()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::uint16_t Id, typename C , typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T &amp; <a class="el" href="a04893.html">bl::serial::SerializableField</a>&lt; Id, C, T &gt;::getDefault</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a modifiable reference to the default value for more fine-grained control. <a class="el" href="a04893.html#af27212a643abbdb4bef32ebb4d1002e5" title="Sets the default value for deserialization to a default-constructed value.">createDefault()</a> or <a class="el" href="a04893.html#a3cf4edeb942ec068859c21280bac75da" title="Set the default value for deserialization if the field is not present.">setDefault()</a> should be called first. </p>
+<dl class="section return"><dt>Returns</dt><dd>T&amp; </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01298_source.html#l00457">457</a> of file <a class="el" href="a01298_source.html">SerializableField.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a106ca06f45f5cc36f15b22889a64445d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a106ca06f45f5cc36f15b22889a64445d">&#9670;&nbsp;</a></span>id()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint16_t bl::serial::SerializableFieldBase::id </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the id of the field. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01298_source.html#l00122">122</a> of file <a class="el" href="a01298_source.html">SerializableField.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af2369c1242ef9a251982285e059396a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2369c1242ef9a251982285e059396a7">&#9670;&nbsp;</a></span>makeDefault()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::uint16_t Id, typename C , typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a04893.html">bl::serial::SerializableField</a>&lt; Id, C, T &gt;::makeDefault </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>object</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Initialize the object to the given default value, if any. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj</td><td>The object to default </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="a04881.html#a36902329a9c984a9dc0867404cfbef77">bl::serial::SerializableFieldBase</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01298_source.html#l00441">441</a> of file <a class="el" href="a01298_source.html">SerializableField.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aab279c4c2eb76237dff61c8425b30649"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab279c4c2eb76237dff61c8425b30649">&#9670;&nbsp;</a></span>name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string&amp; bl::serial::SerializableFieldBase::name </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the name of this field in json. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01298_source.html#l00128">128</a> of file <a class="el" href="a01298_source.html">SerializableField.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a9ec5ed8febe37ce001e5e6fc60eb11b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ec5ed8febe37ce001e5e6fc60eb11b3">&#9670;&nbsp;</a></span>optional()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::serial::SerializableFieldBase::optional </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Whether or not this field is optional. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01298_source.html#l00134">134</a> of file <a class="el" href="a01298_source.html">SerializableField.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac5a642dfaad34f1fabaee344d11a6d19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5a642dfaad34f1fabaee344d11a6d19">&#9670;&nbsp;</a></span>serializeBinary()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::uint16_t Id, typename C , typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a04893.html">bl::serial::SerializableField</a>&lt; Id, C, T &gt;::serializeBinary </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04609.html">binary::OutputStream</a> &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>object</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Serializes the object at the given address to the given stream. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>The stream to serialize to </td></tr>
+    <tr><td class="paramname">object</td><td>The object to serialize </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
+
+<p>Implements <a class="el" href="a04881.html#a856c4055a624f3a24b55a092c2e7c211">bl::serial::SerializableFieldBase</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01298_source.html#l00422">422</a> of file <a class="el" href="a01298_source.html">SerializableField.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6a14eb22dfa158cb4ef9e830c3e12e7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a14eb22dfa158cb4ef9e830c3e12e7f">&#9670;&nbsp;</a></span>serializeJSON()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::uint16_t Id, typename C , typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04769.html">json::Value</a> <a class="el" href="a04893.html">bl::serial::SerializableField</a>&lt; Id, C, T &gt;::serializeJSON </td>
+          <td>(</td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>object</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Serializes the held value of this field to JSON. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">object</td><td>Address of the object being serialized </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Value JSON value of this field </dd></dl>
+
+<p>Implements <a class="el" href="a04881.html#a93e0934a79496d6cbbc584b8c94a1095">bl::serial::SerializableFieldBase</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01298_source.html#l00402">402</a> of file <a class="el" href="a01298_source.html">SerializableField.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a65945fa3565edd3d4403d7e70326dd4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65945fa3565edd3d4403d7e70326dd4a">&#9670;&nbsp;</a></span>serializeJsonStream()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::uint16_t Id, typename C , typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a04893.html">bl::serial::SerializableField</a>&lt; Id, C, T &gt;::serializeJsonStream </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>object</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>tabSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>currentIndent</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Serializes the given object directly into the given stream as json. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>The stream to serialize into </td></tr>
+    <tr><td class="paramname">object</td><td>The object to serialize </td></tr>
+    <tr><td class="paramname">tabSize</td><td>Spaces to indent per level </td></tr>
+    <tr><td class="paramname">currentIndent</td><td>Current level of indentation in spaces </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
+
+<p>Implements <a class="el" href="a04881.html#ad8d351190b86e1e0ffd66c6743ac4810">bl::serial::SerializableFieldBase</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01298_source.html#l00414">414</a> of file <a class="el" href="a01298_source.html">SerializableField.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3cf4edeb942ec068859c21280bac75da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cf4edeb942ec068859c21280bac75da">&#9670;&nbsp;</a></span>setDefault()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::uint16_t Id, typename C , typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a04893.html">bl::serial::SerializableField</a>&lt; Id, C, T &gt;::setDefault </td>
+          <td>(</td>
+          <td class="paramtype">T &amp;&amp;&#160;</td>
+          <td class="paramname"><em>defaultValue</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the default value for deserialization if the field is not present. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">defaultValue</td><td>The value to default to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01298_source.html#l00447">447</a> of file <a class="el" href="a01298_source.html">SerializableField.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Serialization/<a class="el" href="a01298_source.html">SerializableField.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:57:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

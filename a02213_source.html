@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Systems/RendererUpdateSystem.cpp Source File</title>
+<title>BLIB: src/Serialization/Buffers/StreamOutputBuffer.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,44 +66,42 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_900c20bb70493231141df6997ccd6b87.html">Systems</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_e7c9606de6dc9534b0042ecacee5f21f.html">Serialization</a></li><li class="navelem"><a class="el" href="dir_47ff02213d38b4fcd8e0172b7fa926fb.html">Buffers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">RendererUpdateSystem.cpp</div>  </div>
+<div class="title">StreamOutputBuffer.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a02213.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01310.html">BLIB/Systems/RendererUpdateSystem.hpp</a>&gt;</span></div>
+<a href="a02213.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01286.html">BLIB/Serialization/Buffers/StreamOutputBuffer.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06283.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>serial</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>sys</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a04908.html#a70e8ca1e6e894f0d081329fc85e046e3">    9</a></span>&#160;<a class="code" href="a04908.html#a70e8ca1e6e894f0d081329fc85e046e3">RendererUpdateSystem::RendererUpdateSystem</a>(<a class="code" href="a04024.html">rc::Renderer</a>&amp; r)</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: renderer(r) {}</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keywordtype">void</span> RendererUpdateSystem::init(<a class="code" href="a02812.html">engine::Engine</a>&amp;) {}</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keywordtype">void</span> RendererUpdateSystem::update(std::mutex&amp;, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>) {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    renderer.update(dt);</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace sys</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01310_html"><div class="ttname"><a href="a01310.html">RendererUpdateSystem.hpp</a></div></div>
-<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02812_html"><div class="ttname"><a href="a02812.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06232_source.html#l00033">Engine.hpp:33</a></div></div>
-<div class="ttc" id="aa04024_html"><div class="ttname"><a href="a04024.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a06283_source.html#l00042">Renderer.hpp:42</a></div></div>
-<div class="ttc" id="aa04908_html_a70e8ca1e6e894f0d081329fc85e046e3"><div class="ttname"><a href="a04908.html#a70e8ca1e6e894f0d081329fc85e046e3">bl::sys::RendererUpdateSystem::RendererUpdateSystem</a></div><div class="ttdeci">RendererUpdateSystem(rc::Renderer &amp;renderer)</div><div class="ttdoc">Creates a new camera update system.</div><div class="ttdef"><b>Definition:</b> <a href="a02213_source.html#l00009">RendererUpdateSystem.cpp:9</a></div></div>
-<div class="ttc" id="aa06283_html"><div class="ttname"><a href="a06283.html">Renderer.hpp</a></div></div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a04753.html#acefd99a20e8d086c67a0e9d95ab4f67b">    7</a></span>&#160;<a class="code" href="a04753.html#acefd99a20e8d086c67a0e9d95ab4f67b">StreamOutputBuffer::StreamOutputBuffer</a>(std::ostream&amp; os)</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: stream(os) {}</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a04753.html#ae11ddac8af8eb2ab7f3130f393d99e5c">   10</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a04753.html#ae11ddac8af8eb2ab7f3130f393d99e5c">StreamOutputBuffer::write</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* buf, std::size_t len) {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    stream.write(buf, len);</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keywordflow">return</span> stream.good();</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a04753.html#aaff97d946d1f1b37ae4a46255678904a">   15</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a04753.html#aaff97d946d1f1b37ae4a46255678904a">StreamOutputBuffer::good</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> stream.good(); }</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;} <span class="comment">// namespace serial</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa01286_html"><div class="ttname"><a href="a01286.html">StreamOutputBuffer.hpp</a></div></div>
+<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04753_html_aaff97d946d1f1b37ae4a46255678904a"><div class="ttname"><a href="a04753.html#aaff97d946d1f1b37ae4a46255678904a">bl::serial::StreamOutputBuffer::good</a></div><div class="ttdeci">virtual bool good() const override</div><div class="ttdoc">Returns whether or not the buffer is in a good state.</div><div class="ttdef"><b>Definition:</b> <a href="a02213_source.html#l00015">StreamOutputBuffer.cpp:15</a></div></div>
+<div class="ttc" id="aa04753_html_acefd99a20e8d086c67a0e9d95ab4f67b"><div class="ttname"><a href="a04753.html#acefd99a20e8d086c67a0e9d95ab4f67b">bl::serial::StreamOutputBuffer::StreamOutputBuffer</a></div><div class="ttdeci">StreamOutputBuffer(std::ostream &amp;stream)</div><div class="ttdoc">Construct a new Stream Output Buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a02213_source.html#l00007">StreamOutputBuffer.cpp:7</a></div></div>
+<div class="ttc" id="aa04753_html_ae11ddac8af8eb2ab7f3130f393d99e5c"><div class="ttname"><a href="a04753.html#ae11ddac8af8eb2ab7f3130f393d99e5c">bl::serial::StreamOutputBuffer::write</a></div><div class="ttdeci">virtual bool write(const char *data, std::size_t len) override</div><div class="ttdoc">Write some data to the buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a02213_source.html#l00010">StreamOutputBuffer.cpp:10</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

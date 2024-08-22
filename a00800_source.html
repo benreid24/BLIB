@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Descriptors/Builtin/Object2DInstance.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Descriptors/Builtin/CommonBindings.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,41 +71,54 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Object2DInstance.hpp</div>  </div>
+<div class="title">CommonBindings.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00800.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_DESCRIPTORS_BUILTIN_OBJECT2DINSTANCE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_DESCRIPTORS_BUILTIN_OBJECT2DINSTANCE_HPP</span></div>
+<a href="a00800.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_DESCRIPTORS_BUILTIN_COMMONBINDINGS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_DESCRIPTORS_BUILTIN_COMMONBINDINGS_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00791.html">BLIB/Render/Descriptors/Builtin/CommonBindings.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>ds</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>priv</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a02333.html#ade2fa05b113f209b58732920b4c713bc">   14</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03832.html">Object2DBindings</a> = <a class="code" href="a03832.html">Bindings&lt;Transform2DBinding, TextureBinding&gt;</a>;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace priv</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06239.html">BLIB/Components/Texture.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06245.html">BLIB/Components/Transform2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00110.html">BLIB/Components/Transform3D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00866.html">BLIB/Render/Descriptors/Generic/ObjectStorageBuffer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00872.html">BLIB/Render/Descriptors/GenericDescriptorSetInstance.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">class </span>Renderer;</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02270.html#gafe3f65f24159cd396a17ad47b83295fc">   23</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03864.html">Object2DInstance</a> = <a class="code" href="a03864.html">GenericDescriptorSetInstance&lt;priv::Object2DBindings&gt;</a>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace ds</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00791_html"><div class="ttname"><a href="a00791.html">CommonBindings.hpp</a></div></div>
-<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03832_html"><div class="ttname"><a href="a03832.html">bl::rc::ds::Bindings</a></div><div class="ttdoc">Helper for containing a set of bindings for a generic descriptor set.</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00022">Bindings.hpp:22</a></div></div>
-<div class="ttc" id="aa03864_html"><div class="ttname"><a href="a03864.html">bl::rc::ds::GenericDescriptorSetInstance</a></div><div class="ttdoc">Generic descriptor set comprised of arbitrary bindings.</div><div class="ttdef"><b>Definition:</b> <a href="a00863_source.html#l00032">GenericDescriptorSetInstance.hpp:32</a></div></div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02352.html">   17</a></span>&#160;<span class="keyword">namespace </span>ds</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02353.html">   19</a></span>&#160;<span class="keyword">namespace </span>priv</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02353.html#ae0a04d3d4d1a5562dbb14376f1a2f33e">   21</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03885.html">Transform2DBinding</a> = <a class="code" href="a03885.html">ObjectStorageBuffer&lt;glm::mat4, com::Transform2D&gt;</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02353.html#a32f3b6227b36ec6b2134c0d3bf915fc3">   22</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03885.html">Transform3DBinding</a> = <a class="code" href="a03885.html">ObjectStorageBuffer&lt;glm::mat4, com::Transform3D&gt;</a>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02353.html#a35d2839144b02fa023e1fc36c94932d5">   23</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03885.html">TextureBinding</a> =</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="a03885.html">ObjectStorageBuffer&lt;std::uint32_t, com::Texture, true, buf::StaticSSBO&lt;std::uint32_t&gt;</a>,</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;                        <a class="code" href="a03749.html">buf::StaticSSBO&lt;std::uint32_t&gt;</a>&gt;;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// namespace priv</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;} <span class="comment">// namespace ds</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00110_html"><div class="ttname"><a href="a00110.html">Transform3D.hpp</a></div></div>
+<div class="ttc" id="aa00866_html"><div class="ttname"><a href="a00866.html">ObjectStorageBuffer.hpp</a></div></div>
+<div class="ttc" id="aa00872_html"><div class="ttname"><a href="a00872.html">GenericDescriptorSetInstance.hpp</a></div></div>
+<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03749_html"><div class="ttname"><a href="a03749.html">bl::rc::buf::StaticSSBO&lt; std::uint32_t &gt;</a></div></div>
+<div class="ttc" id="aa03885_html"><div class="ttname"><a href="a03885.html">bl::rc::ds::ObjectStorageBuffer</a></div><div class="ttdoc">Generic descriptor set binding providing ECS entity components to shaders.</div><div class="ttdef"><b>Definition:</b> <a href="a00866_source.html#l00028">ObjectStorageBuffer.hpp:28</a></div></div>
+<div class="ttc" id="aa06239_html"><div class="ttname"><a href="a06239.html">Texture.hpp</a></div></div>
+<div class="ttc" id="aa06245_html"><div class="ttname"><a href="a06245.html">Transform2D.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

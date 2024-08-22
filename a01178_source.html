@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Resources/Bundling/FileHandlers/AnimationHandler.hpp Source File</title>
+<title>BLIB: include/BLIB/Resources/Bundling/BundleSource.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,48 +66,98 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_70ae3ed4186da77d71126d34066606f0.html">Resources</a></li><li class="navelem"><a class="el" href="dir_8c0830a2e11435882738e77910337c62.html">Bundling</a></li><li class="navelem"><a class="el" href="dir_0797aa3e6e1ab8a601e0d40d10a7f5cb.html">FileHandlers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_70ae3ed4186da77d71126d34066606f0.html">Resources</a></li><li class="navelem"><a class="el" href="dir_8c0830a2e11435882738e77910337c62.html">Bundling</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">AnimationHandler.hpp</div>  </div>
+<div class="title">BundleSource.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01178.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RESOURCES_BUNDLING_FILEHANDLERS_ANIMATIONHANDLER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RESOURCES_BUNDLING_FILEHANDLERS_ANIMATIONHANDLER_HPP</span></div>
+<a href="a01178.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RESOURCES_BUNDLING_BUNDLESOURCE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RESOURCES_BUNDLING_BUNDLESOURCE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01172.html">BLIB/Resources/Bundling/FileHandler.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>resource</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>bundle</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a04416.html">   19</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a04416.html">AnimationHandler</a> : <span class="keyword">public</span> <a class="code" href="a04408.html">FileHandler</a> {</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a04416.html#adcefa3b148063f71d0748caef2d1bde1">   20</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a04416.html#adcefa3b148063f71d0748caef2d1bde1">~AnimationHandler</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="a04416.html#adf22a2d2b974daba7cf8ec92a0bdcf89">processFile</a>(<span class="keyword">const</span> std::string&amp; path, std::ostream&amp; output,</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                             <a class="code" href="a04412.html">FileHandlerContext</a>&amp; context) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;};</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00668.html">BLIB/Logging.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01349.html">BLIB/Util/FileUtil.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;regex&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>resource</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>bundle</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a04437.html">   21</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a04437.html">BundleSource</a> {</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a04437.html#a41c8e532ea984bf46a2ac786c42e31ed">   23</a></span>&#160;    std::string <a class="code" href="a04437.html#a41c8e532ea984bf46a2ac786c42e31ed">sourcePath</a>;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace bundle</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace resource</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01172_html"><div class="ttname"><a href="a01172.html">FileHandler.hpp</a></div></div>
-<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04408_html"><div class="ttname"><a href="a04408.html">bl::resource::bundle::FileHandler</a></div><div class="ttdoc">Base class for file handlers. File handlers process raw files and pack them into bundles....</div><div class="ttdef"><b>Definition:</b> <a href="a01172_source.html#l00021">FileHandler.hpp:21</a></div></div>
-<div class="ttc" id="aa04412_html"><div class="ttname"><a href="a04412.html">bl::resource::bundle::FileHandlerContext</a></div><div class="ttdoc">Context data that is provided to FileHandler objects when processing files.</div><div class="ttdef"><b>Definition:</b> <a href="a01175_source.html#l00023">FileHandlerContext.hpp:23</a></div></div>
-<div class="ttc" id="aa04416_html"><div class="ttname"><a href="a04416.html">bl::resource::bundle::AnimationHandler</a></div><div class="ttdoc">File handler for animations. Copies the data from disk as-is and adds the spritesheet file to the bun...</div><div class="ttdef"><b>Definition:</b> <a href="a01178_source.html#l00019">AnimationHandler.hpp:19</a></div></div>
-<div class="ttc" id="aa04416_html_adcefa3b148063f71d0748caef2d1bde1"><div class="ttname"><a href="a04416.html#adcefa3b148063f71d0748caef2d1bde1">bl::resource::bundle::AnimationHandler::~AnimationHandler</a></div><div class="ttdeci">virtual ~AnimationHandler()=default</div></div>
-<div class="ttc" id="aa04416_html_adf22a2d2b974daba7cf8ec92a0bdcf89"><div class="ttname"><a href="a04416.html#adf22a2d2b974daba7cf8ec92a0bdcf89">bl::resource::bundle::AnimationHandler::processFile</a></div><div class="ttdeci">virtual bool processFile(const std::string &amp;path, std::ostream &amp;output, FileHandlerContext &amp;context) override</div><div class="ttdoc">Process the given file and add its data to the bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a02114_source.html#l00010">AnimationHandler.cpp:10</a></div></div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a04437.html#ad1f5105ed9abad8c4c8bc9f390551583">   26</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="a04437.html#ad1f5105ed9abad8c4c8bc9f390551583">Policy</a> {</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a04437.html#ad1f5105ed9abad8c4c8bc9f390551583ab252b15914fb7417955c32f5c7444a1e">   28</a></span>&#160;        <a class="code" href="a04437.html#ad1f5105ed9abad8c4c8bc9f390551583ab252b15914fb7417955c32f5c7444a1e">BundleAllFiles</a>,</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a04437.html#ad1f5105ed9abad8c4c8bc9f390551583ad178f08e94f591bd520835960ca34485">   31</a></span>&#160;        <a class="code" href="a04437.html#ad1f5105ed9abad8c4c8bc9f390551583ad178f08e94f591bd520835960ca34485">CreateBundleForEachContained</a>,</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <a class="code" href="a04437.html#ad1f5105ed9abad8c4c8bc9f390551583ad32891334919dab0467b3cdf7ed58dcb">CreateBundleForEachContainedRecursive</a></div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a04437.html#ad1f5105ed9abad8c4c8bc9f390551583ad32891334919dab0467b3cdf7ed58dcb">   35</a></span>&#160;    } <a class="code" href="a04437.html#a44947755a5c3ef9f26bee5a5bdb80fd4">policy</a>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a04437.html#abdccec6d14e82a4f391859bb453ef53c">   38</a></span>&#160;    std::string <a class="code" href="a04437.html#abdccec6d14e82a4f391859bb453ef53c">whitelistPattern</a>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="a04437.html#a7272d456efe25b543d7f5b223434adcc">   41</a></span>&#160;    std::string <a class="code" href="a04437.html#a7272d456efe25b543d7f5b223434adcc">blacklistPattern</a>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a04437.html#ac92b9b52e49e6a19e630f2416e9c1a0e">   51</a></span>&#160;    <a class="code" href="a04437.html#ac92b9b52e49e6a19e630f2416e9c1a0e">BundleSource</a>(<span class="keyword">const</span> std::string&amp; srcPath, <a class="code" href="a04437.html#ad1f5105ed9abad8c4c8bc9f390551583">Policy</a> <a class="code" href="a04437.html#a44947755a5c3ef9f26bee5a5bdb80fd4">policy</a>,</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                 <span class="keyword">const</span> std::string&amp; <a class="code" href="a04437.html#abdccec6d14e82a4f391859bb453ef53c">whitelistPattern</a> = <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">const</span> std::string&amp; <a class="code" href="a04437.html#a7272d456efe25b543d7f5b223434adcc">blacklistPattern</a> = <span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    : <a class="code" href="a04437.html#a41c8e532ea984bf46a2ac786c42e31ed">sourcePath</a>(srcPath)</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    , <a class="code" href="a04437.html#a44947755a5c3ef9f26bee5a5bdb80fd4">policy</a>(<a class="code" href="a04437.html#a44947755a5c3ef9f26bee5a5bdb80fd4">policy</a>)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    , <a class="code" href="a04437.html#abdccec6d14e82a4f391859bb453ef53c">whitelistPattern</a>(<a class="code" href="a04437.html#abdccec6d14e82a4f391859bb453ef53c">whitelistPattern</a>)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    , <a class="code" href="a04437.html#a7272d456efe25b543d7f5b223434adcc">blacklistPattern</a>(<a class="code" href="a04437.html#a7272d456efe25b543d7f5b223434adcc">blacklistPattern</a>)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    , whitelist(<a class="code" href="a04437.html#abdccec6d14e82a4f391859bb453ef53c">whitelistPattern</a>.empty() ? <span class="stringliteral">&quot;.*&quot;</span> : <a class="code" href="a04437.html#abdccec6d14e82a4f391859bb453ef53c">whitelistPattern</a>)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    , blacklist(<a class="code" href="a04437.html#a7272d456efe25b543d7f5b223434adcc">blacklistPattern</a>.empty() ? <span class="stringliteral">&quot;^\\b$&quot;</span> : <a class="code" href="a04437.html#a7272d456efe25b543d7f5b223434adcc">blacklistPattern</a>) {}</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="a04437.html#a823e4607dab4e182ce4f9c626352bdd0">   67</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a04437.html#a823e4607dab4e182ce4f9c626352bdd0">includeFile</a>(<span class="keyword">const</span> std::string&amp; file)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordflow">if</span> (!<a class="code" href="a04437.html#abdccec6d14e82a4f391859bb453ef53c">whitelistPattern</a>.empty() &amp;&amp; !std::regex_match(file.c_str(), whitelist)) {</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <a class="code" href="a00662.html#a6b4a6c9a77636c98a3c0821ae6a4c119">BL_LOG_DEBUG</a> &lt;&lt; <span class="stringliteral">&quot;Excluding file &#39;&quot;</span> &lt;&lt; file</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                         &lt;&lt; <span class="stringliteral">&quot;&#39; due to bundle whitelist pattern: &quot;</span> &lt;&lt; <a class="code" href="a04437.html#abdccec6d14e82a4f391859bb453ef53c">whitelistPattern</a>;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keywordflow">if</span> (!<a class="code" href="a04437.html#a7272d456efe25b543d7f5b223434adcc">blacklistPattern</a>.empty() &amp;&amp; std::regex_match(file.c_str(), blacklist)) {</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            <a class="code" href="a00662.html#a6b4a6c9a77636c98a3c0821ae6a4c119">BL_LOG_DEBUG</a> &lt;&lt; <span class="stringliteral">&quot;Excluding file &#39;&quot;</span> &lt;&lt; file</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                         &lt;&lt; <span class="stringliteral">&quot;&#39; due to bundle blacklist pattern: &quot;</span> &lt;&lt; <a class="code" href="a04437.html#a7272d456efe25b543d7f5b223434adcc">blacklistPattern</a>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        }</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    std::regex whitelist;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    std::regex blacklist;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;};</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;} <span class="comment">// namespace bundle</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;} <span class="comment">// namespace resource</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00662_html_a6b4a6c9a77636c98a3c0821ae6a4c119"><div class="ttname"><a href="a00662.html#a6b4a6c9a77636c98a3c0821ae6a4c119">BL_LOG_DEBUG</a></div><div class="ttdeci">#define BL_LOG_DEBUG</div><div class="ttdoc">Helper macro to log at debug level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00662_source.html#l00110">Logger.hpp:110</a></div></div>
+<div class="ttc" id="aa00668_html"><div class="ttname"><a href="a00668.html">Logging.hpp</a></div></div>
+<div class="ttc" id="aa01349_html"><div class="ttname"><a href="a01349.html">FileUtil.hpp</a></div></div>
+<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04437_html"><div class="ttname"><a href="a04437.html">bl::resource::bundle::BundleSource</a></div><div class="ttdoc">Config struct defining a top level starting point for a bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a01178_source.html#l00021">BundleSource.hpp:21</a></div></div>
+<div class="ttc" id="aa04437_html_a41c8e532ea984bf46a2ac786c42e31ed"><div class="ttname"><a href="a04437.html#a41c8e532ea984bf46a2ac786c42e31ed">bl::resource::bundle::BundleSource::sourcePath</a></div><div class="ttdeci">std::string sourcePath</div><div class="ttdoc">The top level file or folder to start the bundle with.</div><div class="ttdef"><b>Definition:</b> <a href="a01178_source.html#l00023">BundleSource.hpp:23</a></div></div>
+<div class="ttc" id="aa04437_html_a44947755a5c3ef9f26bee5a5bdb80fd4"><div class="ttname"><a href="a04437.html#a44947755a5c3ef9f26bee5a5bdb80fd4">bl::resource::bundle::BundleSource::policy</a></div><div class="ttdeci">enum bl::resource::bundle::BundleSource::Policy policy</div></div>
+<div class="ttc" id="aa04437_html_a7272d456efe25b543d7f5b223434adcc"><div class="ttname"><a href="a04437.html#a7272d456efe25b543d7f5b223434adcc">bl::resource::bundle::BundleSource::blacklistPattern</a></div><div class="ttdeci">std::string blacklistPattern</div><div class="ttdoc">Regex pattern to whitelist files to exclude. Leave empty for no blacklist.</div><div class="ttdef"><b>Definition:</b> <a href="a01178_source.html#l00041">BundleSource.hpp:41</a></div></div>
+<div class="ttc" id="aa04437_html_a823e4607dab4e182ce4f9c626352bdd0"><div class="ttname"><a href="a04437.html#a823e4607dab4e182ce4f9c626352bdd0">bl::resource::bundle::BundleSource::includeFile</a></div><div class="ttdeci">bool includeFile(const std::string &amp;file) const</div><div class="ttdoc">Returns whether or not the given file within this bundle source should be bundled based on the whitel...</div><div class="ttdef"><b>Definition:</b> <a href="a01178_source.html#l00067">BundleSource.hpp:67</a></div></div>
+<div class="ttc" id="aa04437_html_abdccec6d14e82a4f391859bb453ef53c"><div class="ttname"><a href="a04437.html#abdccec6d14e82a4f391859bb453ef53c">bl::resource::bundle::BundleSource::whitelistPattern</a></div><div class="ttdeci">std::string whitelistPattern</div><div class="ttdoc">Regex pattern to whitelist files to include. Leave empty for no whitelist.</div><div class="ttdef"><b>Definition:</b> <a href="a01178_source.html#l00038">BundleSource.hpp:38</a></div></div>
+<div class="ttc" id="aa04437_html_ac92b9b52e49e6a19e630f2416e9c1a0e"><div class="ttname"><a href="a04437.html#ac92b9b52e49e6a19e630f2416e9c1a0e">bl::resource::bundle::BundleSource::BundleSource</a></div><div class="ttdeci">BundleSource(const std::string &amp;srcPath, Policy policy, const std::string &amp;whitelistPattern=&quot;&quot;, const std::string &amp;blacklistPattern=&quot;&quot;)</div><div class="ttdoc">Construct a new Bundle Source from the given parameters.</div><div class="ttdef"><b>Definition:</b> <a href="a01178_source.html#l00051">BundleSource.hpp:51</a></div></div>
+<div class="ttc" id="aa04437_html_ad1f5105ed9abad8c4c8bc9f390551583"><div class="ttname"><a href="a04437.html#ad1f5105ed9abad8c4c8bc9f390551583">bl::resource::bundle::BundleSource::Policy</a></div><div class="ttdeci">Policy</div><div class="ttdoc">Determines the behavior when sourcePath is a directory.</div><div class="ttdef"><b>Definition:</b> <a href="a01178_source.html#l00026">BundleSource.hpp:26</a></div></div>
+<div class="ttc" id="aa04437_html_ad1f5105ed9abad8c4c8bc9f390551583ab252b15914fb7417955c32f5c7444a1e"><div class="ttname"><a href="a04437.html#ad1f5105ed9abad8c4c8bc9f390551583ab252b15914fb7417955c32f5c7444a1e">bl::resource::bundle::BundleSource::BundleAllFiles</a></div><div class="ttdeci">@ BundleAllFiles</div><div class="ttdoc">All files are placed in the same bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a01178_source.html#l00028">BundleSource.hpp:28</a></div></div>
+<div class="ttc" id="aa04437_html_ad1f5105ed9abad8c4c8bc9f390551583ad178f08e94f591bd520835960ca34485"><div class="ttname"><a href="a04437.html#ad1f5105ed9abad8c4c8bc9f390551583ad178f08e94f591bd520835960ca34485">bl::resource::bundle::BundleSource::CreateBundleForEachContained</a></div><div class="ttdeci">@ CreateBundleForEachContained</div><div class="ttdoc">Each contained file/folder gets its own bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a01178_source.html#l00031">BundleSource.hpp:31</a></div></div>
+<div class="ttc" id="aa04437_html_ad1f5105ed9abad8c4c8bc9f390551583ad32891334919dab0467b3cdf7ed58dcb"><div class="ttname"><a href="a04437.html#ad1f5105ed9abad8c4c8bc9f390551583ad32891334919dab0467b3cdf7ed58dcb">bl::resource::bundle::BundleSource::CreateBundleForEachContainedRecursive</a></div><div class="ttdeci">@ CreateBundleForEachContainedRecursive</div><div class="ttdoc">Every file gets its own bundle, including files in folders.</div><div class="ttdef"><b>Definition:</b> <a href="a01178_source.html#l00035">BundleSource.hpp:34</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

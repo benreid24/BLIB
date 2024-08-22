@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/Menu/Drivers/TriggerDriver.hpp Source File</title>
+<title>BLIB: include/BLIB/Interfaces/Menu/Drivers/KeyboardDriver.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,115 +71,65 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">TriggerDriver.hpp</div>  </div>
+<div class="title">KeyboardDriver.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00611.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_INTERFACES_MENU_DRIVERS_TRIGGERDRIVER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_INTERFACES_MENU_DRIVERS_TRIGGERDRIVER_HPP</span></div>
+<a href="a00611.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_MENU_DRIVERS_KEYBOARDDRIVER_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_MENU_DRIVERS_KEYBOARDDRIVER_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06259.html">BLIB/Input/Listener.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06292.html">BLIB/Interfaces/Menu/Menu.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>menu</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00182.html">BLIB/Events.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00623.html">BLIB/Interfaces/Menu/Item.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06329.html">BLIB/Interfaces/Menu/Menu.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;SFML/Window.hpp&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">template</span>&lt;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> UpTrigger, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> RightTrigger, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> DownTrigger,</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> LeftTrigger, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ActivateTrigger&gt;</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a03460.html">   26</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03460.html">TriggerDriver</a> : <span class="keyword">public</span> <a class="code" href="a03152.html">input::Listener</a> {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a03460.html#ae4870b3dd44f1af736e0fc6588e5056b">   29</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">float</span> <a class="code" href="a03460.html#ae4870b3dd44f1af736e0fc6588e5056b">DefaultDebounce</a> = 0.5f;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a03460.html#acf7282ac680ed7b0fd34f2b2e0428b22">   35</a></span>&#160;    <a class="code" href="a03460.html#acf7282ac680ed7b0fd34f2b2e0428b22">TriggerDriver</a>()</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    : driving(nullptr)</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    , debounceTime(<a class="code" href="a03460.html#ae4870b3dd44f1af736e0fc6588e5056b">DefaultDebounce</a>) {}</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a03460.html#ab0ec9649d85cb712341f4b3077842683">   44</a></span>&#160;    <a class="code" href="a03460.html#ab0ec9649d85cb712341f4b3077842683">TriggerDriver</a>(<a class="code" href="a03504.html">Menu</a>&amp; toDrive)</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    : driving(&amp;toDrive)</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    , debounceTime(<a class="code" href="a03460.html#ae4870b3dd44f1af736e0fc6588e5056b">DefaultDebounce</a>) {}</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a03460.html#a267a5627531d2a885a3f2495ea88a33e">   52</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03460.html#a267a5627531d2a885a3f2495ea88a33e">~TriggerDriver</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a03460.html#a975f2b785e2b3c3e6a4ee656e2c8c539">   59</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03460.html#a975f2b785e2b3c3e6a4ee656e2c8c539">drive</a>(<a class="code" href="a03504.html">Menu</a>* toDrive) { driving = toDrive; }</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="a03460.html#ad5536add93e94c2930a574bfd144340d">   66</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03460.html#ad5536add93e94c2930a574bfd144340d">setDebounce</a>(<span class="keywordtype">float</span> debounceTime) { this-&gt;debounceTime = debounceTime; }</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="a03460.html#aab975d026bb56ea72832460d604f4974">   72</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03460.html#aab975d026bb56ea72832460d604f4974">resetDebounce</a>() { debounce.restart(); }</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a02340.html">   11</a></span>&#160;<span class="keyword">namespace </span>menu</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a03485.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03485.html">KeyboardDriver</a> : <span class="keyword">public</span> <a class="code" href="a02941.html">bl::event::Listener</a>&lt;sf::Event&gt; {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="a03485.html#a876896caace08a3c366b3c83324ba93d">KeyboardDriver</a>(<a class="code" href="a03541.html">Menu</a>&amp; menu, sf::Keyboard::Key upCtrl = sf::Keyboard::Up,</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                   sf::Keyboard::Key rightCtrl    = sf::Keyboard::Right,</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                   sf::Keyboard::Key downCtrl     = sf::Keyboard::Down,</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                   sf::Keyboard::Key leftCtrl     = sf::Keyboard::Left,</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                   sf::Keyboard::Key activateCtrl = sf::Keyboard::Space);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03485.html#acafe5b641c1bacfa8212898f825d0237">setMoveControl</a>(<a class="code" href="a03521.html#a59352334626855d0cd8c8ca1b173db68">Item::AttachPoint</a> direction, sf::Keyboard::Key control);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03485.html#aca60b6e65572c3ed0cc34781030a971d">setActivateControl</a>(sf::Keyboard::Key control);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="a03485.html#a2b2bc6a9377f27b0ac33515501f1bef2">   56</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03485.html#a2b2bc6a9377f27b0ac33515501f1bef2">~KeyboardDriver</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03485.html#a0d40e4e07cbcc3cf59873d70754cffd6">observe</a>(<span class="keyword">const</span> sf::Event&amp; event) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="a03541.html">Menu</a>&amp; menu;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    sf::Keyboard::Key moveControls[Item::AttachPoint::_NUM_ATTACHPOINTS];</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    sf::Keyboard::Key activateControl;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;};</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;} <span class="comment">// namespace menu</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;} <span class="comment">// namespace bl</span></div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="a03460.html#ac9f79665dba695513d7f8bfb5f549980">   81</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a03460.html#ac9f79665dba695513d7f8bfb5f549980">sendControl</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ctrl, <span class="keywordtype">bool</span> fromEvent) {</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordflow">if</span> (driving != <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            <span class="comment">// enforce debounce on repeat events (not from user events)</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            <span class="keywordflow">if</span> (!fromEvent &amp;&amp; debounce.getElapsedTime().asSeconds() &lt; debounceTime)</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            debounce.restart();</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            <span class="keywordflow">switch</span> (ctrl) {</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <span class="keywordflow">case</span> UpTrigger:</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                driving-&gt;<a class="code" href="a03504.html#a994d802c062248a8017e3bcb454073a9">processEvent</a>(<a class="code" href="a03464.html">Event</a>(<a class="code" href="a03468.html">Event::MoveEvent</a>(<a class="code" href="a03484.html#a59352334626855d0cd8c8ca1b173db68a8ee44d5181ad1e85a92709f1d0b4937c">Item::Top</a>)));</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            <span class="keywordflow">case</span> RightTrigger:</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                driving-&gt;<a class="code" href="a03504.html#a994d802c062248a8017e3bcb454073a9">processEvent</a>(<a class="code" href="a03464.html">Event</a>(<a class="code" href="a03468.html">Event::MoveEvent</a>(<a class="code" href="a03484.html#a59352334626855d0cd8c8ca1b173db68ae5d7a5789d9f7a019ac01873f986e866">Item::Right</a>)));</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <span class="keywordflow">case</span> DownTrigger:</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                driving-&gt;<a class="code" href="a03504.html#a994d802c062248a8017e3bcb454073a9">processEvent</a>(<a class="code" href="a03464.html">Event</a>(<a class="code" href="a03468.html">Event::MoveEvent</a>(<a class="code" href="a03484.html#a59352334626855d0cd8c8ca1b173db68a9b46e5a4c9ffaadc81ac4559e23ebb8d">Item::Bottom</a>)));</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            <span class="keywordflow">case</span> LeftTrigger:</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                driving-&gt;<a class="code" href="a03504.html#a994d802c062248a8017e3bcb454073a9">processEvent</a>(<a class="code" href="a03464.html">Event</a>(<a class="code" href="a03468.html">Event::MoveEvent</a>(<a class="code" href="a03484.html#a59352334626855d0cd8c8ca1b173db68ad917703e5fdbb06791acd491310bd14f">Item::Left</a>)));</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            <span class="keywordflow">case</span> ActivateTrigger:</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                <span class="keywordflow">if</span> (fromEvent) { driving-&gt;<a class="code" href="a03504.html#a994d802c062248a8017e3bcb454073a9">processEvent</a>(<a class="code" href="a03464.html">Event</a>(<a class="code" href="a03472.html">Event::ActivateEvent</a>())); }</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            }</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        }</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    }</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <a class="code" href="a03504.html">Menu</a>* driving;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    sf::Clock debounce;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordtype">float</span> debounceTime;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> observe(<span class="keyword">const</span> <a class="code" href="a03112.html">input::Actor</a>&amp;, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> activatedControl, <a class="code" href="a02264.html#ga9b480cda76caba52b2ab392fea396ce3">input::DispatchType</a>,</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                         <span class="keywordtype">bool</span> eventTriggered)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a03460.html#ac9f79665dba695513d7f8bfb5f549980">sendControl</a>(activatedControl, eventTriggered);</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    }</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;};</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;} <span class="comment">// namespace menu</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02264_html_ga9b480cda76caba52b2ab392fea396ce3"><div class="ttname"><a href="a02264.html#ga9b480cda76caba52b2ab392fea396ce3">bl::input::DispatchType</a></div><div class="ttdeci">DispatchType</div><div class="ttdoc">Indicates if a control notification is the first activation of that control or if it is a repeated si...</div><div class="ttdef"><b>Definition:</b> <a href="a00392_source.html#l00016">DispatchType.hpp:16</a></div></div>
-<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03112_html"><div class="ttname"><a href="a03112.html">bl::input::Actor</a></div><div class="ttdoc">Represents a single actor (player) that can give input. Listeners subscribe to a single actor for the...</div><div class="ttdef"><b>Definition:</b> <a href="a00377_source.html#l00023">Actor.hpp:23</a></div></div>
-<div class="ttc" id="aa03152_html"><div class="ttname"><a href="a03152.html">bl::input::Listener</a></div><div class="ttdoc">Base class for input listeners that can subscribe to an Actor. The base class keeps the input system ...</div><div class="ttdef"><b>Definition:</b> <a href="a06259_source.html#l00019">Listener.hpp:19</a></div></div>
-<div class="ttc" id="aa03460_html"><div class="ttname"><a href="a03460.html">bl::menu::TriggerDriver</a></div><div class="ttdoc">Helper class to receive user input from the InputSystem and drive a menu with it. Must be subscribed ...</div><div class="ttdef"><b>Definition:</b> <a href="a00611_source.html#l00026">TriggerDriver.hpp:26</a></div></div>
-<div class="ttc" id="aa03460_html_a267a5627531d2a885a3f2495ea88a33e"><div class="ttname"><a href="a03460.html#a267a5627531d2a885a3f2495ea88a33e">bl::menu::TriggerDriver::~TriggerDriver</a></div><div class="ttdeci">virtual ~TriggerDriver()=default</div><div class="ttdoc">Destroy the Trigger Driver object.</div></div>
-<div class="ttc" id="aa03460_html_a975f2b785e2b3c3e6a4ee656e2c8c539"><div class="ttname"><a href="a03460.html#a975f2b785e2b3c3e6a4ee656e2c8c539">bl::menu::TriggerDriver::drive</a></div><div class="ttdeci">void drive(Menu *toDrive)</div><div class="ttdoc">Change the menu being driven to the given one.</div><div class="ttdef"><b>Definition:</b> <a href="a00611_source.html#l00059">TriggerDriver.hpp:59</a></div></div>
-<div class="ttc" id="aa03460_html_aab975d026bb56ea72832460d604f4974"><div class="ttname"><a href="a03460.html#aab975d026bb56ea72832460d604f4974">bl::menu::TriggerDriver::resetDebounce</a></div><div class="ttdeci">void resetDebounce()</div><div class="ttdoc">Resets the debounce time. Call this when re-activating a menu.</div><div class="ttdef"><b>Definition:</b> <a href="a00611_source.html#l00072">TriggerDriver.hpp:72</a></div></div>
-<div class="ttc" id="aa03460_html_ab0ec9649d85cb712341f4b3077842683"><div class="ttname"><a href="a03460.html#ab0ec9649d85cb712341f4b3077842683">bl::menu::TriggerDriver::TriggerDriver</a></div><div class="ttdeci">TriggerDriver(Menu &amp;toDrive)</div><div class="ttdoc">Construct a new Trigger Driver to drive the given menu.</div><div class="ttdef"><b>Definition:</b> <a href="a00611_source.html#l00044">TriggerDriver.hpp:44</a></div></div>
-<div class="ttc" id="aa03460_html_ac9f79665dba695513d7f8bfb5f549980"><div class="ttname"><a href="a03460.html#ac9f79665dba695513d7f8bfb5f549980">bl::menu::TriggerDriver::sendControl</a></div><div class="ttdeci">bool sendControl(unsigned int ctrl, bool fromEvent)</div><div class="ttdoc">Programmatically sends the given control to the menu.</div><div class="ttdef"><b>Definition:</b> <a href="a00611_source.html#l00081">TriggerDriver.hpp:81</a></div></div>
-<div class="ttc" id="aa03460_html_acf7282ac680ed7b0fd34f2b2e0428b22"><div class="ttname"><a href="a03460.html#acf7282ac680ed7b0fd34f2b2e0428b22">bl::menu::TriggerDriver::TriggerDriver</a></div><div class="ttdeci">TriggerDriver()</div><div class="ttdoc">Construct a new Trigger Driver with no menu to be driven.</div><div class="ttdef"><b>Definition:</b> <a href="a00611_source.html#l00035">TriggerDriver.hpp:35</a></div></div>
-<div class="ttc" id="aa03460_html_ad5536add93e94c2930a574bfd144340d"><div class="ttname"><a href="a03460.html#ad5536add93e94c2930a574bfd144340d">bl::menu::TriggerDriver::setDebounce</a></div><div class="ttdeci">void setDebounce(float debounceTime)</div><div class="ttdoc">Set the debounce time between repeated input events not triggered by user input.</div><div class="ttdef"><b>Definition:</b> <a href="a00611_source.html#l00066">TriggerDriver.hpp:66</a></div></div>
-<div class="ttc" id="aa03460_html_ae4870b3dd44f1af736e0fc6588e5056b"><div class="ttname"><a href="a03460.html#ae4870b3dd44f1af736e0fc6588e5056b">bl::menu::TriggerDriver::DefaultDebounce</a></div><div class="ttdeci">static constexpr float DefaultDebounce</div><div class="ttdoc">The default debounce time for held inputs.</div><div class="ttdef"><b>Definition:</b> <a href="a00611_source.html#l00029">TriggerDriver.hpp:29</a></div></div>
-<div class="ttc" id="aa03464_html"><div class="ttname"><a href="a03464.html">bl::menu::Event</a></div><div class="ttdoc">Data struct representing an event in a Menu.</div><div class="ttdef"><b>Definition:</b> <a href="a06271_source.html#l00016">Event.hpp:16</a></div></div>
-<div class="ttc" id="aa03468_html"><div class="ttname"><a href="a03468.html">bl::menu::Event::MoveEvent</a></div><div class="ttdoc">Data struct for a SelectorMove event.</div><div class="ttdef"><b>Definition:</b> <a href="a06271_source.html#l00027">Event.hpp:27</a></div></div>
-<div class="ttc" id="aa03472_html"><div class="ttname"><a href="a03472.html">bl::menu::Event::ActivateEvent</a></div><div class="ttdoc">Data struct for an Activate event.</div><div class="ttdef"><b>Definition:</b> <a href="a06271_source.html#l00039">Event.hpp:39</a></div></div>
-<div class="ttc" id="aa03484_html_a59352334626855d0cd8c8ca1b173db68a8ee44d5181ad1e85a92709f1d0b4937c"><div class="ttname"><a href="a03484.html#a59352334626855d0cd8c8ca1b173db68a8ee44d5181ad1e85a92709f1d0b4937c">bl::menu::Item::Top</a></div><div class="ttdeci">@ Top</div><div class="ttdef"><b>Definition:</b> <a href="a00614_source.html#l00036">Item.hpp:36</a></div></div>
-<div class="ttc" id="aa03484_html_a59352334626855d0cd8c8ca1b173db68a9b46e5a4c9ffaadc81ac4559e23ebb8d"><div class="ttname"><a href="a03484.html#a59352334626855d0cd8c8ca1b173db68a9b46e5a4c9ffaadc81ac4559e23ebb8d">bl::menu::Item::Bottom</a></div><div class="ttdeci">@ Bottom</div><div class="ttdef"><b>Definition:</b> <a href="a00614_source.html#l00036">Item.hpp:36</a></div></div>
-<div class="ttc" id="aa03484_html_a59352334626855d0cd8c8ca1b173db68ad917703e5fdbb06791acd491310bd14f"><div class="ttname"><a href="a03484.html#a59352334626855d0cd8c8ca1b173db68ad917703e5fdbb06791acd491310bd14f">bl::menu::Item::Left</a></div><div class="ttdeci">@ Left</div><div class="ttdef"><b>Definition:</b> <a href="a00614_source.html#l00036">Item.hpp:36</a></div></div>
-<div class="ttc" id="aa03484_html_a59352334626855d0cd8c8ca1b173db68ae5d7a5789d9f7a019ac01873f986e866"><div class="ttname"><a href="a03484.html#a59352334626855d0cd8c8ca1b173db68ae5d7a5789d9f7a019ac01873f986e866">bl::menu::Item::Right</a></div><div class="ttdeci">@ Right</div><div class="ttdef"><b>Definition:</b> <a href="a00614_source.html#l00036">Item.hpp:36</a></div></div>
-<div class="ttc" id="aa03504_html"><div class="ttname"><a href="a03504.html">bl::menu::Menu</a></div><div class="ttdoc">Primary class for mouseless menus.</div><div class="ttdef"><b>Definition:</b> <a href="a06292_source.html#l00033">Menu.hpp:33</a></div></div>
-<div class="ttc" id="aa03504_html_a994d802c062248a8017e3bcb454073a9"><div class="ttname"><a href="a03504.html#a994d802c062248a8017e3bcb454073a9">bl::menu::Menu::processEvent</a></div><div class="ttdeci">void processEvent(const Event &amp;event)</div><div class="ttdoc">Processes the event and updates the Menu state.</div><div class="ttdef"><b>Definition:</b> <a href="a01799_source.html#l00239">Menu.cpp:239</a></div></div>
-<div class="ttc" id="aa06259_html"><div class="ttname"><a href="a06259.html">Listener.hpp</a></div></div>
-<div class="ttc" id="aa06292_html"><div class="ttname"><a href="a06292.html">Menu.hpp</a></div></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00182_html"><div class="ttname"><a href="a00182.html">Events.hpp</a></div></div>
+<div class="ttc" id="aa00623_html"><div class="ttname"><a href="a00623.html">Item.hpp</a></div></div>
+<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02941_html"><div class="ttname"><a href="a02941.html">bl::event::Listener</a></div><div class="ttdoc">Listener of multiple event types. Listeners should inherit this class with the types of events they w...</div><div class="ttdef"><b>Definition:</b> <a href="a06293_source.html#l00049">Listener.hpp:49</a></div></div>
+<div class="ttc" id="aa03485_html"><div class="ttname"><a href="a03485.html">bl::menu::KeyboardDriver</a></div><div class="ttdoc">Basic helper class to map keyboard input to menu events.</div><div class="ttdef"><b>Definition:</b> <a href="a00611_source.html#l00019">KeyboardDriver.hpp:19</a></div></div>
+<div class="ttc" id="aa03485_html_a0d40e4e07cbcc3cf59873d70754cffd6"><div class="ttname"><a href="a03485.html#a0d40e4e07cbcc3cf59873d70754cffd6">bl::menu::KeyboardDriver::observe</a></div><div class="ttdeci">virtual void observe(const sf::Event &amp;event) override</div><div class="ttdoc">Processes the given window event and drives the menu if relevant.</div><div class="ttdef"><b>Definition:</b> <a href="a01793_source.html#l00020">KeyboardDriver.cpp:20</a></div></div>
+<div class="ttc" id="aa03485_html_a2b2bc6a9377f27b0ac33515501f1bef2"><div class="ttname"><a href="a03485.html#a2b2bc6a9377f27b0ac33515501f1bef2">bl::menu::KeyboardDriver::~KeyboardDriver</a></div><div class="ttdeci">virtual ~KeyboardDriver()=default</div><div class="ttdoc">Destroy the Keyboard Driver object.</div></div>
+<div class="ttc" id="aa03485_html_a876896caace08a3c366b3c83324ba93d"><div class="ttname"><a href="a03485.html#a876896caace08a3c366b3c83324ba93d">bl::menu::KeyboardDriver::KeyboardDriver</a></div><div class="ttdeci">KeyboardDriver(Menu &amp;menu, sf::Keyboard::Key upCtrl=sf::Keyboard::Up, sf::Keyboard::Key rightCtrl=sf::Keyboard::Right, sf::Keyboard::Key downCtrl=sf::Keyboard::Down, sf::Keyboard::Key leftCtrl=sf::Keyboard::Left, sf::Keyboard::Key activateCtrl=sf::Keyboard::Space)</div><div class="ttdoc">Create a new keyboard generator that services the given menu.</div><div class="ttdef"><b>Definition:</b> <a href="a01793_source.html#l00007">KeyboardDriver.cpp:7</a></div></div>
+<div class="ttc" id="aa03485_html_aca60b6e65572c3ed0cc34781030a971d"><div class="ttname"><a href="a03485.html#aca60b6e65572c3ed0cc34781030a971d">bl::menu::KeyboardDriver::setActivateControl</a></div><div class="ttdeci">void setActivateControl(sf::Keyboard::Key control)</div><div class="ttdoc">Set the key that is bound to the activate event. Default is space bar.</div><div class="ttdef"><b>Definition:</b> <a href="a01793_source.html#l00018">KeyboardDriver.cpp:18</a></div></div>
+<div class="ttc" id="aa03485_html_acafe5b641c1bacfa8212898f825d0237"><div class="ttname"><a href="a03485.html#acafe5b641c1bacfa8212898f825d0237">bl::menu::KeyboardDriver::setMoveControl</a></div><div class="ttdeci">void setMoveControl(Item::AttachPoint direction, sf::Keyboard::Key control)</div><div class="ttdoc">Set the key bound to the given direction. Defaults are the arrrow keys.</div><div class="ttdef"><b>Definition:</b> <a href="a01793_source.html#l00014">KeyboardDriver.cpp:14</a></div></div>
+<div class="ttc" id="aa03521_html_a59352334626855d0cd8c8ca1b173db68"><div class="ttname"><a href="a03521.html#a59352334626855d0cd8c8ca1b173db68">bl::menu::Item::AttachPoint</a></div><div class="ttdeci">AttachPoint</div><div class="ttdef"><b>Definition:</b> <a href="a00623_source.html#l00036">Item.hpp:36</a></div></div>
+<div class="ttc" id="aa03541_html"><div class="ttname"><a href="a03541.html">bl::menu::Menu</a></div><div class="ttdoc">Primary class for mouseless menus.</div><div class="ttdef"><b>Definition:</b> <a href="a06329_source.html#l00033">Menu.hpp:33</a></div></div>
+<div class="ttc" id="aa06329_html"><div class="ttname"><a href="a06329.html">Menu.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

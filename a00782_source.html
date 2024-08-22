@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Components/DescriptorComponentBase.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Buffers/StaticSSBO.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,142 +66,246 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1fe4435017a66f2c0b1af7ce232fd611.html">Components</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_77bce416c82938c0e86eeeeb6fb338bb.html">Buffers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">DescriptorComponentBase.hpp</div>  </div>
+<div class="title">StaticSSBO.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00782.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_COMPONENTS_DESCRIPTORCOMPONENTBASE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_COMPONENTS_DESCRIPTORCOMPONENTBASE_HPP</span></div>
+<a href="a00782.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_BUFFERS_STATICSSBO_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_BUFFERS_STATICSSBO_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00176.html">BLIB/ECS/Entity.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00659.html">BLIB/Logging.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00833.html">BLIB/Render/Descriptors/DescriptorComponentStorage.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01022.html">BLIB/Render/Scenes/Key.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>vk</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">struct </span>VulkanState;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02330.html">   21</a></span>&#160;<span class="keyword">namespace </span>rcom</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload = TCom&gt;</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a03728.html">   31</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03728.html">DescriptorComponentBase</a> {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a03728.html#a0f4badd64c53c862b777c8e7fcb97ee9">   36</a></span>&#160;    <a class="code" href="a03728.html#a0f4badd64c53c862b777c8e7fcb97ee9">DescriptorComponentBase</a>();</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a03728.html#a4029f4fcf38c82fe5fca7d5e8e49bfa7">   45</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03728.html#a4029f4fcf38c82fe5fca7d5e8e49bfa7">link</a>(<a class="code" href="a03800.html">ds::DescriptorComponentStorageBase</a>* descriptorSet, <a class="code" href="a04116.html">scene::Key</a> sceneKey,</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;              TPayload* payload);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a03728.html#a016860c801b0e0dce0c30769cf3ef6fd">   51</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03728.html#a016860c801b0e0dce0c30769cf3ef6fd">unlink</a>();</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="a03728.html#a28d5c2119ca3abbb19af93c1197f1413">   56</a></span>&#160;    constexpr <span class="keywordtype">bool</span> <a class="code" href="a03728.html#a28d5c2119ca3abbb19af93c1197f1413">isDirty</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="a03728.html#a0913d5b5ac715000106df37c04f5dee7">   61</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03728.html#a0913d5b5ac715000106df37c04f5dee7">refresh</a>();</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="a03728.html#a285b92a8da73d33a41a29540761d68bf">   67</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03728.html#a285b92a8da73d33a41a29540761d68bf">markDirty</a>();</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="a03728.html#a14eed8e73b047132c35fced4961df3fe">   74</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03728.html#a14eed8e73b047132c35fced4961df3fe">refreshDescriptor</a>(TPayload&amp; payload);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="a03800.html">ds::DescriptorComponentStorageBase</a>* descriptorSet;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <a class="code" href="a04116.html">scene::Key</a> sceneKey;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    TPayload* payload;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">bool</span> dirty;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;};</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload&gt;</div>
-<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="a03728.html#a0f4badd64c53c862b777c8e7fcb97ee9">   86</a></span>&#160;<a class="code" href="a03728.html#a0f4badd64c53c862b777c8e7fcb97ee9">DescriptorComponentBase&lt;TCom, TPayload&gt;::DescriptorComponentBase</a>()</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;: descriptorSet(nullptr)</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;, dirty(0) {</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    static_assert(std::is_base_of_v&lt;<a class="code" href="a03728.html">DescriptorComponentBase&lt;TCom, TPayload&gt;</a>, TCom&gt;,</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                  <span class="stringliteral">&quot;Descriptor component must inherit DescriptorComponentBase&quot;</span>);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;}</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload&gt;</div>
-<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="a03728.html#a4029f4fcf38c82fe5fca7d5e8e49bfa7">   94</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03728.html#a4029f4fcf38c82fe5fca7d5e8e49bfa7">DescriptorComponentBase&lt;TCom, TPayload&gt;::link</a>(<a class="code" href="a03800.html">ds::DescriptorComponentStorageBase</a>* set,</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                                                   <a class="code" href="a04116.html">scene::Key</a> k, TPayload* p) {</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordflow">if</span> (descriptorSet != <span class="keyword">nullptr</span> &amp;&amp; descriptorSet != set) {</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <a class="code" href="a00653.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Component is used in more than one descriptor set component module&quot;</span>;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    }</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    descriptorSet = set;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    payload       = p;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordflow">if</span> (k.<a class="code" href="a04116.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a> != <a class="code" href="a04116.html#a580d79a30be461bc410fefee59c32ac3">scene::Key::InvalidSceneId</a>) {</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        dirty    = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        sceneKey = k;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    }</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;}</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01064.html">BLIB/Render/Transfers/Transferable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01076.html">BLIB/Render/Vulkan/AlignedBuffer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01085.html">BLIB/Render/Vulkan/Buffer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01106.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>buf</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03749.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03749.html">StaticSSBO</a> : <span class="keyword">public</span> <a class="code" href="a04221.html">tfr::Transferable</a> {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a03749.html#a3aa9a971d3b3290174c1e4bcc943d6af">   27</a></span>&#160;    <a class="code" href="a03749.html#a3aa9a971d3b3290174c1e4bcc943d6af">StaticSSBO</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a03749.html#add4d3bf18276f74b48583d7996f4dc7a">   35</a></span>&#160;    <a class="code" href="a03749.html#add4d3bf18276f74b48583d7996f4dc7a">StaticSSBO</a>(<a class="code" href="a04405.html">vk::VulkanState</a>&amp; <a class="code" href="a04221.html#ae134133a20147f77b4feae59dc9b447d">vulkanState</a>, std::uint32_t <a class="code" href="a03749.html#a3071c42a0ec4469c2bef46eb5e1044c1">size</a>);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a03749.html#ad71669196321eec06c014debaf2010fa">   43</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03749.html#ad71669196321eec06c014debaf2010fa">create</a>(<a class="code" href="a04405.html">vk::VulkanState</a>&amp; <a class="code" href="a04221.html#ae134133a20147f77b4feae59dc9b447d">vulkanState</a>, std::uint32_t <a class="code" href="a03749.html#a3071c42a0ec4469c2bef46eb5e1044c1">size</a>);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="a03749.html#af0c860f996900b8b44a8586be04244a8">   50</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03749.html#af0c860f996900b8b44a8586be04244a8">fill</a>(<span class="keyword">const</span> T&amp; value);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="a03749.html#a815617d76256382f67b7ff396d4518cc">   58</a></span>&#160;    T&amp; <a class="code" href="a03749.html#a815617d76256382f67b7ff396d4518cc">operator[]</a>(std::uint32_t i);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="a03749.html#a2e3e3da221da8da1fc62d166a46fbd22">   66</a></span>&#160;    <span class="keyword">const</span> T&amp; <a class="code" href="a03749.html#a2e3e3da221da8da1fc62d166a46fbd22">operator[]</a>(std::uint32_t i) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="a03749.html#af2c2e3be6f3597f5b129b873ceaf7271">   75</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a03749.html#af2c2e3be6f3597f5b129b873ceaf7271">ensureSize</a>(std::uint32_t newSize);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="a03749.html#a3071c42a0ec4469c2bef46eb5e1044c1">   80</a></span>&#160;    constexpr std::uint32_t <a class="code" href="a03749.html#a3071c42a0ec4469c2bef46eb5e1044c1">size</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="a03749.html#a4130b352c876618aadd5f06e67bee32d">   85</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03749.html#a4130b352c876618aadd5f06e67bee32d">destroy</a>();</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="a03749.html#abbdb2fff21bfeba378b0419952dc1298">   90</a></span>&#160;    constexpr <a class="code" href="a04249.html">vk::Buffer</a>&amp; <a class="code" href="a03749.html#abbdb2fff21bfeba378b0419952dc1298">gpuBufferHandle</a>();</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="a03749.html#ae9d06f4716421daedbb8c18f58571021">   98</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03749.html#ae9d06f4716421daedbb8c18f58571021">transferRange</a>(std::uint32_t start, std::uint32_t numElements);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="a03749.html#ab6813390f9c22677867a7813bb27c4a9">  107</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03749.html#ab6813390f9c22677867a7813bb27c4a9">expandTransferRange</a>(std::uint32_t start, std::uint32_t numElements);</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload&gt;</div>
-<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="a03728.html#a016860c801b0e0dce0c30769cf3ef6fd">  110</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="a03728.html#a016860c801b0e0dce0c30769cf3ef6fd">DescriptorComponentBase&lt;TCom, TPayload&gt;::unlink</a>() {</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    descriptorSet = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;}</div>
+<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="a03749.html#a13a5a8ae5fed85a4e8b558b21c727079">  112</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03749.html#a13a5a8ae5fed85a4e8b558b21c727079">transferAll</a>();</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload&gt;</div>
-<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="a03728.html#a28d5c2119ca3abbb19af93c1197f1413">  115</a></span>&#160;constexpr <span class="keywordtype">bool</span> <a class="code" href="a03728.html#a28d5c2119ca3abbb19af93c1197f1413">DescriptorComponentBase&lt;TCom, TPayload&gt;::isDirty</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordflow">return</span> dirty &amp;&amp; descriptorSet != <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;}</div>
+<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="a03749.html#afbf2fa69c93909dd0721af300123442e">  117</a></span>&#160;    constexpr VkDeviceSize <a class="code" href="a03749.html#afbf2fa69c93909dd0721af300123442e">getTotalRange</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload&gt;</div>
-<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="a03728.html#a0913d5b5ac715000106df37c04f5dee7">  120</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03728.html#a0913d5b5ac715000106df37c04f5dee7">DescriptorComponentBase&lt;TCom, TPayload&gt;::refresh</a>() {</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    static_assert(std::is_invocable&lt;decltype(&amp;TCom::refreshDescriptor), TCom&amp;, TPayload&amp;&gt;::value,</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                  <span class="stringliteral">&quot;Descriptor components must provide a method void refreshDescriptor(TPayload&amp;)&quot;</span>);</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordflow">if</span> (descriptorSet != <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        descriptorSet-&gt;markObjectDirty(sceneKey);</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="keyword">static_cast&lt;</span>TCom*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)-&gt;refreshDescriptor(*payload);</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        dirty = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    }</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;}</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload&gt;</div>
-<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="a03728.html#a285b92a8da73d33a41a29540761d68bf">  132</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03728.html#a285b92a8da73d33a41a29540761d68bf">DescriptorComponentBase&lt;TCom, TPayload&gt;::markDirty</a>() {</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    dirty = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;}</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;} <span class="comment">// namespace rcom</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="a03749.html#a5ffafed5538c47396b44254fbd4c7085">  125</a></span>&#160;    VkBuffer <a class="code" href="a03749.html#a5ffafed5538c47396b44254fbd4c7085">getRawBuffer</a>(std::uint32_t frameIndex);</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <a class="code" href="a04237.html">vk::AlignedBuffer&lt;T&gt;</a> cpuBuffer;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <a class="code" href="a04249.html">vk::Buffer</a> gpuBuffer;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    std::uint32_t copyStart;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    std::uint32_t copyCount;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordtype">bool</span> trackingExpansion;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> executeTransfer(VkCommandBuffer commandBuffer,</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;                                 <a class="code" href="a04225.html">tfr::TransferContext</a>&amp; context) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;};</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00176_html"><div class="ttname"><a href="a00176.html">Entity.hpp</a></div></div>
-<div class="ttc" id="aa00653_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00653.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00653_source.html#l00101">Logger.hpp:101</a></div></div>
-<div class="ttc" id="aa00659_html"><div class="ttname"><a href="a00659.html">Logging.hpp</a></div></div>
-<div class="ttc" id="aa00833_html"><div class="ttname"><a href="a00833.html">DescriptorComponentStorage.hpp</a></div></div>
-<div class="ttc" id="aa01022_html"><div class="ttname"><a href="a01022.html">Key.hpp</a></div></div>
-<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03728_html"><div class="ttname"><a href="a03728.html">bl::rc::rcom::DescriptorComponentBase</a></div><div class="ttdoc">Base class for ECS components that map into descriptor sets.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00031">DescriptorComponentBase.hpp:31</a></div></div>
-<div class="ttc" id="aa03728_html_a016860c801b0e0dce0c30769cf3ef6fd"><div class="ttname"><a href="a03728.html#a016860c801b0e0dce0c30769cf3ef6fd">bl::rc::rcom::DescriptorComponentBase::unlink</a></div><div class="ttdeci">void unlink()</div><div class="ttdoc">Unlinks the component from a scene object.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00110">DescriptorComponentBase.hpp:110</a></div></div>
-<div class="ttc" id="aa03728_html_a0913d5b5ac715000106df37c04f5dee7"><div class="ttname"><a href="a03728.html#a0913d5b5ac715000106df37c04f5dee7">bl::rc::rcom::DescriptorComponentBase::refresh</a></div><div class="ttdeci">void refresh()</div><div class="ttdoc">Refreshes and syncs the descriptor value and marks as clean.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00120">DescriptorComponentBase.hpp:120</a></div></div>
-<div class="ttc" id="aa03728_html_a0f4badd64c53c862b777c8e7fcb97ee9"><div class="ttname"><a href="a03728.html#a0f4badd64c53c862b777c8e7fcb97ee9">bl::rc::rcom::DescriptorComponentBase::DescriptorComponentBase</a></div><div class="ttdeci">DescriptorComponentBase()</div><div class="ttdoc">Performs basic setup.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00086">DescriptorComponentBase.hpp:86</a></div></div>
-<div class="ttc" id="aa03728_html_a14eed8e73b047132c35fced4961df3fe"><div class="ttname"><a href="a03728.html#a14eed8e73b047132c35fced4961df3fe">bl::rc::rcom::DescriptorComponentBase::refreshDescriptor</a></div><div class="ttdeci">void refreshDescriptor(TPayload &amp;payload)</div><div class="ttdoc">Undefined. Derived classes should implement this to perform refresh+sync logic.</div></div>
-<div class="ttc" id="aa03728_html_a285b92a8da73d33a41a29540761d68bf"><div class="ttname"><a href="a03728.html#a285b92a8da73d33a41a29540761d68bf">bl::rc::rcom::DescriptorComponentBase::markDirty</a></div><div class="ttdeci">void markDirty()</div><div class="ttdoc">Call this when the component is modified.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00132">DescriptorComponentBase.hpp:132</a></div></div>
-<div class="ttc" id="aa03728_html_a28d5c2119ca3abbb19af93c1197f1413"><div class="ttname"><a href="a03728.html#a28d5c2119ca3abbb19af93c1197f1413">bl::rc::rcom::DescriptorComponentBase::isDirty</a></div><div class="ttdeci">constexpr bool isDirty() const</div><div class="ttdoc">Returns whether or not this component is dirty and needs to be synced.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00115">DescriptorComponentBase.hpp:115</a></div></div>
-<div class="ttc" id="aa03728_html_a4029f4fcf38c82fe5fca7d5e8e49bfa7"><div class="ttname"><a href="a03728.html#a4029f4fcf38c82fe5fca7d5e8e49bfa7">bl::rc::rcom::DescriptorComponentBase::link</a></div><div class="ttdeci">void link(ds::DescriptorComponentStorageBase *descriptorSet, scene::Key sceneKey, TPayload *payload)</div><div class="ttdoc">Links this component to an object in a scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00094">DescriptorComponentBase.hpp:94</a></div></div>
-<div class="ttc" id="aa03800_html"><div class="ttname"><a href="a03800.html">bl::rc::ds::DescriptorComponentStorageBase</a></div><div class="ttdoc">Base class for descriptor component storage modules.</div><div class="ttdef"><b>Definition:</b> <a href="a00833_source.html#l00026">DescriptorComponentStorage.hpp:26</a></div></div>
-<div class="ttc" id="aa04116_html"><div class="ttname"><a href="a04116.html">bl::rc::scene::Key</a></div><div class="ttdoc">Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...</div><div class="ttdef"><b>Definition:</b> <a href="a01022_source.html#l00022">Key.hpp:22</a></div></div>
-<div class="ttc" id="aa04116_html_a580d79a30be461bc410fefee59c32ac3"><div class="ttname"><a href="a04116.html#a580d79a30be461bc410fefee59c32ac3">bl::rc::scene::Key::InvalidSceneId</a></div><div class="ttdeci">static constexpr std::uint32_t InvalidSceneId</div><div class="ttdef"><b>Definition:</b> <a href="a01022_source.html#l00023">Key.hpp:23</a></div></div>
-<div class="ttc" id="aa04116_html_a5fa4592fd53a220f89ac7814aebfa6d6"><div class="ttname"><a href="a04116.html#a5fa4592fd53a220f89ac7814aebfa6d6">bl::rc::scene::Key::sceneId</a></div><div class="ttdeci">std::uint32_t sceneId</div><div class="ttdef"><b>Definition:</b> <a href="a01022_source.html#l00026">Key.hpp:26</a></div></div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00141"></a><span class="lineno"><a class="line" href="a03749.html#add4d3bf18276f74b48583d7996f4dc7a">  141</a></span>&#160;<a class="code" href="a03749.html#a3aa9a971d3b3290174c1e4bcc943d6af">StaticSSBO&lt;T&gt;::StaticSSBO</a>(<a class="code" href="a04405.html">vk::VulkanState</a>&amp; vulkanState, std::uint32_t size) {</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    create(vulkanState, size);</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;}</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00146"></a><span class="lineno"><a class="line" href="a03749.html#ad71669196321eec06c014debaf2010fa">  146</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03749.html#ad71669196321eec06c014debaf2010fa">StaticSSBO&lt;T&gt;::create</a>(<a class="code" href="a04405.html">vk::VulkanState</a>&amp; vs, std::uint32_t size) {</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    vulkanState       = &amp;vs;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    copyStart         = 0;</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    copyCount         = size;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    trackingExpansion = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    cpuBuffer.create(vs, <a class="code" href="a04237.html">vk::AlignedBuffer&lt;T&gt;::StorageBuffer</a>, size);</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    gpuBuffer.create(vs,</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                     cpuBuffer.alignedSize(),</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                     VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                     VK_BUFFER_USAGE_STORAGE_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT |</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                         VK_BUFFER_USAGE_TRANSFER_SRC_BIT,</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                     0);</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;}</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00162"></a><span class="lineno"><a class="line" href="a03749.html#af0c860f996900b8b44a8586be04244a8">  162</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03749.html#af0c860f996900b8b44a8586be04244a8">StaticSSBO&lt;T&gt;::fill</a>(<span class="keyword">const</span> T&amp; value) {</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    cpuBuffer.fill(value);</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;}</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00167"></a><span class="lineno"><a class="line" href="a03749.html#a815617d76256382f67b7ff396d4518cc">  167</a></span>&#160;T&amp; <a class="code" href="a03749.html#a815617d76256382f67b7ff396d4518cc">StaticSSBO&lt;T&gt;::operator[]</a>(std::uint32_t i) {</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keywordflow">return</span> cpuBuffer[i];</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;}</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00172"></a><span class="lineno"><a class="line" href="a03749.html#a2e3e3da221da8da1fc62d166a46fbd22">  172</a></span>&#160;<span class="keyword">const</span> T&amp; <a class="code" href="a03749.html#a815617d76256382f67b7ff396d4518cc">StaticSSBO&lt;T&gt;::operator[]</a>(std::uint32_t i)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keywordflow">return</span> cpuBuffer[i];</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;}</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00177"></a><span class="lineno"><a class="line" href="a03749.html#a3071c42a0ec4469c2bef46eb5e1044c1">  177</a></span>&#160;constexpr std::uint32_t <a class="code" href="a03749.html#a3071c42a0ec4469c2bef46eb5e1044c1">StaticSSBO&lt;T&gt;::size</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keywordflow">return</span> cpuBuffer.size();</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;}</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00182"></a><span class="lineno"><a class="line" href="a03749.html#a4130b352c876618aadd5f06e67bee32d">  182</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="a03749.html#a4130b352c876618aadd5f06e67bee32d">StaticSSBO&lt;T&gt;::destroy</a>() {</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    cpuBuffer.clear();</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    gpuBuffer.destroy();</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;}</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160; </div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00188"></a><span class="lineno"><a class="line" href="a03749.html#abbdb2fff21bfeba378b0419952dc1298">  188</a></span>&#160;<span class="keyword">inline</span> constexpr <a class="code" href="a04249.html">vk::Buffer</a>&amp; <a class="code" href="a03749.html#abbdb2fff21bfeba378b0419952dc1298">StaticSSBO&lt;T&gt;::gpuBufferHandle</a>() {</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="keywordflow">return</span> gpuBuffer;</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;}</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03749.html">StaticSSBO&lt;T&gt;::executeTransfer</a>(VkCommandBuffer commandBuffer, <a class="code" href="a04225.html">tfr::TransferContext</a>&amp; context) {</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <span class="keyword">const</span> VkDeviceSize copySize = copyCount * cpuBuffer.elementSize();</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    trackingExpansion           = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160; </div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    VkBuffer stagingBuffer;</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <span class="keywordtype">void</span>* dest;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    context.<a class="code" href="a04225.html#a0095891b196aaca7b289210a8a774bee">createTemporaryStagingBuffer</a>(copySize, stagingBuffer, &amp;dest);</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    std::memcpy(dest, &amp;cpuBuffer[copyStart], copySize);</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160; </div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    VkBufferCopy copyCmd{};</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    copyCmd.dstOffset = copyStart * cpuBuffer.elementSize();</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    copyCmd.size      = copySize;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    copyCmd.srcOffset = 0;</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    vkCmdCopyBuffer(commandBuffer, stagingBuffer, gpuBuffer.getBuffer(), 1, &amp;copyCmd);</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160; </div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    VkBufferMemoryBarrier bufBarrier{};</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    bufBarrier.sType         = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    bufBarrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    bufBarrier.dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    bufBarrier.buffer        = gpuBuffer.getBuffer();</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    bufBarrier.offset        = copyCmd.dstOffset;</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    bufBarrier.size          = copyCmd.size;</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    context.<a class="code" href="a04225.html#ad3498b85b2352fb77251503598d24bf0">registerBufferBarrier</a>(bufBarrier);</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;}</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160; </div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00219"></a><span class="lineno"><a class="line" href="a03749.html#af2c2e3be6f3597f5b129b873ceaf7271">  219</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03749.html#af2c2e3be6f3597f5b129b873ceaf7271">StaticSSBO&lt;T&gt;::ensureSize</a>(std::uint32_t desiredSize) {</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    <span class="keywordflow">if</span> (desiredSize &gt; cpuBuffer.size()) {</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;        std::uint32_t newSize = cpuBuffer.size() * 2;</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        <span class="keywordflow">while</span> (newSize &lt; desiredSize) { newSize *= 2; }</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160; </div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        cpuBuffer.resize(newSize);</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;        gpuBuffer.ensureSize(cpuBuffer.alignedSize());</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160; </div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    }</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;}</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160; </div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00233"></a><span class="lineno"><a class="line" href="a03749.html#ae9d06f4716421daedbb8c18f58571021">  233</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03749.html#ae9d06f4716421daedbb8c18f58571021">StaticSSBO&lt;T&gt;::transferRange</a>(std::uint32_t start, std::uint32_t numElements) {</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <span class="keywordflow">if</span> (numElements &gt; 0) {</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        copyStart = start;</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        copyCount = numElements;</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;        queueTransfer(SyncRequirement::Immediate);</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    }</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;}</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160; </div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00242"></a><span class="lineno"><a class="line" href="a03749.html#ab6813390f9c22677867a7813bb27c4a9">  242</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03749.html#ab6813390f9c22677867a7813bb27c4a9">StaticSSBO&lt;T&gt;::expandTransferRange</a>(std::uint32_t start, std::uint32_t numElements) {</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    <span class="keywordflow">if</span> (numElements &gt; 0) {</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;        <span class="keywordflow">if</span> (!trackingExpansion) {</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;            trackingExpansion = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;            copyStart         = start;</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;            copyCount         = numElements;</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        }</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> prevEnd = copyStart + copyCount;</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> newEnd  = std::max(prevEnd, start + numElements);</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;            copyStart          = std::min(start, copyStart);</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;            copyCount          = newEnd - copyStart;</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;        }</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        queueTransfer(SyncRequirement::Immediate);</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    }</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;}</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160; </div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00260"></a><span class="lineno"><a class="line" href="a03749.html#a13a5a8ae5fed85a4e8b558b21c727079">  260</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03749.html#a13a5a8ae5fed85a4e8b558b21c727079">StaticSSBO&lt;T&gt;::transferAll</a>() {</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    transferRange(0, cpuBuffer.size());</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;}</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160; </div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00265"></a><span class="lineno"><a class="line" href="a03749.html#afbf2fa69c93909dd0721af300123442e">  265</a></span>&#160;constexpr VkDeviceSize <a class="code" href="a03749.html#afbf2fa69c93909dd0721af300123442e">StaticSSBO&lt;T&gt;::getTotalRange</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    <span class="keywordflow">return</span> gpuBuffer.getSize();</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;}</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160; </div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00270"></a><span class="lineno"><a class="line" href="a03749.html#a5ffafed5538c47396b44254fbd4c7085">  270</a></span>&#160;VkBuffer <a class="code" href="a03749.html#a5ffafed5538c47396b44254fbd4c7085">StaticSSBO&lt;T&gt;::getRawBuffer</a>(std::uint32_t) {</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    <span class="keywordflow">return</span> gpuBuffer.getBuffer();</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;}</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160; </div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;} <span class="comment">// namespace buf</span></div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160; </div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01064_html"><div class="ttname"><a href="a01064.html">Transferable.hpp</a></div></div>
+<div class="ttc" id="aa01076_html"><div class="ttname"><a href="a01076.html">AlignedBuffer.hpp</a></div></div>
+<div class="ttc" id="aa01085_html"><div class="ttname"><a href="a01085.html">Buffer.hpp</a></div></div>
+<div class="ttc" id="aa01106_html"><div class="ttname"><a href="a01106.html">PerFrame.hpp</a></div></div>
+<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03749_html"><div class="ttname"><a href="a03749.html">bl::rc::buf::StaticSSBO</a></div><div class="ttdoc">Device-local SSBO intended for use with per-object data for static objects.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00022">StaticSSBO.hpp:22</a></div></div>
+<div class="ttc" id="aa03749_html_a13a5a8ae5fed85a4e8b558b21c727079"><div class="ttname"><a href="a03749.html#a13a5a8ae5fed85a4e8b558b21c727079">bl::rc::buf::StaticSSBO::transferAll</a></div><div class="ttdeci">void transferAll()</div><div class="ttdoc">Queues the transfer of all elements.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00260">StaticSSBO.hpp:260</a></div></div>
+<div class="ttc" id="aa03749_html_a2e3e3da221da8da1fc62d166a46fbd22"><div class="ttname"><a href="a03749.html#a2e3e3da221da8da1fc62d166a46fbd22">bl::rc::buf::StaticSSBO::operator[]</a></div><div class="ttdeci">const T &amp; operator[](std::uint32_t i) const</div><div class="ttdoc">Returns the element at the given index.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00172">StaticSSBO.hpp:172</a></div></div>
+<div class="ttc" id="aa03749_html_a3071c42a0ec4469c2bef46eb5e1044c1"><div class="ttname"><a href="a03749.html#a3071c42a0ec4469c2bef46eb5e1044c1">bl::rc::buf::StaticSSBO::size</a></div><div class="ttdeci">constexpr std::uint32_t size() const</div><div class="ttdoc">Returns the number of elements in the buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00177">StaticSSBO.hpp:177</a></div></div>
+<div class="ttc" id="aa03749_html_a3aa9a971d3b3290174c1e4bcc943d6af"><div class="ttname"><a href="a03749.html#a3aa9a971d3b3290174c1e4bcc943d6af">bl::rc::buf::StaticSSBO::StaticSSBO</a></div><div class="ttdeci">StaticSSBO()=default</div><div class="ttdoc">Creates a new SSBO.</div></div>
+<div class="ttc" id="aa03749_html_a4130b352c876618aadd5f06e67bee32d"><div class="ttname"><a href="a03749.html#a4130b352c876618aadd5f06e67bee32d">bl::rc::buf::StaticSSBO::destroy</a></div><div class="ttdeci">void destroy()</div><div class="ttdoc">Frees the GPU buffers.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00182">StaticSSBO.hpp:182</a></div></div>
+<div class="ttc" id="aa03749_html_a5ffafed5538c47396b44254fbd4c7085"><div class="ttname"><a href="a03749.html#a5ffafed5538c47396b44254fbd4c7085">bl::rc::buf::StaticSSBO::getRawBuffer</a></div><div class="ttdeci">VkBuffer getRawBuffer(std::uint32_t frameIndex)</div><div class="ttdoc">Helper method to return the raw buffer handle for the given frame index.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00270">StaticSSBO.hpp:270</a></div></div>
+<div class="ttc" id="aa03749_html_a815617d76256382f67b7ff396d4518cc"><div class="ttname"><a href="a03749.html#a815617d76256382f67b7ff396d4518cc">bl::rc::buf::StaticSSBO::operator[]</a></div><div class="ttdeci">T &amp; operator[](std::uint32_t i)</div><div class="ttdoc">Returns the element at the given index.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00167">StaticSSBO.hpp:167</a></div></div>
+<div class="ttc" id="aa03749_html_ab6813390f9c22677867a7813bb27c4a9"><div class="ttname"><a href="a03749.html#ab6813390f9c22677867a7813bb27c4a9">bl::rc::buf::StaticSSBO::expandTransferRange</a></div><div class="ttdeci">void expandTransferRange(std::uint32_t start, std::uint32_t numElements)</div><div class="ttdoc">Expands the current transfer range to include the new given range. Queues a single transfer if not al...</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00242">StaticSSBO.hpp:242</a></div></div>
+<div class="ttc" id="aa03749_html_abbdb2fff21bfeba378b0419952dc1298"><div class="ttname"><a href="a03749.html#abbdb2fff21bfeba378b0419952dc1298">bl::rc::buf::StaticSSBO::gpuBufferHandle</a></div><div class="ttdeci">constexpr vk::Buffer &amp; gpuBufferHandle()</div><div class="ttdoc">Returns the Buffer objects of the GPU buffers.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00188">StaticSSBO.hpp:188</a></div></div>
+<div class="ttc" id="aa03749_html_ad71669196321eec06c014debaf2010fa"><div class="ttname"><a href="a03749.html#ad71669196321eec06c014debaf2010fa">bl::rc::buf::StaticSSBO::create</a></div><div class="ttdeci">void create(vk::VulkanState &amp;vulkanState, std::uint32_t size)</div><div class="ttdoc">Creates a new SSBO.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00146">StaticSSBO.hpp:146</a></div></div>
+<div class="ttc" id="aa03749_html_add4d3bf18276f74b48583d7996f4dc7a"><div class="ttname"><a href="a03749.html#add4d3bf18276f74b48583d7996f4dc7a">bl::rc::buf::StaticSSBO::StaticSSBO</a></div><div class="ttdeci">StaticSSBO(vk::VulkanState &amp;vulkanState, std::uint32_t size)</div><div class="ttdoc">Creates a new SSBO.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00141">StaticSSBO.hpp:141</a></div></div>
+<div class="ttc" id="aa03749_html_ae9d06f4716421daedbb8c18f58571021"><div class="ttname"><a href="a03749.html#ae9d06f4716421daedbb8c18f58571021">bl::rc::buf::StaticSSBO::transferRange</a></div><div class="ttdeci">void transferRange(std::uint32_t start, std::uint32_t numElements)</div><div class="ttdoc">Queues the given range of elements to be copied to the GPU buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00233">StaticSSBO.hpp:233</a></div></div>
+<div class="ttc" id="aa03749_html_af0c860f996900b8b44a8586be04244a8"><div class="ttname"><a href="a03749.html#af0c860f996900b8b44a8586be04244a8">bl::rc::buf::StaticSSBO::fill</a></div><div class="ttdeci">void fill(const T &amp;value)</div><div class="ttdoc">Fills the buffer with the given value.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00162">StaticSSBO.hpp:162</a></div></div>
+<div class="ttc" id="aa03749_html_af2c2e3be6f3597f5b129b873ceaf7271"><div class="ttname"><a href="a03749.html#af2c2e3be6f3597f5b129b873ceaf7271">bl::rc::buf::StaticSSBO::ensureSize</a></div><div class="ttdeci">bool ensureSize(std::uint32_t newSize)</div><div class="ttdoc">If the buffer size is less than the required size, re-creates the buffer to be at least the given siz...</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00219">StaticSSBO.hpp:219</a></div></div>
+<div class="ttc" id="aa03749_html_afbf2fa69c93909dd0721af300123442e"><div class="ttname"><a href="a03749.html#afbf2fa69c93909dd0721af300123442e">bl::rc::buf::StaticSSBO::getTotalRange</a></div><div class="ttdeci">constexpr VkDeviceSize getTotalRange() const</div><div class="ttdoc">Returns the size of the SSBO on the device.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00265">StaticSSBO.hpp:265</a></div></div>
+<div class="ttc" id="aa04221_html"><div class="ttname"><a href="a04221.html">bl::rc::tfr::Transferable</a></div><div class="ttdoc">Base class for objects that transfer state or data to the GPU. Used in conjunction with the TransferE...</div><div class="ttdef"><b>Definition:</b> <a href="a01064_source.html#l00025">Transferable.hpp:25</a></div></div>
+<div class="ttc" id="aa04221_html_ae134133a20147f77b4feae59dc9b447d"><div class="ttname"><a href="a04221.html#ae134133a20147f77b4feae59dc9b447d">bl::rc::tfr::Transferable::vulkanState</a></div><div class="ttdeci">vk::VulkanState * vulkanState</div><div class="ttdef"><b>Definition:</b> <a href="a01064_source.html#l00072">Transferable.hpp:72</a></div></div>
+<div class="ttc" id="aa04225_html"><div class="ttname"><a href="a04225.html">bl::rc::tfr::TransferContext</a></div><div class="ttdef"><b>Definition:</b> <a href="a01067_source.html#l00019">TransferContext.hpp:19</a></div></div>
+<div class="ttc" id="aa04225_html_a0095891b196aaca7b289210a8a774bee"><div class="ttname"><a href="a04225.html#a0095891b196aaca7b289210a8a774bee">bl::rc::tfr::TransferContext::createTemporaryStagingBuffer</a></div><div class="ttdeci">void createTemporaryStagingBuffer(VkDeviceSize size, VkBuffer &amp;bufferResult, void **mappedMemory)</div><div class="ttdoc">Creates a staging buffer of the given size. Should only be called from Transferable::executeTransferA...</div><div class="ttdef"><b>Definition:</b> <a href="a02033_source.html#l00025">TransferContext.cpp:25</a></div></div>
+<div class="ttc" id="aa04225_html_ad3498b85b2352fb77251503598d24bf0"><div class="ttname"><a href="a04225.html#ad3498b85b2352fb77251503598d24bf0">bl::rc::tfr::TransferContext::registerBufferBarrier</a></div><div class="ttdeci">void registerBufferBarrier(const VkBufferMemoryBarrier &amp;barrier)</div><div class="ttdoc">Registers the given barrier to be recorded after all transfers are started.</div><div class="ttdef"><b>Definition:</b> <a href="a02033_source.html#l00049">TransferContext.cpp:49</a></div></div>
+<div class="ttc" id="aa04237_html"><div class="ttname"><a href="a04237.html">bl::rc::vk::AlignedBuffer</a></div><div class="ttdoc">Utility class to store a buffer of PODs on the CPU aligned for the UBO requirements of the device bei...</div><div class="ttdef"><b>Definition:</b> <a href="a01076_source.html#l00023">AlignedBuffer.hpp:23</a></div></div>
+<div class="ttc" id="aa04249_html"><div class="ttname"><a href="a04249.html">bl::rc::vk::Buffer</a></div><div class="ttdoc">Wrapper over Vulkan buffers. Provides simpler interfaces and resize ability.</div><div class="ttdef"><b>Definition:</b> <a href="a01085_source.html#l00019">Buffer.hpp:19</a></div></div>
+<div class="ttc" id="aa04405_html"><div class="ttname"><a href="a04405.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01157_source.html#l00039">VulkanState.hpp:39</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

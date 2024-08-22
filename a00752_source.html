@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Particles/RenderTypeMap.hpp Source File</title>
+<title>BLIB: include/BLIB/Particles/RenderComponentMap.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,37 +71,36 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">RenderTypeMap.hpp</div>  </div>
+<div class="title">RenderComponentMap.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00752.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_PARTICLES_RENDERTYPEMAP_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_PARTICLES_RENDERTYPEMAP_HPP</span></div>
+<a href="a00752.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_PARTICLES_RENDERCOMPONENTMAP_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_PARTICLES_RENDERCOMPONENTMAP_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06280.html">BLIB/Particles/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00725.html">BLIB/Particles/EcsComponent.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>pcl</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a03668.html">   19</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a03668.html">RenderTypeMap</a> {</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a03668.html#a3c81321bc3ea624891d0c3775de9fcfd">   21</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a03664.html">TRenderer</a> = <a class="code" href="a03664.html">Renderer&lt;T&gt;</a>;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;};</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;} <span class="comment">// namespace pcl</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03664_html"><div class="ttname"><a href="a03664.html">bl::pcl::Renderer</a></div><div class="ttdoc">Default renderer implementation for particle systems. If you use the default all you need to do is sp...</div><div class="ttdef"><b>Definition:</b> <a href="a06280_source.html#l00029">Renderer.hpp:29</a></div></div>
-<div class="ttc" id="aa03668_html"><div class="ttname"><a href="a03668.html">bl::pcl::RenderTypeMap</a></div><div class="ttdoc">Compile-time type map to configure the Renderer type to use for a given particle type....</div><div class="ttdef"><b>Definition:</b> <a href="a00752_source.html#l00019">RenderTypeMap.hpp:19</a></div></div>
-<div class="ttc" id="aa06280_html"><div class="ttname"><a href="a06280.html">Renderer.hpp</a></div></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03685.html">   20</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a03685.html">RenderComponentMap</a> {</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03685.html#a25b84b4c5b6d2ff153cff5828bea586c">   22</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a03649.html">TComponent</a> = <a class="code" href="a03649.html">EcsComponent</a>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;};</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace pcl</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00725_html"><div class="ttname"><a href="a00725.html">EcsComponent.hpp</a></div></div>
+<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03649_html"><div class="ttname"><a href="a03649.html">bl::pcl::EcsComponent</a></div><div class="ttdoc">Default drawable component for particle systems. Used by the default Renderer&lt;T&gt; implementation....</div><div class="ttdef"><b>Definition:</b> <a href="a00725_source.html#l00025">EcsComponent.hpp:25</a></div></div>
+<div class="ttc" id="aa03685_html"><div class="ttname"><a href="a03685.html">bl::pcl::RenderComponentMap</a></div><div class="ttdoc">Compile-time config map used by the default Renderer&lt;T&gt; implementation. By default EcsComponent is us...</div><div class="ttdef"><b>Definition:</b> <a href="a00752_source.html#l00020">RenderComponentMap.hpp:20</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

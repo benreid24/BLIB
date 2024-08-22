@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Scenes/SceneObjectECSAdaptor.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Scenes/Scene2D.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,186 +71,61 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">SceneObjectECSAdaptor.hpp</div>  </div>
+<div class="title">Scene2D.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01037.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_SCENES_SCENEOBJECTECSADAPTOR_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_SCENES_SCENEOBJECTECSADAPTOR_HPP</span></div>
+<a href="a01037.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_SCENES_SCENE2D_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_SCENES_SCENE2D_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00221.html">BLIB/ECS.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00176.html">BLIB/ECS/Entity.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00833.html">BLIB/Render/Descriptors/DescriptorComponentStorage.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01022.html">BLIB/Render/Scenes/Key.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01025.html">BLIB/Render/Scenes/Scene.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01034.html">BLIB/Render/Scenes/SceneObject.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01352.html">BLIB/Util/IdAllocatorUnbounded.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;queue&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">namespace </span>scene</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a04148.html">   28</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04148.html">SceneObjectECSAdaptor</a> {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    static_assert(std::is_same_v&lt;T, SceneObject&gt; || std::is_base_of_v&lt;SceneObject, T&gt;,</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                  <span class="stringliteral">&quot;T must be SceneObject or derived from SceneObject&quot;</span>);</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00962.html">BLIB/Render/Lighting/Scene2DLighting.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01022.html">BLIB/Render/Scenes/BatchedScene.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>scene</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a04173.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04173.html">Scene2D</a> : <span class="keyword">public</span> <a class="code" href="a04125.html">BatchedScene</a> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="a04173.html#a2f2d22fdda116259119c86a527e22f8a">Scene2D</a>(<a class="code" href="a02833.html">engine::Engine</a>&amp; engine);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a04173.html#ad3d44403e51534373e9769b1b8a27686">   30</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a04173.html#ad3d44403e51534373e9769b1b8a27686">~Scene2D</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a04148.html#ad4571d1a9a04cd7e09cda830661cc30a">   36</a></span>&#160;    <a class="code" href="a04148.html#ad4571d1a9a04cd7e09cda830661cc30a">SceneObjectECSAdaptor</a>(<a class="code" href="a02760.html">ecs::Registry</a>&amp; registry);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="a04148.html#a1f2441c81018008dbc33fe00adaea9c7">   41</a></span>&#160;    <a class="code" href="a04148.html#a1f2441c81018008dbc33fe00adaea9c7">~SceneObjectECSAdaptor</a>();</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a04173.html#ab3c7184f90e1ff47a07fd7ad5372eaf1">   35</a></span>&#160;    <a class="code" href="a04029.html">lgt::Scene2DLighting</a>&amp; <a class="code" href="a04173.html#ab3c7184f90e1ff47a07fd7ad5372eaf1">getLighting</a>() { <span class="keywordflow">return</span> lighting; }</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">virtual</span> std::unique_ptr&lt;cam::Camera&gt; <a class="code" href="a04173.html#ad8c1d742fe524a90c34a53716dc7a580">createDefaultCamera</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="a04148.html#a113892f5b9b3259d8f21efce6a501fbf">   50</a></span>&#160;    T* <a class="code" href="a04148.html#a113892f5b9b3259d8f21efce6a501fbf">allocate</a>(<a class="code" href="a02270.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> updateFreq, <a class="code" href="a02712.html">ecs::Entity</a> entity);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="a04148.html#a3675b9085ef80a5a2355bfa349db9e05">   58</a></span>&#160;    <a class="code" href="a02712.html">ecs::Entity</a> <a class="code" href="a04148.html#a3675b9085ef80a5a2355bfa349db9e05">getObjectEntity</a>(<a class="code" href="a04116.html">Key</a> key) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="a04148.html#a461d9aa846cd343d9691f2c20b9b6f48">   66</a></span>&#160;    T&amp; <a class="code" href="a04148.html#a461d9aa846cd343d9691f2c20b9b6f48">getObject</a>(<a class="code" href="a04116.html">Key</a> key);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="a04148.html#a2daae5288111cc543eeec8ee98c3b1dd">   73</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04148.html#a2daae5288111cc543eeec8ee98c3b1dd">release</a>(<a class="code" href="a04116.html">Key</a> key);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="a04148.html#a93f7f616563486d05bac28c62f630ea6">   80</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04148.html#a93f7f616563486d05bac28c62f630ea6">unlinkAll</a>(<a class="code" href="a03828.html">ds::DescriptorSetInstanceCache</a>&amp; descriptors);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="a04148.html#a2617974b4cb375723a6f0fa52dd7b192">   85</a></span>&#160;    <a class="code" href="a03800.html#a80984df19e4cbb663aa059d56784cf6e">ds::DescriptorComponentStorageBase::EntityCallback</a> <a class="code" href="a04148.html#a2617974b4cb375723a6f0fa52dd7b192">makeEntityCallback</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keyword">struct </span>Mapping {</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <a class="code" href="a04972.html">util::IdAllocatorUnbounded&lt;std::uint32_t&gt;</a> indexAlloc;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        std::vector&lt;ecs::Entity&gt; entityMap;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        Mapping()</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        : indexAlloc(32) {</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            entityMap.reserve(32);</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        }</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        std::uint32_t alloc(<a class="code" href="a02712.html">ecs::Entity</a> ent) {</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            <span class="keyword">const</span> std::uint32_t i = indexAlloc.<a class="code" href="a04972.html#ae7fb1e9e6910be922de1188e21017610">allocate</a>();</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            <span class="keywordflow">if</span> (i &gt;= entityMap.size()) { entityMap.resize(i + 1, <a class="code" href="a02299.html#a01655307bcb32baf2884e18213123917">ecs::InvalidEntity</a>); }</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            entityMap[i] = ent;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            <span class="keywordflow">return</span> i;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        }</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a04148.html#a2daae5288111cc543eeec8ee98c3b1dd">release</a>(std::uint32_t i) {</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            <span class="keywordflow">if</span> (i &lt; entityMap.size()) {</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                indexAlloc.<a class="code" href="a04972.html#a999cf670cc7639d0c167ef6b950616b2">release</a>(i);</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                entityMap[i] = <a class="code" href="a02299.html#a01655307bcb32baf2884e18213123917">ecs::InvalidEntity</a>;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            }</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        }</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    };</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    ecs::Registry&amp; registry;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    Mapping mapStatic;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    Mapping mapDynamic;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;};</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="a04148.html#ad4571d1a9a04cd7e09cda830661cc30a">  120</a></span>&#160;<a class="code" href="a04148.html#ad4571d1a9a04cd7e09cda830661cc30a">SceneObjectECSAdaptor&lt;T&gt;::SceneObjectECSAdaptor</a>(<a class="code" href="a02760.html">ecs::Registry</a>&amp; registry)</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;: registry(registry) {}</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="a04148.html#a1f2441c81018008dbc33fe00adaea9c7">  124</a></span>&#160;<a class="code" href="a04148.html#a1f2441c81018008dbc33fe00adaea9c7">SceneObjectECSAdaptor&lt;T&gt;::~SceneObjectECSAdaptor</a>() {</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> release = [<span class="keyword">this</span>](Mapping&amp; m) {</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; m.entityMap.size(); ++i) {</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            <span class="keywordflow">if</span> (m.indexAlloc.isAllocated(i)) { registry.removeComponent&lt;T&gt;(m.entityMap[i]); }</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        }</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    };</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    release(mapStatic);</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    release(mapDynamic);</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;}</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="a04148.html#a113892f5b9b3259d8f21efce6a501fbf">  136</a></span>&#160;T* <a class="code" href="a04148.html#a113892f5b9b3259d8f21efce6a501fbf">SceneObjectECSAdaptor&lt;T&gt;::allocate</a>(<a class="code" href="a02270.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> updateFreq, <a class="code" href="a02712.html">ecs::Entity</a> entity) {</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    Mapping&amp; bucket       = updateFreq == <a class="code" href="a02270.html#gga305dcc5dda3e28bd193ab31444664848a84a8921b25f505d0d2077aeb5db4bc16">UpdateSpeed::Static</a> ? mapStatic : mapDynamic;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keyword">const</span> std::uint32_t i = bucket.alloc(entity);</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    T* <span class="keywordtype">object</span>             = registry.emplaceComponent&lt;T&gt;(entity);</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keywordtype">object</span>-&gt;sceneKey      = <a class="code" href="a04116.html">Key</a>{updateFreq, i};</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="keywordflow">return</span> object;</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;}</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00145"></a><span class="lineno"><a class="line" href="a04148.html#a3675b9085ef80a5a2355bfa349db9e05">  145</a></span>&#160;<a class="code" href="a02712.html">ecs::Entity</a> <a class="code" href="a04148.html#a3675b9085ef80a5a2355bfa349db9e05">SceneObjectECSAdaptor&lt;T&gt;::getObjectEntity</a>(<a class="code" href="a04116.html">Key</a> key)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keyword">const</span> Mapping&amp; bucket = key.<a class="code" href="a04116.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a> == <a class="code" href="a02270.html#gga305dcc5dda3e28bd193ab31444664848a84a8921b25f505d0d2077aeb5db4bc16">UpdateSpeed::Static</a> ? mapStatic : mapDynamic;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="keywordflow">return</span> key.<a class="code" href="a04116.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a> &lt; bucket.entityMap.size() ? bucket.entityMap[key.<a class="code" href="a04116.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a>] :</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                                                   <a class="code" href="a02299.html#a01655307bcb32baf2884e18213123917">ecs::InvalidEntity</a>;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;}</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="a04148.html#a461d9aa846cd343d9691f2c20b9b6f48">  152</a></span>&#160;<span class="keyword">inline</span> T&amp; <a class="code" href="a04148.html#a461d9aa846cd343d9691f2c20b9b6f48">SceneObjectECSAdaptor&lt;T&gt;::getObject</a>(<a class="code" href="a04116.html">Key</a> key) {</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordflow">return</span> *registry.getComponent&lt;T&gt;(getObjectEntity(key));</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;}</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00157"></a><span class="lineno"><a class="line" href="a04148.html#a2daae5288111cc543eeec8ee98c3b1dd">  157</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04148.html#a2daae5288111cc543eeec8ee98c3b1dd">SceneObjectECSAdaptor&lt;T&gt;::release</a>(<a class="code" href="a04116.html">Key</a> key) {</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    Mapping&amp; bucket = key.<a class="code" href="a04116.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a> == <a class="code" href="a02270.html#gga305dcc5dda3e28bd193ab31444664848a84a8921b25f505d0d2077aeb5db4bc16">UpdateSpeed::Static</a> ? mapStatic : mapDynamic;</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    bucket.release(key.<a class="code" href="a04116.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a>);</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;}</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00163"></a><span class="lineno"><a class="line" href="a04148.html#a93f7f616563486d05bac28c62f630ea6">  163</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04148.html#a93f7f616563486d05bac28c62f630ea6">SceneObjectECSAdaptor&lt;T&gt;::unlinkAll</a>(<a class="code" href="a03828.html">ds::DescriptorSetInstanceCache</a>&amp; descriptors) {</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <a class="code" href="a02270.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> speed = <a class="code" href="a02270.html#gga305dcc5dda3e28bd193ab31444664848a84a8921b25f505d0d2077aeb5db4bc16">UpdateSpeed::Static</a>;</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <span class="keywordflow">for</span> (Mapping* bucket : {&amp;mapStatic, &amp;mapDynamic}) {</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; bucket-&gt;indexAlloc.endId(); ++i) {</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;            <span class="keywordflow">if</span> (bucket-&gt;entityMap[i] != <a class="code" href="a02299.html#a01655307bcb32baf2884e18213123917">ecs::InvalidEntity</a>) {</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                descriptors.<a class="code" href="a03828.html#a6e7d26105df64eeed94d20246f352bd6">unlinkSceneObject</a>(bucket-&gt;entityMap[i], {speed, i});</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;            }</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        }</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        speed = <a class="code" href="a02270.html#gga305dcc5dda3e28bd193ab31444664848a971fd8cc345d8bd9f92e9f7d88fdf20c">UpdateSpeed::Dynamic</a>;</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    }</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;}</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00176"></a><span class="lineno"><a class="line" href="a04148.html#a2617974b4cb375723a6f0fa52dd7b192">  176</a></span>&#160;<a class="code" href="a03800.html#a80984df19e4cbb663aa059d56784cf6e">ds::DescriptorComponentStorageBase::EntityCallback</a> <a class="code" href="a04148.html#a2617974b4cb375723a6f0fa52dd7b192">SceneObjectECSAdaptor&lt;T&gt;::makeEntityCallback</a>()<span class="keyword"></span></div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<span class="keyword">    const </span>{</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keywordflow">return</span> [<span class="keyword">this</span>](<a class="code" href="a04116.html">scene::Key</a> key) { <span class="keywordflow">return</span> getObjectEntity(key); };</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;}</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;} <span class="comment">// namespace scene</span></div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00176_html"><div class="ttname"><a href="a00176.html">Entity.hpp</a></div></div>
-<div class="ttc" id="aa00221_html"><div class="ttname"><a href="a00221.html">ECS.hpp</a></div></div>
-<div class="ttc" id="aa00833_html"><div class="ttname"><a href="a00833.html">DescriptorComponentStorage.hpp</a></div></div>
-<div class="ttc" id="aa01022_html"><div class="ttname"><a href="a01022.html">Key.hpp</a></div></div>
-<div class="ttc" id="aa01025_html"><div class="ttname"><a href="a01025.html">Scene.hpp</a></div></div>
-<div class="ttc" id="aa01034_html"><div class="ttname"><a href="a01034.html">SceneObject.hpp</a></div></div>
-<div class="ttc" id="aa01352_html"><div class="ttname"><a href="a01352.html">IdAllocatorUnbounded.hpp</a></div></div>
-<div class="ttc" id="aa02270_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a02270.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition:</b> <a href="a01064_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
-<div class="ttc" id="aa02270_html_gga305dcc5dda3e28bd193ab31444664848a84a8921b25f505d0d2077aeb5db4bc16"><div class="ttname"><a href="a02270.html#gga305dcc5dda3e28bd193ab31444664848a84a8921b25f505d0d2077aeb5db4bc16">bl::rc::UpdateSpeed::Static</a></div><div class="ttdeci">@ Static</div><div class="ttdoc">Objects or data are not expected to update often after creation.</div></div>
-<div class="ttc" id="aa02270_html_gga305dcc5dda3e28bd193ab31444664848a971fd8cc345d8bd9f92e9f7d88fdf20c"><div class="ttname"><a href="a02270.html#gga305dcc5dda3e28bd193ab31444664848a971fd8cc345d8bd9f92e9f7d88fdf20c">bl::rc::UpdateSpeed::Dynamic</a></div><div class="ttdeci">@ Dynamic</div><div class="ttdoc">Objects or data are expected to update once per frame or similar.</div></div>
-<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02299_html_a01655307bcb32baf2884e18213123917"><div class="ttname"><a href="a02299.html#a01655307bcb32baf2884e18213123917">bl::ecs::InvalidEntity</a></div><div class="ttdeci">constexpr Entity InvalidEntity</div><div class="ttdoc">Special value to indicate that an Entity is not valid.</div><div class="ttdef"><b>Definition:</b> <a href="a00176_source.html#l00167">Entity.hpp:167</a></div></div>
-<div class="ttc" id="aa02712_html"><div class="ttname"><a href="a02712.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00176_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa02760_html"><div class="ttname"><a href="a02760.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition:</b> <a href="a00194_source.html#l00032">Registry.hpp:32</a></div></div>
-<div class="ttc" id="aa03800_html_a80984df19e4cbb663aa059d56784cf6e"><div class="ttname"><a href="a03800.html#a80984df19e4cbb663aa059d56784cf6e">bl::rc::ds::DescriptorComponentStorageBase::EntityCallback</a></div><div class="ttdeci">std::function&lt; ecs::Entity(scene::Key)&gt; EntityCallback</div><div class="ttdoc">Callback signature to fetch entities from scene ids.</div><div class="ttdef"><b>Definition:</b> <a href="a00833_source.html#l00041">DescriptorComponentStorage.hpp:41</a></div></div>
-<div class="ttc" id="aa03828_html"><div class="ttname"><a href="a03828.html">bl::rc::ds::DescriptorSetInstanceCache</a></div><div class="ttdoc">Utility class to ensure that descriptor sets are created only once across a set of pipelines present ...</div><div class="ttdef"><b>Definition:</b> <a href="a00842_source.html#l00023">DescriptorSetInstanceCache.hpp:23</a></div></div>
-<div class="ttc" id="aa03828_html_a6e7d26105df64eeed94d20246f352bd6"><div class="ttname"><a href="a03828.html#a6e7d26105df64eeed94d20246f352bd6">bl::rc::ds::DescriptorSetInstanceCache::unlinkSceneObject</a></div><div class="ttdeci">void unlinkSceneObject(ecs::Entity entity, scene::Key key)</div><div class="ttdoc">Goes through all descriptor set instances and calls removeObject for the given object.</div><div class="ttdef"><b>Definition:</b> <a href="a01877_source.html#l00025">DescriptorSetInstanceCache.cpp:25</a></div></div>
-<div class="ttc" id="aa04116_html"><div class="ttname"><a href="a04116.html">bl::rc::scene::Key</a></div><div class="ttdoc">Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...</div><div class="ttdef"><b>Definition:</b> <a href="a01022_source.html#l00022">Key.hpp:22</a></div></div>
-<div class="ttc" id="aa04116_html_a5fa4592fd53a220f89ac7814aebfa6d6"><div class="ttname"><a href="a04116.html#a5fa4592fd53a220f89ac7814aebfa6d6">bl::rc::scene::Key::sceneId</a></div><div class="ttdeci">std::uint32_t sceneId</div><div class="ttdef"><b>Definition:</b> <a href="a01022_source.html#l00026">Key.hpp:26</a></div></div>
-<div class="ttc" id="aa04116_html_abc689f231a25b15808c61dde6fda1d08"><div class="ttname"><a href="a04116.html#abc689f231a25b15808c61dde6fda1d08">bl::rc::scene::Key::updateFreq</a></div><div class="ttdeci">UpdateSpeed updateFreq</div><div class="ttdef"><b>Definition:</b> <a href="a01022_source.html#l00025">Key.hpp:25</a></div></div>
-<div class="ttc" id="aa04148_html"><div class="ttname"><a href="a04148.html">bl::rc::scene::SceneObjectECSAdaptor</a></div><div class="ttdoc">Similar to SceneObjectStorage, but uses the ECS as underlying storage.</div><div class="ttdef"><b>Definition:</b> <a href="a01037_source.html#l00028">SceneObjectECSAdaptor.hpp:28</a></div></div>
-<div class="ttc" id="aa04148_html_a113892f5b9b3259d8f21efce6a501fbf"><div class="ttname"><a href="a04148.html#a113892f5b9b3259d8f21efce6a501fbf">bl::rc::scene::SceneObjectECSAdaptor::allocate</a></div><div class="ttdeci">T * allocate(UpdateSpeed updateFreq, ecs::Entity entity)</div><div class="ttdoc">Allocates a new scene object.</div><div class="ttdef"><b>Definition:</b> <a href="a01037_source.html#l00136">SceneObjectECSAdaptor.hpp:136</a></div></div>
-<div class="ttc" id="aa04148_html_a1f2441c81018008dbc33fe00adaea9c7"><div class="ttname"><a href="a04148.html#a1f2441c81018008dbc33fe00adaea9c7">bl::rc::scene::SceneObjectECSAdaptor::~SceneObjectECSAdaptor</a></div><div class="ttdeci">~SceneObjectECSAdaptor()</div><div class="ttdoc">Destroys all created components.</div><div class="ttdef"><b>Definition:</b> <a href="a01037_source.html#l00124">SceneObjectECSAdaptor.hpp:124</a></div></div>
-<div class="ttc" id="aa04148_html_a2617974b4cb375723a6f0fa52dd7b192"><div class="ttname"><a href="a04148.html#a2617974b4cb375723a6f0fa52dd7b192">bl::rc::scene::SceneObjectECSAdaptor::makeEntityCallback</a></div><div class="ttdeci">ds::DescriptorComponentStorageBase::EntityCallback makeEntityCallback() const</div><div class="ttdoc">Returns a usable callback to map scene key to ECS id.</div><div class="ttdef"><b>Definition:</b> <a href="a01037_source.html#l00176">SceneObjectECSAdaptor.hpp:176</a></div></div>
-<div class="ttc" id="aa04148_html_a2daae5288111cc543eeec8ee98c3b1dd"><div class="ttname"><a href="a04148.html#a2daae5288111cc543eeec8ee98c3b1dd">bl::rc::scene::SceneObjectECSAdaptor::release</a></div><div class="ttdeci">void release(Key key)</div><div class="ttdoc">Marks the given key as being free. Allows future allocation to reuse it.</div><div class="ttdef"><b>Definition:</b> <a href="a01037_source.html#l00157">SceneObjectECSAdaptor.hpp:157</a></div></div>
-<div class="ttc" id="aa04148_html_a3675b9085ef80a5a2355bfa349db9e05"><div class="ttname"><a href="a04148.html#a3675b9085ef80a5a2355bfa349db9e05">bl::rc::scene::SceneObjectECSAdaptor::getObjectEntity</a></div><div class="ttdeci">ecs::Entity getObjectEntity(Key key) const</div><div class="ttdoc">Returns the ECS id for the given object key.</div><div class="ttdef"><b>Definition:</b> <a href="a01037_source.html#l00145">SceneObjectECSAdaptor.hpp:145</a></div></div>
-<div class="ttc" id="aa04148_html_a461d9aa846cd343d9691f2c20b9b6f48"><div class="ttname"><a href="a04148.html#a461d9aa846cd343d9691f2c20b9b6f48">bl::rc::scene::SceneObjectECSAdaptor::getObject</a></div><div class="ttdeci">T &amp; getObject(Key key)</div><div class="ttdoc">Fetches the object with the given key.</div><div class="ttdef"><b>Definition:</b> <a href="a01037_source.html#l00152">SceneObjectECSAdaptor.hpp:152</a></div></div>
-<div class="ttc" id="aa04148_html_a93f7f616563486d05bac28c62f630ea6"><div class="ttname"><a href="a04148.html#a93f7f616563486d05bac28c62f630ea6">bl::rc::scene::SceneObjectECSAdaptor::unlinkAll</a></div><div class="ttdeci">void unlinkAll(ds::DescriptorSetInstanceCache &amp;descriptors)</div><div class="ttdoc">Unlinks created objects.</div><div class="ttdef"><b>Definition:</b> <a href="a01037_source.html#l00163">SceneObjectECSAdaptor.hpp:163</a></div></div>
-<div class="ttc" id="aa04148_html_ad4571d1a9a04cd7e09cda830661cc30a"><div class="ttname"><a href="a04148.html#ad4571d1a9a04cd7e09cda830661cc30a">bl::rc::scene::SceneObjectECSAdaptor::SceneObjectECSAdaptor</a></div><div class="ttdeci">SceneObjectECSAdaptor(ecs::Registry &amp;registry)</div><div class="ttdoc">Reserves some memory.</div><div class="ttdef"><b>Definition:</b> <a href="a01037_source.html#l00120">SceneObjectECSAdaptor.hpp:120</a></div></div>
-<div class="ttc" id="aa04972_html"><div class="ttname"><a href="a04972.html">bl::util::IdAllocatorUnbounded&lt; std::uint32_t &gt;</a></div></div>
-<div class="ttc" id="aa04972_html_a999cf670cc7639d0c167ef6b950616b2"><div class="ttname"><a href="a04972.html#a999cf670cc7639d0c167ef6b950616b2">bl::util::IdAllocatorUnbounded::release</a></div><div class="ttdeci">void release(T id)</div><div class="ttdoc">Releases the given id back into the pool. Double-release is an error.</div><div class="ttdef"><b>Definition:</b> <a href="a01352_source.html#l00104">IdAllocatorUnbounded.hpp:104</a></div></div>
-<div class="ttc" id="aa04972_html_ae7fb1e9e6910be922de1188e21017610"><div class="ttname"><a href="a04972.html#ae7fb1e9e6910be922de1188e21017610">bl::util::IdAllocatorUnbounded::allocate</a></div><div class="ttdeci">T allocate()</div><div class="ttdoc">Allocates a new id from the allocator.</div><div class="ttdef"><b>Definition:</b> <a href="a01352_source.html#l00089">IdAllocatorUnbounded.hpp:89</a></div></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a04173.html#ac981b461c72a08b16cdb7635fcdb4b79">setDefaultNearAndFarPlanes</a>(<a class="code" href="a02497.html">cam::Camera</a>&amp; camera) <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="a04029.html">lgt::Scene2DLighting</a> lighting;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;};</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <span class="comment">// namespace scene</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00962_html"><div class="ttname"><a href="a00962.html">Scene2DLighting.hpp</a></div></div>
+<div class="ttc" id="aa01022_html"><div class="ttname"><a href="a01022.html">BatchedScene.hpp</a></div></div>
+<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02497_html"><div class="ttname"><a href="a02497.html">bl::cam::Camera</a></div><div class="ttdoc">Base class for all cameras.</div><div class="ttdef"><b>Definition:</b> <a href="a00047_source.html#l00017">Camera.hpp:17</a></div></div>
+<div class="ttc" id="aa02833_html"><div class="ttname"><a href="a02833.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06269_source.html#l00033">Engine.hpp:33</a></div></div>
+<div class="ttc" id="aa04029_html"><div class="ttname"><a href="a04029.html">bl::rc::lgt::Scene2DLighting</a></div><div class="ttdoc">Lighting manager for 2d scenes.</div><div class="ttdef"><b>Definition:</b> <a href="a00962_source.html#l00028">Scene2DLighting.hpp:28</a></div></div>
+<div class="ttc" id="aa04125_html"><div class="ttname"><a href="a04125.html">bl::rc::scene::BatchedScene</a></div><div class="ttdoc">Primary scene class for the renderer. Provides batched rendering of objects by pipeline....</div><div class="ttdef"><b>Definition:</b> <a href="a01022_source.html#l00019">BatchedScene.hpp:19</a></div></div>
+<div class="ttc" id="aa04173_html"><div class="ttname"><a href="a04173.html">bl::rc::scene::Scene2D</a></div><div class="ttdoc">2d scene implementation</div><div class="ttdef"><b>Definition:</b> <a href="a01037_source.html#l00018">Scene2D.hpp:18</a></div></div>
+<div class="ttc" id="aa04173_html_a2f2d22fdda116259119c86a527e22f8a"><div class="ttname"><a href="a04173.html#a2f2d22fdda116259119c86a527e22f8a">bl::rc::scene::Scene2D::Scene2D</a></div><div class="ttdeci">Scene2D(engine::Engine &amp;engine)</div><div class="ttdoc">Creates the scene.</div><div class="ttdef"><b>Definition:</b> <a href="a02009_source.html#l00018">Scene2D.cpp:18</a></div></div>
+<div class="ttc" id="aa04173_html_ab3c7184f90e1ff47a07fd7ad5372eaf1"><div class="ttname"><a href="a04173.html#ab3c7184f90e1ff47a07fd7ad5372eaf1">bl::rc::scene::Scene2D::getLighting</a></div><div class="ttdeci">lgt::Scene2DLighting &amp; getLighting()</div><div class="ttdoc">Returns the scene lighting manager for this scene.</div><div class="ttdef"><b>Definition:</b> <a href="a01037_source.html#l00035">Scene2D.hpp:35</a></div></div>
+<div class="ttc" id="aa04173_html_ac981b461c72a08b16cdb7635fcdb4b79"><div class="ttname"><a href="a04173.html#ac981b461c72a08b16cdb7635fcdb4b79">bl::rc::scene::Scene2D::setDefaultNearAndFarPlanes</a></div><div class="ttdeci">virtual void setDefaultNearAndFarPlanes(cam::Camera &amp;camera) const override</div><div class="ttdoc">Sets the default near and far planes on the given camera.</div><div class="ttdef"><b>Definition:</b> <a href="a02009_source.html#l00029">Scene2D.cpp:29</a></div></div>
+<div class="ttc" id="aa04173_html_ad3d44403e51534373e9769b1b8a27686"><div class="ttname"><a href="a04173.html#ad3d44403e51534373e9769b1b8a27686">bl::rc::scene::Scene2D::~Scene2D</a></div><div class="ttdeci">virtual ~Scene2D()=default</div><div class="ttdoc">Destroys the scene.</div></div>
+<div class="ttc" id="aa04173_html_ad8c1d742fe524a90c34a53716dc7a580"><div class="ttname"><a href="a04173.html#ad8c1d742fe524a90c34a53716dc7a580">bl::rc::scene::Scene2D::createDefaultCamera</a></div><div class="ttdeci">virtual std::unique_ptr&lt; cam::Camera &gt; createDefaultCamera() override</div><div class="ttdoc">Creates a 2d camera.</div><div class="ttdef"><b>Definition:</b> <a href="a02009_source.html#l00023">Scene2D.cpp:23</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

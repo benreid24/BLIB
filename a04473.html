@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::resource::FileSystem Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,25 +66,228 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02284.html">bl</a></li><li class="navelem"><a class="el" href="a02341.html">resource</a></li><li class="navelem"><a class="el" href="a04476.html">DefaultLoader&lt; sf::VulkanFont &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02303.html">bl</a></li><li class="navelem"><a class="el" href="a02361.html">resource</a></li><li class="navelem"><a class="el" href="a04473.html">FileSystem</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="a04470.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::resource::DefaultLoader&lt; sf::VulkanFont &gt; Member List</div>  </div>
+<div class="title">bl::resource::FileSystem Class Reference<div class="ingroups"><a class="el" href="a02290.html">Resources</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a04476.html">bl::resource::DefaultLoader&lt; sf::VulkanFont &gt;</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a04476.html#aa31f26345b34e0ef52afdd8d632ce744">load</a>(const std::string &amp;path, const char *buffer, std::size_t len, std::istream &amp;, sf::VulkanFont &amp;result) override</td><td class="entry"><a class="el" href="a04476.html">bl::resource::DefaultLoader&lt; sf::VulkanFont &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a04476.html#a90fef3a6e2f5ab9ada1d38f8fa0f66b4">~DefaultLoader</a>()=default</td><td class="entry"><a class="el" href="a04476.html">bl::resource::DefaultLoader&lt; sf::VulkanFont &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a04444.html#afa92f9ae38b25886b9cd07142812e92d">~LoaderBase</a>()=default</td><td class="entry"><a class="el" href="a04444.html">bl::resource::LoaderBase&lt; sf::VulkanFont &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>File system wrapper which reads data from the underlying filesystem or from the configured bundle set. Used internally by resource managers.  
+ <a href="a04473.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a01199_source.html">FileSystem.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::resource::FileSystem:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a04473.png" usemap="#bl::resource::FileSystem_map" alt=""/>
+  <map id="bl::resource::FileSystem_map" name="bl::resource::FileSystem_map">
+<area href="a05029.html" title="Helper class to make derived classes impossible for user to copy directly." alt="bl::util::NonCopyable" shape="rect" coords="0,0,146,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a8089494d8a85bdbb34aebac6d6221e51"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04473.html#a8089494d8a85bdbb34aebac6d6221e51">useBundle</a> (const std::string &amp;bundlePath)</td></tr>
+<tr class="memdesc:a8089494d8a85bdbb34aebac6d6221e51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the bundle set to use.  <a href="a04473.html#a8089494d8a85bdbb34aebac6d6221e51">More...</a><br /></td></tr>
+<tr class="separator:a8089494d8a85bdbb34aebac6d6221e51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4333f7b4fcde422a5a9edccb8af201fb"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04473.html#a4333f7b4fcde422a5a9edccb8af201fb">getData</a> (const std::string &amp;path, char **<a class="el" href="a01415.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, std::size_t &amp;len)</td></tr>
+<tr class="memdesc:a4333f7b4fcde422a5a9edccb8af201fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the data for the given path. Either loads from the underlying file system or from the active bundle.  <a href="a04473.html#a4333f7b4fcde422a5a9edccb8af201fb">More...</a><br /></td></tr>
+<tr class="separator:a4333f7b4fcde422a5a9edccb8af201fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3dbef4e0cb06dc2ba43376ea408c79b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04473.html#af3dbef4e0cb06dc2ba43376ea408c79b">purgePersistentData</a> (const std::string &amp;path)</td></tr>
+<tr class="memdesc:af3dbef4e0cb06dc2ba43376ea408c79b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Purges the persistent data buffer for the given resource. Noop if the resource did not have a persistent buffer.  <a href="a04473.html#af3dbef4e0cb06dc2ba43376ea408c79b">More...</a><br /></td></tr>
+<tr class="separator:af3dbef4e0cb06dc2ba43376ea408c79b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d9f7b7a55974210bdbaf2bad3fb9367"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04473.html#a0d9f7b7a55974210bdbaf2bad3fb9367">resourceExists</a> (const std::string &amp;path)</td></tr>
+<tr class="memdesc:a0d9f7b7a55974210bdbaf2bad3fb9367"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the given path points to a valid resource. Essentially a bundle-aware version of FileUtil::exists.  <a href="a04473.html#a0d9f7b7a55974210bdbaf2bad3fb9367">More...</a><br /></td></tr>
+<tr class="separator:a0d9f7b7a55974210bdbaf2bad3fb9367"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>File system wrapper which reads data from the underlying filesystem or from the configured bundle set. Used internally by resource managers. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01199_source.html#l00021">21</a> of file <a class="el" href="a01199_source.html">FileSystem.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a4333f7b4fcde422a5a9edccb8af201fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4333f7b4fcde422a5a9edccb8af201fb">&#9670;&nbsp;</a></span>getData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::resource::FileSystem::getData </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t &amp;&#160;</td>
+          <td class="paramname"><em>len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Loads the data for the given path. Either loads from the underlying file system or from the active bundle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>The resource path to load </td></tr>
+    <tr><td class="paramname">buffer</td><td>The buffer to point to the raw data of the given resource </td></tr>
+    <tr><td class="paramname">len</td><td>Will be populated with the size of the buffer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the resource was found and loaded, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02147_source.html#l00023">23</a> of file <a class="el" href="a02147_source.html">FileSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af3dbef4e0cb06dc2ba43376ea408c79b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3dbef4e0cb06dc2ba43376ea408c79b">&#9670;&nbsp;</a></span>purgePersistentData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::resource::FileSystem::purgePersistentData </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Purges the persistent data buffer for the given resource. Noop if the resource did not have a persistent buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td><a class="el" href="a04533.html" title="Internal struct used by ResourceManager. Use Ref externally.">Resource</a> path of the memory buffer to clear </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02147_source.html#l00038">38</a> of file <a class="el" href="a02147_source.html">FileSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0d9f7b7a55974210bdbaf2bad3fb9367"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d9f7b7a55974210bdbaf2bad3fb9367">&#9670;&nbsp;</a></span>resourceExists()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::resource::FileSystem::resourceExists </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether or not the given path points to a valid resource. Essentially a bundle-aware version of FileUtil::exists. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>The path to check </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if there is a resource, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02147_source.html#l00040">40</a> of file <a class="el" href="a02147_source.html">FileSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8089494d8a85bdbb34aebac6d6221e51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8089494d8a85bdbb34aebac6d6221e51">&#9670;&nbsp;</a></span>useBundle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::resource::FileSystem::useBundle </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>bundlePath</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Configure the bundle set to use. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bundlePath</td><td>Path to the directory containing the bundles </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the bundle set is valid, false on error </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02147_source.html#l00016">16</a> of file <a class="el" href="a02147_source.html">FileSystem.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Resources/<a class="el" href="a01199_source.html">FileSystem.hpp</a></li>
+<li>src/Resources/<a class="el" href="a02147_source.html">FileSystem.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2024 18:32:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 22 2024 03:57:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>
