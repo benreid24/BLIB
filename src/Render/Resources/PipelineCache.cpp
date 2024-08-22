@@ -41,7 +41,9 @@ vk::Pipeline& PipelineCache::getPipeline(std::uint32_t id) {
     return it->second;
 }
 
-bool PipelineCache::pipelineExists(std::uint32_t pid) { return cache.find(pid) != cache.end(); }
+bool PipelineCache::pipelineExists(std::uint32_t pid) const {
+    return cache.find(pid) != cache.end();
+}
 
 void PipelineCache::createBuiltins() {
     VkPipelineDepthStencilStateCreateInfo depthStencilDepthEnabled{};
