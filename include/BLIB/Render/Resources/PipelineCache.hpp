@@ -38,6 +38,14 @@ public:
      */
     vk::Pipeline& getPipeline(std::uint32_t pipelineId);
 
+    /**
+     * @brief Checks whether a pipeline with the given id exists
+     *
+     * @param pipelineId The id to search for
+     * @return True if the pipeline exists, false otherwise
+     */
+    bool pipelineExists(std::uint32_t pipelineId) const;
+
 private:
     Renderer& renderer;
     std::unordered_map<std::uint32_t, vk::Pipeline> cache;
