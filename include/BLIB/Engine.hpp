@@ -12,6 +12,7 @@
 #include <BLIB/Engine/Events.hpp>
 #include <BLIB/Engine/Flags.hpp>
 #include <BLIB/Engine/FrameStage.hpp>
+#include <BLIB/Engine/Properties.hpp>
 #include <BLIB/Engine/Settings.hpp>
 #include <BLIB/Engine/State.hpp>
 #include <BLIB/Engine/System.hpp>

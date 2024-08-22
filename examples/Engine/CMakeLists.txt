@@ -1,19 +1,9 @@
-add_executable(engine 
-    InputListener.cpp
-    main.cpp
-    MainState.cpp
-    RebindState.cpp
-)
-
-include(configure_blib_target)
-include(link_blib_target)
-
-configure_blib_target(engine)
-link_blib_target(engine)
-
-set_target_properties(engine
-    PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+include(create_blib_target)
+create_blib_target(
+    TARGET engine
+    OUTPUT_DIR "${CMAKE_CURRENT_SOURCE_DIR}"
+    OUTPUT_FILE "engine"
+    SOURCES main.cpp InputListener.cpp MainState.cpp RebindState.cpp
 )
 
 # Copy compiled shaders. This step is not needed for top-level targets that set SHADER_PATH

@@ -201,7 +201,7 @@ void ComboBoxComponent::updateOptions() {
         o.text.getTransform().setPosition({tpos.x, tpos.y + y});
 
         o.background.setSize(boxSize);
-        if (i == owner.getMousedOption()) {
+        if (static_cast<int>(i) == owner.getMousedOption()) {
             o.background.setFillColor(
                 sfcol(settings.secondaryFillColor.value_or(sf::Color(80, 80, 250))));
         }
@@ -222,7 +222,7 @@ void ComboBoxComponent::highlightMoused() {
     for (unsigned int i = 0; i < owner.getAllOptions().size(); ++i) {
         Option& o = *(it++);
 
-        if (i == owner.getMousedOption()) {
+        if (static_cast<int>(i) == owner.getMousedOption()) {
             o.background.setFillColor(
                 sfcol(settings.secondaryFillColor.value_or(sf::Color(80, 80, 250))));
         }

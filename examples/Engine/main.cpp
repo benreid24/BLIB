@@ -3,6 +3,7 @@
 #include "MainState.hpp"
 
 #include <BLIB/Engine.hpp>
+#include <BLIB/Game.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
@@ -47,24 +48,33 @@ void configureInput(bl::input::InputSystem& inputSystem) {
     }
 }
 
-int main() {
-    const bl::engine::Settings engineSettings = bl::engine::Settings().withWindowParameters(
-        bl::engine::Settings::WindowParameters()
-            .withVideoMode(sf::VideoMode(800, 600, 32))
-            .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
-            .withTitle("BLIB Engine Example")
-            .withLetterBoxOnResize(true));
-
-    bl::engine::Engine engine(engineSettings);
-    configureInput(engine.inputSystem());
-
+class EngineExample : public bl::game::Game {
     EventListener listener;
-    bl::event::Dispatcher::subscribe(&listener);
 
-    engine.run(MainState::create());
+    bool performEarlyStartup(int, char**) override {
+        bl::event::Dispatcher::subscribe(&listener);
+        return true;
+    }
 
-    // should call this if utilizing the Waiter utility to ensure all threads exit cleanly
-    bl::util::Waiter::unblockAll();
+    bl::engine::Settings createStartupParameters() override {
+        return bl::engine::Settings().withWindowParameters(
+            bl::engine::Settings::WindowParameters()
+                .withVideoMode(sf::VideoMode(800, 600, 32))
+                .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
+                .withTitle("BLIB Engine Example")
+                .withLetterBoxOnResize(true));
+    }
 
-    return 0;
-}
+    bool completeStartup(bl::engine::Engine& engine) override {
+        configureInput(engine.inputSystem());
+        return true;
+    }
+
+    bl::engine::State::Ptr createInitialEngineState() override { return MainState::create(); }
+
+    void startShutdown() override { bl::event::Dispatcher::unsubscribe(&listener); }
+
+    void completeShutdown() override {
+        // noop
+    }
+} globalGameInstance; // this just needs to exist

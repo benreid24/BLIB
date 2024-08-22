@@ -58,7 +58,7 @@ private:
     void invalidate() { scene = nullptr; }
 
     friend class rc::scene::SceneSync;
-    friend class rc::rcom::DrawableBase;
+    friend struct rc::rcom::DrawableBase;
 };
 
 } // namespace com

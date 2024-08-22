@@ -3,6 +3,8 @@ target_sources(BLIB PUBLIC
     Engine.hpp
     Flags.hpp
     FrameStage.hpp
+    Properties.hpp
+    Property.hpp
     Settings.hpp
     State.hpp
     System.hpp

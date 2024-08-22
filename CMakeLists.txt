@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Fix behavior of CMAKE_CXX_STANDARD when targeting macOS.
@@ -11,6 +11,7 @@ endif()
 project(BLIB C CXX)
 
 set(BLIB_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+set(BLIB_PATH ${CMAKE_CURRENT_SOURCE_DIR} PARENT_SCOPE)
 
 # Determine glslc path
 if(APPLE)
