@@ -4,6 +4,7 @@ target_sources(BLIB PRIVATE
 	BatchedShapes2D.cpp
 	BatchedSlideshows.cpp
 	BatchedSprites.cpp
+	Hitbox2D.cpp
 	Mesh.cpp
 	Orientation3D.cpp
 	OverlayScaler.cpp

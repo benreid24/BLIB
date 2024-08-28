@@ -4,6 +4,7 @@ target_sources(BLIB PUBLIC
 	BatchedShapes2D.hpp
 	BatchedSlideshows.hpp
 	BatchedSprites.hpp
+	Hitbox2D.hpp
 	Mesh.hpp
 	Orientation3D.hpp
 	OverlayScaler.hpp
