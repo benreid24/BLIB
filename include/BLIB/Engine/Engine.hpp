@@ -197,6 +197,11 @@ public:
      */
     float getWindowScale() const;
 
+    /**
+     * @brief Returns the mask for the currently running state
+     */
+    StateMask::V getCurrentStateMask() const;
+
 private:
     Worker worker;
     Settings engineSettings;
@@ -246,6 +251,10 @@ inline util::ThreadPool& Engine::threadPool() { return workers; }
 inline util::ThreadPool& Engine::longRunningThreadpool() { return backgroundWorkers; }
 
 inline float Engine::getWindowScale() const { return windowScale; }
+
+inline StateMask::V Engine::getCurrentStateMask() const {
+    return !states.empty() ? states.top()->systemsMask() : StateMask::None;
+}
 
 } // namespace engine
 } // namespace bl

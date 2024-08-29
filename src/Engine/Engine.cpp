@@ -7,6 +7,7 @@
 #include <BLIB/Resources/GarbageCollector.hpp>
 #include <BLIB/Resources/State.hpp>
 #include <BLIB/Systems.hpp>
+#include <BLIB/Systems/MarkedForDeath.hpp>
 #include <SFML/Window.hpp>
 #include <cmath>
 
@@ -27,6 +28,7 @@ Engine::Engine(const Settings& settings)
     systems().registerSystem<sys::VelocitySystem>(FrameStage::Animate,
                                                   StateMask::Running | engine::StateMask::Editor);
     systems().registerSystem<pcl::ParticleSystem>(FrameStage::Update0, StateMask::All);
+    systems().registerSystem<sys::MarkedForDeath>(FrameStage::Update0, StateMask::All);
     bl::event::Dispatcher::subscribe(&input);
 }
 

@@ -5,6 +5,7 @@ target_sources(BLIB PUBLIC
 	BatchedSlideshows.hpp
 	BatchedSprites.hpp
 	Hitbox2D.hpp
+	MarkedForDeath.hpp
 	Mesh.hpp
 	Orientation3D.hpp
 	OverlayScaler.hpp
