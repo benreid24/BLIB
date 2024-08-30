@@ -4,6 +4,7 @@ target_sources(BLIB PUBLIC
 	DescriptorComponentSystem.hpp
 	MarkedForDeath.hpp
 	OverlayScalerSystem.hpp
+	Physics2D.hpp
 	RendererUpdateSystem.hpp
 	RenderSystem.hpp
 	TogglerSystem.hpp
