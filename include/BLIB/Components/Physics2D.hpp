@@ -3,6 +3,7 @@
 
 #include <BLIB/Components/Hitbox2D.hpp>
 #include <BLIB/Components/Transform2D.hpp>
+#include <BLIB/ECS/Entity.hpp>
 #include <box2d/box2d.h>
 
 namespace bl
@@ -25,12 +26,14 @@ public:
      * @brief Creates the physics component. Should not be used directly, use the helper in
      *        sys::Physics2D to add physics simulation to an entity
      *
+     * @param entity The owning entity of this component
      * @param transform The transform of the owning entity
      * @param bodyId The body id from Box2D
      */
-    Physics2D(Transform2D& transform, b2BodyId bodyId);
+    Physics2D(ecs::Entity owner, Transform2D& transform, b2BodyId bodyId);
 
 private:
+    ecs::Entity entity;
     b2BodyId bodyId;
     Transform2D* transform;
 

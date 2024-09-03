@@ -22,6 +22,31 @@ class Physics2D
 , public event::Listener<ecs::event::ComponentRemoved<com::Physics2D>> {
 public:
     /**
+     * @brief Event that is fired when an entity collision begins
+     */
+    struct EntityCollisionBeginEvent {
+        ecs::Entity entityA;
+        ecs::Entity entityB;
+    };
+
+    /**
+     * @brief Event that is fired when an entity collision ends
+     */
+    struct EntityCollisionEndEvent {
+        ecs::Entity entityA;
+        ecs::Entity entityB;
+    };
+
+    /**
+     * @brief Event that is fired when an entity hit event occurs
+     */
+    struct EntityCollisionHitEvent {
+        ecs::Entity entityA;
+        ecs::Entity entityB;
+        b2ContactHitEvent& source;
+    };
+
+    /**
      * @brief Creates the system
      */
     Physics2D();
