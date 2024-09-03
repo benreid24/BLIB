@@ -1,6 +1,7 @@
 #include <BLIB/Systems/Physics2D.hpp>
 
 #include <BLIB/Engine.hpp>
+#include <BLIB/Math.hpp>
 #include <thread>
 #include <vector>
 
@@ -60,13 +61,61 @@ void Physics2D::setGravity(const glm::vec2& g) {
 
 void Physics2D::setLengthUnitScale(float s) { worldToBoxScale = s; }
 
-void Physics2D::init(engine::Engine& engine) {
+bool Physics2D::addPhysicsToEntity(ecs::Entity entity, b2BodyDef bodyDef, b2ShapeDef shapeDef) {
+    auto set = engine->ecs().getComponentSet<ecs::Require<com::Hitbox2D, com::Transform2D>>(entity);
+    if (!set.isValid()) {
+        BL_LOG_ERROR << "Failed to add physics to entity: " << entity;
+        return false;
+    }
+
+    b2BodyId bodyId;
+    const auto createBody = [this, &set, &bodyId, &bodyDef]() -> b2BodyId {
+        const glm::vec2 pos = set.get<com::Transform2D>()->getGlobalPosition() * worldToBoxScale;
+        bodyDef.position.x  = pos.x;
+        bodyDef.position.y  = pos.y;
+        bodyDef.rotation =
+            b2MakeRot(math::degreesToRadians(set.get<com::Transform2D>()->getRotation()));
+        bodyDef.userData = set.get<com::Transform2D>();
+        return b2CreateBody(worldId, &bodyDef);
+    };
+
+    const glm::vec2 origin = set.get<com::Transform2D>()->getOrigin() * worldToBoxScale;
+    switch (set.get<com::Hitbox2D>()->getType()) {
+    case com::Hitbox2D::Circle: {
+        b2Circle circle;
+        circle.center.x = origin.x;
+        circle.center.y = origin.y;
+        circle.radius   = set.get<com::Hitbox2D>()->getRadius();
+        b2CreateCircleShape(createBody(), &shapeDef, &circle);
+    } break;
+
+    case com::Hitbox2D::Rectangle: {
+        const glm::vec2 hsize = set.get<com::Hitbox2D>()->getSize() * worldToBoxScale * 0.5f;
+        const glm::vec2 diff  = hsize - origin;
+        b2Polygon box         = b2MakeOffsetBox(hsize.x, hsize.y, {-diff.x, -diff.y}, 0.f);
+        b2CreatePolygonShape(createBody(), &shapeDef, &box);
+    } break;
+
+    default:
+        BL_LOG_ERROR << "Invalid hitbox type for physics simulation: "
+                     << set.get<com::Hitbox2D>()->getType();
+        return false;
+    }
+
+    engine->ecs().emplaceComponent<com::Physics2D>(entity, *set.get<com::Transform2D>(), bodyId);
+
+    return true;
+}
+
+void Physics2D::init(engine::Engine& e) {
+    engine = &e;
+
     b2WorldDef def = b2DefaultWorldDef();
     def.gravity.x  = gravity.x;
     def.gravity.y  = gravity.y;
     // TODO - set scale in Box2D or just scale here for every object every frame?
 
-    def.userTaskContext = new TaskSet(engine.threadPool());
+    def.userTaskContext = new TaskSet(e.threadPool());
     def.enqueueTask     = &parallelizePhysicsTasks;
     def.finishTask      = &waitPhysicsTasks;
     def.workerCount     = MaxWorkers;
@@ -78,6 +127,10 @@ void Physics2D::update(std::mutex&, float dt, float, float, float) {
     b2World_Step(worldId, dt, 4);
     // TODO - read move events and update transform positions
     // TODO - read collision events and dispatch them
+}
+
+void Physics2D::observe(const ecs::event::ComponentRemoved<com::Physics2D>& event) {
+    b2DestroyBody(event.component.bodyId);
 }
 
 } // namespace sys

@@ -8,6 +8,7 @@ target_sources(BLIB PRIVATE
 	Mesh.cpp
 	Orientation3D.cpp
 	OverlayScaler.cpp
+	Physics2D.cpp
 	Shape2D.cpp
 	Slideshow.cpp
 	Sprite.cpp

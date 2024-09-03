@@ -9,6 +9,7 @@ target_sources(BLIB PUBLIC
 	Mesh.hpp
 	Orientation3D.hpp
 	OverlayScaler.hpp
+	Physics2D.hpp
 	Shape2D.hpp
 	Slideshow.hpp
 	Sprite.hpp
