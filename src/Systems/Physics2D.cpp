@@ -75,7 +75,8 @@ bool Physics2D::addPhysicsToEntity(ecs::Entity entity, b2BodyDef bodyDef, b2Shap
         bodyDef.position.y  = pos.y;
         bodyDef.rotation =
             b2MakeRot(math::degreesToRadians(set.get<com::Transform2D>()->getRotation()));
-        return b2CreateBody(worldId, &bodyDef);
+        bodyId = b2CreateBody(worldId, &bodyDef);
+        return bodyId;
     };
 
     const glm::vec2 origin = set.get<com::Transform2D>()->getOrigin() * worldToBoxScale;
@@ -91,7 +92,7 @@ bool Physics2D::addPhysicsToEntity(ecs::Entity entity, b2BodyDef bodyDef, b2Shap
     case com::Hitbox2D::Rectangle: {
         const glm::vec2 hsize = set.get<com::Hitbox2D>()->getSize() * worldToBoxScale * 0.5f;
         const glm::vec2 diff  = hsize - origin;
-        b2Polygon box         = b2MakeOffsetBox(hsize.x, hsize.y, {-diff.x, -diff.y}, 0.f);
+        b2Polygon box         = b2MakeOffsetBox(hsize.x, hsize.y, {diff.x, diff.y}, 0.f);
         b2CreatePolygonShape(createBody(), &shapeDef, &box);
     } break;
 
@@ -102,7 +103,7 @@ bool Physics2D::addPhysicsToEntity(ecs::Entity entity, b2BodyDef bodyDef, b2Shap
     }
 
     engine->ecs().emplaceComponent<com::Physics2D>(
-        entity, entity, *set.get<com::Transform2D>(), bodyId);
+        entity, *this, entity, *set.get<com::Transform2D>(), bodyId);
 
     return true;
 }
@@ -137,26 +138,25 @@ void Physics2D::update(std::mutex&, float dt, float, float, float) {
         pc.transform->setRotation(math::radiansToDegrees(b2Rot_GetAngle(event.transform.q)));
     }
 
+    const auto getComponent = [this](b2ShapeId shape) -> com::Physics2D& {
+        const b2BodyId body = b2Shape_GetBody(shape);
+        return *static_cast<com::Physics2D*>(b2Body_GetUserData(body));
+    };
+
     b2ContactEvents contacts = b2World_GetContactEvents(worldId);
     for (int i = 0; i < contacts.beginCount; ++i) {
-        com::Physics2D& a =
-            *static_cast<com::Physics2D*>(b2Shape_GetUserData(contacts.beginEvents[i].shapeIdA));
-        com::Physics2D& b =
-            *static_cast<com::Physics2D*>(b2Shape_GetUserData(contacts.beginEvents[i].shapeIdB));
+        com::Physics2D& a = getComponent(contacts.beginEvents[i].shapeIdA);
+        com::Physics2D& b = getComponent(contacts.beginEvents[i].shapeIdB);
         event::Dispatcher::dispatch<EntityCollisionBeginEvent>({a.entity, b.entity});
     }
     for (int i = 0; i < contacts.endCount; ++i) {
-        com::Physics2D& a =
-            *static_cast<com::Physics2D*>(b2Shape_GetUserData(contacts.endEvents[i].shapeIdA));
-        com::Physics2D& b =
-            *static_cast<com::Physics2D*>(b2Shape_GetUserData(contacts.endEvents[i].shapeIdB));
+        com::Physics2D& a = getComponent(contacts.endEvents[i].shapeIdA);
+        com::Physics2D& b = getComponent(contacts.endEvents[i].shapeIdB);
         event::Dispatcher::dispatch<EntityCollisionEndEvent>({a.entity, b.entity});
     }
     for (int i = 0; i < contacts.hitCount; ++i) {
-        com::Physics2D& a =
-            *static_cast<com::Physics2D*>(b2Shape_GetUserData(contacts.hitEvents[i].shapeIdA));
-        com::Physics2D& b =
-            *static_cast<com::Physics2D*>(b2Shape_GetUserData(contacts.hitEvents[i].shapeIdB));
+        com::Physics2D& a = getComponent(contacts.hitEvents[i].shapeIdA);
+        com::Physics2D& b = getComponent(contacts.hitEvents[i].shapeIdB);
         event::Dispatcher::dispatch<EntityCollisionHitEvent>(
             {a.entity, b.entity, contacts.hitEvents[i]});
     }
