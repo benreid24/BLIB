@@ -23,14 +23,18 @@ Engine::Engine(const Settings& settings)
 , entityRegistry()
 , renderingSystem(*this, renderWindow)
 , input(*this) {
-    players.reserve(4);
     settings.syncToConfig();
+
+    players.reserve(4);
+    addPlayer();
+
     systems().registerSystem<sys::TogglerSystem>(FrameStage::Update0, StateMask::All);
     systems().registerSystem<sys::VelocitySystem>(FrameStage::Animate,
                                                   StateMask::Running | engine::StateMask::Editor);
     systems().registerSystem<pcl::ParticleSystem>(FrameStage::Update0, StateMask::All);
     systems().registerSystem<sys::MarkedForDeath>(FrameStage::Update0, StateMask::All);
     systems().registerSystem<sys::Physics2D>(FrameStage::Update1, StateMask::Running);
+
     bl::event::Dispatcher::subscribe(&input);
 }
 

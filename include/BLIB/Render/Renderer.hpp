@@ -44,27 +44,12 @@ public:
     enum struct SplitscreenDirection { TopAndBottom, LeftAndRight };
 
     /**
-     * @brief Adds an observer to the renderer. By default there is a single observer already. Call
-     *        this for splitscreen
-     *
-     * @return A reference to the new observer
-     */
-    Observer& addObserver();
-
-    /**
      * @brief Returns the observer at the given index
      *
      * @param i The index of the observer to get
      * @return The observer at the given index
      */
     Observer& getObserver(unsigned int i = 0);
-
-    /**
-     * @brief Removes the observer at the given index
-     *
-     * @param i The index of the observer to remove
-     */
-    void removeObserver(unsigned int i = 4);
 
     /**
      * @brief Returns the number of observers in the renderer, excluding the common observer
@@ -262,6 +247,8 @@ private:
     void update(float dt);
     void renderFrame();
 
+    Observer& addObserver();
+    void removeObserver(unsigned int i);
     void assignObserverRegions();
 
     friend class engine::Engine;

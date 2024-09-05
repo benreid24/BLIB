@@ -7,7 +7,10 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
-void configureInput(bl::input::InputSystem& inputSystem) {
+void configureInput(bl::engine::Engine& engine) {
+    bl::input::InputSystem& inputSystem = engine.inputSystem();
+    bl::input::Actor& user              = engine.getPlayer().getInputActor();
+
     // register our controls
     inputSystem.setControlCount(Control::Count);
     inputSystem.configureMovementControl(Control::Movement);
@@ -16,9 +19,6 @@ void configureInput(bl::input::InputSystem& inputSystem) {
     inputSystem.configureTriggerControl(Control::RebindMovementVert);
     inputSystem.configureTriggerControl(Control::Back);
     inputSystem.configureTriggerControl(Control::Close);
-
-    // create an actor for our user
-    bl::input::Actor& user = inputSystem.addActor();
 
     // keyboard and mouse default config
     user.getKBMMovementUpControl(Control::Movement).triggerOnKey(sf::Keyboard::W);
@@ -66,7 +66,7 @@ class EngineExample : public bl::game::Game {
     }
 
     bool completeStartup(bl::engine::Engine& engine) override {
-        configureInput(engine.inputSystem());
+        configureInput(engine);
         return true;
     }
 

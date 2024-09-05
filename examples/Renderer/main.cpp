@@ -84,7 +84,7 @@ public:
         sprite.addToScene(scene2d, bl::rc::UpdateSpeed::Static);
 
         // create 3d scene for observer 2
-        bl::rc::Observer& p2   = engine.renderer().addObserver();
+        bl::rc::Observer& p2   = engine.addPlayer().getRenderObserver();
         bl::rc::SceneRef scene = p2.pushScene<bl::rc::scene::Scene3D>();
 
         // create camera for observer 2
@@ -176,7 +176,7 @@ public:
         texture.release();
         engine.renderer().texturePool().releaseUnused();
         engine.renderer().getObserver().popScene();
-        engine.renderer().removeObserver(1);
+        engine.removePlayer(1);
         engine.ecs().destroyAllEntities();
     }
 

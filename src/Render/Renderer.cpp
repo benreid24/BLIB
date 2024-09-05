@@ -80,9 +80,9 @@ void Renderer::initialize() {
         ++i;
     });
 
-    // initialize observers
-    addObserver();
+    // initialize common observer
     commonObserver.assignRegion(window.getSfWindow().getSize(), renderRegion, 1, 0, true);
+    assignObserverRegions();
 
     // begin ECS sync
     bl::event::Dispatcher::subscribe(&sceneSync);
@@ -209,7 +209,7 @@ Observer& Renderer::addObserver() {
 #endif
 
     observers.emplace_back(new Observer(engine, *this, assetFactory, false, false));
-    assignObserverRegions();
+    if (state.device) { assignObserverRegions(); }
     return *observers.back();
 }
 
