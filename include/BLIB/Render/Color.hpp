@@ -4,8 +4,10 @@
 #include <BLIB/Serialization/Binary/Serializer.hpp>
 #include <BLIB/Serialization/JSON/Serializer.hpp>
 #include <SFML/Graphics/Color.hpp>
+#include <cstdint>
 #include <glm/glm.hpp>
 #include <initializer_list>
+#include <stdexcept>
 
 namespace bl
 {
@@ -144,6 +146,73 @@ private:
 };
 
 } // namespace rc
+
+namespace serial
+{
+namespace binary
+{
+template<>
+struct Serializer<rc::Color> {
+    using ChannelSerial = Serializer<std::uint8_t>;
+
+    static bool serialize(OutputStream& output, const rc::Color& v) {
+        const sf::Color col = v.toSfColor();
+        return ChannelSerial::serialize(output, col.r) && ChannelSerial::serialize(output, col.g) &&
+               ChannelSerial::serialize(output, col.b) && ChannelSerial::serialize(output, col.a);
+    }
+
+    static bool deserialize(InputStream& input, rc::Color& v) {
+        std::uint8_t r, g, b, a;
+        if (!ChannelSerial::deserialize(input, r) && ChannelSerial::deserialize(input, g) &&
+            ChannelSerial::deserialize(input, b) && ChannelSerial::deserialize(input, a)) {
+            return false;
+        }
+
+        v = sf::Color(r, g, b, a);
+        return true;
+    }
+
+    static std::uint32_t size(const rc::Color& v) { return ChannelSerial::size(0) * 4; }
+};
+} // namespace binary
+
+namespace json
+{
+template<>
+struct Serializer<rc::Color> {
+    using VecSerial = Serializer<glm::vec4>;
+
+    static Value serialize(const rc::Color& v) { return VecSerial::serialize(v.toVec4()); }
+
+    static void serializeInto(const std::string& key, Group& g, const rc::Color& val) {
+        priv::Serializer<rc::Color>::serializeInto(g, key, val, &serialize);
+    }
+
+    static bool deserialize(rc::Color& result, const Value& val) {
+        glm::vec4 parsed;
+        if (!VecSerial::deserialize(parsed, val)) { return false; }
+        result = parsed;
+        return true;
+    }
+
+    static bool deserializeFrom(const Value& val, const std::string& key, rc::Color& result) {
+        return priv::Serializer<rc::Color>::deserializeFrom(val, key, result, &deserialize);
+    }
+
+    static bool deserializeStream(std::istream& stream, rc::Color& result) {
+        json::Loader loader(stream);
+        Value val(0);
+        if (!loader.loadValue(val)) return false;
+        return deserialize(result, val);
+    }
+
+    static bool serializeStream(std::ostream& stream, const rc::Color& value, unsigned int tab,
+                                unsigned int indent) {
+        return VecSerial::serializeStream(stream, value.toVec4(), tab, indent);
+    }
+};
+} // namespace json
+} // namespace serial
 } // namespace bl
 
 #endif
