@@ -4,6 +4,7 @@
 #include <BLIB/ECS/Registry.hpp>
 #include <BLIB/Engine/Events.hpp>
 #include <BLIB/Engine/Flags.hpp>
+#include <BLIB/Engine/Player.hpp>
 #include <BLIB/Engine/Settings.hpp>
 #include <BLIB/Engine/State.hpp>
 #include <BLIB/Engine/Systems.hpp>
@@ -44,13 +45,11 @@ public:
 
     /**
      * @brief Destroy the Engine object
-     *
      */
     ~Engine();
 
     /**
      * @brief Returns a reference to the engine wide entity registry
-     *
      */
     ecs::Registry& ecs();
 
@@ -95,7 +94,6 @@ public:
 
     /**
      * @brief Returns the settings the engine is using
-     *
      */
     const Settings& settings() const;
 
@@ -117,14 +115,12 @@ public:
 
     /**
      * @brief Returns the flags that can be set to control Engine behavior
-     *
      */
     Flags& flags();
 
     /**
      * @brief Returns a reference to the window the engine has created and is managing. The window
      *        is created when run() is called
-     *
      */
     EngineWindow& window();
 
@@ -168,7 +164,6 @@ public:
 
     /**
      * @brief Convenience method to set the PopState flag
-     *
      */
     void popState();
 
@@ -202,11 +197,32 @@ public:
      */
     StateMask::V getCurrentStateMask() const;
 
+    /**
+     * @brief Fetches the given player
+     *
+     * @param i The index of the player to fetch
+     * @return The player at the given index
+     */
+    Player& getPlayer(unsigned int i = 0);
+
+    /**
+     * @brief Adds a new player and returns it
+     */
+    Player& addPlayer();
+
+    /**
+     * @brief Removes the given player, or the last player if the given index is negative
+     *
+     * @param i The index of the player to remove or -1 to remove the last player
+     */
+    void removePlayer(int i = -1);
+
 private:
     Worker worker;
     Settings engineSettings;
     Flags engineFlags;
     std::stack<State::Ptr> states;
+    std::vector<Player> players;
     State::Ptr newState;
     float timeScale;
     float windowScale;
@@ -255,6 +271,8 @@ inline float Engine::getWindowScale() const { return windowScale; }
 inline StateMask::V Engine::getCurrentStateMask() const {
     return !states.empty() ? states.top()->systemsMask() : StateMask::None;
 }
+
+inline Player& Engine::getPlayer(unsigned int i) { return players[i]; }
 
 } // namespace engine
 } // namespace bl

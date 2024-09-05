@@ -23,6 +23,7 @@ Engine::Engine(const Settings& settings)
 , entityRegistry()
 , renderingSystem(*this, renderWindow)
 , input(*this) {
+    players.reserve(4);
     settings.syncToConfig();
     systems().registerSystem<sys::TogglerSystem>(FrameStage::Update0, StateMask::All);
     systems().registerSystem<sys::VelocitySystem>(FrameStage::Animate,
@@ -445,6 +446,22 @@ void Engine::postStateChange(State::Ptr& prev) {
 
 pcl::ParticleSystem& Engine::particleSystem() {
     return ecsSystems.getSystem<pcl::ParticleSystem>();
+}
+
+Player& Engine::addPlayer() {
+    auto& observer = renderingSystem.addObserver();
+    auto& actor    = input.addActor();
+    auto& player   = players.emplace_back(Player(&observer, &actor));
+    bl::event::Dispatcher::dispatch<event::PlayerAdded>({player});
+    return player;
+}
+
+void Engine::removePlayer(int i) {
+    const unsigned int j = i >= 0 ? i : players.size() - 1;
+    bl::event::Dispatcher::dispatch<event::PlayerRemoved>({players[j]});
+    renderingSystem.removeObserver(j);
+    input.removeActor(j);
+    players.erase(players.begin() + j);
 }
 
 } // namespace engine

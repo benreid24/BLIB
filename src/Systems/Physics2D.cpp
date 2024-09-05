@@ -52,7 +52,9 @@ Physics2D::Physics2D()
 : worldToBoxScale(1.f)
 , gravity(0.f, 0.f) {}
 
-Physics2D::~Physics2D() { b2DestroyWorld(worldId); }
+Physics2D::~Physics2D() {
+    if (b2World_IsValid(worldId)) { b2DestroyWorld(worldId); }
+}
 
 void Physics2D::setGravity(const glm::vec2& g) {
     gravity = g;
