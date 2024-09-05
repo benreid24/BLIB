@@ -1,4 +1,5 @@
 target_sources(BLIB PUBLIC
+    Color.hpp
     Config.hpp
     Observer.hpp
     Renderer.hpp
