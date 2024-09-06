@@ -2,7 +2,6 @@
 
 #include <BLIB/Cameras/OverlayCamera.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
-#include <BLIB/Render/Primitives/Color.hpp>
 #include <Interfaces/GUI/Data/Font.hpp>
 
 namespace bl
@@ -54,8 +53,8 @@ void BasicTooltipProvider::dismissTooltip() { box.setHidden(true); }
 
 void BasicTooltipProvider::doCreate(engine::Engine& engine) {
     box.create(engine, {100.f, 100.f});
-    box.setFillColor(sfcol(sf::Color(230, 230, 170)));
-    box.setOutlineColor(sfcol(sf::Color::Black));
+    box.setFillColor(sf::Color(230, 230, 170));
+    box.setOutlineColor(sf::Color::Black);
     box.setOutlineThickness(1.f);
     box.getTransform().setDepth(cam::OverlayCamera::MinDepth);
     box.setHidden(true);

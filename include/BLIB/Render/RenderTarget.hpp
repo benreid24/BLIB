@@ -3,6 +3,7 @@
 
 #include <BLIB/Cameras/Camera.hpp>
 #include <BLIB/Cameras/OverlayCamera.hpp>
+#include <BLIB/Render/Color.hpp>
 #include <BLIB/Render/Graph/AssetPool.hpp>
 #include <BLIB/Render/Graph/RenderGraph.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
@@ -145,7 +146,7 @@ public:
      *
      * @param color The color to clear with
      */
-    void setClearColor(const glm::vec4& color);
+    void setClearColor(const Color& color);
 
     /**
      * @brief Returns a raw pointer to the clear values for the render target

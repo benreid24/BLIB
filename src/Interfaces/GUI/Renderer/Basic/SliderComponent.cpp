@@ -1,7 +1,6 @@
 #include <BLIB/Interfaces/GUI/Renderer/Basic/SliderComponent.hpp>
 
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
-#include <BLIB/Render/Primitives/Color.hpp>
 
 namespace bl
 {
@@ -20,8 +19,8 @@ void SliderComponent::onElementUpdated() {
 
 void SliderComponent::onRenderSettingChange() {
     const RenderSettings& settings = getOwnerAs<Element>().getRenderSettings();
-    box.setFillColor(bl::sfcol(settings.fillColor.value_or(sf::Color(120, 120, 120))));
-    box.setOutlineColor(bl::sfcol(settings.outlineColor.value_or(sf::Color(85, 85, 85))));
+    box.setFillColor(settings.fillColor.value_or(sf::Color(120, 120, 120)));
+    box.setOutlineColor(settings.outlineColor.value_or(sf::Color(85, 85, 85)));
     box.setOutlineThickness(-settings.outlineThickness.value_or(1.f));
 }
 

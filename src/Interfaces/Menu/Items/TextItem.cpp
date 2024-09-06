@@ -1,7 +1,5 @@
 #include <BLIB/Interfaces/Menu/Items/TextItem.hpp>
 
-#include <BLIB/Render/Primitives/Color.hpp>
-
 namespace bl
 {
 namespace menu
@@ -20,7 +18,7 @@ TextItem::TextItem(const std::string& t, const sf::VulkanFont& font, const sf::C
 , style(style) {}
 
 void TextItem::doCreate(engine::Engine& engine) {
-    text.create(engine, font, string, fontSize, sfcol(color), style);
+    text.create(engine, font, string, fontSize, color, style);
 }
 
 void TextItem::doSceneAdd(rc::Scene* s) { text.addToScene(s, rc::UpdateSpeed::Static); }

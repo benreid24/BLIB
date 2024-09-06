@@ -259,8 +259,8 @@ void Renderer::setSplitscreenDirection(SplitscreenDirection d) {
     assignObserverRegions();
 }
 
-void Renderer::setClearColor(const glm::vec3& color) {
-    clearColors[0].color = {{color.x, color.y, color.z, 1.f}};
+void Renderer::setClearColor(const Color& color) {
+    clearColors[0].color = {{color.r(), color.g(), color.b(), 1.f}};
 }
 
 vk::RenderTexture::Handle Renderer::createRenderTexture(const glm::u32vec2& size,

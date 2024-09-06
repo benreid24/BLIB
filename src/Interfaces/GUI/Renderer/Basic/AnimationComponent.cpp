@@ -1,7 +1,6 @@
 #include <BLIB/Interfaces/GUI/Renderer/Basic/AnimationComponent.hpp>
 
 #include <BLIB/Interfaces/GUI/Elements/Animation.hpp>
-#include <BLIB/Render/Primitives/Color.hpp>
 
 namespace bl
 {

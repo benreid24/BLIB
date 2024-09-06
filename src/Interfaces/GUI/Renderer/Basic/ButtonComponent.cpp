@@ -1,7 +1,6 @@
 #include <BLIB/Interfaces/GUI/Renderer/Basic/ButtonComponent.hpp>
 
 #include <BLIB/Interfaces/GUI/Elements/Button.hpp>
-#include <BLIB/Render/Primitives/Color.hpp>
 
 namespace bl
 {
@@ -20,8 +19,8 @@ void ButtonComponent::onElementUpdated() {
 
 void ButtonComponent::onRenderSettingChange() {
     const RenderSettings& settings = getOwnerAs<Element>().getRenderSettings();
-    box.setFillColor(bl::sfcol(settings.fillColor.value_or(sf::Color(85, 85, 85))));
-    box.setOutlineColor(bl::sfcol(settings.outlineColor.value_or(sf::Color::Black)));
+    box.setFillColor(settings.fillColor.value_or(sf::Color(85, 85, 85)));
+    box.setOutlineColor(settings.outlineColor.value_or(sf::Color::Black));
     box.setOutlineThickness(-settings.outlineThickness.value_or(Button::DefaultOutlineThickness));
 }
 

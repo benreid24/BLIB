@@ -117,6 +117,26 @@ public:
     }
 
     /**
+     * @brief Returns the normalized red color channel
+     */
+    float r() const { return color.x; }
+
+    /**
+     * @brief Returns the normalized green color channel
+     */
+    float g() const { return color.y; }
+
+    /**
+     * @brief Returns the normalized blue color channel
+     */
+    float b() const { return color.z; }
+
+    /**
+     * @brief Returns the normalized alpha color channel
+     */
+    float a() const { return color.w; }
+
+    /**
      * @brief Updates the color from a glm::vec4
      *
      * @param newColor The new color to be
@@ -163,8 +183,8 @@ struct Serializer<rc::Color> {
 
     static bool deserialize(InputStream& input, rc::Color& v) {
         std::uint8_t r, g, b, a;
-        if (!ChannelSerial::deserialize(input, r) && ChannelSerial::deserialize(input, g) &&
-            ChannelSerial::deserialize(input, b) && ChannelSerial::deserialize(input, a)) {
+        if (!ChannelSerial::deserialize(input, r) || !ChannelSerial::deserialize(input, g) ||
+            !ChannelSerial::deserialize(input, b) || !ChannelSerial::deserialize(input, a)) {
             return false;
         }
 
@@ -172,7 +192,7 @@ struct Serializer<rc::Color> {
         return true;
     }
 
-    static std::uint32_t size(const rc::Color& v) { return ChannelSerial::size(0) * 4; }
+    static std::uint32_t size(const rc::Color&) { return ChannelSerial::size(0) * 4; }
 };
 } // namespace binary
 

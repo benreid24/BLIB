@@ -1,7 +1,6 @@
 #include <BLIB/Interfaces/GUI/Renderer/Basic/ScrollAreaComponent.hpp>
 
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
-#include <BLIB/Render/Primitives/Color.hpp>
 
 namespace bl
 {
@@ -20,8 +19,8 @@ void ScrollAreaComponent::onElementUpdated() {
 
 void ScrollAreaComponent::onRenderSettingChange() {
     const RenderSettings& settings = getOwnerAs<Element>().getRenderSettings();
-    box.setFillColor(bl::sfcol(settings.fillColor.value_or(sf::Color::Transparent)));
-    box.setOutlineColor(bl::sfcol(settings.outlineColor.value_or(sf::Color::Transparent)));
+    box.setFillColor(settings.fillColor.value_or(sf::Color::Transparent));
+    box.setOutlineColor(settings.outlineColor.value_or(sf::Color::Transparent));
     box.setOutlineThickness(-settings.outlineThickness.value_or(0.f));
 }
 

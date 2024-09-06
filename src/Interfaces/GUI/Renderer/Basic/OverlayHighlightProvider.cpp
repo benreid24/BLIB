@@ -2,7 +2,6 @@
 
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
-#include <BLIB/Render/Primitives/Color.hpp>
 
 namespace bl
 {
@@ -23,10 +22,10 @@ void OverlayHighlightProvider::notifyUIState(Element* element, rdr::Component::U
 
             switch (state) {
             case rdr::Component::UIState::Highlighted:
-                cover.setFillColor(sfcol(sf::Color(255, 255, 255, 100)));
+                cover.setFillColor(sf::Color(255, 255, 255, 100));
                 break;
             case rdr::Component::UIState::Pressed:
-                cover.setFillColor(sfcol(sf::Color(30, 30, 30, 100)));
+                cover.setFillColor(sf::Color(30, 30, 30, 100));
                 break;
             default:
                 cover.setHidden(true);

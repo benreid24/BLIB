@@ -96,7 +96,7 @@ void Sprite::setTexture(const rc::res::TextureRef& txtr, bool reset) {
     }
 }
 
-void Sprite::setColor(const glm::vec4& color) {
+void Sprite::setColor(const rc::Color& color) {
     for (auto& v : buffer.vertices()) { v.color = color; }
     if (buffer.vertexCount() > 0) {
         buffer.queueTransfer(rc::tfr::Transferable::SyncRequirement::Immediate);

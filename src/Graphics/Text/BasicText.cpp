@@ -105,12 +105,12 @@ void BasicText::setStyle(std::uint32_t s) {
     owner.queueCommit();
 }
 
-void BasicText::setFillColor(const glm::vec4& c) {
+void BasicText::setFillColor(const rc::Color& c) {
     fillColor = c;
     owner.queueCommit();
 }
 
-void BasicText::setOutlineColor(const glm::vec4& c) {
+void BasicText::setOutlineColor(const rc::Color& c) {
     outlineColor = c;
     owner.queueCommit();
 }

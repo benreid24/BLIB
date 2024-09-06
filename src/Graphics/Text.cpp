@@ -20,7 +20,7 @@ Text::~Text() {
 }
 
 void Text::create(engine::Engine& engine, const sf::VulkanFont& f, const sf::String& content,
-                  unsigned int fontSize, const glm::vec4& color, std::uint32_t style) {
+                  unsigned int fontSize, const rc::Color& color, std::uint32_t style) {
     systems = &engine.systems();
     font    = &f;
     queueCommit();
@@ -40,7 +40,7 @@ void Text::create(engine::Engine& engine, const sf::VulkanFont& f, const sf::Str
 }
 
 txt::BasicText& Text::addSection(const sf::String& content, unsigned int fontSize,
-                                 const glm::vec4& color, std::uint32_t style) {
+                                 const rc::Color& color, std::uint32_t style) {
     txt::BasicText& t = sections.emplace_back(*this);
     t.setString(content);
     t.setFillColor(color);

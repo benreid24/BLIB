@@ -100,7 +100,7 @@ public:
      *
      * @param color The color to multiply the texture by
      */
-    void setColor(const sf::Color& color);
+    void setColor(const rc::Color& color);
 
     /**
      * @brief Helper method to set the scale so that the entity is a certain size

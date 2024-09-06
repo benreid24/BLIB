@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_RENDERER_HPP
 #define BLIB_RENDER_RENDERER_HPP
 
+#include <BLIB/Render/Color.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp>
 #include <BLIB/Render/Graph/AssetFactory.hpp>
 #include <BLIB/Render/Graph/Strategy.hpp>
@@ -171,7 +172,7 @@ public:
      *
      * @param color The color to clear with
      */
-    void setClearColor(const glm::vec3& color);
+    void setClearColor(const Color& color);
 
     /**
      * @brief Replaces the current strategy with a new one of type T. Default is

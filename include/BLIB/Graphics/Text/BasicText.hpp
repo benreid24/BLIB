@@ -4,7 +4,6 @@
 #include <BLIB/Components/Mesh.hpp>
 #include <BLIB/Graphics/Drawable.hpp>
 #include <BLIB/Graphics/Text/VulkanFont.hpp>
-#include <BLIB/Render/Primitives/Color.hpp>
 #include <BLIB/Render/Primitives/Vertex.hpp>
 #include <BLIB/Resources.hpp>
 #include <SFML/Graphics/Font.hpp>
@@ -46,12 +45,12 @@ public:
     /**
      * @brief Returns the string that will be rendered
      */
-    constexpr const sf::String& getString() const;
+    const sf::String& getString() const;
 
     /**
      * @brief Returns the string that will be rendered, including newlines added for wrapping
      */
-    constexpr const sf::String& getWordWrappedString() const;
+    const sf::String& getWordWrappedString() const;
 
     /**
      * @brief Sets the style of the text. See sf::Text::Style
@@ -63,45 +62,31 @@ public:
     /**
      * @brief Returns the style of the rendered text
      */
-    constexpr std::uint32_t getStyle() const;
+    std::uint32_t getStyle() const;
 
     /**
      * @brief Sets the color of the text
      *
      * @param color The color of the rendered text
      */
-    void setFillColor(const glm::vec4& color);
-
-    /**
-     * @brief Sets the color of the text
-     *
-     * @param color The color of the rendered text
-     */
-    void setFillColor(const sf::Color& color) { setFillColor(sfcol(color)); }
+    void setFillColor(const rc::Color& color);
 
     /**
      * @brief Returns the color of the text
      */
-    constexpr const glm::vec4& getFillColor() const;
+    const rc::Color& getFillColor() const;
 
     /**
      * @brief Sets the color of the outline around the text
      *
      * @param color The color of the outline if the thickness is greater than 0
      */
-    void setOutlineColor(const glm::vec4& color);
-    /**
-     * @brief Sets the color of the outline around the text
-     *
-     * @param color The color of the outline if the thickness is greater than 0
-     */
-
-    void setOutlineColor(const sf::Color& color) { setOutlineColor(sfcol(color)); }
+    void setOutlineColor(const rc::Color& color);
 
     /**
      * @brief Returns the color of the text outline
      */
-    constexpr const glm::vec4& getOutlineColor() const;
+    const rc::Color& getOutlineColor() const;
 
     /**
      * @brief Sets the character size of the text
@@ -113,7 +98,7 @@ public:
     /**
      * @brief Returns the character size of the text
      */
-    constexpr unsigned int getCharacterSize() const;
+    unsigned int getCharacterSize() const;
 
     /**
      * @brief Set the outline thickness in pixels
@@ -125,7 +110,7 @@ public:
     /**
      * @brief Returns the outline thickness of the text in pixels
      */
-    constexpr unsigned int getOutlineThickness() const;
+    unsigned int getOutlineThickness() const;
 
     /**
      * @brief Returns the width of glyphs when using the given font
@@ -173,8 +158,8 @@ private:
     sf::String content;
     sf::String wordWrappedContent;
     std::uint32_t style;
-    glm::vec4 fillColor;
-    glm::vec4 outlineColor;
+    rc::Color fillColor;
+    rc::Color outlineColor;
     unsigned int fontSize;
     unsigned int outlineThickness;
     float letterSpacingFactor;
@@ -196,21 +181,19 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr const sf::String& BasicText::getString() const { return content; }
+inline const sf::String& BasicText::getString() const { return content; }
 
-inline constexpr const sf::String& BasicText::getWordWrappedString() const {
-    return wordWrappedContent;
-}
+inline const sf::String& BasicText::getWordWrappedString() const { return wordWrappedContent; }
 
-inline constexpr std::uint32_t BasicText::getStyle() const { return style; }
+inline std::uint32_t BasicText::getStyle() const { return style; }
 
-inline constexpr const glm::vec4& BasicText::getFillColor() const { return fillColor; }
+inline const rc::Color& BasicText::getFillColor() const { return fillColor; }
 
-inline constexpr const glm::vec4& BasicText::getOutlineColor() const { return outlineColor; }
+inline const rc::Color& BasicText::getOutlineColor() const { return outlineColor; }
 
-inline constexpr unsigned int BasicText::getCharacterSize() const { return fontSize; }
+inline unsigned int BasicText::getCharacterSize() const { return fontSize; }
 
-inline constexpr unsigned int BasicText::getOutlineThickness() const { return outlineThickness; }
+inline unsigned int BasicText::getOutlineThickness() const { return outlineThickness; }
 
 inline const sf::FloatRect& BasicText::getBounds() const { return cachedBounds; }
 

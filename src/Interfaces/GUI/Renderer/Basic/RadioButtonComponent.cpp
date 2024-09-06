@@ -1,7 +1,6 @@
 #include <BLIB/Interfaces/GUI/Renderer/Basic/RadioButtonComponent.hpp>
 
 #include <BLIB/Interfaces/GUI/Elements/RadioButton.hpp>
-#include <BLIB/Render/Primitives/Color.hpp>
 
 namespace bl
 {
@@ -22,11 +21,11 @@ void RadioButtonComponent::onElementUpdated() {
 void RadioButtonComponent::onRenderSettingChange() {
     const RadioButton& owner       = getOwnerAs<RadioButton>();
     const RenderSettings& settings = owner.getRenderSettings();
-    circle.setFillColor(bl::sfcol(settings.fillColor.value_or(sf::Color::White)));
-    circle.setOutlineColor(bl::sfcol(settings.outlineColor.value_or(sf::Color::Black)));
+    circle.setFillColor(settings.fillColor.value_or(sf::Color::White));
+    circle.setOutlineColor(settings.outlineColor.value_or(sf::Color::Black));
     circle.setOutlineThickness(-settings.outlineThickness.value_or(1.f));
     circle.setRadius(owner.getToggleSize() * 0.5f);
-    fill.setFillColor(bl::sfcol(settings.outlineColor.value_or(sf::Color::Black)));
+    fill.setFillColor(settings.outlineColor.value_or(sf::Color::Black));
 }
 
 ecs::Entity RadioButtonComponent::getEntity() const { return dummy.entity(); }

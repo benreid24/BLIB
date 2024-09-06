@@ -1,7 +1,6 @@
 #include <BLIB/Interfaces/GUI/Renderer/Basic/SeparatorComponent.hpp>
 
 #include <BLIB/Interfaces/GUI/Elements/Separator.hpp>
-#include <BLIB/Render/Primitives/Color.hpp>
 
 namespace bl
 {
@@ -20,7 +19,7 @@ void SeparatorComponent::onElementUpdated() {
 
 void SeparatorComponent::onRenderSettingChange() {
     const RenderSettings& settings = getOwnerAs<Separator>().getRenderSettings();
-    sep.setFillColor(bl::sfcol(settings.fillColor.value_or(sf::Color::Black)));
+    sep.setFillColor(settings.fillColor.value_or(sf::Color::Black));
 }
 
 ecs::Entity SeparatorComponent::getEntity() const { return sep.entity(); }

@@ -2,7 +2,6 @@
 
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Canvas.hpp>
-#include <BLIB/Render/Primitives/Color.hpp>
 
 namespace bl
 {
@@ -31,7 +30,7 @@ void CanvasComponent::onElementUpdated() {
 
 void CanvasComponent::onRenderSettingChange() {
     Canvas& owner = getOwnerAs<Canvas>();
-    texture->setClearColor(sfcol(owner.getClearColor()));
+    texture->setClearColor(owner.getClearColor());
 }
 
 ecs::Entity CanvasComponent::getEntity() const { return img.entity(); }
@@ -47,7 +46,7 @@ void CanvasComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
         texture->pushScene(owner.getScene());
         if (owner.getCamera()) { texture->setCamera(std::move(owner.getCamera())); }
     }
-    texture->setClearColor(sfcol(owner.getClearColor()));
+    texture->setClearColor(owner.getClearColor());
 
     img.create(engine, texture->getTexture());
 }

@@ -1,7 +1,5 @@
 #include <BLIB/Interfaces/Menu/Items/ToggleTextItem.hpp>
 
-#include <BLIB/Render/Primitives/Color.hpp>
-
 namespace bl
 {
 namespace menu
@@ -53,12 +51,12 @@ void ToggleTextItem::update() {
     if (getTextObject().entity() != ecs::InvalidEntity) {
         const float hw = width * 0.5f;
 
-        box.setFillColor(sfcol(fillColor));
-        box.setOutlineColor(sfcol(borderColor));
+        box.setFillColor(fillColor);
+        box.setOutlineColor(borderColor);
         box.setOutlineThickness(-borderThickness);
         box.setSize({width, width});
         box.getTransform().setOrigin({0.f, hw});
-        innerBox.setFillColor(sfcol(borderColor));
+        innerBox.setFillColor(borderColor);
         innerBox.setSize({width * InnerRatio, width * InnerRatio});
         innerBox.getTransform().setOrigin(innerBox.getSize() * 0.5f);
 

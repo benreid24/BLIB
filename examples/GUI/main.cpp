@@ -32,7 +32,7 @@ public:
 
     virtual void activate(engine::Engine& engine) override {
         engine.renderer().getObserver().pushScene<rc::Overlay>();
-        engine.renderer().getObserver().setClearColor(bl::sfcol(sf::Color{90, 90, 90}));
+        engine.renderer().getObserver().setClearColor(sf::Color{90, 90, 90});
 
         gui = gui::GUI::create(
             engine,
@@ -124,8 +124,8 @@ public:
         canvas->setCamera<cam::Camera2D>(glm::vec2{50.f, 37.5f}, glm::vec2{100.f, 75.f});
         engine.ecs().emplaceComponent<com::Velocity2D>(
             spinRect.entity(), glm::vec2{0.f, 0.f}, 180.f);
-        spinRect.setHorizontalColorGradient(bl::sfcol(sf::Color::Red), bl::sfcol(sf::Color::Green));
-        spinRect.setOutlineColor(bl::sfcol(sf::Color::Black));
+        spinRect.setHorizontalColorGradient(sf::Color::Red, sf::Color::Green);
+        spinRect.setOutlineColor(sf::Color::Black);
         spinRect.addToScene(scene.get(), bl::rc::UpdateSpeed::Dynamic);
 
         testWindow = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),

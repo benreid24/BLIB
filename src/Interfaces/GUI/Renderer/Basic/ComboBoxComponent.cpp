@@ -2,7 +2,6 @@
 
 #include <BLIB/Interfaces/GUI/Elements/ComboBox.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Label.hpp>
-#include <BLIB/Render/Primitives/Color.hpp>
 #include <Interfaces/GUI/Data/Font.hpp>
 
 namespace bl
@@ -47,8 +46,8 @@ void ComboBoxComponent::onElementUpdated() {
 void ComboBoxComponent::onRenderSettingChange() {
     ComboBox& owner                = getOwnerAs<ComboBox>();
     const RenderSettings& settings = owner.getRenderSettings();
-    box.setFillColor(bl::sfcol(settings.fillColor.value_or(sf::Color(100, 100, 100))));
-    box.setOutlineColor(bl::sfcol(settings.outlineColor.value_or(sf::Color::Black)));
+    box.setFillColor(settings.fillColor.value_or(sf::Color(100, 100, 100)));
+    box.setOutlineColor(settings.outlineColor.value_or(sf::Color::Black));
     box.setOutlineThickness(-settings.outlineThickness.value_or(1.f));
 
     configureText(selectedOption, settings);
@@ -69,12 +68,12 @@ void ComboBoxComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
     // arrow box + arrow
     arrowBox.create(
         engine, {owner.getAcquisition().height - BoxPad, owner.getAcquisition().height - BoxPad});
-    arrowBox.setFillColor(sfcol(sf::Color(90, 90, 90)));
-    arrowBox.setOutlineColor(sfcol(sf::Color(45, 45, 45)));
+    arrowBox.setFillColor(sf::Color(90, 90, 90));
+    arrowBox.setOutlineColor(sf::Color(45, 45, 45));
     arrowBox.setOutlineThickness(-1.f);
     arrowBox.setParent(box);
     arrow.create(engine, {glm::vec2{0.f, 0.f}, glm::vec2{100.f, 0.f}, glm::vec2{50.f, 100.f}});
-    arrow.setFillColor(sfcol(sf::Color::Black));
+    arrow.setFillColor(sf::Color::Black);
     arrow.getTransform().setOrigin({50.f, 50.f});
     arrow.getOverlayScaler().positionInParentSpace({0.5f, 0.5f});
     arrow.getOverlayScaler().scaleToSizePercent({0.4f, 0.4f});
@@ -86,7 +85,7 @@ void ComboBoxComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
 
     // open state items
     openBackground.create(engine, {100.f, 100.f});
-    openBackground.setFillColor(sfcol(sf::Color(90, 90, 90)));
+    openBackground.setFillColor(sf::Color(90, 90, 90));
     openBackground.getTransform().setDepth(-450.f);
     openBackground.getOverlayScaler().setScissorMode(com::OverlayScaler::ScissorSelf);
     openBackground.setParent(box);
@@ -149,8 +148,8 @@ void ComboBoxComponent::configureText(gfx::Text& text, const RenderSettings& set
     auto& sec = text.getSection();
     text.setFont(*settings.font.value_or(Font::get()));
     sec.setCharacterSize(settings.characterSize.value_or(Label::DefaultFontSize));
-    sec.setFillColor(sfcol(settings.secondaryFillColor.value_or(sf::Color::Black)));
-    sec.setOutlineColor(sfcol(settings.secondaryOutlineColor.value_or(sf::Color::Transparent)));
+    sec.setFillColor(settings.secondaryFillColor.value_or(sf::Color::Black));
+    sec.setOutlineColor(settings.secondaryOutlineColor.value_or(sf::Color::Transparent));
     sec.setOutlineThickness(settings.secondaryOutlineThickness.value_or(0));
     sec.setStyle(settings.style.value_or(sf::Text::Regular));
 }
@@ -202,13 +201,10 @@ void ComboBoxComponent::updateOptions() {
 
         o.background.setSize(boxSize);
         if (static_cast<int>(i) == owner.getMousedOption()) {
-            o.background.setFillColor(
-                sfcol(settings.secondaryFillColor.value_or(sf::Color(80, 80, 250))));
+            o.background.setFillColor(settings.secondaryFillColor.value_or(sf::Color(80, 80, 250)));
         }
-        else {
-            o.background.setFillColor(sfcol(settings.fillColor.value_or(sf::Color(100, 100, 100))));
-        }
-        o.background.setOutlineColor(sfcol(settings.outlineColor.value_or(sf::Color::Black)));
+        else { o.background.setFillColor(settings.fillColor.value_or(sf::Color(100, 100, 100))); }
+        o.background.setOutlineColor(settings.outlineColor.value_or(sf::Color::Black));
         o.background.setOutlineThickness(-outline);
         o.background.getLocalTransform().setPosition({0.f, y});
     }
@@ -223,12 +219,9 @@ void ComboBoxComponent::highlightMoused() {
         Option& o = *(it++);
 
         if (static_cast<int>(i) == owner.getMousedOption()) {
-            o.background.setFillColor(
-                sfcol(settings.secondaryFillColor.value_or(sf::Color(80, 80, 250))));
+            o.background.setFillColor(settings.secondaryFillColor.value_or(sf::Color(80, 80, 250)));
         }
-        else {
-            o.background.setFillColor(sfcol(settings.fillColor.value_or(sf::Color(100, 100, 100))));
-        }
+        else { o.background.setFillColor(settings.fillColor.value_or(sf::Color(100, 100, 100))); }
     }
 }
 

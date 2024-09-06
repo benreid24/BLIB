@@ -1,7 +1,6 @@
 #include <BLIB/Interfaces/Menu/Menu.hpp>
 
 #include <BLIB/Logging.hpp>
-#include <BLIB/Render/Primitives/Color.hpp>
 #include <queue>
 #include <unordered_set>
 
@@ -100,8 +99,8 @@ void Menu::setMinWidth(float w) {
 }
 
 void Menu::configureBackground(sf::Color fill, sf::Color outline, float t, const sf::FloatRect& p) {
-    background.setFillColor(sfcol(fill));
-    background.setOutlineColor(sfcol(outline));
+    background.setFillColor(fill);
+    background.setOutlineColor(outline);
     background.setOutlineThickness(t);
     if (p.left >= 0.f) {
         bgndPadding = p;
