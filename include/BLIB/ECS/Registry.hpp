@@ -41,10 +41,11 @@ public:
     /**
      * @brief Creates a new entity and returns its id
      *
+     * @param worldIndex The index of the world that the entity is in
      * @param flags Optional flags to set on the newly created entity. May not be modified later
      * @return Entity The new entity id
      */
-    Entity createEntity(Flags flags = Flags::None);
+    Entity createEntity(unsigned int worldIndex, Flags flags = Flags::None);
 
     /**
      * @brief Returns whether or not the given entity exists
@@ -71,6 +72,14 @@ public:
      * @return The number of destroyed entities, not counting freed resource entities
      */
     unsigned int destroyAllEntitiesWithFlags(Flags flags);
+
+    /**
+     * @brief Destroys all entities in the given world
+     *
+     * @param index The index of the world to purge entities from
+     * @return The number of destroyed entities
+     */
+    unsigned int destroyEntitiesInWorld(unsigned int index);
 
     /**
      * @brief Destroys all entities with the WorldObject flag
@@ -276,6 +285,7 @@ private:
     std::vector<ComponentMask::SimpleMask> entityMasks;
     std::vector<std::uint16_t> entityVersions;
     std::vector<Flags> entityFlags;
+    std::vector<std::uint8_t> entityWorlds;
 
     // entity relationships
     ParentGraph parentGraph;

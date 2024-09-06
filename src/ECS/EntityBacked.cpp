@@ -45,7 +45,8 @@ void EntityBacked::destroy() {
 
 void EntityBacked::createEntityOnly(engine::Engine& engine, ecs::Flags flags) {
     enginePtr = &engine;
-    ecsId     = engine.ecs().createEntity(flags);
+    // TODO - WORLD_UPDATE - update to take world instead
+    ecsId = engine.ecs().createEntity(0, flags);
 }
 
 void EntityBacked::createFromExistingEntity(engine::Engine& engine, ecs::Entity ent) {

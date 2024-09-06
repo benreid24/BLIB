@@ -1,7 +1,8 @@
 #ifndef BLIB_ENGINE_WORLD_HPP
 #define BLIB_ENGINE_WORLD_HPP
 
-#include <BLIB/ECS/Registry.hpp>
+#include <BLIB/ECS/Entity.hpp>
+#include <BLIB/ECS/Flags.hpp>
 #include <BLIB/Render/Resources/SceneRef.hpp>
 
 namespace bl
@@ -21,12 +22,25 @@ public:
     /**
      * @brief Destroys the world
      */
-    virtual ~World() = default;
+    virtual ~World();
 
     /**
-     * @brief Returns the ECS registry for this world
+     * @brief Creates an entity in this world
+     *
+     * @param flags The flags to create the entity with
+     * @return The new entity
      */
-    ecs::Registry& ecs() { return entities; }
+    ecs::Entity createEntity(ecs::Flags flags = ecs::Flags::None);
+
+    /**
+     * @brief Destroys all entities in this world
+     */
+    void destroyAllEntities();
+
+    /**
+     * @brief Returns the game engine instance
+     */
+    Engine& engine() { return owner; }
 
     /**
      * @brief Returns the scene for this world
@@ -44,11 +58,12 @@ protected:
      *
      * @param renderScene The scene for the world
      */
-    World(rc::SceneRef renderScene)
-    : renderScene(renderScene) {}
+    World(Engine& owner, rc::SceneRef renderScene)
+    : owner(owner)
+    , renderScene(renderScene) {}
 
 private:
-    ecs::Registry entities;
+    Engine& owner;
     rc::SceneRef renderScene;
     unsigned int index;
 

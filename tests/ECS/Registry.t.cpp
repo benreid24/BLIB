@@ -37,7 +37,7 @@ struct ParentTestComponent
 TEST(ECS, EntityCreateAndDestroy) {
     Registry testRegistry;
 
-    Entity e = testRegistry.createEntity();
+    Entity e = testRegistry.createEntity(0);
     ASSERT_TRUE(testRegistry.entityExists(e));
 
     testRegistry.destroyEntity(e);
@@ -47,7 +47,7 @@ TEST(ECS, EntityCreateAndDestroy) {
 TEST(ECS, EntitySingleComponent) {
     Registry testRegistry;
 
-    Entity e = testRegistry.createEntity();
+    Entity e = testRegistry.createEntity(0);
     int* c   = testRegistry.addComponent<int>(e, 5);
     ASSERT_NE(c, nullptr);
     EXPECT_EQ(*c, 5);
@@ -64,8 +64,8 @@ TEST(ECS, EntitySingleComponent) {
 TEST(ECS, MultipleEntitiesSingleComponent) {
     Registry testRegistry;
 
-    Entity e1 = testRegistry.createEntity();
-    Entity e2 = testRegistry.createEntity();
+    Entity e1 = testRegistry.createEntity(0);
+    Entity e2 = testRegistry.createEntity(0);
 
     int* c1 = testRegistry.addComponent<int>(e1, 10);
     int* c2 = testRegistry.addComponent<int>(e2, 20);
@@ -82,7 +82,7 @@ TEST(ECS, MultipleEntitiesSingleComponent) {
 TEST(ECS, EntityMultipleComponents) {
     Registry testRegistry;
 
-    Entity e = testRegistry.createEntity();
+    Entity e = testRegistry.createEntity(0);
     int* ca  = testRegistry.addComponent<int>(e, 5);
     char* cb = testRegistry.addComponent<char>(e, 'a');
     ASSERT_NE(ca, nullptr);
@@ -109,8 +109,8 @@ TEST(ECS, EntityMultipleComponents) {
 TEST(ECS, MultipleEntitiesMultipleComponents) {
     Registry testRegistry;
 
-    Entity e1 = testRegistry.createEntity();
-    Entity e2 = testRegistry.createEntity();
+    Entity e1 = testRegistry.createEntity(0);
+    Entity e2 = testRegistry.createEntity(0);
 
     int* c1a = testRegistry.addComponent<int>(e1, 10);
     int* c2a = testRegistry.addComponent<int>(e2, 20);
@@ -137,7 +137,7 @@ TEST(ECS, ComponentDestroyed) {
     Registry testRegistry;
 
     bool destroyed = false;
-    Entity e       = testRegistry.createEntity();
+    Entity e       = testRegistry.createEntity(0);
     testRegistry.emplaceComponent<DestroyTestComponent>(e, std::ref(destroyed));
     testRegistry.removeComponent<DestroyTestComponent>(e);
     EXPECT_TRUE(destroyed);
@@ -148,7 +148,7 @@ TEST(ECS, ComponentDestroyed) {
     EXPECT_TRUE(destroyed);
 
     destroyed = false;
-    e         = testRegistry.createEntity();
+    e         = testRegistry.createEntity(0);
     testRegistry.addComponent<DestroyTestComponent>(e, {destroyed});
     testRegistry.destroyAllEntities();
     EXPECT_TRUE(destroyed);
@@ -159,7 +159,7 @@ TEST(ECS, ComponentIterate) {
 
     std::unordered_map<Entity, int> values;
     for (unsigned int i = 0; i < MaxEntities; ++i) {
-        const Entity e = testRegistry.createEntity();
+        const Entity e = testRegistry.createEntity(0);
         const int v    = util::Random::get<int>(0, 100000);
         testRegistry.addComponent<int>(e, v);
         values.emplace(e, v);
@@ -186,7 +186,7 @@ TEST(ECS, ViewIterate) {
     std::vector<Entity> toRemove;
     std::vector<Entity> toAdd;
     for (unsigned int i = 0; i < MaxEntities; ++i) {
-        const Entity e = testRegistry.createEntity();
+        const Entity e = testRegistry.createEntity(0);
         const int v    = util::Random::get<int>(0, 100000);
         testRegistry.addComponent<int>(e, v);
         if (util::Random::get<int>(0, 100) < 50) {
@@ -246,17 +246,17 @@ TEST(ECS, ViewOptionalExclude) {
     using CSet = typename std::remove_pointer_t<decltype(view)>::TRow;
 
     // req and opt
-    const Entity e1 = testRegistry.createEntity();
+    const Entity e1 = testRegistry.createEntity(0);
     testRegistry.addComponent<int>(e1, 5);
     testRegistry.addComponent<char>(e1, 'a');
 
     // req but excluded
-    const Entity e2 = testRegistry.createEntity();
+    const Entity e2 = testRegistry.createEntity(0);
     testRegistry.addComponent<int>(e2, 10);
     testRegistry.addComponent<short>(e2, 4);
 
     // req no opt
-    const Entity e3 = testRegistry.createEntity();
+    const Entity e3 = testRegistry.createEntity(0);
     testRegistry.addComponent<int>(e3, 15);
 
     // verify e1 and e3 are in view
@@ -286,7 +286,7 @@ TEST(ECS, ViewOptionalExclude) {
 TEST(ECS, FillComponentSet) {
     Registry testRegistry;
 
-    Entity e = testRegistry.createEntity();
+    Entity e = testRegistry.createEntity(0);
     testRegistry.addComponent<int>(e, 5);
     testRegistry.addComponent<char>(e, 'g');
 
@@ -299,7 +299,7 @@ TEST(ECS, FillComponentSet) {
 TEST(ECS, ComponentSetOptional) {
     Registry testRegistry;
 
-    Entity e = testRegistry.createEntity();
+    Entity e = testRegistry.createEntity(0);
     testRegistry.addComponent<int>(e, 5);
 
     auto cs = testRegistry.getComponentSet<Require<int>, Optional<char>>(e);
@@ -314,7 +314,7 @@ TEST(ECS, ClearRegistry) {
     std::vector<Entity> ents;
     ents.reserve(MaxEntities);
     for (unsigned int i = 0; i < MaxEntities; ++i) {
-        ents.push_back(testRegistry.createEntity());
+        ents.push_back(testRegistry.createEntity(0));
         testRegistry.addComponent<int>(ents.back(), util::Random::get<int>(0, 10000));
     }
 
@@ -328,8 +328,8 @@ TEST(ECS, ClearRegistry) {
 TEST(ECS, ParentBeforeCreate) {
     Registry testRegistry;
 
-    Entity child  = testRegistry.createEntity();
-    Entity parent = testRegistry.createEntity();
+    Entity child  = testRegistry.createEntity(0);
+    Entity parent = testRegistry.createEntity(0);
     testRegistry.setEntityParent(child, parent);
 
     auto* parentCom = testRegistry.addComponent<ParentTestComponent>(parent, 100);
@@ -350,8 +350,8 @@ TEST(ECS, ParentBeforeCreate) {
 TEST(ECS, DestroyParentComponent) {
     Registry testRegistry;
 
-    Entity child  = testRegistry.createEntity();
-    Entity parent = testRegistry.createEntity();
+    Entity child  = testRegistry.createEntity(0);
+    Entity parent = testRegistry.createEntity(0);
     testRegistry.setEntityParent(child, parent);
 
     auto* parentCom = testRegistry.addComponent<ParentTestComponent>(parent, 100);
@@ -384,8 +384,8 @@ TEST(ECS, DestroyParentComponent) {
 TEST(ECS, ParentAfterCreate) {
     Registry testRegistry;
 
-    Entity child  = testRegistry.createEntity();
-    Entity parent = testRegistry.createEntity();
+    Entity child  = testRegistry.createEntity(0);
+    Entity parent = testRegistry.createEntity(0);
 
     auto* childCom  = testRegistry.addComponent<ParentTestComponent>(child, 10);
     auto* parentCom = testRegistry.addComponent<ParentTestComponent>(parent, 100);
@@ -406,8 +406,8 @@ TEST(ECS, ParentAfterCreate) {
 TEST(ECS, ParentRemove) {
     Registry testRegistry;
 
-    Entity child  = testRegistry.createEntity();
-    Entity parent = testRegistry.createEntity();
+    Entity child  = testRegistry.createEntity(0);
+    Entity parent = testRegistry.createEntity(0);
 
     auto* childCom  = testRegistry.addComponent<ParentTestComponent>(child, 10);
     auto* parentCom = testRegistry.addComponent<ParentTestComponent>(parent, 100);
@@ -430,8 +430,8 @@ TEST(ECS, ParentRemove) {
 TEST(ECS, ChildComponentReAdd) {
     Registry testRegistry;
 
-    Entity child  = testRegistry.createEntity();
-    Entity parent = testRegistry.createEntity();
+    Entity child  = testRegistry.createEntity(0);
+    Entity parent = testRegistry.createEntity(0);
 
     auto* childCom  = testRegistry.addComponent<ParentTestComponent>(child, 10);
     auto* parentCom = testRegistry.addComponent<ParentTestComponent>(parent, 100);
@@ -446,8 +446,8 @@ TEST(ECS, ChildComponentReAdd) {
 TEST(ECS, Dependencies) {
     Registry testRegistry;
 
-    Entity child  = testRegistry.createEntity();
-    Entity parent = testRegistry.createEntity();
+    Entity child  = testRegistry.createEntity(0);
+    Entity parent = testRegistry.createEntity(0);
 
     // test marked removal
     testRegistry.addDependency(parent, child);
@@ -457,23 +457,23 @@ TEST(ECS, Dependencies) {
     EXPECT_FALSE(testRegistry.entityExists(parent));
 
     // test add and remove dep
-    child  = testRegistry.createEntity();
-    parent = testRegistry.createEntity();
+    child  = testRegistry.createEntity(0);
+    parent = testRegistry.createEntity(0);
     testRegistry.addDependency(parent, child);
     testRegistry.removeDependency(parent, child);
     EXPECT_TRUE(testRegistry.destroyEntity(parent));
     EXPECT_TRUE(testRegistry.destroyEntity(child));
 
     // test remove in order
-    child  = testRegistry.createEntity();
-    parent = testRegistry.createEntity();
+    child  = testRegistry.createEntity(0);
+    parent = testRegistry.createEntity(0);
     testRegistry.addDependency(parent, child);
     EXPECT_TRUE(testRegistry.destroyEntity(child));
     EXPECT_TRUE(testRegistry.destroyEntity(parent));
 
     // test delete on remove
-    child  = testRegistry.createEntity();
-    parent = testRegistry.createEntity();
+    child  = testRegistry.createEntity(0);
+    parent = testRegistry.createEntity(0);
     testRegistry.addDependency(parent, child);
     testRegistry.removeDependencyAndDestroyIfPossible(parent, child);
     EXPECT_FALSE(testRegistry.entityExists(parent));
@@ -492,8 +492,8 @@ struct ParentVersionedComponent : public trait::ParentAwareVersioned<ParentVersi
 TEST(ECS, ParentAwareVersionedTrait) {
     Registry testRegistry;
 
-    Entity child  = testRegistry.createEntity();
-    Entity parent = testRegistry.createEntity();
+    Entity child  = testRegistry.createEntity(0);
+    Entity parent = testRegistry.createEntity(0);
 
     ParentVersionedComponent& childCom =
         *testRegistry.emplaceComponent<ParentVersionedComponent>(child);
@@ -539,22 +539,47 @@ TEST(ECS, ParentAwareVersionedTrait) {
 TEST(ECS, DestroyByFlags) {
     Registry testRegistry;
 
-    Entity toBeDestroyed[]       = {testRegistry.createEntity(Flags::WorldObject),
-                                    testRegistry.createEntity(Flags::WorldObject),
-                                    testRegistry.createEntity(Flags::WorldObject),
-                                    testRegistry.createEntity(Flags::WorldObject | Flags::Dummy),
-                                    testRegistry.createEntity(Flags::WorldObject),
-                                    testRegistry.createEntity(Flags::WorldObject | Flags::Dummy)};
+    Entity toBeDestroyed[]       = {testRegistry.createEntity(0, Flags::WorldObject),
+                                    testRegistry.createEntity(0, Flags::WorldObject),
+                                    testRegistry.createEntity(0, Flags::WorldObject),
+                                    testRegistry.createEntity(0, Flags::WorldObject | Flags::Dummy),
+                                    testRegistry.createEntity(0, Flags::WorldObject),
+                                    testRegistry.createEntity(0, Flags::WorldObject | Flags::Dummy)};
     const std::size_t nDestroyed = std::size(toBeDestroyed);
 
-    Entity toLive[]         = {testRegistry.createEntity(Flags::None),
-                               testRegistry.createEntity(Flags::Dummy),
-                               testRegistry.createEntity(Flags::Dummy),
-                               testRegistry.createEntity(Flags::Dummy),
-                               testRegistry.createEntity(Flags::None)};
+    Entity toLive[]         = {testRegistry.createEntity(0, Flags::None),
+                               testRegistry.createEntity(0, Flags::Dummy),
+                               testRegistry.createEntity(0, Flags::Dummy),
+                               testRegistry.createEntity(0, Flags::Dummy),
+                               testRegistry.createEntity(0, Flags::None)};
     const std::size_t nLive = std::size(toLive);
 
     EXPECT_EQ(testRegistry.destroyAllWorldEntities(), nDestroyed);
+    for (std::size_t i = 0; i < nDestroyed; ++i) {
+        EXPECT_FALSE(testRegistry.entityExists(toBeDestroyed[i]));
+    }
+    for (std::size_t i = 0; i < nLive; ++i) { EXPECT_TRUE(testRegistry.entityExists(toLive[i])); }
+}
+
+TEST(ECS, DestroyInWorld) {
+    Registry testRegistry;
+
+    Entity toBeDestroyed[]       = {testRegistry.createEntity(0, Flags::WorldObject),
+                                    testRegistry.createEntity(0, Flags::WorldObject),
+                                    testRegistry.createEntity(0, Flags::WorldObject),
+                                    testRegistry.createEntity(0, Flags::WorldObject | Flags::Dummy),
+                                    testRegistry.createEntity(0, Flags::WorldObject),
+                                    testRegistry.createEntity(0, Flags::WorldObject | Flags::Dummy)};
+    const std::size_t nDestroyed = std::size(toBeDestroyed);
+
+    Entity toLive[]         = {testRegistry.createEntity(1, Flags::None),
+                               testRegistry.createEntity(1, Flags::Dummy),
+                               testRegistry.createEntity(1, Flags::Dummy),
+                               testRegistry.createEntity(1, Flags::Dummy),
+                               testRegistry.createEntity(1, Flags::None)};
+    const std::size_t nLive = std::size(toLive);
+
+    EXPECT_EQ(testRegistry.destroyEntitiesInWorld(0), nDestroyed);
     for (std::size_t i = 0; i < nDestroyed; ++i) {
         EXPECT_FALSE(testRegistry.entityExists(toBeDestroyed[i]));
     }

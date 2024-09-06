@@ -72,7 +72,8 @@ template<typename T>
 void Renderer<T>::addToScene(rc::Scene* scene) {
     using TEngineSystem = sys::DrawableSystem<TComponent>;
 
-    entity    = engine->ecs().createEntity();
+    // TODO - WORLD_UPDATE - get world index here
+    entity    = engine->ecs().createEntity(0);
     component = engine->ecs().emplaceComponent<TComponent>(
         entity, *engine, ContainsTransparency, PipelineId);
     link          = engine->ecs().emplaceComponent<Link<T>>(entity);

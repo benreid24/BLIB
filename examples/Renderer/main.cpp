@@ -65,7 +65,8 @@ public:
         p1cam->setRotation(15.f);
 
         // create sprite in scene
-        bl::ecs::Entity spriteEntity = engine.ecs().createEntity();
+        // TODO - WORLD_UPDATE - update this example
+        bl::ecs::Entity spriteEntity = engine.ecs().createEntity(0);
         spritePosition = engine.ecs().emplaceComponent<bl::com::Transform2D>(spriteEntity);
         engine.ecs().emplaceComponent<bl::com::Texture>(spriteEntity, texture);
         bl::com::Sprite& scom = *engine.ecs().emplaceComponent<bl::com::Sprite>(
@@ -96,7 +97,8 @@ public:
         player2Cam->addAffector<bl::cam::c3d::CameraShake>(0.1f, 7.f);
 
         // create object in scene
-        meshEntity = engine.ecs().createEntity();
+        // TODO - WORLD_UPDATE - update this example
+        meshEntity = engine.ecs().createEntity(0);
         engine.ecs().emplaceComponent<bl::com::Transform3D>(meshEntity);
         engine.ecs().emplaceComponent<bl::com::Texture>(meshEntity, texture);
         bl::com::Mesh* mesh = engine.ecs().emplaceComponent<bl::com::Mesh>(meshEntity);

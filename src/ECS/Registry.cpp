@@ -9,6 +9,7 @@ Registry::Registry()
 , entityMasks(DefaultCapacity, ComponentMask::EmptyMask)
 , entityFlags(DefaultCapacity, Flags::None)
 , entityVersions(DefaultCapacity, 0)
+, entityWorlds(DefaultCapacity, 0)
 , parentGraph(DefaultCapacity)
 , parentDestructionBehaviors(DefaultCapacity, ParentDestructionBehavior::DestroyedWithParent)
 , dependencyGraph(DefaultCapacity) {
@@ -16,7 +17,7 @@ Registry::Registry()
     views.reserve(32);
 }
 
-Entity Registry::createEntity(Flags flags) {
+Entity Registry::createEntity(unsigned int worldIndex, Flags flags) {
     std::lock_guard lock(entityLock);
 
     const std::uint64_t index = entityAllocator.allocate();
@@ -27,15 +28,17 @@ Entity Registry::createEntity(Flags flags) {
         parentDestructionBehaviors.resize(index + 1,
                                           ParentDestructionBehavior::DestroyedWithParent);
         entityFlags.resize(index + 1, Flags::None);
+        entityWorlds.resize(index + 1, 0);
     }
     else {
         entityMasks[index]                = ComponentMask::EmptyMask;
         version                           = ++entityVersions[index];
         parentDestructionBehaviors[index] = ParentDestructionBehavior::DestroyedWithParent;
     }
-    entityFlags[index] = flags;
+    entityFlags[index]  = flags;
+    entityWorlds[index] = worldIndex;
 
-    const Entity ent(index, version, flags);
+    const Entity ent(index, version, flags, worldIndex);
     bl::event::Dispatcher::dispatch<event::EntityCreated>({ent});
     return ent;
 }
@@ -181,6 +184,19 @@ unsigned int Registry::destroyAllEntitiesWithFlags(Flags flags) {
 
 unsigned int Registry::destroyAllWorldEntities() {
     return destroyAllEntitiesWithFlags(Flags::WorldObject);
+}
+
+unsigned int Registry::destroyEntitiesInWorld(unsigned int worldIndex) {
+    std::lock_guard lock(entityLock);
+
+    unsigned int destroyed = 0;
+    for (std::uint32_t i = 0; i < entityWorlds.size(); ++i) {
+        if (entityAllocator.isAllocated(i) && entityWorlds[i] == worldIndex) {
+            destroyEntityLocked(Entity(i, entityVersions[i], entityFlags[i], worldIndex));
+            ++destroyed;
+        }
+    }
+    return destroyed;
 }
 
 void Registry::destroyAllEntities() {

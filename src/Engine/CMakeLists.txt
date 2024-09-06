@@ -7,4 +7,5 @@ target_sources(BLIB PRIVATE
     Settings.cpp
     Systems.cpp
     Worker.cpp
+    World.cpp
 )

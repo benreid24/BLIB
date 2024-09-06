@@ -231,6 +231,14 @@ public:
     template<typename TWorld, typename... TArgs>
     util::Ref<World> createWorld(TArgs&&... args);
 
+    /**
+     * @brief Fetch the world at the given index
+     *
+     * @param index The index of the world to fetch
+     * @return The world at the given index
+     */
+    util::Ref<World> getWorld(unsigned int index);
+
 private:
     Worker worker;
     Settings engineSettings;
@@ -292,18 +300,22 @@ inline Player& Engine::getPlayer(unsigned int i) { return players[i]; }
 
 template<typename TWorld, typename... TArgs>
 util::Ref<World> Engine::createWorld(TArgs&&... args) {
-    auto ref = worldPool.emplaceDerived<TWorld, TArgs...>(std::forward<TArgs>(args)...);
+    static_assert(std::is_constructible_v<TWorld, Engine&, TArgs...>,
+                  "TWorld constructor must take Engine& as first parameter");
+
+    auto ref = worldPool.emplaceDerived<TWorld, TArgs...>(*this, std::forward<TArgs>(args)...);
     for (unsigned int i = 0; i < worlds.size(); ++i) {
         if (!worlds[i].isValid()) {
             worlds[i]  = ref;
             ref->index = i;
-            // TODO - register ECS
             return ref;
         }
     }
 
     throw std::runtime_error("A maximum of 8 worlds may exist concurrently");
 }
+
+inline util::Ref<World> Engine::getWorld(unsigned int index) { return worlds[index]; }
 
 } // namespace engine
 } // namespace bl

@@ -22,7 +22,8 @@ void Animation2DPlayer::createNewPlayer(const resource::Ref<gfx::a2d::AnimationD
     const bool isUpdate = cleanupPlayerDep();
 
     // create new player entity and component
-    playerEntity = registry->createEntity();
+    // TODO - WORLD_UPDATE - how to get world index here?
+    playerEntity = registry->createEntity(0);
     player       = registry->emplaceComponent<com::Animation2DPlayer>(
         playerEntity, animation, forSlideshow, play, forceLoop);
     addPlayerDep();

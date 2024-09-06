@@ -12,7 +12,7 @@ TEST(ECSEntityCleaner, Disarmed) {
 
     Entity e = InvalidEntity;
     {
-        e = testRegistry.createEntity();
+        e = testRegistry.createEntity(0);
         Cleaner cleaner(testRegistry, e);
         cleaner.disarm();
     }
@@ -25,7 +25,7 @@ TEST(ECSEntityCleaner, Armed) {
 
     Entity e = InvalidEntity;
     {
-        e = testRegistry.createEntity();
+        e = testRegistry.createEntity(0);
         Cleaner cleaner(testRegistry, e);
     }
 

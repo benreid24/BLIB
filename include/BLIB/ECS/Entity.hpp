@@ -30,7 +30,7 @@ struct Entity {
     static constexpr std::uint64_t IndexMask   = 0x00000000FFFFFFFF;
     static constexpr std::uint64_t VersionMask = 0xFFFF000000000000;
     static constexpr std::uint64_t FlagMask    = 0x0000FF0000000000;
-    static constexpr std::uint64_t WorldMask   = 0x0000000800000000;
+    static constexpr std::uint64_t WorldMask   = 0x0000000700000000;
 
     IdType id;
 
