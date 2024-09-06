@@ -10,6 +10,7 @@
 #include <BLIB/Engine/Systems.hpp>
 #include <BLIB/Engine/Window.hpp>
 #include <BLIB/Engine/Worker.hpp>
+#include <BLIB/Engine/World.hpp>
 #include <BLIB/Events/Dispatcher.hpp>
 #include <BLIB/Input.hpp>
 #include <BLIB/Particles/ParticleSystem.hpp>
@@ -17,7 +18,9 @@
 #include <BLIB/Resources.hpp>
 #include <BLIB/Scripts/Manager.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
+#include <BLIB/Util/RefPool.hpp>
 #include <BLIB/Util/ThreadPool.hpp>
+#include <array>
 #include <stack>
 
 namespace bl
@@ -217,12 +220,25 @@ public:
      */
     void removePlayer(int i = -1);
 
+    /**
+     * @brief Creates a new engine World
+     *
+     * @tparam TWorld The type of world to create
+     * @tparam ...TArgs Argument types to the worlds constructor
+     * @param ...args Arguments to the worlds constructor
+     * @return A ref to the newly created world
+     */
+    template<typename TWorld, typename... TArgs>
+    util::Ref<World> createWorld(TArgs&&... args);
+
 private:
     Worker worker;
     Settings engineSettings;
     Flags engineFlags;
     std::stack<State::Ptr> states;
     std::vector<Player> players;
+    util::RefPool<World> worldPool;
+    std::array<util::Ref<World>, 8> worlds;
     State::Ptr newState;
     float timeScale;
     float windowScale;
@@ -273,6 +289,21 @@ inline StateMask::V Engine::getCurrentStateMask() const {
 }
 
 inline Player& Engine::getPlayer(unsigned int i) { return players[i]; }
+
+template<typename TWorld, typename... TArgs>
+util::Ref<World> Engine::createWorld(TArgs&&... args) {
+    auto ref = worldPool.emplaceDerived<TWorld, TArgs...>(std::forward<TArgs>(args)...);
+    for (unsigned int i = 0; i < worlds.size(); ++i) {
+        if (!worlds[i].isValid()) {
+            worlds[i]  = ref;
+            ref->index = i;
+            // TODO - register ECS
+            return ref;
+        }
+    }
+
+    throw std::runtime_error("A maximum of 8 worlds may exist concurrently");
+}
 
 } // namespace engine
 } // namespace bl

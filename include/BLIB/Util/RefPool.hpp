@@ -240,7 +240,7 @@ inline void RefPool<T>::clear() {}
 template<typename T>
 void RefPool<T>::release(priv::Payload<T>* value) {
     for (auto it = storage.begin(); it != storage.end(); ++it) {
-        if (it->get() == value) {
+        if (&*it == value) {
             storage.erase(it);
             return;
         }
