@@ -12,6 +12,7 @@ target_sources(BLIB PUBLIC
     Random.hpp
     RangeAllocatorUnbounded.hpp
     ReadWriteLock.hpp
+    RefPool.hpp
     Signal.hpp
     StreamUtil.hpp
     TemplateLogic.hpp

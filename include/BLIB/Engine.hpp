@@ -19,5 +19,6 @@
 #include <BLIB/Engine/Systems.hpp>
 #include <BLIB/Engine/Window.hpp>
 #include <BLIB/Engine/Worker.hpp>
+#include <BLIB/Engine/World.hpp>
 
 #endif

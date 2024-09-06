@@ -16,6 +16,7 @@
 #include <BLIB/Util/NonCopyable.hpp>
 #include <BLIB/Util/Random.hpp>
 #include <BLIB/Util/ReadWriteLock.hpp>
+#include <BLIB/Util/RefPool.hpp>
 #include <BLIB/Util/Signal.hpp>
 #include <BLIB/Util/StreamUtil.hpp>
 #include <BLIB/Util/ThreadPool.hpp>
