@@ -15,3 +15,4 @@ target_sources(BLIB PUBLIC
 )
 
 add_subdirectory(Events)
+add_subdirectory(Worlds)

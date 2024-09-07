@@ -25,7 +25,6 @@ Engine::Engine(const Settings& settings)
 , input(*this) {
     settings.syncToConfig();
 
-    players.reserve(4);
     addPlayer();
 
     systems().registerSystem<sys::TogglerSystem>(FrameStage::Update0, StateMask::All);
@@ -58,6 +57,9 @@ Engine::~Engine() {
         BL_LOG_ERROR << "Dangling pointer to state: " << newState->name();
     }
     newState.reset();
+
+    players.clear();
+    worldPool.clear();
 
     if (renderWindow.isOpen()) { renderWindow.close(); }
 
@@ -313,6 +315,14 @@ bool Engine::loop() {
             loopTimer.restart();
         }
 
+        // Free world slots
+        for (auto& world : worlds) {
+            if (world && world.refCount() == 1) {
+                bl::event::Dispatcher::dispatch<event::WorldDestroyed>({*world});
+                world.release();
+            }
+        }
+
         // Adhere to FPS cap
         if (minFrameLength > 0) {
             const float st = minFrameLength - loopTimer.getElapsedTime().asSeconds();
@@ -455,17 +465,18 @@ pcl::ParticleSystem& Engine::particleSystem() {
 Player& Engine::addPlayer() {
     auto& observer = renderingSystem.addObserver();
     auto& actor    = input.addActor();
-    auto& player   = players.emplace_back(Player(&observer, &actor));
+    auto& player   = players.emplace_back(Player(*this, &observer, &actor));
     bl::event::Dispatcher::dispatch<event::PlayerAdded>({player});
     return player;
 }
 
 void Engine::removePlayer(int i) {
     const unsigned int j = i >= 0 ? i : players.size() - 1;
-    bl::event::Dispatcher::dispatch<event::PlayerRemoved>({players[j]});
+    auto it              = std::next(players.begin(), j);
+    bl::event::Dispatcher::dispatch<event::PlayerRemoved>({*it});
     renderingSystem.removeObserver(j);
     input.removeActor(j);
-    players.erase(players.begin() + j);
+    players.erase(it);
 }
 
 } // namespace engine

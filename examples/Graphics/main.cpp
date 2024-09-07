@@ -61,8 +61,10 @@ private:
         stitcher.getStitchedImage().saveToFile("output.png");
 
         // create scene and camera
+        auto& world =
+            engine.getPlayer().enterWorld<bl::engine::BasicWorld<bl::rc::scene::Scene2D>>();
+        scene   = world.scene();
         auto& o = engine.renderer().getObserver();
-        scene   = o.pushScene<bl::rc::scene::Scene2D>();
         o.setCamera<bl::cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1920.f, 1080.f});
         o.setClearColor({1.f, 1.f, 1.f, 1.f});
 
@@ -169,7 +171,7 @@ private:
     }
 
     virtual void deactivate(bl::engine::Engine& engine) override {
-        engine.renderer().getObserver().popScene();
+        engine.getPlayer().leaveWorld();
     }
 
     virtual void update(bl::engine::Engine&, float, float) override {

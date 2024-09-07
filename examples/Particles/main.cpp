@@ -104,8 +104,10 @@ public:
     virtual const char* name() const override { return "DemoState"; }
 
     virtual void activate(bl::engine::Engine& engine) override {
+        auto& world =
+            engine.getPlayer().enterWorld<bl::engine::BasicWorld<bl::rc::scene::Scene2D>>();
         auto& observer = engine.renderer().getObserver(0);
-        auto scene     = observer.pushScene<bl::rc::scene::Scene2D>();
+        auto scene     = world.scene();
         observer.setCamera<bl::cam::Camera2D>(
             sf::FloatRect(Bounds.x, Bounds.y, Bounds.z, Bounds.w));
         observer.setClearColor({0.05f, 0.05f, 0.05f, 1.f});
@@ -125,7 +127,7 @@ public:
     virtual void deactivate(bl::engine::Engine& engine) override {
         bl::event::Dispatcher::unsubscribe(&spawner);
         engine.particleSystem().removeUniqueSystem<Particle>();
-        engine.renderer().getObserver().popScene();
+        engine.getPlayer().leaveWorld();
     }
 
     virtual void update(bl::engine::Engine&, float, float) override {

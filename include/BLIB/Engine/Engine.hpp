@@ -3,6 +3,7 @@
 
 #include <BLIB/ECS/Registry.hpp>
 #include <BLIB/Engine/Events.hpp>
+#include <BLIB/Engine/Events/Worlds.hpp>
 #include <BLIB/Engine/Flags.hpp>
 #include <BLIB/Engine/Player.hpp>
 #include <BLIB/Engine/Settings.hpp>
@@ -244,9 +245,9 @@ private:
     Settings engineSettings;
     Flags engineFlags;
     std::stack<State::Ptr> states;
-    std::vector<Player> players;
+    std::list<Player> players;
     util::RefPool<World> worldPool;
-    std::array<util::Ref<World>, 8> worlds;
+    std::array<util::Ref<World>, World::MaxWorlds> worlds;
     State::Ptr newState;
     float timeScale;
     float windowScale;
@@ -296,7 +297,7 @@ inline StateMask::V Engine::getCurrentStateMask() const {
     return !states.empty() ? states.top()->systemsMask() : StateMask::None;
 }
 
-inline Player& Engine::getPlayer(unsigned int i) { return players[i]; }
+inline Player& Engine::getPlayer(unsigned int i) { return *std::next(players.begin(), i); }
 
 template<typename TWorld, typename... TArgs>
 util::Ref<World> Engine::createWorld(TArgs&&... args) {
@@ -308,6 +309,7 @@ util::Ref<World> Engine::createWorld(TArgs&&... args) {
         if (!worlds[i].isValid()) {
             worlds[i]  = ref;
             ref->index = i;
+            bl::event::Dispatcher::dispatch<event::WorldCreated>({*ref});
             return ref;
         }
     }
@@ -316,6 +318,20 @@ util::Ref<World> Engine::createWorld(TArgs&&... args) {
 }
 
 inline util::Ref<World> Engine::getWorld(unsigned int index) { return worlds[index]; }
+
+template<typename TWorld, typename... TArgs>
+TWorld& Player::enterWorld(TArgs&&... args) {
+    auto world = owner.createWorld<TWorld>(std::forward<TArgs>(args)...);
+    enterWorld(world);
+    return static_cast<TWorld&>(*world);
+}
+
+template<typename TWorld, typename... TArgs>
+TWorld& Player::changeWorlds(TArgs&&... args) {
+    auto world = owner.createWorld<TWorld>(std::forward<TArgs>(args)...);
+    changeWorlds(world);
+    return static_cast<TWorld&>(*world);
+}
 
 } // namespace engine
 } // namespace bl

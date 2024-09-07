@@ -59,7 +59,8 @@ public:
         p1.setClearColor({0.f, 0.f, 1.f, 1.f});
 
         // create 2d scene and camera for observer 1
-        bl::rc::SceneRef scene2d = p1.pushScene<bl::rc::scene::Scene2D>();
+        bl::rc::SceneRef scene2d =
+            engine.getPlayer().enterWorld<bl::engine::BasicWorld<bl::rc::scene::Scene2D>>().scene();
         auto* p1cam =
             p1.setCamera<bl::cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1920.f, 1080.f * 0.5f});
         p1cam->setRotation(15.f);
@@ -86,7 +87,9 @@ public:
 
         // create 3d scene for observer 2
         bl::rc::Observer& p2   = engine.addPlayer().getRenderObserver();
-        bl::rc::SceneRef scene = p2.pushScene<bl::rc::scene::Scene3D>();
+        bl::rc::SceneRef scene = engine.getPlayer(2)
+                                     .enterWorld<bl::engine::BasicWorld<bl::rc::scene::Scene3D>>()
+                                     .scene();
 
         // create camera for observer 2
         p2.setClearColor({0.f, 1.f, 0.f, 1.f});
@@ -177,7 +180,7 @@ public:
         bl::event::Dispatcher::unsubscribe(this);
         texture.release();
         engine.renderer().texturePool().releaseUnused();
-        engine.renderer().getObserver().popScene();
+        engine.getPlayer().leaveWorld();
         engine.removePlayer(1);
         engine.ecs().destroyAllEntities();
     }

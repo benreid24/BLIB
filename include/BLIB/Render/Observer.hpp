@@ -5,6 +5,11 @@
 
 namespace bl
 {
+namespace engine
+{
+class Player;
+}
+
 namespace rc
 {
 class Renderer;
@@ -42,6 +47,7 @@ private:
                       unsigned int observerCount, unsigned int index, bool topBottomFirst);
 
     friend class bl::rc::Renderer;
+    friend class engine::Player;
 };
 
 } // namespace rc

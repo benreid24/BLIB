@@ -2,6 +2,7 @@ target_sources(BLIB PRIVATE
     Configuration.cpp
     Engine.cpp
     Flags.cpp
+    Player.cpp
     Properties.cpp
     Property.cpp
     Settings.cpp
@@ -9,3 +10,5 @@ target_sources(BLIB PRIVATE
     Worker.cpp
     World.cpp
 )
+
+add_subdirectory(Worlds)

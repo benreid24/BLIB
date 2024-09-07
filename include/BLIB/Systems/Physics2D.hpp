@@ -3,6 +3,7 @@
 
 #include <BLIB/Components/Physics2D.hpp>
 #include <BLIB/ECS/Events.hpp>
+#include <BLIB/Engine/Events/Worlds.hpp>
 #include <BLIB/Engine/System.hpp>
 #include <BLIB/Events/Listener.hpp>
 #include <box2d/box2d.h>
@@ -10,6 +11,10 @@
 
 namespace bl
 {
+namespace engine
+{
+class World2D;
+}
 namespace sys
 {
 /**
@@ -19,7 +24,8 @@ namespace sys
  */
 class Physics2D
 : public engine::System
-, public event::Listener<ecs::event::ComponentRemoved<com::Physics2D>> {
+, public event::Listener<ecs::event::ComponentRemoved<com::Physics2D>, engine::event::WorldCreated,
+                         engine::event::WorldDestroyed> {
 public:
     /**
      * @brief Event that is fired when an entity collision begins
@@ -54,31 +60,7 @@ public:
     /**
      * @brief Destroys the system
      */
-    virtual ~Physics2D();
-
-    /**
-     * @brief Set the acceleration of gravity in the physics world
-     *
-     * @param gravity The acceleration from gravity in m/s
-     */
-    void setGravity(const glm::vec2& gravity);
-
-    /**
-     * @brief Returns the acceleration from gravity in m/s
-     */
-    const glm::vec2& getGravity() const { return gravity; }
-
-    /**
-     * @brief Sets the scale factor to convert world units to Box2D meters. Default is 1
-     *
-     * @param worldToBoxScale The new scale factor to use when syncing back to Transform2D
-     */
-    void setLengthUnitScale(float worldToBoxScale);
-
-    /**
-     * @brief Returns the scale factor to convert world units to Box2D meters
-     */
-    float getWorldToBoxScale() const { return worldToBoxScale; }
+    virtual ~Physics2D() = default;
 
     /**
      * @brief Adds physics simulation to the given entity. The entity must have a Transform2D and
@@ -92,15 +74,31 @@ public:
     bool addPhysicsToEntity(ecs::Entity entity, b2BodyDef bodyDef = b2DefaultBodyDef(),
                             b2ShapeDef shapeDef = b2DefaultShapeDef());
 
+    /**
+     * @brief Returns the scale from world coordinates to Box2D coordinates for the given world
+     *
+     * @param worldIndex The world index to get the scale for
+     * @return The scale mapping world space to box2d space
+     */
+    float getWorldToBoxScale(unsigned int worldIndex) const;
+
+    /**
+     * @brief Returns the scale from world coordinates to Box2D coordinates for the given entity
+     *
+     * @param worldIndex The entity to get the scale for
+     * @return The scale mapping world space to box2d space
+     */
+    float getWorldToBoxScale(ecs::Entity entity) const;
+
 private:
     engine::Engine* engine;
-    float worldToBoxScale;
-    glm::vec2 gravity;
-    b2WorldId worldId;
+    std::vector<engine::World2D*> worlds;
 
     virtual void init(engine::Engine&) override;
     virtual void update(std::mutex&, float dt, float, float, float) override;
     virtual void observe(const ecs::event::ComponentRemoved<com::Physics2D>& event) override;
+    virtual void observe(const engine::event::WorldCreated& event) override;
+    virtual void observe(const engine::event::WorldDestroyed& event) override;
 };
 
 } // namespace sys

@@ -9,6 +9,7 @@
 #include <BLIB/Engine/Configuration.hpp>
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Engine/Events.hpp>
+#include <BLIB/Engine/Events/Worlds.hpp>
 #include <BLIB/Engine/Flags.hpp>
 #include <BLIB/Engine/FrameStage.hpp>
 #include <BLIB/Engine/Player.hpp>
@@ -20,5 +21,7 @@
 #include <BLIB/Engine/Window.hpp>
 #include <BLIB/Engine/Worker.hpp>
 #include <BLIB/Engine/World.hpp>
+#include <BLIB/Engine/Worlds/BasicWorld.hpp>
+#include <BLIB/Engine/Worlds/World2D.hpp>
 
 #endif

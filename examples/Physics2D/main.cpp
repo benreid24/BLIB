@@ -15,7 +15,8 @@ public:
     virtual const char* name() const override { return "DemoState"; }
 
     virtual void activate(bl::engine::Engine& engine) override {
-        auto scene = engine.renderer().getObserver().pushScene<bl::rc::scene::Scene2D>();
+        auto& world = engine.getPlayer().enterWorld<bl::engine::World2D>();
+        auto scene  = world.scene();
         engine.renderer().getObserver().setCamera<bl::cam::Camera2D>(glm::vec2{400.f, 300.f},
                                                                      glm::vec2{800.f, 600.f});
         engine.renderer().getObserver().setClearColor({0.f, 0.4f, 1.f, 1.f});
@@ -33,8 +34,8 @@ public:
 
         // setup physics scale
         auto& physics = engine.systems().getSystem<bl::sys::Physics2D>();
-        physics.setLengthUnitScale(1.f / 100.f);
-        physics.setGravity({0.f, 10.f});
+        world.setLengthUnitScale(1.f / 100.f);
+        world.setGravity({0.f, 10.f});
 
         auto bodyDef  = b2DefaultBodyDef();
         auto shapeDef = b2DefaultShapeDef();
@@ -61,7 +62,7 @@ public:
 
     virtual void deactivate(bl::engine::Engine& engine) override {
         bl::event::Dispatcher::unsubscribe(this);
-        engine.renderer().getObserver().popScene();
+        engine.getPlayer().leaveWorld();
         floor.destroy();
         playerBox.destroy();
     }

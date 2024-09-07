@@ -173,6 +173,8 @@ private:
 
     void increment();
     void decrement();
+
+    friend class RefPool<T>;
 };
 
 /**
@@ -252,7 +254,7 @@ template<typename... TArgs>
 inline Ref<T> RefPool<T>::emplace(TArgs&&... args) {
     auto& created =
         storage.emplace_back(this, priv::TypeDeducer<T>(), std::forward<TArgs>(args)...);
-    return Ref<T>(created.get());
+    return Ref<T>(&created);
 }
 
 template<typename T>
@@ -262,7 +264,7 @@ inline Ref<T> RefPool<T>::emplaceDerived(TArgs&&... args) {
 
     auto& created =
         storage.emplace_back(this, priv::TypeDeducer<TDerived>(), std::forward<TArgs>(args)...);
-    return Ref<T>(created.get());
+    return Ref<T>(&created);
 }
 
 } // namespace util

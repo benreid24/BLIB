@@ -30,14 +30,15 @@ void RebindState::activate(bl::engine::Engine& engine) {
         text.getSection().setString("Press the desired control (keyboard/mouse only)");
     }
 
-    bl::rc::SceneRef scene = engine.renderer().getObserver().pushScene<bl::rc::scene::Scene2D>();
+    bl::rc::SceneRef scene =
+        engine.getPlayer().enterWorld<bl::engine::BasicWorld<bl::rc::scene::Scene2D>>().scene();
     engine.renderer().getObserver().setCamera<bl::cam::Camera2D>(
         sf::FloatRect{0.f, 0.f, 800.f, 600.f});
     text.addToScene(scene, bl::rc::UpdateSpeed::Static);
 }
 
 void RebindState::deactivate(bl::engine::Engine& engine) {
-    engine.renderer().getObserver().popScene();
+    engine.getPlayer().leaveWorld();
 
     // save new input to config file
     engine.inputSystem().saveToConfig();

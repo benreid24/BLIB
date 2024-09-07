@@ -32,24 +32,6 @@ public:
     virtual ~RenderTarget();
 
     /**
-     * @brief Creates a new scene on top the Observer's scene stack and returns it
-     *
-     * @tparam TScene The type of scene to create
-     * @tparam TArgs Argument types to the scene's constructor
-     * @param args Arguments to the scene's constructor
-     * @return The newly created, now active, scene
-     */
-    template<typename TScene, typename... TArgs>
-    SceneRef pushScene(TArgs&&... args);
-
-    /**
-     * @brief Pushes an existing scene onto the Observer's scene stack
-     *
-     * @param scene The scene to make active
-     */
-    void pushScene(SceneRef scene);
-
-    /**
      * @brief Creates a new Overlay for the current scene for this Observer. Replaces the existing
      *        Overlay if one was present
      *
@@ -73,31 +55,6 @@ public:
      * @brief Returns the current scene of the render target. May be nullptr
      */
     Scene* getCurrentScene();
-
-    /**
-     * @brief Removes the top scene from the render target's scene stack and returns it. Does not
-     * release the scene back into the scene pool
-     *
-     * @return The scene that was removed
-     */
-    SceneRef popSceneNoRelease();
-
-    /**
-     * @brief Removes and releases the current active scene to the scene pool
-     */
-    void popScene();
-
-    /**
-     * @brief Removes a specific scene from the scene stack
-     *
-     * @param scene The scene to remove
-     */
-    void removeScene(Scene* scene);
-
-    /**
-     * @brief Removes all scenes from the render target
-     */
-    void clearScenes();
 
     /**
      * @brief Returns the number of scenes in this render target's scene stack
@@ -225,6 +182,49 @@ protected:
     void cleanup();
     void onSceneAdd();
     void onSceneChange();
+
+    /**
+     * @brief Creates a new scene on top the Observer's scene stack and returns it
+     *
+     * @tparam TScene The type of scene to create
+     * @tparam TArgs Argument types to the scene's constructor
+     * @param args Arguments to the scene's constructor
+     * @return The newly created, now active, scene
+     */
+    template<typename TScene, typename... TArgs>
+    SceneRef pushScene(TArgs&&... args);
+
+    /**
+     * @brief Pushes an existing scene onto the Observer's scene stack
+     *
+     * @param scene The scene to make active
+     */
+    void pushScene(SceneRef scene);
+
+    /**
+     * @brief Removes the top scene from the render target's scene stack and returns it. Does not
+     * release the scene back into the scene pool
+     *
+     * @return The scene that was removed
+     */
+    SceneRef popSceneNoRelease();
+
+    /**
+     * @brief Removes and releases the current active scene to the scene pool
+     */
+    void popScene();
+
+    /**
+     * @brief Removes a specific scene from the scene stack
+     *
+     * @param scene The scene to remove
+     */
+    void removeScene(Scene* scene);
+
+    /**
+     * @brief Removes all scenes from the render target
+     */
+    void clearScenes();
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

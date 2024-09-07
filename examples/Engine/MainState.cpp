@@ -19,6 +19,8 @@ void MainState::activate(bl::engine::Engine& engine) {
     if (!inited) {
         inited = true;
 
+        world = engine.createWorld<bl::engine::BasicWorld<bl::rc::scene::Scene2D>>();
+
         font = bl::resource::ResourceManager<sf::VulkanFont>::load("font.ttf");
         listener.init(engine);
 
@@ -32,7 +34,8 @@ void MainState::activate(bl::engine::Engine& engine) {
         cover.setFillColor({1.f, 1.f, 1.f, 1.f});
     }
 
-    bl::rc::SceneRef scene = engine.renderer().getObserver().pushScene<bl::rc::scene::Scene2D>();
+    bl::rc::SceneRef scene = world->scene();
+    engine.getPlayer().enterWorld(world);
     kbmControls.addToScene(scene, bl::rc::UpdateSpeed::Static);
     jsControls.addToScene(scene, bl::rc::UpdateSpeed::Static);
     cover.addToScene(scene, bl::rc::UpdateSpeed::Static);
@@ -44,7 +47,7 @@ void MainState::activate(bl::engine::Engine& engine) {
 }
 
 void MainState::deactivate(bl::engine::Engine& engine) {
-    engine.renderer().getObserver().popScene();
+    engine.getPlayer().leaveWorld();
     engine.inputSystem().getActor().removeListener(listener);
 }
 

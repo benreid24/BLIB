@@ -31,7 +31,7 @@ public:
     virtual const char* name() const override { return "DemoState"; }
 
     virtual void activate(engine::Engine& engine) override {
-        engine.renderer().getObserver().pushScene<rc::Overlay>();
+        engine.getPlayer().enterWorld<engine::BasicWorld<rc::Overlay>>();
         engine.renderer().getObserver().setClearColor(sf::Color{90, 90, 90});
 
         gui = gui::GUI::create(
@@ -205,9 +205,7 @@ public:
         gui->addToOverlay();
     }
 
-    virtual void deactivate(engine::Engine& engine) override {
-        engine.renderer().getObserver().popScene();
-    }
+    virtual void deactivate(engine::Engine& engine) override { engine.getPlayer().leaveWorld(); }
 
     virtual void update(engine::Engine&, float dt, float) override {
         progressBar->setProgress(progressBar->getProgress() + dt * ProgressPerSecond);

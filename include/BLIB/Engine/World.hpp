@@ -19,6 +19,8 @@ class Engine;
  */
 class World {
 public:
+    static constexpr unsigned int MaxWorlds = 8;
+
     /**
      * @brief Destroys the world
      */
@@ -45,7 +47,7 @@ public:
     /**
      * @brief Returns the scene for this world
      */
-    const rc::SceneRef& scene() const { return renderScene; }
+    rc::SceneRef scene() const { return renderScene; }
 
     /**
      * @brief Returns the index of this world
