@@ -31,10 +31,10 @@ void IconComponent::onRenderSettingChange() {
 
 ecs::Entity IconComponent::getEntity() const { return icon.value().entity(); }
 
-void IconComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
+void IconComponent::doCreate(engine::World& world, rdr::Renderer&) {
     Icon& owner = getOwnerAs<Icon>();
     icon.emplace(owner.getType(), glm::vec2{owner.getIconSize().x, owner.getIconSize().y});
-    icon.value().create(engine);
+    icon.value().create(world);
 }
 
 void IconComponent::doSceneAdd(rc::Overlay* overlay) {

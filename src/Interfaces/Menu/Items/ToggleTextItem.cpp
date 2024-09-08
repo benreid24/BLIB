@@ -23,10 +23,10 @@ ToggleTextItem::ToggleTextItem(const std::string& text, const sf::VulkanFont& fo
     getSignal(Activated).willAlwaysCall([this]() { setChecked(!checked); });
 }
 
-void ToggleTextItem::doCreate(engine::Engine& engine) {
-    TextItem::doCreate(engine);
-    box.create(engine, {width, width});
-    innerBox.create(engine, {width * InnerRatio, width * InnerRatio});
+void ToggleTextItem::doCreate(engine::World& world) {
+    TextItem::doCreate(world);
+    box.create(world, {width, width});
+    innerBox.create(world, {width * InnerRatio, width * InnerRatio});
     box.setParent(getTextObject().entity());
     innerBox.setParent(box.entity());
     update();

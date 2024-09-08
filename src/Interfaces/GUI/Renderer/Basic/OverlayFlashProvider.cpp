@@ -47,9 +47,9 @@ void OverlayFlashProvider::flashElement(Element* element) {
     }
 }
 
-void OverlayFlashProvider::doCreate(engine::Engine& engine) {
-    enginePtr = &engine;
-    cover.create(engine, {100.f, 100.f});
+void OverlayFlashProvider::doCreate(engine::World& world) {
+    enginePtr = &world.engine();
+    cover.create(world, {100.f, 100.f});
     cover.setHidden(true);
 }
 

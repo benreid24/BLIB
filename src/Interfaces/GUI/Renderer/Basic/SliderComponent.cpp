@@ -26,9 +26,9 @@ void SliderComponent::onRenderSettingChange() {
 
 ecs::Entity SliderComponent::getEntity() const { return box.entity(); }
 
-void SliderComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
+void SliderComponent::doCreate(engine::World& world, rdr::Renderer&) {
     Element& owner = getOwnerAs<Element>();
-    box.create(engine, {owner.getAcquisition().width, owner.getAcquisition().height});
+    box.create(world, {owner.getAcquisition().width, owner.getAcquisition().height});
 }
 
 void SliderComponent::doSceneAdd(rc::Overlay* overlay) {

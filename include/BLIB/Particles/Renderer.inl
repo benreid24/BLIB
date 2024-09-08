@@ -10,14 +10,14 @@ namespace pcl
 {
 template<typename T>
 Renderer<T>::Renderer()
-: engine(nullptr)
+: world(nullptr)
 , system(nullptr)
 , entity(ecs::InvalidEntity)
 , component(nullptr)
 , link(nullptr) {}
 
 template<typename T>
-void Renderer<T>::init(engine::Engine& e) {
+void Renderer<T>::init(engine::World& w) {
     using TEngineSystem = sys::DrawableSystem<TComponent>;
 
     if constexpr (RenderConfigMap<T>::CreateRenderPipeline) {
@@ -60,11 +60,11 @@ void Renderer<T>::init(engine::Engine& e) {
             DescriptorList::addParameters(params);
             params.withRasterizer(rasterizer);
             params.withDepthStencilState(&depthStencil);
-            e.renderer().pipelineCache().createPipline(PipelineId, params.build());
+            w.engine().renderer().pipelineCache().createPipline(PipelineId, params.build());
         }
     }
 
-    engine    = &e;
+    world     = &w;
     component = nullptr;
 }
 
@@ -72,19 +72,18 @@ template<typename T>
 void Renderer<T>::addToScene(rc::Scene* scene) {
     using TEngineSystem = sys::DrawableSystem<TComponent>;
 
-    // TODO - WORLD_UPDATE - get world index here
-    entity    = engine->ecs().createEntity(0);
-    component = engine->ecs().emplaceComponent<TComponent>(
-        entity, *engine, ContainsTransparency, PipelineId);
-    link          = engine->ecs().emplaceComponent<Link<T>>(entity);
+    entity    = world->createEntity();
+    component = world->engine().ecs().emplaceComponent<TComponent>(
+        entity, world->engine(), ContainsTransparency, PipelineId);
+    link          = world->engine().ecs().emplaceComponent<Link<T>>(entity);
     link->globals = &globals;
     component->addToSceneWithPipeline(
-        engine->ecs(), entity, scene, bl::rc::UpdateSpeed::Dynamic, PipelineId);
+        world->engine().ecs(), entity, scene, bl::rc::UpdateSpeed::Dynamic, PipelineId);
 }
 
 template<typename T>
 void Renderer<T>::removeFromScene() {
-    engine->ecs().destroyEntity(entity);
+    world->engine().ecs().destroyEntity(entity);
     component = nullptr;
 }
 
@@ -100,12 +99,12 @@ void Renderer<T>::notifyData(T* particles, std::size_t length) {
 
 template<typename T>
 typename Renderer<T>::TComponent* Renderer<T>::getComponent() {
-    return engine->ecs().getComponent<TComponent>(entity);
+    return world->engine().ecs().getComponent<TComponent>(entity);
 }
 
 template<typename T>
 Link<T>* Renderer<T>::getLink() {
-    return engine->ecs().getComponent<Link<T>>(entity);
+    return world->engine().ecs().getComponent<Link<T>>(entity);
 }
 
 template<typename T>

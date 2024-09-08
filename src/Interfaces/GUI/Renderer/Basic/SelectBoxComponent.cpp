@@ -26,9 +26,9 @@ void SelectBoxComponent::onRenderSettingChange() {
 
 ecs::Entity SelectBoxComponent::getEntity() const { return box.entity(); }
 
-void SelectBoxComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
+void SelectBoxComponent::doCreate(engine::World& world, rdr::Renderer&) {
     Element& owner = getOwnerAs<Element>();
-    box.create(engine, {owner.getAcquisition().width, owner.getAcquisition().height});
+    box.create(world, {owner.getAcquisition().width, owner.getAcquisition().height});
     box.getOverlayScaler().setScissorMode(com::OverlayScaler::ScissorSelfConstrained);
 }
 

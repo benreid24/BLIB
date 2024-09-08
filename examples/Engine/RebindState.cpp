@@ -15,10 +15,11 @@ RebindState::RebindState(unsigned int ctrl)
 const char* RebindState::name() const { return "RebindState"; }
 
 void RebindState::activate(bl::engine::Engine& engine) {
+    auto& world = engine.getPlayer().enterWorld<bl::engine::BasicWorld<bl::rc::scene::Scene2D>>();
     engine.renderer().getObserver().setClearColor({1.f, 1.f, 1.f, 1.f});
 
     if (!inited) {
-        text.create(engine, *font, "", 22, {0.1f, 0.65f, 0.22f, 1.f});
+        text.create(world, *font, "", 22, {0.1f, 0.65f, 0.22f, 1.f});
         text.getTransform().setPosition({50.f, 300.f});
     }
 
@@ -30,8 +31,7 @@ void RebindState::activate(bl::engine::Engine& engine) {
         text.getSection().setString("Press the desired control (keyboard/mouse only)");
     }
 
-    bl::rc::SceneRef scene =
-        engine.getPlayer().enterWorld<bl::engine::BasicWorld<bl::rc::scene::Scene2D>>().scene();
+    bl::rc::SceneRef scene = world.scene();
     engine.renderer().getObserver().setCamera<bl::cam::Camera2D>(
         sf::FloatRect{0.f, 0.f, 800.f, 600.f});
     text.addToScene(scene, bl::rc::UpdateSpeed::Static);

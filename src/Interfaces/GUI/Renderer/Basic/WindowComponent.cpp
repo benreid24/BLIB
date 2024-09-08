@@ -26,9 +26,9 @@ void WindowComponent::onRenderSettingChange() {
 
 ecs::Entity WindowComponent::getEntity() const { return box.entity(); }
 
-void WindowComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
+void WindowComponent::doCreate(engine::World& world, rdr::Renderer&) {
     Element& owner = getOwnerAs<Element>();
-    box.create(engine, {owner.getAcquisition().width, owner.getAcquisition().height});
+    box.create(world, {owner.getAcquisition().width, owner.getAcquisition().height});
 }
 
 void WindowComponent::doSceneAdd(rc::Overlay* overlay) {

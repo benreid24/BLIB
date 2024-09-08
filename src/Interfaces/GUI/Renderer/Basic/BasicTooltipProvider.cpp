@@ -51,15 +51,15 @@ void BasicTooltipProvider::displayTooltip(Element* element, const glm::vec2& mou
 
 void BasicTooltipProvider::dismissTooltip() { box.setHidden(true); }
 
-void BasicTooltipProvider::doCreate(engine::Engine& engine) {
-    box.create(engine, {100.f, 100.f});
+void BasicTooltipProvider::doCreate(engine::World& world) {
+    box.create(world, {100.f, 100.f});
     box.setFillColor(sf::Color(230, 230, 170));
     box.setOutlineColor(sf::Color::Black);
     box.setOutlineThickness(1.f);
     box.getTransform().setDepth(cam::OverlayCamera::MinDepth);
     box.setHidden(true);
 
-    text.create(engine, *Font::get(), "", FontSize);
+    text.create(world, *Font::get(), "", FontSize);
     text.wordWrap(MaxWidth);
     text.setParent(box);
     text.getTransform().setPosition({Padding, Padding});

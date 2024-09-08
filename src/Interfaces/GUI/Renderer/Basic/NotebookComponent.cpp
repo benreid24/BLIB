@@ -26,9 +26,9 @@ void NotebookComponent::onRenderSettingChange() {
 
 ecs::Entity NotebookComponent::getEntity() const { return box.entity(); }
 
-void NotebookComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
+void NotebookComponent::doCreate(engine::World& world, rdr::Renderer&) {
     Element& owner = getOwnerAs<Element>();
-    box.create(engine, {owner.getAcquisition().width, owner.getAcquisition().height});
+    box.create(world, {owner.getAcquisition().width, owner.getAcquisition().height});
     box.getOverlayScaler().setScissorMode(com::OverlayScaler::ScissorSelfConstrained);
 }
 

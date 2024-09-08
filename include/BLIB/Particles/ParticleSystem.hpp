@@ -34,10 +34,11 @@ public:
      *        created. Use for global particle managers
      *
      * @tparam T The particle type to get or create the manager for
+     * @param world The world to create the system in
      * @return A unique particle manager for the given particle type
      */
     template<typename T>
-    ParticleManager<T>& getUniqueSystem();
+    ParticleManager<T>& getUniqueSystem(engine::World& world);
 
     /**
      * @brief Removes the unique particle manager for the given particle type
@@ -64,10 +65,11 @@ public:
      *        for entity level particle managers
      *
      * @tparam T The particle type
+     * @param world The world to create the system in
      * @return The newly created particle manager
      */
     template<typename T>
-    ParticleManager<T>& addRepeatedSystem();
+    ParticleManager<T>& addRepeatedSystem(engine::World& world);
 
     /**
      * @brief Removes the specific entity level particle manager
@@ -118,7 +120,7 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>
-ParticleManager<T>& ParticleSystem::getUniqueSystem() {
+ParticleManager<T>& ParticleSystem::getUniqueSystem(engine::World& world) {
     using U = ParticleManager<T>;
 
     std::unique_lock lock(mutex);
@@ -126,7 +128,7 @@ ParticleManager<T>& ParticleSystem::getUniqueSystem() {
     auto it = singleSystems.find(typeid(T));
     if (it == singleSystems.end()) {
         it = singleSystems.try_emplace(typeid(T), std::make_unique<U>()).first;
-        it->second->init(*engine);
+        it->second->init(world);
     }
     return static_cast<U&>(*it->second);
 }
@@ -138,14 +140,14 @@ void ParticleSystem::removeUniqueSystem() {
 }
 
 template<typename T>
-ParticleManager<T>& ParticleSystem::addRepeatedSystem() {
+ParticleManager<T>& ParticleSystem::addRepeatedSystem(engine::World& world) {
     using U = ParticleManager<T>;
 
     std::unique_lock lock(mutex);
 
     auto& list  = multiSystems[typeid(T)];
     auto& added = list.emplace_back(std::make_unique<U>());
-    added->init(*engine);
+    added->init(world);
     return static_cast<U&>(*added);
 }
 

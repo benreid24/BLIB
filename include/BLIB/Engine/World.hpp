@@ -4,6 +4,7 @@
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/ECS/Flags.hpp>
 #include <BLIB/Render/Resources/SceneRef.hpp>
+#include <BLIB/Util/NonCopyable.hpp>
 
 namespace bl
 {
@@ -17,7 +18,7 @@ class Engine;
  *
  * @ingroup Engine
  */
-class World {
+class World : private util::NonCopyable {
 public:
     static constexpr unsigned int MaxWorlds = 8;
 

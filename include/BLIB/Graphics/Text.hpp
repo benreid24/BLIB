@@ -67,14 +67,14 @@ public:
      * @brief Creates the text entity and components in the ECS and creates a section using the
      *        given settings. This must be called before using any other method on the Text object
      *
-     * @param engine The game engine instance
+     * @param world The world to create the object in
      * @param font The font to use
      * @param content The string to render
      * @param fontSize The font size of the text
      * @param color The color of the text
      * @param style The style of the text
      */
-    void create(engine::Engine& engine, const sf::VulkanFont& font, const sf::String& content = {},
+    void create(engine::World& world, const sf::VulkanFont& font, const sf::String& content = {},
                 unsigned int fontSize = 18, const rc::Color& color = sf::Color::Black,
                 std::uint32_t style = sf::Text::Regular);
 

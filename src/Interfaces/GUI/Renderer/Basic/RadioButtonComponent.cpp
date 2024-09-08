@@ -30,12 +30,12 @@ void RadioButtonComponent::onRenderSettingChange() {
 
 ecs::Entity RadioButtonComponent::getEntity() const { return dummy.entity(); }
 
-void RadioButtonComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
+void RadioButtonComponent::doCreate(engine::World& world, rdr::Renderer&) {
     RadioButton& owner = getOwnerAs<RadioButton>();
-    dummy.create(engine);
-    circle.create(engine, owner.getToggleSize() * 0.5f);
+    dummy.create(world);
+    circle.create(world, owner.getToggleSize() * 0.5f);
     circle.setParent(dummy);
-    fill.create(engine, 5.f);
+    fill.create(world, 5.f);
     fill.getTransform().setOrigin({5.f, 5.f});
     fill.getOverlayScaler().positionInParentSpace({0.5f, 0.5f});
     fill.getOverlayScaler().scaleToSizePercent({0.55f, 0.55f});

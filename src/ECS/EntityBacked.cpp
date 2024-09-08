@@ -1,6 +1,7 @@
 #include <BLIB/ECS/EntityBacked.hpp>
 
-#include <BLIB/Engine.hpp>
+#include <BLIB/Engine/Engine.hpp>
+#include <BLIB/Engine/World.hpp>
 
 namespace bl
 {
@@ -43,14 +44,13 @@ void EntityBacked::destroy() {
     }
 }
 
-void EntityBacked::createEntityOnly(engine::Engine& engine, ecs::Flags flags) {
-    enginePtr = &engine;
-    // TODO - WORLD_UPDATE - update to take world instead
-    ecsId = engine.ecs().createEntity(0, flags);
+void EntityBacked::createEntityOnly(engine::World& world, ecs::Flags flags) {
+    enginePtr = &world.engine();
+    ecsId     = world.createEntity(flags);
 }
 
-void EntityBacked::createFromExistingEntity(engine::Engine& engine, ecs::Entity ent) {
-    enginePtr = &engine;
+void EntityBacked::createFromExistingEntity(engine::World& world, ecs::Entity ent) {
+    enginePtr = &world.engine();
     ecsId     = ent;
 }
 

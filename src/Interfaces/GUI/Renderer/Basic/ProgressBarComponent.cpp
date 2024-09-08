@@ -56,10 +56,10 @@ void ProgressBarComponent::onRenderSettingChange() {
 
 ecs::Entity ProgressBarComponent::getEntity() const { return background.entity(); }
 
-void ProgressBarComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
+void ProgressBarComponent::doCreate(engine::World& world, rdr::Renderer&) {
     ProgressBar& owner = getOwnerAs<ProgressBar>();
-    background.create(engine, {owner.getAcquisition().width, owner.getAcquisition().height});
-    bar.create(engine, {100.f, 100.f});
+    background.create(world, {owner.getAcquisition().width, owner.getAcquisition().height});
+    bar.create(world, {100.f, 100.f});
     bar.setParent(background);
 }
 

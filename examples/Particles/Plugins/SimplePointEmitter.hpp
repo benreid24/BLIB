@@ -18,14 +18,14 @@ public:
     static constexpr float MaxSpawnRate      = 30.f;
     static constexpr unsigned int SpawnCount = 100;
 
-    SimplePointEmitter(const glm::vec2& pos, bl::engine::Engine& engine, bl::rc::Scene* scene)
+    SimplePointEmitter(const glm::vec2& pos, bl::engine::World& world, bl::rc::Scene* scene)
     : pos(pos)
     , angle(bl::util::Random::get<float>(0.f, 2.f * bl::math::Pi))
     , angularVel(makeAngularVel())
     , spawnRate(bl::util::Random::get<float>(MinSpawnRate, MaxSpawnRate))
     , spawnResidual(0.f)
     , spawned(0) {
-        circle.create(engine, 3.f);
+        circle.create(world, 3.f);
         circle.setFillColor(sf::Color::White);
         circle.getTransform().setPosition(pos);
         circle.getTransform().setOrigin({3.f, 3.f});

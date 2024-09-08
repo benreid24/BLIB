@@ -91,16 +91,16 @@ void TextEntryComponent::resetCaratFlash() {
     if (owner.cursorVisible()) { carat.resetFlash(); }
 }
 
-void TextEntryComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
+void TextEntryComponent::doCreate(engine::World& world, rdr::Renderer&) {
     Element& owner = getOwnerAs<Element>();
-    box.create(engine, {owner.getAcquisition().width, owner.getAcquisition().height});
+    box.create(world, {owner.getAcquisition().width, owner.getAcquisition().height});
     box.getOverlayScaler().setScissorMode(com::OverlayScaler::ScissorSelfConstrained);
 
     const RenderSettings& settings = getOwnerAs<Element>().getRenderSettings();
-    text.create(engine, *settings.font.value_or(Font::get()));
+    text.create(world, *settings.font.value_or(Font::get()));
     text.setParent(box);
 
-    carat.create(engine, {10.f, 40.f});
+    carat.create(world, {10.f, 40.f});
     carat.setParent(text);
     carat.setHidden(true);
 }

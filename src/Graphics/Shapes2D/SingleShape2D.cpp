@@ -24,15 +24,15 @@ void SingleShape2D::notifyDirty() {
     }
 }
 
-void SingleShape2D::create(engine::Engine& engine) {
-    Drawable::create(engine);
-    OverlayScalable::create(engine, entity());
+void SingleShape2D::create(engine::World& world) {
+    Drawable::create(world);
+    OverlayScalable::create(world.engine(), entity());
     notifyDirty();
 }
 
-void SingleShape2D::create(engine::Engine& engine, ecs::Entity existing) {
-    Drawable::createComponentOnly(engine, existing);
-    OverlayScalable::create(engine, entity());
+void SingleShape2D::create(engine::World& world, ecs::Entity existing) {
+    Drawable::createComponentOnly(world, existing);
+    OverlayScalable::create(world.engine(), entity());
     notifyDirty();
 }
 

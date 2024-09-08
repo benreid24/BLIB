@@ -34,10 +34,10 @@ public:
     /**
      * @brief Creates the ECS entity and required components
      *
-     * @param engine The game engine instance
+     * @param world The world to create the object in
      * @param vertexCapacity The number of vertices to initially allocate
      */
-    void create(engine::Engine& engine, std::uint32_t vertexCapacity);
+    void create(engine::World& world, std::uint32_t vertexCapacity);
 
     /**
      * @brief Helper method to set the scale so that the entity is a certain size

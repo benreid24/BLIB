@@ -32,85 +32,85 @@ public:
     /**
      * @brief Creates the animation with its own player
      *
-     * @param engine Game engine instance
+     * @param world The world to create the object in
      * @param animation The animation to use
      * @param play True to play immediately, false to start paused
      * @param forceLoop True to always loop, false defer to animation setting
      */
-    Animation2D(engine::Engine& engine, const resource::Ref<a2d::AnimationData>& animation,
+    Animation2D(engine::World& world, const resource::Ref<a2d::AnimationData>& animation,
                 bool play = false, bool forceLoop = false);
 
     /**
      * @brief Creates the animation with its own player on an existing entity
      *
-     * @param engine Game engine instance
+     * @param world The world to create the object in
      * @param existingEntity The existing entity to add components to
      * @param animation The animation to use
      * @param play True to play immediately, false to start paused
      * @param forceLoop True to always loop, false defer to animation setting
      */
-    Animation2D(engine::Engine& engine, ecs::Entity existingEntity,
+    Animation2D(engine::World& world, ecs::Entity existingEntity,
                 const resource::Ref<a2d::AnimationData>& animation, bool play = false,
                 bool forceLoop = false);
 
     /**
      * @brief Creates the animation sharing player state with the given animation
      *
-     * @param engine Game engine instance
+     * @param world The world to create the object in
      * @param player The other animation to share player state with
      */
-    Animation2D(engine::Engine& engine, const Animation2D& player);
+    Animation2D(engine::World& world, const Animation2D& player);
 
     /**
      * @brief Creates the animation sharing player state with the given animation
      *
-     * @param engine Game engine instance
+     * @param world The world to create the object in
      * @param existingEntity The existing entity to add components to
      * @param player The other animation to share player state with
      */
-    Animation2D(engine::Engine& engine, ecs::Entity existingEntity, const Animation2D& player);
+    Animation2D(engine::World& world, ecs::Entity existingEntity, const Animation2D& player);
 
     /**
      * @brief Creates the animation with its own player
      *
-     * @param engine Game engine instance
+     * @param world The world to create the object in
      * @param animation The animation to use
      * @param play True to play immediately, false to start paused
      * @param forceLoop True to always loop, false defer to animation setting
      */
-    void createWithUniquePlayer(engine::Engine& engine,
+    void createWithUniquePlayer(engine::World& world,
                                 const resource::Ref<a2d::AnimationData>& animation,
                                 bool play = false, bool forceLoop = false);
 
     /**
      * @brief Creates the animation with its own player on an existing entity
      *
-     * @param engine Game engine instance
+     * @param world The world to create the object in
      * @param existingEntity The existing entity to add components to
      * @param animation The animation to use
      * @param play True to play immediately, false to start paused
      * @param forceLoop True to always loop, false defer to animation setting
      */
-    void createWithUniquePlayer(engine::Engine& engine, ecs::Entity existingEntity,
+    void createWithUniquePlayer(engine::World& world, ecs::Entity existingEntity,
                                 const resource::Ref<a2d::AnimationData>& animation,
                                 bool play = false, bool forceLoop = false);
 
     /**
      * @brief Creates the animation sharing player state with the given animation
      *
-     * @param engine Game engine instance
+     * @param world The world to create the object in
      * @param player The other animation to share player state with
      */
-    void createWithSharedPlayer(engine::Engine& engine, const Animation2D& player);
+    void createWithSharedPlayer(engine::World& world, const Animation2D& player);
 
     /**
      * @brief Creates the animation sharing player state with the given animation
      *
-     * @param engine Game engine instance
+     * @param world The world to create the object in
      * @param existingEntity The existing entity to add components to
      * @param player The other animation to share player state with
      */
-    void createWithSharedPlayer(engine::Engine& engine, ecs::Entity existingEntity,
+    void createWithSharedPlayer(engine::World& world, ecs::Entity existingEntity,
                                 const Animation2D& player);
 
     /**

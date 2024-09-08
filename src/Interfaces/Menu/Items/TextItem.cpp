@@ -17,8 +17,8 @@ TextItem::TextItem(const std::string& t, const sf::VulkanFont& font, const sf::C
 , fontSize(fontSize)
 , style(style) {}
 
-void TextItem::doCreate(engine::Engine& engine) {
-    text.create(engine, font, string, fontSize, color, style);
+void TextItem::doCreate(engine::World& world) {
+    text.create(world, font, string, fontSize, color, style);
 }
 
 void TextItem::doSceneAdd(rc::Scene* s) { text.addToScene(s, rc::UpdateSpeed::Static); }

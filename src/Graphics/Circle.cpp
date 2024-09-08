@@ -7,14 +7,14 @@ namespace gfx
 Circle::Circle(unsigned int pointCount)
 : CircleBase(pointCount) {}
 
-void Circle::create(engine::Engine& engine, float r) {
+void Circle::create(engine::World& world, float r) {
     setRadius(r);
-    SingleShape2D::create(engine);
+    SingleShape2D::create(world);
 }
 
-void Circle::create(engine::Engine& engine, ecs::Entity existing, float r) {
+void Circle::create(engine::World& world, ecs::Entity existing, float r) {
     setRadius(r);
-    SingleShape2D::create(engine, existing);
+    SingleShape2D::create(world, existing);
 }
 
 } // namespace gfx

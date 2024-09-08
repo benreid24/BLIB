@@ -7,9 +7,9 @@ namespace gfx
 Rectangle::Rectangle()
 : RectangleBase() {}
 
-void Rectangle::create(engine::Engine& engine, const glm::vec2& s) {
+void Rectangle::create(engine::World& world, const glm::vec2& s) {
     setSize(s);
-    SingleShape2D::create(engine);
+    SingleShape2D::create(world);
 }
 
 } // namespace gfx

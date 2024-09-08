@@ -26,9 +26,9 @@ void ButtonComponent::onRenderSettingChange() {
 
 ecs::Entity ButtonComponent::getEntity() const { return box.entity(); }
 
-void ButtonComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
+void ButtonComponent::doCreate(engine::World& world, rdr::Renderer&) {
     Element& owner = getOwnerAs<Element>();
-    box.create(engine, {owner.getAcquisition().width, owner.getAcquisition().height});
+    box.create(world, {owner.getAcquisition().width, owner.getAcquisition().height});
 }
 
 void ButtonComponent::doSceneAdd(rc::Overlay* overlay) {

@@ -22,7 +22,6 @@ public:
     /**
      * @brief Create the render item from a sprite
      *
-     * @param engine The game engine instance
      * @param texture The texture to use
      */
     static Ptr create(const rc::res::TextureRef& texture);
@@ -54,9 +53,9 @@ protected:
      * @brief Called at least once when the item is added to a menu. Should create required graphics
      *        primitives and return the transform to use
      *
-     * @param engine The game engine instance
+     * @param world The world to create entities in
      */
-    virtual void doCreate(engine::Engine& engine) override;
+    virtual void doCreate(engine::World& world) override;
 
     /**
      * @brief Called when the item should be added to the scene

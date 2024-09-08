@@ -42,9 +42,9 @@ public:
     /**
      * @brief Called once after being constructed
      *
-     * @param engine The game engine instance
+     * @param world The world to create entities in
      */
-    virtual void init(engine::Engine& engine) override;
+    virtual void init(engine::World& world) override;
 
     /**
      * @brief Destroys the particle manager
@@ -271,7 +271,7 @@ private:
     static constexpr std::size_t ParticlesPerThread = 800;
 
     mutable std::mutex mutex;
-    engine::Engine* engine;
+    engine::World* world;
     TRenderer renderer;
     priv::GlobalParticleSystemInfo globalInfo;
     std::vector<T> particles;

@@ -23,10 +23,10 @@ public:
     /**
      * @brief Creates the rectangle entity and components
      *
-     * @param engine The game engine instance
+     * @param world The world to create the object in
      * @param size The local size of the rectangle in world units
      */
-    void create(engine::Engine& engine, const glm::vec2& size);
+    void create(engine::World& world, const glm::vec2& size);
 };
 
 } // namespace gfx

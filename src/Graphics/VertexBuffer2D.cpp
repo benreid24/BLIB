@@ -4,15 +4,15 @@ namespace bl
 {
 namespace gfx
 {
-void VertexBuffer2D::create(engine::Engine& engine, unsigned int vc) {
-    Drawable::create(engine);
-    Transform2D::create(engine.ecs(), entity());
-    component().create(engine, vc);
+void VertexBuffer2D::create(engine::World& world, unsigned int vc) {
+    Drawable::create(world);
+    Transform2D::create(world.engine().ecs(), entity());
+    component().create(world.engine(), vc);
 }
 
-void VertexBuffer2D::create(engine::Engine& engine, unsigned int vc, rc::res::TextureRef txtr) {
-    create(engine, vc);
-    Textured::create(engine.ecs(), entity(), txtr);
+void VertexBuffer2D::create(engine::World& world, unsigned int vc, rc::res::TextureRef txtr) {
+    create(world, vc);
+    Textured::create(world.engine().ecs(), entity(), txtr);
 }
 
 void VertexBuffer2D::scaleToSize(const glm::vec2& size) {

@@ -35,11 +35,11 @@ void AnimationComponent::onRenderSettingChange() { setPosition(); }
 
 ecs::Entity AnimationComponent::getEntity() const { return anim.entity(); }
 
-void AnimationComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
+void AnimationComponent::doCreate(engine::World& world, rdr::Renderer&) {
     Animation& owner = getOwnerAs<Animation>();
     source           = owner.getAnimation();
-    anim.createWithUniquePlayer(engine, owner.getAnimation(), true, true);
-    enginePtr = &engine;
+    anim.createWithUniquePlayer(world, owner.getAnimation(), true, true);
+    enginePtr = &world.engine();
 }
 
 void AnimationComponent::doSceneAdd(rc::Overlay* overlay) {

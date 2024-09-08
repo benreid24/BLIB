@@ -17,7 +17,7 @@ constexpr float BoxPad = ComboBox::OptionPadding * 2.f;
 
 ComboBoxComponent::ComboBoxComponent()
 : Component(HighlightState::IgnoresMouse)
-, enginePtr(nullptr)
+, worldPtr(nullptr)
 , currentOverlay(nullptr) {}
 
 void ComboBoxComponent::setVisible(bool v) { box.setHidden(!v); }
@@ -59,20 +59,20 @@ void ComboBoxComponent::onRenderSettingChange() {
 
 ecs::Entity ComboBoxComponent::getEntity() const { return box.entity(); }
 
-void ComboBoxComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
-    enginePtr                      = &engine;
+void ComboBoxComponent::doCreate(engine::World& world, rdr::Renderer&) {
+    worldPtr                       = &world;
     ComboBox& owner                = getOwnerAs<ComboBox>();
     const RenderSettings& settings = owner.renderSettings();
-    box.create(engine, {owner.getAcquisition().width, owner.getAcquisition().height});
+    box.create(world, {owner.getAcquisition().width, owner.getAcquisition().height});
 
     // arrow box + arrow
     arrowBox.create(
-        engine, {owner.getAcquisition().height - BoxPad, owner.getAcquisition().height - BoxPad});
+        world, {owner.getAcquisition().height - BoxPad, owner.getAcquisition().height - BoxPad});
     arrowBox.setFillColor(sf::Color(90, 90, 90));
     arrowBox.setOutlineColor(sf::Color(45, 45, 45));
     arrowBox.setOutlineThickness(-1.f);
     arrowBox.setParent(box);
-    arrow.create(engine, {glm::vec2{0.f, 0.f}, glm::vec2{100.f, 0.f}, glm::vec2{50.f, 100.f}});
+    arrow.create(world, {glm::vec2{0.f, 0.f}, glm::vec2{100.f, 0.f}, glm::vec2{50.f, 100.f}});
     arrow.setFillColor(sf::Color::Black);
     arrow.getTransform().setOrigin({50.f, 50.f});
     arrow.getOverlayScaler().positionInParentSpace({0.5f, 0.5f});
@@ -80,17 +80,17 @@ void ComboBoxComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
     arrow.setParent(arrowBox);
 
     // selected text
-    selectedOption.create(engine, *settings.font.value_or(Font::get()));
+    selectedOption.create(world, *settings.font.value_or(Font::get()));
     selectedOption.setParent(box);
 
     // open state items
-    openBackground.create(engine, {100.f, 100.f});
+    openBackground.create(world, {100.f, 100.f});
     openBackground.setFillColor(sf::Color(90, 90, 90));
     openBackground.getTransform().setDepth(-450.f);
     openBackground.getOverlayScaler().setScissorMode(com::OverlayScaler::ScissorSelf);
     openBackground.setParent(box);
 
-    openOptionBoxes.create(engine, 256);
+    openOptionBoxes.create(world, 256);
     openOptionBoxes.setParent(openBackground);
 }
 
@@ -184,8 +184,8 @@ void ComboBoxComponent::updateOptions() {
 
         if (!o.created) {
             o.created = true;
-            o.background.create(*enginePtr, openOptionBoxes, boxSize);
-            o.text.create(*enginePtr, *settings.font.value_or(Font::get()));
+            o.background.create(worldPtr->engine(), openOptionBoxes, boxSize);
+            o.text.create(*worldPtr, *settings.font.value_or(Font::get()));
             o.text.setParent(openOptionBoxes);
             if (currentOverlay) { o.text.addToScene(currentOverlay, rc::UpdateSpeed::Static); }
         }

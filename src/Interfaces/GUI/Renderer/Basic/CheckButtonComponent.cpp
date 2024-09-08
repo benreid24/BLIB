@@ -30,12 +30,12 @@ void CheckButtonComponent::onRenderSettingChange() {
 
 ecs::Entity CheckButtonComponent::getEntity() const { return dummy.entity(); }
 
-void CheckButtonComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
+void CheckButtonComponent::doCreate(engine::World& world, rdr::Renderer&) {
     CheckButton& owner = getOwnerAs<CheckButton>();
-    dummy.create(engine);
-    box.create(engine, {owner.getToggleSize(), owner.getToggleSize()});
+    dummy.create(world);
+    box.create(world, {owner.getToggleSize(), owner.getToggleSize()});
     box.setParent(dummy);
-    fill.create(engine, {10.f, 10.f});
+    fill.create(world, {10.f, 10.f});
     fill.getTransform().setOrigin({5.f, 5.f});
     fill.getOverlayScaler().positionInParentSpace({0.5f, 0.5f});
     fill.getOverlayScaler().scaleToSizePercent({0.6f, 0.6f});

@@ -8,7 +8,8 @@ namespace bl
 namespace engine
 {
 class Engine;
-}
+class World;
+} // namespace engine
 namespace rc
 {
 class Scene;
@@ -32,9 +33,9 @@ public:
     /**
      * @brief Called once after being constructed
      *
-     * @param engine The game engine instance
+     * @param world The world to create entities in
      */
-    virtual void init(engine::Engine& engine) = 0;
+    virtual void init(engine::World& world) = 0;
 
     /**
      * @brief Updates all the particles in the particle manager

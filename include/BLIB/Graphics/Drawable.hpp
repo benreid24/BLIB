@@ -15,7 +15,8 @@ namespace bl
 namespace engine
 {
 class Engine;
-}
+class World;
+} // namespace engine
 
 /// Collection of SFML-like classes for drawing
 namespace gfx
@@ -139,22 +140,22 @@ protected:
      * @brief Creates the ECS entity and drawable component. Will destroy the prior instance if any
      *
      * @tparam ...TArgs Argument types to the component's constructor
-     * @param engine Game engine instance
+     * @param world The world to create the object in
      * @param ...args Arguments to the component's constructor
      */
     template<typename... TArgs>
-    void create(engine::Engine& engine, TArgs&&... args);
+    void create(engine::World& world, TArgs&&... args);
 
     /**
      * @brief Creates the component for the drawable. Must only be called after entity creation
      *
      * @tparam ...TArgs Argument types to the components constructor
-     * @param engine Game engine instance
+     * @param world The world to create the object in
      * @param existingEntity An already existing entity to add components to
      * @param ...args Arguments to the components constructor
      */
     template<typename... TArgs>
-    void createComponentOnly(engine::Engine& engine, ecs::Entity existingEntity, TArgs&&... args);
+    void createComponentOnly(engine::World& world, ecs::Entity existingEntity, TArgs&&... args);
 
     /**
      * @brief Called after the entity is added to a scene. Allows derived to sync data if required
@@ -299,18 +300,20 @@ void Drawable<TCom>::onRemove() {}
 
 template<typename TCom>
 template<typename... TArgs>
-void Drawable<TCom>::createComponentOnly(engine::Engine& e, ecs::Entity existing, TArgs&&... args) {
+void Drawable<TCom>::createComponentOnly(engine::World& world, ecs::Entity existing,
+                                         TArgs&&... args) {
     if (handle != nullptr) { destroy(); }
-    createFromExistingEntity(e, existing);
+    createFromExistingEntity(world, existing);
     handle = engine().ecs().template emplaceComponent<TCom>(entity(), std::forward<TArgs>(args)...);
 }
 
 template<typename TCom>
 template<typename... TArgs>
-void Drawable<TCom>::create(engine::Engine& engine, TArgs&&... args) {
+void Drawable<TCom>::create(engine::World& world, TArgs&&... args) {
     if (handle != nullptr) { destroy(); }
-    createEntityOnly(engine);
-    handle = engine.ecs().template emplaceComponent<TCom>(entity(), std::forward<TArgs>(args)...);
+    createEntityOnly(world);
+    handle = world.engine().ecs().template emplaceComponent<TCom>(entity(),
+                                                                  std::forward<TArgs>(args)...);
 }
 
 template<typename TCom>

@@ -22,15 +22,15 @@ void MainState::activate(bl::engine::Engine& engine) {
         world = engine.createWorld<bl::engine::BasicWorld<bl::rc::scene::Scene2D>>();
 
         font = bl::resource::ResourceManager<sf::VulkanFont>::load("font.ttf");
-        listener.init(engine);
+        listener.init(*world);
 
-        kbmControls.create(engine, *font, "", 22, {0.f, 0.f, 0.f, 1.f});
+        kbmControls.create(*world, *font, "", 22, {0.f, 0.f, 0.f, 1.f});
         kbmControls.getTransform().setPosition({400.f, 5.f});
 
-        jsControls.create(engine, *font, "", 22, {0.f, 0.f, 0.f, 1.f});
+        jsControls.create(*world, *font, "", 22, {0.f, 0.f, 0.f, 1.f});
         jsControls.getTransform().setPosition({400.f, 355.f});
 
-        cover.create(engine, {800.f, 800.f});
+        cover.create(*world, {800.f, 800.f});
         cover.setFillColor({1.f, 1.f, 1.f, 1.f});
     }
 

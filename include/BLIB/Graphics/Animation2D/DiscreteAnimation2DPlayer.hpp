@@ -27,14 +27,14 @@ public:
     /**
      * @brief Creates the animation player entity and component
      *
-     * @param engine The game engine instance
+     * @param world The world to create the object in
      * @param animation The animation data to use
      * @param mode The type of player to create
      * @param play True to play immediately, false to create paused
      * @param forceLoop True to loop the animation, false to defer to the source file
      */
-    void create(engine::Engine& engine, const resource::Ref<a2d::AnimationData>& animation,
-                Mode mode, bool play = false, bool forceLoop = false);
+    void create(engine::World& world, const resource::Ref<a2d::AnimationData>& animation, Mode mode,
+                bool play = false, bool forceLoop = false);
 
     /**
      * @brief Access the animation player

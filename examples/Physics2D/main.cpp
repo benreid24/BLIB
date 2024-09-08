@@ -21,12 +21,12 @@ public:
                                                                      glm::vec2{800.f, 600.f});
         engine.renderer().getObserver().setClearColor({0.f, 0.4f, 1.f, 1.f});
 
-        floor.create(engine, {600.f, 100.f});
+        floor.create(world, {600.f, 100.f});
         floor.setFillColor(sf::Color(20, 245, 120));
         floor.getTransform().setPosition(100.f, 500.f);
         floor.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
-        playerBox.create(engine, {50.f, 50.f});
+        playerBox.create(world, {50.f, 50.f});
         playerBox.setFillColor(sf::Color::Red);
         playerBox.getTransform().setPosition(400.f, 200.f);
         playerBox.getTransform().setOrigin(25.f, 25.f);

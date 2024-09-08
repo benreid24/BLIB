@@ -30,32 +30,32 @@ public:
     /**
      * @brief Creates the slideshow with its own player
      *
-     * @param engine Game engine instance
+     * @param world The world to create the object in
      * @param animation The animation to use
      * @param play True to play immediately, false to start paused
      * @param forceLoop True to always loop, false defer to animation setting
      */
-    Slideshow(engine::Engine& engine, const resource::Ref<a2d::AnimationData>& animation,
+    Slideshow(engine::World& world, const resource::Ref<a2d::AnimationData>& animation,
               bool play = false, bool forceLoop = false);
 
     /**
      * @brief Creates the slideshow sharing animation state with the given slideshow
      *
-     * @param engine Game engine instance
+     * @param world The world to create the object in
      * @param player The other slideshow to share animation state with
      */
-    Slideshow(engine::Engine& engine, const Slideshow& player);
+    Slideshow(engine::World& world, const Slideshow& player);
 
     /**
      * @brief Creates the slideshow with its own player on an existing entity
      *
-     * @param engine Game engine instance
+     * @param world The world to create the object in
      * @param existingEntity The entity to add the sprite components to
      * @param animation The animation to use
      * @param play True to play immediately, false to start paused
      * @param forceLoop True to always loop, false defer to animation setting
      */
-    Slideshow(engine::Engine& engine, ecs::Entity existingEntity,
+    Slideshow(engine::World& world, ecs::Entity existingEntity,
               const resource::Ref<a2d::AnimationData>& animation, bool play = false,
               bool forceLoop = false);
 
@@ -63,53 +63,53 @@ public:
      * @brief Creates the slideshow sharing animation state with the given slideshow on an existing
      *        entity
      *
-     * @param engine Game engine instance
+     * @param world The world to create the object in
      * @param existingEntity The entity to add the sprite components to
      * @param player The other slideshow to share animation state with
      */
-    Slideshow(engine::Engine& engine, ecs::Entity existingEntity, const Slideshow& player);
+    Slideshow(engine::World& world, ecs::Entity existingEntity, const Slideshow& player);
 
     /**
      * @brief Creates the slideshow with its own player
      *
-     * @param engine Game engine instance
+     * @param world The world to create the object in
      * @param animation The animation to use
      * @param play True to play immediately, false to start paused
      * @param forceLoop True to always loop, false defer to animation setting
      */
-    void createWithUniquePlayer(engine::Engine& engine,
+    void createWithUniquePlayer(engine::World& world,
                                 const resource::Ref<a2d::AnimationData>& animation,
                                 bool play = false, bool forceLoop = false);
 
     /**
      * @brief Creates the slideshow with its own player
      *
-     * @param engine Game engine instance
+     * @param world The world to create the object in
      * @param existingEntity The entity to add the sprite components to
      * @param animation The animation to use
      * @param play True to play immediately, false to start paused
      * @param forceLoop True to always loop, false defer to animation setting
      */
-    void createWithUniquePlayer(engine::Engine& engine, ecs::Entity existingEntity,
+    void createWithUniquePlayer(engine::World& world, ecs::Entity existingEntity,
                                 const resource::Ref<a2d::AnimationData>& animation,
                                 bool play = false, bool forceLoop = false);
 
     /**
      * @brief Creates the slideshow sharing animation state with the given slideshow
      *
-     * @param engine Game engine instance
+     * @param world The world to create the object in
      * @param player The other slideshow to share animation state with
      */
-    void createWithSharedPlayer(engine::Engine& engine, const Slideshow& player);
+    void createWithSharedPlayer(engine::World& world, const Slideshow& player);
 
     /**
      * @brief Creates the slideshow sharing animation state with the given slideshow
      *
-     * @param engine Game engine instance
+     * @param world The world to create the object in
      * @param existingEntity The entity to add the sprite components to
      * @param player The other slideshow to share animation state with
      */
-    void createWithSharedPlayer(engine::Engine& engine, ecs::Entity existingEntity,
+    void createWithSharedPlayer(engine::World& world, ecs::Entity existingEntity,
                                 const Slideshow& player);
 
     /**

@@ -24,8 +24,8 @@ void SeparatorComponent::onRenderSettingChange() {
 
 ecs::Entity SeparatorComponent::getEntity() const { return sep.entity(); }
 
-void SeparatorComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
-    sep.create(engine, computeSize());
+void SeparatorComponent::doCreate(engine::World& world, rdr::Renderer&) {
+    sep.create(world, computeSize());
 }
 
 void SeparatorComponent::doSceneAdd(rc::Overlay* overlay) {

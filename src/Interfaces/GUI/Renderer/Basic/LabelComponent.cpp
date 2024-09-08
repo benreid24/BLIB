@@ -49,9 +49,9 @@ void LabelComponent::onRenderSettingChange() {
 
 ecs::Entity LabelComponent::getEntity() const { return text.entity(); }
 
-void LabelComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
+void LabelComponent::doCreate(engine::World& world, rdr::Renderer&) {
     const RenderSettings& settings = getOwnerAs<Label>().renderSettings();
-    text.create(engine, *settings.font.value_or(Font::get()));
+    text.create(world, *settings.font.value_or(Font::get()));
 }
 
 void LabelComponent::doSceneAdd(rc::Overlay* overlay) {

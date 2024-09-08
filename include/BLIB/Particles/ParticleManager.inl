@@ -19,9 +19,9 @@ ParticleManager<T>::ParticleManager() {
 }
 
 template<typename T>
-void ParticleManager<T>::init(engine::Engine& e) {
-    engine = &e;
-    renderer.init(e);
+void ParticleManager<T>::init(engine::World& w) {
+    world = &w;
+    renderer.init(w);
 }
 
 template<typename T>
@@ -112,8 +112,8 @@ void ParticleManager<T>::update(util::ThreadPool& threadPool, float dt, float re
 
     // update global info
     globalInfo.cameraToWindowScale =
-        engine->renderer().getObserver().getRegionSize().x /
-        engine->renderer().getObserver().getCurrentCamera()->getViewerSize().x;
+        world->engine().renderer().getObserver().getRegionSize().x /
+        world->engine().renderer().getObserver().getCurrentCamera()->getViewerSize().x;
 
     // update renderer data
     renderer.notifyData(particles.data(), particles.size());

@@ -19,21 +19,21 @@ Text::~Text() {
     if (commitTask.isQueued()) { commitTask.cancel(); }
 }
 
-void Text::create(engine::Engine& engine, const sf::VulkanFont& f, const sf::String& content,
+void Text::create(engine::World& world, const sf::VulkanFont& f, const sf::String& content,
                   unsigned int fontSize, const rc::Color& color, std::uint32_t style) {
-    systems = &engine.systems();
+    systems = &world.engine().systems();
     font    = &f;
     queueCommit();
 
-    Drawable::create(engine);
-    Textured::create(engine.ecs(), entity(), font->syncTexture(engine.renderer()));
-    OverlayScalable::create(engine, entity());
+    Drawable::create(world);
+    Textured::create(world.engine().ecs(), entity(), font->syncTexture(world.engine().renderer()));
+    OverlayScalable::create(world.engine(), entity());
     OverlayScalable::getOverlayScaler().setScaleCallback([this]() {
         if (wordWrapWidth > 0.f) { queueCommit(); }
     });
 
     const std::uint32_t vc = std::max(content.getSize(), static_cast<std::size_t>(20)) * 6;
-    component().vertices.create(engine.renderer().vulkanState(), vc);
+    component().vertices.create(world.engine().renderer().vulkanState(), vc);
 
     sections.clear();
     addSection(content, fontSize, color, style);

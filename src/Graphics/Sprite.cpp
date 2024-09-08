@@ -7,29 +7,29 @@ namespace bl
 {
 namespace gfx
 {
-Sprite::Sprite(engine::Engine& engine, rc::res::TextureRef texture, const sf::FloatRect& region) {
-    create(engine, texture, region);
+Sprite::Sprite(engine::World& world, rc::res::TextureRef texture, const sf::FloatRect& region) {
+    create(world, texture, region);
 }
 
-Sprite::Sprite(engine::Engine& engine, ecs::Entity existing, rc::res::TextureRef texture,
+Sprite::Sprite(engine::World& world, ecs::Entity existing, rc::res::TextureRef texture,
                const sf::FloatRect& region) {
-    create(engine, existing, texture, region);
+    create(world, existing, texture, region);
 }
 
-void Sprite::create(engine::Engine& engine, rc::res::TextureRef texture,
+void Sprite::create(engine::World& world, rc::res::TextureRef texture,
                     const sf::FloatRect& region) {
-    Drawable::create(engine, engine.renderer(), texture, region);
-    Textured::create(engine.ecs(), entity(), texture);
-    OverlayScalable::create(engine, entity());
+    Drawable::create(world, world.engine().renderer(), texture, region);
+    Textured::create(world.engine().ecs(), entity(), texture);
+    OverlayScalable::create(world.engine(), entity());
     OverlayScalable::setLocalSize(component().getSize());
     component().setContainsTransparency(Textured::getTexture()->containsTransparency());
 }
 
-void Sprite::create(engine::Engine& engine, ecs::Entity existing, rc::res::TextureRef texture,
+void Sprite::create(engine::World& world, ecs::Entity existing, rc::res::TextureRef texture,
                     const sf::FloatRect& region) {
-    Drawable::createComponentOnly(engine, existing, engine.renderer(), texture, region);
-    Textured::create(engine.ecs(), entity(), texture);
-    OverlayScalable::create(engine, entity());
+    Drawable::createComponentOnly(world, existing, world.engine().renderer(), texture, region);
+    Textured::create(world.engine().ecs(), entity(), texture);
+    OverlayScalable::create(world.engine(), entity());
     OverlayScalable::setLocalSize(component().getSize());
     component().setContainsTransparency(Textured::getTexture()->containsTransparency());
 }
