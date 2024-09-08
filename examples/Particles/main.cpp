@@ -106,22 +106,22 @@ public:
     virtual const char* name() const override { return "DemoState"; }
 
     virtual void activate(bl::engine::Engine& engine) override {
-        auto& world =
+        auto world =
             engine.getPlayer().enterWorld<bl::engine::BasicWorld<bl::rc::scene::Scene2D>>();
         auto& observer = engine.renderer().getObserver(0);
-        auto scene     = world.scene();
+        auto scene     = world->scene();
         observer.setCamera<bl::cam::Camera2D>(
             sf::FloatRect(Bounds.x, Bounds.y, Bounds.z, Bounds.w));
         observer.setClearColor({0.05f, 0.05f, 0.05f, 1.f});
 
-        auto& simpleManager = engine.particleSystem().getUniqueSystem<Particle>(world);
+        auto& simpleManager = engine.particleSystem().getUniqueSystem<Particle>(*world);
 
         simpleManager.addUpdater<SimpleMovableUpdater>();
-        simpleManager.addEmitter<SimplePointEmitter>(glm::vec2{400.f, 300.f}, world, scene);
+        simpleManager.addEmitter<SimplePointEmitter>(glm::vec2{400.f, 300.f}, *world, scene);
         simpleManager.addAffector<SimpleVelocityAffector>();
         simpleManager.addAffector<SimpleWrapAffector>();
 
-        spawner.init(engine, world, simpleManager, scene);
+        spawner.init(engine, *world, simpleManager, scene);
         bl::event::Dispatcher::subscribe(&spawner);
         simpleManager.addToScene(scene);
     }

@@ -230,7 +230,7 @@ public:
      * @return A ref to the newly created world
      */
     template<typename TWorld, typename... TArgs>
-    util::Ref<World> createWorld(TArgs&&... args);
+    util::Ref<World, TWorld> createWorld(TArgs&&... args);
 
     /**
      * @brief Fetch the world at the given index
@@ -300,7 +300,7 @@ inline StateMask::V Engine::getCurrentStateMask() const {
 inline Player& Engine::getPlayer(unsigned int i) { return *std::next(players.begin(), i); }
 
 template<typename TWorld, typename... TArgs>
-util::Ref<World> Engine::createWorld(TArgs&&... args) {
+util::Ref<World, TWorld> Engine::createWorld(TArgs&&... args) {
     static_assert(std::is_constructible_v<TWorld, Engine&, TArgs...>,
                   "TWorld constructor must take Engine& as first parameter");
 
@@ -320,17 +320,17 @@ util::Ref<World> Engine::createWorld(TArgs&&... args) {
 inline util::Ref<World> Engine::getWorld(unsigned int index) { return worlds[index]; }
 
 template<typename TWorld, typename... TArgs>
-TWorld& Player::enterWorld(TArgs&&... args) {
+util::Ref<World, TWorld> Player::enterWorld(TArgs&&... args) {
     auto world = owner.createWorld<TWorld>(std::forward<TArgs>(args)...);
     enterWorld(world);
-    return static_cast<TWorld&>(*world);
+    return world;
 }
 
 template<typename TWorld, typename... TArgs>
-TWorld& Player::changeWorlds(TArgs&&... args) {
+util::Ref<World, TWorld> Player::changeWorlds(TArgs&&... args) {
     auto world = owner.createWorld<TWorld>(std::forward<TArgs>(args)...);
     changeWorlds(world);
-    return static_cast<TWorld&>(*world);
+    return world;
 }
 
 } // namespace engine

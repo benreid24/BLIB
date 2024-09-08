@@ -36,10 +36,13 @@ struct Payload {
  * @brief Utility for lightweight ref counting of resources
  *
  * @tparam T The type of resource being ref counted
+ * @tparam TDerived Derived type of T that this ref points to
  * @ingroup Util
  */
-template<typename T>
+template<typename T, typename TDerived = T>
 class Ref {
+    static_assert(std::is_base_of_v<T, TDerived>, "TDervied must derive from T");
+
 public:
     /**
      * @brief Creates an invalid ref
@@ -51,24 +54,25 @@ public:
     /**
      * @brief Initializes this ref from another
      *
+     * @tparam TOther The derived type of the other ref
      * @param other The ref to copy
      */
-    Ref(const Ref& other)
-    : value(other.value)
-    , payload(other.payload) {
-        increment();
+    template<typename TOther>
+    Ref(const Ref<T, TOther>& other)
+    : Ref() {
+        *this = other;
     }
 
     /**
      * @brief Takes over ownership from another ref
      *
+     * @tparam TOther The derived type of the other ref
      * @param other The ref to assume ownership from
      */
-    Ref(Ref&& other)
-    : value(other.value)
-    , payload(other.payload) {
-        other.value   = nullptr;
-        other.payload = nullptr;
+    template<typename TOther>
+    Ref(Ref<T, TOther>&& other)
+    : Ref() {
+        *this = std::forward<Ref<T, TOther>>(other);
     }
 
     /**
@@ -82,10 +86,17 @@ public:
      * @param other The ref to copy
      * @return A reference to this object
      */
-    Ref& operator=(const Ref& other) {
+    template<typename TOther>
+    Ref& operator=(const Ref<T, TOther>& other) {
         decrement();
-        value   = other.value;
+
         payload = other.payload;
+        if constexpr (std::is_base_of_v<TDerived, TOther>) { value = other.value; }
+        else {
+            value = dynamic_cast<TDerived*>(other.value);
+            if (other.value && !value) { throw std::runtime_error("Invalid ref assignment"); }
+        }
+
         if (value) { increment(); }
         return *this;
     }
@@ -96,10 +107,17 @@ public:
      * @param other The ref to assume ownership from
      * @return A reference to this object
      */
-    Ref& operator=(Ref&& other) {
+    template<typename TOther>
+    Ref& operator=(Ref<T, TOther>&& other) {
         decrement();
-        value         = other.value;
-        payload       = other.payload;
+
+        payload = other.payload;
+        if constexpr (std::is_base_of_v<TDerived, TOther>) { value = other.value; }
+        else {
+            value = dynamic_cast<TDerived*>(other.value);
+            if (other.value && !value) { throw std::runtime_error("Invalid ref assignment"); }
+        }
+
         other.value   = nullptr;
         other.payload = nullptr;
         return *this;
@@ -108,32 +126,32 @@ public:
     /**
      * @brief Access the underlying resource value
      */
-    T& operator*() { return *value; }
+    TDerived& operator*() { return *value; }
 
     /**
      * @brief Access the underlying resource value
      */
-    const T& operator*() const { return *value; }
+    const TDerived& operator*() const { return *value; }
 
     /**
      * @brief Access the underlying resource value
      */
-    T* operator->() { return value; }
+    TDerived* operator->() { return value; }
 
     /**
      * @brief Access the underlying resource value
      */
-    const T* operator->() const { return value; }
+    const TDerived* operator->() const { return value; }
 
     /**
      * @brief Access the underlying resource value
      */
-    T* get() { return value; }
+    TDerived* get() { return value; }
 
     /**
      * @brief Access the underlying resource value
      */
-    const T* get() const { return value; }
+    const TDerived* get() const { return value; }
 
     /**
      * @brief Returns the number of refs pointing to the underlying resource
@@ -162,11 +180,11 @@ public:
     }
 
 private:
-    T* value;
+    TDerived* value;
     priv::Payload<T>* payload;
 
     Ref(priv::Payload<T>* payload)
-    : value(payload->value.get())
+    : value(static_cast<TDerived*>(payload->value.get()))
     , payload(payload) {
         increment();
     }
@@ -174,6 +192,8 @@ private:
     void increment();
     void decrement();
 
+    template<typename U, typename V>
+    friend class Ref;
     friend class RefPool<T>;
 };
 
@@ -206,7 +226,7 @@ public:
      * @return A ref to the newly created resource
      */
     template<typename TDerived, typename... TArgs>
-    Ref<T> emplaceDerived(TArgs&&... args);
+    Ref<T, TDerived> emplaceDerived(TArgs&&... args);
 
     /**
      * @brief Clears all managed resources, ignoring ref counts
@@ -218,18 +238,19 @@ private:
 
     void release(priv::Payload<T>* value);
 
-    friend class Ref<T>;
+    template<typename U, typename V>
+    friend class Ref;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-template<typename T>
-void Ref<T>::increment() {
+template<typename T, typename TDerived>
+void Ref<T, TDerived>::increment() {
     ++payload->refCount;
 }
 
-template<typename T>
-void Ref<T>::decrement() {
+template<typename T, typename TDerived>
+void Ref<T, TDerived>::decrement() {
     if (value) {
         --payload->refCount;
         if (payload->refCount == 0) { payload->owner->release(payload); }
@@ -259,12 +280,12 @@ inline Ref<T> RefPool<T>::emplace(TArgs&&... args) {
 
 template<typename T>
 template<typename TDerived, typename... TArgs>
-inline Ref<T> RefPool<T>::emplaceDerived(TArgs&&... args) {
+inline Ref<T, TDerived> RefPool<T>::emplaceDerived(TArgs&&... args) {
     static_assert(std::is_base_of_v<T, TDerived>, "TDerived must derive from T");
 
     auto& created =
         storage.emplace_back(this, priv::TypeDeducer<TDerived>(), std::forward<TArgs>(args)...);
-    return Ref<T>(&created);
+    return Ref<T, TDerived>(&created);
 }
 
 } // namespace util

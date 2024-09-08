@@ -61,16 +61,16 @@ private:
         stitcher.getStitchedImage().saveToFile("output.png");
 
         // create scene and camera
-        auto& world =
+        auto world =
             engine.getPlayer().enterWorld<bl::engine::BasicWorld<bl::rc::scene::Scene2D>>();
-        scene   = world.scene();
+        scene   = world->scene();
         auto& o = engine.renderer().getObserver();
         o.setCamera<bl::cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1920.f, 1080.f});
         o.setClearColor({1.f, 1.f, 1.f, 1.f});
 
         // add slideshow animation to scene
         slideshow.createWithUniquePlayer(
-            world,
+            *world,
             bl::resource::ResourceManager<bl::gfx::a2d::AnimationData>::load(
                 "resources/water.anim"),
             true,
@@ -80,7 +80,7 @@ private:
 
         // add standard animation to scene
         animation.createWithUniquePlayer(
-            world,
+            *world,
             bl::resource::ResourceManager<bl::gfx::a2d::AnimationData>::load(
                 "resources/animation.anim"),
             true,
@@ -89,7 +89,7 @@ private:
         animation.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
         // add rectangle to scene
-        rectangle.create(world, {100.f, 120.f});
+        rectangle.create(*world, {100.f, 120.f});
         rectangle.setFillColor({1.f, 0.f, 0.f, 1.f});
         rectangle.setOutlineColor({0.f, 0.f, 0.f, 1.f});
         rectangle.setOutlineThickness(2.f);
@@ -97,7 +97,7 @@ private:
         rectangle.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
         // add circle to scene
-        circle.create(world, 75.f);
+        circle.create(*world, 75.f);
         circle.setFillColor({0.f, 1.f, 0.f, 1.f});
         circle.setOutlineColor({0.f, 0.f, 0.f, 1.f});
         circle.setOutlineThickness(3.f);
@@ -105,7 +105,7 @@ private:
         circle.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
         // add triangle to scene
-        triangle.create(world, {50.f, 0.f}, {100.f, 70.f}, {0.f, 70.f});
+        triangle.create(*world, {50.f, 0.f}, {100.f, 70.f}, {0.f, 70.f});
         triangle.setFillColor({0.f, 0.f, 1.f, 1.f});
         triangle.setOutlineColor({0.f, 0.f, 0.f, 1.f});
         triangle.setOutlineThickness(3.f);
@@ -113,7 +113,7 @@ private:
         triangle.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
         // add a set of batched shapes to the scene
-        batched.create(world, 128);
+        batched.create(*world, 128);
         batched.getTransform().setPosition({100.f, 800.f});
         batched.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
@@ -142,7 +142,7 @@ private:
 
         // add a set of batched sprites to the scene
         spriteBatch.create(
-            world, engine.renderer().texturePool().getOrLoadTexture("resources/water.png"), 2);
+            *world, engine.renderer().texturePool().getOrLoadTexture("resources/water.png"), 2);
         spriteBatch.getTransform().setPosition({400.f, 750.f});
         spriteBatch.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
@@ -153,10 +153,10 @@ private:
         water3.getLocalTransform().setPosition({68.f, 0.f});
 
         // add a set of batched slideshows to the scene
-        waterBatch.create(world, 3);
+        waterBatch.create(*world, 3);
         waterBatch.getTransform().setPosition({1500.f, 800.f});
         waterBatch.addToScene(scene, bl::rc::UpdateSpeed::Static);
-        waterPlayer.create(world,
+        waterPlayer.create(*world,
                            bl::resource::ResourceManager<bl::gfx::a2d::AnimationData>::load(
                                "resources/water.anim"),
                            bl::gfx::DiscreteAnimation2DPlayer::Slideshow,

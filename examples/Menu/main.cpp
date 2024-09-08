@@ -17,13 +17,13 @@ public:
     virtual const char* name() const override { return "DemoState"; }
 
     virtual void activate(bl::engine::Engine& engine) override {
-        auto& world = engine.getPlayer().enterWorld<bl::engine::BasicWorld<bl::rc::Overlay>>();
+        auto world = engine.getPlayer().enterWorld<bl::engine::BasicWorld<bl::rc::Overlay>>();
 
         font.loadFromFile("font.ttf");
         auto texture = engine.renderer().texturePool().getOrLoadTexture("title.png");
 
         ArrowSelector::Ptr selector = ArrowSelector::create(12, sf::Color::White);
-        menu.create(world, engine.getPlayer(), selector);
+        menu.create(*world, engine.getPlayer(), selector);
 
         Item::Ptr title = ImageItem::create(texture);
         title->setSelectable(false);

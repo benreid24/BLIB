@@ -54,10 +54,10 @@ public:
      * @tparam TWorld The type of world to create
      * @tparam ...TArgs Argument types to the world's constructor
      * @param ...args Arguments to the world's constructor
-     * @return The newwly created world
+     * @return The newly created world
      */
     template<typename TWorld, typename... TArgs>
-    TWorld& enterWorld(TArgs&&... args);
+    util::Ref<World, TWorld> enterWorld(TArgs&&... args);
 
     /**
      * @brief Replaces the current world that this player is in with a new one
@@ -72,10 +72,10 @@ public:
      * @tparam TWorld The type of world to create
      * @tparam ...TArgs Argument types to the world's constructor
      * @param ...args Arguments to the world's constructor
-     * @return The newwly created world
+     * @return The newly created world
      */
     template<typename TWorld, typename... TArgs>
-    TWorld& changeWorlds(TArgs&&... args);
+    util::Ref<World, TWorld> changeWorlds(TArgs&&... args);
 
     /**
      * @brief Exits the current world, popping it from this player's world stack

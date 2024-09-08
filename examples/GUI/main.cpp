@@ -31,11 +31,11 @@ public:
     virtual const char* name() const override { return "DemoState"; }
 
     virtual void activate(engine::Engine& engine) override {
-        auto& world = engine.getPlayer().enterWorld<engine::BasicWorld<rc::Overlay>>();
+        auto world = engine.getPlayer().enterWorld<engine::BasicWorld<rc::Overlay>>();
         engine.renderer().getObserver().setClearColor(sf::Color{90, 90, 90});
 
         gui = gui::GUI::create(
-            world,
+            *world,
             engine.getPlayer(),
             gui::LinePacker::create(gui::LinePacker::Vertical, 4, gui::LinePacker::Compact),
             {200, 100, 400, 400});
@@ -118,7 +118,7 @@ public:
         canvas->setClearColor(sf::Color(20, 150, 230));
         canvas->setTooltip("Entire scenes can be rendered to GUI elements!");
         testWindow->pack(canvas);
-        spinRect.create(world, {60.f, 25.f});
+        spinRect.create(*world, {60.f, 25.f});
         spinRect.getTransform().setOrigin(spinRect.getSize() * 0.5f);
         spinRect.getTransform().setPosition({50.f, 37.5f});
         canvas->setCamera<cam::Camera2D>(glm::vec2{50.f, 37.5f}, glm::vec2{100.f, 75.f});

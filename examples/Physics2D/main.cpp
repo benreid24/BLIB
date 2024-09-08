@@ -15,18 +15,18 @@ public:
     virtual const char* name() const override { return "DemoState"; }
 
     virtual void activate(bl::engine::Engine& engine) override {
-        auto& world = engine.getPlayer().enterWorld<bl::engine::World2D>();
-        auto scene  = world.scene();
+        auto world = engine.getPlayer().enterWorld<bl::engine::World2D>();
+        auto scene = world->scene();
         engine.renderer().getObserver().setCamera<bl::cam::Camera2D>(glm::vec2{400.f, 300.f},
                                                                      glm::vec2{800.f, 600.f});
         engine.renderer().getObserver().setClearColor({0.f, 0.4f, 1.f, 1.f});
 
-        floor.create(world, {600.f, 100.f});
+        floor.create(*world, {600.f, 100.f});
         floor.setFillColor(sf::Color(20, 245, 120));
         floor.getTransform().setPosition(100.f, 500.f);
         floor.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
-        playerBox.create(world, {50.f, 50.f});
+        playerBox.create(*world, {50.f, 50.f});
         playerBox.setFillColor(sf::Color::Red);
         playerBox.getTransform().setPosition(400.f, 200.f);
         playerBox.getTransform().setOrigin(25.f, 25.f);
@@ -34,8 +34,8 @@ public:
 
         // setup physics scale
         auto& physics = engine.systems().getSystem<bl::sys::Physics2D>();
-        world.setLengthUnitScale(1.f / 100.f);
-        world.setGravity({0.f, 10.f});
+        world->setLengthUnitScale(1.f / 100.f);
+        world->setGravity({0.f, 10.f});
 
         auto bodyDef  = b2DefaultBodyDef();
         auto shapeDef = b2DefaultShapeDef();
