@@ -29,7 +29,6 @@ class View;
  * @brief Base class for component pools. Not intended to be used directly
  *
  * @ingroup ECS
- *
  */
 class ComponentPoolBase : private util::NonCopyable {
 public:
@@ -38,11 +37,11 @@ public:
 
     /**
      * @brief Destroy the Component Pool Base object
-     *
      */
     virtual ~ComponentPoolBase() = default;
 
 protected:
+    std::mutex removalQueueMutex;
     util::ReadWriteLock poolLock;
 
     ComponentPoolBase(std::uint16_t index)
@@ -50,6 +49,8 @@ protected:
 
     virtual void fireRemoveEventOnly(Entity entity)            = 0;
     virtual void* remove(Entity entity, bool fireEvent = true) = 0;
+    virtual void* queueRemove(Entity entity)                   = 0;
+    virtual void flushRemovals()                               = 0;
     virtual void clear()                                       = 0;
 
     virtual void onParentSet(Entity child, Entity parent)     = 0;
@@ -117,6 +118,7 @@ private:
     TStorage storage;
     std::vector<T*> entityToComponent;
     std::vector<typename TStorage::iterator> entityToIter;
+    std::vector<Entity> queuedRemovals;
 
     ComponentPool(Registry& owner, std::uint16_t index);
     virtual ~ComponentPool();
@@ -130,6 +132,9 @@ private:
 
     virtual void fireRemoveEventOnly(Entity entity) override;
     virtual void* remove(Entity entity, bool fireEvent = true) override;
+    void* doRemoveLocked(Entity entity, bool fireEvent = true);
+    virtual void* queueRemove(Entity entity) override;
+    virtual void flushRemovals() override;
     virtual void clear() override;
 
     virtual void onParentSet(Entity child, Entity parent) override {
@@ -273,7 +278,11 @@ void ComponentPool<T>::fireRemoveEventOnly(Entity ent) {
 template<typename T>
 void* ComponentPool<T>::remove(Entity ent, bool fireEvent) {
     util::ReadWriteLock::WriteScopeGuard lock(poolLock);
+    return doRemoveLocked(ent, fireEvent);
+}
 
+template<typename T>
+void* ComponentPool<T>::doRemoveLocked(Entity ent, bool fireEvent) {
     // determine if present
     const std::uint64_t entIndex = ent.getIndex();
     if (entIndex >= entityToComponent.size()) return nullptr;
@@ -288,6 +297,31 @@ void* ComponentPool<T>::remove(Entity ent, bool fireEvent) {
     entityToComponent[entIndex] = nullptr;
 
     return com;
+}
+
+template<typename T>
+void* ComponentPool<T>::queueRemove(Entity entity) {
+    std::unique_lock lock(removalQueueMutex);
+
+    const std::uint64_t entIndex = entity.getIndex();
+    if (entIndex >= entityToComponent.size()) return nullptr;
+    T* com = entityToComponent[entIndex];
+    if (com != nullptr) {
+        queuedRemovals.emplace_back(entity);
+        lock.unlock();
+        bl::event::Dispatcher::dispatch<event::ComponentRemoved<T>>({entity, *com});
+    }
+
+    return com;
+}
+
+template<typename T>
+void ComponentPool<T>::flushRemovals() {
+    std::unique_lock lock(removalQueueMutex);
+    util::ReadWriteLock::WriteScopeGuard writeLock(poolLock);
+
+    for (const Entity ent : queuedRemovals) { doRemoveLocked(ent, false); }
+    queuedRemovals.clear();
 }
 
 template<typename T>

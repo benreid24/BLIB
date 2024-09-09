@@ -21,7 +21,8 @@ void SceneSync::observe(const ecs::event::ComponentRemoved<com::Rendered>& event
     if (event.component.getScene()) {
         auto* scene = event.component.getScene();
         const_cast<com::Rendered&>(event.component).invalidate(); // prevent delete cycle
-        if (event.component.getComponent()) {
+        if (event.component.getComponent() /*&&
+            event.component.getComponent()->getSceneRef().object*/) {
             auto& sceneRef =
                 const_cast<rcom::SceneObjectRef&>(event.component.getComponent()->getSceneRef());
             scene->removeObject(sceneRef.object);

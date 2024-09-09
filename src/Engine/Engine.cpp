@@ -323,6 +323,9 @@ bool Engine::loop() {
             }
         }
 
+        // Flush ECS deletion queues
+        entityRegistry.flushDeletions();
+
         // Adhere to FPS cap
         if (minFrameLength > 0) {
             const float st = minFrameLength - loopTimer.getElapsedTime().asSeconds();

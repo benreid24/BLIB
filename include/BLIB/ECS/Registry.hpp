@@ -278,6 +278,11 @@ public:
     template<typename TRequire, typename TOptional = Optional<>, typename TExclude = Exclude<>>
     View<TRequire, TOptional, TExclude>* getOrCreateView();
 
+    /**
+     * @brief Deletes all entities and components currently queued for removal
+     */
+    void flushDeletions();
+
 private:
     // entity id management
     mutable std::recursive_mutex entityLock;
@@ -300,12 +305,21 @@ private:
     // views
     std::vector<std::unique_ptr<priv::ViewBase>> views;
 
+    // deletion traversal & queue
+    struct {
+        std::recursive_mutex mutex;
+        std::vector<Entity> toVisit;
+        std::vector<Entity> toUnparent;
+        std::vector<Entity> toRemove;
+    } deletionState;
+
     template<typename T>
     ComponentPool<T>& getPool();
 
     bool entityExistsLocked(Entity ent) const;
     void markEntityForRemoval(Entity ent);
-    bool destroyEntityLocked(Entity ent);
+    void doEntityDestroyLocked(Entity ent);
+    bool queueEntityDestroy(Entity ent);
 
     template<typename TRequire, typename TOptional, typename TExclude>
     void populateView(View<TRequire, TOptional, TExclude>& view);
@@ -407,6 +421,8 @@ template<typename T>
 void Registry::removeComponent(Entity ent) {
     std::lock_guard lock(entityLock);
 
+    if (!entityExistsLocked(ent)) { return; }
+
     auto& pool   = getPool<T>();
     const auto i = ent.getIndex();
     if (i >= entityMasks.size()) { return; }
@@ -427,7 +443,7 @@ void Registry::removeComponent(Entity ent) {
     }
 
     // do remove
-    void* com = pool.remove(ent);
+    void* com = pool.queueRemove(ent);
     for (auto& view : views) {
         if (ComponentMask::contains(view->mask.required, pool.ComponentIndex)) {
             view->removeEntity(ent);

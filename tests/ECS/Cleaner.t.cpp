@@ -16,7 +16,7 @@ TEST(ECSEntityCleaner, Disarmed) {
         Cleaner cleaner(testRegistry, e);
         cleaner.disarm();
     }
-
+    testRegistry.flushDeletions();
     EXPECT_TRUE(testRegistry.entityExists(e));
 }
 
@@ -28,7 +28,7 @@ TEST(ECSEntityCleaner, Armed) {
         e = testRegistry.createEntity(0);
         Cleaner cleaner(testRegistry, e);
     }
-
+    testRegistry.flushDeletions();
     EXPECT_FALSE(testRegistry.entityExists(e));
 }
 
