@@ -291,13 +291,16 @@ private:
 int main() {
     bl::cam::OverlayCamera::setOverlayCoordinateSpace(1920.f * 0.5f, 1080.f * 0.5f * 0.5f);
 
-    const bl::engine::Settings engineSettings = bl::engine::Settings().withWindowParameters(
-        bl::engine::Settings::WindowParameters()
-            .withVideoMode(sf::VideoMode(1920, 1080, 32))
-            .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
-            .withTitle("Renderer Demo")
-            .withIcon("vulkan.png")
-            .withLetterBoxOnResize(true));
+    const bl::engine::Settings engineSettings =
+        bl::engine::Settings()
+            .withWindowParameters(
+                bl::engine::Settings::WindowParameters()
+                    .withVideoMode(sf::VideoMode(1920, 1080, 32))
+                    .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
+                    .withTitle("Renderer Demo")
+                    .withIcon("vulkan.png")
+                    .withLetterBoxOnResize(true))
+            .withLogFps(true);
     bl::engine::Engine engine(engineSettings);
 
     engine.run(std::make_shared<DemoState>());

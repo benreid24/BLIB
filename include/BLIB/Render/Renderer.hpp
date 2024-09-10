@@ -28,7 +28,6 @@ class Engine;
 namespace sys
 {
 class RendererUpdateSystem;
-class RenderSystem;
 } // namespace sys
 
 /// Renderer core implementation classes and functionality
@@ -212,6 +211,7 @@ private:
         : payload(std::forward<TArgs>(args)...) {}
     };
 
+    std::mutex renderMutex;
     engine::Engine& engine;
     engine::EngineWindow& window;
     sf::Rect<std::uint32_t> renderRegion;
@@ -255,7 +255,6 @@ private:
     friend class engine::Engine;
     friend class Observer;
     friend class sys::RendererUpdateSystem;
-    friend class sys::RenderSystem;
     friend class vk::RenderTexture::Handle;
 };
 

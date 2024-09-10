@@ -22,6 +22,7 @@ Engine::Engine(const Settings& settings)
 , ecsSystems(*this)
 , entityRegistry()
 , renderingSystem(*this, renderWindow)
+, renderThreadShouldRun(true)
 , input(*this) {
     settings.syncToConfig();
 
@@ -39,6 +40,12 @@ Engine::Engine(const Settings& settings)
 
 Engine::~Engine() {
     resource::State::appExiting = true;
+
+    if (renderingThread.has_value()) {
+        renderThreadShouldRun = false;
+        renderingCv.notify_one();
+        renderingThread.value().join();
+    }
 
     backgroundWorkers.shutdown();
     workers.shutdown();
@@ -121,6 +128,8 @@ bool Engine::setup() {
             e.height = renderWindow.getSfWindow().getSize().y;
             handleResize(e, false);
         }
+
+        renderingThread.emplace(&Engine::renderThreadBody, this);
     }
     ecsSystems.init();
     return true;
@@ -262,21 +271,25 @@ bool Engine::loop() {
             updateTimestep = newTs;
         }
 
-        // render
-        if (renderWindow.isOpen()) {
-            if (!engineFlags.stateChangeReady()) {
-                ecsSystems.update(FrameStage::MARKER_OncePerFrame,
-                                  FrameStage::COUNT,
-                                  states.top()->systemsMask(),
-                                  totalDt,
-                                  totalDt / timeScale,
-                                  lag,
-                                  lag / timeScale);
+        // wait for render thread to finish current frame & block it
+        std::unique_lock renderLock(renderingMutex);
+
+        // Free world slots
+        for (auto& world : worlds) {
+            if (world && world.refCount() == 1) {
+                bl::event::Dispatcher::dispatch<event::WorldDestroyed>({*world});
+                world.release();
             }
         }
 
+        // Flush ECS deletion queues
+        entityRegistry.flushDeletions();
+
         // Process flags
+        bool stateChanged = false;
         while (engineFlags.stateChangeReady()) {
+            stateChanged = true;
+
             if (engineFlags.active(Flags::Terminate)) {
                 bl::event::Dispatcher::dispatch<event::Shutdown>({event::Shutdown::Terminated});
                 return true;
@@ -315,30 +328,39 @@ bool Engine::loop() {
             loopTimer.restart();
         }
 
-        // Free world slots
-        for (auto& world : worlds) {
-            if (world && world.refCount() == 1) {
-                bl::event::Dispatcher::dispatch<event::WorldDestroyed>({*world});
-                world.release();
+        if (!stateChanged) {
+            // signal render next frame
+            if (renderWindow.isOpen()) {
+                // sync descriptors
+                ecsSystems.update(FrameStage::MARKER_OncePerFrame,
+                                  FrameStage::COUNT,
+                                  states.top()->systemsMask(),
+                                  totalDt,
+                                  totalDt / timeScale,
+                                  lag,
+                                  lag / timeScale);
+
+                // signal rendering thread to start
+                renderLock.unlock();
+                renderingCv.notify_one();
             }
-        }
 
-        // Flush ECS deletion queues
-        entityRegistry.flushDeletions();
+            // Adhere to FPS cap
+            if (minFrameLength > 0) {
+                const float st = minFrameLength - loopTimer.getElapsedTime().asSeconds();
+                if (st > 0) sf::sleep(sf::seconds(st));
+                loopTimer.restart();
+            }
 
-        // Adhere to FPS cap
-        if (minFrameLength > 0) {
-            const float st = minFrameLength - loopTimer.getElapsedTime().asSeconds();
-            if (st > 0) sf::sleep(sf::seconds(st));
-            loopTimer.restart();
-        }
-
-        frameCount += 1.f;
-        if (fpsTimer.getElapsedTime().asSeconds() >= 1.f && engineSettings.logFps()) {
-            BL_LOG_INFO << "Running at " << frameCount / fpsTimer.getElapsedTime().asSeconds()
-                        << " fps";
-            frameCount = 0.f;
-            fpsTimer.restart();
+            frameCount += 1.f;
+            if (fpsTimer.getElapsedTime().asSeconds() >= 1.f && engineSettings.logFps()) {
+                const float fps = frameCount / fpsTimer.getElapsedTime().asSeconds();
+                renderWindow.getSfWindow().setTitle(engineSettings.windowParameters().title() +
+                                                    " (" + std::to_string(int(std::roundf(fps))) +
+                                                    " fps)");
+                frameCount = 0.f;
+                fpsTimer.restart();
+            }
         }
     }
 
@@ -480,6 +502,16 @@ void Engine::removePlayer(int i) {
     renderingSystem.removeObserver(j);
     input.removeActor(j);
     players.erase(it);
+}
+
+void Engine::renderThreadBody() {
+    while (renderThreadShouldRun) {
+        std::unique_lock lock(renderingMutex);
+        renderingCv.wait(lock);
+        if (!renderThreadShouldRun) { break; }
+
+        renderingSystem.renderFrame();
+    }
 }
 
 } // namespace engine

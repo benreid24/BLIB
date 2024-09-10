@@ -45,7 +45,6 @@ void Renderer::initialize() {
     // core renderer systems
     engine.systems().registerSystem<sys::RendererUpdateSystem>(
         FrameStage::RenderEarlyRefresh, AllMask, *this);
-    engine.systems().registerSystem<sys::RenderSystem>(FrameStage::Render, AllMask, *this);
     engine.systems().registerSystem<sys::OverlayScalerSystem>(FrameStage::RenderEarlyRefresh,
                                                               AllMask);
     engine.systems().registerSystem<sys::Animation2DSystem>(
@@ -123,6 +122,8 @@ void Renderer::update(float dt) {
 }
 
 void Renderer::renderFrame() {
+    std::unique_lock lock(renderMutex);
+
     // begin frame
     vk::StandardAttachmentSet* currentFrame = nullptr;
     VkCommandBuffer commandBuffer           = nullptr;
@@ -201,6 +202,8 @@ void Renderer::renderFrame() {
 }
 
 Observer& Renderer::addObserver() {
+    std::unique_lock lock(renderMutex);
+
 #ifdef BLIB_DEBUG
     if (observers.size() == 4) {
         BL_LOG_CRITICAL << "Cannot add more than 4 observers";
@@ -214,6 +217,8 @@ Observer& Renderer::addObserver() {
 }
 
 void Renderer::removeObserver(unsigned int i) {
+    std::unique_lock lock(renderMutex);
+
     i = std::min(i, static_cast<unsigned int>(observers.size()) - 1);
     observers.erase(observers.begin() + i);
     assignObserverRegions();
@@ -226,6 +231,8 @@ void Renderer::popSceneFromAllObservers() {
 unsigned int Renderer::observerCount() const { return observers.size(); }
 
 Observer& Renderer::addVirtualObserver(const VkRect2D& region) {
+    std::unique_lock lock(renderMutex);
+
     virtualObservers.emplace_back(new Observer(engine, *this, assetFactory, false, true));
     virtualObservers.back()->assignRegion(region);
     return *observers.back();
@@ -265,11 +272,15 @@ void Renderer::setClearColor(const Color& color) {
 
 vk::RenderTexture::Handle Renderer::createRenderTexture(const glm::u32vec2& size,
                                                         VkSampler sampler) {
+    std::unique_lock lock(renderMutex);
+
     renderTextures.emplace_back(new vk::RenderTexture(engine, *this, assetFactory, size, sampler));
     return vk::RenderTexture::Handle(this, renderTextures.back().payload.get());
 }
 
 void Renderer::destroyRenderTexture(vk::RenderTexture* rt) {
+    std::unique_lock lock(renderMutex);
+
     rt->destroy();
 
     vulkanState().cleanupManager.add([this, rt]() {

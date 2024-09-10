@@ -58,8 +58,8 @@ bool Registry::destroyEntity(Entity start) {
     if (!entityExists(start)) { return false; }
     std::unique_lock deleteLock(deletionState.mutex);
 
-    // decrement version to make entityExists() return false for this entity
-    --entityVersions[start.getIndex()];
+    // increment version to make entityExists() return false for this entity
+    ++entityVersions[start.getIndex()];
 
     // if we are already traversing then just add to queue
     if (!deletionState.toVisit.empty()) {

@@ -261,6 +261,12 @@ private:
     util::ThreadPool workers;
     util::ThreadPool backgroundWorkers;
 
+    std::optional<std::thread> renderingThread;
+    std::mutex renderingMutex;
+    std::condition_variable renderingCv;
+    std::atomic_bool renderThreadShouldRun;
+    void renderThreadBody();
+
     bool awaitFocus();
     void handleResize(const sf::Event::SizeEvent& resize, bool saveAndSend);
     void postStateChange(State::Ptr& prev);

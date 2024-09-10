@@ -22,8 +22,7 @@ namespace vk
 namespace
 {
 #ifdef BLIB_DEBUG
-const std::unordered_set<std::string> RequestedValidationLayers{"VK_LAYER_KHRONOS_validation",
-                                                                "VK_LAYER_LUNARG_monitor"};
+const std::unordered_set<std::string> RequestedValidationLayers{"VK_LAYER_KHRONOS_validation"};
 #endif
 
 constexpr std::array<const char*, 2> RequiredDeviceExtensions{VK_KHR_SWAPCHAIN_EXTENSION_NAME,
@@ -186,7 +185,7 @@ void VulkanState::createInstance() {
     appInfo.pApplicationName   = appName.c_str();
     appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
     appInfo.pEngineName        = "BLIB";
-    appInfo.engineVersion      = VK_MAKE_VERSION(1, 0, 0);
+    appInfo.engineVersion      = VK_MAKE_VERSION(3, 0, 0);
     appInfo.apiVersion         = VK_API_VERSION_1_3;
 
     // instance data to populate

@@ -42,6 +42,8 @@ Overlay::~Overlay() {
 }
 
 void Overlay::renderScene(scene::SceneRenderContext& ctx) {
+    std::unique_lock lock(objectMutex);
+
     std::copy(roots.begin(), roots.end(), std::inserter(renderStack, renderStack.begin()));
 
     if (needRefreshAll ||

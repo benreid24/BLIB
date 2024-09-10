@@ -46,14 +46,8 @@ struct FrameStage {
         /// Syncs dirty descriptor components (ie transforms) into scene-local descriptor sets
         RenderDescriptorRefresh = 5,
 
-        /// Records command buffers and submits to the GPU
-        Render = 6,
-
-        /// Slot for more user-defined operations
-        FrameEnd = 7,
-
         /// The number of engine stages
-        COUNT = 8
+        COUNT = 6
     };
 };
 

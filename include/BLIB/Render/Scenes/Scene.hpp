@@ -112,6 +112,7 @@ protected:
     };
 
     Renderer& renderer;
+    std::recursive_mutex objectMutex;
     ds::DescriptorSetFactoryCache& descriptorFactories;
     ds::DescriptorSetInstanceCache descriptorSets;
     ds::DescriptorComponentStorageCache descriptorComponents;
@@ -162,7 +163,6 @@ protected:
 
 private:
     std::mutex batchMutex;
-    std::recursive_mutex objectMutex;
     std::uint32_t nextObserverIndex;
     std::vector<BatchChange> batchChanges;
     std::vector<std::uint32_t> staticPipelines;
