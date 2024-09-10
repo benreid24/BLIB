@@ -353,7 +353,8 @@ bool Engine::loop() {
             }
 
             frameCount += 1.f;
-            if (fpsTimer.getElapsedTime().asSeconds() >= 1.f && engineSettings.logFps()) {
+            if (renderWindow.isOpen() && fpsTimer.getElapsedTime().asSeconds() >= 1.f &&
+                engineSettings.logFps()) {
                 const float fps = frameCount / fpsTimer.getElapsedTime().asSeconds();
                 renderWindow.getSfWindow().setTitle(engineSettings.windowParameters().title() +
                                                     " (" + std::to_string(int(std::roundf(fps))) +
