@@ -102,8 +102,8 @@ protected:
 private:
     util::ReadWriteLock::ReadScopeGuard lock;
 
-    friend class ComponentPool<T>;
-    friend class Registry;
+    friend class ::bl::ecs::ComponentPool<T>;
+    friend class ::bl::ecs::Registry;
 };
 
 template<typename T>
@@ -117,8 +117,8 @@ protected:
 private:
     util::ReadWriteLock::WriteScopeGuard lock;
 
-    friend class ComponentPool<T>;
-    friend class Registry;
+    friend class ::bl::ecs::ComponentPool<T>;
+    friend class ::bl::ecs::Registry;
 };
 
 } // namespace txp
