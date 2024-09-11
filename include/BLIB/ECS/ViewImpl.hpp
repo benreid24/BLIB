@@ -6,6 +6,7 @@
 #endif
 
 #include <BLIB/ECS/TagsImpl.hpp>
+#include <BLIB/ECS/Transaction.hpp>
 
 namespace bl
 {

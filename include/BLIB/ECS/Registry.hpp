@@ -6,6 +6,8 @@
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/ECS/ParentDestructionBehavior.hpp>
 #include <BLIB/ECS/ParentGraph.hpp>
+#include <BLIB/ECS/Tags.hpp>
+#include <BLIB/ECS/Transaction.hpp>
 #include <BLIB/ECS/View.hpp>
 #include <BLIB/Events/Dispatcher.hpp>
 #include <BLIB/Util/IdAllocatorUnbounded.hpp>
@@ -48,12 +50,32 @@ public:
     Entity createEntity(unsigned int worldIndex, Flags flags = Flags::None);
 
     /**
+     * @brief Creates a new entity and returns its id
+     *
+     * @param worldIndex The index of the world that the entity is in
+     * @param flags Optional flags to set on the newly created entity. May not be modified later
+     * @param transaction The transaction to use to synchronize access
+     * @return Entity The new entity id
+     */
+    Entity createEntity(unsigned int worldIndex, Flags flags,
+                        const Transaction<tx::EntityWrite>& transaction);
+
+    /**
      * @brief Returns whether or not the given entity exists
      *
      * @param entity The entity to test for
      * @return True if the entity is in the ECS, false otherwise
      */
     bool entityExists(Entity entity) const;
+
+    /**
+     * @brief Returns whether or not the given entity exists
+     *
+     * @param entity The entity to test for
+     * @return True if the entity is in the ECS, false otherwise
+     * @param transaction The transaction to use to synchronize access
+     */
+    bool entityExists(Entity entity, const Transaction<tx::EntityRead>& transaction) const;
 
     /**
      * @brief Removes the given entity and destroys all of its components. Destruction will not
@@ -66,12 +88,33 @@ public:
     bool destroyEntity(Entity entity);
 
     /**
+     * @brief Removes the given entity and destroys all of its components. Destruction will not
+     *        occur if the entity is depended on by others. In that case it will be marked for later
+     *        removal once the dependencies are removed
+     *
+     * @param entity The entity to remove from the ECS
+     * @param transaction The transaction to use to synchronize access
+     * @return True if the entity was removed or was already destroyed, false if removal was blocked
+     */
+    bool destroyEntity(Entity entity, const Transaction<tx::EntityRead>& transaction);
+
+    /**
      * @brief Destroys all entities that have the given flags
      *
      * @param flags The flags to search for
      * @return The number of destroyed entities, not counting freed resource entities
      */
     unsigned int destroyAllEntitiesWithFlags(Flags flags);
+
+    /**
+     * @brief Destroys all entities that have the given flags
+     *
+     * @param flags The flags to search for
+     * @param transaction The transaction to use to synchronize access
+     * @return The number of destroyed entities, not counting freed resource entities
+     */
+    unsigned int destroyAllEntitiesWithFlags(Flags flags,
+                                             const Transaction<tx::EntityRead>& transaction);
 
     /**
      * @brief Destroys all entities in the given world
@@ -82,6 +125,16 @@ public:
     unsigned int destroyEntitiesInWorld(unsigned int index);
 
     /**
+     * @brief Destroys all entities in the given world
+     *
+     * @param index The index of the world to purge entities from
+     * @param transaction The transaction to use to synchronize access
+     * @return The number of destroyed entities
+     */
+    unsigned int destroyEntitiesInWorld(unsigned int index,
+                                        const Transaction<tx::EntityRead>& transaction);
+
+    /**
      * @brief Destroys all entities with the WorldObject flag
      *
      * @return The number of destroyed entities, not counting freed resource entities
@@ -89,8 +142,15 @@ public:
     unsigned int destroyAllWorldEntities();
 
     /**
-     * @brief Destroys and removes all entities and components from the ECS
+     * @brief Destroys all entities with the WorldObject flag
      *
+     * @param transaction The transaction to use to synchronize access
+     * @return The number of destroyed entities, not counting freed resource entities
+     */
+    unsigned int destroyAllWorldEntities(const Transaction<tx::EntityRead>& transaction);
+
+    /**
+     * @brief Destroys and removes all entities and components from the ECS
      */
     void destroyAllEntities();
 
@@ -103,11 +163,29 @@ public:
     void setEntityParent(Entity child, Entity parent);
 
     /**
+     * @brief Sets the parent entity of the given entity
+     *
+     * @param child The entity to set the parent of
+     * @param parent The parent of the given entity
+     * @param transaction The transaction to use to synchronize access
+     */
+    void setEntityParent(Entity child, Entity parent,
+                         const Transaction<tx::EntityRead>& transaction);
+
+    /**
      * @brief Removes the parent of the given entity, if any
      *
      * @param child The entity to orphan
      */
     void removeEntityParent(Entity child);
+
+    /**
+     * @brief Removes the parent of the given entity, if any
+     *
+     * @param child The entity to orphan
+     * @param transaction The transaction to use to synchronize access
+     */
+    void removeEntityParent(Entity child, const Transaction<tx::EntityRead>& transaction);
 
     /**
      * @brief Returns whether or not the given entity has a parent
@@ -118,12 +196,30 @@ public:
     bool entityHasParent(Entity child) const;
 
     /**
+     * @brief Returns whether or not the given entity has a parent
+     *
+     * @param child The entity to test for a parent
+     * @return True if child has a parent, false otherwise
+     * @param transaction The transaction to use to synchronize access
+     */
+    bool entityHasParent(Entity child, const Transaction<tx::EntityRead>& transaction) const;
+
+    /**
      * @brief Returns the entity id of the parent of the given entity if one is set
      *
      * @param child The entity to get the parent for
      * @return The parent entity or InvalidEntity if no parent
      */
     Entity getEntityParent(Entity child) const;
+
+    /**
+     * @brief Returns the entity id of the parent of the given entity if one is set
+     *
+     * @param child The entity to get the parent for
+     * @return The parent entity or InvalidEntity if no parent
+     * @param transaction The transaction to use to synchronize access
+     */
+    Entity getEntityParent(Entity child, const Transaction<tx::EntityRead>& transaction) const;
 
     /**
      * @brief Returns an iterable set of child entities for the given entity
@@ -159,6 +255,17 @@ public:
     void addDependency(Entity resource, Entity user);
 
     /**
+     * @brief Adds a dependency on resource from user. Controls whether or not an entity may be
+     *        safely deleted
+     *
+     * @param resource The entity being depended on
+     * @param user The entity using the resource
+     * @param transaction The transaction to use to synchronize access
+     */
+    void addDependency(Entity resource, Entity user,
+                       const Transaction<tx::EntityRead>& transaction);
+
+    /**
      * @brief Removes the given dependency. Will destroy the resource if a prior call to
      *        destroyEntity() failed for it
      *
@@ -166,6 +273,17 @@ public:
      * @param user The entity using the resource
      */
     void removeDependency(Entity resource, Entity user);
+
+    /**
+     * @brief Removes the given dependency. Will destroy the resource if a prior call to
+     *        destroyEntity() failed for it
+     *
+     * @param resource The entity being depended on
+     * @param user The entity using the resource
+     * @param transaction The transaction to use to synchronize access
+     */
+    void removeDependency(Entity resource, Entity user,
+                          const Transaction<tx::EntityRead>& transaction);
 
     /**
      * @brief Calls removeDependency() and then destroys the resource if nothing else depends on it.
@@ -178,12 +296,33 @@ public:
     void removeDependencyAndDestroyIfPossible(Entity resource, Entity user);
 
     /**
+     * @brief Calls removeDependency() and then destroys the resource if nothing else depends on it.
+     *        If it still has dependencies then it will be marked for removal once all dependencies
+     *        are removed
+     *
+     * @param resource The resource being used
+     * @param user The entity using the resource
+     * @param transaction The transaction to use to synchronize access
+     */
+    void removeDependencyAndDestroyIfPossible(Entity resource, Entity user,
+                                              const Transaction<tx::EntityRead>& transaction);
+
+    /**
      * @brief Returns whether or not the given entity is depended on by other entities
      *
      * @param resource The entity to check
      * @return True if other entities depend on it, false otherwise
      */
     bool isDependedOn(Entity resource) const;
+
+    /**
+     * @brief Returns whether or not the given entity is depended on by other entities
+     *
+     * @param resource The entity to check
+     * @param transaction The transaction to use to synchronize access
+     * @return True if other entities depend on it, false otherwise
+     */
+    bool isDependedOn(Entity resource, const Transaction<tx::EntityRead>& transaction) const;
 
     /**
      * @brief Adds a new component of the given type to the given entity
@@ -202,10 +341,38 @@ public:
      * @tparam T The type of component to add
      * @param entity The entity to add it to
      * @param value The initial component value
+     * @param transaction The transaction to use to synchronize access
+     * @return T* Pointer to the new component
+     */
+    template<typename T>
+    T* addComponent(
+        Entity entity, const T& value,
+        const Transaction<tx::EntityRead, tx::ComponentRead<>, tx::ComponentWrite<T>>& transaction);
+
+    /**
+     * @brief Adds a new component of the given type to the given entity
+     *
+     * @tparam T The type of component to add
+     * @param entity The entity to add it to
+     * @param value The initial component value
      * @return T* Pointer to the new component
      */
     template<typename T>
     T* addComponent(Entity entity, T&& value);
+
+    /**
+     * @brief Adds a new component of the given type to the given entity
+     *
+     * @tparam T The type of component to add
+     * @param entity The entity to add it to
+     * @param value The initial component value
+     * @param transaction The transaction to use to synchronize access
+     * @return T* Pointer to the new component
+     */
+    template<typename T>
+    T* addComponent(
+        Entity entity, T&& value,
+        const Transaction<tx::EntityRead, tx::ComponentRead<>, tx::ComponentWrite<T>>& transaction);
 
     /**
      * @brief Constructs the given component in-place for the given entity
@@ -220,6 +387,21 @@ public:
     T* emplaceComponent(Entity entity, TArgs&&... args);
 
     /**
+     * @brief Constructs the given component in-place for the given entity
+     *
+     * @tparam T The type of component to add
+     * @tparam TArgs The constructor parameter types
+     * @param entity The entity to add it to
+     * @param args The arguments to the component's constructor
+     * @param transaction The transaction to use to synchronize access
+     * @return T* Pointer to the new component
+     */
+    template<typename T, typename... TArgs>
+    T* emplaceComponent(
+        Entity entity, TArgs&&... args,
+        const Transaction<tx::EntityRead, tx::ComponentRead<>, tx::ComponentWrite<T>>& transaction);
+
+    /**
      * @brief Retrieves the given component belonging to the given entity
      *
      * @tparam T The type of component to get
@@ -228,6 +410,17 @@ public:
      */
     template<typename T>
     T* getComponent(Entity entity);
+
+    /**
+     * @brief Retrieves the given component belonging to the given entity
+     *
+     * @tparam T The type of component to get
+     * @param entity The entity to get the component for
+     * @param transaction The transaction to use to synchronize access
+     * @return T* Pointer to the entity's component or nullptr if not present
+     */
+    template<typename T>
+    T* getComponent(Entity entity, const txp::TransactionComponentRead<T>& transaction);
 
     /**
      * @brief Returns whether or not the entity has the given component
@@ -240,6 +433,17 @@ public:
     bool hasComponent(Entity entity);
 
     /**
+     * @brief Returns whether or not the entity has the given component
+     *
+     * @tparam T The component type to check for
+     * @param entity The entity to check on
+     * @param transaction The transaction to use to synchronize access
+     * @return True if the entity has the component, false otherwise
+     */
+    template<typename T>
+    bool hasComponent(Entity entity, const txp::TransactionComponentRead<T>& transaction);
+
+    /**
      * @brief Removes the given component from the given entity
      *
      * @tparam T The type of component to remove
@@ -247,6 +451,16 @@ public:
      */
     template<typename T>
     void removeComponent(Entity entity);
+
+    /**
+     * @brief Removes the given component from the given entity
+     *
+     * @tparam T The type of component to remove
+     * @param entity The entity to remove the component from
+     * @param transaction The transaction to use to synchronize access
+     */
+    template<typename T>
+    void removeComponent(Entity entity, const txp::TransactionComponentWrite<T>& transaction);
 
     /**
      * @brief Returns an iterable component pool for the given component type
@@ -267,6 +481,21 @@ public:
      */
     template<typename TRequire, typename TOptional = Optional<>>
     ComponentSet<TRequire, TOptional> getComponentSet(Entity entity);
+
+    /**
+     * @brief Gets a set of components for the given entity
+     *
+     * @tparam TRequire Required tagged components. ie Require<int, char>
+     * @tparam TOptional Optional tagged components. ie Optional<bool>
+     * @param entity The entity to get the components from
+     * @param transaction The transaction to use to synchronize access
+     * @return ComponentSet<TComponents...> The set of fetched components. May be invalid
+     */
+    template<typename TRequire, typename TOptional = Optional<>>
+    ComponentSet<TRequire, TOptional> getComponentSet(
+        Entity entity,
+        const Transaction<tx::EntityUnlocked, typename Tags<TRequire, TOptional>::ReadTx>&
+            transaction);
 
     /**
      * @brief Fetches or creates a view that returns an iterable set of entities that contain the
@@ -303,6 +532,7 @@ private:
     std::unordered_map<std::type_index, std::unique_ptr<ComponentPoolBase>> poolMap;
 
     // views
+    std::mutex viewMutex;
     std::vector<std::unique_ptr<priv::ViewBase>> views;
 
     // deletion traversal & queue
@@ -334,6 +564,13 @@ private:
     template<typename TRequire, typename TOptional, typename TExclude>
     friend class View;
     friend class engine::Engine;
+
+    template<typename T>
+    friend class txp::TransactionComponentRead;
+    template<typename T>
+    friend class txp::TransactionComponentWrite;
+    friend class txp::TransactionEntityRead;
+    friend class txp::TransactionEntityWrite;
 };
 
 } // namespace ecs
@@ -341,6 +578,7 @@ private:
 
 #include <BLIB/ECS/ComponentSetImpl.hpp>
 #include <BLIB/ECS/TagsImpl.hpp>
+#include <BLIB/ECS/TransactionImpl.hpp>
 #include <BLIB/ECS/ViewImpl.hpp>
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -351,31 +589,53 @@ namespace ecs
 {
 template<typename T>
 T* Registry::addComponent(Entity ent, const T& val) {
-    std::lock_guard lock(entityLock);
+    return addComponent<T>(
+        ent, val, Transaction<tx::EntityRead, tx::ComponentRead<>, tx::ComponentWrite<T>>(*this));
+}
 
+template<typename T>
+T* Registry::addComponent(
+    Entity entity, const T& value,
+    const Transaction<tx::EntityRead, tx::ComponentRead<>, tx::ComponentWrite<T>>&) {
     auto& pool = getPool<T>();
-    T* nc      = pool.add(ent, val);
-    finishComponentAdd<T>(ent, pool.ComponentIndex, nc);
+    T* nc      = pool.add(entity, value);
+    finishComponentAdd<T>(entity, pool.ComponentIndex, nc);
     return nc;
 }
 
 template<typename T>
 T* Registry::addComponent(Entity ent, T&& val) {
-    std::lock_guard lock(entityLock);
+    return addComponent<T>(
+        ent,
+        std::forward<T>(val),
+        Transaction<tx::EntityRead, tx::ComponentRead<>, tx::ComponentWrite<T>>(*this));
+}
 
+template<typename T>
+T* Registry::addComponent(
+    Entity entity, T&& value,
+    const Transaction<tx::EntityRead, tx::ComponentRead<>, tx::ComponentWrite<T>>&) {
     auto& pool = getPool<T>();
-    T* nc      = pool.add(ent, val);
-    finishComponentAdd<T>(ent, pool.ComponentIndex, nc);
+    T* nc      = pool.add(entity, value);
+    finishComponentAdd<T>(entity, pool.ComponentIndex, nc);
     return nc;
 }
 
 template<typename T, typename... TArgs>
 T* Registry::emplaceComponent(Entity ent, TArgs&&... args) {
-    std::lock_guard lock(entityLock);
+    return emplaceComponent<T>(
+        ent,
+        std::forward<TArgs>(args)...,
+        Transaction<tx::EntityRead, tx::ComponentRead<>, tx::ComponentWrite<T>>(*this));
+}
 
+template<typename T, typename... TArgs>
+inline T* Registry::emplaceComponent(
+    Entity entity, TArgs&&... args,
+    const Transaction<tx::EntityRead, tx::ComponentRead<>, tx::ComponentWrite<T>>& transaction) {
     auto& pool = getPool<T>();
-    T* nc      = pool.emplace(ent, std::forward<TArgs>(args)...);
-    finishComponentAdd<T>(ent, pool.ComponentIndex, nc);
+    T* nc      = pool.emplace(entity, std::forward<TArgs>(args)...);
+    finishComponentAdd<T>(entity, pool.ComponentIndex, nc);
     return nc;
 }
 
@@ -413,14 +673,27 @@ T* Registry::getComponent(Entity ent) {
 }
 
 template<typename T>
+T* Registry::getComponent(Entity entity, const txp::TransactionComponentRead<T>& transaction) {
+    return getPool<T>().get(entity, transaction);
+}
+
+template<typename T>
 bool Registry::hasComponent(Entity ent) {
-    return getPool<T>().get(ent) != nullptr;
+    return getComponent<T>(ent) != nullptr;
+}
+
+template<typename T>
+bool Registry::hasComponent(Entity entity, const txp::TransactionComponentRead<T>& transaction) {
+    return getComponent<T>(entity, transaction) != nullptr;
 }
 
 template<typename T>
 void Registry::removeComponent(Entity ent) {
-    std::lock_guard lock(entityLock);
+    return removeComponent<T>(ent, txp::TransactionComponentWrite<T>(*this));
+}
 
+template<typename T>
+void Registry::removeComponent(Entity ent, const txp::TransactionComponentWrite<T>&) {
     if (!entityExistsLocked(ent)) { return; }
 
     auto& pool   = getPool<T>();
@@ -465,9 +738,18 @@ ComponentSet<TRequire, TOptional> Registry::getComponentSet(Entity ent) {
     return ComponentSet<TRequire, TOptional>(*this, ent);
 }
 
+template<typename TRequire, typename TOptional>
+inline ComponentSet<TRequire, TOptional> Registry::getComponentSet(
+    Entity entity,
+    const Transaction<tx::EntityUnlocked, typename Tags<TRequire, TOptional>::ReadTx>&
+        transaction) {
+    return ComponentSet<TRequire, TOptional>(*this, entity, transaction);
+}
+
 template<typename TRequire, typename TOptional, typename TExclude>
 View<TRequire, TOptional, TExclude>* Registry::getOrCreateView() {
     using TView = View<TRequire, TOptional, TExclude>;
+    std::unique_lock lock(viewMutex);
 
     // find existing view
     const std::type_index viewId = typeid(TView);
@@ -496,7 +778,7 @@ ComponentPool<T>& Registry::getPool() {
         componentPools.emplace_back(it->second.get());
     }
 
-    return *static_cast<ComponentPool<T>*>(componentPools[it->second->ComponentIndex]);
+    return static_cast<ComponentPool<T>&>(*it->second);
 }
 
 template<typename TRequire, typename TOptional, typename TExclude>
@@ -517,10 +799,20 @@ void Registry::populateViewWithLock(View<TRequire, TOptional, TExclude>& view) {
 }
 
 inline bool Registry::entityHasParent(Entity child) const {
+    return entityHasParent(child, Transaction<tx::EntityRead>(*this));
+}
+
+inline bool Registry::entityHasParent(Entity child, const Transaction<tx::EntityRead>&) const {
     return parentGraph.getParent(child) != InvalidEntity;
 }
 
-inline Entity Registry::getEntityParent(Entity child) const { return parentGraph.getParent(child); }
+inline Entity Registry::getEntityParent(Entity child) const {
+    return getEntityParent(child, Transaction<tx::EntityRead>(*this));
+}
+
+inline Entity Registry::getEntityParent(Entity child, const Transaction<tx::EntityRead>&) const {
+    return parentGraph.getParent(child);
+}
 
 inline ctr::IndexMappedList<std::uint32_t, Entity>::Range Registry::getEntityChildren(
     Entity parent) {

@@ -3,6 +3,7 @@
 
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/ECS/Tags.hpp>
+#include <BLIB/ECS/Transaction.hpp>
 
 namespace bl
 {
@@ -24,7 +25,8 @@ struct ComponentSetMember {
     T* component;
 
     ComponentSetMember();
-    bool populate(Registry& registry, Entity owner);
+    bool populate(Registry& registry, Entity owner,
+                  const txp::TransactionComponentRead<T>& transaction);
     void nullout(void* com);
 };
 } // namespace priv

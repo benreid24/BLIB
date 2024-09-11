@@ -19,8 +19,11 @@ Registry::Registry()
 }
 
 Entity Registry::createEntity(unsigned int worldIndex, Flags flags) {
-    std::lock_guard lock(entityLock);
+    return createEntity(worldIndex, flags, Transaction<tx::EntityWrite>(*this));
+}
 
+Entity Registry::createEntity(unsigned int worldIndex, Flags flags,
+                              const Transaction<tx::EntityWrite>&) {
     const std::uint64_t index = entityAllocator.allocate();
     std::uint64_t version     = 1;
     if (index + 1 > entityMasks.size()) {
@@ -45,8 +48,11 @@ Entity Registry::createEntity(unsigned int worldIndex, Flags flags) {
 }
 
 bool Registry::entityExists(Entity ent) const {
-    std::lock_guard lock(entityLock);
-    return entityExistsLocked(ent);
+    return entityExists(ent, Transaction<tx::EntityRead>(*this));
+}
+
+bool Registry::entityExists(Entity entity, const Transaction<tx::EntityRead>&) const {
+    return entityExistsLocked(entity);
 }
 
 bool Registry::entityExistsLocked(Entity ent) const {
@@ -55,6 +61,10 @@ bool Registry::entityExistsLocked(Entity ent) const {
 }
 
 bool Registry::destroyEntity(Entity start) {
+    return destroyEntity(start, Transaction<tx::EntityRead>(*this));
+}
+
+bool Registry::destroyEntity(Entity start, const Transaction<tx::EntityRead>&) {
     if (!entityExists(start)) { return false; }
     std::unique_lock deleteLock(deletionState.mutex);
 
@@ -175,8 +185,27 @@ void Registry::flushDeletions() {
 }
 
 unsigned int Registry::destroyAllEntitiesWithFlags(Flags flags) {
-    std::lock_guard lock(entityLock);
+    return destroyAllEntitiesWithFlags(flags, Transaction<tx::EntityRead>(*this));
+}
 
+unsigned int Registry::destroyEntitiesInWorld(unsigned int worldIndex,
+                                              const Transaction<tx::EntityRead>&) {
+    unsigned int destroyed = 0;
+    for (std::uint32_t i = 0; i < entityWorlds.size(); ++i) {
+        if (entityAllocator.isAllocated(i) && entityWorlds[i] == worldIndex) {
+            queueEntityDestroy(Entity(i, entityVersions[i], entityFlags[i], worldIndex));
+            ++destroyed;
+        }
+    }
+    return destroyed;
+}
+
+unsigned int Registry::destroyAllWorldEntities() {
+    return destroyAllEntitiesWithFlags(Flags::WorldObject);
+}
+
+unsigned int Registry::destroyAllEntitiesWithFlags(Flags flags,
+                                                   const Transaction<tx::EntityRead>&) {
     unsigned int destroyed = 0;
     for (std::uint32_t i = 0; i < entityFlags.size(); ++i) {
         if (entityAllocator.isAllocated(i)) {
@@ -190,21 +219,12 @@ unsigned int Registry::destroyAllEntitiesWithFlags(Flags flags) {
     return destroyed;
 }
 
-unsigned int Registry::destroyAllWorldEntities() {
-    return destroyAllEntitiesWithFlags(Flags::WorldObject);
+unsigned int Registry::destroyEntitiesInWorld(unsigned int worldIndex) {
+    return destroyEntitiesInWorld(worldIndex, Transaction<tx::EntityRead>(*this));
 }
 
-unsigned int Registry::destroyEntitiesInWorld(unsigned int worldIndex) {
-    std::lock_guard lock(entityLock);
-
-    unsigned int destroyed = 0;
-    for (std::uint32_t i = 0; i < entityWorlds.size(); ++i) {
-        if (entityAllocator.isAllocated(i) && entityWorlds[i] == worldIndex) {
-            queueEntityDestroy(Entity(i, entityVersions[i], entityFlags[i], worldIndex));
-            ++destroyed;
-        }
-    }
-    return destroyed;
+unsigned int Registry::destroyAllWorldEntities(const Transaction<tx::EntityRead>& transaction) {
+    return destroyAllEntitiesWithFlags(Flags::WorldObject, transaction);
 }
 
 void Registry::destroyAllEntities() {
@@ -236,8 +256,10 @@ void Registry::destroyAllEntities() {
 }
 
 void Registry::setEntityParent(Entity child, Entity parent) {
-    std::lock_guard lock(entityLock);
+    setEntityParent(child, parent, Transaction<tx::EntityRead>(*this));
+}
 
+void Registry::setEntityParent(Entity child, Entity parent, const Transaction<tx::EntityRead>&) {
     // remove parent first
     removeEntityParentLocked(child);
 
@@ -260,7 +282,10 @@ void Registry::setEntityParent(Entity child, Entity parent) {
 }
 
 void Registry::removeEntityParent(Entity child) {
-    std::lock_guard lock(entityLock);
+    removeEntityParent(child, Transaction<tx::EntityRead>(*this));
+}
+
+void Registry::removeEntityParent(Entity child, const Transaction<tx::EntityRead>&) {
     removeEntityParentLocked(child);
 }
 
@@ -284,8 +309,10 @@ void Registry::removeEntityParentLocked(Entity child) {
 }
 
 void Registry::addDependency(Entity resource, Entity user) {
-    std::lock_guard lock(entityLock);
+    addDependency(resource, user, Transaction<tx::EntityRead>(*this));
+}
 
+void Registry::addDependency(Entity resource, Entity user, const Transaction<tx::EntityRead>&) {
     if (!entityExistsLocked(resource) || !entityExistsLocked(user)) {
         BL_LOG_ERROR << "Tried to add bad dependency (entities do not exist). Resource: "
                      << resource << ". User: " << user;
@@ -298,17 +325,18 @@ void Registry::addDependency(Entity resource, Entity user) {
 }
 
 void Registry::removeDependency(Entity resource, Entity user) {
-    {
-        std::lock_guard lock(entityLock);
+    removeDependency(resource, user, Transaction<tx::EntityRead>(*this));
+}
 
-        if (!entityExistsLocked(resource) || !entityExistsLocked(user)) {
-            BL_LOG_ERROR << "Tried to remove bad dependency (entities do not exist). Resource: "
-                         << resource << ". User: " << user;
-            return;
-        }
-
-        dependencyGraph.removeDependency(resource, user);
+void Registry::removeDependency(Entity resource, Entity user,
+                                const Transaction<tx::EntityRead>& transaction) {
+    if (!entityExistsLocked(resource) || !entityExistsLocked(user)) {
+        BL_LOG_ERROR << "Tried to remove bad dependency (entities do not exist). Resource: "
+                     << resource << ". User: " << user;
+        return;
     }
+
+    dependencyGraph.removeDependency(resource, user);
 
     bl::event::Dispatcher::dispatch<event::EntityDependencyRemoved>({resource, user});
 
@@ -316,20 +344,28 @@ void Registry::removeDependency(Entity resource, Entity user) {
     const std::uint32_t i = resource.getIndex();
     if (i < markedForRemoval.size() && markedForRemoval[i]) {
         markedForRemoval[i] = false;
-        destroyEntity(resource);
+        destroyEntity(resource, transaction);
     }
 }
 
 void Registry::removeDependencyAndDestroyIfPossible(Entity resource, Entity user) {
-    removeDependency(resource, user);
-    if (entityExists(resource)) {
-        if (!isDependedOn(resource)) { destroyEntity(resource); }
+    removeDependencyAndDestroyIfPossible(resource, user, Transaction<tx::EntityRead>(*this));
+}
+
+void Registry::removeDependencyAndDestroyIfPossible(
+    Entity resource, Entity user, const Transaction<tx::EntityRead>& transaction) {
+    removeDependency(resource, user, transaction);
+    if (entityExists(resource, transaction)) {
+        if (!isDependedOn(resource, transaction)) { destroyEntity(resource, transaction); }
         else { markEntityForRemoval(resource); }
     }
 }
 
 bool Registry::isDependedOn(Entity resource) const {
-    std::lock_guard lock(entityLock);
+    return isDependedOn(resource, Transaction<tx::EntityRead>(*this));
+}
+
+bool Registry::isDependedOn(Entity resource, const Transaction<tx::EntityRead>&) const {
     return dependencyGraph.hasDependencies(resource);
 }
 
