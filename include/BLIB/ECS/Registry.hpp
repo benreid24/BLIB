@@ -630,9 +630,9 @@ T* Registry::emplaceComponent(Entity ent, TArgs&&... args) {
 }
 
 template<typename T, typename... TArgs>
-inline T* Registry::emplaceComponent(
+T* Registry::emplaceComponent(
     Entity entity, TArgs&&... args,
-    const Transaction<tx::EntityRead, tx::ComponentRead<>, tx::ComponentWrite<T>>& transaction) {
+    const Transaction<tx::EntityRead, tx::ComponentRead<>, tx::ComponentWrite<T>>&) {
     auto& pool = getPool<T>();
     T* nc      = pool.emplace(entity, std::forward<TArgs>(args)...);
     finishComponentAdd<T>(entity, pool.ComponentIndex, nc);

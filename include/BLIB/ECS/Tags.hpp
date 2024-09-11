@@ -2,7 +2,6 @@
 #define BLIB_ECS_TAGS_HPP
 
 #include <BLIB/ECS/ComponentMask.hpp>
-#include <BLIB/ECS/ComponentSet.hpp>
 #include <type_traits>
 
 namespace bl

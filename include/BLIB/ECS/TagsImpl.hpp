@@ -1,11 +1,12 @@
-#ifndef BLIB_ECS_COMPONENTMASKIMPL_HPP
-#define BLIB_ECS_COMPONENTMASKIMPL_HPP
+#ifndef BLIB_ECS_TAGSIMPL_HPP
+#define BLIB_ECS_TAGSIMPL_HPP
 
 #ifndef BLIB_ECS_REGISTRY_HPP
 #error "Internal file included out of order"
 #endif
 
 #include <BLIB/ECS/ComponentMask.hpp>
+#include <BLIB/ECS/ComponentSet.hpp>
 #include <BLIB/ECS/Tags.hpp>
 #include <BLIB/ECS/View.hpp>
 
