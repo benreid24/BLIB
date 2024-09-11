@@ -19,10 +19,10 @@ class ComponentSet;
 namespace tx
 {
 template<typename... Ts>
-struct TransactionComponentRead;
+struct ComponentRead;
 
 template<typename... Ts>
-struct TransactionComponentWrite;
+struct ComponentWrite;
 } // namespace tx
 
 /**
@@ -75,10 +75,10 @@ struct Tags<Require<TReqComs...>, Optional<TOptComs...>, Exclude<TExcComs...>> {
     static constexpr std::size_t NumComponents = sizeof...(TReqComs) + sizeof...(TOptComs);
 
     /// The read transaction type for the required and optional components
-    using ReadTx = tx::TransactionComponentRead<TReqComs..., TOptComs...>;
+    using ReadTx = tx::ComponentRead<TReqComs..., TOptComs...>;
 
     /// The write transaction type for the required and optional components
-    using WriteTx = tx::TransactionComponentWrite<TReqComs..., TOptComs...>;
+    using WriteTx = tx::ComponentWrite<TReqComs..., TOptComs...>;
 
     /**
      * Helper to construct the component mask describing the tagged set of components

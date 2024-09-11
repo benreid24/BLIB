@@ -392,14 +392,15 @@ public:
      * @tparam T The type of component to add
      * @tparam TArgs The constructor parameter types
      * @param entity The entity to add it to
-     * @param args The arguments to the component's constructor
      * @param transaction The transaction to use to synchronize access
+     * @param args The arguments to the component's constructor
      * @return T* Pointer to the new component
      */
     template<typename T, typename... TArgs>
-    T* emplaceComponent(
-        Entity entity, TArgs&&... args,
-        const Transaction<tx::EntityRead, tx::ComponentRead<>, tx::ComponentWrite<T>>& transaction);
+    T* emplaceComponentWithTx(
+        Entity entity,
+        const Transaction<tx::EntityRead, tx::ComponentRead<>, tx::ComponentWrite<T>>& transaction,
+        TArgs&&... args);
 
     /**
      * @brief Retrieves the given component belonging to the given entity
@@ -596,9 +597,9 @@ T* Registry::addComponent(Entity ent, const T& val) {
 template<typename T>
 T* Registry::addComponent(
     Entity entity, const T& value,
-    const Transaction<tx::EntityRead, tx::ComponentRead<>, tx::ComponentWrite<T>>&) {
+    const Transaction<tx::EntityRead, tx::ComponentRead<>, tx::ComponentWrite<T>>& tx) {
     auto& pool = getPool<T>();
-    T* nc      = pool.add(entity, value);
+    T* nc      = pool.add(entity, value, tx);
     finishComponentAdd<T>(entity, pool.ComponentIndex, nc);
     return nc;
 }
@@ -614,27 +615,28 @@ T* Registry::addComponent(Entity ent, T&& val) {
 template<typename T>
 T* Registry::addComponent(
     Entity entity, T&& value,
-    const Transaction<tx::EntityRead, tx::ComponentRead<>, tx::ComponentWrite<T>>&) {
+    const Transaction<tx::EntityRead, tx::ComponentRead<>, tx::ComponentWrite<T>>& tx) {
     auto& pool = getPool<T>();
-    T* nc      = pool.add(entity, value);
+    T* nc      = pool.add(entity, value, tx);
     finishComponentAdd<T>(entity, pool.ComponentIndex, nc);
     return nc;
 }
 
 template<typename T, typename... TArgs>
 T* Registry::emplaceComponent(Entity ent, TArgs&&... args) {
-    return emplaceComponent<T>(
+    return emplaceComponentWithTx<T, TArgs...>(
         ent,
-        std::forward<TArgs>(args)...,
-        Transaction<tx::EntityRead, tx::ComponentRead<>, tx::ComponentWrite<T>>(*this));
+        Transaction<tx::EntityRead, tx::ComponentRead<>, tx::ComponentWrite<T>>(*this),
+        std::forward<TArgs>(args)...);
 }
 
 template<typename T, typename... TArgs>
-T* Registry::emplaceComponent(
-    Entity entity, TArgs&&... args,
-    const Transaction<tx::EntityRead, tx::ComponentRead<>, tx::ComponentWrite<T>>&) {
+T* Registry::emplaceComponentWithTx(
+    Entity entity,
+    const Transaction<tx::EntityRead, tx::ComponentRead<>, tx::ComponentWrite<T>>& tx,
+    TArgs&&... args) {
     auto& pool = getPool<T>();
-    T* nc      = pool.emplace(entity, std::forward<TArgs>(args)...);
+    T* nc      = pool.emplace(entity, tx, std::forward<TArgs>(args)...);
     finishComponentAdd<T>(entity, pool.ComponentIndex, nc);
     return nc;
 }

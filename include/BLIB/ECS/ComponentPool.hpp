@@ -147,7 +147,7 @@ private:
     T* add(Entity entity, const T& component, const txp::TransactionComponentWrite<T>&);
     T* add(Entity entity, T&& component, const txp::TransactionComponentWrite<T>&);
     template<typename... TArgs>
-    T* emplace(Entity ent, TArgs&&... args, const txp::TransactionComponentWrite<T>&);
+    T* emplace(Entity ent, const txp::TransactionComponentWrite<T>&, TArgs&&... args);
 
     virtual void fireRemoveEventOnly(Entity entity) override;
     virtual void* remove(Entity entity, bool fireEvent = true) override;
@@ -279,8 +279,8 @@ T* ComponentPool<T>::add(Entity ent, T&& c, const txp::TransactionComponentWrite
 
 template<typename T>
 template<typename... TArgs>
-T* ComponentPool<T>::emplace(Entity ent, TArgs&&... args,
-                             const txp::TransactionComponentWrite<T>&) {
+T* ComponentPool<T>::emplace(Entity ent, const txp::TransactionComponentWrite<T>&,
+                             TArgs&&... args) {
     preAdd(ent);
     auto it = storage.emplace(ent, std::forward<TArgs>(args)...);
     postAdd(ent, it);
