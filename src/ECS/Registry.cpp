@@ -8,7 +8,7 @@ Registry::Registry()
 : entityAllocator(DefaultCapacity)
 , entityMasks(DefaultCapacity, ComponentMask::EmptyMask)
 , entityFlags(DefaultCapacity, Flags::None)
-, entityVersions(DefaultCapacity, 0)
+, entityVersions(DefaultCapacity, 1)
 , entityWorlds(DefaultCapacity, 0)
 , parentGraph(DefaultCapacity)
 , parentDestructionBehaviors(DefaultCapacity, ParentDestructionBehavior::DestroyedWithParent)
@@ -36,9 +36,10 @@ Entity Registry::createEntity(unsigned int worldIndex, Flags flags,
     }
     else {
         entityMasks[index]                = ComponentMask::EmptyMask;
-        version                           = ++entityVersions[index];
+        version                           = entityVersions[index];
         parentDestructionBehaviors[index] = ParentDestructionBehavior::DestroyedWithParent;
     }
+
     entityFlags[index]  = flags;
     entityWorlds[index] = worldIndex;
 
@@ -64,12 +65,9 @@ bool Registry::destroyEntity(Entity start) {
     return destroyEntity(start, Transaction<tx::EntityRead>(*this));
 }
 
-bool Registry::destroyEntity(Entity start, const Transaction<tx::EntityRead>&) {
-    if (!entityExists(start)) { return false; }
+bool Registry::destroyEntity(Entity start, const Transaction<tx::EntityRead>& tx) {
+    if (!entityExists(start, tx)) { return false; }
     std::unique_lock deleteLock(deletionState.mutex);
-
-    // increment version to make entityExists() return false for this entity
-    ++entityVersions[start.getIndex()];
 
     // if we are already traversing then just add to queue
     if (!deletionState.toVisit.empty()) {
@@ -98,7 +96,13 @@ bool Registry::queueEntityDestroy(Entity start) {
     while (!toVisit.empty()) {
         const Entity visiting = toVisit.back();
         toVisit.pop_back();
+
+        if (!entityExistsLocked(visiting)) { continue; }
+
         toRemove.emplace_back(visiting);
+
+        // increment version here
+        ++entityVersions[visiting.getIndex()];
 
         // send events now
         const std::uint32_t index            = visiting.getIndex();
@@ -136,6 +140,11 @@ bool Registry::queueEntityDestroy(Entity start) {
         }
     }
 
+    // unparent orphans
+    std::unique_lock parentLock(entityLock);
+    for (Entity child : deletionState.toUnparent) { removeEntityParentLocked(child); }
+    deletionState.toUnparent.clear();
+
     return true;
 }
 
@@ -171,10 +180,6 @@ void Registry::doEntityDestroyLocked(Entity ent) {
 void Registry::flushDeletions() {
     std::unique_lock lock(entityLock);
     std::unique_lock queueLock(deletionState.mutex);
-
-    // unparent orphans
-    for (Entity child : deletionState.toUnparent) { removeEntityParentLocked(child); }
-    deletionState.toUnparent.clear();
 
     // destroy queued components
     for (auto& pool : componentPools) { pool->flushRemovals(); }

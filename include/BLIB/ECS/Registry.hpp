@@ -598,6 +598,10 @@ template<typename T>
 T* Registry::addComponent(
     Entity entity, const T& value,
     const Transaction<tx::EntityRead, tx::ComponentRead<>, tx::ComponentWrite<T>>& tx) {
+    if (!entityExists(entity)) {
+        BL_LOG_WARN << "Adding component to invalid entity: " << entity;
+        return nullptr;
+    }
     auto& pool = getPool<T>();
     T* nc      = pool.add(entity, value, tx);
     finishComponentAdd<T>(entity, pool.ComponentIndex, nc);
@@ -616,6 +620,11 @@ template<typename T>
 T* Registry::addComponent(
     Entity entity, T&& value,
     const Transaction<tx::EntityRead, tx::ComponentRead<>, tx::ComponentWrite<T>>& tx) {
+    if (!entityExists(entity)) {
+        BL_LOG_WARN << "Adding component to invalid entity: " << entity;
+        return nullptr;
+    }
+
     auto& pool = getPool<T>();
     T* nc      = pool.add(entity, value, tx);
     finishComponentAdd<T>(entity, pool.ComponentIndex, nc);
@@ -635,6 +644,10 @@ T* Registry::emplaceComponentWithTx(
     Entity entity,
     const Transaction<tx::EntityRead, tx::ComponentRead<>, tx::ComponentWrite<T>>& tx,
     TArgs&&... args) {
+    if (!entityExists(entity)) {
+        BL_LOG_WARN << "Adding component to invalid entity: " << entity;
+        return nullptr;
+    }
     auto& pool = getPool<T>();
     T* nc      = pool.emplace(entity, tx, std::forward<TArgs>(args)...);
     finishComponentAdd<T>(entity, pool.ComponentIndex, nc);

@@ -121,6 +121,12 @@ void Renderer::update(float dt) {
     for (auto& o : observers) { o->update(dt); }
 }
 
+void Renderer::syncSceneObjects() {
+    for (auto& rt : renderTextures) { rt.payload->syncSceneObjects(); }
+    commonObserver.syncSceneObjects();
+    for (auto& o : observers) { o->syncSceneObjects(); }
+}
+
 void Renderer::renderFrame() {
     std::unique_lock lock(renderMutex);
 

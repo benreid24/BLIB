@@ -12,7 +12,6 @@ namespace rc
 {
 Overlay::Overlay(engine::Engine& e)
 : Scene(e, objects.makeEntityCallback())
-, engine(e)
 , objects(e.ecs())
 , scaler(engine.systems().getSystem<sys::OverlayScalerSystem>())
 , cachedParentViewport{}
@@ -43,6 +42,8 @@ Overlay::~Overlay() {
 
 void Overlay::renderScene(scene::SceneRenderContext& ctx) {
     std::unique_lock lock(objectMutex);
+    ecs::Transaction<ecs::tx::EntityUnlocked, ecs::tx::ComponentRead<ovy::OverlayObject>>
+        transaction(engine.ecs());
 
     std::copy(roots.begin(), roots.end(), std::inserter(renderStack, renderStack.begin()));
 

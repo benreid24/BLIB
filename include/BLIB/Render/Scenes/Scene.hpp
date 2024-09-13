@@ -111,6 +111,7 @@ protected:
         bool newTrans;
     };
 
+    engine::Engine& engine;
     Renderer& renderer;
     std::recursive_mutex objectMutex;
     ds::DescriptorSetFactoryCache& descriptorFactories;
@@ -162,11 +163,24 @@ protected:
     virtual void doObjectRemoval(scene::SceneObject* object, std::uint32_t pipeline) = 0;
 
 private:
-    std::mutex batchMutex;
+    struct ObjectAdd {
+        ecs::Entity entity;
+        rcom::DrawableBase* object;
+        UpdateSpeed updateFreq;
+    };
+
     std::uint32_t nextObserverIndex;
-    std::vector<BatchChange> batchChanges;
     std::vector<std::uint32_t> staticPipelines;
     std::vector<std::uint32_t> dynamicPipelines;
+
+    std::recursive_mutex queueMutex;
+    bool isClearingQueues;
+    std::vector<ObjectAdd> queuedAdds;
+    std::vector<scene::SceneObject*> queuedRemovals;
+    std::vector<BatchChange> queuedBatchChanges;
+
+    void addQueuedObject(ObjectAdd& object);
+    void removeQueuedObject(scene::SceneObject* object);
 
     // called by SceneSync
     void createAndAddObject(ecs::Entity entity, rcom::DrawableBase& object, UpdateSpeed updateFreq);
@@ -176,6 +190,7 @@ private:
 
     // called by Observer
     void handleDescriptorSync();
+    void syncObjects();
     std::uint32_t registerObserver();
     void updateObserverCamera(std::uint32_t observerIndex, const glm::mat4& projView);
 

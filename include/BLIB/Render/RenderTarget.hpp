@@ -172,6 +172,7 @@ protected:
     RenderTarget(engine::Engine& engine, Renderer& renderer, rg::AssetFactory& factory,
                  bool isRenderTexture);
     void handleDescriptorSync();
+    void syncSceneObjects();
     void update(float dt);
 
     void renderScene(VkCommandBuffer commandBuffer);

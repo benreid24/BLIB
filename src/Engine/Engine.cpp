@@ -340,6 +340,9 @@ bool Engine::loop() {
                                   lag,
                                   lag / timeScale);
 
+                // flush scene object changes
+                renderingSystem.syncSceneObjects();
+
                 // signal rendering thread to start
                 renderLock.unlock();
                 renderingCv.notify_one();

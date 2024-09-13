@@ -246,6 +246,7 @@ private:
 
     // render stages
     void update(float dt);
+    void syncSceneObjects();
     void renderFrame();
 
     Observer& addObserver();

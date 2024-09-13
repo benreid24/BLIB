@@ -141,6 +141,13 @@ void RenderTarget::handleDescriptorSync() {
     }
 }
 
+void RenderTarget::syncSceneObjects() {
+    if (hasScene()) {
+        scenes.back().scene->syncObjects();
+        if (scenes.back().overlay) { scenes.back().overlay->syncObjects(); }
+    }
+}
+
 void RenderTarget::setClearColor(const Color& color) {
     clearColors[0].color = {{color.r(), color.g(), color.b(), color.a()}};
 }
