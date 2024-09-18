@@ -167,6 +167,12 @@ private:
         ecs::Entity entity;
         rcom::DrawableBase* object;
         UpdateSpeed updateFreq;
+
+        ObjectAdd() = default;
+        ObjectAdd(ecs::Entity entity, rcom::DrawableBase* object, UpdateSpeed updateFreq)
+        : entity(entity)
+        , object(object)
+        , updateFreq(updateFreq) {}
     };
 
     std::uint32_t nextObserverIndex;
