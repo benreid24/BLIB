@@ -116,13 +116,13 @@ void Renderer::processResize(const sf::Rect<std::uint32_t>& region) {
 }
 
 void Renderer::update(float dt) {
-    for (auto& rt : renderTextures) { rt.payload->update(dt); }
+    for (auto& rt : renderTextures) { rt->update(dt); }
     commonObserver.update(dt);
     for (auto& o : observers) { o->update(dt); }
 }
 
 void Renderer::syncSceneObjects() {
-    for (auto& rt : renderTextures) { rt.payload->syncSceneObjects(); }
+    for (auto& rt : renderTextures) { rt->syncSceneObjects(); }
     commonObserver.syncSceneObjects();
     for (auto& o : observers) { o->syncSceneObjects(); }
 }
@@ -138,18 +138,15 @@ void Renderer::renderFrame() {
 
     // kick off transfers
     textures.onFrameStart();
-    for (auto& rt : renderTextures) { rt.payload->handleDescriptorSync(); }
+    for (auto& rt : renderTextures) { rt->handleDescriptorSync(); }
     if (commonObserver.hasScene()) { commonObserver.handleDescriptorSync(); }
     else {
         for (auto& o : observers) { o->handleDescriptorSync(); }
     }
     state.transferEngine.executeTransfers();
 
-    // begin render texture rendering in parallel
-    for (auto& rt : renderTextures) {
-        rt.future =
-            engine.threadPool().queueTask(std::bind(&vk::RenderTexture::render, rt.payload.get()));
-    }
+    // render offscreen textures
+    for (auto& rt : renderTextures) { rt->render(); }
 
     const auto clearDepthBuffer = [this, commandBuffer]() {
         VkClearAttachment attachment{};
@@ -195,9 +192,6 @@ void Renderer::renderFrame() {
         clearDepthBuffer();
         commonObserver.compositeSceneAndOverlay(commandBuffer);
     }
-
-    // wait for render texture rendering to be submitted
-    for (auto& rt : renderTextures) { rt.future.get(); }
 
     // complete frame
     framebuffers.current().finishRender(commandBuffer);
@@ -281,7 +275,7 @@ vk::RenderTexture::Handle Renderer::createRenderTexture(const glm::u32vec2& size
     std::unique_lock lock(renderMutex);
 
     renderTextures.emplace_back(new vk::RenderTexture(engine, *this, assetFactory, size, sampler));
-    return vk::RenderTexture::Handle(this, renderTextures.back().payload.get());
+    return vk::RenderTexture::Handle(this, renderTextures.back().get());
 }
 
 void Renderer::destroyRenderTexture(vk::RenderTexture* rt) {
@@ -291,7 +285,7 @@ void Renderer::destroyRenderTexture(vk::RenderTexture* rt) {
 
     vulkanState().cleanupManager.add([this, rt]() {
         for (auto it = renderTextures.begin(); it != renderTextures.end(); ++it) {
-            if (it->payload.get() == rt) {
+            if (it->get() == rt) {
                 renderTextures.erase(it);
                 return;
             }

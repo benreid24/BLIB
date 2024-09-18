@@ -282,9 +282,6 @@ bool Engine::loop() {
             }
         }
 
-        // Flush ECS deletion queues
-        entityRegistry.flushDeletions();
-
         // Process flags
         bool stateChanged = false;
         while (engineFlags.stateChangeReady()) {
@@ -343,6 +340,9 @@ bool Engine::loop() {
                 // flush scene object changes
                 renderingSystem.syncSceneObjects();
 
+                // Flush ECS deletion queues
+                entityRegistry.flushDeletions();
+
                 // signal rendering thread to start
                 renderLock.unlock();
                 renderingCv.notify_one();
@@ -365,6 +365,10 @@ bool Engine::loop() {
                 frameCount = 0.f;
                 fpsTimer.restart();
             }
+        }
+        else {
+            // Flush ECS deletion queues
+            entityRegistry.flushDeletions();
         }
     }
 

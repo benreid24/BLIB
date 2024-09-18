@@ -201,16 +201,6 @@ public:
     vk::PerSwapFrame<vk::Framebuffer>& getSwapframeBuffers();
 
 private:
-    template<typename T>
-    struct WithFuture {
-        T payload;
-        std::future<void> future;
-
-        template<typename... TArgs>
-        WithFuture(TArgs&&... args)
-        : payload(std::forward<TArgs>(args)...) {}
-    };
-
     std::mutex renderMutex;
     engine::Engine& engine;
     engine::EngineWindow& window;
@@ -230,7 +220,7 @@ private:
     std::vector<std::unique_ptr<Observer>> observers;
     std::vector<std::unique_ptr<Observer>> virtualObservers;
     VkClearValue clearColors[2];
-    std::vector<WithFuture<std::unique_ptr<vk::RenderTexture>>> renderTextures;
+    std::vector<std::unique_ptr<vk::RenderTexture>> renderTextures;
     std::unique_ptr<rg::Strategy> strategy;
     rg::AssetFactory assetFactory;
     scene::SceneSync sceneSync;
