@@ -20,6 +20,7 @@ target_sources(BLIB PUBLIC
     Timer.hpp
     TupleLoop.hpp
     UnderlyingType.hpp
+    VariadicHelpers.hpp
     VectorRef.hpp
     Visitor.hpp
     Waiter.hpp
