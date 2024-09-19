@@ -204,8 +204,8 @@ public:
      * @tparam Tx The transaction type to convert to
      */
     template<typename Tx, typename = std::enable_if_t<std::is_base_of_v<txp::TransactionBase, Tx> &&
-                                                      !std::is_same_v<Tx, Transaction>>
-                          operator const Tx&() const {
+                                                      !std::is_same_v<Tx, Transaction>>>
+    operator const Tx&() const {
         static_assert(Tx::EntityContextCompatible<EntityCtx>(),
                       "Transaction entity context must match or be stricter");
         static_assert(
