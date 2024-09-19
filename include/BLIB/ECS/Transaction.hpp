@@ -206,12 +206,12 @@ public:
     template<typename Tx, typename = std::enable_if_t<std::is_base_of_v<txp::TransactionBase, Tx> &&
                                                       !std::is_same_v<Tx, Transaction>>>
     operator const Tx&() const {
-        static_assert(Tx::EntityContextCompatible<EntityCtx>(),
+        static_assert(Tx::template EntityContextCompatible<EntityCtx>(),
                       "Transaction entity context must match or be stricter");
         static_assert(
-            Tx::ReadComponentsContained<TReadComs..., TWriteComs...>(),
+            Tx::template ReadComponentsContained<TReadComs..., TWriteComs...>(),
             "Transaction component read + write sets must contain the required components");
-        static_assert(Tx::WriteComponentsContained<TWriteComs...>(),
+        static_assert(Tx::template WriteComponentsContained<TWriteComs...>(),
                       "Transaction write set must contain the required components");
 
         // we never use the transaction so we can completely abuse this pointer type
