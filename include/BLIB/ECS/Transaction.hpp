@@ -3,6 +3,7 @@
 
 #include <BLIB/Util/NonCopyable.hpp>
 #include <BLIB/Util/ReadWriteLock.hpp>
+#include <BLIB/Util/VariadicHelpers.hpp>
 #include <mutex>
 
 namespace bl
@@ -21,7 +22,7 @@ namespace tx
  *
  * @ingroup ECS
  */
-enum EntityContext { EntityUnlocked, EntityRead, EntityWrite };
+enum EntityContext { EntityUnlocked = 0, EntityRead = 1, EntityWrite = 2 };
 
 /**
  * @brief Deduction helper to use to create transactions to read certain types of components
@@ -46,6 +47,8 @@ struct ComponentWrite {};
 /// Internal implementation details for transactions
 namespace txp
 {
+struct TransactionBase {};
+
 class TransactionEntityUnlocked {
 protected:
     TransactionEntityUnlocked(const Registry&) {}
@@ -159,6 +162,61 @@ public:
      * @brief Returns whether the transaction is still in progress
      */
     bool isLocked() const;
+
+    /**
+     * @brief Helper to test whether the entity lock context is less than or equal to a threshold
+     *
+     * @tparam TestCtx The threshold to test
+     * @return True if this context is below or equal to the threshold
+     */
+    template<tx::EntityContext TestCtx>
+    static constexpr bool EntityContextCompatible() {
+        return EntityCtx <= TestCtx;
+    }
+
+    /**
+     * @brief Helper to test whether the read component set is contained by a given set
+     *
+     * @tparam ...TComs The set that may contain our read set
+     * @return True if TComs fully contains TReadComs
+     */
+    template<typename... TComs>
+    static constexpr bool ReadComponentsContained() {
+        return util::VariadicSetsContained<util::Variadic<TReadComs...>,
+                                           util::Variadic<TComs...>>::value;
+    }
+
+    /**
+     * @brief Helper to test whether the write component set is contained by a given set
+     *
+     * @tparam ...TComs The set that may contain our write set
+     * @return True if TComs fully contains TWriteComs
+     */
+    template<typename... TComs>
+    static constexpr bool WriteComponentsContained() {
+        return util::VariadicSetsContained<util::Variadic<TWriteComs...>,
+                                           util::Variadic<TComs...>>::value;
+    }
+
+    /**
+     * @brief Helper to convert compatible transactions
+     *
+     * @tparam Tx The transaction type to convert to
+     */
+    template<typename Tx, typename = std::enable_if_t<std::is_base_of_v<txp::TransactionBase, Tx> &&
+                                                      !std::is_same_v<Tx, Transaction>>
+                          operator const Tx&() const {
+        static_assert(Tx::EntityContextCompatible<EntityCtx>(),
+                      "Transaction entity context must match or be stricter");
+        static_assert(
+            Tx::ReadComponentsContained<TReadComs..., TWriteComs...>(),
+            "Transaction component read + write sets must contain the required components");
+        static_assert(Tx::WriteComponentsContained<TWriteComs...>(),
+                      "Transaction write set must contain the required components");
+
+        // we never use the transaction so we can completely abuse this pointer type
+        return *static_cast<const Tx*>(static_cast<const void*>(this));
+    }
 
 private:
     bool unlocked;
