@@ -9,7 +9,7 @@ namespace unittest
 {
 TEST(Util, VariadicHelpers) {
     const bool valueContained    = VariadicListContains<int, float, char, short, int>::value;
-    const bool valueNotContained = VariadicListContains<int, float, char, short, int>::value;
+    const bool valueNotContained = VariadicListContains<int, float, char, short>::value;
     EXPECT_TRUE(valueContained);
     EXPECT_FALSE(valueNotContained);
 

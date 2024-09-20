@@ -47,33 +47,43 @@ struct ComponentWrite {};
 /// Internal implementation details for transactions
 namespace txp
 {
-struct TransactionBase {};
+template<typename T>
+class TransactionComponentWrite;
+class TransactionEntityRead;
+class TransactionEntityWrite;
 
 class TransactionEntityUnlocked {
 protected:
+    TransactionEntityUnlocked(const TransactionEntityRead&) {}
+    TransactionEntityUnlocked(const TransactionEntityWrite&) {}
+    TransactionEntityUnlocked(const TransactionEntityUnlocked&) {}
     TransactionEntityUnlocked(const Registry&) {}
     void unlock() {}
 };
 
 class TransactionEntityRead {
 protected:
+    TransactionEntityRead(const TransactionEntityWrite&) {}
+    TransactionEntityRead(const TransactionEntityRead&) {}
     TransactionEntityRead(const Registry&);
-    void unlock() { lock.unlock(); }
+    void unlock() {
+        if (lock.has_value()) { lock.value().unlock(); }
+    }
 
 private:
-    std::unique_lock<std::recursive_mutex> lock;
+    std::optional<std::unique_lock<std::recursive_mutex>> lock;
 };
 
 class TransactionEntityWrite {
 protected:
+    TransactionEntityWrite(const TransactionEntityWrite&) {}
     TransactionEntityWrite(const Registry&);
-    void unlock() { lock.unlock(); }
-    operator const TransactionEntityRead&() const {
-        return *reinterpret_cast<const TransactionEntityRead*>(this);
+    void unlock() {
+        if (lock.has_value()) { lock.value().unlock(); }
     }
 
 private:
-    std::unique_lock<std::recursive_mutex> lock;
+    std::optional<std::unique_lock<std::recursive_mutex>> lock;
 };
 
 template<tx::EntityContext Ctx>
@@ -97,13 +107,17 @@ struct TxEntityResolve<tx::EntityWrite> {
 template<typename T>
 class TransactionComponentRead {
 protected:
+    TransactionComponentRead(const TransactionComponentWrite<T>&) {}
+    TransactionComponentRead(const TransactionComponentRead&) {}
     TransactionComponentRead(const Registry& registry);
     TransactionComponentRead(util::ReadWriteLock& lock)
     : lock(lock) {}
-    void unlock() { lock.unlock(); }
+    void unlock() {
+        if (lock.has_value()) { lock.value().unlock(); }
+    }
 
 private:
-    util::ReadWriteLock::ReadScopeGuard lock;
+    std::optional<util::ReadWriteLock::ReadScopeGuard> lock;
 
     friend class ::bl::ecs::ComponentPool<T>;
     friend class ::bl::ecs::Registry;
@@ -112,13 +126,16 @@ private:
 template<typename T>
 class TransactionComponentWrite {
 protected:
+    TransactionComponentWrite(const TransactionComponentWrite&) {}
     TransactionComponentWrite(const Registry& registry);
     TransactionComponentWrite(util::ReadWriteLock& lock)
     : lock(lock) {}
-    void unlock() { lock.unlock(); }
+    void unlock() {
+        if (lock.has_value()) { lock.value().unlock(); }
+    }
 
 private:
-    util::ReadWriteLock::WriteScopeGuard lock;
+    std::optional<util::ReadWriteLock::WriteScopeGuard> lock;
 
     friend class ::bl::ecs::ComponentPool<T>;
     friend class ::bl::ecs::Registry;
@@ -154,6 +171,19 @@ public:
     Transaction(const Registry& registry);
 
     /**
+     * @brief Helper function to pass existing transactions to methods expecting different, but
+     *        compatible, transactions
+     *
+     * @tparam ...TOtherReads The source transaction component read types
+     * @tparam ...TOtherWrites The source transaction component write types
+     * @tparam OtherEntityCtx The source transaction entity context
+     * @param tx The source transaction
+     */
+    template<tx::EntityContext OtherEntityCtx, typename... TOtherReads, typename... TOtherWrites>
+    Transaction(const Transaction<OtherEntityCtx, tx::ComponentRead<TOtherReads...>,
+                                  tx::ComponentWrite<TOtherWrites...>>& tx);
+
+    /**
      * @brief Unlocks the affected portions of the ECS, ending the transaction
      */
     void unlock();
@@ -162,61 +192,6 @@ public:
      * @brief Returns whether the transaction is still in progress
      */
     bool isLocked() const;
-
-    /**
-     * @brief Helper to test whether the entity lock context is less than or equal to a threshold
-     *
-     * @tparam TestCtx The threshold to test
-     * @return True if this context is below or equal to the threshold
-     */
-    template<tx::EntityContext TestCtx>
-    static constexpr bool EntityContextCompatible() {
-        return EntityCtx <= TestCtx;
-    }
-
-    /**
-     * @brief Helper to test whether the read component set is contained by a given set
-     *
-     * @tparam ...TComs The set that may contain our read set
-     * @return True if TComs fully contains TReadComs
-     */
-    template<typename... TComs>
-    static constexpr bool ReadComponentsContained() {
-        return util::VariadicSetsContained<util::Variadic<TReadComs...>,
-                                           util::Variadic<TComs...>>::value;
-    }
-
-    /**
-     * @brief Helper to test whether the write component set is contained by a given set
-     *
-     * @tparam ...TComs The set that may contain our write set
-     * @return True if TComs fully contains TWriteComs
-     */
-    template<typename... TComs>
-    static constexpr bool WriteComponentsContained() {
-        return util::VariadicSetsContained<util::Variadic<TWriteComs...>,
-                                           util::Variadic<TComs...>>::value;
-    }
-
-    /**
-     * @brief Helper to convert compatible transactions
-     *
-     * @tparam Tx The transaction type to convert to
-     */
-    template<typename Tx, typename = std::enable_if_t<std::is_base_of_v<txp::TransactionBase, Tx> &&
-                                                      !std::is_same_v<Tx, Transaction>>>
-    operator const Tx&() const {
-        static_assert(Tx::template EntityContextCompatible<EntityCtx>(),
-                      "Transaction entity context must match or be stricter");
-        static_assert(
-            Tx::template ReadComponentsContained<TReadComs..., TWriteComs...>(),
-            "Transaction component read + write sets must contain the required components");
-        static_assert(Tx::template WriteComponentsContained<TWriteComs...>(),
-                      "Transaction write set must contain the required components");
-
-        // we never use the transaction so we can completely abuse this pointer type
-        return *static_cast<const Tx*>(static_cast<const void*>(this));
-    }
 
 private:
     bool unlocked;
@@ -244,6 +219,27 @@ template<tx::EntityContext EntityCtx, typename... TReadComs, typename... TWriteC
 bool Transaction<EntityCtx, tx::ComponentRead<TReadComs...>,
                  tx::ComponentWrite<TWriteComs...>>::isLocked() const {
     return !unlocked;
+}
+
+template<tx::EntityContext EntityCtx, typename... TReadComs, typename... TWriteComs>
+template<tx::EntityContext OtherEntityCtx, typename... TOtherReads, typename... TOtherWrites>
+Transaction<EntityCtx, tx::ComponentRead<TReadComs...>, tx::ComponentWrite<TWriteComs...>>::
+    Transaction(const Transaction<OtherEntityCtx, tx::ComponentRead<TOtherReads...>,
+                                  tx::ComponentWrite<TOtherWrites...>>& tx)
+: EntityBase(tx)
+, txp::TransactionComponentRead<TReadComs>(tx)...
+, txp::TransactionComponentWrite<TWriteComs>(tx)... {
+    static_assert(EntityCtx <= OtherEntityCtx,
+                  "Source transaction must have same or greater entity ctx");
+
+    static_assert(
+        util::VariadicSetsContained<util::Variadic<TReadComs...>,
+                                    util::Variadic<TOtherReads..., TOtherWrites...>>::value,
+        "Read components must be contained by source transaction read + write sets");
+
+    static_assert(util::VariadicSetsContained<util::Variadic<TWriteComs...>,
+                                              util::Variadic<TOtherWrites...>>::value,
+                  "Write components must be contained by source transaction write set");
 }
 
 } // namespace ecs
