@@ -78,6 +78,16 @@ public:
     util::Ref<World, TWorld> changeWorlds(TArgs&&... args);
 
     /**
+     * @brief Returns whether the player is currently in a world
+     */
+    bool isInWorld() const { return !worldStack.empty(); }
+
+    /**
+     * @brief Returns the world the player is in. Must be in a world
+     */
+    World& getCurrentWorld() { return *worldStack.top(); }
+
+    /**
      * @brief Exits the current world, popping it from this player's world stack
      */
     void leaveWorld();

@@ -54,10 +54,11 @@ class TransactionEntityWrite;
 
 class TransactionEntityUnlocked {
 protected:
+    TransactionEntityUnlocked() {}
     TransactionEntityUnlocked(const TransactionEntityRead&) {}
     TransactionEntityUnlocked(const TransactionEntityWrite&) {}
     TransactionEntityUnlocked(const TransactionEntityUnlocked&) {}
-    TransactionEntityUnlocked(const Registry&) {}
+    TransactionEntityUnlocked(Registry&) {}
     void unlock() {}
 };
 
@@ -65,7 +66,7 @@ class TransactionEntityRead {
 protected:
     TransactionEntityRead(const TransactionEntityWrite&) {}
     TransactionEntityRead(const TransactionEntityRead&) {}
-    TransactionEntityRead(const Registry&);
+    TransactionEntityRead(Registry&);
     void unlock() {
         if (lock.has_value()) { lock.value().unlock(); }
     }
@@ -77,7 +78,7 @@ private:
 class TransactionEntityWrite {
 protected:
     TransactionEntityWrite(const TransactionEntityWrite&) {}
-    TransactionEntityWrite(const Registry&);
+    TransactionEntityWrite(Registry&);
     void unlock() {
         if (lock.has_value()) { lock.value().unlock(); }
     }
@@ -109,7 +110,7 @@ class TransactionComponentRead {
 protected:
     TransactionComponentRead(const TransactionComponentWrite<T>&) {}
     TransactionComponentRead(const TransactionComponentRead&) {}
-    TransactionComponentRead(const Registry& registry);
+    TransactionComponentRead(Registry& registry);
     TransactionComponentRead(util::ReadWriteLock& lock)
     : lock(lock) {}
     void unlock() {
@@ -127,7 +128,7 @@ template<typename T>
 class TransactionComponentWrite {
 protected:
     TransactionComponentWrite(const TransactionComponentWrite&) {}
-    TransactionComponentWrite(const Registry& registry);
+    TransactionComponentWrite(Registry& registry);
     TransactionComponentWrite(util::ReadWriteLock& lock)
     : lock(lock) {}
     void unlock() {
@@ -168,7 +169,7 @@ public:
      *
      * @param registry The ECs registry the transaction applies to
      */
-    Transaction(const Registry& registry);
+    Transaction(Registry& registry);
 
     /**
      * @brief Helper function to pass existing transactions to methods expecting different, but
@@ -195,14 +196,29 @@ public:
 
 private:
     bool unlocked;
+
+    Transaction(util::ReadWriteLock& lock);
+
+    template<typename T>
+    friend class ::bl::ecs::ComponentPool;
 };
 
 template<tx::EntityContext EntityCtx, typename... TReadComs, typename... TWriteComs>
 Transaction<EntityCtx, tx::ComponentRead<TReadComs...>,
-            tx::ComponentWrite<TWriteComs...>>::Transaction(const Registry& registry)
+            tx::ComponentWrite<TWriteComs...>>::Transaction(Registry& registry)
 : EntityBase(registry)
 , txp::TransactionComponentRead<TReadComs>(registry)...
 , txp::TransactionComponentWrite<TWriteComs>(registry)... {}
+
+template<tx::EntityContext EntityCtx, typename... TReadComs, typename... TWriteComs>
+Transaction<EntityCtx, tx::ComponentRead<TReadComs...>,
+            tx::ComponentWrite<TWriteComs...>>::Transaction(util::ReadWriteLock& lock)
+: EntityBase()
+, txp::TransactionComponentRead<TReadComs>(lock)...
+, txp::TransactionComponentWrite<TWriteComs>(lock)... {
+    static_assert(EntityCtx == tx::EntityUnlocked,
+                  "Transaction constructed from component lock but requires entity lock too");
+}
 
 template<tx::EntityContext EntityCtx, typename... TReadComs, typename... TWriteComs>
 void Transaction<EntityCtx, tx::ComponentRead<TReadComs...>,

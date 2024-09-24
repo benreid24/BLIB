@@ -96,7 +96,7 @@ public:
      * @param transaction The transaction to use to synchronize access
      * @return T* Pointer to the component or nullptr if the entity does not have one
      */
-    T* get(Entity entity, const txp::TransactionComponentRead<T>& transaction);
+    T* get(Entity entity, const Transaction<tx::EntityUnlocked, tx::ComponentRead<T>>& transaction);
 
     /**
      * @brief Iterates over all contained components and triggers the callback for each
@@ -115,7 +115,8 @@ public:
      * @param cb The handler for each component. Takes the entity id and the component
      */
     template<typename TCallback>
-    void forEach(const TCallback& cb, const txp::TransactionComponentRead<T>& transaction);
+    void forEach(const TCallback& cb,
+                 const Transaction<tx::EntityUnlocked, tx::ComponentRead<T>>& transaction);
 
 private:
     static constexpr std::size_t DefaultCapacity = 64;
@@ -144,10 +145,14 @@ private:
 
     void preAdd(Entity entity);
     void postAdd(Entity entity, typename TStorage::iterator it);
-    T* add(Entity entity, const T& component, const txp::TransactionComponentWrite<T>&);
-    T* add(Entity entity, T&& component, const txp::TransactionComponentWrite<T>&);
+    T* add(Entity entity, const T& component,
+           const Transaction<tx::EntityUnlocked, tx::ComponentRead<>, tx::ComponentWrite<T>>&);
+    T* add(Entity entity, T&& component,
+           const Transaction<tx::EntityUnlocked, tx::ComponentRead<>, tx::ComponentWrite<T>>&);
     template<typename... TArgs>
-    T* emplace(Entity ent, const txp::TransactionComponentWrite<T>&, TArgs&&... args);
+    T* emplace(Entity ent,
+               const Transaction<tx::EntityUnlocked, tx::ComponentRead<>, tx::ComponentWrite<T>>&,
+               TArgs&&... args);
 
     virtual void fireRemoveEventOnly(Entity entity) override;
     virtual void* remove(Entity entity, bool fireEvent = true) override;
@@ -221,8 +226,8 @@ private:
     }
 
     friend class Registry;
-    friend class txp::TransactionComponentRead<T>;
-    friend class txp::TransactionComponentWrite<T>;
+    friend class Transaction<tx::EntityUnlocked, tx::ComponentRead<T>>;
+    friend class Transaction<tx::EntityUnlocked, tx::ComponentRead<>, tx::ComponentWrite<T>>;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -262,7 +267,9 @@ void ComponentPool<T>::preAdd(Entity ent) {
 }
 
 template<typename T>
-T* ComponentPool<T>::add(Entity ent, const T& c, const txp::TransactionComponentWrite<T>&) {
+T* ComponentPool<T>::add(
+    Entity ent, const T& c,
+    const Transaction<tx::EntityUnlocked, tx::ComponentRead<>, tx::ComponentWrite<T>>&) {
     preAdd(ent);
     auto it = storage.emplace(ent, c);
     postAdd(ent, it);
@@ -270,7 +277,9 @@ T* ComponentPool<T>::add(Entity ent, const T& c, const txp::TransactionComponent
 }
 
 template<typename T>
-T* ComponentPool<T>::add(Entity ent, T&& c, const txp::TransactionComponentWrite<T>&) {
+T* ComponentPool<T>::add(
+    Entity ent, T&& c,
+    const Transaction<tx::EntityUnlocked, tx::ComponentRead<>, tx::ComponentWrite<T>>&) {
     preAdd(ent);
     auto it = storage.emplace(ent, std::forward<T>(c));
     postAdd(ent, it);
@@ -279,8 +288,9 @@ T* ComponentPool<T>::add(Entity ent, T&& c, const txp::TransactionComponentWrite
 
 template<typename T>
 template<typename... TArgs>
-T* ComponentPool<T>::emplace(Entity ent, const txp::TransactionComponentWrite<T>&,
-                             TArgs&&... args) {
+T* ComponentPool<T>::emplace(
+    Entity ent, const Transaction<tx::EntityUnlocked, tx::ComponentRead<>, tx::ComponentWrite<T>>&,
+    TArgs&&... args) {
     preAdd(ent);
     auto it = storage.emplace(ent, std::forward<TArgs>(args)...);
     postAdd(ent, it);
@@ -373,12 +383,13 @@ void ComponentPool<T>::forEach(const TCallback& cb) {
     static_assert(std::is_invocable<TCallback, Entity, T&>::value,
                   "Visitor signature is void(Entity, T&)");
 
-    forEach(cb, txp::TransactionComponentRead<T>(poolLock));
+    forEach(cb, Transaction<tx::EntityUnlocked, tx::ComponentRead<T>>(poolLock));
 }
 
 template<typename T>
 template<typename TCallback>
-void ComponentPool<T>::forEach(const TCallback& cb, const txp::TransactionComponentRead<T>&) {
+void ComponentPool<T>::forEach(const TCallback& cb,
+                               const Transaction<tx::EntityUnlocked, tx::ComponentRead<T>>&) {
     static_assert(std::is_invocable<TCallback, Entity, T&>::value,
                   "Visitor signature is void(Entity, T&)");
 
@@ -387,11 +398,12 @@ void ComponentPool<T>::forEach(const TCallback& cb, const txp::TransactionCompon
 
 template<typename T>
 T* ComponentPool<T>::get(Entity ent) {
-    return get(ent, txp::TransactionComponentRead<T>(poolLock));
+    return get(ent, Transaction<tx::EntityUnlocked, tx::ComponentRead<T>>(poolLock));
 }
 
 template<typename T>
-T* ComponentPool<T>::get(Entity entity, const txp::TransactionComponentRead<T>&) {
+T* ComponentPool<T>::get(Entity entity,
+                         const Transaction<tx::EntityUnlocked, tx::ComponentRead<T>>&) {
     const std::uint64_t entIndex = entity.getIndex();
     if (entIndex < entityToComponent.size()) { return entityToComponent[entIndex]; }
     return nullptr;

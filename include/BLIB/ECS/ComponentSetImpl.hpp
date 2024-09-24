@@ -19,8 +19,9 @@ ComponentSetMember<T>::ComponentSetMember()
 : component(nullptr) {}
 
 template<typename T>
-bool ComponentSetMember<T>::populate(Registry& registry, Entity owner,
-                                     const txp::TransactionComponentRead<T>& tx) {
+bool ComponentSetMember<T>::populate(
+    Registry& registry, Entity owner,
+    const Transaction<tx::EntityUnlocked, tx::ComponentRead<T>>& tx) {
     component = registry.getAllComponents<T>().get(owner, tx);
     return component != nullptr;
 }

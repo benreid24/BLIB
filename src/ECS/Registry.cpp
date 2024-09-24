@@ -49,7 +49,7 @@ Entity Registry::createEntity(unsigned int worldIndex, Flags flags,
 }
 
 bool Registry::entityExists(Entity ent) const {
-    return entityExists(ent, Transaction<tx::EntityRead>(*this));
+    return entityExists(ent, Transaction<tx::EntityRead>(const_cast<Registry&>(*this)));
 }
 
 bool Registry::entityExists(Entity entity, const Transaction<tx::EntityRead>&) const {
@@ -367,7 +367,7 @@ void Registry::removeDependencyAndDestroyIfPossible(
 }
 
 bool Registry::isDependedOn(Entity resource) const {
-    return isDependedOn(resource, Transaction<tx::EntityRead>(*this));
+    return isDependedOn(resource, Transaction<tx::EntityRead>(const_cast<Registry&>(*this)));
 }
 
 bool Registry::isDependedOn(Entity resource, const Transaction<tx::EntityRead>&) const {

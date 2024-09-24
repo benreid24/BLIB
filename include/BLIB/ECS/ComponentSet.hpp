@@ -26,7 +26,7 @@ struct ComponentSetMember {
 
     ComponentSetMember();
     bool populate(Registry& registry, Entity owner,
-                  const txp::TransactionComponentRead<T>& transaction);
+                  const Transaction<tx::EntityUnlocked, tx::ComponentRead<T>>& transaction);
     void nullout(void* com);
 };
 } // namespace priv

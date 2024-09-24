@@ -421,7 +421,8 @@ public:
      * @return T* Pointer to the entity's component or nullptr if not present
      */
     template<typename T>
-    T* getComponent(Entity entity, const txp::TransactionComponentRead<T>& transaction);
+    T* getComponent(Entity entity,
+                    const Transaction<tx::EntityUnlocked, tx::ComponentRead<T>>& transaction);
 
     /**
      * @brief Returns whether or not the entity has the given component
@@ -442,7 +443,8 @@ public:
      * @return True if the entity has the component, false otherwise
      */
     template<typename T>
-    bool hasComponent(Entity entity, const txp::TransactionComponentRead<T>& transaction);
+    bool hasComponent(Entity entity,
+                      const Transaction<tx::EntityUnlocked, tx::ComponentRead<T>>& transaction);
 
     /**
      * @brief Removes the given component from the given entity
@@ -461,7 +463,8 @@ public:
      * @param transaction The transaction to use to synchronize access
      */
     template<typename T>
-    void removeComponent(Entity entity, const txp::TransactionComponentWrite<T>& transaction);
+    void removeComponent(Entity entity, const Transaction<tx::EntityUnlocked, tx::ComponentRead<>,
+                                                          tx::ComponentWrite<T>>& transaction);
 
     /**
      * @brief Returns an iterable component pool for the given component type
@@ -688,7 +691,8 @@ T* Registry::getComponent(Entity ent) {
 }
 
 template<typename T>
-T* Registry::getComponent(Entity entity, const txp::TransactionComponentRead<T>& transaction) {
+T* Registry::getComponent(
+    Entity entity, const Transaction<tx::EntityUnlocked, tx::ComponentRead<T>>& transaction) {
     return getPool<T>().get(entity, transaction);
 }
 
@@ -698,17 +702,21 @@ bool Registry::hasComponent(Entity ent) {
 }
 
 template<typename T>
-bool Registry::hasComponent(Entity entity, const txp::TransactionComponentRead<T>& transaction) {
+bool Registry::hasComponent(
+    Entity entity, const Transaction<tx::EntityUnlocked, tx::ComponentRead<T>>& transaction) {
     return getComponent<T>(entity, transaction) != nullptr;
 }
 
 template<typename T>
 void Registry::removeComponent(Entity ent) {
-    return removeComponent<T>(ent, txp::TransactionComponentWrite<T>(*this));
+    return removeComponent<T>(
+        ent, Transaction<tx::EntityUnlocked, tx::ComponentRead<>, tx::ComponentWrite<T>>(*this));
 }
 
 template<typename T>
-void Registry::removeComponent(Entity ent, const txp::TransactionComponentWrite<T>&) {
+void Registry::removeComponent(
+    Entity ent,
+    const Transaction<tx::EntityUnlocked, tx::ComponentRead<>, tx::ComponentWrite<T>>&) {
     if (!entityExistsLocked(ent)) { return; }
 
     auto& pool   = getPool<T>();
@@ -814,7 +822,7 @@ void Registry::populateViewWithLock(View<TRequire, TOptional, TExclude>& view) {
 }
 
 inline bool Registry::entityHasParent(Entity child) const {
-    return entityHasParent(child, Transaction<tx::EntityRead>(*this));
+    return entityHasParent(child, Transaction<tx::EntityRead>(const_cast<Registry&>(*this)));
 }
 
 inline bool Registry::entityHasParent(Entity child, const Transaction<tx::EntityRead>&) const {
@@ -822,7 +830,7 @@ inline bool Registry::entityHasParent(Entity child, const Transaction<tx::Entity
 }
 
 inline Entity Registry::getEntityParent(Entity child) const {
-    return getEntityParent(child, Transaction<tx::EntityRead>(*this));
+    return getEntityParent(child, Transaction<tx::EntityRead>(const_cast<Registry&>(*this)));
 }
 
 inline Entity Registry::getEntityParent(Entity child, const Transaction<tx::EntityRead>&) const {

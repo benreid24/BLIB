@@ -13,19 +13,19 @@ namespace ecs
 {
 namespace txp
 {
-inline TransactionEntityWrite::TransactionEntityWrite(const Registry& r)
+inline TransactionEntityWrite::TransactionEntityWrite(Registry& r)
 : lock(r.entityLock) {}
 
-inline TransactionEntityRead::TransactionEntityRead(const Registry& r)
+inline TransactionEntityRead::TransactionEntityRead(Registry& r)
 : lock(r.entityLock) {}
 
 template<typename T>
-TransactionComponentRead<T>::TransactionComponentRead(const Registry& registry)
-: lock(const_cast<Registry&>(registry).getPool<T>().poolLock) {}
+TransactionComponentRead<T>::TransactionComponentRead(Registry& registry)
+: lock(registry.getPool<T>().poolLock) {}
 
 template<typename T>
-TransactionComponentWrite<T>::TransactionComponentWrite(const Registry& registry)
-: lock(const_cast<Registry&>(registry).getPool<T>().poolLock) {}
+TransactionComponentWrite<T>::TransactionComponentWrite(Registry& registry)
+: lock(registry.getPool<T>().poolLock) {}
 
 } // namespace txp
 

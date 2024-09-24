@@ -64,9 +64,19 @@ public:
     }
 
     /**
-     * @brief Takes over ownership from another ref
+     * @brief Initializes this ref from another
      *
      * @tparam TOther The derived type of the other ref
+     * @param other The ref to copy
+     */
+    Ref(const Ref& other)
+    : Ref() {
+        *this = other;
+    }
+
+    /**
+     * @brief Takes over ownership from another ref
+     *
      * @param other The ref to assume ownership from
      */
     template<typename TOther>
@@ -76,9 +86,52 @@ public:
     }
 
     /**
+     * @brief Takes over ownership from another ref
+     *
+     * @param other The ref to assume ownership from
+     */
+    Ref(Ref&& other)
+    : Ref() {
+        *this = std::forward<Ref>(other);
+    }
+
+    /**
      * @brief Releases the ref and possibly the resource if the ref count is zero
      */
-    ~Ref() { decrement(); }
+    ~Ref() { release(); }
+
+    /**
+     * @brief Initializes this ref from another
+     *
+     * @param other The ref to copy
+     * @return A reference to this object
+     */
+    Ref& operator=(const Ref& other) {
+        decrement();
+
+        payload = other.payload;
+        value   = other.value;
+
+        if (value) { increment(); }
+        return *this;
+    }
+
+    /**
+     * @brief Takes over ownership from another ref
+     *
+     * @param other The ref to assume ownership from
+     * @return A reference to this object
+     */
+    Ref& operator=(Ref&& other) {
+        decrement();
+
+        payload = other.payload;
+        value   = other.value;
+
+        other.value   = nullptr;
+        other.payload = nullptr;
+        return *this;
+    }
 
     /**
      * @brief Initializes this ref from another
