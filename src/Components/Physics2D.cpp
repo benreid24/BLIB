@@ -38,5 +38,7 @@ void Physics2D::teleport(const glm::vec2& position, float angle, bool cv) {
     b2Body_SetAwake(bodyId, true);
 }
 
+void Physics2D::setVelocity(const glm::vec2& v) { b2Body_SetLinearVelocity(bodyId, {v.x, v.y}); }
+
 } // namespace com
 } // namespace bl

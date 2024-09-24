@@ -69,10 +69,10 @@ public:
      * @param entity The entity to add physics to
      * @param bodyDef The body parameters for Box2D
      * @param shapeDef The shape parameters for Box2D
-     * @return True if physics could be added, false on error
+     * @return The created physics component, or nullptr on error
      */
-    bool addPhysicsToEntity(ecs::Entity entity, b2BodyDef bodyDef = b2DefaultBodyDef(),
-                            b2ShapeDef shapeDef = b2DefaultShapeDef());
+    com::Physics2D* addPhysicsToEntity(ecs::Entity entity, b2BodyDef bodyDef = b2DefaultBodyDef(),
+                                       b2ShapeDef shapeDef = b2DefaultShapeDef());
 
     /**
      * @brief Returns the scale from world coordinates to Box2D coordinates for the given world

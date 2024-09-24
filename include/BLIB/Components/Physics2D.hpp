@@ -58,6 +58,13 @@ public:
      */
     void teleport(const glm::vec2& position, float rotation = 0.f, bool cancelVelocity = true);
 
+    /**
+     * @brief Sets the velocity of the object
+     *
+     * @param velocity The new velocity
+     */
+    void setVelocity(const glm::vec2& velocity);
+
 private:
     sys::Physics2D* system;
     ecs::Entity entity;

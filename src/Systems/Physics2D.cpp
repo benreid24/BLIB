@@ -14,17 +14,18 @@ Physics2D::Physics2D()
     worlds.resize(engine::World::MaxWorlds, nullptr);
 }
 
-bool Physics2D::addPhysicsToEntity(ecs::Entity entity, b2BodyDef bodyDef, b2ShapeDef shapeDef) {
+com::Physics2D* Physics2D::addPhysicsToEntity(ecs::Entity entity, b2BodyDef bodyDef,
+                                              b2ShapeDef shapeDef) {
     auto set = engine->ecs().getComponentSet<ecs::Require<com::Hitbox2D, com::Transform2D>>(entity);
     if (!set.isValid()) {
         BL_LOG_ERROR << "Failed to add physics to entity (missing components): " << entity;
-        return false;
+        return nullptr;
     }
 
     engine::World2D* world = worlds[entity.getWorldIndex()];
     if (!world) {
         BL_LOG_ERROR << "Failed to add physics to entity (wrong world type): " << entity;
-        return false;
+        return nullptr;
     }
 
     const b2WorldId worldId     = world->getBox2dWorldId();
@@ -62,13 +63,11 @@ bool Physics2D::addPhysicsToEntity(ecs::Entity entity, b2BodyDef bodyDef, b2Shap
     default:
         BL_LOG_ERROR << "Invalid hitbox type for physics simulation: "
                      << set.get<com::Hitbox2D>()->getType();
-        return false;
+        return nullptr;
     }
 
-    engine->ecs().emplaceComponent<com::Physics2D>(
+    return engine->ecs().emplaceComponent<com::Physics2D>(
         entity, *this, entity, *set.get<com::Transform2D>(), bodyId);
-
-    return true;
 }
 
 void Physics2D::init(engine::Engine& e) {
