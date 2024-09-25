@@ -32,6 +32,7 @@ void Physics2D::teleport(const glm::vec2& position, float angle, bool cv) {
         b2Body_SetLinearVelocity(bodyId, {0.f, 0.f});
         b2Body_SetAngularVelocity(bodyId, 0.f);
     }
+
     const float scale = system->getWorldToBoxScale(entity);
     b2Body_SetTransform(
         bodyId, {position.x * scale, position.y * scale}, b2MakeRot(math::degreesToRadians(angle)));

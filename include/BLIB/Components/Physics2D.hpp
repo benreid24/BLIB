@@ -72,6 +72,16 @@ public:
      */
     void setLinearDamping(float damping);
 
+    /**
+     * @brief Returns the transform for the entity
+     */
+    Transform2D& getTransform() { return *transform; }
+
+    /**
+     * @brief Returns the transform for the entity
+     */
+    const Transform2D& getTransform() const { return *transform; }
+
 private:
     sys::Physics2D* system;
     ecs::Entity entity;

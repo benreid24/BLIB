@@ -91,7 +91,10 @@ void Physics2D::update(std::mutex&, float dt, float, float, float) {
             com::Physics2D& pc = *static_cast<com::Physics2D*>(event.userData);
             pc.transform->setPosition(event.transform.p.x / worldToBoxScale,
                                       event.transform.p.y / worldToBoxScale);
-            pc.transform->setRotation(math::radiansToDegrees(b2Rot_GetAngle(event.transform.q)));
+            if (!b2Body_IsFixedRotation(event.bodyId)) {
+                pc.transform->setRotation(
+                    math::radiansToDegrees(b2Rot_GetAngle(event.transform.q)));
+            }
         }
 
         const auto getComponent = [this](b2ShapeId shape) -> com::Physics2D& {
