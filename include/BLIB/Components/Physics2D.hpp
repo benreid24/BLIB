@@ -65,6 +65,13 @@ public:
      */
     void setVelocity(const glm::vec2& velocity);
 
+    /**
+     * @brief Sets the linear velocity damping factor
+     *
+     * @param damping The linear damping factor
+     */
+    void setLinearDamping(float damping);
+
 private:
     sys::Physics2D* system;
     ecs::Entity entity;

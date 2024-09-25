@@ -49,7 +49,7 @@ com::Physics2D* Physics2D::addPhysicsToEntity(ecs::Entity entity, b2BodyDef body
         b2Circle circle;
         circle.center.x = origin.x;
         circle.center.y = origin.y;
-        circle.radius   = set.get<com::Hitbox2D>()->getRadius();
+        circle.radius   = set.get<com::Hitbox2D>()->getRadius() * worldToBoxScale;
         b2CreateCircleShape(createBody(), &shapeDef, &circle);
     } break;
 

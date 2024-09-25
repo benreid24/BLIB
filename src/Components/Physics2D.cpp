@@ -40,5 +40,7 @@ void Physics2D::teleport(const glm::vec2& position, float angle, bool cv) {
 
 void Physics2D::setVelocity(const glm::vec2& v) { b2Body_SetLinearVelocity(bodyId, {v.x, v.y}); }
 
+void Physics2D::setLinearDamping(float d) { b2Body_SetLinearDamping(bodyId, d); }
+
 } // namespace com
 } // namespace bl
