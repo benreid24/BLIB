@@ -33,7 +33,7 @@ Engine::Engine(const Settings& settings)
                                                   StateMask::Running | engine::StateMask::Editor);
     systems().registerSystem<pcl::ParticleSystem>(FrameStage::Update0, StateMask::All);
     systems().registerSystem<sys::MarkedForDeath>(FrameStage::Update0, StateMask::All);
-    systems().registerSystem<sys::Physics2D>(FrameStage::Update1, StateMask::Running);
+    systems().registerSystem<sys::Physics2D>(FrameStage::Physics, StateMask::Running);
 
     bl::event::Dispatcher::subscribe(&input);
 }

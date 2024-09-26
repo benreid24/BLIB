@@ -82,6 +82,35 @@ public:
      */
     const Transform2D& getTransform() const { return *transform; }
 
+    /**
+     * @brief Returns the mass of this physics object
+     */
+    float getMass() const;
+
+    /**
+     * @brief Scales the given world distance value to a physics system distance value
+     *
+     * @param worldDistance The distance value in world units
+     * @return The distance value in physics units
+     */
+    float scaleWorldToPhysics(float worldDistance);
+
+    /**
+     * @brief Scales the given physics distance value to world distance
+     *
+     * @param worldDistance The distance value in physics units
+     * @return The distance value in world units
+     */
+    float scalePhysicToWorld(float physics);
+
+    /**
+     * @brief Limits the linear velocity to the max velocity. Must call continuously to keep
+     *        limiting each frame
+     *
+     * @param maxVelocity The maximum linear velocity, in world units
+     */
+    void clampLinearVelocity(float maxVelocity);
+
 private:
     sys::Physics2D* system;
     ecs::Entity entity;

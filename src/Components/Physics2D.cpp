@@ -43,5 +43,27 @@ void Physics2D::setVelocity(const glm::vec2& v) { b2Body_SetLinearVelocity(bodyI
 
 void Physics2D::setLinearDamping(float d) { b2Body_SetLinearDamping(bodyId, d); }
 
+float Physics2D::getMass() const { return b2Body_GetMass(bodyId); }
+
+float Physics2D::scaleWorldToPhysics(float worldDistance) {
+    return worldDistance * system->getWorldToBoxScale(entity);
+}
+
+float Physics2D::scalePhysicToWorld(float physics) {
+    return physics / system->getWorldToBoxScale(entity);
+}
+
+void Physics2D::clampLinearVelocity(float maxVelocity) {
+    maxVelocity         = scaleWorldToPhysics(maxVelocity);
+    auto vel            = b2Body_GetLinearVelocity(bodyId);
+    const float magSqrd = vel.x * vel.x + vel.y * vel.y;
+    if (magSqrd > maxVelocity * maxVelocity) {
+        const float mag = std::sqrt(magSqrd);
+        vel.x           = vel.x / mag * maxVelocity;
+        vel.y           = vel.y / mag * maxVelocity;
+        b2Body_SetLinearVelocity(bodyId, vel);
+    }
+}
+
 } // namespace com
 } // namespace bl

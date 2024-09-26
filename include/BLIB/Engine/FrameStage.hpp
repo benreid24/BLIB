@@ -26,28 +26,34 @@ struct FrameStage {
         /// Generic update stage
         Update1 = 1,
 
+        /// Stage where physics are applied and resolved
+        Physics = 2,
+
         /// Generic update stage
-        Update2 = 2,
+        Update2 = 3,
+
+        /// Generic update stage
+        Update3 = 4,
 
         /// Renderer components such as Animation update here. Also when velocity is applied to
         /// transforms
-        Animate = 3,
+        Animate = 5,
 
         /// This stage and earlier are called once per engine tick. Stages later than this are
         /// called once per frame (render + present). There may be more than one tick per frame
-        MARKER_OncePerTick = 3,
+        MARKER_OncePerTick = 5,
 
         /// This stage and later are called once per frame
-        MARKER_OncePerFrame = 4,
+        MARKER_OncePerFrame = 6,
 
         /// Separate stage for descriptors to be modified prior to syncing into scene buffers
-        RenderEarlyRefresh = 4,
+        RenderEarlyRefresh = 6,
 
         /// Syncs dirty descriptor components (ie transforms) into scene-local descriptor sets
-        RenderDescriptorRefresh = 5,
+        RenderDescriptorRefresh = 7,
 
         /// The number of engine stages
-        COUNT = 6
+        COUNT = 8
     };
 };
 
