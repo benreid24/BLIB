@@ -111,6 +111,11 @@ public:
      */
     void clampLinearVelocity(float maxVelocity);
 
+    /**
+     * @brief Returns the linear velocity in physics units
+     */
+    glm::vec2 getLinearVelocity() const;
+
 private:
     sys::Physics2D* system;
     ecs::Entity entity;

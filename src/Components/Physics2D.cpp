@@ -65,5 +65,10 @@ void Physics2D::clampLinearVelocity(float maxVelocity) {
     }
 }
 
+glm::vec2 Physics2D::getLinearVelocity() const {
+    const auto vel = b2Body_GetLinearVelocity(bodyId);
+    return {vel.x, vel.y};
+}
+
 } // namespace com
 } // namespace bl
