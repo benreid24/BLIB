@@ -15,11 +15,11 @@ Transform2D::Transform2D()
 , rotation(0.f)
 , depth(0.f) {}
 
-Transform2D::Transform2D(const glm::vec2& pos)
+Transform2D::Transform2D(const glm::vec2& pos, float rotation)
 : origin(0.f, 0.f)
 , position(pos)
 , scaleFactors(1.f, 1.f)
-, rotation(0.f)
+, rotation(rotation)
 , depth(0.f) {}
 
 void Transform2D::setOrigin(const glm::vec2& o) {

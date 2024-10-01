@@ -28,8 +28,9 @@ public:
      * @brief Convenience method to create a transform at the given position
      *
      * @param position The position to be at
+     * @param rotation The rotation in degrees
      */
-    Transform2D(const glm::vec2& position);
+    Transform2D(const glm::vec2& position, float rotation = 0.f);
 
     /**
      * @brief Sets the origin to perform transforms around
