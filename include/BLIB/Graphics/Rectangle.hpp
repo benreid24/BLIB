@@ -27,6 +27,15 @@ public:
      * @param size The local size of the rectangle in world units
      */
     void create(engine::World& world, const glm::vec2& size);
+
+    /**
+     * @brief Creates the rectangle from existing entity and components
+     *
+     * @param world The world to create the object in
+     * @param existingEntity The existing entity to add components to
+     * @param size The local size of the rectangle in world units
+     */
+    void create(engine::World& world, ecs::Entity existingEntity, const glm::vec2& size);
 };
 
 } // namespace gfx
