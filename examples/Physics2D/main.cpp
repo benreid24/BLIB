@@ -55,6 +55,17 @@ public:
         physics.addPhysicsToEntity(playerBox.entity(), bodyDef, shapeDef);
         playerPhysics = engine.ecs().getComponent<bl::com::Physics2D>(playerBox.entity());
 
+        // create a ball
+        ball.create(*world, 20.f);
+        ball.setFillColor(sf::Color::Blue);
+        ball.getTransform().setPosition(250.f, 200.f);
+        ball.getTransform().setOrigin(20.f, 20.f);
+        ball.addToScene(scene, bl::rc::UpdateSpeed::Dynamic);
+
+        // add physics to it
+        engine.ecs().emplaceComponent<bl::com::Hitbox2D>(ball.entity(), &ball.getTransform(), 20.f);
+        physics.addPhysicsToEntity(ball.entity(), bodyDef, shapeDef);
+
         onGround         = false;
         teleportCooldown = 0.f;
         bl::event::Dispatcher::subscribe(this);
@@ -95,6 +106,7 @@ public:
 private:
     bl::gfx::Rectangle floor;
     bl::gfx::Rectangle playerBox;
+    bl::gfx::Circle ball;
     bl::com::Physics2D* playerPhysics;
     bool onGround;
     float teleportCooldown;
