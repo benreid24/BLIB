@@ -25,8 +25,8 @@ namespace
 const std::unordered_set<std::string> RequestedValidationLayers{"VK_LAYER_KHRONOS_validation"};
 #endif
 
-constexpr std::array<const char*, 2> RequiredDeviceExtensions{VK_KHR_SWAPCHAIN_EXTENSION_NAME,
-                                                              VK_KHR_MAINTENANCE_4_EXTENSION_NAME};
+constexpr std::array<const char*, 1> RequiredDeviceExtensions{VK_KHR_SWAPCHAIN_EXTENSION_NAME};
+constexpr std::array<const char*, 1> OptionalDeviceExtensions{VK_KHR_MAINTENANCE_4_EXTENSION_NAME};
 
 #ifdef BLIB_DEBUG
 VKAPI_ATTR VkBool32 VKAPI_CALL
@@ -78,19 +78,41 @@ bool deviceHasRequiredExtensions(VkPhysicalDevice device, const char* name) {
     vkCheck(vkEnumerateDeviceExtensionProperties(
         device, nullptr, &extensionCount, availableExtensions.data()));
 
-    std::unordered_set<std::string> extensionSet;
-    for (const VkExtensionProperties& ext : availableExtensions) {
-        extensionSet.emplace(ext.extensionName);
-    }
-
     for (const char* ext : RequiredDeviceExtensions) {
-        if (extensionSet.find(ext) == extensionSet.end()) {
+        if (std::find_if(availableExtensions.begin(),
+                         availableExtensions.end(),
+                         [ext](const VkExtensionProperties& c) {
+                             return strcmp(c.extensionName, ext) == 0;
+                         }) == availableExtensions.end()) {
             BL_LOG_WARN << name << " is missing required extension " << ext;
             return false;
         }
     }
 
     return true;
+}
+
+int scoreDeviceForOptionalExtensions(VkPhysicalDevice device, const char* name) {
+    std::uint32_t extensionCount;
+    vkCheck(vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount, nullptr));
+
+    std::vector<VkExtensionProperties> availableExtensions(extensionCount);
+    vkCheck(vkEnumerateDeviceExtensionProperties(
+        device, nullptr, &extensionCount, availableExtensions.data()));
+
+    int score = 0;
+    for (const char* ext : OptionalDeviceExtensions) {
+        if (std::find_if(availableExtensions.begin(),
+                         availableExtensions.end(),
+                         [ext](const VkExtensionProperties& c) {
+                             return strcmp(c.extensionName, ext) == 0;
+                         }) == availableExtensions.end()) {
+            BL_LOG_WARN << name << " is missing optional extension " << ext;
+        }
+        else { score += 500; }
+    }
+
+    return score;
 }
 
 int scorePhysicalDevice(VkPhysicalDevice device, const VkPhysicalDeviceProperties& deviceProperties,
@@ -107,6 +129,7 @@ int scorePhysicalDevice(VkPhysicalDevice device, const VkPhysicalDevicePropertie
     int score = 0;
     score += deviceProperties.limits.maxImageDimension2D;
     if (deviceProperties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU) { score += 50000; }
+    score += scoreDeviceForOptionalExtensions(device, deviceProperties.deviceName);
 
     return score;
 }
@@ -324,6 +347,13 @@ void VulkanState::pickPhysicalDevice() {
     }
 
     vkGetPhysicalDeviceProperties(physicalDevice, &physicalDeviceProperties);
+
+    std::uint32_t extensionCount = 0;
+    vkCheck(
+        vkEnumerateDeviceExtensionProperties(physicalDevice, nullptr, &extensionCount, nullptr));
+    availableExtensions.resize(extensionCount);
+    vkCheck(vkEnumerateDeviceExtensionProperties(
+        physicalDevice, nullptr, &extensionCount, availableExtensions.data()));
 }
 
 void VulkanState::createLogicalDevice() {
@@ -402,7 +432,9 @@ void VulkanState::createVmaAllocator() {
     createInfo.instance         = instance;
     createInfo.device           = device;
     createInfo.physicalDevice   = physicalDevice;
-    createInfo.vulkanApiVersion = VK_API_VERSION_1_3;
+    createInfo.vulkanApiVersion = extensionIsAvailable(VK_KHR_MAINTENANCE_4_EXTENSION_NAME) ?
+                                      VK_API_VERSION_1_3 :
+                                      VK_API_VERSION_1_2;
     createInfo.pVulkanFunctions = &funcs;
 
     vmaCreateAllocator(&createInfo, &vmaAllocator);
@@ -637,6 +669,13 @@ VkFormatProperties VulkanState::getFormatProperties(VkFormat format) {
     VkFormatProperties props;
     vkGetPhysicalDeviceFormatProperties(physicalDevice, format, &props);
     return props;
+}
+
+bool VulkanState::extensionIsAvailable(const char* ext) const {
+    for (const auto& e : availableExtensions) {
+        if (strcmp(ext, e.extensionName) == 0) { return true; }
+    }
+    return false;
 }
 
 } // namespace vk
