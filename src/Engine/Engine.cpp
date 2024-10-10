@@ -66,6 +66,14 @@ Engine::~Engine() {
     newState.reset();
 
     players.clear();
+    for (auto& worldRef : worlds) {
+        if (worldRef.isValid()) {
+            if (worldRef.refCount() > 1) {
+                BL_LOG_WARN << "Dangling reference(s) to world " << worldRef->worldIndex();
+            }
+            worldRef.release();
+        }
+    }
     worldPool.clear();
 
     if (renderWindow.isOpen()) { renderWindow.close(); }
