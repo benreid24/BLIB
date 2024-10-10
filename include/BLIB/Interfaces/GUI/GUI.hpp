@@ -36,16 +36,15 @@ public:
     /**
      * @brief Create a new GUI that is in the given region
      *
-     * @param engine The game engine instance
-     * @param observer The observer the GUI will belong to
+     * @param world The world to create entities in
+     * @param player The player the GUI will belong to
      * @param packer The Packer to use
      * @param region The position and size of the renderable area. Defaults to the full overlay
      *               space unless a value is manually set
      * @param factory The component factory to use in the renderer. Must remain valid
      */
-    static Ptr create(engine::Engine& engine, rc::Observer& observer,
-                      const gui::Packer::Ptr& packer, const sf::FloatRect& region = {},
-                      rdr::FactoryTable* factory = nullptr);
+    static Ptr create(engine::World& world, engine::Player& player, const gui::Packer::Ptr& packer,
+                      const sf::FloatRect& region = {}, rdr::FactoryTable* factory = nullptr);
 
     /**
      * @brief Set the Region objectSets the region to pack elements into
@@ -101,7 +100,7 @@ private:
     rdr::Renderer renderer;
     glm::vec2 mousePos;
 
-    GUI(engine::Engine& engine, rc::Observer& observer, const gui::Packer::Ptr& packer,
+    GUI(engine::World& world, engine::Player& player, const gui::Packer::Ptr& packer,
         const sf::FloatRect& region, rdr::FactoryTable* factory);
 };
 

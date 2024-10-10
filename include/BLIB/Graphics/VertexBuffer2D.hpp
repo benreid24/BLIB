@@ -28,19 +28,19 @@ public:
     /**
      * @brief Creates the vertex buffer
      *
-     * @param engine The game engine instance
+     * @param world The world to create the object in
      * @param vertexCount The number of vertices to create
      */
-    void create(engine::Engine& engine, unsigned int vertexCount);
+    void create(engine::World& world, unsigned int vertexCount);
 
     /**
      * @brief Creates the vertex buffer with a texture
      *
-     * @param engine The game engine instance
+     * @param world The world to create the object in
      * @param vertexCount The number of vertices to create
      * @param texture The texture to apply
      */
-    void create(engine::Engine& engine, unsigned int vertexCount, rc::res::TextureRef texture);
+    void create(engine::World& world, unsigned int vertexCount, rc::res::TextureRef texture);
 
     /**
      * @brief Resizes the vertex buffer to the given size

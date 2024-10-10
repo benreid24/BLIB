@@ -141,8 +141,15 @@ void RenderTarget::handleDescriptorSync() {
     }
 }
 
-void RenderTarget::setClearColor(const glm::vec4& color) {
-    clearColors[0].color = {{color.x, color.y, color.z, color.w}};
+void RenderTarget::syncSceneObjects() {
+    if (hasScene()) {
+        scenes.back().scene->syncObjects();
+        if (scenes.back().overlay) { scenes.back().overlay->syncObjects(); }
+    }
+}
+
+void RenderTarget::setClearColor(const Color& color) {
+    clearColors[0].color = {{color.r(), color.g(), color.b(), color.a()}};
 }
 
 glm::vec2 RenderTarget::transformToWorldSpace(const glm::vec2& sp) const {

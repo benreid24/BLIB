@@ -50,7 +50,7 @@ public:
      * @param c1 The color of the second point
      * @param c2 The color of the third point
      */
-    void setColorGradient(const glm::vec4& c0, const glm::vec4& c1, const glm::vec4& c2);
+    void setColorGradient(const rc::Color& c0, const rc::Color& c1, const rc::Color& c2);
 
     /**
      * @brief Removes the color gradient and falls back to the fill color
@@ -59,7 +59,7 @@ public:
 
 private:
     glm::vec2 points[3];
-    glm::vec4 colors[3];
+    rc::Color colors[3];
     bool hasColorOverride;
 
     virtual unsigned int getVertexCount() const override;
@@ -92,8 +92,8 @@ void TriangleBase<B>::setPoints(const std::array<glm::vec2, 3>& p) {
 }
 
 template<typename B>
-void TriangleBase<B>::setColorGradient(const glm::vec4& c0, const glm::vec4& c1,
-                                       const glm::vec4& c2) {
+void TriangleBase<B>::setColorGradient(const rc::Color& c0, const rc::Color& c1,
+                                       const rc::Color& c2) {
     colors[0]        = c0;
     colors[1]        = c1;
     colors[2]        = c2;

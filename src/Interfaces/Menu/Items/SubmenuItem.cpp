@@ -19,7 +19,7 @@ SubmenuItem::SubmenuItem(Menu& parent, const Item::Ptr& i, AttachPoint sp, Attac
     getSignal(Activated).willAlwaysCall([this]() { openMenu(); });
 }
 
-void SubmenuItem::doCreate(engine::Engine& e) { self->create(e, parent.getEntity()); }
+void SubmenuItem::doCreate(engine::World& w) { self->create(w, parent.getEntity()); }
 
 void SubmenuItem::doSceneAdd(rc::Scene* s) { self->doSceneAdd(s); }
 

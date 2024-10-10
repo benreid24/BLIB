@@ -28,21 +28,21 @@ public:
     /**
      * @brief Creates the sprite batch
      *
-     * @param engine The game engine instance
+     * @param world The world to create the object in
      * @param texture The texture to use
      * @param initialCapacity The estimated number of sprites that will be batched
      */
-    BatchedSprites(engine::Engine& engine, rc::res::TextureRef texture,
+    BatchedSprites(engine::World& world, rc::res::TextureRef texture,
                    unsigned int initialCapacity = 16);
 
     /**
      * @brief Creates the sprite batch
      *
-     * @param engine The game engine instance
+     * @param world The world to create the object in
      * @param texture The texture to use
      * @param initialCapacity The estimated number of sprites that will be batched
      */
-    void create(engine::Engine& engine, rc::res::TextureRef texture,
+    void create(engine::World& world, rc::res::TextureRef texture,
                 unsigned int initialCapacity = 16);
 
 private:

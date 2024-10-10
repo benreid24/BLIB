@@ -4,9 +4,12 @@ target_sources(BLIB PUBLIC
 	BatchedShapes2D.hpp
 	BatchedSlideshows.hpp
 	BatchedSprites.hpp
+	Hitbox2D.hpp
+	MarkedForDeath.hpp
 	Mesh.hpp
 	Orientation3D.hpp
 	OverlayScaler.hpp
+	Physics2D.hpp
 	Shape2D.hpp
 	Slideshow.hpp
 	Sprite.hpp

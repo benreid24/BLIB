@@ -20,19 +20,19 @@ Shape2D::Shape2D()
 , outlineColor(0.f, 0.f, 0.f, 1.f)
 , outlineThickness(0.f) {}
 
-void Shape2D::setFillColor(const glm::vec4& fc) {
+void Shape2D::setFillColor(const rc::Color& fc) {
     fillColor = fc;
     notifyDirty();
 }
 
-const glm::vec4& Shape2D::getFillColor() const { return fillColor; }
+const rc::Color& Shape2D::getFillColor() const { return fillColor; }
 
-void Shape2D::setOutlineColor(const glm::vec4& oc) {
+void Shape2D::setOutlineColor(const rc::Color& oc) {
     outlineColor = oc;
     notifyDirty();
 }
 
-const glm::vec4& Shape2D::getOutlineColor() const { return outlineColor; }
+const rc::Color& Shape2D::getOutlineColor() const { return outlineColor; }
 
 void Shape2D::setOutlineThickness(float t) {
     outlineThickness = t;
@@ -46,7 +46,7 @@ const sf::FloatRect& Shape2D::getLocalBounds() {
     return localBounds;
 }
 
-glm::vec4 Shape2D::getCenterColor(const glm::vec4& avgColor) const { return avgColor; }
+rc::Color Shape2D::getCenterColor(const rc::Color& avgColor) const { return avgColor; }
 
 std::uint32_t Shape2D::calculateRequiredVertices() const {
     const std::uint32_t pointCount = getVertexCount();

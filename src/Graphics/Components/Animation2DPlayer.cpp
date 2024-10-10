@@ -1,6 +1,7 @@
 #include <BLIB/Graphics/Components/Animation2DPlayer.hpp>
 
-#include <BLIB/Render/Renderer.hpp>
+#include <BLIB/Engine/Engine.hpp>
+#include <BLIB/Engine/World.hpp>
 
 namespace bl
 {
@@ -10,8 +11,7 @@ namespace bcom
 {
 Animation2DPlayer::Animation2DPlayer(bool fs)
 : forSlideshow(fs)
-, renderer(nullptr)
-, registry(nullptr)
+, world(nullptr)
 , me(ecs::InvalidEntity)
 , playerEntity(ecs::InvalidEntity)
 , player(nullptr) {}
@@ -22,12 +22,12 @@ void Animation2DPlayer::createNewPlayer(const resource::Ref<gfx::a2d::AnimationD
     const bool isUpdate = cleanupPlayerDep();
 
     // create new player entity and component
-    playerEntity = registry->createEntity();
-    player       = registry->emplaceComponent<com::Animation2DPlayer>(
+    playerEntity = world->createEntity();
+    player       = world->engine().ecs().emplaceComponent<com::Animation2DPlayer>(
         playerEntity, animation, forSlideshow, play, forceLoop);
     addPlayerDep();
     if (isUpdate) {
-        Textured::setTexture(renderer->texturePool().getOrLoadTexture(
+        Textured::setTexture(world->engine().renderer().texturePool().getOrLoadTexture(
             player->getAnimation()->resolvedSpritesheet()));
     }
 }
@@ -35,44 +35,41 @@ void Animation2DPlayer::createNewPlayer(const resource::Ref<gfx::a2d::AnimationD
 void Animation2DPlayer::useExistingPlayer(ecs::Entity pent) {
     const bool isUpdate = cleanupPlayerDep();
     playerEntity        = pent;
-    player              = registry->getComponent<com::Animation2DPlayer>(pent);
+    player              = world->engine().ecs().getComponent<com::Animation2DPlayer>(pent);
     addPlayerDep();
     if (isUpdate) {
-        Textured::setTexture(renderer->texturePool().getOrLoadTexture(
+        Textured::setTexture(world->engine().renderer().texturePool().getOrLoadTexture(
             player->getAnimation()->resolvedSpritesheet()));
     }
 }
 
-void Animation2DPlayer::create(rc::Renderer& r, ecs::Registry& reg, ecs::Entity entity,
-                               ecs::Entity pent) {
-    renderer = &r;
-    registry = &reg;
-    me       = entity;
+void Animation2DPlayer::create(engine::World& w, ecs::Entity entity, ecs::Entity pent) {
+    world = &w;
+    me    = entity;
     useExistingPlayer(pent);
-    Textured::create(
-        reg,
-        entity,
-        renderer->texturePool().getOrLoadTexture(player->getAnimation()->resolvedSpritesheet()));
+    Textured::create(w.engine().ecs(),
+                     entity,
+                     world->engine().renderer().texturePool().getOrLoadTexture(
+                         player->getAnimation()->resolvedSpritesheet()));
 }
 
-void Animation2DPlayer::create(rc::Renderer& r, ecs::Registry& reg, ecs::Entity entity,
+void Animation2DPlayer::create(engine::World& w, ecs::Entity entity,
                                const resource::Ref<gfx::a2d::AnimationData>& anim, bool play,
                                bool forceLoop) {
-    renderer = &r;
-    registry = &reg;
-    me       = entity;
+    world = &w;
+    me    = entity;
     createNewPlayer(anim, play, forceLoop);
-    Textured::create(
-        reg,
-        entity,
-        renderer->texturePool().getOrLoadTexture(player->getAnimation()->resolvedSpritesheet()));
+    Textured::create(w.engine().ecs(),
+                     entity,
+                     w.engine().renderer().texturePool().getOrLoadTexture(
+                         player->getAnimation()->resolvedSpritesheet()));
 }
 
-void Animation2DPlayer::addPlayerDep() { registry->addDependency(playerEntity, me); }
+void Animation2DPlayer::addPlayerDep() { world->engine().ecs().addDependency(playerEntity, me); }
 
 bool Animation2DPlayer::cleanupPlayerDep() {
-    if (registry != nullptr && playerEntity != ecs::InvalidEntity && me != ecs::InvalidEntity) {
-        registry->removeDependencyAndDestroyIfPossible(playerEntity, me);
+    if (world != nullptr && playerEntity != ecs::InvalidEntity && me != ecs::InvalidEntity) {
+        world->engine().ecs().removeDependencyAndDestroyIfPossible(playerEntity, me);
         return true;
     }
     return false;

@@ -43,9 +43,9 @@ public:
     /**
      * @brief Creates the dummy entity with Transform2D and OverlayScaler components
      *
-     * @param engine The game engine instance
+     * @param world The world to create the object in
      */
-    void create(engine::Engine& engine);
+    void create(engine::World& world);
 
     /**
      * @brief Sets the size of the dummy object for overlay scaling

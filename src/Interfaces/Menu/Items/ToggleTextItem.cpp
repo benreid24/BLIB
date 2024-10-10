@@ -1,7 +1,5 @@
 #include <BLIB/Interfaces/Menu/Items/ToggleTextItem.hpp>
 
-#include <BLIB/Render/Primitives/Color.hpp>
-
 namespace bl
 {
 namespace menu
@@ -25,10 +23,10 @@ ToggleTextItem::ToggleTextItem(const std::string& text, const sf::VulkanFont& fo
     getSignal(Activated).willAlwaysCall([this]() { setChecked(!checked); });
 }
 
-void ToggleTextItem::doCreate(engine::Engine& engine) {
-    TextItem::doCreate(engine);
-    box.create(engine, {width, width});
-    innerBox.create(engine, {width * InnerRatio, width * InnerRatio});
+void ToggleTextItem::doCreate(engine::World& world) {
+    TextItem::doCreate(world);
+    box.create(world, {width, width});
+    innerBox.create(world, {width * InnerRatio, width * InnerRatio});
     box.setParent(getTextObject().entity());
     innerBox.setParent(box.entity());
     update();
@@ -53,12 +51,12 @@ void ToggleTextItem::update() {
     if (getTextObject().entity() != ecs::InvalidEntity) {
         const float hw = width * 0.5f;
 
-        box.setFillColor(sfcol(fillColor));
-        box.setOutlineColor(sfcol(borderColor));
+        box.setFillColor(fillColor);
+        box.setOutlineColor(borderColor);
         box.setOutlineThickness(-borderThickness);
         box.setSize({width, width});
         box.getTransform().setOrigin({0.f, hw});
-        innerBox.setFillColor(sfcol(borderColor));
+        innerBox.setFillColor(borderColor);
         innerBox.setSize({width * InnerRatio, width * InnerRatio});
         innerBox.getTransform().setOrigin(innerBox.getSize() * 0.5f);
 

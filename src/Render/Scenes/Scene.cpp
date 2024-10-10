@@ -16,14 +16,18 @@ constexpr std::uint32_t NoPipeline = std::numeric_limits<std::uint32_t>::max();
 
 Scene::Scene(engine::Engine& engine,
              const ds::DescriptorComponentStorageBase::EntityCallback& entityCb)
-: renderer(engine.renderer())
+: engine(engine)
+, renderer(engine.renderer())
 , descriptorFactories(renderer.descriptorFactoryCache())
 , descriptorSets(descriptorComponents)
 , descriptorComponents(engine.ecs(), renderer.vulkanState(), entityCb)
 , nextObserverIndex(0)
 , staticPipelines(DefaultSceneObjectCapacity, NoPipeline)
-, dynamicPipelines(DefaultSceneObjectCapacity, NoPipeline) {
-    batchChanges.reserve(32);
+, dynamicPipelines(DefaultSceneObjectCapacity, NoPipeline)
+, isClearingQueues(false) {
+    queuedBatchChanges.reserve(32);
+    queuedAdds.reserve(32);
+    queuedRemovals.reserve(32);
 }
 
 std::uint32_t Scene::registerObserver() {
@@ -41,26 +45,78 @@ void Scene::updateObserverCamera(std::uint32_t observerIndex, const glm::mat4& p
 }
 
 void Scene::handleDescriptorSync() {
-    if (!batchChanges.empty()) {
-        std::unique_lock lock(batchMutex);
-        for (const auto& change : batchChanges) {
-            auto& objectPipelines = change.changed->sceneKey.updateFreq == UpdateSpeed::Static ?
-                                        staticPipelines :
-                                        dynamicPipelines;
-            doBatchChange(change, objectPipelines[change.changed->sceneKey.sceneId]);
-            objectPipelines[change.changed->sceneKey.sceneId] = change.newPipeline;
-        }
-        batchChanges.clear();
-    }
+    std::unique_lock lock(objectMutex);
+
+    // sync descriptors
     descriptorSets.handleDescriptorSync();
     descriptorComponents.syncDescriptors();
 }
 
+void Scene::syncObjects() {
+    std::unique_lock lock(objectMutex);
+    std::unique_lock queueLock(queueMutex);
+    isClearingQueues = true;
+
+    // do batch changes
+    for (const auto& change : queuedBatchChanges) {
+        auto& objectPipelines = change.changed->sceneKey.updateFreq == UpdateSpeed::Static ?
+                                    staticPipelines :
+                                    dynamicPipelines;
+        doBatchChange(change, objectPipelines[change.changed->sceneKey.sceneId]);
+        objectPipelines[change.changed->sceneKey.sceneId] = change.newPipeline;
+    }
+    queuedBatchChanges.clear();
+
+    // remove queued objects
+    for (auto* obj : queuedRemovals) { removeQueuedObject(obj); }
+    queuedRemovals.clear();
+
+    // add queued objects
+    ecs::Transaction<ecs::tx::EntityRead> tx(engine.ecs());
+    for (auto& add : queuedAdds) {
+        if (engine.ecs().entityExists(add.entity, tx)) { addQueuedObject(add); }
+    }
+    queuedAdds.clear();
+
+    isClearingQueues = false;
+}
+
 void Scene::createAndAddObject(ecs::Entity entity, rcom::DrawableBase& object,
                                UpdateSpeed updateFreq) {
-    std::unique_lock lock(objectMutex);
+    std::unique_lock lock(queueMutex);
+    queuedAdds.emplace_back(entity, &object, updateFreq);
+}
 
-    scene::SceneObject* sobj = doAdd(entity, object, updateFreq);
+void Scene::removeObject(scene::SceneObject* obj) {
+    std::unique_lock lock(queueMutex);
+
+    if (isClearingQueues) { removeQueuedObject(obj); }
+    else { queuedRemovals.emplace_back(obj); }
+}
+
+void Scene::rebucketObject(rcom::DrawableBase& obj) {
+    std::unique_lock lock(queueMutex);
+    queuedBatchChanges.emplace_back(
+        BatchChange{obj.sceneRef.object, obj.pipeline, obj.containsTransparency});
+}
+
+void Scene::removeQueuedObject(scene::SceneObject* obj) {
+    std::unique_lock lock(queueMutex);
+
+    auto& objectPipelines =
+        obj->sceneKey.updateFreq == UpdateSpeed::Static ? staticPipelines : dynamicPipelines;
+    const auto cachedKey = obj->sceneKey.sceneId;
+    std::uint32_t pipeline =
+        cachedKey < objectPipelines.size() ? objectPipelines[cachedKey] : NoPipeline;
+    if (pipeline != NoPipeline) {
+        doObjectRemoval(obj, pipeline);
+        objectPipelines[cachedKey] = NoPipeline;
+    }
+}
+
+void Scene::addQueuedObject(ObjectAdd& add) {
+    rcom::DrawableBase& object = *add.object;
+    scene::SceneObject* sobj   = doAdd(add.entity, object, add.updateFreq);
     if (sobj) {
         object.sceneRef.object = sobj;
         object.sceneRef.scene  = this;
@@ -76,27 +132,7 @@ void Scene::createAndAddObject(ecs::Entity entity, rcom::DrawableBase& object,
         }
         objectPipelines[sobj->sceneKey.sceneId] = object.pipeline;
     }
-    else { BL_LOG_ERROR << "Failed to add " << entity << " to scene " << this; }
-}
-
-void Scene::removeObject(scene::SceneObject* obj) {
-    std::unique_lock lock(objectMutex);
-
-    auto& objectPipelines =
-        obj->sceneKey.updateFreq == UpdateSpeed::Static ? staticPipelines : dynamicPipelines;
-    const auto cachedKey = obj->sceneKey.sceneId;
-    std::uint32_t pipeline =
-        cachedKey < objectPipelines.size() ? objectPipelines[cachedKey] : NoPipeline;
-    if (pipeline != NoPipeline) {
-        doObjectRemoval(obj, pipeline);
-        objectPipelines[cachedKey] = NoPipeline;
-    }
-}
-
-void Scene::rebucketObject(rcom::DrawableBase& obj) {
-    std::unique_lock lock(batchMutex);
-    batchChanges.emplace_back(
-        BatchChange{obj.sceneRef.object, obj.pipeline, obj.containsTransparency});
+    else { BL_LOG_ERROR << "Failed to add " << add.entity << " to scene " << this; }
 }
 
 void Scene::addGraphTasks(rg::RenderGraph&) {}

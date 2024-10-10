@@ -100,7 +100,6 @@ protected:
     virtual void setDefaultNearAndFarPlanes(cam::Camera&) const override{};
 
 private:
-    engine::Engine& engine;
     ecs::ComponentPool<ovy::OverlayObject>* ecsPool;
     scene::SceneObjectECSAdaptor<ovy::OverlayObject> objects;
     sys::OverlayScalerSystem& scaler;

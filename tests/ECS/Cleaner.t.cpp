@@ -12,11 +12,11 @@ TEST(ECSEntityCleaner, Disarmed) {
 
     Entity e = InvalidEntity;
     {
-        e = testRegistry.createEntity();
+        e = testRegistry.createEntity(0);
         Cleaner cleaner(testRegistry, e);
         cleaner.disarm();
     }
-
+    testRegistry.flushDeletions();
     EXPECT_TRUE(testRegistry.entityExists(e));
 }
 
@@ -25,10 +25,10 @@ TEST(ECSEntityCleaner, Armed) {
 
     Entity e = InvalidEntity;
     {
-        e = testRegistry.createEntity();
+        e = testRegistry.createEntity(0);
         Cleaner cleaner(testRegistry, e);
     }
-
+    testRegistry.flushDeletions();
     EXPECT_FALSE(testRegistry.entityExists(e));
 }
 

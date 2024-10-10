@@ -33,10 +33,11 @@ void ImageComponent::onRenderSettingChange() {
 
 ecs::Entity ImageComponent::getEntity() const { return image.entity(); }
 
-void ImageComponent::doCreate(engine::Engine& e, rdr::Renderer&) {
-    engine       = &e;
+void ImageComponent::doCreate(engine::World& world, rdr::Renderer&) {
+    engine       = &world.engine();
     Image& owner = getOwnerAs<Image>();
-    image.create(e, e.renderer().texturePool().getOrLoadTexture(owner.getTexture()));
+    image.create(world,
+                 world.engine().renderer().texturePool().getOrLoadTexture(owner.getTexture()));
     src = &owner.getTexture();
 }
 

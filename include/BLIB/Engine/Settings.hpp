@@ -182,7 +182,11 @@ public:
     static constexpr float DefaultMaximumFramerate     = 0.f;
     static constexpr bool DefaultAllowVariableTimestep = true;
     static constexpr bool DefaultCreateWindow          = true;
-    static constexpr bool DefaultLogFps                = false;
+#ifdef BLIB_DEBUG
+    static constexpr bool DefaultLogFps = true;
+#else
+    static constexpr bool DefaultLogFps = false;
+#endif
 
     static constexpr const char* UpdatePeriodKey     = "blib.engine.update_period";
     static constexpr const char* MaxFpsKey           = "blib.engine.max_fps";

@@ -1,19 +1,21 @@
 #include <BLIB/Interfaces/GUI.hpp>
 
+#include <BLIB/Engine.hpp>
+
 namespace bl
 {
 namespace gui
 {
-GUI::Ptr GUI::create(engine::Engine& engine, rc::Observer& observer, const gui::Packer::Ptr& packer,
+GUI::Ptr GUI::create(engine::World& world, engine::Player& player, const gui::Packer::Ptr& packer,
                      const sf::FloatRect& region, rdr::FactoryTable* factory) {
-    return Ptr(new GUI(engine, observer, packer, region, factory));
+    return Ptr(new GUI(world, player, packer, region, factory));
 }
 
-GUI::GUI(engine::Engine& engine, rc::Observer& observer, const gui::Packer::Ptr& packer,
+GUI::GUI(engine::World& world, engine::Player& player, const gui::Packer::Ptr& packer,
          const sf::FloatRect& region, rdr::FactoryTable* factory)
 : Box(packer)
-, observer(observer)
-, renderer(engine, *this, factory ? *factory : rdr::FactoryTable::getDefaultTable()) {
+, observer(player.getRenderObserver())
+, renderer(world, *this, factory ? *factory : rdr::FactoryTable::getDefaultTable()) {
     setConstrainView(false);
     setOutlineThickness(0.f);
     queuedActions.reserve(4);

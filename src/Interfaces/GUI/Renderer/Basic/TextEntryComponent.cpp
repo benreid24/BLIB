@@ -3,7 +3,6 @@
 #include <BLIB/Interfaces/GUI/Elements/Label.hpp>
 #include <BLIB/Interfaces/GUI/Elements/TextEntry.hpp>
 #include <BLIB/Logging.hpp>
-#include <BLIB/Render/Primitives/Color.hpp>
 #include <Interfaces/GUI/Data/Font.hpp>
 
 namespace bl
@@ -30,9 +29,9 @@ void TextEntryComponent::onElementUpdated() {
 
 void TextEntryComponent::onRenderSettingChange() {
     const RenderSettings& settings = getOwnerAs<Element>().getRenderSettings();
-    const glm::vec4 caratCol       = sfcol(settings.outlineColor.value_or(sf::Color::Black));
+    const rc::Color caratCol       = settings.outlineColor.value_or(sf::Color::Black);
 
-    box.setFillColor(sfcol(settings.fillColor.value_or(sf::Color::White)));
+    box.setFillColor(settings.fillColor.value_or(sf::Color::White));
     box.setOutlineColor(caratCol);
     box.setOutlineThickness(-settings.outlineThickness.value_or(1.f));
 
@@ -40,8 +39,8 @@ void TextEntryComponent::onRenderSettingChange() {
     const sf::VulkanFont& font  = *settings.font.value_or(Font::get());
     const unsigned int charSize = settings.characterSize.value_or(Label::DefaultFontSize);
     text.setFont(font);
-    sec.setFillColor(sfcol(settings.secondaryFillColor.value_or(sf::Color::Black)));
-    sec.setOutlineColor(sfcol(settings.secondaryOutlineColor.value_or(sf::Color::Transparent)));
+    sec.setFillColor(settings.secondaryFillColor.value_or(sf::Color::Black));
+    sec.setOutlineColor(settings.secondaryOutlineColor.value_or(sf::Color::Transparent));
     sec.setOutlineThickness(settings.secondaryOutlineThickness.value_or(0.f));
     sec.setCharacterSize(charSize);
     sec.setStyle(settings.style.value_or(sf::Text::Regular));
@@ -92,16 +91,16 @@ void TextEntryComponent::resetCaratFlash() {
     if (owner.cursorVisible()) { carat.resetFlash(); }
 }
 
-void TextEntryComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
+void TextEntryComponent::doCreate(engine::World& world, rdr::Renderer&) {
     Element& owner = getOwnerAs<Element>();
-    box.create(engine, {owner.getAcquisition().width, owner.getAcquisition().height});
+    box.create(world, {owner.getAcquisition().width, owner.getAcquisition().height});
     box.getOverlayScaler().setScissorMode(com::OverlayScaler::ScissorSelfConstrained);
 
     const RenderSettings& settings = getOwnerAs<Element>().getRenderSettings();
-    text.create(engine, *settings.font.value_or(Font::get()));
+    text.create(world, *settings.font.value_or(Font::get()));
     text.setParent(box);
 
-    carat.create(engine, {10.f, 40.f});
+    carat.create(world, {10.f, 40.f});
     carat.setParent(text);
     carat.setHidden(true);
 }

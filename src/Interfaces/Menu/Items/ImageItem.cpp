@@ -27,7 +27,7 @@ glm::vec2 ImageItem::getSize() const {
     return texture->size();
 }
 
-void ImageItem::doCreate(engine::Engine& engine) { sprite.create(engine, texture); }
+void ImageItem::doCreate(engine::World& world) { sprite.create(world, texture); }
 
 void ImageItem::doSceneAdd(rc::Scene* s) { sprite.addToScene(s, rc::UpdateSpeed::Static); }
 

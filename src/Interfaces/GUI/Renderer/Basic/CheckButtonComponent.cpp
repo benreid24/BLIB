@@ -1,7 +1,6 @@
 #include <BLIB/Interfaces/GUI/Renderer/Basic/CheckButtonComponent.hpp>
 
 #include <BLIB/Interfaces/GUI/Elements/CheckButton.hpp>
-#include <BLIB/Render/Primitives/Color.hpp>
 
 namespace bl
 {
@@ -22,21 +21,21 @@ void CheckButtonComponent::onElementUpdated() {
 void CheckButtonComponent::onRenderSettingChange() {
     const CheckButton& owner       = getOwnerAs<CheckButton>();
     const RenderSettings& settings = owner.getRenderSettings();
-    box.setFillColor(bl::sfcol(settings.fillColor.value_or(sf::Color::White)));
-    box.setOutlineColor(bl::sfcol(settings.outlineColor.value_or(sf::Color::Black)));
+    box.setFillColor(settings.fillColor.value_or(sf::Color::White));
+    box.setOutlineColor(settings.outlineColor.value_or(sf::Color::Black));
     box.setOutlineThickness(-settings.outlineThickness.value_or(1.f));
     box.setSize({owner.getToggleSize(), owner.getToggleSize()});
-    fill.setFillColor(bl::sfcol(settings.outlineColor.value_or(sf::Color::Black)));
+    fill.setFillColor(settings.outlineColor.value_or(sf::Color::Black));
 }
 
 ecs::Entity CheckButtonComponent::getEntity() const { return dummy.entity(); }
 
-void CheckButtonComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
+void CheckButtonComponent::doCreate(engine::World& world, rdr::Renderer&) {
     CheckButton& owner = getOwnerAs<CheckButton>();
-    dummy.create(engine);
-    box.create(engine, {owner.getToggleSize(), owner.getToggleSize()});
+    dummy.create(world);
+    box.create(world, {owner.getToggleSize(), owner.getToggleSize()});
     box.setParent(dummy);
-    fill.create(engine, {10.f, 10.f});
+    fill.create(world, {10.f, 10.f});
     fill.getTransform().setOrigin({5.f, 5.f});
     fill.getOverlayScaler().positionInParentSpace({0.5f, 0.5f});
     fill.getOverlayScaler().scaleToSizePercent({0.6f, 0.6f});

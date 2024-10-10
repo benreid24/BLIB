@@ -1,7 +1,5 @@
 #include <BLIB/Interfaces/Menu/Selectors/ArrowSelector.hpp>
 
-#include <BLIB/Render/Primitives/Color.hpp>
-
 namespace bl
 {
 namespace menu
@@ -40,9 +38,9 @@ ArrowSelector::ArrowSelector(float w, const sf::Color& f)
 
 gfx::Triangle& ArrowSelector::getArrow() { return triangle; }
 
-void ArrowSelector::doCreate(engine::Engine& engine, ecs::Entity parent) {
-    triangle.create(engine, makeTriangle(width));
-    triangle.setFillColor(sfcol(fillColor));
+void ArrowSelector::doCreate(engine::World& world, ecs::Entity parent) {
+    triangle.create(world, makeTriangle(width));
+    triangle.setFillColor(fillColor);
     triangle.setParent(parent);
 }
 

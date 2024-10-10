@@ -23,21 +23,21 @@ public:
     /**
      * @brief Creates the triangle shape from 3 points (should not be co-linear)
      *
-     * @param engine The game engine instance
+     * @param world The world to create the object in
      * @param p0 The first point
      * @param p1 The second point
      * @param p2 The third point
      */
-    void create(engine::Engine& engine, const glm::vec2& p0, const glm::vec2& p1,
+    void create(engine::World& world, const glm::vec2& p0, const glm::vec2& p1,
                 const glm::vec2& p2);
 
     /**
      * @brief Creates the triangle shape from 3 points (should not be co-linear)
      *
-     * @param engine The game engine instance
+     * @param world The world to create the object in
      * @param points The 3 points to create the triangle from
      */
-    void create(engine::Engine& engine, const std::array<glm::vec2, 3>& points);
+    void create(engine::World& world, const std::array<glm::vec2, 3>& points);
 };
 
 } // namespace gfx

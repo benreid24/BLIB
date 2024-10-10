@@ -5,6 +5,9 @@
 #error "Internal file included out of order"
 #endif
 
+#include <BLIB/ECS/ComponentSet.hpp>
+#include <BLIB/ECS/Tags.hpp>
+
 namespace bl
 {
 namespace ecs
@@ -16,8 +19,10 @@ ComponentSetMember<T>::ComponentSetMember()
 : component(nullptr) {}
 
 template<typename T>
-bool ComponentSetMember<T>::populate(Registry& registry, Entity owner) {
-    component = registry.getComponent<T>(owner);
+bool ComponentSetMember<T>::populate(
+    Registry& registry, Entity owner,
+    const Transaction<tx::EntityUnlocked, tx::ComponentRead<T>>& tx) {
+    component = registry.getAllComponents<T>().get(owner, tx);
     return component != nullptr;
 }
 
@@ -53,24 +58,45 @@ public:
     }
 
     /**
+     * @brief Creates the set and fetches each component type
+     *
+     * @param registry The registry to get components from
+     * @param owner The entity to get components for
+     * @param transaction The transaction to use to synchronize access
+     */
+    ComponentSet(Registry& registry, Entity owner,
+                 const Transaction<tx::EntityUnlocked, tx::ComponentRead<TReqComs..., TOptComs...>>&
+                     transaction)
+    : owner(owner)
+    , valid(true) {
+        refresh(registry, transaction);
+    }
+
+    /**
      * @brief Refreshes the components in the set. Call when pools resize
      *
      * @param registry The ECS registry
      * @return True if the set is still valid, false otherwise
      */
     bool refresh(Registry& registry) {
-        valid = true;
+        return refresh(
+            registry,
+            Transaction<tx::EntityUnlocked, tx::ComponentRead<TReqComs..., TOptComs...>>(registry));
+    }
 
-        const bool results[] = {priv::ComponentSetMember<TReqComs>::populate(registry, owner)...};
-        for (auto r : results) {
-            if (!r) {
-                valid = false;
-                break;
-            }
-        }
+    /**
+     * @brief Refreshes the components in the set. Call when pools resize
+     *
+     * @param registry The ECS registry
+     * @param transaction The transaction to use to synchronize access
+     * @return True if the set is still valid, false otherwise
+     */
+    bool refresh(Registry& registry,
+                 const Transaction<tx::EntityUnlocked, tx::ComponentRead<TReqComs..., TOptComs...>>&
+                     transaction) {
+        valid = (priv::ComponentSetMember<TReqComs>::populate(registry, owner, transaction) && ...);
         if constexpr (sizeof...(TOptComs) > 0) {
-            const bool trash[] = {priv::ComponentSetMember<TOptComs>::populate(registry, owner)...};
-            (void)trash;
+            (priv::ComponentSetMember<TOptComs>::populate(registry, owner, transaction), ...);
         }
 
         return valid;

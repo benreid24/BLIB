@@ -8,7 +8,8 @@ namespace bl
 namespace engine
 {
 class Engine;
-}
+class World;
+} // namespace engine
 
 namespace ecs
 {
@@ -106,18 +107,18 @@ protected:
     /**
      * @brief Creates the ECS entity for the drawable
      *
-     * @param engine Game engine instance
+     * @param world The world to create the entity in
      * @param flags The flags to create the entity with
      */
-    void createEntityOnly(engine::Engine& engine, ecs::Flags flags = ecs::Flags::None);
+    void createEntityOnly(engine::World& world, ecs::Flags flags = ecs::Flags::None);
 
     /**
      * @brief Initializes using an existing entity instead of creating one
      *
-     * @param engine Game engine instance
+     * @param world The world to create the entity in
      * @param entity The existing entity to use
      */
-    void createFromExistingEntity(engine::Engine& engine, ecs::Entity entity);
+    void createFromExistingEntity(engine::World& world, ecs::Entity entity);
 
     /**
      * @brief Returns the game engine instance. Only call after create()

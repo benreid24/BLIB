@@ -15,6 +15,7 @@
 #include <BLIB/ECS/EntityBacked.hpp>
 #include <BLIB/ECS/Events.hpp>
 #include <BLIB/ECS/Registry.hpp>
+#include <BLIB/ECS/Transaction.hpp>
 #include <BLIB/ECS/View.hpp>
 
 #include <BLIB/ECS/Traits/ChildAware.hpp>

@@ -42,11 +42,11 @@ public:
     /**
      * @brief Create a new Menu with the base Item and selection indicator
      *
-     * @param engine The game engine instance
-     * @param observer The observer that the menu will be used by
+     * @param world The world to create entities in
+     * @param player The player that the menu will be used by
      * @param selector The selector to use
      */
-    void create(engine::Engine& engine, rc::Observer& observer, const Selector::Ptr& selector);
+    void create(engine::World& world, engine::Player& player, const Selector::Ptr& selector);
 
     /**
      * @brief Adds the menu and all items to the observer's current overlay. New items will be
@@ -278,7 +278,7 @@ public:
     void draw(rc::scene::CodeScene::RenderContext& ctx);
 
 private:
-    engine::Engine* engine;
+    engine::World* world;
     rc::Observer* observer;
     rc::Scene* scene;
     glm::vec2 maxSize;

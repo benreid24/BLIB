@@ -1,7 +1,6 @@
 #include <BLIB/Interfaces/GUI/Renderer/Basic/IconComponent.hpp>
 
 #include <BLIB/Interfaces/GUI/Elements/Icon.hpp>
-#include <BLIB/Render/Primitives/Color.hpp>
 
 namespace bl
 {
@@ -24,18 +23,18 @@ void IconComponent::onElementUpdated() {
 
 void IconComponent::onRenderSettingChange() {
     const RenderSettings& settings = getOwnerAs<Element>().getRenderSettings();
-    icon.value().setFillColor(bl::sfcol(settings.fillColor.value_or(sf::Color::Black)));
-    icon.value().setOutlineColor(bl::sfcol(settings.outlineColor.value_or(sf::Color::Transparent)));
+    icon.value().setFillColor(settings.fillColor.value_or(sf::Color::Black));
+    icon.value().setOutlineColor(settings.outlineColor.value_or(sf::Color::Transparent));
     icon.value().setOutlineThickness(-settings.outlineThickness.value_or(0.f));
     setPosition();
 }
 
 ecs::Entity IconComponent::getEntity() const { return icon.value().entity(); }
 
-void IconComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
+void IconComponent::doCreate(engine::World& world, rdr::Renderer&) {
     Icon& owner = getOwnerAs<Icon>();
     icon.emplace(owner.getType(), glm::vec2{owner.getIconSize().x, owner.getIconSize().y});
-    icon.value().create(engine);
+    icon.value().create(world);
 }
 
 void IconComponent::doSceneAdd(rc::Overlay* overlay) {

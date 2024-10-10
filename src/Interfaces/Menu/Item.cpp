@@ -8,7 +8,7 @@ namespace bl
 namespace menu
 {
 Item::Item()
-: enginePtr(nullptr)
+: worldPtr(nullptr)
 , position{}
 , offset{}
 , canBeSelected(true)
@@ -70,19 +70,20 @@ void Item::notifyOffset(const glm::vec2& o) {
 }
 
 void Item::updatePosition() {
-    if (enginePtr) {
-        com::Transform2D* transform = enginePtr->ecs().getComponent<com::Transform2D>(getEntity());
+    if (worldPtr) {
+        com::Transform2D* transform =
+            worldPtr->engine().ecs().getComponent<com::Transform2D>(getEntity());
         if (transform) { transform->setPosition(position - offset); }
     }
 }
 
-void Item::create(engine::Engine& engine, ecs::Entity parent) {
-    enginePtr = &engine;
+void Item::create(engine::World& world, ecs::Entity parent) {
+    worldPtr = &world;
     if (!created) {
         created = true;
-        doCreate(engine);
+        doCreate(world);
     }
-    engine.ecs().setEntityParent(getEntity(), parent);
+    world.engine().ecs().setEntityParent(getEntity(), parent);
 }
 
 } // namespace menu

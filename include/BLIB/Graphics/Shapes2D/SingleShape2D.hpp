@@ -51,17 +51,17 @@ protected:
     /**
      * @brief Creates the ECS entity and required components
      *
-     * @param engine The game engine instance
+     * @param world The world to create the object in
      */
-    void create(engine::Engine& engine);
+    void create(engine::World& world);
 
     /**
      * @brief Creates the required components on the existing entity
      *
-     * @param engine The game engine instance
+     * @param world The world to create the object in
      * @param existingEntity The entity to add the sprite components to
      */
-    void create(engine::Engine& engine, ecs::Entity existingEntity);
+    void create(engine::World& world, ecs::Entity existingEntity);
 
     /**
      * @brief Called when the local size is queried

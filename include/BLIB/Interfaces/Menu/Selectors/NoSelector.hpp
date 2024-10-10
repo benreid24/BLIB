@@ -25,7 +25,7 @@ public:
     /**
      * @brief Does nothing
      */
-    virtual void doCreate(engine::Engine&, ecs::Entity) override {}
+    virtual void doCreate(engine::World&, ecs::Entity) override {}
 
     /**
      * @brief Does nothing

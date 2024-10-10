@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_RENDERER_HPP
 #define BLIB_RENDER_RENDERER_HPP
 
+#include <BLIB/Render/Color.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp>
 #include <BLIB/Render/Graph/AssetFactory.hpp>
 #include <BLIB/Render/Graph/Strategy.hpp>
@@ -27,7 +28,6 @@ class Engine;
 namespace sys
 {
 class RendererUpdateSystem;
-class RenderSystem;
 } // namespace sys
 
 /// Renderer core implementation classes and functionality
@@ -44,27 +44,12 @@ public:
     enum struct SplitscreenDirection { TopAndBottom, LeftAndRight };
 
     /**
-     * @brief Adds an observer to the renderer. By default there is a single observer already. Call
-     *        this for splitscreen
-     *
-     * @return A reference to the new observer
-     */
-    Observer& addObserver();
-
-    /**
      * @brief Returns the observer at the given index
      *
      * @param i The index of the observer to get
      * @return The observer at the given index
      */
     Observer& getObserver(unsigned int i = 0);
-
-    /**
-     * @brief Removes the observer at the given index
-     *
-     * @param i The index of the observer to remove
-     */
-    void removeObserver(unsigned int i = 4);
 
     /**
      * @brief Returns the number of observers in the renderer, excluding the common observer
@@ -186,7 +171,7 @@ public:
      *
      * @param color The color to clear with
      */
-    void setClearColor(const glm::vec3& color);
+    void setClearColor(const Color& color);
 
     /**
      * @brief Replaces the current strategy with a new one of type T. Default is
@@ -216,16 +201,7 @@ public:
     vk::PerSwapFrame<vk::Framebuffer>& getSwapframeBuffers();
 
 private:
-    template<typename T>
-    struct WithFuture {
-        T payload;
-        std::future<void> future;
-
-        template<typename... TArgs>
-        WithFuture(TArgs&&... args)
-        : payload(std::forward<TArgs>(args)...) {}
-    };
-
+    std::mutex renderMutex;
     engine::Engine& engine;
     engine::EngineWindow& window;
     sf::Rect<std::uint32_t> renderRegion;
@@ -244,7 +220,7 @@ private:
     std::vector<std::unique_ptr<Observer>> observers;
     std::vector<std::unique_ptr<Observer>> virtualObservers;
     VkClearValue clearColors[2];
-    std::vector<WithFuture<std::unique_ptr<vk::RenderTexture>>> renderTextures;
+    std::vector<std::unique_ptr<vk::RenderTexture>> renderTextures;
     std::unique_ptr<rg::Strategy> strategy;
     rg::AssetFactory assetFactory;
     scene::SceneSync sceneSync;
@@ -260,14 +236,16 @@ private:
 
     // render stages
     void update(float dt);
+    void syncSceneObjects();
     void renderFrame();
 
+    Observer& addObserver();
+    void removeObserver(unsigned int i);
     void assignObserverRegions();
 
     friend class engine::Engine;
     friend class Observer;
     friend class sys::RendererUpdateSystem;
-    friend class sys::RenderSystem;
     friend class vk::RenderTexture::Handle;
 };
 

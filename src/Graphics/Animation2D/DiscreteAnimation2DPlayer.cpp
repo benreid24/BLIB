@@ -25,11 +25,11 @@ bool modeToSlideshow(const resource::Ref<gfx::a2d::AnimationData>& animation,
 DiscreteAnimation2DPlayer::DiscreteAnimation2DPlayer()
 : player(nullptr) {}
 
-void DiscreteAnimation2DPlayer::create(engine::Engine& engine,
+void DiscreteAnimation2DPlayer::create(engine::World& world,
                                        const resource::Ref<a2d::AnimationData>& animation,
                                        Mode mode, bool play, bool forceLoop) {
-    EntityBacked::createEntityOnly(engine);
-    player = engine.ecs().emplaceComponent<com::Animation2DPlayer>(
+    EntityBacked::createEntityOnly(world);
+    player = world.engine().ecs().emplaceComponent<com::Animation2DPlayer>(
         entity(), animation, modeToSlideshow(animation, mode), play, forceLoop);
 }
 

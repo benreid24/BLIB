@@ -17,18 +17,26 @@ InputSystem::InputSystem(engine::Engine& engine)
 
 void InputSystem::setControlCount(unsigned int c) {
     controlTemplate.resize(c, Control::Type::SingleTrigger);
+    resetControls();
 }
 
 void InputSystem::configureDirectionalControl(unsigned int c) {
     controlTemplate[c] = Control::Type::Directional;
+    resetControls();
 }
 
 void InputSystem::configureMovementControl(unsigned int c) {
     controlTemplate[c] = Control::Type::Movement;
+    resetControls();
 }
 
 void InputSystem::configureTriggerControl(unsigned int c) {
     controlTemplate[c] = Control::Type::SingleTrigger;
+    resetControls();
+}
+
+void InputSystem::resetControls() {
+    for (auto& actor : actors) { actor->resetControls(controlTemplate); }
 }
 
 Actor& InputSystem::addActor() {

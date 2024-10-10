@@ -16,10 +16,10 @@ public:
     static constexpr float MinAccel  = 75.f;
     static constexpr float EatRadius = 4.f;
 
-    SimpleBlackHoleSink(const glm::vec2& pos, bl::engine::Engine& engine, bl::rc::Scene* scene)
+    SimpleBlackHoleSink(const glm::vec2& pos, bl::engine::World& world, bl::rc::Scene* scene)
     : Movable(pos)
     , radius(bl::util::Random::get<float>(MinRadius, MaxRadius)) {
-        circle.create(engine, 3.f);
+        circle.create(world, 3.f);
         circle.setFillColor(sf::Color::Black);
         circle.setOutlineThickness(1.f);
         circle.setOutlineColor(sf::Color(255, 196, 0));

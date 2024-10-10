@@ -59,13 +59,6 @@ public:
     void configureMovementControl(unsigned int controlIndex);
 
     /**
-     * @brief Adds a new Actor to the system. setControlCount MUST be called prior to this
-     *
-     * @return Actor& The newly added actor
-     */
-    Actor& addActor();
-
-    /**
      * @brief Get the given Actor
      *
      * @param i The index of the actor to get
@@ -82,40 +75,28 @@ public:
     const Actor& getActor(unsigned int i = 0) const;
 
     /**
-     * @brief Removes the actor at the given index
-     *
-     * @param i The index of the actor to remove
-     */
-    void removeActor(unsigned int i);
-
-    /**
      * @brief Returns the number of actors in the system
-     *
      */
     unsigned int actorCount() const;
 
     /**
      * @brief Returns a normalized vector representing the direction of the mouse from the window
      *        center. Does not account for the window viewport or letterboxing
-     *
      */
     const sf::Vector2f& mouseUnitVector() const;
 
     /**
      * @brief Called once per frame by the game engine
-     *
      */
     void update();
 
     /**
      * @brief Saves the control config to the engine configuration store
-     *
      */
     void saveToConfig() const;
 
     /**
      * @brief Loads the control config from the engine configuration store
-     *
      */
     void loadFromConfig();
 
@@ -126,6 +107,12 @@ private:
     sf::Vector2f mouseVector;
 
     virtual void observe(const sf::Event& event) override;
+
+    Actor& addActor();
+    void removeActor(unsigned int i);
+    void resetControls();
+
+    friend class engine::Engine;
 };
 
 } // namespace input

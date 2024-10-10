@@ -106,9 +106,9 @@ protected:
      * @brief Called at least once when the item is added to a menu. Should create required graphics
      *        primitives
      *
-     * @param engine The game engine instance
+     * @param world The world to create entities in
      */
-    virtual void doCreate(engine::Engine& engine) = 0;
+    virtual void doCreate(engine::World& world) = 0;
 
     /**
      * @brief Called when the item should be added to the scene
@@ -135,7 +135,7 @@ protected:
     virtual ecs::Entity getEntity() const = 0;
 
 private:
-    engine::Engine* enginePtr;
+    engine::World* worldPtr;
     glm::vec2 position;
     glm::vec2 offset;
     Item* attachments[_NUM_ATTACHPOINTS];
@@ -147,7 +147,7 @@ private:
     glm::vec2 posOverride;
     bool created;
 
-    void create(engine::Engine& engine, ecs::Entity parent);
+    void create(engine::World& world, ecs::Entity parent);
     void notifyPosition(const glm::vec2& position);
     void notifyOffset(const glm::vec2& offset);
     void updatePosition();

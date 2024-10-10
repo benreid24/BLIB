@@ -16,12 +16,14 @@
 #include <BLIB/Util/NonCopyable.hpp>
 #include <BLIB/Util/Random.hpp>
 #include <BLIB/Util/ReadWriteLock.hpp>
+#include <BLIB/Util/RefPool.hpp>
 #include <BLIB/Util/Signal.hpp>
 #include <BLIB/Util/StreamUtil.hpp>
 #include <BLIB/Util/ThreadPool.hpp>
 #include <BLIB/Util/Timer.hpp>
 #include <BLIB/Util/TupleLoop.hpp>
 #include <BLIB/Util/UnderlyingType.hpp>
+#include <BLIB/Util/VariadicHelpers.hpp>
 #include <BLIB/Util/Waiter.hpp>
 
 #endif

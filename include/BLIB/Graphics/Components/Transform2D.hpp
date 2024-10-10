@@ -57,7 +57,15 @@ inline const com::Transform2D& Transform2D::getTransform() const { return *handl
 
 template<typename... TArgs>
 inline void Transform2D::create(ecs::Registry& registry, ecs::Entity entity, TArgs&&... args) {
-    handle = registry.emplaceComponent<com::Transform2D>(entity, std::forward<TArgs>(args)...);
+    ecs::Transaction<ecs::tx::EntityRead,
+                     ecs::tx::ComponentRead<>,
+                     ecs::tx::ComponentWrite<com::Transform2D>>
+        tx(registry);
+    handle = registry.getComponent<com::Transform2D>(entity, tx);
+    if (!handle) {
+        handle = registry.emplaceComponentWithTx<com::Transform2D>(
+            entity, tx, std::forward<TArgs>(args)...);
+    }
 }
 
 } // namespace bcom

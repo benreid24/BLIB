@@ -12,7 +12,7 @@ public:
 
     virtual ~InputListener() = default;
 
-    void init(bl::engine::Engine& engine);
+    void init(bl::engine::World& world);
 
     void addToScene(bl::rc::Scene* scene);
 

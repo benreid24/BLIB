@@ -1,7 +1,6 @@
 #include <BLIB/Interfaces/Menu/Menu.hpp>
 
 #include <BLIB/Logging.hpp>
-#include <BLIB/Render/Primitives/Color.hpp>
 #include <queue>
 #include <unordered_set>
 
@@ -14,7 +13,7 @@ audio::AudioSystem::Handle Menu::defaultFailSound   = audio::AudioSystem::Invali
 audio::AudioSystem::Handle Menu::defaultSelectSound = audio::AudioSystem::InvalidHandle;
 
 Menu::Menu(float depth)
-: engine(nullptr)
+: world(nullptr)
 , observer(nullptr)
 , scene(nullptr)
 , maxSize(-1.f, -1.f)
@@ -30,18 +29,18 @@ Menu::Menu(float depth)
 , selectSound(defaultSelectSound)
 , depth(depth) {}
 
-void Menu::create(engine::Engine& e, rc::Observer& o, const Selector::Ptr& sel) {
-    engine   = &e;
-    observer = &o;
+void Menu::create(engine::World& w, engine::Player& o, const Selector::Ptr& sel) {
+    world    = &w;
+    observer = &o.getRenderObserver();
     selector = sel;
-    background.create(*engine, {100.f, 100.f});
+    background.create(*world, {100.f, 100.f});
     background.setFillColor({1.f, 1.f, 1.f, 0.f});
     background.setOutlineColor({1.f, 1.f, 1.f, 0.f});
     background.getOverlayScaler().setScissorMode(com::OverlayScaler::ScissorSelf);
     background.getTransform().setDepth(depth);
-    e.ecs().setEntityParentDestructionBehavior(background.entity(),
-                                               ecs::ParentDestructionBehavior::OrphanedByParent);
-    selector->doCreate(*engine, background.entity());
+    world->engine().ecs().setEntityParentDestructionBehavior(
+        background.entity(), ecs::ParentDestructionBehavior::OrphanedByParent);
+    selector->doCreate(*world, background.entity());
     event::Dispatcher::subscribe(this);
 }
 
@@ -71,7 +70,7 @@ void Menu::setSelectedItem(Item* s) {
     selectedItem = s;
     selectedItem->getSignal(Item::Selected)();
     com::Transform2D* tform =
-        engine->ecs().getComponent<com::Transform2D>(selectedItem->getEntity());
+        world->engine().ecs().getComponent<com::Transform2D>(selectedItem->getEntity());
     const glm::vec2& pos = tform->getLocalPosition();
     selector->notifySelection(selectedItem->getEntity(),
                               {pos.x, pos.y, selectedItem->getSize().x, selectedItem->getSize().y});
@@ -100,8 +99,8 @@ void Menu::setMinWidth(float w) {
 }
 
 void Menu::configureBackground(sf::Color fill, sf::Color outline, float t, const sf::FloatRect& p) {
-    background.setFillColor(sfcol(fill));
-    background.setOutlineColor(sfcol(outline));
+    background.setFillColor(fill);
+    background.setOutlineColor(outline);
     background.setOutlineThickness(t);
     if (p.left >= 0.f) {
         bgndPadding = p;
@@ -184,7 +183,7 @@ void Menu::setRootItem(const Item::Ptr& root) {
     for (auto& item : items) { item->doSceneRemove(); }
     items.clear();
     items.emplace_back(root);
-    root->create(*engine, background.entity());
+    root->create(*world, background.entity());
     if (scene) { root->doSceneAdd(scene); }
     setSelectedItem(root.get());
     refreshPositions();
@@ -195,7 +194,7 @@ void Menu::addItem(const Item::Ptr& item, Item* parent, Item::AttachPoint ap, bo
     parent->attachments[ap] = item.get();
     if (r) { item->attachments[Item::oppositeSide(ap)] = parent; }
     item->parent = ap;
-    item->create(*engine, background.entity());
+    item->create(*world, background.entity());
     if (scene) { item->doSceneAdd(scene); }
     refreshPositions();
 }
@@ -321,7 +320,7 @@ void Menu::refreshPositions() {
 
     if (selectedItem != nullptr) {
         com::Transform2D* tform =
-            engine->ecs().getComponent<com::Transform2D>(selectedItem->getEntity());
+            world->engine().ecs().getComponent<com::Transform2D>(selectedItem->getEntity());
         const glm::vec2& pos = tform->getLocalPosition();
         selector->notifySelection(
             selectedItem->getEntity(),

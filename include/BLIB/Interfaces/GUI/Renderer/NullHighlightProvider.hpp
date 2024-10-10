@@ -24,7 +24,7 @@ public:
 private:
     virtual void update(float) override {}
     virtual void notifyUIState(Element*, Component::UIState) override {}
-    virtual void doCreate(engine::Engine&) override {}
+    virtual void doCreate(engine::World&) override {}
     virtual void doSceneAdd(rc::Overlay*) override {}
     virtual void doSceneRemove() override {}
     virtual void notifyDestroyed(const Element*) override {}

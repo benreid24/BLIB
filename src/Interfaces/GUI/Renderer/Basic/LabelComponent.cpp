@@ -2,7 +2,6 @@
 
 #include <BLIB/Interfaces/GUI/Elements/Label.hpp>
 #include <BLIB/Interfaces/GUI/GUI.hpp>
-#include <BLIB/Render/Primitives/Color.hpp>
 #include <Interfaces/GUI/Data/Font.hpp>
 
 namespace bl
@@ -41,8 +40,8 @@ void LabelComponent::onRenderSettingChange() {
     auto& sec                      = text.getSection();
     text.setFont(*settings.font.value_or(Font::get()));
     sec.setCharacterSize(settings.characterSize.value_or(Label::DefaultFontSize));
-    sec.setFillColor(sfcol(settings.fillColor.value_or(sf::Color::Black)));
-    sec.setOutlineColor(sfcol(settings.outlineColor.value_or(sf::Color::Transparent)));
+    sec.setFillColor(settings.fillColor.value_or(sf::Color::Black));
+    sec.setOutlineColor(settings.outlineColor.value_or(sf::Color::Transparent));
     sec.setOutlineThickness(settings.outlineThickness.value_or(0));
     sec.setStyle(settings.style.value_or(sf::Text::Regular));
     reposition();
@@ -50,9 +49,9 @@ void LabelComponent::onRenderSettingChange() {
 
 ecs::Entity LabelComponent::getEntity() const { return text.entity(); }
 
-void LabelComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
+void LabelComponent::doCreate(engine::World& world, rdr::Renderer&) {
     const RenderSettings& settings = getOwnerAs<Label>().renderSettings();
-    text.create(engine, *settings.font.value_or(Font::get()));
+    text.create(world, *settings.font.value_or(Font::get()));
 }
 
 void LabelComponent::doSceneAdd(rc::Overlay* overlay) {

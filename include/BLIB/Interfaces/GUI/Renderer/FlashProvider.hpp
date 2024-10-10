@@ -45,9 +45,9 @@ public:
     /**
      * @brief Called once before use. Derived classes should create resources here
      *
-     * @param engine The game engine instance
+     * @param world The world to create entities in
      */
-    virtual void doCreate(engine::Engine& engine) = 0;
+    virtual void doCreate(engine::World& world) = 0;
 
     /**
      * @brief Called when the provider should be added to a scene

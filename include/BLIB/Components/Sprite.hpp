@@ -2,6 +2,7 @@
 #define BLIB_COMPONENTS_SPRITE_HPP
 
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
+#include <BLIB/Render/Color.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
 #include <SFML/Graphics/Rect.hpp>
@@ -71,24 +72,24 @@ public:
     /**
      * @brief Returns the texture that is rendered by the sprite
      */
-    constexpr const rc::res::TextureRef& getTexture() const;
+    const rc::res::TextureRef& getTexture() const;
 
     /**
      * @brief Sets the color to multiply the texture color by
      *
      * @param color The color to multiply with
      */
-    void setColor(const glm::vec4& color);
+    void setColor(const rc::Color& color);
 
     /**
      * @brief Returns the color that is being applied
      */
-    const glm::vec4& getColor() const;
+    rc::Color getColor() const;
 
     /**
      * @brief Returns the pre-transform size of the Sprite
      */
-    constexpr const glm::vec2& getSize() const;
+    const glm::vec2& getSize() const;
 
     /**
      * @brief Returns the default pipeline for regular scenes
@@ -114,11 +115,11 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr const rc::res::TextureRef& Sprite::getTexture() const { return texture; }
+inline const rc::res::TextureRef& Sprite::getTexture() const { return texture; }
 
-inline constexpr const glm::vec2& Sprite::getSize() const { return size; }
+inline const glm::vec2& Sprite::getSize() const { return size; }
 
-inline const glm::vec4& Sprite::getColor() const { return buffer.vertices()[0].color; }
+inline rc::Color Sprite::getColor() const { return buffer.vertices()[0].color; }
 
 } // namespace com
 } // namespace bl

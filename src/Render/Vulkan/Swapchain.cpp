@@ -125,7 +125,8 @@ void Swapchain::completeFrame() {
     submitInfo.pSignalSemaphores    = signalSemaphores;
     submitInfo.commandBufferCount   = 1;
     submitInfo.pCommandBuffers      = &frameData.current().commandBuffer;
-    if (vulkanState.submitCommandBuffer(submitInfo, frameData.current().commandBufferFence) !=
+    if (vkQueueSubmit(
+            vulkanState.graphicsQueue, 1, &submitInfo, frameData.current().commandBufferFence) !=
         VK_SUCCESS) {
         throw std::runtime_error("Failed to submit draw command buffer");
     }
@@ -222,7 +223,7 @@ void Swapchain::createSwapchain() {
     createInfo.imageColorSpace  = surfaceFormat.colorSpace;
     createInfo.imageExtent      = swapChainSupport.swapExtent(window.getSize());
     createInfo.imageArrayLayers = 1;
-    createInfo.imageUsage       = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT;
+    createInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT;
 
     // queue chain config
     QueueFamilyLocator indices;

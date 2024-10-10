@@ -20,69 +20,67 @@ glm::vec2 getSize(const resource::Ref<a2d::AnimationData>& animation) {
 Animation2D::Animation2D()
 : Animation2DPlayer(false) {}
 
-Animation2D::Animation2D(engine::Engine& engine, const resource::Ref<a2d::AnimationData>& animation,
+Animation2D::Animation2D(engine::World& world, const resource::Ref<a2d::AnimationData>& animation,
                          bool play, bool forceLoop)
 : Animation2D() {
-    createWithUniquePlayer(engine, animation, play, forceLoop);
+    createWithUniquePlayer(world, animation, play, forceLoop);
 }
 
-Animation2D::Animation2D(engine::Engine& engine, ecs::Entity existing,
+Animation2D::Animation2D(engine::World& world, ecs::Entity existing,
                          const resource::Ref<a2d::AnimationData>& animation, bool play,
                          bool forceLoop)
 : Animation2D() {
-    createWithUniquePlayer(engine, existing, animation, play, forceLoop);
+    createWithUniquePlayer(world, existing, animation, play, forceLoop);
 }
 
-Animation2D::Animation2D(engine::Engine& engine, const Animation2D& player)
+Animation2D::Animation2D(engine::World& world, const Animation2D& player)
 : Animation2D() {
-    createWithSharedPlayer(engine, player);
+    createWithSharedPlayer(world, player);
 }
 
-Animation2D::Animation2D(engine::Engine& engine, ecs::Entity existing, const Animation2D& player)
+Animation2D::Animation2D(engine::World& world, ecs::Entity existing, const Animation2D& player)
 : Animation2D() {
-    createWithSharedPlayer(engine, existing, player);
+    createWithSharedPlayer(world, existing, player);
 }
 
-void Animation2D::createWithUniquePlayer(engine::Engine& engine,
+void Animation2D::createWithUniquePlayer(engine::World& world,
                                          const resource::Ref<a2d::AnimationData>& animation,
                                          bool play, bool forceLoop) {
-    Drawable::create(engine);
-    OverlayScalable::create(engine, entity());
+    Drawable::create(world);
+    OverlayScalable::create(world.engine(), entity());
     OverlayScalable::setLocalSize(getSize(animation));
-    Animation2DPlayer::create(
-        engine.renderer(), engine.ecs(), entity(), animation, play, forceLoop);
-    component().create(engine, Animation2DPlayer::getPlayer());
+    Animation2DPlayer::create(world, entity(), animation, play, forceLoop);
+    component().create(world.engine(), Animation2DPlayer::getPlayer());
     component().setContainsTransparency(Textured::getTexture()->containsTransparency());
 }
 
-void Animation2D::createWithUniquePlayer(engine::Engine& engine, ecs::Entity existing,
+void Animation2D::createWithUniquePlayer(engine::World& world, ecs::Entity existing,
                                          const resource::Ref<a2d::AnimationData>& animation,
                                          bool play, bool forceLoop) {
-    Drawable::createComponentOnly(engine, existing);
-    OverlayScalable::create(engine, entity());
+    Drawable::createComponentOnly(world, existing);
+    OverlayScalable::create(world.engine(), entity());
     OverlayScalable::setLocalSize(getSize(animation));
-    Animation2DPlayer::create(
-        engine.renderer(), engine.ecs(), entity(), animation, play, forceLoop);
-    component().create(engine, Animation2DPlayer::getPlayer());
+    Animation2DPlayer::create(world, entity(), animation, play, forceLoop);
+    component().create(world.engine(), Animation2DPlayer::getPlayer());
     component().setContainsTransparency(Textured::getTexture()->containsTransparency());
 }
 
-void Animation2D::createWithSharedPlayer(engine::Engine& engine, const Animation2D& player) {
-    Drawable::create(engine);
-    OverlayScalable::create(engine, entity());
+void Animation2D::createWithSharedPlayer(engine::World& world, const Animation2D& player) {
+    Drawable::create(world);
+    OverlayScalable::create(world.engine(), entity());
     OverlayScalable::setLocalSize(player.getLocalSize());
-    Animation2DPlayer::create(engine.renderer(), engine.ecs(), entity(), player.getPlayerEntity());
-    component().create(engine, Animation2DPlayer::getPlayer());
+    Animation2DPlayer::create(world, entity(), player.getPlayerEntity());
+    component().create(world.engine(), Animation2DPlayer::getPlayer());
     component().setContainsTransparency(Textured::getTexture()->containsTransparency());
 }
 
-void Animation2D::createWithSharedPlayer(engine::Engine& engine, ecs::Entity existing,
+void Animation2D::createWithSharedPlayer(engine::World& world, ecs::Entity existing,
                                          const Animation2D& player) {
-    Drawable::createComponentOnly(engine, existing);
-    OverlayScalable::create(engine, entity());
+    Drawable::createComponentOnly(world, existing);
+    OverlayScalable::create(world.engine(), entity());
     OverlayScalable::setLocalSize(player.getLocalSize());
-    Animation2DPlayer::create(engine.renderer(), engine.ecs(), entity(), player.getPlayerEntity());
-    component().create(engine, Animation2DPlayer::getPlayer());
+    Animation2DPlayer::create(world, entity(), player.getPlayerEntity());
+    component().create(world.engine(), Animation2DPlayer::getPlayer());
     component().setContainsTransparency(Textured::getTexture()->containsTransparency());
 }
 

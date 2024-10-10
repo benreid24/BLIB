@@ -13,6 +13,7 @@
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
 #include <BLIB/Render/Buffers/StaticSSBO.hpp>
 #include <BLIB/Render/Buffers/UniformBuffer.hpp>
+#include <BLIB/Render/Color.hpp>
 #include <BLIB/Render/Components/DescriptorComponentBase.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
 #include <BLIB/Render/Components/SceneObjectRef.hpp>
@@ -72,7 +73,6 @@
 #include <BLIB/Render/Observer.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
 #include <BLIB/Render/Overlays/OverlayObject.hpp>
-#include <BLIB/Render/Primitives/Color.hpp>
 #include <BLIB/Render/Primitives/DrawParameters.hpp>
 #include <BLIB/Render/Primitives/Vertex.hpp>
 #include <BLIB/Render/RenderTarget.hpp>

@@ -6,13 +6,13 @@ namespace bl
 {
 namespace gfx
 {
-BatchedSlideshows::BatchedSlideshows(engine::Engine& engine, unsigned int initialCapacity) {
-    create(engine, initialCapacity);
+BatchedSlideshows::BatchedSlideshows(engine::World& world, unsigned int initialCapacity) {
+    create(world, initialCapacity);
 }
 
-void BatchedSlideshows::create(engine::Engine& engine, unsigned int initialCapacity) {
-    Drawable::create(engine, engine.renderer().vulkanState(), initialCapacity);
-    Transform2D::create(engine.ecs(), entity());
+void BatchedSlideshows::create(engine::World& world, unsigned int initialCapacity) {
+    Drawable::create(world, world.engine().renderer().vulkanState(), initialCapacity);
+    Transform2D::create(world.engine().ecs(), entity());
 }
 
 void BatchedSlideshows::scaleToSize(const glm::vec2&) {

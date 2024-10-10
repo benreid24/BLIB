@@ -26,18 +26,18 @@ public:
     /**
      * @brief Creates the batch slideshow entity
      *
-     * @param engine The game engine instance
+     * @param world The world to create the object in
      * @param initialCapacity The number of slideshows to allocate for
      */
-    BatchedSlideshows(engine::Engine& engine, unsigned int initialCapacity = 16);
+    BatchedSlideshows(engine::World& world, unsigned int initialCapacity = 16);
 
     /**
      * @brief Creates the batch slideshow entity
      *
-     * @param engine The game engine instance
+     * @param world The world to create the object in
      * @param initialCapacity The number of slideshows to allocate for
      */
-    void create(engine::Engine& engine, unsigned int initialCapacity = 16);
+    void create(engine::World& world, unsigned int initialCapacity = 16);
 
 private:
     virtual void scaleToSize(const glm::vec2&) override;

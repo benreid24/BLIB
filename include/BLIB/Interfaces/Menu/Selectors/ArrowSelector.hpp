@@ -38,10 +38,10 @@ public:
     /**
      * @brief Called when the selector is added to a menu
      *
-     * @param engine The game engine instance
+     * @param world The world to create entities in
      * @param parent The parent entity id
      */
-    virtual void doCreate(engine::Engine& engine, ecs::Entity parent) override;
+    virtual void doCreate(engine::World& world, ecs::Entity parent) override;
 
     /**
      * @brief Called when the selector should select an item

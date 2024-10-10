@@ -65,10 +65,10 @@ protected:
     /**
      * @brief Creates the component
      *
-     * @param engine The game engine instance
+     * @param world The world to create entities in
      * @param renderer The GUI renderer instance
      */
-    virtual void doCreate(engine::Engine& engine, rdr::Renderer& renderer) override;
+    virtual void doCreate(engine::World& world, rdr::Renderer& renderer) override;
 
     /**
      * @brief Adds the component to the scene
@@ -102,7 +102,7 @@ private:
         : created(false) {}
     };
 
-    engine::Engine* enginePtr;
+    engine::World* worldPtr;
     rc::Overlay* currentOverlay;
     gfx::Rectangle box;
     gfx::Rectangle arrowBox;

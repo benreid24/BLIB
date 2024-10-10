@@ -10,7 +10,9 @@ namespace bl
 namespace engine
 {
 class Engine;
-}
+class World;
+} // namespace engine
+
 namespace gui
 {
 class GUI;
@@ -29,11 +31,11 @@ public:
     /**
      * @brief Creates the GUI renderer
      *
-     * @param engine The game engine instance
+     * @param world The world to create entities in
      * @param gui The GUI instance
      * @param factory The component factory to use
      */
-    Renderer(engine::Engine& engine, GUI& gui, FactoryTable& factory);
+    Renderer(engine::World& world, GUI& gui, FactoryTable& factory);
 
     /**
      * @brief Marks the renderer as destroyed and frees all components
@@ -50,7 +52,7 @@ public:
     template<typename TElem>
     Component* createComponent(TElem& element) {
         const auto it = components.try_emplace(&element, factory.createComponent<TElem>()).first;
-        it->second->create(engine, *this, element);
+        it->second->create(world, *this, element);
         if (overlay) { it->second->addToScene(overlay); }
         return it->second.get();
     }
@@ -130,7 +132,7 @@ public:
     std::shared_ptr<bool> getAliveFlag();
 
 private:
-    engine::Engine& engine;
+    engine::World& world;
     GUI& gui;
     FactoryTable& factory;
     rc::Overlay* overlay;
