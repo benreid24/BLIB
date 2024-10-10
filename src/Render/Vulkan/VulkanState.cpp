@@ -172,6 +172,7 @@ void VulkanState::beginFrame(StandardAttachmentSet*& renderFrame, VkCommandBuffe
 }
 
 void VulkanState::completeFrame() {
+    std::unique_lock lock(cbSubmitMutex);
     swapchain.completeFrame();
     currentFrame = (currentFrame + 1) % Config::MaxConcurrentFrames;
 }
@@ -347,6 +348,8 @@ void VulkanState::createLogicalDevice() {
     // required features
     VkPhysicalDeviceFeatures deviceFeatures{};
     deviceFeatures.samplerAnisotropy = VK_TRUE;
+    deviceFeatures.wideLines =
+        physicalDeviceProperties.limits.lineWidthRange[1] > 1.f ? VK_TRUE : VK_FALSE;
 #ifdef BLIB_DEBUG
     deviceFeatures.robustBufferAccess = VK_TRUE;
 #endif
