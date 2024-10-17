@@ -17,62 +17,31 @@ Physics2D::Physics2D()
 com::Physics2D* Physics2D::addPhysicsToEntity(ecs::Entity entity, b2BodyDef bodyDef,
                                               b2ShapeDef shapeDef) {
     auto set = engine->ecs().getComponentSet<ecs::Require<com::Hitbox2D, com::Transform2D>>(entity);
-    if (!set.isValid()) {
-        BL_LOG_ERROR << "Failed to add physics to entity (missing components): " << entity;
-        return nullptr;
-    }
-
-    engine::World2D* world = worlds[entity.getWorldIndex()];
-    if (!world) {
-        BL_LOG_ERROR << "Failed to add physics to entity (wrong world type): " << entity;
-        return nullptr;
-    }
-
-    const b2WorldId worldId     = world->getBox2dWorldId();
-    const float worldToBoxScale = world->getWorldToBoxScale();
-
-    b2BodyId bodyId;
-    const auto createBody =
-        [this, worldId, worldToBoxScale, &set, &bodyId, &bodyDef]() -> b2BodyId {
-        const glm::vec2 pos = set.get<com::Transform2D>()->getGlobalPosition() * worldToBoxScale;
-        bodyDef.position.x  = pos.x;
-        bodyDef.position.y  = pos.y;
-        bodyDef.rotation =
-            b2MakeRot(math::degreesToRadians(set.get<com::Transform2D>()->getRotation()));
-        bodyId = b2CreateBody(worldId, &bodyDef);
-        return bodyId;
-    };
-
-    const glm::vec2 origin = set.get<com::Transform2D>()->getOrigin() * worldToBoxScale;
-    switch (set.get<com::Hitbox2D>()->getType()) {
-    case com::Hitbox2D::Circle: {
-        b2Circle circle;
-        circle.radius   = set.get<com::Hitbox2D>()->getRadius() * worldToBoxScale;
-        circle.center.x = circle.radius - origin.x;
-        circle.center.y = circle.radius - origin.y;
-        b2CreateCircleShape(createBody(), &shapeDef, &circle);
-    } break;
-
-    case com::Hitbox2D::Rectangle: {
-        const glm::vec2 hsize = set.get<com::Hitbox2D>()->getSize() * worldToBoxScale * 0.5f;
-        const glm::vec2 diff  = hsize - origin;
-        b2Polygon box         = b2MakeOffsetBox(hsize.x, hsize.y, {diff.x, diff.y}, 0.f);
-        b2CreatePolygonShape(createBody(), &shapeDef, &box);
-    } break;
-
-    default:
-        BL_LOG_ERROR << "Invalid hitbox type for physics simulation: "
-                     << set.get<com::Hitbox2D>()->getType();
-        return nullptr;
-    }
+    const auto bodyId = createBody(bodyDef, shapeDef, set);
+    if (!bodyId.has_value()) { return nullptr; }
 
     return engine->ecs().emplaceComponent<com::Physics2D>(
-        entity, *this, entity, *set.get<com::Transform2D>(), bodyId);
+        entity, *this, entity, *set.get<com::Transform2D>(), bodyId.value());
+}
+
+void Physics2D::createSensorForEntity(ecs::Entity entity, b2Filter filter) {
+    b2BodyDef bodyDef = b2DefaultBodyDef();
+    bodyDef.type      = b2_staticBody;
+
+    b2ShapeDef shapeDef = b2DefaultShapeDef();
+    shapeDef.isSensor   = true;
+    shapeDef.filter     = filter;
+
+    auto set = engine->ecs().getComponentSet<ecs::Require<com::Hitbox2D, com::Transform2D>>(entity);
+    const auto bodyId = createBody(bodyDef, shapeDef, set);
+    if (!bodyId.has_value()) { return; }
+
+    engine->ecs().emplaceComponent<com::Physics2D>(
+        entity, *this, entity, *set.get<com::Transform2D>(), bodyId.value());
 }
 
 void Physics2D::init(engine::Engine& e) {
     engine = &e;
-
     event::Dispatcher::subscribe(this);
 }
 
@@ -119,7 +88,24 @@ void Physics2D::update(std::mutex&, float dt, float, float, float) {
             event::Dispatcher::dispatch<EntityCollisionHitEvent>(
                 {a.entity, b.entity, contacts.hitEvents[i]});
         }
+
+        b2SensorEvents sensors = b2World_GetSensorEvents(worldId);
+        for (int i = 0; i < sensors.beginCount; ++i) {
+            com::Physics2D& entity = getComponent(sensors.beginEvents[i].visitorShapeId);
+            com::Physics2D& sensor = getComponent(sensors.beginEvents[i].sensorShapeId);
+            event::Dispatcher::dispatch<SensorEntered>({entity.entity, sensor.entity});
+        }
+        for (int i = 0; i < sensors.endCount; ++i) {
+            com::Physics2D& entity = getComponent(sensors.endEvents[i].visitorShapeId);
+            com::Physics2D& sensor = getComponent(sensors.endEvents[i].sensorShapeId);
+            event::Dispatcher::dispatch<SensorExited>({entity.entity, sensor.entity});
+        }
     }
+}
+
+ecs::Entity Physics2D::getEntityFromShape(b2ShapeId shapeId) {
+    const b2BodyId body = b2Shape_GetBody(shapeId);
+    return static_cast<com::Physics2D*>(b2Body_GetUserData(body))->entity;
 }
 
 float Physics2D::getWorldToBoxScale(unsigned int wi) const {
@@ -142,6 +128,61 @@ void Physics2D::observe(const engine::event::WorldCreated& event) {
 
 void Physics2D::observe(const engine::event::WorldDestroyed& event) {
     worlds[event.world.worldIndex()] = nullptr;
+}
+
+std::optional<b2BodyId> Physics2D::createBody(
+    b2BodyDef& bodyDef, b2ShapeDef& shapeDef,
+    ecs::ComponentSet<ecs::Require<com::Hitbox2D, com::Transform2D>>& set) {
+    if (!set.isValid()) {
+        BL_LOG_ERROR << "Failed to add physics to entity (missing components): " << set.entity();
+        return {};
+    }
+
+    engine::World2D* world = worlds[set.entity().getWorldIndex()];
+    if (!world) {
+        BL_LOG_ERROR << "Failed to add physics to entity (wrong world type): " << set.entity();
+        return {};
+    }
+
+    const b2WorldId worldId     = world->getBox2dWorldId();
+    const float worldToBoxScale = world->getWorldToBoxScale();
+
+    b2BodyId bodyId;
+    const auto createBody =
+        [this, worldId, worldToBoxScale, &set, &bodyId, &bodyDef]() -> b2BodyId {
+        const glm::vec2 pos = set.get<com::Transform2D>()->getGlobalPosition() * worldToBoxScale;
+        bodyDef.position.x  = pos.x;
+        bodyDef.position.y  = pos.y;
+        bodyDef.rotation =
+            b2MakeRot(math::degreesToRadians(set.get<com::Transform2D>()->getRotation()));
+        bodyId = b2CreateBody(worldId, &bodyDef);
+        return bodyId;
+    };
+
+    const glm::vec2 origin = set.get<com::Transform2D>()->getOrigin() * worldToBoxScale;
+    switch (set.get<com::Hitbox2D>()->getType()) {
+    case com::Hitbox2D::Circle: {
+        b2Circle circle;
+        circle.radius   = set.get<com::Hitbox2D>()->getRadius() * worldToBoxScale;
+        circle.center.x = circle.radius - origin.x;
+        circle.center.y = circle.radius - origin.y;
+        b2CreateCircleShape(createBody(), &shapeDef, &circle);
+    } break;
+
+    case com::Hitbox2D::Rectangle: {
+        const glm::vec2 hsize = set.get<com::Hitbox2D>()->getSize() * worldToBoxScale * 0.5f;
+        const glm::vec2 diff  = hsize - origin;
+        b2Polygon box         = b2MakeOffsetBox(hsize.x, hsize.y, {diff.x, diff.y}, 0.f);
+        b2CreatePolygonShape(createBody(), &shapeDef, &box);
+    } break;
+
+    default:
+        BL_LOG_ERROR << "Invalid hitbox type for physics simulation: "
+                     << set.get<com::Hitbox2D>()->getType();
+        return {};
+    }
+
+    return bodyId;
 }
 
 } // namespace sys

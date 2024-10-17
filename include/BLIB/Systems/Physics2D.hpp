@@ -8,6 +8,7 @@
 #include <BLIB/Events/Listener.hpp>
 #include <box2d/box2d.h>
 #include <glm/glm.hpp>
+#include <optional>
 
 namespace bl
 {
@@ -53,6 +54,22 @@ public:
     };
 
     /**
+     * @brief Event that is fired when an entity enters a sensor
+     */
+    struct SensorEntered {
+        ecs::Entity entity;
+        ecs::Entity sensor;
+    };
+
+    /**
+     * @brief Event that is fired when an entity exits a sensor
+     */
+    struct SensorExited {
+        ecs::Entity entity;
+        ecs::Entity sensor;
+    };
+
+    /**
      * @brief Creates the system
      */
     Physics2D();
@@ -75,6 +92,14 @@ public:
                                        b2ShapeDef shapeDef = b2DefaultShapeDef());
 
     /**
+     * @brief Creates a physics sensor for the given entity. Must have a Transform2D and Hitbox2D
+     *
+     * @param entity The entity to create a sensor on
+     * @param filter Optional collision filter for the sensor
+     */
+    void createSensorForEntity(ecs::Entity entity, b2Filter filter = b2DefaultFilter());
+
+    /**
      * @brief Returns the scale from world coordinates to Box2D coordinates for the given world
      *
      * @param worldIndex The world index to get the scale for
@@ -90,6 +115,14 @@ public:
      */
     float getWorldToBoxScale(ecs::Entity entity) const;
 
+    /**
+     * @brief Helper method to get an entity from a Box2D shape id
+     *
+     * @param shapeId The shape to get the entity for
+     * @return The entity the shape belongs to
+     */
+    static ecs::Entity getEntityFromShape(b2ShapeId shapeId);
+
 private:
     engine::Engine* engine;
     std::vector<engine::World2D*> worlds;
@@ -99,6 +132,10 @@ private:
     virtual void observe(const ecs::event::ComponentRemoved<com::Physics2D>& event) override;
     virtual void observe(const engine::event::WorldCreated& event) override;
     virtual void observe(const engine::event::WorldDestroyed& event) override;
+
+    std::optional<b2BodyId> createBody(
+        b2BodyDef& bodyDef, b2ShapeDef& shapeDef,
+        ecs::ComponentSet<ecs::Require<com::Hitbox2D, com::Transform2D>>& components);
 };
 
 } // namespace sys
