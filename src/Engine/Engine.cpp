@@ -26,8 +26,6 @@ Engine::Engine(const Settings& settings)
 , input(*this) {
     settings.syncToConfig();
 
-    addPlayer();
-
     systems().registerSystem<sys::TogglerSystem>(FrameStage::Update0, StateMask::All);
     systems().registerSystem<sys::VelocitySystem>(FrameStage::Animate,
                                                   StateMask::Running | engine::StateMask::Editor);
@@ -506,15 +504,15 @@ pcl::ParticleSystem& Engine::particleSystem() {
 Player& Engine::addPlayer() {
     auto& observer = renderingSystem.addObserver();
     auto& actor    = input.addActor();
-    auto& player   = players.emplace_back(Player(*this, &observer, &actor));
-    bl::event::Dispatcher::dispatch<event::PlayerAdded>({player});
-    return player;
+    auto& player   = players.emplace_back(new Player(*this, &observer, &actor));
+    bl::event::Dispatcher::dispatch<event::PlayerAdded>({*player});
+    return *player;
 }
 
 void Engine::removePlayer(int i) {
     const unsigned int j = i >= 0 ? i : players.size() - 1;
-    auto it              = std::next(players.begin(), j);
-    bl::event::Dispatcher::dispatch<event::PlayerRemoved>({*it});
+    auto it              = players.begin() + j;
+    bl::event::Dispatcher::dispatch<event::PlayerRemoved>({**it});
     renderingSystem.removeObserver(j);
     input.removeActor(j);
     players.erase(it);

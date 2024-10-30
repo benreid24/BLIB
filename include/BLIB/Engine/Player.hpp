@@ -22,6 +22,11 @@ class Engine;
 class Player {
 public:
     /**
+     * @brief Destroys the player
+     */
+    virtual ~Player() = default;
+
+    /**
      * @brief Returns the Observer for this player
      */
     rc::Observer& getRenderObserver() { return *observer; }
@@ -97,16 +102,32 @@ public:
      */
     void leaveAllWorlds();
 
+protected:
+    /**
+     * @brief Creates the player
+     *
+     * @param owner The game engine instance
+     * @param observer The renderer Observer for this player
+     * @param actor The input system actor for this player
+     */
+    Player(Engine& owner, rc::Observer* observer, input::Actor* actor)
+    : owner(owner)
+    , observer(observer)
+    , actor(actor) {}
+
+    /**
+     * @brief Called when the world that this player is in changes
+     *
+     * @param oldWorld The previous world. May be nullptr
+     * @param newWorld The new world. May be nullptr
+     */
+    virtual void onWorldChange(World* oldWorld, World* newWorld);
+
 private:
     Engine& owner;
     rc::Observer* observer;
     input::Actor* actor;
     std::stack<util::Ref<World>, std::vector<util::Ref<World>>> worldStack;
-
-    Player(Engine& owner, rc::Observer* observer, input::Actor* actor)
-    : owner(owner)
-    , observer(observer)
-    , actor(actor) {}
 
     friend class Engine;
 };

@@ -204,15 +204,27 @@ public:
     /**
      * @brief Fetches the given player
      *
+     * @tparam T The type of player class that is expected
      * @param i The index of the player to fetch
      * @return The player at the given index
      */
-    Player& getPlayer(unsigned int i = 0);
+    template<typename T = Player>
+    T& getPlayer(unsigned int i = 0);
 
     /**
      * @brief Adds a new player and returns it
      */
     Player& addPlayer();
+
+    /**
+     * @brief Adds a new player and returns it
+     *
+     * @tparam T The derived player class to use
+     * @tparam TArgs Argument types to the player constructor
+     * @param args Arguments to the player constructor
+     */
+    template<typename T, typename... TArgs>
+    T& addPlayer(TArgs&&... args);
 
     /**
      * @brief Removes the given player, or the last player if the given index is negative
@@ -245,7 +257,7 @@ private:
     Settings engineSettings;
     Flags engineFlags;
     std::stack<State::Ptr> states;
-    std::list<Player> players;
+    std::vector<std::unique_ptr<Player>> players;
     util::RefPool<World> worldPool;
     std::array<util::Ref<World>, World::MaxWorlds> worlds;
     State::Ptr newState;
@@ -303,7 +315,30 @@ inline StateMask::V Engine::getCurrentStateMask() const {
     return !states.empty() ? states.top()->systemsMask() : StateMask::None;
 }
 
-inline Player& Engine::getPlayer(unsigned int i) { return *std::next(players.begin(), i); }
+template<typename T>
+T& Engine::getPlayer(unsigned int i) {
+    if constexpr (std::is_same_v<Player, T>) {
+        if (players.empty() && i == 0) {
+            BL_LOG_INFO << "No player exists, creating default";
+            addPlayer();
+        }
+    }
+    return *players[i];
+}
+
+template<typename T, typename... TArgs>
+T& Engine::addPlayer(TArgs&&... args) {
+    static_assert(std::is_base_of_v<Player, T>, "T must derive from Player");
+    static_assert(
+        std::is_constructible_v<T, Engine&, rc::Observer*, input::Actor*, TArgs...>,
+        "T must be constructible with T(Engine&, rc::Observer*, input::Actor*, TArgs...)");
+
+    auto& observer = renderingSystem.addObserver();
+    auto& actor    = input.addActor();
+    auto& player   = players.emplace_back(new T(*this, &observer, &actor, args...));
+    bl::event::Dispatcher::dispatch<event::PlayerAdded>({*player});
+    return *player;
+}
 
 template<typename TWorld, typename... TArgs>
 util::Ref<World, TWorld> Engine::createWorld(TArgs&&... args) {
