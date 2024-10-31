@@ -335,9 +335,10 @@ T& Engine::addPlayer(TArgs&&... args) {
 
     auto& observer = renderingSystem.addObserver();
     auto& actor    = input.addActor();
-    auto& player   = players.emplace_back(new T(*this, &observer, &actor, args...));
+    T* np          = new T(*this, &observer, &actor, args...);
+    auto& player   = players.emplace_back(np);
     bl::event::Dispatcher::dispatch<event::PlayerAdded>({*player});
-    return *player;
+    return *np;
 }
 
 template<typename TWorld, typename... TArgs>
