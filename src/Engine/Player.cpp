@@ -8,7 +8,7 @@ void Player::enterWorld(util::Ref<World> world) {
     World* oldWorld = worldStack.empty() ? nullptr : worldStack.top().get();
     worldStack.emplace(std::move(world));
     observer->pushScene(worldStack.top()->scene());
-    onWorldChange(oldWorld, world.get());
+    onWorldChange(oldWorld, worldStack.top().get());
 }
 
 void Player::changeWorlds(util::Ref<World> world) {
@@ -19,7 +19,7 @@ void Player::changeWorlds(util::Ref<World> world) {
     }
     worldStack.emplace(std::move(world));
     observer->pushScene(worldStack.top()->scene());
-    onWorldChange(oldWorld, world.get());
+    onWorldChange(oldWorld, worldStack.top().get());
 }
 
 void Player::leaveWorld() {
