@@ -317,13 +317,23 @@ inline StateMask::V Engine::getCurrentStateMask() const {
 
 template<typename T>
 T& Engine::getPlayer(unsigned int i) {
+    static_assert(std::is_base_of_v<Player, T>, "T must derive from Player");
+
     if constexpr (std::is_same_v<Player, T>) {
         if (players.empty() && i == 0) {
             BL_LOG_INFO << "No player exists, creating default";
             addPlayer();
         }
     }
-    return *players[i];
+
+#ifdef BLIB_DEBUG
+    T* p = dynamic_cast<T*>(players[i].get());
+    if (!p) { BL_LOG_ERROR << "Bad player cast"; }
+#else
+    T* p = static_cast<T*>(players[i].get());
+#endif
+
+    return *p;
 }
 
 template<typename T, typename... TArgs>
