@@ -54,14 +54,6 @@ public:
     void setRegion(const sf::FloatRect& area);
 
     /**
-     * @brief Handles and propagates the window event
-     *
-     * @param Packer The Packer to use
-     * @param event Raw window event
-     */
-    virtual void observe(const sf::Event& event) override;
-
-    /**
      * @brief Updates all child elements and runs any queued actions
      *
      * @param dt Time elapsed in seconds
@@ -81,8 +73,9 @@ public:
      *        default to getOrCreateOverlay() on the observer
      *
      * @param overlay The overlay to add to, or nullptr
+     * @param autoSubscribe Whether to directly subscribe to window events
      */
-    void addToOverlay(rc::Overlay* overlay = nullptr);
+    void addToOverlay(rc::Overlay* overlay = nullptr, bool autoSubscribe = true);
 
     /**
      * @brief Removes the GUI and all elements from the current overlay
@@ -94,6 +87,15 @@ public:
      */
     const glm::vec2& getMousePosition() const { return mousePos; }
 
+    /**
+     * @brief Processes the window event and returns whether the event was consumed. This does not
+     *        need to be manually called unless autoSubscribe is turned off in addToOverlay
+     *
+     * @param event The event to process
+     * @return True if the event had effect, false otherwise
+     */
+    bool processEvent(const sf::Event& event);
+
 private:
     rc::Observer& observer;
     std::vector<Element::QueuedAction> queuedActions;
@@ -102,6 +104,7 @@ private:
 
     GUI(engine::World& world, engine::Player& player, const gui::Packer::Ptr& packer,
         const sf::FloatRect& region, rdr::FactoryTable* factory);
+    virtual void observe(const sf::Event& event) override;
 };
 
 } // namespace gui
