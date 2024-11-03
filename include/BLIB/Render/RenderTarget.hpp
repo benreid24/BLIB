@@ -125,6 +125,11 @@ public:
     glm::vec2 transformToWorldSpace(const glm::vec2& screenPoint) const;
 
     /**
+     * @brief Returns the current mouse position in world space
+     */
+    glm::vec2 getMousePosInWorldSpace() const;
+
+    /**
      * @brief Transforms the given coordinate from screen space to overlay space using the current
      *        viewport and camera
      *
@@ -132,6 +137,11 @@ public:
      * @return The corresponding overlay space coordinate
      */
     glm::vec2 transformToOverlaySpace(const glm::vec2& screenPoint) const;
+
+    /**
+     * @brief Returns the current mouse position in overlay space
+     */
+    glm::vec2 getMousePosInOverlaySpace() const;
 
     /**
      * @brief Returns the size of the observers render region in pixels
