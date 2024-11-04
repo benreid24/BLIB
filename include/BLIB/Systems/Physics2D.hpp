@@ -92,6 +92,18 @@ public:
                                        b2ShapeDef shapeDef = b2DefaultShapeDef());
 
     /**
+     * @brief Queries the world and finds the entity whose collision shape(s) contain the given
+     *        position
+     *
+     * @param world The world to query
+     * @param pos The position to query for
+     * @param filter Optional Box2D filter to use during the world query
+     * @return The physics component of the entity at the given position. May be nullptr
+     */
+    com::Physics2D* findEntityAtPosition(const engine::World2D& world, const glm::vec2& pos,
+                                         b2QueryFilter filter = b2DefaultQueryFilter()) const;
+
+    /**
      * @brief Creates a physics sensor for the given entity. Must have a Transform2D and Hitbox2D
      *
      * @param entity The entity to create a sensor on

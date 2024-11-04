@@ -9,6 +9,15 @@ namespace bl
 {
 namespace sys
 {
+namespace
+{
+bool worldOverlapCallback(b2ShapeId shape, void* ctx) {
+    b2ShapeId* dst = static_cast<b2ShapeId*>(ctx);
+    *dst           = shape;
+    return false; // true = keep searching, false = found
+}
+} // namespace
+
 Physics2D::Physics2D()
 : engine(nullptr) {
     worlds.resize(engine::World::MaxWorlds, nullptr);
@@ -22,6 +31,20 @@ com::Physics2D* Physics2D::addPhysicsToEntity(ecs::Entity entity, b2BodyDef body
 
     return engine->ecs().emplaceComponent<com::Physics2D>(
         entity, *this, entity, *set.get<com::Transform2D>(), bodyId.value());
+}
+
+com::Physics2D* Physics2D::findEntityAtPosition(const engine::World2D& world, const glm::vec2& pos,
+                                                b2QueryFilter filter) const {
+    const float s = world.getWorldToBoxScale();
+    const b2Circle circle{.center = b2Vec2(s, s), .radius = s};
+    b2Transform transform = b2Transform_identity;
+    transform.p           = b2Vec2(pos.x * s, pos.y * s);
+    b2ShapeId found       = b2_nullShapeId;
+    b2World_OverlapCircle(
+        world.getBox2dWorldId(), &circle, transform, filter, &worldOverlapCallback, &found);
+    if (B2_IS_NULL(found)) { return nullptr; }
+    const b2BodyId body = b2Shape_GetBody(found);
+    return static_cast<com::Physics2D*>(b2Body_GetUserData(body));
 }
 
 void Physics2D::createSensorForEntity(ecs::Entity entity, b2Filter filter) {

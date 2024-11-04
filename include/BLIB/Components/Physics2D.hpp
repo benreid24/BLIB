@@ -34,6 +34,11 @@ public:
     Physics2D(sys::Physics2D& system, ecs::Entity owner, Transform2D& transform, b2BodyId bodyId);
 
     /**
+     * @brief Returns the entity id that owns this component
+     */
+    ecs::Entity getOwner() const { return entity; }
+
+    /**
      * @brief Applies a force, in Newtons, to the physics body CoM
      *
      * @param force The force in Newtons
