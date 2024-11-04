@@ -36,9 +36,9 @@ com::Physics2D* Physics2D::addPhysicsToEntity(ecs::Entity entity, b2BodyDef body
 com::Physics2D* Physics2D::findEntityAtPosition(const engine::World2D& world, const glm::vec2& pos,
                                                 b2QueryFilter filter) const {
     const float s = world.getWorldToBoxScale();
-    const b2Circle circle{.center = b2Vec2(s, s), .radius = s};
+    const b2Circle circle{.center = {s, s}, .radius = s};
     b2Transform transform = b2Transform_identity;
-    transform.p           = b2Vec2(pos.x * s, pos.y * s);
+    transform.p           = {pos.x * s, pos.y * s};
     b2ShapeId found       = b2_nullShapeId;
     b2World_OverlapCircle(
         world.getBox2dWorldId(), &circle, transform, filter, &worldOverlapCallback, &found);
@@ -141,6 +141,7 @@ float Physics2D::getWorldToBoxScale(ecs::Entity ent) const {
 }
 
 void Physics2D::observe(const ecs::event::ComponentRemoved<com::Physics2D>& event) {
+    const_cast<com::Physics2D&>(event.component).system = nullptr;
     b2DestroyBody(event.component.bodyId);
 }
 
