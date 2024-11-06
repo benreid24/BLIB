@@ -9,4 +9,5 @@ target_sources(BLIB.t PUBLIC
     QuadTree.t.cpp
     RingBuffer.t.cpp
     RingQueue.t.cpp
+    StaticRingBuffer.t.cpp
 )

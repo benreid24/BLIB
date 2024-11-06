@@ -1,9 +1,9 @@
-#ifndef BLIB_CONTAINERS_RINGBUFFER_HPP
-#define BLIB_CONTAINERS_RINGBUFFER_HPP
+#ifndef BLIB_CONTAINERS_STATICRINGBUFFER_HPP
+#define BLIB_CONTAINERS_STATICRINGBUFFER_HPP
 
 #include <BLIB/Containers/ObjectWrapper.hpp>
+#include <array>
 #include <utility>
-#include <vector>
 
 namespace bl
 {
@@ -11,21 +11,21 @@ namespace ctr
 {
 /**
  * @brief Simple circular buffer implementation for small objects. Underlying storage is a
- *        std::vector of buffers. Objects are constructed with placement new and destructors
+ *        std::array of buffers. Objects are constructed with placement new and destructors
  *        are called when erased, cleared, or overwritten
  *
  * @tparam T Type of object to store
+ * @tparam Capacity The max capacity of the ring buffer
  * @ingroup Containers
  */
-template<typename T>
-class RingBuffer {
+template<typename T, std::size_t Capacity>
+class StaticRingBuffer {
 public:
     /**
-     * @brief Construct a new Ring Buffer with the given capacity
+     * @brief Construct a new Ring Buffer
      *
-     * @param capacity Maximum buffer size
      */
-    RingBuffer(std::size_t capacity);
+    StaticRingBuffer();
 
     /**
      * @brief Access the element at the given position
@@ -131,7 +131,7 @@ public:
     void clear();
 
 private:
-    std::vector<ObjectWrapper<T>> buffer;
+    std::array<ObjectWrapper<T>, Capacity> buffer;
     std::size_t head;
     std::size_t tail;
     std::size_t sz;
@@ -142,107 +142,107 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-template<typename T>
-RingBuffer<T>::RingBuffer(std::size_t cap)
-: buffer(cap)
+template<typename T, std::size_t Capacity>
+StaticRingBuffer<T, Capacity>::StaticRingBuffer()
+: buffer()
 , head(0)
 , tail(0)
 , sz(0) {}
 
-template<typename T>
-T& RingBuffer<T>::operator[](std::size_t i) {
+template<typename T, std::size_t Capacity>
+T& StaticRingBuffer<T, Capacity>::operator[](std::size_t i) {
     return buffer[(head + i) % buffer.size()].get();
 }
 
-template<typename T>
-const T& RingBuffer<T>::operator[](std::size_t i) const {
+template<typename T, std::size_t Capacity>
+const T& StaticRingBuffer<T, Capacity>::operator[](std::size_t i) const {
     return buffer[(head + i) % buffer.size()].get();
 }
 
-template<typename T>
-T& RingBuffer<T>::front() {
+template<typename T, std::size_t Capacity>
+T& StaticRingBuffer<T, Capacity>::front() {
     return buffer[head].get();
 }
 
-template<typename T>
-const T& RingBuffer<T>::front() const {
+template<typename T, std::size_t Capacity>
+const T& StaticRingBuffer<T, Capacity>::front() const {
     return buffer[head].get();
 }
 
-template<typename T>
-T& RingBuffer<T>::back() {
+template<typename T, std::size_t Capacity>
+T& StaticRingBuffer<T, Capacity>::back() {
     return buffer[(head + sz - 1) % buffer.size()].get();
 }
 
-template<typename T>
-const T& RingBuffer<T>::back() const {
+template<typename T, std::size_t Capacity>
+const T& StaticRingBuffer<T, Capacity>::back() const {
     return buffer[(head + sz - 1) % buffer.size()].get();
 }
 
-template<typename T>
-std::size_t RingBuffer<T>::size() const {
+template<typename T, std::size_t Capacity>
+std::size_t StaticRingBuffer<T, Capacity>::size() const {
     return sz;
 }
 
-template<typename T>
-bool RingBuffer<T>::empty() const {
+template<typename T, std::size_t Capacity>
+bool StaticRingBuffer<T, Capacity>::empty() const {
     return sz == 0;
 }
 
-template<typename T>
-std::size_t RingBuffer<T>::capacity() const {
+template<typename T, std::size_t Capacity>
+std::size_t StaticRingBuffer<T, Capacity>::capacity() const {
     return buffer.size();
 }
 
-template<typename T>
-bool RingBuffer<T>::full() const {
+template<typename T, std::size_t Capacity>
+bool StaticRingBuffer<T, Capacity>::full() const {
     return size() == capacity();
 }
 
-template<typename T>
-void RingBuffer<T>::push_back(const T& obj) {
+template<typename T, std::size_t Capacity>
+void StaticRingBuffer<T, Capacity>::push_back(const T& obj) {
     checkHead();
     buffer[tail].emplace(obj);
     increaseSize();
 }
 
-template<typename T>
-void RingBuffer<T>::push_back(T&& obj) {
+template<typename T, std::size_t Capacity>
+void StaticRingBuffer<T, Capacity>::push_back(T&& obj) {
     checkHead();
     buffer[tail].emplace(std::forward<T>(obj));
     increaseSize();
 }
 
-template<typename T>
+template<typename T, std::size_t Capacity>
 template<typename... TArgs>
-void RingBuffer<T>::emplace_back(TArgs&&... args) {
+void StaticRingBuffer<T, Capacity>::emplace_back(TArgs&&... args) {
     checkHead();
     buffer[tail].emplace(std::forward<TArgs>(args)...);
     increaseSize();
 }
 
-template<typename T>
-void RingBuffer<T>::clear() {
+template<typename T, std::size_t Capacity>
+void StaticRingBuffer<T, Capacity>::clear() {
     for (unsigned int i = 0; i < size(); ++i) { buffer[(head + i) % buffer.size()].destroy(); }
     head = 0;
     tail = 0;
     sz   = 0;
 }
 
-template<typename T>
-void RingBuffer<T>::increaseSize() {
+template<typename T, std::size_t Capacity>
+void StaticRingBuffer<T, Capacity>::increaseSize() {
     tail = (tail + 1) % buffer.size();
     if (full()) { head = (head + 1) % buffer.size(); }
     else { ++sz; }
 }
 
-template<typename T>
-void RingBuffer<T>::checkHead() {
+template<typename T, std::size_t Capacity>
+void StaticRingBuffer<T, Capacity>::checkHead() {
     if (sz > 0 && head == tail) { buffer[head].destroy(); }
 }
 
-template<typename T>
-void RingBuffer<T>::pop_front() {
+template<typename T, std::size_t Capacity>
+void StaticRingBuffer<T, Capacity>::pop_front() {
     if (!empty()) {
         buffer[head].destroy();
         head = (head + 1) % buffer.size();
