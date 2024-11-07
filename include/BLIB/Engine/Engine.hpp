@@ -247,10 +247,12 @@ public:
     /**
      * @brief Fetch the world at the given index
      *
+     * @tparam TWorld The world type to cast to
      * @param index The index of the world to fetch
      * @return The world at the given index
      */
-    util::Ref<World> getWorld(unsigned int index);
+    template<typename TWorld = World>
+    util::Ref<World, TWorld> getWorld(unsigned int index);
 
 private:
     Worker worker;
@@ -353,6 +355,7 @@ T& Engine::addPlayer(TArgs&&... args) {
 
 template<typename TWorld, typename... TArgs>
 util::Ref<World, TWorld> Engine::createWorld(TArgs&&... args) {
+    static_assert(std::is_base_of_v<World, TWorld>, "TWorld must derive from World");
     static_assert(std::is_constructible_v<TWorld, Engine&, TArgs...>,
                   "TWorld constructor must take Engine& as first parameter");
 
@@ -369,7 +372,11 @@ util::Ref<World, TWorld> Engine::createWorld(TArgs&&... args) {
     throw std::runtime_error("A maximum of 8 worlds may exist concurrently");
 }
 
-inline util::Ref<World> Engine::getWorld(unsigned int index) { return worlds[index]; }
+template<typename TWorld>
+util::Ref<World, TWorld> Engine::getWorld(unsigned int index) {
+    static_assert(std::is_base_of_v<World, TWorld>, "TWorld must derive from World");
+    return util::Ref<World, TWorld>(worlds[index]);
+}
 
 template<typename TWorld, typename... TArgs>
 util::Ref<World, TWorld> Player::enterWorld(TArgs&&... args) {
