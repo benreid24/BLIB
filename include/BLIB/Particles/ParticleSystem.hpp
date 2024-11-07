@@ -153,8 +153,6 @@ ParticleManager<T>& ParticleSystem::addRepeatedSystem(engine::World& world) {
 
 template<typename T>
 void ParticleSystem::removeRepeatedSystem(ParticleManager<T>* system) {
-    using U = ParticleManager<T>;
-
     std::unique_lock lock(mutex);
 
     const auto it = multiSystems.find(typeid(T));

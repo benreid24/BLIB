@@ -161,7 +161,7 @@ class Transaction<EntityCtx, tx::ComponentRead<TReadComs...>, tx::ComponentWrite
 , public txp::TransactionComponentRead<TReadComs>...
 , public txp::TransactionComponentWrite<TWriteComs>...
 , private util::NonCopyable {
-    using EntityBase = txp::TxEntityResolve<EntityCtx>::T;
+    using EntityBase = typename txp::TxEntityResolve<EntityCtx>::T;
 
 public:
     /**
