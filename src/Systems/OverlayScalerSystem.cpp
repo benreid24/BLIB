@@ -96,8 +96,9 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
     com::Transform2D& transform = *cset.get<com::Transform2D>();
     rc::ovy::OverlayObject& obj = *cset.get<rc::ovy::OverlayObject>();
 
-    scaler.dirty            = false;
-    scaler.transformVersion = transform.getVersion();
+    scaler.dirty              = false;
+    scaler.transformVersion   = transform.getVersion();
+    scaler.cachedScaledOrigin = transform.getOrigin() * transform.getScale();
 
     // dummy entities only get scissor, all else is skipped
     if (cset.entity().flagSet(ecs::Flags::Dummy)) {
@@ -109,11 +110,13 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
 
     const VkViewport& viewport = *obj.overlayViewport;
     glm::vec2 parentSize       = cam::OverlayCamera::getOverlayCoordinateSpace();
+    glm::vec2 parentOrigin(0.f, 0.f);
     if (scaler.hasParent()) {
         parentSize.x =
             scaler.getParent().cachedObjectBounds.width * transform.getParent().getScale().x;
         parentSize.y =
             scaler.getParent().cachedObjectBounds.height * transform.getParent().getScale().y;
+        parentOrigin = scaler.getParent().cachedScaledOrigin;
     }
 
     float xScale = 1.f;
@@ -165,7 +168,7 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
     // position
     switch (scaler.posType) {
     case com::OverlayScaler::ParentSpace:
-        transform.setPosition(scaler.parentPosition * parentSize);
+        transform.setPosition(scaler.parentPosition * parentSize - parentOrigin);
         break;
 
     case com::OverlayScaler::NoPosition:

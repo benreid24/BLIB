@@ -167,6 +167,7 @@ private:
     OnScale onScale;
     sf::FloatRect cachedObjectBounds;
     sf::FloatRect cachedTargetRegion;
+    glm::vec2 cachedScaledOrigin;
     ScaleType scaleType;
     union {
         float pixelRatio;

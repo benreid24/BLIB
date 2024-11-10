@@ -89,8 +89,11 @@ public:
 
     /**
      * @brief Returns the world the player is in. Must be in a world
+     *
+     * @tparam TWorld The world type to cast to
      */
-    World& getCurrentWorld() { return *worldStack.top(); }
+    template<typename TWorld = World>
+    TWorld& getCurrentWorld();
 
     /**
      * @brief Exits the current world, popping it from this player's world stack
@@ -131,6 +134,22 @@ private:
 
     friend class Engine;
 };
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+template<typename TWorld>
+TWorld& Player::getCurrentWorld() {
+    static_assert(std::is_base_of_v<World, TWorld>, "TWorld must derive from World");
+
+#ifdef BLIB_DEBUG
+    TWorld* w = dynamic_cast<TWorld*>(worldStack.top().get());
+    if (!w) { BL_LOG_ERROR << "Incorrect world type cast"; }
+#else
+    TWorld* w = static_cast<TWorld*>(worldStack.top().get());
+#endif
+
+    return *w;
+}
 
 } // namespace engine
 } // namespace bl

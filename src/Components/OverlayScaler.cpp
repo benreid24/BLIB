@@ -6,6 +6,7 @@ namespace com
 {
 OverlayScaler::OverlayScaler()
 : cachedObjectBounds(0.f, 0.f, 50.f, 50.f)
+, cachedScaledOrigin(0.f, 0.f)
 , scaleType(None)
 , sizePercent(0.1f, 0.1f)
 , posType(NoPosition)
