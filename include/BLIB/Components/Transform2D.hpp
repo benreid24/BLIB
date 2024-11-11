@@ -229,6 +229,7 @@ private:
 
     void makeDirty();
     void ensureUpdated();
+    void clampAngle();
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

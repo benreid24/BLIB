@@ -43,7 +43,7 @@ public:
     /**
      * @brief Returns the game engine instance
      */
-    Engine& engine() { return owner; }
+    Engine& engine() const { return owner; }
 
     /**
      * @brief Returns the scene for this world

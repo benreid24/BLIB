@@ -174,7 +174,7 @@ private:
         engine.getPlayer().leaveWorld();
     }
 
-    virtual void update(bl::engine::Engine&, float, float) override {
+    virtual void update(bl::engine::Engine&, float dt, float) override {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::G)) {
             rectangle.setHorizontalColorGradient({0.f, 0.f, 1.f, 1.f}, {0.f, 1.f, 0.f, 1.f});
             circle.setColorGradient({1.f, 0.f, 0.f, 1.f}, {0.f, 0.f, 1.f, 1.f});
@@ -200,6 +200,14 @@ private:
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) { rectangle.removeFromScene(); }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
             rectangle.addToScene(scene, bl::rc::UpdateSpeed::Static);
+        }
+
+        constexpr float Rate = 180.f;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Comma)) {
+            animation.getTransform().rotate(Rate * dt);
+        }
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Period)) {
+            animation.getTransform().rotate(-Rate * dt);
         }
     }
 };
