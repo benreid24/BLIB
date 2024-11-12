@@ -87,28 +87,38 @@ bool PathFinder<TNode, CHash>::findPath(const TNode& start, const TNode& destina
         nodeCb(currentPos, adjCoords);
         toVisit.pop();
 
-        if (currentPos == destination) {
-            endReached = true;
-            break;
-        }
-
         for (const std::pair<TNode, int>& nextPos : adjCoords) {
             if (nextPos.second < 0) continue;
 
             auto distanceIter     = positionDistances.find(nextPos.first);
             const int estDistance = currentDistance + nextPos.second;
             if (distanceIter == positionDistances.end() || estDistance < distanceIter->second) {
-                prevPositionMap[nextPos.first]   = currentPos;
+                prevPositionMap[nextPos.first] = currentPos;
+                if (nextPos.first == destination) {
+                    endReached = true;
+                    break;
+                }
+
                 positionDistances[nextPos.first] = estDistance;
                 toVisit.emplace(estDistance + distCb(nextPos.first, destination), nextPos.first);
             }
         }
+
+        if (endReached) { break; }
     }
     if (!endReached) return false;
 
-    const std::size_t pathLength = positionDistances[destination];
-    TNode currentPos             = destination;
-    std::size_t i                = pathLength - 1;
+    // determine path length in nodes
+    std::size_t pathLength = 0;
+    TNode currentPos       = destination;
+    while (currentPos != start) {
+        ++pathLength;
+        currentPos = prevPositionMap[currentPos];
+    }
+
+    // populate path
+    std::size_t i = pathLength - 1;
+    currentPos    = destination;
     result.resize(pathLength);
     while (currentPos != start) {
         result[i]  = currentPos;
