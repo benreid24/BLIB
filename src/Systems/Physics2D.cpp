@@ -126,9 +126,14 @@ void Physics2D::update(std::mutex&, float dt, float, float, float) {
     }
 }
 
-ecs::Entity Physics2D::getEntityFromShape(b2ShapeId shapeId) {
+com::Physics2D* Physics2D::getPhysicsComponentFromShape(b2ShapeId shapeId) {
     const b2BodyId body = b2Shape_GetBody(shapeId);
-    return static_cast<com::Physics2D*>(b2Body_GetUserData(body))->entity;
+    return static_cast<com::Physics2D*>(b2Body_GetUserData(body));
+}
+
+ecs::Entity Physics2D::getEntityFromShape(b2ShapeId shapeId) {
+    com::Physics2D* phys = getPhysicsComponentFromShape(shapeId);
+    return phys ? phys->entity : ecs::InvalidEntity;
 }
 
 float Physics2D::getWorldToBoxScale(unsigned int wi) const {

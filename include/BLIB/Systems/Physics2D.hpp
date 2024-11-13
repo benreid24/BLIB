@@ -128,6 +128,14 @@ public:
     float getWorldToBoxScale(ecs::Entity entity) const;
 
     /**
+     * @brief Helper method to get the physics component from a Box2D shape id
+     *
+     * @param shapeId The shape to get the physics component for
+     * @return Pointer to the physics component. May be nullptr (but should not be)
+     */
+    static com::Physics2D* getPhysicsComponentFromShape(b2ShapeId shapeId);
+
+    /**
      * @brief Helper method to get an entity from a Box2D shape id
      *
      * @param shapeId The shape to get the entity for

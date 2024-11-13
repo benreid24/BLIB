@@ -7,6 +7,7 @@
 #include <limits>
 #include <mutex>
 #include <ostream>
+#include <sstream>
 
 namespace bl
 {
@@ -167,6 +168,17 @@ struct Entity {
     friend std::ostream& operator<<(std::ostream& os, Entity entity) {
         os << entity.getIndex() << "-v" << entity.getVersion();
         return os;
+    }
+
+    /**
+     * @brief Converts this entity to a human readable string
+     */
+    std::string toString() const {
+        if (id == InvalidId) { return "<invalid>"; }
+
+        std::stringstream ss;
+        ss << *this;
+        return ss.str();
     }
 };
 
