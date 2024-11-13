@@ -1,6 +1,7 @@
 #ifndef BLIB_CONTAINERS_RINGBUFFER_HPP
 #define BLIB_CONTAINERS_RINGBUFFER_HPP
 
+#include <BLIB/Containers/ObjectWrapper.hpp>
 #include <utility>
 #include <vector>
 
@@ -130,26 +131,7 @@ public:
     void clear();
 
 private:
-    class Entry {
-    public:
-        void assign(const T& v) { new (cast()) T(v); }
-
-        void move(T&& v) { new (cast()) T(std::forward<T>(v)); }
-
-        template<typename... TArgs>
-        void emplace(TArgs&&... args) {
-            new (cast()) T(std::forward<TArgs>(args)...);
-        }
-
-        void destroy() { cast()->~T(); }
-
-        T* cast() { return static_cast<T*>(static_cast<void*>(buf)); }
-
-    private:
-        char buf[sizeof(T)];
-    };
-
-    std::vector<Entry> buffer;
+    std::vector<ObjectWrapper<T>> buffer;
     std::size_t head;
     std::size_t tail;
     std::size_t sz;
@@ -169,32 +151,32 @@ RingBuffer<T>::RingBuffer(std::size_t cap)
 
 template<typename T>
 T& RingBuffer<T>::operator[](std::size_t i) {
-    return *buffer[(head + i) % buffer.size()].cast();
+    return buffer[(head + i) % buffer.size()].get();
 }
 
 template<typename T>
 const T& RingBuffer<T>::operator[](std::size_t i) const {
-    return *buffer[(head + i) % buffer.size()].cast();
+    return buffer[(head + i) % buffer.size()].get();
 }
 
 template<typename T>
 T& RingBuffer<T>::front() {
-    return *buffer[head].cast();
+    return buffer[head].get();
 }
 
 template<typename T>
 const T& RingBuffer<T>::front() const {
-    return *buffer[head].cast();
+    return buffer[head].get();
 }
 
 template<typename T>
 T& RingBuffer<T>::back() {
-    return *buffer[(head + sz - 1) % buffer.size()].cast();
+    return buffer[(head + sz - 1) % buffer.size()].get();
 }
 
 template<typename T>
 const T& RingBuffer<T>::back() const {
-    return *buffer[(head + sz - 1) % buffer.size()].cast();
+    return buffer[(head + sz - 1) % buffer.size()].get();
 }
 
 template<typename T>
@@ -220,14 +202,14 @@ bool RingBuffer<T>::full() const {
 template<typename T>
 void RingBuffer<T>::push_back(const T& obj) {
     checkHead();
-    buffer[tail].assign(obj);
+    buffer[tail].emplace(obj);
     increaseSize();
 }
 
 template<typename T>
 void RingBuffer<T>::push_back(T&& obj) {
     checkHead();
-    buffer[tail].move(std::forward<T>(obj));
+    buffer[tail].emplace(std::forward<T>(obj));
     increaseSize();
 }
 
@@ -256,7 +238,7 @@ void RingBuffer<T>::increaseSize() {
 
 template<typename T>
 void RingBuffer<T>::checkHead() {
-    if (head == tail) buffer[head].destroy();
+    if (sz > 0 && head == tail) { buffer[head].destroy(); }
 }
 
 template<typename T>

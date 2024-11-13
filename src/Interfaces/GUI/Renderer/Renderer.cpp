@@ -8,8 +8,8 @@ namespace gui
 {
 namespace rdr
 {
-Renderer::Renderer(engine::Engine& engine, GUI& gui, FactoryTable& factory)
-: engine(engine)
+Renderer::Renderer(engine::World& world, GUI& gui, FactoryTable& factory)
+: world(world)
 , gui(gui)
 , factory(factory)
 , overlay(nullptr)
@@ -18,9 +18,9 @@ Renderer::Renderer(engine::Engine& engine, GUI& gui, FactoryTable& factory)
 , highlightProvider(factory.createHighlightProvider())
 , tooltipProvider(factory.createTooltipProvider())
 , currentTooltip(nullptr) {
-    flashProvider->doCreate(engine);
-    highlightProvider->doCreate(engine);
-    tooltipProvider->doCreate(engine);
+    flashProvider->doCreate(world);
+    highlightProvider->doCreate(world);
+    tooltipProvider->doCreate(world);
 }
 
 Renderer::~Renderer() { *alive = false; }

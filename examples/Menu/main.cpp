@@ -17,13 +17,13 @@ public:
     virtual const char* name() const override { return "DemoState"; }
 
     virtual void activate(bl::engine::Engine& engine) override {
-        engine.renderer().getObserver().pushScene<bl::rc::Overlay>();
+        auto world = engine.getPlayer().enterWorld<bl::engine::BasicWorld<bl::rc::Overlay>>();
 
         font.loadFromFile("font.ttf");
         auto texture = engine.renderer().texturePool().getOrLoadTexture("title.png");
 
         ArrowSelector::Ptr selector = ArrowSelector::create(12, sf::Color::White);
-        menu.create(engine, engine.renderer().getObserver(), selector);
+        menu.create(*world, engine.getPlayer(), selector);
 
         Item::Ptr title = ImageItem::create(texture);
         title->setSelectable(false);
@@ -72,7 +72,7 @@ public:
     virtual void deactivate(bl::engine::Engine& engine) override {
         bl::event::Dispatcher::unsubscribe(&keyboardEventGenerator);
         bl::event::Dispatcher::unsubscribe(&mouseEventGenerator);
-        engine.renderer().getObserver().popScene();
+        engine.getPlayer().leaveWorld();
     }
 
     virtual void update(bl::engine::Engine&, float, float) override {

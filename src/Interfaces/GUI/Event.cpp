@@ -7,28 +7,10 @@ namespace bl
 {
 namespace gui
 {
-namespace
-{
-std::optional<sf::Vector2f> extractPos(const sf::Event& event) {
-    switch (event.type) {
-    case sf::Event::MouseWheelScrolled:
-        return sf::Vector2f(event.mouseWheelScroll.x, event.mouseWheelScroll.y);
-    case sf::Event::MouseButtonPressed:
-    case sf::Event::MouseButtonReleased:
-        return sf::Vector2f(event.mouseButton.x, event.mouseButton.y);
-    case sf::Event::MouseMoved:
-        return sf::Vector2f(event.mouseMove.x, event.mouseMove.y);
-    default:
-        return {};
-    }
-}
-} // namespace
-
-Event Event::fromSFML(const sf::Event& event, const sf::Vector2f& position) {
-    const sf::Vector2f pos = extractPos(event).value_or(position);
+Event Event::fromSFML(const sf::Event& event, const sf::Vector2f& pos) {
     switch (event.type) {
     case sf::Event::MouseMoved:
-        return Event(Event::MouseMoved, sf::Vector2f(event.mouseMove.x, event.mouseMove.y));
+        return Event(Event::MouseMoved, pos);
     case sf::Event::MouseLeft:
         return Event(Event::MouseOutsideWindow, sf::Vector2f(-1000000.f, -100000000.f));
     case sf::Event::TextEntered:

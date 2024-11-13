@@ -22,13 +22,17 @@ Actor::Actor(InputSystem& owner, const std::vector<Control::Type>& schema)
 : owner(owner)
 , joystick(sf::Joystick::Count)
 , activeControls(&kbmControls) {
+    resetControls(schema);
+    listeners.reserve(8);
+}
+
+void Actor::resetControls(const std::vector<Control::Type>& schema) {
     kbmControls.reserve(schema.size());
     joystickControls.reserve(schema.size());
     for (const Control::Type ctype : schema) {
         kbmControls.emplace_back(ctype, false);
         joystickControls.emplace_back(ctype, true);
     }
-    listeners.reserve(8);
 }
 
 Actor::~Actor() {

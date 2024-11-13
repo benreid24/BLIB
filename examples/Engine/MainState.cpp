@@ -19,20 +19,23 @@ void MainState::activate(bl::engine::Engine& engine) {
     if (!inited) {
         inited = true;
 
-        font = bl::resource::ResourceManager<sf::VulkanFont>::load("font.ttf");
-        listener.init(engine);
+        world = engine.createWorld<bl::engine::BasicWorld<bl::rc::scene::Scene2D>>();
 
-        kbmControls.create(engine, *font, "", 22, {0.f, 0.f, 0.f, 1.f});
+        font = bl::resource::ResourceManager<sf::VulkanFont>::load("font.ttf");
+        listener.init(*world);
+
+        kbmControls.create(*world, *font, "", 22, {0.f, 0.f, 0.f, 1.f});
         kbmControls.getTransform().setPosition({400.f, 5.f});
 
-        jsControls.create(engine, *font, "", 22, {0.f, 0.f, 0.f, 1.f});
+        jsControls.create(*world, *font, "", 22, {0.f, 0.f, 0.f, 1.f});
         jsControls.getTransform().setPosition({400.f, 355.f});
 
-        cover.create(engine, {800.f, 800.f});
+        cover.create(*world, {800.f, 800.f});
         cover.setFillColor({1.f, 1.f, 1.f, 1.f});
     }
 
-    bl::rc::SceneRef scene = engine.renderer().getObserver().pushScene<bl::rc::scene::Scene2D>();
+    bl::rc::SceneRef scene = world->scene();
+    engine.getPlayer().enterWorld(world);
     kbmControls.addToScene(scene, bl::rc::UpdateSpeed::Static);
     jsControls.addToScene(scene, bl::rc::UpdateSpeed::Static);
     cover.addToScene(scene, bl::rc::UpdateSpeed::Static);
@@ -44,7 +47,7 @@ void MainState::activate(bl::engine::Engine& engine) {
 }
 
 void MainState::deactivate(bl::engine::Engine& engine) {
-    engine.renderer().getObserver().popScene();
+    engine.getPlayer().leaveWorld();
     engine.inputSystem().getActor().removeListener(listener);
 }
 

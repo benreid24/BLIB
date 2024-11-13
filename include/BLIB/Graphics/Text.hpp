@@ -9,7 +9,7 @@
 #include <BLIB/Graphics/Drawable.hpp>
 #include <BLIB/Graphics/Text/BasicText.hpp>
 #include <BLIB/Graphics/Text/VulkanFont.hpp>
-#include <BLIB/Render/Primitives/Color.hpp>
+#include <BLIB/Render/Color.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <initializer_list>
 #include <vector>
@@ -67,50 +67,16 @@ public:
      * @brief Creates the text entity and components in the ECS and creates a section using the
      *        given settings. This must be called before using any other method on the Text object
      *
-     * @param engine The game engine instance
+     * @param world The world to create the object in
      * @param font The font to use
      * @param content The string to render
      * @param fontSize The font size of the text
      * @param color The color of the text
      * @param style The style of the text
      */
-    void create(engine::Engine& engine, const sf::VulkanFont& font, const sf::String& content = {},
-                unsigned int fontSize = 18, const glm::vec4& color = {0.f, 0.f, 0.f, 1.f},
+    void create(engine::World& world, const sf::VulkanFont& font, const sf::String& content = {},
+                unsigned int fontSize = 18, const rc::Color& color = sf::Color::Black,
                 std::uint32_t style = sf::Text::Regular);
-
-    /**
-     * @brief Creates the text entity and components in the ECS and creates a section using the
-     *        given settings. This must be called before using any other method on the Text object
-     *
-     * @param engine The game engine instance
-     * @param font The font to use
-     * @param content The string to render
-     * @param fontSize The font size of the text
-     * @param color The color of the text
-     * @param style The style of the text
-     */
-    void create(engine::Engine& engine, const sf::VulkanFont& font, const sf::String& content,
-                unsigned int fontSize, const sf::Color& color,
-                std::uint32_t style = sf::Text::Regular) {
-        create(engine, font, content, fontSize, sfcol(color), style);
-    }
-
-    /**
-     * @brief Creates the text entity and components in the ECS and creates a section using the
-     *        given settings. This must be called before using any other method on the Text object
-     *
-     * @param engine The game engine instance
-     * @param font The font to use
-     * @param content The string to render
-     * @param fontSize The font size of the text
-     * @param color The color of the text
-     * @param style The style of the text
-     */
-    void create(engine::Engine& engine, const sf::VulkanFont& font, const sf::String& content,
-                unsigned int fontSize, std::initializer_list<float> color,
-                std::uint32_t style = sf::Text::Regular) {
-        create(engine, font, content, fontSize, sfcol(color), style);
-    }
 
     /**
      * @brief Changes the font used to render the text
@@ -122,7 +88,7 @@ public:
     /**
      * @brief Returns the font used by the text
      */
-    constexpr const sf::VulkanFont& getFont() const;
+    const sf::VulkanFont& getFont() const;
 
     /**
      * @brief Returns a section of formatted text within this text
@@ -152,41 +118,8 @@ public:
      * @return A reference to the new text section
      */
     txt::BasicText& addSection(const sf::String& content = {}, unsigned int fontSize = 18,
-                               const glm::vec4& color = {0.f, 0.f, 0.f, 1.f},
+                               const rc::Color& color = sf::Color::Black,
                                std::uint32_t style    = sf::Text::Regular);
-
-    /**
-     * @brief Creates a section using the given settings
-     *
-     * @param engine The game engine instance
-     * @param font The font to use
-     * @param content The string to render
-     * @param fontSize The font size of the text
-     * @param color The color of the text
-     * @param style The style of the text
-     * @return A reference to the new text section
-     */
-    txt::BasicText& addSection(const sf::String& content, unsigned int fontSize,
-                               const sf::Color& color, std::uint32_t style = sf::Text::Regular) {
-        return addSection(content, fontSize, sfcol(color), style);
-    }
-
-    /**
-     * @brief Creates a section using the given settings
-     *
-     * @param engine The game engine instance
-     * @param font The font to use
-     * @param content The string to render
-     * @param fontSize The font size of the text
-     * @param color The color of the text
-     * @param style The style of the text
-     * @return A reference to the new text section
-     */
-    txt::BasicText& addSection(const sf::String& content, unsigned int fontSize,
-                               std::initializer_list<float> color,
-                               std::uint32_t style = sf::Text::Regular) {
-        return addSection(content, fontSize, sfcol(color), style);
-    }
 
     /**
      * @brief Returns the bounding rectangle of the text in pre-transform space
@@ -288,15 +221,15 @@ private:
             return *this;
         }
 
-        constexpr bool operator==(const Iter& right) const {
+        bool operator==(const Iter& right) const {
             return section == right.section && i == right.i;
         }
 
-        constexpr txt::BasicText& getText() { return *section; }
+        txt::BasicText& getText() { return *section; }
         std::uint32_t getChar() const {
             return i < section->content.getSize() ? section->content[i] : ' ';
         }
-        constexpr std::uint32_t index() const { return i; }
+        std::uint32_t index() const { return i; }
         void makeNewline() {
             if (i < section->wordWrappedContent.getSize()) {
                 section->wordWrappedContent[i] = '\n';
@@ -335,7 +268,7 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr const sf::VulkanFont& Text::getFont() const { return *font; }
+inline const sf::VulkanFont& Text::getFont() const { return *font; }
 
 inline txt::BasicText& Text::getSection(unsigned int i) { return sections[i]; }
 

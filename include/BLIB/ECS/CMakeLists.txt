@@ -14,6 +14,8 @@ target_sources(BLIB PUBLIC
     Registry.hpp
     Tags.hpp
     TagsImpl.hpp
+    Transaction.hpp
+    TransactionImpl.hpp
     View.hpp
     ViewImpl.hpp
 )

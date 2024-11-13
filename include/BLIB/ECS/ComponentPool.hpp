@@ -5,6 +5,7 @@
 #include <BLIB/ECS/Events.hpp>
 #include <BLIB/ECS/Traits/ChildAware.hpp>
 #include <BLIB/ECS/Traits/ParentAware.hpp>
+#include <BLIB/ECS/Transaction.hpp>
 #include <BLIB/Events.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
@@ -29,7 +30,6 @@ class View;
  * @brief Base class for component pools. Not intended to be used directly
  *
  * @ingroup ECS
- *
  */
 class ComponentPoolBase : private util::NonCopyable {
 public:
@@ -38,18 +38,20 @@ public:
 
     /**
      * @brief Destroy the Component Pool Base object
-     *
      */
     virtual ~ComponentPoolBase() = default;
 
 protected:
-    util::ReadWriteLock poolLock;
+    std::mutex removalQueueMutex;
+    mutable util::ReadWriteLock poolLock;
 
     ComponentPoolBase(std::uint16_t index)
     : ComponentIndex(index) {}
 
     virtual void fireRemoveEventOnly(Entity entity)            = 0;
     virtual void* remove(Entity entity, bool fireEvent = true) = 0;
+    virtual void* queueRemove(Entity entity)                   = 0;
+    virtual void flushRemovals()                               = 0;
     virtual void clear()                                       = 0;
 
     virtual void onParentSet(Entity child, Entity parent)     = 0;
@@ -58,6 +60,13 @@ protected:
     template<typename TRequire, typename TOptional, typename TExclude>
     friend class View;
     friend class Registry;
+
+    template<tx::EntityContext Ctx, typename ComRead, typename ComWrite>
+    friend class Transaction;
+    template<typename T>
+    friend class txp::TransactionComponentRead;
+    template<typename T>
+    friend class txp::TransactionComponentWrite;
 };
 
 /**
@@ -69,6 +78,9 @@ protected:
 template<typename T>
 class ComponentPool : public ComponentPoolBase {
 public:
+    static constexpr bool IsParentAware = std::is_base_of_v<trait::ParentAware<T>, T>;
+    static constexpr bool IsChildAware  = std::is_base_of_v<trait::ChildAware<T>, T>;
+
     /**
      * @brief Fetches the component for the given entity if it exists
      *
@@ -76,6 +88,15 @@ public:
      * @return T* Pointer to the component or nullptr if the entity does not have one
      */
     T* get(Entity entity);
+
+    /**
+     * @brief Fetches the component for the given entity if it exists
+     *
+     * @param entity The entity to get the component for
+     * @param transaction The transaction to use to synchronize access
+     * @return T* Pointer to the component or nullptr if the entity does not have one
+     */
+    T* get(Entity entity, const Transaction<tx::EntityUnlocked, tx::ComponentRead<T>>& transaction);
 
     /**
      * @brief Iterates over all contained components and triggers the callback for each
@@ -87,15 +108,15 @@ public:
     void forEach(const TCallback& cb);
 
     /**
-     * @brief Iterates over all contained components and triggers the callback for each. Acquires a
-     *        write lock on the pool. Use this if the callback may remove components, otherwise
-     *        prefer forEach()
+     * @brief Iterates over all contained components and triggers the callback for each
      *
      * @tparam TCallback The callback type to invoke
+     * @param transaction The transaction to use to synchronize access
      * @param cb The handler for each component. Takes the entity id and the component
      */
     template<typename TCallback>
-    void forEachWithWrites(const TCallback& cb);
+    void forEach(const TCallback& cb,
+                 const Transaction<tx::EntityUnlocked, tx::ComponentRead<T>>& transaction);
 
 private:
     static constexpr std::size_t DefaultCapacity = 64;
@@ -117,24 +138,37 @@ private:
     TStorage storage;
     std::vector<T*> entityToComponent;
     std::vector<typename TStorage::iterator> entityToIter;
+    std::vector<Entity> queuedRemovals;
 
     ComponentPool(Registry& owner, std::uint16_t index);
     virtual ~ComponentPool();
 
     void preAdd(Entity entity);
     void postAdd(Entity entity, typename TStorage::iterator it);
-    T* add(Entity entity, const T& component);
-    T* add(Entity entity, T&& component);
+    T* add(Entity entity, const T& component,
+           const Transaction<tx::EntityUnlocked, tx::ComponentRead<>, tx::ComponentWrite<T>>&);
+    T* add(Entity entity, T&& component,
+           const Transaction<tx::EntityUnlocked, tx::ComponentRead<>, tx::ComponentWrite<T>>&);
     template<typename... TArgs>
-    T* emplace(Entity ent, TArgs&&... args);
+    T* emplace(Entity ent,
+               const Transaction<tx::EntityUnlocked, tx::ComponentRead<>, tx::ComponentWrite<T>>&,
+               TArgs&&... args);
 
     virtual void fireRemoveEventOnly(Entity entity) override;
     virtual void* remove(Entity entity, bool fireEvent = true) override;
+    void* doRemoveLocked(Entity entity, bool fireEvent = true);
+    virtual void* queueRemove(Entity entity) override;
+    virtual void flushRemovals() override;
     virtual void clear() override;
 
     virtual void onParentSet(Entity child, Entity parent) override {
-        if constexpr (std::is_base_of_v<trait::ParentAware<T>, T>) { setParent(child, parent); }
-        if constexpr (std::is_base_of_v<trait::ChildAware<T>, T>) { addChild(child, parent); }
+        constexpr bool needsLock = IsParentAware || IsChildAware;
+        if constexpr (needsLock) { poolLock.lockWrite(); }
+
+        if constexpr (IsParentAware) { setParent(child, parent); }
+        if constexpr (IsChildAware) { addChild(child, parent); }
+
+        if constexpr (needsLock) { poolLock.unlockWrite(); }
     }
 
     void setParent(Entity child, Entity parent) {
@@ -161,8 +195,13 @@ private:
     }
 
     virtual void onParentRemove(Entity parent, Entity orphan) override {
+        constexpr bool needsLock = IsParentAware || IsChildAware;
+        if constexpr (needsLock) { poolLock.lockWrite(); }
+
         if constexpr (std::is_base_of_v<trait::ParentAware<T>, T>) { removeParent(orphan); }
         if constexpr (std::is_base_of_v<trait::ChildAware<T>, T>) { removeChild(parent, orphan); }
+
+        if constexpr (needsLock) { poolLock.unlockWrite(); }
     }
 
     void removeParent(Entity orphan) {
@@ -187,6 +226,8 @@ private:
     }
 
     friend class Registry;
+    friend class Transaction<tx::EntityUnlocked, tx::ComponentRead<T>>;
+    friend class Transaction<tx::EntityUnlocked, tx::ComponentRead<>, tx::ComponentWrite<T>>;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -226,9 +267,9 @@ void ComponentPool<T>::preAdd(Entity ent) {
 }
 
 template<typename T>
-T* ComponentPool<T>::add(Entity ent, const T& c) {
-    util::ReadWriteLock::WriteScopeGuard lock(poolLock);
-
+T* ComponentPool<T>::add(
+    Entity ent, const T& c,
+    const Transaction<tx::EntityUnlocked, tx::ComponentRead<>, tx::ComponentWrite<T>>&) {
     preAdd(ent);
     auto it = storage.emplace(ent, c);
     postAdd(ent, it);
@@ -236,9 +277,9 @@ T* ComponentPool<T>::add(Entity ent, const T& c) {
 }
 
 template<typename T>
-T* ComponentPool<T>::add(Entity ent, T&& c) {
-    util::ReadWriteLock::WriteScopeGuard lock(poolLock);
-
+T* ComponentPool<T>::add(
+    Entity ent, T&& c,
+    const Transaction<tx::EntityUnlocked, tx::ComponentRead<>, tx::ComponentWrite<T>>&) {
     preAdd(ent);
     auto it = storage.emplace(ent, std::forward<T>(c));
     postAdd(ent, it);
@@ -247,9 +288,9 @@ T* ComponentPool<T>::add(Entity ent, T&& c) {
 
 template<typename T>
 template<typename... TArgs>
-T* ComponentPool<T>::emplace(Entity ent, TArgs&&... args) {
-    util::ReadWriteLock::WriteScopeGuard lock(poolLock);
-
+T* ComponentPool<T>::emplace(
+    Entity ent, const Transaction<tx::EntityUnlocked, tx::ComponentRead<>, tx::ComponentWrite<T>>&,
+    TArgs&&... args) {
     preAdd(ent);
     auto it = storage.emplace(ent, std::forward<TArgs>(args)...);
     postAdd(ent, it);
@@ -273,7 +314,11 @@ void ComponentPool<T>::fireRemoveEventOnly(Entity ent) {
 template<typename T>
 void* ComponentPool<T>::remove(Entity ent, bool fireEvent) {
     util::ReadWriteLock::WriteScopeGuard lock(poolLock);
+    return doRemoveLocked(ent, fireEvent);
+}
 
+template<typename T>
+void* ComponentPool<T>::doRemoveLocked(Entity ent, bool fireEvent) {
     // determine if present
     const std::uint64_t entIndex = ent.getIndex();
     if (entIndex >= entityToComponent.size()) return nullptr;
@@ -288,6 +333,32 @@ void* ComponentPool<T>::remove(Entity ent, bool fireEvent) {
     entityToComponent[entIndex] = nullptr;
 
     return com;
+}
+
+template<typename T>
+void* ComponentPool<T>::queueRemove(Entity entity) {
+    util::ReadWriteLock::ReadScopeGuard readLock(poolLock);
+    std::unique_lock lock(removalQueueMutex);
+
+    const std::uint64_t entIndex = entity.getIndex();
+    if (entIndex >= entityToComponent.size()) return nullptr;
+    T* com = entityToComponent[entIndex];
+    if (com != nullptr) {
+        queuedRemovals.emplace_back(entity);
+        lock.unlock();
+        bl::event::Dispatcher::dispatch<event::ComponentRemoved<T>>({entity, *com});
+    }
+
+    return com;
+}
+
+template<typename T>
+void ComponentPool<T>::flushRemovals() {
+    std::unique_lock lock(removalQueueMutex);
+    util::ReadWriteLock::WriteScopeGuard writeLock(poolLock);
+
+    for (const Entity ent : queuedRemovals) { doRemoveLocked(ent, false); }
+    queuedRemovals.clear();
 }
 
 template<typename T>
@@ -312,25 +383,28 @@ void ComponentPool<T>::forEach(const TCallback& cb) {
     static_assert(std::is_invocable<TCallback, Entity, T&>::value,
                   "Visitor signature is void(Entity, T&)");
 
-    util::ReadWriteLock::ReadScopeGuard lock(poolLock);
-    for (Entry& entry : storage) { cb(entry.owner, entry.component); }
+    forEach(cb, Transaction<tx::EntityUnlocked, tx::ComponentRead<T>>(poolLock));
 }
 
 template<typename T>
 template<typename TCallback>
-void ComponentPool<T>::forEachWithWrites(const TCallback& cb) {
+void ComponentPool<T>::forEach(const TCallback& cb,
+                               const Transaction<tx::EntityUnlocked, tx::ComponentRead<T>>&) {
     static_assert(std::is_invocable<TCallback, Entity, T&>::value,
                   "Visitor signature is void(Entity, T&)");
 
-    util::ReadWriteLock::WriteScopeGuard lock(poolLock);
     for (Entry& entry : storage) { cb(entry.owner, entry.component); }
 }
 
 template<typename T>
 T* ComponentPool<T>::get(Entity ent) {
-    util::ReadWriteLock::ReadScopeGuard lock(poolLock);
+    return get(ent, Transaction<tx::EntityUnlocked, tx::ComponentRead<T>>(poolLock));
+}
 
-    const std::uint64_t entIndex = ent.getIndex();
+template<typename T>
+T* ComponentPool<T>::get(Entity entity,
+                         const Transaction<tx::EntityUnlocked, tx::ComponentRead<T>>&) {
+    const std::uint64_t entIndex = entity.getIndex();
     if (entIndex < entityToComponent.size()) { return entityToComponent[entIndex]; }
     return nullptr;
 }

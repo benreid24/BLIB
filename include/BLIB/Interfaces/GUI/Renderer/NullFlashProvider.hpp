@@ -24,7 +24,7 @@ public:
 private:
     virtual void update(float) override {}
     virtual void flashElement(Element*) override {}
-    virtual void doCreate(engine::Engine&) override {}
+    virtual void doCreate(engine::World&) override {}
     virtual void doSceneAdd(rc::Overlay*) override {}
     virtual void doSceneRemove() override {}
     virtual void notifyDestroyed(const Element*) override {}

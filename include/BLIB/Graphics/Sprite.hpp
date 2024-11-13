@@ -34,42 +34,42 @@ public:
     /**
      * @brief Creates the ECS backing for the sprite
      *
-     * @param engine The game engine instance
+     * @param world The world to create the object in
      * @param texture The texture for the sprite
      * @param region The region to render from the texture
      */
-    Sprite(engine::Engine& engine, rc::res::TextureRef texture, const sf::FloatRect& region = {});
+    Sprite(engine::World& world, rc::res::TextureRef texture, const sf::FloatRect& region = {});
 
     /**
      * @brief Creates the ECS backing for the sprite on an existing entity
      *
-     * @param engine The game engine instance
+     * @param world The world to create the object in
      * @param existingEntity The entity to add the sprite components to
      * @param texture The texture for the sprite
      * @param region The region to render from the texture
      */
-    Sprite(engine::Engine& engine, ecs::Entity existingEntity, rc::res::TextureRef texture,
+    Sprite(engine::World& world, ecs::Entity existingEntity, rc::res::TextureRef texture,
            const sf::FloatRect& region = {});
 
     /**
      * @brief Creates the ECS backing for the sprite
      *
-     * @param engine The game engine instance
+     * @param world The world to create the object in
      * @param texture The texture for the sprite
      * @param region The region to render from the texture
      */
-    void create(engine::Engine& engine, rc::res::TextureRef texture,
+    void create(engine::World& world, rc::res::TextureRef texture,
                 const sf::FloatRect& region = {});
 
     /**
      * @brief Creates the ECS backing for the sprite on an existing entity
      *
-     * @param engine The game engine instance
+     * @param world The world to create the object in
      * @param existingEntity The entity to add the sprite components to
      * @param texture The texture for the sprite
      * @param region The region to render from the texture
      */
-    void create(engine::Engine& engine, ecs::Entity existingEntity, rc::res::TextureRef texture,
+    void create(engine::World& world, ecs::Entity existingEntity, rc::res::TextureRef texture,
                 const sf::FloatRect& region = {});
 
     /**
@@ -100,7 +100,7 @@ public:
      *
      * @param color The color to multiply the texture by
      */
-    void setColor(const sf::Color& color);
+    void setColor(const rc::Color& color);
 
     /**
      * @brief Helper method to set the scale so that the entity is a certain size

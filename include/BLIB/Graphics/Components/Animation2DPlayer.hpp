@@ -65,31 +65,27 @@ protected:
     /**
      * @brief Creates the animation components. Uses a shared player component
      *
-     * @param renderer The renderer instance
-     * @param registry The ECS registry
+     * @param world The world to create the player in
      * @param entity The parent entity
      * @param player The entity with the player component
      */
-    void create(rc::Renderer& renderer, ecs::Registry& registry, ecs::Entity entity,
-                ecs::Entity player);
+    void create(engine::World& world, ecs::Entity entity, ecs::Entity player);
 
     /**
      * @brief Creates the animation components with a dedicated player component on this entity
      *
-     * @param renderer The renderer instance
-     * @param registry The ECS registry
+     * @param world The world to create the player in
      * @param entity The parent entity
      * @param animation The animation to use
      * @param play True to begin playing immediately, false to start paused
      * @param forceLoop True to loop the animation, false to use the animation's loop setting
      */
-    void create(rc::Renderer& renderer, ecs::Registry& registry, ecs::Entity entity,
+    void create(engine::World& world, ecs::Entity entity,
                 const resource::Ref<gfx::a2d::AnimationData>& animation, bool play, bool forceLoop);
 
 private:
     const bool forSlideshow;
-    rc::Renderer* renderer;
-    ecs::Registry* registry;
+    engine::World* world;
     ecs::Entity me;
     ecs::Entity playerEntity;
     com::Animation2DPlayer* player;

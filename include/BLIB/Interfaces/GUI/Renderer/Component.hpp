@@ -11,7 +11,8 @@ namespace bl
 namespace engine
 {
 class Engine;
-}
+class World;
+} // namespace engine
 
 namespace gui
 {
@@ -129,10 +130,10 @@ protected:
     /**
      * @brief Called once before use. Derived classes should create resources here
      *
-     * @param engine The game engine instance
+     * @param world The world to create entities in
      * @param renderer The GUI renderer instance
      */
-    virtual void doCreate(engine::Engine& engine, Renderer& renderer) = 0;
+    virtual void doCreate(engine::World& world, Renderer& renderer) = 0;
 
     /**
      * @brief Called when the Component should be added to a scene
@@ -226,18 +227,18 @@ protected:
      *
      * @param component The child component to call create on
      */
-    void createChild(Component& child) { child.create(*enginePtr, *renderer, *owner); }
+    void createChild(Component& child) { child.create(*worldPtr, *renderer, *owner); }
 
 private:
     HighlightState highlightState;
-    engine::Engine* enginePtr;
+    engine::World* worldPtr;
     Renderer* renderer;
     Element* owner;
     Component* parent;
     UIState state;
     sf::FloatRect priorAcq;
 
-    void create(engine::Engine& engine, Renderer& renderer, Element& owner);
+    void create(engine::World& world, Renderer& renderer, Element& owner);
     void addToScene(rc::Overlay* overlay);
 
     friend class Renderer;

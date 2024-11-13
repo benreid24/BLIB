@@ -34,7 +34,7 @@ void constrainScissor(VkRect2D& scissor, const VkRect2D& limits) {
     scissor.offset.x = std::max(scissor.offset.x, limits.offset.x);
     scissor.offset.y = std::max(scissor.offset.y, limits.offset.y);
 
-    const unsigned int limitRight = limits.offset.x + limits.extent.width;
+    const int limitRight = limits.offset.x + limits.extent.width;
     if (scissor.offset.x + scissor.extent.width > limitRight) {
         if (limitRight >= scissor.offset.x) {
             scissor.extent.width = limitRight - scissor.offset.x;
@@ -42,7 +42,7 @@ void constrainScissor(VkRect2D& scissor, const VkRect2D& limits) {
         else { scissor.extent.width = 0; }
     }
 
-    const unsigned int limitBottom = limits.offset.y + limits.extent.height;
+    const int limitBottom = limits.offset.y + limits.extent.height;
     if (scissor.offset.y + scissor.extent.height > limitBottom) {
         if (limitBottom >= scissor.offset.y) {
             scissor.extent.height = limitBottom - scissor.offset.y;
@@ -96,8 +96,9 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
     com::Transform2D& transform = *cset.get<com::Transform2D>();
     rc::ovy::OverlayObject& obj = *cset.get<rc::ovy::OverlayObject>();
 
-    scaler.dirty            = false;
-    scaler.transformVersion = transform.getVersion();
+    scaler.dirty              = false;
+    scaler.transformVersion   = transform.getVersion();
+    scaler.cachedScaledOrigin = transform.getOrigin() * transform.getScale();
 
     // dummy entities only get scissor, all else is skipped
     if (cset.entity().flagSet(ecs::Flags::Dummy)) {
@@ -109,11 +110,13 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
 
     const VkViewport& viewport = *obj.overlayViewport;
     glm::vec2 parentSize       = cam::OverlayCamera::getOverlayCoordinateSpace();
+    glm::vec2 parentOrigin(0.f, 0.f);
     if (scaler.hasParent()) {
         parentSize.x =
             scaler.getParent().cachedObjectBounds.width * transform.getParent().getScale().x;
         parentSize.y =
             scaler.getParent().cachedObjectBounds.height * transform.getParent().getScale().y;
+        parentOrigin = scaler.getParent().cachedScaledOrigin;
     }
 
     float xScale = 1.f;
@@ -165,7 +168,7 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
     // position
     switch (scaler.posType) {
     case com::OverlayScaler::ParentSpace:
-        transform.setPosition(scaler.parentPosition * parentSize);
+        transform.setPosition(scaler.parentPosition * parentSize - parentOrigin);
         break;
 
     case com::OverlayScaler::NoPosition:

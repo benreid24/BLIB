@@ -12,7 +12,7 @@ namespace rdr
 {
 Component::Component(HighlightState hs)
 : highlightState(hs)
-, enginePtr(nullptr)
+, worldPtr(nullptr)
 , renderer(nullptr)
 , owner(nullptr)
 , state(UIState::Regular)
@@ -33,13 +33,13 @@ void Component::notifyUIState(UIState) {}
 
 void Component::overrideHighlightBehavior(HighlightState behavior) { highlightState = behavior; }
 
-void Component::create(engine::Engine& engine, Renderer& r, Element& o) {
-    enginePtr = &engine;
-    renderer  = &r;
-    owner     = &o;
-    parent    = o.getParent() ? o.getParent()->getComponent() : nullptr;
+void Component::create(engine::World& world, Renderer& r, Element& o) {
+    worldPtr = &world;
+    renderer = &r;
+    owner    = &o;
+    parent   = o.getParent() ? o.getParent()->getComponent() : nullptr;
 
-    doCreate(engine, r);
+    doCreate(world, r);
 
     if (o.active()) {
         if (o.rightPressed() || o.leftPressed()) { setUIState(UIState::Pressed); }
@@ -51,7 +51,7 @@ void Component::create(engine::Engine& engine, Renderer& r, Element& o) {
     if (parent && parent != this) {
         const ecs::Entity me    = getEntity();
         const ecs::Entity daddy = parent->getEntity();
-        engine.ecs().setEntityParent(me, daddy);
+        world.engine().ecs().setEntityParent(me, daddy);
     }
 
     onElementUpdated();
@@ -84,7 +84,8 @@ sf::Vector2f Component::getRequisition() const {
 }
 
 void Component::assignDepth(float d) {
-    com::Transform2D* transform = enginePtr->ecs().getComponent<com::Transform2D>(getEntity());
+    com::Transform2D* transform =
+        worldPtr->engine().ecs().getComponent<com::Transform2D>(getEntity());
     if (transform) { transform->setDepth(d + owner->getDepthBias()); }
     else { BL_LOG_ERROR << "Could not set depth for entity missing transform: " << getEntity(); }
 }
@@ -102,8 +103,8 @@ void Component::addToScene(rc::Overlay* overlay) {
     if (parent && parent != this) {
         const ecs::Entity me    = getEntity();
         const ecs::Entity daddy = parent->getEntity();
-        if (enginePtr->ecs().getEntityParent(me) != daddy) {
-            enginePtr->ecs().setEntityParent(me, daddy);
+        if (worldPtr->engine().ecs().getEntityParent(me) != daddy) {
+            worldPtr->engine().ecs().setEntityParent(me, daddy);
         }
     }
 

@@ -12,9 +12,12 @@
 #include <BLIB/Components/BatchedShapes2D.hpp>
 #include <BLIB/Components/BatchedSlideshows.hpp>
 #include <BLIB/Components/BatchedSprites.hpp>
+#include <BLIB/Components/Hitbox2D.hpp>
+#include <BLIB/Components/MarkedForDeath.hpp>
 #include <BLIB/Components/Mesh.hpp>
 #include <BLIB/Components/Orientation3D.hpp>
 #include <BLIB/Components/OverlayScaler.hpp>
+#include <BLIB/Components/Physics2D.hpp>
 #include <BLIB/Components/Shape2D.hpp>
 #include <BLIB/Components/Slideshow.hpp>
 #include <BLIB/Components/Sprite.hpp>

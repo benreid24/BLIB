@@ -203,6 +203,14 @@ struct VulkanState {
      */
     VkFormatProperties getFormatProperties(VkFormat format);
 
+    /**
+     * @brief Returns whether the given extension is available on the selected device
+     *
+     * @param extName The extension to check for
+     * @return True if the extension is available, false otherwise
+     */
+    bool extensionIsAvailable(const char* extName) const;
+
     engine::EngineWindow& window;
     VkInstance instance;
 #ifdef BLIB_DEBUG
@@ -229,6 +237,7 @@ struct VulkanState {
 
 private:
     std::uint32_t currentFrame;
+    std::vector<VkExtensionProperties> availableExtensions;
 
     VulkanState(engine::EngineWindow& window);
     void init();

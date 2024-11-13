@@ -61,14 +61,16 @@ private:
         stitcher.getStitchedImage().saveToFile("output.png");
 
         // create scene and camera
+        auto world =
+            engine.getPlayer().enterWorld<bl::engine::BasicWorld<bl::rc::scene::Scene2D>>();
+        scene   = world->scene();
         auto& o = engine.renderer().getObserver();
-        scene   = o.pushScene<bl::rc::scene::Scene2D>();
         o.setCamera<bl::cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1920.f, 1080.f});
         o.setClearColor({1.f, 1.f, 1.f, 1.f});
 
         // add slideshow animation to scene
         slideshow.createWithUniquePlayer(
-            engine,
+            *world,
             bl::resource::ResourceManager<bl::gfx::a2d::AnimationData>::load(
                 "resources/water.anim"),
             true,
@@ -78,7 +80,7 @@ private:
 
         // add standard animation to scene
         animation.createWithUniquePlayer(
-            engine,
+            *world,
             bl::resource::ResourceManager<bl::gfx::a2d::AnimationData>::load(
                 "resources/animation.anim"),
             true,
@@ -87,7 +89,7 @@ private:
         animation.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
         // add rectangle to scene
-        rectangle.create(engine, {100.f, 120.f});
+        rectangle.create(*world, {100.f, 120.f});
         rectangle.setFillColor({1.f, 0.f, 0.f, 1.f});
         rectangle.setOutlineColor({0.f, 0.f, 0.f, 1.f});
         rectangle.setOutlineThickness(2.f);
@@ -95,7 +97,7 @@ private:
         rectangle.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
         // add circle to scene
-        circle.create(engine, 75.f);
+        circle.create(*world, 75.f);
         circle.setFillColor({0.f, 1.f, 0.f, 1.f});
         circle.setOutlineColor({0.f, 0.f, 0.f, 1.f});
         circle.setOutlineThickness(3.f);
@@ -103,7 +105,7 @@ private:
         circle.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
         // add triangle to scene
-        triangle.create(engine, {50.f, 0.f}, {100.f, 70.f}, {0.f, 70.f});
+        triangle.create(*world, {50.f, 0.f}, {100.f, 70.f}, {0.f, 70.f});
         triangle.setFillColor({0.f, 0.f, 1.f, 1.f});
         triangle.setOutlineColor({0.f, 0.f, 0.f, 1.f});
         triangle.setOutlineThickness(3.f);
@@ -111,7 +113,7 @@ private:
         triangle.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
         // add a set of batched shapes to the scene
-        batched.create(engine, 128);
+        batched.create(*world, 128);
         batched.getTransform().setPosition({100.f, 800.f});
         batched.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
@@ -140,7 +142,7 @@ private:
 
         // add a set of batched sprites to the scene
         spriteBatch.create(
-            engine, engine.renderer().texturePool().getOrLoadTexture("resources/water.png"), 2);
+            *world, engine.renderer().texturePool().getOrLoadTexture("resources/water.png"), 2);
         spriteBatch.getTransform().setPosition({400.f, 750.f});
         spriteBatch.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
@@ -151,10 +153,10 @@ private:
         water3.getLocalTransform().setPosition({68.f, 0.f});
 
         // add a set of batched slideshows to the scene
-        waterBatch.create(engine, 3);
+        waterBatch.create(*world, 3);
         waterBatch.getTransform().setPosition({1500.f, 800.f});
         waterBatch.addToScene(scene, bl::rc::UpdateSpeed::Static);
-        waterPlayer.create(engine,
+        waterPlayer.create(*world,
                            bl::resource::ResourceManager<bl::gfx::a2d::AnimationData>::load(
                                "resources/water.anim"),
                            bl::gfx::DiscreteAnimation2DPlayer::Slideshow,
@@ -169,10 +171,10 @@ private:
     }
 
     virtual void deactivate(bl::engine::Engine& engine) override {
-        engine.renderer().getObserver().popScene();
+        engine.getPlayer().leaveWorld();
     }
 
-    virtual void update(bl::engine::Engine&, float, float) override {
+    virtual void update(bl::engine::Engine&, float dt, float) override {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::G)) {
             rectangle.setHorizontalColorGradient({0.f, 0.f, 1.f, 1.f}, {0.f, 1.f, 0.f, 1.f});
             circle.setColorGradient({1.f, 0.f, 0.f, 1.f}, {0.f, 0.f, 1.f, 1.f});
@@ -198,6 +200,14 @@ private:
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) { rectangle.removeFromScene(); }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
             rectangle.addToScene(scene, bl::rc::UpdateSpeed::Static);
+        }
+
+        constexpr float Rate = 180.f;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Comma)) {
+            animation.getTransform().rotate(Rate * dt);
+        }
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Period)) {
+            animation.getTransform().rotate(-Rate * dt);
         }
     }
 };

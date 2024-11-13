@@ -17,10 +17,10 @@ public:
     static constexpr float MinRadius = 20.f;
     static constexpr float MaxRadius = 120.f;
 
-    SimpleGravityAffector(const glm::vec2& pos, bl::engine::Engine& engine, bl::rc::Scene* scene)
+    SimpleGravityAffector(const glm::vec2& pos, bl::engine::World& world, bl::rc::Scene* scene)
     : Movable(pos)
     , radius(bl::util::Random::get<float>(MinRadius, MaxRadius)) {
-        circle.create(engine, 5.f);
+        circle.create(world, 5.f);
         circle.setFillColor(sf::Color(79, 50, 2));
         circle.setOutlineThickness(1.f);
         circle.setOutlineColor(sf::Color(44, 140, 0));

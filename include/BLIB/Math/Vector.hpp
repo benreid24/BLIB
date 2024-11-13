@@ -5,6 +5,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/System/Vector3.hpp>
 #include <cmath>
+#include <glm/glm.hpp>
 
 namespace bl
 {
@@ -273,6 +274,22 @@ sf::Vector3<T> normalized(const sf::Vector3<T>& vec) {
 template<typename T>
 T dot(const sf::Vector3<T>& v1, const sf::Vector3<T>& v2) {
     return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
+}
+
+/**
+ * @brief Computes the angle pointing from one vector to another
+ *
+ * @param from The start position
+ * @param to The end position
+ * @return The angle in degrees in range [0, 360)
+ *
+ * @ingroup Math
+ */
+inline float computeAngle(const glm::vec2& from, const glm::vec2& to) {
+    const glm::vec2 diff = to - from;
+    float angle          = bl::math::radiansToDegrees(::atan2f(diff.y, diff.x));
+    if (angle < 0.f) { angle += 360.f; }
+    return angle;
 }
 
 } // namespace math

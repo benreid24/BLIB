@@ -2,7 +2,6 @@
 
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
 #include <BLIB/Math.hpp>
-#include <BLIB/Render/Primitives/Color.hpp>
 #include <cmath>
 
 namespace bl
@@ -25,8 +24,8 @@ void OverlayFlashProvider::update(float dt) {
             cover.setHidden(true);
         }
         else {
-            cover.setFillColor(sfcol(sf::Color(
-                255, 255, 255, 50.f + std::abs(std::sin(flashTime * 4.f * math::Pi) * 120.f))));
+            cover.setFillColor(sf::Color(
+                255, 255, 255, 50.f + std::abs(std::sin(flashTime * 4.f * math::Pi) * 120.f)));
         }
     }
 }
@@ -48,9 +47,9 @@ void OverlayFlashProvider::flashElement(Element* element) {
     }
 }
 
-void OverlayFlashProvider::doCreate(engine::Engine& engine) {
-    enginePtr = &engine;
-    cover.create(engine, {100.f, 100.f});
+void OverlayFlashProvider::doCreate(engine::World& world) {
+    enginePtr = &world.engine();
+    cover.create(world, {100.f, 100.f});
     cover.setHidden(true);
 }
 

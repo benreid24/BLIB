@@ -10,6 +10,7 @@ function(link_blib_target target_name)
 	endif()
 
 	target_link_libraries(${target_name}
+		box2d
 		volk
 		Freetype
 		${extra_link_libs}

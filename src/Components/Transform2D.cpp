@@ -15,12 +15,14 @@ Transform2D::Transform2D()
 , rotation(0.f)
 , depth(0.f) {}
 
-Transform2D::Transform2D(const glm::vec2& pos)
+Transform2D::Transform2D(const glm::vec2& pos, float rotation)
 : origin(0.f, 0.f)
 , position(pos)
 , scaleFactors(1.f, 1.f)
-, rotation(0.f)
-, depth(0.f) {}
+, rotation(rotation)
+, depth(0.f) {
+    clampAngle();
+}
 
 void Transform2D::setOrigin(const glm::vec2& o) {
     origin = o;
@@ -89,11 +91,13 @@ void Transform2D::scale(float factor) {
 
 void Transform2D::setRotation(float angle) {
     rotation = angle;
+    clampAngle();
     makeDirty();
 }
 
 void Transform2D::rotate(float delta) {
     rotation += delta;
+    clampAngle();
     makeDirty();
 }
 
@@ -150,6 +154,19 @@ glm::vec3 Transform2D::transformPoint(const glm::vec3& src) const {
 glm::mat4 Transform2D::computeGlobalTransform() const {
     return createTransformMatrix(
         origin, glm::vec3(getGlobalPosition(), getGlobalDepth()), scaleFactors, rotation);
+}
+
+void Transform2D::clampAngle() {
+    if (rotation >= 360.f) {
+        const float div       = rotation / 360.f;
+        const float rotations = std::floor(div);
+        rotation -= rotations * 360.f;
+    }
+    else if (rotation < 0.f) {
+        const float div       = rotation / -360.f;
+        const float rotations = std::floor(div) + 1;
+        rotation += rotations * 360.f;
+    }
 }
 
 } // namespace com

@@ -221,6 +221,7 @@ private:
     Actor(InputSystem& owner, const std::vector<Control::Type>& schema);
     void process(const sf::Event& event);
     void update();
+    void resetControls(const std::vector<Control::Type>& schema);
 
     friend class InputSystem;
 };

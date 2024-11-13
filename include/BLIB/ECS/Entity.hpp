@@ -7,6 +7,7 @@
 #include <limits>
 #include <mutex>
 #include <ostream>
+#include <sstream>
 
 namespace bl
 {
@@ -19,7 +20,6 @@ namespace ecs
  *        perform logic and updates
  *
  * @ingroup ECS
- *
  */
 struct Entity {
     using IdType = std::uint64_t;
@@ -31,6 +31,7 @@ struct Entity {
     static constexpr std::uint64_t IndexMask   = 0x00000000FFFFFFFF;
     static constexpr std::uint64_t VersionMask = 0xFFFF000000000000;
     static constexpr std::uint64_t FlagMask    = 0x0000FF0000000000;
+    static constexpr std::uint64_t WorldMask   = 0x0000000700000000;
 
     IdType id;
 
@@ -54,9 +55,11 @@ struct Entity {
      * @param index The 0-based index of the entity
      * @param version The version of the index
      * @param flags Set of flags to mark the entity with
+     * @param worldIndex The index of the world the entity is in
      */
-    Entity(std::uint64_t index, std::uint64_t version, Flags flags = Flags::None)
-    : id((version << 48) | (flags << 40) | index) {}
+    Entity(std::uint64_t index, std::uint64_t version, Flags flags = Flags::None,
+           std::uint64_t worldIndex = 0)
+    : id((version << 48) | (flags << 40) | (worldIndex << 32) | index) {}
 
     /**
      * @brief Copies the given entity
@@ -120,6 +123,13 @@ struct Entity {
     Flags getFlags() const { return static_cast<Flags>((id & FlagMask) >> 40); }
 
     /**
+     * @brief Returns the world index for this entity
+     *
+     * @return The index of the world that this entity is in
+     */
+    std::uint64_t getWorldIndex() const { return (id & WorldMask) >> 32; }
+
+    /**
      * @brief Test whether or not the given flag(s) is/are set on this entity
      *
      * @param flag The flag(s) to check for
@@ -158,6 +168,17 @@ struct Entity {
     friend std::ostream& operator<<(std::ostream& os, Entity entity) {
         os << entity.getIndex() << "-v" << entity.getVersion();
         return os;
+    }
+
+    /**
+     * @brief Converts this entity to a human readable string
+     */
+    std::string toString() const {
+        if (id == InvalidId) { return "<invalid>"; }
+
+        std::stringstream ss;
+        ss << *this;
+        return ss.str();
     }
 };
 

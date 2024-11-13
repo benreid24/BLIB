@@ -56,7 +56,7 @@ public:
      * @param centerColor The color of the center of the circle
      * @param edgeColor The color of the outside of the circle
      */
-    void setColorGradient(const glm::vec4& centerColor, const glm::vec4& edgeColor);
+    void setColorGradient(const rc::Color& centerColor, const rc::Color& edgeColor);
 
     /**
      * @brief Removes the color gradient and falls back to the fill color
@@ -67,12 +67,12 @@ private:
     unsigned int pointCount;
     float radius;
     bool hasColorOverride;
-    glm::vec4 centerColor;
-    glm::vec4 edgeColor;
+    rc::Color centerColor;
+    rc::Color edgeColor;
 
     virtual unsigned int getVertexCount() const override;
     virtual void populateVertex(unsigned int index, rc::prim::Vertex& vertex) override;
-    virtual glm::vec4 getCenterColor(const glm::vec4& avgColor) const override;
+    virtual rc::Color getCenterColor(const rc::Color& avgColor) const override;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -104,7 +104,7 @@ void CircleBase<B>::setPointCount(unsigned int pc) {
 }
 
 template<typename B>
-void CircleBase<B>::setColorGradient(const glm::vec4& c, const glm::vec4& e) {
+void CircleBase<B>::setColorGradient(const rc::Color& c, const rc::Color& e) {
     hasColorOverride = true;
     centerColor      = c;
     edgeColor        = e;
@@ -134,7 +134,7 @@ void CircleBase<B>::populateVertex(unsigned int index, rc::prim::Vertex& vertex)
 }
 
 template<typename B>
-glm::vec4 CircleBase<B>::getCenterColor(const glm::vec4& avgColor) const {
+rc::Color CircleBase<B>::getCenterColor(const rc::Color& avgColor) const {
     return hasColorOverride ? centerColor : avgColor;
 }
 

@@ -1,7 +1,6 @@
 #include <BLIB/Interfaces/GUI/Renderer/Basic/NotebookComponent.hpp>
 
 #include <BLIB/Interfaces/GUI/Elements/Notebook.hpp>
-#include <BLIB/Render/Primitives/Color.hpp>
 
 namespace bl
 {
@@ -20,16 +19,16 @@ void NotebookComponent::onElementUpdated() {
 
 void NotebookComponent::onRenderSettingChange() {
     const RenderSettings& settings = getOwnerAs<Element>().getRenderSettings();
-    box.setFillColor(bl::sfcol(settings.fillColor.value_or(sf::Color(120, 120, 120))));
-    box.setOutlineColor(bl::sfcol(settings.outlineColor.value_or(sf::Color::Black)));
+    box.setFillColor(settings.fillColor.value_or(sf::Color(120, 120, 120)));
+    box.setOutlineColor(settings.outlineColor.value_or(sf::Color::Black));
     box.setOutlineThickness(-settings.outlineThickness.value_or(1.f));
 }
 
 ecs::Entity NotebookComponent::getEntity() const { return box.entity(); }
 
-void NotebookComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
+void NotebookComponent::doCreate(engine::World& world, rdr::Renderer&) {
     Element& owner = getOwnerAs<Element>();
-    box.create(engine, {owner.getAcquisition().width, owner.getAcquisition().height});
+    box.create(world, {owner.getAcquisition().width, owner.getAcquisition().height});
     box.getOverlayScaler().setScissorMode(com::OverlayScaler::ScissorSelfConstrained);
 }
 

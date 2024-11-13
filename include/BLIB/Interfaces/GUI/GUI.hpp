@@ -36,16 +36,15 @@ public:
     /**
      * @brief Create a new GUI that is in the given region
      *
-     * @param engine The game engine instance
-     * @param observer The observer the GUI will belong to
+     * @param world The world to create entities in
+     * @param player The player the GUI will belong to
      * @param packer The Packer to use
      * @param region The position and size of the renderable area. Defaults to the full overlay
      *               space unless a value is manually set
      * @param factory The component factory to use in the renderer. Must remain valid
      */
-    static Ptr create(engine::Engine& engine, rc::Observer& observer,
-                      const gui::Packer::Ptr& packer, const sf::FloatRect& region = {},
-                      rdr::FactoryTable* factory = nullptr);
+    static Ptr create(engine::World& world, engine::Player& player, const gui::Packer::Ptr& packer,
+                      const sf::FloatRect& region = {}, rdr::FactoryTable* factory = nullptr);
 
     /**
      * @brief Set the Region objectSets the region to pack elements into
@@ -53,14 +52,6 @@ public:
      * @param area The new region to fill
      */
     void setRegion(const sf::FloatRect& area);
-
-    /**
-     * @brief Handles and propagates the window event
-     *
-     * @param Packer The Packer to use
-     * @param event Raw window event
-     */
-    virtual void observe(const sf::Event& event) override;
 
     /**
      * @brief Updates all child elements and runs any queued actions
@@ -82,8 +73,9 @@ public:
      *        default to getOrCreateOverlay() on the observer
      *
      * @param overlay The overlay to add to, or nullptr
+     * @param autoSubscribe Whether to directly subscribe to window events
      */
-    void addToOverlay(rc::Overlay* overlay = nullptr);
+    void addToOverlay(rc::Overlay* overlay = nullptr, bool autoSubscribe = true);
 
     /**
      * @brief Removes the GUI and all elements from the current overlay
@@ -95,14 +87,24 @@ public:
      */
     const glm::vec2& getMousePosition() const { return mousePos; }
 
+    /**
+     * @brief Processes the window event and returns whether the event was consumed. This does not
+     *        need to be manually called unless autoSubscribe is turned off in addToOverlay
+     *
+     * @param event The event to process
+     * @return True if the event had effect, false otherwise
+     */
+    bool processEvent(const sf::Event& event);
+
 private:
     rc::Observer& observer;
     std::vector<Element::QueuedAction> queuedActions;
     rdr::Renderer renderer;
     glm::vec2 mousePos;
 
-    GUI(engine::Engine& engine, rc::Observer& observer, const gui::Packer::Ptr& packer,
+    GUI(engine::World& world, engine::Player& player, const gui::Packer::Ptr& packer,
         const sf::FloatRect& region, rdr::FactoryTable* factory);
+    virtual void observe(const sf::Event& event) override;
 };
 
 } // namespace gui

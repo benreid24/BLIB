@@ -29,9 +29,9 @@ public:
     /**
      * @brief Creates the icon entity and renderer resources
      *
-     * @param engine The game engine instance
+     * @param world The world to create the object in
      */
-    void create(engine::Engine& engine);
+    void create(engine::World& world);
 };
 
 } // namespace gfx

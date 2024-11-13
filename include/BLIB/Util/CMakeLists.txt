@@ -12,6 +12,7 @@ target_sources(BLIB PUBLIC
     Random.hpp
     RangeAllocatorUnbounded.hpp
     ReadWriteLock.hpp
+    RefPool.hpp
     Signal.hpp
     StreamUtil.hpp
     TemplateLogic.hpp
@@ -19,6 +20,7 @@ target_sources(BLIB PUBLIC
     Timer.hpp
     TupleLoop.hpp
     UnderlyingType.hpp
+    VariadicHelpers.hpp
     VectorRef.hpp
     Visitor.hpp
     Waiter.hpp

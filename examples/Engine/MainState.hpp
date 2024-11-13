@@ -18,6 +18,7 @@ public:
     virtual void update(bl::engine::Engine& engine, float dt, float) override;
 
 private:
+    bl::util::Ref<bl::engine::World> world;
     bl::resource::Ref<sf::VulkanFont> font;
     bl::gfx::Text kbmControls;
     bl::gfx::Text jsControls;

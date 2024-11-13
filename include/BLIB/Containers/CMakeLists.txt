@@ -9,5 +9,6 @@ target_sources(BLIB PUBLIC
     FastEraseVector.hpp
     ObjectPool.hpp
     QuadTree.hpp
+    StaticRingBuffer.hpp
     Grid.hpp
 )

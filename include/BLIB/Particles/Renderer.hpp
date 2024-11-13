@@ -12,8 +12,9 @@ namespace bl
 {
 namespace engine
 {
+class World;
 class Engine;
-}
+} // namespace engine
 
 namespace pcl
 {
@@ -44,9 +45,9 @@ public:
     /**
      * @brief Called once after being constructed
      *
-     * @param engine The game engine instance
+     * @param world The world to create the particle system entity in
      */
-    void init(engine::Engine& engine);
+    void init(engine::World& world);
 
     /**
      * @brief Called when the particle manager should be rendered in the given scene
@@ -97,7 +98,7 @@ public:
     void draw(rc::scene::CodeScene::RenderContext& ctx);
 
 private:
-    engine::Engine* engine;
+    engine::World* world;
     void* system;
     ecs::Entity entity;
     TComponent* component;

@@ -7,15 +7,15 @@ namespace gfx
 Triangle::Triangle()
 : TriangleBase() {}
 
-void Triangle::create(engine::Engine& engine, const glm::vec2& p0, const glm::vec2& p1,
+void Triangle::create(engine::World& world, const glm::vec2& p0, const glm::vec2& p1,
                       const glm::vec2& p2) {
     setPoints(p0, p1, p2);
-    SingleShape2D::create(engine);
+    SingleShape2D::create(world);
 }
 
-void Triangle::create(engine::Engine& engine, const std::array<glm::vec2, 3>& p) {
+void Triangle::create(engine::World& world, const std::array<glm::vec2, 3>& p) {
     setPoints(p);
-    SingleShape2D::create(engine);
+    SingleShape2D::create(world);
 }
 
 } // namespace gfx

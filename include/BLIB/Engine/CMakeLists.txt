@@ -3,6 +3,7 @@ target_sources(BLIB PUBLIC
     Engine.hpp
     Flags.hpp
     FrameStage.hpp
+    Player.hpp
     Properties.hpp
     Property.hpp
     Settings.hpp
@@ -14,3 +15,4 @@ target_sources(BLIB PUBLIC
 )
 
 add_subdirectory(Events)
+add_subdirectory(Worlds)

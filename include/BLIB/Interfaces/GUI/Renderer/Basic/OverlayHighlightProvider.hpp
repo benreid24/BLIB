@@ -45,9 +45,9 @@ public:
     /**
      * @brief Creates the overlay rectangle
      *
-     * @param engine The game engine instance
+     * @param world The world to create entities in
      */
-    virtual void doCreate(engine::Engine& engine) override;
+    virtual void doCreate(engine::World& world) override;
 
     /**
      * @brief Adds the rectangle to the scene

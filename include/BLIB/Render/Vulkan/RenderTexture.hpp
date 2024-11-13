@@ -127,6 +127,12 @@ public:
      */
     glm::u32vec2 getSize() const;
 
+    using RenderTarget::clearScenes;
+    using RenderTarget::popScene;
+    using RenderTarget::popSceneNoRelease;
+    using RenderTarget::pushScene;
+    using RenderTarget::removeScene;
+
 private:
     struct FramePayload {
         AttachmentBuffer depthBuffer;

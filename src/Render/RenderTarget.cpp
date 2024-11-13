@@ -2,6 +2,7 @@
 
 #include <BLIB/Cameras/2D/Camera2D.hpp>
 #include <BLIB/Cameras/3D/Camera3D.hpp>
+#include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Render/Graph/Assets/SceneAsset.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Render/Scenes/Scene2D.hpp>
@@ -141,8 +142,15 @@ void RenderTarget::handleDescriptorSync() {
     }
 }
 
-void RenderTarget::setClearColor(const glm::vec4& color) {
-    clearColors[0].color = {{color.x, color.y, color.z, color.w}};
+void RenderTarget::syncSceneObjects() {
+    if (hasScene()) {
+        scenes.back().scene->syncObjects();
+        if (scenes.back().overlay) { scenes.back().overlay->syncObjects(); }
+    }
+}
+
+void RenderTarget::setClearColor(const Color& color) {
+    clearColors[0].color = {{color.r(), color.g(), color.b(), color.a()}};
 }
 
 glm::vec2 RenderTarget::transformToWorldSpace(const glm::vec2& sp) const {
@@ -158,6 +166,11 @@ glm::vec2 RenderTarget::transformToWorldSpace(const glm::vec2& sp) const {
     return {result.x, result.y};
 }
 
+glm::vec2 RenderTarget::getMousePosInWorldSpace() const {
+    const auto mpos = sf::Mouse::getPosition(engine.window().getSfWindow());
+    return transformToWorldSpace({mpos.x, mpos.y});
+}
+
 glm::vec2 RenderTarget::transformToOverlaySpace(const glm::vec2& sp) const {
     const glm::vec2 ndc((sp.x - viewport.x) / viewport.width * 2.f - 1.f,
                         (sp.y - viewport.y) / viewport.height * 2.f - 1.f);
@@ -166,6 +179,11 @@ glm::vec2 RenderTarget::transformToOverlaySpace(const glm::vec2& sp) const {
     tform                   = glm::inverse(tform);
     const glm::vec4 result  = tform * glm::vec4(ndc, 0.f, 1.f);
     return {result.x, result.y};
+}
+
+glm::vec2 RenderTarget::getMousePosInOverlaySpace() const {
+    const auto mpos = sf::Mouse::getPosition(engine.window().getSfWindow());
+    return transformToOverlaySpace({mpos.x, mpos.y});
 }
 
 void RenderTarget::setCamera(std::unique_ptr<cam::Camera>&& cam) {

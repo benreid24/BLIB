@@ -50,9 +50,9 @@ public:
     /**
      * @brief Creates the entities required to render tooltips
      *
-     * @param engine The game engine instance
+     * @param world The world to create entities in
      */
-    virtual void doCreate(engine::Engine& engine) override;
+    virtual void doCreate(engine::World& world) override;
 
     /**
      * @brief Called when the provider should be added to a scene

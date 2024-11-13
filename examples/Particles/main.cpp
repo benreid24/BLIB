@@ -53,10 +53,11 @@ public:
     : eng(nullptr)
     , particles(nullptr) {}
 
-    void init(bl::engine::Engine& engine, bl::pcl::ParticleManager<Particle>& manager,
-              bl::rc::Scene* s) {
+    void init(bl::engine::Engine& engine, bl::engine::World& world,
+              bl::pcl::ParticleManager<Particle>& manager, bl::rc::Scene* s) {
         particles = &manager;
         eng       = &engine;
+        worldPtr  = &world;
         scene     = s;
         globals   = &manager.getRenderer().getGlobals();
     }
@@ -66,13 +67,13 @@ public:
             const glm::vec2 pos(event.mouseButton.x, event.mouseButton.y);
 
             if (event.mouseButton.button == sf::Mouse::Button::Left) {
-                particles->addEmitter<SimplePointEmitter>(pos, *eng, scene);
+                particles->addEmitter<SimplePointEmitter>(pos, *worldPtr, scene);
             }
             else if (event.mouseButton.button == sf::Mouse::Button::Right) {
-                particles->addAffector<SimpleGravityAffector>(pos, *eng, scene);
+                particles->addAffector<SimpleGravityAffector>(pos, *worldPtr, scene);
             }
             else if (event.mouseButton.button == sf::Mouse::Button::Middle) {
-                particles->addSink<SimpleBlackHoleSink>(pos, *eng, scene);
+                particles->addSink<SimpleBlackHoleSink>(pos, *worldPtr, scene);
             }
         }
         else if (event.type == sf::Event::MouseWheelScrolled) {
@@ -91,6 +92,7 @@ public:
 
 private:
     bl::engine::Engine* eng;
+    bl::engine::World* worldPtr;
     bl::pcl::ParticleManager<Particle>* particles;
     bl::rc::Scene* scene;
     ShaderPayload* globals;
@@ -104,20 +106,22 @@ public:
     virtual const char* name() const override { return "DemoState"; }
 
     virtual void activate(bl::engine::Engine& engine) override {
+        auto world =
+            engine.getPlayer().enterWorld<bl::engine::BasicWorld<bl::rc::scene::Scene2D>>();
         auto& observer = engine.renderer().getObserver(0);
-        auto scene     = observer.pushScene<bl::rc::scene::Scene2D>();
+        auto scene     = world->scene();
         observer.setCamera<bl::cam::Camera2D>(
             sf::FloatRect(Bounds.x, Bounds.y, Bounds.z, Bounds.w));
         observer.setClearColor({0.05f, 0.05f, 0.05f, 1.f});
 
-        auto& simpleManager = engine.particleSystem().getUniqueSystem<Particle>();
+        auto& simpleManager = engine.particleSystem().getUniqueSystem<Particle>(*world);
 
         simpleManager.addUpdater<SimpleMovableUpdater>();
-        simpleManager.addEmitter<SimplePointEmitter>(glm::vec2{400.f, 300.f}, engine, scene);
+        simpleManager.addEmitter<SimplePointEmitter>(glm::vec2{400.f, 300.f}, *world, scene);
         simpleManager.addAffector<SimpleVelocityAffector>();
         simpleManager.addAffector<SimpleWrapAffector>();
 
-        spawner.init(engine, simpleManager, scene);
+        spawner.init(engine, *world, simpleManager, scene);
         bl::event::Dispatcher::subscribe(&spawner);
         simpleManager.addToScene(scene);
     }
@@ -125,7 +129,7 @@ public:
     virtual void deactivate(bl::engine::Engine& engine) override {
         bl::event::Dispatcher::unsubscribe(&spawner);
         engine.particleSystem().removeUniqueSystem<Particle>();
-        engine.renderer().getObserver().popScene();
+        engine.getPlayer().leaveWorld();
     }
 
     virtual void update(bl::engine::Engine&, float, float) override {

@@ -2,7 +2,6 @@
 
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Canvas.hpp>
-#include <BLIB/Render/Primitives/Color.hpp>
 
 namespace bl
 {
@@ -31,25 +30,25 @@ void CanvasComponent::onElementUpdated() {
 
 void CanvasComponent::onRenderSettingChange() {
     Canvas& owner = getOwnerAs<Canvas>();
-    texture->setClearColor(sfcol(owner.getClearColor()));
+    texture->setClearColor(owner.getClearColor());
 }
 
 ecs::Entity CanvasComponent::getEntity() const { return img.entity(); }
 
 rc::vk::RenderTexture& CanvasComponent::getRenderTexture() { return *texture; }
 
-void CanvasComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
+void CanvasComponent::doCreate(engine::World& world, rdr::Renderer&) {
     Canvas& owner = getOwnerAs<Canvas>();
 
-    texture =
-        engine.renderer().createRenderTexture({owner.getTextureSize().x, owner.getTextureSize().y});
+    texture = world.engine().renderer().createRenderTexture(
+        {owner.getTextureSize().x, owner.getTextureSize().y});
     if (owner.getScene().isValid()) {
         texture->pushScene(owner.getScene());
         if (owner.getCamera()) { texture->setCamera(std::move(owner.getCamera())); }
     }
-    texture->setClearColor(sfcol(owner.getClearColor()));
+    texture->setClearColor(owner.getClearColor());
 
-    img.create(engine, texture->getTexture());
+    img.create(world, texture->getTexture());
 }
 
 void CanvasComponent::doSceneAdd(rc::Overlay* overlay) {

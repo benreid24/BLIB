@@ -3,12 +3,15 @@
 
 #include <BLIB/ECS/Registry.hpp>
 #include <BLIB/Engine/Events.hpp>
+#include <BLIB/Engine/Events/Worlds.hpp>
 #include <BLIB/Engine/Flags.hpp>
+#include <BLIB/Engine/Player.hpp>
 #include <BLIB/Engine/Settings.hpp>
 #include <BLIB/Engine/State.hpp>
 #include <BLIB/Engine/Systems.hpp>
 #include <BLIB/Engine/Window.hpp>
 #include <BLIB/Engine/Worker.hpp>
+#include <BLIB/Engine/World.hpp>
 #include <BLIB/Events/Dispatcher.hpp>
 #include <BLIB/Input.hpp>
 #include <BLIB/Particles/ParticleSystem.hpp>
@@ -16,7 +19,9 @@
 #include <BLIB/Resources.hpp>
 #include <BLIB/Scripts/Manager.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
+#include <BLIB/Util/RefPool.hpp>
 #include <BLIB/Util/ThreadPool.hpp>
+#include <array>
 #include <stack>
 
 namespace bl
@@ -44,13 +49,11 @@ public:
 
     /**
      * @brief Destroy the Engine object
-     *
      */
     ~Engine();
 
     /**
      * @brief Returns a reference to the engine wide entity registry
-     *
      */
     ecs::Registry& ecs();
 
@@ -95,7 +98,6 @@ public:
 
     /**
      * @brief Returns the settings the engine is using
-     *
      */
     const Settings& settings() const;
 
@@ -117,14 +119,12 @@ public:
 
     /**
      * @brief Returns the flags that can be set to control Engine behavior
-     *
      */
     Flags& flags();
 
     /**
      * @brief Returns a reference to the window the engine has created and is managing. The window
      *        is created when run() is called
-     *
      */
     EngineWindow& window();
 
@@ -168,7 +168,6 @@ public:
 
     /**
      * @brief Convenience method to set the PopState flag
-     *
      */
     void popState();
 
@@ -197,11 +196,72 @@ public:
      */
     float getWindowScale() const;
 
+    /**
+     * @brief Returns the mask for the currently running state
+     */
+    StateMask::V getCurrentStateMask() const;
+
+    /**
+     * @brief Fetches the given player
+     *
+     * @tparam T The type of player class that is expected
+     * @param i The index of the player to fetch
+     * @return The player at the given index
+     */
+    template<typename T = Player>
+    T& getPlayer(unsigned int i = 0);
+
+    /**
+     * @brief Adds a new player and returns it
+     */
+    Player& addPlayer();
+
+    /**
+     * @brief Adds a new player and returns it
+     *
+     * @tparam T The derived player class to use
+     * @tparam TArgs Argument types to the player constructor
+     * @param args Arguments to the player constructor
+     */
+    template<typename T, typename... TArgs>
+    T& addPlayer(TArgs&&... args);
+
+    /**
+     * @brief Removes the given player, or the last player if the given index is negative
+     *
+     * @param i The index of the player to remove or -1 to remove the last player
+     */
+    void removePlayer(int i = -1);
+
+    /**
+     * @brief Creates a new engine World
+     *
+     * @tparam TWorld The type of world to create
+     * @tparam ...TArgs Argument types to the worlds constructor
+     * @param ...args Arguments to the worlds constructor
+     * @return A ref to the newly created world
+     */
+    template<typename TWorld, typename... TArgs>
+    util::Ref<World, TWorld> createWorld(TArgs&&... args);
+
+    /**
+     * @brief Fetch the world at the given index
+     *
+     * @tparam TWorld The world type to cast to
+     * @param index The index of the world to fetch
+     * @return The world at the given index
+     */
+    template<typename TWorld = World>
+    util::Ref<World, TWorld> getWorld(unsigned int index);
+
 private:
     Worker worker;
     Settings engineSettings;
     Flags engineFlags;
     std::stack<State::Ptr> states;
+    std::vector<std::unique_ptr<Player>> players;
+    util::RefPool<World> worldPool;
+    std::array<util::Ref<World>, World::MaxWorlds> worlds;
     State::Ptr newState;
     float timeScale;
     float windowScale;
@@ -214,6 +274,12 @@ private:
     input::InputSystem input;
     util::ThreadPool workers;
     util::ThreadPool backgroundWorkers;
+
+    std::optional<std::thread> renderingThread;
+    std::mutex renderingMutex;
+    std::condition_variable renderingCv;
+    std::atomic_bool renderThreadShouldRun;
+    void renderThreadBody();
 
     bool awaitFocus();
     void handleResize(const sf::Event::SizeEvent& resize, bool saveAndSend);
@@ -246,6 +312,85 @@ inline util::ThreadPool& Engine::threadPool() { return workers; }
 inline util::ThreadPool& Engine::longRunningThreadpool() { return backgroundWorkers; }
 
 inline float Engine::getWindowScale() const { return windowScale; }
+
+inline StateMask::V Engine::getCurrentStateMask() const {
+    return !states.empty() ? states.top()->systemsMask() : StateMask::None;
+}
+
+template<typename T>
+T& Engine::getPlayer(unsigned int i) {
+    static_assert(std::is_base_of_v<Player, T>, "T must derive from Player");
+
+    if constexpr (std::is_same_v<Player, T>) {
+        if (players.empty() && i == 0) {
+            BL_LOG_INFO << "No player exists, creating default";
+            addPlayer();
+        }
+    }
+
+#ifdef BLIB_DEBUG
+    T* p = dynamic_cast<T*>(players[i].get());
+    if (!p) { BL_LOG_ERROR << "Bad player cast"; }
+#else
+    T* p = static_cast<T*>(players[i].get());
+#endif
+
+    return *p;
+}
+
+template<typename T, typename... TArgs>
+T& Engine::addPlayer(TArgs&&... args) {
+    static_assert(std::is_base_of_v<Player, T>, "T must derive from Player");
+    static_assert(
+        std::is_constructible_v<T, Engine&, rc::Observer*, input::Actor*, TArgs...>,
+        "T must be constructible with T(Engine&, rc::Observer*, input::Actor*, TArgs...)");
+
+    auto& observer = renderingSystem.addObserver();
+    auto& actor    = input.addActor();
+    T* np          = new T(*this, &observer, &actor, args...);
+    auto& player   = players.emplace_back(np);
+    bl::event::Dispatcher::dispatch<event::PlayerAdded>({*player});
+    return *np;
+}
+
+template<typename TWorld, typename... TArgs>
+util::Ref<World, TWorld> Engine::createWorld(TArgs&&... args) {
+    static_assert(std::is_base_of_v<World, TWorld>, "TWorld must derive from World");
+    static_assert(std::is_constructible_v<TWorld, Engine&, TArgs...>,
+                  "TWorld constructor must take Engine& as first parameter");
+
+    auto ref = worldPool.emplaceDerived<TWorld, TArgs...>(*this, std::forward<TArgs>(args)...);
+    for (unsigned int i = 0; i < worlds.size(); ++i) {
+        if (!worlds[i].isValid()) {
+            worlds[i]  = ref;
+            ref->index = i;
+            bl::event::Dispatcher::dispatch<event::WorldCreated>({*ref});
+            return ref;
+        }
+    }
+
+    throw std::runtime_error("A maximum of 8 worlds may exist concurrently");
+}
+
+template<typename TWorld>
+util::Ref<World, TWorld> Engine::getWorld(unsigned int index) {
+    static_assert(std::is_base_of_v<World, TWorld>, "TWorld must derive from World");
+    return util::Ref<World, TWorld>(worlds[index]);
+}
+
+template<typename TWorld, typename... TArgs>
+util::Ref<World, TWorld> Player::enterWorld(TArgs&&... args) {
+    auto world = owner.createWorld<TWorld>(std::forward<TArgs>(args)...);
+    enterWorld(world);
+    return world;
+}
+
+template<typename TWorld, typename... TArgs>
+util::Ref<World, TWorld> Player::changeWorlds(TArgs&&... args) {
+    auto world = owner.createWorld<TWorld>(std::forward<TArgs>(args)...);
+    changeWorlds(world);
+    return world;
+}
 
 } // namespace engine
 } // namespace bl

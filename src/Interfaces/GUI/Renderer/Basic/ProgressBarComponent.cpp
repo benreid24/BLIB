@@ -1,7 +1,6 @@
 #include <BLIB/Interfaces/GUI/Renderer/Basic/ProgressBarComponent.hpp>
 
 #include <BLIB/Interfaces/GUI/Elements/ProgressBar.hpp>
-#include <BLIB/Render/Primitives/Color.hpp>
 
 namespace bl
 {
@@ -47,20 +46,20 @@ void ProgressBarComponent::onElementUpdated() {
 
 void ProgressBarComponent::onRenderSettingChange() {
     const RenderSettings& settings = getOwnerAs<ProgressBar>().getRenderSettings();
-    background.setFillColor(bl::sfcol(settings.fillColor.value_or(sf::Color(120, 120, 120))));
-    background.setOutlineColor(bl::sfcol(settings.outlineColor.value_or(sf::Color(20, 20, 20))));
+    background.setFillColor(settings.fillColor.value_or(sf::Color(120, 120, 120)));
+    background.setOutlineColor(settings.outlineColor.value_or(sf::Color(20, 20, 20)));
     background.setOutlineThickness(settings.outlineThickness.value_or(1.f));
-    bar.setFillColor(bl::sfcol(settings.secondaryFillColor.value_or(sf::Color(114, 219, 72))));
-    bar.setOutlineColor(bl::sfcol(settings.secondaryOutlineColor.value_or(sf::Color::Transparent)));
+    bar.setFillColor(settings.secondaryFillColor.value_or(sf::Color(114, 219, 72)));
+    bar.setOutlineColor(settings.secondaryOutlineColor.value_or(sf::Color::Transparent));
     bar.setOutlineThickness(-settings.secondaryOutlineThickness.value_or(0.f));
 }
 
 ecs::Entity ProgressBarComponent::getEntity() const { return background.entity(); }
 
-void ProgressBarComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
+void ProgressBarComponent::doCreate(engine::World& world, rdr::Renderer&) {
     ProgressBar& owner = getOwnerAs<ProgressBar>();
-    background.create(engine, {owner.getAcquisition().width, owner.getAcquisition().height});
-    bar.create(engine, {100.f, 100.f});
+    background.create(world, {owner.getAcquisition().width, owner.getAcquisition().height});
+    bar.create(world, {100.f, 100.f});
     bar.setParent(background);
 }
 

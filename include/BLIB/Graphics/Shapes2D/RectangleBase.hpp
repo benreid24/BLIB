@@ -47,8 +47,8 @@ public:
      * @param bottomRight The color of the bottom right corner
      * @param bottomLeft The color of the bottom left corner
      */
-    void setColorGradient(const glm::vec4& topLeft, const glm::vec4& topRight,
-                          const glm::vec4& bottomRight, const glm::vec4& bottomLeft);
+    void setColorGradient(const rc::Color& topLeft, const rc::Color& topRight,
+                          const rc::Color& bottomRight, const rc::Color& bottomLeft);
 
     /**
      * @brief Overrides the fill color and creates a color gradient instead
@@ -56,7 +56,7 @@ public:
      * @param leftColor The color of the left edge
      * @param rightColor The color of the right edge
      */
-    void setHorizontalColorGradient(const glm::vec4& leftColor, const glm::vec4& rightColor);
+    void setHorizontalColorGradient(const rc::Color& leftColor, const rc::Color& rightColor);
 
     /**
      * @brief Overrides the fill color and creates a color gradient instead
@@ -64,7 +64,7 @@ public:
      * @param topColor The color of the top edge
      * @param bottomColor The color of the bottom edge
      */
-    void setVerticalColorGradient(const glm::vec4& topColor, const glm::vec4& bottomColor);
+    void setVerticalColorGradient(const rc::Color& topColor, const rc::Color& bottomColor);
 
     /**
      * @brief Removes the color gradient and calls back to the fill color
@@ -73,7 +73,7 @@ public:
 
 private:
     glm::vec2 size;
-    glm::vec4 colorOverrides[4];
+    rc::Color colorOverrides[4];
     bool hasGradient;
 
     virtual unsigned int getVertexCount() const override;
@@ -101,8 +101,8 @@ const glm::vec2& RectangleBase<B>::getSize() const {
 }
 
 template<typename B>
-void RectangleBase<B>::setColorGradient(const glm::vec4& topLeft, const glm::vec4& topRight,
-                                        const glm::vec4& bottomRight, const glm::vec4& bottomLeft) {
+void RectangleBase<B>::setColorGradient(const rc::Color& topLeft, const rc::Color& topRight,
+                                        const rc::Color& bottomRight, const rc::Color& bottomLeft) {
     colorOverrides[0] = topLeft;
     colorOverrides[1] = topRight;
     colorOverrides[2] = bottomRight;
@@ -112,8 +112,8 @@ void RectangleBase<B>::setColorGradient(const glm::vec4& topLeft, const glm::vec
 }
 
 template<typename B>
-void RectangleBase<B>::setHorizontalColorGradient(const glm::vec4& leftColor,
-                                                  const glm::vec4& rightColor) {
+void RectangleBase<B>::setHorizontalColorGradient(const rc::Color& leftColor,
+                                                  const rc::Color& rightColor) {
     colorOverrides[0] = leftColor;
     colorOverrides[1] = rightColor;
     colorOverrides[2] = rightColor;
@@ -123,8 +123,8 @@ void RectangleBase<B>::setHorizontalColorGradient(const glm::vec4& leftColor,
 }
 
 template<typename B>
-void RectangleBase<B>::setVerticalColorGradient(const glm::vec4& topColor,
-                                                const glm::vec4& bottomColor) {
+void RectangleBase<B>::setVerticalColorGradient(const rc::Color& topColor,
+                                                const rc::Color& bottomColor) {
     colorOverrides[0] = topColor;
     colorOverrides[1] = topColor;
     colorOverrides[2] = bottomColor;
