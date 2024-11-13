@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Vulkan/SharedCommandPool.cpp Source File</title>
+<title>BLIB: src/Render/Transfers/Transferable.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,120 +66,102 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_2a24e9216d188d12785cf0650df1274b.html">Vulkan</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_7607afd44543cedc5723cabe6929dc94.html">Transfers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">SharedCommandPool.cpp</div>  </div>
+<div class="title">Transferable.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a02084.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01136.html">BLIB/Render/Vulkan/SharedCommandPool.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01157.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>vk</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a04365.html#af782bc5464aff3d384350c492b79e087">   11</a></span>&#160;<a class="code" href="a04365.html#af782bc5464aff3d384350c492b79e087">SharedCommandPool::SharedCommandPool</a>()</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: vs(nullptr) {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    allocations.reserve(4);</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a04365.html#abee357eb62593adc15a467ce4f6ef756">   16</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04365.html#abee357eb62593adc15a467ce4f6ef756">SharedCommandPool::create</a>(<a class="code" href="a04405.html">VulkanState</a>&amp; vulkanState) {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    vs = &amp;vulkanState;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    pool.<a class="code" href="a04293.html#a3cfb2b7b7c657e6fe15fab6403d75721">init</a>(vulkanState, [&amp;vulkanState](VkCommandPool&amp; pool) {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        pool = vulkanState.<a class="code" href="a04405.html#acf5368fb8dcc89c2a0952b6d33dd4ccb">createCommandPool</a>(VK_COMMAND_POOL_CREATE_TRANSIENT_BIT);</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    });</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a04365.html#a2dfae4d9578520cc6cb0256077a0aad8">   23</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04365.html#a2dfae4d9578520cc6cb0256077a0aad8">SharedCommandPool::onFrameStart</a>() { vkResetCommandPool(vs-&gt;<a class="code" href="a04405.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, pool.<a class="code" href="a04293.html#a76f94a32e0a5e764699b33b49b629547">current</a>(), 0); }</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a04365.html#a8719204443dcf57dfaf8f8a755cb548b">   25</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04365.html#a8719204443dcf57dfaf8f8a755cb548b">SharedCommandPool::cleanup</a>() {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; alloc : allocations) { vkDestroyFence(vs-&gt;<a class="code" href="a04405.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, alloc.fence, <span class="keyword">nullptr</span>); }</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    pool.<a class="code" href="a04293.html#ad0bfc6a2c72077a7f2a11c620acfc68b">cleanup</a>([<span class="keyword">this</span>](VkCommandPool p) { vkDestroyCommandPool(vs-&gt;<a class="code" href="a04405.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, p, <span class="keyword">nullptr</span>); });</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a04365.html#ae09cf3a9764408f8a9ef74fc48913983">   30</a></span>&#160;<a class="code" href="a04361.html">SharedCommandBuffer</a> <a class="code" href="a04365.html#ae09cf3a9764408f8a9ef74fc48913983">SharedCommandPool::createBuffer</a>(VkCommandBufferUsageFlags flags) {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    mutex.lock();</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = allocations.begin(); it != allocations.end();) {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">if</span> (VK_SUCCESS == vkGetFenceStatus(vs-&gt;<a class="code" href="a04405.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, it-&gt;fence)) {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            vkFreeCommandBuffers(vs-&gt;<a class="code" href="a04405.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, it-&gt;pool, 1, &amp;it-&gt;buffer);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            vkDestroyFence(vs-&gt;<a class="code" href="a04405.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, it-&gt;fence, <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            it = allocations.erase(it);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        }</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">else</span> { ++it; }</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    }</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    VkCommandBufferAllocateInfo allocInfo{};</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    allocInfo.sType              = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    allocInfo.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    allocInfo.commandPool        = pool.<a class="code" href="a04293.html#a76f94a32e0a5e764699b33b49b629547">current</a>();</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    allocInfo.commandBufferCount = 1;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">auto</span>&amp; alloc                    = allocations.emplace_back();</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    VkCommandBuffer&amp; commandBuffer = alloc.buffer;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    VkFence&amp; fence                 = alloc.fence;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    alloc.pool                     = pool.<a class="code" href="a04293.html#a76f94a32e0a5e764699b33b49b629547">current</a>();</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    VkFenceCreateInfo fenceInfo{};</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="a01154.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkCreateFence(vs-&gt;<a class="code" href="a04405.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, &amp;fenceInfo, <span class="keyword">nullptr</span>, &amp;fence));</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="a01154.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkAllocateCommandBuffers(vs-&gt;<a class="code" href="a04405.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, &amp;allocInfo, &amp;commandBuffer));</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    VkCommandBufferBeginInfo beginInfo{};</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    beginInfo.flags = flags | VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="a01154.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkBeginCommandBuffer(commandBuffer, &amp;beginInfo));</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">return</span> {<span class="keyword">this</span>, fence, commandBuffer};</div>
+<a href="a02084.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01100.html">BLIB/Render/Transfers/Transferable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01193.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;unordered_set&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>tfr</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a04396.html#a168f2c871b5f008471d22febc6fed7c1">   12</a></span>&#160;<a class="code" href="a04396.html#a168f2c871b5f008471d22febc6fed7c1">Transferable::Transferable</a>()</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;: vulkanState(nullptr)</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, perFrame(NotPerFrame)</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;, queued(false) {}</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a04396.html#acf37a5209f8b287ba4e03acf9aeaaf5d">   17</a></span>&#160;<a class="code" href="a04396.html#a168f2c871b5f008471d22febc6fed7c1">Transferable::Transferable</a>(<a class="code" href="a04580.html">vk::VulkanState</a>&amp; vs)</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;: vulkanState(&amp;vs)</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;, perFrame(NotPerFrame)</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;, queued(false) {}</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a04396.html#a05233a758f0875563aea077dde3096f6">   22</a></span>&#160;<a class="code" href="a04396.html#a05233a758f0875563aea077dde3096f6">Transferable::~Transferable</a>() { <a class="code" href="a04396.html#ac7eb35d2804ad40e76823182f4eae9c8">cancelQueuedTransfer</a>(); }</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a04396.html#ac7eb35d2804ad40e76823182f4eae9c8">   24</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04396.html#ac7eb35d2804ad40e76823182f4eae9c8">Transferable::cancelQueuedTransfer</a>() {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">if</span> (perFrame != NotPerFrame) { <a class="code" href="a04396.html#a998a9c05422f6188b474d275866a6b2b">stopTransferringEveryFrame</a>(); }</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (queued) { <a class="code" href="a04396.html#ae134133a20147f77b4feae59dc9b447d">vulkanState</a>-&gt;<a class="code" href="a04580.html#a08eacbdbb12875a6d1cfc19e922deec2">transferEngine</a>.cancelTransfer(<span class="keyword">this</span>); }</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a04396.html#af2cddcfa3664702cb39bba2e304e5074">   29</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a04396.html#af2cddcfa3664702cb39bba2e304e5074">Transferable::queueTransfer</a>(<a class="code" href="a04396.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> syncReq) {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a04396.html#ae134133a20147f77b4feae59dc9b447d">vulkanState</a> == <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <a class="code" href="a00698.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a> &lt;&lt; <span class="stringliteral">&quot;Tried to queue transfer with nullptr Vulkan state&quot;</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    }</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> (!queued) {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        queued = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <a class="code" href="a04396.html#ae134133a20147f77b4feae59dc9b447d">vulkanState</a>-&gt;<a class="code" href="a04580.html#a08eacbdbb12875a6d1cfc19e922deec2">transferEngine</a>.queueOneTimeTransfer(<span class="keyword">this</span>, syncReq);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    }</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a04396.html#affdc9c965d73f5227f2d3e0c8a17064e">   45</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04396.html#affdc9c965d73f5227f2d3e0c8a17064e">Transferable::transferEveryFrame</a>(<a class="code" href="a04396.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> syncReq) {</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a04396.html#ae134133a20147f77b4feae59dc9b447d">vulkanState</a> == <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <a class="code" href="a00698.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a> &lt;&lt; <span class="stringliteral">&quot;Tried to queue transfer with nullptr Vulkan state&quot;</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    }</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    perFrame = syncReq;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="a04396.html#ae134133a20147f77b4feae59dc9b447d">vulkanState</a>-&gt;<a class="code" href="a04580.html#a08eacbdbb12875a6d1cfc19e922deec2">transferEngine</a>.registerPerFrameTransfer(<span class="keyword">this</span>, syncReq);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="a04396.html#a998a9c05422f6188b474d275866a6b2b">   56</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04396.html#a998a9c05422f6188b474d275866a6b2b">Transferable::stopTransferringEveryFrame</a>() {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a04396.html#ae134133a20147f77b4feae59dc9b447d">vulkanState</a> == <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <a class="code" href="a00698.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a> &lt;&lt; <span class="stringliteral">&quot;Tried to queue transfer with nullptr Vulkan state&quot;</span>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="a04396.html#ae134133a20147f77b4feae59dc9b447d">vulkanState</a>-&gt;<a class="code" href="a04580.html#a08eacbdbb12875a6d1cfc19e922deec2">transferEngine</a>.unregisterPerFrameTransfer(<span class="keyword">this</span>, perFrame);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    perFrame = NotPerFrame;</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keywordtype">void</span> SharedCommandPool::submit(<a class="code" href="a04361.html">SharedCommandBuffer</a>&amp; <a class="code" href="a01415.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>) {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    VkCommandBuffer lb = <a class="code" href="a01415.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <a class="code" href="a01154.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkEndCommandBuffer(<a class="code" href="a01415.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>));</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    VkSubmitInfo submitInfo{};</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    submitInfo.sType              = VK_STRUCTURE_TYPE_SUBMIT_INFO;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    submitInfo.commandBufferCount = 1;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    submitInfo.pCommandBuffers    = &amp;lb;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    vs-&gt;<a class="code" href="a04405.html#a285e8da7cb141e8af5d83b3b0a687010">submitCommandBuffer</a>(submitInfo, <a class="code" href="a01415.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>.fence);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    mutex.unlock();</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;}</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;} <span class="comment">// namespace vk</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01136_html"><div class="ttname"><a href="a01136.html">SharedCommandPool.hpp</a></div></div>
-<div class="ttc" id="aa01154_html_a95c2f7535355f5f3855410ab629f9310"><div class="ttname"><a href="a01154.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a></div><div class="ttdeci">#define vkCheck(expr)</div><div class="ttdef"><b>Definition:</b> <a href="a01154_source.html#l00015">VkCheck.hpp:15</a></div></div>
-<div class="ttc" id="aa01157_html"><div class="ttname"><a href="a01157.html">VulkanState.hpp</a></div></div>
-<div class="ttc" id="aa01415_html_ad2ae6b0ac080ea0ac45f7a06ccc480ba"><div class="ttname"><a href="a01415.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a></div><div class="ttdeci">SoundHandle buffer</div><div class="ttdef"><b>Definition:</b> <a href="a01415_source.html#l00025">AudioSystem.cpp:25</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04293_html_a3cfb2b7b7c657e6fe15fab6403d75721"><div class="ttname"><a href="a04293.html#a3cfb2b7b7c657e6fe15fab6403d75721">bl::rc::vk::PerFrame::init</a></div><div class="ttdeci">void init(VulkanState &amp;vulkanState, const U &amp;visitor)</div><div class="ttdoc">Initialize the buffer and each contained object.</div><div class="ttdef"><b>Definition:</b> <a href="a01157_source.html#l00270">VulkanState.hpp:270</a></div></div>
-<div class="ttc" id="aa04293_html_a76f94a32e0a5e764699b33b49b629547"><div class="ttname"><a href="a04293.html#a76f94a32e0a5e764699b33b49b629547">bl::rc::vk::PerFrame::current</a></div><div class="ttdeci">T &amp; current()</div><div class="ttdoc">Returns the active buffered object for the current frame.</div><div class="ttdef"><b>Definition:</b> <a href="a01157_source.html#l00294">VulkanState.hpp:294</a></div></div>
-<div class="ttc" id="aa04293_html_ad0bfc6a2c72077a7f2a11c620acfc68b"><div class="ttname"><a href="a04293.html#ad0bfc6a2c72077a7f2a11c620acfc68b">bl::rc::vk::PerFrame::cleanup</a></div><div class="ttdeci">void cleanup(const U &amp;visitor)</div><div class="ttdoc">General buffered object visitor intended primarily for cleanup but could be used for anything else re...</div><div class="ttdef"><b>Definition:</b> <a href="a01157_source.html#l00277">VulkanState.hpp:277</a></div></div>
-<div class="ttc" id="aa04361_html"><div class="ttname"><a href="a04361.html">bl::rc::vk::SharedCommandBuffer</a></div><div class="ttdoc">Wrapper around a command buffer allocated from a SharedCommandPool.</div><div class="ttdef"><b>Definition:</b> <a href="a01133_source.html#l00019">SharedCommandBuffer.hpp:19</a></div></div>
-<div class="ttc" id="aa04365_html_a2dfae4d9578520cc6cb0256077a0aad8"><div class="ttname"><a href="a04365.html#a2dfae4d9578520cc6cb0256077a0aad8">bl::rc::vk::SharedCommandPool::onFrameStart</a></div><div class="ttdeci">void onFrameStart()</div><div class="ttdoc">Called once at the beginning of each frame.</div><div class="ttdef"><b>Definition:</b> <a href="a02084_source.html#l00023">SharedCommandPool.cpp:23</a></div></div>
-<div class="ttc" id="aa04365_html_a8719204443dcf57dfaf8f8a755cb548b"><div class="ttname"><a href="a04365.html#a8719204443dcf57dfaf8f8a755cb548b">bl::rc::vk::SharedCommandPool::cleanup</a></div><div class="ttdeci">void cleanup()</div><div class="ttdoc">Frees the shared command pool.</div><div class="ttdef"><b>Definition:</b> <a href="a02084_source.html#l00025">SharedCommandPool.cpp:25</a></div></div>
-<div class="ttc" id="aa04365_html_abee357eb62593adc15a467ce4f6ef756"><div class="ttname"><a href="a04365.html#abee357eb62593adc15a467ce4f6ef756">bl::rc::vk::SharedCommandPool::create</a></div><div class="ttdeci">void create(VulkanState &amp;vulkanState)</div><div class="ttdoc">Creates the shared command pool.</div><div class="ttdef"><b>Definition:</b> <a href="a02084_source.html#l00016">SharedCommandPool.cpp:16</a></div></div>
-<div class="ttc" id="aa04365_html_ae09cf3a9764408f8a9ef74fc48913983"><div class="ttname"><a href="a04365.html#ae09cf3a9764408f8a9ef74fc48913983">bl::rc::vk::SharedCommandPool::createBuffer</a></div><div class="ttdeci">SharedCommandBuffer createBuffer(VkCommandBufferUsageFlags usage=0)</div><div class="ttdoc">Allocates a buffer from the shared pool.</div><div class="ttdef"><b>Definition:</b> <a href="a02084_source.html#l00030">SharedCommandPool.cpp:30</a></div></div>
-<div class="ttc" id="aa04365_html_af782bc5464aff3d384350c492b79e087"><div class="ttname"><a href="a04365.html#af782bc5464aff3d384350c492b79e087">bl::rc::vk::SharedCommandPool::SharedCommandPool</a></div><div class="ttdeci">SharedCommandPool()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a02084_source.html#l00011">SharedCommandPool.cpp:11</a></div></div>
-<div class="ttc" id="aa04405_html"><div class="ttname"><a href="a04405.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01157_source.html#l00039">VulkanState.hpp:39</a></div></div>
-<div class="ttc" id="aa04405_html_a285e8da7cb141e8af5d83b3b0a687010"><div class="ttname"><a href="a04405.html#a285e8da7cb141e8af5d83b3b0a687010">bl::rc::vk::VulkanState::submitCommandBuffer</a></div><div class="ttdeci">VkResult submitCommandBuffer(const VkSubmitInfo &amp;submitInfo, VkFence fence=VK_NULL_HANDLE)</div><div class="ttdoc">Performs a synchronized submission of the command buffer to the graphics queue.</div><div class="ttdef"><b>Definition:</b> <a href="a02114_source.html#l00515">VulkanState.cpp:515</a></div></div>
-<div class="ttc" id="aa04405_html_a6ad0249d08d9ffb87af35b42f11a1db5"><div class="ttname"><a href="a04405.html#a6ad0249d08d9ffb87af35b42f11a1db5">bl::rc::vk::VulkanState::device</a></div><div class="ttdeci">VkDevice device</div><div class="ttdef"><b>Definition:</b> <a href="a01157_source.html#l00214">VulkanState.hpp:214</a></div></div>
-<div class="ttc" id="aa04405_html_acf5368fb8dcc89c2a0952b6d33dd4ccb"><div class="ttname"><a href="a04405.html#acf5368fb8dcc89c2a0952b6d33dd4ccb">bl::rc::vk::VulkanState::createCommandPool</a></div><div class="ttdeci">VkCommandPool createCommandPool(VkCommandPoolCreateFlags flags)</div><div class="ttdoc">Helper method to create a command pool for graphics queue commands.</div><div class="ttdef"><b>Definition:</b> <a href="a02114_source.html#l00409">VulkanState.cpp:409</a></div></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;} <span class="comment">// namespace tfr</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00698_html_aab250887595d9e02b1f0b670fe342683"><div class="ttname"><a href="a00698.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a></div><div class="ttdeci">#define BL_LOG_CRITICAL</div><div class="ttdoc">Helper macro to log at critical level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00698_source.html#l00098">Logger.hpp:98</a></div></div>
+<div class="ttc" id="aa01100_html"><div class="ttname"><a href="a01100.html">Transferable.hpp</a></div></div>
+<div class="ttc" id="aa01193_html"><div class="ttname"><a href="a01193.html">VulkanState.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04396_html_a05233a758f0875563aea077dde3096f6"><div class="ttname"><a href="a04396.html#a05233a758f0875563aea077dde3096f6">bl::rc::tfr::Transferable::~Transferable</a></div><div class="ttdeci">virtual ~Transferable()</div><div class="ttdoc">Destroy the transferable object.</div><div class="ttdef"><b>Definition:</b> <a href="a02084_source.html#l00022">Transferable.cpp:22</a></div></div>
+<div class="ttc" id="aa04396_html_a109f9d7acc098649830f276c266b47d0"><div class="ttname"><a href="a04396.html#a109f9d7acc098649830f276c266b47d0">bl::rc::tfr::Transferable::SyncRequirement</a></div><div class="ttdeci">SyncRequirement</div><div class="ttdoc">Enum containing requirements for when transfers may start.</div><div class="ttdef"><b>Definition:</b> <a href="a01100_source.html#l00028">Transferable.hpp:28</a></div></div>
+<div class="ttc" id="aa04396_html_a168f2c871b5f008471d22febc6fed7c1"><div class="ttname"><a href="a04396.html#a168f2c871b5f008471d22febc6fed7c1">bl::rc::tfr::Transferable::Transferable</a></div><div class="ttdeci">Transferable()</div><div class="ttdoc">Sets vulkanState to nullptr.</div><div class="ttdef"><b>Definition:</b> <a href="a02084_source.html#l00012">Transferable.cpp:12</a></div></div>
+<div class="ttc" id="aa04396_html_a998a9c05422f6188b474d275866a6b2b"><div class="ttname"><a href="a04396.html#a998a9c05422f6188b474d275866a6b2b">bl::rc::tfr::Transferable::stopTransferringEveryFrame</a></div><div class="ttdeci">void stopTransferringEveryFrame()</div><div class="ttdoc">Removes this Transferable from the queue that gets transferred every frame.</div><div class="ttdef"><b>Definition:</b> <a href="a02084_source.html#l00056">Transferable.cpp:56</a></div></div>
+<div class="ttc" id="aa04396_html_ac7eb35d2804ad40e76823182f4eae9c8"><div class="ttname"><a href="a04396.html#ac7eb35d2804ad40e76823182f4eae9c8">bl::rc::tfr::Transferable::cancelQueuedTransfer</a></div><div class="ttdeci">void cancelQueuedTransfer()</div><div class="ttdoc">Cancels the scheduled transfer. Also cancels transfers that occur every frame.</div><div class="ttdef"><b>Definition:</b> <a href="a02084_source.html#l00024">Transferable.cpp:24</a></div></div>
+<div class="ttc" id="aa04396_html_ae134133a20147f77b4feae59dc9b447d"><div class="ttname"><a href="a04396.html#ae134133a20147f77b4feae59dc9b447d">bl::rc::tfr::Transferable::vulkanState</a></div><div class="ttdeci">vk::VulkanState * vulkanState</div><div class="ttdef"><b>Definition:</b> <a href="a01100_source.html#l00072">Transferable.hpp:72</a></div></div>
+<div class="ttc" id="aa04396_html_af2cddcfa3664702cb39bba2e304e5074"><div class="ttname"><a href="a04396.html#af2cddcfa3664702cb39bba2e304e5074">bl::rc::tfr::Transferable::queueTransfer</a></div><div class="ttdeci">bool queueTransfer(SyncRequirement syncReq=SyncRequirement::Immediate)</div><div class="ttdoc">Queues this object with the TransferEngine to be transfered on the next frame.</div><div class="ttdef"><b>Definition:</b> <a href="a02084_source.html#l00029">Transferable.cpp:29</a></div></div>
+<div class="ttc" id="aa04396_html_affdc9c965d73f5227f2d3e0c8a17064e"><div class="ttname"><a href="a04396.html#affdc9c965d73f5227f2d3e0c8a17064e">bl::rc::tfr::Transferable::transferEveryFrame</a></div><div class="ttdeci">void transferEveryFrame(SyncRequirement syncReq=SyncRequirement::Immediate)</div><div class="ttdoc">Configures this Transferable to transfer every frame with the given sync requirement.</div><div class="ttdef"><b>Definition:</b> <a href="a02084_source.html#l00045">Transferable.cpp:45</a></div></div>
+<div class="ttc" id="aa04580_html"><div class="ttname"><a href="a04580.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01193_source.html#l00039">VulkanState.hpp:39</a></div></div>
+<div class="ttc" id="aa04580_html_a08eacbdbb12875a6d1cfc19e922deec2"><div class="ttname"><a href="a04580.html#a08eacbdbb12875a6d1cfc19e922deec2">bl::rc::vk::VulkanState::transferEngine</a></div><div class="ttdeci">tfr::TransferEngine transferEngine</div><div class="ttdef"><b>Definition:</b> <a href="a01193_source.html#l00229">VulkanState.hpp:229</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

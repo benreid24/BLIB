@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Resources/Bundling/FileHandlers/DefaultHandler.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Vulkan/VkCheck.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,48 +66,38 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_70ae3ed4186da77d71126d34066606f0.html">Resources</a></li><li class="navelem"><a class="el" href="dir_8c0830a2e11435882738e77910337c62.html">Bundling</a></li><li class="navelem"><a class="el" href="dir_0797aa3e6e1ab8a601e0d40d10a7f5cb.html">FileHandlers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_49b99cfd015d92f767de1d8dec868906.html">Vulkan</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">DefaultHandler.hpp</div>  </div>
+<div class="title">VkCheck.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01190.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RESOURCES_BUNDLING_FILEHANDLERS_DEFAULTHANDLER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RESOURCES_BUNDLING_FILEHANDLERS_DEFAULTHANDLER_HPP</span></div>
+<a href="a01190.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_VKCHECK_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_VKCHECK_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01181.html">BLIB/Resources/Bundling/FileHandler.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00704.html">BLIB/Logging.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>resource</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>bundle</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a04457.html">   19</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a04457.html">DefaultHandler</a> : <span class="keyword">public</span> <a class="code" href="a04445.html">FileHandler</a> {</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a04457.html#a00e361f6a8d0e181b78e483bc4789db8">   20</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a04457.html#a00e361f6a8d0e181b78e483bc4789db8">~DefaultHandler</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="a04457.html#a89b9df24d442d31bef0c79d1d012c560">processFile</a>(<span class="keyword">const</span> std::string&amp; path, std::ostream&amp; output,</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                             <a class="code" href="a04449.html">FileHandlerContext</a>&amp; context) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;};</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace bundle</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace resource</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01181_html"><div class="ttname"><a href="a01181.html">FileHandler.hpp</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04445_html"><div class="ttname"><a href="a04445.html">bl::resource::bundle::FileHandler</a></div><div class="ttdoc">Base class for file handlers. File handlers process raw files and pack them into bundles....</div><div class="ttdef"><b>Definition:</b> <a href="a01181_source.html#l00021">FileHandler.hpp:21</a></div></div>
-<div class="ttc" id="aa04449_html"><div class="ttname"><a href="a04449.html">bl::resource::bundle::FileHandlerContext</a></div><div class="ttdoc">Context data that is provided to FileHandler objects when processing files.</div><div class="ttdef"><b>Definition:</b> <a href="a01184_source.html#l00023">FileHandlerContext.hpp:23</a></div></div>
-<div class="ttc" id="aa04457_html"><div class="ttname"><a href="a04457.html">bl::resource::bundle::DefaultHandler</a></div><div class="ttdoc">Default file handler used for all files that do not have a matching handler. Simply copies the file a...</div><div class="ttdef"><b>Definition:</b> <a href="a01190_source.html#l00019">DefaultHandler.hpp:19</a></div></div>
-<div class="ttc" id="aa04457_html_a00e361f6a8d0e181b78e483bc4789db8"><div class="ttname"><a href="a04457.html#a00e361f6a8d0e181b78e483bc4789db8">bl::resource::bundle::DefaultHandler::~DefaultHandler</a></div><div class="ttdeci">virtual ~DefaultHandler()=default</div></div>
-<div class="ttc" id="aa04457_html_a89b9df24d442d31bef0c79d1d012c560"><div class="ttname"><a href="a04457.html#a89b9df24d442d31bef0c79d1d012c560">bl::resource::bundle::DefaultHandler::processFile</a></div><div class="ttdeci">virtual bool processFile(const std::string &amp;path, std::ostream &amp;output, FileHandlerContext &amp;context) override</div><div class="ttdoc">Process the given file and add its data to the bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a02135_source.html#l00010">DefaultHandler.cpp:10</a></div></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#define vkCheck(expr)                                                           \</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">    do {                                                                        \</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">        const auto result = expr;                                               \</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">        if (result != VK_SUCCESS) {                                             \</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">            BL_LOG_WARN &lt;&lt; &quot;Vulkan call returned &quot;</span> &lt;&lt; result &lt;&lt; &quot; | &quot; &lt;&lt; #expr; \</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        }                                                                       \</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    } while (false);</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a01190.html#a95c2f7535355f5f3855410ab629f9310">   15</a></span>&#160;<span class="preprocessor">#define vkCheck(expr) expr</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00704_html"><div class="ttname"><a href="a00704.html">Logging.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

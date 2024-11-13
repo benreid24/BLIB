@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Graph/Assets/StandardTargetAsset.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,80 +66,64 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li><li class="navelem"><a class="el" href="dir_318f4421f1f7fb4c659a5f109f7dfe6e.html">Assets</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_154b49fde9d17c5da5d7cb000b858c0e.html">Descriptors</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">StandardTargetAsset.hpp</div>  </div>
+<div class="title">SceneDescriptorSetInstance.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00914.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_ASSETS_STANDARDATTACHMENTASSET_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_GRAPH_ASSETS_STANDARDATTACHMENTASSET_HPP</span></div>
+<a href="a00914.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_DESCRIPTORS_SCENEDESCRIPTORSETINSTANCE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_DESCRIPTORS_SCENEDESCRIPTORSETINSTANCE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00908.html">BLIB/Render/Graph/Assets/FramebufferAsset.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01103.html">BLIB/Render/Vulkan/Framebuffer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01106.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01139.html">BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00824.html">BLIB/Render/Buffers/UniformBuffer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06634.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06658.html">BLIB/Render/Descriptors/DescriptorSetInstance.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01142.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>rgi</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03957.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03957.html">StandardTargetAsset</a> : <span class="keyword">public</span> <a class="code" href="a03949.html">FramebufferAsset</a> {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="a03957.html#a0312b7fd88899825f66a36b755874c23">StandardTargetAsset</a>();</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a03957.html#a65d4e62b4ca47ad65e5dfb8990bd1cdd">   30</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03957.html#a65d4e62b4ca47ad65e5dfb8990bd1cdd">~StandardTargetAsset</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a04289.html">vk::Framebuffer</a>&amp; <a class="code" href="a03957.html#a51fc47033c9629cfdff9e2c5f4f9b1da">currentFramebuffer</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a03957.html#ad2a64bb9b5b80f914f1e008c6eec5574">   40</a></span>&#160;    constexpr <a class="code" href="a04293.html">vk::PerFrame&lt;vk::StandardAttachmentBuffers&gt;</a>&amp; <a class="code" href="a03957.html#ad2a64bb9b5b80f914f1e008c6eec5574">getImages</a>() { <span class="keywordflow">return</span> images; }</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>ds</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a04080.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04080.html">SceneDescriptorSetInstance</a> : <span class="keyword">public</span> <a class="code" href="a04036.html">DescriptorSetInstance</a> {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="a04080.html#a4e4d85081fc95e511efd38849f047eb5">SceneDescriptorSetInstance</a>();</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a04080.html#a099b83d37a581b1ab8572ee17c2269c4">   32</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a04080.html#a099b83d37a581b1ab8572ee17c2269c4">~SceneDescriptorSetInstance</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04080.html#ad0135cab959d2ab6c8c454054e1c23d4">updateObserverCamera</a>(std::uint32_t observerIndex, <span class="keyword">const</span> glm::mat4&amp; projView);</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="a04061.html">Renderer</a>* renderer;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="a04069.html">RenderTarget</a>* observer;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="a04293.html">vk::PerFrame&lt;vk::StandardAttachmentBuffers&gt;</a> images;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="a04293.html">vk::PerFrame&lt;vk::Framebuffer&gt;</a> framebuffers;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    VkViewport cachedViewport;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    VkRect2D cachedScissor;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a04080.html#a0a145382ab1e64d8c85dd63939bb0aca">   43</a></span>&#160;    <a class="code" href="a03920.html">buf::UniformBuffer&lt;glm::mat4&gt;</a> <a class="code" href="a04080.html#a0a145382ab1e64d8c85dd63939bb0aca">cameraBuffer</a>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;};</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;} <span class="comment">// namespace ds</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;} <span class="comment">// namespace bl</span></div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doCreate(<a class="code" href="a02833.html">engine::Engine</a>&amp; engine, <a class="code" href="a04061.html">Renderer</a>&amp; renderer,</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                          <a class="code" href="a04069.html">RenderTarget</a>* observer) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doPrepareForInput(<span class="keyword">const</span> <a class="code" href="a03965.html">rg::ExecutionContext</a>&amp; context) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doPrepareForOutput(<span class="keyword">const</span> <a class="code" href="a03965.html">rg::ExecutionContext</a>&amp; context) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> onResize(glm::u32vec2 newSize) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;};</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;} <span class="comment">// namespace rgi</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00908_html"><div class="ttname"><a href="a00908.html">FramebufferAsset.hpp</a></div></div>
-<div class="ttc" id="aa01103_html"><div class="ttname"><a href="a01103.html">Framebuffer.hpp</a></div></div>
-<div class="ttc" id="aa01106_html"><div class="ttname"><a href="a01106.html">PerFrame.hpp</a></div></div>
-<div class="ttc" id="aa01139_html"><div class="ttname"><a href="a01139.html">StandardAttachmentBuffers.hpp</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02833_html"><div class="ttname"><a href="a02833.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06269_source.html#l00033">Engine.hpp:33</a></div></div>
-<div class="ttc" id="aa03949_html"><div class="ttname"><a href="a03949.html">bl::rc::rgi::FramebufferAsset</a></div><div class="ttdoc">Intermediate base class for assets that provide framebuffers.</div><div class="ttdef"><b>Definition:</b> <a href="a00908_source.html#l00021">FramebufferAsset.hpp:21</a></div></div>
-<div class="ttc" id="aa03957_html"><div class="ttname"><a href="a03957.html">bl::rc::rgi::StandardTargetAsset</a></div><div class="ttdoc">Asset for a standard render target consisting of a single color and depth attachment.</div><div class="ttdef"><b>Definition:</b> <a href="a00914_source.html#l00020">StandardTargetAsset.hpp:20</a></div></div>
-<div class="ttc" id="aa03957_html_a0312b7fd88899825f66a36b755874c23"><div class="ttname"><a href="a03957.html#a0312b7fd88899825f66a36b755874c23">bl::rc::rgi::StandardTargetAsset::StandardTargetAsset</a></div><div class="ttdeci">StandardTargetAsset()</div><div class="ttdoc">Creates a new asset but does not allocate the attachments.</div><div class="ttdef"><b>Definition:</b> <a href="a01922_source.html#l00013">StandardTargetAsset.cpp:13</a></div></div>
-<div class="ttc" id="aa03957_html_a51fc47033c9629cfdff9e2c5f4f9b1da"><div class="ttname"><a href="a03957.html#a51fc47033c9629cfdff9e2c5f4f9b1da">bl::rc::rgi::StandardTargetAsset::currentFramebuffer</a></div><div class="ttdeci">virtual vk::Framebuffer &amp; currentFramebuffer() override</div><div class="ttdoc">Returns the current framebuffer to use.</div><div class="ttdef"><b>Definition:</b> <a href="a01922_source.html#l00065">StandardTargetAsset.cpp:65</a></div></div>
-<div class="ttc" id="aa03957_html_a65d4e62b4ca47ad65e5dfb8990bd1cdd"><div class="ttname"><a href="a03957.html#a65d4e62b4ca47ad65e5dfb8990bd1cdd">bl::rc::rgi::StandardTargetAsset::~StandardTargetAsset</a></div><div class="ttdeci">virtual ~StandardTargetAsset()=default</div><div class="ttdoc">Frees resources.</div></div>
-<div class="ttc" id="aa03957_html_ad2a64bb9b5b80f914f1e008c6eec5574"><div class="ttname"><a href="a03957.html#ad2a64bb9b5b80f914f1e008c6eec5574">bl::rc::rgi::StandardTargetAsset::getImages</a></div><div class="ttdeci">constexpr vk::PerFrame&lt; vk::StandardAttachmentBuffers &gt; &amp; getImages()</div><div class="ttdoc">Returns the images that are rendered to.</div><div class="ttdef"><b>Definition:</b> <a href="a00914_source.html#l00040">StandardTargetAsset.hpp:40</a></div></div>
-<div class="ttc" id="aa03965_html"><div class="ttname"><a href="a03965.html">bl::rc::rg::ExecutionContext</a></div><div class="ttdoc">Context containing graph execution data that is passed down to tasks.</div><div class="ttdef"><b>Definition:</b> <a href="a00920_source.html#l00025">ExecutionContext.hpp:25</a></div></div>
-<div class="ttc" id="aa04061_html"><div class="ttname"><a href="a04061.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a06320_source.html#l00042">Renderer.hpp:42</a></div></div>
-<div class="ttc" id="aa04069_html"><div class="ttname"><a href="a04069.html">bl::rc::RenderTarget</a></div><div class="ttdef"><b>Definition:</b> <a href="a00986_source.html#l00026">RenderTarget.hpp:26</a></div></div>
-<div class="ttc" id="aa04289_html"><div class="ttname"><a href="a04289.html">bl::rc::vk::Framebuffer</a></div><div class="ttdoc">Utility struct that wraps a Vulkan framebuffer.</div><div class="ttdef"><b>Definition:</b> <a href="a01103_source.html#l00022">Framebuffer.hpp:22</a></div></div>
-<div class="ttc" id="aa04293_html"><div class="ttname"><a href="a04293.html">bl::rc::vk::PerFrame</a></div><div class="ttdoc">Utility struct to easily double-buffer objects and data on a per-frame basis. One object of type T wi...</div><div class="ttdef"><b>Definition:</b> <a href="a01106_source.html#l00024">PerFrame.hpp:24</a></div></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00824_html"><div class="ttname"><a href="a00824.html">UniformBuffer.hpp</a></div></div>
+<div class="ttc" id="aa01142_html"><div class="ttname"><a href="a01142.html">PerFrame.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03920_html"><div class="ttname"><a href="a03920.html">bl::rc::buf::UniformBuffer&lt; glm::mat4 &gt;</a></div></div>
+<div class="ttc" id="aa04036_html"><div class="ttname"><a href="a04036.html">bl::rc::ds::DescriptorSetInstance</a></div><div class="ttdoc">Base class for descriptor sets that exist for each scene. Derived classes are created by DescriptorSe...</div><div class="ttdef"><b>Definition:</b> <a href="a06658_source.html#l00030">DescriptorSetInstance.hpp:30</a></div></div>
+<div class="ttc" id="aa04080_html"><div class="ttname"><a href="a04080.html">bl::rc::ds::SceneDescriptorSetInstance</a></div><div class="ttdoc">Base class for descriptor sets for scene data (cameras, lighting, etc)</div><div class="ttdef"><b>Definition:</b> <a href="a00914_source.html#l00022">SceneDescriptorSetInstance.hpp:22</a></div></div>
+<div class="ttc" id="aa04080_html_a099b83d37a581b1ab8572ee17c2269c4"><div class="ttname"><a href="a04080.html#a099b83d37a581b1ab8572ee17c2269c4">bl::rc::ds::SceneDescriptorSetInstance::~SceneDescriptorSetInstance</a></div><div class="ttdeci">virtual ~SceneDescriptorSetInstance()=default</div><div class="ttdoc">Destroys the descriptor set.</div></div>
+<div class="ttc" id="aa04080_html_a0a145382ab1e64d8c85dd63939bb0aca"><div class="ttname"><a href="a04080.html#a0a145382ab1e64d8c85dd63939bb0aca">bl::rc::ds::SceneDescriptorSetInstance::cameraBuffer</a></div><div class="ttdeci">buf::UniformBuffer&lt; glm::mat4 &gt; cameraBuffer</div><div class="ttdef"><b>Definition:</b> <a href="a00914_source.html#l00043">SceneDescriptorSetInstance.hpp:43</a></div></div>
+<div class="ttc" id="aa04080_html_a4e4d85081fc95e511efd38849f047eb5"><div class="ttname"><a href="a04080.html#a4e4d85081fc95e511efd38849f047eb5">bl::rc::ds::SceneDescriptorSetInstance::SceneDescriptorSetInstance</a></div><div class="ttdeci">SceneDescriptorSetInstance()</div><div class="ttdoc">Creates the descriptor set instance.</div><div class="ttdef"><b>Definition:</b> <a href="a01952_source.html#l00011">SceneDescriptorSetInstance.cpp:11</a></div></div>
+<div class="ttc" id="aa04080_html_ad0135cab959d2ab6c8c454054e1c23d4"><div class="ttname"><a href="a04080.html#ad0135cab959d2ab6c8c454054e1c23d4">bl::rc::ds::SceneDescriptorSetInstance::updateObserverCamera</a></div><div class="ttdeci">void updateObserverCamera(std::uint32_t observerIndex, const glm::mat4 &amp;projView)</div><div class="ttdoc">Updates the camera value for the given observer.</div><div class="ttdef"><b>Definition:</b> <a href="a01952_source.html#l00014">SceneDescriptorSetInstance.cpp:14</a></div></div>
+<div class="ttc" id="aa06634_html"><div class="ttname"><a href="a06634.html">Config.hpp</a></div></div>
+<div class="ttc" id="aa06658_html"><div class="ttname"><a href="a06658.html">DescriptorSetInstance.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

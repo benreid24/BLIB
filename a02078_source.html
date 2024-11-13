@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Vulkan/RenderTexture.cpp Source File</title>
+<title>BLIB: src/Render/Transfers/TextureExport.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,149 +66,279 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_2a24e9216d188d12785cf0650df1274b.html">Vulkan</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_7607afd44543cedc5723cabe6929dc94.html">Transfers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">RenderTexture.cpp</div>  </div>
+<div class="title">TextureExport.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a02078.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01130.html">BLIB/Render/Vulkan/RenderTexture.hpp</a>&gt;</span></div>
+<a href="a02078.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01094.html">BLIB/Render/Transfers/TextureExport.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00023.html">BLIB/Cameras/2D/Camera2D.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00035.html">BLIB/Cameras/3D/Camera3D.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00902.html">BLIB/Render/Graph/Assets/FinalRenderTextureAsset.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06320.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01139.html">BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01097.html">BLIB/Render/Transfers/TextureExporter.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01190.html">BLIB/Render/Vulkan/VkCheck.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01193.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>tfr</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>vk</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;RenderTexture::RenderTexture(engine::Engine&amp; engine, Renderer&amp; renderer, rg::AssetFactory&amp; factory,</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;                             <span class="keyword">const</span> glm::u32vec2&amp; size, VkSampler sampler)</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;: RenderTarget(engine, renderer, factory, true) {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    commandBuffers.create(renderer.vulkanState());</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    attachments.emptyInit(renderer.vulkanState());</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    framebuffers.emptyInit(renderer.vulkanState());</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    scissor.extent.width  = size.x;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    scissor.extent.height = size.y;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    scissor.offset        = {0, 0};</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    viewport.minDepth     = 0.f;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    viewport.maxDepth     = 1.f;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    viewport.x            = 0.f;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    viewport.y            = 0.f;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    viewport.width        = size.x;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    viewport.height       = size.y;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    texture = renderer.texturePool().createRenderTexture(size, sampler);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    resize(size);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    graphAssets.putAsset&lt;rgi::FinalRenderTextureAsset&gt;(</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        framebuffers, viewport, scissor, clearColors, std::size(clearColors));</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a04349.html#a675ff7fe0fabaf0f4aa90c9dd48a00e0">   39</a></span>&#160;RenderTexture::~RenderTexture() {</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    destroy();</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    commandBuffers.destroy();</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a04349.html#a05cdb4fa3bb44c51b5cdfab121bfaee7">   44</a></span>&#160;<span class="keywordtype">void</span> RenderTexture::resize(<span class="keyword">const</span> glm::u32vec2&amp; size) {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">if</span> (getSize() != size) { texture-&gt;resize(size); }</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;constexpr std::uint64_t TimeoutNs = 10ull * 1000ull * 1000ull * 1000ull;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;constexpr VkFormat OutputFormat   = VK_FORMAT_R8G8B8A8_UNORM;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keywordtype">bool</span> requiresSwizzle(VkFormat format) {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">return</span> format == VK_FORMAT_B8G8R8A8_SRGB || format == VK_FORMAT_B8G8R8A8_UNORM ||</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;           format == VK_FORMAT_B8G8R8A8_SNORM;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a04388.html#a132a0c11d9fef57def03c5f659848260">   24</a></span>&#160;<a class="code" href="a04388.html#a132a0c11d9fef57def03c5f659848260">TextureExport::TextureExport</a>(<a class="code" href="a04580.html">vk::VulkanState</a>&amp; vs, <a class="code" href="a04392.html">TextureExporter</a>&amp; owner, VkImage src,</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;                             VkImageLayout srcLayout, VkExtent3D srcExtent,</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;                             VkImageAspectFlags srcAspect, VkFormat srcFormat)</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;: vulkanState(vs)</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;, owner(owner)</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;, requiresManualConversion(false)</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;, mapped(nullptr)</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;, srcImage(src)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;, srcLayout(srcLayout)</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;, srcExtent(srcExtent)</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;, srcAspect(srcAspect)</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;, srcFormat(srcFormat)</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;, inProgress(true) {}</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a04388.html#a73a5bf549f86dbd022b2610aedf55da1">   38</a></span>&#160;<a class="code" href="a04388.html#a73a5bf549f86dbd022b2610aedf55da1">TextureExport::~TextureExport</a>() {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">if</span> (mapped) { vmaUnmapMemory(vulkanState.<a class="code" href="a04580.html#a781a2fe56188f13e65f1b511d9db23f6">vmaAllocator</a>, destAlloc); }</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    vmaDestroyImage(vulkanState.<a class="code" href="a04580.html#a781a2fe56188f13e65f1b511d9db23f6">vmaAllocator</a>, destImage, destAlloc);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    vkDestroyFence(vulkanState.<a class="code" href="a04580.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, fence, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    vkDestroyCommandPool(vulkanState.<a class="code" href="a04580.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, commandPool, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a04388.html#aa1a1e433a70b0706852d90ad9641abfb">   45</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a04388.html#aa1a1e433a70b0706852d90ad9641abfb">TextureExport::imageReady</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> !inProgress; }</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    scissor.extent.width  = size.x;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    scissor.extent.height = size.y;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    viewport.width        = size.x;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    viewport.height       = size.y;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    VkRenderPass renderPass = renderer.renderPassCache()</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                                  .getRenderPass(Config::RenderPassIds::StandardAttachmentDefault)</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                                  .rawPass();</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    attachments.visit([<span class="keyword">this</span>, size, renderPass, &amp;i](<span class="keyword">auto</span>&amp; a) {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        a.depthBuffer.create(renderer.vulkanState(),</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                             StandardAttachmentBuffers::findDepthFormat(renderer.vulkanState()),</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                             VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                             {size.x, size.y});</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        a.attachmentSet.setRenderExtent(scissor.extent);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        a.attachmentSet.setAttachments(texture.asRenderTexture()-&gt;getImages().getRaw(i).image,</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                                       texture.asRenderTexture()-&gt;getImages().getRaw(i).view,</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                                       a.depthBuffer.image(),</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                                       a.depthBuffer.view());</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        ++i;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    });</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    i = 0;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    framebuffers.visit([<span class="keyword">this</span>, &amp;i, renderPass](<span class="keyword">auto</span>&amp; fb) {</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        fb.create(renderer.vulkanState(), renderPass, attachments.getRaw(i).attachmentSet);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        ++i;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    });</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;}</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="a04349.html#a56d442e0c77d46924396934d91ae48b1">   78</a></span>&#160;<span class="keywordtype">void</span> RenderTexture::destroy() {</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">if</span> (texture) {</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        clearScenes();</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        framebuffers.cleanup([](<span class="keyword">auto</span>&amp; fb) { fb.deferCleanup(); });</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        attachments.cleanup([](<span class="keyword">auto</span>&amp; a) { a.depthBuffer.deferDestroy(); });</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        texture.release();</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;}</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="keywordtype">void</span> RenderTexture::render() {</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">if</span> (texture) {</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keyword">auto</span> commandBuffer = commandBuffers.begin();</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        framebuffers.current().beginRender(</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            commandBuffer, scissor, clearColors, std::size(clearColors), <span class="keyword">true</span>, <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        renderScene(commandBuffer);</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        renderSceneFinal(commandBuffer);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        VkClearAttachment attachment{};</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        attachment.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        attachment.clearValue = clearColors[1];</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        VkClearRect rect{};</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        rect.rect           = scissor;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        rect.baseArrayLayer = 0;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        rect.layerCount     = 1;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        vkCmdClearAttachments(commandBuffer, 1, &amp;attachment, 1, &amp;rect);</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        renderOverlay(commandBuffer);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        framebuffers.current().finishRender(commandBuffer);</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        commandBuffers.submit();</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    }</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;}</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="a04353.html#a01ab39f2b39a3dfb44b32a0e60fbe81b">  114</a></span>&#160;<span class="keywordtype">void</span> RenderTexture::Handle::release() {</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordflow">if</span> (texture) {</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        renderer-&gt;destroyRenderTexture(texture);</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        texture = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    }</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;}</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="a04388.html#a6b7748212cefae31568cea51f59571ca">   47</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04388.html#a6b7748212cefae31568cea51f59571ca">TextureExport::wait</a>() {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">if</span> (inProgress) {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        std::unique_lock lock(progressMutex);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        cv.wait(lock);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;}</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keywordtype">bool</span> TextureExport::checkComplete() {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">if</span> (inProgress) {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        std::unique_lock lock(progressMutex);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">if</span> (vkWaitForFences(vulkanState.<a class="code" href="a04580.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, 1, &amp;fence, VK_TRUE, 0) == VK_SUCCESS) {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            inProgress = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            cv.notify_all();</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        }</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    }</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="a04388.html#abe0f01298503f9db5eaefa3607ed96cb">   67</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04388.html#abe0f01298503f9db5eaefa3607ed96cb">TextureExport::copyImage</a>(sf::Image&amp; dst) {</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="a04388.html#aa1a1e433a70b0706852d90ad9641abfb">imageReady</a>()) {</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <a class="code" href="a00698.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; <span class="stringliteral">&quot;copyImage() called before export is ready&quot;</span>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <a class="code" href="a04388.html#a6b7748212cefae31568cea51f59571ca">wait</a>();</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    }</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">if</span> (!mapped) { vmaMapMemory(vulkanState.<a class="code" href="a04580.html#a781a2fe56188f13e65f1b511d9db23f6">vmaAllocator</a>, destAlloc, &amp;mapped); }</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    dst.create(srcExtent.width, srcExtent.height, <span class="keyword">static_cast&lt;</span>sf::Uint8*<span class="keyword">&gt;</span>(mapped));</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">if</span> (requiresManualConversion) {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> y = 0; y &lt; dst.getSize().y; ++y) {</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> x = 0; x &lt; dst.getSize().x; ++x) {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                <span class="keyword">const</span> sf::Color c = dst.getPixel(x, y);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                dst.setPixel(x, y, {c.b, c.g, c.r, c.a});</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        }</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    }</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;}</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="a04388.html#ac121b2826a786d2a9f1d323af8e2f0ef">   86</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04388.html#ac121b2826a786d2a9f1d323af8e2f0ef">TextureExport::release</a>() { owner.release(<span class="keyword">this</span>); }</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keywordtype">void</span> TextureExport::performCopy() {</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="comment">// create resources</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    commandPool = vulkanState.<a class="code" href="a04580.html#acf5368fb8dcc89c2a0952b6d33dd4ccb">createCommandPool</a>(VK_COMMAND_POOL_CREATE_TRANSIENT_BIT);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    VkCommandBufferAllocateInfo cbAllocInfo{};</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    cbAllocInfo.sType              = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    cbAllocInfo.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    cbAllocInfo.commandPool        = commandPool;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    cbAllocInfo.commandBufferCount = 1;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <a class="code" href="a01190.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkAllocateCommandBuffers(vulkanState.<a class="code" href="a04580.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, &amp;cbAllocInfo, &amp;commandBuffer));</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    VkFenceCreateInfo createFence{};</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    createFence.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    createFence.flags = 0;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <a class="code" href="a01190.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkCreateFence(vulkanState.<a class="code" href="a04580.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, &amp;createFence, <span class="keyword">nullptr</span>, &amp;fence));</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="comment">// create staging image to copy to</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    vulkanState.<a class="code" href="a04580.html#ae9e6306fe93e942569b6b1f43b804025">createImage</a>(srcExtent.width,</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                            srcExtent.height,</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                            OutputFormat,</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                            VK_IMAGE_TILING_LINEAR,</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                            VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT,</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                            VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                                VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                            &amp;destImage,</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;                            &amp;destAlloc,</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                            &amp;destAllocInfo,</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                            VMA_ALLOCATION_CREATE_HOST_ACCESS_RANDOM_BIT);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="comment">// Begin recording commands</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    VkCommandBufferBeginInfo begin{};</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    begin.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    begin.flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <a class="code" href="a01190.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkBeginCommandBuffer(commandBuffer, &amp;begin));</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;} <span class="comment">// namespace vk</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00023_html"><div class="ttname"><a href="a00023.html">Camera2D.hpp</a></div></div>
-<div class="ttc" id="aa00035_html"><div class="ttname"><a href="a00035.html">Camera3D.hpp</a></div></div>
-<div class="ttc" id="aa00902_html"><div class="ttname"><a href="a00902.html">FinalRenderTextureAsset.hpp</a></div></div>
-<div class="ttc" id="aa01130_html"><div class="ttname"><a href="a01130.html">RenderTexture.hpp</a></div></div>
-<div class="ttc" id="aa01139_html"><div class="ttname"><a href="a01139.html">StandardAttachmentBuffers.hpp</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa06320_html"><div class="ttname"><a href="a06320.html">Renderer.hpp</a></div></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="comment">// transition image to copy source layout</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    vulkanState.<a class="code" href="a04580.html#a50bead01cfb0d7c09ffad62400db7e04">transitionImageLayout</a>(</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        commandBuffer, srcImage, srcLayout, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="comment">// transition dest image to dest layout</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    vulkanState.<a class="code" href="a04580.html#a50bead01cfb0d7c09ffad62400db7e04">transitionImageLayout</a>(</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        commandBuffer, destImage, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keyword">const</span> VkFormatProperties srcFormatProps  = vulkanState.<a class="code" href="a04580.html#ae4630a412e0b00e2f17e7d9d1a23820c">getFormatProperties</a>(srcFormat);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keyword">const</span> VkFormatProperties convFormatProps = vulkanState.<a class="code" href="a04580.html#ae4630a412e0b00e2f17e7d9d1a23820c">getFormatProperties</a>(OutputFormat);</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="comment">// blit if supported otherwise copy</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordflow">if</span> ((srcFormatProps.optimalTilingFeatures &amp; VK_FORMAT_FEATURE_BLIT_SRC_BIT) != 0 &amp;&amp;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        (convFormatProps.linearTilingFeatures &amp; VK_FORMAT_FEATURE_BLIT_DST_BIT) != 0) {</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        <span class="keyword">const</span> VkOffset3D blitSize{<span class="keyword">static_cast&lt;</span>std::int32_t<span class="keyword">&gt;</span>(srcExtent.width),</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;                                  <span class="keyword">static_cast&lt;</span>std::int32_t<span class="keyword">&gt;</span>(srcExtent.height),</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                                  1};</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        VkImageBlit imageBlitRegion{};</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        imageBlitRegion.srcSubresource.aspectMask = srcAspect;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        imageBlitRegion.srcSubresource.layerCount = 1;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        imageBlitRegion.srcOffsets[1]             = blitSize;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        imageBlitRegion.dstSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        imageBlitRegion.dstSubresource.layerCount = 1;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        imageBlitRegion.dstOffsets[1]             = blitSize;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        vkCmdBlitImage(commandBuffer,</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                       srcImage,</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                       VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;                       destImage,</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;                       VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;                       1,</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                       &amp;imageBlitRegion,</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                       VK_FILTER_NEAREST);</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    }</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        <span class="comment">// check if the format requires swizzling</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        requiresManualConversion = requiresSwizzle(srcFormat);</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        VkImageCopy imageCopyRegion{};</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        imageCopyRegion.srcSubresource.aspectMask = srcAspect;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        imageCopyRegion.srcSubresource.layerCount = 1;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        imageCopyRegion.dstSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        imageCopyRegion.dstSubresource.layerCount = 1;</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        imageCopyRegion.extent                    = srcExtent;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        vkCmdCopyImage(commandBuffer,</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                       srcImage,</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                       VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                       destImage,</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                       VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                       1,</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;                       &amp;imageCopyRegion);</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    }</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="comment">// insert barrier to block until copy is complete</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    VkImageMemoryBarrier barrier{};</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    barrier.sType                           = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    barrier.oldLayout                       = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    barrier.newLayout                       = srcLayout;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    barrier.srcQueueFamilyIndex             = VK_QUEUE_FAMILY_IGNORED;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    barrier.dstQueueFamilyIndex             = VK_QUEUE_FAMILY_IGNORED;</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    barrier.image                           = srcImage;</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    barrier.subresourceRange.aspectMask     = VK_IMAGE_ASPECT_COLOR_BIT;</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    barrier.subresourceRange.baseMipLevel   = 0;</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    barrier.subresourceRange.levelCount     = 1;</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    barrier.subresourceRange.baseArrayLayer = 0;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    barrier.subresourceRange.layerCount     = 1;</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    barrier.srcAccessMask                   = VK_ACCESS_TRANSFER_READ_BIT;</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    barrier.dstAccessMask                   = VK_ACCESS_MEMORY_WRITE_BIT;</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    vkCmdPipelineBarrier(commandBuffer,</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;                         VK_PIPELINE_STAGE_TRANSFER_BIT,</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                         VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT,</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;                         0,</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;                         0,</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                         <span class="keyword">nullptr</span>,</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;                         0,</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;                         <span class="keyword">nullptr</span>,</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;                         1,</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;                         &amp;barrier);</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160; </div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <span class="comment">// transition dest image to general format</span></div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    VkImageMemoryBarrier destBarrier{};</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    destBarrier.sType                           = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    destBarrier.oldLayout                       = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    destBarrier.newLayout                       = VK_IMAGE_LAYOUT_GENERAL;</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    destBarrier.srcQueueFamilyIndex             = VK_QUEUE_FAMILY_IGNORED;</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    destBarrier.dstQueueFamilyIndex             = VK_QUEUE_FAMILY_IGNORED;</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    destBarrier.image                           = destImage;</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    destBarrier.subresourceRange.aspectMask     = VK_IMAGE_ASPECT_COLOR_BIT;</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    destBarrier.subresourceRange.baseMipLevel   = 0;</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    destBarrier.subresourceRange.levelCount     = 1;</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    destBarrier.subresourceRange.baseArrayLayer = 0;</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    destBarrier.subresourceRange.layerCount     = 1;</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    destBarrier.srcAccessMask                   = VK_ACCESS_TRANSFER_WRITE_BIT;</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    destBarrier.dstAccessMask                   = VK_ACCESS_MEMORY_READ_BIT;</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    vkCmdPipelineBarrier(commandBuffer,</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;                         VK_PIPELINE_STAGE_TRANSFER_BIT,</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;                         VK_PIPELINE_STAGE_TRANSFER_BIT,</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;                         0,</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;                         0,</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;                         <span class="keyword">nullptr</span>,</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;                         0,</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;                         <span class="keyword">nullptr</span>,</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;                         1,</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;                         &amp;destBarrier);</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160; </div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    <span class="comment">// submit commands</span></div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <a class="code" href="a01190.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkEndCommandBuffer(commandBuffer));</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    VkSubmitInfo submit{};</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    submit.sType              = VK_STRUCTURE_TYPE_SUBMIT_INFO;</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    submit.pCommandBuffers    = &amp;commandBuffer;</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    submit.commandBufferCount = 1;</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    vulkanState.<a class="code" href="a04580.html#a285e8da7cb141e8af5d83b3b0a687010">submitCommandBuffer</a>(submit, fence);</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;}</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;} <span class="comment">// namespace tfr</span></div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00698_html_af954e63cd52a20dcd7087a8c569f373f"><div class="ttname"><a href="a00698.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a></div><div class="ttdeci">#define BL_LOG_WARN</div><div class="ttdoc">Helper macro to log at warn level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00698_source.html#l00104">Logger.hpp:104</a></div></div>
+<div class="ttc" id="aa01094_html"><div class="ttname"><a href="a01094.html">TextureExport.hpp</a></div></div>
+<div class="ttc" id="aa01097_html"><div class="ttname"><a href="a01097.html">TextureExporter.hpp</a></div></div>
+<div class="ttc" id="aa01190_html"><div class="ttname"><a href="a01190.html">VkCheck.hpp</a></div></div>
+<div class="ttc" id="aa01190_html_a95c2f7535355f5f3855410ab629f9310"><div class="ttname"><a href="a01190.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a></div><div class="ttdeci">#define vkCheck(expr)</div><div class="ttdef"><b>Definition:</b> <a href="a01190_source.html#l00015">VkCheck.hpp:15</a></div></div>
+<div class="ttc" id="aa01193_html"><div class="ttname"><a href="a01193.html">VulkanState.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04388_html_a132a0c11d9fef57def03c5f659848260"><div class="ttname"><a href="a04388.html#a132a0c11d9fef57def03c5f659848260">bl::rc::tfr::TextureExport::TextureExport</a></div><div class="ttdeci">TextureExport(vk::VulkanState &amp;vs, TextureExporter &amp;owner, VkImage src, VkImageLayout srcLayout, VkExtent3D srcExtent, VkImageAspectFlags srcAspect, VkFormat srcFormat)</div><div class="ttdoc">Creates a texture export job. Use TextureExporter, do not use this directly.</div><div class="ttdef"><b>Definition:</b> <a href="a02078_source.html#l00024">TextureExport.cpp:24</a></div></div>
+<div class="ttc" id="aa04388_html_a6b7748212cefae31568cea51f59571ca"><div class="ttname"><a href="a04388.html#a6b7748212cefae31568cea51f59571ca">bl::rc::tfr::TextureExport::wait</a></div><div class="ttdeci">void wait()</div><div class="ttdoc">Blocks until the image export is ready. Do not call from primary engine thread or execution will be d...</div><div class="ttdef"><b>Definition:</b> <a href="a02078_source.html#l00047">TextureExport.cpp:47</a></div></div>
+<div class="ttc" id="aa04388_html_a73a5bf549f86dbd022b2610aedf55da1"><div class="ttname"><a href="a04388.html#a73a5bf549f86dbd022b2610aedf55da1">bl::rc::tfr::TextureExport::~TextureExport</a></div><div class="ttdeci">~TextureExport()</div><div class="ttdoc">Releases resources.</div><div class="ttdef"><b>Definition:</b> <a href="a02078_source.html#l00038">TextureExport.cpp:38</a></div></div>
+<div class="ttc" id="aa04388_html_aa1a1e433a70b0706852d90ad9641abfb"><div class="ttname"><a href="a04388.html#aa1a1e433a70b0706852d90ad9641abfb">bl::rc::tfr::TextureExport::imageReady</a></div><div class="ttdeci">bool imageReady() const</div><div class="ttdoc">Returns whether the exported image is ready to be copied.</div><div class="ttdef"><b>Definition:</b> <a href="a02078_source.html#l00045">TextureExport.cpp:45</a></div></div>
+<div class="ttc" id="aa04388_html_abe0f01298503f9db5eaefa3607ed96cb"><div class="ttname"><a href="a04388.html#abe0f01298503f9db5eaefa3607ed96cb">bl::rc::tfr::TextureExport::copyImage</a></div><div class="ttdeci">void copyImage(sf::Image &amp;dst)</div><div class="ttdoc">Copies the exported image to the destination sf::Image. Waits if the image is not yet ready....</div><div class="ttdef"><b>Definition:</b> <a href="a02078_source.html#l00067">TextureExport.cpp:67</a></div></div>
+<div class="ttc" id="aa04388_html_ac121b2826a786d2a9f1d323af8e2f0ef"><div class="ttname"><a href="a04388.html#ac121b2826a786d2a9f1d323af8e2f0ef">bl::rc::tfr::TextureExport::release</a></div><div class="ttdeci">void release()</div><div class="ttdoc">Call when finished with the exported texture.</div><div class="ttdef"><b>Definition:</b> <a href="a02078_source.html#l00086">TextureExport.cpp:86</a></div></div>
+<div class="ttc" id="aa04392_html"><div class="ttname"><a href="a04392.html">bl::rc::tfr::TextureExporter</a></div><div class="ttdoc">Export manager that handles copying device local images to host visible buffers.</div><div class="ttdef"><b>Definition:</b> <a href="a01097_source.html#l00022">TextureExporter.hpp:22</a></div></div>
+<div class="ttc" id="aa04580_html"><div class="ttname"><a href="a04580.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01193_source.html#l00039">VulkanState.hpp:39</a></div></div>
+<div class="ttc" id="aa04580_html_a285e8da7cb141e8af5d83b3b0a687010"><div class="ttname"><a href="a04580.html#a285e8da7cb141e8af5d83b3b0a687010">bl::rc::vk::VulkanState::submitCommandBuffer</a></div><div class="ttdeci">VkResult submitCommandBuffer(const VkSubmitInfo &amp;submitInfo, VkFence fence=VK_NULL_HANDLE)</div><div class="ttdoc">Performs a synchronized submission of the command buffer to the graphics queue.</div><div class="ttdef"><b>Definition:</b> <a href="a02168_source.html#l00549">VulkanState.cpp:549</a></div></div>
+<div class="ttc" id="aa04580_html_a50bead01cfb0d7c09ffad62400db7e04"><div class="ttname"><a href="a04580.html#a50bead01cfb0d7c09ffad62400db7e04">bl::rc::vk::VulkanState::transitionImageLayout</a></div><div class="ttdeci">void transitionImageLayout(VkImage image, VkImageLayout oldLayout, VkImageLayout newLayout)</div><div class="ttdoc">Converts an image from one layout to another.</div><div class="ttdef"><b>Definition:</b> <a href="a02168_source.html#l00557">VulkanState.cpp:557</a></div></div>
+<div class="ttc" id="aa04580_html_a6ad0249d08d9ffb87af35b42f11a1db5"><div class="ttname"><a href="a04580.html#a6ad0249d08d9ffb87af35b42f11a1db5">bl::rc::vk::VulkanState::device</a></div><div class="ttdeci">VkDevice device</div><div class="ttdef"><b>Definition:</b> <a href="a01193_source.html#l00222">VulkanState.hpp:222</a></div></div>
+<div class="ttc" id="aa04580_html_a781a2fe56188f13e65f1b511d9db23f6"><div class="ttname"><a href="a04580.html#a781a2fe56188f13e65f1b511d9db23f6">bl::rc::vk::VulkanState::vmaAllocator</a></div><div class="ttdeci">VmaAllocator vmaAllocator</div><div class="ttdef"><b>Definition:</b> <a href="a01193_source.html#l00223">VulkanState.hpp:223</a></div></div>
+<div class="ttc" id="aa04580_html_acf5368fb8dcc89c2a0952b6d33dd4ccb"><div class="ttname"><a href="a04580.html#acf5368fb8dcc89c2a0952b6d33dd4ccb">bl::rc::vk::VulkanState::createCommandPool</a></div><div class="ttdeci">VkCommandPool createCommandPool(VkCommandPoolCreateFlags flags)</div><div class="ttdoc">Helper method to create a command pool for graphics queue commands.</div><div class="ttdef"><b>Definition:</b> <a href="a02168_source.html#l00443">VulkanState.cpp:443</a></div></div>
+<div class="ttc" id="aa04580_html_ae4630a412e0b00e2f17e7d9d1a23820c"><div class="ttname"><a href="a04580.html#ae4630a412e0b00e2f17e7d9d1a23820c">bl::rc::vk::VulkanState::getFormatProperties</a></div><div class="ttdeci">VkFormatProperties getFormatProperties(VkFormat format)</div><div class="ttdoc">Retrieves the format properties of the physical device for the given format.</div><div class="ttdef"><b>Definition:</b> <a href="a02168_source.html#l00668">VulkanState.cpp:668</a></div></div>
+<div class="ttc" id="aa04580_html_ae9e6306fe93e942569b6b1f43b804025"><div class="ttname"><a href="a04580.html#ae9e6306fe93e942569b6b1f43b804025">bl::rc::vk::VulkanState::createImage</a></div><div class="ttdeci">void createImage(std::uint32_t width, std::uint32_t height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage *image, VmaAllocation *vmaAlloc, VmaAllocationInfo *vmaAllocInfo, VmaAllocationCreateFlags flags=0)</div><div class="ttdoc">Helper function to create an image.</div><div class="ttdef"><b>Definition:</b> <a href="a02168_source.html#l00519">VulkanState.cpp:519</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

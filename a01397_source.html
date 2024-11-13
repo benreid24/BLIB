@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Util/UnderlyingType.hpp Source File</title>
+<title>BLIB: include/BLIB/Util/ImageStitcher.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,48 +71,68 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">UnderlyingType.hpp</div>  </div>
+<div class="title">ImageStitcher.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01397.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_UTIL_UNDERLYINGTYPE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_UTIL_UNDERLYINGTYPE_HPP</span></div>
+<a href="a01397.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_UTIL_IMAGESTITCHER_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_UTIL_IMAGESTITCHER_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>util</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/Image.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keywordtype">bool</span> = std::is_enum_v&lt;T&gt;&gt;</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a05105.html">   18</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a05105.html">UnderlyingType</a> {};</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a05109.html">   21</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a05105.html">UnderlyingType</a>&lt;U, false&gt; {</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a05109.html#a5f74c7105c35498fe4eeea79c781ac6a">   22</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a05109.html#a5f74c7105c35498fe4eeea79c781ac6a">type</a> = U;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;};</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a05113.html">   26</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a05105.html">UnderlyingType</a>&lt;U, true&gt; {</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a05113.html#a00abb8857d89214f8bae80045528003b">   27</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a05113.html#a00abb8857d89214f8bae80045528003b">type</a> = std::underlying_type_t&lt;U&gt;;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;};</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a02370.html#aa8853668ec5ed0e2e9cc964b2e38334d">   31</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a02370.html#aa8853668ec5ed0e2e9cc964b2e38334d">UnderlyingTypeT</a> = <span class="keyword">typename</span> <a class="code" href="a05105.html">UnderlyingType&lt;T&gt;::type</a>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace util</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02370_html_aa8853668ec5ed0e2e9cc964b2e38334d"><div class="ttname"><a href="a02370.html#aa8853668ec5ed0e2e9cc964b2e38334d">bl::util::UnderlyingTypeT</a></div><div class="ttdeci">typename UnderlyingType&lt; T &gt;::type UnderlyingTypeT</div><div class="ttdef"><b>Definition:</b> <a href="a01397_source.html#l00031">UnderlyingType.hpp:31</a></div></div>
-<div class="ttc" id="aa05105_html"><div class="ttname"><a href="a05105.html">bl::util::UnderlyingType</a></div><div class="ttdoc">Provides the underlying type of an enum with the added benefit of allow integral types to pass-throug...</div><div class="ttdef"><b>Definition:</b> <a href="a01397_source.html#l00018">UnderlyingType.hpp:18</a></div></div>
-<div class="ttc" id="aa05109_html_a5f74c7105c35498fe4eeea79c781ac6a"><div class="ttname"><a href="a05109.html#a5f74c7105c35498fe4eeea79c781ac6a">bl::util::UnderlyingType&lt; U, false &gt;::type</a></div><div class="ttdeci">U type</div><div class="ttdef"><b>Definition:</b> <a href="a01397_source.html#l00022">UnderlyingType.hpp:22</a></div></div>
-<div class="ttc" id="aa05113_html_a00abb8857d89214f8bae80045528003b"><div class="ttname"><a href="a05113.html#a00abb8857d89214f8bae80045528003b">bl::util::UnderlyingType&lt; U, true &gt;::type</a></div><div class="ttdeci">std::underlying_type_t&lt; U &gt; type</div><div class="ttdef"><b>Definition:</b> <a href="a01397_source.html#l00027">UnderlyingType.hpp:27</a></div></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span>Renderer;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>util</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a05212.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="a05212.html">ImageStitcher</a> {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="a05212.html#ab387134964eba43d367d2b6bdfe0b0af">ImageStitcher</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> maxWidth, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> padding = 2);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="a05212.html#ab387134964eba43d367d2b6bdfe0b0af">ImageStitcher</a>(<span class="keyword">const</span> <a class="code" href="a04236.html">rc::Renderer</a>&amp; renderer, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> padding = 2);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    glm::u32vec2 <a class="code" href="a05212.html#af6f4bfc07bb91772c53ce58d49dab7b7">addImage</a>(<span class="keyword">const</span> sf::Image&amp; img);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">const</span> sf::Image&amp; <a class="code" href="a05212.html#ad91c10b73470d6709aed6ac723d8354e">getStitchedImage</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">struct </span>Row {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> y;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> height;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> width;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        Row(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> y, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> height)</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        : y(y)</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        , height(height)</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        , width(0) {}</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    };</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> maxWidth;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> padding;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    sf::Image image;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    std::vector&lt;Row&gt; rows;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;};</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;} <span class="comment">// namespace util</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04236_html"><div class="ttname"><a href="a04236.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a06619_source.html#l00042">Renderer.hpp:42</a></div></div>
+<div class="ttc" id="aa05212_html"><div class="ttname"><a href="a05212.html">bl::util::ImageStitcher</a></div><div class="ttdoc">Helper class to combine multiple images into one large atlas image.</div><div class="ttdef"><b>Definition:</b> <a href="a01397_source.html#l00022">ImageStitcher.hpp:22</a></div></div>
+<div class="ttc" id="aa05212_html_ab387134964eba43d367d2b6bdfe0b0af"><div class="ttname"><a href="a05212.html#ab387134964eba43d367d2b6bdfe0b0af">bl::util::ImageStitcher::ImageStitcher</a></div><div class="ttdeci">ImageStitcher(unsigned int maxWidth, unsigned int padding=2)</div><div class="ttdoc">Creates the stitcher with the given max width and padding.</div><div class="ttdef"><b>Definition:</b> <a href="a02309_source.html#l00014">ImageStitcher.cpp:14</a></div></div>
+<div class="ttc" id="aa05212_html_ad91c10b73470d6709aed6ac723d8354e"><div class="ttname"><a href="a05212.html#ad91c10b73470d6709aed6ac723d8354e">bl::util::ImageStitcher::getStitchedImage</a></div><div class="ttdeci">const sf::Image &amp; getStitchedImage() const</div><div class="ttdoc">Returns the combined image.</div><div class="ttdef"><b>Definition:</b> <a href="a02309_source.html#l00018">ImageStitcher.cpp:18</a></div></div>
+<div class="ttc" id="aa05212_html_af6f4bfc07bb91772c53ce58d49dab7b7"><div class="ttname"><a href="a05212.html#af6f4bfc07bb91772c53ce58d49dab7b7">bl::util::ImageStitcher::addImage</a></div><div class="ttdeci">glm::u32vec2 addImage(const sf::Image &amp;img)</div><div class="ttdoc">Adds an image to the atlas and returns it's position in the atlas.</div><div class="ttdef"><b>Definition:</b> <a href="a02309_source.html#l00020">ImageStitcher.cpp:20</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

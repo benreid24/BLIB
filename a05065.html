@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::util::ReadWriteLock Class Reference</title>
+<title>BLIB: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,182 +66,39 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02303.html">bl</a></li><li class="navelem"><a class="el" href="a02370.html">util</a></li><li class="navelem"><a class="el" href="a05065.html">ReadWriteLock</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02357.html">bl</a></li><li class="navelem"><a class="el" href="a02360.html">serial</a></li><li class="navelem"><a class="el" href="a05068.html">SerializableField</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="a05062.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::util::ReadWriteLock Class Reference<div class="ingroups"><a class="el" href="a02295.html">Util</a></div></div>  </div>
+<div class="title">bl::serial::SerializableField&lt; Id, C, T &gt; Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Reader-writer lock built on top of std::shared_mutex. The primary benefit of this class is that lockRead and lockWrite do not deadlock if called by the same thread more than once. Note that calling one and then the other will still deadlock.  
- <a href="a05065.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a01379_source.html">ReadWriteLock.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::util::ReadWriteLock:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a05065.png" usemap="#bl::util::ReadWriteLock_map" alt=""/>
-  <map id="bl::util::ReadWriteLock_map" name="bl::util::ReadWriteLock_map">
-<area href="a05029.html" title="Helper class to make derived classes impossible for user to copy directly." alt="bl::util::NonCopyable" shape="rect" coords="0,0,135,24"/>
-  </map>
-</div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05069.html">ReadScopeGuard</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">RAII helper to acquire a read lock and release it when the scope is exited.  <a href="a05069.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05073.html">WriteScopeGuard</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">RAII helper to acquire a write lock and release it when the scope is exited.  <a href="a05073.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a3b8cc85b75b2b5a280c9ce246b9b2dd2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05065.html#a3b8cc85b75b2b5a280c9ce246b9b2dd2">ReadWriteLock</a> ()</td></tr>
-<tr class="memdesc:a3b8cc85b75b2b5a280c9ce246b9b2dd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Read Write Lock object.  <a href="a05065.html#a3b8cc85b75b2b5a280c9ce246b9b2dd2">More...</a><br /></td></tr>
-<tr class="separator:a3b8cc85b75b2b5a280c9ce246b9b2dd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71234a7cb8b764c834c02fcdc097a728"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05065.html#a71234a7cb8b764c834c02fcdc097a728">lockRead</a> ()</td></tr>
-<tr class="memdesc:a71234a7cb8b764c834c02fcdc097a728"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acquires a lock for reading a shared resource. Multiple threads may acquire a read lock provided that no thread holds a write lock.  <a href="a05065.html#a71234a7cb8b764c834c02fcdc097a728">More...</a><br /></td></tr>
-<tr class="separator:a71234a7cb8b764c834c02fcdc097a728"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad37b398dbe7861cd2763e20002069263"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05065.html#ad37b398dbe7861cd2763e20002069263">lockWrite</a> ()</td></tr>
-<tr class="memdesc:ad37b398dbe7861cd2763e20002069263"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acquires a lock for writing a shared resource. Only one thread may hold this lock.  <a href="a05065.html#ad37b398dbe7861cd2763e20002069263">More...</a><br /></td></tr>
-<tr class="separator:ad37b398dbe7861cd2763e20002069263"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abcce04734931a45bdeeab0241135133b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05065.html#abcce04734931a45bdeeab0241135133b">unlockRead</a> ()</td></tr>
-<tr class="memdesc:abcce04734931a45bdeeab0241135133b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the read lock held by this thread.  <a href="a05065.html#abcce04734931a45bdeeab0241135133b">More...</a><br /></td></tr>
-<tr class="separator:abcce04734931a45bdeeab0241135133b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a751259f66b9b1aece13bbf155cdd50c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05065.html#a751259f66b9b1aece13bbf155cdd50c5">unlockWrite</a> ()</td></tr>
-<tr class="memdesc:a751259f66b9b1aece13bbf155cdd50c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the write lock held by this thread.  <a href="a05065.html#a751259f66b9b1aece13bbf155cdd50c5">More...</a><br /></td></tr>
-<tr class="separator:a751259f66b9b1aece13bbf155cdd50c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Reader-writer lock built on top of std::shared_mutex. The primary benefit of this class is that lockRead and lockWrite do not deadlock if called by the same thread more than once. Note that calling one and then the other will still deadlock. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01379_source.html#l00022">22</a> of file <a class="el" href="a01379_source.html">ReadWriteLock.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a3b8cc85b75b2b5a280c9ce246b9b2dd2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b8cc85b75b2b5a280c9ce246b9b2dd2">&#9670;&nbsp;</a></span>ReadWriteLock()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::util::ReadWriteLock::ReadWriteLock </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Construct a new Read Write Lock object. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02258_source.html#l00007">7</a> of file <a class="el" href="a02258_source.html">ReadWriteLock.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a71234a7cb8b764c834c02fcdc097a728"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71234a7cb8b764c834c02fcdc097a728">&#9670;&nbsp;</a></span>lockRead()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::util::ReadWriteLock::lockRead </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Acquires a lock for reading a shared resource. Multiple threads may acquire a read lock provided that no thread holds a write lock. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02258_source.html#l00011">11</a> of file <a class="el" href="a02258_source.html">ReadWriteLock.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ad37b398dbe7861cd2763e20002069263"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad37b398dbe7861cd2763e20002069263">&#9670;&nbsp;</a></span>lockWrite()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::util::ReadWriteLock::lockWrite </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Acquires a lock for writing a shared resource. Only one thread may hold this lock. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02258_source.html#l00033">33</a> of file <a class="el" href="a02258_source.html">ReadWriteLock.cpp</a>.</p>
-
-</div>
-</div>
-<a id="abcce04734931a45bdeeab0241135133b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abcce04734931a45bdeeab0241135133b">&#9670;&nbsp;</a></span>unlockRead()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::util::ReadWriteLock::unlockRead </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Releases the read lock held by this thread. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02258_source.html#l00021">21</a> of file <a class="el" href="a02258_source.html">ReadWriteLock.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a751259f66b9b1aece13bbf155cdd50c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a751259f66b9b1aece13bbf155cdd50c5">&#9670;&nbsp;</a></span>unlockWrite()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::util::ReadWriteLock::unlockWrite </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Releases the write lock held by this thread. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02258_source.html#l00044">44</a> of file <a class="el" href="a02258_source.html">ReadWriteLock.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Util/<a class="el" href="a01379_source.html">ReadWriteLock.hpp</a></li>
-<li>src/Util/<a class="el" href="a02258_source.html">ReadWriteLock.cpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a05068.html">bl::serial::SerializableField&lt; Id, C, T &gt;</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a05068.html#abf2241e88c25d8f48c565bc5c231896b">binarySize</a>(const void *object) const override</td><td class="entry"><a class="el" href="a05068.html">bl::serial::SerializableField&lt; Id, C, T &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a05068.html#af27212a643abbdb4bef32ebb4d1002e5">createDefault</a>()</td><td class="entry"><a class="el" href="a05068.html">bl::serial::SerializableField&lt; Id, C, T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a05068.html#af0e0d61b81b526f1eb12c6bfb3628513">deserializeBinary</a>(binary::InputStream &amp;stream, void *object) const override</td><td class="entry"><a class="el" href="a05068.html">bl::serial::SerializableField&lt; Id, C, T &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a05068.html#a5a3c82e19ccb1ef0365d5bfe6c8e670d">deserializeJSON</a>(const json::Value &amp;json, void *object) const override</td><td class="entry"><a class="el" href="a05068.html">bl::serial::SerializableField&lt; Id, C, T &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a05068.html#afb00190b970b54f2c673839fc555e643">deserializeJsonStream</a>(std::istream &amp;stream, void *object) const override</td><td class="entry"><a class="el" href="a05068.html">bl::serial::SerializableField&lt; Id, C, T &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a05068.html#abb17cc7491c70788ba4c1180e7323656">getDefault</a>()</td><td class="entry"><a class="el" href="a05068.html">bl::serial::SerializableField&lt; Id, C, T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a05056.html#a106ca06f45f5cc36f15b22889a64445d">id</a>() const</td><td class="entry"><a class="el" href="a05056.html">bl::serial::SerializableFieldBase</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a05068.html#af2369c1242ef9a251982285e059396a7">makeDefault</a>(void *object) const override</td><td class="entry"><a class="el" href="a05068.html">bl::serial::SerializableField&lt; Id, C, T &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a05056.html#aab279c4c2eb76237dff61c8425b30649">name</a>() const</td><td class="entry"><a class="el" href="a05056.html">bl::serial::SerializableFieldBase</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a05056.html#a9ec5ed8febe37ce001e5e6fc60eb11b3">optional</a>() const</td><td class="entry"><a class="el" href="a05056.html">bl::serial::SerializableFieldBase</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a05068.html#ad4c151a8c9408cc0549c02dbdb817171">SerializableField</a>(const std::string &amp;name, SerializableObjectBase &amp;owner, T C::*member, SerializableFieldBase::Required &amp;&amp;)</td><td class="entry"><a class="el" href="a05068.html">bl::serial::SerializableField&lt; Id, C, T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a05068.html#ab357669c5babe1c71eaecd839de559d6">SerializableField</a>(const std::string &amp;name, SerializableObjectBase &amp;owner, T C::*member, SerializableFieldBase::Optional &amp;&amp;)</td><td class="entry"><a class="el" href="a05068.html">bl::serial::SerializableField&lt; Id, C, T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a05056.html#a34e7fb020ac9aa346d095de613a1bba5">SerializableFieldBase</a>(std::uint16_t id, const std::string &amp;name, SerializableObjectBase &amp;owner, M C::*, bool opt)</td><td class="entry"><a class="el" href="a05056.html">bl::serial::SerializableFieldBase</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a05068.html#ac5a642dfaad34f1fabaee344d11a6d19">serializeBinary</a>(binary::OutputStream &amp;stream, const void *object) const override</td><td class="entry"><a class="el" href="a05068.html">bl::serial::SerializableField&lt; Id, C, T &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a05068.html#a6a14eb22dfa158cb4ef9e830c3e12e7f">serializeJSON</a>(const void *object) const override</td><td class="entry"><a class="el" href="a05068.html">bl::serial::SerializableField&lt; Id, C, T &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a05068.html#a65945fa3565edd3d4403d7e70326dd4a">serializeJsonStream</a>(std::ostream &amp;stream, const void *object, unsigned int tabSize, unsigned int currentIndent=0) const override</td><td class="entry"><a class="el" href="a05068.html">bl::serial::SerializableField&lt; Id, C, T &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a05068.html#a3cf4edeb942ec068859c21280bac75da">setDefault</a>(T &amp;&amp;defaultValue)</td><td class="entry"><a class="el" href="a05068.html">bl::serial::SerializableField&lt; Id, C, T &gt;</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:57:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

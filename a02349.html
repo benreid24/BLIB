@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::buf Namespace Reference</title>
+<title>BLIB: Util</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -50,6 +50,7 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -64,69 +65,171 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="a02303.html">bl</a></li><li class="navelem"><a class="el" href="a02313.html">rc</a></li><li class="navelem"><a class="el" href="a02349.html">buf</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">bl::rc::buf Namespace Reference</div>  </div>
+<div class="title">Util</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of common buffer classes.  
-<a href="a02349.html#details">More...</a></p>
+<p>Miscellaneous set of classes that provide common functionality.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03721.html">BatchIndexBufferT</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper around <a class="el" href="a03745.html" title="Basic index buffer class built on top of vk::Buffer. Intended for static mesh data.">IndexBufferT</a> that allows allocations to be made out of it. Intended use is for batching multiple simple renderables into a single draw call.  <a href="a03721.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05180.html">bl::util::BufferIstreamBuf</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper class that represents a streambuf around a vector&lt;char&gt;. Use to create istream objects from vector&lt;char&gt; buffers.  <a href="a05180.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03733.html">DynamicSSBO</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device-local SSBO intended for use with per-object data for dynamic objects.  <a href="a03733.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05184.html">bl::util::FileUtil</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Common utility functions for dealing with files and filenames.  <a href="a05184.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03741.html">FullyDynamicSSBO</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device-local SSBO intended for use with per-object data for dynamic objects. This version of <a class="el" href="a03733.html" title="Device-local SSBO intended for use with per-object data for dynamic objects.">DynamicSSBO</a> does not provide a CPU-side buffer and assumes that the user will fully rewrite the entire buffer every frame. If that is not the case then use <a class="el" href="a03733.html" title="Device-local SSBO intended for use with per-object data for dynamic objects.">DynamicSSBO</a>.  <a href="a03741.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05192.html">bl::util::PairHash&lt; T1, T2, T1Hash, T2Hash &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility struct to allow hashing of std::pair objects.  <a href="a05192.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03745.html">IndexBufferT</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic index buffer class built on top of <a class="el" href="a04249.html" title="Wrapper over Vulkan buffers. Provides simpler interfaces and resize ability.">vk::Buffer</a>. Intended for static mesh data.  <a href="a03745.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05196.html">bl::util::Vector2Hash&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized hash for sf::Vector2.  <a href="a05196.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03749.html">StaticSSBO</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device-local SSBO intended for use with per-object data for static objects.  <a href="a03749.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05200.html">bl::util::Vector3Hash&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized hash for sf::Vector3.  <a href="a05200.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03753.html">StaticUniformBuffer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device-local, staged, uniform buffer array. Intended for small, static data such as scene lighting data.  <a href="a03753.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05204.html">bl::util::IdAllocator&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility to allocate integral ids in some range [0, max). Allows ids to be reused as well as tracks the current highest id to allow for tighter iteration over the id range. Ids are allocated in linear order.  <a href="a05204.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03757.html">UniformBuffer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device-local, staged, uniform buffer array. Intended for small, dynamic data such as per-frame scene data. Not intended for larger data sets such as per-object data. Writes go directly to the staging buffer, so the used portions of the UBO must be written to every frame otherwise stale data will be copied to the GPU.  <a href="a03757.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05208.html">bl::util::IdAllocatorUnbounded&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Similar to <a class="el" href="a05204.html" title="Utility to allocate integral ids in some range [0, max). Allows ids to be reused as well as tracks th...">IdAllocator</a>, but with no max id restriction.  <a href="a05208.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03761.html">VertexBufferT</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic vertex buffer class built on top of <a class="el" href="a04249.html" title="Wrapper over Vulkan buffers. Provides simpler interfaces and resize ability.">vk::Buffer</a>. Intended for static mesh data.  <a href="a03761.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05212.html">bl::util::ImageStitcher</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper class to combine multiple images into one large atlas image.  <a href="a05212.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05220.html">bl::util::LastVariadic&lt; Ts &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides a typedef for the last type in a variadic template parameter list.  <a href="a05220.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05228.html">bl::util::NonCopyable</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper class to make derived classes impossible for user to copy directly.  <a href="a05228.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05232.html">bl::util::Random</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a05232.html" title="Random number generator for integral and floating point numbers.">Random</a> number generator for integral and floating point numbers.  <a href="a05232.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05252.html">bl::util::RangeAllocatorUnbounded&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to manage allocation of integer ranges.  <a href="a05252.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05264.html">bl::util::ReadWriteLock</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reader-writer lock built on top of std::shared_mutex. The primary benefit of this class is that lockRead and lockWrite do not deadlock if called by the same thread more than once. Note that calling one and then the other will still deadlock.  <a href="a05264.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05268.html">bl::util::ReadWriteLock::ReadScopeGuard</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">RAII helper to acquire a read lock and release it when the scope is exited.  <a href="a05268.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05272.html">bl::util::ReadWriteLock::WriteScopeGuard</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">RAII helper to acquire a write lock and release it when the scope is exited.  <a href="a05272.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05288.html">bl::util::Ref&lt; T, TDerived &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility for lightweight ref counting of resources.  <a href="a05288.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05276.html">bl::util::RefPool&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility to manage a pool of ref counted resources.  <a href="a05276.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05292.html">bl::util::Signal&lt; CallbackArgs &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class perform callback actions on events. Can be configured to perform multiple callbacks. Includes a helper method to simply set a boolean variable.  <a href="a05292.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05296.html">bl::util::StreamUtil</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper utility for parsing text streams.  <a href="a05296.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05312.html">bl::util::ThreadPool</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides a thread pool with variable concurrency and support for draining.  <a href="a05312.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05316.html">bl::util::Timer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global class for tracking time. Implemented over the top of sf::Clock to allow for pausing.  <a href="a05316.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05320.html">bl::util::UnderlyingType&lt; T, bool &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides the underlying type of an enum with the added benefit of allow integral types to pass-through instead of throwing errors.  <a href="a05320.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05332.html">bl::util::VariadicListContains&lt; T, List &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper that tests whether a list of types contains a given type.  <a href="a05332.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05340.html">bl::util::Variadic&lt; Ts &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper to capture a list of types into a single type.  <a href="a05340.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05344.html">bl::util::VariadicSetsContained&lt; Inner, Outer &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper to test whether one list of types is fully contained by another.  <a href="a05344.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05356.html">bl::util::VectorRef&lt; T, TStorage &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility struct to provide a stable iterator into a vector where indices do not change.  <a href="a05356.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05360.html">bl::util::Visitor&lt; Ts &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to wrap a collection of lambdas for std::visit.  <a href="a05360.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05364.html">bl::util::Waiter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic utility class to pause a thread while waiting for a specific event.  <a href="a05364.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:gae7a223975c9369c4bbbd383dfc02dacb"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02289.html#gae7a223975c9369c4bbbd383dfc02dacb">BatchIndexBuffer</a> = <a class="el" href="a03721.html">BatchIndexBufferT</a>&lt; <a class="el" href="a04057.html">prim::Vertex</a> &gt;</td></tr>
-<tr class="memdesc:gae7a223975c9369c4bbbd383dfc02dacb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience typedef for the standard vertex type.  <a href="a02289.html#gae7a223975c9369c4bbbd383dfc02dacb">More...</a><br /></td></tr>
-<tr class="separator:gae7a223975c9369c4bbbd383dfc02dacb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaefb3729dcc560378d43cc72e50f7d438"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02289.html#gaefb3729dcc560378d43cc72e50f7d438">IndexBuffer</a> = <a class="el" href="a03745.html">IndexBufferT</a>&lt; <a class="el" href="a04057.html">prim::Vertex</a> &gt;</td></tr>
-<tr class="memdesc:gaefb3729dcc560378d43cc72e50f7d438"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience alias for a standard index buffer.  <a href="a02289.html#gaefb3729dcc560378d43cc72e50f7d438">More...</a><br /></td></tr>
-<tr class="separator:gaefb3729dcc560378d43cc72e50f7d438"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga711b89e5d389c3e62540520ef7f76a25"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02289.html#ga711b89e5d389c3e62540520ef7f76a25">VertexBuffer</a> = <a class="el" href="a03761.html">VertexBufferT</a>&lt; <a class="el" href="a04057.html">prim::Vertex</a> &gt;</td></tr>
-<tr class="memdesc:ga711b89e5d389c3e62540520ef7f76a25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience alias for a standard vertex buffer.  <a href="a02289.html#ga711b89e5d389c3e62540520ef7f76a25">More...</a><br /></td></tr>
-<tr class="separator:ga711b89e5d389c3e62540520ef7f76a25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga5d5816901da87f0dd35b765c5ab2639e"><td class="memTemplParams" colspan="2">template&lt;std::size_t I = 0, typename FuncT , typename... Tp&gt; </td></tr>
+<tr class="memitem:ga5d5816901da87f0dd35b765c5ab2639e"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt; I==sizeof...(Tp), void &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02349.html#ga5d5816901da87f0dd35b765c5ab2639e">bl::util::TupleLoop</a> (std::tuple&lt; Tp... &gt; &amp;, FuncT)</td></tr>
+<tr class="memdesc:ga5d5816901da87f0dd35b765c5ab2639e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base case for TupleLoop utility.  <a href="a02349.html#ga5d5816901da87f0dd35b765c5ab2639e">More...</a><br /></td></tr>
+<tr class="separator:ga5d5816901da87f0dd35b765c5ab2639e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Collection of common buffer classes. </p>
-</div></div><!-- contents -->
+<p>Miscellaneous set of classes that provide common functionality. </p>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ga5d5816901da87f0dd35b765c5ab2639e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5d5816901da87f0dd35b765c5ab2639e">&#9670;&nbsp;</a></span>TupleLoop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t I = 0, typename FuncT , typename... Tp&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if&lt;I == sizeof...(Tp), void&gt;::type bl::util::TupleLoop </td>
+          <td>(</td>
+          <td class="paramtype">std::tuple&lt; Tp... &gt; &amp;&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FuncT&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Base case for TupleLoop utility. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">I</td><td>Last index </td></tr>
+    <tr><td class="paramname">FuncT</td><td>callback method type </td></tr>
+    <tr><td class="paramname">Tp</td><td>Tuple types </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::enable_if&lt;I == sizeof...(Tp), void&gt;::type False type </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01430_source.html#l00022">22</a> of file <a class="el" href="a01430_source.html">TupleLoop.hpp</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:57:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

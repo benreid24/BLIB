@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Graphics/Shapes2D/CircleBase.hpp Source File</title>
+<title>BLIB: include/BLIB/Graphics/BatchSlideshowSimple.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,145 +66,83 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_8af985930208ac2752e8061e22535a56.html">Graphics</a></li><li class="navelem"><a class="el" href="dir_886502d98260abb236f1d1310d59e9a0.html">Shapes2D</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_8af985930208ac2752e8061e22535a56.html">Graphics</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">CircleBase.hpp</div>  </div>
+<div class="title">BatchSlideshowSimple.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00356.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GRAPHICS_SHAPES2D_CIRCLEBASE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GRAPHICS_SHAPES2D_CIRCLEBASE_HPP</span></div>
+<a href="a00356.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GRAPHICS_BATCHSLIDESHOWSIMPLE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GRAPHICS_BATCHSLIDESHOWSIMPLE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00365.html">BLIB/Graphics/Shapes2D/SingleShape2D.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00683.html">BLIB/Math.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>gfx</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>s2d</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> B&gt;</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03081.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03081.html">CircleBase</a> : <span class="keyword">public</span> B {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    static_assert(std::is_base_of_v&lt;Shape2D, B&gt;, <span class="stringliteral">&quot;B must derive from Shape2D&quot;</span>);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a03081.html#a9a88b918383729c840fc4c93bfdca9e9">   31</a></span>&#160;    <a class="code" href="a03081.html#a9a88b918383729c840fc4c93bfdca9e9">CircleBase</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> pointCount = 300);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a03081.html#ade9c3d7c900c2b150bf0812f79720a1c">   38</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03081.html#ade9c3d7c900c2b150bf0812f79720a1c">setRadius</a>(<span class="keywordtype">float</span> radius);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a03081.html#a5ae7641e4990040d8cd1cc5317cf96c8">   43</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a03081.html#a5ae7641e4990040d8cd1cc5317cf96c8">getRadius</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a03081.html#a55fafe40901b4a83c5e9e5168eb38ff2">   51</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03081.html#a55fafe40901b4a83c5e9e5168eb38ff2">setPointCount</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> pointCount);</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06478.html">BLIB/Components/Animation2DPlayer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06493.html">BLIB/Graphics/BatchedSlideshows.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;span&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>gfx</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a03188.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03188.html">BatchSlideshowSimple</a> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="a03188.html#ab7415d2e248d3b56c412bd85f2e0da8e">BatchSlideshowSimple</a>();</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="a03188.html#ab7415d2e248d3b56c412bd85f2e0da8e">BatchSlideshowSimple</a>(<a class="code" href="a02964.html">engine::Engine</a>&amp; engine, <a class="code" href="a03168.html">BatchedSlideshows</a>&amp; batch,</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                         <a class="code" href="a02808.html">ecs::Entity</a> playerEntity);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="a03188.html#a469bdded901d1e0d2d95a6e2808b02c3">~BatchSlideshowSimple</a>();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03188.html#abaa66bfa90cdf1325dc789f97013ac32">create</a>(<a class="code" href="a02964.html">engine::Engine</a>&amp; engine, <a class="code" href="a03168.html">BatchedSlideshows</a>&amp; batch, <a class="code" href="a02808.html">ecs::Entity</a> playerEntity);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03188.html#a0a3af61c6bbae0a4ae4f9a24d63bef14">remove</a>();</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a03081.html#a4362a038cafd56574bb52ab552d7e5e1">   59</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03081.html#a4362a038cafd56574bb52ab552d7e5e1">setColorGradient</a>(<span class="keyword">const</span> glm::vec4&amp; centerColor, <span class="keyword">const</span> glm::vec4&amp; edgeColor);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03188.html#a2042a5c2858f13a459bb37c4c5aedc7d">setPlayer</a>(<a class="code" href="a02964.html">engine::Engine</a>&amp; engine, <a class="code" href="a02808.html">ecs::Entity</a> playerEntity);</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="a03081.html#a282b090ad3f50db176f9a47672837a43">   64</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03081.html#a282b090ad3f50db176f9a47672837a43">removeColorGradient</a>();</div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="a03188.html#a5bdc3f89f08ffc0e2ff6b24028df96c2">   64</a></span>&#160;    <a class="code" href="a02568.html">com::Animation2DPlayer</a>&amp; <a class="code" href="a03188.html#a5bdc3f89f08ffc0e2ff6b24028df96c2">getPlayer</a>() { <span class="keywordflow">return</span> *player; }</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> pointCount;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">float</span> radius;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">bool</span> hasColorOverride;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    glm::vec4 centerColor;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    glm::vec4 edgeColor;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> getVertexCount() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> populateVertex(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index, <a class="code" href="a04057.html">rc::prim::Vertex</a>&amp; vertex) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">virtual</span> glm::vec4 getCenterColor(<span class="keyword">const</span> glm::vec4&amp; avgColor) <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;};</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> B&gt;</div>
-<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="a03081.html#a9a88b918383729c840fc4c93bfdca9e9">   81</a></span>&#160;<a class="code" href="a03081.html#a9a88b918383729c840fc4c93bfdca9e9">CircleBase&lt;B&gt;::CircleBase</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> pointCount)</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;: B()</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;, pointCount(pointCount)</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;, radius(100.f)</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;, hasColorOverride(false)</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;, centerColor{}</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;, edgeColor{} {}</div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="a03188.html#a3d2e3125ccd62fdb7f021fb921f5c63c">   69</a></span>&#160;    std::span&lt;rc::prim::SlideshowVertex&gt; <a class="code" href="a03188.html#a3d2e3125ccd62fdb7f021fb921f5c63c">getVertices</a>() { <span class="keywordflow">return</span> {alloc.getVertices(), 4}; }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="a03188.html#a72e9ed0598cef3dd6aae7201fb19f723">   74</a></span>&#160;    std::span&lt;std::uint32_t&gt; <a class="code" href="a03188.html#a72e9ed0598cef3dd6aae7201fb19f723">getIndices</a>() { <span class="keywordflow">return</span> {alloc.getIndices(), 6}; }</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03188.html#a06f099878683d473e61fd75c84b8d95d">commit</a>();</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <a class="code" href="a03168.html">BatchedSlideshows</a>* owner;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <a class="code" href="a02568.html">com::Animation2DPlayer</a>* player;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <a class="code" href="a03892.html">rc::buf::BatchIndexBufferT&lt;rc::prim::SlideshowVertex&gt;::AllocHandle</a> alloc;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <a class="code" href="a02568.html">com::Animation2DPlayer</a>* validatePlayer(<a class="code" href="a02964.html">engine::Engine</a>&amp; engine, <a class="code" href="a02808.html">ecs::Entity</a> ent);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;};</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> B&gt;</div>
-<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="a03081.html#ade9c3d7c900c2b150bf0812f79720a1c">   90</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03081.html#ade9c3d7c900c2b150bf0812f79720a1c">CircleBase&lt;B&gt;::setRadius</a>(<span class="keywordtype">float</span> r) {</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    radius = r;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    B::notifyDirty();</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;}</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> B&gt;</div>
-<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="a03081.html#a5ae7641e4990040d8cd1cc5317cf96c8">   96</a></span>&#160;<span class="keywordtype">float</span> <a class="code" href="a03081.html#a5ae7641e4990040d8cd1cc5317cf96c8">CircleBase&lt;B&gt;::getRadius</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordflow">return</span> radius;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;}</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> B&gt;</div>
-<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="a03081.html#a55fafe40901b4a83c5e9e5168eb38ff2">  101</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03081.html#a55fafe40901b4a83c5e9e5168eb38ff2">CircleBase&lt;B&gt;::setPointCount</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> pc) {</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    pointCount = pc;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    B::notifyDirty();</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;}</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> B&gt;</div>
-<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="a03081.html#a4362a038cafd56574bb52ab552d7e5e1">  107</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03081.html#a4362a038cafd56574bb52ab552d7e5e1">CircleBase&lt;B&gt;::setColorGradient</a>(<span class="keyword">const</span> glm::vec4&amp; c, <span class="keyword">const</span> glm::vec4&amp; e) {</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    hasColorOverride = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    centerColor      = c;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    edgeColor        = e;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    B::notifyDirty();</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;}</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> B&gt;</div>
-<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="a03081.html#a282b090ad3f50db176f9a47672837a43">  115</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03081.html#a282b090ad3f50db176f9a47672837a43">CircleBase&lt;B&gt;::removeColorGradient</a>() {</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    hasColorOverride = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    B::notifyDirty();</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;}</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> B&gt;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="a03081.html">CircleBase&lt;B&gt;::getVertexCount</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keywordflow">return</span> pointCount + 1; <span class="comment">// repeat first point</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;}</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> B&gt;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="keywordtype">void</span> CircleBase&lt;B&gt;::populateVertex(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index, <a class="code" href="a04057.html">rc::prim::Vertex</a>&amp; vertex) {</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordflow">if</span> (hasColorOverride) { vertex.<a class="code" href="a04057.html#a16b8a1f1ea8391b3341ad465eb4e1100">color</a> = edgeColor; }</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> percent = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(index) / <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(pointCount);</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> radians = percent * 2.f * <a class="code" href="a02343.html#a5d956eb5741fd61ccb4d7a18bd6fd431">math::Pi</a>;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    vertex.<a class="code" href="a04057.html#aedd9c74835faffffa3fad63d0220783b">pos</a>.x        = <a class="code" href="a02286.html#gae8e482156412ed87dc2d91572ee817ab">std::cos</a>(radians) * radius + radius;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    vertex.<a class="code" href="a04057.html#aedd9c74835faffffa3fad63d0220783b">pos</a>.y        = <a class="code" href="a02286.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">std::sin</a>(radians) * radius + radius;</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    vertex.<a class="code" href="a04057.html#aedd9c74835faffffa3fad63d0220783b">pos</a>.z        = 0.f;</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;}</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> B&gt;</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;glm::vec4 CircleBase&lt;B&gt;::getCenterColor(<span class="keyword">const</span> glm::vec4&amp; avgColor)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordflow">return</span> hasColorOverride ? centerColor : avgColor;</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;}</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;} <span class="comment">// namespace s2d</span></div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00365_html"><div class="ttname"><a href="a00365.html">SingleShape2D.hpp</a></div></div>
-<div class="ttc" id="aa00683_html"><div class="ttname"><a href="a00683.html">Math.hpp</a></div></div>
-<div class="ttc" id="aa02286_html_ga0379b8bbdfc3c74fecd12c93fdf0ca5b"><div class="ttname"><a href="a02286.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">bl::math::sin</a></div><div class="ttdeci">float sin(float degrees)</div><div class="ttdoc">Computes the sine of the given angle using cached values. Values are cached in quarter degree increme...</div><div class="ttdef"><b>Definition:</b> <a href="a01832_source.html#l00037">Trig.cpp:37</a></div></div>
-<div class="ttc" id="aa02286_html_gae8e482156412ed87dc2d91572ee817ab"><div class="ttname"><a href="a02286.html#gae8e482156412ed87dc2d91572ee817ab">bl::math::cos</a></div><div class="ttdeci">float cos(float degrees)</div><div class="ttdoc">Computes the cosine of the given angle using cached values. Values are cached in quarter degree incre...</div><div class="ttdef"><b>Definition:</b> <a href="a01832_source.html#l00031">Trig.cpp:31</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02343_html_a5d956eb5741fd61ccb4d7a18bd6fd431"><div class="ttname"><a href="a02343.html#a5d956eb5741fd61ccb4d7a18bd6fd431">bl::math::Pi</a></div><div class="ttdeci">constexpr float Pi</div><div class="ttdoc">It's pi.</div><div class="ttdef"><b>Definition:</b> <a href="a00671_source.html#l00010">Constants.hpp:10</a></div></div>
-<div class="ttc" id="aa03081_html"><div class="ttname"><a href="a03081.html">bl::gfx::s2d::CircleBase</a></div><div class="ttdoc">Intermediate base class for circles. Use gfx::CircleBase or gfx::BatchedCircle.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00022">CircleBase.hpp:22</a></div></div>
-<div class="ttc" id="aa03081_html_a282b090ad3f50db176f9a47672837a43"><div class="ttname"><a href="a03081.html#a282b090ad3f50db176f9a47672837a43">bl::gfx::s2d::CircleBase::removeColorGradient</a></div><div class="ttdeci">void removeColorGradient()</div><div class="ttdoc">Removes the color gradient and falls back to the fill color.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00115">CircleBase.hpp:115</a></div></div>
-<div class="ttc" id="aa03081_html_a4362a038cafd56574bb52ab552d7e5e1"><div class="ttname"><a href="a03081.html#a4362a038cafd56574bb52ab552d7e5e1">bl::gfx::s2d::CircleBase::setColorGradient</a></div><div class="ttdeci">void setColorGradient(const glm::vec4 &amp;centerColor, const glm::vec4 &amp;edgeColor)</div><div class="ttdoc">Overrides the fill color and creates a color gradient instead.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00107">CircleBase.hpp:107</a></div></div>
-<div class="ttc" id="aa03081_html_a55fafe40901b4a83c5e9e5168eb38ff2"><div class="ttname"><a href="a03081.html#a55fafe40901b4a83c5e9e5168eb38ff2">bl::gfx::s2d::CircleBase::setPointCount</a></div><div class="ttdeci">void setPointCount(unsigned int pointCount)</div><div class="ttdoc">Sets the number of triangles to render with. Higher numbers will look smoother at the cost of perform...</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00101">CircleBase.hpp:101</a></div></div>
-<div class="ttc" id="aa03081_html_a5ae7641e4990040d8cd1cc5317cf96c8"><div class="ttname"><a href="a03081.html#a5ae7641e4990040d8cd1cc5317cf96c8">bl::gfx::s2d::CircleBase::getRadius</a></div><div class="ttdeci">float getRadius() const</div><div class="ttdoc">Returns the radius of the circle in local units.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00096">CircleBase.hpp:96</a></div></div>
-<div class="ttc" id="aa03081_html_a9a88b918383729c840fc4c93bfdca9e9"><div class="ttname"><a href="a03081.html#a9a88b918383729c840fc4c93bfdca9e9">bl::gfx::s2d::CircleBase::CircleBase</a></div><div class="ttdeci">CircleBase(unsigned int pointCount=300)</div><div class="ttdoc">Creates the circle with the given point count.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00081">CircleBase.hpp:81</a></div></div>
-<div class="ttc" id="aa03081_html_ade9c3d7c900c2b150bf0812f79720a1c"><div class="ttname"><a href="a03081.html#ade9c3d7c900c2b150bf0812f79720a1c">bl::gfx::s2d::CircleBase::setRadius</a></div><div class="ttdeci">void setRadius(float radius)</div><div class="ttdoc">Sets the circles radius.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00090">CircleBase.hpp:90</a></div></div>
-<div class="ttc" id="aa04057_html"><div class="ttname"><a href="a04057.html">bl::rc::prim::Vertex</a></div><div class="ttdoc">Base Vertex primitive for the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a00983_source.html#l00022">Vertex.hpp:22</a></div></div>
-<div class="ttc" id="aa04057_html_a16b8a1f1ea8391b3341ad465eb4e1100"><div class="ttname"><a href="a04057.html#a16b8a1f1ea8391b3341ad465eb4e1100">bl::rc::prim::Vertex::color</a></div><div class="ttdeci">glm::vec4 color</div><div class="ttdef"><b>Definition:</b> <a href="a00983_source.html#l00024">Vertex.hpp:24</a></div></div>
-<div class="ttc" id="aa04057_html_aedd9c74835faffffa3fad63d0220783b"><div class="ttname"><a href="a04057.html#aedd9c74835faffffa3fad63d0220783b">bl::rc::prim::Vertex::pos</a></div><div class="ttdeci">glm::vec3 pos</div><div class="ttdef"><b>Definition:</b> <a href="a00983_source.html#l00023">Vertex.hpp:23</a></div></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;} <span class="comment">// namespace gfx</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02568_html"><div class="ttname"><a href="a02568.html">bl::com::Animation2DPlayer</a></div><div class="ttdoc">Owns play state for 2d animations. Intended to be owned by entities with animations,...</div><div class="ttdef"><b>Definition:</b> <a href="a06478_source.html#l00025">Animation2DPlayer.hpp:25</a></div></div>
+<div class="ttc" id="aa02808_html"><div class="ttname"><a href="a02808.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00188_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa02964_html"><div class="ttname"><a href="a02964.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06568_source.html#l00038">Engine.hpp:38</a></div></div>
+<div class="ttc" id="aa03168_html"><div class="ttname"><a href="a03168.html">bl::gfx::BatchedSlideshows</a></div><div class="ttdoc">Collection of batched slideshow animations that are all rendered together.</div><div class="ttdef"><b>Definition:</b> <a href="a06493_source.html#l00017">BatchedSlideshows.hpp:19</a></div></div>
+<div class="ttc" id="aa03188_html"><div class="ttname"><a href="a03188.html">bl::gfx::BatchSlideshowSimple</a></div><div class="ttdoc">Thin wrapper for index buffer allocations in BatchedSlideshows.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00017">BatchSlideshowSimple.hpp:17</a></div></div>
+<div class="ttc" id="aa03188_html_a06f099878683d473e61fd75c84b8d95d"><div class="ttname"><a href="a03188.html#a06f099878683d473e61fd75c84b8d95d">bl::gfx::BatchSlideshowSimple::commit</a></div><div class="ttdeci">void commit()</div><div class="ttdoc">Calls commit on the owning batch.</div><div class="ttdef"><b>Definition:</b> <a href="a01604_source.html#l00065">BatchSlideshowSimple.cpp:65</a></div></div>
+<div class="ttc" id="aa03188_html_a0a3af61c6bbae0a4ae4f9a24d63bef14"><div class="ttname"><a href="a03188.html#a0a3af61c6bbae0a4ae4f9a24d63bef14">bl::gfx::BatchSlideshowSimple::remove</a></div><div class="ttdeci">void remove()</div><div class="ttdoc">Removes the slideshow from the batch.</div><div class="ttdef"><b>Definition:</b> <a href="a01604_source.html#l00070">BatchSlideshowSimple.cpp:70</a></div></div>
+<div class="ttc" id="aa03188_html_a2042a5c2858f13a459bb37c4c5aedc7d"><div class="ttname"><a href="a03188.html#a2042a5c2858f13a459bb37c4c5aedc7d">bl::gfx::BatchSlideshowSimple::setPlayer</a></div><div class="ttdeci">void setPlayer(engine::Engine &amp;engine, ecs::Entity playerEntity)</div><div class="ttdoc">Updates the player component. Does some basic validation.</div><div class="ttdef"><b>Definition:</b> <a href="a01604_source.html#l00050">BatchSlideshowSimple.cpp:50</a></div></div>
+<div class="ttc" id="aa03188_html_a3d2e3125ccd62fdb7f021fb921f5c63c"><div class="ttname"><a href="a03188.html#a3d2e3125ccd62fdb7f021fb921f5c63c">bl::gfx::BatchSlideshowSimple::getVertices</a></div><div class="ttdeci">std::span&lt; rc::prim::SlideshowVertex &gt; getVertices()</div><div class="ttdoc">Access the vertices for this animation.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00069">BatchSlideshowSimple.hpp:69</a></div></div>
+<div class="ttc" id="aa03188_html_a469bdded901d1e0d2d95a6e2808b02c3"><div class="ttname"><a href="a03188.html#a469bdded901d1e0d2d95a6e2808b02c3">bl::gfx::BatchSlideshowSimple::~BatchSlideshowSimple</a></div><div class="ttdeci">~BatchSlideshowSimple()</div><div class="ttdoc">Releases its allocation from its owner and updates draw command.</div><div class="ttdef"><b>Definition:</b> <a href="a01604_source.html#l00017">BatchSlideshowSimple.cpp:17</a></div></div>
+<div class="ttc" id="aa03188_html_a5bdc3f89f08ffc0e2ff6b24028df96c2"><div class="ttname"><a href="a03188.html#a5bdc3f89f08ffc0e2ff6b24028df96c2">bl::gfx::BatchSlideshowSimple::getPlayer</a></div><div class="ttdeci">com::Animation2DPlayer &amp; getPlayer()</div><div class="ttdoc">Access the player for this animation.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00064">BatchSlideshowSimple.hpp:64</a></div></div>
+<div class="ttc" id="aa03188_html_a72e9ed0598cef3dd6aae7201fb19f723"><div class="ttname"><a href="a03188.html#a72e9ed0598cef3dd6aae7201fb19f723">bl::gfx::BatchSlideshowSimple::getIndices</a></div><div class="ttdeci">std::span&lt; std::uint32_t &gt; getIndices()</div><div class="ttdoc">Access the indices for this animation. Manual manipulation should not be required.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00074">BatchSlideshowSimple.hpp:74</a></div></div>
+<div class="ttc" id="aa03188_html_ab7415d2e248d3b56c412bd85f2e0da8e"><div class="ttname"><a href="a03188.html#ab7415d2e248d3b56c412bd85f2e0da8e">bl::gfx::BatchSlideshowSimple::BatchSlideshowSimple</a></div><div class="ttdeci">BatchSlideshowSimple()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a01604_source.html#l00009">BatchSlideshowSimple.cpp:9</a></div></div>
+<div class="ttc" id="aa03188_html_abaa66bfa90cdf1325dc789f97013ac32"><div class="ttname"><a href="a03188.html#abaa66bfa90cdf1325dc789f97013ac32">bl::gfx::BatchSlideshowSimple::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, BatchedSlideshows &amp;batch, ecs::Entity playerEntity)</div><div class="ttdoc">Creates the slideshow batch and populates the indices and player fields.</div><div class="ttdef"><b>Definition:</b> <a href="a01604_source.html#l00019">BatchSlideshowSimple.cpp:19</a></div></div>
+<div class="ttc" id="aa03892_html"><div class="ttname"><a href="a03892.html">bl::rc::buf::BatchIndexBufferT::AllocHandle</a></div><div class="ttdoc">Handle to an allocation from the index buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00806_source.html#l00040">BatchIndexBuffer.hpp:40</a></div></div>
+<div class="ttc" id="aa06478_html"><div class="ttname"><a href="a06478.html">Animation2DPlayer.hpp</a></div></div>
+<div class="ttc" id="aa06493_html"><div class="ttname"><a href="a06493.html">BatchedSlideshows.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

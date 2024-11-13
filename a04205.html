@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::scene::SceneRenderContext Class Reference</title>
+<title>BLIB: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,382 +66,73 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02303.html">bl</a></li><li class="navelem"><a class="el" href="a02313.html">rc</a></li><li class="navelem"><a class="el" href="a02351.html">scene</a></li><li class="navelem"><a class="el" href="a04205.html">SceneRenderContext</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02357.html">bl</a></li><li class="navelem"><a class="el" href="a02367.html">rc</a></li><li class="navelem"><a class="el" href="a04208.html">Observer</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="a04202.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::rc::scene::SceneRenderContext Class Reference<div class="ingroups"><a class="el" href="a02289.html">Renderer</a></div></div>  </div>
+<div class="title">bl::rc::Observer Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Container class that holds the required parameters to render a scene and provides methods for descriptor set management and object rendering.  
- <a href="a04205.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a01052_source.html">SceneRenderContext.hpp</a>&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a1cbcea0eb2abae6fae3e0009378add22"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04205.html#a1cbcea0eb2abae6fae3e0009378add22">SceneRenderContext</a> (VkCommandBuffer commandBuffer, std::uint32_t observerIndex, const VkViewport &amp;viewport, std::uint32_t renderPassId, bool renderingToRenderTexture)</td></tr>
-<tr class="memdesc:a1cbcea0eb2abae6fae3e0009378add22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a scene render context.  <a href="a04205.html#a1cbcea0eb2abae6fae3e0009378add22">More...</a><br /></td></tr>
-<tr class="separator:a1cbcea0eb2abae6fae3e0009378add22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a083d8786d75db9838805d175874934f0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04205.html#a083d8786d75db9838805d175874934f0">bindPipeline</a> (<a class="el" href="a04305.html">vk::Pipeline</a> &amp;pipeline)</td></tr>
-<tr class="memdesc:a083d8786d75db9838805d175874934f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Binds the given pipeline.  <a href="a04205.html#a083d8786d75db9838805d175874934f0">More...</a><br /></td></tr>
-<tr class="separator:a083d8786d75db9838805d175874934f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f9dafa91dc6025a8ed7c4b4c5c12d3b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04205.html#a9f9dafa91dc6025a8ed7c4b4c5c12d3b">bindDescriptors</a> (VkPipelineLayout layout, <a class="el" href="a02289.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> updateFreq, <a class="el" href="a03861.html">ds::DescriptorSetInstance</a> **descriptors, std::uint32_t descriptorCount)</td></tr>
-<tr class="memdesc:a9f9dafa91dc6025a8ed7c4b4c5c12d3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Binds the given descriptors. Only issues bind commands for descriptors that changed from the last call to <a class="el" href="a04205.html#a9f9dafa91dc6025a8ed7c4b4c5c12d3b" title="Binds the given descriptors. Only issues bind commands for descriptors that changed from the last cal...">bindDescriptors()</a>  <a href="a04205.html#a9f9dafa91dc6025a8ed7c4b4c5c12d3b">More...</a><br /></td></tr>
-<tr class="separator:a9f9dafa91dc6025a8ed7c4b4c5c12d3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25f6ac72e581b7ac3f387d14c51c8ab4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04205.html#a25f6ac72e581b7ac3f387d14c51c8ab4">renderObject</a> (const <a class="el" href="a04181.html">SceneObject</a> &amp;object)</td></tr>
-<tr class="memdesc:a25f6ac72e581b7ac3f387d14c51c8ab4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issues the required commands to render the given scene object.  <a href="a04205.html#a25f6ac72e581b7ac3f387d14c51c8ab4">More...</a><br /></td></tr>
-<tr class="separator:a25f6ac72e581b7ac3f387d14c51c8ab4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac39a1df376b596bd2d91c60124dc05db"><td class="memItemLeft" align="right" valign="top">constexpr VkCommandBuffer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04205.html#ac39a1df376b596bd2d91c60124dc05db">getCommandBuffer</a> () const</td></tr>
-<tr class="memdesc:ac39a1df376b596bd2d91c60124dc05db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the command buffer to use for rendering.  <a href="a04205.html#ac39a1df376b596bd2d91c60124dc05db">More...</a><br /></td></tr>
-<tr class="separator:ac39a1df376b596bd2d91c60124dc05db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ac88506d4131fc85e45478d0df781c1"><td class="memItemLeft" align="right" valign="top">constexpr const VkViewport &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04205.html#a3ac88506d4131fc85e45478d0df781c1">parentViewport</a> () const</td></tr>
-<tr class="memdesc:a3ac88506d4131fc85e45478d0df781c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the viewport the scene is being rendered to.  <a href="a04205.html#a3ac88506d4131fc85e45478d0df781c1">More...</a><br /></td></tr>
-<tr class="separator:a3ac88506d4131fc85e45478d0df781c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1457a6601775ebb24b3cc19d837c636f"><td class="memItemLeft" align="right" valign="top">constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04205.html#a1457a6601775ebb24b3cc19d837c636f">currentRenderPass</a> () const</td></tr>
-<tr class="memdesc:a1457a6601775ebb24b3cc19d837c636f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the id of the active render pass.  <a href="a04205.html#a1457a6601775ebb24b3cc19d837c636f">More...</a><br /></td></tr>
-<tr class="separator:a1457a6601775ebb24b3cc19d837c636f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b438286e6b674cd3c6f818804a55368"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04205.html#a0b438286e6b674cd3c6f818804a55368">targetIsRenderTexture</a> () const</td></tr>
-<tr class="memdesc:a0b438286e6b674cd3c6f818804a55368"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the current target is a render texture.  <a href="a04205.html#a0b438286e6b674cd3c6f818804a55368">More...</a><br /></td></tr>
-<tr class="separator:a0b438286e6b674cd3c6f818804a55368"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abce5f477ae8df828081267f7a1d866b6"><td class="memItemLeft" align="right" valign="top">constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04205.html#abce5f477ae8df828081267f7a1d866b6">currentObserverIndex</a> () const</td></tr>
-<tr class="memdesc:abce5f477ae8df828081267f7a1d866b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the scene index of the current observer.  <a href="a04205.html#abce5f477ae8df828081267f7a1d866b6">More...</a><br /></td></tr>
-<tr class="separator:abce5f477ae8df828081267f7a1d866b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Container class that holds the required parameters to render a scene and provides methods for descriptor set management and object rendering. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01052_source.html#l00025">25</a> of file <a class="el" href="a01052_source.html">SceneRenderContext.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a1cbcea0eb2abae6fae3e0009378add22"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1cbcea0eb2abae6fae3e0009378add22">&#9670;&nbsp;</a></span>SceneRenderContext()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::rc::scene::SceneRenderContext::SceneRenderContext </td>
-          <td>(</td>
-          <td class="paramtype">VkCommandBuffer&#160;</td>
-          <td class="paramname"><em>commandBuffer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>observerIndex</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const VkViewport &amp;&#160;</td>
-          <td class="paramname"><em>viewport</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>renderPassId</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>renderingToRenderTexture</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates a scene render context. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">commandBuffer</td><td>The command buffer to record commands into </td></tr>
-    <tr><td class="paramname">observerIndex</td><td>Index of the observer currently rendering the scene </td></tr>
-    <tr><td class="paramname">viewport</td><td>The current viewport </td></tr>
-    <tr><td class="paramname">renderPassId</td><td>The id of the render pass that is currently active </td></tr>
-    <tr><td class="paramname">renderingToRenderTexture</td><td>True if target is render texture, false otherwise </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02018_source.html#l00011">11</a> of file <a class="el" href="a02018_source.html">SceneRenderContext.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9f9dafa91dc6025a8ed7c4b4c5c12d3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f9dafa91dc6025a8ed7c4b4c5c12d3b">&#9670;&nbsp;</a></span>bindDescriptors()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::scene::SceneRenderContext::bindDescriptors </td>
-          <td>(</td>
-          <td class="paramtype">VkPipelineLayout&#160;</td>
-          <td class="paramname"><em>layout</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a02289.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a>&#160;</td>
-          <td class="paramname"><em>updateFreq</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a03861.html">ds::DescriptorSetInstance</a> **&#160;</td>
-          <td class="paramname"><em>descriptors</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>descriptorCount</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Binds the given descriptors. Only issues bind commands for descriptors that changed from the last call to <a class="el" href="a04205.html#a9f9dafa91dc6025a8ed7c4b4c5c12d3b" title="Binds the given descriptors. Only issues bind commands for descriptors that changed from the last cal...">bindDescriptors()</a> </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">layout</td><td>Layout of the pipeline the descriptors are being bound to </td></tr>
-    <tr><td class="paramname">updateFreq</td><td>The update speed of the descriptors to bind </td></tr>
-    <tr><td class="paramname">descriptors</td><td>The list of descriptor sets to bind </td></tr>
-    <tr><td class="paramname">descriptorCount</td><td>The number of descriptors to bind </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02018_source.html#l00028">28</a> of file <a class="el" href="a02018_source.html">SceneRenderContext.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a083d8786d75db9838805d175874934f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a083d8786d75db9838805d175874934f0">&#9670;&nbsp;</a></span>bindPipeline()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::scene::SceneRenderContext::bindPipeline </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04305.html">vk::Pipeline</a> &amp;&#160;</td>
-          <td class="paramname"><em>pipeline</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Binds the given pipeline. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pipeline</td><td>The pipeline to bind </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02018_source.html#l00024">24</a> of file <a class="el" href="a02018_source.html">SceneRenderContext.cpp</a>.</p>
-
-</div>
-</div>
-<a id="abce5f477ae8df828081267f7a1d866b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abce5f477ae8df828081267f7a1d866b6">&#9670;&nbsp;</a></span>currentObserverIndex()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr std::uint32_t bl::rc::scene::SceneRenderContext::currentObserverIndex </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the scene index of the current observer. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01052_source.html#l00117">117</a> of file <a class="el" href="a01052_source.html">SceneRenderContext.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a1457a6601775ebb24b3cc19d837c636f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1457a6601775ebb24b3cc19d837c636f">&#9670;&nbsp;</a></span>currentRenderPass()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr std::uint32_t bl::rc::scene::SceneRenderContext::currentRenderPass </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the id of the active render pass. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01052_source.html#l00111">111</a> of file <a class="el" href="a01052_source.html">SceneRenderContext.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ac39a1df376b596bd2d91c60124dc05db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac39a1df376b596bd2d91c60124dc05db">&#9670;&nbsp;</a></span>getCommandBuffer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr VkCommandBuffer bl::rc::scene::SceneRenderContext::getCommandBuffer </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the command buffer to use for rendering. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01052_source.html#l00105">105</a> of file <a class="el" href="a01052_source.html">SceneRenderContext.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a3ac88506d4131fc85e45478d0df781c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ac88506d4131fc85e45478d0df781c1">&#9670;&nbsp;</a></span>parentViewport()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr const VkViewport &amp; bl::rc::scene::SceneRenderContext::parentViewport </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the viewport the scene is being rendered to. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01052_source.html#l00109">109</a> of file <a class="el" href="a01052_source.html">SceneRenderContext.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a25f6ac72e581b7ac3f387d14c51c8ab4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25f6ac72e581b7ac3f387d14c51c8ab4">&#9670;&nbsp;</a></span>renderObject()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::scene::SceneRenderContext::renderObject </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a04181.html">SceneObject</a> &amp;&#160;</td>
-          <td class="paramname"><em>object</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Issues the required commands to render the given scene object. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">object</td><td>The object to render </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02018_source.html#l00044">44</a> of file <a class="el" href="a02018_source.html">SceneRenderContext.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a0b438286e6b674cd3c6f818804a55368"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0b438286e6b674cd3c6f818804a55368">&#9670;&nbsp;</a></span>targetIsRenderTexture()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr bool bl::rc::scene::SceneRenderContext::targetIsRenderTexture </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns whether or not the current target is a render texture. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01052_source.html#l00115">115</a> of file <a class="el" href="a01052_source.html">SceneRenderContext.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Render/Scenes/<a class="el" href="a01052_source.html">SceneRenderContext.hpp</a></li>
-<li>src/Render/Scenes/<a class="el" href="a02018_source.html">SceneRenderContext.cpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a04208.html">bl::rc::Observer</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a04208.html#abbbfc65202bc680194e8c3746fe4a3bc">assignRegion</a>(const VkRect2D &amp;region)</td><td class="entry"><a class="el" href="a04208.html">bl::rc::Observer</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a04208.html#a1fc8c4ea65463b448e068f1287349540">bl::rc::Renderer</a> class</td><td class="entry"><a class="el" href="a04208.html">bl::rc::Observer</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04240.html#a6d877eb89f815cd14c7545639b7915b5">cleanup</a>()</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a04240.html#ab66f7040857aa51a4d83cff354442e52">clearColors</a></td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04240.html#ab1d0affddc22375d11872458e1237aa4">clearScenes</a>()</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a04240.html#a428cce9137a69533670459879d2370f5">compositeSceneAndOverlay</a>(VkCommandBuffer commandBuffer)</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04240.html#af5659403d38ce8e7ea0c94d3bb40eac2">createSceneOverlay</a>()</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a04240.html#aa62c9f37a9d355054b20acffbf670766">engine</a></td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04208.html#a4c5f2ecfa7ca4013d74d3b206855188c">engine::Player</a> class</td><td class="entry"><a class="el" href="a04208.html">bl::rc::Observer</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a04240.html#afa5d2a4500b48ebb4faa39d1dca0d993">getClearColors</a>() const</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04240.html#a0cff801b48c6b8823c99b606b9cfd81b">getCurrentCamera</a>()</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a04240.html#a78f35d223e1432a624c7650c9b67c62c">getCurrentCamera</a>()</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04240.html#a450290bd38aab03aa9cdcdddaf5b69b0">getCurrentOverlay</a>()</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a04240.html#a9bd13070095223059ec8b60343ef2713">getCurrentScene</a>()</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04240.html#a01d2b0e44e402c123791cca07408284f">getMousePosInOverlaySpace</a>() const</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a04240.html#a34c9f538f78f0ed4e0c8be724d3c6f02">getMousePosInWorldSpace</a>() const</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04240.html#a6fe7fe2ffe236c4c0e087e2d4a71bf36">getOrCreateSceneOverlay</a>()</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a04240.html#ab52ee3221d1a1fce5bbf20e47d85ed49">getRegionSize</a>() const</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04240.html#ad3ccb2115d30b136fa760e04f8d4b6af">getRenderGraph</a>()</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a04240.html#a9328f26a49b5fe824d6872253efb43d4">graphAssets</a></td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04240.html#a04d9fdff84995804dede333d5886953b">handleDescriptorSync</a>()</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a04240.html#ab3bc35d94a734bd6ff1516f8ff350de3">hasScene</a>() const</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04240.html#a6b8cc9e6e2fb6780a8fe9ec4efd85870">isRenderTexture</a></td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a04240.html#a5dd124fb49ba5d42f1714af086e50fa1">onSceneAdd</a>()</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04240.html#a0ea3d5104f7d89d83aa626ff4fdfa9b0">onSceneChange</a>()</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a04240.html#a901e392114666487257d52c7dbb21a07">overlayCamera</a></td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04240.html#a4b489af80cc644a6363c3088ab9da2b1">overlayProjView</a></td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a04240.html#a9c15f43c8fdd0feac350d848627080b1">popScene</a>()</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04240.html#aca0db4faf7c4e5430ed99eeea55cd615">popSceneNoRelease</a>()</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a04240.html#a6228e18ef8b9208ace1ec2dd643cba1b">pushScene</a>(TArgs &amp;&amp;... args)</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04240.html#a4bc3daca0f7fc3ab343bab16e370fe76">pushScene</a>(SceneRef scene)</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a04240.html#aa103038988e81f05dfebfb0344b32b52">removeScene</a>(Scene *scene)</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04240.html#a21fdab9a34a506f40d648e4fcabcd1d1">renderer</a></td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a04240.html#a623707e1b2b1dc5cae87cef1365d780f">renderOverlay</a>(VkCommandBuffer commandBuffer)</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04240.html#a215521b58c5b1bb000616fd348994ac9">renderScene</a>(VkCommandBuffer commandBuffer)</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a04240.html#a95339a0356709769194dbf5b4db6e4b1">renderSceneFinal</a>(VkCommandBuffer commandBuffer)</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04240.html#ac4571c1b2094d83ad021859ad9c1d7d6">RenderTarget</a>(engine::Engine &amp;engine, Renderer &amp;renderer, rg::AssetFactory &amp;factory, bool isRenderTexture)</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a04240.html#a6534854ecefb218ec0bb762d9d723e54">resourcesFreed</a></td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04240.html#a0005a1d0d50035f97ef1b0e4c0ec60fc">sceneCount</a>() const</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a04240.html#a032b272649ef3c19333d53441eb54d19">scenes</a></td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04240.html#acc0c56e1d2a632d29b239f1e9c816133">scissor</a></td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a04240.html#a1cbbb637a65fb068fd1f4b54c35e6120">setCamera</a>(TArgs &amp;&amp;... args)</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04240.html#ac1ff3906ab78a9292ca150daa2f7a72c">setCamera</a>(std::unique_ptr&lt; cam::Camera &gt; &amp;&amp;cam)</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a04240.html#ac34dfcd7b0ffac28dbb9d7909cc17e32">setClearColor</a>(const Color &amp;color)</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04240.html#a8fb8eb8e5394b79bd43be2167df28f9c">syncSceneObjects</a>()</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a04240.html#aef81975ca0f1e6b95cf56bf39e96a781">transformToOverlaySpace</a>(const glm::vec2 &amp;screenPoint) const</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04240.html#a6d3ae6f72f43191695a4a0b6a6c26123">transformToWorldSpace</a>(const glm::vec2 &amp;screenPoint) const</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a04240.html#af486040f5153159610c3c8c8d1c532e0">update</a>(float dt)</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04240.html#a3224c2b51a431024df94b691c6367b7e">viewport</a></td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a04208.html#acea151d2fae28aee7abb0577d580696c">~Observer</a>()=default</td><td class="entry"><a class="el" href="a04208.html">bl::rc::Observer</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04240.html#a8eb77366b462ea544a7c20ca392799ec">~RenderTarget</a>()</td><td class="entry"><a class="el" href="a04240.html">bl::rc::RenderTarget</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:57:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

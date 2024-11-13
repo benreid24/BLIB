@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Interfaces/GUI/Elements/ProgressBar.cpp Source File</title>
+<title>BLIB: src/Input/Listener.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,72 +66,56 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ce6405ba0afce575b27b3b998c1d24f9.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_8031c595bb16908e26701cd6b5d8df53.html">GUI</a></li><li class="navelem"><a class="el" href="dir_2f8d53e1ba10fbf191c8865f2f20ae97.html">Elements</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_25af87635f61d97ebff867d1c53b4626.html">Input</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ProgressBar.cpp</div>  </div>
+<div class="title">Listener.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01676.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00464.html">BLIB/Interfaces/GUI/Elements/ProgressBar.hpp</a>&gt;</span></div>
+<a href="a01676.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06595.html">BLIB/Input/Listener.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06314.html">BLIB/Interfaces/GUI/Renderer/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00422.html">BLIB/Input/Actor.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>gui</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>input</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a03277.html#a2b40265987ebb9ea174865495059c872">    9</a></span>&#160;<a class="code" href="a03277.html#a458394231b8a73e25d0f28f417a23b07">ProgressBar::Ptr</a> <a class="code" href="a03277.html#a2b40265987ebb9ea174865495059c872">ProgressBar::create</a>(<a class="code" href="a03277.html#aba6a25c601d8802fe1767c4b64b81cfa">FillDirection</a> dir) { <span class="keywordflow">return</span> <a class="code" href="a03277.html#a458394231b8a73e25d0f28f417a23b07">Ptr</a>(<span class="keyword">new</span> <a class="code" href="a03277.html#a92d35ed556b39f65a1c855db72607fd4">ProgressBar</a>(dir)); }</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a03277.html#a92d35ed556b39f65a1c855db72607fd4">   11</a></span>&#160;<a class="code" href="a03277.html#a92d35ed556b39f65a1c855db72607fd4">ProgressBar::ProgressBar</a>(<a class="code" href="a03277.html#aba6a25c601d8802fe1767c4b64b81cfa">FillDirection</a> dir)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: <a class="code" href="a03253.html">Element</a>()</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, direction(dir)</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, progress(0.f) {}</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a03277.html#a5030a527dcddc8ab829be257eefc90e6">   16</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03277.html#a5030a527dcddc8ab829be257eefc90e6">ProgressBar::setProgress</a>(<span class="keywordtype">float</span> p) {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    progress = p;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">if</span> (progress &lt; 0.f) progress = 0.f;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">if</span> (progress &gt; 1.f) progress = 1.f;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a03253.html#aef13e9880003f4f11fafa46cb0b6c5d1">getComponent</a>()) { <a class="code" href="a03253.html#aef13e9880003f4f11fafa46cb0b6c5d1">getComponent</a>()-&gt;<a class="code" href="a03429.html#ab518fcd5e31ed334bd0390aea725abed">onElementUpdated</a>(); }</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a03277.html#a04c4dcd4a3094bd49bda7d9c5ddc64a4">   23</a></span>&#160;<span class="keywordtype">float</span> <a class="code" href="a03277.html#a04c4dcd4a3094bd49bda7d9c5ddc64a4">ProgressBar::getProgress</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> progress; }</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a03277.html#a7169c6b7fa60dac134e38d7bdf2a670d">   25</a></span>&#160;<a class="code" href="a03277.html#aba6a25c601d8802fe1767c4b64b81cfa">ProgressBar::FillDirection</a> <a class="code" href="a03277.html#a7169c6b7fa60dac134e38d7bdf2a670d">ProgressBar::getFillDirection</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> direction; }</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a03277.html#af438e3a03292fc70b7777f9934405351">   27</a></span>&#160;sf::Vector2f <a class="code" href="a03277.html#af438e3a03292fc70b7777f9934405351">ProgressBar::minimumRequisition</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> {5.f, 5.f}; }</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a03277.html#a558d581864228c8bf29244d82a111783">   29</a></span>&#160;<a class="code" href="a03429.html">rdr::Component</a>* <a class="code" href="a03277.html#a558d581864228c8bf29244d82a111783">ProgressBar::doPrepareRender</a>(<a class="code" href="a03469.html">rdr::Renderer</a>&amp; renderer) {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">return</span> renderer.<a class="code" href="a03469.html#a17f42afe4ece83740428e4a16d99b7ed">createComponent</a>&lt;<a class="code" href="a03277.html">ProgressBar</a>&gt;(*this);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;}</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace gui</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00464_html"><div class="ttname"><a href="a00464.html">ProgressBar.hpp</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03253_html"><div class="ttname"><a href="a03253.html">bl::gui::Element</a></div><div class="ttdoc">Base class for all GUI elements. Provides the common interface used for positioning,...</div><div class="ttdef"><b>Definition:</b> <a href="a00452_source.html#l00031">Element.hpp:33</a></div></div>
-<div class="ttc" id="aa03253_html_aef13e9880003f4f11fafa46cb0b6c5d1"><div class="ttname"><a href="a03253.html#aef13e9880003f4f11fafa46cb0b6c5d1">bl::gui::Element::getComponent</a></div><div class="ttdeci">rdr::Component * getComponent()</div><div class="ttdoc">Returns the renderer component for this element. May be nullptr.</div><div class="ttdef"><b>Definition:</b> <a href="a00452_source.html#l00401">Element.hpp:401</a></div></div>
-<div class="ttc" id="aa03277_html"><div class="ttname"><a href="a03277.html">bl::gui::ProgressBar</a></div><div class="ttdoc">Simple progress bar.</div><div class="ttdef"><b>Definition:</b> <a href="a00464_source.html#l00016">ProgressBar.hpp:16</a></div></div>
-<div class="ttc" id="aa03277_html_a04c4dcd4a3094bd49bda7d9c5ddc64a4"><div class="ttname"><a href="a03277.html#a04c4dcd4a3094bd49bda7d9c5ddc64a4">bl::gui::ProgressBar::getProgress</a></div><div class="ttdeci">float getProgress() const</div><div class="ttdoc">Get the progress of the bar.</div><div class="ttdef"><b>Definition:</b> <a href="a01676_source.html#l00023">ProgressBar.cpp:23</a></div></div>
-<div class="ttc" id="aa03277_html_a2b40265987ebb9ea174865495059c872"><div class="ttname"><a href="a03277.html#a2b40265987ebb9ea174865495059c872">bl::gui::ProgressBar::create</a></div><div class="ttdeci">static Ptr create(FillDirection fillDir=LeftToRight)</div><div class="ttdoc">Create a new ProgressBar.</div><div class="ttdef"><b>Definition:</b> <a href="a01676_source.html#l00009">ProgressBar.cpp:9</a></div></div>
-<div class="ttc" id="aa03277_html_a458394231b8a73e25d0f28f417a23b07"><div class="ttname"><a href="a03277.html#a458394231b8a73e25d0f28f417a23b07">bl::gui::ProgressBar::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; ProgressBar &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00464_source.html#l00018">ProgressBar.hpp:18</a></div></div>
-<div class="ttc" id="aa03277_html_a5030a527dcddc8ab829be257eefc90e6"><div class="ttname"><a href="a03277.html#a5030a527dcddc8ab829be257eefc90e6">bl::gui::ProgressBar::setProgress</a></div><div class="ttdeci">void setProgress(float progress)</div><div class="ttdoc">Set the progress of the bar. In the range [0,1].</div><div class="ttdef"><b>Definition:</b> <a href="a01676_source.html#l00016">ProgressBar.cpp:16</a></div></div>
-<div class="ttc" id="aa03277_html_a558d581864228c8bf29244d82a111783"><div class="ttname"><a href="a03277.html#a558d581864228c8bf29244d82a111783">bl::gui::ProgressBar::doPrepareRender</a></div><div class="ttdeci">virtual rdr::Component * doPrepareRender(rdr::Renderer &amp;renderer) override</div><div class="ttdoc">Creates the visual component for this element.</div><div class="ttdef"><b>Definition:</b> <a href="a01676_source.html#l00029">ProgressBar.cpp:29</a></div></div>
-<div class="ttc" id="aa03277_html_a7169c6b7fa60dac134e38d7bdf2a670d"><div class="ttname"><a href="a03277.html#a7169c6b7fa60dac134e38d7bdf2a670d">bl::gui::ProgressBar::getFillDirection</a></div><div class="ttdeci">FillDirection getFillDirection() const</div><div class="ttdoc">Get the direction the bar is filling in.</div><div class="ttdef"><b>Definition:</b> <a href="a01676_source.html#l00025">ProgressBar.cpp:25</a></div></div>
-<div class="ttc" id="aa03277_html_a92d35ed556b39f65a1c855db72607fd4"><div class="ttname"><a href="a03277.html#a92d35ed556b39f65a1c855db72607fd4">bl::gui::ProgressBar::ProgressBar</a></div><div class="ttdeci">ProgressBar(FillDirection fillDir)</div><div class="ttdoc">Create a new ProgressBar.</div><div class="ttdef"><b>Definition:</b> <a href="a01676_source.html#l00011">ProgressBar.cpp:11</a></div></div>
-<div class="ttc" id="aa03277_html_aba6a25c601d8802fe1767c4b64b81cfa"><div class="ttname"><a href="a03277.html#aba6a25c601d8802fe1767c4b64b81cfa">bl::gui::ProgressBar::FillDirection</a></div><div class="ttdeci">FillDirection</div><div class="ttdoc">Direction the bar should fill in as progress is made.</div><div class="ttdef"><b>Definition:</b> <a href="a00464_source.html#l00023">ProgressBar.hpp:23</a></div></div>
-<div class="ttc" id="aa03277_html_af438e3a03292fc70b7777f9934405351"><div class="ttname"><a href="a03277.html#af438e3a03292fc70b7777f9934405351">bl::gui::ProgressBar::minimumRequisition</a></div><div class="ttdeci">virtual sf::Vector2f minimumRequisition() const override</div><div class="ttdoc">Returns (5,5)</div><div class="ttdef"><b>Definition:</b> <a href="a01676_source.html#l00027">ProgressBar.cpp:27</a></div></div>
-<div class="ttc" id="aa03429_html"><div class="ttname"><a href="a03429.html">bl::gui::rdr::Component</a></div><div class="ttdoc">Base class for renderer components. Each GUI element owns a handle to a component owned by the render...</div><div class="ttdef"><b>Definition:</b> <a href="a00569_source.html#l00031">Component.hpp:31</a></div></div>
-<div class="ttc" id="aa03429_html_ab518fcd5e31ed334bd0390aea725abed"><div class="ttname"><a href="a03429.html#ab518fcd5e31ed334bd0390aea725abed">bl::gui::rdr::Component::onElementUpdated</a></div><div class="ttdeci">virtual void onElementUpdated()=0</div><div class="ttdoc">Called when element state changes. This is element specific, but can mean toggle state,...</div></div>
-<div class="ttc" id="aa03469_html"><div class="ttname"><a href="a03469.html">bl::gui::rdr::Renderer</a></div><div class="ttdoc">Top level GUI renderer. Manages components for elements. Behavior can be controlled by providing a di...</div><div class="ttdef"><b>Definition:</b> <a href="a06314_source.html#l00027">Renderer.hpp:27</a></div></div>
-<div class="ttc" id="aa03469_html_a17f42afe4ece83740428e4a16d99b7ed"><div class="ttname"><a href="a03469.html#a17f42afe4ece83740428e4a16d99b7ed">bl::gui::rdr::Renderer::createComponent</a></div><div class="ttdeci">Component * createComponent(TElem &amp;element)</div><div class="ttdoc">Creates a component for the given GUI element. Adds it to the current scene if any.</div><div class="ttdef"><b>Definition:</b> <a href="a06314_source.html#l00051">Renderer.hpp:51</a></div></div>
-<div class="ttc" id="aa06314_html"><div class="ttname"><a href="a06314.html">Renderer.hpp</a></div></div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a03352.html#a079b505ecaed9f6afd8278bbb7f38a44">    9</a></span>&#160;<a class="code" href="a03352.html#a079b505ecaed9f6afd8278bbb7f38a44">Listener::Listener</a>()</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: owner(nullptr) {}</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a03352.html#ae3540d1af77f94edd329e089eec2da82">   12</a></span>&#160;<a class="code" href="a03352.html#a079b505ecaed9f6afd8278bbb7f38a44">Listener::Listener</a>(<span class="keyword">const</span> <a class="code" href="a03352.html">Listener</a>&amp; l)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;: owner(l.owner) {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <a class="code" href="a03352.html">Listener</a>&amp; c = <span class="keyword">const_cast&lt;</span><a class="code" href="a03352.html">Listener</a>&amp;<span class="keyword">&gt;</span>(l);</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordflow">if</span> (owner) { owner-&gt;<a class="code" href="a03312.html#a863a02458bc5d034b2fdb33076ea58b3">replaceListener</a>(c, *<span class="keyword">this</span>); }</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a03352.html#a29b323fc5a97661724c3a97790d72758">   18</a></span>&#160;<a class="code" href="a03352.html#a079b505ecaed9f6afd8278bbb7f38a44">Listener::Listener</a>(<a class="code" href="a03352.html">Listener</a>&amp;&amp; l)</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;: owner(l.owner) {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">if</span> (owner) { owner-&gt;<a class="code" href="a03312.html#a863a02458bc5d034b2fdb33076ea58b3">replaceListener</a>(l, *<span class="keyword">this</span>); }</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    l.owner = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a03352.html#a483ff531396a8a888ece355a945985cd">   24</a></span>&#160;<a class="code" href="a03352.html#a483ff531396a8a888ece355a945985cd">Listener::~Listener</a>() {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">if</span> (owner) { owner-&gt;<a class="code" href="a03312.html#a56283b2fa7496cb11af9ce65ea40a5d6">removeListener</a>(*<span class="keyword">this</span>); }</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;} <span class="comment">// namespace input</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00422_html"><div class="ttname"><a href="a00422.html">Actor.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03312_html_a56283b2fa7496cb11af9ce65ea40a5d6"><div class="ttname"><a href="a03312.html#a56283b2fa7496cb11af9ce65ea40a5d6">bl::input::Actor::removeListener</a></div><div class="ttdeci">void removeListener(input::Listener &amp;listener)</div><div class="ttdoc">Removes the given listener. Does not have to be the active listener.</div><div class="ttdef"><b>Definition:</b> <a href="a01649_source.html#l00168">Actor.cpp:168</a></div></div>
+<div class="ttc" id="aa03312_html_a863a02458bc5d034b2fdb33076ea58b3"><div class="ttname"><a href="a03312.html#a863a02458bc5d034b2fdb33076ea58b3">bl::input::Actor::replaceListener</a></div><div class="ttdeci">void replaceListener(input::Listener &amp;oldListener, input::Listener &amp;newListener)</div><div class="ttdoc">Replaces the old listener with the new, keeping it at the same position in the queue.</div><div class="ttdef"><b>Definition:</b> <a href="a01649_source.html#l00178">Actor.cpp:178</a></div></div>
+<div class="ttc" id="aa03352_html"><div class="ttname"><a href="a03352.html">bl::input::Listener</a></div><div class="ttdoc">Base class for input listeners that can subscribe to an Actor. The base class keeps the input system ...</div><div class="ttdef"><b>Definition:</b> <a href="a06595_source.html#l00019">Listener.hpp:19</a></div></div>
+<div class="ttc" id="aa03352_html_a079b505ecaed9f6afd8278bbb7f38a44"><div class="ttname"><a href="a03352.html#a079b505ecaed9f6afd8278bbb7f38a44">bl::input::Listener::Listener</a></div><div class="ttdeci">Listener()</div><div class="ttdoc">Construct a new Listener object.</div><div class="ttdef"><b>Definition:</b> <a href="a01676_source.html#l00009">Listener.cpp:9</a></div></div>
+<div class="ttc" id="aa03352_html_a483ff531396a8a888ece355a945985cd"><div class="ttname"><a href="a03352.html#a483ff531396a8a888ece355a945985cd">bl::input::Listener::~Listener</a></div><div class="ttdeci">virtual ~Listener()</div><div class="ttdoc">Unsubscribes the listener if subscribed.</div><div class="ttdef"><b>Definition:</b> <a href="a01676_source.html#l00024">Listener.cpp:24</a></div></div>
+<div class="ttc" id="aa06595_html"><div class="ttname"><a href="a06595.html">Listener.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

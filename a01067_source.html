@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Transfers/TransferContext.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Scenes/Key.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,82 +66,94 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1371b99667ed992b8332faf3b4f2dec9.html">Transfers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1582fe53e8ca010e140dea1b69a5a9f3.html">Scenes</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">TransferContext.hpp</div>  </div>
+<div class="title">Key.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01067.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_TRANSFERS_TRANSFERCONTEXT_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_TRANSFERS_TRANSFERCONTEXT_HPP</span></div>
+<a href="a01067.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_SCENES_KEY_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_SCENES_KEY_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01412.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01109.html">BLIB/Render/UpdateSpeed.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01385.html">BLIB/Util/HashCombine.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;limits&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>vk</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">struct </span>VulkanState;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>tfr</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a04225.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04225.html">TransferContext</a> {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04225.html#a0095891b196aaca7b289210a8a774bee">createTemporaryStagingBuffer</a>(VkDeviceSize size, VkBuffer&amp; bufferResult,</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                                      <span class="keywordtype">void</span>** mappedMemory);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04225.html#a0516ada22d07c935ad2a1dbff375a55f">registerMemoryBarrier</a>(<span class="keyword">const</span> VkMemoryBarrier&amp; barrier);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04225.html#ad3498b85b2352fb77251503598d24bf0">registerBufferBarrier</a>(<span class="keyword">const</span> VkBufferMemoryBarrier&amp; barrier);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04225.html#ab4518b0ecbee6232e04ea2aab04f05aa">registerImageBarrier</a>(<span class="keyword">const</span> VkImageMemoryBarrier&amp; barrier);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    VkDevice <a class="code" href="a04225.html#a37f3aa2f09d5a38a8c6761f09ac26d8c">device</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="a04225.html#a9895ebe07a88d4990699ce7bc1c6975b">TransferContext</a>(std::mutex&amp; bucketMutex, <a class="code" href="a04405.html">vk::VulkanState</a>&amp; vulkanState,</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                    std::vector&lt;VkBuffer&gt;&amp; stagingBuffers,</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                    std::vector&lt;VmaAllocation&gt;&amp; stagingAllocs,</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                    std::vector&lt;VkMemoryBarrier&gt;&amp; memoryBarriers,</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                    std::vector&lt;VkBufferMemoryBarrier&gt;&amp; bufferBarriers,</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                    std::vector&lt;VkImageMemoryBarrier&gt;&amp; imageBarriers);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    std::mutex&amp; bucketMutex;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="a04405.html">vk::VulkanState</a>&amp; vulkanState;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    std::vector&lt;VkBuffer&gt;&amp; stagingBuffers;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    std::vector&lt;VmaAllocation&gt;&amp; stagingAllocs;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    std::vector&lt;VkMemoryBarrier&gt;&amp; memoryBarriers;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    std::vector&lt;VkBufferMemoryBarrier&gt;&amp; bufferBarriers;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    std::vector&lt;VkImageMemoryBarrier&gt;&amp; imageBarriers;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;};</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;} <span class="comment">// namespace tfr</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01412_html"><div class="ttname"><a href="a01412.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04225_html"><div class="ttname"><a href="a04225.html">bl::rc::tfr::TransferContext</a></div><div class="ttdef"><b>Definition:</b> <a href="a01067_source.html#l00019">TransferContext.hpp:19</a></div></div>
-<div class="ttc" id="aa04225_html_a0095891b196aaca7b289210a8a774bee"><div class="ttname"><a href="a04225.html#a0095891b196aaca7b289210a8a774bee">bl::rc::tfr::TransferContext::createTemporaryStagingBuffer</a></div><div class="ttdeci">void createTemporaryStagingBuffer(VkDeviceSize size, VkBuffer &amp;bufferResult, void **mappedMemory)</div><div class="ttdoc">Creates a staging buffer of the given size. Should only be called from Transferable::executeTransferA...</div><div class="ttdef"><b>Definition:</b> <a href="a02033_source.html#l00025">TransferContext.cpp:25</a></div></div>
-<div class="ttc" id="aa04225_html_a0516ada22d07c935ad2a1dbff375a55f"><div class="ttname"><a href="a04225.html#a0516ada22d07c935ad2a1dbff375a55f">bl::rc::tfr::TransferContext::registerMemoryBarrier</a></div><div class="ttdeci">void registerMemoryBarrier(const VkMemoryBarrier &amp;barrier)</div><div class="ttdoc">Registers the given barrier to be recorded after all transfers are started.</div><div class="ttdef"><b>Definition:</b> <a href="a02033_source.html#l00044">TransferContext.cpp:44</a></div></div>
-<div class="ttc" id="aa04225_html_a37f3aa2f09d5a38a8c6761f09ac26d8c"><div class="ttname"><a href="a04225.html#a37f3aa2f09d5a38a8c6761f09ac26d8c">bl::rc::tfr::TransferContext::device</a></div><div class="ttdeci">VkDevice device() const</div><div class="ttdoc">Returns the logical device to be used.</div><div class="ttdef"><b>Definition:</b> <a href="a02033_source.html#l00059">TransferContext.cpp:59</a></div></div>
-<div class="ttc" id="aa04225_html_a9895ebe07a88d4990699ce7bc1c6975b"><div class="ttname"><a href="a04225.html#a9895ebe07a88d4990699ce7bc1c6975b">bl::rc::tfr::TransferContext::TransferContext</a></div><div class="ttdeci">TransferContext(std::mutex &amp;bucketMutex, vk::VulkanState &amp;vulkanState, std::vector&lt; VkBuffer &gt; &amp;stagingBuffers, std::vector&lt; VmaAllocation &gt; &amp;stagingAllocs, std::vector&lt; VkMemoryBarrier &gt; &amp;memoryBarriers, std::vector&lt; VkBufferMemoryBarrier &gt; &amp;bufferBarriers, std::vector&lt; VkImageMemoryBarrier &gt; &amp;imageBarriers)</div><div class="ttdoc">Internal constructor, do not use.</div><div class="ttdef"><b>Definition:</b> <a href="a02033_source.html#l00011">TransferContext.cpp:11</a></div></div>
-<div class="ttc" id="aa04225_html_ab4518b0ecbee6232e04ea2aab04f05aa"><div class="ttname"><a href="a04225.html#ab4518b0ecbee6232e04ea2aab04f05aa">bl::rc::tfr::TransferContext::registerImageBarrier</a></div><div class="ttdeci">void registerImageBarrier(const VkImageMemoryBarrier &amp;barrier)</div><div class="ttdoc">Registers the given barrier to be recorded after all transfers are started.</div><div class="ttdef"><b>Definition:</b> <a href="a02033_source.html#l00054">TransferContext.cpp:54</a></div></div>
-<div class="ttc" id="aa04225_html_ad3498b85b2352fb77251503598d24bf0"><div class="ttname"><a href="a04225.html#ad3498b85b2352fb77251503598d24bf0">bl::rc::tfr::TransferContext::registerBufferBarrier</a></div><div class="ttdeci">void registerBufferBarrier(const VkBufferMemoryBarrier &amp;barrier)</div><div class="ttdoc">Registers the given barrier to be recorded after all transfers are started.</div><div class="ttdef"><b>Definition:</b> <a href="a02033_source.html#l00049">TransferContext.cpp:49</a></div></div>
-<div class="ttc" id="aa04405_html"><div class="ttname"><a href="a04405.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01157_source.html#l00039">VulkanState.hpp:39</a></div></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>scene</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a04324.html">   22</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a04324.html">Key</a> {</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a04324.html#a580d79a30be461bc410fefee59c32ac3">   23</a></span>&#160;    <span class="keyword">static</span> constexpr std::uint32_t <a class="code" href="a04324.html#a580d79a30be461bc410fefee59c32ac3">InvalidSceneId</a> = std::numeric_limits&lt;std::uint32_t&gt;::max();</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a04324.html#abc689f231a25b15808c61dde6fda1d08">   25</a></span>&#160;    <a class="code" href="a02343.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> <a class="code" href="a04324.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a04324.html#a5fa4592fd53a220f89ac7814aebfa6d6">   26</a></span>&#160;    std::uint32_t <a class="code" href="a04324.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a04324.html#a5682da85e8239915341a400b492f0e80">   31</a></span>&#160;    <a class="code" href="a04324.html#a5682da85e8239915341a400b492f0e80">Key</a>()</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    : <a class="code" href="a04324.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a>(<a class="code" href="a02343.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a>::<a class="code" href="a02343.html#gga305dcc5dda3e28bd193ab31444664848a971fd8cc345d8bd9f92e9f7d88fdf20c">Dynamic</a>)</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    , <a class="code" href="a04324.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a>(<a class="code" href="a04324.html#a580d79a30be461bc410fefee59c32ac3">InvalidSceneId</a>) {}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="a04324.html#ab234289f8c76d1913d8d7e0a9d92a3c3">   41</a></span>&#160;    <a class="code" href="a04324.html#ab234289f8c76d1913d8d7e0a9d92a3c3">Key</a>(<a class="code" href="a02343.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> <a class="code" href="a04324.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a>, std::uint32_t <a class="code" href="a04324.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a>)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    : <a class="code" href="a04324.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a>(<a class="code" href="a04324.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a>)</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    , <a class="code" href="a04324.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a>(<a class="code" href="a04324.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a>) {}</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a04324.html#a0440da6d709497771c0a6de24f10ef43">   51</a></span>&#160;    constexpr <span class="keywordtype">bool</span> <a class="code" href="a04324.html#a0440da6d709497771c0a6de24f10ef43">operator==</a>(<span class="keyword">const</span> <a class="code" href="a04324.html">Key</a>&amp; right)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a04324.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a> == right.<a class="code" href="a04324.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a> &amp;&amp; <a class="code" href="a04324.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a> == right.<a class="code" href="a04324.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="a04324.html#a75bd89485d9b720f14cf307e53d343c4">   61</a></span>&#160;    constexpr <span class="keywordtype">bool</span> <a class="code" href="a04324.html#a75bd89485d9b720f14cf307e53d343c4">operator!=</a>(<span class="keyword">const</span> <a class="code" href="a04324.html">Key</a>&amp; right)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a04324.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a> != right.<a class="code" href="a04324.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a> || <a class="code" href="a04324.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a> != right.<a class="code" href="a04324.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    }</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="a04324.html#ab8c9e566aedcbe77326e97e4f6dfdb10">   71</a></span>&#160;    constexpr <span class="keywordtype">bool</span> <a class="code" href="a04324.html#ab8c9e566aedcbe77326e97e4f6dfdb10">operator&lt;</a>(<span class="keyword">const</span> <a class="code" href="a04324.html">Key</a>&amp; right)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a04324.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a> &lt; right.<a class="code" href="a04324.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a> || <a class="code" href="a04324.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a> &lt; right.<a class="code" href="a04324.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    }</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;};</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;} <span class="comment">// namespace scene</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02374.html">std</a></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;{</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="a04328.html">   83</a></span>&#160;<span class="keyword">struct </span>hash&lt;<a class="code" href="a02357.html">bl</a>::rc::scene::Key&gt; {</div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="a04328.html#af99d9b960bca09aaf12f83091174a1ee">   84</a></span>&#160;    std::size_t <a class="code" href="a04328.html#af99d9b960bca09aaf12f83091174a1ee">operator()</a>(<span class="keyword">const</span> <a class="code" href="a04324.html">bl::rc::scene::Key</a>&amp; key)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a02426.html#a867dbeaa40c3e27ca66b3217256cd351">bl::util::hashCombine</a>(hash&lt;uint32_t&gt;()(key.<a class="code" href="a04324.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a>),</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                                     hash&lt;bl::rc::UpdateSpeed&gt;()(key.<a class="code" href="a04324.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a>));</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    }</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;};</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;} <span class="comment">// namespace std</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01109_html"><div class="ttname"><a href="a01109.html">UpdateSpeed.hpp</a></div></div>
+<div class="ttc" id="aa01385_html"><div class="ttname"><a href="a01385.html">HashCombine.hpp</a></div></div>
+<div class="ttc" id="aa02343_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a02343.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
+<div class="ttc" id="aa02343_html_gga305dcc5dda3e28bd193ab31444664848a971fd8cc345d8bd9f92e9f7d88fdf20c"><div class="ttname"><a href="a02343.html#gga305dcc5dda3e28bd193ab31444664848a971fd8cc345d8bd9f92e9f7d88fdf20c">bl::rc::UpdateSpeed::Dynamic</a></div><div class="ttdeci">@ Dynamic</div><div class="ttdoc">Objects or data are expected to update once per frame or similar.</div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02374_html"><div class="ttname"><a href="a02374.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="a00188_source.html#l00193">Entity.hpp:194</a></div></div>
+<div class="ttc" id="aa02426_html_a867dbeaa40c3e27ca66b3217256cd351"><div class="ttname"><a href="a02426.html#a867dbeaa40c3e27ca66b3217256cd351">bl::util::hashCombine</a></div><div class="ttdeci">std::size_t hashCombine(std::size_t right, std::size_t left)</div><div class="ttdef"><b>Definition:</b> <a href="a01385_source.html#l00011">HashCombine.hpp:11</a></div></div>
+<div class="ttc" id="aa04324_html"><div class="ttname"><a href="a04324.html">bl::rc::scene::Key</a></div><div class="ttdoc">Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...</div><div class="ttdef"><b>Definition:</b> <a href="a01067_source.html#l00022">Key.hpp:22</a></div></div>
+<div class="ttc" id="aa04324_html_a0440da6d709497771c0a6de24f10ef43"><div class="ttname"><a href="a04324.html#a0440da6d709497771c0a6de24f10ef43">bl::rc::scene::Key::operator==</a></div><div class="ttdeci">constexpr bool operator==(const Key &amp;right) const</div><div class="ttdoc">Tests for equality with the given key.</div><div class="ttdef"><b>Definition:</b> <a href="a01067_source.html#l00051">Key.hpp:51</a></div></div>
+<div class="ttc" id="aa04324_html_a5682da85e8239915341a400b492f0e80"><div class="ttname"><a href="a04324.html#a5682da85e8239915341a400b492f0e80">bl::rc::scene::Key::Key</a></div><div class="ttdeci">Key()</div><div class="ttdoc">Creates an invalid key.</div><div class="ttdef"><b>Definition:</b> <a href="a01067_source.html#l00031">Key.hpp:31</a></div></div>
+<div class="ttc" id="aa04324_html_a580d79a30be461bc410fefee59c32ac3"><div class="ttname"><a href="a04324.html#a580d79a30be461bc410fefee59c32ac3">bl::rc::scene::Key::InvalidSceneId</a></div><div class="ttdeci">static constexpr std::uint32_t InvalidSceneId</div><div class="ttdef"><b>Definition:</b> <a href="a01067_source.html#l00023">Key.hpp:23</a></div></div>
+<div class="ttc" id="aa04324_html_a5fa4592fd53a220f89ac7814aebfa6d6"><div class="ttname"><a href="a04324.html#a5fa4592fd53a220f89ac7814aebfa6d6">bl::rc::scene::Key::sceneId</a></div><div class="ttdeci">std::uint32_t sceneId</div><div class="ttdef"><b>Definition:</b> <a href="a01067_source.html#l00026">Key.hpp:26</a></div></div>
+<div class="ttc" id="aa04324_html_a75bd89485d9b720f14cf307e53d343c4"><div class="ttname"><a href="a04324.html#a75bd89485d9b720f14cf307e53d343c4">bl::rc::scene::Key::operator!=</a></div><div class="ttdeci">constexpr bool operator!=(const Key &amp;right) const</div><div class="ttdoc">Tests for inequality with the given key.</div><div class="ttdef"><b>Definition:</b> <a href="a01067_source.html#l00061">Key.hpp:61</a></div></div>
+<div class="ttc" id="aa04324_html_ab234289f8c76d1913d8d7e0a9d92a3c3"><div class="ttname"><a href="a04324.html#ab234289f8c76d1913d8d7e0a9d92a3c3">bl::rc::scene::Key::Key</a></div><div class="ttdeci">Key(UpdateSpeed updateFreq, std::uint32_t sceneId)</div><div class="ttdoc">Creates the key from the given components.</div><div class="ttdef"><b>Definition:</b> <a href="a01067_source.html#l00041">Key.hpp:41</a></div></div>
+<div class="ttc" id="aa04324_html_ab8c9e566aedcbe77326e97e4f6dfdb10"><div class="ttname"><a href="a04324.html#ab8c9e566aedcbe77326e97e4f6dfdb10">bl::rc::scene::Key::operator&lt;</a></div><div class="ttdeci">constexpr bool operator&lt;(const Key &amp;right) const</div><div class="ttdoc">Comparator for sorting keys.</div><div class="ttdef"><b>Definition:</b> <a href="a01067_source.html#l00071">Key.hpp:71</a></div></div>
+<div class="ttc" id="aa04324_html_abc689f231a25b15808c61dde6fda1d08"><div class="ttname"><a href="a04324.html#abc689f231a25b15808c61dde6fda1d08">bl::rc::scene::Key::updateFreq</a></div><div class="ttdeci">UpdateSpeed updateFreq</div><div class="ttdef"><b>Definition:</b> <a href="a01067_source.html#l00025">Key.hpp:25</a></div></div>
+<div class="ttc" id="aa04328_html_af99d9b960bca09aaf12f83091174a1ee"><div class="ttname"><a href="a04328.html#af99d9b960bca09aaf12f83091174a1ee">std::hash&lt; bl::rc::scene::Key &gt;::operator()</a></div><div class="ttdeci">std::size_t operator()(const bl::rc::scene::Key &amp;key) const</div><div class="ttdef"><b>Definition:</b> <a href="a01067_source.html#l00084">Key.hpp:84</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

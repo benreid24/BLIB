@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Resources/Bundling/FileHandlers/AnimationHandler.cpp Source File</title>
+<title>BLIB: src/Render/Vulkan/RenderTexture.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,57 +66,149 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7a475d59e09b1ce69b1dfbc6b0817add.html">Resources</a></li><li class="navelem"><a class="el" href="dir_650c2bb72fa499737589ce0469633186.html">Bundling</a></li><li class="navelem"><a class="el" href="dir_aa9914aaa11d841a9b5a3bf23363db45.html">FileHandlers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_2a24e9216d188d12785cf0650df1274b.html">Vulkan</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">AnimationHandler.cpp</div>  </div>
+<div class="title">RenderTexture.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a02132.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00302.html">BLIB/Graphics/Animation2D/AnimationData.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01187.html">BLIB/Resources/Bundling/FileHandlers/AnimationHandler.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>resource</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>bundle</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a04453.html#adf22a2d2b974daba7cf8ec92a0bdcf89">   10</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a04453.html#adf22a2d2b974daba7cf8ec92a0bdcf89">AnimationHandler::processFile</a>(<span class="keyword">const</span> std::string&amp; path, std::ostream&amp; output,</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;                                   <a class="code" href="a04449.html">FileHandlerContext</a>&amp; ctx) {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <a class="code" href="a02977.html">gfx::a2d::AnimationData</a> anim;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keywordflow">if</span> (!anim.<a class="code" href="a02977.html#a649a534c5017ee0df847c56712b43ff4">loadFromFileForBundling</a>(path)) {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <a class="code" href="a00662.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load animation: &quot;</span> &lt;&lt; path;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    }</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">if</span> (!anim.<a class="code" href="a02977.html#a7aef7ec2981c8f70da4ad9dd2686c836">saveToBundle</a>(output)) {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <a class="code" href="a00662.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to save animation: &quot;</span> &lt;&lt; path;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    }</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    ctx.<a class="code" href="a04449.html#a117fbcb7e5871373ebb7270b39b20721">addDependencyFile</a>(anim.<a class="code" href="a02977.html#a607d12f4ec60fe3da673878856f380ff">spritesheetFile</a>());</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace bundle</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace resource</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00302_html"><div class="ttname"><a href="a00302.html">AnimationData.hpp</a></div></div>
-<div class="ttc" id="aa00662_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00662.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00662_source.html#l00101">Logger.hpp:101</a></div></div>
-<div class="ttc" id="aa01187_html"><div class="ttname"><a href="a01187.html">AnimationHandler.hpp</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02977_html"><div class="ttname"><a href="a02977.html">bl::gfx::a2d::AnimationData</a></div><div class="ttdoc">Data class for 2d animations. Provides the backing for slideshows and skeletal animations....</div><div class="ttdef"><b>Definition:</b> <a href="a00302_source.html#l00022">AnimationData.hpp:22</a></div></div>
-<div class="ttc" id="aa02977_html_a607d12f4ec60fe3da673878856f380ff"><div class="ttname"><a href="a02977.html#a607d12f4ec60fe3da673878856f380ff">bl::gfx::a2d::AnimationData::spritesheetFile</a></div><div class="ttdeci">const std::string &amp; spritesheetFile() const</div><div class="ttdoc">Returns the filename of the spritesheet.</div><div class="ttdef"><b>Definition:</b> <a href="a01532_source.html#l00230">AnimationData.cpp:230</a></div></div>
-<div class="ttc" id="aa02977_html_a649a534c5017ee0df847c56712b43ff4"><div class="ttname"><a href="a02977.html#a649a534c5017ee0df847c56712b43ff4">bl::gfx::a2d::AnimationData::loadFromFileForBundling</a></div><div class="ttdeci">bool loadFromFileForBundling(const std::string &amp;filename)</div><div class="ttdoc">Same as loadFromFile, but rewrites the spritesheet source to be the full path to the spritesheet so t...</div><div class="ttdef"><b>Definition:</b> <a href="a01532_source.html#l00079">AnimationData.cpp:79</a></div></div>
-<div class="ttc" id="aa02977_html_a7aef7ec2981c8f70da4ad9dd2686c836"><div class="ttname"><a href="a02977.html#a7aef7ec2981c8f70da4ad9dd2686c836">bl::gfx::a2d::AnimationData::saveToBundle</a></div><div class="ttdeci">bool saveToBundle(std::ostream &amp;output) const</div><div class="ttdoc">Saves the animation data to the bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a01532_source.html#l00084">AnimationData.cpp:84</a></div></div>
-<div class="ttc" id="aa04449_html"><div class="ttname"><a href="a04449.html">bl::resource::bundle::FileHandlerContext</a></div><div class="ttdoc">Context data that is provided to FileHandler objects when processing files.</div><div class="ttdef"><b>Definition:</b> <a href="a01184_source.html#l00023">FileHandlerContext.hpp:23</a></div></div>
-<div class="ttc" id="aa04449_html_a117fbcb7e5871373ebb7270b39b20721"><div class="ttname"><a href="a04449.html#a117fbcb7e5871373ebb7270b39b20721">bl::resource::bundle::FileHandlerContext::addDependencyFile</a></div><div class="ttdeci">void addDependencyFile(const std::string &amp;path)</div><div class="ttdoc">Adds a file to be bundled with the current file being processed. Call this for dependency files (ie s...</div><div class="ttdef"><b>Definition:</b> <a href="a02129_source.html#l00014">FileHandlerContext.cpp:14</a></div></div>
-<div class="ttc" id="aa04453_html_adf22a2d2b974daba7cf8ec92a0bdcf89"><div class="ttname"><a href="a04453.html#adf22a2d2b974daba7cf8ec92a0bdcf89">bl::resource::bundle::AnimationHandler::processFile</a></div><div class="ttdeci">virtual bool processFile(const std::string &amp;path, std::ostream &amp;output, FileHandlerContext &amp;context) override</div><div class="ttdoc">Process the given file and add its data to the bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a02132_source.html#l00010">AnimationHandler.cpp:10</a></div></div>
+<a href="a02132.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01166.html">BLIB/Render/Vulkan/RenderTexture.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00023.html">BLIB/Cameras/2D/Camera2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00035.html">BLIB/Cameras/3D/Camera3D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00941.html">BLIB/Render/Graph/Assets/FinalRenderTextureAsset.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06619.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01175.html">BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>vk</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;RenderTexture::RenderTexture(engine::Engine&amp; engine, Renderer&amp; renderer, rg::AssetFactory&amp; factory,</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;                             <span class="keyword">const</span> glm::u32vec2&amp; size, VkSampler sampler)</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;: RenderTarget(engine, renderer, factory, true) {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    commandBuffers.create(renderer.vulkanState());</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    attachments.emptyInit(renderer.vulkanState());</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    framebuffers.emptyInit(renderer.vulkanState());</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    scissor.extent.width  = size.x;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    scissor.extent.height = size.y;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    scissor.offset        = {0, 0};</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    viewport.minDepth     = 0.f;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    viewport.maxDepth     = 1.f;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    viewport.x            = 0.f;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    viewport.y            = 0.f;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    viewport.width        = size.x;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    viewport.height       = size.y;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    texture = renderer.texturePool().createRenderTexture(size, sampler);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    resize(size);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    graphAssets.putAsset&lt;rgi::FinalRenderTextureAsset&gt;(</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        framebuffers, viewport, scissor, clearColors, std::size(clearColors));</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a04524.html#a675ff7fe0fabaf0f4aa90c9dd48a00e0">   39</a></span>&#160;RenderTexture::~RenderTexture() {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    destroy();</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    commandBuffers.destroy();</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a04524.html#a05cdb4fa3bb44c51b5cdfab121bfaee7">   44</a></span>&#160;<span class="keywordtype">void</span> RenderTexture::resize(<span class="keyword">const</span> glm::u32vec2&amp; size) {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">if</span> (getSize() != size) { texture-&gt;resize(size); }</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    scissor.extent.width  = size.x;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    scissor.extent.height = size.y;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    viewport.width        = size.x;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    viewport.height       = size.y;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    VkRenderPass renderPass = renderer.renderPassCache()</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                                  .getRenderPass(Config::RenderPassIds::StandardAttachmentDefault)</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                                  .rawPass();</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    attachments.visit([<span class="keyword">this</span>, size, renderPass, &amp;i](<span class="keyword">auto</span>&amp; a) {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        a.depthBuffer.create(renderer.vulkanState(),</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                             StandardAttachmentBuffers::findDepthFormat(renderer.vulkanState()),</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                             VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                             {size.x, size.y});</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        a.attachmentSet.setRenderExtent(scissor.extent);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        a.attachmentSet.setAttachments(texture.asRenderTexture()-&gt;getImages().getRaw(i).image,</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                                       texture.asRenderTexture()-&gt;getImages().getRaw(i).view,</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                                       a.depthBuffer.image(),</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                                       a.depthBuffer.view());</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        ++i;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    });</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    i = 0;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    framebuffers.visit([<span class="keyword">this</span>, &amp;i, renderPass](<span class="keyword">auto</span>&amp; fb) {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        fb.create(renderer.vulkanState(), renderPass, attachments.getRaw(i).attachmentSet);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        ++i;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    });</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;}</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="a04524.html#a56d442e0c77d46924396934d91ae48b1">   78</a></span>&#160;<span class="keywordtype">void</span> RenderTexture::destroy() {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">if</span> (texture) {</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        clearScenes();</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        framebuffers.cleanup([](<span class="keyword">auto</span>&amp; fb) { fb.deferCleanup(); });</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        attachments.cleanup([](<span class="keyword">auto</span>&amp; a) { a.depthBuffer.deferDestroy(); });</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        texture.release();</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    }</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;}</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="keywordtype">void</span> RenderTexture::render() {</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">if</span> (texture) {</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keyword">auto</span> commandBuffer = commandBuffers.begin();</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        framebuffers.current().beginRender(</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            commandBuffer, scissor, clearColors, std::size(clearColors), <span class="keyword">true</span>, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        renderScene(commandBuffer);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        renderSceneFinal(commandBuffer);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        VkClearAttachment attachment{};</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        attachment.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        attachment.clearValue = clearColors[1];</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        VkClearRect rect{};</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        rect.rect           = scissor;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        rect.baseArrayLayer = 0;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        rect.layerCount     = 1;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        vkCmdClearAttachments(commandBuffer, 1, &amp;attachment, 1, &amp;rect);</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        renderOverlay(commandBuffer);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        framebuffers.current().finishRender(commandBuffer);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        commandBuffers.submit();</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    }</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;}</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="a04528.html#a01ab39f2b39a3dfb44b32a0e60fbe81b">  114</a></span>&#160;<span class="keywordtype">void</span> RenderTexture::Handle::release() {</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordflow">if</span> (texture) {</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        renderer-&gt;destroyRenderTexture(texture);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        texture = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    }</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;}</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;} <span class="comment">// namespace vk</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00023_html"><div class="ttname"><a href="a00023.html">Camera2D.hpp</a></div></div>
+<div class="ttc" id="aa00035_html"><div class="ttname"><a href="a00035.html">Camera3D.hpp</a></div></div>
+<div class="ttc" id="aa00941_html"><div class="ttname"><a href="a00941.html">FinalRenderTextureAsset.hpp</a></div></div>
+<div class="ttc" id="aa01166_html"><div class="ttname"><a href="a01166.html">RenderTexture.hpp</a></div></div>
+<div class="ttc" id="aa01175_html"><div class="ttname"><a href="a01175.html">StandardAttachmentBuffers.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa06619_html"><div class="ttname"><a href="a06619.html">Renderer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

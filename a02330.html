@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::gfx::s2d Namespace Reference</title>
+<title>BLIB: Components</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -50,6 +50,7 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -64,52 +65,143 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="a02303.html">bl</a></li><li class="navelem"><a class="el" href="a02315.html">gfx</a></li><li class="navelem"><a class="el" href="a02330.html">s2d</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
-<div class="title">bl::gfx::s2d Namespace Reference</div>  </div>
+<div class="title">Components</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of classes for rendering 2d shapes.  
-<a href="a02330.html#details">More...</a></p>
+<p>ECS components provided by the engine.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03077.html">BatchShape2D</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for batched 2d shapes.  <a href="a03077.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02564.html">bl::com::Animation2D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Component for non-slideshow 2d animations.  <a href="a02564.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03081.html">CircleBase</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intermediate base class for circles. Use gfx::CircleBase or gfx::BatchedCircle.  <a href="a03081.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02568.html">bl::com::Animation2DPlayer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Owns play state for 2d animations. Intended to be owned by entities with animations, and can be shared by multiple entities to share play state.  <a href="a02568.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03085.html">IconBase</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02572.html">bl::com::BatchedShapes2D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Component that allows the renderer to render a batch of 2d shapes.  <a href="a02572.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03089.html">RectangleBase</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intermediate base class for rectangles. Use <a class="el" href="a03073.html" title="Renderable 2d rectangle shape.">gfx::Rectangle</a> or BatchedRectangle.  <a href="a03089.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02576.html">bl::com::BatchedSlideshows</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Drawable component for batches of 2d slideshow animations.  <a href="a02576.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03093.html">Shape2D</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for all 2d shapes. Provides part of the interface, as well as index buffer population. Does not provide storage.  <a href="a03093.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02580.html">bl::com::BatchedSprites</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Component for batched 2d sprites.  <a href="a02580.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03097.html">SingleShape2D</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for individual 2d shapes. Provides index buffer creation and management.  <a href="a03097.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02584.html">bl::com::BatchSceneLink</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Component to help facilitate quick lookups internally in batched scenes.  <a href="a02584.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03101.html">TriangleBase</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intermediate base class for triangles. Use gfx::TriangleBase or BatchedTriangle.  <a href="a03101.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02588.html">bl::com::Hitbox2D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">2D hitbox component that can handle a few different shapes  <a href="a02588.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02596.html">bl::com::MarkedForDeath</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Component that can be added to an entity in order to destroy it after some time.  <a href="a02596.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02600.html">bl::com::Mesh</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">ECS component for a basic mesh from an index buffer.  <a href="a02600.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02604.html">bl::com::Orientation3D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Angle-axis representation of a 3d orientation.  <a href="a02604.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02608.html">bl::com::OverlayScaler</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Component used to scale entities in overlays according to fixed rules. sys::Overlay scaler ensures that scales are up-to-date as the overlay changes size. Entity transforms should not be manually scaled if an <a class="el" href="a02608.html" title="Component used to scale entities in overlays according to fixed rules. sys::Overlay scaler ensures th...">OverlayScaler</a> is present and active.  <a href="a02608.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02624.html">bl::com::Physics2D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Component that can be added to entities to give them 2d physics.  <a href="a02624.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02628.html">bl::com::Rendered</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Component that can be added to entities to trigger the Renderer to render them.  <a href="a02628.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02632.html">bl::com::Shape2D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Component that allows the renderer to render a 2d shape, or any arbitrary index buffer, for the owning entity.  <a href="a02632.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02636.html">bl::com::Slideshow</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Drawable component for slideshow type 2d animations.  <a href="a02636.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02640.html">bl::com::Sprite</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02640.html" title="Sprite component repersenting a 2d image for an entity.">Sprite</a> component repersenting a 2d image for an entity.  <a href="a02640.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02644.html">bl::com::Text</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Component for rendered text.  <a href="a02644.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02648.html">bl::com::Texture</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">ECS component to add a texture to an object.  <a href="a02648.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02652.html">bl::com::Toggler</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic component to toggle a boolean value over time.  <a href="a02652.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02656.html">bl::com::Transform2D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Representation of a 2d transform with a depth component to allow the depth buffer to be used when rendering 2d entities.  <a href="a02656.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02660.html">bl::com::Transform3D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Representation of a full 3d transform. Includes position, orientation, and scale.  <a href="a02660.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02664.html">bl::com::Velocity2D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a translational and rotational velocity in 2d space.  <a href="a02664.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02668.html">bl::com::VertexBuffer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renderable component for a raw vertex buffer.  <a href="a02668.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:gaa6517d7c0b017b507186810bfe4671bb"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02330.html#gaa6517d7c0b017b507186810bfe4671bb">bl::com::TilemapDirection</a> = <a class="el" href="a02348.html#ga718359d5f56e8650998bc14f045c3f64">tmap::Direction</a></td></tr>
+<tr class="memdesc:gaa6517d7c0b017b507186810bfe4671bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias of tilemap direction for ease of finding components.  <a href="a02330.html#gaa6517d7c0b017b507186810bfe4671bb">More...</a><br /></td></tr>
+<tr class="separator:gaa6517d7c0b017b507186810bfe4671bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga859ac3c030c40a2e92b5eb3c46ead8d4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02330.html#ga859ac3c030c40a2e92b5eb3c46ead8d4">bl::com::TilemapPosition</a> = <a class="el" href="a05164.html">tmap::Position</a></td></tr>
+<tr class="memdesc:ga859ac3c030c40a2e92b5eb3c46ead8d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias of tilemap position for ease of finding components.  <a href="a02330.html#ga859ac3c030c40a2e92b5eb3c46ead8d4">More...</a><br /></td></tr>
+<tr class="separator:ga859ac3c030c40a2e92b5eb3c46ead8d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Collection of classes for rendering 2d shapes. </p>
-</div></div><!-- contents -->
+<p>ECS components provided by the engine. </p>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="gaa6517d7c0b017b507186810bfe4671bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa6517d7c0b017b507186810bfe4671bb">&#9670;&nbsp;</a></span>TilemapDirection</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a02348.html#ga718359d5f56e8650998bc14f045c3f64">bl::com::TilemapDirection</a> = typedef <a class="el" href="a02348.html#ga718359d5f56e8650998bc14f045c3f64">tmap::Direction</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Alias of tilemap direction for ease of finding components. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00110_source.html#l00015">15</a> of file <a class="el" href="a00110_source.html">TilemapPosition.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ga859ac3c030c40a2e92b5eb3c46ead8d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga859ac3c030c40a2e92b5eb3c46ead8d4">&#9670;&nbsp;</a></span>TilemapPosition</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a02330.html#ga859ac3c030c40a2e92b5eb3c46ead8d4">bl::com::TilemapPosition</a> = typedef <a class="el" href="a05164.html">tmap::Position</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Alias of tilemap position for ease of finding components. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00110_source.html#l00022">22</a> of file <a class="el" href="a00110_source.html">TilemapPosition.hpp</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:57:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

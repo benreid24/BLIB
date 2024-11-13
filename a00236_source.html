@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Engine/Events/Shutdown.hpp Source File</title>
+<title>BLIB: include/BLIB/ECS/ViewImpl.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,50 +66,205 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_21925c401d8b9381bdf61383d8a14cd0.html">Engine</a></li><li class="navelem"><a class="el" href="dir_b1e11ac7deb2d68a3ec768925497826d.html">Events</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ce575a5afd2ea0954c4dff0006796805.html">ECS</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Shutdown.hpp</div>  </div>
+<div class="title">ViewImpl.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00236.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ENGINE_EVENTS_SHUTDOWN_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ENGINE_EVENTS_SHUTDOWN_HPP</span></div>
+<a href="a00236.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ECS_VIEWIMPL_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ECS_VIEWIMPL_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>engine</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>event</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02845.html">   16</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02845.html">Shutdown</a> {</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02845.html#a610f7ea530340c0339eae47bea563204">   18</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="a02845.html#a610f7ea530340c0339eae47bea563204">ShutdownType</a> {</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02845.html#a610f7ea530340c0339eae47bea563204a194337d8c56fb9e4a4d0d3424b4ae786">   20</a></span>&#160;        <a class="code" href="a02845.html#a610f7ea530340c0339eae47bea563204a194337d8c56fb9e4a4d0d3424b4ae786">Terminated</a>,</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02845.html#a610f7ea530340c0339eae47bea563204a8d3b9ffb95b55ffebe0ff64fc83337ea">   23</a></span>&#160;        <a class="code" href="a02845.html#a610f7ea530340c0339eae47bea563204a8d3b9ffb95b55ffebe0ff64fc83337ea">FinalStatePopped</a>,</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <a class="code" href="a02845.html#a610f7ea530340c0339eae47bea563204a124f6c688386414dba77b638454e3082">WindowClosed</a></div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a02845.html#a43c9a23185a5d8face1114935eb1a523">   27</a></span>&#160;    } <a class="code" href="a02845.html#a43c9a23185a5d8face1114935eb1a523">cause</a>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;};</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;} <span class="comment">// namespace event</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;} <span class="comment">// namespace engine</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02845_html"><div class="ttname"><a href="a02845.html">bl::engine::event::Shutdown</a></div><div class="ttdoc">Fired when the Engine shuts down.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00016">Shutdown.hpp:16</a></div></div>
-<div class="ttc" id="aa02845_html_a43c9a23185a5d8face1114935eb1a523"><div class="ttname"><a href="a02845.html#a43c9a23185a5d8face1114935eb1a523">bl::engine::event::Shutdown::cause</a></div><div class="ttdeci">enum bl::engine::event::Shutdown::ShutdownType cause</div></div>
-<div class="ttc" id="aa02845_html_a610f7ea530340c0339eae47bea563204"><div class="ttname"><a href="a02845.html#a610f7ea530340c0339eae47bea563204">bl::engine::event::Shutdown::ShutdownType</a></div><div class="ttdeci">ShutdownType</div><div class="ttdoc">What triggered the engine to shutdown.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00018">Shutdown.hpp:18</a></div></div>
-<div class="ttc" id="aa02845_html_a610f7ea530340c0339eae47bea563204a124f6c688386414dba77b638454e3082"><div class="ttname"><a href="a02845.html#a610f7ea530340c0339eae47bea563204a124f6c688386414dba77b638454e3082">bl::engine::event::Shutdown::WindowClosed</a></div><div class="ttdeci">@ WindowClosed</div><div class="ttdoc">The main window was closed.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00027">Shutdown.hpp:26</a></div></div>
-<div class="ttc" id="aa02845_html_a610f7ea530340c0339eae47bea563204a194337d8c56fb9e4a4d0d3424b4ae786"><div class="ttname"><a href="a02845.html#a610f7ea530340c0339eae47bea563204a194337d8c56fb9e4a4d0d3424b4ae786">bl::engine::event::Shutdown::Terminated</a></div><div class="ttdeci">@ Terminated</div><div class="ttdoc">The terminate engine flag was set.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00020">Shutdown.hpp:20</a></div></div>
-<div class="ttc" id="aa02845_html_a610f7ea530340c0339eae47bea563204a8d3b9ffb95b55ffebe0ff64fc83337ea"><div class="ttname"><a href="a02845.html#a610f7ea530340c0339eae47bea563204a8d3b9ffb95b55ffebe0ff64fc83337ea">bl::engine::event::Shutdown::FinalStatePopped</a></div><div class="ttdeci">@ FinalStatePopped</div><div class="ttdoc">The final engine state was popped off.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00023">Shutdown.hpp:23</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#ifndef BLIB_ECS_REGISTRY_HPP</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#error &quot;Internal file included out of order&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00212.html">BLIB/ECS/TagsImpl.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00227.html">BLIB/ECS/Transaction.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>ecs</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TReqComs, <span class="keyword">typename</span>... TOptComs, <span class="keyword">typename</span>... TExcComs&gt;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a02956.html">   26</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02776.html">View</a>&lt;<a class="code" href="a02872.html">Require</a>&lt;TReqComs...&gt;, <a class="code" href="a02876.html">Optional</a>&lt;TOptComs...&gt;, <a class="code" href="a02880.html">Exclude</a>&lt;TExcComs...&gt;&gt;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;: <span class="keyword">public</span> <a class="code" href="a02952.html">priv::ViewBase</a> {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">using</span> <a class="code" href="a02888.html">ViewTags</a> = <a class="code" href="a02884.html">Tags</a>&lt;<a class="code" href="a02872.html">Require</a>&lt;TReqComs...&gt;, <a class="code" href="a02876.html">Optional</a>&lt;TOptComs...&gt;, <a class="code" href="a02880.html">Exclude</a>&lt;TExcComs...&gt;&gt;;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">static</span> constexpr std::size_t InvalidIndex = std::numeric_limits&lt;std::size_t&gt;::max();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a02956.html#ac1d31bec21de0c5776b75b0cb68e7f3b">   34</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02956.html#ac1d31bec21de0c5776b75b0cb68e7f3b">TRow</a> = <span class="keyword">typename</span> <a class="code" href="a02800.html">ViewTags::TComponentSet</a>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a02956.html#a3d8ea3fbacb4f113775318832716213d">   40</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02956.html#a3d8ea3fbacb4f113775318832716213d">~View</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCallback&gt;</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="a02956.html#ad22eac79a2b564976f8e3c72aa56c9f4">   49</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02956.html#ad22eac79a2b564976f8e3c72aa56c9f4">forEach</a>(<span class="keyword">const</span> TCallback&amp; cb) {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        static_assert(std::is_invocable&lt;TCallback, typename ViewTags::TComponentSet&amp;&gt;::value,</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                      <span class="stringliteral">&quot;visitor must have signature void(ComponentSet&lt;...&gt;&amp;)&quot;</span>);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        ensureUpdated();</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        viewLock.lockRead();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; set : results) { cb(set); }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        viewLock.unlockRead();</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="a02956.html#a8159159b9f12a01251d2b457abedc76e">   66</a></span>&#160;    <span class="keyword">typename</span> <a class="code" href="a02800.html">ViewTags::TComponentSet</a>* <a class="code" href="a02956.html#a8159159b9f12a01251d2b457abedc76e">get</a>(<a class="code" href="a02808.html">Entity</a> entity) {</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> ei = entity.<a class="code" href="a02808.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>();</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> i  = ei &lt; entityToIndex.size() ? entityToIndex[ei] : InvalidIndex;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordflow">return</span> i != InvalidIndex ? &amp;results[i] : <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    }</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="a02856.html">Registry</a>&amp; registry;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="a05264.html">util::ReadWriteLock</a> viewLock;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    std::array&lt;ComponentPoolBase*, ViewTags::NumComponents&gt; pools;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    std::vector&lt;typename ViewTags::TComponentSet&gt; results;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    std::vector&lt;std::size_t&gt; entityToIndex;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    std::mutex queueLock;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    std::vector&lt;Entity&gt; toAdd;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    std::vector&lt;Entity&gt; toRemove;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <a class="code" href="a02776.html">View</a>(<a class="code" href="a02856.html">Registry</a>&amp; reg)</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    : <a class="code" href="a02952.html#aad663a90cdfb9c7d9f98aaf6ff89a488">ViewBase</a>(ViewTags::createMask(reg), typeid(<a class="code" href="a02776.html">View</a>))</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    , registry(reg)</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    , pools({&amp;reg.getPool&lt;TReqComs&gt;()..., &amp;reg.getPool&lt;TOptComs&gt;()...}) {</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        results.reserve(256);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        entityToIndex.resize(256, InvalidIndex);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        toAdd.reserve(128);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        toRemove.reserve(128);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        reg.populateViewWithLock(*<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        ensureUpdated();</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    }</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02952.html#a1b85cace86a9ac96e0709123561754d9">removeEntity</a>(Entity entity)<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        std::unique_lock lock(queueLock);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        toRemove.emplace_back(entity);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    }</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02952.html#aeac4fe75e62fd655cc93cadc083f5d6e">nullEntityComponent</a>(Entity entity, <span class="keywordtype">void</span>* com)<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="keyword">const</span> std::uint64_t entIndex = entity.getIndex();</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keywordflow">if</span> (entIndex &lt; entityToIndex.size()) {</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            results[entityToIndex[entIndex]].removeComponent(com);</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        }</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    }</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02952.html#af34b9807e8e8ee6f2b6e6acf2fa90f27">tryAddEntity</a>(Entity entity)<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        std::unique_lock lock(queueLock);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        toAdd.emplace_back(entity);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    }</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02952.html#a6ce0458f819504dbf9c2b7e5b28401a8">clearAndRefresh</a>()<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        lockWrite();</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        results.clear();</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        std::fill(entityToIndex.begin(), entityToIndex.end(), InvalidIndex);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        registry.populateView(*<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        unlockWrite();</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        ensureUpdated();</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    }</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordtype">void</span> ensureUpdated() {</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        std::unique_lock lock(queueLock);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        lockWrite();</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <span class="keywordflow">for</span> (Entity ent : toRemove) {</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            <span class="keyword">const</span> std::uint64_t entIndex = ent.getIndex();</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            <span class="keywordflow">if</span> (entIndex + 1 &gt; entityToIndex.size()) { <span class="keywordflow">continue</span>; }</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;            std::size_t&amp; index = entityToIndex[entIndex];</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;            <span class="keywordflow">if</span> (index == InvalidIndex) { <span class="keywordflow">continue</span>; }</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;            <span class="keywordflow">if</span> (index != results.size() - 1) {</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                std::size_t&amp; backIndex = entityToIndex[results.back().entity().getIndex()];</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                results[index]         = results.back();</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                backIndex              = index;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            }</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            results.pop_back();</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;            index = InvalidIndex;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        }</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        toRemove.clear();</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        <span class="keywordflow">for</span> (Entity ent : toAdd) {</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;            <span class="keyword">const</span> std::uint64_t entIndex = ent.getIndex();</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;            <span class="keywordflow">if</span> (entIndex + 1 &gt; entityToIndex.size()) {</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                entityToIndex.resize(entIndex + 1, InvalidIndex);</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;            }</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;            <span class="keywordflow">if</span> (entityToIndex[entIndex] != InvalidIndex) { <span class="keywordflow">continue</span>; }</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;            <span class="keywordflow">if</span> (!<a class="code" href="a02952.html#aaec4846781fb716ae60bc560bce90dfe">mask</a>.<a class="code" href="a02772.html#a4b1efacf738ba4aa88604046561d1c4e">passes</a>(registry.entityMasks[entIndex])) { <span class="keywordflow">continue</span>; }</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;            <span class="keyword">const</span> std::size_t ni = results.size();</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;            results.emplace_back(registry, ent);</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            <span class="keywordflow">if</span> (!results.back().isValid()) { results.pop_back(); }</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            <span class="keywordflow">else</span> { entityToIndex[entIndex] = ni; }</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        }</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        toAdd.clear();</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        unlockWrite();</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    }</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="keywordtype">void</span> lockPoolsRead() {</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        <span class="keywordflow">for</span> (ComponentPoolBase* pool : pools) { pool-&gt;poolLock.lockRead(); }</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    }</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keywordtype">void</span> unlockPoolsRead() {</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        <span class="keywordflow">for</span> (ComponentPoolBase* pool : pools) { pool-&gt;poolLock.unlockRead(); }</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    }</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keywordtype">void</span> lockWrite() {</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        viewLock.<a class="code" href="a05264.html#ad37b398dbe7861cd2763e20002069263">lockWrite</a>();</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        lockPoolsRead();</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    }</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keywordtype">void</span> unlockWrite() {</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        viewLock.<a class="code" href="a05264.html#a751259f66b9b1aece13bbf155cdd50c5">unlockWrite</a>();</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        unlockPoolsRead();</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    }</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
+<div class="line"><a name="l00178"></a><span class="lineno"><a class="line" href="a02956.html#ac7b716e6d41ff508ad2d8e5dad655d72">  178</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a02856.html">Registry</a>;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;};</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;} <span class="comment">// namespace ecs</span></div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160; </div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00212_html"><div class="ttname"><a href="a00212.html">TagsImpl.hpp</a></div></div>
+<div class="ttc" id="aa00227_html"><div class="ttname"><a href="a00227.html">Transaction.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02772_html_a4b1efacf738ba4aa88604046561d1c4e"><div class="ttname"><a href="a02772.html#a4b1efacf738ba4aa88604046561d1c4e">bl::ecs::ComponentMask::passes</a></div><div class="ttdeci">bool passes(SimpleMask entityMask) const</div><div class="ttdoc">Returns whether or not the given mask passes the tagged filter for this mask.</div><div class="ttdef"><b>Definition:</b> <a href="a00173_source.html#l00038">ComponentMask.hpp:38</a></div></div>
+<div class="ttc" id="aa02776_html"><div class="ttname"><a href="a02776.html">bl::ecs::View</a></div><div class="ttdoc">Base definition of the View class. Use the tagged specialization.</div><div class="ttdef"><b>Definition:</b> <a href="a00233_source.html#l00062">View.hpp:62</a></div></div>
+<div class="ttc" id="aa02800_html"><div class="ttname"><a href="a02800.html">bl::ecs::ComponentSet&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt; &gt;</a></div><div class="ttdoc">The actual ComponentSet specialization that should be used.</div><div class="ttdef"><b>Definition:</b> <a href="a00182_source.html#l00044">ComponentSetImpl.hpp:46</a></div></div>
+<div class="ttc" id="aa02808_html"><div class="ttname"><a href="a02808.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00188_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa02808_html_aa3cb71b47f3a72f20913a27233a5dad0"><div class="ttname"><a href="a02808.html#aa3cb71b47f3a72f20913a27233a5dad0">bl::ecs::Entity::getIndex</a></div><div class="ttdeci">std::uint64_t getIndex() const</div><div class="ttdoc">Returns the 0-based index for the entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00188_source.html#l00107">Entity.hpp:107</a></div></div>
+<div class="ttc" id="aa02856_html"><div class="ttname"><a href="a02856.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition:</b> <a href="a00206_source.html#l00034">Registry.hpp:34</a></div></div>
+<div class="ttc" id="aa02872_html"><div class="ttname"><a href="a02872.html">bl::ecs::Require</a></div><div class="ttdoc">Tag that indicates a set of components are required.</div><div class="ttdef"><b>Definition:</b> <a href="a00209_source.html#l00035">Tags.hpp:35</a></div></div>
+<div class="ttc" id="aa02876_html"><div class="ttname"><a href="a02876.html">bl::ecs::Optional</a></div><div class="ttdoc">Tag that indicates a set of components are optional.</div><div class="ttdef"><b>Definition:</b> <a href="a00209_source.html#l00044">Tags.hpp:44</a></div></div>
+<div class="ttc" id="aa02880_html"><div class="ttname"><a href="a02880.html">bl::ecs::Exclude</a></div><div class="ttdoc">Tag that indicates a set of components are excluded.</div><div class="ttdef"><b>Definition:</b> <a href="a00209_source.html#l00053">Tags.hpp:53</a></div></div>
+<div class="ttc" id="aa02884_html"><div class="ttname"><a href="a02884.html">bl::ecs::Tags</a></div><div class="ttdef"><b>Definition:</b> <a href="a00209_source.html#l00056">Tags.hpp:56</a></div></div>
+<div class="ttc" id="aa02888_html"><div class="ttname"><a href="a02888.html">bl::ecs::Tags&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt;, Exclude&lt; TExcComs... &gt; &gt;</a></div><div class="ttdoc">Combined set of tags describing an archetype of components.</div><div class="ttdef"><b>Definition:</b> <a href="a00209_source.html#l00067">Tags.hpp:67</a></div></div>
+<div class="ttc" id="aa02952_html"><div class="ttname"><a href="a02952.html">bl::ecs::priv::ViewBase</a></div><div class="ttdoc">Helper class not to be used directly.</div><div class="ttdef"><b>Definition:</b> <a href="a00233_source.html#l00032">View.hpp:32</a></div></div>
+<div class="ttc" id="aa02952_html_a1b85cace86a9ac96e0709123561754d9"><div class="ttname"><a href="a02952.html#a1b85cace86a9ac96e0709123561754d9">bl::ecs::priv::ViewBase::removeEntity</a></div><div class="ttdeci">virtual void removeEntity(Entity entity)=0</div></div>
+<div class="ttc" id="aa02952_html_a6ce0458f819504dbf9c2b7e5b28401a8"><div class="ttname"><a href="a02952.html#a6ce0458f819504dbf9c2b7e5b28401a8">bl::ecs::priv::ViewBase::clearAndRefresh</a></div><div class="ttdeci">virtual void clearAndRefresh()=0</div></div>
+<div class="ttc" id="aa02952_html_aad663a90cdfb9c7d9f98aaf6ff89a488"><div class="ttname"><a href="a02952.html#aad663a90cdfb9c7d9f98aaf6ff89a488">bl::ecs::priv::ViewBase::ViewBase</a></div><div class="ttdeci">ViewBase(ComponentMask mask, std::type_index id)</div><div class="ttdef"><b>Definition:</b> <a href="a00233_source.html#l00040">View.hpp:40</a></div></div>
+<div class="ttc" id="aa02952_html_aaec4846781fb716ae60bc560bce90dfe"><div class="ttname"><a href="a02952.html#aaec4846781fb716ae60bc560bce90dfe">bl::ecs::priv::ViewBase::mask</a></div><div class="ttdeci">const ComponentMask mask</div><div class="ttdef"><b>Definition:</b> <a href="a00233_source.html#l00035">View.hpp:35</a></div></div>
+<div class="ttc" id="aa02952_html_aeac4fe75e62fd655cc93cadc083f5d6e"><div class="ttname"><a href="a02952.html#aeac4fe75e62fd655cc93cadc083f5d6e">bl::ecs::priv::ViewBase::nullEntityComponent</a></div><div class="ttdeci">virtual void nullEntityComponent(Entity entity, void *com)=0</div></div>
+<div class="ttc" id="aa02952_html_af34b9807e8e8ee6f2b6e6acf2fa90f27"><div class="ttname"><a href="a02952.html#af34b9807e8e8ee6f2b6e6acf2fa90f27">bl::ecs::priv::ViewBase::tryAddEntity</a></div><div class="ttdeci">virtual void tryAddEntity(Entity entity)=0</div></div>
+<div class="ttc" id="aa02956_html_a3d8ea3fbacb4f113775318832716213d"><div class="ttname"><a href="a02956.html#a3d8ea3fbacb4f113775318832716213d">bl::ecs::View&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt;, Exclude&lt; TExcComs... &gt; &gt;::~View</a></div><div class="ttdeci">virtual ~View()=default</div><div class="ttdoc">Destroy the View object.</div></div>
+<div class="ttc" id="aa02956_html_a8159159b9f12a01251d2b457abedc76e"><div class="ttname"><a href="a02956.html#a8159159b9f12a01251d2b457abedc76e">bl::ecs::View&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt;, Exclude&lt; TExcComs... &gt; &gt;::get</a></div><div class="ttdeci">ViewTags::TComponentSet * get(Entity entity)</div><div class="ttdoc">Fetches the view result for the given entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00066">ViewImpl.hpp:66</a></div></div>
+<div class="ttc" id="aa02956_html_ac1d31bec21de0c5776b75b0cb68e7f3b"><div class="ttname"><a href="a02956.html#ac1d31bec21de0c5776b75b0cb68e7f3b">bl::ecs::View&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt;, Exclude&lt; TExcComs... &gt; &gt;::TRow</a></div><div class="ttdeci">typename ViewTags::TComponentSet TRow</div><div class="ttdoc">The ComponentSet type contained in this View.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00034">ViewImpl.hpp:34</a></div></div>
+<div class="ttc" id="aa02956_html_ad22eac79a2b564976f8e3c72aa56c9f4"><div class="ttname"><a href="a02956.html#ad22eac79a2b564976f8e3c72aa56c9f4">bl::ecs::View&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt;, Exclude&lt; TExcComs... &gt; &gt;::forEach</a></div><div class="ttdeci">void forEach(const TCallback &amp;cb)</div><div class="ttdoc">Iterates over all results of the view.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00049">ViewImpl.hpp:49</a></div></div>
+<div class="ttc" id="aa05264_html"><div class="ttname"><a href="a05264.html">bl::util::ReadWriteLock</a></div><div class="ttdoc">Reader-writer lock built on top of std::shared_mutex. The primary benefit of this class is that lockR...</div><div class="ttdef"><b>Definition:</b> <a href="a01412_source.html#l00022">ReadWriteLock.hpp:22</a></div></div>
+<div class="ttc" id="aa05264_html_a751259f66b9b1aece13bbf155cdd50c5"><div class="ttname"><a href="a05264.html#a751259f66b9b1aece13bbf155cdd50c5">bl::util::ReadWriteLock::unlockWrite</a></div><div class="ttdeci">void unlockWrite()</div><div class="ttdoc">Releases the write lock held by this thread.</div><div class="ttdef"><b>Definition:</b> <a href="a02312_source.html#l00044">ReadWriteLock.cpp:44</a></div></div>
+<div class="ttc" id="aa05264_html_ad37b398dbe7861cd2763e20002069263"><div class="ttname"><a href="a05264.html#ad37b398dbe7861cd2763e20002069263">bl::util::ReadWriteLock::lockWrite</a></div><div class="ttdeci">void lockWrite()</div><div class="ttdoc">Acquires a lock for writing a shared resource. Only one thread may hold this lock.</div><div class="ttdef"><b>Definition:</b> <a href="a02312_source.html#l00033">ReadWriteLock.cpp:33</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

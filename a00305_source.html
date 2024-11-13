@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Graphics/Animation2D/DiscreteAnimation2DPlayer.hpp Source File</title>
+<title>BLIB: include/BLIB/Engine/World.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,69 +66,86 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_8af985930208ac2752e8061e22535a56.html">Graphics</a></li><li class="navelem"><a class="el" href="dir_c3306cf26ca9f62e924c8e739443c1eb.html">Animation2D</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_21925c401d8b9381bdf61383d8a14cd0.html">Engine</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">DiscreteAnimation2DPlayer.hpp</div>  </div>
+<div class="title">World.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00305.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GRAPHICS_ANIMATION2D_DISCRETEANIMATION2DPLAYER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GRAPHICS_ANIMATION2D_DISCRETEANIMATION2DPLAYER_HPP</span></div>
+<a href="a00305.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ENGINE_WORLD_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ENGINE_WORLD_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06191.html">BLIB/Components/Animation2DPlayer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00179.html">BLIB/ECS/EntityBacked.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01208.html">BLIB/Resources/Ref.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>gfx</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02989.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02989.html">DiscreteAnimation2DPlayer</a> : <span class="keyword">public</span> <a class="code" href="a02741.html">ecs::EntityBacked</a> {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02989.html#a16b07df0b5adad386841c1e35449d31aac2f5ac5fa9bb5fe0702fd0d06005e603">   20</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="a02989.html#a16b07df0b5adad386841c1e35449d31a">Mode</a> { <a class="code" href="a02989.html#a16b07df0b5adad386841c1e35449d31aaf889f869db9f4912e7f8be810cc7c64f">Slideshow</a>, <a class="code" href="a02989.html#a16b07df0b5adad386841c1e35449d31aa63e3bed2f4429feb72b97770212ec9b2">VertexAnimation</a>, <a class="code" href="a02989.html#a16b07df0b5adad386841c1e35449d31aac2f5ac5fa9bb5fe0702fd0d06005e603">Auto</a> };</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="a02989.html#a3dd8c342bd1cdfa42f358980f09df3cf">DiscreteAnimation2DPlayer</a>();</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02989.html#ac073e229fa724a406ba44277a9fcd71b">create</a>(<a class="code" href="a02833.html">engine::Engine</a>&amp; <a class="code" href="a02741.html#ad29553a8037da3a396535700891bf39f">engine</a>, <span class="keyword">const</span> <a class="code" href="a04529.html">resource::Ref&lt;a2d::AnimationData&gt;</a>&amp; animation,</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                <a class="code" href="a02989.html#a16b07df0b5adad386841c1e35449d31a">Mode</a> mode, <span class="keywordtype">bool</span> play = <span class="keyword">false</span>, <span class="keywordtype">bool</span> forceLoop = <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="a02989.html#af4361509525523c045727202a6bd66c7">   42</a></span>&#160;    <a class="code" href="a02509.html">com::Animation2DPlayer</a>&amp; <a class="code" href="a02989.html#af4361509525523c045727202a6bd66c7">getPlayer</a>() { <span class="keywordflow">return</span> *player; }</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="a02989.html#aa76c0fd53e10c603f783931a52cfca4d">   47</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="a02509.html">com::Animation2DPlayer</a>&amp; <a class="code" href="a02989.html#aa76c0fd53e10c603f783931a52cfca4d">getPlayer</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> *player; }</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="a02509.html">com::Animation2DPlayer</a>* player;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;};</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00188.html">BLIB/ECS/Entity.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06562.html">BLIB/ECS/Flags.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01046.html">BLIB/Render/Resources/SceneRef.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01403.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>engine</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span>Engine;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a03080.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03080.html">World</a> : <span class="keyword">private</span> <a class="code" href="a05228.html">util::NonCopyable</a> {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a03080.html#a510cb2022f4be86940fa5f2c27225919">   23</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="a03080.html#a510cb2022f4be86940fa5f2c27225919">MaxWorlds</a> = 8;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03080.html#ad3cd3f32dabb64704288f631ba70099f">~World</a>();</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="a02808.html">ecs::Entity</a> <a class="code" href="a03080.html#a91b6926ca30495c90225cfb617fc8bec">createEntity</a>(<a class="code" href="a02332.html#gad22c7b1807fcff9c01b2082084716652">ecs::Flags</a> flags = <a class="code" href="a02332.html#ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754">ecs::Flags::None</a>);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03080.html#a8826a649acea7872a1278cd86eaf412e">destroyAllEntities</a>();</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a03080.html#a4d67b398acd7b580b9b8043bd7b5a6c0">   46</a></span>&#160;    <a class="code" href="a02964.html">Engine</a>&amp; <a class="code" href="a03080.html#a4d67b398acd7b580b9b8043bd7b5a6c0">engine</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> owner; }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a03080.html#a9e77c6ef3c0c64ca96d6da94f1ac2ee2">   51</a></span>&#160;    <a class="code" href="a04280.html">rc::SceneRef</a> <a class="code" href="a03080.html#a9e77c6ef3c0c64ca96d6da94f1ac2ee2">scene</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> renderScene; }</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00179_html"><div class="ttname"><a href="a00179.html">EntityBacked.hpp</a></div></div>
-<div class="ttc" id="aa01208_html"><div class="ttname"><a href="a01208.html">Ref.hpp</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02509_html"><div class="ttname"><a href="a02509.html">bl::com::Animation2DPlayer</a></div><div class="ttdoc">Owns play state for 2d animations. Intended to be owned by entities with animations,...</div><div class="ttdef"><b>Definition:</b> <a href="a06191_source.html#l00025">Animation2DPlayer.hpp:25</a></div></div>
-<div class="ttc" id="aa02741_html"><div class="ttname"><a href="a02741.html">bl::ecs::EntityBacked</a></div><div class="ttdoc">Base class for ECS-backed objects. Useful for nice class interfaces while using ECS as backing for co...</div><div class="ttdef"><b>Definition:</b> <a href="a00179_source.html#l00021">EntityBacked.hpp:21</a></div></div>
-<div class="ttc" id="aa02741_html_ad29553a8037da3a396535700891bf39f"><div class="ttname"><a href="a02741.html#ad29553a8037da3a396535700891bf39f">bl::ecs::EntityBacked::engine</a></div><div class="ttdeci">engine::Engine &amp; engine()</div><div class="ttdoc">Returns the game engine instance. Only call after create()</div><div class="ttdef"><b>Definition:</b> <a href="a00179_source.html#l00137">EntityBacked.hpp:137</a></div></div>
-<div class="ttc" id="aa02833_html"><div class="ttname"><a href="a02833.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06269_source.html#l00033">Engine.hpp:33</a></div></div>
-<div class="ttc" id="aa02989_html"><div class="ttname"><a href="a02989.html">bl::gfx::DiscreteAnimation2DPlayer</a></div><div class="ttdoc">Utility class to manage a discrete animation player separate from a graphics entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00305_source.html#l00017">DiscreteAnimation2DPlayer.hpp:17</a></div></div>
-<div class="ttc" id="aa02989_html_a16b07df0b5adad386841c1e35449d31a"><div class="ttname"><a href="a02989.html#a16b07df0b5adad386841c1e35449d31a">bl::gfx::DiscreteAnimation2DPlayer::Mode</a></div><div class="ttdeci">Mode</div><div class="ttdoc">The type of animation to create the player for.</div><div class="ttdef"><b>Definition:</b> <a href="a00305_source.html#l00020">DiscreteAnimation2DPlayer.hpp:20</a></div></div>
-<div class="ttc" id="aa02989_html_a16b07df0b5adad386841c1e35449d31aa63e3bed2f4429feb72b97770212ec9b2"><div class="ttname"><a href="a02989.html#a16b07df0b5adad386841c1e35449d31aa63e3bed2f4429feb72b97770212ec9b2">bl::gfx::DiscreteAnimation2DPlayer::VertexAnimation</a></div><div class="ttdeci">@ VertexAnimation</div><div class="ttdef"><b>Definition:</b> <a href="a00305_source.html#l00020">DiscreteAnimation2DPlayer.hpp:20</a></div></div>
-<div class="ttc" id="aa02989_html_a16b07df0b5adad386841c1e35449d31aac2f5ac5fa9bb5fe0702fd0d06005e603"><div class="ttname"><a href="a02989.html#a16b07df0b5adad386841c1e35449d31aac2f5ac5fa9bb5fe0702fd0d06005e603">bl::gfx::DiscreteAnimation2DPlayer::Auto</a></div><div class="ttdeci">@ Auto</div><div class="ttdef"><b>Definition:</b> <a href="a00305_source.html#l00020">DiscreteAnimation2DPlayer.hpp:20</a></div></div>
-<div class="ttc" id="aa02989_html_a16b07df0b5adad386841c1e35449d31aaf889f869db9f4912e7f8be810cc7c64f"><div class="ttname"><a href="a02989.html#a16b07df0b5adad386841c1e35449d31aaf889f869db9f4912e7f8be810cc7c64f">bl::gfx::DiscreteAnimation2DPlayer::Slideshow</a></div><div class="ttdeci">@ Slideshow</div><div class="ttdef"><b>Definition:</b> <a href="a00305_source.html#l00020">DiscreteAnimation2DPlayer.hpp:20</a></div></div>
-<div class="ttc" id="aa02989_html_a3dd8c342bd1cdfa42f358980f09df3cf"><div class="ttname"><a href="a02989.html#a3dd8c342bd1cdfa42f358980f09df3cf">bl::gfx::DiscreteAnimation2DPlayer::DiscreteAnimation2DPlayer</a></div><div class="ttdeci">DiscreteAnimation2DPlayer()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a01535_source.html#l00025">DiscreteAnimation2DPlayer.cpp:25</a></div></div>
-<div class="ttc" id="aa02989_html_aa76c0fd53e10c603f783931a52cfca4d"><div class="ttname"><a href="a02989.html#aa76c0fd53e10c603f783931a52cfca4d">bl::gfx::DiscreteAnimation2DPlayer::getPlayer</a></div><div class="ttdeci">const com::Animation2DPlayer &amp; getPlayer() const</div><div class="ttdoc">Access the animation player.</div><div class="ttdef"><b>Definition:</b> <a href="a00305_source.html#l00047">DiscreteAnimation2DPlayer.hpp:47</a></div></div>
-<div class="ttc" id="aa02989_html_ac073e229fa724a406ba44277a9fcd71b"><div class="ttname"><a href="a02989.html#ac073e229fa724a406ba44277a9fcd71b">bl::gfx::DiscreteAnimation2DPlayer::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, const resource::Ref&lt; a2d::AnimationData &gt; &amp;animation, Mode mode, bool play=false, bool forceLoop=false)</div><div class="ttdoc">Creates the animation player entity and component.</div><div class="ttdef"><b>Definition:</b> <a href="a01535_source.html#l00028">DiscreteAnimation2DPlayer.cpp:28</a></div></div>
-<div class="ttc" id="aa02989_html_af4361509525523c045727202a6bd66c7"><div class="ttname"><a href="a02989.html#af4361509525523c045727202a6bd66c7">bl::gfx::DiscreteAnimation2DPlayer::getPlayer</a></div><div class="ttdeci">com::Animation2DPlayer &amp; getPlayer()</div><div class="ttdoc">Access the animation player.</div><div class="ttdef"><b>Definition:</b> <a href="a00305_source.html#l00042">DiscreteAnimation2DPlayer.hpp:42</a></div></div>
-<div class="ttc" id="aa04529_html"><div class="ttname"><a href="a04529.html">bl::resource::Ref</a></div><div class="ttdoc">Represents a reference to a managed resource. Performs reference counting, but resources are never de...</div><div class="ttdef"><b>Definition:</b> <a href="a01208_source.html#l00026">Ref.hpp:26</a></div></div>
-<div class="ttc" id="aa06191_html"><div class="ttname"><a href="a06191.html">Animation2DPlayer.hpp</a></div></div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="a03080.html#a1aaf57b247b9695aeaf9faff2319cdcb">   56</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="a03080.html#a1aaf57b247b9695aeaf9faff2319cdcb">worldIndex</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> index; }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="a03080.html#a4a4c689b29b52b5342d820c428e37bc8">   64</a></span>&#160;    <a class="code" href="a03080.html#a4a4c689b29b52b5342d820c428e37bc8">World</a>(<a class="code" href="a02964.html">Engine</a>&amp; owner, <a class="code" href="a04280.html">rc::SceneRef</a> renderScene)</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    : owner(owner)</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    , renderScene(renderScene) {}</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <a class="code" href="a02964.html">Engine</a>&amp; owner;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="a04280.html">rc::SceneRef</a> renderScene;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="a03080.html#a3e1914489e4bed4f9f23cdeab34a43dc">   73</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a02964.html">Engine</a>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;};</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;} <span class="comment">// namespace engine</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00188_html"><div class="ttname"><a href="a00188.html">Entity.hpp</a></div></div>
+<div class="ttc" id="aa01046_html"><div class="ttname"><a href="a01046.html">SceneRef.hpp</a></div></div>
+<div class="ttc" id="aa01403_html"><div class="ttname"><a href="a01403.html">NonCopyable.hpp</a></div></div>
+<div class="ttc" id="aa02332_html_gad22c7b1807fcff9c01b2082084716652"><div class="ttname"><a href="a02332.html#gad22c7b1807fcff9c01b2082084716652">bl::ecs::Flags</a></div><div class="ttdeci">Flags</div><div class="ttdoc">Collection of flags that may be set on an entity when created.</div><div class="ttdef"><b>Definition:</b> <a href="a06562_source.html#l00015">Flags.hpp:15</a></div></div>
+<div class="ttc" id="aa02332_html_ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754"><div class="ttname"><a href="a02332.html#ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754">bl::ecs::Flags::None</a></div><div class="ttdeci">@ None</div><div class="ttdoc">The entity has no special flags.</div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02808_html"><div class="ttname"><a href="a02808.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00188_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa02964_html"><div class="ttname"><a href="a02964.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06568_source.html#l00038">Engine.hpp:38</a></div></div>
+<div class="ttc" id="aa03080_html"><div class="ttname"><a href="a03080.html">bl::engine::World</a></div><div class="ttdoc">Base class for engine worlds. A world is a scene and all the entities in it. Players can be in worlds...</div><div class="ttdef"><b>Definition:</b> <a href="a00305_source.html#l00021">World.hpp:21</a></div></div>
+<div class="ttc" id="aa03080_html_a1aaf57b247b9695aeaf9faff2319cdcb"><div class="ttname"><a href="a03080.html#a1aaf57b247b9695aeaf9faff2319cdcb">bl::engine::World::worldIndex</a></div><div class="ttdeci">unsigned int worldIndex() const</div><div class="ttdoc">Returns the index of this world.</div><div class="ttdef"><b>Definition:</b> <a href="a00305_source.html#l00056">World.hpp:56</a></div></div>
+<div class="ttc" id="aa03080_html_a4a4c689b29b52b5342d820c428e37bc8"><div class="ttname"><a href="a03080.html#a4a4c689b29b52b5342d820c428e37bc8">bl::engine::World::World</a></div><div class="ttdeci">World(Engine &amp;owner, rc::SceneRef renderScene)</div><div class="ttdoc">Creates the world.</div><div class="ttdef"><b>Definition:</b> <a href="a00305_source.html#l00064">World.hpp:64</a></div></div>
+<div class="ttc" id="aa03080_html_a4d67b398acd7b580b9b8043bd7b5a6c0"><div class="ttname"><a href="a03080.html#a4d67b398acd7b580b9b8043bd7b5a6c0">bl::engine::World::engine</a></div><div class="ttdeci">Engine &amp; engine() const</div><div class="ttdoc">Returns the game engine instance.</div><div class="ttdef"><b>Definition:</b> <a href="a00305_source.html#l00046">World.hpp:46</a></div></div>
+<div class="ttc" id="aa03080_html_a510cb2022f4be86940fa5f2c27225919"><div class="ttname"><a href="a03080.html#a510cb2022f4be86940fa5f2c27225919">bl::engine::World::MaxWorlds</a></div><div class="ttdeci">static constexpr unsigned int MaxWorlds</div><div class="ttdef"><b>Definition:</b> <a href="a00305_source.html#l00023">World.hpp:23</a></div></div>
+<div class="ttc" id="aa03080_html_a8826a649acea7872a1278cd86eaf412e"><div class="ttname"><a href="a03080.html#a8826a649acea7872a1278cd86eaf412e">bl::engine::World::destroyAllEntities</a></div><div class="ttdeci">void destroyAllEntities()</div><div class="ttdoc">Destroys all entities in this world.</div><div class="ttdef"><b>Definition:</b> <a href="a01577_source.html#l00013">World.cpp:13</a></div></div>
+<div class="ttc" id="aa03080_html_a91b6926ca30495c90225cfb617fc8bec"><div class="ttname"><a href="a03080.html#a91b6926ca30495c90225cfb617fc8bec">bl::engine::World::createEntity</a></div><div class="ttdeci">ecs::Entity createEntity(ecs::Flags flags=ecs::Flags::None)</div><div class="ttdoc">Creates an entity in this world.</div><div class="ttdef"><b>Definition:</b> <a href="a01577_source.html#l00011">World.cpp:11</a></div></div>
+<div class="ttc" id="aa03080_html_a9e77c6ef3c0c64ca96d6da94f1ac2ee2"><div class="ttname"><a href="a03080.html#a9e77c6ef3c0c64ca96d6da94f1ac2ee2">bl::engine::World::scene</a></div><div class="ttdeci">rc::SceneRef scene() const</div><div class="ttdoc">Returns the scene for this world.</div><div class="ttdef"><b>Definition:</b> <a href="a00305_source.html#l00051">World.hpp:51</a></div></div>
+<div class="ttc" id="aa03080_html_ad3cd3f32dabb64704288f631ba70099f"><div class="ttname"><a href="a03080.html#ad3cd3f32dabb64704288f631ba70099f">bl::engine::World::~World</a></div><div class="ttdeci">virtual ~World()</div><div class="ttdoc">Destroys the world.</div><div class="ttdef"><b>Definition:</b> <a href="a01577_source.html#l00009">World.cpp:9</a></div></div>
+<div class="ttc" id="aa04280_html"><div class="ttname"><a href="a04280.html">bl::rc::SceneRef</a></div><div class="ttdoc">Handle to a scene allocated from ScenePool. Performs reference counting.</div><div class="ttdef"><b>Definition:</b> <a href="a01046_source.html#l00020">SceneRef.hpp:20</a></div></div>
+<div class="ttc" id="aa05228_html"><div class="ttname"><a href="a05228.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition:</b> <a href="a01403_source.html#l00013">NonCopyable.hpp:13</a></div></div>
+<div class="ttc" id="aa06562_html"><div class="ttname"><a href="a06562.html">Flags.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

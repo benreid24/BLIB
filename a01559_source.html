@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Graphics/BatchTriangle.cpp Source File</title>
+<title>BLIB: src/Engine/Player.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,49 +66,73 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3419e189e460663ec2c964233bf8dcd6.html">Graphics</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">BatchTriangle.cpp</div>  </div>
+<div class="title">Player.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01559.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00329.html">BLIB/Graphics/BatchTriangle.hpp</a>&gt;</span></div>
+<a href="a01559.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00275.html">BLIB/Engine/Player.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>gfx</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>engine</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a03037.html#a42cdbcf0f806ff8b9160eef17180f388">    7</a></span>&#160;<a class="code" href="a03037.html#a42cdbcf0f806ff8b9160eef17180f388">BatchTriangle::BatchTriangle</a>()</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: TriangleBase() {}</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a03037.html#aa266c2d89086df0f153eee3f5f21a3a5">   10</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03037.html#aa266c2d89086df0f153eee3f5f21a3a5">BatchTriangle::create</a>(<a class="code" href="a02833.html">engine::Engine</a>&amp; engine, <a class="code" href="a03001.html">BatchedShapes2D</a>&amp; owner, <span class="keyword">const</span> glm::vec2&amp; p0,</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;                           <span class="keyword">const</span> glm::vec2&amp; p1, <span class="keyword">const</span> glm::vec2&amp; p2) {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <a class="code" href="a03101.html#aec63bf250e507e530e966ad8e2517399">setPoints</a>(p0, p1, p2);</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    BatchShape2D::create(engine, owner);</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a03037.html#a61c4ec2eae25fe0a018bc1edacfbe17c">   16</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03037.html#aa266c2d89086df0f153eee3f5f21a3a5">BatchTriangle::create</a>(<a class="code" href="a02833.html">engine::Engine</a>&amp; engine, <a class="code" href="a03001.html">BatchedShapes2D</a>&amp; owner,</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                           <span class="keyword">const</span> std::array&lt;glm::vec2, 3&gt;&amp; p) {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <a class="code" href="a03101.html#aec63bf250e507e530e966ad8e2517399">setPoints</a>(p);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    BatchShape2D::create(engine, owner);</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00329_html"><div class="ttname"><a href="a00329.html">BatchTriangle.hpp</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02833_html"><div class="ttname"><a href="a02833.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06269_source.html#l00033">Engine.hpp:33</a></div></div>
-<div class="ttc" id="aa03001_html"><div class="ttname"><a href="a03001.html">bl::gfx::BatchedShapes2D</a></div><div class="ttdoc">Drawable for a collection of batched 2d shapes. Create one of these and use with multiple BatchedCirc...</div><div class="ttdef"><b>Definition:</b> <a href="a06200_source.html#l00020">BatchedShapes2D.hpp:22</a></div></div>
-<div class="ttc" id="aa03037_html_a42cdbcf0f806ff8b9160eef17180f388"><div class="ttname"><a href="a03037.html#a42cdbcf0f806ff8b9160eef17180f388">bl::gfx::BatchTriangle::BatchTriangle</a></div><div class="ttdeci">BatchTriangle()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a01559_source.html#l00007">BatchTriangle.cpp:7</a></div></div>
-<div class="ttc" id="aa03037_html_aa266c2d89086df0f153eee3f5f21a3a5"><div class="ttname"><a href="a03037.html#aa266c2d89086df0f153eee3f5f21a3a5">bl::gfx::BatchTriangle::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, BatchedShapes2D &amp;owner, const glm::vec2 &amp;p0, const glm::vec2 &amp;p1, const glm::vec2 &amp;p2)</div><div class="ttdoc">Creates the triangle shape from 3 points (should not be co-linear)</div><div class="ttdef"><b>Definition:</b> <a href="a01559_source.html#l00010">BatchTriangle.cpp:10</a></div></div>
-<div class="ttc" id="aa03101_html_aec63bf250e507e530e966ad8e2517399"><div class="ttname"><a href="a03101.html#aec63bf250e507e530e966ad8e2517399">bl::gfx::s2d::TriangleBase&lt; s2d::BatchShape2D &gt;::setPoints</a></div><div class="ttdeci">void setPoints(const glm::vec2 &amp;p0, const glm::vec2 &amp;p1, const glm::vec2 &amp;p2)</div><div class="ttdoc">Sets the points to make the triangle with.</div><div class="ttdef"><b>Definition:</b> <a href="a00368_source.html#l00037">TriangleBase.hpp:79</a></div></div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a03016.html#aefb803158be98c518b2c63f395432d3e">    7</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03016.html#aefb803158be98c518b2c63f395432d3e">Player::enterWorld</a>(<a class="code" href="a05288.html">util::Ref&lt;World&gt;</a> world) {</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <a class="code" href="a03080.html">World</a>* oldWorld = worldStack.empty() ? nullptr : worldStack.top().get();</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    worldStack.emplace(std::move(world));</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    observer-&gt;<a class="code" href="a04240.html#a6228e18ef8b9208ace1ec2dd643cba1b">pushScene</a>(worldStack.top()-&gt;scene());</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <a class="code" href="a03016.html#acdf5fbc0a3fe75ae171a118d479fabaf">onWorldChange</a>(oldWorld, worldStack.top().get());</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a03016.html#aa9a80973f0d06205f9bb4073928c67fe">   14</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03016.html#aa9a80973f0d06205f9bb4073928c67fe">Player::changeWorlds</a>(<a class="code" href="a05288.html">util::Ref&lt;World&gt;</a> world) {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <a class="code" href="a03080.html">World</a>* oldWorld = worldStack.empty() ? nullptr : worldStack.top().get();</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordflow">if</span> (!worldStack.empty()) {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        worldStack.pop();</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        observer-&gt;<a class="code" href="a04240.html#a9c15f43c8fdd0feac350d848627080b1">popScene</a>();</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    }</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    worldStack.emplace(std::move(world));</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    observer-&gt;<a class="code" href="a04240.html#a6228e18ef8b9208ace1ec2dd643cba1b">pushScene</a>(worldStack.top()-&gt;scene());</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="a03016.html#acdf5fbc0a3fe75ae171a118d479fabaf">onWorldChange</a>(oldWorld, worldStack.top().get());</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a03016.html#a1d447b9179df02ebb2ce883b9958bfd6">   25</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03016.html#a1d447b9179df02ebb2ce883b9958bfd6">Player::leaveWorld</a>() {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">if</span> (!worldStack.empty()) {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <a class="code" href="a03080.html">World</a>* oldWorld = worldStack.top().get();</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        worldStack.pop();</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        observer-&gt;<a class="code" href="a04240.html#a9c15f43c8fdd0feac350d848627080b1">popScene</a>();</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <a class="code" href="a03016.html#acdf5fbc0a3fe75ae171a118d479fabaf">onWorldChange</a>(oldWorld, worldStack.empty() ? <span class="keyword">nullptr</span> : worldStack.top().get());</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    }</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a03016.html#a38337eaba33888f7654692145c58454b">   34</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03016.html#a38337eaba33888f7654692145c58454b">Player::leaveAllWorlds</a>() {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="a03080.html">World</a>* oldWorld = worldStack.empty() ? nullptr : worldStack.top().get();</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordflow">while</span> (!worldStack.empty()) { <a class="code" href="a03016.html#a1d447b9179df02ebb2ce883b9958bfd6">leaveWorld</a>(); }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="a03016.html#acdf5fbc0a3fe75ae171a118d479fabaf">onWorldChange</a>(oldWorld, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;}</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a03016.html#acdf5fbc0a3fe75ae171a118d479fabaf">   40</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03016.html#acdf5fbc0a3fe75ae171a118d479fabaf">Player::onWorldChange</a>(<a class="code" href="a03080.html">World</a>*, <a class="code" href="a03080.html">World</a>*) {}</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace engine</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00275_html"><div class="ttname"><a href="a00275.html">Player.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03016_html_a1d447b9179df02ebb2ce883b9958bfd6"><div class="ttname"><a href="a03016.html#a1d447b9179df02ebb2ce883b9958bfd6">bl::engine::Player::leaveWorld</a></div><div class="ttdeci">void leaveWorld()</div><div class="ttdoc">Exits the current world, popping it from this player's world stack.</div><div class="ttdef"><b>Definition:</b> <a href="a01559_source.html#l00025">Player.cpp:25</a></div></div>
+<div class="ttc" id="aa03016_html_a38337eaba33888f7654692145c58454b"><div class="ttname"><a href="a03016.html#a38337eaba33888f7654692145c58454b">bl::engine::Player::leaveAllWorlds</a></div><div class="ttdeci">void leaveAllWorlds()</div><div class="ttdoc">Leaves all worlds the player is in, emptying the world stack.</div><div class="ttdef"><b>Definition:</b> <a href="a01559_source.html#l00034">Player.cpp:34</a></div></div>
+<div class="ttc" id="aa03016_html_aa9a80973f0d06205f9bb4073928c67fe"><div class="ttname"><a href="a03016.html#aa9a80973f0d06205f9bb4073928c67fe">bl::engine::Player::changeWorlds</a></div><div class="ttdeci">void changeWorlds(util::Ref&lt; World &gt; world)</div><div class="ttdoc">Replaces the current world that this player is in with a new one.</div><div class="ttdef"><b>Definition:</b> <a href="a01559_source.html#l00014">Player.cpp:14</a></div></div>
+<div class="ttc" id="aa03016_html_acdf5fbc0a3fe75ae171a118d479fabaf"><div class="ttname"><a href="a03016.html#acdf5fbc0a3fe75ae171a118d479fabaf">bl::engine::Player::onWorldChange</a></div><div class="ttdeci">virtual void onWorldChange(World *oldWorld, World *newWorld)</div><div class="ttdoc">Called when the world that this player is in changes.</div><div class="ttdef"><b>Definition:</b> <a href="a01559_source.html#l00040">Player.cpp:40</a></div></div>
+<div class="ttc" id="aa03016_html_aefb803158be98c518b2c63f395432d3e"><div class="ttname"><a href="a03016.html#aefb803158be98c518b2c63f395432d3e">bl::engine::Player::enterWorld</a></div><div class="ttdeci">void enterWorld(util::Ref&lt; World &gt; world)</div><div class="ttdoc">Enters this player to the given world, adding it to the world stack for this player.</div><div class="ttdef"><b>Definition:</b> <a href="a01559_source.html#l00007">Player.cpp:7</a></div></div>
+<div class="ttc" id="aa03080_html"><div class="ttname"><a href="a03080.html">bl::engine::World</a></div><div class="ttdoc">Base class for engine worlds. A world is a scene and all the entities in it. Players can be in worlds...</div><div class="ttdef"><b>Definition:</b> <a href="a00305_source.html#l00021">World.hpp:21</a></div></div>
+<div class="ttc" id="aa04240_html_a6228e18ef8b9208ace1ec2dd643cba1b"><div class="ttname"><a href="a04240.html#a6228e18ef8b9208ace1ec2dd643cba1b">bl::rc::RenderTarget::pushScene</a></div><div class="ttdeci">SceneRef pushScene(TArgs &amp;&amp;... args)</div><div class="ttdoc">Creates a new scene on top the Observer's scene stack and returns it.</div><div class="ttdef"><b>Definition:</b> <a href="a06619_source.html#l00288">Renderer.hpp:288</a></div></div>
+<div class="ttc" id="aa04240_html_a9c15f43c8fdd0feac350d848627080b1"><div class="ttname"><a href="a04240.html#a9c15f43c8fdd0feac350d848627080b1">bl::rc::RenderTarget::popScene</a></div><div class="ttdeci">void popScene()</div><div class="ttdoc">Removes and releases the current active scene to the scene pool.</div><div class="ttdef"><b>Definition:</b> <a href="a02024_source.html#l00095">RenderTarget.cpp:95</a></div></div>
+<div class="ttc" id="aa05288_html"><div class="ttname"><a href="a05288.html">bl::util::Ref</a></div><div class="ttdoc">Utility for lightweight ref counting of resources.</div><div class="ttdef"><b>Definition:</b> <a href="a01415_source.html#l00043">RefPool.hpp:43</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

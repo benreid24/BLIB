@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Resources/PipelineLayoutCache.cpp Source File</title>
+<title>BLIB: src/Render/Graph/Providers/StandardTargetProvider.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,48 +66,37 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_9db9147e11516848db92abd3a50398f1.html">Resources</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_7ebf59129457ae24134db92256c2545a.html">Graph</a></li><li class="navelem"><a class="el" href="dir_d1f75c974a7668dd3cdf10ddc389f4cf.html">Providers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">PipelineLayoutCache.cpp</div>  </div>
+<div class="title">StandardTargetProvider.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01982.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01001.html">BLIB/Render/Resources/PipelineLayoutCache.hpp</a>&gt;</span></div>
+<a href="a01982.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00968.html">BLIB/Render/Graph/Providers/StandardTargetProvider.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00953.html">BLIB/Render/Graph/Assets/StandardTargetAsset.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>res</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;PipelineLayoutCache::PipelineLayoutCache(Renderer&amp; renderer)</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;: renderer(renderer) {}</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rgi</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;rg::Asset* StandardAssetProvider::create() { <span class="keywordflow">return</span> <span class="keyword">new</span> StandardTargetAsset(); }</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a04093.html#a3d82ee894d5246ffb5422326d659452a">   13</a></span>&#160;<a class="code" href="a04309.html">vk::PipelineLayout</a>* PipelineLayoutCache::getLayout(<a class="code" href="a04313.html">vk::PipelineLayout::LayoutParams</a>&amp;&amp; params) {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> result =</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        cache.try_emplace(<span class="keyword">static_cast&lt;</span><span class="keyword">const </span><a class="code" href="a04313.html">vk::PipelineLayout::LayoutParams</a>&amp;<span class="keyword">&gt;</span>(params),</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;                          renderer,</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                          std::forward&lt;vk::PipelineLayout::LayoutParams&gt;(params));</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">return</span> &amp;(result.first-&gt;second);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keywordtype">void</span> PipelineLayoutCache::cleanup() { cache.clear(); }</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;} <span class="comment">// namespace res</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01001_html"><div class="ttname"><a href="a01001.html">PipelineLayoutCache.hpp</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04309_html"><div class="ttname"><a href="a04309.html">bl::rc::vk::PipelineLayout</a></div><div class="ttdoc">Represents the descriptor layout for pipelines. Allows rendering to be batched by layout to save on b...</div><div class="ttdef"><b>Definition:</b> <a href="a01118_source.html#l00030">PipelineLayout.hpp:30</a></div></div>
-<div class="ttc" id="aa04313_html"><div class="ttname"><a href="a04313.html">bl::rc::vk::PipelineLayout::LayoutParams</a></div><div class="ttdoc">Internal struct to manage layout creation and fetching.</div><div class="ttdef"><b>Definition:</b> <a href="a01118_source.html#l00035">PipelineLayout.hpp:35</a></div></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;} <span class="comment">// namespace rgi</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00953_html"><div class="ttname"><a href="a00953.html">StandardTargetAsset.hpp</a></div></div>
+<div class="ttc" id="aa00968_html"><div class="ttname"><a href="a00968.html">StandardTargetProvider.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

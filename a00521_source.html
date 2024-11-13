@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/GUI/Renderer/Basic/ComboBoxComponent.hpp Source File</title>
+<title>BLIB: include/BLIB/Interfaces/GUI/Elements/ToggleButton.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,132 +66,77 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_488290d74f9e6b3540591d02cc875229.html">GUI</a></li><li class="navelem"><a class="el" href="dir_d5cd77a65f52f9a63455a724bc15c589.html">Renderer</a></li><li class="navelem"><a class="el" href="dir_c6abb0a9a0ffd97b434d53646f50bd53.html">Basic</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_488290d74f9e6b3540591d02cc875229.html">GUI</a></li><li class="navelem"><a class="el" href="dir_0e73644d95625b92b38fc98502188409.html">Elements</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ComboBoxComponent.hpp</div>  </div>
+<div class="title">ToggleButton.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00521.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GUI_RENDERER_COMPONENTS_COMBOBOXCOMPONENT_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GUI_RENDERER_COMPONENTS_COMBOBOXCOMPONENT_HPP</span></div>
+<a href="a00521.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GUI_ELEMENTS_TOGGLEBUTTON_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GUI_ELEMENTS_TOGGLEBUTTON_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00314.html">BLIB/Graphics/BatchRectangle.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06200.html">BLIB/Graphics/BatchedShapes2D.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00350.html">BLIB/Graphics/Rectangle.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06236.html">BLIB/Graphics/Text.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00377.html">BLIB/Graphics/Triangle.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00605.html">BLIB/Interfaces/GUI/RenderSettings.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00569.html">BLIB/Interfaces/GUI/Renderer/Component.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;list&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>gui</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>defcoms</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a03361.html">   24</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03361.html">ComboBoxComponent</a> : <span class="keyword">public</span> <a class="code" href="a03429.html">rdr::Component</a> {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="a03361.html#aa0c999fbd0be6212616b1aef6b1fe8f0">ComboBoxComponent</a>();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a03361.html#ad478260bc01b6a73a679ea8817105463">   34</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03361.html#ad478260bc01b6a73a679ea8817105463">~ComboBoxComponent</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03361.html#a09da83b35713b4b46515a15f57496a0c">setVisible</a>(<span class="keywordtype">bool</span> visible) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03361.html#af1e08ce60baa5a99c2fc2a88c1721444">onElementUpdated</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03361.html#a6571203f2c626ebdf462c19312c988ba">onRenderSettingChange</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02733.html">ecs::Entity</a> <a class="code" href="a03361.html#a9be5133ede1b01efed6e971ebad8379d">getEntity</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">virtual</span> sf::Vector2f <a class="code" href="a03361.html#a7e5465bfc08f42e5b5176f9c029dd1c8">getRequisition</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03361.html#a9f4a96bde5b7550e15db8ef5f2e5649d">doCreate</a>(<a class="code" href="a02833.html">engine::Engine</a>&amp; engine, <a class="code" href="a03469.html">rdr::Renderer</a>&amp; renderer) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03361.html#a546a7b3c1f12d2dadc5564a6efc2f051">doSceneAdd</a>(<a class="code" href="a04037.html">rc::Overlay</a>* overlay) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03361.html#ac0164f3fca66c3f1ac4bb4c75d0dfea5">doSceneRemove</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00482.html">BLIB/Interfaces/GUI/Elements/CompositeElement.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>gui</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a03472.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03472.html">ToggleButton</a> : <span class="keyword">public</span> <a class="code" href="a03408.html">CompositeElement</a>&lt;1&gt; {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a03472.html#aa91f33dad2ca51f5db34c42f8105949d">   21</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03472.html#aa91f33dad2ca51f5db34c42f8105949d">~ToggleButton</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a03472.html#a71939ab1391a764c092c1d46c7ce9bca">getValue</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03472.html#a88e2b9a03134b8d5636256b46b9ccce8">setValue</a>(<span class="keywordtype">bool</span> value);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03472.html#acf731f588d7929c34803e9161b218a53">setToggleSize</a>(<span class="keywordtype">float</span> size);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a03472.html#a45b4e979061922952cfda4b1c0f5bfe8">getToggleSize</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="a03472.html#af134b55ffc7f63f908a7c9b7244ee925">ToggleButton</a>(<span class="keyword">const</span> <a class="code" href="a03416.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a>&amp; child);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">virtual</span> sf::Vector2f <a class="code" href="a03472.html#acd5020bde0e4b13c438c9deecb017219">minimumRequisition</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03472.html#a45e03702947acdb0bceb4e2435932e70">onClick</a>();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="a03472.html#a15e67fe8f675fe3a0bbb10d727cf4205">propagateEvent</a>(<span class="keyword">const</span> <a class="code" href="a03480.html">Event</a>&amp; event) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03472.html#ae763589f6b2bb1153975901351e35646">onAcquisition</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="a03416.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a> child;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">bool</span> value;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">mutable</span> <span class="keywordtype">float</span> toggleSize;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;};</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;} <span class="comment">// namespace gui</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;} <span class="comment">// namespace bl</span></div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03361.html#a282103b31fc1899d9e99d0336a9be879">handleAcquisition</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03361.html#a72beb28f775703bafb4f8b7b0aa6ade7">handleMove</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keyword">struct </span>Option {</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <a class="code" href="a03017.html">gfx::BatchRectangle</a> background;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <a class="code" href="a03129.html">gfx::Text</a> text;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keywordtype">bool</span> created;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        Option()</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        : created(false) {}</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    };</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <a class="code" href="a02833.html">engine::Engine</a>* enginePtr;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <a class="code" href="a04037.html">rc::Overlay</a>* currentOverlay;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <a class="code" href="a03073.html">gfx::Rectangle</a> box;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <a class="code" href="a03073.html">gfx::Rectangle</a> arrowBox;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <a class="code" href="a03141.html">gfx::Triangle</a> arrow;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="comment">// closed elements</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <a class="code" href="a03129.html">gfx::Text</a> selectedOption;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="comment">// open elements</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <a class="code" href="a03073.html">gfx::Rectangle</a> openBackground;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <a class="code" href="a03001.html">gfx::BatchedShapes2D</a> openOptionBoxes;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    std::list&lt;Option&gt; openOptions;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordtype">void</span> configureText(<a class="code" href="a03129.html">gfx::Text</a>&amp; text, <span class="keyword">const</span> <a class="code" href="a03481.html">RenderSettings</a>&amp; settings);</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordtype">void</span> updateOptions();</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordtype">bool</span> optionsOutdated() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keywordtype">void</span> positionSelectedText();</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordtype">void</span> highlightMoused();</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;};</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;} <span class="comment">// namespace defcoms</span></div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;} <span class="comment">// namespace gui</span></div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00314_html"><div class="ttname"><a href="a00314.html">BatchRectangle.hpp</a></div></div>
-<div class="ttc" id="aa00350_html"><div class="ttname"><a href="a00350.html">Rectangle.hpp</a></div></div>
-<div class="ttc" id="aa00377_html"><div class="ttname"><a href="a00377.html">Triangle.hpp</a></div></div>
-<div class="ttc" id="aa00569_html"><div class="ttname"><a href="a00569.html">Component.hpp</a></div></div>
-<div class="ttc" id="aa00605_html"><div class="ttname"><a href="a00605.html">RenderSettings.hpp</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02733_html"><div class="ttname"><a href="a02733.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00176_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa02833_html"><div class="ttname"><a href="a02833.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06269_source.html#l00033">Engine.hpp:33</a></div></div>
-<div class="ttc" id="aa03001_html"><div class="ttname"><a href="a03001.html">bl::gfx::BatchedShapes2D</a></div><div class="ttdoc">Drawable for a collection of batched 2d shapes. Create one of these and use with multiple BatchedCirc...</div><div class="ttdef"><b>Definition:</b> <a href="a06200_source.html#l00020">BatchedShapes2D.hpp:22</a></div></div>
-<div class="ttc" id="aa03017_html"><div class="ttname"><a href="a03017.html">bl::gfx::BatchRectangle</a></div><div class="ttdoc">Renderable 2d rectangle shape for use in batched shapes.</div><div class="ttdef"><b>Definition:</b> <a href="a00314_source.html#l00016">BatchRectangle.hpp:16</a></div></div>
-<div class="ttc" id="aa03073_html"><div class="ttname"><a href="a03073.html">bl::gfx::Rectangle</a></div><div class="ttdoc">Renderable 2d rectangle shape.</div><div class="ttdef"><b>Definition:</b> <a href="a00350_source.html#l00016">Rectangle.hpp:16</a></div></div>
-<div class="ttc" id="aa03129_html"><div class="ttname"><a href="a03129.html">bl::gfx::Text</a></div><div class="ttdoc">Drawable component for format-able text. Similar to sf::Text except that multiple formatted sections ...</div><div class="ttdef"><b>Definition:</b> <a href="a06236_source.html#l00032">Text.hpp:35</a></div></div>
-<div class="ttc" id="aa03141_html"><div class="ttname"><a href="a03141.html">bl::gfx::Triangle</a></div><div class="ttdoc">Basic renderable triangle that can be added to scenes.</div><div class="ttdef"><b>Definition:</b> <a href="a00377_source.html#l00016">Triangle.hpp:16</a></div></div>
-<div class="ttc" id="aa03361_html"><div class="ttname"><a href="a03361.html">bl::gui::defcoms::ComboBoxComponent</a></div><div class="ttdoc">Default component type for ComboBox elements.</div><div class="ttdef"><b>Definition:</b> <a href="a00521_source.html#l00024">ComboBoxComponent.hpp:24</a></div></div>
-<div class="ttc" id="aa03361_html_a09da83b35713b4b46515a15f57496a0c"><div class="ttname"><a href="a03361.html#a09da83b35713b4b46515a15f57496a0c">bl::gui::defcoms::ComboBoxComponent::setVisible</a></div><div class="ttdeci">virtual void setVisible(bool visible) override</div><div class="ttdoc">Toggle the visibility of the UI component.</div><div class="ttdef"><b>Definition:</b> <a href="a01736_source.html#l00024">ComboBoxComponent.cpp:24</a></div></div>
-<div class="ttc" id="aa03361_html_a282103b31fc1899d9e99d0336a9be879"><div class="ttname"><a href="a03361.html#a282103b31fc1899d9e99d0336a9be879">bl::gui::defcoms::ComboBoxComponent::handleAcquisition</a></div><div class="ttdeci">virtual void handleAcquisition() override</div><div class="ttdoc">Configures the component for the new acquisition.</div><div class="ttdef"><b>Definition:</b> <a href="a01736_source.html#l00117">ComboBoxComponent.cpp:117</a></div></div>
-<div class="ttc" id="aa03361_html_a546a7b3c1f12d2dadc5564a6efc2f051"><div class="ttname"><a href="a03361.html#a546a7b3c1f12d2dadc5564a6efc2f051">bl::gui::defcoms::ComboBoxComponent::doSceneAdd</a></div><div class="ttdeci">virtual void doSceneAdd(rc::Overlay *overlay) override</div><div class="ttdoc">Adds the component to the scene.</div><div class="ttdef"><b>Definition:</b> <a href="a01736_source.html#l00098">ComboBoxComponent.cpp:98</a></div></div>
-<div class="ttc" id="aa03361_html_a6571203f2c626ebdf462c19312c988ba"><div class="ttname"><a href="a03361.html#a6571203f2c626ebdf462c19312c988ba">bl::gui::defcoms::ComboBoxComponent::onRenderSettingChange</a></div><div class="ttdeci">virtual void onRenderSettingChange() override</div><div class="ttdoc">Called when the owning elements render settings are changed.</div><div class="ttdef"><b>Definition:</b> <a href="a01736_source.html#l00047">ComboBoxComponent.cpp:47</a></div></div>
-<div class="ttc" id="aa03361_html_a72beb28f775703bafb4f8b7b0aa6ade7"><div class="ttname"><a href="a03361.html#a72beb28f775703bafb4f8b7b0aa6ade7">bl::gui::defcoms::ComboBoxComponent::handleMove</a></div><div class="ttdeci">virtual void handleMove() override</div><div class="ttdoc">Positions the component when it should move.</div><div class="ttdef"><b>Definition:</b> <a href="a01736_source.html#l00143">ComboBoxComponent.cpp:143</a></div></div>
-<div class="ttc" id="aa03361_html_a7e5465bfc08f42e5b5176f9c029dd1c8"><div class="ttname"><a href="a03361.html#a7e5465bfc08f42e5b5176f9c029dd1c8">bl::gui::defcoms::ComboBoxComponent::getRequisition</a></div><div class="ttdeci">virtual sf::Vector2f getRequisition() const override</div><div class="ttdoc">Returns the space required to render the largest text option.</div><div class="ttdef"><b>Definition:</b> <a href="a01736_source.html#l00158">ComboBoxComponent.cpp:158</a></div></div>
-<div class="ttc" id="aa03361_html_a9be5133ede1b01efed6e971ebad8379d"><div class="ttname"><a href="a03361.html#a9be5133ede1b01efed6e971ebad8379d">bl::gui::defcoms::ComboBoxComponent::getEntity</a></div><div class="ttdeci">virtual ecs::Entity getEntity() const override</div><div class="ttdoc">Derived classes should return the ECS entity that children should parent themselves to.</div><div class="ttdef"><b>Definition:</b> <a href="a01736_source.html#l00061">ComboBoxComponent.cpp:61</a></div></div>
-<div class="ttc" id="aa03361_html_a9f4a96bde5b7550e15db8ef5f2e5649d"><div class="ttname"><a href="a03361.html#a9f4a96bde5b7550e15db8ef5f2e5649d">bl::gui::defcoms::ComboBoxComponent::doCreate</a></div><div class="ttdeci">virtual void doCreate(engine::Engine &amp;engine, rdr::Renderer &amp;renderer) override</div><div class="ttdoc">Creates the component.</div><div class="ttdef"><b>Definition:</b> <a href="a01736_source.html#l00063">ComboBoxComponent.cpp:63</a></div></div>
-<div class="ttc" id="aa03361_html_aa0c999fbd0be6212616b1aef6b1fe8f0"><div class="ttname"><a href="a03361.html#aa0c999fbd0be6212616b1aef6b1fe8f0">bl::gui::defcoms::ComboBoxComponent::ComboBoxComponent</a></div><div class="ttdeci">ComboBoxComponent()</div><div class="ttdoc">Creates the component.</div><div class="ttdef"><b>Definition:</b> <a href="a01736_source.html#l00019">ComboBoxComponent.cpp:19</a></div></div>
-<div class="ttc" id="aa03361_html_ac0164f3fca66c3f1ac4bb4c75d0dfea5"><div class="ttname"><a href="a03361.html#ac0164f3fca66c3f1ac4bb4c75d0dfea5">bl::gui::defcoms::ComboBoxComponent::doSceneRemove</a></div><div class="ttdeci">virtual void doSceneRemove() override</div><div class="ttdoc">Removes the component from the scene.</div><div class="ttdef"><b>Definition:</b> <a href="a01736_source.html#l00112">ComboBoxComponent.cpp:112</a></div></div>
-<div class="ttc" id="aa03361_html_ad478260bc01b6a73a679ea8817105463"><div class="ttname"><a href="a03361.html#ad478260bc01b6a73a679ea8817105463">bl::gui::defcoms::ComboBoxComponent::~ComboBoxComponent</a></div><div class="ttdeci">virtual ~ComboBoxComponent()=default</div><div class="ttdoc">Destroys the component.</div></div>
-<div class="ttc" id="aa03361_html_af1e08ce60baa5a99c2fc2a88c1721444"><div class="ttname"><a href="a03361.html#af1e08ce60baa5a99c2fc2a88c1721444">bl::gui::defcoms::ComboBoxComponent::onElementUpdated</a></div><div class="ttdeci">virtual void onElementUpdated() override</div><div class="ttdoc">Called when element state changes. This is element specific, but can mean toggle state,...</div><div class="ttdef"><b>Definition:</b> <a href="a01736_source.html#l00026">ComboBoxComponent.cpp:26</a></div></div>
-<div class="ttc" id="aa03429_html"><div class="ttname"><a href="a03429.html">bl::gui::rdr::Component</a></div><div class="ttdoc">Base class for renderer components. Each GUI element owns a handle to a component owned by the render...</div><div class="ttdef"><b>Definition:</b> <a href="a00569_source.html#l00031">Component.hpp:31</a></div></div>
-<div class="ttc" id="aa03469_html"><div class="ttname"><a href="a03469.html">bl::gui::rdr::Renderer</a></div><div class="ttdoc">Top level GUI renderer. Manages components for elements. Behavior can be controlled by providing a di...</div><div class="ttdef"><b>Definition:</b> <a href="a06314_source.html#l00027">Renderer.hpp:27</a></div></div>
-<div class="ttc" id="aa03481_html"><div class="ttname"><a href="a03481.html">bl::gui::RenderSettings</a></div><div class="ttdoc">Data class to override rendering settings for GUI Elements. Overrides can be done by group or id....</div><div class="ttdef"><b>Definition:</b> <a href="a00605_source.html#l00022">RenderSettings.hpp:22</a></div></div>
-<div class="ttc" id="aa04037_html"><div class="ttname"><a href="a04037.html">bl::rc::Overlay</a></div><div class="ttdoc">Special type of scene specialized for 2d overlays with fixed cameras. Objects are organized into a tr...</div><div class="ttdef"><b>Definition:</b> <a href="a00968_source.html#l00036">Overlay.hpp:39</a></div></div>
-<div class="ttc" id="aa06200_html"><div class="ttname"><a href="a06200.html">BatchedShapes2D.hpp</a></div></div>
-<div class="ttc" id="aa06236_html"><div class="ttname"><a href="a06236.html">Text.hpp</a></div></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00482_html"><div class="ttname"><a href="a00482.html">CompositeElement.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03408_html"><div class="ttname"><a href="a03408.html">bl::gui::CompositeElement</a></div><div class="ttdoc">Intermediate class for elements that consist of other elements. Provides some helper methods to ensur...</div><div class="ttdef"><b>Definition:</b> <a href="a00482_source.html#l00017">CompositeElement.hpp:17</a></div></div>
+<div class="ttc" id="aa03416_html_a21b57f73febb9e1c62e8abcef64b1654"><div class="ttname"><a href="a03416.html#a21b57f73febb9e1c62e8abcef64b1654">bl::gui::Element::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Element &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00488_source.html#l00035">Element.hpp:35</a></div></div>
+<div class="ttc" id="aa03472_html"><div class="ttname"><a href="a03472.html">bl::gui::ToggleButton</a></div><div class="ttdoc">Base class for toggle-able buttons. RadioButton and CheckBox are derived from this....</div><div class="ttdef"><b>Definition:</b> <a href="a00521_source.html#l00016">ToggleButton.hpp:16</a></div></div>
+<div class="ttc" id="aa03472_html_a15e67fe8f675fe3a0bbb10d727cf4205"><div class="ttname"><a href="a03472.html#a15e67fe8f675fe3a0bbb10d727cf4205">bl::gui::ToggleButton::propagateEvent</a></div><div class="ttdeci">virtual bool propagateEvent(const Event &amp;event) override</div><div class="ttdoc">Passes the event to the child then returns false always.</div><div class="ttdef"><b>Definition:</b> <a href="a01751_source.html#l00066">ToggleButton.cpp:66</a></div></div>
+<div class="ttc" id="aa03472_html_a45b4e979061922952cfda4b1c0f5bfe8"><div class="ttname"><a href="a03472.html#a45b4e979061922952cfda4b1c0f5bfe8">bl::gui::ToggleButton::getToggleSize</a></div><div class="ttdeci">float getToggleSize() const</div><div class="ttdoc">Returns the size of the toggle indicator in overlay coordinates.</div><div class="ttdef"><b>Definition:</b> <a href="a01751_source.html#l00052">ToggleButton.cpp:52</a></div></div>
+<div class="ttc" id="aa03472_html_a45e03702947acdb0bceb4e2435932e70"><div class="ttname"><a href="a03472.html#a45e03702947acdb0bceb4e2435932e70">bl::gui::ToggleButton::onClick</a></div><div class="ttdeci">virtual void onClick()</div><div class="ttdoc">Handler for clicks. Default behavior toggles the value.</div><div class="ttdef"><b>Definition:</b> <a href="a01751_source.html#l00040">ToggleButton.cpp:40</a></div></div>
+<div class="ttc" id="aa03472_html_a71939ab1391a764c092c1d46c7ce9bca"><div class="ttname"><a href="a03472.html#a71939ab1391a764c092c1d46c7ce9bca">bl::gui::ToggleButton::getValue</a></div><div class="ttdeci">bool getValue() const</div><div class="ttdoc">Returns the current state of the toggle.</div><div class="ttdef"><b>Definition:</b> <a href="a01751_source.html#l00024">ToggleButton.cpp:24</a></div></div>
+<div class="ttc" id="aa03472_html_a88e2b9a03134b8d5636256b46b9ccce8"><div class="ttname"><a href="a03472.html#a88e2b9a03134b8d5636256b46b9ccce8">bl::gui::ToggleButton::setValue</a></div><div class="ttdeci">void setValue(bool value)</div><div class="ttdoc">Set the state of the toggle.</div><div class="ttdef"><b>Definition:</b> <a href="a01751_source.html#l00026">ToggleButton.cpp:26</a></div></div>
+<div class="ttc" id="aa03472_html_aa91f33dad2ca51f5db34c42f8105949d"><div class="ttname"><a href="a03472.html#aa91f33dad2ca51f5db34c42f8105949d">bl::gui::ToggleButton::~ToggleButton</a></div><div class="ttdeci">virtual ~ToggleButton()=default</div><div class="ttdoc">Destroys the toggle button.</div></div>
+<div class="ttc" id="aa03472_html_acd5020bde0e4b13c438c9deecb017219"><div class="ttname"><a href="a03472.html#acd5020bde0e4b13c438c9deecb017219">bl::gui::ToggleButton::minimumRequisition</a></div><div class="ttdeci">virtual sf::Vector2f minimumRequisition() const override</div><div class="ttdoc">Returns the size required to display the full button text.</div><div class="ttdef"><b>Definition:</b> <a href="a01751_source.html#l00034">ToggleButton.cpp:34</a></div></div>
+<div class="ttc" id="aa03472_html_acf731f588d7929c34803e9161b218a53"><div class="ttname"><a href="a03472.html#acf731f588d7929c34803e9161b218a53">bl::gui::ToggleButton::setToggleSize</a></div><div class="ttdeci">void setToggleSize(float size)</div><div class="ttdoc">Sets the size, in overlay coordinates, of the toggle indicator.</div><div class="ttdef"><b>Definition:</b> <a href="a01751_source.html#l00046">ToggleButton.cpp:46</a></div></div>
+<div class="ttc" id="aa03472_html_ae763589f6b2bb1153975901351e35646"><div class="ttname"><a href="a03472.html#ae763589f6b2bb1153975901351e35646">bl::gui::ToggleButton::onAcquisition</a></div><div class="ttdeci">virtual void onAcquisition() override</div><div class="ttdoc">Called when a new acquisition is assigned.</div><div class="ttdef"><b>Definition:</b> <a href="a01751_source.html#l00057">ToggleButton.cpp:57</a></div></div>
+<div class="ttc" id="aa03472_html_af134b55ffc7f63f908a7c9b7244ee925"><div class="ttname"><a href="a03472.html#af134b55ffc7f63f908a7c9b7244ee925">bl::gui::ToggleButton::ToggleButton</a></div><div class="ttdeci">ToggleButton(const Element::Ptr &amp;child)</div><div class="ttdoc">Create a new ToggleButton.</div><div class="ttdef"><b>Definition:</b> <a href="a01751_source.html#l00009">ToggleButton.cpp:9</a></div></div>
+<div class="ttc" id="aa03480_html"><div class="ttname"><a href="a03480.html">bl::gui::Event</a></div><div class="ttdoc">GUI analog of sf::Event. Represents user actions that can propagate through the Element tree.</div><div class="ttdef"><b>Definition:</b> <a href="a06604_source.html#l00018">Event.hpp:18</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Parser/WhitespaceSkipper.hpp Source File</title>
+<title>BLIB: include/BLIB/Math/Constants.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,56 +66,37 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_68e8475672e907ae2e4c385fdd89fef9.html">Parser</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_e9abbcd9e0c082db5b09973bee2e6f6b.html">Math</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">WhitespaceSkipper.hpp</div>  </div>
+<div class="title">Constants.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00707.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_PARSER_WHITESPACESKIPPER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_PARSER_WHITESPACESKIPPER_HPP</span></div>
+<a href="a00707.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_MATH_CONSTANTS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_MATH_CONSTANTS_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00692.html">BLIB/Parser/ISkipper.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;cctype&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a02399.html">    7</a></span>&#160;<span class="keyword">namespace </span>math</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>parser</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a03621.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03621.html">WhitespaceSkipper</a> : <span class="keyword">public</span> <a class="code" href="a03589.html">ISkipper</a> {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a03621.html#a04d6ad43bd37419797b6f5cbb625a760">   18</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03621.html#a04d6ad43bd37419797b6f5cbb625a760">~WhitespaceSkipper</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03621.html#a17380f013a7b0b8bca4839683da5742b">   20</a></span>&#160;    <span class="keyword">static</span> <a class="code" href="a03589.html#ac94262dbc4b796277c22a958aa727323">ISkipper::Ptr</a> <a class="code" href="a03621.html#a17380f013a7b0b8bca4839683da5742b">create</a>() { <span class="keywordflow">return</span> <a class="code" href="a03589.html#ac94262dbc4b796277c22a958aa727323">ISkipper::Ptr</a>(<span class="keyword">new</span> <a class="code" href="a03621.html">WhitespaceSkipper</a>()); }</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03621.html#a77fb74e134d21e95a59ef5bb4686dc74">   22</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03621.html#a77fb74e134d21e95a59ef5bb4686dc74">skip</a>(<a class="code" href="a03613.html">Stream</a>&amp; stream)<span class="keyword"> const override </span>{</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keywordflow">while</span> (std::isspace(stream.<a class="code" href="a03613.html#a067692cf77ea97b498566a7da9349ab5">peek</a>())) stream.<a class="code" href="a03613.html#a1c866bd84c3c17f230f2e8b6c6d6d3bb">get</a>();</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    }</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;};</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// namespace parser</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00692_html"><div class="ttname"><a href="a00692.html">ISkipper.hpp</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03589_html"><div class="ttname"><a href="a03589.html">bl::parser::ISkipper</a></div><div class="ttdoc">Interface for custom parsers to skip past unwanted characters such as whitespace or comments.</div><div class="ttdef"><b>Definition:</b> <a href="a00692_source.html#l00017">ISkipper.hpp:17</a></div></div>
-<div class="ttc" id="aa03589_html_ac94262dbc4b796277c22a958aa727323"><div class="ttname"><a href="a03589.html#ac94262dbc4b796277c22a958aa727323">bl::parser::ISkipper::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; ISkipper &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00692_source.html#l00019">ISkipper.hpp:19</a></div></div>
-<div class="ttc" id="aa03613_html"><div class="ttname"><a href="a03613.html">bl::parser::Stream</a></div><div class="ttdoc">Wrapper class around std::ostream. Used for keeping track of current line and column numbers.</div><div class="ttdef"><b>Definition:</b> <a href="a00701_source.html#l00017">Stream.hpp:17</a></div></div>
-<div class="ttc" id="aa03613_html_a067692cf77ea97b498566a7da9349ab5"><div class="ttname"><a href="a03613.html#a067692cf77ea97b498566a7da9349ab5">bl::parser::Stream::peek</a></div><div class="ttdeci">char peek() const</div><div class="ttdoc">Returns the next character without modifying stream.</div><div class="ttdef"><b>Definition:</b> <a href="a01844_source.html#l00020">Stream.cpp:20</a></div></div>
-<div class="ttc" id="aa03613_html_a1c866bd84c3c17f230f2e8b6c6d6d3bb"><div class="ttname"><a href="a03613.html#a1c866bd84c3c17f230f2e8b6c6d6d3bb">bl::parser::Stream::get</a></div><div class="ttdeci">char get()</div><div class="ttdoc">Returns next character and modifies stream.</div><div class="ttdef"><b>Definition:</b> <a href="a01844_source.html#l00041">Stream.cpp:41</a></div></div>
-<div class="ttc" id="aa03621_html"><div class="ttname"><a href="a03621.html">bl::parser::WhitespaceSkipper</a></div><div class="ttdoc">Default skipper that skips over all whitespace beginning with the next token Note that this will not ...</div><div class="ttdef"><b>Definition:</b> <a href="a00707_source.html#l00016">WhitespaceSkipper.hpp:16</a></div></div>
-<div class="ttc" id="aa03621_html_a04d6ad43bd37419797b6f5cbb625a760"><div class="ttname"><a href="a03621.html#a04d6ad43bd37419797b6f5cbb625a760">bl::parser::WhitespaceSkipper::~WhitespaceSkipper</a></div><div class="ttdeci">virtual ~WhitespaceSkipper()=default</div></div>
-<div class="ttc" id="aa03621_html_a17380f013a7b0b8bca4839683da5742b"><div class="ttname"><a href="a03621.html#a17380f013a7b0b8bca4839683da5742b">bl::parser::WhitespaceSkipper::create</a></div><div class="ttdeci">static ISkipper::Ptr create()</div><div class="ttdef"><b>Definition:</b> <a href="a00707_source.html#l00020">WhitespaceSkipper.hpp:20</a></div></div>
-<div class="ttc" id="aa03621_html_a77fb74e134d21e95a59ef5bb4686dc74"><div class="ttname"><a href="a03621.html#a77fb74e134d21e95a59ef5bb4686dc74">bl::parser::WhitespaceSkipper::skip</a></div><div class="ttdeci">virtual void skip(Stream &amp;stream) const override</div><div class="ttdoc">Skip past unwanted characters in the stream.</div><div class="ttdef"><b>Definition:</b> <a href="a00707_source.html#l00022">WhitespaceSkipper.hpp:22</a></div></div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a02399.html#a5d956eb5741fd61ccb4d7a18bd6fd431">   10</a></span>&#160;constexpr <span class="keywordtype">float</span> <a class="code" href="a02399.html#a5d956eb5741fd61ccb4d7a18bd6fd431">Pi</a> = 3.14159265359f;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a02399.html#ae3a423513a47db1897e38716543ce9ad">   13</a></span>&#160;constexpr <span class="keywordtype">float</span> <a class="code" href="a02399.html#ae3a423513a47db1897e38716543ce9ad">Tau</a> = 2.f * <a class="code" href="a02399.html#a5d956eb5741fd61ccb4d7a18bd6fd431">Pi</a>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace math</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02399_html_a5d956eb5741fd61ccb4d7a18bd6fd431"><div class="ttname"><a href="a02399.html#a5d956eb5741fd61ccb4d7a18bd6fd431">bl::math::Pi</a></div><div class="ttdeci">constexpr float Pi</div><div class="ttdoc">It's pi.</div><div class="ttdef"><b>Definition:</b> <a href="a00707_source.html#l00010">Constants.hpp:10</a></div></div>
+<div class="ttc" id="aa02399_html_ae3a423513a47db1897e38716543ce9ad"><div class="ttname"><a href="a02399.html#ae3a423513a47db1897e38716543ce9ad">bl::math::Tau</a></div><div class="ttdeci">constexpr float Tau</div><div class="ttdoc">Controversial brother of Pi.</div><div class="ttdef"><b>Definition:</b> <a href="a00707_source.html#l00013">Constants.hpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

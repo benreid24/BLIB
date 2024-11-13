@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Scenes/Scene2D.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Resources/PipelineLayoutCache.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,66 +66,59 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1582fe53e8ca010e140dea1b69a5a9f3.html">Scenes</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_0f0c454ab916ef2487b68a1bc3be1485.html">Resources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Scene2D.hpp</div>  </div>
+<div class="title">PipelineLayoutCache.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01037.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_SCENES_SCENE2D_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_SCENES_SCENE2D_HPP</span></div>
+<a href="a01037.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_PIPELINELAYOUTCACHE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_PIPELINELAYOUTCACHE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00962.html">BLIB/Render/Lighting/Scene2DLighting.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01022.html">BLIB/Render/Scenes/BatchedScene.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01154.html">BLIB/Render/Vulkan/PipelineLayout.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>scene</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a04173.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04173.html">Scene2D</a> : <span class="keyword">public</span> <a class="code" href="a04125.html">BatchedScene</a> {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="a04173.html#a2f2d22fdda116259119c86a527e22f8a">Scene2D</a>(<a class="code" href="a02833.html">engine::Engine</a>&amp; engine);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a04173.html#ad3d44403e51534373e9769b1b8a27686">   30</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a04173.html#ad3d44403e51534373e9769b1b8a27686">~Scene2D</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a04173.html#ab3c7184f90e1ff47a07fd7ad5372eaf1">   35</a></span>&#160;    <a class="code" href="a04029.html">lgt::Scene2DLighting</a>&amp; <a class="code" href="a04173.html#ab3c7184f90e1ff47a07fd7ad5372eaf1">getLighting</a>() { <span class="keywordflow">return</span> lighting; }</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">class </span>Renderer;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>res</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a04264.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04264.html">PipelineLayoutCache</a> {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="a04484.html">vk::PipelineLayout</a>* <a class="code" href="a04264.html#a3d82ee894d5246ffb5422326d659452a">getLayout</a>(<a class="code" href="a04488.html">vk::PipelineLayout::LayoutParams</a>&amp;&amp; params);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="a04236.html">Renderer</a>&amp; renderer;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    std::unordered_map&lt;vk::PipelineLayout::LayoutParams, vk::PipelineLayout&gt; cache;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="a04264.html">PipelineLayoutCache</a>(<a class="code" href="a04236.html">Renderer</a>&amp; renderer);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">void</span> cleanup();</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">virtual</span> std::unique_ptr&lt;cam::Camera&gt; <a class="code" href="a04173.html#ad8c1d742fe524a90c34a53716dc7a580">createDefaultCamera</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a04173.html#ac981b461c72a08b16cdb7635fcdb4b79">setDefaultNearAndFarPlanes</a>(<a class="code" href="a02497.html">cam::Camera</a>&amp; camera) <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="a04029.html">lgt::Scene2DLighting</a> lighting;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;};</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <span class="comment">// namespace scene</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00962_html"><div class="ttname"><a href="a00962.html">Scene2DLighting.hpp</a></div></div>
-<div class="ttc" id="aa01022_html"><div class="ttname"><a href="a01022.html">BatchedScene.hpp</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02497_html"><div class="ttname"><a href="a02497.html">bl::cam::Camera</a></div><div class="ttdoc">Base class for all cameras.</div><div class="ttdef"><b>Definition:</b> <a href="a00047_source.html#l00017">Camera.hpp:17</a></div></div>
-<div class="ttc" id="aa02833_html"><div class="ttname"><a href="a02833.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06269_source.html#l00033">Engine.hpp:33</a></div></div>
-<div class="ttc" id="aa04029_html"><div class="ttname"><a href="a04029.html">bl::rc::lgt::Scene2DLighting</a></div><div class="ttdoc">Lighting manager for 2d scenes.</div><div class="ttdef"><b>Definition:</b> <a href="a00962_source.html#l00028">Scene2DLighting.hpp:28</a></div></div>
-<div class="ttc" id="aa04125_html"><div class="ttname"><a href="a04125.html">bl::rc::scene::BatchedScene</a></div><div class="ttdoc">Primary scene class for the renderer. Provides batched rendering of objects by pipeline....</div><div class="ttdef"><b>Definition:</b> <a href="a01022_source.html#l00019">BatchedScene.hpp:19</a></div></div>
-<div class="ttc" id="aa04173_html"><div class="ttname"><a href="a04173.html">bl::rc::scene::Scene2D</a></div><div class="ttdoc">2d scene implementation</div><div class="ttdef"><b>Definition:</b> <a href="a01037_source.html#l00018">Scene2D.hpp:18</a></div></div>
-<div class="ttc" id="aa04173_html_a2f2d22fdda116259119c86a527e22f8a"><div class="ttname"><a href="a04173.html#a2f2d22fdda116259119c86a527e22f8a">bl::rc::scene::Scene2D::Scene2D</a></div><div class="ttdeci">Scene2D(engine::Engine &amp;engine)</div><div class="ttdoc">Creates the scene.</div><div class="ttdef"><b>Definition:</b> <a href="a02009_source.html#l00018">Scene2D.cpp:18</a></div></div>
-<div class="ttc" id="aa04173_html_ab3c7184f90e1ff47a07fd7ad5372eaf1"><div class="ttname"><a href="a04173.html#ab3c7184f90e1ff47a07fd7ad5372eaf1">bl::rc::scene::Scene2D::getLighting</a></div><div class="ttdeci">lgt::Scene2DLighting &amp; getLighting()</div><div class="ttdoc">Returns the scene lighting manager for this scene.</div><div class="ttdef"><b>Definition:</b> <a href="a01037_source.html#l00035">Scene2D.hpp:35</a></div></div>
-<div class="ttc" id="aa04173_html_ac981b461c72a08b16cdb7635fcdb4b79"><div class="ttname"><a href="a04173.html#ac981b461c72a08b16cdb7635fcdb4b79">bl::rc::scene::Scene2D::setDefaultNearAndFarPlanes</a></div><div class="ttdeci">virtual void setDefaultNearAndFarPlanes(cam::Camera &amp;camera) const override</div><div class="ttdoc">Sets the default near and far planes on the given camera.</div><div class="ttdef"><b>Definition:</b> <a href="a02009_source.html#l00029">Scene2D.cpp:29</a></div></div>
-<div class="ttc" id="aa04173_html_ad3d44403e51534373e9769b1b8a27686"><div class="ttname"><a href="a04173.html#ad3d44403e51534373e9769b1b8a27686">bl::rc::scene::Scene2D::~Scene2D</a></div><div class="ttdeci">virtual ~Scene2D()=default</div><div class="ttdoc">Destroys the scene.</div></div>
-<div class="ttc" id="aa04173_html_ad8c1d742fe524a90c34a53716dc7a580"><div class="ttname"><a href="a04173.html#ad8c1d742fe524a90c34a53716dc7a580">bl::rc::scene::Scene2D::createDefaultCamera</a></div><div class="ttdeci">virtual std::unique_ptr&lt; cam::Camera &gt; createDefaultCamera() override</div><div class="ttdoc">Creates a 2d camera.</div><div class="ttdef"><b>Definition:</b> <a href="a02009_source.html#l00023">Scene2D.cpp:23</a></div></div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a04264.html#a1fc8c4ea65463b448e068f1287349540">   37</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a04236.html">bl::rc::Renderer</a>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;};</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;} <span class="comment">// namespace res</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01154_html"><div class="ttname"><a href="a01154.html">PipelineLayout.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04236_html"><div class="ttname"><a href="a04236.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a06619_source.html#l00042">Renderer.hpp:42</a></div></div>
+<div class="ttc" id="aa04264_html"><div class="ttname"><a href="a04264.html">bl::rc::res::PipelineLayoutCache</a></div><div class="ttdoc">Renderer level cache of pipeline layouts.</div><div class="ttdef"><b>Definition:</b> <a href="a01037_source.html#l00020">PipelineLayoutCache.hpp:20</a></div></div>
+<div class="ttc" id="aa04264_html_a3d82ee894d5246ffb5422326d659452a"><div class="ttname"><a href="a04264.html#a3d82ee894d5246ffb5422326d659452a">bl::rc::res::PipelineLayoutCache::getLayout</a></div><div class="ttdeci">vk::PipelineLayout * getLayout(vk::PipelineLayout::LayoutParams &amp;&amp;params)</div><div class="ttdoc">Creates or fetches a layout that has the given creation parameters.</div><div class="ttdef"><b>Definition:</b> <a href="a02036_source.html#l00013">PipelineLayoutCache.cpp:13</a></div></div>
+<div class="ttc" id="aa04484_html"><div class="ttname"><a href="a04484.html">bl::rc::vk::PipelineLayout</a></div><div class="ttdoc">Represents the descriptor layout for pipelines. Allows rendering to be batched by layout to save on b...</div><div class="ttdef"><b>Definition:</b> <a href="a01154_source.html#l00030">PipelineLayout.hpp:30</a></div></div>
+<div class="ttc" id="aa04488_html"><div class="ttname"><a href="a04488.html">bl::rc::vk::PipelineLayout::LayoutParams</a></div><div class="ttdoc">Internal struct to manage layout creation and fetching.</div><div class="ttdef"><b>Definition:</b> <a href="a01154_source.html#l00035">PipelineLayout.hpp:35</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

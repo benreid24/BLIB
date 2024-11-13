@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/Utilities/GhostWriter.hpp Source File</title>
+<title>BLIB: include/BLIB/Interfaces/Menu/Drivers/MouseDriver.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,82 +66,66 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_bd38bb28b50b461429505567a858f136.html">Utilities</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_e645930b0d1a2310fc6bb1d1038eb64b.html">Menu</a></li><li class="navelem"><a class="el" href="dir_2c9d1cc57df5d3d4ff35e854d1955f53.html">Drivers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">GhostWriter.hpp</div>  </div>
+<div class="title">MouseDriver.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00650.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_INTERFACES_UTILITIES_GHOSTWRITER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_INTERFACES_UTILITIES_GHOSTWRITER_HPP</span></div>
+<a href="a00650.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_MENU_DRIVERS_MOUSEDRIVER_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_MENU_DRIVERS_MOUSEDRIVER_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06236.html">BLIB/Graphics/Text.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;string_view&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a02341.html">   11</a></span>&#160;<span class="keyword">namespace </span>interface</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00194.html">BLIB/Events.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00659.html">BLIB/Interfaces/Menu/Item.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06628.html">BLIB/Interfaces/Menu/Menu.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;SFML/Window.hpp&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>menu</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03557.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03557.html">GhostWriter</a> {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="a03557.html#ac3e6ba246fc0e9cec8eae65a6702998d">GhostWriter</a>();</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="a03557.html#ac3e6ba246fc0e9cec8eae65a6702998d">GhostWriter</a>(<span class="keyword">const</span> std::string&amp; content);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03557.html#a3baa128cabca4d11a196cfa2deceb10b">setContent</a>(<span class="keyword">const</span> std::string&amp; content);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="a03557.html#a905ee8e94ae389c4a4025bb94458df22">getContent</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    std::string_view <a class="code" href="a03557.html#a1f44b42d6074a27161940c7104501ae2">getVisible</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a03557.html#a40c732d31f2ac5b10eade6baba81d5d9">update</a>(<span class="keywordtype">float</span> dt);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03557.html#abbc49a8343e43cc5829c52999c3368a7">showAll</a>();</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a03557.html#ab0849712c86901dea7556e87ac77778e">finished</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03557.html#aa43023f9933e4675d2be09e5853fd9ba">manage</a>(<a class="code" href="a03129.html">gfx::Text</a>&amp; text);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03557.html#aa43023f9933e4675d2be09e5853fd9ba">manage</a>(<a class="code" href="a03113.html">gfx::txt::BasicText</a>&amp; section);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03557.html#a389e510116010f8b73ef6d4cdaf55dac">stopManaging</a>();</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> speed;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    std::string content;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> showing;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordtype">float</span> residual;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <a class="code" href="a03113.html">gfx::txt::BasicText</a>* managing;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordtype">void</span> syncText();</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;};</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;} <span class="comment">// namespace interface</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03113_html"><div class="ttname"><a href="a03113.html">bl::gfx::txt::BasicText</a></div><div class="ttdoc">Drawable for a single section of text. Similar to sf::Text. Do not use directly, use Text class to cr...</div><div class="ttdef"><b>Definition:</b> <a href="a00371_source.html#l00030">BasicText.hpp:30</a></div></div>
-<div class="ttc" id="aa03129_html"><div class="ttname"><a href="a03129.html">bl::gfx::Text</a></div><div class="ttdoc">Drawable component for format-able text. Similar to sf::Text except that multiple formatted sections ...</div><div class="ttdef"><b>Definition:</b> <a href="a06236_source.html#l00032">Text.hpp:35</a></div></div>
-<div class="ttc" id="aa03557_html"><div class="ttname"><a href="a03557.html">bl::interface::GhostWriter</a></div><div class="ttdoc">Basic string wrapper that allows for text to be unhidden over time. The speed of text reveal,...</div><div class="ttdef"><b>Definition:</b> <a href="a00650_source.html#l00020">GhostWriter.hpp:20</a></div></div>
-<div class="ttc" id="aa03557_html_a1f44b42d6074a27161940c7104501ae2"><div class="ttname"><a href="a03557.html#a1f44b42d6074a27161940c7104501ae2">bl::interface::GhostWriter::getVisible</a></div><div class="ttdeci">std::string_view getVisible() const</div><div class="ttdoc">Returns the visible portion of the content of the writer.</div><div class="ttdef"><b>Definition:</b> <a href="a01820_source.html#l00031">GhostWriter.cpp:31</a></div></div>
-<div class="ttc" id="aa03557_html_a389e510116010f8b73ef6d4cdaf55dac"><div class="ttname"><a href="a03557.html#a389e510116010f8b73ef6d4cdaf55dac">bl::interface::GhostWriter::stopManaging</a></div><div class="ttdeci">void stopManaging()</div><div class="ttdoc">The ghost writer will stop managing graphical text.</div><div class="ttdef"><b>Definition:</b> <a href="a01820_source.html#l00069">GhostWriter.cpp:69</a></div></div>
-<div class="ttc" id="aa03557_html_a3baa128cabca4d11a196cfa2deceb10b"><div class="ttname"><a href="a03557.html#a3baa128cabca4d11a196cfa2deceb10b">bl::interface::GhostWriter::setContent</a></div><div class="ttdeci">void setContent(const std::string &amp;content)</div><div class="ttdoc">Set the content to display. Resets to showing 0 characters.</div><div class="ttdef"><b>Definition:</b> <a href="a01820_source.html#l00023">GhostWriter.cpp:23</a></div></div>
-<div class="ttc" id="aa03557_html_a40c732d31f2ac5b10eade6baba81d5d9"><div class="ttname"><a href="a03557.html#a40c732d31f2ac5b10eade6baba81d5d9">bl::interface::GhostWriter::update</a></div><div class="ttdeci">bool update(float dt)</div><div class="ttdoc">Updates the writer and reveals more characters based on time elapsed.</div><div class="ttdef"><b>Definition:</b> <a href="a01820_source.html#l00033">GhostWriter.cpp:33</a></div></div>
-<div class="ttc" id="aa03557_html_a905ee8e94ae389c4a4025bb94458df22"><div class="ttname"><a href="a03557.html#a905ee8e94ae389c4a4025bb94458df22">bl::interface::GhostWriter::getContent</a></div><div class="ttdeci">const std::string &amp; getContent() const</div><div class="ttdoc">Returns the full content of the writer.</div><div class="ttdef"><b>Definition:</b> <a href="a01820_source.html#l00029">GhostWriter.cpp:29</a></div></div>
-<div class="ttc" id="aa03557_html_aa43023f9933e4675d2be09e5853fd9ba"><div class="ttname"><a href="a03557.html#aa43023f9933e4675d2be09e5853fd9ba">bl::interface::GhostWriter::manage</a></div><div class="ttdeci">void manage(gfx::Text &amp;text)</div><div class="ttdoc">The ghost writer will update the first section of text.</div><div class="ttdef"><b>Definition:</b> <a href="a01820_source.html#l00059">GhostWriter.cpp:59</a></div></div>
-<div class="ttc" id="aa03557_html_ab0849712c86901dea7556e87ac77778e"><div class="ttname"><a href="a03557.html#ab0849712c86901dea7556e87ac77778e">bl::interface::GhostWriter::finished</a></div><div class="ttdeci">bool finished() const</div><div class="ttdoc">Returns whether or not all characters are visible.</div><div class="ttdef"><b>Definition:</b> <a href="a01820_source.html#l00052">GhostWriter.cpp:52</a></div></div>
-<div class="ttc" id="aa03557_html_abbc49a8343e43cc5829c52999c3368a7"><div class="ttname"><a href="a03557.html#abbc49a8343e43cc5829c52999c3368a7">bl::interface::GhostWriter::showAll</a></div><div class="ttdeci">void showAll()</div><div class="ttdoc">Immediately shows all characters.</div><div class="ttdef"><b>Definition:</b> <a href="a01820_source.html#l00054">GhostWriter.cpp:54</a></div></div>
-<div class="ttc" id="aa03557_html_ac3e6ba246fc0e9cec8eae65a6702998d"><div class="ttname"><a href="a03557.html#ac3e6ba246fc0e9cec8eae65a6702998d">bl::interface::GhostWriter::GhostWriter</a></div><div class="ttdeci">GhostWriter()</div><div class="ttdoc">Construct a new GhostWriter with empty content.</div><div class="ttdef"><b>Definition:</b> <a href="a01820_source.html#l00010">GhostWriter.cpp:10</a></div></div>
-<div class="ttc" id="aa06236_html"><div class="ttname"><a href="a06236.html">Text.hpp</a></div></div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a03652.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03652.html">MouseDriver</a> : <span class="keyword">public</span> <a class="code" href="a03104.html">bl::event::Listener</a>&lt;sf::Event&gt; {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="a03652.html#a51b5c9e92209da473bf63d0b4932eb6a">MouseDriver</a>(<a class="code" href="a03704.html">Menu</a>&amp; menu, <span class="keywordtype">bool</span> allowClickActivate = <span class="keyword">true</span>,</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                sf::Mouse::Button activateButton = sf::Mouse::Left);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03652.html#a78b5b19a962df1aba0380023a65f5aab">setMouseActivateButton</a>(sf::Mouse::Button activateButton);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03652.html#a4a9cc6c526d12fe1b7a4e2010a8fbeec">setAllowButtonActivate</a>(<span class="keywordtype">bool</span> allow);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="a03652.html#a176cf3a02017ff46359e4bb97e60fc42">   47</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03652.html#a176cf3a02017ff46359e4bb97e60fc42">~MouseDriver</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03652.html#aaa57126748fdfef3f300ceec40761725">observe</a>(<span class="keyword">const</span> sf::Event&amp; event) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="a03704.html">Menu</a>&amp; menu;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">bool</span> clickActivates;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    sf::Mouse::Button activateButton;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;};</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;} <span class="comment">// namespace menu</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00194_html"><div class="ttname"><a href="a00194.html">Events.hpp</a></div></div>
+<div class="ttc" id="aa00659_html"><div class="ttname"><a href="a00659.html">Item.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03104_html"><div class="ttname"><a href="a03104.html">bl::event::Listener</a></div><div class="ttdoc">Listener of multiple event types. Listeners should inherit this class with the types of events they w...</div><div class="ttdef"><b>Definition:</b> <a href="a06592_source.html#l00049">Listener.hpp:49</a></div></div>
+<div class="ttc" id="aa03652_html"><div class="ttname"><a href="a03652.html">bl::menu::MouseDriver</a></div><div class="ttdoc">Basic helper class to map mouse input to menu events.</div><div class="ttdef"><b>Definition:</b> <a href="a00650_source.html#l00019">MouseDriver.hpp:19</a></div></div>
+<div class="ttc" id="aa03652_html_a176cf3a02017ff46359e4bb97e60fc42"><div class="ttname"><a href="a03652.html#a176cf3a02017ff46359e4bb97e60fc42">bl::menu::MouseDriver::~MouseDriver</a></div><div class="ttdeci">virtual ~MouseDriver()=default</div><div class="ttdoc">Destroy the Mouse Driver object.</div></div>
+<div class="ttc" id="aa03652_html_a4a9cc6c526d12fe1b7a4e2010a8fbeec"><div class="ttname"><a href="a03652.html#a4a9cc6c526d12fe1b7a4e2010a8fbeec">bl::menu::MouseDriver::setAllowButtonActivate</a></div><div class="ttdeci">void setAllowButtonActivate(bool allow)</div><div class="ttdoc">Sets whether or not clicking the mouse sends activation events.</div><div class="ttdef"><b>Definition:</b> <a href="a01850_source.html#l00012">MouseDriver.cpp:12</a></div></div>
+<div class="ttc" id="aa03652_html_a51b5c9e92209da473bf63d0b4932eb6a"><div class="ttname"><a href="a03652.html#a51b5c9e92209da473bf63d0b4932eb6a">bl::menu::MouseDriver::MouseDriver</a></div><div class="ttdeci">MouseDriver(Menu &amp;menu, bool allowClickActivate=true, sf::Mouse::Button activateButton=sf::Mouse::Left)</div><div class="ttdoc">Create a new mouse generator that services the given menu.</div><div class="ttdef"><b>Definition:</b> <a href="a01850_source.html#l00007">MouseDriver.cpp:7</a></div></div>
+<div class="ttc" id="aa03652_html_a78b5b19a962df1aba0380023a65f5aab"><div class="ttname"><a href="a03652.html#a78b5b19a962df1aba0380023a65f5aab">bl::menu::MouseDriver::setMouseActivateButton</a></div><div class="ttdeci">void setMouseActivateButton(sf::Mouse::Button activateButton)</div><div class="ttdoc">Set the mouse button bound to activate events.</div><div class="ttdef"><b>Definition:</b> <a href="a01850_source.html#l00014">MouseDriver.cpp:14</a></div></div>
+<div class="ttc" id="aa03652_html_aaa57126748fdfef3f300ceec40761725"><div class="ttname"><a href="a03652.html#aaa57126748fdfef3f300ceec40761725">bl::menu::MouseDriver::observe</a></div><div class="ttdeci">virtual void observe(const sf::Event &amp;event) override</div><div class="ttdoc">Processes the given window event and drives the menu if relevant.</div><div class="ttdef"><b>Definition:</b> <a href="a01850_source.html#l00016">MouseDriver.cpp:16</a></div></div>
+<div class="ttc" id="aa03704_html"><div class="ttname"><a href="a03704.html">bl::menu::Menu</a></div><div class="ttdoc">Primary class for mouseless menus.</div><div class="ttdef"><b>Definition:</b> <a href="a06628_source.html#l00033">Menu.hpp:33</a></div></div>
+<div class="ttc" id="aa06628_html"><div class="ttname"><a href="a06628.html">Menu.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

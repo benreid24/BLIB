@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Descriptors/Builtin/Object2DInstance.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,105 +66,46 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_154b49fde9d17c5da5d7cb000b858c0e.html">Descriptors</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_154b49fde9d17c5da5d7cb000b858c0e.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_792f3e8afd589e1154463a1acff3bd49.html">Builtin</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">DescriptorSetFactoryCache.hpp</div>  </div>
+<div class="title">Object2DInstance.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00848.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_DESCRIPTORS_DESCRIPTORSETFACTORYCACHE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_DESCRIPTORS_DESCRIPTORSETFACTORYCACHE_HPP</span></div>
+<a href="a00848.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_DESCRIPTORS_BUILTIN_OBJECT2DINSTANCE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_DESCRIPTORS_BUILTIN_OBJECT2DINSTANCE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06353.html">BLIB/Render/Descriptors/DescriptorSetFactory.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;typeindex&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>engine</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span>Engine;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">class </span>Renderer;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">namespace </span>ds</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a03857.html">   28</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03857.html">DescriptorSetFactoryCache</a> {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    T* <a class="code" href="a03857.html#ae7fa86995060f4e006707e0472f4627a">getFactory</a>();</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="a03853.html">DescriptorSetFactory</a>* <a class="code" href="a03857.html#a28f61c708e0e041938fce05317a1c071">getOrAddFactory</a>(std::type_index derivedType,</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                                          std::unique_ptr&lt;DescriptorSetFactory&gt;&amp;&amp; factory);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    T* <a class="code" href="a03857.html#a96cacebb79b14ad001e964c308ef1af9">getOrCreateFactory</a>(TArgs&amp;&amp;... args);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <a class="code" href="a03853.html">DescriptorSetFactory</a>* <a class="code" href="a03857.html#a349f65a441a42ef4cf1542185a914f06">getFactoryThatMakes</a>();</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="a02833.html">engine::Engine</a>&amp; engine;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="a04061.html">Renderer</a>&amp; renderer;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    std::unordered_map&lt;std::type_index, std::unique_ptr&lt;DescriptorSetFactory&gt;&gt; cache;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="a03857.html">DescriptorSetFactoryCache</a>(<a class="code" href="a02833.html">engine::Engine</a>&amp; engine, <a class="code" href="a04061.html">Renderer</a>&amp; renderer);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">void</span> cleanup();</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="a03857.html#a1fc8c4ea65463b448e068f1287349540">   79</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a04061.html">bl::rc::Renderer</a>;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;};</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="a03857.html#ae7fa86995060f4e006707e0472f4627a">   85</a></span>&#160;<span class="keyword">inline</span> T* <a class="code" href="a03857.html#ae7fa86995060f4e006707e0472f4627a">DescriptorSetFactoryCache::getFactory</a>() {</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">auto</span> it = cache.find(<span class="keyword">typeid</span>(T));</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordflow">if</span> (it == cache.end()) { <span class="keywordflow">return</span> <span class="keyword">nullptr</span>; }</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T*<span class="keyword">&gt;</span>(it-&gt;second.get());</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;}</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="a03857.html#a96cacebb79b14ad001e964c308ef1af9">   92</a></span>&#160;T* <a class="code" href="a03857.html#a96cacebb79b14ad001e964c308ef1af9">DescriptorSetFactoryCache::getOrCreateFactory</a>(TArgs&amp;&amp;... args) {</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">auto</span> it = cache.find(<span class="keyword">typeid</span>(T));</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordflow">if</span> (it == cache.end()) {</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        it = cache.try_emplace(<span class="keyword">typeid</span>(T), std::make_unique&lt;T&gt;(std::forward&lt;TArgs&gt;(args)...)).first;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        it-&gt;second-&gt;init(engine, renderer);</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    }</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T*<span class="keyword">&gt;</span>(it-&gt;second.get());</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;}</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="a03857.html#a349f65a441a42ef4cf1542185a914f06">  102</a></span>&#160;<a class="code" href="a03853.html">DescriptorSetFactory</a>* <a class="code" href="a03857.html#a349f65a441a42ef4cf1542185a914f06">DescriptorSetFactoryCache::getFactoryThatMakes</a>() {</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; p : cache) {</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keywordflow">if</span> (p.second-&gt;creates() == <span class="keyword">typeid</span>(T)) { <span class="keywordflow">return</span> p.second.get(); }</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    }</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;}</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;} <span class="comment">// namespace ds</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02833_html"><div class="ttname"><a href="a02833.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06269_source.html#l00033">Engine.hpp:33</a></div></div>
-<div class="ttc" id="aa03853_html"><div class="ttname"><a href="a03853.html">bl::rc::ds::DescriptorSetFactory</a></div><div class="ttdoc">Base class for descriptor set instances. Descriptor set factories are given to PipelineParameters and...</div><div class="ttdef"><b>Definition:</b> <a href="a06353_source.html#l00031">DescriptorSetFactory.hpp:31</a></div></div>
-<div class="ttc" id="aa03857_html"><div class="ttname"><a href="a03857.html">bl::rc::ds::DescriptorSetFactoryCache</a></div><div class="ttdoc">Internal cache for descriptor set factories. Ensures that only one instance of each derived factory t...</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00028">DescriptorSetFactoryCache.hpp:28</a></div></div>
-<div class="ttc" id="aa03857_html_a28f61c708e0e041938fce05317a1c071"><div class="ttname"><a href="a03857.html#a28f61c708e0e041938fce05317a1c071">bl::rc::ds::DescriptorSetFactoryCache::getOrAddFactory</a></div><div class="ttdeci">DescriptorSetFactory * getOrAddFactory(std::type_index derivedType, std::unique_ptr&lt; DescriptorSetFactory &gt; &amp;&amp;factory)</div><div class="ttdoc">Returns a pointer to the correct instance of the factory to use for the given derived type....</div><div class="ttdef"><b>Definition:</b> <a href="a01889_source.html#l00015">DescriptorSetFactoryCache.cpp:15</a></div></div>
-<div class="ttc" id="aa03857_html_a349f65a441a42ef4cf1542185a914f06"><div class="ttname"><a href="a03857.html#a349f65a441a42ef4cf1542185a914f06">bl::rc::ds::DescriptorSetFactoryCache::getFactoryThatMakes</a></div><div class="ttdeci">DescriptorSetFactory * getFactoryThatMakes()</div><div class="ttdoc">Returns the factory that creates the given type.</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00102">DescriptorSetFactoryCache.hpp:102</a></div></div>
-<div class="ttc" id="aa03857_html_a96cacebb79b14ad001e964c308ef1af9"><div class="ttname"><a href="a03857.html#a96cacebb79b14ad001e964c308ef1af9">bl::rc::ds::DescriptorSetFactoryCache::getOrCreateFactory</a></div><div class="ttdeci">T * getOrCreateFactory(TArgs &amp;&amp;... args)</div><div class="ttdoc">Helper method for fetching or creating a factory without unnecessarily allocating a new factory if on...</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00092">DescriptorSetFactoryCache.hpp:92</a></div></div>
-<div class="ttc" id="aa03857_html_ae7fa86995060f4e006707e0472f4627a"><div class="ttname"><a href="a03857.html#ae7fa86995060f4e006707e0472f4627a">bl::rc::ds::DescriptorSetFactoryCache::getFactory</a></div><div class="ttdeci">T * getFactory()</div><div class="ttdoc">Returns a pointer to a contained factory of the given type, or nullptr if not found.</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00085">DescriptorSetFactoryCache.hpp:85</a></div></div>
-<div class="ttc" id="aa04061_html"><div class="ttname"><a href="a04061.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a06320_source.html#l00042">Renderer.hpp:42</a></div></div>
-<div class="ttc" id="aa06353_html"><div class="ttname"><a href="a06353.html">DescriptorSetFactory.hpp</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00839.html">BLIB/Render/Descriptors/Builtin/CommonBindings.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>ds</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>priv</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a02411.html#ade2fa05b113f209b58732920b4c713bc">   14</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a04044.html">Object2DBindings</a> = <a class="code" href="a04044.html">Bindings&lt;Transform2DBinding, TextureBinding&gt;</a>;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace priv</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02343.html#gafe3f65f24159cd396a17ad47b83295fc">   23</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a04076.html">Object2DInstance</a> = <a class="code" href="a04076.html">GenericDescriptorSetInstance&lt;priv::Object2DBindings&gt;</a>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace ds</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00839_html"><div class="ttname"><a href="a00839.html">CommonBindings.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04044_html"><div class="ttname"><a href="a04044.html">bl::rc::ds::Bindings</a></div><div class="ttdoc">Helper for containing a set of bindings for a generic descriptor set.</div><div class="ttdef"><b>Definition:</b> <a href="a00896_source.html#l00022">Bindings.hpp:22</a></div></div>
+<div class="ttc" id="aa04076_html"><div class="ttname"><a href="a04076.html">bl::rc::ds::GenericDescriptorSetInstance</a></div><div class="ttdoc">Generic descriptor set comprised of arbitrary bindings.</div><div class="ttdef"><b>Definition:</b> <a href="a00911_source.html#l00032">GenericDescriptorSetInstance.hpp:32</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

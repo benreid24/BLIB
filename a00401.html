@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Input/DispatchType.hpp File Reference</title>
+<title>BLIB: include/BLIB/Graphics/Shapes2D/SingleShape2D.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,50 +66,49 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_c720f75c1eb5aaccd40e24fd6b592b41.html">Input</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_8af985930208ac2752e8061e22535a56.html">Graphics</a></li><li class="navelem"><a class="el" href="dir_886502d98260abb236f1d1310d59e9a0.html">Shapes2D</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">DispatchType.hpp File Reference</div>  </div>
+<div class="title">SingleShape2D.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
+<div class="textblock"><code>#include &lt;<a class="el" href="a06514_source.html">BLIB/Components/Shape2D.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a06583_source.html">BLIB/Engine/Systems.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00371_source.html">BLIB/Graphics/Components/OverlayScalable.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a06547_source.html">BLIB/Graphics/Components/Transform2D.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00377_source.html">BLIB/Graphics/Drawable.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a06517_source.html">BLIB/Graphics/Shapes2D/Shape2D.hpp</a>&gt;</code><br />
+</div>
 <p><a href="a00401_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:a02303"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02303.html">bl</a></td></tr>
-<tr class="memdesc:a02303"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02334"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02334.html">bl::input</a></td></tr>
-<tr class="memdesc:a02334"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input system for building event based control systems. <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03260.html">bl::gfx::s2d::SingleShape2D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for individual 2d shapes. Provides index buffer creation and management.  <a href="a03260.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:ga9b480cda76caba52b2ab392fea396ce3"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02283.html#ga9b480cda76caba52b2ab392fea396ce3">bl::input::DispatchType</a> { <br />
-&#160;&#160;<a class="el" href="a02283.html#gga9b480cda76caba52b2ab392fea396ce3a4d96fa471faee72faaa4f964a6ba1a59">bl::input::_INVALID</a>
-, <a class="el" href="a02283.html#gga9b480cda76caba52b2ab392fea396ce3a8fedffe1c43e73f34a3a78a88cef6a2f">bl::input::TriggerActivated</a>
-, <a class="el" href="a02283.html#gga9b480cda76caba52b2ab392fea396ce3af1e3a99580f4887a08a5ed8f06514ca1">bl::input::DirectionChanged</a>
-, <a class="el" href="a02283.html#gga9b480cda76caba52b2ab392fea396ce3a5714712617d87312d28599dbe656c610">bl::input::MovementUp</a>
-, <br />
-&#160;&#160;<a class="el" href="a02283.html#gga9b480cda76caba52b2ab392fea396ce3ac0d5d6c93aa5c0e51810fea4bab6e9dd">bl::input::MovementRight</a>
-, <a class="el" href="a02283.html#gga9b480cda76caba52b2ab392fea396ce3a54b19e0f3ef6c7d6518a228bac33bd19">bl::input::MovementDown</a>
-, <a class="el" href="a02283.html#gga9b480cda76caba52b2ab392fea396ce3a2167767cdca679d310f54992383aa9dc">bl::input::MovementLeft</a>
-<br />
- }</td></tr>
-<tr class="memdesc:ga9b480cda76caba52b2ab392fea396ce3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates if a control notification is the first activation of that control or if it is a repeated signal (ie sent every update loop while active). Also used for breaking down movement control events into directions usable by Menus.  <a href="a02283.html#ga9b480cda76caba52b2ab392fea396ce3">More...</a><br /></td></tr>
-<tr class="separator:ga9b480cda76caba52b2ab392fea396ce3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a02357"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02357.html">bl</a></td></tr>
+<tr class="memdesc:a02357"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02369"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02369.html">bl::gfx</a></td></tr>
+<tr class="memdesc:a02369"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of SFML-like classes for drawing. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02386"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02386.html">bl::gfx::s2d</a></td></tr>
+<tr class="memdesc:a02386"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes for rendering 2d shapes. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Tilemap/Direction.hpp File Reference</title>
+<title>BLIB: include/BLIB/Serialization/SerializableField.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,65 +66,68 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_371518b0c1a3e83dfdc031931ecd4922.html">Tilemap</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_0603dcfd3f324f38b3f10f913306f40f.html">Serialization</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Direction.hpp File Reference</div>  </div>
+<div class="title">SerializableField.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00704_source.html">BLIB/Logging.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a06661_source.html">BLIB/Serialization/Binary/Serializer.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a06667_source.html">BLIB/Serialization/JSON/JSON.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a06664_source.html">BLIB/Serialization/JSON/Serializer.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01337_source.html">BLIB/Serialization/SerializableObject.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01403_source.html">BLIB/Util/NonCopyable.hpp</a>&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;type_traits&gt;</code><br />
 </div>
 <p><a href="a01334_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05052.html">bl::serial::priv::DefaultHolder&lt; C, U, bool &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05056.html">bl::serial::SerializableFieldBase</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for <a class="el" href="a05068.html" title="Represents a field in a class that can be serialized. Serializable objects should inherit from Serial...">SerializableField</a> objects. Not to be used directly.  <a href="a05056.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05060.html">bl::serial::SerializableFieldBase::Optional</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates that this field is optional.  <a href="a05060.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05064.html">bl::serial::SerializableFieldBase::Required</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates that this field is required.  <a href="a05064.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05068.html">bl::serial::SerializableField&lt; Id, C, T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a field in a class that can be serialized. Serializable objects should inherit from <a class="el" href="a05088.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> and make their data fields of type <a class="el" href="a05068.html" title="Represents a field in a class that can be serialized. Serializable objects should inherit from Serial...">SerializableField</a>. Serialization is builtin for primitive json types, vectors, maps, and nested <a class="el" href="a05088.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> members. Specializations of Serializer may be created to support other types which are not easily represented as Serializable objects.  <a href="a05068.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05072.html">bl::serial::priv::DefaultHolder&lt; C, U, true &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05076.html">bl::serial::priv::DefaultHolder&lt; C, U, false &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05080.html">bl::serial::priv::DefaultHolder&lt; C, U[N], false &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a02303"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02303.html">bl</a></td></tr>
-<tr class="memdesc:a02303"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a02357"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02357.html">bl</a></td></tr>
+<tr class="memdesc:a02357"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02369"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02369.html">bl::tmap</a></td></tr>
-<tr class="memdesc:a02369"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tilemap classes and functionality. <br /></td></tr>
+<tr class="memitem:a02360"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02360.html">bl::serial</a></td></tr>
+<tr class="memdesc:a02360"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and utilities for serializing and deserializing data. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:ga718359d5f56e8650998bc14f045c3f64"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02294.html#ga718359d5f56e8650998bc14f045c3f64">bl::tmap::Direction</a> : std::uint8_t { <a class="el" href="a02294.html#gga718359d5f56e8650998bc14f045c3f64a258f49887ef8d14ac268c92b02503aaa">bl::tmap::Up</a> = 0
-, <a class="el" href="a02294.html#gga718359d5f56e8650998bc14f045c3f64a92b09c7c48c520c3c55e497875da437c">bl::tmap::Right</a> = 1
-, <a class="el" href="a02294.html#gga718359d5f56e8650998bc14f045c3f64a08a38277b0309070706f6652eeae9a53">bl::tmap::Down</a> = 2
-, <a class="el" href="a02294.html#gga718359d5f56e8650998bc14f045c3f64a945d5e233cf7d6240f6b783b36a374ff">bl::tmap::Left</a> = 3
- }</td></tr>
-<tr class="memdesc:ga718359d5f56e8650998bc14f045c3f64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Which direction an entity is facing in a tilemap.  <a href="a02294.html#ga718359d5f56e8650998bc14f045c3f64">More...</a><br /></td></tr>
-<tr class="separator:ga718359d5f56e8650998bc14f045c3f64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ga1d948d110c8c972bc5b6f45d06c9e3f9"><td class="memItemLeft" align="right" valign="top">Direction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02294.html#ga1d948d110c8c972bc5b6f45d06c9e3f9">bl::tmap::oppositeDirection</a> (Direction dir)</td></tr>
-<tr class="memdesc:ga1d948d110c8c972bc5b6f45d06c9e3f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Direction that is opposite of the given direction.  <a href="a02294.html#ga1d948d110c8c972bc5b6f45d06c9e3f9">More...</a><br /></td></tr>
-<tr class="separator:ga1d948d110c8c972bc5b6f45d06c9e3f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga220339ef558132abe716abe33a18dadb"><td class="memItemLeft" align="right" valign="top">Direction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02294.html#ga220339ef558132abe716abe33a18dadb">bl::tmap::nextClockwiseDirection</a> (Direction dir)</td></tr>
-<tr class="memdesc:ga220339ef558132abe716abe33a18dadb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the next clockwise direction from the given current direction.  <a href="a02294.html#ga220339ef558132abe716abe33a18dadb">More...</a><br /></td></tr>
-<tr class="separator:ga220339ef558132abe716abe33a18dadb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga887ba83d0d54b0b5bd9ffb0ee4018fb7"><td class="memItemLeft" align="right" valign="top">Direction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02294.html#ga887ba83d0d54b0b5bd9ffb0ee4018fb7">bl::tmap::nextCounterClockwiseDirection</a> (Direction dir)</td></tr>
-<tr class="memdesc:ga887ba83d0d54b0b5bd9ffb0ee4018fb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the next counterclockwise direction from the given current direction.  <a href="a02294.html#ga887ba83d0d54b0b5bd9ffb0ee4018fb7">More...</a><br /></td></tr>
-<tr class="separator:ga887ba83d0d54b0b5bd9ffb0ee4018fb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga50423a802de9a1c43478aab60328719e"><td class="memItemLeft" align="right" valign="top">Direction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02294.html#ga50423a802de9a1c43478aab60328719e">bl::tmap::directionFromString</a> (const std::string &amp;dir)</td></tr>
-<tr class="memdesc:ga50423a802de9a1c43478aab60328719e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the given string into a direction.  <a href="a02294.html#ga50423a802de9a1c43478aab60328719e">More...</a><br /></td></tr>
-<tr class="separator:ga50423a802de9a1c43478aab60328719e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga74da6f2d6ed6515b52ebdb22ecce7997"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02294.html#ga74da6f2d6ed6515b52ebdb22ecce7997">bl::tmap::directionToString</a> (Direction dir)</td></tr>
-<tr class="memdesc:ga74da6f2d6ed6515b52ebdb22ecce7997"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the given direction to a string.  <a href="a02294.html#ga74da6f2d6ed6515b52ebdb22ecce7997">More...</a><br /></td></tr>
-<tr class="separator:ga74da6f2d6ed6515b52ebdb22ecce7997"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02424"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02424.html">bl::serial::priv</a></td></tr>
+<tr class="memdesc:a02424"><td class="mdescLeft">&#160;</td><td class="mdescRight">Private namespace containing internal implementation. Do not use. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

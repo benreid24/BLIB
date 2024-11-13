@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/GUI/Renderer/TooltipProvider.hpp Source File</title>
+<title>BLIB: include/BLIB/Interfaces/GUI/Renderer/CanvasComponentBase.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,72 +71,52 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">TooltipProvider.hpp</div>  </div>
+<div class="title">CanvasComponentBase.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00602.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GUI_RENDERER_TOOLTIPPROVIDER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GUI_RENDERER_TOOLTIPPROVIDER_HPP</span></div>
+<a href="a00602.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GUI_RENDERER_CANVASCOMPONENTBASE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GUI_RENDERER_CANVASCOMPONENTBASE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00569.html">BLIB/Interfaces/GUI/Renderer/Component.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>gui</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span>Element;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>rdr</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a03477.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03477.html">TooltipProvider</a> {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a03477.html#a7d4cab9c1462843ae39dde6fd247e664">   23</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a03477.html#a7d4cab9c1462843ae39dde6fd247e664">Ptr</a>     = std::unique_ptr&lt;TooltipProvider&gt;;</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a03477.html#a7318c30bf125234762f9bb09151d73d6">   24</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a03477.html#a7318c30bf125234762f9bb09151d73d6">Factory</a> = std::function&lt;<a class="code" href="a03477.html#a7d4cab9c1462843ae39dde6fd247e664">Ptr</a>()&gt;;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a03477.html#aee3c920413f5456e6f7cdc4f9c844935">   29</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03477.html#aee3c920413f5456e6f7cdc4f9c844935">~TooltipProvider</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a03477.html#a484219833b091128b2962dad748bdcab">   36</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03477.html#a484219833b091128b2962dad748bdcab">update</a>(<span class="keywordtype">float</span> dt) = 0;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a03477.html#a1f75802145b14cf96bc0fb99d5aa7279">   43</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03477.html#a1f75802145b14cf96bc0fb99d5aa7279">displayTooltip</a>(<a class="code" href="a03253.html">Element</a>* element, <span class="keyword">const</span> glm::vec2&amp; mousePos) = 0;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a03477.html#aa0c6fba2fd4e5ed58c6acc8833c88737">   48</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03477.html#aa0c6fba2fd4e5ed58c6acc8833c88737">dismissTooltip</a>() = 0;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="a03477.html#a45ce383e8d639f4410a64b573718e0a8">   55</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03477.html#a45ce383e8d639f4410a64b573718e0a8">doCreate</a>(<a class="code" href="a02833.html">engine::Engine</a>&amp; engine) = 0;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="a03477.html#af63d6ed72e147b08cec60f620fdcbc89">   62</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03477.html#af63d6ed72e147b08cec60f620fdcbc89">doSceneAdd</a>(<a class="code" href="a04037.html">rc::Overlay</a>* overlay) = 0;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="a03477.html#a037b94c5370868fe2ecb6bf53a5bff27">   67</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03477.html#a037b94c5370868fe2ecb6bf53a5bff27">doSceneRemove</a>() = 0;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="a03477.html#a8cb0b4428118015f4d4fed8ea6c45621">   74</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03477.html#a8cb0b4428118015f4d4fed8ea6c45621">notifyDestroyed</a>(<span class="keyword">const</span> <a class="code" href="a03253.html">Element</a>* element) = 0;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;};</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;} <span class="comment">// namespace rdr</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;} <span class="comment">// namespace gui</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00569_html"><div class="ttname"><a href="a00569.html">Component.hpp</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02833_html"><div class="ttname"><a href="a02833.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06269_source.html#l00033">Engine.hpp:33</a></div></div>
-<div class="ttc" id="aa03253_html"><div class="ttname"><a href="a03253.html">bl::gui::Element</a></div><div class="ttdoc">Base class for all GUI elements. Provides the common interface used for positioning,...</div><div class="ttdef"><b>Definition:</b> <a href="a00452_source.html#l00031">Element.hpp:33</a></div></div>
-<div class="ttc" id="aa03477_html"><div class="ttname"><a href="a03477.html">bl::gui::rdr::TooltipProvider</a></div><div class="ttdoc">Base class for providers of element tooltips.</div><div class="ttdef"><b>Definition:</b> <a href="a00602_source.html#l00021">TooltipProvider.hpp:21</a></div></div>
-<div class="ttc" id="aa03477_html_a037b94c5370868fe2ecb6bf53a5bff27"><div class="ttname"><a href="a03477.html#a037b94c5370868fe2ecb6bf53a5bff27">bl::gui::rdr::TooltipProvider::doSceneRemove</a></div><div class="ttdeci">virtual void doSceneRemove()=0</div><div class="ttdoc">Called when the provider should be removed from the scene.</div></div>
-<div class="ttc" id="aa03477_html_a1f75802145b14cf96bc0fb99d5aa7279"><div class="ttname"><a href="a03477.html#a1f75802145b14cf96bc0fb99d5aa7279">bl::gui::rdr::TooltipProvider::displayTooltip</a></div><div class="ttdeci">virtual void displayTooltip(Element *element, const glm::vec2 &amp;mousePos)=0</div><div class="ttdoc">Called when an element needs a tooltip displayed.</div></div>
-<div class="ttc" id="aa03477_html_a45ce383e8d639f4410a64b573718e0a8"><div class="ttname"><a href="a03477.html#a45ce383e8d639f4410a64b573718e0a8">bl::gui::rdr::TooltipProvider::doCreate</a></div><div class="ttdeci">virtual void doCreate(engine::Engine &amp;engine)=0</div><div class="ttdoc">Called once before use. Derived classes should create resources here.</div></div>
-<div class="ttc" id="aa03477_html_a484219833b091128b2962dad748bdcab"><div class="ttname"><a href="a03477.html#a484219833b091128b2962dad748bdcab">bl::gui::rdr::TooltipProvider::update</a></div><div class="ttdeci">virtual void update(float dt)=0</div><div class="ttdoc">Updates the provider.</div></div>
-<div class="ttc" id="aa03477_html_a7318c30bf125234762f9bb09151d73d6"><div class="ttname"><a href="a03477.html#a7318c30bf125234762f9bb09151d73d6">bl::gui::rdr::TooltipProvider::Factory</a></div><div class="ttdeci">std::function&lt; Ptr()&gt; Factory</div><div class="ttdef"><b>Definition:</b> <a href="a00602_source.html#l00024">TooltipProvider.hpp:24</a></div></div>
-<div class="ttc" id="aa03477_html_a7d4cab9c1462843ae39dde6fd247e664"><div class="ttname"><a href="a03477.html#a7d4cab9c1462843ae39dde6fd247e664">bl::gui::rdr::TooltipProvider::Ptr</a></div><div class="ttdeci">std::unique_ptr&lt; TooltipProvider &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00602_source.html#l00023">TooltipProvider.hpp:23</a></div></div>
-<div class="ttc" id="aa03477_html_a8cb0b4428118015f4d4fed8ea6c45621"><div class="ttname"><a href="a03477.html#a8cb0b4428118015f4d4fed8ea6c45621">bl::gui::rdr::TooltipProvider::notifyDestroyed</a></div><div class="ttdeci">virtual void notifyDestroyed(const Element *element)=0</div><div class="ttdoc">Called when an element is destroyed or removed.</div></div>
-<div class="ttc" id="aa03477_html_aa0c6fba2fd4e5ed58c6acc8833c88737"><div class="ttname"><a href="a03477.html#aa0c6fba2fd4e5ed58c6acc8833c88737">bl::gui::rdr::TooltipProvider::dismissTooltip</a></div><div class="ttdeci">virtual void dismissTooltip()=0</div><div class="ttdoc">Called when the current tooltip, if any, should be dismissed.</div></div>
-<div class="ttc" id="aa03477_html_aee3c920413f5456e6f7cdc4f9c844935"><div class="ttname"><a href="a03477.html#aee3c920413f5456e6f7cdc4f9c844935">bl::gui::rdr::TooltipProvider::~TooltipProvider</a></div><div class="ttdeci">virtual ~TooltipProvider()=default</div><div class="ttdoc">Destroys the provider.</div></div>
-<div class="ttc" id="aa03477_html_af63d6ed72e147b08cec60f620fdcbc89"><div class="ttname"><a href="a03477.html#af63d6ed72e147b08cec60f620fdcbc89">bl::gui::rdr::TooltipProvider::doSceneAdd</a></div><div class="ttdeci">virtual void doSceneAdd(rc::Overlay *overlay)=0</div><div class="ttdoc">Called when the provider should be added to a scene.</div></div>
-<div class="ttc" id="aa04037_html"><div class="ttname"><a href="a04037.html">bl::rc::Overlay</a></div><div class="ttdoc">Special type of scene specialized for 2d overlays with fixed cameras. Objects are organized into a tr...</div><div class="ttdef"><b>Definition:</b> <a href="a00968_source.html#l00036">Overlay.hpp:39</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00605.html">BLIB/Interfaces/GUI/Renderer/Component.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01166.html">BLIB/Render/Vulkan/RenderTexture.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>gui</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a02395.html">   11</a></span>&#160;<span class="keyword">namespace </span>rdr</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a03588.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03588.html">CanvasComponentBase</a> : <span class="keyword">public</span> <a class="code" href="a03592.html">Component</a> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a03588.html#a8aca3aded807c5de7cd5444e312b2f07">   23</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03588.html#a8aca3aded807c5de7cd5444e312b2f07">~CanvasComponentBase</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a03588.html#abdcf9681f617edf0ce9236a87b424e2c">   28</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a04524.html">rc::vk::RenderTexture</a>&amp; <a class="code" href="a03588.html#abdcf9681f617edf0ce9236a87b424e2c">getRenderTexture</a>() = 0;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a03588.html#aad337e3f7c4adeaad57c013407326745">   36</a></span>&#160;    <a class="code" href="a03588.html#aad337e3f7c4adeaad57c013407326745">CanvasComponentBase</a>(<a class="code" href="a03592.html#ad04144636950185c959ad6394f0c5c52">Component::HighlightState</a> highlightState)</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    : <a class="code" href="a03592.html">Component</a>(highlightState) {}</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;};</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;} <span class="comment">// namespace rdr</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <span class="comment">// namespace gui</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00605_html"><div class="ttname"><a href="a00605.html">Component.hpp</a></div></div>
+<div class="ttc" id="aa01166_html"><div class="ttname"><a href="a01166.html">RenderTexture.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03588_html"><div class="ttname"><a href="a03588.html">bl::gui::rdr::CanvasComponentBase</a></div><div class="ttdoc">Intermediate base class for components of Canvas elements.</div><div class="ttdef"><b>Definition:</b> <a href="a00602_source.html#l00018">CanvasComponentBase.hpp:18</a></div></div>
+<div class="ttc" id="aa03588_html_a8aca3aded807c5de7cd5444e312b2f07"><div class="ttname"><a href="a03588.html#a8aca3aded807c5de7cd5444e312b2f07">bl::gui::rdr::CanvasComponentBase::~CanvasComponentBase</a></div><div class="ttdeci">virtual ~CanvasComponentBase()=default</div><div class="ttdoc">Destroys the component.</div></div>
+<div class="ttc" id="aa03588_html_aad337e3f7c4adeaad57c013407326745"><div class="ttname"><a href="a03588.html#aad337e3f7c4adeaad57c013407326745">bl::gui::rdr::CanvasComponentBase::CanvasComponentBase</a></div><div class="ttdeci">CanvasComponentBase(Component::HighlightState highlightState)</div><div class="ttdoc">Calls the base Component constructor.</div><div class="ttdef"><b>Definition:</b> <a href="a00602_source.html#l00036">CanvasComponentBase.hpp:36</a></div></div>
+<div class="ttc" id="aa03588_html_abdcf9681f617edf0ce9236a87b424e2c"><div class="ttname"><a href="a03588.html#abdcf9681f617edf0ce9236a87b424e2c">bl::gui::rdr::CanvasComponentBase::getRenderTexture</a></div><div class="ttdeci">virtual rc::vk::RenderTexture &amp; getRenderTexture()=0</div><div class="ttdoc">Returns the render texture the canvas is rendering to.</div></div>
+<div class="ttc" id="aa03592_html"><div class="ttname"><a href="a03592.html">bl::gui::rdr::Component</a></div><div class="ttdoc">Base class for renderer components. Each GUI element owns a handle to a component owned by the render...</div><div class="ttdef"><b>Definition:</b> <a href="a00605_source.html#l00032">Component.hpp:32</a></div></div>
+<div class="ttc" id="aa03592_html_ad04144636950185c959ad6394f0c5c52"><div class="ttname"><a href="a03592.html#ad04144636950185c959ad6394f0c5c52">bl::gui::rdr::Component::HighlightState</a></div><div class="ttdeci">HighlightState</div><div class="ttdoc">How the component responds to mouse over state.</div><div class="ttdef"><b>Definition:</b> <a href="a00605_source.html#l00040">Component.hpp:40</a></div></div>
+<div class="ttc" id="aa04524_html"><div class="ttname"><a href="a04524.html">bl::rc::vk::RenderTexture</a></div><div class="ttdoc">Represents textures that can be rendered to and then sampled from. Render textures get rendered each ...</div><div class="ttdef"><b>Definition:</b> <a href="a01166_source.html#l00027">RenderTexture.hpp:27</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

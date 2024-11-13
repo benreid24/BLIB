@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Lighting/Light2D.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Graph/ExecutionContext.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,82 +66,73 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_91f9057575a339ed5473f88b0062d2bc.html">Lighting</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Light2D.hpp</div>  </div>
+<div class="title">ExecutionContext.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00959.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_LIGHTING_LIGHT2D_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_LIGHTING_LIGHT2D_HPP</span></div>
+<a href="a00959.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_EXECUTIONCONTEXT_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_GRAPH_EXECUTIONCONTEXT_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01451.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>engine</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>lgt</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span>Scene2DLighting;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a04025.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04025.html">Light2D</a> {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="a04025.html#a43cd82166fd1c7ed7b6af2cfcd36f708">Light2D</a>();</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04025.html#a5ba0373bd289ac322c76cc4f898682f1">removeFromScene</a>();</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">class </span>Engine;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">class </span>Renderer;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span>rg</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a04140.html">   25</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a04140.html">ExecutionContext</a> {</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a04140.html#a5e1eb97f7655838dbc12b69399099e06">   26</a></span>&#160;    <a class="code" href="a02964.html">engine::Engine</a>&amp; <a class="code" href="a04140.html#a5e1eb97f7655838dbc12b69399099e06">engine</a>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a04140.html#a0b0009ede380bf4334a812519ddd43a3">   27</a></span>&#160;    <a class="code" href="a04236.html">Renderer</a>&amp; <a class="code" href="a04140.html#a0b0009ede380bf4334a812519ddd43a3">renderer</a>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a04140.html#af86e7c13ce3a866091ea39889b1a23cb">   28</a></span>&#160;    VkCommandBuffer <a class="code" href="a04140.html#af86e7c13ce3a866091ea39889b1a23cb">commandBuffer</a>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a04140.html#aad6a98a0fe6ea59e376cd68452b9e91f">   29</a></span>&#160;    std::uint32_t <a class="code" href="a04140.html#aad6a98a0fe6ea59e376cd68452b9e91f">observerIndex</a>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a04140.html#a8f58fa5c948867ecef48f99c6abec378">   30</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a04140.html#a8f58fa5c948867ecef48f99c6abec378">renderingToRenderTexture</a>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a04140.html#ad3d3f6ba628e3f077d147030bec22ef0">   31</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a04140.html#ad3d3f6ba628e3f077d147030bec22ef0">isFinalStep</a>;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04025.html#a0301ba098aa7cd8064fe5b6ad2cf296b">setColor</a>(<span class="keyword">const</span> glm::vec3&amp; color);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    glm::vec3 <a class="code" href="a04025.html#ae82958a6ff0088c1bf85ece6f1711901">getColor</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04025.html#a33971eb2a3a6e3b06bd3642400db37a8">setRadius</a>(<span class="keywordtype">float</span> radius);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a04025.html#a4dc95659e0c68f8f5575507fe09a8bee">getRadius</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a04140.html#a4dd83f08bfea35b3f0a28220df2d8ece">   43</a></span>&#160;    <a class="code" href="a04140.html#a4dd83f08bfea35b3f0a28220df2d8ece">ExecutionContext</a>(<a class="code" href="a02964.html">engine::Engine</a>&amp; <a class="code" href="a04140.html#a5e1eb97f7655838dbc12b69399099e06">engine</a>, <a class="code" href="a04236.html">Renderer</a>&amp; <a class="code" href="a04140.html#a0b0009ede380bf4334a812519ddd43a3">renderer</a>, VkCommandBuffer <a class="code" href="a04140.html#af86e7c13ce3a866091ea39889b1a23cb">commandBuffer</a>,</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                     std::uint32_t <a class="code" href="a04140.html#aad6a98a0fe6ea59e376cd68452b9e91f">observerIndex</a>, <span class="keywordtype">bool</span> renderTexture, <span class="keywordtype">bool</span> <a class="code" href="a04140.html#ad3d3f6ba628e3f077d147030bec22ef0">isFinalStep</a>)</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    : <a class="code" href="a04140.html#a5e1eb97f7655838dbc12b69399099e06">engine</a>(<a class="code" href="a04140.html#a5e1eb97f7655838dbc12b69399099e06">engine</a>)</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    , <a class="code" href="a04140.html#a0b0009ede380bf4334a812519ddd43a3">renderer</a>(<a class="code" href="a04140.html#a0b0009ede380bf4334a812519ddd43a3">renderer</a>)</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    , <a class="code" href="a04140.html#af86e7c13ce3a866091ea39889b1a23cb">commandBuffer</a>(<a class="code" href="a04140.html#af86e7c13ce3a866091ea39889b1a23cb">commandBuffer</a>)</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    , <a class="code" href="a04140.html#aad6a98a0fe6ea59e376cd68452b9e91f">observerIndex</a>(<a class="code" href="a04140.html#aad6a98a0fe6ea59e376cd68452b9e91f">observerIndex</a>)</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    , <a class="code" href="a04140.html#a8f58fa5c948867ecef48f99c6abec378">renderingToRenderTexture</a>(renderTexture)</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    , <a class="code" href="a04140.html#ad3d3f6ba628e3f077d147030bec22ef0">isFinalStep</a>(<a class="code" href="a04140.html#ad3d3f6ba628e3f077d147030bec22ef0">isFinalStep</a>) {}</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;};</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;} <span class="comment">// namespace rg</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;} <span class="comment">// namespace bl</span></div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04025.html#a647675a28ff3e9343f93076275ba2b5a">setPosition</a>(<span class="keyword">const</span> glm::vec2&amp; position);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    glm::vec2 <a class="code" href="a04025.html#a94a2496b74b6d5255ace2cb00c7220c5">getPosition</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a04025.html#acf5dfc9dde077de5325b86afe70840bd">isValid</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="a04025.html#a75499c7f246adc071ac0d3fa92cda3f2">   77</a></span>&#160;    std::uint32_t <a class="code" href="a04025.html#a75499c7f246adc071ac0d3fa92cda3f2">getId</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> index; }</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <a class="code" href="a04029.html">Scene2DLighting</a>* owner;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    std::uint32_t index;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <a class="code" href="a04025.html#a43cd82166fd1c7ed7b6af2cfcd36f708">Light2D</a>(<a class="code" href="a04029.html">Scene2DLighting</a>&amp; owner, std::uint32_t i);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="a04025.html#abff7e258bca8d88b2463038a9f0f8cc7">   85</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a04029.html">Scene2DLighting</a>;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;};</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;} <span class="comment">// namespace lgt</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04025_html"><div class="ttname"><a href="a04025.html">bl::rc::lgt::Light2D</a></div><div class="ttdoc">Handle for a light in a 2d scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00959_source.html#l00020">Light2D.hpp:20</a></div></div>
-<div class="ttc" id="aa04025_html_a0301ba098aa7cd8064fe5b6ad2cf296b"><div class="ttname"><a href="a04025.html#a0301ba098aa7cd8064fe5b6ad2cf296b">bl::rc::lgt::Light2D::setColor</a></div><div class="ttdeci">void setColor(const glm::vec3 &amp;color)</div><div class="ttdoc">Sets the color of the light. Light color is multiplied by fragment color.</div><div class="ttdef"><b>Definition:</b> <a href="a01949_source.html#l00030">Light2D.cpp:30</a></div></div>
-<div class="ttc" id="aa04025_html_a33971eb2a3a6e3b06bd3642400db37a8"><div class="ttname"><a href="a04025.html#a33971eb2a3a6e3b06bd3642400db37a8">bl::rc::lgt::Light2D::setRadius</a></div><div class="ttdeci">void setRadius(float radius)</div><div class="ttdoc">Sets the radius of the light. The color fades to 0 at the radius.</div><div class="ttdef"><b>Definition:</b> <a href="a01949_source.html#l00049">Light2D.cpp:49</a></div></div>
-<div class="ttc" id="aa04025_html_a43cd82166fd1c7ed7b6af2cfcd36f708"><div class="ttname"><a href="a04025.html#a43cd82166fd1c7ed7b6af2cfcd36f708">bl::rc::lgt::Light2D::Light2D</a></div><div class="ttdeci">Light2D()</div><div class="ttdoc">Creates an invalid light handle.</div><div class="ttdef"><b>Definition:</b> <a href="a01949_source.html#l00013">Light2D.cpp:13</a></div></div>
-<div class="ttc" id="aa04025_html_a4dc95659e0c68f8f5575507fe09a8bee"><div class="ttname"><a href="a04025.html#a4dc95659e0c68f8f5575507fe09a8bee">bl::rc::lgt::Light2D::getRadius</a></div><div class="ttdeci">float getRadius() const</div><div class="ttdoc">Returns the radius of the light in world coordinates.</div><div class="ttdef"><b>Definition:</b> <a href="a01949_source.html#l00054">Light2D.cpp:54</a></div></div>
-<div class="ttc" id="aa04025_html_a5ba0373bd289ac322c76cc4f898682f1"><div class="ttname"><a href="a04025.html#a5ba0373bd289ac322c76cc4f898682f1">bl::rc::lgt::Light2D::removeFromScene</a></div><div class="ttdeci">void removeFromScene()</div><div class="ttdoc">Removes the light from the scene. Invalidates the handle and any other handles to the same light....</div><div class="ttdef"><b>Definition:</b> <a href="a01949_source.html#l00026">Light2D.cpp:26</a></div></div>
-<div class="ttc" id="aa04025_html_a647675a28ff3e9343f93076275ba2b5a"><div class="ttname"><a href="a04025.html#a647675a28ff3e9343f93076275ba2b5a">bl::rc::lgt::Light2D::setPosition</a></div><div class="ttdeci">void setPosition(const glm::vec2 &amp;position)</div><div class="ttdoc">Sets the position of the light in world coordinates.</div><div class="ttdef"><b>Definition:</b> <a href="a01949_source.html#l00062">Light2D.cpp:62</a></div></div>
-<div class="ttc" id="aa04025_html_a75499c7f246adc071ac0d3fa92cda3f2"><div class="ttname"><a href="a04025.html#a75499c7f246adc071ac0d3fa92cda3f2">bl::rc::lgt::Light2D::getId</a></div><div class="ttdeci">std::uint32_t getId() const</div><div class="ttdoc">Returns the unique id of this light handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00959_source.html#l00077">Light2D.hpp:77</a></div></div>
-<div class="ttc" id="aa04025_html_a94a2496b74b6d5255ace2cb00c7220c5"><div class="ttname"><a href="a04025.html#a94a2496b74b6d5255ace2cb00c7220c5">bl::rc::lgt::Light2D::getPosition</a></div><div class="ttdeci">glm::vec2 getPosition() const</div><div class="ttdoc">Returns the position of the light in world coordinates.</div><div class="ttdef"><b>Definition:</b> <a href="a01949_source.html#l00067">Light2D.cpp:67</a></div></div>
-<div class="ttc" id="aa04025_html_acf5dfc9dde077de5325b86afe70840bd"><div class="ttname"><a href="a04025.html#acf5dfc9dde077de5325b86afe70840bd">bl::rc::lgt::Light2D::isValid</a></div><div class="ttdeci">bool isValid() const</div><div class="ttdoc">Returns whether or not this handle references a valid light.</div><div class="ttdef"><b>Definition:</b> <a href="a01949_source.html#l00021">Light2D.cpp:21</a></div></div>
-<div class="ttc" id="aa04025_html_ae82958a6ff0088c1bf85ece6f1711901"><div class="ttname"><a href="a04025.html#ae82958a6ff0088c1bf85ece6f1711901">bl::rc::lgt::Light2D::getColor</a></div><div class="ttdeci">glm::vec3 getColor() const</div><div class="ttdoc">Returns the color of the light.</div><div class="ttdef"><b>Definition:</b> <a href="a01949_source.html#l00038">Light2D.cpp:38</a></div></div>
-<div class="ttc" id="aa04029_html"><div class="ttname"><a href="a04029.html">bl::rc::lgt::Scene2DLighting</a></div><div class="ttdoc">Lighting manager for 2d scenes.</div><div class="ttdef"><b>Definition:</b> <a href="a00962_source.html#l00028">Scene2DLighting.hpp:28</a></div></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01451_html"><div class="ttname"><a href="a01451.html">Vulkan.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02964_html"><div class="ttname"><a href="a02964.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06568_source.html#l00038">Engine.hpp:38</a></div></div>
+<div class="ttc" id="aa04140_html"><div class="ttname"><a href="a04140.html">bl::rc::rg::ExecutionContext</a></div><div class="ttdoc">Context containing graph execution data that is passed down to tasks.</div><div class="ttdef"><b>Definition:</b> <a href="a00959_source.html#l00025">ExecutionContext.hpp:25</a></div></div>
+<div class="ttc" id="aa04140_html_a0b0009ede380bf4334a812519ddd43a3"><div class="ttname"><a href="a04140.html#a0b0009ede380bf4334a812519ddd43a3">bl::rc::rg::ExecutionContext::renderer</a></div><div class="ttdeci">Renderer &amp; renderer</div><div class="ttdef"><b>Definition:</b> <a href="a00959_source.html#l00027">ExecutionContext.hpp:27</a></div></div>
+<div class="ttc" id="aa04140_html_a4dd83f08bfea35b3f0a28220df2d8ece"><div class="ttname"><a href="a04140.html#a4dd83f08bfea35b3f0a28220df2d8ece">bl::rc::rg::ExecutionContext::ExecutionContext</a></div><div class="ttdeci">ExecutionContext(engine::Engine &amp;engine, Renderer &amp;renderer, VkCommandBuffer commandBuffer, std::uint32_t observerIndex, bool renderTexture, bool isFinalStep)</div><div class="ttdoc">Creates an execution context.</div><div class="ttdef"><b>Definition:</b> <a href="a00959_source.html#l00043">ExecutionContext.hpp:43</a></div></div>
+<div class="ttc" id="aa04140_html_a5e1eb97f7655838dbc12b69399099e06"><div class="ttname"><a href="a04140.html#a5e1eb97f7655838dbc12b69399099e06">bl::rc::rg::ExecutionContext::engine</a></div><div class="ttdeci">engine::Engine &amp; engine</div><div class="ttdef"><b>Definition:</b> <a href="a00959_source.html#l00026">ExecutionContext.hpp:26</a></div></div>
+<div class="ttc" id="aa04140_html_a8f58fa5c948867ecef48f99c6abec378"><div class="ttname"><a href="a04140.html#a8f58fa5c948867ecef48f99c6abec378">bl::rc::rg::ExecutionContext::renderingToRenderTexture</a></div><div class="ttdeci">bool renderingToRenderTexture</div><div class="ttdef"><b>Definition:</b> <a href="a00959_source.html#l00030">ExecutionContext.hpp:30</a></div></div>
+<div class="ttc" id="aa04140_html_aad6a98a0fe6ea59e376cd68452b9e91f"><div class="ttname"><a href="a04140.html#aad6a98a0fe6ea59e376cd68452b9e91f">bl::rc::rg::ExecutionContext::observerIndex</a></div><div class="ttdeci">std::uint32_t observerIndex</div><div class="ttdef"><b>Definition:</b> <a href="a00959_source.html#l00029">ExecutionContext.hpp:29</a></div></div>
+<div class="ttc" id="aa04140_html_ad3d3f6ba628e3f077d147030bec22ef0"><div class="ttname"><a href="a04140.html#ad3d3f6ba628e3f077d147030bec22ef0">bl::rc::rg::ExecutionContext::isFinalStep</a></div><div class="ttdeci">bool isFinalStep</div><div class="ttdef"><b>Definition:</b> <a href="a00959_source.html#l00031">ExecutionContext.hpp:31</a></div></div>
+<div class="ttc" id="aa04140_html_af86e7c13ce3a866091ea39889b1a23cb"><div class="ttname"><a href="a04140.html#af86e7c13ce3a866091ea39889b1a23cb">bl::rc::rg::ExecutionContext::commandBuffer</a></div><div class="ttdeci">VkCommandBuffer commandBuffer</div><div class="ttdef"><b>Definition:</b> <a href="a00959_source.html#l00028">ExecutionContext.hpp:28</a></div></div>
+<div class="ttc" id="aa04236_html"><div class="ttname"><a href="a04236.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a06619_source.html#l00042">Renderer.hpp:42</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

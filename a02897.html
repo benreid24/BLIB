@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::engine::System Class Reference</title>
+<title>BLIB: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,263 +66,40 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02303.html">bl</a></li><li class="navelem"><a class="el" href="a02311.html">engine</a></li><li class="navelem"><a class="el" href="a02897.html">System</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02357.html">bl</a></li><li class="navelem"><a class="el" href="a02372.html">ecs</a></li><li class="navelem"><a class="el" href="a02377.html">trait</a></li><li class="navelem"><a class="el" href="a02900.html">ParentAwareVersioned</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="a02894.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::engine::System Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a02279.html">Engine</a></div></div>  </div>
+<div class="title">bl::ecs::trait::ParentAwareVersioned&lt; T &gt; Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Base class for <a class="el" href="a02833.html" title="Core engine class that owns engine resources and the main game loop.">Engine</a> systems which can be registered in the <a class="el" href="a02901.html" title="Central registry for systems in the engine. Systems should be registered here before the engine is st...">Systems</a> registry.  
- <a href="a02897.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a06278_source.html">System.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::engine::System:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a02897.png" usemap="#bl::engine::System_map" alt=""/>
-  <map id="bl::engine::System_map" name="bl::engine::System_map">
-<area href="a03681.html" title="Top level engine system for the BLIB particle system. Owns all the ParticleManagers for each particle..." alt="bl::pcl::ParticleSystem" shape="rect" coords="343,56,676,80"/>
-<area href="a04921.html" title="Systems that updates and advances all 2d animations. Also manages GPU local buffers containing animat..." alt="bl::sys::Animation2DSystem" shape="rect" coords="343,112,676,136"/>
-<area href="a04937.html" title="Templated system for managing ECS components that sync into renderer descriptor sets...." alt="bl::sys::DescriptorComponentSystem&lt; TCom, TPayload &gt;" shape="rect" coords="343,168,676,192"/>
-<area href="a04941.html" title="System that processes entities that are scaled for overlays. Keeps scales up-to-date as overlay size ..." alt="bl::sys::OverlayScalerSystem" shape="rect" coords="343,224,676,248"/>
-<area href="a04949.html" title="System that triggers the renderer each frame." alt="bl::sys::RenderSystem" shape="rect" coords="343,280,676,304"/>
-<area href="a04945.html" title="System that updates all observer cameras and task graphs while the renderer is waiting on the prior f..." alt="bl::sys::RendererUpdateSystem" shape="rect" coords="343,336,676,360"/>
-<area href="a04953.html" title="Basic system to update Toggler components." alt="bl::sys::TogglerSystem" shape="rect" coords="343,392,676,416"/>
-<area href="a04957.html" title="System that updates 2d transforms into renderer descriptor sets. Also performs interpolation for enti..." alt="bl::sys::Transform2DDescriptorSystem" shape="rect" coords="343,448,676,472"/>
-<area href="a04961.html" title="System that applies velocity to positions over time." alt="bl::sys::VelocitySystem" shape="rect" coords="343,504,676,528"/>
-  </map>
-</div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:aa94c5ee9b05530eb29c7ad3e5b801225"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02897.html#aa94c5ee9b05530eb29c7ad3e5b801225">~System</a> ()=default</td></tr>
-<tr class="memdesc:aa94c5ee9b05530eb29c7ad3e5b801225"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the system.  <a href="a02897.html#aa94c5ee9b05530eb29c7ad3e5b801225">More...</a><br /></td></tr>
-<tr class="separator:aa94c5ee9b05530eb29c7ad3e5b801225"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ec226cb2c0e129eaf4f7c53c318d0da"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02897.html#a9ec226cb2c0e129eaf4f7c53c318d0da">init</a> (<a class="el" href="a02833.html">engine::Engine</a> &amp;engine)=0</td></tr>
-<tr class="memdesc:a9ec226cb2c0e129eaf4f7c53c318d0da"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is called once on engine startup.  <a href="a02897.html#a9ec226cb2c0e129eaf4f7c53c318d0da">More...</a><br /></td></tr>
-<tr class="separator:a9ec226cb2c0e129eaf4f7c53c318d0da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8ce424a5aa9cd48a5f4058115ab27a6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02897.html#af8ce424a5aa9cd48a5f4058115ab27a6">update</a> (std::mutex &amp;stageMutex, float dt, float realDt, float residual, float realResidual)=0</td></tr>
-<tr class="memdesc:af8ce424a5aa9cd48a5f4058115ab27a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is called each frame with the time to simulate.  <a href="a02897.html#af8ce424a5aa9cd48a5f4058115ab27a6">More...</a><br /></td></tr>
-<tr class="separator:af8ce424a5aa9cd48a5f4058115ab27a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad54860ab304e448edd55571f4e039634"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02897.html#ad54860ab304e448edd55571f4e039634">notifyFrameStart</a> ()</td></tr>
-<tr class="memdesc:ad54860ab304e448edd55571f4e039634"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called once each frame immediately after OS events are processed and before update.  <a href="a02897.html#ad54860ab304e448edd55571f4e039634">More...</a><br /></td></tr>
-<tr class="separator:ad54860ab304e448edd55571f4e039634"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ea4afb54444b6a57c92edf15e07e54e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02897.html#a0ea4afb54444b6a57c92edf15e07e54e">earlyCleanup</a> ()</td></tr>
-<tr class="memdesc:a0ea4afb54444b6a57c92edf15e07e54e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optional early cleanup hook that is called when the engine is destructing prior to entities and resources all being freed.  <a href="a02897.html#a0ea4afb54444b6a57c92edf15e07e54e">More...</a><br /></td></tr>
-<tr class="separator:a0ea4afb54444b6a57c92edf15e07e54e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Base class for <a class="el" href="a02833.html" title="Core engine class that owns engine resources and the main game loop.">Engine</a> systems which can be registered in the <a class="el" href="a02901.html" title="Central registry for systems in the engine. Systems should be registered here before the engine is st...">Systems</a> registry. </p>
-
-<p class="definition">Definition at line <a class="el" href="a06278_source.html#l00018">18</a> of file <a class="el" href="a06278_source.html">System.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aa94c5ee9b05530eb29c7ad3e5b801225"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa94c5ee9b05530eb29c7ad3e5b801225">&#9670;&nbsp;</a></span>~System()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bl::engine::System::~System </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Destroys the system. </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a0ea4afb54444b6a57c92edf15e07e54e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ea4afb54444b6a57c92edf15e07e54e">&#9670;&nbsp;</a></span>earlyCleanup()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void bl::engine::System::earlyCleanup </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Optional early cleanup hook that is called when the engine is destructing prior to entities and resources all being freed. </p>
-
-<p class="definition">Definition at line <a class="el" href="a06278_source.html#l00055">55</a> of file <a class="el" href="a06278_source.html">System.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a9ec226cb2c0e129eaf4f7c53c318d0da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ec226cb2c0e129eaf4f7c53c318d0da">&#9670;&nbsp;</a></span>init()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void bl::engine::System::init </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02833.html">engine::Engine</a> &amp;&#160;</td>
-          <td class="paramname"><em>engine</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>This is called once on engine startup. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>The game engine instance </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implemented in <a class="el" href="a04937.html#a88174e900b7f3aaa151a8aaa80ab6145">bl::sys::DescriptorComponentSystem&lt; TCom, TPayload &gt;</a>.</p>
-
-</div>
-</div>
-<a id="ad54860ab304e448edd55571f4e039634"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad54860ab304e448edd55571f4e039634">&#9670;&nbsp;</a></span>notifyFrameStart()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void bl::engine::System::notifyFrameStart </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called once each frame immediately after OS events are processed and before update. </p>
-
-<p class="definition">Definition at line <a class="el" href="a06278_source.html#l00049">49</a> of file <a class="el" href="a06278_source.html">System.hpp</a>.</p>
-
-</div>
-</div>
-<a id="af8ce424a5aa9cd48a5f4058115ab27a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8ce424a5aa9cd48a5f4058115ab27a6">&#9670;&nbsp;</a></span>update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void bl::engine::System::update </td>
-          <td>(</td>
-          <td class="paramtype">std::mutex &amp;&#160;</td>
-          <td class="paramname"><em>stageMutex</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>dt</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>realDt</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>residual</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>realResidual</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>This is called each frame with the time to simulate. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">stageMutex</td><td>Reference to a mutex that can be used to synchronize systems in the same stage that run in parallel</td></tr>
-    <tr><td class="paramname">dt</td><td>Time to simulate in seconds </td></tr>
-    <tr><td class="paramname">realDt</td><td>Time elapsed in real seconds </td></tr>
-    <tr><td class="paramname">residual</td><td>Simulation time, in seconds, not yet accounted for </td></tr>
-    <tr><td class="paramname">realResidual</td><td>Real time, in seconds, not yet accounted for </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implemented in <a class="el" href="a04937.html#ad9ce151d80179340dfafa7b846c9f7fb">bl::sys::DescriptorComponentSystem&lt; TCom, TPayload &gt;</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Engine/<a class="el" href="a06278_source.html">System.hpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a02900.html">bl::ecs::trait::ParentAwareVersioned&lt; T &gt;</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a02896.html#af956a8665be493c1af3a83e7b8b46b39">getParent</a>()</td><td class="entry"><a class="el" href="a02896.html">bl::ecs::trait::ParentAware&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02896.html#a6b7753db78666c80beeec8d09d7f8727">getParent</a>() const</td><td class="entry"><a class="el" href="a02896.html">bl::ecs::trait::ParentAware&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02904.html#aa588c79bb8fcd9436a0e57628859d41d">getVersion</a>() const</td><td class="entry"><a class="el" href="a02904.html">bl::ecs::trait::Versioned</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02896.html#ab780c69836a6fda54b7bb9d14c536c7f">hasParent</a>() const</td><td class="entry"><a class="el" href="a02896.html">bl::ecs::trait::ParentAware&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02904.html#a82719504b4bec76caa559aeedeb4d214">incrementVersion</a>()</td><td class="entry"><a class="el" href="a02904.html">bl::ecs::trait::Versioned</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02900.html#a1318a18bf58404bb724762666ee8c971">markRefreshed</a>()</td><td class="entry"><a class="el" href="a02900.html">bl::ecs::trait::ParentAwareVersioned&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02900.html#adcf23c5e788b8996e14c9c04e2f7ac12">operator=</a>(const ParentAwareVersioned &amp;)=default</td><td class="entry"><a class="el" href="a02900.html">bl::ecs::trait::ParentAwareVersioned&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02900.html#a987216f1e4582948cf76250687ebd4fe">operator=</a>(ParentAwareVersioned &amp;&amp;)=default</td><td class="entry"><a class="el" href="a02900.html">bl::ecs::trait::ParentAwareVersioned&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02904.html#ab78ca3bf4941d7b36086bff2cb789e31">bl::ecs::trait::Versioned::operator=</a>(const Versioned &amp;)=default</td><td class="entry"><a class="el" href="a02904.html">bl::ecs::trait::Versioned</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02904.html#ae1f7495c8fde5c54a2ac1528775a393e">bl::ecs::trait::Versioned::operator=</a>(Versioned &amp;&amp;)=default</td><td class="entry"><a class="el" href="a02904.html">bl::ecs::trait::Versioned</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02896.html#aee91f8bcadb04c1aa78ed5a470d36e23">ParentAware</a>()</td><td class="entry"><a class="el" href="a02896.html">bl::ecs::trait::ParentAware&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02900.html#a25713b56a0155f6a27985c90c7028fbd">ParentAwareVersioned</a>()</td><td class="entry"><a class="el" href="a02900.html">bl::ecs::trait::ParentAwareVersioned&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02900.html#a7e718ab7c98a9f55df78b46933c07c8f">ParentAwareVersioned</a>(const ParentAwareVersioned &amp;)=default</td><td class="entry"><a class="el" href="a02900.html">bl::ecs::trait::ParentAwareVersioned&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02900.html#a0918e4fdb98af1efc77c5ad01a7606ab">ParentAwareVersioned</a>(ParentAwareVersioned &amp;&amp;)=default</td><td class="entry"><a class="el" href="a02900.html">bl::ecs::trait::ParentAwareVersioned&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02900.html#a304a6ded9ccb6c48fa1e788e17887d90">refreshRequired</a>() const</td><td class="entry"><a class="el" href="a02900.html">bl::ecs::trait::ParentAwareVersioned&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02904.html#ab9537058ab47e8d5a944039880d72362">Versioned</a>()</td><td class="entry"><a class="el" href="a02904.html">bl::ecs::trait::Versioned</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02904.html#a45cdaab81be9507f40b484c906f4f6d7">Versioned</a>(const Versioned &amp;)=default</td><td class="entry"><a class="el" href="a02904.html">bl::ecs::trait::Versioned</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02904.html#a86bb85cc0bdfd26d2d217ffe826e71e3">Versioned</a>(Versioned &amp;&amp;)=default</td><td class="entry"><a class="el" href="a02904.html">bl::ecs::trait::Versioned</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:57:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

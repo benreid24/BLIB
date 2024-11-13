@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Input/Configurator.hpp Source File</title>
+<title>BLIB: include/BLIB/Graphics/Shapes2D/BatchShape2D.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,82 +66,92 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_c720f75c1eb5aaccd40e24fd6b592b41.html">Input</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_8af985930208ac2752e8061e22535a56.html">Graphics</a></li><li class="navelem"><a class="el" href="dir_886502d98260abb236f1d1310d59e9a0.html">Shapes2D</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Configurator.hpp</div>  </div>
+<div class="title">BatchShape2D.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00389.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_INPUT_CONFIGURATOR_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_INPUT_CONFIGURATOR_HPP</span></div>
+<a href="a00389.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GRAPHICS_SHAPES2D_BATCHSHAPE2D_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GRAPHICS_SHAPES2D_BATCHSHAPE2D_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00182.html">BLIB/Events.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00407.html">BLIB/Input/Joystick.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00416.html">BLIB/Input/Trigger.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;SFML/Window/Event.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06544.html">BLIB/Components/Transform2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06583.html">BLIB/Engine/Systems.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06517.html">BLIB/Graphics/Shapes2D/Shape2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00806.html">BLIB/Render/Buffers/BatchIndexBuffer.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>input</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>gfx</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a03153.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03153.html">Configurator</a> : <span class="keyword">public</span> <a class="code" href="a02941.html">event::Listener</a>&lt;sf::Event&gt; {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a03153.html#aef25e3f51fd2c7beb576e27e9a30f6beaf33e00369e8f67bc337212fdd5c04293">   21</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="a03153.html#aef25e3f51fd2c7beb576e27e9a30f6be">State</a> { <a class="code" href="a03153.html#aef25e3f51fd2c7beb576e27e9a30f6beaf33e00369e8f67bc337212fdd5c04293">Finished</a>, <a class="code" href="a03153.html#aef25e3f51fd2c7beb576e27e9a30f6bea4ca3a16501ad28d019c3b9b0aef4987a">WaitingTrigger</a>, <a class="code" href="a03153.html#aef25e3f51fd2c7beb576e27e9a30f6bea7db0af53a91b31b3117336901be42e19">WaitingHorAxis</a>, <a class="code" href="a03153.html#aef25e3f51fd2c7beb576e27e9a30f6bea47414931de203beb1862cec4201e4b09">WaitingVertAxis</a> };</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="a03153.html#ad37a93f5efc0992548c8907d0a284d0d">Configurator</a>();</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span>BatchedShapes2D;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a02386.html">   15</a></span>&#160;<span class="keyword">namespace </span>s2d</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03240.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03240.html">BatchShape2D</a> : <span class="keyword">public</span> <a class="code" href="a03256.html">Shape2D</a> {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03240.html#ac52e6d90c1d8c6bbfab33200d520b2ba">~BatchShape2D</a>();</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03153.html#ac92ed7e0ca7f7c1a144881a569d59254">start</a>(<a class="code" href="a03209.html">Trigger</a>&amp; toSet);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03153.html#ac92ed7e0ca7f7c1a144881a569d59254">start</a>(<a class="code" href="a03185.html">Joystick</a>&amp; stick);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a03153.html#ad2533baa16b9727c2dca42c26134ee50">finished</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="a03153.html#aef25e3f51fd2c7beb576e27e9a30f6be">State</a> <a class="code" href="a03153.html#a0ea028d6a423ba4fa1953cc4ed7ce61f">getState</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">enum struct</span> JoystickState { WaitingPositive, WaitingNegative };</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <a class="code" href="a03153.html#aef25e3f51fd2c7beb576e27e9a30f6be">State</a> state;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">union </span>{</div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="a03153.html#a79b13de0a1a6dd50d6add9ab08e358f6">   60</a></span>&#160;        <a class="code" href="a03209.html">Trigger</a>* <a class="code" href="a03153.html#a79b13de0a1a6dd50d6add9ab08e358f6">trigger</a>;</div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="a03153.html#abc5fdf378f08e29dd52742e38aa30143">   61</a></span>&#160;        <a class="code" href="a03185.html">Joystick</a>* <a class="code" href="a03153.html#abc5fdf378f08e29dd52742e38aa30143">joystick</a>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    };</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    JoystickState jsState;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    sf::Joystick::Axis axis;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> sf::Event&amp; event) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;};</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;} <span class="comment">// namespace input</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00182_html"><div class="ttname"><a href="a00182.html">Events.hpp</a></div></div>
-<div class="ttc" id="aa00407_html"><div class="ttname"><a href="a00407.html">Joystick.hpp</a></div></div>
-<div class="ttc" id="aa00416_html"><div class="ttname"><a href="a00416.html">Trigger.hpp</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02941_html"><div class="ttname"><a href="a02941.html">bl::event::Listener</a></div><div class="ttdoc">Listener of multiple event types. Listeners should inherit this class with the types of events they w...</div><div class="ttdef"><b>Definition:</b> <a href="a06293_source.html#l00049">Listener.hpp:49</a></div></div>
-<div class="ttc" id="aa03153_html"><div class="ttname"><a href="a03153.html">bl::input::Configurator</a></div><div class="ttdoc">Helper to set controls from window events.</div><div class="ttdef"><b>Definition:</b> <a href="a00389_source.html#l00019">Configurator.hpp:19</a></div></div>
-<div class="ttc" id="aa03153_html_a0ea028d6a423ba4fa1953cc4ed7ce61f"><div class="ttname"><a href="a03153.html#a0ea028d6a423ba4fa1953cc4ed7ce61f">bl::input::Configurator::getState</a></div><div class="ttdeci">State getState() const</div><div class="ttdoc">Returns a more fine-grained state than just finished()</div><div class="ttdef"><b>Definition:</b> <a href="a01598_source.html#l00043">Configurator.cpp:43</a></div></div>
-<div class="ttc" id="aa03153_html_a79b13de0a1a6dd50d6add9ab08e358f6"><div class="ttname"><a href="a03153.html#a79b13de0a1a6dd50d6add9ab08e358f6">bl::input::Configurator::trigger</a></div><div class="ttdeci">Trigger * trigger</div><div class="ttdef"><b>Definition:</b> <a href="a00389_source.html#l00060">Configurator.hpp:60</a></div></div>
-<div class="ttc" id="aa03153_html_abc5fdf378f08e29dd52742e38aa30143"><div class="ttname"><a href="a03153.html#abc5fdf378f08e29dd52742e38aa30143">bl::input::Configurator::joystick</a></div><div class="ttdeci">Joystick * joystick</div><div class="ttdef"><b>Definition:</b> <a href="a00389_source.html#l00061">Configurator.hpp:61</a></div></div>
-<div class="ttc" id="aa03153_html_ac92ed7e0ca7f7c1a144881a569d59254"><div class="ttname"><a href="a03153.html#ac92ed7e0ca7f7c1a144881a569d59254">bl::input::Configurator::start</a></div><div class="ttdeci">void start(Trigger &amp;toSet)</div><div class="ttdoc">Start the configurator for the given control.</div><div class="ttdef"><b>Definition:</b> <a href="a01598_source.html#l00020">Configurator.cpp:20</a></div></div>
-<div class="ttc" id="aa03153_html_ad2533baa16b9727c2dca42c26134ee50"><div class="ttname"><a href="a03153.html#ad2533baa16b9727c2dca42c26134ee50">bl::input::Configurator::finished</a></div><div class="ttdeci">bool finished() const</div><div class="ttdoc">Returns whether the Configurator is finished or not.</div><div class="ttdef"><b>Definition:</b> <a href="a01598_source.html#l00041">Configurator.cpp:41</a></div></div>
-<div class="ttc" id="aa03153_html_ad37a93f5efc0992548c8907d0a284d0d"><div class="ttname"><a href="a03153.html#ad37a93f5efc0992548c8907d0a284d0d">bl::input::Configurator::Configurator</a></div><div class="ttdeci">Configurator()</div><div class="ttdoc">Construct a new Configurator object.</div><div class="ttdef"><b>Definition:</b> <a href="a01598_source.html#l00015">Configurator.cpp:15</a></div></div>
-<div class="ttc" id="aa03153_html_aef25e3f51fd2c7beb576e27e9a30f6be"><div class="ttname"><a href="a03153.html#aef25e3f51fd2c7beb576e27e9a30f6be">bl::input::Configurator::State</a></div><div class="ttdeci">State</div><div class="ttdef"><b>Definition:</b> <a href="a00389_source.html#l00021">Configurator.hpp:21</a></div></div>
-<div class="ttc" id="aa03153_html_aef25e3f51fd2c7beb576e27e9a30f6bea47414931de203beb1862cec4201e4b09"><div class="ttname"><a href="a03153.html#aef25e3f51fd2c7beb576e27e9a30f6bea47414931de203beb1862cec4201e4b09">bl::input::Configurator::WaitingVertAxis</a></div><div class="ttdeci">@ WaitingVertAxis</div><div class="ttdef"><b>Definition:</b> <a href="a00389_source.html#l00021">Configurator.hpp:21</a></div></div>
-<div class="ttc" id="aa03153_html_aef25e3f51fd2c7beb576e27e9a30f6bea4ca3a16501ad28d019c3b9b0aef4987a"><div class="ttname"><a href="a03153.html#aef25e3f51fd2c7beb576e27e9a30f6bea4ca3a16501ad28d019c3b9b0aef4987a">bl::input::Configurator::WaitingTrigger</a></div><div class="ttdeci">@ WaitingTrigger</div><div class="ttdef"><b>Definition:</b> <a href="a00389_source.html#l00021">Configurator.hpp:21</a></div></div>
-<div class="ttc" id="aa03153_html_aef25e3f51fd2c7beb576e27e9a30f6bea7db0af53a91b31b3117336901be42e19"><div class="ttname"><a href="a03153.html#aef25e3f51fd2c7beb576e27e9a30f6bea7db0af53a91b31b3117336901be42e19">bl::input::Configurator::WaitingHorAxis</a></div><div class="ttdeci">@ WaitingHorAxis</div><div class="ttdef"><b>Definition:</b> <a href="a00389_source.html#l00021">Configurator.hpp:21</a></div></div>
-<div class="ttc" id="aa03153_html_aef25e3f51fd2c7beb576e27e9a30f6beaf33e00369e8f67bc337212fdd5c04293"><div class="ttname"><a href="a03153.html#aef25e3f51fd2c7beb576e27e9a30f6beaf33e00369e8f67bc337212fdd5c04293">bl::input::Configurator::Finished</a></div><div class="ttdeci">@ Finished</div><div class="ttdef"><b>Definition:</b> <a href="a00389_source.html#l00021">Configurator.hpp:21</a></div></div>
-<div class="ttc" id="aa03185_html"><div class="ttname"><a href="a03185.html">bl::input::Joystick</a></div><div class="ttdoc">Helper struct representing a full joystick for inputs.</div><div class="ttdef"><b>Definition:</b> <a href="a00407_source.html#l00018">Joystick.hpp:18</a></div></div>
-<div class="ttc" id="aa03209_html"><div class="ttname"><a href="a03209.html">bl::input::Trigger</a></div><div class="ttdoc">Wrapper around keyboard and mouse buttons. Triggers activate Controls.</div><div class="ttdef"><b>Definition:</b> <a href="a00416_source.html#l00020">Trigger.hpp:20</a></div></div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a03240.html#a29811af2d6d84e7e785cda93149c0c39">   33</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="a02656.html">com::Transform2D</a>&amp; <a class="code" href="a03240.html#a29811af2d6d84e7e785cda93149c0c39">getLocalTransform</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> transform; }</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="a02656.html">com::Transform2D</a>&amp; <a class="code" href="a03240.html#a29811af2d6d84e7e785cda93149c0c39">getLocalTransform</a>();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03240.html#aab82a256d174d391e722dc2fd8a284aa">remove</a>();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a03240.html#a313a15523bc624a4b5e915e06392db0c">isCreated</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03240.html#a0f4d1477126bc28a156317771a5b9ac5">commit</a>();</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="a03240.html#a78526c90434364d6878599dba3c2e881">BatchShape2D</a>();</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03240.html#a301219638346a364ab842e94b63fe76a">create</a>(<a class="code" href="a02964.html">engine::Engine</a>&amp; engine, <a class="code" href="a03164.html">BatchedShapes2D</a>&amp; owner);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03240.html#ae72cfba3b165030282323fad73d107c6">notifyDirty</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="a02964.html">engine::Engine</a>* engine;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="a03164.html">BatchedShapes2D</a>* owner;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <a class="code" href="a02656.html">com::Transform2D</a> transform;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <a class="code" href="a03892.html">rc::buf::BatchIndexBuffer::AllocHandle</a> alloc;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">bool</span> dirty;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <a class="code" href="a03056.html">engine::Systems::TaskHandle</a> updateHandle;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> ensureUpdated() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordtype">void</span> updateVertices();</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;};</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;} <span class="comment">// namespace s2d</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;} <span class="comment">// namespace gfx</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00806_html"><div class="ttname"><a href="a00806.html">BatchIndexBuffer.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02656_html"><div class="ttname"><a href="a02656.html">bl::com::Transform2D</a></div><div class="ttdoc">Representation of a 2d transform with a depth component to allow the depth buffer to be used when ren...</div><div class="ttdef"><b>Definition:</b> <a href="a06544_source.html#l00018">Transform2D.hpp:20</a></div></div>
+<div class="ttc" id="aa02964_html"><div class="ttname"><a href="a02964.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06568_source.html#l00038">Engine.hpp:38</a></div></div>
+<div class="ttc" id="aa03056_html"><div class="ttname"><a href="a03056.html">bl::engine::Systems::TaskHandle</a></div><div class="ttdoc">Handle to a task submitted to Systems.</div><div class="ttdef"><b>Definition:</b> <a href="a06583_source.html#l00042">Systems.hpp:42</a></div></div>
+<div class="ttc" id="aa03164_html"><div class="ttname"><a href="a03164.html">bl::gfx::BatchedShapes2D</a></div><div class="ttdoc">Drawable for a collection of batched 2d shapes. Create one of these and use with multiple BatchedCirc...</div><div class="ttdef"><b>Definition:</b> <a href="a06487_source.html#l00020">BatchedShapes2D.hpp:22</a></div></div>
+<div class="ttc" id="aa03240_html"><div class="ttname"><a href="a03240.html">bl::gfx::s2d::BatchShape2D</a></div><div class="ttdoc">Base class for batched 2d shapes.</div><div class="ttdef"><b>Definition:</b> <a href="a00389_source.html#l00022">BatchShape2D.hpp:22</a></div></div>
+<div class="ttc" id="aa03240_html_a0f4d1477126bc28a156317771a5b9ac5"><div class="ttname"><a href="a03240.html#a0f4d1477126bc28a156317771a5b9ac5">bl::gfx::s2d::BatchShape2D::commit</a></div><div class="ttdeci">void commit()</div><div class="ttdoc">Call to manually commit geometry updates to the owning batch.</div><div class="ttdef"><b>Definition:</b> <a href="a01631_source.html#l00041">BatchShape2D.cpp:41</a></div></div>
+<div class="ttc" id="aa03240_html_a29811af2d6d84e7e785cda93149c0c39"><div class="ttname"><a href="a03240.html#a29811af2d6d84e7e785cda93149c0c39">bl::gfx::s2d::BatchShape2D::getLocalTransform</a></div><div class="ttdeci">const com::Transform2D &amp; getLocalTransform() const</div><div class="ttdoc">Returns the local transform of the shape. Determines the positions of the vertices within the batch.</div><div class="ttdef"><b>Definition:</b> <a href="a00389_source.html#l00033">BatchShape2D.hpp:33</a></div></div>
+<div class="ttc" id="aa03240_html_a301219638346a364ab842e94b63fe76a"><div class="ttname"><a href="a03240.html#a301219638346a364ab842e94b63fe76a">bl::gfx::s2d::BatchShape2D::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, BatchedShapes2D &amp;owner)</div><div class="ttdoc">Sets the owner and allocates the required vertices.</div><div class="ttdef"><b>Definition:</b> <a href="a01631_source.html#l00022">BatchShape2D.cpp:22</a></div></div>
+<div class="ttc" id="aa03240_html_a313a15523bc624a4b5e915e06392db0c"><div class="ttname"><a href="a03240.html#a313a15523bc624a4b5e915e06392db0c">bl::gfx::s2d::BatchShape2D::isCreated</a></div><div class="ttdeci">bool isCreated() const</div><div class="ttdoc">Returns whether or not the shape has been created.</div><div class="ttdef"><b>Definition:</b> <a href="a01631_source.html#l00101">BatchShape2D.cpp:101</a></div></div>
+<div class="ttc" id="aa03240_html_a78526c90434364d6878599dba3c2e881"><div class="ttname"><a href="a03240.html#a78526c90434364d6878599dba3c2e881">bl::gfx::s2d::BatchShape2D::BatchShape2D</a></div><div class="ttdeci">BatchShape2D()</div><div class="ttdoc">Initializes the shape.</div><div class="ttdef"><b>Definition:</b> <a href="a01631_source.html#l00012">BatchShape2D.cpp:12</a></div></div>
+<div class="ttc" id="aa03240_html_aab82a256d174d391e722dc2fd8a284aa"><div class="ttname"><a href="a03240.html#aab82a256d174d391e722dc2fd8a284aa">bl::gfx::s2d::BatchShape2D::remove</a></div><div class="ttdeci">void remove()</div><div class="ttdoc">Removes the shape from the batch.</div><div class="ttdef"><b>Definition:</b> <a href="a01631_source.html#l00091">BatchShape2D.cpp:91</a></div></div>
+<div class="ttc" id="aa03240_html_ac52e6d90c1d8c6bbfab33200d520b2ba"><div class="ttname"><a href="a03240.html#ac52e6d90c1d8c6bbfab33200d520b2ba">bl::gfx::s2d::BatchShape2D::~BatchShape2D</a></div><div class="ttdeci">virtual ~BatchShape2D()</div><div class="ttdoc">Destroys the shape.</div><div class="ttdef"><b>Definition:</b> <a href="a01631_source.html#l00017">BatchShape2D.cpp:17</a></div></div>
+<div class="ttc" id="aa03240_html_ae72cfba3b165030282323fad73d107c6"><div class="ttname"><a href="a03240.html#ae72cfba3b165030282323fad73d107c6">bl::gfx::s2d::BatchShape2D::notifyDirty</a></div><div class="ttdeci">virtual void notifyDirty() override</div><div class="ttdoc">Call whenever the shape geometry needs to be updated.</div><div class="ttdef"><b>Definition:</b> <a href="a01631_source.html#l00028">BatchShape2D.cpp:28</a></div></div>
+<div class="ttc" id="aa03256_html"><div class="ttname"><a href="a03256.html">bl::gfx::s2d::Shape2D</a></div><div class="ttdoc">Base class for all 2d shapes. Provides part of the interface, as well as index buffer population....</div><div class="ttdef"><b>Definition:</b> <a href="a06517_source.html#l00022">Shape2D.hpp:22</a></div></div>
+<div class="ttc" id="aa03892_html"><div class="ttname"><a href="a03892.html">bl::rc::buf::BatchIndexBufferT::AllocHandle</a></div><div class="ttdoc">Handle to an allocation from the index buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00806_source.html#l00040">BatchIndexBuffer.hpp:40</a></div></div>
+<div class="ttc" id="aa06517_html"><div class="ttname"><a href="a06517.html">Shape2D.hpp</a></div></div>
+<div class="ttc" id="aa06544_html"><div class="ttname"><a href="a06544.html">Transform2D.hpp</a></div></div>
+<div class="ttc" id="aa06583_html"><div class="ttname"><a href="a06583.html">Systems.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

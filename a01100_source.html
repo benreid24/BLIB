@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Vulkan/DescriptorSet.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Transfers/Transferable.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,92 +66,100 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_49b99cfd015d92f767de1d8dec868906.html">Vulkan</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1371b99667ed992b8332faf3b4f2dec9.html">Transfers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">DescriptorSet.hpp</div>  </div>
+<div class="title">Transferable.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01100.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_DESCRIPTORSET_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_DESCRIPTORSET_HPP</span></div>
+<a href="a01100.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_TRANSFERABLE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_TRANSFERABLE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01097.html">BLIB/Render/Vulkan/DescriptorPool.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01412.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01103.html">BLIB/Render/Transfers/TransferContext.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01451.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>vk</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">struct </span>VulkanState;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a04285.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04285.html">DescriptorSet</a> {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="a04285.html#adb62e07ed7670ac7dc13a2399d8c6449">DescriptorSet</a>();</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="a04285.html#adb62e07ed7670ac7dc13a2399d8c6449">DescriptorSet</a>(<a class="code" href="a04405.html">VulkanState</a>&amp; vulkanState);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="a04285.html#adb62e07ed7670ac7dc13a2399d8c6449">DescriptorSet</a>(<a class="code" href="a04405.html">VulkanState</a>&amp; vulkanState, VkDescriptorSetLayout layout,</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                  <span class="keywordtype">bool</span> dedicatedPool = <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="a04285.html#ab6ed0bc70752febc342036bc270d5dd9">   47</a></span>&#160;    <a class="code" href="a04285.html#ab6ed0bc70752febc342036bc270d5dd9">DescriptorSet</a>(<span class="keyword">const</span> <a class="code" href="a04285.html">DescriptorSet</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>tfr</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a04396.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04396.html">Transferable</a> {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a04396.html#a109f9d7acc098649830f276c266b47d0">   28</a></span>&#160;    <span class="keyword">enum struct</span> <a class="code" href="a04396.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <a class="code" href="a04396.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">Immediate</a>,</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <a class="code" href="a04396.html#a109f9d7acc098649830f276c266b47d0a11fb2e916cb91ad9afad4da5711d81d0">DeviceIdle</a></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    };</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a04396.html#a05233a758f0875563aea077dde3096f6">~Transferable</a>();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a04396.html#af2cddcfa3664702cb39bba2e304e5074">queueTransfer</a>(<a class="code" href="a04396.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> syncReq = <a class="code" href="a04396.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">SyncRequirement::Immediate</a>);</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="a04285.html#adb62e07ed7670ac7dc13a2399d8c6449">DescriptorSet</a>(<a class="code" href="a04285.html">DescriptorSet</a>&amp;&amp; ds);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04396.html#affdc9c965d73f5227f2d3e0c8a17064e">transferEveryFrame</a>(<a class="code" href="a04396.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> syncReq = <a class="code" href="a04396.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">SyncRequirement::Immediate</a>);</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <a class="code" href="a04285.html#a799707e8dfa2b1993b61607fe8a1dd1d">~DescriptorSet</a>();</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04396.html#a998a9c05422f6188b474d275866a6b2b">stopTransferringEveryFrame</a>();</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="a04285.html#a4435b071e9cebdda93a8676f79be795c">   64</a></span>&#160;    <a class="code" href="a04285.html">DescriptorSet</a>&amp; <a class="code" href="a04285.html#a4435b071e9cebdda93a8676f79be795c">operator=</a>(<span class="keyword">const</span> <a class="code" href="a04285.html">DescriptorSet</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="a04396.html#a2fbe7414a05994b43584022f6d333c0d">   64</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a04396.html#a2fbe7414a05994b43584022f6d333c0d">isQueued</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> queued || perFrame != NotPerFrame; }</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="a04285.html">DescriptorSet</a>&amp; <a class="code" href="a04285.html#a4435b071e9cebdda93a8676f79be795c">operator=</a>(<a class="code" href="a04285.html">DescriptorSet</a>&amp;&amp; ds);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04285.html#aa43ef2b83bb29be6560d26ca964071a7">init</a>(<a class="code" href="a04405.html">VulkanState</a>&amp; vs);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04285.html#ab4688b60580626c3a49ae1dc37a8b64a">allocate</a>(VkDescriptorSetLayout layout, <span class="keywordtype">bool</span> dedicatedPool = <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04285.html#a76d00935670fc4f545dbfbf4e995b51e">release</a>();</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04285.html#a13eec443ddabd8645770709f0e0e5fe7">deferRelease</a>();</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="a04285.html#ab613dd228e2878423e523d418d14412b">  104</a></span>&#160;    VkDescriptorSet <a class="code" href="a04285.html#ab613dd228e2878423e523d418d14412b">getSet</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> set; }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04396.html#ac7eb35d2804ad40e76823182f4eae9c8">cancelQueuedTransfer</a>();</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="a04396.html#ae134133a20147f77b4feae59dc9b447d">   72</a></span>&#160;    <a class="code" href="a04580.html">vk::VulkanState</a>* <a class="code" href="a04396.html#ae134133a20147f77b4feae59dc9b447d">vulkanState</a>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="a04396.html#a168f2c871b5f008471d22febc6fed7c1">Transferable</a>();</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <a class="code" href="a04396.html#a168f2c871b5f008471d22febc6fed7c1">Transferable</a>(<a class="code" href="a04580.html">vk::VulkanState</a>&amp; vs);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="a04396.html#a45c235479910a695c7e770d79f3c528d">   93</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a04396.html#a45c235479910a695c7e770d79f3c528d">executeTransfer</a>(VkCommandBuffer commandBuffer, <a class="code" href="a04400.html">TransferContext</a>&amp; context) = 0;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keyword">static</span> constexpr <a class="code" href="a04396.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> NotPerFrame =</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keyword">static_cast&lt;</span><a class="code" href="a04396.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a><span class="keyword">&gt;</span>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code" href="a04396.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">SyncRequirement::Immediate</a>) +</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                                     <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code" href="a04396.html#a109f9d7acc098649830f276c266b47d0a11fb2e916cb91ad9afad4da5711d81d0">SyncRequirement::DeviceIdle</a>) + 1);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <a class="code" href="a04396.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> perFrame;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordtype">bool</span> queued;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="a04396.html#ac07143e1010fb3b1749e621c1bc1931f">  103</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a04404.html">TransferEngine</a>;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;};</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04285.html#ae4a8a14a81043505262f935af71963f9">bind</a>(VkCommandBuffer commandBuffer, VkPipelineBindPoint bindPoint, VkPipelineLayout layout,</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;              std::uint32_t index);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <a class="code" href="a04405.html">VulkanState</a>* vulkanState;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <a class="code" href="a04269.html#a7bb5a0efe4177857484ecb6ae66c75dd">vk::DescriptorPool::AllocationHandle</a> alloc;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    VkDescriptorSet set;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;};</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;} <span class="comment">// namespace vk</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01097_html"><div class="ttname"><a href="a01097.html">DescriptorPool.hpp</a></div></div>
-<div class="ttc" id="aa01412_html"><div class="ttname"><a href="a01412.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04269_html_a7bb5a0efe4177857484ecb6ae66c75dd"><div class="ttname"><a href="a04269.html#a7bb5a0efe4177857484ecb6ae66c75dd">bl::rc::vk::DescriptorPool::AllocationHandle</a></div><div class="ttdeci">std::list&lt; Allocation &gt;::iterator AllocationHandle</div><div class="ttdoc">Handle to an allocation from the pool.</div><div class="ttdef"><b>Definition:</b> <a href="a01097_source.html#l00044">DescriptorPool.hpp:44</a></div></div>
-<div class="ttc" id="aa04285_html"><div class="ttname"><a href="a04285.html">bl::rc::vk::DescriptorSet</a></div><div class="ttdoc">Wrapper around a single allocated descriptor set from the DescriptorPool.</div><div class="ttdef"><b>Definition:</b> <a href="a01100_source.html#l00020">DescriptorSet.hpp:20</a></div></div>
-<div class="ttc" id="aa04285_html_a13eec443ddabd8645770709f0e0e5fe7"><div class="ttname"><a href="a04285.html#a13eec443ddabd8645770709f0e0e5fe7">bl::rc::vk::DescriptorSet::deferRelease</a></div><div class="ttdeci">void deferRelease()</div><div class="ttdoc">Defers release of the descriptor set if any.</div><div class="ttdef"><b>Definition:</b> <a href="a02057_source.html#l00057">DescriptorSet.cpp:57</a></div></div>
-<div class="ttc" id="aa04285_html_a4435b071e9cebdda93a8676f79be795c"><div class="ttname"><a href="a04285.html#a4435b071e9cebdda93a8676f79be795c">bl::rc::vk::DescriptorSet::operator=</a></div><div class="ttdeci">DescriptorSet &amp; operator=(const DescriptorSet &amp;)=delete</div><div class="ttdoc">Deleted.</div></div>
-<div class="ttc" id="aa04285_html_a76d00935670fc4f545dbfbf4e995b51e"><div class="ttname"><a href="a04285.html#a76d00935670fc4f545dbfbf4e995b51e">bl::rc::vk::DescriptorSet::release</a></div><div class="ttdeci">void release()</div><div class="ttdoc">Immediately releases the descriptor set if any.</div><div class="ttdef"><b>Definition:</b> <a href="a02057_source.html#l00050">DescriptorSet.cpp:50</a></div></div>
-<div class="ttc" id="aa04285_html_a799707e8dfa2b1993b61607fe8a1dd1d"><div class="ttname"><a href="a04285.html#a799707e8dfa2b1993b61607fe8a1dd1d">bl::rc::vk::DescriptorSet::~DescriptorSet</a></div><div class="ttdeci">~DescriptorSet()</div><div class="ttdoc">Defers release of the set if allocated.</div><div class="ttdef"><b>Definition:</b> <a href="a02057_source.html#l00034">DescriptorSet.cpp:34</a></div></div>
-<div class="ttc" id="aa04285_html_aa43ef2b83bb29be6560d26ca964071a7"><div class="ttname"><a href="a04285.html#aa43ef2b83bb29be6560d26ca964071a7">bl::rc::vk::DescriptorSet::init</a></div><div class="ttdeci">void init(VulkanState &amp;vs)</div><div class="ttdoc">Deferred init of Vulkan state pointer. For use with PerFrame.</div><div class="ttdef"><b>Definition:</b> <a href="a02057_source.html#l00043">DescriptorSet.cpp:43</a></div></div>
-<div class="ttc" id="aa04285_html_ab4688b60580626c3a49ae1dc37a8b64a"><div class="ttname"><a href="a04285.html#ab4688b60580626c3a49ae1dc37a8b64a">bl::rc::vk::DescriptorSet::allocate</a></div><div class="ttdeci">void allocate(VkDescriptorSetLayout layout, bool dedicatedPool=false)</div><div class="ttdoc">Creates and allocates the descriptor set. Defers release of the prior set if any.</div><div class="ttdef"><b>Definition:</b> <a href="a02057_source.html#l00045">DescriptorSet.cpp:45</a></div></div>
-<div class="ttc" id="aa04285_html_ab613dd228e2878423e523d418d14412b"><div class="ttname"><a href="a04285.html#ab613dd228e2878423e523d418d14412b">bl::rc::vk::DescriptorSet::getSet</a></div><div class="ttdeci">VkDescriptorSet getSet() const</div><div class="ttdoc">Returns the allocated descriptor set.</div><div class="ttdef"><b>Definition:</b> <a href="a01100_source.html#l00104">DescriptorSet.hpp:104</a></div></div>
-<div class="ttc" id="aa04285_html_ab6ed0bc70752febc342036bc270d5dd9"><div class="ttname"><a href="a04285.html#ab6ed0bc70752febc342036bc270d5dd9">bl::rc::vk::DescriptorSet::DescriptorSet</a></div><div class="ttdeci">DescriptorSet(const DescriptorSet &amp;)=delete</div><div class="ttdoc">Deleted.</div></div>
-<div class="ttc" id="aa04285_html_adb62e07ed7670ac7dc13a2399d8c6449"><div class="ttname"><a href="a04285.html#adb62e07ed7670ac7dc13a2399d8c6449">bl::rc::vk::DescriptorSet::DescriptorSet</a></div><div class="ttdeci">DescriptorSet()</div><div class="ttdoc">Creates an un-allocated descriptor set.</div><div class="ttdef"><b>Definition:</b> <a href="a02057_source.html#l00014">DescriptorSet.cpp:14</a></div></div>
-<div class="ttc" id="aa04285_html_ae4a8a14a81043505262f935af71963f9"><div class="ttname"><a href="a04285.html#ae4a8a14a81043505262f935af71963f9">bl::rc::vk::DescriptorSet::bind</a></div><div class="ttdeci">void bind(VkCommandBuffer commandBuffer, VkPipelineBindPoint bindPoint, VkPipelineLayout layout, std::uint32_t index)</div><div class="ttdoc">Issues the bind command into the command buffer to bind the descriptor set.</div><div class="ttdef"><b>Definition:</b> <a href="a02057_source.html#l00066">DescriptorSet.cpp:66</a></div></div>
-<div class="ttc" id="aa04405_html"><div class="ttname"><a href="a04405.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01157_source.html#l00039">VulkanState.hpp:39</a></div></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;} <span class="comment">// namespace tfr</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01103_html"><div class="ttname"><a href="a01103.html">TransferContext.hpp</a></div></div>
+<div class="ttc" id="aa01451_html"><div class="ttname"><a href="a01451.html">Vulkan.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04396_html"><div class="ttname"><a href="a04396.html">bl::rc::tfr::Transferable</a></div><div class="ttdoc">Base class for objects that transfer state or data to the GPU. Used in conjunction with the TransferE...</div><div class="ttdef"><b>Definition:</b> <a href="a01100_source.html#l00025">Transferable.hpp:25</a></div></div>
+<div class="ttc" id="aa04396_html_a05233a758f0875563aea077dde3096f6"><div class="ttname"><a href="a04396.html#a05233a758f0875563aea077dde3096f6">bl::rc::tfr::Transferable::~Transferable</a></div><div class="ttdeci">virtual ~Transferable()</div><div class="ttdoc">Destroy the transferable object.</div><div class="ttdef"><b>Definition:</b> <a href="a02084_source.html#l00022">Transferable.cpp:22</a></div></div>
+<div class="ttc" id="aa04396_html_a109f9d7acc098649830f276c266b47d0"><div class="ttname"><a href="a04396.html#a109f9d7acc098649830f276c266b47d0">bl::rc::tfr::Transferable::SyncRequirement</a></div><div class="ttdeci">SyncRequirement</div><div class="ttdoc">Enum containing requirements for when transfers may start.</div><div class="ttdef"><b>Definition:</b> <a href="a01100_source.html#l00028">Transferable.hpp:28</a></div></div>
+<div class="ttc" id="aa04396_html_a109f9d7acc098649830f276c266b47d0a11fb2e916cb91ad9afad4da5711d81d0"><div class="ttname"><a href="a04396.html#a109f9d7acc098649830f276c266b47d0a11fb2e916cb91ad9afad4da5711d81d0">bl::rc::tfr::Transferable::SyncRequirement::DeviceIdle</a></div><div class="ttdeci">@ DeviceIdle</div><div class="ttdoc">Transfers with this requirement cannot start until the device is idle.</div></div>
+<div class="ttc" id="aa04396_html_a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1"><div class="ttname"><a href="a04396.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">bl::rc::tfr::Transferable::SyncRequirement::Immediate</a></div><div class="ttdeci">@ Immediate</div><div class="ttdoc">Transfers with this requirement may be started immediately.</div></div>
+<div class="ttc" id="aa04396_html_a168f2c871b5f008471d22febc6fed7c1"><div class="ttname"><a href="a04396.html#a168f2c871b5f008471d22febc6fed7c1">bl::rc::tfr::Transferable::Transferable</a></div><div class="ttdeci">Transferable()</div><div class="ttdoc">Sets vulkanState to nullptr.</div><div class="ttdef"><b>Definition:</b> <a href="a02084_source.html#l00012">Transferable.cpp:12</a></div></div>
+<div class="ttc" id="aa04396_html_a2fbe7414a05994b43584022f6d333c0d"><div class="ttname"><a href="a04396.html#a2fbe7414a05994b43584022f6d333c0d">bl::rc::tfr::Transferable::isQueued</a></div><div class="ttdeci">bool isQueued() const</div><div class="ttdoc">Returns whether or not a transfer is queued, either individually or every frame.</div><div class="ttdef"><b>Definition:</b> <a href="a01100_source.html#l00064">Transferable.hpp:64</a></div></div>
+<div class="ttc" id="aa04396_html_a45c235479910a695c7e770d79f3c528d"><div class="ttname"><a href="a04396.html#a45c235479910a695c7e770d79f3c528d">bl::rc::tfr::Transferable::executeTransfer</a></div><div class="ttdeci">virtual void executeTransfer(VkCommandBuffer commandBuffer, TransferContext &amp;context)=0</div><div class="ttdoc">Derived classes should perform their transfers here. Barriers should be registered with transferEngin...</div></div>
+<div class="ttc" id="aa04396_html_a998a9c05422f6188b474d275866a6b2b"><div class="ttname"><a href="a04396.html#a998a9c05422f6188b474d275866a6b2b">bl::rc::tfr::Transferable::stopTransferringEveryFrame</a></div><div class="ttdeci">void stopTransferringEveryFrame()</div><div class="ttdoc">Removes this Transferable from the queue that gets transferred every frame.</div><div class="ttdef"><b>Definition:</b> <a href="a02084_source.html#l00056">Transferable.cpp:56</a></div></div>
+<div class="ttc" id="aa04396_html_ac7eb35d2804ad40e76823182f4eae9c8"><div class="ttname"><a href="a04396.html#ac7eb35d2804ad40e76823182f4eae9c8">bl::rc::tfr::Transferable::cancelQueuedTransfer</a></div><div class="ttdeci">void cancelQueuedTransfer()</div><div class="ttdoc">Cancels the scheduled transfer. Also cancels transfers that occur every frame.</div><div class="ttdef"><b>Definition:</b> <a href="a02084_source.html#l00024">Transferable.cpp:24</a></div></div>
+<div class="ttc" id="aa04396_html_ae134133a20147f77b4feae59dc9b447d"><div class="ttname"><a href="a04396.html#ae134133a20147f77b4feae59dc9b447d">bl::rc::tfr::Transferable::vulkanState</a></div><div class="ttdeci">vk::VulkanState * vulkanState</div><div class="ttdef"><b>Definition:</b> <a href="a01100_source.html#l00072">Transferable.hpp:72</a></div></div>
+<div class="ttc" id="aa04396_html_af2cddcfa3664702cb39bba2e304e5074"><div class="ttname"><a href="a04396.html#af2cddcfa3664702cb39bba2e304e5074">bl::rc::tfr::Transferable::queueTransfer</a></div><div class="ttdeci">bool queueTransfer(SyncRequirement syncReq=SyncRequirement::Immediate)</div><div class="ttdoc">Queues this object with the TransferEngine to be transfered on the next frame.</div><div class="ttdef"><b>Definition:</b> <a href="a02084_source.html#l00029">Transferable.cpp:29</a></div></div>
+<div class="ttc" id="aa04396_html_affdc9c965d73f5227f2d3e0c8a17064e"><div class="ttname"><a href="a04396.html#affdc9c965d73f5227f2d3e0c8a17064e">bl::rc::tfr::Transferable::transferEveryFrame</a></div><div class="ttdeci">void transferEveryFrame(SyncRequirement syncReq=SyncRequirement::Immediate)</div><div class="ttdoc">Configures this Transferable to transfer every frame with the given sync requirement.</div><div class="ttdef"><b>Definition:</b> <a href="a02084_source.html#l00045">Transferable.cpp:45</a></div></div>
+<div class="ttc" id="aa04400_html"><div class="ttname"><a href="a04400.html">bl::rc::tfr::TransferContext</a></div><div class="ttdef"><b>Definition:</b> <a href="a01103_source.html#l00019">TransferContext.hpp:19</a></div></div>
+<div class="ttc" id="aa04404_html"><div class="ttname"><a href="a04404.html">bl::rc::tfr::TransferEngine</a></div><div class="ttdoc">Utility class to manage the synchronized transfer of data to the GPU.</div><div class="ttdef"><b>Definition:</b> <a href="a01106_source.html#l00025">TransferEngine.hpp:25</a></div></div>
+<div class="ttc" id="aa04580_html"><div class="ttname"><a href="a04580.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01193_source.html#l00039">VulkanState.hpp:39</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

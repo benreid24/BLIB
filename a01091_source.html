@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Vulkan/CommonSamplers.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Scenes/SceneSync.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,90 +66,79 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_49b99cfd015d92f767de1d8dec868906.html">Vulkan</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1582fe53e8ca010e140dea1b69a5a9f3.html">Scenes</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">CommonSamplers.hpp</div>  </div>
+<div class="title">SceneSync.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01091.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_COMMONSAMPLERS_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_COMMONSAMPLERS_HPP</span></div>
+<a href="a01091.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_SCENES_SCENESYNC_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_SCENES_SCENESYNC_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01412.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>vk</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00092.html">BLIB/Components/Rendered.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06556.html">BLIB/ECS/Events.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00194.html">BLIB/Events.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00920.html">BLIB/Render/Events/SceneDestroyed.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00923.html">BLIB/Render/Events/SceneObjectRemoved.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">struct </span>VulkanState;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a04257.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04257.html">CommonSamplers</a> {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    VkSampler <a class="code" href="a04257.html#a9256e10e266a15de4a2bc48fdf3967bc">noFilterBorderClamped</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    VkSampler <a class="code" href="a04257.html#a1b4378fdb67d5655e7e4b49b7525bbca">noFilterEdgeClamped</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    VkSampler <a class="code" href="a04257.html#a1bdaab184d537a5bf72cd99829e91c1d">minFilterBorderClamped</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    VkSampler <a class="code" href="a04257.html#a6520659402341467e5d05b5f7bb40270">magFilterBorderClamped</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    VkSampler <a class="code" href="a04257.html#af46df63640cc28c6b18b848b6f5f9cae">filteredBorderClamped</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    VkSampler <a class="code" href="a04257.html#a91607ebee3b293302eaeb9dd47483c1d">filteredRepeated</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>ecs</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">class </span>Registry;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">class </span>Renderer;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span>scene</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a04384.html">   29</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04384.html">SceneSync</a></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;: <span class="keyword">public</span> <a class="code" href="a03104.html">bl::event::Listener</a>&lt;ecs::event::ComponentAdded&lt;com::Rendered&gt;,</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                             ecs::event::ComponentRemoved&lt;com::Rendered&gt;,</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                             rc::event::SceneObjectRemoved, rc::event::SceneDestroyed&gt; {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a04384.html#a904854d91a6f81cd4ac6b0e923473064">   37</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a04384.html#a904854d91a6f81cd4ac6b0e923473064">~SceneSync</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="a02856.html">ecs::Registry</a>&amp; registry;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="a04384.html">SceneSync</a>(<a class="code" href="a02856.html">ecs::Registry</a>&amp; registry);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> <a class="code" href="a02828.html">ecs::event::ComponentAdded&lt;com::Rendered&gt;</a>&amp; event) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> <a class="code" href="a02832.html">ecs::event::ComponentRemoved&lt;com::Rendered&gt;</a>&amp; event) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> <a class="code" href="a04092.html">rc::event::SceneObjectRemoved</a>&amp; event) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> <a class="code" href="a04088.html">rc::event::SceneDestroyed</a>&amp; event) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a04384.html#aa2cc13185ddec619c41d90af5e836399">   48</a></span>&#160;    <span class="keyword">friend</span> class ::bl::rc::Renderer;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;};</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="a04405.html">VulkanState</a>&amp; vulkanState;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    VkSampler noFilterClamped;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    VkSampler noFilterEClamped;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    VkSampler minFilterClamped;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    VkSampler magFilterClamped;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    VkSampler filteredClamped;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    VkSampler filteredTiled;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="a04257.html">CommonSamplers</a>(<a class="code" href="a04405.html">VulkanState</a>&amp; vs);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">void</span> init();</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> cleanup();</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="a04257.html#a88be4fe9fe4217b2dc1f69e6888906f6">   64</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">struct </span><a class="code" href="a04405.html">VulkanState</a>;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="a04257.html#a9256e10e266a15de4a2bc48fdf3967bc">   69</a></span>&#160;<span class="keyword">inline</span> VkSampler <a class="code" href="a04257.html#a9256e10e266a15de4a2bc48fdf3967bc">CommonSamplers::noFilterBorderClamped</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> noFilterClamped; }</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="a04257.html#a1b4378fdb67d5655e7e4b49b7525bbca">   71</a></span>&#160;<span class="keyword">inline</span> VkSampler <a class="code" href="a04257.html#a1b4378fdb67d5655e7e4b49b7525bbca">CommonSamplers::noFilterEdgeClamped</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> noFilterEClamped; }</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="a04257.html#a1bdaab184d537a5bf72cd99829e91c1d">   73</a></span>&#160;<span class="keyword">inline</span> VkSampler <a class="code" href="a04257.html#a1bdaab184d537a5bf72cd99829e91c1d">CommonSamplers::minFilterBorderClamped</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> minFilterClamped; }</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="a04257.html#a6520659402341467e5d05b5f7bb40270">   75</a></span>&#160;<span class="keyword">inline</span> VkSampler <a class="code" href="a04257.html#a6520659402341467e5d05b5f7bb40270">CommonSamplers::magFilterBorderClamped</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> magFilterClamped; }</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="a04257.html#af46df63640cc28c6b18b848b6f5f9cae">   77</a></span>&#160;<span class="keyword">inline</span> VkSampler <a class="code" href="a04257.html#af46df63640cc28c6b18b848b6f5f9cae">CommonSamplers::filteredBorderClamped</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> filteredClamped; }</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="a04257.html#a91607ebee3b293302eaeb9dd47483c1d">   79</a></span>&#160;<span class="keyword">inline</span> VkSampler <a class="code" href="a04257.html#a91607ebee3b293302eaeb9dd47483c1d">CommonSamplers::filteredRepeated</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> filteredTiled; }</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;} <span class="comment">// namespace vk</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01412_html"><div class="ttname"><a href="a01412.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04257_html"><div class="ttname"><a href="a04257.html">bl::rc::vk::CommonSamplers</a></div><div class="ttdoc">Helper class containing some common samplers to save on boilerplate.</div><div class="ttdef"><b>Definition:</b> <a href="a01091_source.html#l00019">CommonSamplers.hpp:19</a></div></div>
-<div class="ttc" id="aa04257_html_a1b4378fdb67d5655e7e4b49b7525bbca"><div class="ttname"><a href="a04257.html#a1b4378fdb67d5655e7e4b49b7525bbca">bl::rc::vk::CommonSamplers::noFilterEdgeClamped</a></div><div class="ttdeci">VkSampler noFilterEdgeClamped() const</div><div class="ttdoc">Returns a sampler with no filtering and clamped to edge. Max anisotropy.</div><div class="ttdef"><b>Definition:</b> <a href="a01091_source.html#l00071">CommonSamplers.hpp:71</a></div></div>
-<div class="ttc" id="aa04257_html_a1bdaab184d537a5bf72cd99829e91c1d"><div class="ttname"><a href="a04257.html#a1bdaab184d537a5bf72cd99829e91c1d">bl::rc::vk::CommonSamplers::minFilterBorderClamped</a></div><div class="ttdeci">VkSampler minFilterBorderClamped() const</div><div class="ttdoc">Returns a sampler with min filtering and clamped to border. Max anisotropy.</div><div class="ttdef"><b>Definition:</b> <a href="a01091_source.html#l00073">CommonSamplers.hpp:73</a></div></div>
-<div class="ttc" id="aa04257_html_a6520659402341467e5d05b5f7bb40270"><div class="ttname"><a href="a04257.html#a6520659402341467e5d05b5f7bb40270">bl::rc::vk::CommonSamplers::magFilterBorderClamped</a></div><div class="ttdeci">VkSampler magFilterBorderClamped() const</div><div class="ttdoc">Returns a sampler with mag filtering and clamped to border. Max anisotropy.</div><div class="ttdef"><b>Definition:</b> <a href="a01091_source.html#l00075">CommonSamplers.hpp:75</a></div></div>
-<div class="ttc" id="aa04257_html_a91607ebee3b293302eaeb9dd47483c1d"><div class="ttname"><a href="a04257.html#a91607ebee3b293302eaeb9dd47483c1d">bl::rc::vk::CommonSamplers::filteredRepeated</a></div><div class="ttdeci">VkSampler filteredRepeated() const</div><div class="ttdoc">Returns a sampler with filtering and repeated addressing.</div><div class="ttdef"><b>Definition:</b> <a href="a01091_source.html#l00079">CommonSamplers.hpp:79</a></div></div>
-<div class="ttc" id="aa04257_html_a9256e10e266a15de4a2bc48fdf3967bc"><div class="ttname"><a href="a04257.html#a9256e10e266a15de4a2bc48fdf3967bc">bl::rc::vk::CommonSamplers::noFilterBorderClamped</a></div><div class="ttdeci">VkSampler noFilterBorderClamped() const</div><div class="ttdoc">Returns a sampler with no filtering and clamped to border. Max anisotropy.</div><div class="ttdef"><b>Definition:</b> <a href="a01091_source.html#l00069">CommonSamplers.hpp:69</a></div></div>
-<div class="ttc" id="aa04257_html_af46df63640cc28c6b18b848b6f5f9cae"><div class="ttname"><a href="a04257.html#af46df63640cc28c6b18b848b6f5f9cae">bl::rc::vk::CommonSamplers::filteredBorderClamped</a></div><div class="ttdeci">VkSampler filteredBorderClamped() const</div><div class="ttdoc">Returns a sampler with filtering and clamped to border. Max anisotropy.</div><div class="ttdef"><b>Definition:</b> <a href="a01091_source.html#l00077">CommonSamplers.hpp:77</a></div></div>
-<div class="ttc" id="aa04405_html"><div class="ttname"><a href="a04405.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01157_source.html#l00039">VulkanState.hpp:39</a></div></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;} <span class="comment">// namespace scene</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00092_html"><div class="ttname"><a href="a00092.html">Rendered.hpp</a></div></div>
+<div class="ttc" id="aa00194_html"><div class="ttname"><a href="a00194.html">Events.hpp</a></div></div>
+<div class="ttc" id="aa00920_html"><div class="ttname"><a href="a00920.html">SceneDestroyed.hpp</a></div></div>
+<div class="ttc" id="aa00923_html"><div class="ttname"><a href="a00923.html">SceneObjectRemoved.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02828_html"><div class="ttname"><a href="a02828.html">bl::ecs::event::ComponentAdded</a></div><div class="ttdoc">Fired when a component is added to an entity.</div><div class="ttdef"><b>Definition:</b> <a href="a06556_source.html#l00045">Events.hpp:45</a></div></div>
+<div class="ttc" id="aa02832_html"><div class="ttname"><a href="a02832.html">bl::ecs::event::ComponentRemoved</a></div><div class="ttdoc">Fired right before a component is removed from an entity.</div><div class="ttdef"><b>Definition:</b> <a href="a06556_source.html#l00070">Events.hpp:70</a></div></div>
+<div class="ttc" id="aa02856_html"><div class="ttname"><a href="a02856.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition:</b> <a href="a00206_source.html#l00034">Registry.hpp:34</a></div></div>
+<div class="ttc" id="aa03104_html"><div class="ttname"><a href="a03104.html">bl::event::Listener</a></div><div class="ttdoc">Listener of multiple event types. Listeners should inherit this class with the types of events they w...</div><div class="ttdef"><b>Definition:</b> <a href="a06592_source.html#l00049">Listener.hpp:49</a></div></div>
+<div class="ttc" id="aa04088_html"><div class="ttname"><a href="a04088.html">bl::rc::event::SceneDestroyed</a></div><div class="ttdoc">Fired when a scene is destroyed. Systems should subscribe to this event in order to correctly update ...</div><div class="ttdef"><b>Definition:</b> <a href="a00920_source.html#l00019">SceneDestroyed.hpp:19</a></div></div>
+<div class="ttc" id="aa04092_html"><div class="ttname"><a href="a04092.html">bl::rc::event::SceneObjectRemoved</a></div><div class="ttdoc">Fired when an object is removed from a scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00923_source.html#l00019">SceneObjectRemoved.hpp:19</a></div></div>
+<div class="ttc" id="aa04384_html"><div class="ttname"><a href="a04384.html">bl::rc::scene::SceneSync</a></div><div class="ttdoc">An instance of this object will be owned by the Renderer to synchronize entities in the ECS to the sc...</div><div class="ttdef"><b>Definition:</b> <a href="a01091_source.html#l00029">SceneSync.hpp:32</a></div></div>
+<div class="ttc" id="aa04384_html_a904854d91a6f81cd4ac6b0e923473064"><div class="ttname"><a href="a04384.html#a904854d91a6f81cd4ac6b0e923473064">bl::rc::scene::SceneSync::~SceneSync</a></div><div class="ttdeci">virtual ~SceneSync()=default</div><div class="ttdoc">Destroys the sync object.</div></div>
+<div class="ttc" id="aa06556_html"><div class="ttname"><a href="a06556.html">Events.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/Menu/Items/ToggleTextItem.hpp Source File</title>
+<title>BLIB: include/BLIB/Interfaces/GUI/Renderer/TextEntryComponentBase.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,105 +66,60 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_e645930b0d1a2310fc6bb1d1038eb64b.html">Menu</a></li><li class="navelem"><a class="el" href="dir_fe1d2d20871395ed290489bc84d47034.html">Items</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_488290d74f9e6b3540591d02cc875229.html">GUI</a></li><li class="navelem"><a class="el" href="dir_d5cd77a65f52f9a63455a724bc15c589.html">Renderer</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ToggleTextItem.hpp</div>  </div>
+<div class="title">TextEntryComponentBase.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00635.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_INTERFACES_MENU_ITEMS_TOGGLETEXTITEM_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_INTERFACES_MENU_ITEMS_TOGGLETEXTITEM_HPP</span></div>
+<a href="a00635.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GUI_RENDERER_TEXTENTRYCOMPONENTBASE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GUI_RENDERER_TEXTENTRYCOMPONENTBASE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00350.html">BLIB/Graphics/Rectangle.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00632.html">BLIB/Interfaces/Menu/Items/TextItem.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>menu</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a03537.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03537.html">ToggleTextItem</a> : <span class="keyword">public</span> <a class="code" href="a03533.html">TextItem</a> {</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00605.html">BLIB/Interfaces/GUI/Renderer/Component.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>gui</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rdr</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a03636.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03636.html">TextEntryComponentBase</a> : <span class="keyword">public</span> <a class="code" href="a03592.html">Component</a> {</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a03537.html#a1b7c315a66d920841667219ebbaa266b">   19</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a03521.html#ac09f75d0ea24baafc88f39b9e30e20ce">Ptr</a> = std::shared_ptr&lt;ToggleTextItem&gt;;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">static</span> <a class="code" href="a03521.html#ac09f75d0ea24baafc88f39b9e30e20ce">Ptr</a> <a class="code" href="a03537.html#adfb4ea9b9fbc863fea45542351ad5f43">create</a>(<span class="keyword">const</span> std::string&amp; text, <span class="keyword">const</span> <a class="code" href="a03117.html">sf::VulkanFont</a>&amp; font,</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                      <span class="keyword">const</span> sf::Color&amp; color = sf::Color::Black, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> fontSize = 30);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a03537.html#ad5c888335da52451b869d062c13d4b20">   36</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03537.html#ad5c888335da52451b869d062c13d4b20">~ToggleTextItem</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a03537.html#aa18351c53161fb123f84406173e93628">isChecked</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03537.html#a310d3a7e7602420c2293f81b6659852f">setChecked</a>(<span class="keywordtype">bool</span> checked);</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03636.html#aae45ebb0c6c1a855fc5b6ac713243386">   22</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03636.html#aae45ebb0c6c1a855fc5b6ac713243386">~TextEntryComponentBase</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a03636.html#a448b09e0ab4d3607f39b02c1c8283cc4">   30</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="a03636.html#a448b09e0ab4d3607f39b02c1c8283cc4">findCursorPosition</a>(<span class="keyword">const</span> sf::Vector2f&amp; overlayPos) <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a03636.html#a489472fdb69660af52fd27bd8984ae82">   35</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03636.html#a489472fdb69660af52fd27bd8984ae82">onCaratStateUpdate</a>() = 0;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a03636.html#a8eb787fab7432c5d02a885bfcdc34c7b">   40</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03636.html#a8eb787fab7432c5d02a885bfcdc34c7b">resetCaratFlash</a>() = 0;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a03636.html#a792165dab949e3ea28bf583c4b1b242b">   48</a></span>&#160;    <a class="code" href="a03636.html#a792165dab949e3ea28bf583c4b1b242b">TextEntryComponentBase</a>(<a class="code" href="a03592.html#ad04144636950185c959ad6394f0c5c52">Component::HighlightState</a> highlightState)</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    : <a class="code" href="a03592.html">Component</a>(highlightState) {}</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;};</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03537.html#a7cb3b1d2c0f502ed93f05a76e510bd2a">setBoxProperties</a>(sf::Color fillColor, sf::Color borderColor, <span class="keywordtype">float</span> width,</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                          <span class="keywordtype">float</span> borderThickness, <span class="keywordtype">float</span> padding, <span class="keywordtype">bool</span> showOnLeft);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">virtual</span> glm::vec2 <a class="code" href="a03537.html#a5cb45d7607b820eb9553a16c83b2f1a7">getSize</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <a class="code" href="a03537.html#a181899a5d1b7f9a33d5bafa282367c6b">ToggleTextItem</a>(<span class="keyword">const</span> std::string&amp; text, <span class="keyword">const</span> <a class="code" href="a03117.html">sf::VulkanFont</a>&amp; font, <span class="keyword">const</span> sf::Color&amp; color,</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                   <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> fontSize);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03537.html#a6e724dd0e17a769f72b26100126e39a8">doCreate</a>(<a class="code" href="a02833.html">engine::Engine</a>&amp; engine) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03537.html#a73dbb870c8855c2b008c9585295edc2a">doSceneAdd</a>(<a class="code" href="a04165.html">rc::Scene</a>* scene) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03537.html#af52f92410d6b4390de4129778e337174">doSceneRemove</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02733.html">ecs::Entity</a> <a class="code" href="a03537.html#a9dcc196a0b50d3285a9ef8561f5affd5">getEntity</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03537.html#a9bc871804b57b10be998a05d139929c2">draw</a>(<a class="code" href="a04145.html">rc::scene::CodeScene::RenderContext</a>&amp; ctx) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordtype">bool</span> checked;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordtype">bool</span> leftSide;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordtype">float</span> padding;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <a class="code" href="a03073.html">gfx::Rectangle</a> box;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <a class="code" href="a03073.html">gfx::Rectangle</a> innerBox;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="comment">// box props</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    sf::Color fillColor;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    sf::Color borderColor;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordtype">float</span> width;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordtype">float</span> borderThickness;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordtype">void</span> update();</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;};</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;} <span class="comment">// namespace menu</span></div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00350_html"><div class="ttname"><a href="a00350.html">Rectangle.hpp</a></div></div>
-<div class="ttc" id="aa00632_html"><div class="ttname"><a href="a00632.html">TextItem.hpp</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02733_html"><div class="ttname"><a href="a02733.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00176_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa02833_html"><div class="ttname"><a href="a02833.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06269_source.html#l00033">Engine.hpp:33</a></div></div>
-<div class="ttc" id="aa03073_html"><div class="ttname"><a href="a03073.html">bl::gfx::Rectangle</a></div><div class="ttdoc">Renderable 2d rectangle shape.</div><div class="ttdef"><b>Definition:</b> <a href="a00350_source.html#l00016">Rectangle.hpp:16</a></div></div>
-<div class="ttc" id="aa03117_html"><div class="ttname"><a href="a03117.html">sf::VulkanFont</a></div><div class="ttdoc">Adaptation of sf::Font for use with Vulkan.</div><div class="ttdef"><b>Definition:</b> <a href="a00374_source.html#l00063">VulkanFont.hpp:63</a></div></div>
-<div class="ttc" id="aa03521_html_ac09f75d0ea24baafc88f39b9e30e20ce"><div class="ttname"><a href="a03521.html#ac09f75d0ea24baafc88f39b9e30e20ce">bl::menu::Item::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Item &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00623_source.html#l00035">Item.hpp:35</a></div></div>
-<div class="ttc" id="aa03533_html"><div class="ttname"><a href="a03533.html">bl::menu::TextItem</a></div><div class="ttdoc">RenderItem to display text.</div><div class="ttdef"><b>Definition:</b> <a href="a00632_source.html#l00017">TextItem.hpp:17</a></div></div>
-<div class="ttc" id="aa03537_html"><div class="ttname"><a href="a03537.html">bl::menu::ToggleTextItem</a></div><div class="ttdoc">Text item with a boolean toggle state. Renders a checkbox to the side of the text.</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00017">ToggleTextItem.hpp:17</a></div></div>
-<div class="ttc" id="aa03537_html_a181899a5d1b7f9a33d5bafa282367c6b"><div class="ttname"><a href="a03537.html#a181899a5d1b7f9a33d5bafa282367c6b">bl::menu::ToggleTextItem::ToggleTextItem</a></div><div class="ttdeci">ToggleTextItem(const std::string &amp;text, const sf::VulkanFont &amp;font, const sf::Color &amp;color, unsigned int fontSize)</div><div class="ttdoc">Creates a ToggleTextItem using parameters for TextItem.</div><div class="ttdef"><b>Definition:</b> <a href="a01811_source.html#l00019">ToggleTextItem.cpp:19</a></div></div>
-<div class="ttc" id="aa03537_html_a310d3a7e7602420c2293f81b6659852f"><div class="ttname"><a href="a03537.html#a310d3a7e7602420c2293f81b6659852f">bl::menu::ToggleTextItem::setChecked</a></div><div class="ttdeci">void setChecked(bool checked)</div><div class="ttdoc">Sets whether or not the box is currently checked. This is called for you.</div><div class="ttdef"><b>Definition:</b> <a href="a01811_source.html#l00079">ToggleTextItem.cpp:79</a></div></div>
-<div class="ttc" id="aa03537_html_a5cb45d7607b820eb9553a16c83b2f1a7"><div class="ttname"><a href="a03537.html#a5cb45d7607b820eb9553a16c83b2f1a7">bl::menu::ToggleTextItem::getSize</a></div><div class="ttdeci">virtual glm::vec2 getSize() const override</div><div class="ttdoc">Returns the size of the text plus the box and padding.</div><div class="ttdef"><b>Definition:</b> <a href="a01811_source.html#l00095">ToggleTextItem.cpp:95</a></div></div>
-<div class="ttc" id="aa03537_html_a6e724dd0e17a769f72b26100126e39a8"><div class="ttname"><a href="a03537.html#a6e724dd0e17a769f72b26100126e39a8">bl::menu::ToggleTextItem::doCreate</a></div><div class="ttdeci">virtual void doCreate(engine::Engine &amp;engine) override</div><div class="ttdoc">Called at least once when the item is added to a menu. Should create required graphics primitives and...</div><div class="ttdef"><b>Definition:</b> <a href="a01811_source.html#l00028">ToggleTextItem.cpp:28</a></div></div>
-<div class="ttc" id="aa03537_html_a73dbb870c8855c2b008c9585295edc2a"><div class="ttname"><a href="a03537.html#a73dbb870c8855c2b008c9585295edc2a">bl::menu::ToggleTextItem::doSceneAdd</a></div><div class="ttdeci">virtual void doSceneAdd(rc::Scene *scene) override</div><div class="ttdoc">Called when the item should be added to the scene.</div><div class="ttdef"><b>Definition:</b> <a href="a01811_source.html#l00037">ToggleTextItem.cpp:37</a></div></div>
-<div class="ttc" id="aa03537_html_a7cb3b1d2c0f502ed93f05a76e510bd2a"><div class="ttname"><a href="a03537.html#a7cb3b1d2c0f502ed93f05a76e510bd2a">bl::menu::ToggleTextItem::setBoxProperties</a></div><div class="ttdeci">void setBoxProperties(sf::Color fillColor, sf::Color borderColor, float width, float borderThickness, float padding, bool showOnLeft)</div><div class="ttdoc">Sets the settings to render the checkbox with. Note that the outline is rendered inside of the width ...</div><div class="ttdef"><b>Definition:</b> <a href="a01811_source.html#l00084">ToggleTextItem.cpp:84</a></div></div>
-<div class="ttc" id="aa03537_html_a9bc871804b57b10be998a05d139929c2"><div class="ttname"><a href="a03537.html#a9bc871804b57b10be998a05d139929c2">bl::menu::ToggleTextItem::draw</a></div><div class="ttdeci">virtual void draw(rc::scene::CodeScene::RenderContext &amp;ctx) override</div><div class="ttdoc">Manually draw the item.</div><div class="ttdef"><b>Definition:</b> <a href="a01811_source.html#l00101">ToggleTextItem.cpp:101</a></div></div>
-<div class="ttc" id="aa03537_html_a9dcc196a0b50d3285a9ef8561f5affd5"><div class="ttname"><a href="a03537.html#a9dcc196a0b50d3285a9ef8561f5affd5">bl::menu::ToggleTextItem::getEntity</a></div><div class="ttdeci">virtual ecs::Entity getEntity() const override</div><div class="ttdoc">Returns the entity (or top level entity) of the item.</div><div class="ttdef"><b>Definition:</b> <a href="a01811_source.html#l00050">ToggleTextItem.cpp:50</a></div></div>
-<div class="ttc" id="aa03537_html_aa18351c53161fb123f84406173e93628"><div class="ttname"><a href="a03537.html#aa18351c53161fb123f84406173e93628">bl::menu::ToggleTextItem::isChecked</a></div><div class="ttdeci">bool isChecked() const</div><div class="ttdoc">Returns whether or not the toggle is currently in the checked state.</div><div class="ttdef"><b>Definition:</b> <a href="a01811_source.html#l00077">ToggleTextItem.cpp:77</a></div></div>
-<div class="ttc" id="aa03537_html_ad5c888335da52451b869d062c13d4b20"><div class="ttname"><a href="a03537.html#ad5c888335da52451b869d062c13d4b20">bl::menu::ToggleTextItem::~ToggleTextItem</a></div><div class="ttdeci">virtual ~ToggleTextItem()=default</div><div class="ttdoc">Destroy the Toggle Text Item object.</div></div>
-<div class="ttc" id="aa03537_html_adfb4ea9b9fbc863fea45542351ad5f43"><div class="ttname"><a href="a03537.html#adfb4ea9b9fbc863fea45542351ad5f43">bl::menu::ToggleTextItem::create</a></div><div class="ttdeci">static Ptr create(const std::string &amp;text, const sf::VulkanFont &amp;font, const sf::Color &amp;color=sf::Color::Black, unsigned int fontSize=30)</div><div class="ttdoc">Creates a ToggleTextItem using parameters for TextItem.</div><div class="ttdef"><b>Definition:</b> <a href="a01811_source.html#l00014">ToggleTextItem.cpp:14</a></div></div>
-<div class="ttc" id="aa03537_html_af52f92410d6b4390de4129778e337174"><div class="ttname"><a href="a03537.html#af52f92410d6b4390de4129778e337174">bl::menu::ToggleTextItem::doSceneRemove</a></div><div class="ttdeci">virtual void doSceneRemove() override</div><div class="ttdoc">Called when the item should be removed from the scene.</div><div class="ttdef"><b>Definition:</b> <a href="a01811_source.html#l00044">ToggleTextItem.cpp:44</a></div></div>
-<div class="ttc" id="aa04145_html"><div class="ttname"><a href="a04145.html">bl::rc::scene::CodeScene::RenderContext</a></div><div class="ttdoc">Context that gets passed to the render callback.</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00029">CodeScene.hpp:29</a></div></div>
-<div class="ttc" id="aa04165_html"><div class="ttname"><a href="a04165.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition:</b> <a href="a01034_source.html#l00056">Scene.hpp:56</a></div></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;} <span class="comment">// namespace rdr</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;} <span class="comment">// namespace gui</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00605_html"><div class="ttname"><a href="a00605.html">Component.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03592_html"><div class="ttname"><a href="a03592.html">bl::gui::rdr::Component</a></div><div class="ttdoc">Base class for renderer components. Each GUI element owns a handle to a component owned by the render...</div><div class="ttdef"><b>Definition:</b> <a href="a00605_source.html#l00032">Component.hpp:32</a></div></div>
+<div class="ttc" id="aa03592_html_ad04144636950185c959ad6394f0c5c52"><div class="ttname"><a href="a03592.html#ad04144636950185c959ad6394f0c5c52">bl::gui::rdr::Component::HighlightState</a></div><div class="ttdeci">HighlightState</div><div class="ttdoc">How the component responds to mouse over state.</div><div class="ttdef"><b>Definition:</b> <a href="a00605_source.html#l00040">Component.hpp:40</a></div></div>
+<div class="ttc" id="aa03636_html"><div class="ttname"><a href="a03636.html">bl::gui::rdr::TextEntryComponentBase</a></div><div class="ttdoc">Intermediate base class for components of TextEntry elements.</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00017">TextEntryComponentBase.hpp:17</a></div></div>
+<div class="ttc" id="aa03636_html_a448b09e0ab4d3607f39b02c1c8283cc4"><div class="ttname"><a href="a03636.html#a448b09e0ab4d3607f39b02c1c8283cc4">bl::gui::rdr::TextEntryComponentBase::findCursorPosition</a></div><div class="ttdeci">virtual unsigned int findCursorPosition(const sf::Vector2f &amp;overlayPos) const =0</div><div class="ttdoc">Called to determine what index the carat should move to when the text is clicked.</div></div>
+<div class="ttc" id="aa03636_html_a489472fdb69660af52fd27bd8984ae82"><div class="ttname"><a href="a03636.html#a489472fdb69660af52fd27bd8984ae82">bl::gui::rdr::TextEntryComponentBase::onCaratStateUpdate</a></div><div class="ttdeci">virtual void onCaratStateUpdate()=0</div><div class="ttdoc">Called when the carat changes position or toggles visibility.</div></div>
+<div class="ttc" id="aa03636_html_a792165dab949e3ea28bf583c4b1b242b"><div class="ttname"><a href="a03636.html#a792165dab949e3ea28bf583c4b1b242b">bl::gui::rdr::TextEntryComponentBase::TextEntryComponentBase</a></div><div class="ttdeci">TextEntryComponentBase(Component::HighlightState highlightState)</div><div class="ttdoc">Calls the base Component constructor.</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00048">TextEntryComponentBase.hpp:48</a></div></div>
+<div class="ttc" id="aa03636_html_a8eb787fab7432c5d02a885bfcdc34c7b"><div class="ttname"><a href="a03636.html#a8eb787fab7432c5d02a885bfcdc34c7b">bl::gui::rdr::TextEntryComponentBase::resetCaratFlash</a></div><div class="ttdeci">virtual void resetCaratFlash()=0</div><div class="ttdoc">Called when the carat flash timer should be reset.</div></div>
+<div class="ttc" id="aa03636_html_aae45ebb0c6c1a855fc5b6ac713243386"><div class="ttname"><a href="a03636.html#aae45ebb0c6c1a855fc5b6ac713243386">bl::gui::rdr::TextEntryComponentBase::~TextEntryComponentBase</a></div><div class="ttdeci">virtual ~TextEntryComponentBase()=default</div><div class="ttdoc">Destroys the component.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

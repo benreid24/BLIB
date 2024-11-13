@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Vulkan/DedicatedCommandBuffers.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Transfers/TextureExport.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,82 +66,103 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_49b99cfd015d92f767de1d8dec868906.html">Vulkan</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1371b99667ed992b8332faf3b4f2dec9.html">Transfers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">DedicatedCommandBuffers.hpp</div>  </div>
+<div class="title">TextureExport.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01094.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_DEDICATEDCOMMANDBUFFERS_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_DEDICATEDCOMMANDBUFFERS_HPP</span></div>
+<a href="a01094.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_TEXTUREEXPORT_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_TEXTUREEXPORT_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01106.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01370.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01412.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>vk</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">struct </span>VulkanState;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a04261.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04261.html">DedicatedCommandBuffers</a> : <span class="keyword">private</span> <a class="code" href="a05029.html">util::NonCopyable</a> {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="a04261.html#a834671906be956f14cf1ebb37fdcdc0c">DedicatedCommandBuffers</a>();</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="a04261.html#aee78f24e2fee733f3295332c00b22093">~DedicatedCommandBuffers</a>();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04261.html#afef96678788def53b43389cb3ea1d512">create</a>(<a class="code" href="a04405.html">VulkanState</a>&amp; vulkanState);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04261.html#ad931b2e935c77b713f746bbe7f7aaee9">destroy</a>();</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    VkCommandBuffer <a class="code" href="a04261.html#a95e1beae39a9c20fb19dc405b8809933">begin</a>();</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04261.html#a6a4f7585da17a006452b474700dbfab3">submit</a>();</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">struct </span>Payload {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        VkCommandPool pool;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        VkCommandBuffer <a class="code" href="a01415.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        VkFence fence;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a04261.html#afef96678788def53b43389cb3ea1d512">create</a>(<a class="code" href="a04405.html">VulkanState</a>&amp; vs);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordtype">void</span> cleanup(<a class="code" href="a04405.html">VulkanState</a>&amp; vs);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    };</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="a04405.html">VulkanState</a>* vs;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="a04293.html">PerFrame&lt;Payload&gt;</a> payloads;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;} <span class="comment">// namespace vk</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01106_html"><div class="ttname"><a href="a01106.html">PerFrame.hpp</a></div></div>
-<div class="ttc" id="aa01370_html"><div class="ttname"><a href="a01370.html">NonCopyable.hpp</a></div></div>
-<div class="ttc" id="aa01412_html"><div class="ttname"><a href="a01412.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa01415_html_ad2ae6b0ac080ea0ac45f7a06ccc480ba"><div class="ttname"><a href="a01415.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a></div><div class="ttdeci">SoundHandle buffer</div><div class="ttdef"><b>Definition:</b> <a href="a01415_source.html#l00025">AudioSystem.cpp:25</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04261_html"><div class="ttname"><a href="a04261.html">bl::rc::vk::DedicatedCommandBuffers</a></div><div class="ttdoc">Helper class that provides per-frame command buffers intended for reuse.</div><div class="ttdef"><b>Definition:</b> <a href="a01094_source.html#l00019">DedicatedCommandBuffers.hpp:19</a></div></div>
-<div class="ttc" id="aa04261_html_a6a4f7585da17a006452b474700dbfab3"><div class="ttname"><a href="a04261.html#a6a4f7585da17a006452b474700dbfab3">bl::rc::vk::DedicatedCommandBuffers::submit</a></div><div class="ttdeci">void submit()</div><div class="ttdoc">Submits the current command buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00046">DedicatedCommandBuffers.cpp:46</a></div></div>
-<div class="ttc" id="aa04261_html_a834671906be956f14cf1ebb37fdcdc0c"><div class="ttname"><a href="a04261.html#a834671906be956f14cf1ebb37fdcdc0c">bl::rc::vk::DedicatedCommandBuffers::DedicatedCommandBuffers</a></div><div class="ttdeci">DedicatedCommandBuffers()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00011">DedicatedCommandBuffers.cpp:11</a></div></div>
-<div class="ttc" id="aa04261_html_a95e1beae39a9c20fb19dc405b8809933"><div class="ttname"><a href="a04261.html#a95e1beae39a9c20fb19dc405b8809933">bl::rc::vk::DedicatedCommandBuffers::begin</a></div><div class="ttdeci">VkCommandBuffer begin()</div><div class="ttdoc">Waits for the command buffer to enter a valid state, begins recording, and returns it.</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00030">DedicatedCommandBuffers.cpp:30</a></div></div>
-<div class="ttc" id="aa04261_html_ad931b2e935c77b713f746bbe7f7aaee9"><div class="ttname"><a href="a04261.html#ad931b2e935c77b713f746bbe7f7aaee9">bl::rc::vk::DedicatedCommandBuffers::destroy</a></div><div class="ttdeci">void destroy()</div><div class="ttdoc">Releases the command pools.</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00023">DedicatedCommandBuffers.cpp:23</a></div></div>
-<div class="ttc" id="aa04261_html_aee78f24e2fee733f3295332c00b22093"><div class="ttname"><a href="a04261.html#aee78f24e2fee733f3295332c00b22093">bl::rc::vk::DedicatedCommandBuffers::~DedicatedCommandBuffers</a></div><div class="ttdeci">~DedicatedCommandBuffers()</div><div class="ttdoc">Releases the command pools.</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00014">DedicatedCommandBuffers.cpp:14</a></div></div>
-<div class="ttc" id="aa04261_html_afef96678788def53b43389cb3ea1d512"><div class="ttname"><a href="a04261.html#afef96678788def53b43389cb3ea1d512">bl::rc::vk::DedicatedCommandBuffers::create</a></div><div class="ttdeci">void create(VulkanState &amp;vulkanState)</div><div class="ttdoc">Creates the command pools and buffers.</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00018">DedicatedCommandBuffers.cpp:18</a></div></div>
-<div class="ttc" id="aa04293_html"><div class="ttname"><a href="a04293.html">bl::rc::vk::PerFrame&lt; Payload &gt;</a></div></div>
-<div class="ttc" id="aa04405_html"><div class="ttname"><a href="a04405.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01157_source.html#l00039">VulkanState.hpp:39</a></div></div>
-<div class="ttc" id="aa05029_html"><div class="ttname"><a href="a05029.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition:</b> <a href="a01370_source.html#l00013">NonCopyable.hpp:13</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01403.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01451.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/Image.hpp&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;atomic&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;condition_variable&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>vk</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">struct </span>VulkanState;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02418.html">   20</a></span>&#160;<span class="keyword">namespace </span>tfr</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">class </span><a class="code" href="a04392.html">TextureExporter</a>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a04388.html">   29</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04388.html">TextureExport</a> : <span class="keyword">private</span> <a class="code" href="a05228.html">util::NonCopyable</a> {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="a04388.html#a132a0c11d9fef57def03c5f659848260">TextureExport</a>(<a class="code" href="a04580.html">vk::VulkanState</a>&amp; vs, <a class="code" href="a04392.html">TextureExporter</a>&amp; owner, VkImage src, VkImageLayout srcLayout,</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                  VkExtent3D srcExtent, VkImageAspectFlags srcAspect, VkFormat srcFormat);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="a04388.html#a73a5bf549f86dbd022b2610aedf55da1">~TextureExport</a>();</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a04388.html#aa1a1e433a70b0706852d90ad9641abfb">imageReady</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04388.html#a6b7748212cefae31568cea51f59571ca">wait</a>();</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04388.html#abe0f01298503f9db5eaefa3607ed96cb">copyImage</a>(sf::Image&amp; dst);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04388.html#ac121b2826a786d2a9f1d323af8e2f0ef">release</a>();</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="a04580.html">vk::VulkanState</a>&amp; vulkanState;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="a04392.html">TextureExporter</a>&amp; owner;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    VkCommandPool commandPool;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    VkCommandBuffer commandBuffer;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    VkFence fence;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    VmaAllocation destAlloc;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    VmaAllocationInfo destAllocInfo;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    VkImage destImage;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">bool</span> requiresManualConversion;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordtype">void</span>* mapped;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    VkImage srcImage;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    VkImageLayout srcLayout;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    VkExtent3D srcExtent;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    VkImageAspectFlags srcAspect;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    VkFormat srcFormat;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    std::mutex progressMutex;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    std::condition_variable cv;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    std::atomic_bool inProgress;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordtype">void</span> performCopy();</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordtype">bool</span> checkComplete();</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="a04388.html#ae053b162179d8a09293706416337fa43">   99</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a04392.html">TextureExporter</a>;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;};</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;} <span class="comment">// namespace tfr</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01403_html"><div class="ttname"><a href="a01403.html">NonCopyable.hpp</a></div></div>
+<div class="ttc" id="aa01451_html"><div class="ttname"><a href="a01451.html">Vulkan.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04388_html"><div class="ttname"><a href="a04388.html">bl::rc::tfr::TextureExport</a></div><div class="ttdoc">An instance of a texture export command. Use TextureExporter to get this.</div><div class="ttdef"><b>Definition:</b> <a href="a01094_source.html#l00029">TextureExport.hpp:29</a></div></div>
+<div class="ttc" id="aa04388_html_a132a0c11d9fef57def03c5f659848260"><div class="ttname"><a href="a04388.html#a132a0c11d9fef57def03c5f659848260">bl::rc::tfr::TextureExport::TextureExport</a></div><div class="ttdeci">TextureExport(vk::VulkanState &amp;vs, TextureExporter &amp;owner, VkImage src, VkImageLayout srcLayout, VkExtent3D srcExtent, VkImageAspectFlags srcAspect, VkFormat srcFormat)</div><div class="ttdoc">Creates a texture export job. Use TextureExporter, do not use this directly.</div><div class="ttdef"><b>Definition:</b> <a href="a02078_source.html#l00024">TextureExport.cpp:24</a></div></div>
+<div class="ttc" id="aa04388_html_a6b7748212cefae31568cea51f59571ca"><div class="ttname"><a href="a04388.html#a6b7748212cefae31568cea51f59571ca">bl::rc::tfr::TextureExport::wait</a></div><div class="ttdeci">void wait()</div><div class="ttdoc">Blocks until the image export is ready. Do not call from primary engine thread or execution will be d...</div><div class="ttdef"><b>Definition:</b> <a href="a02078_source.html#l00047">TextureExport.cpp:47</a></div></div>
+<div class="ttc" id="aa04388_html_a73a5bf549f86dbd022b2610aedf55da1"><div class="ttname"><a href="a04388.html#a73a5bf549f86dbd022b2610aedf55da1">bl::rc::tfr::TextureExport::~TextureExport</a></div><div class="ttdeci">~TextureExport()</div><div class="ttdoc">Releases resources.</div><div class="ttdef"><b>Definition:</b> <a href="a02078_source.html#l00038">TextureExport.cpp:38</a></div></div>
+<div class="ttc" id="aa04388_html_aa1a1e433a70b0706852d90ad9641abfb"><div class="ttname"><a href="a04388.html#aa1a1e433a70b0706852d90ad9641abfb">bl::rc::tfr::TextureExport::imageReady</a></div><div class="ttdeci">bool imageReady() const</div><div class="ttdoc">Returns whether the exported image is ready to be copied.</div><div class="ttdef"><b>Definition:</b> <a href="a02078_source.html#l00045">TextureExport.cpp:45</a></div></div>
+<div class="ttc" id="aa04388_html_abe0f01298503f9db5eaefa3607ed96cb"><div class="ttname"><a href="a04388.html#abe0f01298503f9db5eaefa3607ed96cb">bl::rc::tfr::TextureExport::copyImage</a></div><div class="ttdeci">void copyImage(sf::Image &amp;dst)</div><div class="ttdoc">Copies the exported image to the destination sf::Image. Waits if the image is not yet ready....</div><div class="ttdef"><b>Definition:</b> <a href="a02078_source.html#l00067">TextureExport.cpp:67</a></div></div>
+<div class="ttc" id="aa04388_html_ac121b2826a786d2a9f1d323af8e2f0ef"><div class="ttname"><a href="a04388.html#ac121b2826a786d2a9f1d323af8e2f0ef">bl::rc::tfr::TextureExport::release</a></div><div class="ttdeci">void release()</div><div class="ttdoc">Call when finished with the exported texture.</div><div class="ttdef"><b>Definition:</b> <a href="a02078_source.html#l00086">TextureExport.cpp:86</a></div></div>
+<div class="ttc" id="aa04392_html"><div class="ttname"><a href="a04392.html">bl::rc::tfr::TextureExporter</a></div><div class="ttdoc">Export manager that handles copying device local images to host visible buffers.</div><div class="ttdef"><b>Definition:</b> <a href="a01097_source.html#l00022">TextureExporter.hpp:22</a></div></div>
+<div class="ttc" id="aa04580_html"><div class="ttname"><a href="a04580.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01193_source.html#l00039">VulkanState.hpp:39</a></div></div>
+<div class="ttc" id="aa05228_html"><div class="ttname"><a href="a05228.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition:</b> <a href="a01403_source.html#l00013">NonCopyable.hpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

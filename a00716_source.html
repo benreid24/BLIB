@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Particles/DescriptorSetFactory.inl Source File</title>
+<title>BLIB: include/BLIB/Math/Vector.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,91 +66,156 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_178847a4158a3437852c70503d67febe.html">Particles</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_e9abbcd9e0c082db5b09973bee2e6f6b.html">Math</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">DescriptorSetFactory.inl</div>  </div>
+<div class="title">Vector.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00716.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_PARTICLES_DESCRIPTORSETFACTORY_INL</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno"><a class="line" href="a00716.html#a46cc312c080b068ac3cbdcba3242fa25">    2</a></span>&#160;<span class="preprocessor">#define BLIB_PARTICLES_DESCRIPTORSETFACTORY_INL</span></div>
+<a href="a00716.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_MATH_VECTOR_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_MATH_VECTOR_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06269.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06350.html">BLIB/Particles/DescriptorSetFactory.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06356.html">BLIB/Particles/DescriptorSetInstance.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00755.html">BLIB/Particles/RenderConfigMap.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00713.html">BLIB/Math/Trig.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;SFML/System/Vector2.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;SFML/System/Vector3.hpp&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>pcl</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>math</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> GpuT&gt;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keywordtype">void</span> DescriptorSetFactory&lt;T, GpuT&gt;::init(<a class="code" href="a02833.html">bl::engine::Engine</a>&amp; e, <a class="code" href="a04061.html">bl::rc::Renderer</a>&amp; renderer) {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">using</span> TGlobalPayload             = <span class="keyword">typename</span> <a class="code" href="a03697.html#a5f61f0310bc1642e54f3c93009e48657">RenderConfigMap&lt;T&gt;::GlobalShaderPayload</a>;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> HasGlobals = !std::is_same_v&lt;TGlobalPayload, std::monostate&gt;;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    engine = &amp;e;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="a04273.html">bl::rc::vk::DescriptorPool::SetBindingInfo</a> bindings;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    bindings.<a class="code" href="a04273.html#ad44b120901116ab5216ddfdc35d30d95">bindingCount</a> = HasGlobals ? 3 : 2;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    bindings.<a class="code" href="a04273.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[0].binding         = 0;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    bindings.<a class="code" href="a04273.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[0].descriptorCount = 1;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    bindings.<a class="code" href="a04273.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[0].descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    bindings.<a class="code" href="a04273.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[0].stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    bindings.<a class="code" href="a04273.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[1].binding         = 1;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    bindings.<a class="code" href="a04273.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[1].descriptorCount = 1;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    bindings.<a class="code" href="a04273.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[1].descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    bindings.<a class="code" href="a04273.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[1].stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">if</span> constexpr (HasGlobals) {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        bindings.<a class="code" href="a04273.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[2].binding         = 2;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        bindings.<a class="code" href="a04273.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[2].descriptorCount = 1;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        bindings.<a class="code" href="a04273.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[2].descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        bindings.<a class="code" href="a04273.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[2].stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    }</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    descriptorSetLayout = renderer.<a class="code" href="a04061.html#afdefecf57155696e1523bb6b256fc8bd">vulkanState</a>().<a class="code" href="a04405.html#ac6ea18991f2fd8391eb44229ae2ac8f7">descriptorPool</a>.<a class="code" href="a04269.html#a5a206bab1969632a78bca5e79532eb70">createLayout</a>(bindings);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> GpuT&gt;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;std::unique_ptr&lt;rc::ds::DescriptorSetInstance&gt; DescriptorSetFactory&lt;T, GpuT&gt;::createDescriptorSet()<span class="keyword"></span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">    const </span>{</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">return</span> std::make_unique&lt;DescriptorSetInstance&lt;T, GpuT&gt;&gt;(*engine, descriptorSetLayout);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> GpuT&gt;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;std::type_index DescriptorSetFactory&lt;T, GpuT&gt;::creates()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">typeid</span>(DescriptorSetInstance&lt;T, GpuT&gt;);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;} <span class="comment">// namespace pcl</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00755_html"><div class="ttname"><a href="a00755.html">RenderConfigMap.hpp</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02833_html"><div class="ttname"><a href="a02833.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06269_source.html#l00033">Engine.hpp:33</a></div></div>
-<div class="ttc" id="aa03697_html_a5f61f0310bc1642e54f3c93009e48657"><div class="ttname"><a href="a03697.html#a5f61f0310bc1642e54f3c93009e48657">bl::pcl::RenderConfigMap::GlobalShaderPayload</a></div><div class="ttdeci">typename RenderConfigDefaults&lt; T &gt;::GlobalShaderPayload GlobalShaderPayload</div><div class="ttdoc">Type of the global struct for the default descriptor set implementation.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00088">RenderConfigMap.hpp:88</a></div></div>
-<div class="ttc" id="aa04061_html"><div class="ttname"><a href="a04061.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a06320_source.html#l00042">Renderer.hpp:42</a></div></div>
-<div class="ttc" id="aa04061_html_afdefecf57155696e1523bb6b256fc8bd"><div class="ttname"><a href="a04061.html#afdefecf57155696e1523bb6b256fc8bd">bl::rc::Renderer::vulkanState</a></div><div class="ttdeci">vk::VulkanState &amp; vulkanState()</div><div class="ttdoc">Returns the Vulkan state of the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a06320_source.html#l00276">Renderer.hpp:276</a></div></div>
-<div class="ttc" id="aa04269_html_a5a206bab1969632a78bca5e79532eb70"><div class="ttname"><a href="a04269.html#a5a206bab1969632a78bca5e79532eb70">bl::rc::vk::DescriptorPool::createLayout</a></div><div class="ttdeci">VkDescriptorSetLayout createLayout(const SetBindingInfo &amp;allocInfo)</div><div class="ttdoc">Creates a descriptor set layout from the set allocation info.</div><div class="ttdef"><b>Definition:</b> <a href="a02054_source.html#l00045">DescriptorPool.cpp:45</a></div></div>
-<div class="ttc" id="aa04273_html"><div class="ttname"><a href="a04273.html">bl::rc::vk::DescriptorPool::SetBindingInfo</a></div><div class="ttdoc">Struct containing the data required to create descriptor sets and layouts.</div><div class="ttdef"><b>Definition:</b> <a href="a01097_source.html#l00036">DescriptorPool.hpp:36</a></div></div>
-<div class="ttc" id="aa04273_html_ab972da11e25938a0637ebf832a6b9bd7"><div class="ttname"><a href="a04273.html#ab972da11e25938a0637ebf832a6b9bd7">bl::rc::vk::DescriptorPool::SetBindingInfo::bindings</a></div><div class="ttdeci">std::array&lt; VkDescriptorSetLayoutBinding, Config::MaxDescriptorSets &gt; bindings</div><div class="ttdef"><b>Definition:</b> <a href="a01097_source.html#l00039">DescriptorPool.hpp:39</a></div></div>
-<div class="ttc" id="aa04273_html_ad44b120901116ab5216ddfdc35d30d95"><div class="ttname"><a href="a04273.html#ad44b120901116ab5216ddfdc35d30d95">bl::rc::vk::DescriptorPool::SetBindingInfo::bindingCount</a></div><div class="ttdeci">std::uint32_t bindingCount</div><div class="ttdef"><b>Definition:</b> <a href="a01097_source.html#l00040">DescriptorPool.hpp:40</a></div></div>
-<div class="ttc" id="aa04405_html_ac6ea18991f2fd8391eb44229ae2ac8f7"><div class="ttname"><a href="a04405.html#ac6ea18991f2fd8391eb44229ae2ac8f7">bl::rc::vk::VulkanState::descriptorPool</a></div><div class="ttdeci">DescriptorPool descriptorPool</div><div class="ttdef"><b>Definition:</b> <a href="a01157_source.html#l00222">VulkanState.hpp:222</a></div></div>
-<div class="ttc" id="aa06269_html"><div class="ttname"><a href="a06269.html">Engine.hpp</a></div></div>
-<div class="ttc" id="aa06350_html"><div class="ttname"><a href="a06350.html">DescriptorSetFactory.hpp</a></div></div>
-<div class="ttc" id="aa06356_html"><div class="ttname"><a href="a06356.html">DescriptorSetInstance.hpp</a></div></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02340.html#ga60c0e0ba5e36a075e07f8eee988c0a34">   24</a></span>&#160;T <a class="code" href="a02340.html#ga60c0e0ba5e36a075e07f8eee988c0a34">magnitudeSquared</a>(<span class="keyword">const</span> sf::Vector2&lt;T&gt;&amp; vec) {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">return</span> vec.x * vec.x + vec.y * vec.y;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a02340.html#ga79bcdfca01f1876845dd2daef0a7588d">   38</a></span>&#160;T <a class="code" href="a02340.html#ga79bcdfca01f1876845dd2daef0a7588d">magnitude</a>(<span class="keyword">const</span> sf::Vector2&lt;T&gt;&amp; vec) {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">return</span> std::sqrt(<a class="code" href="a02340.html#ga60c0e0ba5e36a075e07f8eee988c0a34">magnitudeSquared</a>(vec));</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="a02340.html#ga65094418d25a1c6bc428a338632af7cf">   53</a></span>&#160;T <a class="code" href="a02340.html#ga65094418d25a1c6bc428a338632af7cf">distanceSquared</a>(<span class="keyword">const</span> sf::Vector2&lt;T&gt;&amp; v1, <span class="keyword">const</span> sf::Vector2&lt;T&gt;&amp; v2) {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a02340.html#ga60c0e0ba5e36a075e07f8eee988c0a34">magnitudeSquared</a>(v1 - v2);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="a02340.html#gab0ce3416e1716b4d7d4aed270abb84a8">   68</a></span>&#160;T <a class="code" href="a02340.html#gab0ce3416e1716b4d7d4aed270abb84a8">distance</a>(<span class="keyword">const</span> sf::Vector2&lt;T&gt;&amp; v1, <span class="keyword">const</span> sf::Vector2&lt;T&gt;&amp; v2) {</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordflow">return</span> std::sqrt(<a class="code" href="a02340.html#ga65094418d25a1c6bc428a338632af7cf">distanceSquared</a>(v1, v2));</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="a02340.html#gaab6474ad3fbe3b2b3bb0abcf5dc530fb">   83</a></span>&#160;T <a class="code" href="a02340.html#gaab6474ad3fbe3b2b3bb0abcf5dc530fb">manhattanDistance</a>(<span class="keyword">const</span> sf::Vector2&lt;T&gt;&amp; v1, <span class="keyword">const</span> sf::Vector2&lt;T&gt;&amp; v2) {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">return</span> std::abs(v1.x - v2.x) + std::abs(v1.y - v2.y);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;}</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="a02340.html#gabe5a1e6b62ee715c30c7d49051a8d3fc">   96</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02340.html#gabe5a1e6b62ee715c30c7d49051a8d3fc">normalize</a>(sf::Vector2&lt;T&gt;&amp; vec) {</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keyword">const</span> T mag = magnitude&lt;T&gt;(vec);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    vec.x /= mag;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    vec.y /= mag;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;}</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="a02340.html#ga256ad8731e4356e845df035c22322e7e">  112</a></span>&#160;sf::Vector2&lt;T&gt; <a class="code" href="a02340.html#ga256ad8731e4356e845df035c22322e7e">normalized</a>(<span class="keyword">const</span> sf::Vector2&lt;T&gt;&amp; vec) {</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keyword">const</span> T mag = magnitude&lt;T&gt;(vec);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordflow">return</span> {vec.x / mag, vec.y / mag};</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;}</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00128"></a><span class="lineno"><a class="line" href="a02340.html#gac8b2038a9402b7f30b43233c62229a50">  128</a></span>&#160;T <a class="code" href="a02340.html#gac8b2038a9402b7f30b43233c62229a50">dot</a>(<span class="keyword">const</span> sf::Vector2&lt;T&gt;&amp; v1, <span class="keyword">const</span> sf::Vector2&lt;T&gt;&amp; v2) {</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordflow">return</span> v1.x * v2.x + v1.y * v2.y;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;}</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00142"></a><span class="lineno"><a class="line" href="a02340.html#gaf8e8049c376844d6acecea3eca699d13">  142</a></span>&#160;T <a class="code" href="a02340.html#gaf8e8049c376844d6acecea3eca699d13">vectorToAngle</a>(<span class="keyword">const</span> sf::Vector2&lt;T&gt;&amp; vec) {</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a02340.html#ga0b0fbb9303004f139568c5a7554c3637">radiansToDegrees</a>(std::atan2(vec.y, vec.x));</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;}</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00156"></a><span class="lineno"><a class="line" href="a02340.html#ga711610629935049a411c5c8316214dfb">  156</a></span>&#160;sf::Vector2&lt;T&gt; <a class="code" href="a02340.html#ga711610629935049a411c5c8316214dfb">angleToVector</a>(T degrees) {</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="keywordflow">return</span> sf::Vector2&lt;T&gt;{<a class="code" href="a02340.html#gae8e482156412ed87dc2d91572ee817ab">cos</a>(degrees), <a class="code" href="a02340.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">sin</a>(degrees)};</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;}</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00170"></a><span class="lineno"><a class="line" href="a02340.html#gaffb7312466591326e7dc1f44be83f478">  170</a></span>&#160;T <a class="code" href="a02340.html#ga60c0e0ba5e36a075e07f8eee988c0a34">magnitudeSquared</a>(<span class="keyword">const</span> sf::Vector3&lt;T&gt;&amp; vec) {</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordflow">return</span> vec.x * vec.x + vec.y * vec.y + vec.z * vec.z;</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;}</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00184"></a><span class="lineno"><a class="line" href="a02340.html#ga44d6ffcf33ea573b1ef14c48d5dc2be9">  184</a></span>&#160;T <a class="code" href="a02340.html#ga79bcdfca01f1876845dd2daef0a7588d">magnitude</a>(<span class="keyword">const</span> sf::Vector3&lt;T&gt;&amp; vec) {</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <span class="keywordflow">return</span> std::sqrt(<a class="code" href="a02340.html#ga60c0e0ba5e36a075e07f8eee988c0a34">magnitudeSquared</a>(vec));</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;}</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00199"></a><span class="lineno"><a class="line" href="a02340.html#gaf1a78e1d5c72d9790ffaeb445e5e3f2e">  199</a></span>&#160;T <a class="code" href="a02340.html#ga65094418d25a1c6bc428a338632af7cf">distanceSquared</a>(<span class="keyword">const</span> sf::Vector3&lt;T&gt;&amp; v1, <span class="keyword">const</span> sf::Vector3&lt;T&gt;&amp; v2) {</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a02340.html#ga60c0e0ba5e36a075e07f8eee988c0a34">magnitudeSquared</a>(v1 - v2);</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;}</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160; </div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00214"></a><span class="lineno"><a class="line" href="a02340.html#ga7bcc546934ee6cdd3dacb3c628df8fa4">  214</a></span>&#160;T <a class="code" href="a02340.html#gab0ce3416e1716b4d7d4aed270abb84a8">distance</a>(<span class="keyword">const</span> sf::Vector3&lt;T&gt;&amp; v1, <span class="keyword">const</span> sf::Vector3&lt;T&gt;&amp; v2) {</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    <span class="keywordflow">return</span> std::sqrt(<a class="code" href="a02340.html#ga65094418d25a1c6bc428a338632af7cf">distanceSquared</a>(v1, v2));</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;}</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160; </div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00229"></a><span class="lineno"><a class="line" href="a02340.html#ga5dc265551d12d3d5514e354b66ea4425">  229</a></span>&#160;T <a class="code" href="a02340.html#gaab6474ad3fbe3b2b3bb0abcf5dc530fb">manhattanDistance</a>(<span class="keyword">const</span> sf::Vector3&lt;T&gt;&amp; v1, <span class="keyword">const</span> sf::Vector3&lt;T&gt;&amp; v2) {</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    <span class="keywordflow">return</span> std::abs(v1.x - v2.x) + std::abs(v1.y - v2.y) + std::abs(v1.z - v2.z);</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;}</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160; </div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00242"></a><span class="lineno"><a class="line" href="a02340.html#gaf8ccfac6129592ef7daee80bd2910012">  242</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02340.html#gabe5a1e6b62ee715c30c7d49051a8d3fc">normalize</a>(sf::Vector3&lt;T&gt;&amp; vec) {</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    <span class="keyword">const</span> T mag = magnitude&lt;T&gt;(vec);</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    vec.x /= mag;</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    vec.y /= mag;</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    vec.z /= mag;</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;}</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160; </div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00259"></a><span class="lineno"><a class="line" href="a02340.html#gaa60f0bfd74007c04d00ec64a7022ca00">  259</a></span>&#160;sf::Vector3&lt;T&gt; <a class="code" href="a02340.html#ga256ad8731e4356e845df035c22322e7e">normalized</a>(<span class="keyword">const</span> sf::Vector3&lt;T&gt;&amp; vec) {</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    <span class="keyword">const</span> T mag = magnitude&lt;T&gt;(vec);</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    <span class="keywordflow">return</span> {vec.x / mag, vec.y / mag, vec.z / mag};</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;}</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160; </div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00275"></a><span class="lineno"><a class="line" href="a02340.html#gadeede977cc22d3529d551358d36f4a78">  275</a></span>&#160;T <a class="code" href="a02340.html#gac8b2038a9402b7f30b43233c62229a50">dot</a>(<span class="keyword">const</span> sf::Vector3&lt;T&gt;&amp; v1, <span class="keyword">const</span> sf::Vector3&lt;T&gt;&amp; v2) {</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    <span class="keywordflow">return</span> v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;}</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160; </div>
+<div class="line"><a name="l00288"></a><span class="lineno"><a class="line" href="a02340.html#ga2adfe2b15b4fc8010bc721ac1c494575">  288</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">float</span> <a class="code" href="a02340.html#ga2adfe2b15b4fc8010bc721ac1c494575">computeAngle</a>(<span class="keyword">const</span> glm::vec2&amp; from, <span class="keyword">const</span> glm::vec2&amp; to) {</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <span class="keyword">const</span> glm::vec2 diff = to - from;</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    <span class="keywordtype">float</span> angle          = <a class="code" href="a02340.html#ga0b0fbb9303004f139568c5a7554c3637">bl::math::radiansToDegrees</a>(::atan2f(diff.y, diff.x));</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    <span class="keywordflow">if</span> (angle &lt; 0.f) { angle += 360.f; }</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    <span class="keywordflow">return</span> angle;</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;}</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160; </div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;} <span class="comment">// namespace math</span></div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160; </div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00713_html"><div class="ttname"><a href="a00713.html">Trig.hpp</a></div></div>
+<div class="ttc" id="aa02340_html_ga0379b8bbdfc3c74fecd12c93fdf0ca5b"><div class="ttname"><a href="a02340.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">bl::math::sin</a></div><div class="ttdeci">float sin(float degrees)</div><div class="ttdoc">Computes the sine of the given angle using cached values. Values are cached in quarter degree increme...</div><div class="ttdef"><b>Definition:</b> <a href="a01886_source.html#l00037">Trig.cpp:37</a></div></div>
+<div class="ttc" id="aa02340_html_ga0b0fbb9303004f139568c5a7554c3637"><div class="ttname"><a href="a02340.html#ga0b0fbb9303004f139568c5a7554c3637">bl::math::radiansToDegrees</a></div><div class="ttdeci">constexpr float radiansToDegrees(float radians)</div><div class="ttdoc">Converts an angle in radians to degrees.</div><div class="ttdef"><b>Definition:</b> <a href="a00713_source.html#l00040">Trig.hpp:40</a></div></div>
+<div class="ttc" id="aa02340_html_ga256ad8731e4356e845df035c22322e7e"><div class="ttname"><a href="a02340.html#ga256ad8731e4356e845df035c22322e7e">bl::math::normalized</a></div><div class="ttdeci">sf::Vector2&lt; T &gt; normalized(const sf::Vector2&lt; T &gt; &amp;vec)</div><div class="ttdoc">Computes and returns the normalization of the given vector.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00112">Vector.hpp:112</a></div></div>
+<div class="ttc" id="aa02340_html_ga2adfe2b15b4fc8010bc721ac1c494575"><div class="ttname"><a href="a02340.html#ga2adfe2b15b4fc8010bc721ac1c494575">bl::math::computeAngle</a></div><div class="ttdeci">float computeAngle(const glm::vec2 &amp;from, const glm::vec2 &amp;to)</div><div class="ttdoc">Computes the angle pointing from one vector to another.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00288">Vector.hpp:288</a></div></div>
+<div class="ttc" id="aa02340_html_ga60c0e0ba5e36a075e07f8eee988c0a34"><div class="ttname"><a href="a02340.html#ga60c0e0ba5e36a075e07f8eee988c0a34">bl::math::magnitudeSquared</a></div><div class="ttdeci">T magnitudeSquared(const sf::Vector2&lt; T &gt; &amp;vec)</div><div class="ttdoc">Computes the squared magnitude of the given vector.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00024">Vector.hpp:24</a></div></div>
+<div class="ttc" id="aa02340_html_ga65094418d25a1c6bc428a338632af7cf"><div class="ttname"><a href="a02340.html#ga65094418d25a1c6bc428a338632af7cf">bl::math::distanceSquared</a></div><div class="ttdeci">T distanceSquared(const sf::Vector2&lt; T &gt; &amp;v1, const sf::Vector2&lt; T &gt; &amp;v2)</div><div class="ttdoc">Returns the squared distance between the two vectors.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00053">Vector.hpp:53</a></div></div>
+<div class="ttc" id="aa02340_html_ga711610629935049a411c5c8316214dfb"><div class="ttname"><a href="a02340.html#ga711610629935049a411c5c8316214dfb">bl::math::angleToVector</a></div><div class="ttdeci">sf::Vector2&lt; T &gt; angleToVector(T degrees)</div><div class="ttdoc">Returns a unit vector for the given angle. Uses the lookup table trig functions.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00156">Vector.hpp:156</a></div></div>
+<div class="ttc" id="aa02340_html_ga79bcdfca01f1876845dd2daef0a7588d"><div class="ttname"><a href="a02340.html#ga79bcdfca01f1876845dd2daef0a7588d">bl::math::magnitude</a></div><div class="ttdeci">T magnitude(const sf::Vector2&lt; T &gt; &amp;vec)</div><div class="ttdoc">Computes the magnitude of the given vector. Uses std::sqrt, prefer squaredMagnitude.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00038">Vector.hpp:38</a></div></div>
+<div class="ttc" id="aa02340_html_gaab6474ad3fbe3b2b3bb0abcf5dc530fb"><div class="ttname"><a href="a02340.html#gaab6474ad3fbe3b2b3bb0abcf5dc530fb">bl::math::manhattanDistance</a></div><div class="ttdeci">T manhattanDistance(const sf::Vector2&lt; T &gt; &amp;v1, const sf::Vector2&lt; T &gt; &amp;v2)</div><div class="ttdoc">Returns the manhattan distance between two vectors.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00083">Vector.hpp:83</a></div></div>
+<div class="ttc" id="aa02340_html_gab0ce3416e1716b4d7d4aed270abb84a8"><div class="ttname"><a href="a02340.html#gab0ce3416e1716b4d7d4aed270abb84a8">bl::math::distance</a></div><div class="ttdeci">T distance(const sf::Vector2&lt; T &gt; &amp;v1, const sf::Vector2&lt; T &gt; &amp;v2)</div><div class="ttdoc">Returns the distance between two vectors.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00068">Vector.hpp:68</a></div></div>
+<div class="ttc" id="aa02340_html_gabe5a1e6b62ee715c30c7d49051a8d3fc"><div class="ttname"><a href="a02340.html#gabe5a1e6b62ee715c30c7d49051a8d3fc">bl::math::normalize</a></div><div class="ttdeci">void normalize(sf::Vector2&lt; T &gt; &amp;vec)</div><div class="ttdoc">Normalizes the given vector in place.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00096">Vector.hpp:96</a></div></div>
+<div class="ttc" id="aa02340_html_gac8b2038a9402b7f30b43233c62229a50"><div class="ttname"><a href="a02340.html#gac8b2038a9402b7f30b43233c62229a50">bl::math::dot</a></div><div class="ttdeci">T dot(const sf::Vector2&lt; T &gt; &amp;v1, const sf::Vector2&lt; T &gt; &amp;v2)</div><div class="ttdoc">Computes the dot product of the two given vectors.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00128">Vector.hpp:128</a></div></div>
+<div class="ttc" id="aa02340_html_gae8e482156412ed87dc2d91572ee817ab"><div class="ttname"><a href="a02340.html#gae8e482156412ed87dc2d91572ee817ab">bl::math::cos</a></div><div class="ttdeci">float cos(float degrees)</div><div class="ttdoc">Computes the cosine of the given angle using cached values. Values are cached in quarter degree incre...</div><div class="ttdef"><b>Definition:</b> <a href="a01886_source.html#l00031">Trig.cpp:31</a></div></div>
+<div class="ttc" id="aa02340_html_gaf8e8049c376844d6acecea3eca699d13"><div class="ttname"><a href="a02340.html#gaf8e8049c376844d6acecea3eca699d13">bl::math::vectorToAngle</a></div><div class="ttdeci">T vectorToAngle(const sf::Vector2&lt; T &gt; &amp;vec)</div><div class="ttdoc">Computes the angle that the given vector is pointing.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00142">Vector.hpp:142</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

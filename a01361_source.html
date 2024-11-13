@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Util/IdAllocatorUnbounded.hpp Source File</title>
+<title>BLIB: include/BLIB/Systems/Transform2DDescriptorSystem.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,126 +66,66 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4b3af2b25a05b4f12e892fbe45139fe9.html">Util</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_daaf59349fe9c08c8ba4d716035ae7ff.html">Systems</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">IdAllocatorUnbounded.hpp</div>  </div>
+<div class="title">Transform2DDescriptorSystem.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01361.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_UTIL_IDALLOCATORUNBOUNDED_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_UTIL_IDALLOCATORUNBOUNDED_HPP</span></div>
+<a href="a01361.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SYSTEMS_TRANSFORM2DDESCRIPTORSYSTEM_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SYSTEMS_TRANSFORM2DDESCRIPTORSYSTEM_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;utility&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>util</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a05009.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a05009.html">IdAllocatorUnbounded</a> {</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06544.html">BLIB/Components/Transform2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00122.html">BLIB/Components/Velocity2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00239.html">BLIB/ECS.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06577.html">BLIB/Engine/System.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>sys</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a05156.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a05156.html">Transform2DDescriptorSystem</a> : <span class="keyword">public</span> <a class="code" href="a03048.html">engine::System</a> {</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a05009.html#a8b2a142e074338a13ffb614ff3565ab9">   24</a></span>&#160;    <a class="code" href="a05009.html#a8b2a142e074338a13ffb614ff3565ab9">IdAllocatorUnbounded</a>();</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="a05156.html#a7ea148facfb8b44362e26c299efd2f19">Transform2DDescriptorSystem</a>();</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a05009.html#a8bdca69c91eeb15834b1894c953c4549">   31</a></span>&#160;    <a class="code" href="a05009.html#a8bdca69c91eeb15834b1894c953c4549">IdAllocatorUnbounded</a>(std::size_t capacityHint);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a05009.html#ae7fb1e9e6910be922de1188e21017610">   38</a></span>&#160;    T <a class="code" href="a05009.html#ae7fb1e9e6910be922de1188e21017610">allocate</a>();</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a05009.html#a999cf670cc7639d0c167ef6b950616b2">   45</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a05009.html#a999cf670cc7639d0c167ef6b950616b2">release</a>(T <span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="a05009.html#acaa4e830f32672424758a5487b26f4d4">   50</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a05009.html#acaa4e830f32672424758a5487b26f4d4">releaseAll</a>();</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="a05009.html#ace0ff463eec7e042c0e53a6c53da58d5">   58</a></span>&#160;    constexpr <span class="keywordtype">bool</span> <a class="code" href="a05009.html#ace0ff463eec7e042c0e53a6c53da58d5">isAllocated</a>(T <span class="keywordtype">id</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="a05009.html#a9c6d5813a146b1402c8a4814422df140">   63</a></span>&#160;    constexpr T <a class="code" href="a05009.html#a9c6d5813a146b1402c8a4814422df140">poolSize</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="a05009.html#a689b826aa77e490dd3db07a18914bd3d">   68</a></span>&#160;    constexpr T <a class="code" href="a05009.html#a689b826aa77e490dd3db07a18914bd3d">endId</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    T nextId;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    std::vector&lt;bool&gt; allocMap;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    std::vector&lt;T&gt; freeStack;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;};</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="a05009.html#a8b2a142e074338a13ffb614ff3565ab9">   79</a></span>&#160;<a class="code" href="a05009.html#a8b2a142e074338a13ffb614ff3565ab9">IdAllocatorUnbounded&lt;T&gt;::IdAllocatorUnbounded</a>()</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;: nextId(0) {}</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="a05009.html#a8bdca69c91eeb15834b1894c953c4549">   83</a></span>&#160;<a class="code" href="a05009.html#a8b2a142e074338a13ffb614ff3565ab9">IdAllocatorUnbounded&lt;T&gt;::IdAllocatorUnbounded</a>(std::size_t capacityHint)</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;: <a class="code" href="a05009.html">IdAllocatorUnbounded</a>() {</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    allocMap.resize(capacityHint, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    freeStack.reserve(capacityHint);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;}</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="a05009.html#ae7fb1e9e6910be922de1188e21017610">   90</a></span>&#160;T <a class="code" href="a05009.html#ae7fb1e9e6910be922de1188e21017610">IdAllocatorUnbounded&lt;T&gt;::allocate</a>() {</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    T id;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordflow">if</span> (freeStack.empty()) {</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keywordtype">id</span> = nextId++;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        allocMap.resize(<span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(<span class="keywordtype">id</span>) + 1, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    }</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keywordtype">id</span> = freeStack.back();</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        freeStack.pop_back();</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    }</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    allocMap[id] = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordflow">return</span> id;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;}</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="a05009.html#a999cf670cc7639d0c167ef6b950616b2">  105</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a05009.html#a999cf670cc7639d0c167ef6b950616b2">IdAllocatorUnbounded&lt;T&gt;::release</a>(T <span class="keywordtype">id</span>) {</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    allocMap[id] = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> it =</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        std::lower_bound(freeStack.begin(), freeStack.end(), <span class="keywordtype">id</span>, std::cmp_greater&lt;T, T&gt;);</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    freeStack.emplace(it, <span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;}</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="a05009.html#acaa4e830f32672424758a5487b26f4d4">  113</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a05009.html#acaa4e830f32672424758a5487b26f4d4">IdAllocatorUnbounded&lt;T&gt;::releaseAll</a>() {</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    nextId = 0;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    std::fill(allocMap.begin(), allocMap.end(), <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    freeStack.clear();</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;}</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="a05009.html#ace0ff463eec7e042c0e53a6c53da58d5">  120</a></span>&#160;constexpr <span class="keywordtype">bool</span> <a class="code" href="a05009.html#ace0ff463eec7e042c0e53a6c53da58d5">IdAllocatorUnbounded&lt;T&gt;::isAllocated</a>(T <span class="keywordtype">id</span>)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">return</span> <span class="keywordtype">id</span> &lt; allocMap.size() &amp;&amp; allocMap[id];</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;}</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="a05009.html#a9c6d5813a146b1402c8a4814422df140">  125</a></span>&#160;constexpr T <a class="code" href="a05009.html#a9c6d5813a146b1402c8a4814422df140">IdAllocatorUnbounded&lt;T&gt;::poolSize</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(allocMap.size());</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;}</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00130"></a><span class="lineno"><a class="line" href="a05009.html#a689b826aa77e490dd3db07a18914bd3d">  130</a></span>&#160;constexpr T <a class="code" href="a05009.html#a689b826aa77e490dd3db07a18914bd3d">IdAllocatorUnbounded&lt;T&gt;::endId</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordflow">return</span> nextId;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;}</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;} <span class="comment">// namespace util</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa05009_html"><div class="ttname"><a href="a05009.html">bl::util::IdAllocatorUnbounded</a></div><div class="ttdoc">Similar to IdAllocator, but with no max id restriction.</div><div class="ttdef"><b>Definition:</b> <a href="a01361_source.html#l00019">IdAllocatorUnbounded.hpp:19</a></div></div>
-<div class="ttc" id="aa05009_html_a689b826aa77e490dd3db07a18914bd3d"><div class="ttname"><a href="a05009.html#a689b826aa77e490dd3db07a18914bd3d">bl::util::IdAllocatorUnbounded::endId</a></div><div class="ttdeci">constexpr T endId() const</div><div class="ttdoc">Returns essentially maxId+1 for iteration.</div><div class="ttdef"><b>Definition:</b> <a href="a01361_source.html#l00130">IdAllocatorUnbounded.hpp:130</a></div></div>
-<div class="ttc" id="aa05009_html_a8b2a142e074338a13ffb614ff3565ab9"><div class="ttname"><a href="a05009.html#a8b2a142e074338a13ffb614ff3565ab9">bl::util::IdAllocatorUnbounded::IdAllocatorUnbounded</a></div><div class="ttdeci">IdAllocatorUnbounded()</div><div class="ttdoc">Creates a new id allocator.</div><div class="ttdef"><b>Definition:</b> <a href="a01361_source.html#l00079">IdAllocatorUnbounded.hpp:79</a></div></div>
-<div class="ttc" id="aa05009_html_a8bdca69c91eeb15834b1894c953c4549"><div class="ttname"><a href="a05009.html#a8bdca69c91eeb15834b1894c953c4549">bl::util::IdAllocatorUnbounded::IdAllocatorUnbounded</a></div><div class="ttdeci">IdAllocatorUnbounded(std::size_t capacityHint)</div><div class="ttdoc">Creates a new id allocator and pre-allocates some memory.</div><div class="ttdef"><b>Definition:</b> <a href="a01361_source.html#l00083">IdAllocatorUnbounded.hpp:83</a></div></div>
-<div class="ttc" id="aa05009_html_a999cf670cc7639d0c167ef6b950616b2"><div class="ttname"><a href="a05009.html#a999cf670cc7639d0c167ef6b950616b2">bl::util::IdAllocatorUnbounded::release</a></div><div class="ttdeci">void release(T id)</div><div class="ttdoc">Releases the given id back into the pool. Double-release is an error.</div><div class="ttdef"><b>Definition:</b> <a href="a01361_source.html#l00105">IdAllocatorUnbounded.hpp:105</a></div></div>
-<div class="ttc" id="aa05009_html_a9c6d5813a146b1402c8a4814422df140"><div class="ttname"><a href="a05009.html#a9c6d5813a146b1402c8a4814422df140">bl::util::IdAllocatorUnbounded::poolSize</a></div><div class="ttdeci">constexpr T poolSize() const</div><div class="ttdoc">Returns the capacity of the id pool.</div><div class="ttdef"><b>Definition:</b> <a href="a01361_source.html#l00125">IdAllocatorUnbounded.hpp:125</a></div></div>
-<div class="ttc" id="aa05009_html_acaa4e830f32672424758a5487b26f4d4"><div class="ttname"><a href="a05009.html#acaa4e830f32672424758a5487b26f4d4">bl::util::IdAllocatorUnbounded::releaseAll</a></div><div class="ttdeci">void releaseAll()</div><div class="ttdoc">Releases all ids.</div><div class="ttdef"><b>Definition:</b> <a href="a01361_source.html#l00113">IdAllocatorUnbounded.hpp:113</a></div></div>
-<div class="ttc" id="aa05009_html_ace0ff463eec7e042c0e53a6c53da58d5"><div class="ttname"><a href="a05009.html#ace0ff463eec7e042c0e53a6c53da58d5">bl::util::IdAllocatorUnbounded::isAllocated</a></div><div class="ttdeci">constexpr bool isAllocated(T id) const</div><div class="ttdoc">Returns whether or not the given id is allocated.</div><div class="ttdef"><b>Definition:</b> <a href="a01361_source.html#l00120">IdAllocatorUnbounded.hpp:120</a></div></div>
-<div class="ttc" id="aa05009_html_ae7fb1e9e6910be922de1188e21017610"><div class="ttname"><a href="a05009.html#ae7fb1e9e6910be922de1188e21017610">bl::util::IdAllocatorUnbounded::allocate</a></div><div class="ttdeci">T allocate()</div><div class="ttdoc">Allocates a new id from the allocator.</div><div class="ttdef"><b>Definition:</b> <a href="a01361_source.html#l00090">IdAllocatorUnbounded.hpp:90</a></div></div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a05156.html#a0f97a251776298f121130098156b5a42">   29</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a05156.html#a0f97a251776298f121130098156b5a42">~Transform2DDescriptorSystem</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">using</span> <a class="code" href="a02884.html">InterpTags</a> = <a class="code" href="a02884.html">ecs::Tags&lt;ecs::Require&lt;com::Velocity2D, com::Transform2D&gt;</a>&gt;;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">using</span> <a class="code" href="a02884.html">PosTags</a> =</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <a class="code" href="a02884.html">ecs::Tags&lt;ecs::Require&lt;com::Transform2D&gt;</a>, <a class="code" href="a02876.html">ecs::Optional&lt;&gt;</a>, <a class="code" href="a02880.html">ecs::Exclude&lt;com::Velocity2D&gt;</a>&gt;;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    InterpTags::TView* interpView;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    PosTags::TView* posOnlyView;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> update(std::mutex&amp;, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> init(<a class="code" href="a02964.html">engine::Engine</a>&amp; engine) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;};</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// namespace sys</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00122_html"><div class="ttname"><a href="a00122.html">Velocity2D.hpp</a></div></div>
+<div class="ttc" id="aa00239_html"><div class="ttname"><a href="a00239.html">ECS.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02876_html"><div class="ttname"><a href="a02876.html">bl::ecs::Optional</a></div><div class="ttdoc">Tag that indicates a set of components are optional.</div><div class="ttdef"><b>Definition:</b> <a href="a00209_source.html#l00044">Tags.hpp:44</a></div></div>
+<div class="ttc" id="aa02880_html"><div class="ttname"><a href="a02880.html">bl::ecs::Exclude</a></div><div class="ttdoc">Tag that indicates a set of components are excluded.</div><div class="ttdef"><b>Definition:</b> <a href="a00209_source.html#l00053">Tags.hpp:53</a></div></div>
+<div class="ttc" id="aa02884_html"><div class="ttname"><a href="a02884.html">bl::ecs::Tags</a></div><div class="ttdef"><b>Definition:</b> <a href="a00209_source.html#l00056">Tags.hpp:56</a></div></div>
+<div class="ttc" id="aa02964_html"><div class="ttname"><a href="a02964.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06568_source.html#l00038">Engine.hpp:38</a></div></div>
+<div class="ttc" id="aa03048_html"><div class="ttname"><a href="a03048.html">bl::engine::System</a></div><div class="ttdoc">Base class for Engine systems which can be registered in the Systems registry.</div><div class="ttdef"><b>Definition:</b> <a href="a06577_source.html#l00018">System.hpp:18</a></div></div>
+<div class="ttc" id="aa05156_html"><div class="ttname"><a href="a05156.html">bl::sys::Transform2DDescriptorSystem</a></div><div class="ttdoc">System that updates 2d transforms into renderer descriptor sets. Also performs interpolation for enti...</div><div class="ttdef"><b>Definition:</b> <a href="a01361_source.html#l00019">Transform2DDescriptorSystem.hpp:19</a></div></div>
+<div class="ttc" id="aa05156_html_a0f97a251776298f121130098156b5a42"><div class="ttname"><a href="a05156.html#a0f97a251776298f121130098156b5a42">bl::sys::Transform2DDescriptorSystem::~Transform2DDescriptorSystem</a></div><div class="ttdeci">virtual ~Transform2DDescriptorSystem()=default</div><div class="ttdoc">Destroys the system.</div></div>
+<div class="ttc" id="aa05156_html_a7ea148facfb8b44362e26c299efd2f19"><div class="ttname"><a href="a05156.html#a7ea148facfb8b44362e26c299efd2f19">bl::sys::Transform2DDescriptorSystem::Transform2DDescriptorSystem</a></div><div class="ttdeci">Transform2DDescriptorSystem()</div><div class="ttdoc">Initializes the system.</div><div class="ttdef"><b>Definition:</b> <a href="a02294_source.html#l00009">Transform2DDescriptorSystem.cpp:9</a></div></div>
+<div class="ttc" id="aa06544_html"><div class="ttname"><a href="a06544.html">Transform2D.hpp</a></div></div>
+<div class="ttc" id="aa06577_html"><div class="ttname"><a href="a06577.html">System.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

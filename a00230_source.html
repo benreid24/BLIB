@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Engine/Events/Paused.hpp Source File</title>
+<title>BLIB: include/BLIB/ECS/TransactionImpl.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,37 +66,61 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_21925c401d8b9381bdf61383d8a14cd0.html">Engine</a></li><li class="navelem"><a class="el" href="dir_b1e11ac7deb2d68a3ec768925497826d.html">Events</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ce575a5afd2ea0954c4dff0006796805.html">ECS</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Paused.hpp</div>  </div>
+<div class="title">TransactionImpl.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00230.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ENGINE_EVENTS_PAUSED_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ENGINE_EVENTS_PAUSED_HPP</span></div>
+<a href="a00230.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ECS_TRANSACTIONIMPL_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ECS_TRANSACTIONIMPL_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>engine</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="a02323.html">    8</a></span>&#160;<span class="keyword">namespace </span>event</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02837.html">   16</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02837.html">Paused</a> {};</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace event</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace engine</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#ifndef BLIB_ECS_REGISTRY_HPP</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#error &quot;Internal file included out of order&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00227.html">BLIB/ECS/Transaction.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>ecs</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>txp</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02920.html#ac5558cc57b191558be1b109d9963f0a3">   16</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="a02920.html#ab889047d4deb21861e71926ab52befd4">TransactionEntityWrite::TransactionEntityWrite</a>(<a class="code" href="a02856.html">Registry</a>&amp; r)</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;: lock(r.entityLock) {}</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02916.html#ad0e82151d0b078bd7b603b95ce8d090e">   19</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="a02916.html#a97f9c1cf5e7f28bb3d5b4cad01281a1c">TransactionEntityRead::TransactionEntityRead</a>(<a class="code" href="a02856.html">Registry</a>&amp; r)</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;: lock(r.entityLock) {}</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02837_html"><div class="ttname"><a href="a02837.html">bl::engine::event::Paused</a></div><div class="ttdoc">Fired when the engine is paused.</div><div class="ttdef"><b>Definition:</b> <a href="a00230_source.html#l00016">Paused.hpp:16</a></div></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02940.html#aa53b4848e8aa90f3675dbb5ac070f7da">   23</a></span>&#160;<a class="code" href="a02940.html#accba2f76b789c05da3c1cabdfb23c9a6">TransactionComponentRead&lt;T&gt;::TransactionComponentRead</a>(<a class="code" href="a02856.html">Registry</a>&amp; registry)</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;: lock(registry.getPool&lt;T&gt;().poolLock) {}</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a02908.html#a7e5017a306e7c013c0f142ab23fc9540">   27</a></span>&#160;<a class="code" href="a02908.html#af9976349754ab9e9514436ed8641e2bf">TransactionComponentWrite&lt;T&gt;::TransactionComponentWrite</a>(<a class="code" href="a02856.html">Registry</a>&amp; registry)</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;: lock(registry.getPool&lt;T&gt;().poolLock) {}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;} <span class="comment">// namespace txp</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace ecs</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00227_html"><div class="ttname"><a href="a00227.html">Transaction.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02856_html"><div class="ttname"><a href="a02856.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition:</b> <a href="a00206_source.html#l00034">Registry.hpp:34</a></div></div>
+<div class="ttc" id="aa02908_html_af9976349754ab9e9514436ed8641e2bf"><div class="ttname"><a href="a02908.html#af9976349754ab9e9514436ed8641e2bf">bl::ecs::txp::TransactionComponentWrite::TransactionComponentWrite</a></div><div class="ttdeci">TransactionComponentWrite(const TransactionComponentWrite &amp;)</div><div class="ttdef"><b>Definition:</b> <a href="a00227_source.html#l00130">Transaction.hpp:130</a></div></div>
+<div class="ttc" id="aa02916_html_a97f9c1cf5e7f28bb3d5b4cad01281a1c"><div class="ttname"><a href="a02916.html#a97f9c1cf5e7f28bb3d5b4cad01281a1c">bl::ecs::txp::TransactionEntityRead::TransactionEntityRead</a></div><div class="ttdeci">TransactionEntityRead(const TransactionEntityWrite &amp;)</div><div class="ttdef"><b>Definition:</b> <a href="a00227_source.html#l00067">Transaction.hpp:67</a></div></div>
+<div class="ttc" id="aa02920_html_ab889047d4deb21861e71926ab52befd4"><div class="ttname"><a href="a02920.html#ab889047d4deb21861e71926ab52befd4">bl::ecs::txp::TransactionEntityWrite::TransactionEntityWrite</a></div><div class="ttdeci">TransactionEntityWrite(const TransactionEntityWrite &amp;)</div><div class="ttdef"><b>Definition:</b> <a href="a00227_source.html#l00080">Transaction.hpp:80</a></div></div>
+<div class="ttc" id="aa02940_html_accba2f76b789c05da3c1cabdfb23c9a6"><div class="ttname"><a href="a02940.html#accba2f76b789c05da3c1cabdfb23c9a6">bl::ecs::txp::TransactionComponentRead::TransactionComponentRead</a></div><div class="ttdeci">TransactionComponentRead(const TransactionComponentWrite&lt; T &gt; &amp;)</div><div class="ttdef"><b>Definition:</b> <a href="a00227_source.html#l00111">Transaction.hpp:111</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: sf Namespace Reference</title>
+<title>BLIB: Engine</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -50,6 +50,7 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -64,128 +65,112 @@ $(function() {
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#groups">Modules</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
-<div class="title">sf Namespace Reference</div>  </div>
+<div class="title">Engine</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Core classes for the game engine, centered around the Engine class.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03117.html">VulkanFont</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adaptation of sf::Font for use with Vulkan.  <a href="a03117.html#details">More...</a><br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="groups"></a>
+Modules</h2></td></tr>
+<tr class="memitem:a02350"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02350.html">EngineEvents</a></td></tr>
+<tr class="memdesc:a02350"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of event classes that fire as the Engine runs. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a7bd0aac136b4741a477aba50870e6d24"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a7bd0aac136b4741a477aba50870e6d24"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02333.html#a7bd0aac136b4741a477aba50870e6d24">operator&lt;&lt;</a> (std::ostream &amp;os, const sf::Vector2&lt; T &gt; &amp;v)</td></tr>
-<tr class="separator:a7bd0aac136b4741a477aba50870e6d24"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd5593f4ae9c5b851622052d25e2dee7"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:abd5593f4ae9c5b851622052d25e2dee7"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02333.html#abd5593f4ae9c5b851622052d25e2dee7">operator&lt;&lt;</a> (std::ostream &amp;os, const sf::Vector3&lt; T &gt; &amp;v)</td></tr>
-<tr class="separator:abd5593f4ae9c5b851622052d25e2dee7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a062778ddccb47297e3f5e71c93d9e512"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a062778ddccb47297e3f5e71c93d9e512"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02333.html#a062778ddccb47297e3f5e71c93d9e512">operator&lt;&lt;</a> (std::ostream &amp;os, const sf::Rect&lt; T &gt; &amp;r)</td></tr>
-<tr class="separator:a062778ddccb47297e3f5e71c93d9e512"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02960.html">bl::engine::Configuration</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global typeless configuration store for engine settings. Applications may add their own configuration settings to the store as well. Some examples of configuration are the path prefixes for songs in Playlists and spritesheets in Animations. Reading the configuration is threadsafe, however all calls to <a class="el" href="a02960.html#ae1351f2a965cfbadda243cf5c25a9196" title="Sets the value for the given type and key in the config store. Keys may be duplicated across types....">set()</a> should be performed before any concurrent access is attempted.  <a href="a02960.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02964.html">bl::engine::Engine</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core engine class that owns engine resources and the main game loop.  <a href="a02964.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03000.html">bl::engine::event::WorldCreated</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when a world is created.  <a href="a03000.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03008.html">bl::engine::Flags</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of flags that can be set to modify or control the behavior of the <a class="el" href="a02964.html" title="Core engine class that owns engine resources and the main game loop.">Engine</a>. All flags are read by the engine at the end of each update loop.  <a href="a03008.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03012.html">bl::engine::FrameStage</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Container for the names of each stage of a frame in the engine. Used by <a class="el" href="a03052.html" title="Central registry for systems in the engine. Systems should be registered here before the engine is st...">Systems</a> to bucket systems by when they should run.  <a href="a03012.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03016.html">bl::engine::Player</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02964.html" title="Core engine class that owns engine resources and the main game loop.">Engine</a> level concept of a player. Wraps renderer Observer and input system Actor.  <a href="a03016.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03020.html">bl::engine::Properties</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper for managing application properties.  <a href="a03020.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03028.html">bl::engine::Property&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper class to manage application properties stored in engine <a class="el" href="a02960.html" title="Global typeless configuration store for engine settings. Applications may add their own configuration...">Configuration</a>.  <a href="a03028.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03032.html">bl::engine::Settings</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of settings to create an <a class="el" href="a02964.html" title="Core engine class that owns engine resources and the main game loop.">Engine</a> with, organized as a builder.  <a href="a03032.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03036.html">bl::engine::Settings::WindowParameters</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of settings for creating (or re-creating) the game window.  <a href="a03036.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03040.html">bl::engine::State</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base interface for all engine states. The <a class="el" href="a02964.html" title="Core engine class that owns engine resources and the main game loop.">Engine</a> class manages the main game loop, application logic should be implemented in a set of EngineState classes which can be plugged into the <a class="el" href="a02964.html" title="Core engine class that owns engine resources and the main game loop.">Engine</a>.  <a href="a03040.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03044.html">bl::engine::StateMask</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper struct for state masks. An engine state has a mask which determines which systems run while that state is active. Any systems whose mask overlaps the state mask are executed each frame while the others are skipped.  <a href="a03044.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03048.html">bl::engine::System</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for <a class="el" href="a02964.html" title="Core engine class that owns engine resources and the main game loop.">Engine</a> systems which can be registered in the <a class="el" href="a03052.html" title="Central registry for systems in the engine. Systems should be registered here before the engine is st...">Systems</a> registry.  <a href="a03048.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03052.html">bl::engine::Systems</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Central registry for systems in the engine. <a class="el" href="a03052.html" title="Central registry for systems in the engine. Systems should be registered here before the engine is st...">Systems</a> should be registered here before the engine is started otherwise their init() method will not be called.  <a href="a03052.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03056.html">bl::engine::Systems::TaskHandle</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle to a task submitted to <a class="el" href="a03052.html" title="Central registry for systems in the engine. Systems should be registered here before the engine is st...">Systems</a>.  <a href="a03056.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03072.html">bl::engine::Window&lt; SfWindow &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper over SFML windows. Uses GLFW on Macos for proper Vulkan surface creation.  <a href="a03072.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03076.html">bl::engine::Worker</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03076.html" title="Worker interface providing access to the background worker thread of the engine. This thread performs...">Worker</a> interface providing access to the background worker thread of the engine. This thread performs logging and other async engine tasks that are relatively lightweight and sporadic. The thread is terminated when the engine instance is destructed.  <a href="a03076.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03080.html">bl::engine::World</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for engine worlds. A world is a scene and all the entities in it. Players can be in worlds. Only derived world classes may be used.  <a href="a03080.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03084.html">bl::engine::BasicWorld&lt; TScene &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic world that uses a specific scene type.  <a href="a03084.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03088.html">bl::engine::World2D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03080.html" title="Base class for engine worlds. A world is a scene and all the entities in it. Players can be in worlds...">World</a> type for 2d worlds with physics and collisions.  <a href="a03088.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ga57d216bfcb86b8f4150d59bf58be39f0"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02333.html#ga57d216bfcb86b8f4150d59bf58be39f0">bl::engine::EngineWindow</a> = <a class="el" href="a03072.html">Window</a>&lt; sf::WindowBase &gt;</td></tr>
+<tr class="memdesc:ga57d216bfcb86b8f4150d59bf58be39f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default window type used by the engine.  <a href="a02333.html#ga57d216bfcb86b8f4150d59bf58be39f0">More...</a><br /></td></tr>
+<tr class="separator:ga57d216bfcb86b8f4150d59bf58be39f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a062778ddccb47297e3f5e71c93d9e512"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a062778ddccb47297e3f5e71c93d9e512">&#9670;&nbsp;</a></span>operator&lt;&lt;() <span class="overload">[1/3]</span></h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p>Core classes for the game engine, centered around the Engine class. </p>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="ga57d216bfcb86b8f4150d59bf58be39f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga57d216bfcb86b8f4150d59bf58be39f0">&#9670;&nbsp;</a></span>EngineWindow</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">std::ostream&amp; sf::operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>os</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const sf::Rect&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>r</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname">using <a class="el" href="a02333.html#ga57d216bfcb86b8f4150d59bf58be39f0">bl::engine::EngineWindow</a> = typedef <a class="el" href="a03072.html">Window</a>&lt;sf::WindowBase&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00665_source.html#l00036">36</a> of file <a class="el" href="a00665_source.html">Outputters.hpp</a>.</p>
+<p>Default window type used by the engine. </p>
 
-</div>
-</div>
-<a id="a7bd0aac136b4741a477aba50870e6d24"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7bd0aac136b4741a477aba50870e6d24">&#9670;&nbsp;</a></span>operator&lt;&lt;() <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">std::ostream&amp; sf::operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>os</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const sf::Vector2&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>v</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00665_source.html#l00024">24</a> of file <a class="el" href="a00665_source.html">Outputters.hpp</a>.</p>
-
-</div>
-</div>
-<a id="abd5593f4ae9c5b851622052d25e2dee7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd5593f4ae9c5b851622052d25e2dee7">&#9670;&nbsp;</a></span>operator&lt;&lt;() <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">std::ostream&amp; sf::operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>os</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const sf::Vector3&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>v</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00665_source.html#l00030">30</a> of file <a class="el" href="a00665_source.html">Outputters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a06586_source.html#l00147">147</a> of file <a class="el" href="a06586_source.html">Window.hpp</a>.</p>
 
 </div>
 </div>
@@ -193,7 +178,7 @@ template&lt;typename T &gt; </div>
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:57:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

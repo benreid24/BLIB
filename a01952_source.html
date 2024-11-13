@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Lighting/Scene2DLighting.cpp Source File</title>
+<title>BLIB: src/Render/Descriptors/SceneDescriptorSetInstance.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,99 +66,47 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_077a91722faf10a1bec56ff571c2f693.html">Lighting</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_c46d59b26ba1c7a895704386ecf9511b.html">Descriptors</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Scene2DLighting.cpp</div>  </div>
+<div class="title">SceneDescriptorSetInstance.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01952.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00962.html">BLIB/Render/Lighting/Scene2DLighting.hpp</a>&gt;</span></div>
+<a href="a01952.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00914.html">BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00668.html">BLIB/Logging.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06634.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>lgt</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>ds</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a04029.html#ac23b1a0bea73140458ece81abb69dd85">   11</a></span>&#160;<a class="code" href="a04029.html#ac23b1a0bea73140458ece81abb69dd85">Scene2DLighting::Scene2DLighting</a>(<a class="code" href="a03801.html">ds::Scene2DInstance</a>* desc)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: lighting(desc-&gt;lighting[0])</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, indexAllocator(MaxLightCount) {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    allocations.fill(<a class="code" href="a04029.html#a2f89fe0988c984ee95a05b336a0a17a0">MaxLightCount</a>);</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a04029.html#a374e3f575fb684315c072b7152a68c25">   17</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04029.html#a374e3f575fb684315c072b7152a68c25">Scene2DLighting::setAmbientLight</a>(<span class="keyword">const</span> glm::vec3&amp; ambient) { lighting.ambient = ambient; }</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a04080.html#a4e4d85081fc95e511efd38849f047eb5">   11</a></span>&#160;<a class="code" href="a04080.html#a4e4d85081fc95e511efd38849f047eb5">SceneDescriptorSetInstance::SceneDescriptorSetInstance</a>()</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: <a class="code" href="a04036.html">DescriptorSetInstance</a>(Bindless, SpeedAgnostic) {}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a04080.html#ad0135cab959d2ab6c8c454054e1c23d4">   14</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04080.html#ad0135cab959d2ab6c8c454054e1c23d4">SceneDescriptorSetInstance::updateObserverCamera</a>(std::uint32_t observerIndex,</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                                                      <span class="keyword">const</span> glm::mat4&amp; cam) {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="a04080.html#a0a145382ab1e64d8c85dd63939bb0aca">cameraBuffer</a>[observerIndex] = cam;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a04029.html#a159cca89859e89140b5e7c241ec03b6a">   19</a></span>&#160;<span class="keyword">const</span> glm::vec3&amp; <a class="code" href="a04029.html#a159cca89859e89140b5e7c241ec03b6a">Scene2DLighting::getAmbientLight</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> lighting.ambient; }</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a04029.html#a83a8a20763448498e679aa8cd3267ce9">   21</a></span>&#160;<a class="code" href="a04025.html">Light2D</a> <a class="code" href="a04029.html#a83a8a20763448498e679aa8cd3267ce9">Scene2DLighting::addLight</a>(<span class="keyword">const</span> glm::vec2&amp; position, <span class="keywordtype">float</span> radius, <span class="keyword">const</span> glm::vec3&amp; color) {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">const</span> std::uint32_t i       = indexAllocator.<a class="code" href="a05005.html#af110687b026e2b4d9bcbf3cd557e2bc9">allocate</a>();</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">const</span> std::uint32_t j       = lighting.lightCount++;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    allocations[i]              = j;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    lighting.lights[j].color    = glm::vec4(color, radius);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    lighting.lights[j].position = position;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a04029.html#a97b95a710fbc937fe941e1ec993c860f">Light2D</a>(*<span class="keyword">this</span>, i);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a04029.html#af187eb5826bc7b71f2e938294c0fd8e4">   30</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04029.html#af187eb5826bc7b71f2e938294c0fd8e4">Scene2DLighting::removeLight</a>(<a class="code" href="a04025.html">Light2D</a> light) {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">if</span> (light.owner != <span class="keyword">this</span>) {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <a class="code" href="a00662.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; <span class="stringliteral">&quot;Cannot remove light from a different scene&quot;</span>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    }</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">const</span> std::uint32_t i = allocations[light.index];</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> (i &gt;= <a class="code" href="a04029.html#a2f89fe0988c984ee95a05b336a0a17a0">MaxLightCount</a>) { <span class="keywordflow">return</span>; }</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">if</span> (lighting.lightCount &gt; 1) {</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keyword">const</span> std::uint32_t j = lighting.lightCount - 1;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        lighting.lights[i]    = lighting.lights[j];</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">for</span> (std::uint32_t&amp; alloc : allocations) {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <span class="keywordflow">if</span> (alloc == j) {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                alloc = i;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            }</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        }</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    }</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    --lighting.lightCount;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    indexAllocator.<a class="code" href="a05005.html#aacb7d0882aa9261efa1fbfb538f73a59">release</a>(light.index);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    allocations[i] = <a class="code" href="a04029.html#a2f89fe0988c984ee95a05b336a0a17a0">MaxLightCount</a>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="a04029.html#aa32628730bf3be92433c8a1e932a3520">   55</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04029.html#aa32628730bf3be92433c8a1e932a3520">Scene2DLighting::removeAllLights</a>() {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    lighting.lightCount = 0;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    indexAllocator.<a class="code" href="a05005.html#a88a336a850d9499e8f1378430558e88c">releaseAll</a>();</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    allocations.fill(<a class="code" href="a04029.html#a2f89fe0988c984ee95a05b336a0a17a0">MaxLightCount</a>);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;} <span class="comment">// namespace lgt</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00662_html_af954e63cd52a20dcd7087a8c569f373f"><div class="ttname"><a href="a00662.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a></div><div class="ttdeci">#define BL_LOG_WARN</div><div class="ttdoc">Helper macro to log at warn level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00662_source.html#l00104">Logger.hpp:104</a></div></div>
-<div class="ttc" id="aa00668_html"><div class="ttname"><a href="a00668.html">Logging.hpp</a></div></div>
-<div class="ttc" id="aa00962_html"><div class="ttname"><a href="a00962.html">Scene2DLighting.hpp</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03801_html"><div class="ttname"><a href="a03801.html">bl::rc::ds::Scene2DInstance</a></div><div class="ttdoc">Descriptor set instance for 2d scene data.</div><div class="ttdef"><b>Definition:</b> <a href="a00821_source.html#l00035">Scene2DInstance.hpp:35</a></div></div>
-<div class="ttc" id="aa04025_html"><div class="ttname"><a href="a04025.html">bl::rc::lgt::Light2D</a></div><div class="ttdoc">Handle for a light in a 2d scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00959_source.html#l00020">Light2D.hpp:20</a></div></div>
-<div class="ttc" id="aa04029_html_a159cca89859e89140b5e7c241ec03b6a"><div class="ttname"><a href="a04029.html#a159cca89859e89140b5e7c241ec03b6a">bl::rc::lgt::Scene2DLighting::getAmbientLight</a></div><div class="ttdeci">const glm::vec3 &amp; getAmbientLight() const</div><div class="ttdoc">Returns the current ambient light color.</div><div class="ttdef"><b>Definition:</b> <a href="a01952_source.html#l00019">Scene2DLighting.cpp:19</a></div></div>
-<div class="ttc" id="aa04029_html_a2f89fe0988c984ee95a05b336a0a17a0"><div class="ttname"><a href="a04029.html#a2f89fe0988c984ee95a05b336a0a17a0">bl::rc::lgt::Scene2DLighting::MaxLightCount</a></div><div class="ttdeci">static constexpr std::uint32_t MaxLightCount</div><div class="ttdef"><b>Definition:</b> <a href="a00962_source.html#l00030">Scene2DLighting.hpp:30</a></div></div>
-<div class="ttc" id="aa04029_html_a374e3f575fb684315c072b7152a68c25"><div class="ttname"><a href="a04029.html#a374e3f575fb684315c072b7152a68c25">bl::rc::lgt::Scene2DLighting::setAmbientLight</a></div><div class="ttdeci">void setAmbientLight(const glm::vec3 &amp;ambient)</div><div class="ttdoc">Sets the ambient light color. Default is white (full light)</div><div class="ttdef"><b>Definition:</b> <a href="a01952_source.html#l00017">Scene2DLighting.cpp:17</a></div></div>
-<div class="ttc" id="aa04029_html_a83a8a20763448498e679aa8cd3267ce9"><div class="ttname"><a href="a04029.html#a83a8a20763448498e679aa8cd3267ce9">bl::rc::lgt::Scene2DLighting::addLight</a></div><div class="ttdeci">Light2D addLight(const glm::vec2 &amp;position, float radius, const glm::vec3 &amp;color=glm::vec3(1.f))</div><div class="ttdoc">Adds a light to the scene.</div><div class="ttdef"><b>Definition:</b> <a href="a01952_source.html#l00021">Scene2DLighting.cpp:21</a></div></div>
-<div class="ttc" id="aa04029_html_a97b95a710fbc937fe941e1ec993c860f"><div class="ttname"><a href="a04029.html#a97b95a710fbc937fe941e1ec993c860f">bl::rc::lgt::Scene2DLighting::Light2D</a></div><div class="ttdeci">friend class Light2D</div><div class="ttdef"><b>Definition:</b> <a href="a00962_source.html#l00088">Scene2DLighting.hpp:88</a></div></div>
-<div class="ttc" id="aa04029_html_aa32628730bf3be92433c8a1e932a3520"><div class="ttname"><a href="a04029.html#aa32628730bf3be92433c8a1e932a3520">bl::rc::lgt::Scene2DLighting::removeAllLights</a></div><div class="ttdeci">void removeAllLights()</div><div class="ttdoc">Removes all lights from the scene.</div><div class="ttdef"><b>Definition:</b> <a href="a01952_source.html#l00055">Scene2DLighting.cpp:55</a></div></div>
-<div class="ttc" id="aa04029_html_ac23b1a0bea73140458ece81abb69dd85"><div class="ttname"><a href="a04029.html#ac23b1a0bea73140458ece81abb69dd85">bl::rc::lgt::Scene2DLighting::Scene2DLighting</a></div><div class="ttdeci">Scene2DLighting(ds::Scene2DInstance *descriptorSet)</div><div class="ttdoc">Creates the lighting manager.</div><div class="ttdef"><b>Definition:</b> <a href="a01952_source.html#l00011">Scene2DLighting.cpp:11</a></div></div>
-<div class="ttc" id="aa04029_html_af187eb5826bc7b71f2e938294c0fd8e4"><div class="ttname"><a href="a04029.html#af187eb5826bc7b71f2e938294c0fd8e4">bl::rc::lgt::Scene2DLighting::removeLight</a></div><div class="ttdeci">void removeLight(Light2D light)</div><div class="ttdoc">Removes the given light from the scene.</div><div class="ttdef"><b>Definition:</b> <a href="a01952_source.html#l00030">Scene2DLighting.cpp:30</a></div></div>
-<div class="ttc" id="aa05005_html_a88a336a850d9499e8f1378430558e88c"><div class="ttname"><a href="a05005.html#a88a336a850d9499e8f1378430558e88c">bl::util::IdAllocator::releaseAll</a></div><div class="ttdeci">void releaseAll()</div><div class="ttdoc">Clears the state of the entire allocator and marks all ids as free.</div><div class="ttdef"><b>Definition:</b> <a href="a01358_source.html#l00131">IdAllocator.hpp:131</a></div></div>
-<div class="ttc" id="aa05005_html_aacb7d0882aa9261efa1fbfb538f73a59"><div class="ttname"><a href="a05005.html#aacb7d0882aa9261efa1fbfb538f73a59">bl::util::IdAllocator::release</a></div><div class="ttdeci">void release(T id)</div><div class="ttdoc">Marks the given id as being available for use again.</div><div class="ttdef"><b>Definition:</b> <a href="a01358_source.html#l00124">IdAllocator.hpp:124</a></div></div>
-<div class="ttc" id="aa05005_html_af110687b026e2b4d9bcbf3cd557e2bc9"><div class="ttname"><a href="a05005.html#af110687b026e2b4d9bcbf3cd557e2bc9">bl::util::IdAllocator::allocate</a></div><div class="ttdeci">T allocate()</div><div class="ttdoc">Allocates an id for use. Undefined behavior if available() returns false.</div><div class="ttdef"><b>Definition:</b> <a href="a01358_source.html#l00110">IdAllocator.hpp:110</a></div></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace ds</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00914_html"><div class="ttname"><a href="a00914.html">SceneDescriptorSetInstance.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04036_html"><div class="ttname"><a href="a04036.html">bl::rc::ds::DescriptorSetInstance</a></div><div class="ttdoc">Base class for descriptor sets that exist for each scene. Derived classes are created by DescriptorSe...</div><div class="ttdef"><b>Definition:</b> <a href="a06658_source.html#l00030">DescriptorSetInstance.hpp:30</a></div></div>
+<div class="ttc" id="aa04080_html_a0a145382ab1e64d8c85dd63939bb0aca"><div class="ttname"><a href="a04080.html#a0a145382ab1e64d8c85dd63939bb0aca">bl::rc::ds::SceneDescriptorSetInstance::cameraBuffer</a></div><div class="ttdeci">buf::UniformBuffer&lt; glm::mat4 &gt; cameraBuffer</div><div class="ttdef"><b>Definition:</b> <a href="a00914_source.html#l00043">SceneDescriptorSetInstance.hpp:43</a></div></div>
+<div class="ttc" id="aa04080_html_a4e4d85081fc95e511efd38849f047eb5"><div class="ttname"><a href="a04080.html#a4e4d85081fc95e511efd38849f047eb5">bl::rc::ds::SceneDescriptorSetInstance::SceneDescriptorSetInstance</a></div><div class="ttdeci">SceneDescriptorSetInstance()</div><div class="ttdoc">Creates the descriptor set instance.</div><div class="ttdef"><b>Definition:</b> <a href="a01952_source.html#l00011">SceneDescriptorSetInstance.cpp:11</a></div></div>
+<div class="ttc" id="aa04080_html_ad0135cab959d2ab6c8c454054e1c23d4"><div class="ttname"><a href="a04080.html#ad0135cab959d2ab6c8c454054e1c23d4">bl::rc::ds::SceneDescriptorSetInstance::updateObserverCamera</a></div><div class="ttdeci">void updateObserverCamera(std::uint32_t observerIndex, const glm::mat4 &amp;projView)</div><div class="ttdoc">Updates the camera value for the given observer.</div><div class="ttdef"><b>Definition:</b> <a href="a01952_source.html#l00014">SceneDescriptorSetInstance.cpp:14</a></div></div>
+<div class="ttc" id="aa06634_html"><div class="ttname"><a href="a06634.html">Config.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

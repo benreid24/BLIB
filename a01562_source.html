@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Graphics/Circle.cpp Source File</title>
+<title>BLIB: src/Engine/Properties.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,48 +66,66 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3419e189e460663ec2c964233bf8dcd6.html">Graphics</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Circle.cpp</div>  </div>
+<div class="title">Properties.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01562.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00332.html">BLIB/Graphics/Circle.hpp</a>&gt;</span></div>
+<a href="a01562.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00278.html">BLIB/Engine/Properties.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>gfx</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a03041.html#a9d18a3cbd0e5c7a276fcd740709192f6">    7</a></span>&#160;<a class="code" href="a03041.html#a9d18a3cbd0e5c7a276fcd740709192f6">Circle::Circle</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> pointCount)</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: CircleBase(pointCount) {}</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a03041.html#ad668ee68333d7d9a9f3b8b8ff1fdd811">   10</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03041.html#ad668ee68333d7d9a9f3b8b8ff1fdd811">Circle::create</a>(<a class="code" href="a02833.html">engine::Engine</a>&amp; engine, <span class="keywordtype">float</span> r) {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <a class="code" href="a03081.html#ade9c3d7c900c2b150bf0812f79720a1c">setRadius</a>(r);</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    SingleShape2D::create(<a class="code" href="a02741.html#ad29553a8037da3a396535700891bf39f">engine</a>);</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>engine</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;priv::PropertyBase* properties[512];</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;std::uint16_t nprops = 0;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;} <span class="comment">// namespace</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a03041.html#a3d39e5acb3c2f5fba5979ac69ee2e287">   15</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03041.html#ad668ee68333d7d9a9f3b8b8ff1fdd811">Circle::create</a>(<a class="code" href="a02833.html">engine::Engine</a>&amp; engine, <a class="code" href="a02733.html">ecs::Entity</a> existing, <span class="keywordtype">float</span> r) {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="a03081.html#ade9c3d7c900c2b150bf0812f79720a1c">setRadius</a>(r);</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    SingleShape2D::create(<a class="code" href="a02741.html#ad29553a8037da3a396535700891bf39f">engine</a>, existing);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00332_html"><div class="ttname"><a href="a00332.html">Circle.hpp</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02733_html"><div class="ttname"><a href="a02733.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00176_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa02741_html_ad29553a8037da3a396535700891bf39f"><div class="ttname"><a href="a02741.html#ad29553a8037da3a396535700891bf39f">bl::ecs::EntityBacked::engine</a></div><div class="ttdeci">engine::Engine &amp; engine()</div><div class="ttdoc">Returns the game engine instance. Only call after create()</div><div class="ttdef"><b>Definition:</b> <a href="a00179_source.html#l00137">EntityBacked.hpp:137</a></div></div>
-<div class="ttc" id="aa02833_html"><div class="ttname"><a href="a02833.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06269_source.html#l00033">Engine.hpp:33</a></div></div>
-<div class="ttc" id="aa03041_html_a9d18a3cbd0e5c7a276fcd740709192f6"><div class="ttname"><a href="a03041.html#a9d18a3cbd0e5c7a276fcd740709192f6">bl::gfx::Circle::Circle</a></div><div class="ttdeci">Circle(unsigned int pointCount=300)</div><div class="ttdoc">Creates the circle with the given point count.</div><div class="ttdef"><b>Definition:</b> <a href="a01562_source.html#l00007">Circle.cpp:7</a></div></div>
-<div class="ttc" id="aa03041_html_ad668ee68333d7d9a9f3b8b8ff1fdd811"><div class="ttname"><a href="a03041.html#ad668ee68333d7d9a9f3b8b8ff1fdd811">bl::gfx::Circle::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, float radius)</div><div class="ttdoc">Creates the circle entity and components.</div><div class="ttdef"><b>Definition:</b> <a href="a01562_source.html#l00010">Circle.cpp:10</a></div></div>
-<div class="ttc" id="aa03081_html_ade9c3d7c900c2b150bf0812f79720a1c"><div class="ttname"><a href="a03081.html#ade9c3d7c900c2b150bf0812f79720a1c">bl::gfx::s2d::CircleBase&lt; s2d::SingleShape2D &gt;::setRadius</a></div><div class="ttdeci">void setRadius(float radius)</div><div class="ttdoc">Sets the circles radius.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00038">CircleBase.hpp:90</a></div></div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a03020.html#a8356ab709fda3e6ece860d046900f0c8">   15</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03020.html#a8356ab709fda3e6ece860d046900f0c8">Properties::syncToConfig</a>() {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordflow">for</span> (std::uint16_t i = 0; i &lt; nprops; ++i) { properties[i]-&gt;syncToConfig(); }</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a03020.html#a5b9321b6e1cf9cf1ed476c0f780bc502">   19</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03020.html#a5b9321b6e1cf9cf1ed476c0f780bc502">Properties::syncFromConfig</a>() {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">for</span> (std::uint16_t i = 0; i &lt; nprops; ++i) { properties[i]-&gt;syncFromConfig(); }</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keywordtype">void</span> Properties::addProperty(<a class="code" href="a03024.html">priv::PropertyBase</a>* prop) {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    properties[nprops] = prop;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    ++nprops;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keywordtype">void</span> Properties::removeProperty(priv::PropertyBase* prop) {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">if</span> (nprops &gt; 1) {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">for</span> (std::uint16_t i = 0; i &lt; nprops; ++i) {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <span class="keywordflow">if</span> (properties[i] == prop) {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                properties[i] = properties[nprops - 1];</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                --nprops;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            }</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    }</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">else</span> { nprops = 0; }</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <span class="comment">// namespace engine</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00278_html"><div class="ttname"><a href="a00278.html">Properties.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03020_html_a5b9321b6e1cf9cf1ed476c0f780bc502"><div class="ttname"><a href="a03020.html#a5b9321b6e1cf9cf1ed476c0f780bc502">bl::engine::Properties::syncFromConfig</a></div><div class="ttdeci">static void syncFromConfig()</div><div class="ttdoc">Syncs all current instances of Property from Configuration.</div><div class="ttdef"><b>Definition:</b> <a href="a01562_source.html#l00019">Properties.cpp:19</a></div></div>
+<div class="ttc" id="aa03020_html_a8356ab709fda3e6ece860d046900f0c8"><div class="ttname"><a href="a03020.html#a8356ab709fda3e6ece860d046900f0c8">bl::engine::Properties::syncToConfig</a></div><div class="ttdeci">static void syncToConfig()</div><div class="ttdoc">Syncs all current instances of Property to Configuration.</div><div class="ttdef"><b>Definition:</b> <a href="a01562_source.html#l00015">Properties.cpp:15</a></div></div>
+<div class="ttc" id="aa03024_html"><div class="ttname"><a href="a03024.html">bl::engine::priv::PropertyBase</a></div><div class="ttdef"><b>Definition:</b> <a href="a00281_source.html#l00015">Property.hpp:15</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

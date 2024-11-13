@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Engine/StateMask.hpp Source File</title>
+<title>BLIB: include/BLIB/Engine/Events/StateChange.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,66 +66,44 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_21925c401d8b9381bdf61383d8a14cd0.html">Engine</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_21925c401d8b9381bdf61383d8a14cd0.html">Engine</a></li><li class="navelem"><a class="el" href="dir_b1e11ac7deb2d68a3ec768925497826d.html">Events</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">StateMask.hpp</div>  </div>
+<div class="title">StateChange.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00263.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ENGINE_STATEMASK_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ENGINE_STATEMASK_HPP</span></div>
+<a href="a00263.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ENGINE_EVENTS_STATECHANGED_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ENGINE_EVENTS_STATECHANGED_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>engine</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02893.html">   18</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02893.html">StateMask</a> {</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02893.html#aae4beb82249d6acee3fae792b71efdd5">   20</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="a02893.html#aae4beb82249d6acee3fae792b71efdd5">V</a> : std::uint32_t {</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02893.html#aae4beb82249d6acee3fae792b71efdd5a061e0226b11763bbd9894e625bb40e34">   22</a></span>&#160;        <a class="code" href="a02893.html#aae4beb82249d6acee3fae792b71efdd5a061e0226b11763bbd9894e625bb40e34">None</a> = 0x0,</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>engine</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>event</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02992.html">   16</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02992.html">StateChange</a> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02992.html#ac658b229cad73461262df7d59599c603">   18</a></span>&#160;    <a class="code" href="a03040.html#af13f7b9dd4d6e317dbc378896ddcf6d5">State::Ptr</a> <a class="code" href="a02992.html#ac658b229cad73461262df7d59599c603">newState</a>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02992.html#a2e182969892b6bbb8c88ee5e75b24047">   21</a></span>&#160;    <a class="code" href="a03040.html#af13f7b9dd4d6e317dbc378896ddcf6d5">State::Ptr</a> <a class="code" href="a02992.html#a2e182969892b6bbb8c88ee5e75b24047">prevState</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;};</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a02893.html#aae4beb82249d6acee3fae792b71efdd5aee9c6ccb90e5c92b0a2b4d71d5604e09">   25</a></span>&#160;        <a class="code" href="a02893.html#aae4beb82249d6acee3fae792b71efdd5aee9c6ccb90e5c92b0a2b4d71d5604e09">Running</a> = 0x1 &lt;&lt; 0,</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a02893.html#aae4beb82249d6acee3fae792b71efdd5ad415fe59a31c6130a6964f604ba70d8d">   28</a></span>&#160;        <a class="code" href="a02893.html#aae4beb82249d6acee3fae792b71efdd5ad415fe59a31c6130a6964f604ba70d8d">Paused</a> = 0x1 &lt;&lt; 1,</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a02893.html#aae4beb82249d6acee3fae792b71efdd5a2edd1e1abf629e137f222debc51d1da7">   31</a></span>&#160;        <a class="code" href="a02893.html#aae4beb82249d6acee3fae792b71efdd5a2edd1e1abf629e137f222debc51d1da7">Menu</a> = 0x1 &lt;&lt; 2,</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a02893.html#aae4beb82249d6acee3fae792b71efdd5afe3408cee366aa41e3276069a0095b33">   34</a></span>&#160;        <a class="code" href="a02893.html#aae4beb82249d6acee3fae792b71efdd5afe3408cee366aa41e3276069a0095b33">Editor</a> = 0x1 &lt;&lt; 3,</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <a class="code" href="a02893.html#aae4beb82249d6acee3fae792b71efdd5a30f2c931501442ac406ae354b8878479">All</a> = 0xFFFFFFFF</div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a02893.html#aae4beb82249d6acee3fae792b71efdd5a30f2c931501442ac406ae354b8878479">   38</a></span>&#160;    };</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;};</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <span class="comment">// namespace engine</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a00263.html#aba56c436dcb266634cb696ae1127cde9">   51</a></span>&#160;<span class="keyword">inline</span> constexpr <a class="code" href="a02893.html#aae4beb82249d6acee3fae792b71efdd5">bl::engine::StateMask::V</a> <a class="code" href="a00263.html#aba56c436dcb266634cb696ae1127cde9">operator|</a>(<a class="code" href="a02893.html#aae4beb82249d6acee3fae792b71efdd5">bl::engine::StateMask::V</a> left,</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                                                    <a class="code" href="a02893.html#aae4beb82249d6acee3fae792b71efdd5">bl::engine::StateMask::V</a> right) {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">using</span> V = <a class="code" href="a02893.html#aae4beb82249d6acee3fae792b71efdd5">bl::engine::StateMask::V</a>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">using</span> I = std::underlying_type_t&lt;V&gt;;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>V<span class="keyword">&gt;</span>(<span class="keyword">static_cast&lt;</span>I<span class="keyword">&gt;</span>(left) | <span class="keyword">static_cast&lt;</span>I<span class="keyword">&gt;</span>(right));</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00263_html_aba56c436dcb266634cb696ae1127cde9"><div class="ttname"><a href="a00263.html#aba56c436dcb266634cb696ae1127cde9">operator|</a></div><div class="ttdeci">constexpr bl::engine::StateMask::V operator|(bl::engine::StateMask::V left, bl::engine::StateMask::V right)</div><div class="ttdoc">Explicitly defined binary OR operator for easy typing.</div><div class="ttdef"><b>Definition:</b> <a href="a00263_source.html#l00051">StateMask.hpp:51</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02893_html"><div class="ttname"><a href="a02893.html">bl::engine::StateMask</a></div><div class="ttdoc">Wrapper struct for state masks. An engine state has a mask which determines which systems run while t...</div><div class="ttdef"><b>Definition:</b> <a href="a00263_source.html#l00018">StateMask.hpp:18</a></div></div>
-<div class="ttc" id="aa02893_html_aae4beb82249d6acee3fae792b71efdd5"><div class="ttname"><a href="a02893.html#aae4beb82249d6acee3fae792b71efdd5">bl::engine::StateMask::V</a></div><div class="ttdeci">V</div><div class="ttdoc">The type of the mask.</div><div class="ttdef"><b>Definition:</b> <a href="a00263_source.html#l00020">StateMask.hpp:20</a></div></div>
-<div class="ttc" id="aa02893_html_aae4beb82249d6acee3fae792b71efdd5a061e0226b11763bbd9894e625bb40e34"><div class="ttname"><a href="a02893.html#aae4beb82249d6acee3fae792b71efdd5a061e0226b11763bbd9894e625bb40e34">bl::engine::StateMask::None</a></div><div class="ttdeci">@ None</div><div class="ttdoc">Special value to use if no systems should execute.</div><div class="ttdef"><b>Definition:</b> <a href="a00263_source.html#l00022">StateMask.hpp:22</a></div></div>
-<div class="ttc" id="aa02893_html_aae4beb82249d6acee3fae792b71efdd5a2edd1e1abf629e137f222debc51d1da7"><div class="ttname"><a href="a02893.html#aae4beb82249d6acee3fae792b71efdd5a2edd1e1abf629e137f222debc51d1da7">bl::engine::StateMask::Menu</a></div><div class="ttdeci">@ Menu</div><div class="ttdoc">The game is in a full screen menu.</div><div class="ttdef"><b>Definition:</b> <a href="a00263_source.html#l00031">StateMask.hpp:31</a></div></div>
-<div class="ttc" id="aa02893_html_aae4beb82249d6acee3fae792b71efdd5a30f2c931501442ac406ae354b8878479"><div class="ttname"><a href="a02893.html#aae4beb82249d6acee3fae792b71efdd5a30f2c931501442ac406ae354b8878479">bl::engine::StateMask::All</a></div><div class="ttdeci">@ All</div><div class="ttdoc">Special value to use if a system should execute regardless of engine state.</div><div class="ttdef"><b>Definition:</b> <a href="a00263_source.html#l00038">StateMask.hpp:37</a></div></div>
-<div class="ttc" id="aa02893_html_aae4beb82249d6acee3fae792b71efdd5ad415fe59a31c6130a6964f604ba70d8d"><div class="ttname"><a href="a02893.html#aae4beb82249d6acee3fae792b71efdd5ad415fe59a31c6130a6964f604ba70d8d">bl::engine::StateMask::Paused</a></div><div class="ttdeci">@ Paused</div><div class="ttdoc">The game is on a pause menu overlaying normal gameplay.</div><div class="ttdef"><b>Definition:</b> <a href="a00263_source.html#l00028">StateMask.hpp:28</a></div></div>
-<div class="ttc" id="aa02893_html_aae4beb82249d6acee3fae792b71efdd5aee9c6ccb90e5c92b0a2b4d71d5604e09"><div class="ttname"><a href="a02893.html#aae4beb82249d6acee3fae792b71efdd5aee9c6ccb90e5c92b0a2b4d71d5604e09">bl::engine::StateMask::Running</a></div><div class="ttdeci">@ Running</div><div class="ttdoc">The game is running normally.</div><div class="ttdef"><b>Definition:</b> <a href="a00263_source.html#l00025">StateMask.hpp:25</a></div></div>
-<div class="ttc" id="aa02893_html_aae4beb82249d6acee3fae792b71efdd5afe3408cee366aa41e3276069a0095b33"><div class="ttname"><a href="a02893.html#aae4beb82249d6acee3fae792b71efdd5afe3408cee366aa41e3276069a0095b33">bl::engine::StateMask::Editor</a></div><div class="ttdeci">@ Editor</div><div class="ttdoc">Special state to indicate that the editor is running.</div><div class="ttdef"><b>Definition:</b> <a href="a00263_source.html#l00034">StateMask.hpp:34</a></div></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;} <span class="comment">// namespace event</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace engine</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02992_html"><div class="ttname"><a href="a02992.html">bl::engine::event::StateChange</a></div><div class="ttdoc">Fired when the engine switches states.</div><div class="ttdef"><b>Definition:</b> <a href="a00263_source.html#l00016">StateChange.hpp:16</a></div></div>
+<div class="ttc" id="aa02992_html_a2e182969892b6bbb8c88ee5e75b24047"><div class="ttname"><a href="a02992.html#a2e182969892b6bbb8c88ee5e75b24047">bl::engine::event::StateChange::prevState</a></div><div class="ttdeci">State::Ptr prevState</div><div class="ttdoc">The previous state of the engine. May be null.</div><div class="ttdef"><b>Definition:</b> <a href="a00263_source.html#l00021">StateChange.hpp:21</a></div></div>
+<div class="ttc" id="aa02992_html_ac658b229cad73461262df7d59599c603"><div class="ttname"><a href="a02992.html#ac658b229cad73461262df7d59599c603">bl::engine::event::StateChange::newState</a></div><div class="ttdeci">State::Ptr newState</div><div class="ttdoc">The new state of the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00263_source.html#l00018">StateChange.hpp:18</a></div></div>
+<div class="ttc" id="aa03040_html_af13f7b9dd4d6e317dbc378896ddcf6d5"><div class="ttname"><a href="a03040.html#af13f7b9dd4d6e317dbc378896ddcf6d5">bl::engine::State::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; State &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a06571_source.html#l00025">State.hpp:25</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

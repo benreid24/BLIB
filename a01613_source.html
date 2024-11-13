@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Input/Encoder.hpp Source File</title>
+<title>BLIB: src/Graphics/BatchTriangle.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,92 +66,49 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_25af87635f61d97ebff867d1c53b4626.html">Input</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3419e189e460663ec2c964233bf8dcd6.html">Graphics</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Encoder.hpp</div>  </div>
+<div class="title">BatchTriangle.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01613.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_INPUT_ENCODER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_INPUT_ENCODER_HPP</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;SFML/Window.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>input</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a05153.html">   12</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a05153.html">Encoder</a> {</div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a05157.html">   13</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="a05157.html">ControlInfo</a> {</div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a05157.html#a6e51da7bbcf066924bc91010aae6e012">   14</a></span>&#160;        <span class="keyword">enum</span> <a class="code" href="a05157.html#a6e51da7bbcf066924bc91010aae6e012">Type</a> {</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a05157.html#a6e51da7bbcf066924bc91010aae6e012a50c71e34b57209923e2316a0e4be936b">   15</a></span>&#160;            <a class="code" href="a05157.html#a6e51da7bbcf066924bc91010aae6e012a50c71e34b57209923e2316a0e4be936b">Invalid</a>,</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a05157.html#a6e51da7bbcf066924bc91010aae6e012ac5209ce00d4523467ced544cbd1d4044">   16</a></span>&#160;            <a class="code" href="a05157.html#a6e51da7bbcf066924bc91010aae6e012ac5209ce00d4523467ced544cbd1d4044">Key</a>,</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a05157.html#a6e51da7bbcf066924bc91010aae6e012ac73b4fca569fdcd3d3dc6682009e79f3">   17</a></span>&#160;            <a class="code" href="a05157.html#a6e51da7bbcf066924bc91010aae6e012ac73b4fca569fdcd3d3dc6682009e79f3">MouseButton</a>,</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a05157.html#a6e51da7bbcf066924bc91010aae6e012abd71d48c1d078959d5500ce13fee1ddc">   18</a></span>&#160;            <a class="code" href="a05157.html#a6e51da7bbcf066924bc91010aae6e012abd71d48c1d078959d5500ce13fee1ddc">MouseWheelUp</a>,</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a05157.html#a6e51da7bbcf066924bc91010aae6e012a5f77310c14d801c2ad5490fe82e5c65e">   19</a></span>&#160;            <a class="code" href="a05157.html#a6e51da7bbcf066924bc91010aae6e012a5f77310c14d801c2ad5490fe82e5c65e">MouseWheelDown</a>,</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a05157.html#a6e51da7bbcf066924bc91010aae6e012a1751dee6ff2887aa319dbe889e6bcf06">   20</a></span>&#160;            <a class="code" href="a05157.html#a6e51da7bbcf066924bc91010aae6e012a1751dee6ff2887aa319dbe889e6bcf06">JoystickButton</a>,</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a05157.html#a6e51da7bbcf066924bc91010aae6e012ab60f96eafd1c58edce1bd65fa9c65def">   21</a></span>&#160;            <a class="code" href="a05157.html#a6e51da7bbcf066924bc91010aae6e012ab60f96eafd1c58edce1bd65fa9c65def">JoystickAxis</a>,</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a05157.html#a6e51da7bbcf066924bc91010aae6e012a266ddcb145e106e653424e1f9bce1d58">   22</a></span>&#160;            <a class="code" href="a05157.html#a6e51da7bbcf066924bc91010aae6e012a266ddcb145e106e653424e1f9bce1d58">JoystickAxisPositive</a>,</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;            <a class="code" href="a05157.html#a6e51da7bbcf066924bc91010aae6e012ae8458cecf7e9a9ed511806ea7588ccbc">JoystickAxisNegative</a></div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a05157.html#a6e51da7bbcf066924bc91010aae6e012ae8458cecf7e9a9ed511806ea7588ccbc">   24</a></span>&#160;        } <a class="code" href="a05157.html#a12489411cff3987308e8876d73d60a32">type</a>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keyword">union </span>{</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a05157.html#a992e452cc64a297ac68a16173bed52b7">   27</a></span>&#160;            sf::Keyboard::Key <a class="code" href="a05157.html#a992e452cc64a297ac68a16173bed52b7">key</a>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a05157.html#ab80669207dcec278d723c1c9321caad0">   28</a></span>&#160;            sf::Mouse::Button <a class="code" href="a05157.html#ab80669207dcec278d723c1c9321caad0">mouseButton</a>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a05157.html#a3aa9578798165d4ecb9d617d548edc84">   29</a></span>&#160;            sf::Mouse::Wheel <a class="code" href="a05157.html#a3aa9578798165d4ecb9d617d548edc84">mouseWheel</a>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a05157.html#a4f93c6ce3b5bf21b7d1a085fb6fac8fd">   30</a></span>&#160;            <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="a05157.html#a4f93c6ce3b5bf21b7d1a085fb6fac8fd">joystickButton</a>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a05157.html#a2f4f94753c402bba1b1f0318e8d51874">   31</a></span>&#160;            sf::Joystick::Axis <a class="code" href="a05157.html#a2f4f94753c402bba1b1f0318e8d51874">joystickAxis</a>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        };</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <a class="code" href="a05157.html#adec54920c1908604377d76b479700dad">ControlInfo</a>();</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <a class="code" href="a05157.html#adec54920c1908604377d76b479700dad">ControlInfo</a>(sf::Keyboard::Key <a class="code" href="a05157.html#a992e452cc64a297ac68a16173bed52b7">key</a>);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <a class="code" href="a05157.html#adec54920c1908604377d76b479700dad">ControlInfo</a>(sf::Mouse::Button mbut);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <a class="code" href="a05157.html#adec54920c1908604377d76b479700dad">ControlInfo</a>(sf::Mouse::Wheel wheel, <span class="keywordtype">bool</span> upOrRight);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <a class="code" href="a05157.html#adec54920c1908604377d76b479700dad">ControlInfo</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> jbut);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <a class="code" href="a05157.html#adec54920c1908604377d76b479700dad">ControlInfo</a>(sf::Joystick::Axis axis);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <a class="code" href="a05157.html#adec54920c1908604377d76b479700dad">ControlInfo</a>(sf::Joystick::Axis axis, <span class="keywordtype">bool</span> positive);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    };</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">static</span> std::string <a class="code" href="a05153.html#ad694af1810e4034a02e11ab6d8aeb746">toString</a>(<span class="keyword">const</span> ControlInfo&amp; control);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">static</span> ControlInfo <a class="code" href="a05153.html#a4fdc8eff250a238ee096f3383fbbff1a">fromString</a>(<span class="keyword">const</span> std::string&amp; encoded);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;};</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;} <span class="comment">// namespace input</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa05153_html"><div class="ttname"><a href="a05153.html">bl::input::Encoder</a></div><div class="ttdef"><b>Definition:</b> <a href="a01613_source.html#l00012">Encoder.hpp:12</a></div></div>
-<div class="ttc" id="aa05153_html_a4fdc8eff250a238ee096f3383fbbff1a"><div class="ttname"><a href="a05153.html#a4fdc8eff250a238ee096f3383fbbff1a">bl::input::Encoder::fromString</a></div><div class="ttdeci">static ControlInfo fromString(const std::string &amp;encoded)</div><div class="ttdef"><b>Definition:</b> <a href="a01610_source.html#l00114">Encoder.cpp:114</a></div></div>
-<div class="ttc" id="aa05153_html_ad694af1810e4034a02e11ab6d8aeb746"><div class="ttname"><a href="a05153.html#ad694af1810e4034a02e11ab6d8aeb746">bl::input::Encoder::toString</a></div><div class="ttdeci">static std::string toString(const ControlInfo &amp;control)</div><div class="ttdef"><b>Definition:</b> <a href="a01610_source.html#l00144">Encoder.cpp:144</a></div></div>
-<div class="ttc" id="aa05157_html"><div class="ttname"><a href="a05157.html">bl::input::Encoder::ControlInfo</a></div><div class="ttdef"><b>Definition:</b> <a href="a01613_source.html#l00013">Encoder.hpp:13</a></div></div>
-<div class="ttc" id="aa05157_html_a12489411cff3987308e8876d73d60a32"><div class="ttname"><a href="a05157.html#a12489411cff3987308e8876d73d60a32">bl::input::Encoder::ControlInfo::type</a></div><div class="ttdeci">enum bl::input::Encoder::ControlInfo::Type type</div></div>
-<div class="ttc" id="aa05157_html_a2f4f94753c402bba1b1f0318e8d51874"><div class="ttname"><a href="a05157.html#a2f4f94753c402bba1b1f0318e8d51874">bl::input::Encoder::ControlInfo::joystickAxis</a></div><div class="ttdeci">sf::Joystick::Axis joystickAxis</div><div class="ttdef"><b>Definition:</b> <a href="a01613_source.html#l00031">Encoder.hpp:31</a></div></div>
-<div class="ttc" id="aa05157_html_a3aa9578798165d4ecb9d617d548edc84"><div class="ttname"><a href="a05157.html#a3aa9578798165d4ecb9d617d548edc84">bl::input::Encoder::ControlInfo::mouseWheel</a></div><div class="ttdeci">sf::Mouse::Wheel mouseWheel</div><div class="ttdef"><b>Definition:</b> <a href="a01613_source.html#l00029">Encoder.hpp:29</a></div></div>
-<div class="ttc" id="aa05157_html_a4f93c6ce3b5bf21b7d1a085fb6fac8fd"><div class="ttname"><a href="a05157.html#a4f93c6ce3b5bf21b7d1a085fb6fac8fd">bl::input::Encoder::ControlInfo::joystickButton</a></div><div class="ttdeci">unsigned int joystickButton</div><div class="ttdef"><b>Definition:</b> <a href="a01613_source.html#l00030">Encoder.hpp:30</a></div></div>
-<div class="ttc" id="aa05157_html_a6e51da7bbcf066924bc91010aae6e012"><div class="ttname"><a href="a05157.html#a6e51da7bbcf066924bc91010aae6e012">bl::input::Encoder::ControlInfo::Type</a></div><div class="ttdeci">Type</div><div class="ttdef"><b>Definition:</b> <a href="a01613_source.html#l00014">Encoder.hpp:14</a></div></div>
-<div class="ttc" id="aa05157_html_a6e51da7bbcf066924bc91010aae6e012a1751dee6ff2887aa319dbe889e6bcf06"><div class="ttname"><a href="a05157.html#a6e51da7bbcf066924bc91010aae6e012a1751dee6ff2887aa319dbe889e6bcf06">bl::input::Encoder::ControlInfo::JoystickButton</a></div><div class="ttdeci">@ JoystickButton</div><div class="ttdef"><b>Definition:</b> <a href="a01613_source.html#l00020">Encoder.hpp:20</a></div></div>
-<div class="ttc" id="aa05157_html_a6e51da7bbcf066924bc91010aae6e012a266ddcb145e106e653424e1f9bce1d58"><div class="ttname"><a href="a05157.html#a6e51da7bbcf066924bc91010aae6e012a266ddcb145e106e653424e1f9bce1d58">bl::input::Encoder::ControlInfo::JoystickAxisPositive</a></div><div class="ttdeci">@ JoystickAxisPositive</div><div class="ttdef"><b>Definition:</b> <a href="a01613_source.html#l00022">Encoder.hpp:22</a></div></div>
-<div class="ttc" id="aa05157_html_a6e51da7bbcf066924bc91010aae6e012a50c71e34b57209923e2316a0e4be936b"><div class="ttname"><a href="a05157.html#a6e51da7bbcf066924bc91010aae6e012a50c71e34b57209923e2316a0e4be936b">bl::input::Encoder::ControlInfo::Invalid</a></div><div class="ttdeci">@ Invalid</div><div class="ttdef"><b>Definition:</b> <a href="a01613_source.html#l00015">Encoder.hpp:15</a></div></div>
-<div class="ttc" id="aa05157_html_a6e51da7bbcf066924bc91010aae6e012a5f77310c14d801c2ad5490fe82e5c65e"><div class="ttname"><a href="a05157.html#a6e51da7bbcf066924bc91010aae6e012a5f77310c14d801c2ad5490fe82e5c65e">bl::input::Encoder::ControlInfo::MouseWheelDown</a></div><div class="ttdeci">@ MouseWheelDown</div><div class="ttdef"><b>Definition:</b> <a href="a01613_source.html#l00019">Encoder.hpp:19</a></div></div>
-<div class="ttc" id="aa05157_html_a6e51da7bbcf066924bc91010aae6e012ab60f96eafd1c58edce1bd65fa9c65def"><div class="ttname"><a href="a05157.html#a6e51da7bbcf066924bc91010aae6e012ab60f96eafd1c58edce1bd65fa9c65def">bl::input::Encoder::ControlInfo::JoystickAxis</a></div><div class="ttdeci">@ JoystickAxis</div><div class="ttdef"><b>Definition:</b> <a href="a01613_source.html#l00021">Encoder.hpp:21</a></div></div>
-<div class="ttc" id="aa05157_html_a6e51da7bbcf066924bc91010aae6e012abd71d48c1d078959d5500ce13fee1ddc"><div class="ttname"><a href="a05157.html#a6e51da7bbcf066924bc91010aae6e012abd71d48c1d078959d5500ce13fee1ddc">bl::input::Encoder::ControlInfo::MouseWheelUp</a></div><div class="ttdeci">@ MouseWheelUp</div><div class="ttdef"><b>Definition:</b> <a href="a01613_source.html#l00018">Encoder.hpp:18</a></div></div>
-<div class="ttc" id="aa05157_html_a6e51da7bbcf066924bc91010aae6e012ac5209ce00d4523467ced544cbd1d4044"><div class="ttname"><a href="a05157.html#a6e51da7bbcf066924bc91010aae6e012ac5209ce00d4523467ced544cbd1d4044">bl::input::Encoder::ControlInfo::Key</a></div><div class="ttdeci">@ Key</div><div class="ttdef"><b>Definition:</b> <a href="a01613_source.html#l00016">Encoder.hpp:16</a></div></div>
-<div class="ttc" id="aa05157_html_a6e51da7bbcf066924bc91010aae6e012ac73b4fca569fdcd3d3dc6682009e79f3"><div class="ttname"><a href="a05157.html#a6e51da7bbcf066924bc91010aae6e012ac73b4fca569fdcd3d3dc6682009e79f3">bl::input::Encoder::ControlInfo::MouseButton</a></div><div class="ttdeci">@ MouseButton</div><div class="ttdef"><b>Definition:</b> <a href="a01613_source.html#l00017">Encoder.hpp:17</a></div></div>
-<div class="ttc" id="aa05157_html_a6e51da7bbcf066924bc91010aae6e012ae8458cecf7e9a9ed511806ea7588ccbc"><div class="ttname"><a href="a05157.html#a6e51da7bbcf066924bc91010aae6e012ae8458cecf7e9a9ed511806ea7588ccbc">bl::input::Encoder::ControlInfo::JoystickAxisNegative</a></div><div class="ttdeci">@ JoystickAxisNegative</div><div class="ttdef"><b>Definition:</b> <a href="a01613_source.html#l00024">Encoder.hpp:23</a></div></div>
-<div class="ttc" id="aa05157_html_a992e452cc64a297ac68a16173bed52b7"><div class="ttname"><a href="a05157.html#a992e452cc64a297ac68a16173bed52b7">bl::input::Encoder::ControlInfo::key</a></div><div class="ttdeci">sf::Keyboard::Key key</div><div class="ttdef"><b>Definition:</b> <a href="a01613_source.html#l00027">Encoder.hpp:27</a></div></div>
-<div class="ttc" id="aa05157_html_ab80669207dcec278d723c1c9321caad0"><div class="ttname"><a href="a05157.html#ab80669207dcec278d723c1c9321caad0">bl::input::Encoder::ControlInfo::mouseButton</a></div><div class="ttdeci">sf::Mouse::Button mouseButton</div><div class="ttdef"><b>Definition:</b> <a href="a01613_source.html#l00028">Encoder.hpp:28</a></div></div>
-<div class="ttc" id="aa05157_html_adec54920c1908604377d76b479700dad"><div class="ttname"><a href="a05157.html#adec54920c1908604377d76b479700dad">bl::input::Encoder::ControlInfo::ControlInfo</a></div><div class="ttdeci">ControlInfo()</div><div class="ttdef"><b>Definition:</b> <a href="a01610_source.html#l00171">Encoder.cpp:171</a></div></div>
+<a href="a01613.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00365.html">BLIB/Graphics/BatchTriangle.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>gfx</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a03200.html#a42cdbcf0f806ff8b9160eef17180f388">    7</a></span>&#160;<a class="code" href="a03200.html#a42cdbcf0f806ff8b9160eef17180f388">BatchTriangle::BatchTriangle</a>()</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: TriangleBase() {}</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a03200.html#aa266c2d89086df0f153eee3f5f21a3a5">   10</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03200.html#aa266c2d89086df0f153eee3f5f21a3a5">BatchTriangle::create</a>(<a class="code" href="a02964.html">engine::Engine</a>&amp; engine, <a class="code" href="a03164.html">BatchedShapes2D</a>&amp; owner, <span class="keyword">const</span> glm::vec2&amp; p0,</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;                           <span class="keyword">const</span> glm::vec2&amp; p1, <span class="keyword">const</span> glm::vec2&amp; p2) {</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <a class="code" href="a03264.html#aec63bf250e507e530e966ad8e2517399">setPoints</a>(p0, p1, p2);</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    BatchShape2D::create(engine, owner);</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a03200.html#a61c4ec2eae25fe0a018bc1edacfbe17c">   16</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03200.html#aa266c2d89086df0f153eee3f5f21a3a5">BatchTriangle::create</a>(<a class="code" href="a02964.html">engine::Engine</a>&amp; engine, <a class="code" href="a03164.html">BatchedShapes2D</a>&amp; owner,</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                           <span class="keyword">const</span> std::array&lt;glm::vec2, 3&gt;&amp; p) {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <a class="code" href="a03264.html#aec63bf250e507e530e966ad8e2517399">setPoints</a>(p);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    BatchShape2D::create(engine, owner);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;} <span class="comment">// namespace gfx</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00365_html"><div class="ttname"><a href="a00365.html">BatchTriangle.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02964_html"><div class="ttname"><a href="a02964.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06568_source.html#l00038">Engine.hpp:38</a></div></div>
+<div class="ttc" id="aa03164_html"><div class="ttname"><a href="a03164.html">bl::gfx::BatchedShapes2D</a></div><div class="ttdoc">Drawable for a collection of batched 2d shapes. Create one of these and use with multiple BatchedCirc...</div><div class="ttdef"><b>Definition:</b> <a href="a06487_source.html#l00020">BatchedShapes2D.hpp:22</a></div></div>
+<div class="ttc" id="aa03200_html_a42cdbcf0f806ff8b9160eef17180f388"><div class="ttname"><a href="a03200.html#a42cdbcf0f806ff8b9160eef17180f388">bl::gfx::BatchTriangle::BatchTriangle</a></div><div class="ttdeci">BatchTriangle()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a01613_source.html#l00007">BatchTriangle.cpp:7</a></div></div>
+<div class="ttc" id="aa03200_html_aa266c2d89086df0f153eee3f5f21a3a5"><div class="ttname"><a href="a03200.html#aa266c2d89086df0f153eee3f5f21a3a5">bl::gfx::BatchTriangle::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, BatchedShapes2D &amp;owner, const glm::vec2 &amp;p0, const glm::vec2 &amp;p1, const glm::vec2 &amp;p2)</div><div class="ttdoc">Creates the triangle shape from 3 points (should not be co-linear)</div><div class="ttdef"><b>Definition:</b> <a href="a01613_source.html#l00010">BatchTriangle.cpp:10</a></div></div>
+<div class="ttc" id="aa03264_html_aec63bf250e507e530e966ad8e2517399"><div class="ttname"><a href="a03264.html#aec63bf250e507e530e966ad8e2517399">bl::gfx::s2d::TriangleBase&lt; s2d::BatchShape2D &gt;::setPoints</a></div><div class="ttdeci">void setPoints(const glm::vec2 &amp;p0, const glm::vec2 &amp;p1, const glm::vec2 &amp;p2)</div><div class="ttdoc">Sets the points to make the triangle with.</div><div class="ttdef"><b>Definition:</b> <a href="a00404_source.html#l00037">TriangleBase.hpp:79</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

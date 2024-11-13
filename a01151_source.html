@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Vulkan/TextureDoubleBuffered.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Vulkan/Pipeline.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,89 +71,84 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">TextureDoubleBuffered.hpp</div>  </div>
+<div class="title">Pipeline.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01151.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_TEXTUREDOUBLEBUFFERED_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_TEXTUREDOUBLEBUFFERED_HPP</span></div>
+<a href="a01151.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_PIPELINE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_PIPELINE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01106.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01148.html">BLIB/Render/Vulkan/TextureBase.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>vk</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span>Texture;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06634.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00890.html">BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01154.html">BLIB/Render/Vulkan/PipelineLayout.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01157.html">BLIB/Render/Vulkan/PipelineParameters.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01193.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01451.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;variant&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a04397.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04397.html">TextureDoubleBuffered</a> : <span class="keyword">public</span> <a class="code" href="a04393.html">TextureBase</a> {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a04401.html">   25</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="a04401.html">Image</a> {</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a04401.html#ae561f11874ed0b3f20d21e0e443705a0">   26</a></span>&#160;        VkImage <a class="code" href="a04401.html#ae561f11874ed0b3f20d21e0e443705a0">image</a>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a04401.html#ad7af26dab01d9bdcf59b560f3ea625a4">   27</a></span>&#160;        VmaAllocation <a class="code" href="a04401.html#ad7af26dab01d9bdcf59b560f3ea625a4">alloc</a>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a04401.html#a575bf3206e766a503c55c5a632cfdc94">   28</a></span>&#160;        VmaAllocationInfo <a class="code" href="a04401.html#a575bf3206e766a503c55c5a632cfdc94">allocInfo</a>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a04401.html#a763313e844a5247d3f80a8159ead8af5">   29</a></span>&#160;        VkImageView <a class="code" href="a04401.html#a763313e844a5247d3f80a8159ead8af5">view</a>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    };</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="a04397.html#a8ce8c3ddf8b7861e1c450bd73905d128">TextureDoubleBuffered</a>();</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a04397.html#acddcd21fdf5b3e8189d0e3872525c66d">   40</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a04397.html#acddcd21fdf5b3e8189d0e3872525c66d">~TextureDoubleBuffered</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a04397.html#a4b2d804c5eb8f66cf2c6a32a079fe6fa">resize</a>(<span class="keyword">const</span> glm::u32vec2&amp; <a class="code" href="a04393.html#a60b1e7c1e469732eb0066a579cdc9bbc">size</a>) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">const</span> <a class="code" href="a04293.html">PerFrame&lt;Image&gt;</a>&amp; <a class="code" href="a04397.html#abe19b34e0b3509035d89ad41dbfba5c4">getImages</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="a04293.html">PerFrame&lt;Image&gt;</a> images;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> create(<span class="keyword">const</span> glm::u32vec2&amp; <a class="code" href="a04393.html#a60b1e7c1e469732eb0066a579cdc9bbc">size</a>) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <a class="code" href="a04397.html">TextureDoubleBuffered</a>&amp; operator=(<span class="keyword">const</span> <a class="code" href="a04389.html">Texture</a>&amp; txtr);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> executeTransfer(VkCommandBuffer commandBuffer,</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                                 <a class="code" href="a04225.html">tfr::TransferContext</a>&amp; transferEngine) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">void</span> cleanup();</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">virtual</span> VkImage getCurrentImage() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">virtual</span> VkImageLayout getCurrentImageLayout() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">virtual</span> VkFormat getFormat() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="a04397.html#a713c98eafbeaafeac77f2d17326f92b3">   66</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a04077.html">res::BindlessTextureArray</a>;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;};</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="a04397.html#abe19b34e0b3509035d89ad41dbfba5c4">   71</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="a04293.html">PerFrame&lt;TextureDoubleBuffered::Image&gt;</a>&amp; <a class="code" href="a04397.html#abe19b34e0b3509035d89ad41dbfba5c4">TextureDoubleBuffered::getImages</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">return</span> images;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;} <span class="comment">// namespace vk</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01106_html"><div class="ttname"><a href="a01106.html">PerFrame.hpp</a></div></div>
-<div class="ttc" id="aa01148_html"><div class="ttname"><a href="a01148.html">TextureBase.hpp</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04077_html"><div class="ttname"><a href="a04077.html">bl::rc::res::BindlessTextureArray</a></div><div class="ttdoc">Utility class to help manage an array of Sampler2D as part of a descriptor set. Utilized by TexturePo...</div><div class="ttdef"><b>Definition:</b> <a href="a00989_source.html#l00026">BindlessTextureArray.hpp:26</a></div></div>
-<div class="ttc" id="aa04225_html"><div class="ttname"><a href="a04225.html">bl::rc::tfr::TransferContext</a></div><div class="ttdef"><b>Definition:</b> <a href="a01067_source.html#l00019">TransferContext.hpp:19</a></div></div>
-<div class="ttc" id="aa04293_html"><div class="ttname"><a href="a04293.html">bl::rc::vk::PerFrame</a></div><div class="ttdoc">Utility struct to easily double-buffer objects and data on a per-frame basis. One object of type T wi...</div><div class="ttdef"><b>Definition:</b> <a href="a01106_source.html#l00024">PerFrame.hpp:24</a></div></div>
-<div class="ttc" id="aa04389_html"><div class="ttname"><a href="a04389.html">bl::rc::vk::Texture</a></div><div class="ttdoc">Helper struct to manage a texture in Vulkan. Textures are managed and owned by the TexturePool and sh...</div><div class="ttdef"><b>Definition:</b> <a href="a06242_source.html#l00022">Texture.hpp:22</a></div></div>
-<div class="ttc" id="aa04393_html"><div class="ttname"><a href="a04393.html">bl::rc::vk::TextureBase</a></div><div class="ttdoc">Base class for textures. Provides common members and boilerplate.</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00025">TextureBase.hpp:25</a></div></div>
-<div class="ttc" id="aa04393_html_a60b1e7c1e469732eb0066a579cdc9bbc"><div class="ttname"><a href="a04393.html#a60b1e7c1e469732eb0066a579cdc9bbc">bl::rc::vk::TextureBase::size</a></div><div class="ttdeci">const glm::vec2 &amp; size() const</div><div class="ttdoc">Returns the size of the texture in pixels.</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00154">TextureBase.hpp:154</a></div></div>
-<div class="ttc" id="aa04397_html"><div class="ttname"><a href="a04397.html">bl::rc::vk::TextureDoubleBuffered</a></div><div class="ttdoc">Double buffered texture that provides the backing for RenderTexture.</div><div class="ttdef"><b>Definition:</b> <a href="a01151_source.html#l00020">TextureDoubleBuffered.hpp:20</a></div></div>
-<div class="ttc" id="aa04397_html_a4b2d804c5eb8f66cf2c6a32a079fe6fa"><div class="ttname"><a href="a04397.html#a4b2d804c5eb8f66cf2c6a32a079fe6fa">bl::rc::vk::TextureDoubleBuffered::resize</a></div><div class="ttdeci">virtual void resize(const glm::u32vec2 &amp;size) override</div><div class="ttdoc">Resizes the texture to the given size.</div><div class="ttdef"><b>Definition:</b> <a href="a02099_source.html#l00037">TextureDoubleBuffered.cpp:37</a></div></div>
-<div class="ttc" id="aa04397_html_a8ce8c3ddf8b7861e1c450bd73905d128"><div class="ttname"><a href="a04397.html#a8ce8c3ddf8b7861e1c450bd73905d128">bl::rc::vk::TextureDoubleBuffered::TextureDoubleBuffered</a></div><div class="ttdeci">TextureDoubleBuffered()</div><div class="ttdoc">Initializes to sane defaults.</div><div class="ttdef"><b>Definition:</b> <a href="a02099_source.html#l00013">TextureDoubleBuffered.cpp:13</a></div></div>
-<div class="ttc" id="aa04397_html_abe19b34e0b3509035d89ad41dbfba5c4"><div class="ttname"><a href="a04397.html#abe19b34e0b3509035d89ad41dbfba5c4">bl::rc::vk::TextureDoubleBuffered::getImages</a></div><div class="ttdeci">const PerFrame&lt; Image &gt; &amp; getImages() const</div><div class="ttdoc">Access the images for this texture.</div><div class="ttdef"><b>Definition:</b> <a href="a01151_source.html#l00071">TextureDoubleBuffered.hpp:71</a></div></div>
-<div class="ttc" id="aa04397_html_acddcd21fdf5b3e8189d0e3872525c66d"><div class="ttname"><a href="a04397.html#acddcd21fdf5b3e8189d0e3872525c66d">bl::rc::vk::TextureDoubleBuffered::~TextureDoubleBuffered</a></div><div class="ttdeci">virtual ~TextureDoubleBuffered()=default</div><div class="ttdoc">Destroys the textures.</div></div>
-<div class="ttc" id="aa04401_html"><div class="ttname"><a href="a04401.html">bl::rc::vk::TextureDoubleBuffered::Image</a></div><div class="ttdoc">Data for each image in a double buffered texture.</div><div class="ttdef"><b>Definition:</b> <a href="a01151_source.html#l00025">TextureDoubleBuffered.hpp:25</a></div></div>
-<div class="ttc" id="aa04401_html_a575bf3206e766a503c55c5a632cfdc94"><div class="ttname"><a href="a04401.html#a575bf3206e766a503c55c5a632cfdc94">bl::rc::vk::TextureDoubleBuffered::Image::allocInfo</a></div><div class="ttdeci">VmaAllocationInfo allocInfo</div><div class="ttdef"><b>Definition:</b> <a href="a01151_source.html#l00028">TextureDoubleBuffered.hpp:28</a></div></div>
-<div class="ttc" id="aa04401_html_a763313e844a5247d3f80a8159ead8af5"><div class="ttname"><a href="a04401.html#a763313e844a5247d3f80a8159ead8af5">bl::rc::vk::TextureDoubleBuffered::Image::view</a></div><div class="ttdeci">VkImageView view</div><div class="ttdef"><b>Definition:</b> <a href="a01151_source.html#l00029">TextureDoubleBuffered.hpp:29</a></div></div>
-<div class="ttc" id="aa04401_html_ad7af26dab01d9bdcf59b560f3ea625a4"><div class="ttname"><a href="a04401.html#ad7af26dab01d9bdcf59b560f3ea625a4">bl::rc::vk::TextureDoubleBuffered::Image::alloc</a></div><div class="ttdeci">VmaAllocation alloc</div><div class="ttdef"><b>Definition:</b> <a href="a01151_source.html#l00027">TextureDoubleBuffered.hpp:27</a></div></div>
-<div class="ttc" id="aa04401_html_ae561f11874ed0b3f20d21e0e443705a0"><div class="ttname"><a href="a04401.html#ae561f11874ed0b3f20d21e0e443705a0">bl::rc::vk::TextureDoubleBuffered::Image::image</a></div><div class="ttdeci">VkImage image</div><div class="ttdef"><b>Definition:</b> <a href="a01151_source.html#l00026">TextureDoubleBuffered.hpp:26</a></div></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">class </span>Renderer;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">class </span>PipelineCache;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span>vk</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a04480.html">   30</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04480.html">Pipeline</a> {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="a04480.html#a03224c8b83adbe3ff812ce8a7df427fc">Pipeline</a>(<a class="code" href="a04236.html">Renderer</a>&amp; renderer, <a class="code" href="a04500.html">PipelineParameters</a>&amp;&amp; params);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="a04480.html#a1d57975a718d565a44e8c07c95332326">~Pipeline</a>();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    constexpr <span class="keyword">const</span> <a class="code" href="a04484.html">PipelineLayout</a>&amp; <a class="code" href="a04480.html#a8a9980440a4260616ae1597e7c09dd44">pipelineLayout</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    VkPipeline <a class="code" href="a04480.html#a1e4a1d5a83d4391cb2f92917d1bdb9b6">rawPipeline</a>(std::uint32_t renderPassId) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04480.html#a4dbf56eca4795bb6bae91f2c7fb4e330">bind</a>(VkCommandBuffer commandBuffer, std::uint32_t renderPassId);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <a class="code" href="a04236.html">Renderer</a>&amp; renderer;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="a04484.html">PipelineLayout</a>* layout;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    std::array&lt;VkPipeline, Config::MaxRenderPasses&gt; pipelines;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="a04480.html#a3c6e79faddcf860d9ddab95307145e2f">   73</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a04480.html#a3c6e79faddcf860d9ddab95307145e2f">PipelineCache</a>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;};</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="a04480.html#a8a9980440a4260616ae1597e7c09dd44">   78</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keyword">const</span> <a class="code" href="a04484.html">PipelineLayout</a>&amp; <a class="code" href="a04480.html#a8a9980440a4260616ae1597e7c09dd44">Pipeline::pipelineLayout</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> *layout; }</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="a04480.html#a1e4a1d5a83d4391cb2f92917d1bdb9b6">   80</a></span>&#160;<span class="keyword">inline</span> VkPipeline <a class="code" href="a04480.html#a1e4a1d5a83d4391cb2f92917d1bdb9b6">Pipeline::rawPipeline</a>(std::uint32_t rpid)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> pipelines[rpid]; }</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;} <span class="comment">// namespace vk</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00890_html"><div class="ttname"><a href="a00890.html">DescriptorSetInstanceCache.hpp</a></div></div>
+<div class="ttc" id="aa01154_html"><div class="ttname"><a href="a01154.html">PipelineLayout.hpp</a></div></div>
+<div class="ttc" id="aa01157_html"><div class="ttname"><a href="a01157.html">PipelineParameters.hpp</a></div></div>
+<div class="ttc" id="aa01193_html"><div class="ttname"><a href="a01193.html">VulkanState.hpp</a></div></div>
+<div class="ttc" id="aa01451_html"><div class="ttname"><a href="a01451.html">Vulkan.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04236_html"><div class="ttname"><a href="a04236.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a06619_source.html#l00042">Renderer.hpp:42</a></div></div>
+<div class="ttc" id="aa04480_html"><div class="ttname"><a href="a04480.html">bl::rc::vk::Pipeline</a></div><div class="ttdoc">Core renderer class representing a pipeline that is a part of a RenderPass. Pipelines are managed by ...</div><div class="ttdef"><b>Definition:</b> <a href="a01151_source.html#l00030">Pipeline.hpp:30</a></div></div>
+<div class="ttc" id="aa04480_html_a03224c8b83adbe3ff812ce8a7df427fc"><div class="ttname"><a href="a04480.html#a03224c8b83adbe3ff812ce8a7df427fc">bl::rc::vk::Pipeline::Pipeline</a></div><div class="ttdeci">Pipeline(Renderer &amp;renderer, PipelineParameters &amp;&amp;params)</div><div class="ttdoc">Construct a new Pipeline.</div><div class="ttdef"><b>Definition:</b> <a href="a02117_source.html#l00011">Pipeline.cpp:11</a></div></div>
+<div class="ttc" id="aa04480_html_a1d57975a718d565a44e8c07c95332326"><div class="ttname"><a href="a04480.html#a1d57975a718d565a44e8c07c95332326">bl::rc::vk::Pipeline::~Pipeline</a></div><div class="ttdeci">~Pipeline()</div><div class="ttdoc">Destroy the Pipeline and frees Vulkan resources.</div><div class="ttdef"><b>Definition:</b> <a href="a02117_source.html#l00089">Pipeline.cpp:89</a></div></div>
+<div class="ttc" id="aa04480_html_a1e4a1d5a83d4391cb2f92917d1bdb9b6"><div class="ttname"><a href="a04480.html#a1e4a1d5a83d4391cb2f92917d1bdb9b6">bl::rc::vk::Pipeline::rawPipeline</a></div><div class="ttdeci">VkPipeline rawPipeline(std::uint32_t renderPassId) const</div><div class="ttdoc">Returns the underlying Vulkan pipeline handle.</div><div class="ttdef"><b>Definition:</b> <a href="a01151_source.html#l00080">Pipeline.hpp:80</a></div></div>
+<div class="ttc" id="aa04480_html_a3c6e79faddcf860d9ddab95307145e2f"><div class="ttname"><a href="a04480.html#a3c6e79faddcf860d9ddab95307145e2f">bl::rc::vk::Pipeline::PipelineCache</a></div><div class="ttdeci">friend class PipelineCache</div><div class="ttdef"><b>Definition:</b> <a href="a01151_source.html#l00073">Pipeline.hpp:73</a></div></div>
+<div class="ttc" id="aa04480_html_a4dbf56eca4795bb6bae91f2c7fb4e330"><div class="ttname"><a href="a04480.html#a4dbf56eca4795bb6bae91f2c7fb4e330">bl::rc::vk::Pipeline::bind</a></div><div class="ttdeci">void bind(VkCommandBuffer commandBuffer, std::uint32_t renderPassId)</div><div class="ttdoc">Issues the command to bind the pipeline.</div><div class="ttdef"><b>Definition:</b> <a href="a02117_source.html#l00097">Pipeline.cpp:97</a></div></div>
+<div class="ttc" id="aa04480_html_a8a9980440a4260616ae1597e7c09dd44"><div class="ttname"><a href="a04480.html#a8a9980440a4260616ae1597e7c09dd44">bl::rc::vk::Pipeline::pipelineLayout</a></div><div class="ttdeci">constexpr const PipelineLayout &amp; pipelineLayout() const</div><div class="ttdoc">Returns the layout of this pipeline.</div><div class="ttdef"><b>Definition:</b> <a href="a01151_source.html#l00078">Pipeline.hpp:78</a></div></div>
+<div class="ttc" id="aa04484_html"><div class="ttname"><a href="a04484.html">bl::rc::vk::PipelineLayout</a></div><div class="ttdoc">Represents the descriptor layout for pipelines. Allows rendering to be batched by layout to save on b...</div><div class="ttdef"><b>Definition:</b> <a href="a01154_source.html#l00030">PipelineLayout.hpp:30</a></div></div>
+<div class="ttc" id="aa04500_html"><div class="ttname"><a href="a04500.html">bl::rc::vk::PipelineParameters</a></div><div class="ttdoc">Parameters used to create a Pipeline. This class performs some basic validation and provides sane def...</div><div class="ttdef"><b>Definition:</b> <a href="a01157_source.html#l00031">PipelineParameters.hpp:31</a></div></div>
+<div class="ttc" id="aa06634_html"><div class="ttname"><a href="a06634.html">Config.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

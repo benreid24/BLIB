@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Resources/ScenePool.cpp Source File</title>
+<title>BLIB: src/Render/Graph/Strategies/ForwardRenderStrategy.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,66 +66,43 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_9db9147e11516848db92abd3a50398f1.html">Resources</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_7ebf59129457ae24134db92256c2545a.html">Graph</a></li><li class="navelem"><a class="el" href="dir_838c988e0ffb30f80d8a7dca6d2e696f.html">Strategies</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ScenePool.cpp</div>  </div>
+<div class="title">ForwardRenderStrategy.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01988.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01007.html">BLIB/Render/Resources/ScenePool.hpp</a>&gt;</span></div>
+<a href="a01988.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00974.html">BLIB/Render/Graph/Strategies/ForwardRenderStrategy.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00227.html">BLIB/Engine.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00182.html">BLIB/Events.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00881.html">BLIB/Render/Events/SceneDestroyed.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>res</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a04101.html#aca923e993cf4122f317b08d3ea35614c">   13</a></span>&#160;<a class="code" href="a04101.html#aca923e993cf4122f317b08d3ea35614c">ScenePool::ScenePool</a>(<a class="code" href="a02833.html">engine::Engine</a>&amp; e)</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;: engine(e) {}</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a04101.html#af95a257c30a09327e366c659ced32611">   16</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04101.html#af95a257c30a09327e366c659ced32611">ScenePool::cleanup</a>() {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    std::unique_lock lock(mutex);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    scenes.clear();</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keywordtype">void</span> ScenePool::release(Entry* entry) {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    vkDeviceWaitIdle(engine.<a class="code" href="a02833.html#a04332dee562be55a73c43b5eed176837">renderer</a>().<a class="code" href="a04061.html#afdefecf57155696e1523bb6b256fc8bd">vulkanState</a>().<a class="code" href="a04405.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    std::unique_lock lock(mutex);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    bl::event::Dispatcher::dispatch&lt;rc::event::SceneDestroyed&gt;({entry-&gt;scene.get()});</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = scenes.begin(); it != scenes.end(); ++it) {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordflow">if</span> (&amp;(*it) == entry) {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            scenes.erase(it);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        }</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    }</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace res</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00182_html"><div class="ttname"><a href="a00182.html">Events.hpp</a></div></div>
-<div class="ttc" id="aa00227_html"><div class="ttname"><a href="a00227.html">Engine.hpp</a></div></div>
-<div class="ttc" id="aa00881_html"><div class="ttname"><a href="a00881.html">SceneDestroyed.hpp</a></div></div>
-<div class="ttc" id="aa01007_html"><div class="ttname"><a href="a01007.html">ScenePool.hpp</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02833_html"><div class="ttname"><a href="a02833.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06269_source.html#l00033">Engine.hpp:33</a></div></div>
-<div class="ttc" id="aa02833_html_a04332dee562be55a73c43b5eed176837"><div class="ttname"><a href="a02833.html#a04332dee562be55a73c43b5eed176837">bl::engine::Engine::renderer</a></div><div class="ttdeci">rc::Renderer &amp; renderer()</div><div class="ttdoc">Returns the rendering system of the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a06269_source.html#l00234">Engine.hpp:234</a></div></div>
-<div class="ttc" id="aa04061_html_afdefecf57155696e1523bb6b256fc8bd"><div class="ttname"><a href="a04061.html#afdefecf57155696e1523bb6b256fc8bd">bl::rc::Renderer::vulkanState</a></div><div class="ttdeci">vk::VulkanState &amp; vulkanState()</div><div class="ttdoc">Returns the Vulkan state of the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a06320_source.html#l00276">Renderer.hpp:276</a></div></div>
-<div class="ttc" id="aa04101_html_aca923e993cf4122f317b08d3ea35614c"><div class="ttname"><a href="a04101.html#aca923e993cf4122f317b08d3ea35614c">bl::rc::res::ScenePool::ScenePool</a></div><div class="ttdeci">ScenePool(engine::Engine &amp;engine)</div><div class="ttdoc">Creates a new scene pool.</div><div class="ttdef"><b>Definition:</b> <a href="a01988_source.html#l00013">ScenePool.cpp:13</a></div></div>
-<div class="ttc" id="aa04101_html_af95a257c30a09327e366c659ced32611"><div class="ttname"><a href="a04101.html#af95a257c30a09327e366c659ced32611">bl::rc::res::ScenePool::cleanup</a></div><div class="ttdeci">void cleanup()</div><div class="ttdoc">Destroys all scenes.</div><div class="ttdef"><b>Definition:</b> <a href="a01988_source.html#l00016">ScenePool.cpp:16</a></div></div>
-<div class="ttc" id="aa04405_html_a6ad0249d08d9ffb87af35b42f11a1db5"><div class="ttname"><a href="a04405.html#a6ad0249d08d9ffb87af35b42f11a1db5">bl::rc::vk::VulkanState::device</a></div><div class="ttdeci">VkDevice device</div><div class="ttdef"><b>Definition:</b> <a href="a01157_source.html#l00214">VulkanState.hpp:214</a></div></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00971.html">BLIB/Render/Graph/RenderGraph.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00995.html">BLIB/Render/Graph/Tasks/ForwardRenderTask.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rgi</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a04168.html#a7d62f1fa763d2c7156030c83062c22ad">   12</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04168.html#a7d62f1fa763d2c7156030c83062c22ad">ForwardRenderStrategy::populate</a>(<a class="code" href="a04156.html">rg::RenderGraph</a>&amp; graph) { graph.<a class="code" href="a04156.html#ae7f758d0ac6a624fa5d0ae1976edb2bb">putTask</a>&lt;<a class="code" href="a04196.html">ForwardRenderTask</a>&gt;(); }</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;} <span class="comment">// namespace rgi</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00971_html"><div class="ttname"><a href="a00971.html">RenderGraph.hpp</a></div></div>
+<div class="ttc" id="aa00974_html"><div class="ttname"><a href="a00974.html">ForwardRenderStrategy.hpp</a></div></div>
+<div class="ttc" id="aa00995_html"><div class="ttname"><a href="a00995.html">ForwardRenderTask.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04156_html"><div class="ttname"><a href="a04156.html">bl::rc::rg::RenderGraph</a></div><div class="ttdoc">The core render graph functionality. Drives rendering for each observer.</div><div class="ttdef"><b>Definition:</b> <a href="a00971_source.html#l00030">RenderGraph.hpp:30</a></div></div>
+<div class="ttc" id="aa04156_html_ae7f758d0ac6a624fa5d0ae1976edb2bb"><div class="ttname"><a href="a04156.html#ae7f758d0ac6a624fa5d0ae1976edb2bb">bl::rc::rg::RenderGraph::putTask</a></div><div class="ttdeci">T * putTask(TArgs &amp;&amp;... args)</div><div class="ttdoc">Adds a new task to the graph to become a part of the render process.</div><div class="ttdef"><b>Definition:</b> <a href="a00971_source.html#l00052">RenderGraph.hpp:52</a></div></div>
+<div class="ttc" id="aa04168_html_a7d62f1fa763d2c7156030c83062c22ad"><div class="ttname"><a href="a04168.html#a7d62f1fa763d2c7156030c83062c22ad">bl::rc::rgi::ForwardRenderStrategy::populate</a></div><div class="ttdeci">virtual void populate(rg::RenderGraph &amp;graph) override</div><div class="ttdoc">Adds the forward rendering task to the given graph.</div><div class="ttdef"><b>Definition:</b> <a href="a01988_source.html#l00012">ForwardRenderStrategy.cpp:12</a></div></div>
+<div class="ttc" id="aa04196_html"><div class="ttname"><a href="a04196.html">bl::rc::rgi::ForwardRenderTask</a></div><div class="ttdoc">Basic forward renderer that calls into the scene render methods.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00019">ForwardRenderTask.hpp:19</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

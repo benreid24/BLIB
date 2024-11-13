@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/Menu/Selectors/NoSelector.hpp Source File</title>
+<title>BLIB: include/BLIB/Interfaces/Menu/Drivers/KeyboardDriver.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,68 +66,70 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_e645930b0d1a2310fc6bb1d1038eb64b.html">Menu</a></li><li class="navelem"><a class="el" href="dir_2459c1d931b5c1b1d7800e4956477b41.html">Selectors</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_e645930b0d1a2310fc6bb1d1038eb64b.html">Menu</a></li><li class="navelem"><a class="el" href="dir_2c9d1cc57df5d3d4ff35e854d1955f53.html">Drivers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">NoSelector.hpp</div>  </div>
+<div class="title">KeyboardDriver.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00647.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_INTERFACES_MENU_SELECTORS_NOSELECTOR_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_INTERFACES_MENU_SELECTORS_NOSELECTOR_HPP</span></div>
+<a href="a00647.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_MENU_DRIVERS_KEYBOARDDRIVER_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_MENU_DRIVERS_KEYBOARDDRIVER_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00641.html">BLIB/Interfaces/Menu/Selector.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>menu</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a03553.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03553.html">NoSelector</a> : <span class="keyword">public</span> <a class="code" href="a03545.html">Selector</a> {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a03553.html#a248945db790dc290f2a10560a8035de5">   18</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a03545.html#afc2ee695075a4244d7962da15e64fea1">Ptr</a> = std::shared_ptr&lt;NoSelector&gt;;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a03553.html#a709a867e74eff2faff1d9fe4eae0e5df">   23</a></span>&#160;    <span class="keyword">static</span> <a class="code" href="a03545.html#afc2ee695075a4244d7962da15e64fea1">Ptr</a> <a class="code" href="a03553.html#a709a867e74eff2faff1d9fe4eae0e5df">create</a>() { <span class="keywordflow">return</span> <a class="code" href="a03553.html#a248945db790dc290f2a10560a8035de5">Ptr</a>(<span class="keyword">new</span> <a class="code" href="a03553.html">NoSelector</a>()); }</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a03553.html#ab851f885dd4b19526660a6d48becf0eb">   28</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03553.html#ab851f885dd4b19526660a6d48becf0eb">doCreate</a>(<a class="code" href="a02833.html">engine::Engine</a>&amp;, <a class="code" href="a02733.html">ecs::Entity</a>)<span class="keyword"> override </span>{}</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a03553.html#a149787abcb3a6b2e8f46736cf2279ee8">   33</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03553.html#a149787abcb3a6b2e8f46736cf2279ee8">notifySelection</a>(<a class="code" href="a02733.html">ecs::Entity</a>, sf::FloatRect)<span class="keyword"> override </span>{}</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a03553.html#a38d466de362961a8ba8ec01b4166dc8c">   38</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03553.html#a38d466de362961a8ba8ec01b4166dc8c">doSceneAdd</a>(<a class="code" href="a04165.html">rc::Scene</a>*)<span class="keyword"> override </span>{}</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a03553.html#a08ea900519c8107b81bd80cdb52419e4">   43</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03553.html#a08ea900519c8107b81bd80cdb52419e4">doSceneRemove</a>()<span class="keyword"> override </span>{}</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00194.html">BLIB/Events.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00659.html">BLIB/Interfaces/Menu/Item.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06628.html">BLIB/Interfaces/Menu/Menu.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;SFML/Window.hpp&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a02396.html">   11</a></span>&#160;<span class="keyword">namespace </span>menu</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a03648.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03648.html">KeyboardDriver</a> : <span class="keyword">public</span> <a class="code" href="a03104.html">bl::event::Listener</a>&lt;sf::Event&gt; {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="a03648.html#a876896caace08a3c366b3c83324ba93d">KeyboardDriver</a>(<a class="code" href="a03704.html">Menu</a>&amp; menu, sf::Keyboard::Key upCtrl = sf::Keyboard::Up,</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                   sf::Keyboard::Key rightCtrl    = sf::Keyboard::Right,</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                   sf::Keyboard::Key downCtrl     = sf::Keyboard::Down,</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                   sf::Keyboard::Key leftCtrl     = sf::Keyboard::Left,</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                   sf::Keyboard::Key activateCtrl = sf::Keyboard::Space);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03648.html#acafe5b641c1bacfa8212898f825d0237">setMoveControl</a>(<a class="code" href="a03684.html#a59352334626855d0cd8c8ca1b173db68">Item::AttachPoint</a> direction, sf::Keyboard::Key control);</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a03553.html#ab74cffada3791345224b9f92de79515b">   48</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03553.html#ab74cffada3791345224b9f92de79515b">draw</a>(<a class="code" href="a04145.html">rc::scene::CodeScene::RenderContext</a>&amp;)<span class="keyword"> override </span>{}</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="a03553.html">NoSelector</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;};</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <span class="comment">// namespace menu</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00641_html"><div class="ttname"><a href="a00641.html">Selector.hpp</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02733_html"><div class="ttname"><a href="a02733.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00176_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa02833_html"><div class="ttname"><a href="a02833.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06269_source.html#l00033">Engine.hpp:33</a></div></div>
-<div class="ttc" id="aa03545_html"><div class="ttname"><a href="a03545.html">bl::menu::Selector</a></div><div class="ttdoc">Base class for selector items that indicate which Menu item is active.</div><div class="ttdef"><b>Definition:</b> <a href="a00641_source.html#l00024">Selector.hpp:24</a></div></div>
-<div class="ttc" id="aa03545_html_afc2ee695075a4244d7962da15e64fea1"><div class="ttname"><a href="a03545.html#afc2ee695075a4244d7962da15e64fea1">bl::menu::Selector::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Selector &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00641_source.html#l00026">Selector.hpp:26</a></div></div>
-<div class="ttc" id="aa03553_html"><div class="ttname"><a href="a03553.html">bl::menu::NoSelector</a></div><div class="ttdoc">A selector that does not render anything. Useful for menus using some other mechanism to display the ...</div><div class="ttdef"><b>Definition:</b> <a href="a00647_source.html#l00016">NoSelector.hpp:16</a></div></div>
-<div class="ttc" id="aa03553_html_a08ea900519c8107b81bd80cdb52419e4"><div class="ttname"><a href="a03553.html#a08ea900519c8107b81bd80cdb52419e4">bl::menu::NoSelector::doSceneRemove</a></div><div class="ttdeci">virtual void doSceneRemove() override</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a00647_source.html#l00043">NoSelector.hpp:43</a></div></div>
-<div class="ttc" id="aa03553_html_a149787abcb3a6b2e8f46736cf2279ee8"><div class="ttname"><a href="a03553.html#a149787abcb3a6b2e8f46736cf2279ee8">bl::menu::NoSelector::notifySelection</a></div><div class="ttdeci">virtual void notifySelection(ecs::Entity, sf::FloatRect) override</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a00647_source.html#l00033">NoSelector.hpp:33</a></div></div>
-<div class="ttc" id="aa03553_html_a248945db790dc290f2a10560a8035de5"><div class="ttname"><a href="a03553.html#a248945db790dc290f2a10560a8035de5">bl::menu::NoSelector::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; NoSelector &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00647_source.html#l00018">NoSelector.hpp:18</a></div></div>
-<div class="ttc" id="aa03553_html_a38d466de362961a8ba8ec01b4166dc8c"><div class="ttname"><a href="a03553.html#a38d466de362961a8ba8ec01b4166dc8c">bl::menu::NoSelector::doSceneAdd</a></div><div class="ttdeci">virtual void doSceneAdd(rc::Scene *) override</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a00647_source.html#l00038">NoSelector.hpp:38</a></div></div>
-<div class="ttc" id="aa03553_html_a709a867e74eff2faff1d9fe4eae0e5df"><div class="ttname"><a href="a03553.html#a709a867e74eff2faff1d9fe4eae0e5df">bl::menu::NoSelector::create</a></div><div class="ttdeci">static Ptr create()</div><div class="ttdoc">Creates a new empty selector.</div><div class="ttdef"><b>Definition:</b> <a href="a00647_source.html#l00023">NoSelector.hpp:23</a></div></div>
-<div class="ttc" id="aa03553_html_ab74cffada3791345224b9f92de79515b"><div class="ttname"><a href="a03553.html#ab74cffada3791345224b9f92de79515b">bl::menu::NoSelector::draw</a></div><div class="ttdeci">virtual void draw(rc::scene::CodeScene::RenderContext &amp;) override</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a00647_source.html#l00048">NoSelector.hpp:48</a></div></div>
-<div class="ttc" id="aa03553_html_ab851f885dd4b19526660a6d48becf0eb"><div class="ttname"><a href="a03553.html#ab851f885dd4b19526660a6d48becf0eb">bl::menu::NoSelector::doCreate</a></div><div class="ttdeci">virtual void doCreate(engine::Engine &amp;, ecs::Entity) override</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a00647_source.html#l00028">NoSelector.hpp:28</a></div></div>
-<div class="ttc" id="aa04145_html"><div class="ttname"><a href="a04145.html">bl::rc::scene::CodeScene::RenderContext</a></div><div class="ttdoc">Context that gets passed to the render callback.</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00029">CodeScene.hpp:29</a></div></div>
-<div class="ttc" id="aa04165_html"><div class="ttname"><a href="a04165.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition:</b> <a href="a01034_source.html#l00056">Scene.hpp:56</a></div></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03648.html#aca60b6e65572c3ed0cc34781030a971d">setActivateControl</a>(sf::Keyboard::Key control);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="a03648.html#a2b2bc6a9377f27b0ac33515501f1bef2">   56</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03648.html#a2b2bc6a9377f27b0ac33515501f1bef2">~KeyboardDriver</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03648.html#a0d40e4e07cbcc3cf59873d70754cffd6">observe</a>(<span class="keyword">const</span> sf::Event&amp; event) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="a03704.html">Menu</a>&amp; menu;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    sf::Keyboard::Key moveControls[Item::AttachPoint::_NUM_ATTACHPOINTS];</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    sf::Keyboard::Key activateControl;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;};</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;} <span class="comment">// namespace menu</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00194_html"><div class="ttname"><a href="a00194.html">Events.hpp</a></div></div>
+<div class="ttc" id="aa00659_html"><div class="ttname"><a href="a00659.html">Item.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03104_html"><div class="ttname"><a href="a03104.html">bl::event::Listener</a></div><div class="ttdoc">Listener of multiple event types. Listeners should inherit this class with the types of events they w...</div><div class="ttdef"><b>Definition:</b> <a href="a06592_source.html#l00049">Listener.hpp:49</a></div></div>
+<div class="ttc" id="aa03648_html"><div class="ttname"><a href="a03648.html">bl::menu::KeyboardDriver</a></div><div class="ttdoc">Basic helper class to map keyboard input to menu events.</div><div class="ttdef"><b>Definition:</b> <a href="a00647_source.html#l00019">KeyboardDriver.hpp:19</a></div></div>
+<div class="ttc" id="aa03648_html_a0d40e4e07cbcc3cf59873d70754cffd6"><div class="ttname"><a href="a03648.html#a0d40e4e07cbcc3cf59873d70754cffd6">bl::menu::KeyboardDriver::observe</a></div><div class="ttdeci">virtual void observe(const sf::Event &amp;event) override</div><div class="ttdoc">Processes the given window event and drives the menu if relevant.</div><div class="ttdef"><b>Definition:</b> <a href="a01847_source.html#l00020">KeyboardDriver.cpp:20</a></div></div>
+<div class="ttc" id="aa03648_html_a2b2bc6a9377f27b0ac33515501f1bef2"><div class="ttname"><a href="a03648.html#a2b2bc6a9377f27b0ac33515501f1bef2">bl::menu::KeyboardDriver::~KeyboardDriver</a></div><div class="ttdeci">virtual ~KeyboardDriver()=default</div><div class="ttdoc">Destroy the Keyboard Driver object.</div></div>
+<div class="ttc" id="aa03648_html_a876896caace08a3c366b3c83324ba93d"><div class="ttname"><a href="a03648.html#a876896caace08a3c366b3c83324ba93d">bl::menu::KeyboardDriver::KeyboardDriver</a></div><div class="ttdeci">KeyboardDriver(Menu &amp;menu, sf::Keyboard::Key upCtrl=sf::Keyboard::Up, sf::Keyboard::Key rightCtrl=sf::Keyboard::Right, sf::Keyboard::Key downCtrl=sf::Keyboard::Down, sf::Keyboard::Key leftCtrl=sf::Keyboard::Left, sf::Keyboard::Key activateCtrl=sf::Keyboard::Space)</div><div class="ttdoc">Create a new keyboard generator that services the given menu.</div><div class="ttdef"><b>Definition:</b> <a href="a01847_source.html#l00007">KeyboardDriver.cpp:7</a></div></div>
+<div class="ttc" id="aa03648_html_aca60b6e65572c3ed0cc34781030a971d"><div class="ttname"><a href="a03648.html#aca60b6e65572c3ed0cc34781030a971d">bl::menu::KeyboardDriver::setActivateControl</a></div><div class="ttdeci">void setActivateControl(sf::Keyboard::Key control)</div><div class="ttdoc">Set the key that is bound to the activate event. Default is space bar.</div><div class="ttdef"><b>Definition:</b> <a href="a01847_source.html#l00018">KeyboardDriver.cpp:18</a></div></div>
+<div class="ttc" id="aa03648_html_acafe5b641c1bacfa8212898f825d0237"><div class="ttname"><a href="a03648.html#acafe5b641c1bacfa8212898f825d0237">bl::menu::KeyboardDriver::setMoveControl</a></div><div class="ttdeci">void setMoveControl(Item::AttachPoint direction, sf::Keyboard::Key control)</div><div class="ttdoc">Set the key bound to the given direction. Defaults are the arrrow keys.</div><div class="ttdef"><b>Definition:</b> <a href="a01847_source.html#l00014">KeyboardDriver.cpp:14</a></div></div>
+<div class="ttc" id="aa03684_html_a59352334626855d0cd8c8ca1b173db68"><div class="ttname"><a href="a03684.html#a59352334626855d0cd8c8ca1b173db68">bl::menu::Item::AttachPoint</a></div><div class="ttdeci">AttachPoint</div><div class="ttdef"><b>Definition:</b> <a href="a00659_source.html#l00036">Item.hpp:36</a></div></div>
+<div class="ttc" id="aa03704_html"><div class="ttname"><a href="a03704.html">bl::menu::Menu</a></div><div class="ttdoc">Primary class for mouseless menus.</div><div class="ttdef"><b>Definition:</b> <a href="a06628_source.html#l00033">Menu.hpp:33</a></div></div>
+<div class="ttc" id="aa06628_html"><div class="ttname"><a href="a06628.html">Menu.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

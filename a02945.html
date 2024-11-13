@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::event::ListenerGuard&lt; TEvents &gt; Class Template Reference</title>
+<title>BLIB: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,162 +66,34 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02303.html">bl</a></li><li class="navelem"><a class="el" href="a02326.html">event</a></li><li class="navelem"><a class="el" href="a02945.html">ListenerGuard</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02357.html">bl</a></li><li class="navelem"><a class="el" href="a02372.html">ecs</a></li><li class="navelem"><a class="el" href="a02948.html">Transaction&lt; EntityCtx, tx::ComponentRead&lt; TReadComs... &gt;, tx::ComponentWrite&lt; TWriteComs... &gt; &gt;</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="a02942.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::event::ListenerGuard&lt; TEvents &gt; Class Template Reference<div class="ingroups"><a class="el" href="a02280.html">Events</a></div></div>  </div>
+<div class="title">bl::ecs::Transaction&lt; EntityCtx, tx::ComponentRead&lt; TReadComs... &gt;, tx::ComponentWrite&lt; TWriteComs... &gt; &gt; Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Version of scope guard but for classes. Classes that subscribe to event buses through a member <a class="el" href="a02945.html" title="Version of scope guard but for classes. Classes that subscribe to event buses through a member Listen...">ListenerGuard</a> will automatically unsubscribe when they are destructed.  
- <a href="a02945.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00287_source.html">ListenerGuard.hpp</a>&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a96a8d50a80ae728156a8b5c32e3675e5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02945.html#a96a8d50a80ae728156a8b5c32e3675e5">ListenerGuard</a> (<a class="el" href="a02941.html">Listener</a>&lt; TEvents... &gt; *owner)</td></tr>
-<tr class="memdesc:a96a8d50a80ae728156a8b5c32e3675e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty guard.  <a href="a02945.html#a96a8d50a80ae728156a8b5c32e3675e5">More...</a><br /></td></tr>
-<tr class="separator:a96a8d50a80ae728156a8b5c32e3675e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a328851620e6bb20d1ddbebc9994a7dd3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02945.html#a328851620e6bb20d1ddbebc9994a7dd3">~ListenerGuard</a> ()</td></tr>
-<tr class="memdesc:a328851620e6bb20d1ddbebc9994a7dd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsubscribes if subscribed.  <a href="a02945.html#a328851620e6bb20d1ddbebc9994a7dd3">More...</a><br /></td></tr>
-<tr class="separator:a328851620e6bb20d1ddbebc9994a7dd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf8c7456d69baddfc086251a1fa77ae6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02945.html#aaf8c7456d69baddfc086251a1fa77ae6">subscribe</a> (bool defer=false)</td></tr>
-<tr class="memdesc:aaf8c7456d69baddfc086251a1fa77ae6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribes the owner to the given bus.  <a href="a02945.html#aaf8c7456d69baddfc086251a1fa77ae6">More...</a><br /></td></tr>
-<tr class="separator:aaf8c7456d69baddfc086251a1fa77ae6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a010f7f24a4188f4283499854147a520f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02945.html#a010f7f24a4188f4283499854147a520f">unsubscribe</a> ()</td></tr>
-<tr class="memdesc:a010f7f24a4188f4283499854147a520f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsubscribes the owner from the given event bus.  <a href="a02945.html#a010f7f24a4188f4283499854147a520f">More...</a><br /></td></tr>
-<tr class="separator:a010f7f24a4188f4283499854147a520f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename... TEvents&gt;<br />
-class bl::event::ListenerGuard&lt; TEvents &gt;</h3>
-
-<p>Version of scope guard but for classes. Classes that subscribe to event buses through a member <a class="el" href="a02945.html" title="Version of scope guard but for classes. Classes that subscribe to event buses through a member Listen...">ListenerGuard</a> will automatically unsubscribe when they are destructed. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">TEvents</td><td>The types of events to subscribe to </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00018">18</a> of file <a class="el" href="a00287_source.html">ListenerGuard.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a96a8d50a80ae728156a8b5c32e3675e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96a8d50a80ae728156a8b5c32e3675e5">&#9670;&nbsp;</a></span>ListenerGuard()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename... TEvents&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a02945.html">bl::event::ListenerGuard</a>&lt; TEvents &gt;::<a class="el" href="a02945.html">ListenerGuard</a> </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02941.html">Listener</a>&lt; TEvents... &gt; *&#160;</td>
-          <td class="paramname"><em>owner</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates an empty guard. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">owner</td><td>The owning class of this guard </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00055">55</a> of file <a class="el" href="a00287_source.html">ListenerGuard.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a328851620e6bb20d1ddbebc9994a7dd3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a328851620e6bb20d1ddbebc9994a7dd3">&#9670;&nbsp;</a></span>~ListenerGuard()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename... TEvents&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a02945.html">bl::event::ListenerGuard</a>&lt; TEvents &gt;::~<a class="el" href="a02945.html">ListenerGuard</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Unsubscribes if subscribed. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00059">59</a> of file <a class="el" href="a00287_source.html">ListenerGuard.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="aaf8c7456d69baddfc086251a1fa77ae6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaf8c7456d69baddfc086251a1fa77ae6">&#9670;&nbsp;</a></span>subscribe()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename... TEvents&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a02945.html">bl::event::ListenerGuard</a>&lt; TEvents &gt;::subscribe </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>defer</em> = <code>false</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Subscribes the owner to the given bus. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">bus</td><td>Event bus to subscribe to </td></tr>
-    <tr><td class="paramname">defer</td><td>True to defer adding until the engine syncs listeners, false to immediately add </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00064">64</a> of file <a class="el" href="a00287_source.html">ListenerGuard.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a010f7f24a4188f4283499854147a520f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a010f7f24a4188f4283499854147a520f">&#9670;&nbsp;</a></span>unsubscribe()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename... TEvents&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a02945.html">bl::event::ListenerGuard</a>&lt; TEvents &gt;::unsubscribe</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Unsubscribes the owner from the given event bus. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00070">70</a> of file <a class="el" href="a00287_source.html">ListenerGuard.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Events/<a class="el" href="a00287_source.html">ListenerGuard.hpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a02948.html">bl::ecs::Transaction&lt; EntityCtx, tx::ComponentRead&lt; TReadComs... &gt;, tx::ComponentWrite&lt; TWriteComs... &gt; &gt;</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a02948.html#a610e7d0b73a2714be49d4d755985ca50">::bl::ecs::ComponentPool</a> class</td><td class="entry"><a class="el" href="a02948.html">bl::ecs::Transaction&lt; EntityCtx, tx::ComponentRead&lt; TReadComs... &gt;, tx::ComponentWrite&lt; TWriteComs... &gt; &gt;</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02948.html#abb13e3e970b0980d21ef937672b19ec9">isLocked</a>() const</td><td class="entry"><a class="el" href="a02948.html">bl::ecs::Transaction&lt; EntityCtx, tx::ComponentRead&lt; TReadComs... &gt;, tx::ComponentWrite&lt; TWriteComs... &gt; &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02948.html#a7ed611296a28de4426f306679757d7fe">Transaction</a>(Registry &amp;registry)</td><td class="entry"><a class="el" href="a02948.html">bl::ecs::Transaction&lt; EntityCtx, tx::ComponentRead&lt; TReadComs... &gt;, tx::ComponentWrite&lt; TWriteComs... &gt; &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02948.html#ad26190893aa96a7cce002364baf7f336">Transaction</a>(const Transaction&lt; OtherEntityCtx, tx::ComponentRead&lt; TOtherReads... &gt;, tx::ComponentWrite&lt; TOtherWrites... &gt;&gt; &amp;tx)</td><td class="entry"><a class="el" href="a02948.html">bl::ecs::Transaction&lt; EntityCtx, tx::ComponentRead&lt; TReadComs... &gt;, tx::ComponentWrite&lt; TWriteComs... &gt; &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02940.html#accba2f76b789c05da3c1cabdfb23c9a6">TransactionComponentRead</a>(const TransactionComponentWrite&lt; TReadComs &gt; &amp;)</td><td class="entry"><a class="el" href="a02940.html">bl::ecs::txp::TransactionComponentRead&lt; TReadComs &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02940.html#a8b4dbe38492661b5c408994c269674b1">TransactionComponentRead</a>(const TransactionComponentRead &amp;)</td><td class="entry"><a class="el" href="a02940.html">bl::ecs::txp::TransactionComponentRead&lt; TReadComs &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02940.html#aa53b4848e8aa90f3675dbb5ac070f7da">TransactionComponentRead</a>(Registry &amp;registry)</td><td class="entry"><a class="el" href="a02940.html">bl::ecs::txp::TransactionComponentRead&lt; TReadComs &gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02940.html#a4c46d3755c2ad676d3adcf3aafb8db63">TransactionComponentRead</a>(util::ReadWriteLock &amp;lock)</td><td class="entry"><a class="el" href="a02940.html">bl::ecs::txp::TransactionComponentRead&lt; TReadComs &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02908.html#af9976349754ab9e9514436ed8641e2bf">TransactionComponentWrite</a>(const TransactionComponentWrite &amp;)</td><td class="entry"><a class="el" href="a02908.html">bl::ecs::txp::TransactionComponentWrite&lt; TWriteComs &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02908.html#a7e5017a306e7c013c0f142ab23fc9540">TransactionComponentWrite</a>(Registry &amp;registry)</td><td class="entry"><a class="el" href="a02908.html">bl::ecs::txp::TransactionComponentWrite&lt; TWriteComs &gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02908.html#a461214cbb44fe5550be9fc012ebfe130">TransactionComponentWrite</a>(util::ReadWriteLock &amp;lock)</td><td class="entry"><a class="el" href="a02908.html">bl::ecs::txp::TransactionComponentWrite&lt; TWriteComs &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02948.html#abbc8823dbbd8cc8b5a35b7e80bba39a8">unlock</a>()</td><td class="entry"><a class="el" href="a02948.html">bl::ecs::Transaction&lt; EntityCtx, tx::ComponentRead&lt; TReadComs... &gt;, tx::ComponentWrite&lt; TWriteComs... &gt; &gt;</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:57:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

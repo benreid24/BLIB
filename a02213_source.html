@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Serialization/Buffers/StreamOutputBuffer.cpp Source File</title>
+<title>BLIB: src/Scripts/Context.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,42 +66,43 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_e7c9606de6dc9534b0042ecacee5f21f.html">Serialization</a></li><li class="navelem"><a class="el" href="dir_47ff02213d38b4fcd8e0172b7fa926fb.html">Buffers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3ac9928fc2e7e2cbc53db7c1a11acda2.html">Scripts</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">StreamOutputBuffer.cpp</div>  </div>
+<div class="title">Context.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a02213.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01286.html">BLIB/Serialization/Buffers/StreamOutputBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>serial</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a04753.html#acefd99a20e8d086c67a0e9d95ab4f67b">    7</a></span>&#160;<a class="code" href="a04753.html#acefd99a20e8d086c67a0e9d95ab4f67b">StreamOutputBuffer::StreamOutputBuffer</a>(std::ostream&amp; os)</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: stream(os) {}</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a04753.html#ae11ddac8af8eb2ab7f3130f393d99e5c">   10</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a04753.html#ae11ddac8af8eb2ab7f3130f393d99e5c">StreamOutputBuffer::write</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* buf, std::size_t len) {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    stream.write(buf, len);</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keywordflow">return</span> stream.good();</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a04753.html#aaff97d946d1f1b37ae4a46255678904a">   15</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a04753.html#aaff97d946d1f1b37ae4a46255678904a">StreamOutputBuffer::good</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> stream.good(); }</div>
+<a href="a02213.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01256.html">BLIB/Scripts/Context.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02243.html">Scripts/ScriptLibrary.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>script</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keywordtype">void</span> Context::initializeTable(SymbolTable&amp; table)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <a class="code" href="a05444.html#ace07fac924c00874885a109b4fb8ad2d">Library::addBuiltIns</a>(table);</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <a class="code" href="a04724.html#a60d6dc826b2e1dbd3d54ef4a58d1816a">addCustomSymbols</a>(table);</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;}</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a04724.html#a60d6dc826b2e1dbd3d54ef4a58d1816a">   13</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04724.html#a60d6dc826b2e1dbd3d54ef4a58d1816a">Context::addCustomSymbols</a>(<a class="code" href="a04764.html">SymbolTable</a>&amp;)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="comment">// empty</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;} <span class="comment">// namespace serial</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;} <span class="comment">// namespace script</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01286_html"><div class="ttname"><a href="a01286.html">StreamOutputBuffer.hpp</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04753_html_aaff97d946d1f1b37ae4a46255678904a"><div class="ttname"><a href="a04753.html#aaff97d946d1f1b37ae4a46255678904a">bl::serial::StreamOutputBuffer::good</a></div><div class="ttdeci">virtual bool good() const override</div><div class="ttdoc">Returns whether or not the buffer is in a good state.</div><div class="ttdef"><b>Definition:</b> <a href="a02213_source.html#l00015">StreamOutputBuffer.cpp:15</a></div></div>
-<div class="ttc" id="aa04753_html_acefd99a20e8d086c67a0e9d95ab4f67b"><div class="ttname"><a href="a04753.html#acefd99a20e8d086c67a0e9d95ab4f67b">bl::serial::StreamOutputBuffer::StreamOutputBuffer</a></div><div class="ttdeci">StreamOutputBuffer(std::ostream &amp;stream)</div><div class="ttdoc">Construct a new Stream Output Buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a02213_source.html#l00007">StreamOutputBuffer.cpp:7</a></div></div>
-<div class="ttc" id="aa04753_html_ae11ddac8af8eb2ab7f3130f393d99e5c"><div class="ttname"><a href="a04753.html#ae11ddac8af8eb2ab7f3130f393d99e5c">bl::serial::StreamOutputBuffer::write</a></div><div class="ttdeci">virtual bool write(const char *data, std::size_t len) override</div><div class="ttdoc">Write some data to the buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a02213_source.html#l00010">StreamOutputBuffer.cpp:10</a></div></div>
+<div class="ttc" id="aa01256_html"><div class="ttname"><a href="a01256.html">Context.hpp</a></div></div>
+<div class="ttc" id="aa02243_html"><div class="ttname"><a href="a02243.html">ScriptLibrary.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04724_html_a60d6dc826b2e1dbd3d54ef4a58d1816a"><div class="ttname"><a href="a04724.html#a60d6dc826b2e1dbd3d54ef4a58d1816a">bl::script::Context::addCustomSymbols</a></div><div class="ttdeci">virtual void addCustomSymbols(SymbolTable &amp;table) const</div><div class="ttdoc">Add your custom functions and variables to the symbol table here.</div><div class="ttdef"><b>Definition:</b> <a href="a02213_source.html#l00013">Context.cpp:13</a></div></div>
+<div class="ttc" id="aa04764_html"><div class="ttname"><a href="a04764.html">bl::script::SymbolTable</a></div><div class="ttdoc">Stack aware symbol table for managing functions and variables Each Script holds a single instance.</div><div class="ttdef"><b>Definition:</b> <a href="a01277_source.html#l00026">SymbolTable.hpp:26</a></div></div>
+<div class="ttc" id="aa05444_html_ace07fac924c00874885a109b4fb8ad2d"><div class="ttname"><a href="a05444.html#ace07fac924c00874885a109b4fb8ad2d">bl::script::Library::addBuiltIns</a></div><div class="ttdeci">static void addBuiltIns(SymbolTable &amp;table)</div><div class="ttdef"><b>Definition:</b> <a href="a02240_source.html#l00102">ScriptLibrary.cpp:102</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

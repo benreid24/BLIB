@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Engine/Properties.hpp Source File</title>
+<title>BLIB: include/BLIB/Engine/Events/Players.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,52 +66,49 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_21925c401d8b9381bdf61383d8a14cd0.html">Engine</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_21925c401d8b9381bdf61383d8a14cd0.html">Engine</a></li><li class="navelem"><a class="el" href="dir_b1e11ac7deb2d68a3ec768925497826d.html">Events</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Properties.hpp</div>  </div>
+<div class="title">Players.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00251.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ENGINE_PROPERTIES_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ENGINE_PROPERTIES_HPP</span></div>
+<a href="a00251.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ENGINE_EVENTS_PLAYERS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ENGINE_EVENTS_PLAYERS_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00254.html">BLIB/Engine/Property.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>engine</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>engine</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a02869.html">   15</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02869.html">Properties</a> : <span class="keyword">private</span> <a class="code" href="a05029.html">util::NonCopyable</a> {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a02869.html#a8356ab709fda3e6ece860d046900f0c8">syncToConfig</a>();</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">class </span>Player;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>event</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02972.html">   17</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02972.html">PlayerAdded</a> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02972.html#a4c16afa5083e90e9e2ae327f2653f6be">   19</a></span>&#160;    <a class="code" href="a03016.html">Player</a>&amp; <a class="code" href="a02972.html#a4c16afa5083e90e9e2ae327f2653f6be">player</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;};</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a02869.html#a5b9321b6e1cf9cf1ed476c0f780bc502">syncFromConfig</a>();</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> addProperty(<a class="code" href="a02873.html">priv::PropertyBase</a>* property);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> removeProperty(<a class="code" href="a02873.html">priv::PropertyBase</a>* property);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a02869.html#aaa29552d10b36f706c5f545950e4c09c">   31</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a02873.html">priv::PropertyBase</a>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;};</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace engine</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00254_html"><div class="ttname"><a href="a00254.html">Property.hpp</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02869_html"><div class="ttname"><a href="a02869.html">bl::engine::Properties</a></div><div class="ttdoc">Helper for managing application properties.</div><div class="ttdef"><b>Definition:</b> <a href="a00251_source.html#l00015">Properties.hpp:15</a></div></div>
-<div class="ttc" id="aa02869_html_a5b9321b6e1cf9cf1ed476c0f780bc502"><div class="ttname"><a href="a02869.html#a5b9321b6e1cf9cf1ed476c0f780bc502">bl::engine::Properties::syncFromConfig</a></div><div class="ttdeci">static void syncFromConfig()</div><div class="ttdoc">Syncs all current instances of Property from Configuration.</div><div class="ttdef"><b>Definition:</b> <a href="a01514_source.html#l00019">Properties.cpp:19</a></div></div>
-<div class="ttc" id="aa02869_html_a8356ab709fda3e6ece860d046900f0c8"><div class="ttname"><a href="a02869.html#a8356ab709fda3e6ece860d046900f0c8">bl::engine::Properties::syncToConfig</a></div><div class="ttdeci">static void syncToConfig()</div><div class="ttdoc">Syncs all current instances of Property to Configuration.</div><div class="ttdef"><b>Definition:</b> <a href="a01514_source.html#l00015">Properties.cpp:15</a></div></div>
-<div class="ttc" id="aa02873_html"><div class="ttname"><a href="a02873.html">bl::engine::priv::PropertyBase</a></div><div class="ttdef"><b>Definition:</b> <a href="a00254_source.html#l00015">Property.hpp:15</a></div></div>
-<div class="ttc" id="aa05029_html"><div class="ttname"><a href="a05029.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition:</b> <a href="a01370_source.html#l00013">NonCopyable.hpp:13</a></div></div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a02976.html">   27</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02976.html">PlayerRemoved</a> {</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a02976.html#a65dd46d6823c664572e7818dcb33c6fd">   29</a></span>&#160;    <a class="code" href="a03016.html">Player</a>&amp; <a class="code" href="a02976.html#a65dd46d6823c664572e7818dcb33c6fd">player</a>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;};</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace event</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace engine</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02972_html"><div class="ttname"><a href="a02972.html">bl::engine::event::PlayerAdded</a></div><div class="ttdoc">Fired when a player is added to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00251_source.html#l00017">Players.hpp:17</a></div></div>
+<div class="ttc" id="aa02972_html_a4c16afa5083e90e9e2ae327f2653f6be"><div class="ttname"><a href="a02972.html#a4c16afa5083e90e9e2ae327f2653f6be">bl::engine::event::PlayerAdded::player</a></div><div class="ttdeci">Player &amp; player</div><div class="ttdoc">The new player.</div><div class="ttdef"><b>Definition:</b> <a href="a00251_source.html#l00019">Players.hpp:19</a></div></div>
+<div class="ttc" id="aa02976_html"><div class="ttname"><a href="a02976.html">bl::engine::event::PlayerRemoved</a></div><div class="ttdoc">Fired when a player is removed from the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00251_source.html#l00027">Players.hpp:27</a></div></div>
+<div class="ttc" id="aa02976_html_a65dd46d6823c664572e7818dcb33c6fd"><div class="ttname"><a href="a02976.html#a65dd46d6823c664572e7818dcb33c6fd">bl::engine::event::PlayerRemoved::player</a></div><div class="ttdeci">Player &amp; player</div><div class="ttdoc">The player about to be removed.</div><div class="ttdef"><b>Definition:</b> <a href="a00251_source.html#l00029">Players.hpp:29</a></div></div>
+<div class="ttc" id="aa03016_html"><div class="ttname"><a href="a03016.html">bl::engine::Player</a></div><div class="ttdoc">Engine level concept of a player. Wraps renderer Observer and input system Actor.</div><div class="ttdef"><b>Definition:</b> <a href="a00275_source.html#l00022">Player.hpp:22</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

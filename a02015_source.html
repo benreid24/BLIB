@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Scenes/SceneObject.cpp Source File</title>
+<title>BLIB: src/Render/Overlays/OverlayObject.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,47 +66,44 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_90555a6f6bc1bb4149f0b831943ef307.html">Scenes</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_8c8c1712aed2a59ae47f7d5ea800798b.html">Overlays</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">SceneObject.cpp</div>  </div>
+<div class="title">OverlayObject.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a02015.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01043.html">BLIB/Render/Scenes/SceneObject.hpp</a>&gt;</span></div>
+<a href="a02015.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01010.html">BLIB/Render/Overlays/OverlayObject.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00797.html">BLIB/Render/Components/SceneObjectRef.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>ovy</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>scene</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a04181.html#ae9ccabc5eaa5c7a787d525d9796cd234">   11</a></span>&#160;<a class="code" href="a04181.html#ae9ccabc5eaa5c7a787d525d9796cd234">SceneObject::SceneObject</a>()</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: hidden(false)</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, drawParams{}</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, refToThis(nullptr) {}</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a04181.html#a447cba0c539b80e3041459f49be3dba1">   16</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04181.html#a447cba0c539b80e3041459f49be3dba1">SceneObject::updateRefToThis</a>() {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">if</span> (refToThis) { refToThis-&gt;<a class="code" href="a03773.html#a273ff1de9ff2bba46ea348e0b0237e25">object</a> = <span class="keyword">this</span>; }</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// namespace scene</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00797_html"><div class="ttname"><a href="a00797.html">SceneObjectRef.hpp</a></div></div>
-<div class="ttc" id="aa01043_html"><div class="ttname"><a href="a01043.html">SceneObject.hpp</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03773_html_a273ff1de9ff2bba46ea348e0b0237e25"><div class="ttname"><a href="a03773.html#a273ff1de9ff2bba46ea348e0b0237e25">bl::rc::rcom::SceneObjectRef::object</a></div><div class="ttdeci">scene::SceneObject * object</div><div class="ttdef"><b>Definition:</b> <a href="a00797_source.html#l00029">SceneObjectRef.hpp:29</a></div></div>
-<div class="ttc" id="aa04181_html_a447cba0c539b80e3041459f49be3dba1"><div class="ttname"><a href="a04181.html#a447cba0c539b80e3041459f49be3dba1">bl::rc::scene::SceneObject::updateRefToThis</a></div><div class="ttdeci">void updateRefToThis()</div><div class="ttdoc">Called by BatchedScene when when scene object addresses change.</div><div class="ttdef"><b>Definition:</b> <a href="a02015_source.html#l00016">SceneObject.cpp:16</a></div></div>
-<div class="ttc" id="aa04181_html_ae9ccabc5eaa5c7a787d525d9796cd234"><div class="ttname"><a href="a04181.html#ae9ccabc5eaa5c7a787d525d9796cd234">bl::rc::scene::SceneObject::SceneObject</a></div><div class="ttdeci">SceneObject()</div><div class="ttdoc">Construct a new SceneObject.</div><div class="ttdef"><b>Definition:</b> <a href="a02015_source.html#l00011">SceneObject.cpp:11</a></div></div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a04216.html#acfac16c3170845244d5bf29e69ac1cb0">    9</a></span>&#160;<a class="code" href="a04216.html#acfac16c3170845244d5bf29e69ac1cb0">OverlayObject::OverlayObject</a>()</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: SceneObject()</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, entity(ecs::<a class="code" href="a02372.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, overlay(nullptr)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, pipeline(nullptr)</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, descriptorCount(0)</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;, perObjStart(0)</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;, overlayViewport(nullptr)</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;, cachedScissor{} {}</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace ovy</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa01010_html"><div class="ttname"><a href="a01010.html">OverlayObject.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02372_html_a01655307bcb32baf2884e18213123917"><div class="ttname"><a href="a02372.html#a01655307bcb32baf2884e18213123917">bl::ecs::InvalidEntity</a></div><div class="ttdeci">constexpr Entity InvalidEntity</div><div class="ttdoc">Special value to indicate that an Entity is not valid.</div><div class="ttdef"><b>Definition:</b> <a href="a00188_source.html#l00188">Entity.hpp:188</a></div></div>
+<div class="ttc" id="aa04216_html_acfac16c3170845244d5bf29e69ac1cb0"><div class="ttname"><a href="a04216.html#acfac16c3170845244d5bf29e69ac1cb0">bl::rc::ovy::OverlayObject::OverlayObject</a></div><div class="ttdeci">OverlayObject()</div><div class="ttdoc">Construct a new OverlayObject.</div><div class="ttdef"><b>Definition:</b> <a href="a02015_source.html#l00009">OverlayObject.cpp:9</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

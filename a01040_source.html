@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Scenes/Scene3D.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Resources/RenderPassCache.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,57 +66,64 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1582fe53e8ca010e140dea1b69a5a9f3.html">Scenes</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_0f0c454ab916ef2487b68a1bc3be1485.html">Resources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Scene3D.hpp</div>  </div>
+<div class="title">RenderPassCache.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01040.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_SCENES_SCENE3D_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_SCENES_SCENE3D_HPP</span></div>
+<a href="a01040.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_RESOURCES_RENDERPASSCACHE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_RESOURCES_RENDERPASSCACHE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01022.html">BLIB/Render/Scenes/BatchedScene.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01160.html">BLIB/Render/Vulkan/RenderPass.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>scene</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a04177.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04177.html">Scene3D</a> : <span class="keyword">public</span> <a class="code" href="a04125.html">BatchedScene</a> {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="a04177.html#ab1b8fcf847d7cbe9493b0ecfbebedad4">Scene3D</a>(<a class="code" href="a02833.html">engine::Engine</a>&amp; engine);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a04177.html#a41b7ad7a30c23ed83cb1cb55b55bf1a5">   29</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a04177.html#a41b7ad7a30c23ed83cb1cb55b55bf1a5">~Scene3D</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">virtual</span> std::unique_ptr&lt;cam::Camera&gt; <a class="code" href="a04177.html#a0dcf3ebaa6fac1ff72e2264fd57ab435">createDefaultCamera</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a04177.html#ad3722c0cc57b7d59306f68fcdddfe15d">setDefaultNearAndFarPlanes</a>(<a class="code" href="a02497.html">cam::Camera</a>&amp; camera) <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;};</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;} <span class="comment">// namespace scene</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01022_html"><div class="ttname"><a href="a01022.html">BatchedScene.hpp</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02497_html"><div class="ttname"><a href="a02497.html">bl::cam::Camera</a></div><div class="ttdoc">Base class for all cameras.</div><div class="ttdef"><b>Definition:</b> <a href="a00047_source.html#l00017">Camera.hpp:17</a></div></div>
-<div class="ttc" id="aa02833_html"><div class="ttname"><a href="a02833.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06269_source.html#l00033">Engine.hpp:33</a></div></div>
-<div class="ttc" id="aa04125_html"><div class="ttname"><a href="a04125.html">bl::rc::scene::BatchedScene</a></div><div class="ttdoc">Primary scene class for the renderer. Provides batched rendering of objects by pipeline....</div><div class="ttdef"><b>Definition:</b> <a href="a01022_source.html#l00019">BatchedScene.hpp:19</a></div></div>
-<div class="ttc" id="aa04177_html"><div class="ttname"><a href="a04177.html">bl::rc::scene::Scene3D</a></div><div class="ttdoc">3d scene implementation</div><div class="ttdef"><b>Definition:</b> <a href="a01040_source.html#l00017">Scene3D.hpp:17</a></div></div>
-<div class="ttc" id="aa04177_html_a0dcf3ebaa6fac1ff72e2264fd57ab435"><div class="ttname"><a href="a04177.html#a0dcf3ebaa6fac1ff72e2264fd57ab435">bl::rc::scene::Scene3D::createDefaultCamera</a></div><div class="ttdeci">virtual std::unique_ptr&lt; cam::Camera &gt; createDefaultCamera() override</div><div class="ttdoc">Creates a 3d camera.</div><div class="ttdef"><b>Definition:</b> <a href="a02012_source.html#l00020">Scene3D.cpp:20</a></div></div>
-<div class="ttc" id="aa04177_html_a41b7ad7a30c23ed83cb1cb55b55bf1a5"><div class="ttname"><a href="a04177.html#a41b7ad7a30c23ed83cb1cb55b55bf1a5">bl::rc::scene::Scene3D::~Scene3D</a></div><div class="ttdeci">virtual ~Scene3D()=default</div><div class="ttdoc">Destroys the scene.</div></div>
-<div class="ttc" id="aa04177_html_ab1b8fcf847d7cbe9493b0ecfbebedad4"><div class="ttname"><a href="a04177.html#ab1b8fcf847d7cbe9493b0ecfbebedad4">bl::rc::scene::Scene3D::Scene3D</a></div><div class="ttdeci">Scene3D(engine::Engine &amp;engine)</div><div class="ttdoc">Creates the scene.</div><div class="ttdef"><b>Definition:</b> <a href="a02012_source.html#l00017">Scene3D.cpp:17</a></div></div>
-<div class="ttc" id="aa04177_html_ad3722c0cc57b7d59306f68fcdddfe15d"><div class="ttname"><a href="a04177.html#ad3722c0cc57b7d59306f68fcdddfe15d">bl::rc::scene::Scene3D::setDefaultNearAndFarPlanes</a></div><div class="ttdeci">virtual void setDefaultNearAndFarPlanes(cam::Camera &amp;camera) const override</div><div class="ttdoc">Sets the default near and far planes on the given camera.</div><div class="ttdef"><b>Definition:</b> <a href="a02012_source.html#l00026">Scene3D.cpp:26</a></div></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span>Renderer;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>res</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a04268.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04268.html">RenderPassCache</a> {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="a04512.html">vk::RenderPass</a>&amp; <a class="code" href="a04268.html#a3df69182959af8b8fa569a69805a2efe">createRenderPass</a>(std::uint32_t renderPassId, <a class="code" href="a04516.html">vk::RenderPassParameters</a>&amp;&amp; params);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="a04512.html">vk::RenderPass</a>&amp; <a class="code" href="a04268.html#ad075fee264f0adfeb7c93a8133cf877f">getRenderPass</a>(std::uint32_t renderPassId);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="a04236.html">Renderer</a>&amp; renderer;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    std::unordered_map&lt;std::uint32_t, vk::RenderPass&gt; cache;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="a04268.html">RenderPassCache</a>(<a class="code" href="a04236.html">Renderer</a>&amp; renderer);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> cleanup();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">void</span> addDefaults();</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="a04268.html#a1fc8c4ea65463b448e068f1287349540">   50</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a04236.html">bl::rc::Renderer</a>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;};</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;} <span class="comment">// namespace res</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01160_html"><div class="ttname"><a href="a01160.html">RenderPass.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04236_html"><div class="ttname"><a href="a04236.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a06619_source.html#l00042">Renderer.hpp:42</a></div></div>
+<div class="ttc" id="aa04268_html"><div class="ttname"><a href="a04268.html">bl::rc::res::RenderPassCache</a></div><div class="ttdoc">Basic cache to manage render passes. Stores them and provides access. Owned by the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a01040_source.html#l00022">RenderPassCache.hpp:22</a></div></div>
+<div class="ttc" id="aa04268_html_a3df69182959af8b8fa569a69805a2efe"><div class="ttname"><a href="a04268.html#a3df69182959af8b8fa569a69805a2efe">bl::rc::res::RenderPassCache::createRenderPass</a></div><div class="ttdeci">vk::RenderPass &amp; createRenderPass(std::uint32_t renderPassId, vk::RenderPassParameters &amp;&amp;params)</div><div class="ttdoc">Creates and returns a render pass with the given id and parameters.</div><div class="ttdef"><b>Definition:</b> <a href="a02039_source.html#l00018">RenderPassCache.cpp:18</a></div></div>
+<div class="ttc" id="aa04268_html_ad075fee264f0adfeb7c93a8133cf877f"><div class="ttname"><a href="a04268.html#ad075fee264f0adfeb7c93a8133cf877f">bl::rc::res::RenderPassCache::getRenderPass</a></div><div class="ttdeci">vk::RenderPass &amp; getRenderPass(std::uint32_t renderPassId)</div><div class="ttdoc">Fetches the render pass with the given id. Throws an exception if the id does not exist yet....</div><div class="ttdef"><b>Definition:</b> <a href="a02039_source.html#l00028">RenderPassCache.cpp:28</a></div></div>
+<div class="ttc" id="aa04512_html"><div class="ttname"><a href="a04512.html">bl::rc::vk::RenderPass</a></div><div class="ttdoc">Represents a render pass in the renderer. A scene is comprised of a sequence of render passes and eac...</div><div class="ttdef"><b>Definition:</b> <a href="a01160_source.html#l00019">RenderPass.hpp:19</a></div></div>
+<div class="ttc" id="aa04516_html"><div class="ttname"><a href="a04516.html">bl::rc::vk::RenderPassParameters</a></div><div class="ttdoc">Parameter builder class used to construct RenderPass objects in the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a01163_source.html#l00022">RenderPassParameters.hpp:22</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

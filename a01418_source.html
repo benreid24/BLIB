@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Audio/Playlist.cpp Source File</title>
+<title>BLIB: include/BLIB/Util/StreamUtil.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,272 +66,48 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c64386e93f356b78d4612c7b7741707c.html">Audio</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4b3af2b25a05b4f12e892fbe45139fe9.html">Util</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Playlist.cpp</div>  </div>
+<div class="title">StreamUtil.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01418.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00014.html">BLIB/Audio/Playlist.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00125.html">BLIB/Containers/FastEraseVector.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00224.html">BLIB/Engine/Configuration.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00668.html">BLIB/Logging.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01217.html">BLIB/Resources.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01304.html">BLIB/Serialization.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01349.html">BLIB/Util/FileUtil.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01373.html">BLIB/Util/Random.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>audio</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">inline</span> std::string songfile(<span class="keyword">const</span> std::string&amp; path) {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a04985.html#a7b2da3c07d55afdf5faf689ac6503a4c">util::FileUtil::joinPath</a>(</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        engine::Configuration::get&lt;std::string&gt;(<span class="stringliteral">&quot;blib.playlist.song_path&quot;</span>), path);</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">using</span> BinarySerializer = serial::binary::Serializer&lt;Playlist&gt;;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">using</span> JsonSerializer   = serial::json::Serializer&lt;Playlist&gt;;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a02449.html#a7540a4439817e454b7829edc0093d21b">   26</a></span>&#160;<a class="code" href="a02449.html#a7540a4439817e454b7829edc0093d21b">Playlist::Playlist</a>()</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;: _shuffle(false)</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;, shuffleOnLoop(false)</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;, currentIndex(0)</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;, playing(false)</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;, <a class="code" href="a01415.html#a1656129c4a4fd8809254194f08f0ac70">paused</a>(false) {}</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a02449.html#a92d5a7f9573722bd7b6c096539cc2a7b">   33</a></span>&#160;<a class="code" href="a02449.html#a7540a4439817e454b7829edc0093d21b">Playlist::Playlist</a>(<span class="keyword">const</span> std::string&amp; file)</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;: <a class="code" href="a02449.html">Playlist</a>() {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="a02449.html#a60cba1996b928968b8eb7c052c73d6ff">loadFromFile</a>(file);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a02449.html#a118490f5f6d881780d4ec5b5012f63df">   38</a></span>&#160;<a class="code" href="a02449.html#a7540a4439817e454b7829edc0093d21b">Playlist::Playlist</a>(<span class="keyword">const</span> <a class="code" href="a02449.html">Playlist</a>&amp; copy)</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;: <a class="code" href="a02449.html">Playlist</a>() {</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    songs         = copy.songs;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    _shuffle      = copy._shuffle;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    shuffleOnLoop = copy.shuffleOnLoop;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a02449.html#abd3470df7e38fcfc2291c55d6742f9a9">   45</a></span>&#160;<a class="code" href="a02449.html#abd3470df7e38fcfc2291c55d6742f9a9">Playlist::~Playlist</a>() {</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">if</span> (!songs.empty() &amp;&amp; playing) {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <a class="code" href="a02449.html#a342fef43f7c2e1fa4298d20d65b1b36c">stop</a>();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <a class="code" href="a04473.html#af3dbef4e0cb06dc2ba43376ea408c79b">resource::FileSystem::purgePersistentData</a>(songfile(songs[currentIndex]));</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    }</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a02449.html#a98fb8c3cef9f327b14c87ce718a2a4d0">   52</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02449.html#a98fb8c3cef9f327b14c87ce718a2a4d0">Playlist::saveToFile</a>(<span class="keyword">const</span> std::string&amp; path)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    std::ofstream file(path.c_str());</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">return</span> JsonSerializer::serializeStream(file, *<span class="keyword">this</span>, 4, 0);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="a02449.html#a5c14814b230ef7de45feee5c217cf54a">   57</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02449.html#a5c14814b230ef7de45feee5c217cf54a">Playlist::saveToMemory</a>(<a class="code" href="a04609.html">serial::binary::OutputStream</a>&amp; os)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a04613.html#a5f0be3d348bae8bf6823f4d2a3a98b9b">serial::binary::Serializer&lt;Playlist&gt;::serialize</a>(os, *<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="a02449.html#a60cba1996b928968b8eb7c052c73d6ff">   61</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02449.html#a60cba1996b928968b8eb7c052c73d6ff">Playlist::loadFromFile</a>(<span class="keyword">const</span> std::string&amp; path) {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    std::ifstream file(path.c_str());</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">if</span> (!JsonSerializer::deserializeStream(file, *<span class="keyword">this</span>)) {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <a class="code" href="a00662.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load playlist from file: &quot;</span> &lt;&lt; path;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    }</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    playing      = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    paused       = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    currentIndex = 0;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;}</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="a02449.html#a06fe97d87293ce054d604a3ec51e7029">   73</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02449.html#a06fe97d87293ce054d604a3ec51e7029">Playlist::loadBinary</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="a01415.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, std::size_t len) {</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="a04737.html">serial::MemoryInputBuffer</a> buf(<a class="code" href="a01415.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="a04601.html">serial::binary::InputStream</a> in(buf);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">if</span> (!BinarySerializer::deserialize(in, *<span class="keyword">this</span>)) {</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <a class="code" href="a00662.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load playlist from memory&quot;</span>;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    }</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    playing      = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    paused       = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    currentIndex = 0;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;}</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="a02449.html#a60c66c9f721c21d9f296df4939f9f2e7">   86</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02449.html#a60c66c9f721c21d9f296df4939f9f2e7">Playlist::loadJson</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="a01415.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, std::size_t len) {</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <a class="code" href="a04981.html">util::BufferIstreamBuf</a> buf(<span class="keyword">const_cast&lt;</span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(<a class="code" href="a01415.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>), len);</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    std::istream is(&amp;buf);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">if</span> (!JsonSerializer::deserializeStream(is, *<span class="keyword">this</span>)) {</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <a class="code" href="a00662.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load playlist from memory&quot;</span>;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    }</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    playing      = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    paused       = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    currentIndex = 0;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;}</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="a02449.html#a31d4433df8ad6c369f572d84c8bfcaa3">   99</a></span>&#160;<a class="code" href="a02449.html">Playlist</a>&amp; <a class="code" href="a02449.html#a31d4433df8ad6c369f572d84c8bfcaa3">Playlist::operator=</a>(<span class="keyword">const</span> <a class="code" href="a02449.html">Playlist</a>&amp; copy) {</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    songs         = copy.songs;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    _shuffle      = copy._shuffle;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    shuffleOnLoop = copy.shuffleOnLoop;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;}</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="a02449.html#a436545e4a11706a20b240f3662dd1b45">  106</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02449.html#a436545e4a11706a20b240f3662dd1b45">Playlist::isPlaying</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> playing; }</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="a02449.html#ac388d1ce7ec765ca2c7be5cee5736da1">  108</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02449.html#ac388d1ce7ec765ca2c7be5cee5736da1">Playlist::play</a>() {</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">if</span> (!playing &amp;&amp; !songs.empty()) {</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        playing = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordflow">if</span> (!paused) {</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            <span class="keywordflow">if</span> (_shuffle) shuffle();</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            currentIndex = 0;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            <span class="keywordflow">while</span> (!openMusic(currentIndex)) {</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                currentIndex = (currentIndex + 1) % songs.size();</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                <span class="keywordflow">if</span> (currentIndex == 0) {</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                    playing = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                    <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                }</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            }</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            startIndex = currentIndex;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        }</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        paused = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <span class="keywordflow">if</span> (playing) current.play();</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    }</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;}</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="keywordtype">bool</span> Playlist::openMusic(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i) {</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordflow">if</span> (i != currentIndex) {</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        current.stop();</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <a class="code" href="a04473.html#af3dbef4e0cb06dc2ba43376ea408c79b">resource::FileSystem::purgePersistentData</a>(songfile(songs[currentIndex]));</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    }</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordtype">char</span>* <a class="code" href="a01415.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>    = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    std::size_t len = 0;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="a04473.html#a4333f7b4fcde422a5a9edccb8af201fb">resource::FileSystem::getData</a>(songfile(songs[i]), &amp;<a class="code" href="a01415.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keywordflow">return</span> current.openFromMemory(<a class="code" href="a01415.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len);</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;}</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
-<div class="line"><a name="l00139"></a><span class="lineno"><a class="line" href="a02449.html#a71892080133f509e4df5ce08f44c4887">  139</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02449.html#a71892080133f509e4df5ce08f44c4887">Playlist::pause</a>() {</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    playing = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    paused  = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    current.pause();</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;}</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
-<div class="line"><a name="l00145"></a><span class="lineno"><a class="line" href="a02449.html#a342fef43f7c2e1fa4298d20d65b1b36c">  145</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02449.html#a342fef43f7c2e1fa4298d20d65b1b36c">Playlist::stop</a>() {</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    playing = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    current.stop();</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;}</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
-<div class="line"><a name="l00150"></a><span class="lineno"><a class="line" href="a02449.html#a259488541d4dcfe925137c24ab990421">  150</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02449.html#a259488541d4dcfe925137c24ab990421">Playlist::setVolume</a>(<span class="keywordtype">float</span> <a class="code" href="a01415.html#a016abda2855c77dcc1630f9d2f9f8d18">volume</a>) { current.setVolume(<a class="code" href="a01415.html#a016abda2855c77dcc1630f9d2f9f8d18">volume</a>); }</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
-<div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="a02449.html#a47b95fdccbf663c7b5ab22237ca6849b">  152</a></span>&#160;<span class="keywordtype">float</span> <a class="code" href="a02449.html#a47b95fdccbf663c7b5ab22237ca6849b">Playlist::getVolume</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> current.getVolume(); }</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
-<div class="line"><a name="l00154"></a><span class="lineno"><a class="line" href="a02449.html#a4b5be3094112236d5542ff6ed041ec8d">  154</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02449.html#a4b5be3094112236d5542ff6ed041ec8d">Playlist::update</a>() {</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keywordflow">if</span> (playing) {</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        <span class="keywordflow">if</span> (current.getStatus() == sf::Music::Stopped) {</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;            <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> newI = (currentIndex + 1) % songs.size();</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;            <span class="keywordflow">if</span> (newI == startIndex &amp;&amp; shuffleOnLoop) shuffle();</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            <span class="keywordflow">while</span> (!openMusic(newI)) {</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                newI = (newI + 1) % songs.size();</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                <span class="keywordflow">if</span> (newI == currentIndex) <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;            }</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;            currentIndex = newI;</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;            current.play();</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        }</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    }</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;}</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
-<div class="line"><a name="l00169"></a><span class="lineno"><a class="line" href="a02449.html#a11e389ab733d20b743f8fd6b649e5606">  169</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02449.html#a11e389ab733d20b743f8fd6b649e5606">Playlist::addSong</a>(<span class="keyword">const</span> std::string&amp; song) { songs.push_back(song); }</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
-<div class="line"><a name="l00171"></a><span class="lineno"><a class="line" href="a02449.html#a5d9fc0ef520daf76b0f8f13d8e64303a">  171</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02449.html#a5d9fc0ef520daf76b0f8f13d8e64303a">Playlist::removeSong</a>(<span class="keyword">const</span> std::string&amp; song) {</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; songs.size(); ++i) {</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        <span class="keywordflow">if</span> (songs[i] == song) {</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;            songs.erase(songs.begin() + i);</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;            --i;</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        }</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    }</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;}</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
-<div class="line"><a name="l00180"></a><span class="lineno"><a class="line" href="a02449.html#a4f15b9c1a0f4c5552127f6b446d482b5">  180</a></span>&#160;<span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; <a class="code" href="a02449.html#a4f15b9c1a0f4c5552127f6b446d482b5">Playlist::getSongList</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> songs; }</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
-<div class="line"><a name="l00182"></a><span class="lineno"><a class="line" href="a02449.html#a7e1be0557240d6b5169aef446aa1065c">  182</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02449.html#a7e1be0557240d6b5169aef446aa1065c">Playlist::setShuffle</a>(<span class="keywordtype">bool</span> s) { _shuffle = s; }</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160; </div>
-<div class="line"><a name="l00184"></a><span class="lineno"><a class="line" href="a02449.html#ac94e8b45cb5fcf11031e438378b8f1eb">  184</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02449.html#ac94e8b45cb5fcf11031e438378b8f1eb">Playlist::shuffling</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _shuffle; }</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160; </div>
-<div class="line"><a name="l00186"></a><span class="lineno"><a class="line" href="a02449.html#a33aa23d4c855fabbd526ab373d300adb">  186</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02449.html#a33aa23d4c855fabbd526ab373d300adb">Playlist::setShuffleOnLoop</a>(<span class="keywordtype">bool</span> s) { shuffleOnLoop = s; }</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
-<div class="line"><a name="l00188"></a><span class="lineno"><a class="line" href="a02449.html#a4bb5c8276a313c4aa082eba807295bb3">  188</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02449.html#a4bb5c8276a313c4aa082eba807295bb3">Playlist::shufflingOnLoop</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> shuffleOnLoop; }</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="keywordtype">void</span> Playlist::shuffle() {</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="keyword">const</span> std::vector&lt;std::string&gt; order(std::move(songs));</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <a class="code" href="a02601.html">ctr::FastEraseVector&lt;std::size_t&gt;</a> indices;</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    indices.reserve(songs.size());</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    songs.reserve(order.size());</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    songs.clear();</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160; </div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; order.size(); ++i) { indices.push_back(i); }</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; </div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    <span class="keywordflow">while</span> (!indices.empty()) {</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        <span class="keyword">const</span> std::size_t i = util::Random::get&lt;std::size_t&gt;(0, indices.size() - 1);</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        songs.emplace_back(std::move(order[indices[i]]));</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        indices.<a class="code" href="a02601.html#a2311c45c3a001bf19a0e1ba03d66413a">erase</a>(i);</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    }</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;}</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160; </div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;} <span class="comment">// namespace audio</span></div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00014_html"><div class="ttname"><a href="a00014.html">Playlist.hpp</a></div></div>
-<div class="ttc" id="aa00125_html"><div class="ttname"><a href="a00125.html">FastEraseVector.hpp</a></div></div>
-<div class="ttc" id="aa00224_html"><div class="ttname"><a href="a00224.html">Configuration.hpp</a></div></div>
-<div class="ttc" id="aa00662_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00662.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00662_source.html#l00101">Logger.hpp:101</a></div></div>
-<div class="ttc" id="aa00668_html"><div class="ttname"><a href="a00668.html">Logging.hpp</a></div></div>
-<div class="ttc" id="aa01217_html"><div class="ttname"><a href="a01217.html">Resources.hpp</a></div></div>
-<div class="ttc" id="aa01304_html"><div class="ttname"><a href="a01304.html">Serialization.hpp</a></div></div>
-<div class="ttc" id="aa01349_html"><div class="ttname"><a href="a01349.html">FileUtil.hpp</a></div></div>
-<div class="ttc" id="aa01373_html"><div class="ttname"><a href="a01373.html">Random.hpp</a></div></div>
-<div class="ttc" id="aa01415_html_a016abda2855c77dcc1630f9d2f9f8d18"><div class="ttname"><a href="a01415.html#a016abda2855c77dcc1630f9d2f9f8d18">volume</a></div><div class="ttdeci">float volume</div><div class="ttdef"><b>Definition:</b> <a href="a01415_source.html#l00098">AudioSystem.cpp:98</a></div></div>
-<div class="ttc" id="aa01415_html_a1656129c4a4fd8809254194f08f0ac70"><div class="ttname"><a href="a01415.html#a1656129c4a4fd8809254194f08f0ac70">paused</a></div><div class="ttdeci">bool paused</div><div class="ttdef"><b>Definition:</b> <a href="a01415_source.html#l00079">AudioSystem.cpp:79</a></div></div>
-<div class="ttc" id="aa01415_html_ad2ae6b0ac080ea0ac45f7a06ccc480ba"><div class="ttname"><a href="a01415.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a></div><div class="ttdeci">SoundHandle buffer</div><div class="ttdef"><b>Definition:</b> <a href="a01415_source.html#l00025">AudioSystem.cpp:25</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02449_html"><div class="ttname"><a href="a02449.html">bl::audio::Playlist</a></div><div class="ttdoc">A playable, serializable music playlist. Can be manually manipulated or loaded from files.</div><div class="ttdef"><b>Definition:</b> <a href="a00014_source.html#l00020">Playlist.hpp:20</a></div></div>
-<div class="ttc" id="aa02449_html_a06fe97d87293ce054d604a3ec51e7029"><div class="ttname"><a href="a02449.html#a06fe97d87293ce054d604a3ec51e7029">bl::audio::Playlist::loadBinary</a></div><div class="ttdeci">bool loadBinary(const char *buffer, std::size_t len)</div><div class="ttdoc">Loads the playlist from the given memory buffer. Expects the binary format.</div><div class="ttdef"><b>Definition:</b> <a href="a01418_source.html#l00073">Playlist.cpp:73</a></div></div>
-<div class="ttc" id="aa02449_html_a11e389ab733d20b743f8fd6b649e5606"><div class="ttname"><a href="a02449.html#a11e389ab733d20b743f8fd6b649e5606">bl::audio::Playlist::addSong</a></div><div class="ttdeci">void addSong(const std::string &amp;song)</div><div class="ttdoc">Add a song to the playlist to be played. Not threadsafe.</div><div class="ttdef"><b>Definition:</b> <a href="a01418_source.html#l00169">Playlist.cpp:169</a></div></div>
-<div class="ttc" id="aa02449_html_a259488541d4dcfe925137c24ab990421"><div class="ttname"><a href="a02449.html#a259488541d4dcfe925137c24ab990421">bl::audio::Playlist::setVolume</a></div><div class="ttdeci">void setVolume(float volume)</div><div class="ttdoc">Set the volume.</div><div class="ttdef"><b>Definition:</b> <a href="a01418_source.html#l00150">Playlist.cpp:150</a></div></div>
-<div class="ttc" id="aa02449_html_a31d4433df8ad6c369f572d84c8bfcaa3"><div class="ttname"><a href="a02449.html#a31d4433df8ad6c369f572d84c8bfcaa3">bl::audio::Playlist::operator=</a></div><div class="ttdeci">Playlist &amp; operator=(const Playlist &amp;copy)</div><div class="ttdoc">Copies the song list and shuffle setting from the given playlist, but not it's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01418_source.html#l00099">Playlist.cpp:99</a></div></div>
-<div class="ttc" id="aa02449_html_a33aa23d4c855fabbd526ab373d300adb"><div class="ttname"><a href="a02449.html#a33aa23d4c855fabbd526ab373d300adb">bl::audio::Playlist::setShuffleOnLoop</a></div><div class="ttdeci">void setShuffleOnLoop(bool shuffleOnLoop)</div><div class="ttdoc">Set whether or not the Playlist reshuffles when it loops.</div><div class="ttdef"><b>Definition:</b> <a href="a01418_source.html#l00186">Playlist.cpp:186</a></div></div>
-<div class="ttc" id="aa02449_html_a342fef43f7c2e1fa4298d20d65b1b36c"><div class="ttname"><a href="a02449.html#a342fef43f7c2e1fa4298d20d65b1b36c">bl::audio::Playlist::stop</a></div><div class="ttdeci">void stop()</div><div class="ttdoc">Stops the playlist. play() will restart from the beginning.</div><div class="ttdef"><b>Definition:</b> <a href="a01418_source.html#l00145">Playlist.cpp:145</a></div></div>
-<div class="ttc" id="aa02449_html_a436545e4a11706a20b240f3662dd1b45"><div class="ttname"><a href="a02449.html#a436545e4a11706a20b240f3662dd1b45">bl::audio::Playlist::isPlaying</a></div><div class="ttdeci">bool isPlaying() const</div><div class="ttdoc">Returns whether or not the playlist is playing.</div><div class="ttdef"><b>Definition:</b> <a href="a01418_source.html#l00106">Playlist.cpp:106</a></div></div>
-<div class="ttc" id="aa02449_html_a47b95fdccbf663c7b5ab22237ca6849b"><div class="ttname"><a href="a02449.html#a47b95fdccbf663c7b5ab22237ca6849b">bl::audio::Playlist::getVolume</a></div><div class="ttdeci">float getVolume() const</div><div class="ttdoc">Returns the current volume.</div><div class="ttdef"><b>Definition:</b> <a href="a01418_source.html#l00152">Playlist.cpp:152</a></div></div>
-<div class="ttc" id="aa02449_html_a4b5be3094112236d5542ff6ed041ec8d"><div class="ttname"><a href="a02449.html#a4b5be3094112236d5542ff6ed041ec8d">bl::audio::Playlist::update</a></div><div class="ttdeci">void update()</div><div class="ttdoc">Updates the state of the playlist. This is called in the background if using AudioSystem....</div><div class="ttdef"><b>Definition:</b> <a href="a01418_source.html#l00154">Playlist.cpp:154</a></div></div>
-<div class="ttc" id="aa02449_html_a4bb5c8276a313c4aa082eba807295bb3"><div class="ttname"><a href="a02449.html#a4bb5c8276a313c4aa082eba807295bb3">bl::audio::Playlist::shufflingOnLoop</a></div><div class="ttdeci">bool shufflingOnLoop() const</div><div class="ttdoc">Returns whether or not the Playlist shuffles when it loops.</div><div class="ttdef"><b>Definition:</b> <a href="a01418_source.html#l00188">Playlist.cpp:188</a></div></div>
-<div class="ttc" id="aa02449_html_a4f15b9c1a0f4c5552127f6b446d482b5"><div class="ttname"><a href="a02449.html#a4f15b9c1a0f4c5552127f6b446d482b5">bl::audio::Playlist::getSongList</a></div><div class="ttdeci">const std::vector&lt; std::string &gt; &amp; getSongList() const</div><div class="ttdoc">Returns the immutable list of songs in the queue in their shuffled order.</div><div class="ttdef"><b>Definition:</b> <a href="a01418_source.html#l00180">Playlist.cpp:180</a></div></div>
-<div class="ttc" id="aa02449_html_a5c14814b230ef7de45feee5c217cf54a"><div class="ttname"><a href="a02449.html#a5c14814b230ef7de45feee5c217cf54a">bl::audio::Playlist::saveToMemory</a></div><div class="ttdeci">bool saveToMemory(serial::binary::OutputStream &amp;output) const</div><div class="ttdoc">Saves the playlist in binary format to the given stream.</div><div class="ttdef"><b>Definition:</b> <a href="a01418_source.html#l00057">Playlist.cpp:57</a></div></div>
-<div class="ttc" id="aa02449_html_a5d9fc0ef520daf76b0f8f13d8e64303a"><div class="ttname"><a href="a02449.html#a5d9fc0ef520daf76b0f8f13d8e64303a">bl::audio::Playlist::removeSong</a></div><div class="ttdeci">void removeSong(const std::string &amp;song)</div><div class="ttdoc">Removes the song from the queue.</div><div class="ttdef"><b>Definition:</b> <a href="a01418_source.html#l00171">Playlist.cpp:171</a></div></div>
-<div class="ttc" id="aa02449_html_a60c66c9f721c21d9f296df4939f9f2e7"><div class="ttname"><a href="a02449.html#a60c66c9f721c21d9f296df4939f9f2e7">bl::audio::Playlist::loadJson</a></div><div class="ttdeci">bool loadJson(const char *buffer, std::size_t len)</div><div class="ttdoc">Loads the playlist from the given memory buffer. Expects the json format.</div><div class="ttdef"><b>Definition:</b> <a href="a01418_source.html#l00086">Playlist.cpp:86</a></div></div>
-<div class="ttc" id="aa02449_html_a60cba1996b928968b8eb7c052c73d6ff"><div class="ttname"><a href="a02449.html#a60cba1996b928968b8eb7c052c73d6ff">bl::audio::Playlist::loadFromFile</a></div><div class="ttdeci">bool loadFromFile(const std::string &amp;path)</div><div class="ttdoc">Loads the playlist from the given JSON file.</div><div class="ttdef"><b>Definition:</b> <a href="a01418_source.html#l00061">Playlist.cpp:61</a></div></div>
-<div class="ttc" id="aa02449_html_a71892080133f509e4df5ce08f44c4887"><div class="ttname"><a href="a02449.html#a71892080133f509e4df5ce08f44c4887">bl::audio::Playlist::pause</a></div><div class="ttdeci">void pause()</div><div class="ttdoc">Pauses the playlist at the current time and current song. play() will resume from the pause point.</div><div class="ttdef"><b>Definition:</b> <a href="a01418_source.html#l00139">Playlist.cpp:139</a></div></div>
-<div class="ttc" id="aa02449_html_a7540a4439817e454b7829edc0093d21b"><div class="ttname"><a href="a02449.html#a7540a4439817e454b7829edc0093d21b">bl::audio::Playlist::Playlist</a></div><div class="ttdeci">Playlist()</div><div class="ttdoc">Creates an empty playlist.</div><div class="ttdef"><b>Definition:</b> <a href="a01418_source.html#l00026">Playlist.cpp:26</a></div></div>
-<div class="ttc" id="aa02449_html_a7e1be0557240d6b5169aef446aa1065c"><div class="ttname"><a href="a02449.html#a7e1be0557240d6b5169aef446aa1065c">bl::audio::Playlist::setShuffle</a></div><div class="ttdeci">void setShuffle(bool shuffle)</div><div class="ttdoc">Set whether or not the playlist should shuffle.</div><div class="ttdef"><b>Definition:</b> <a href="a01418_source.html#l00182">Playlist.cpp:182</a></div></div>
-<div class="ttc" id="aa02449_html_a98fb8c3cef9f327b14c87ce718a2a4d0"><div class="ttname"><a href="a02449.html#a98fb8c3cef9f327b14c87ce718a2a4d0">bl::audio::Playlist::saveToFile</a></div><div class="ttdeci">bool saveToFile(const std::string &amp;path) const</div><div class="ttdoc">Saves the conversation to the given JSON file.</div><div class="ttdef"><b>Definition:</b> <a href="a01418_source.html#l00052">Playlist.cpp:52</a></div></div>
-<div class="ttc" id="aa02449_html_abd3470df7e38fcfc2291c55d6742f9a9"><div class="ttname"><a href="a02449.html#abd3470df7e38fcfc2291c55d6742f9a9">bl::audio::Playlist::~Playlist</a></div><div class="ttdeci">~Playlist()</div><div class="ttdoc">Stops the music and cleans up resources.</div><div class="ttdef"><b>Definition:</b> <a href="a01418_source.html#l00045">Playlist.cpp:45</a></div></div>
-<div class="ttc" id="aa02449_html_ac388d1ce7ec765ca2c7be5cee5736da1"><div class="ttname"><a href="a02449.html#ac388d1ce7ec765ca2c7be5cee5736da1">bl::audio::Playlist::play</a></div><div class="ttdeci">void play()</div><div class="ttdoc">Plays or resumes the playlist. If set to shuffle and not resuming from pause, shuffles the songs befo...</div><div class="ttdef"><b>Definition:</b> <a href="a01418_source.html#l00108">Playlist.cpp:108</a></div></div>
-<div class="ttc" id="aa02449_html_ac94e8b45cb5fcf11031e438378b8f1eb"><div class="ttname"><a href="a02449.html#ac94e8b45cb5fcf11031e438378b8f1eb">bl::audio::Playlist::shuffling</a></div><div class="ttdeci">bool shuffling() const</div><div class="ttdoc">Returns whether or not the playlist shuffles on play()</div><div class="ttdef"><b>Definition:</b> <a href="a01418_source.html#l00184">Playlist.cpp:184</a></div></div>
-<div class="ttc" id="aa02601_html"><div class="ttname"><a href="a02601.html">bl::ctr::FastEraseVector</a></div><div class="ttdoc">A thin reskin of std::vector, this vector replaces the O(n) erase() methods of vector with a constant...</div><div class="ttdef"><b>Definition:</b> <a href="a00125_source.html#l00022">FastEraseVector.hpp:22</a></div></div>
-<div class="ttc" id="aa02601_html_a2311c45c3a001bf19a0e1ba03d66413a"><div class="ttname"><a href="a02601.html#a2311c45c3a001bf19a0e1ba03d66413a">bl::ctr::FastEraseVector::erase</a></div><div class="ttdeci">void erase(iterator position)</div><div class="ttdoc">Erase a single element using an iterator.</div><div class="ttdef"><b>Definition:</b> <a href="a00125_source.html#l00044">FastEraseVector.hpp:44</a></div></div>
-<div class="ttc" id="aa04473_html_a4333f7b4fcde422a5a9edccb8af201fb"><div class="ttname"><a href="a04473.html#a4333f7b4fcde422a5a9edccb8af201fb">bl::resource::FileSystem::getData</a></div><div class="ttdeci">static bool getData(const std::string &amp;path, char **buffer, std::size_t &amp;len)</div><div class="ttdoc">Loads the data for the given path. Either loads from the underlying file system or from the active bu...</div><div class="ttdef"><b>Definition:</b> <a href="a02147_source.html#l00023">FileSystem.cpp:23</a></div></div>
-<div class="ttc" id="aa04473_html_af3dbef4e0cb06dc2ba43376ea408c79b"><div class="ttname"><a href="a04473.html#af3dbef4e0cb06dc2ba43376ea408c79b">bl::resource::FileSystem::purgePersistentData</a></div><div class="ttdeci">static void purgePersistentData(const std::string &amp;path)</div><div class="ttdoc">Purges the persistent data buffer for the given resource. Noop if the resource did not have a persist...</div><div class="ttdef"><b>Definition:</b> <a href="a02147_source.html#l00038">FileSystem.cpp:38</a></div></div>
-<div class="ttc" id="aa04601_html"><div class="ttname"><a href="a04601.html">bl::serial::binary::InputStream</a></div><div class="ttdoc">A readable stream for binary deserialization.</div><div class="ttdef"><b>Definition:</b> <a href="a01253_source.html#l00028">InputStream.hpp:28</a></div></div>
-<div class="ttc" id="aa04609_html"><div class="ttname"><a href="a04609.html">bl::serial::binary::OutputStream</a></div><div class="ttdoc">A writable stream for binary serialization.</div><div class="ttdef"><b>Definition:</b> <a href="a01259_source.html#l00022">OutputStream.hpp:22</a></div></div>
-<div class="ttc" id="aa04613_html_a5f0be3d348bae8bf6823f4d2a3a98b9b"><div class="ttname"><a href="a04613.html#a5f0be3d348bae8bf6823f4d2a3a98b9b">bl::serial::binary::Serializer::serialize</a></div><div class="ttdeci">static bool serialize(OutputStream &amp;output, const T &amp;value)</div><div class="ttdoc">Serialize the given value to the given file.</div></div>
-<div class="ttc" id="aa04737_html"><div class="ttname"><a href="a04737.html">bl::serial::MemoryInputBuffer</a></div><div class="ttdoc">Input buffer that operates entirely on in-memory data.</div><div class="ttdef"><b>Definition:</b> <a href="a01274_source.html#l00018">MemoryInputBuffer.hpp:18</a></div></div>
-<div class="ttc" id="aa04981_html"><div class="ttname"><a href="a04981.html">bl::util::BufferIstreamBuf</a></div><div class="ttdoc">Helper class that represents a streambuf around a vector&lt;char&gt;. Use to create istream objects from ve...</div><div class="ttdef"><b>Definition:</b> <a href="a01346_source.html#l00018">BufferIstreamBuf.hpp:18</a></div></div>
-<div class="ttc" id="aa04985_html_a7b2da3c07d55afdf5faf689ac6503a4c"><div class="ttname"><a href="a04985.html#a7b2da3c07d55afdf5faf689ac6503a4c">bl::util::FileUtil::joinPath</a></div><div class="ttdeci">static std::string joinPath(const std::string &amp;leftPath, const std::string &amp;rightPath)</div><div class="ttdoc">Joins a file path with another path or filename. Takes care of slashes Example: &quot;path/&quot; + &quot;/file....</div><div class="ttdef"><b>Definition:</b> <a href="a02252_source.html#l00062">FileUtil.cpp:62</a></div></div>
+<a href="a01418.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_UTIL_STREAMUTIL_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_UTIL_STREAMUTIL_HPP</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;istream&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>util</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a05296.html">   16</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a05296.html">StreamUtil</a> {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="a05296.html#aaefeea8843d802e72a42de4a6b38597b">skipWhitespace</a>(std::istream&amp; stream);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="a05296.html#aaededcb8364f5c2f9a83aaa2d017955a">skipUntil</a>(std::istream&amp; stream, <span class="keywordtype">char</span> delim);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="a05296.html#a2fa0042b61855f6ef422d7a6fde449e8">isNumeric</a>(<span class="keywordtype">char</span> c);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="a05296.html#a8ee4ee3ad1c725fb70215e7e2dd34eeb">writeRepeated</a>(std::ostream&amp; stream, <span class="keywordtype">char</span> c, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> count);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;};</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;} <span class="comment">// namespace util</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa05296_html"><div class="ttname"><a href="a05296.html">bl::util::StreamUtil</a></div><div class="ttdoc">Helper utility for parsing text streams.</div><div class="ttdef"><b>Definition:</b> <a href="a01418_source.html#l00016">StreamUtil.hpp:16</a></div></div>
+<div class="ttc" id="aa05296_html_a2fa0042b61855f6ef422d7a6fde449e8"><div class="ttname"><a href="a05296.html#a2fa0042b61855f6ef422d7a6fde449e8">bl::util::StreamUtil::isNumeric</a></div><div class="ttdeci">static bool isNumeric(char c)</div><div class="ttdoc">Returns whether or not the given character is numeric. Allows digits and '-'.</div><div class="ttdef"><b>Definition:</b> <a href="a02315_source.html#l00017">StreamUtil.cpp:17</a></div></div>
+<div class="ttc" id="aa05296_html_a8ee4ee3ad1c725fb70215e7e2dd34eeb"><div class="ttname"><a href="a05296.html#a8ee4ee3ad1c725fb70215e7e2dd34eeb">bl::util::StreamUtil::writeRepeated</a></div><div class="ttdeci">static bool writeRepeated(std::ostream &amp;stream, char c, unsigned int count)</div><div class="ttdoc">Writes the given character into the stream a given number of times.</div><div class="ttdef"><b>Definition:</b> <a href="a02315_source.html#l00021">StreamUtil.cpp:21</a></div></div>
+<div class="ttc" id="aa05296_html_aaededcb8364f5c2f9a83aaa2d017955a"><div class="ttname"><a href="a05296.html#aaededcb8364f5c2f9a83aaa2d017955a">bl::util::StreamUtil::skipUntil</a></div><div class="ttdeci">static bool skipUntil(std::istream &amp;stream, char delim)</div><div class="ttdoc">Skips all characters up until the given delimeter character.</div><div class="ttdef"><b>Definition:</b> <a href="a02315_source.html#l00012">StreamUtil.cpp:12</a></div></div>
+<div class="ttc" id="aa05296_html_aaefeea8843d802e72a42de4a6b38597b"><div class="ttname"><a href="a05296.html#aaefeea8843d802e72a42de4a6b38597b">bl::util::StreamUtil::skipWhitespace</a></div><div class="ttdeci">static bool skipWhitespace(std::istream &amp;stream)</div><div class="ttdoc">Skips whitespace up until the next non-whitespace character.</div><div class="ttdef"><b>Definition:</b> <a href="a02315_source.html#l00007">StreamUtil.cpp:7</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

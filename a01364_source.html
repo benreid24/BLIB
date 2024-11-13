@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Util/ImageStitcher.hpp Source File</title>
+<title>BLIB: include/BLIB/Systems/VelocitySystem.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,73 +66,61 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4b3af2b25a05b4f12e892fbe45139fe9.html">Util</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_daaf59349fe9c08c8ba4d716035ae7ff.html">Systems</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ImageStitcher.hpp</div>  </div>
+<div class="title">VelocitySystem.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01364.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_UTIL_IMAGESTITCHER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_UTIL_IMAGESTITCHER_HPP</span></div>
+<a href="a01364.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SYSTEMS_VELOCITY2DSYSTEM_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SYSTEMS_VELOCITY2DSYSTEM_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/Image.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span>Renderer;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>util</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a05013.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="a05013.html">ImageStitcher</a> {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="a05013.html#ab387134964eba43d367d2b6bdfe0b0af">ImageStitcher</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> maxWidth, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> padding = 2);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="a05013.html#ab387134964eba43d367d2b6bdfe0b0af">ImageStitcher</a>(<span class="keyword">const</span> <a class="code" href="a04061.html">rc::Renderer</a>&amp; renderer, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> padding = 2);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    glm::u32vec2 <a class="code" href="a05013.html#af6f4bfc07bb91772c53ce58d49dab7b7">addImage</a>(<span class="keyword">const</span> sf::Image&amp; img);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">const</span> sf::Image&amp; <a class="code" href="a05013.html#ad91c10b73470d6709aed6ac723d8354e">getStitchedImage</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">struct </span>Row {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> y;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> height;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> width;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        Row(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> y, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> height)</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        : y(y)</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        , height(height)</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        , width(0) {}</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    };</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> maxWidth;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> padding;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    sf::Image image;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    std::vector&lt;Row&gt; rows;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;};</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;} <span class="comment">// namespace util</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04061_html"><div class="ttname"><a href="a04061.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a06320_source.html#l00042">Renderer.hpp:42</a></div></div>
-<div class="ttc" id="aa05013_html"><div class="ttname"><a href="a05013.html">bl::util::ImageStitcher</a></div><div class="ttdoc">Helper class to combine multiple images into one large atlas image.</div><div class="ttdef"><b>Definition:</b> <a href="a01364_source.html#l00022">ImageStitcher.hpp:22</a></div></div>
-<div class="ttc" id="aa05013_html_ab387134964eba43d367d2b6bdfe0b0af"><div class="ttname"><a href="a05013.html#ab387134964eba43d367d2b6bdfe0b0af">bl::util::ImageStitcher::ImageStitcher</a></div><div class="ttdeci">ImageStitcher(unsigned int maxWidth, unsigned int padding=2)</div><div class="ttdoc">Creates the stitcher with the given max width and padding.</div><div class="ttdef"><b>Definition:</b> <a href="a02255_source.html#l00014">ImageStitcher.cpp:14</a></div></div>
-<div class="ttc" id="aa05013_html_ad91c10b73470d6709aed6ac723d8354e"><div class="ttname"><a href="a05013.html#ad91c10b73470d6709aed6ac723d8354e">bl::util::ImageStitcher::getStitchedImage</a></div><div class="ttdeci">const sf::Image &amp; getStitchedImage() const</div><div class="ttdoc">Returns the combined image.</div><div class="ttdef"><b>Definition:</b> <a href="a02255_source.html#l00018">ImageStitcher.cpp:18</a></div></div>
-<div class="ttc" id="aa05013_html_af6f4bfc07bb91772c53ce58d49dab7b7"><div class="ttname"><a href="a05013.html#af6f4bfc07bb91772c53ce58d49dab7b7">bl::util::ImageStitcher::addImage</a></div><div class="ttdeci">glm::u32vec2 addImage(const sf::Image &amp;img)</div><div class="ttdoc">Adds an image to the atlas and returns it's position in the atlas.</div><div class="ttdef"><b>Definition:</b> <a href="a02255_source.html#l00020">ImageStitcher.cpp:20</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06544.html">BLIB/Components/Transform2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00122.html">BLIB/Components/Velocity2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00239.html">BLIB/ECS.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06577.html">BLIB/Engine/System.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>sys</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a05160.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a05160.html">VelocitySystem</a> : <span class="keyword">public</span> <a class="code" href="a03048.html">engine::System</a> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="a05160.html#a494c01b83516a88fa055529e354c6807">VelocitySystem</a>();</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a05160.html#a0d45df25b1993c7f0c9ffbf3d52be752">   28</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a05160.html#a0d45df25b1993c7f0c9ffbf3d52be752">~VelocitySystem</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">using</span> <a class="code" href="a02884.html">Tags2D</a> = <a class="code" href="a02884.html">ecs::Tags&lt;ecs::Require&lt;com::Velocity2D, com::Transform2D&gt;</a>&gt;;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    Tags2D::TView* view2d;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> update(std::mutex&amp;, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> init(<a class="code" href="a02964.html">engine::Engine</a>&amp; engine) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;};</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;} <span class="comment">// namespace sys</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00122_html"><div class="ttname"><a href="a00122.html">Velocity2D.hpp</a></div></div>
+<div class="ttc" id="aa00239_html"><div class="ttname"><a href="a00239.html">ECS.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02884_html"><div class="ttname"><a href="a02884.html">bl::ecs::Tags</a></div><div class="ttdef"><b>Definition:</b> <a href="a00209_source.html#l00056">Tags.hpp:56</a></div></div>
+<div class="ttc" id="aa02964_html"><div class="ttname"><a href="a02964.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06568_source.html#l00038">Engine.hpp:38</a></div></div>
+<div class="ttc" id="aa03048_html"><div class="ttname"><a href="a03048.html">bl::engine::System</a></div><div class="ttdoc">Base class for Engine systems which can be registered in the Systems registry.</div><div class="ttdef"><b>Definition:</b> <a href="a06577_source.html#l00018">System.hpp:18</a></div></div>
+<div class="ttc" id="aa05160_html"><div class="ttname"><a href="a05160.html">bl::sys::VelocitySystem</a></div><div class="ttdoc">System that applies velocity to positions over time.</div><div class="ttdef"><b>Definition:</b> <a href="a01364_source.html#l00018">VelocitySystem.hpp:18</a></div></div>
+<div class="ttc" id="aa05160_html_a0d45df25b1993c7f0c9ffbf3d52be752"><div class="ttname"><a href="a05160.html#a0d45df25b1993c7f0c9ffbf3d52be752">bl::sys::VelocitySystem::~VelocitySystem</a></div><div class="ttdeci">virtual ~VelocitySystem()=default</div><div class="ttdoc">Destroys the system.</div></div>
+<div class="ttc" id="aa05160_html_a494c01b83516a88fa055529e354c6807"><div class="ttname"><a href="a05160.html#a494c01b83516a88fa055529e354c6807">bl::sys::VelocitySystem::VelocitySystem</a></div><div class="ttdeci">VelocitySystem()</div><div class="ttdoc">Creates the system.</div><div class="ttdef"><b>Definition:</b> <a href="a02297_source.html#l00009">VelocitySystem.cpp:9</a></div></div>
+<div class="ttc" id="aa06544_html"><div class="ttname"><a href="a06544.html">Transform2D.hpp</a></div></div>
+<div class="ttc" id="aa06577_html"><div class="ttname"><a href="a06577.html">System.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

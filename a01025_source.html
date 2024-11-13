@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Scenes/CodeScene.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Resources/BindlessTextureArray.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,114 +66,115 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1582fe53e8ca010e140dea1b69a5a9f3.html">Scenes</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_0f0c454ab916ef2487b68a1bc3be1485.html">Resources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">CodeScene.hpp</div>  </div>
+<div class="title">BindlessTextureArray.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01025.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_SCENES_CODESCENE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_SCENES_CODESCENE_HPP</span></div>
+<a href="a01025.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_RESOURCES_BINDLESSTEXTUREARRAY_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_RESOURCES_BINDLESSTEXTUREARRAY_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00794.html">BLIB/Render/Components/DrawableBase.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00962.html">BLIB/Render/Lighting/Scene2DLighting.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01028.html">BLIB/Render/Scenes/CodeSceneObject.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01034.html">BLIB/Render/Scenes/Scene.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01049.html">BLIB/Render/Scenes/SceneObjectStorage.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>scene</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a04141.html">   24</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04141.html">CodeScene</a> : <span class="keyword">public</span> <a class="code" href="a04165.html">Scene</a> {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a04145.html">   29</a></span>&#160;    <span class="keyword">class </span><a class="code" href="a04145.html">RenderContext</a> {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a04145.html#a574e2bdfd78517820fd2d687d482a9e9">renderObject</a>(<a class="code" href="a03769.html">rcom::DrawableBase</a>&amp; <span class="keywordtype">object</span>);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a04145.html#af023b8f7cd5eaa1042e9aaa908be3625">setViewport</a>(<span class="keyword">const</span> VkViewport&amp; viewport, <span class="keywordtype">bool</span> <a class="code" href="a04145.html#a9df3086c68c68b50b51d2a261062c6ea">setScissor</a> = <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a04145.html#a9df3086c68c68b50b51d2a261062c6ea">setScissor</a>(<span class="keyword">const</span> VkRect2D&amp; scissor, <span class="keywordtype">bool</span> <a class="code" href="a04145.html#af023b8f7cd5eaa1042e9aaa908be3625">setViewport</a> = <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a04145.html#ac00afe1885338b150c835825ac6c798b">resetScissor</a>();</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a04145.html#ac1d6f7c4e0dc033647a3e06a602ebea3">resetViewport</a>();</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a04145.html#a6fbab84a3c928f958460d3e3aeb34ee5">resetViewportAndScissor</a>();</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <a class="code" href="a04205.html">scene::SceneRenderContext</a>&amp; renderContext;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <a class="code" href="a04145.html">RenderContext</a>(<a class="code" href="a04205.html">scene::SceneRenderContext</a>&amp; renderContext);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="a04145.html#a606ff0893787f48fc3e95cf4b3730d94">   75</a></span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a04141.html">CodeScene</a>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    };</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="a04141.html#ae493432ff27af23b11953639a1dc0c41">   79</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a04141.html#ae493432ff27af23b11953639a1dc0c41">RenderCallback</a> = std::function&lt;void(<a class="code" href="a04145.html">RenderContext</a>&amp;)&gt;;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <a class="code" href="a04141.html#ab7fce7bb014c9f112629267c8163d2e0">CodeScene</a>(<a class="code" href="a02833.html">engine::Engine</a>&amp; engine, <a class="code" href="a04141.html#ae493432ff27af23b11953639a1dc0c41">RenderCallback</a>&amp;&amp; renderCallback);</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01055.html">BLIB/Render/Resources/TextureRef.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06541.html">BLIB/Render/Vulkan/Texture.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01187.html">BLIB/Render/Vulkan/TextureDoubleBuffered.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01193.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/Image.hpp&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>res</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a04248.html">   26</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04248.html">BindlessTextureArray</a> {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="a04248.html#a0d92914ee2b00d0dc70509d579464491">BindlessTextureArray</a>(<a class="code" href="a04580.html">vk::VulkanState</a>&amp; vulkanState, std::uint32_t arraySize,</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                         std::uint32_t bindIndex);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    VkDescriptorSetLayoutBinding <a class="code" href="a04248.html#a483914caa8e801eef9cbe46d6bc61210">getLayoutBinding</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04248.html#aba33d5a75b43eaed2f784db348be4789">init</a>(<a class="code" href="a04468.html">vk::PerFrame&lt;VkDescriptorSet&gt;</a>&amp; descriptorSets,</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;              <a class="code" href="a04468.html">vk::PerFrame&lt;VkDescriptorSet&gt;</a>&amp; rtDescriptorSets);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04248.html#a290a99da50270df207d08f313a91f01d">cleanup</a>();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="a04568.html">vk::TextureBase</a>&amp; <a class="code" href="a04248.html#a601e04a309eb35d41027f3fe09b4efd1">getTexture</a>(std::uint32_t i);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04248.html#ae405a720815191ade8082f93b35782c1">prepareTextureUpdate</a>(std::uint32_t i, <span class="keyword">const</span> std::string&amp; path);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04248.html#ae405a720815191ade8082f93b35782c1">prepareTextureUpdate</a>(std::uint32_t i, <span class="keyword">const</span> sf::Image&amp; src);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    std::uint32_t <a class="code" href="a04248.html#ad52f10294e6f8d3df02aa7a146af2b83">getBindIndex</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a04141.html#a3c824c709243a14dbb33a429acb0942d">~CodeScene</a>();</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="a04141.html#afa620f91fa7d802e2be3166fe92720b3">   97</a></span>&#160;    <a class="code" href="a04029.html">lgt::Scene2DLighting</a>&amp; <a class="code" href="a04141.html#afa620f91fa7d802e2be3166fe92720b3">getLighting</a>() { <span class="keywordflow">return</span> lighting; }</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keyword">const</span> <a class="code" href="a04141.html#ae493432ff27af23b11953639a1dc0c41">RenderCallback</a> renderCallback;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <a class="code" href="a04193.html">SceneObjectStorage&lt;CodeSceneObject&gt;</a> objects;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <a class="code" href="a04029.html">lgt::Scene2DLighting</a> lighting;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> renderScene(<a class="code" href="a04205.html">scene::SceneRenderContext</a>&amp; context) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keyword">virtual</span> std::unique_ptr&lt;cam::Camera&gt; createDefaultCamera() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> setDefaultNearAndFarPlanes(<a class="code" href="a02497.html">cam::Camera</a>&amp; camera) <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a04181.html">SceneObject</a>* doAdd(<a class="code" href="a02733.html">ecs::Entity</a> entity, <a class="code" href="a03769.html">rcom::DrawableBase</a>&amp; <span class="keywordtype">object</span>,</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                               <a class="code" href="a02289.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> updateFreq) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doBatchChange(<span class="keyword">const</span> BatchChange&amp; change, std::uint32_t ogPipeline) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doObjectRemoval(<a class="code" href="a04181.html">SceneObject</a>* <span class="keywordtype">object</span>, std::uint32_t pipeline) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;};</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;} <span class="comment">// namespace scene</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00794_html"><div class="ttname"><a href="a00794.html">DrawableBase.hpp</a></div></div>
-<div class="ttc" id="aa00962_html"><div class="ttname"><a href="a00962.html">Scene2DLighting.hpp</a></div></div>
-<div class="ttc" id="aa01028_html"><div class="ttname"><a href="a01028.html">CodeSceneObject.hpp</a></div></div>
-<div class="ttc" id="aa01034_html"><div class="ttname"><a href="a01034.html">Scene.hpp</a></div></div>
-<div class="ttc" id="aa01049_html"><div class="ttname"><a href="a01049.html">SceneObjectStorage.hpp</a></div></div>
-<div class="ttc" id="aa02289_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a02289.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition:</b> <a href="a01073_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02497_html"><div class="ttname"><a href="a02497.html">bl::cam::Camera</a></div><div class="ttdoc">Base class for all cameras.</div><div class="ttdef"><b>Definition:</b> <a href="a00047_source.html#l00017">Camera.hpp:17</a></div></div>
-<div class="ttc" id="aa02733_html"><div class="ttname"><a href="a02733.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00176_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa02833_html"><div class="ttname"><a href="a02833.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06269_source.html#l00033">Engine.hpp:33</a></div></div>
-<div class="ttc" id="aa03769_html"><div class="ttname"><a href="a03769.html">bl::rc::rcom::DrawableBase</a></div><div class="ttdoc">Base class for drawable scene components for the ECS. Provides common members.</div><div class="ttdef"><b>Definition:</b> <a href="a00794_source.html#l00038">DrawableBase.hpp:38</a></div></div>
-<div class="ttc" id="aa04029_html"><div class="ttname"><a href="a04029.html">bl::rc::lgt::Scene2DLighting</a></div><div class="ttdoc">Lighting manager for 2d scenes.</div><div class="ttdef"><b>Definition:</b> <a href="a00962_source.html#l00028">Scene2DLighting.hpp:28</a></div></div>
-<div class="ttc" id="aa04141_html"><div class="ttname"><a href="a04141.html">bl::rc::scene::CodeScene</a></div><div class="ttdoc">A special type of scene that performs rendering by deferring to a user-provided callback that then is...</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00024">CodeScene.hpp:24</a></div></div>
-<div class="ttc" id="aa04141_html_a3c824c709243a14dbb33a429acb0942d"><div class="ttname"><a href="a04141.html#a3c824c709243a14dbb33a429acb0942d">bl::rc::scene::CodeScene::~CodeScene</a></div><div class="ttdeci">virtual ~CodeScene()</div><div class="ttdoc">Destroys the code scene.</div><div class="ttdef"><b>Definition:</b> <a href="a02003_source.html#l00045">CodeScene.cpp:45</a></div></div>
-<div class="ttc" id="aa04141_html_ab7fce7bb014c9f112629267c8163d2e0"><div class="ttname"><a href="a04141.html#ab7fce7bb014c9f112629267c8163d2e0">bl::rc::scene::CodeScene::CodeScene</a></div><div class="ttdeci">CodeScene(engine::Engine &amp;engine, RenderCallback &amp;&amp;renderCallback)</div><div class="ttdoc">Creates the code scene.</div><div class="ttdef"><b>Definition:</b> <a href="a02003_source.html#l00039">CodeScene.cpp:39</a></div></div>
-<div class="ttc" id="aa04141_html_ae493432ff27af23b11953639a1dc0c41"><div class="ttname"><a href="a04141.html#ae493432ff27af23b11953639a1dc0c41">bl::rc::scene::CodeScene::RenderCallback</a></div><div class="ttdeci">std::function&lt; void(RenderContext &amp;)&gt; RenderCallback</div><div class="ttdoc">Signature of the callback that is called when rendering occurs.</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00079">CodeScene.hpp:79</a></div></div>
-<div class="ttc" id="aa04141_html_afa620f91fa7d802e2be3166fe92720b3"><div class="ttname"><a href="a04141.html#afa620f91fa7d802e2be3166fe92720b3">bl::rc::scene::CodeScene::getLighting</a></div><div class="ttdeci">lgt::Scene2DLighting &amp; getLighting()</div><div class="ttdoc">Returns the scene lighting manager for this scene.</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00097">CodeScene.hpp:97</a></div></div>
-<div class="ttc" id="aa04145_html"><div class="ttname"><a href="a04145.html">bl::rc::scene::CodeScene::RenderContext</a></div><div class="ttdoc">Context that gets passed to the render callback.</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00029">CodeScene.hpp:29</a></div></div>
-<div class="ttc" id="aa04145_html_a574e2bdfd78517820fd2d687d482a9e9"><div class="ttname"><a href="a04145.html#a574e2bdfd78517820fd2d687d482a9e9">bl::rc::scene::CodeScene::RenderContext::renderObject</a></div><div class="ttdeci">void renderObject(rcom::DrawableBase &amp;object)</div><div class="ttdoc">Issues the commands to render the given object. All BLIB renderable classes provide their own methods...</div><div class="ttdef"><b>Definition:</b> <a href="a02003_source.html#l00117">CodeScene.cpp:117</a></div></div>
-<div class="ttc" id="aa04145_html_a6fbab84a3c928f958460d3e3aeb34ee5"><div class="ttname"><a href="a04145.html#a6fbab84a3c928f958460d3e3aeb34ee5">bl::rc::scene::CodeScene::RenderContext::resetViewportAndScissor</a></div><div class="ttdeci">void resetViewportAndScissor()</div><div class="ttdoc">Resets both the viewport and scissor to their original values.</div><div class="ttdef"><b>Definition:</b> <a href="a02003_source.html#l00162">CodeScene.cpp:162</a></div></div>
-<div class="ttc" id="aa04145_html_a9df3086c68c68b50b51d2a261062c6ea"><div class="ttname"><a href="a04145.html#a9df3086c68c68b50b51d2a261062c6ea">bl::rc::scene::CodeScene::RenderContext::setScissor</a></div><div class="ttdeci">void setScissor(const VkRect2D &amp;scissor, bool setViewport=false)</div><div class="ttdoc">Sets the scissor to use for rendering.</div><div class="ttdef"><b>Definition:</b> <a href="a02003_source.html#l00146">CodeScene.cpp:146</a></div></div>
-<div class="ttc" id="aa04145_html_ac00afe1885338b150c835825ac6c798b"><div class="ttname"><a href="a04145.html#ac00afe1885338b150c835825ac6c798b">bl::rc::scene::CodeScene::RenderContext::resetScissor</a></div><div class="ttdeci">void resetScissor()</div><div class="ttdoc">Resets the scissor to its original value.</div><div class="ttdef"><b>Definition:</b> <a href="a02003_source.html#l00158">CodeScene.cpp:158</a></div></div>
-<div class="ttc" id="aa04145_html_ac1d6f7c4e0dc033647a3e06a602ebea3"><div class="ttname"><a href="a04145.html#ac1d6f7c4e0dc033647a3e06a602ebea3">bl::rc::scene::CodeScene::RenderContext::resetViewport</a></div><div class="ttdeci">void resetViewport()</div><div class="ttdoc">Resets the viewport to its original value.</div><div class="ttdef"><b>Definition:</b> <a href="a02003_source.html#l00154">CodeScene.cpp:154</a></div></div>
-<div class="ttc" id="aa04145_html_af023b8f7cd5eaa1042e9aaa908be3625"><div class="ttname"><a href="a04145.html#af023b8f7cd5eaa1042e9aaa908be3625">bl::rc::scene::CodeScene::RenderContext::setViewport</a></div><div class="ttdeci">void setViewport(const VkViewport &amp;viewport, bool setScissor=true)</div><div class="ttdoc">Issues the command to set the viewport used for rendering.</div><div class="ttdef"><b>Definition:</b> <a href="a02003_source.html#l00138">CodeScene.cpp:138</a></div></div>
-<div class="ttc" id="aa04165_html"><div class="ttname"><a href="a04165.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition:</b> <a href="a01034_source.html#l00056">Scene.hpp:56</a></div></div>
-<div class="ttc" id="aa04181_html"><div class="ttname"><a href="a04181.html">bl::rc::scene::SceneObject</a></div><div class="ttdoc">Base renderable object. Everything that is rendered will reference an instance of this....</div><div class="ttdef"><b>Definition:</b> <a href="a01043_source.html#l00029">SceneObject.hpp:29</a></div></div>
-<div class="ttc" id="aa04193_html"><div class="ttname"><a href="a04193.html">bl::rc::scene::SceneObjectStorage</a></div><div class="ttdoc">Storage for scene objects. Splits objects by update frequency.</div><div class="ttdef"><b>Definition:</b> <a href="a01049_source.html#l00026">SceneObjectStorage.hpp:26</a></div></div>
-<div class="ttc" id="aa04205_html"><div class="ttname"><a href="a04205.html">bl::rc::scene::SceneRenderContext</a></div><div class="ttdoc">Container class that holds the required parameters to render a scene and provides methods for descrip...</div><div class="ttdef"><b>Definition:</b> <a href="a01052_source.html#l00025">SceneRenderContext.hpp:25</a></div></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    sf::Image&amp; <a class="code" href="a04248.html#ab1f214076e4c750d98835126d3cb650e">getErrorPattern</a>();</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04248.html#a4391f27c5fdb95e7260b27818bbac02f">updateTexture</a>(<a class="code" href="a04568.html">vk::TextureBase</a>* texture);</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04248.html#a0bd60d068009e415e40e3a2a6e91253e">resetTexture</a>(std::uint32_t i);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04248.html#a4de37afcdd654d741ef424dcf372680f">commitDescriptorUpdates</a>();</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keyword">const</span> std::uint32_t bindIndex;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keyword">const</span> std::uint32_t firstRtId;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <a class="code" href="a04580.html">vk::VulkanState</a>&amp; vulkanState;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    sf::Image errorPattern;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <a class="code" href="a04564.html">vk::Texture</a> errorTexture;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    std::vector&lt;vk::Texture&gt; textures;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    std::vector&lt;vk::TextureDoubleBuffered&gt; renderTextures;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <a class="code" href="a04468.html">vk::PerFrame&lt;VkDescriptorSet&gt;</a>* descriptorSets;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <a class="code" href="a04468.html">vk::PerFrame&lt;VkDescriptorSet&gt;</a>* rtDescriptorSets;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <a class="code" href="a04468.html">vk::PerFrame&lt;std::vector&lt;vk::TextureBase*&gt;</a>&gt; queuedUpdates;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
+<div class="line"><a name="l00128"></a><span class="lineno"><a class="line" href="a04248.html#ab316601036fdfce63635927306193620">  128</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a04564.html">vk::Texture</a>;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;};</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
+<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="a04248.html#ad52f10294e6f8d3df02aa7a146af2b83">  133</a></span>&#160;<span class="keyword">inline</span> std::uint32_t <a class="code" href="a04248.html#ad52f10294e6f8d3df02aa7a146af2b83">BindlessTextureArray::getBindIndex</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> bindIndex; }</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
+<div class="line"><a name="l00135"></a><span class="lineno"><a class="line" href="a04248.html#ab1f214076e4c750d98835126d3cb650e">  135</a></span>&#160;<span class="keyword">inline</span> sf::Image&amp; <a class="code" href="a04248.html#ab1f214076e4c750d98835126d3cb650e">BindlessTextureArray::getErrorPattern</a>() { <span class="keywordflow">return</span> errorPattern; }</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
+<div class="line"><a name="l00137"></a><span class="lineno"><a class="line" href="a04248.html#a601e04a309eb35d41027f3fe09b4efd1">  137</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="a04568.html">vk::TextureBase</a>&amp; <a class="code" href="a04248.html#a601e04a309eb35d41027f3fe09b4efd1">BindlessTextureArray::getTexture</a>(std::uint32_t i) {</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordflow">return</span> i &gt;= firstRtId ? <span class="keyword">static_cast&lt;</span><a class="code" href="a04568.html">vk::TextureBase</a>&amp;<span class="keyword">&gt;</span>(renderTextures[i - firstRtId]) :</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;                            <span class="keyword">static_cast&lt;</span><a class="code" href="a04568.html">vk::TextureBase</a>&amp;<span class="keyword">&gt;</span>(textures[i]);</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;}</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;} <span class="comment">// namespace res</span></div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01055_html"><div class="ttname"><a href="a01055.html">TextureRef.hpp</a></div></div>
+<div class="ttc" id="aa01187_html"><div class="ttname"><a href="a01187.html">TextureDoubleBuffered.hpp</a></div></div>
+<div class="ttc" id="aa01193_html"><div class="ttname"><a href="a01193.html">VulkanState.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04248_html"><div class="ttname"><a href="a04248.html">bl::rc::res::BindlessTextureArray</a></div><div class="ttdoc">Utility class to help manage an array of Sampler2D as part of a descriptor set. Utilized by TexturePo...</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00026">BindlessTextureArray.hpp:26</a></div></div>
+<div class="ttc" id="aa04248_html_a0bd60d068009e415e40e3a2a6e91253e"><div class="ttname"><a href="a04248.html#a0bd60d068009e415e40e3a2a6e91253e">bl::rc::res::BindlessTextureArray::resetTexture</a></div><div class="ttdeci">void resetTexture(std::uint32_t i)</div><div class="ttdoc">Resets the given texture to the default error texture.</div><div class="ttdef"><b>Definition:</b> <a href="a02027_source.html#l00124">BindlessTextureArray.cpp:124</a></div></div>
+<div class="ttc" id="aa04248_html_a0d92914ee2b00d0dc70509d579464491"><div class="ttname"><a href="a04248.html#a0d92914ee2b00d0dc70509d579464491">bl::rc::res::BindlessTextureArray::BindlessTextureArray</a></div><div class="ttdeci">BindlessTextureArray(vk::VulkanState &amp;vulkanState, std::uint32_t arraySize, std::uint32_t bindIndex)</div><div class="ttdoc">Creates a new bindless texture array manager.</div><div class="ttdef"><b>Definition:</b> <a href="a02027_source.html#l00011">BindlessTextureArray.cpp:11</a></div></div>
+<div class="ttc" id="aa04248_html_a290a99da50270df207d08f313a91f01d"><div class="ttname"><a href="a04248.html#a290a99da50270df207d08f313a91f01d">bl::rc::res::BindlessTextureArray::cleanup</a></div><div class="ttdeci">void cleanup()</div><div class="ttdoc">Destroys the array and frees all textures.</div><div class="ttdef"><b>Definition:</b> <a href="a02027_source.html#l00090">BindlessTextureArray.cpp:90</a></div></div>
+<div class="ttc" id="aa04248_html_a4391f27c5fdb95e7260b27818bbac02f"><div class="ttname"><a href="a04248.html#a4391f27c5fdb95e7260b27818bbac02f">bl::rc::res::BindlessTextureArray::updateTexture</a></div><div class="ttdeci">void updateTexture(vk::TextureBase *texture)</div><div class="ttdoc">Updates the descriptor set for the given texture. Updates are performed in sync with the GPU to avoid...</div><div class="ttdef"><b>Definition:</b> <a href="a02027_source.html#l00120">BindlessTextureArray.cpp:120</a></div></div>
+<div class="ttc" id="aa04248_html_a483914caa8e801eef9cbe46d6bc61210"><div class="ttname"><a href="a04248.html#a483914caa8e801eef9cbe46d6bc61210">bl::rc::res::BindlessTextureArray::getLayoutBinding</a></div><div class="ttdeci">VkDescriptorSetLayoutBinding getLayoutBinding() const</div><div class="ttdoc">Returns a layout binding to be used for descriptor set layout creation.</div><div class="ttdef"><b>Definition:</b> <a href="a02027_source.html#l00100">BindlessTextureArray.cpp:100</a></div></div>
+<div class="ttc" id="aa04248_html_a4de37afcdd654d741ef424dcf372680f"><div class="ttname"><a href="a04248.html#a4de37afcdd654d741ef424dcf372680f">bl::rc::res::BindlessTextureArray::commitDescriptorUpdates</a></div><div class="ttdeci">void commitDescriptorUpdates()</div><div class="ttdoc">Performs the descriptor updates for all queued textures. Waits for the device to be idle only if ther...</div><div class="ttdef"><b>Definition:</b> <a href="a02027_source.html#l00140">BindlessTextureArray.cpp:140</a></div></div>
+<div class="ttc" id="aa04248_html_a601e04a309eb35d41027f3fe09b4efd1"><div class="ttname"><a href="a04248.html#a601e04a309eb35d41027f3fe09b4efd1">bl::rc::res::BindlessTextureArray::getTexture</a></div><div class="ttdeci">vk::TextureBase &amp; getTexture(std::uint32_t i)</div><div class="ttdoc">Fetches the given texture from the array.</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00137">BindlessTextureArray.hpp:137</a></div></div>
+<div class="ttc" id="aa04248_html_ab1f214076e4c750d98835126d3cb650e"><div class="ttname"><a href="a04248.html#ab1f214076e4c750d98835126d3cb650e">bl::rc::res::BindlessTextureArray::getErrorPattern</a></div><div class="ttdeci">sf::Image &amp; getErrorPattern()</div><div class="ttdoc">Returns the image to use as the error pattern. Fill this with custom content if desired....</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00135">BindlessTextureArray.hpp:135</a></div></div>
+<div class="ttc" id="aa04248_html_aba33d5a75b43eaed2f784db348be4789"><div class="ttname"><a href="a04248.html#aba33d5a75b43eaed2f784db348be4789">bl::rc::res::BindlessTextureArray::init</a></div><div class="ttdeci">void init(vk::PerFrame&lt; VkDescriptorSet &gt; &amp;descriptorSets, vk::PerFrame&lt; VkDescriptorSet &gt; &amp;rtDescriptorSets)</div><div class="ttdoc">Initializes the array and writes to the descriptor set. Fill the error pattern if a custom error text...</div><div class="ttdef"><b>Definition:</b> <a href="a02027_source.html#l00031">BindlessTextureArray.cpp:31</a></div></div>
+<div class="ttc" id="aa04248_html_ad52f10294e6f8d3df02aa7a146af2b83"><div class="ttname"><a href="a04248.html#ad52f10294e6f8d3df02aa7a146af2b83">bl::rc::res::BindlessTextureArray::getBindIndex</a></div><div class="ttdeci">std::uint32_t getBindIndex() const</div><div class="ttdoc">Returns the bind index of this array within its descriptor set.</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00133">BindlessTextureArray.hpp:133</a></div></div>
+<div class="ttc" id="aa04248_html_ae405a720815191ade8082f93b35782c1"><div class="ttname"><a href="a04248.html#ae405a720815191ade8082f93b35782c1">bl::rc::res::BindlessTextureArray::prepareTextureUpdate</a></div><div class="ttdeci">void prepareTextureUpdate(std::uint32_t i, const std::string &amp;path)</div><div class="ttdoc">Loads the texture contents for the given texture from the given resource id. Utilizes ResourceManager...</div><div class="ttdef"><b>Definition:</b> <a href="a02027_source.html#l00110">BindlessTextureArray.cpp:110</a></div></div>
+<div class="ttc" id="aa04468_html"><div class="ttname"><a href="a04468.html">bl::rc::vk::PerFrame&lt; VkDescriptorSet &gt;</a></div></div>
+<div class="ttc" id="aa04564_html"><div class="ttname"><a href="a04564.html">bl::rc::vk::Texture</a></div><div class="ttdoc">Helper struct to manage a texture in Vulkan. Textures are managed and owned by the TexturePool and sh...</div><div class="ttdef"><b>Definition:</b> <a href="a06541_source.html#l00022">Texture.hpp:22</a></div></div>
+<div class="ttc" id="aa04568_html"><div class="ttname"><a href="a04568.html">bl::rc::vk::TextureBase</a></div><div class="ttdoc">Base class for textures. Provides common members and boilerplate.</div><div class="ttdef"><b>Definition:</b> <a href="a01184_source.html#l00025">TextureBase.hpp:25</a></div></div>
+<div class="ttc" id="aa04580_html"><div class="ttname"><a href="a04580.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01193_source.html#l00039">VulkanState.hpp:39</a></div></div>
+<div class="ttc" id="aa06541_html"><div class="ttname"><a href="a06541.html">Texture.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

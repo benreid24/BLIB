@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Particles.hpp Source File</title>
+<title>BLIB: include/BLIB/Particles/GlobalParticleSystemInfo.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,59 +66,39 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_178847a4158a3437852c70503d67febe.html">Particles</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Particles.hpp</div>  </div>
+<div class="title">GlobalParticleSystemInfo.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00767.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_PARTICLES_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_PARTICLES_HPP</span></div>
+<a href="a00767.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_PARTICLES_GLOBALPARTICLESYSTEMINFO_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_PARTICLES_GLOBALPARTICLESYSTEMINFO_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06281.html">BLIB/Particles/System.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00710.html">BLIB/Particles/Affector.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06350.html">BLIB/Particles/DescriptorSetFactory.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06356.html">BLIB/Particles/DescriptorSetInstance.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00728.html">BLIB/Particles/Emitter.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00734.html">BLIB/Particles/Link.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00737.html">BLIB/Particles/MetaUpdater.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00740.html">BLIB/Particles/ParticleManager.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00746.html">BLIB/Particles/ParticleManagerBase.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00749.html">BLIB/Particles/ParticleSystem.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06317.html">BLIB/Particles/Renderer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00764.html">BLIB/Particles/Sink.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">// Keep separate</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00716.html">BLIB/Particles/DescriptorSetFactory.inl</a>&gt;</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00722.html">BLIB/Particles/DescriptorSetInstance.inl</a>&gt;</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00743.html">BLIB/Particles/ParticleManager.inl</a>&gt;</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00758.html">BLIB/Particles/Renderer.inl</a>&gt;</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00710_html"><div class="ttname"><a href="a00710.html">Affector.hpp</a></div></div>
-<div class="ttc" id="aa00716_html"><div class="ttname"><a href="a00716.html">DescriptorSetFactory.inl</a></div></div>
-<div class="ttc" id="aa00722_html"><div class="ttname"><a href="a00722.html">DescriptorSetInstance.inl</a></div></div>
-<div class="ttc" id="aa00728_html"><div class="ttname"><a href="a00728.html">Emitter.hpp</a></div></div>
-<div class="ttc" id="aa00734_html"><div class="ttname"><a href="a00734.html">Link.hpp</a></div></div>
-<div class="ttc" id="aa00737_html"><div class="ttname"><a href="a00737.html">MetaUpdater.hpp</a></div></div>
-<div class="ttc" id="aa00740_html"><div class="ttname"><a href="a00740.html">ParticleManager.hpp</a></div></div>
-<div class="ttc" id="aa00743_html"><div class="ttname"><a href="a00743.html">ParticleManager.inl</a></div></div>
-<div class="ttc" id="aa00746_html"><div class="ttname"><a href="a00746.html">ParticleManagerBase.hpp</a></div></div>
-<div class="ttc" id="aa00749_html"><div class="ttname"><a href="a00749.html">ParticleSystem.hpp</a></div></div>
-<div class="ttc" id="aa00758_html"><div class="ttname"><a href="a00758.html">Renderer.inl</a></div></div>
-<div class="ttc" id="aa00764_html"><div class="ttname"><a href="a00764.html">Sink.hpp</a></div></div>
-<div class="ttc" id="aa06281_html"><div class="ttname"><a href="a06281.html">System.hpp</a></div></div>
-<div class="ttc" id="aa06317_html"><div class="ttname"><a href="a06317.html">Renderer.hpp</a></div></div>
-<div class="ttc" id="aa06350_html"><div class="ttname"><a href="a06350.html">DescriptorSetFactory.hpp</a></div></div>
-<div class="ttc" id="aa06356_html"><div class="ttname"><a href="a06356.html">DescriptorSetInstance.hpp</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>pcl</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="a02403.html">    8</a></span>&#160;<span class="keyword">namespace </span>priv</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a03824.html">   10</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a03824.html">GlobalParticleSystemInfo</a> {</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a03824.html#adc6401affa26a6b4502255f564ef242d">   11</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a03824.html#adc6401affa26a6b4502255f564ef242d">cameraToWindowScale</a>;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;};</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;} <span class="comment">// namespace priv</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;} <span class="comment">// namespace pcl</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03824_html"><div class="ttname"><a href="a03824.html">bl::pcl::priv::GlobalParticleSystemInfo</a></div><div class="ttdef"><b>Definition:</b> <a href="a00767_source.html#l00010">GlobalParticleSystemInfo.hpp:10</a></div></div>
+<div class="ttc" id="aa03824_html_adc6401affa26a6b4502255f564ef242d"><div class="ttname"><a href="a03824.html#adc6401affa26a6b4502255f564ef242d">bl::pcl::priv::GlobalParticleSystemInfo::cameraToWindowScale</a></div><div class="ttdeci">float cameraToWindowScale</div><div class="ttdef"><b>Definition:</b> <a href="a00767_source.html#l00011">GlobalParticleSystemInfo.hpp:11</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

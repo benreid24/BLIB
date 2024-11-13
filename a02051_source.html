@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Vulkan/DedicatedCommandBuffers.cpp Source File</title>
+<title>BLIB: src/Render/Resources/TextureRef.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,119 +66,162 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_2a24e9216d188d12785cf0650df1274b.html">Vulkan</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_9db9147e11516848db92abd3a50398f1.html">Resources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">DedicatedCommandBuffers.cpp</div>  </div>
+<div class="title">TextureRef.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a02051.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01094.html">BLIB/Render/Vulkan/DedicatedCommandBuffers.hpp</a>&gt;</span></div>
+<a href="a02051.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01055.html">BLIB/Render/Resources/TextureRef.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01157.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02303.html">bl</a></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01052.html">BLIB/Render/Resources/TexturePool.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06541.html">BLIB/Render/Vulkan/Texture.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01187.html">BLIB/Render/Vulkan/TextureDoubleBuffered.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02357.html">bl</a></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>vk</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a04261.html#a834671906be956f14cf1ebb37fdcdc0c">   11</a></span>&#160;<a class="code" href="a04261.html#a834671906be956f14cf1ebb37fdcdc0c">DedicatedCommandBuffers::DedicatedCommandBuffers</a>()</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: vs(nullptr) {}</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a04261.html#aee78f24e2fee733f3295332c00b22093">   14</a></span>&#160;<a class="code" href="a04261.html#aee78f24e2fee733f3295332c00b22093">DedicatedCommandBuffers::~DedicatedCommandBuffers</a>() {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordflow">if</span> (vs) { <a class="code" href="a04261.html#ad931b2e935c77b713f746bbe7f7aaee9">destroy</a>(); }</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>res</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keywordtype">bool</span> rendererAlive = <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a04261.html#afef96678788def53b43389cb3ea1d512">   18</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04261.html#afef96678788def53b43389cb3ea1d512">DedicatedCommandBuffers::create</a>(<a class="code" href="a04405.html">VulkanState</a>&amp; vulkanState) {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    vs = &amp;vulkanState;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    payloads.<a class="code" href="a04293.html#a3cfb2b7b7c657e6fe15fab6403d75721">init</a>(*vs, [<span class="keyword">this</span>](<span class="keyword">auto</span>&amp; p) { p.create(*vs); });</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a04292.html#ad0bde45e1e4a0f0be3d13ed8197da26a">   18</a></span>&#160;<a class="code" href="a04292.html#ad0bde45e1e4a0f0be3d13ed8197da26a">TextureRef::TextureRef</a>()</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;: owner(nullptr)</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;, texture(nullptr)</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;, arrayId(0) {}</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a04261.html#ad931b2e935c77b713f746bbe7f7aaee9">   23</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04261.html#ad931b2e935c77b713f746bbe7f7aaee9">DedicatedCommandBuffers::destroy</a>() {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">if</span> (vs) {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        payloads.<a class="code" href="a04293.html#ad0bfc6a2c72077a7f2a11c620acfc68b">cleanup</a>([<span class="keyword">this</span>](<span class="keyword">auto</span>&amp; p) { p.cleanup(*vs); });</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        vs = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    }</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<a class="code" href="a04292.html#ad0bde45e1e4a0f0be3d13ed8197da26a">TextureRef::TextureRef</a>(<a class="code" href="a04288.html">TexturePool</a>&amp; owner, <a class="code" href="a04568.html">vk::TextureBase</a>&amp; texture, std::uint32_t aid)</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;: owner(&amp;owner)</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;, texture(&amp;texture)</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;, arrayId(aid) {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    addRef();</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a04261.html#a95e1beae39a9c20fb19dc405b8809933">   30</a></span>&#160;VkCommandBuffer <a class="code" href="a04261.html#a95e1beae39a9c20fb19dc405b8809933">DedicatedCommandBuffers::begin</a>() {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">auto</span>&amp; p = payloads.<a class="code" href="a04293.html#a76f94a32e0a5e764699b33b49b629547">current</a>();</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="a01154.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkWaitForFences(vs-&gt;<a class="code" href="a04405.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, 1, &amp;p.fence, VK_TRUE, UINT64_MAX));</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="a01154.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkResetFences(vs-&gt;<a class="code" href="a04405.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, 1, &amp;p.fence));</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="a01154.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkResetCommandBuffer(p.buffer, 0));</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    VkCommandBufferBeginInfo beginInfo{};</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    beginInfo.flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="a01154.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkBeginCommandBuffer(p.buffer, &amp;beginInfo));</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">return</span> p.buffer;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;}</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a04292.html#a26af800582760911506674786b9e1ccc">   30</a></span>&#160;<a class="code" href="a04292.html#ad0bde45e1e4a0f0be3d13ed8197da26a">TextureRef::TextureRef</a>(<span class="keyword">const</span> <a class="code" href="a04292.html">TextureRef</a>&amp; copy)</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;: owner(copy.owner)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;, texture(copy.texture)</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;, arrayId(copy.arrayId) {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    addRef();</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a04292.html#a1a57556d198b82c0b7d433124568a4af">   37</a></span>&#160;<a class="code" href="a04292.html#ad0bde45e1e4a0f0be3d13ed8197da26a">TextureRef::TextureRef</a>(<a class="code" href="a04292.html">TextureRef</a>&amp;&amp; m)</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;: owner(m.owner)</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;, texture(m.texture)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;, arrayId(m.arrayId) {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    m.texture = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a04292.html#aaf997cd5f6419213ff46b96e1f627069">   44</a></span>&#160;<a class="code" href="a04292.html#aaf997cd5f6419213ff46b96e1f627069">TextureRef::~TextureRef</a>() { <a class="code" href="a04292.html#ad6e5c916d1f1344bd5894b07d40e1348">release</a>(); }</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a04261.html#a6a4f7585da17a006452b474700dbfab3">   46</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04261.html#a6a4f7585da17a006452b474700dbfab3">DedicatedCommandBuffers::submit</a>() {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">auto</span>&amp; p = payloads.<a class="code" href="a04293.html#a76f94a32e0a5e764699b33b49b629547">current</a>();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="a01154.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkEndCommandBuffer(p.buffer));</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    VkSubmitInfo submitInfo{};</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    submitInfo.sType              = VK_STRUCTURE_TYPE_SUBMIT_INFO;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    submitInfo.commandBufferCount = 1;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    submitInfo.pCommandBuffers    = &amp;p.buffer;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    vs-&gt;<a class="code" href="a04405.html#a285e8da7cb141e8af5d83b3b0a687010">submitCommandBuffer</a>(submitInfo, p.fence);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keywordtype">void</span> DedicatedCommandBuffers::Payload::create(<a class="code" href="a04405.html">VulkanState</a>&amp; vs) {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    pool = vs.<a class="code" href="a04405.html#acf5368fb8dcc89c2a0952b6d33dd4ccb">createCommandPool</a>(VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT |</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                                VK_COMMAND_POOL_CREATE_TRANSIENT_BIT);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    VkCommandBufferAllocateInfo allocInfo{};</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    allocInfo.sType              = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    allocInfo.commandPool        = pool;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    allocInfo.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    allocInfo.commandBufferCount = 1;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <a class="code" href="a01154.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkAllocateCommandBuffers(vs.<a class="code" href="a04405.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, &amp;allocInfo, &amp;<a class="code" href="a01415.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>));</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    VkFenceCreateInfo fenceInfo{};</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    fenceInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="a01154.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkCreateFence(vs.<a class="code" href="a04405.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, &amp;fenceInfo, <span class="keyword">nullptr</span>, &amp;fence));</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keywordtype">void</span> DedicatedCommandBuffers::Payload::cleanup(VulkanState&amp; vs) {</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    vkDestroyFence(vs.device, fence, <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    vkDestroyCommandPool(vs.device, pool, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a04292.html#a65a4950b358f14e508566b8199713d1a">   46</a></span>&#160;<a class="code" href="a04292.html">TextureRef</a>&amp; <a class="code" href="a04292.html#a65a4950b358f14e508566b8199713d1a">TextureRef::operator=</a>(<span class="keyword">const</span> <a class="code" href="a04292.html">TextureRef</a>&amp; copy) {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="a04292.html#ad6e5c916d1f1344bd5894b07d40e1348">release</a>();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    owner   = copy.owner;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    texture = copy.texture;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    arrayId = copy.arrayId;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    addRef();</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="a04292.html#ab38da9cd9e8b061285177b80ffbbb66d">   56</a></span>&#160;<a class="code" href="a04292.html">TextureRef</a>&amp; <a class="code" href="a04292.html#a65a4950b358f14e508566b8199713d1a">TextureRef::operator=</a>(<a class="code" href="a04292.html">TextureRef</a>&amp;&amp; copy) {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="a04292.html#ad6e5c916d1f1344bd5894b07d40e1348">release</a>();</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    owner        = copy.owner;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    texture      = copy.texture;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    arrayId      = copy.arrayId;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    copy.texture = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keywordtype">void</span> TextureRef::addRef() {</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">const</span> std::size_t i = <a class="code" href="a04292.html#a38724c98a4c59986b1423e1b5a5aef1c">id</a>();</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    ++owner-&gt;refCounts[i];</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;}</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="a04292.html#ad6e5c916d1f1344bd5894b07d40e1348">   71</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04292.html#ad6e5c916d1f1344bd5894b07d40e1348">TextureRef::release</a>() {</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">if</span> (!texture || !rendererAlive) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">const</span> std::size_t i = <a class="code" href="a04292.html#a38724c98a4c59986b1423e1b5a5aef1c">id</a>();</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    --owner-&gt;refCounts[i];</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    texture = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordflow">if</span> (owner-&gt;refCounts[i].load() == 0) { owner-&gt;queueForRelease(i); }</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;} <span class="comment">// namespace vk</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01094_html"><div class="ttname"><a href="a01094.html">DedicatedCommandBuffers.hpp</a></div></div>
-<div class="ttc" id="aa01154_html_a95c2f7535355f5f3855410ab629f9310"><div class="ttname"><a href="a01154.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a></div><div class="ttdeci">#define vkCheck(expr)</div><div class="ttdef"><b>Definition:</b> <a href="a01154_source.html#l00015">VkCheck.hpp:15</a></div></div>
-<div class="ttc" id="aa01157_html"><div class="ttname"><a href="a01157.html">VulkanState.hpp</a></div></div>
-<div class="ttc" id="aa01415_html_ad2ae6b0ac080ea0ac45f7a06ccc480ba"><div class="ttname"><a href="a01415.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a></div><div class="ttdeci">SoundHandle buffer</div><div class="ttdef"><b>Definition:</b> <a href="a01415_source.html#l00025">AudioSystem.cpp:25</a></div></div>
-<div class="ttc" id="aa02303_html"><div class="ttname"><a href="a02303.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04261_html_a6a4f7585da17a006452b474700dbfab3"><div class="ttname"><a href="a04261.html#a6a4f7585da17a006452b474700dbfab3">bl::rc::vk::DedicatedCommandBuffers::submit</a></div><div class="ttdeci">void submit()</div><div class="ttdoc">Submits the current command buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00046">DedicatedCommandBuffers.cpp:46</a></div></div>
-<div class="ttc" id="aa04261_html_a834671906be956f14cf1ebb37fdcdc0c"><div class="ttname"><a href="a04261.html#a834671906be956f14cf1ebb37fdcdc0c">bl::rc::vk::DedicatedCommandBuffers::DedicatedCommandBuffers</a></div><div class="ttdeci">DedicatedCommandBuffers()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00011">DedicatedCommandBuffers.cpp:11</a></div></div>
-<div class="ttc" id="aa04261_html_a95e1beae39a9c20fb19dc405b8809933"><div class="ttname"><a href="a04261.html#a95e1beae39a9c20fb19dc405b8809933">bl::rc::vk::DedicatedCommandBuffers::begin</a></div><div class="ttdeci">VkCommandBuffer begin()</div><div class="ttdoc">Waits for the command buffer to enter a valid state, begins recording, and returns it.</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00030">DedicatedCommandBuffers.cpp:30</a></div></div>
-<div class="ttc" id="aa04261_html_ad931b2e935c77b713f746bbe7f7aaee9"><div class="ttname"><a href="a04261.html#ad931b2e935c77b713f746bbe7f7aaee9">bl::rc::vk::DedicatedCommandBuffers::destroy</a></div><div class="ttdeci">void destroy()</div><div class="ttdoc">Releases the command pools.</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00023">DedicatedCommandBuffers.cpp:23</a></div></div>
-<div class="ttc" id="aa04261_html_aee78f24e2fee733f3295332c00b22093"><div class="ttname"><a href="a04261.html#aee78f24e2fee733f3295332c00b22093">bl::rc::vk::DedicatedCommandBuffers::~DedicatedCommandBuffers</a></div><div class="ttdeci">~DedicatedCommandBuffers()</div><div class="ttdoc">Releases the command pools.</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00014">DedicatedCommandBuffers.cpp:14</a></div></div>
-<div class="ttc" id="aa04261_html_afef96678788def53b43389cb3ea1d512"><div class="ttname"><a href="a04261.html#afef96678788def53b43389cb3ea1d512">bl::rc::vk::DedicatedCommandBuffers::create</a></div><div class="ttdeci">void create(VulkanState &amp;vulkanState)</div><div class="ttdoc">Creates the command pools and buffers.</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00018">DedicatedCommandBuffers.cpp:18</a></div></div>
-<div class="ttc" id="aa04293_html_a3cfb2b7b7c657e6fe15fab6403d75721"><div class="ttname"><a href="a04293.html#a3cfb2b7b7c657e6fe15fab6403d75721">bl::rc::vk::PerFrame::init</a></div><div class="ttdeci">void init(VulkanState &amp;vulkanState, const U &amp;visitor)</div><div class="ttdoc">Initialize the buffer and each contained object.</div><div class="ttdef"><b>Definition:</b> <a href="a01157_source.html#l00270">VulkanState.hpp:270</a></div></div>
-<div class="ttc" id="aa04293_html_a76f94a32e0a5e764699b33b49b629547"><div class="ttname"><a href="a04293.html#a76f94a32e0a5e764699b33b49b629547">bl::rc::vk::PerFrame::current</a></div><div class="ttdeci">T &amp; current()</div><div class="ttdoc">Returns the active buffered object for the current frame.</div><div class="ttdef"><b>Definition:</b> <a href="a01157_source.html#l00294">VulkanState.hpp:294</a></div></div>
-<div class="ttc" id="aa04293_html_ad0bfc6a2c72077a7f2a11c620acfc68b"><div class="ttname"><a href="a04293.html#ad0bfc6a2c72077a7f2a11c620acfc68b">bl::rc::vk::PerFrame::cleanup</a></div><div class="ttdeci">void cleanup(const U &amp;visitor)</div><div class="ttdoc">General buffered object visitor intended primarily for cleanup but could be used for anything else re...</div><div class="ttdef"><b>Definition:</b> <a href="a01157_source.html#l00277">VulkanState.hpp:277</a></div></div>
-<div class="ttc" id="aa04405_html"><div class="ttname"><a href="a04405.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01157_source.html#l00039">VulkanState.hpp:39</a></div></div>
-<div class="ttc" id="aa04405_html_a285e8da7cb141e8af5d83b3b0a687010"><div class="ttname"><a href="a04405.html#a285e8da7cb141e8af5d83b3b0a687010">bl::rc::vk::VulkanState::submitCommandBuffer</a></div><div class="ttdeci">VkResult submitCommandBuffer(const VkSubmitInfo &amp;submitInfo, VkFence fence=VK_NULL_HANDLE)</div><div class="ttdoc">Performs a synchronized submission of the command buffer to the graphics queue.</div><div class="ttdef"><b>Definition:</b> <a href="a02114_source.html#l00515">VulkanState.cpp:515</a></div></div>
-<div class="ttc" id="aa04405_html_a6ad0249d08d9ffb87af35b42f11a1db5"><div class="ttname"><a href="a04405.html#a6ad0249d08d9ffb87af35b42f11a1db5">bl::rc::vk::VulkanState::device</a></div><div class="ttdeci">VkDevice device</div><div class="ttdef"><b>Definition:</b> <a href="a01157_source.html#l00214">VulkanState.hpp:214</a></div></div>
-<div class="ttc" id="aa04405_html_acf5368fb8dcc89c2a0952b6d33dd4ccb"><div class="ttname"><a href="a04405.html#acf5368fb8dcc89c2a0952b6d33dd4ccb">bl::rc::vk::VulkanState::createCommandPool</a></div><div class="ttdeci">VkCommandPool createCommandPool(VkCommandPoolCreateFlags flags)</div><div class="ttdoc">Helper method to create a command pool for graphics queue commands.</div><div class="ttdef"><b>Definition:</b> <a href="a02114_source.html#l00409">VulkanState.cpp:409</a></div></div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="a04292.html#a0f1b1cbdb2453c81f5f0918f238560b7">   80</a></span>&#160;TextureRef::operator bool()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> texture != <span class="keyword">nullptr</span>; }</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keywordtype">void</span> TextureRef::disableCleanup() { rendererAlive = <span class="keyword">false</span>; }</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="a04292.html#a911507fed68898f8e1b4fe617b7216d6">   84</a></span>&#160;<a class="code" href="a04564.html">vk::Texture</a>* <a class="code" href="a04292.html#a911507fed68898f8e1b4fe617b7216d6">TextureRef::asBindlessTexture</a>() {</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <a class="code" href="a04564.html">vk::Texture</a>* t = <span class="keyword">dynamic_cast&lt;</span><a class="code" href="a04564.html">vk::Texture</a>*<span class="keyword">&gt;</span>(texture);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordflow">if</span> (!t) { <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Texture is not a bindless texture&quot;</span>); }</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">return</span> t;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><a class="code" href="a04564.html">vk::Texture</a>*<span class="keyword">&gt;</span>(texture);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;}</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="a04292.html#ae43daf1c5eff1b1db9e62573b6ebbb78">   94</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a04564.html">vk::Texture</a>* <a class="code" href="a04292.html#a911507fed68898f8e1b4fe617b7216d6">TextureRef::asBindlessTexture</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keyword">const</span> <a class="code" href="a04564.html">vk::Texture</a>* t = <span class="keyword">dynamic_cast&lt;</span><span class="keyword">const </span><a class="code" href="a04564.html">vk::Texture</a>*<span class="keyword">&gt;</span>(texture);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordflow">if</span> (!t) { <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Texture is not a bindless texture&quot;</span>); }</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">return</span> t;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keyword">const </span><a class="code" href="a04564.html">vk::Texture</a>*<span class="keyword">&gt;</span>(texture);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;}</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="a04292.html#a9b98c506e0644c34ca86cf14876b3880">  104</a></span>&#160;<a class="code" href="a04572.html">vk::TextureDoubleBuffered</a>* <a class="code" href="a04292.html#a9b98c506e0644c34ca86cf14876b3880">TextureRef::asRenderTexture</a>() {</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <a class="code" href="a04572.html">vk::TextureDoubleBuffered</a>* t = <span class="keyword">dynamic_cast&lt;</span><a class="code" href="a04572.html">vk::TextureDoubleBuffered</a>*<span class="keyword">&gt;</span>(texture);</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordflow">if</span> (!t) { <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Texture is not a render texture&quot;</span>); }</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordflow">return</span> t;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><a class="code" href="a04572.html">vk::TextureDoubleBuffered</a>*<span class="keyword">&gt;</span>(texture);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;}</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="a04292.html#a7180b786be721ebc2c942855389f04fd">  114</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a04572.html">vk::TextureDoubleBuffered</a>* <a class="code" href="a04292.html#a9b98c506e0644c34ca86cf14876b3880">TextureRef::asRenderTexture</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keyword">const</span> <a class="code" href="a04572.html">vk::TextureDoubleBuffered</a>* t = <span class="keyword">dynamic_cast&lt;</span><span class="keyword">const </span><a class="code" href="a04572.html">vk::TextureDoubleBuffered</a>*<span class="keyword">&gt;</span>(texture);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordflow">if</span> (!t) { <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Texture is not a render texture&quot;</span>); }</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordflow">return</span> t;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keyword">const </span><a class="code" href="a04572.html">vk::TextureDoubleBuffered</a>*<span class="keyword">&gt;</span>(texture);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;}</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;} <span class="comment">// namespace res</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa01052_html"><div class="ttname"><a href="a01052.html">TexturePool.hpp</a></div></div>
+<div class="ttc" id="aa01055_html"><div class="ttname"><a href="a01055.html">TextureRef.hpp</a></div></div>
+<div class="ttc" id="aa01187_html"><div class="ttname"><a href="a01187.html">TextureDoubleBuffered.hpp</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04288_html"><div class="ttname"><a href="a04288.html">bl::rc::res::TexturePool</a></div><div class="ttdoc">Resource manager for textures on the GPU. Utilizes BindlessTextureArray to provide a large array,...</div><div class="ttdef"><b>Definition:</b> <a href="a01052_source.html#l00032">TexturePool.hpp:32</a></div></div>
+<div class="ttc" id="aa04292_html"><div class="ttname"><a href="a04292.html">bl::rc::res::TextureRef</a></div><div class="ttdoc">Lightweight reference to a texture inside of a TexturePool. Once all references to a texture are dest...</div><div class="ttdef"><b>Definition:</b> <a href="a01055_source.html#l00027">TextureRef.hpp:27</a></div></div>
+<div class="ttc" id="aa04292_html_a38724c98a4c59986b1423e1b5a5aef1c"><div class="ttname"><a href="a04292.html#a38724c98a4c59986b1423e1b5a5aef1c">bl::rc::res::TextureRef::id</a></div><div class="ttdeci">std::uint32_t id() const</div><div class="ttdoc">Returns the internal id of this texture.</div><div class="ttdef"><b>Definition:</b> <a href="a01055_source.html#l00151">TextureRef.hpp:151</a></div></div>
+<div class="ttc" id="aa04292_html_a65a4950b358f14e508566b8199713d1a"><div class="ttname"><a href="a04292.html#a65a4950b358f14e508566b8199713d1a">bl::rc::res::TextureRef::operator=</a></div><div class="ttdeci">TextureRef &amp; operator=(const TextureRef &amp;copy)</div><div class="ttdoc">Copies from the given reference. Increments the reference count.</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00046">TextureRef.cpp:46</a></div></div>
+<div class="ttc" id="aa04292_html_a911507fed68898f8e1b4fe617b7216d6"><div class="ttname"><a href="a04292.html#a911507fed68898f8e1b4fe617b7216d6">bl::rc::res::TextureRef::asBindlessTexture</a></div><div class="ttdeci">vk::Texture * asBindlessTexture()</div><div class="ttdoc">Access the underlying texture as a bindless texture.</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00084">TextureRef.cpp:84</a></div></div>
+<div class="ttc" id="aa04292_html_a9b98c506e0644c34ca86cf14876b3880"><div class="ttname"><a href="a04292.html#a9b98c506e0644c34ca86cf14876b3880">bl::rc::res::TextureRef::asRenderTexture</a></div><div class="ttdeci">vk::TextureDoubleBuffered * asRenderTexture()</div><div class="ttdoc">Access the underlying texture as a render texture.</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00104">TextureRef.cpp:104</a></div></div>
+<div class="ttc" id="aa04292_html_aaf997cd5f6419213ff46b96e1f627069"><div class="ttname"><a href="a04292.html#aaf997cd5f6419213ff46b96e1f627069">bl::rc::res::TextureRef::~TextureRef</a></div><div class="ttdeci">~TextureRef()</div><div class="ttdoc">Releases the reference if not already invalidated.</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00044">TextureRef.cpp:44</a></div></div>
+<div class="ttc" id="aa04292_html_ad0bde45e1e4a0f0be3d13ed8197da26a"><div class="ttname"><a href="a04292.html#ad0bde45e1e4a0f0be3d13ed8197da26a">bl::rc::res::TextureRef::TextureRef</a></div><div class="ttdeci">TextureRef()</div><div class="ttdoc">Create an empty TextureRef.</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00018">TextureRef.cpp:18</a></div></div>
+<div class="ttc" id="aa04292_html_ad6e5c916d1f1344bd5894b07d40e1348"><div class="ttname"><a href="a04292.html#ad6e5c916d1f1344bd5894b07d40e1348">bl::rc::res::TextureRef::release</a></div><div class="ttdeci">void release()</div><div class="ttdoc">Releases this reference to the underlying texture.</div><div class="ttdef"><b>Definition:</b> <a href="a02051_source.html#l00071">TextureRef.cpp:71</a></div></div>
+<div class="ttc" id="aa04564_html"><div class="ttname"><a href="a04564.html">bl::rc::vk::Texture</a></div><div class="ttdoc">Helper struct to manage a texture in Vulkan. Textures are managed and owned by the TexturePool and sh...</div><div class="ttdef"><b>Definition:</b> <a href="a06541_source.html#l00022">Texture.hpp:22</a></div></div>
+<div class="ttc" id="aa04568_html"><div class="ttname"><a href="a04568.html">bl::rc::vk::TextureBase</a></div><div class="ttdoc">Base class for textures. Provides common members and boilerplate.</div><div class="ttdef"><b>Definition:</b> <a href="a01184_source.html#l00025">TextureBase.hpp:25</a></div></div>
+<div class="ttc" id="aa04572_html"><div class="ttname"><a href="a04572.html">bl::rc::vk::TextureDoubleBuffered</a></div><div class="ttdoc">Double buffered texture that provides the backing for RenderTexture.</div><div class="ttdef"><b>Definition:</b> <a href="a01187_source.html#l00020">TextureDoubleBuffered.hpp:20</a></div></div>
+<div class="ttc" id="aa06541_html"><div class="ttname"><a href="a06541.html">Texture.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 22 2024 03:56:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 13 2024 23:04:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>
