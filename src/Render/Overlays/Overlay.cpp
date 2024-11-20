@@ -196,6 +196,7 @@ void Overlay::observe(const ecs::event::EntityParentSet& event) {
 }
 
 void Overlay::observe(const ecs::event::EntityParentRemoved& event) {
+    if (event.orphanIsBeingDestroyed) { return; }
     ovy::OverlayObject* obj = ecsPool->get(event.orphan);
     if (!obj || obj->overlay != this) { return; }
 

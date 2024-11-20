@@ -563,7 +563,7 @@ private:
     template<typename T>
     void finishComponentAdd(Entity ent, unsigned int cindex, T* component);
 
-    void removeEntityParentLocked(Entity child);
+    void removeEntityParentLocked(Entity child, bool fromDestroy);
 
     template<typename TRequire, typename TOptional, typename TExclude>
     friend class View;

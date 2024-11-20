@@ -117,13 +117,18 @@ struct EntityParentRemoved {
     /// The entity whose parent was removed
     Entity orphan;
 
+    /// True if this event is due to the orphan being destroyed
+    bool orphanIsBeingDestroyed;
+
     /**
      * @brief Creates a new parent event
      *
      * @param orphan The entity whose parent was removed
+     * @param fromDestroy Whether the event is due to the orphan being destroyed or not
      */
-    EntityParentRemoved(Entity orphan)
-    : orphan(orphan) {}
+    EntityParentRemoved(Entity orphan, bool fromDestroy)
+    : orphan(orphan)
+    , orphanIsBeingDestroyed(fromDestroy) {}
 };
 
 /**
