@@ -11,6 +11,7 @@ namespace sys
 {
 namespace
 {
+
 bool worldOverlapCallback(b2ShapeId shape, void* ctx) {
     b2ShapeId* dst = static_cast<b2ShapeId*>(ctx);
     *dst           = shape;
