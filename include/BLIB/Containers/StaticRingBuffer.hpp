@@ -118,6 +118,29 @@ public:
     void emplace_back(TArgs&&... args);
 
     /**
+     * @brief Appends a new element to the front of the buffer
+     *
+     * @param obj Element to add
+     */
+    void push_front(const T& obj);
+
+    /**
+     * @brief Appends a new element to the front of the buffer
+     *
+     * @param obj Element to add
+     */
+    void push_front(T&& obj);
+
+    /**
+     * @brief Construct a new element in place at the start of the buffer
+     *
+     * @tparam TArgs The types of arguments
+     * @param args The arguments to construct with
+     */
+    template<typename... TArgs>
+    void emplace_front(TArgs&&... args);
+
+    /**
      * @brief Removes the element from the front of the buffer. Destructor may not be called
      *        immediately
      *
@@ -137,6 +160,7 @@ private:
     std::size_t sz;
 
     void increaseSize();
+    void increaseSizeFront();
     void checkHead();
 };
 
@@ -222,6 +246,28 @@ void StaticRingBuffer<T, Capacity>::emplace_back(TArgs&&... args) {
 }
 
 template<typename T, std::size_t Capacity>
+void StaticRingBuffer<T, Capacity>::push_front(const T& obj) {
+    checkHead();
+    buffer[head > 0 ? head - 1 : buffer.size() - 1].emplace(obj);
+    increaseSizeFront();
+}
+
+template<typename T, std::size_t Capacity>
+void StaticRingBuffer<T, Capacity>::push_front(T&& obj) {
+    checkHead();
+    buffer[head > 0 ? head - 1 : buffer.size() - 1].emplace(std::forward<T>(obj));
+    increaseSizeFront();
+}
+
+template<typename T, std::size_t Capacity>
+template<typename... TArgs>
+void StaticRingBuffer<T, Capacity>::emplace_front(TArgs&&... args) {
+    checkHead();
+    buffer[head > 0 ? head - 1 : buffer.size() - 1].emplace(std::forward<TArgs>(args)...);
+    increaseSizeFront();
+}
+
+template<typename T, std::size_t Capacity>
 void StaticRingBuffer<T, Capacity>::clear() {
     for (unsigned int i = 0; i < size(); ++i) { buffer[(head + i) % buffer.size()].destroy(); }
     head = 0;
@@ -233,6 +279,13 @@ template<typename T, std::size_t Capacity>
 void StaticRingBuffer<T, Capacity>::increaseSize() {
     tail = (tail + 1) % buffer.size();
     if (full()) { head = (head + 1) % buffer.size(); }
+    else { ++sz; }
+}
+
+template<typename T, std::size_t Capacity>
+void StaticRingBuffer<T, Capacity>::increaseSizeFront() {
+    head = head > 0 ? head - 1 : buffer.size() - 1;
+    if (full()) { tail = (tail + 1) % buffer.size(); }
     else { ++sz; }
 }
 
