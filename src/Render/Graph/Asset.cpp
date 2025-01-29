@@ -1,5 +1,7 @@
 #include <BLIB/Render/Graph/Asset.hpp>
 
+#include <algorithm>
+
 namespace bl
 {
 namespace rc
