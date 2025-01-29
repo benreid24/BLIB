@@ -136,6 +136,28 @@ TEST(StaticRingBuffer, ClearDestructor) {
     ASSERT_TRUE(dcalls[2]);
 }
 
+TEST(StaticRingBuffer, PushFront) {
+    StaticRingBuffer<int, 2> buffer;
+
+    buffer.push_back(5);
+    buffer.push_front(10);
+    EXPECT_EQ(buffer.front(), 10);
+    EXPECT_EQ(buffer.back(), 5);
+    buffer.clear();
+
+    buffer.push_front(22);
+    buffer.push_front(33);
+    EXPECT_EQ(buffer.front(), 33);
+    EXPECT_EQ(buffer.back(), 22);
+    buffer.clear();
+
+    buffer.push_front(55);
+    buffer.push_front(66);
+    buffer.push_front(99);
+    EXPECT_EQ(buffer.front(), 99);
+    EXPECT_EQ(buffer.back(), 66);
+}
+
 } // namespace unittest
 } // namespace ctr
 } // namespace bl

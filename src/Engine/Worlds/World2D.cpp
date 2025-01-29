@@ -1,11 +1,24 @@
 #include <BLIB/Engine/Worlds/World2D.hpp>
 
+#include <BLIB/Systems/Physics2D.hpp>
+
 namespace bl
 {
 namespace engine
 {
 namespace
 {
+struct QueryContext {
+    World2D::WorldQueryCallback callback;
+    void* ctx;
+};
+
+bool worldQueryCallback(b2ShapeId shape, void* ctx) {
+    QueryContext* myCtx       = static_cast<QueryContext*>(ctx);
+    com::Physics2D* component = sys::Physics2D::getPhysicsComponentFromShape(shape);
+    return myCtx->callback(component, myCtx->ctx);
+}
+
 const unsigned int MaxWorkers =
     std::thread::hardware_concurrency() / 2 + std::thread::hardware_concurrency() % 2;
 
@@ -68,6 +81,18 @@ void World2D::setGravity(const glm::vec2& g) {
 }
 
 void World2D::setLengthUnitScale(float s) { worldToBoxScale = s; }
+
+void World2D::queryAABB(glm::vec2 lower, glm::vec2 upper, b2QueryFilter filter,
+                        WorldQueryCallback cb, void* ctx) const {
+    QueryContext myCtx{cb, ctx};
+    b2World_OverlapAABB(boxWorld,
+                        {{lower.x * worldToBoxScale, lower.y * worldToBoxScale},
+                         upper.x * worldToBoxScale,
+                         upper.y * worldToBoxScale},
+                        filter,
+                        &worldQueryCallback,
+                        &myCtx);
+}
 
 } // namespace engine
 } // namespace bl

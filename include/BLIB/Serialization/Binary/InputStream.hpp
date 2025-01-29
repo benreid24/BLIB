@@ -3,6 +3,7 @@
 
 #include <BLIB/Serialization/Buffers/InputBuffer.hpp>
 #include <BLIB/Util/FileUtil.hpp>
+#include <cstdint>
 
 /**
  * @addtogroup Binary
@@ -90,7 +91,7 @@ typename std::enable_if<std::is_integral_v<T>, bool>::type InputStream::read(T& 
     if (!underlying.good()) return false;
 
     constexpr std::size_t size = sizeof(T);
-    char* bytes            = static_cast<char*>(static_cast<void*>(&output));
+    char* bytes                = static_cast<char*>(static_cast<void*>(&output));
 
     output       = 0;
     const bool r = underlying.read(bytes, size);

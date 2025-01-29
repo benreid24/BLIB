@@ -142,14 +142,14 @@ bool Registry::queueEntityDestroy(Entity start) {
 
     // unparent orphans
     std::unique_lock parentLock(entityLock);
-    for (Entity child : deletionState.toUnparent) { removeEntityParentLocked(child); }
+    for (Entity child : deletionState.toUnparent) { removeEntityParentLocked(child, false); }
     deletionState.toUnparent.clear();
 
     return true;
 }
 
 void Registry::doEntityDestroyLocked(Entity ent) {
-    removeEntityParentLocked(ent);
+    removeEntityParentLocked(ent, true);
 
     const std::uint32_t index            = ent.getIndex();
     const ComponentMask::SimpleMask mask = entityMasks[index];
@@ -266,7 +266,7 @@ void Registry::setEntityParent(Entity child, Entity parent) {
 
 void Registry::setEntityParent(Entity child, Entity parent, const Transaction<tx::EntityRead>&) {
     // remove parent first
-    removeEntityParentLocked(child);
+    removeEntityParentLocked(child, false);
 
     // check both valid
     const std::uint32_t ic = child.getIndex();
@@ -291,10 +291,10 @@ void Registry::removeEntityParent(Entity child) {
 }
 
 void Registry::removeEntityParent(Entity child, const Transaction<tx::EntityRead>&) {
-    removeEntityParentLocked(child);
+    removeEntityParentLocked(child, false);
 }
 
-void Registry::removeEntityParentLocked(Entity child) {
+void Registry::removeEntityParentLocked(Entity child, bool fromDestroy) {
     const Entity parent = parentGraph.getParent(child);
     if (parent == InvalidEntity) { return; }
     const std::uint32_t ic = child.getIndex();
@@ -310,7 +310,7 @@ void Registry::removeEntityParentLocked(Entity child) {
         if (mask.contains(pool->ComponentIndex)) { pool->onParentRemove(parent, child); }
     }
 
-    bl::event::Dispatcher::dispatch<event::EntityParentRemoved>({child});
+    bl::event::Dispatcher::dispatch<event::EntityParentRemoved>({child, fromDestroy});
 }
 
 void Registry::addDependency(Entity resource, Entity user) {

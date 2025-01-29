@@ -234,6 +234,11 @@ public:
     void removePlayer(int i = -1);
 
     /**
+     * @brief Returns the number of players currently active in the engine
+     */
+    unsigned int playerCount() const { return players.size(); }
+
+    /**
      * @brief Creates a new engine World
      *
      * @tparam TWorld The type of world to create
