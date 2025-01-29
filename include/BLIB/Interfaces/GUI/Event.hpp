@@ -2,6 +2,7 @@
 #define BLIB_INTERFACES_GUI_EVENT_HPP
 
 #include <SFML/Window.hpp>
+#include <cstdint>
 #include <string>
 #include <variant>
 
