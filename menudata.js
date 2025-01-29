@@ -24,7 +24,7 @@
 */
 var menudata={children:[
 {text:"Main Page",url:"index.html"},
-{text:"Modules",url:"modules.html"},
+{text:"Topics",url:"topics.html"},
 {text:"Namespaces",url:"namespaces.html",children:[
 {text:"Namespace List",url:"namespaces.html"},
 {text:"Namespace Members",url:"namespacemembers.html",children:[
@@ -171,7 +171,6 @@ var menudata={children:[
 {text:"h",url:"functions_type.html#index_h"},
 {text:"i",url:"functions_type.html#index_i"},
 {text:"l",url:"functions_type.html#index_l"},
-{text:"m",url:"functions_type.html#index_m"},
 {text:"o",url:"functions_type.html#index_o"},
 {text:"p",url:"functions_type.html#index_p"},
 {text:"q",url:"functions_type.html#index_q"},
@@ -219,7 +218,7 @@ var menudata={children:[
 {text:"u",url:"functions_eval_u.html#index_u"},
 {text:"v",url:"functions_eval_v.html#index_v"},
 {text:"w",url:"functions_eval_w.html#index_w"}]},
-{text:"Related Functions",url:"functions_rela.html",children:[
+{text:"Related Symbols",url:"functions_rela.html",children:[
 {text:":",url:"functions_rela.html#index_:"},
 {text:"a",url:"functions_rela.html#index_a"},
 {text:"b",url:"functions_rela.html#index_b"},
@@ -245,6 +244,7 @@ var menudata={children:[
 {text:"All",url:"globals.html",children:[
 {text:"_",url:"globals.html#index__5F"},
 {text:"b",url:"globals.html#index_b"},
+{text:"c",url:"globals.html#index_c"},
 {text:"f",url:"globals.html#index_f"},
 {text:"l",url:"globals.html#index_l"},
 {text:"m",url:"globals.html#index_m"},
@@ -255,5 +255,15 @@ var menudata={children:[
 {text:"u",url:"globals.html#index_u"},
 {text:"v",url:"globals.html#index_v"}]},
 {text:"Functions",url:"globals_func.html"},
-{text:"Variables",url:"globals_vars.html"},
+{text:"Variables",url:"globals_vars.html",children:[
+{text:"b",url:"globals_vars.html#index_b"},
+{text:"c",url:"globals_vars.html#index_c"},
+{text:"f",url:"globals_vars.html#index_f"},
+{text:"l",url:"globals_vars.html#index_l"},
+{text:"m",url:"globals_vars.html#index_m"},
+{text:"p",url:"globals_vars.html#index_p"},
+{text:"s",url:"globals_vars.html#index_s"},
+{text:"t",url:"globals_vars.html#index_t"},
+{text:"u",url:"globals_vars.html#index_u"},
+{text:"v",url:"globals_vars.html#index_v"}]},
 {text:"Macros",url:"globals_defs.html"}]}]}]}
