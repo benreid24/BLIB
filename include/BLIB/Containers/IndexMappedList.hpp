@@ -2,6 +2,7 @@
 #define BLIB_CONTAINERS_INDEXMAPPEDLIST_HPP
 
 #include <BLIB/Util/IdAllocatorUnbounded.hpp>
+#include <cstdint>
 #include <limits>
 #include <optional>
 #include <type_traits>
