@@ -4,6 +4,10 @@
 #include <cstdint>
 #include <type_traits>
 
+#ifdef BLIB_WINDOWS
+#include <intrin.h>
+#endif
+
 namespace bl
 {
 namespace rc
@@ -54,6 +58,34 @@ inline bool operator&(RenderPhase left, RenderPhase right) {
     return (static_cast<std::underlying_type_t<RenderPhase>>(left) &
             static_cast<std::underlying_type_t<RenderPhase>>(right)) != 0;
 }
+
+#ifdef BLIB_WINDOWS
+/**
+ * @brief Returns the index of the given render phase
+ *
+ * @param phase The single phase to get the index for
+ * @return The 0 based index of the phase
+ */
+inline unsigned int renderPhaseIndex(RenderPhase phase) {
+    unsigned long index = 0;
+    if (phase != RenderPhase::None) {
+        _BitScanForward(&index, static_cast<std::underlying_type_t<RenderPhase>>(phase));
+    }
+    return index;
+}
+#else
+/**
+ * @brief Returns the index of the given render phase
+ *
+ * @param phase The single phase to get the index for
+ * @return The 0 based index of the phase
+ */
+inline unsigned int renderPhaseIndex(RenderPhase phase) {
+    return phase != RenderPhase::None ?
+               __builtin_ctz(static_cast<std::underlying_type_t<RenderPhase>>(phase)) :
+               0;
+}
+#endif
 
 } // namespace rc
 } // namespace bl

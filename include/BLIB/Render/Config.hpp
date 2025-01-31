@@ -25,6 +25,8 @@ struct Config {
 
     static constexpr std::uint32_t MaxRenderPasses = 4;
 
+    static constexpr std::size_t MaxRenderPhases = 8;
+
     static constexpr std::uint32_t MaxTextureCount = 4096;
 
     static constexpr std::uint32_t MaxRenderTextures = 32;

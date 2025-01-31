@@ -1,42 +1,31 @@
 #include <BLIB/Render/Materials/MaterialPipelineSettings.hpp>
 
-#include <BLIB/Render/Config.hpp>
-
 namespace bl
 {
 namespace rc
 {
 namespace mat
 {
-MaterialPipelineSettings::ShaderInfo::ShaderInfo()
-: path("")
-, entrypoint("main") {}
-
 MaterialPipelineSettings::MaterialPipelineSettings(std::uint32_t pipelineId)
-: pipelineId(pipelineId)
-, pipelineParams(nullptr)
+: mainPipeline(pipelineId)
 , phases(RenderPhase::All) {}
 
 MaterialPipelineSettings::MaterialPipelineSettings(vk::PipelineParameters* pipelineParams)
-: pipelineId(Config::PipelineIds::None)
-, pipelineParams(pipelineParams)
+: mainPipeline(pipelineParams)
 , phases(RenderPhase::All) {}
 
 MaterialPipelineSettings::MaterialPipelineSettings(const MaterialPipelineSettings& copy)
-: pipelineId(copy.pipelineId)
-, pipelineParams(copy.pipelineParams)
+: mainPipeline(copy.mainPipeline)
 , phases(copy.phases)
-, shadowFragmentShaderOverride(copy.shadowFragmentShaderOverride) {}
+, renderPhaseOverrides(copy.renderPhaseOverrides) {}
 
 MaterialPipelineSettings& MaterialPipelineSettings::withPipeline(std::uint32_t pid) {
-    pipelineId     = pid;
-    pipelineParams = nullptr;
+    mainPipeline = PipelineInfo(pid);
     return *this;
 }
 
 MaterialPipelineSettings& MaterialPipelineSettings::withPipeline(vk::PipelineParameters* params) {
-    pipelineId     = Config::PipelineIds::None;
-    pipelineParams = params;
+    mainPipeline = PipelineInfo(params);
     return *this;
 }
 
@@ -45,17 +34,83 @@ MaterialPipelineSettings& MaterialPipelineSettings::withRenderPhase(RenderPhase 
     return *this;
 }
 
-MaterialPipelineSettings& MaterialPipelineSettings::withShadowFragmentShaderOverride(
-    const std::string& path, const std::string& entrypoint) {
-    shadowFragmentShaderOverride.path       = path;
-    shadowFragmentShaderOverride.entrypoint = entrypoint;
+MaterialPipelineSettings& MaterialPipelineSettings::withPhasePipelineOverride(
+    RenderPhase phase, PhasePipelineOverride overrideBehavior) {
+    renderPhaseOverrides[renderPhaseIndex(phase)] = PipelineInfo(overrideBehavior);
+    return *this;
+}
+
+MaterialPipelineSettings& MaterialPipelineSettings::withRenderPhaseShaderOverride(
+    RenderPhase phase, std::uint32_t pipelineId) {
+    renderPhaseOverrides[renderPhaseIndex(phase)] = PipelineInfo(pipelineId);
+    return *this;
+}
+
+MaterialPipelineSettings& MaterialPipelineSettings::withRenderPhaseShaderOverride(
+    RenderPhase phase, vk::PipelineParameters* params) {
+    renderPhaseOverrides[renderPhaseIndex(phase)] = PipelineInfo(params);
     return *this;
 }
 
 MaterialPipelineSettings&& MaterialPipelineSettings::build() {
-    if (pipelineId == Config::PipelineIds::None && !pipelineParams) {
-        throw std::runtime_error("No pipeline set");
+    const auto validatePipeline = [this](const PipelineInfo& info) {
+        if (info.pipelineParams != nullptr) {
+            if (info.id != Config::PipelineIds::None) {
+                BL_LOG_CRITICAL
+                    << "Material pipeline cannot have both a pipeline id and parameters";
+                return false;
+            }
+            if (info.overrideBehavior != PhasePipelineOverride::None) {
+                BL_LOG_CRITICAL << "Material pipeline cannot have both an override and parameters";
+                return false;
+            }
+        }
+
+        if (info.id != Config::PipelineIds::None) {
+            if (info.overrideBehavior != PhasePipelineOverride::None) {
+                BL_LOG_CRITICAL << "Material pipeline cannot have both an override and id";
+                return false;
+            }
+            if (info.pipelineParams != nullptr) {
+                BL_LOG_CRITICAL
+                    << "Material pipeline cannot have both a pipeline id and parameters";
+                return false;
+            }
+        }
+
+        if (info.overrideBehavior != PhasePipelineOverride::None) {
+            if (info.pipelineParams != nullptr) {
+                BL_LOG_CRITICAL << "Material pipeline cannot have both an override behavior and "
+                                   "pipeline parameters";
+                return false;
+            }
+            if (info.id != Config::PipelineIds::None) {
+                BL_LOG_CRITICAL
+                    << "Material pipeline cannot have both an override behavior and pipeline id";
+                return false;
+            }
+        }
+
+        return true;
+    };
+
+    if (mainPipeline.pipelineParams == nullptr && mainPipeline.id == Config::PipelineIds::None &&
+        mainPipeline.overrideBehavior == PhasePipelineOverride::None) {
+        BL_LOG_CRITICAL << "Material pipeline is missing a valid pipeline";
+        throw std::runtime_error("Invalid material pipeline settings");
     }
+
+    if (!validatePipeline(mainPipeline)) {
+        throw std::runtime_error("Invalid material pipeline settings");
+    }
+
+    for (unsigned int i = 0; i < 8; ++i) {
+        if (!validatePipeline(renderPhaseOverrides[i])) {
+            throw std::runtime_error("Invalid material pipeline settings for phase: " +
+                                     std::to_string(0x1 << i));
+        }
+    }
+
     return std::move(*this);
 }
 

@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_MATERIALS_MATERIALPIPELINESETTINGS_HPP
 #define BLIB_RENDER_MATERIALS_MATERIALPIPELINESETTINGS_HPP
 
+#include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/RenderPhase.hpp>
 #include <BLIB/Render/Vulkan/PipelineParameters.hpp>
 
@@ -20,6 +21,15 @@ class MaterialPipeline;
  */
 class MaterialPipelineSettings {
 public:
+    /// Represents the behavior of a pipeline override for a given render phase
+    enum PhasePipelineOverride {
+        /// Do not override the pipeline for this render phase
+        None,
+
+        /// Uses a derivative of the main pipeline with no fragment shader
+        FragmentNoop
+    };
+
     /**
      * @brief Creates default settings and uses the given pipeline
      *
@@ -66,14 +76,35 @@ public:
     MaterialPipelineSettings& withRenderPhase(RenderPhase phase);
 
     /**
-     * @brief Sets the fragment shader to use for shadow rendering. Uses the noop shader by default
+     * @brief Sets an override for the given render phase using fixed behavior. The default is to
+     *        override shadow map phase with a fragment noop
      *
-     * @param path The path of the shader to use
-     * @param entrypoint The entrypoint of the shader to use
+     * @param phase The render phase to set the override for
+     * @param overrideBehavior The override behavior for the render phase
      * @return A reference to this object
      */
-    MaterialPipelineSettings& withShadowFragmentShaderOverride(
-        const std::string& path, const std::string& entrypoint = "main");
+    MaterialPipelineSettings& withPhasePipelineOverride(RenderPhase phase,
+                                                        PhasePipelineOverride overrideBehavior);
+
+    /**
+     * @brief Sets an override using a specific pipeline for the given render phase
+     *
+     * @param phase The render phase to set the override for
+     * @param pipelineId The id of the pipeline to use during the given phase
+     * @return A reference to this object
+     */
+    MaterialPipelineSettings& withRenderPhaseShaderOverride(RenderPhase phase,
+                                                            std::uint32_t pipelineId);
+
+    /**
+     * @brief Sets an override using a specific pipeline from parameters for the given render phase
+     *
+     * @param phase The render phase to set the override for
+     * @param params The parameters of the pipeline to override with
+     * @return A reference to this object
+     */
+    MaterialPipelineSettings& withRenderPhaseShaderOverride(RenderPhase phase,
+                                                            vk::PipelineParameters* params);
 
     /**
      * @brief Validates the settings and returns an rvalue reference to this object
@@ -81,18 +112,36 @@ public:
     MaterialPipelineSettings&& build();
 
 private:
-    struct ShaderInfo {
-        std::string path;
-        std::string entrypoint;
+    struct PipelineInfo {
+        std::uint32_t id;
+        vk::PipelineParameters* pipelineParams;
+        PhasePipelineOverride overrideBehavior;
 
-        ShaderInfo();
+        PipelineInfo()
+        : id(Config::PipelineIds::None)
+        , pipelineParams(nullptr)
+        , overrideBehavior(PhasePipelineOverride::None) {}
+
+        PipelineInfo(std::uint32_t id)
+        : id(id)
+        , pipelineParams(nullptr)
+        , overrideBehavior(PhasePipelineOverride::None) {}
+
+        PipelineInfo(vk::PipelineParameters* params)
+        : id(Config::PipelineIds::None)
+        , pipelineParams(params)
+        , overrideBehavior(PhasePipelineOverride::None) {}
+
+        PipelineInfo(PhasePipelineOverride overrideBehavior)
+        : id(Config::PipelineIds::None)
+        , pipelineParams(nullptr)
+        , overrideBehavior(overrideBehavior) {}
     };
 
-    std::uint32_t pipelineId;
-    vk::PipelineParameters* pipelineParams;
+    PipelineInfo mainPipeline;
 
     RenderPhase phases;
-    ShaderInfo shadowFragmentShaderOverride;
+    std::array<PipelineInfo, Config::MaxRenderPhases> renderPhaseOverrides;
 
     friend class MaterialPipeline;
 };

@@ -96,6 +96,16 @@ PipelineParameters& PipelineParameters::withShader(const std::string& path,
     return *this;
 }
 
+PipelineParameters& PipelineParameters::removeShader(VkShaderStageFlagBits stage) {
+    for (unsigned int i = 0; i < shaders.size(); ++i) {
+        if (shaders[i].stage == stage) {
+            shaders.erase(i);
+            return *this;
+        }
+    }
+    return *this;
+}
+
 PipelineParameters& PipelineParameters::withDynamicStates(
     const std::initializer_list<VkDynamicState>& states) {
     dynamicStates.clear();

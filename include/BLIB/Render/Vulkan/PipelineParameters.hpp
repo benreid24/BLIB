@@ -64,6 +64,14 @@ public:
                                    const std::string& entrypoint = "main");
 
     /**
+     * @brief Clears the given shader stage and replaces it with a noop
+     *
+     * @param stage The stage of the shader to remove
+     * @return A reference to this object
+     */
+    PipelineParameters& removeShader(VkShaderStageFlagBits stage);
+
+    /**
      * @brief Configures which pipeline states are dynamic. Viewport and scissor are always dynamic
      *
      * @param states A set of states to be made dynamic in this pipeline
