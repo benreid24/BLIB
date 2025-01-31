@@ -19,7 +19,8 @@ namespace rc
 namespace res
 {
 PipelineCache::PipelineCache(Renderer& r)
-: renderer(r) {
+: renderer(r)
+, nextId(DynamicPipelineIdStart) {
     // TODO - leverage VkPipelineCache?
 }
 
