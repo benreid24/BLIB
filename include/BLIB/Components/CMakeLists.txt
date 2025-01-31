@@ -6,6 +6,7 @@ target_sources(BLIB PUBLIC
 	BatchedSprites.hpp
 	Hitbox2D.hpp
 	MarkedForDeath.hpp
+	MaterialInstance.hpp
 	Mesh.hpp
 	Orientation3D.hpp
 	OverlayScaler.hpp

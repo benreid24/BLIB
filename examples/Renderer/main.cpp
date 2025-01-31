@@ -55,7 +55,7 @@ public:
         font = bl::resource::ResourceManager<sf::VulkanFont>::load("Resources/Fonts/font.ttf");
 
         // get first observer and set background color
-        bl::rc::Observer& p1 = engine.renderer().getObserver(0);
+        bl::rc::Observer& p1 = engine.getPlayer().getRenderObserver();
         p1.setClearColor({0.f, 0.f, 1.f, 1.f});
 
         // create 2d scene and camera for observer 1

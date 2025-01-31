@@ -20,6 +20,9 @@ namespace res
  */
 class PipelineCache {
 public:
+    /// The first id to try when creating dynamic pipeline ids
+    static constexpr std::uint32_t DynamicPipelineIdStart = 10000;
+
     /**
      * @brief Creates a new pipeline in the cache. Id should be unique
      *
@@ -28,6 +31,14 @@ public:
      * @return Pipeline& The newly created pipeline
      */
     vk::Pipeline& createPipline(std::uint32_t pipelineId, vk::PipelineParameters&& params);
+
+    /**
+     * @brief Creates or returns an existing pipeline using the given parameters and a free id
+     *
+     * @param params The parameters to get or create the pipeline for
+     * @return A pipeline with the given parameters
+     */
+    vk::Pipeline& getOrCreatePipeline(vk::PipelineParameters&& params);
 
     /**
      * @brief Returns the pipeline with the given id. Throws an exception if not found. Pipelines
@@ -49,6 +60,7 @@ public:
 private:
     Renderer& renderer;
     std::unordered_map<std::uint32_t, vk::Pipeline> cache;
+    std::uint32_t nextId;
 
     PipelineCache(Renderer& renderer);
     void cleanup();

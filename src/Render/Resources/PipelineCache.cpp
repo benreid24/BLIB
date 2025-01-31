@@ -27,7 +27,7 @@ void PipelineCache::cleanup() { cache.clear(); }
 
 vk::Pipeline& PipelineCache::createPipline(std::uint32_t id, vk::PipelineParameters&& params) {
     const auto insertResult =
-        cache.try_emplace(id, renderer, std::forward<vk::PipelineParameters>(params));
+        cache.try_emplace(id, renderer, id, std::forward<vk::PipelineParameters>(params));
     if (!insertResult.second) { BL_LOG_WARN << "Pipeline with id " << id << " already exists"; }
     return insertResult.first->second;
 }
@@ -43,6 +43,17 @@ vk::Pipeline& PipelineCache::getPipeline(std::uint32_t id) {
 
 bool PipelineCache::pipelineExists(std::uint32_t pid) const {
     return cache.find(pid) != cache.end();
+}
+
+vk::Pipeline& PipelineCache::getOrCreatePipeline(vk::PipelineParameters&& params) {
+    for (auto& p : cache) {
+        if (p.second.getCreationParameters() == params) { return p.second; }
+    }
+
+    std::uint32_t newId = nextId;
+    while (pipelineExists(newId)) { ++newId; }
+    nextId = newId + 1;
+    return createPipline(newId, std::forward<vk::PipelineParameters>(params));
 }
 
 void PipelineCache::createBuiltins() {
@@ -80,8 +91,7 @@ void PipelineCache::createBuiltins() {
     rasterizer.depthBiasSlopeFactor    = 0.0f; // Optional
 
     createPipline(Config::PipelineIds::SkinnedMeshes,
-                  vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
-                                          Config::RenderPassIds::SwapchainDefault})
+                  vk::PipelineParameters()
                       .withShaders(Config::ShaderIds::SkinnedMeshVertex,
                                    Config::ShaderIds::SkinnedMeshFragment)
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
@@ -93,8 +103,7 @@ void PipelineCache::createBuiltins() {
                       .build());
 
     createPipline(Config::PipelineIds::LitSkinned2DGeometry,
-                  vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
-                                          Config::RenderPassIds::SwapchainDefault})
+                  vk::PipelineParameters()
                       .withShaders(Config::ShaderIds::Vertex2DSkinned,
                                    Config::ShaderIds::Fragment2DSkinnedLit)
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
@@ -106,8 +115,7 @@ void PipelineCache::createBuiltins() {
                       .build());
 
     createPipline(Config::PipelineIds::UnlitSkinned2DGeometry,
-                  vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
-                                          Config::RenderPassIds::SwapchainDefault})
+                  vk::PipelineParameters()
                       .withShaders(Config::ShaderIds::Vertex2DSkinned,
                                    Config::ShaderIds::Fragment2DSkinnedUnlit)
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
@@ -119,8 +127,7 @@ void PipelineCache::createBuiltins() {
                       .build());
 
     createPipline(Config::PipelineIds::Lit2DGeometry,
-                  vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
-                                          Config::RenderPassIds::SwapchainDefault})
+                  vk::PipelineParameters()
                       .withShaders(Config::ShaderIds::Vertex2D, Config::ShaderIds::Fragment2DLit)
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                       .withRasterizer(rasterizer)
@@ -130,8 +137,7 @@ void PipelineCache::createBuiltins() {
                       .build());
 
     createPipline(Config::PipelineIds::Unlit2DGeometry,
-                  vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
-                                          Config::RenderPassIds::SwapchainDefault})
+                  vk::PipelineParameters()
                       .withShaders(Config::ShaderIds::Vertex2D, Config::ShaderIds::Fragment2DUnlit)
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                       .withRasterizer(rasterizer)
@@ -141,8 +147,7 @@ void PipelineCache::createBuiltins() {
                       .build());
 
     createPipline(Config::PipelineIds::Lines2D,
-                  vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
-                                          Config::RenderPassIds::SwapchainDefault})
+                  vk::PipelineParameters()
                       .withShaders(Config::ShaderIds::Vertex2D, Config::ShaderIds::Fragment2DUnlit)
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_LINE_LIST)
                       .withRasterizer(rasterizer)
@@ -152,8 +157,7 @@ void PipelineCache::createBuiltins() {
                       .build());
 
     createPipline(Config::PipelineIds::Unlit2DGeometryNoDepthWrite,
-                  vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
-                                          Config::RenderPassIds::SwapchainDefault})
+                  vk::PipelineParameters()
                       .withShaders(Config::ShaderIds::Vertex2D, Config::ShaderIds::Fragment2DUnlit)
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                       .withRasterizer(rasterizer)
@@ -164,8 +168,7 @@ void PipelineCache::createBuiltins() {
 
     createPipline(
         Config::PipelineIds::Text,
-        vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
-                                Config::RenderPassIds::SwapchainDefault})
+        vk::PipelineParameters()
             .withShaders(Config::ShaderIds::Vertex2DSkinned, Config::ShaderIds::TextFragment)
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withRasterizer(rasterizer)
@@ -177,8 +180,7 @@ void PipelineCache::createBuiltins() {
 
     createPipline(
         Config::PipelineIds::SlideshowLit,
-        vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
-                                Config::RenderPassIds::SwapchainDefault})
+        vk::PipelineParameters()
             .withShaders(Config::ShaderIds::SlideshowVert, Config::ShaderIds::Fragment2DSkinnedLit)
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withRasterizer(rasterizer)
@@ -192,8 +194,7 @@ void PipelineCache::createBuiltins() {
             .build());
 
     createPipline(Config::PipelineIds::SlideshowUnlit,
-                  vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
-                                          Config::RenderPassIds::SwapchainDefault})
+                  vk::PipelineParameters()
                       .withShaders(Config::ShaderIds::SlideshowVert,
                                    Config::ShaderIds::Fragment2DSkinnedUnlit)
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
@@ -209,8 +210,7 @@ void PipelineCache::createBuiltins() {
 
     createPipline(
         Config::PipelineIds::FadeEffect,
-        vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
-                                Config::RenderPassIds::SwapchainDefault})
+        vk::PipelineParameters()
             .withShaders(Config::ShaderIds::EmptyVertex, Config::ShaderIds::FadeEffectFragment)
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withRasterizer(rasterizer)

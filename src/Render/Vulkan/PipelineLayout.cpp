@@ -9,22 +9,21 @@ namespace rc
 namespace vk
 {
 PipelineLayout::PipelineLayout(Renderer& renderer, LayoutParams&& params)
-: renderer(renderer)
-, dsCount(params.dsCount) {
+: renderer(renderer) {
     // setup descriptors
     std::array<VkDescriptorSetLayout, 4> descriptorLayouts;
-    for (unsigned int i = 0; i < params.dsCount; ++i) {
-        descriptorSets[i] = renderer.descriptorFactoryCache().getOrAddFactory(
-            params.descriptorSets[i].factoryType, std::move(params.descriptorSets[i].factory));
+    for (unsigned int i = 0; i < params.descriptorSets.size(); ++i) {
+        descriptorSets.emplace_back(renderer.descriptorFactoryCache().getOrAddFactory(
+            params.descriptorSets[i].factoryType, std::move(params.descriptorSets[i].factory)));
         descriptorLayouts[i] = descriptorSets[i]->getDescriptorLayout();
     }
 
     // create pipeline layout
     VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
     pipelineLayoutInfo.sType                  = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-    pipelineLayoutInfo.setLayoutCount         = params.dsCount;
+    pipelineLayoutInfo.setLayoutCount         = params.descriptorSets.size();
     pipelineLayoutInfo.pSetLayouts            = descriptorLayouts.data();
-    pipelineLayoutInfo.pushConstantRangeCount = params.pcCount;
+    pipelineLayoutInfo.pushConstantRangeCount = params.pushConstants.size();
     pipelineLayoutInfo.pPushConstantRanges    = params.pushConstants.data();
     if (vkCreatePipelineLayout(
             renderer.vulkanState().device, &pipelineLayoutInfo, nullptr, &layout) != VK_SUCCESS) {
@@ -39,16 +38,16 @@ PipelineLayout::~PipelineLayout() {
 void PipelineLayout::createDescriptorSets(
     ds::DescriptorSetInstanceCache& cache,
     std::vector<ds::DescriptorSetInstance*>& descriptors) const {
-    descriptors.resize(dsCount);
+    descriptors.resize(descriptorSets.size());
     initDescriptorSets(cache, descriptors.data());
 }
 
 std::uint32_t PipelineLayout::initDescriptorSets(ds::DescriptorSetInstanceCache& cache,
                                                  ds::DescriptorSetInstance** sets) const {
-    for (unsigned int i = 0; i < dsCount; ++i) {
+    for (unsigned int i = 0; i < descriptorSets.size(); ++i) {
         sets[i] = cache.getDescriptorSet(descriptorSets[i]);
     }
-    return dsCount;
+    return descriptorSets.size();
 }
 
 std::uint32_t PipelineLayout::updateDescriptorSets(ds::DescriptorSetInstanceCache& cache,

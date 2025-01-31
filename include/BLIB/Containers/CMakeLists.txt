@@ -10,5 +10,6 @@ target_sources(BLIB PUBLIC
     ObjectPool.hpp
     QuadTree.hpp
     StaticRingBuffer.hpp
+    StaticVector.hpp
     Grid.hpp
 )

@@ -33,9 +33,10 @@ public:
      * @param renderPassId The id of the render pass that is currently active
      * @param renderingToRenderTexture True if target is render texture, false otherwise
      */
-    SceneRenderContext(VkCommandBuffer commandBuffer, std::uint32_t observerIndex,
-                       const VkViewport& viewport, std::uint32_t renderPassId,
-                       bool renderingToRenderTexture);
+    SceneRenderContext(
+        VkCommandBuffer commandBuffer, std::uint32_t observerIndex, const VkViewport& viewport,
+        std::uint32_t renderPassId,
+        bool renderingToRenderTexture); // TODO - replace with mode enum (final, rt, shadow, etc)
 
     /**
      * @brief Binds the given pipeline
