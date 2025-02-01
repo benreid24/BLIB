@@ -111,6 +111,22 @@ public:
      */
     MaterialPipelineSettings&& build();
 
+    /**
+     * @brief Returns whether these settings are equal to the given settings
+     *
+     * @param right The settings to compare with
+     * @return True if the settings are the same, false otherwise
+     */
+    bool operator==(const MaterialPipelineSettings& right) const;
+
+    /**
+     * @brief Returns whether these settings are not equal to the given settings
+     *
+     * @param right The settings to compare with
+     * @return True if the settings are different, false otherwise
+     */
+    bool operator!=(const MaterialPipelineSettings& right) const;
+
 private:
     struct PipelineInfo {
         std::uint32_t id;
@@ -136,6 +152,11 @@ private:
         : id(Config::PipelineIds::None)
         , pipelineParams(nullptr)
         , overrideBehavior(overrideBehavior) {}
+
+        bool operator==(const PipelineInfo& right) const {
+            return id == right.id && pipelineParams == right.pipelineParams &&
+                   overrideBehavior == right.overrideBehavior;
+        }
     };
 
     PipelineInfo mainPipeline;

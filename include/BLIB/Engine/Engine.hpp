@@ -1,6 +1,7 @@
 #ifndef BLIB_ENGINE_ENGINE_HPP
 #define BLIB_ENGINE_ENGINE_HPP
 
+#include <BLIB/Containers/RefPool.hpp>
 #include <BLIB/ECS/Registry.hpp>
 #include <BLIB/Engine/Events.hpp>
 #include <BLIB/Engine/Events/Worlds.hpp>
@@ -19,7 +20,6 @@
 #include <BLIB/Resources.hpp>
 #include <BLIB/Scripts/Manager.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
-#include <BLIB/Util/RefPool.hpp>
 #include <BLIB/Util/ThreadPool.hpp>
 #include <array>
 #include <stack>
@@ -247,7 +247,7 @@ public:
      * @return A ref to the newly created world
      */
     template<typename TWorld, typename... TArgs>
-    util::Ref<World, TWorld> createWorld(TArgs&&... args);
+    ctr::Ref<World, TWorld> createWorld(TArgs&&... args);
 
     /**
      * @brief Fetch the world at the given index
@@ -257,7 +257,7 @@ public:
      * @return The world at the given index
      */
     template<typename TWorld = World>
-    util::Ref<World, TWorld> getWorld(unsigned int index);
+    ctr::Ref<World, TWorld> getWorld(unsigned int index);
 
 private:
     Worker worker;
@@ -265,8 +265,8 @@ private:
     Flags engineFlags;
     std::stack<State::Ptr> states;
     std::vector<std::unique_ptr<Player>> players;
-    util::RefPool<World> worldPool;
-    std::array<util::Ref<World>, World::MaxWorlds> worlds;
+    ctr::RefPool<World> worldPool;
+    std::array<ctr::Ref<World>, World::MaxWorlds> worlds;
     State::Ptr newState;
     float timeScale;
     float windowScale;
@@ -359,7 +359,7 @@ T& Engine::addPlayer(TArgs&&... args) {
 }
 
 template<typename TWorld, typename... TArgs>
-util::Ref<World, TWorld> Engine::createWorld(TArgs&&... args) {
+ctr::Ref<World, TWorld> Engine::createWorld(TArgs&&... args) {
     static_assert(std::is_base_of_v<World, TWorld>, "TWorld must derive from World");
     static_assert(std::is_constructible_v<TWorld, Engine&, TArgs...>,
                   "TWorld constructor must take Engine& as first parameter");
@@ -378,20 +378,20 @@ util::Ref<World, TWorld> Engine::createWorld(TArgs&&... args) {
 }
 
 template<typename TWorld>
-util::Ref<World, TWorld> Engine::getWorld(unsigned int index) {
+ctr::Ref<World, TWorld> Engine::getWorld(unsigned int index) {
     static_assert(std::is_base_of_v<World, TWorld>, "TWorld must derive from World");
-    return util::Ref<World, TWorld>(worlds[index]);
+    return ctr::Ref<World, TWorld>(worlds[index]);
 }
 
 template<typename TWorld, typename... TArgs>
-util::Ref<World, TWorld> Player::enterWorld(TArgs&&... args) {
+ctr::Ref<World, TWorld> Player::enterWorld(TArgs&&... args) {
     auto world = owner.createWorld<TWorld>(std::forward<TArgs>(args)...);
     enterWorld(world);
     return world;
 }
 
 template<typename TWorld, typename... TArgs>
-util::Ref<World, TWorld> Player::changeWorlds(TArgs&&... args) {
+ctr::Ref<World, TWorld> Player::changeWorlds(TArgs&&... args) {
     auto world = owner.createWorld<TWorld>(std::forward<TArgs>(args)...);
     changeWorlds(world);
     return world;

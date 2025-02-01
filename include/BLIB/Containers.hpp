@@ -12,6 +12,7 @@
 #include <BLIB/Containers/ObjectPool.hpp>
 #include <BLIB/Containers/ObjectWrapper.hpp>
 #include <BLIB/Containers/QuadTree.hpp>
+#include <BLIB/Containers/RefPool.hpp>
 #include <BLIB/Containers/RingBuffer.hpp>
 #include <BLIB/Containers/RingQueue.hpp>
 #include <BLIB/Containers/StaticVector.hpp>

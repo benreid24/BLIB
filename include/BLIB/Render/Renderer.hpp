@@ -6,6 +6,7 @@
 #include <BLIB/Render/Graph/AssetFactory.hpp>
 #include <BLIB/Render/Graph/Strategy.hpp>
 #include <BLIB/Render/Observer.hpp>
+#include <BLIB/Render/Resources/MaterialPipelineCache.hpp>
 #include <BLIB/Render/Resources/MaterialPool.hpp>
 #include <BLIB/Render/Resources/PipelineCache.hpp>
 #include <BLIB/Render/Resources/PipelineLayoutCache.hpp>
@@ -147,6 +148,11 @@ public:
     res::PipelineCache& pipelineCache();
 
     /**
+     * @brief Returns the material pipeline cache of this renderer
+     */
+    res::MaterialPipelineCache& materialPipelineCache();
+
+    /**
      * @brief Returns the pipeline layout cache of this renderer
      */
     res::PipelineLayoutCache& pipelineLayoutCache();
@@ -213,6 +219,7 @@ private:
     res::RenderPassCache renderPasses;
     res::PipelineLayoutCache pipelineLayouts;
     res::PipelineCache pipelines;
+    res::MaterialPipelineCache materialPipelines;
     res::ScenePool scenes;
     tfr::TextureExporter imageExporter;
     SplitscreenDirection splitscreenDirection;
@@ -262,6 +269,8 @@ inline res::MaterialPool& Renderer::materialPool() { return materials; }
 inline res::RenderPassCache& Renderer::renderPassCache() { return renderPasses; }
 
 inline res::PipelineCache& Renderer::pipelineCache() { return pipelines; }
+
+inline res::MaterialPipelineCache& Renderer::materialPipelineCache() { return materialPipelines; }
 
 inline res::PipelineLayoutCache& Renderer::pipelineLayoutCache() { return pipelineLayouts; }
 

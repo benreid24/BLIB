@@ -35,30 +35,6 @@ enum struct RenderPhase : std::uint8_t {
     All = 0xFF
 };
 
-/**
- * @brief Combine two render phases into one
- *
- * @param left The left render phase to combine
- * @param right The right render phase to combine
- * @return The combined render phase
- */
-inline RenderPhase operator|(RenderPhase left, RenderPhase right) {
-    return static_cast<RenderPhase>(static_cast<std::underlying_type_t<RenderPhase>>(left) |
-                                    static_cast<std::underlying_type_t<RenderPhase>>(right));
-}
-
-/**
- * @brief Tests whether two phases overlap
- *
- * @param left The left phase to test
- * @param right The right phase to test
- * @return True if the phases overlap, false otherwise
- */
-inline bool operator&(RenderPhase left, RenderPhase right) {
-    return (static_cast<std::underlying_type_t<RenderPhase>>(left) &
-            static_cast<std::underlying_type_t<RenderPhase>>(right)) != 0;
-}
-
 #ifdef BLIB_WINDOWS
 /**
  * @brief Returns the index of the given render phase
@@ -89,5 +65,31 @@ inline unsigned int renderPhaseIndex(RenderPhase phase) {
 
 } // namespace rc
 } // namespace bl
+
+/**
+ * @brief Combine two render phases into one
+ *
+ * @param left The left render phase to combine
+ * @param right The right render phase to combine
+ * @return The combined render phase
+ */
+inline constexpr bl::rc::RenderPhase operator|(bl::rc::RenderPhase left,
+                                               bl::rc::RenderPhase right) {
+    return static_cast<bl::rc::RenderPhase>(
+        static_cast<std::underlying_type_t<bl::rc::RenderPhase>>(left) |
+        static_cast<std::underlying_type_t<bl::rc::RenderPhase>>(right));
+}
+
+/**
+ * @brief Tests whether two phases overlap
+ *
+ * @param left The left phase to test
+ * @param right The right phase to test
+ * @return True if the phases overlap, false otherwise
+ */
+inline constexpr bool operator&(bl::rc::RenderPhase left, bl::rc::RenderPhase right) {
+    return (static_cast<std::underlying_type_t<bl::rc::RenderPhase>>(left) &
+            static_cast<std::underlying_type_t<bl::rc::RenderPhase>>(right)) != 0;
+}
 
 #endif

@@ -22,9 +22,11 @@ public:
      * @brief Creates the material pipeline and each underlying Vulkan pipeline
      *
      * @param renderer The renderer instance
+     * @param id The id of the material pipeline
      * @param settings The settings to create with
      */
-    MaterialPipeline(Renderer& renderer, const MaterialPipelineSettings& settings);
+    MaterialPipeline(Renderer& renderer, std::uint32_t id,
+                     const MaterialPipelineSettings& settings);
 
     /**
      * @brief Destroys the material pipeline
@@ -47,6 +49,7 @@ public:
 
 private:
     Renderer& renderer;
+    std::uint32_t id;
     MaterialPipelineSettings settings;
     vk::Pipeline* mainPipeline;
     std::array<vk::Pipeline*, Config::MaxRenderPhases> pipelines;
@@ -56,7 +59,7 @@ private:
 
 /////////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-const MaterialPipelineSettings& MaterialPipeline::getSettings() const { return settings; }
+inline const MaterialPipelineSettings& MaterialPipeline::getSettings() const { return settings; }
 
 } // namespace mat
 } // namespace rc

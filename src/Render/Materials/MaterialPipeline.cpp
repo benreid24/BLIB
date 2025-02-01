@@ -8,8 +8,10 @@ namespace rc
 {
 namespace mat
 {
-MaterialPipeline::MaterialPipeline(Renderer& renderer, const MaterialPipelineSettings& s)
+MaterialPipeline::MaterialPipeline(Renderer& renderer, std::uint32_t id,
+                                   const MaterialPipelineSettings& s)
 : renderer(renderer)
+, id(id)
 , settings(s) {
     mainPipeline = resolvePipeline(settings.mainPipeline);
     for (unsigned int i = 0; i < Config::MaxRenderPhases; ++i) {

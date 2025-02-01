@@ -8,11 +8,15 @@ namespace mat
 {
 MaterialPipelineSettings::MaterialPipelineSettings(std::uint32_t pipelineId)
 : mainPipeline(pipelineId)
-, phases(RenderPhase::All) {}
+, phases(RenderPhase::All) {
+    renderPhaseOverrides[renderPhaseIndex(RenderPhase::ShadowMap)].overrideBehavior = FragmentNoop;
+}
 
 MaterialPipelineSettings::MaterialPipelineSettings(vk::PipelineParameters* pipelineParams)
 : mainPipeline(pipelineParams)
-, phases(RenderPhase::All) {}
+, phases(RenderPhase::All) {
+    renderPhaseOverrides[renderPhaseIndex(RenderPhase::ShadowMap)].overrideBehavior = FragmentNoop;
+}
 
 MaterialPipelineSettings::MaterialPipelineSettings(const MaterialPipelineSettings& copy)
 : mainPipeline(copy.mainPipeline)
@@ -112,6 +116,19 @@ MaterialPipelineSettings&& MaterialPipelineSettings::build() {
     }
 
     return std::move(*this);
+}
+
+bool MaterialPipelineSettings::operator==(const MaterialPipelineSettings& right) const {
+    if (mainPipeline != right.mainPipeline) { return false; }
+    if (phases != right.phases) { return false; }
+    for (unsigned int i = 0; i < Config::MaxRenderPhases; ++i) {
+        if (renderPhaseOverrides[i] != right.renderPhaseOverrides[i]) { return false; }
+    }
+    return true;
+}
+
+bool MaterialPipelineSettings::operator!=(const MaterialPipelineSettings& right) const {
+    return !this->operator==(right);
 }
 
 } // namespace mat

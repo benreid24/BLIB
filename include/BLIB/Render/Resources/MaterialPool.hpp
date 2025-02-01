@@ -1,64 +1,46 @@
-#ifndef BLIB_RENDER_MATERIALCACHE_HPP
-#define BLIB_RENDER_MATERIALCACHE_HPP
+#ifndef BLIB_RENDER_RESOURCES_MATERIALPOOL_HPP
+#define BLIB_RENDER_RESOURCES_MATERIALPOOL_HPP
 
-#include <BLIB/Render/Resources/Material.hpp>
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
-#include <BLIB/Util/IdAllocator.hpp>
-#include <BLIB/Vulkan.hpp>
-#include <array>
-#include <cstdint>
-#include <string>
-#include <unordered_map>
+#include <BLIB/Containers/RefPoolDirect.hpp>
+#include <BLIB/Render/Materials/Material.hpp>
 
 namespace bl
 {
 namespace rc
 {
+class Renderer;
+
 namespace res
 {
+/**
+ * @brief Reference counted handle to a material
+ *
+ * @ingroup Renderer
+ */
+using MaterialRef = ctr::RefDirect<mat::Material>;
+
+/**
+ * @brief Collection of materials currently in use. Similar to TexturePool
+ *
+ * @ingroup Renderer
+ */
 class MaterialPool {
 public:
-    static constexpr std::uint32_t MaxMaterialCount = 4096;
-
-    MaterialPool(vk::VulkanState& vulkanState);
-
-    ~MaterialPool();
-
-    VkDescriptorSetLayout getDescriptorLayout();
-
-    void bindDescriptors(std::uint32_t setIndex);
-
-    std::uint32_t createMaterial(Material&& material);
-
-    std::uint32_t getOrLoadMaterial(const std::string& materialFile);
-
-    std::uint32_t getOrLoadMaterialFromTexture(const std::string& textureFile);
-
-    Material* retrieveMaterial(std::uint32_t materialId);
-
-    void syncMaterial(std::uint32_t materialId);
-
-    void syncAll();
-
-    // TODO - lifetime management
+    /**
+     * @brief Creates or returns an existing material from a texture
+     *
+     * @param texture The texture the material should use
+     * @return A ref to the material
+     */
+    MaterialRef getOrCreateFromTexture(const res::TextureRef& texture);
 
 private:
-    vk::VulkanState& vulkanState;
-    std::vector<Material> materials;
-    // std::vector<MaterialUniform> materialUniforms;
-    util::IdAllocator<std::size_t> freeSlots;
+    Renderer& renderer;
+    ctr::RefPoolDirect<mat::Material> materials;
 
-    std::unordered_map<std::string, std::uint32_t> materialFileMap;
-    std::unordered_map<std::string, std::uint32_t> textureFileMap;
+    MaterialPool(Renderer& renderer);
 
-    VkDescriptorSetLayout descriptorSetLayout;
-    VkDescriptorSet descriptorSet;
-    VkWriteDescriptorSet descriptorUpdateCommand;
-
-    std::vector<VkDescriptorImageInfo> textureImageWriteInfo;
-    VkBuffer materialDeviceBuffer;
-
-    void resetMaterial(std::uint32_t materialId);
+    friend class Renderer;
 };
 
 } // namespace res

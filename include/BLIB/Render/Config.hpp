@@ -67,7 +67,7 @@ struct Config {
     };
 
     /**
-     * @brief Built-in pipelines
+     * @brief Built-in pipelines. Built-in MaterialPipelines using these pipelines share the same id
      */
     struct PipelineIds {
         static constexpr std::uint32_t None = 0;

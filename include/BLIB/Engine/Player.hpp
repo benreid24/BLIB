@@ -4,7 +4,7 @@
 #include <BLIB/Engine/World.hpp>
 #include <BLIB/Input/Actor.hpp>
 #include <BLIB/Render/Observer.hpp>
-#include <BLIB/Util/RefPool.hpp>
+#include <BLIB/Containers/RefPool.hpp>
 #include <stack>
 #include <vector>
 
@@ -51,7 +51,7 @@ public:
      *
      * @param world The world to enter
      */
-    void enterWorld(util::Ref<World> world);
+    void enterWorld(ctr::Ref<World> world);
 
     /**
      * @brief Creates and enters the world of the given type
@@ -62,14 +62,14 @@ public:
      * @return The newly created world
      */
     template<typename TWorld, typename... TArgs>
-    util::Ref<World, TWorld> enterWorld(TArgs&&... args);
+    ctr::Ref<World, TWorld> enterWorld(TArgs&&... args);
 
     /**
      * @brief Replaces the current world that this player is in with a new one
      *
      * @param world The new world to put this player in
      */
-    void changeWorlds(util::Ref<World> world);
+    void changeWorlds(ctr::Ref<World> world);
 
     /**
      * @brief Creates and enters the world of the given type, replacing the existing world
@@ -80,7 +80,7 @@ public:
      * @return The newly created world
      */
     template<typename TWorld, typename... TArgs>
-    util::Ref<World, TWorld> changeWorlds(TArgs&&... args);
+    ctr::Ref<World, TWorld> changeWorlds(TArgs&&... args);
 
     /**
      * @brief Returns whether the player is currently in a world
@@ -130,7 +130,7 @@ private:
     Engine& owner;
     rc::Observer* observer;
     input::Actor* actor;
-    std::stack<util::Ref<World>, std::vector<util::Ref<World>>> worldStack;
+    std::stack<ctr::Ref<World>, std::vector<ctr::Ref<World>>> worldStack;
 
     friend class Engine;
 };
