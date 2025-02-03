@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Serialization/Buffers/MemoryOutputBuffer.cpp Source File</title>
+<title>BLIB: src/Interfaces/Menu/Drivers/KeyboardDriver.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,52 +79,81 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_e7c9606de6dc9534b0042ecacee5f21f.html">Serialization</a></li><li class="navelem"><a class="el" href="dir_47ff02213d38b4fcd8e0172b7fa926fb.html">Buffers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ce6405ba0afce575b27b3b998c1d24f9.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_a5850f6e383b3d533b6a0a91dee002d1.html">Menu</a></li><li class="navelem"><a class="el" href="dir_8225f553c4118c74e51abfe13787127e.html">Drivers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">MemoryOutputBuffer.cpp</div></div>
+  <div class="headertitle"><div class="title">KeyboardDriver.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01955.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00854.html">BLIB/Serialization/Buffers/MemoryOutputBuffer.hpp</a>&gt;</span></div>
+<a href="a01955.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00806.html">BLIB/Interfaces/Menu/Drivers/KeyboardDriver.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;cstring&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02360.html">bl</a></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>menu</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>serial</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a04919.html#a29aafd9858e2a2a245f348a457f8a4ad">    9</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04919.html#a29aafd9858e2a2a245f348a457f8a4ad">MemoryOutputBuffer::reserve</a>(std::size_t s) { buffer.reserve(s); }</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="a04919.html#aa14425bbf68b5d3a49ea56ca30c2f15b">   11</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a04919.html#aa14425bbf68b5d3a49ea56ca30c2f15b">MemoryOutputBuffer::write</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* buf, std::size_t len) {</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keyword">const</span> std::size_t pos = buffer.size();</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    buffer.resize(buffer.size() + len);</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    std::memcpy(&amp;buffer[pos], buf, len);</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="foldopen" id="foldopen00007" data-start="{" data-end="}">
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="a03730.html#a876896caace08a3c366b3c83324ba93d">    7</a></span><a class="code hl_function" href="a03730.html#a876896caace08a3c366b3c83324ba93d">KeyboardDriver::KeyboardDriver</a>(<a class="code hl_class" href="a03786.html">Menu</a>&amp; menu, sf::Keyboard::Key upCtrl, sf::Keyboard::Key rightCtrl,</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>                               sf::Keyboard::Key downCtrl, sf::Keyboard::Key leftCtrl,</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>                               sf::Keyboard::Key activateCtrl)</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>: menu(menu)</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>, moveControls{upCtrl, rightCtrl, downCtrl, leftCtrl}</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>, activateControl(activateCtrl) {}</div>
+</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="foldopen" id="foldopen00014" data-start="{" data-end="}">
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="a03730.html#acafe5b641c1bacfa8212898f825d0237">   14</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03730.html#acafe5b641c1bacfa8212898f825d0237">KeyboardDriver::setMoveControl</a>(<a class="code hl_enumeration" href="a03766.html#a59352334626855d0cd8c8ca1b173db68">Item::AttachPoint</a> dir, sf::Keyboard::Key ctrl) {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    moveControls[dir] = ctrl;</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>}</div>
 </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a04919.html#ab78ef537e0bd074e9c965e4535632fb0">   18</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a04919.html#ab78ef537e0bd074e9c965e4535632fb0">MemoryOutputBuffer::good</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a03730.html#aca60b6e65572c3ed0cc34781030a971d">   18</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03730.html#aca60b6e65572c3ed0cc34781030a971d">KeyboardDriver::setActivateControl</a>(sf::Keyboard::Key ctrl) { activateControl = ctrl; }</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a04919.html#a652db0ba56ef55f634172448d71f6909">   20</a></span><span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_function" href="a04919.html#a652db0ba56ef55f634172448d71f6909">MemoryOutputBuffer::data</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> buffer.data(); }</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a04919.html#a97c1d806d711f9bf2837d0f193e390f1">   22</a></span>std::size_t <a class="code hl_function" href="a04919.html#a97c1d806d711f9bf2837d0f193e390f1">MemoryOutputBuffer::size</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> buffer.size(); }</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>} <span class="comment">// namespace serial</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00854_html"><div class="ttname"><a href="a00854.html">MemoryOutputBuffer.hpp</a></div></div>
-<div class="ttc" id="aa02360_html"><div class="ttname"><a href="a02360.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01448_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04919_html_a29aafd9858e2a2a245f348a457f8a4ad"><div class="ttname"><a href="a04919.html#a29aafd9858e2a2a245f348a457f8a4ad">bl::serial::MemoryOutputBuffer::reserve</a></div><div class="ttdeci">void reserve(std::size_t capacity)</div><div class="ttdoc">Reserves capacity for the serialized output.</div><div class="ttdef"><b>Definition</b> <a href="a01955_source.html#l00009">MemoryOutputBuffer.cpp:9</a></div></div>
-<div class="ttc" id="aa04919_html_a652db0ba56ef55f634172448d71f6909"><div class="ttname"><a href="a04919.html#a652db0ba56ef55f634172448d71f6909">bl::serial::MemoryOutputBuffer::data</a></div><div class="ttdeci">const char * data() const</div><div class="ttdoc">Returns a pointer to the contained data.</div><div class="ttdef"><b>Definition</b> <a href="a01955_source.html#l00020">MemoryOutputBuffer.cpp:20</a></div></div>
-<div class="ttc" id="aa04919_html_a97c1d806d711f9bf2837d0f193e390f1"><div class="ttname"><a href="a04919.html#a97c1d806d711f9bf2837d0f193e390f1">bl::serial::MemoryOutputBuffer::size</a></div><div class="ttdeci">std::size_t size() const</div><div class="ttdoc">Returns the size of the buffer.</div><div class="ttdef"><b>Definition</b> <a href="a01955_source.html#l00022">MemoryOutputBuffer.cpp:22</a></div></div>
-<div class="ttc" id="aa04919_html_aa14425bbf68b5d3a49ea56ca30c2f15b"><div class="ttname"><a href="a04919.html#aa14425bbf68b5d3a49ea56ca30c2f15b">bl::serial::MemoryOutputBuffer::write</a></div><div class="ttdeci">virtual bool write(const char *data, std::size_t len) override</div><div class="ttdoc">Write some data to the buffer.</div><div class="ttdef"><b>Definition</b> <a href="a01955_source.html#l00011">MemoryOutputBuffer.cpp:11</a></div></div>
-<div class="ttc" id="aa04919_html_ab78ef537e0bd074e9c965e4535632fb0"><div class="ttname"><a href="a04919.html#ab78ef537e0bd074e9c965e4535632fb0">bl::serial::MemoryOutputBuffer::good</a></div><div class="ttdeci">virtual bool good() const override</div><div class="ttdoc">Returns whether or not the buffer is in a good state.</div><div class="ttdef"><b>Definition</b> <a href="a01955_source.html#l00018">MemoryOutputBuffer.cpp:18</a></div></div>
+<div class="foldopen" id="foldopen00020" data-start="{" data-end="}">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a03730.html#a0d40e4e07cbcc3cf59873d70754cffd6">   20</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03730.html#a0d40e4e07cbcc3cf59873d70754cffd6">KeyboardDriver::observe</a>(<span class="keyword">const</span> sf::Event&amp; event) {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordflow">if</span> (event.type == sf::Event::KeyPressed) {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordflow">if</span> (event.key.code == moveControls[<a class="code hl_enumvalue" href="a03766.html#a59352334626855d0cd8c8ca1b173db68a8ee44d5181ad1e85a92709f1d0b4937c">Item::Top</a>]) {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>            menu.<a class="code hl_function" href="a03786.html#a994d802c062248a8017e3bcb454073a9">processEvent</a>(<a class="code hl_struct" href="a03746.html">Event</a>(<a class="code hl_struct" href="a03750.html">Event::MoveEvent</a>(<a class="code hl_enumvalue" href="a03766.html#a59352334626855d0cd8c8ca1b173db68a8ee44d5181ad1e85a92709f1d0b4937c">Item::Top</a>)));</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        }</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (event.key.code == moveControls[<a class="code hl_enumvalue" href="a03766.html#a59352334626855d0cd8c8ca1b173db68ae5d7a5789d9f7a019ac01873f986e866">Item::Right</a>]) {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            menu.<a class="code hl_function" href="a03786.html#a994d802c062248a8017e3bcb454073a9">processEvent</a>(<a class="code hl_struct" href="a03746.html">Event</a>(<a class="code hl_struct" href="a03750.html">Event::MoveEvent</a>(<a class="code hl_enumvalue" href="a03766.html#a59352334626855d0cd8c8ca1b173db68ae5d7a5789d9f7a019ac01873f986e866">Item::Right</a>)));</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        }</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (event.key.code == moveControls[<a class="code hl_enumvalue" href="a03766.html#a59352334626855d0cd8c8ca1b173db68a9b46e5a4c9ffaadc81ac4559e23ebb8d">Item::Bottom</a>]) {</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            menu.<a class="code hl_function" href="a03786.html#a994d802c062248a8017e3bcb454073a9">processEvent</a>(<a class="code hl_struct" href="a03746.html">Event</a>(<a class="code hl_struct" href="a03750.html">Event::MoveEvent</a>(<a class="code hl_enumvalue" href="a03766.html#a59352334626855d0cd8c8ca1b173db68a9b46e5a4c9ffaadc81ac4559e23ebb8d">Item::Bottom</a>)));</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        }</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (event.key.code == moveControls[<a class="code hl_enumvalue" href="a03766.html#a59352334626855d0cd8c8ca1b173db68ad917703e5fdbb06791acd491310bd14f">Item::Left</a>]) {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            menu.<a class="code hl_function" href="a03786.html#a994d802c062248a8017e3bcb454073a9">processEvent</a>(<a class="code hl_struct" href="a03746.html">Event</a>(<a class="code hl_struct" href="a03750.html">Event::MoveEvent</a>(<a class="code hl_enumvalue" href="a03766.html#a59352334626855d0cd8c8ca1b173db68ad917703e5fdbb06791acd491310bd14f">Item::Left</a>)));</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        }</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (event.key.code == activateControl) {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            menu.<a class="code hl_function" href="a03786.html#a994d802c062248a8017e3bcb454073a9">processEvent</a>(<a class="code hl_struct" href="a03746.html">Event</a>(<a class="code hl_struct" href="a03754.html">Event::ActivateEvent</a>()));</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        }</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    }</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
+</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>} <span class="comment">// namespace menu</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00806_html"><div class="ttname"><a href="a00806.html">KeyboardDriver.hpp</a></div></div>
+<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03730_html_a0d40e4e07cbcc3cf59873d70754cffd6"><div class="ttname"><a href="a03730.html#a0d40e4e07cbcc3cf59873d70754cffd6">bl::menu::KeyboardDriver::observe</a></div><div class="ttdeci">virtual void observe(const sf::Event &amp;event) override</div><div class="ttdoc">Processes the given window event and drives the menu if relevant.</div><div class="ttdef"><b>Definition</b> <a href="a01955_source.html#l00020">KeyboardDriver.cpp:20</a></div></div>
+<div class="ttc" id="aa03730_html_a876896caace08a3c366b3c83324ba93d"><div class="ttname"><a href="a03730.html#a876896caace08a3c366b3c83324ba93d">bl::menu::KeyboardDriver::KeyboardDriver</a></div><div class="ttdeci">KeyboardDriver(Menu &amp;menu, sf::Keyboard::Key upCtrl=sf::Keyboard::Up, sf::Keyboard::Key rightCtrl=sf::Keyboard::Right, sf::Keyboard::Key downCtrl=sf::Keyboard::Down, sf::Keyboard::Key leftCtrl=sf::Keyboard::Left, sf::Keyboard::Key activateCtrl=sf::Keyboard::Space)</div><div class="ttdoc">Create a new keyboard generator that services the given menu.</div><div class="ttdef"><b>Definition</b> <a href="a01955_source.html#l00007">KeyboardDriver.cpp:7</a></div></div>
+<div class="ttc" id="aa03730_html_aca60b6e65572c3ed0cc34781030a971d"><div class="ttname"><a href="a03730.html#aca60b6e65572c3ed0cc34781030a971d">bl::menu::KeyboardDriver::setActivateControl</a></div><div class="ttdeci">void setActivateControl(sf::Keyboard::Key control)</div><div class="ttdoc">Set the key that is bound to the activate event. Default is space bar.</div><div class="ttdef"><b>Definition</b> <a href="a01955_source.html#l00018">KeyboardDriver.cpp:18</a></div></div>
+<div class="ttc" id="aa03730_html_acafe5b641c1bacfa8212898f825d0237"><div class="ttname"><a href="a03730.html#acafe5b641c1bacfa8212898f825d0237">bl::menu::KeyboardDriver::setMoveControl</a></div><div class="ttdeci">void setMoveControl(Item::AttachPoint direction, sf::Keyboard::Key control)</div><div class="ttdoc">Set the key bound to the given direction. Defaults are the arrrow keys.</div><div class="ttdef"><b>Definition</b> <a href="a01955_source.html#l00014">KeyboardDriver.cpp:14</a></div></div>
+<div class="ttc" id="aa03746_html"><div class="ttname"><a href="a03746.html">bl::menu::Event</a></div><div class="ttdoc">Data struct representing an event in a Menu.</div><div class="ttdef"><b>Definition</b> <a href="a06409_source.html#l00016">Event.hpp:16</a></div></div>
+<div class="ttc" id="aa03750_html"><div class="ttname"><a href="a03750.html">bl::menu::Event::MoveEvent</a></div><div class="ttdoc">Data struct for a SelectorMove event.</div><div class="ttdef"><b>Definition</b> <a href="a06409_source.html#l00027">Event.hpp:27</a></div></div>
+<div class="ttc" id="aa03754_html"><div class="ttname"><a href="a03754.html">bl::menu::Event::ActivateEvent</a></div><div class="ttdoc">Data struct for an Activate event.</div><div class="ttdef"><b>Definition</b> <a href="a06409_source.html#l00039">Event.hpp:39</a></div></div>
+<div class="ttc" id="aa03766_html_a59352334626855d0cd8c8ca1b173db68"><div class="ttname"><a href="a03766.html#a59352334626855d0cd8c8ca1b173db68">bl::menu::Item::AttachPoint</a></div><div class="ttdeci">AttachPoint</div><div class="ttdef"><b>Definition</b> <a href="a00800_source.html#l00036">Item.hpp:36</a></div></div>
+<div class="ttc" id="aa03766_html_a59352334626855d0cd8c8ca1b173db68a8ee44d5181ad1e85a92709f1d0b4937c"><div class="ttname"><a href="a03766.html#a59352334626855d0cd8c8ca1b173db68a8ee44d5181ad1e85a92709f1d0b4937c">bl::menu::Item::Top</a></div><div class="ttdeci">@ Top</div><div class="ttdef"><b>Definition</b> <a href="a00800_source.html#l00036">Item.hpp:36</a></div></div>
+<div class="ttc" id="aa03766_html_a59352334626855d0cd8c8ca1b173db68a9b46e5a4c9ffaadc81ac4559e23ebb8d"><div class="ttname"><a href="a03766.html#a59352334626855d0cd8c8ca1b173db68a9b46e5a4c9ffaadc81ac4559e23ebb8d">bl::menu::Item::Bottom</a></div><div class="ttdeci">@ Bottom</div><div class="ttdef"><b>Definition</b> <a href="a00800_source.html#l00036">Item.hpp:36</a></div></div>
+<div class="ttc" id="aa03766_html_a59352334626855d0cd8c8ca1b173db68ad917703e5fdbb06791acd491310bd14f"><div class="ttname"><a href="a03766.html#a59352334626855d0cd8c8ca1b173db68ad917703e5fdbb06791acd491310bd14f">bl::menu::Item::Left</a></div><div class="ttdeci">@ Left</div><div class="ttdef"><b>Definition</b> <a href="a00800_source.html#l00036">Item.hpp:36</a></div></div>
+<div class="ttc" id="aa03766_html_a59352334626855d0cd8c8ca1b173db68ae5d7a5789d9f7a019ac01873f986e866"><div class="ttname"><a href="a03766.html#a59352334626855d0cd8c8ca1b173db68ae5d7a5789d9f7a019ac01873f986e866">bl::menu::Item::Right</a></div><div class="ttdeci">@ Right</div><div class="ttdef"><b>Definition</b> <a href="a00800_source.html#l00036">Item.hpp:36</a></div></div>
+<div class="ttc" id="aa03786_html"><div class="ttname"><a href="a03786.html">bl::menu::Menu</a></div><div class="ttdoc">Primary class for mouseless menus.</div><div class="ttdef"><b>Definition</b> <a href="a06415_source.html#l00033">Menu.hpp:33</a></div></div>
+<div class="ttc" id="aa03786_html_a994d802c062248a8017e3bcb454073a9"><div class="ttname"><a href="a03786.html#a994d802c062248a8017e3bcb454073a9">bl::menu::Menu::processEvent</a></div><div class="ttdeci">void processEvent(const Event &amp;event)</div><div class="ttdoc">Processes the event and updates the Menu state.</div><div class="ttdef"><b>Definition</b> <a href="a01958_source.html#l00238">Menu.cpp:238</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

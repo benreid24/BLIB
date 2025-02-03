@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::resource Namespace Reference</title>
+<title>BLIB: bl::ecs::tx Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,111 +74,45 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02360.html">bl</a></li><li class="navelem"><a class="el" href="a02422.html">resource</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02418.html">ecs</a></li><li class="navelem"><a class="el" href="a02422.html">tx</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
-  <div class="headertitle"><div class="title">bl::resource Namespace Reference</div></div>
+<a href="#enum-members">Enumerations</a>  </div>
+  <div class="headertitle"><div class="title">bl::ecs::tx Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of classes for resource management and flyweight pattern.  
+<p>Types and helpers for Transactions.  
 <a href="a02422.html#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:a02423" id="r_a02423"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02423.html">bundle</a></td></tr>
-<tr class="memdesc:a02423"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a04711.html" title="Internal struct used by ResourceManager. Use Ref externally.">Resource</a> bundling utility for combining external files into bundles. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04683.html">BundledPlaylistLoader</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02946.html">ComponentRead</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deduction helper to use to create transactions to read certain types of components.  <a href="a02946.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04587.html">Bundler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Top level resource bundler class. Use this to create bundles for release builds.  <a href="a04587.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04667.html">DefaultLoader</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default loaders provided for types: sf::Texture, sf::Image, sf::Font, sf::SoundBuffer, <a class="el" href="a02511.html" title="A playable, serializable music playlist. Can be manually manipulated or loaded from files.">bl::audio::Playlist</a>, bl::rc::AnimationData, <a class="el" href="a03295.html" title="Adaptation of sf::Font for use with Vulkan.">sf::VulkanFont</a>.  <a href="a04667.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04679.html">DefaultLoader&lt; audio::Playlist &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04699.html">DefaultLoader&lt; gfx::a2d::AnimationData &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04687.html">DefaultLoader&lt; sf::Font &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04695.html">DefaultLoader&lt; sf::Image &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04675.html">DefaultLoader&lt; sf::SoundBuffer &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04671.html">DefaultLoader&lt; sf::Texture &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04691.html">DefaultLoader&lt; sf::VulkanFont &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04651.html">FileSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">File system wrapper which reads data from the underlying filesystem or from the configured bundle set. Used internally by resource managers.  <a href="a04651.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04655.html">GarbageCollector</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instantiates the garbage collector and starts resource cleanup in the background.  <a href="a04655.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04659.html">LoaderBase</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Templated resource loader. Must be implemented for any resource type that is intended to be managed.  <a href="a04659.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04663.html">NullLoader</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper loader to use if no more of a given resource type should be loaded. Does not perform any loading and logs warnings when resource loading is attempted.  <a href="a04663.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04707.html">Ref</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a reference to a managed resource. Performs reference counting, but resources are never deallocated by this, only by <a class="el" href="a04703.html" title="Single template based resource management class. Meant for storing data exactly once,...">ResourceManager</a>.  <a href="a04707.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04711.html">Resource</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal struct used by <a class="el" href="a04703.html" title="Single template based resource management class. Meant for storing data exactly once,...">ResourceManager</a>. Use <a class="el" href="a04707.html" title="Represents a reference to a managed resource. Performs reference counting, but resources are never de...">Ref</a> externally.  <a href="a04711.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04715.html">Resource&lt; sf::Font &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized <a class="el" href="a04711.html" title="Internal struct used by ResourceManager. Use Ref externally.">Resource</a> for sf::Font. Stores the data buffer required by the font to work.  <a href="a04715.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04703.html">ResourceManager</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Single template based resource management class. Meant for storing data exactly once, such as images.  <a href="a04703.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04719.html">ResourceManagerBase</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for resource managers, do not use.  <a href="a04719.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04723.html">State</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Private state class that affects resource manager behavior during app exit.  <a href="a04723.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02950.html">ComponentWrite</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deduction helper to use to create transactions to write certain types of components.  <a href="a02950.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a57bbbec57da37d77f6076b52e8665fa8" id="r_a57bbbec57da37d77f6076b52e8665fa8"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02422.html#a57bbbec57da37d77f6076b52e8665fa8">RawPlaylistLoader</a> = <a class="el" href="a04667.html">DefaultLoader</a>&lt; <a class="el" href="a02511.html">audio::Playlist</a> &gt;</td></tr>
-<tr class="separator:a57bbbec57da37d77f6076b52e8665fa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:gab7b7c35153d32dc8b4427c68d1acb36e" id="r_gab7b7c35153d32dc8b4427c68d1acb36e"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02377.html#gab7b7c35153d32dc8b4427c68d1acb36e">EntityContext</a> { <a class="el" href="a02377.html#ggab7b7c35153d32dc8b4427c68d1acb36eae56f82fc23834fe065036276691fab32">EntityUnlocked</a> = 0
+, <a class="el" href="a02377.html#ggab7b7c35153d32dc8b4427c68d1acb36ea34c6fd06b4829cf1e31bb016c6e2736a">EntityRead</a> = 1
+, <a class="el" href="a02377.html#ggab7b7c35153d32dc8b4427c68d1acb36eae86439a9f6addafc3a812fe787e81f96">EntityWrite</a> = 2
+ }</td></tr>
+<tr class="memdesc:gab7b7c35153d32dc8b4427c68d1acb36e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum describing the type of lock to acquire for entities in the registry.  <a href="a02377.html#gab7b7c35153d32dc8b4427c68d1acb36e">More...</a><br /></td></tr>
+<tr class="separator:gab7b7c35153d32dc8b4427c68d1acb36e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Collection of classes for resource management and flyweight pattern. </p>
-</div><h2 class="groupheader">Typedef Documentation</h2>
-<a id="a57bbbec57da37d77f6076b52e8665fa8" name="a57bbbec57da37d77f6076b52e8665fa8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a57bbbec57da37d77f6076b52e8665fa8">&#9670;&#160;</a></span>RawPlaylistLoader</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a02422.html#a57bbbec57da37d77f6076b52e8665fa8">bl::resource::RawPlaylistLoader</a> = typedef <a class="el" href="a04667.html">DefaultLoader</a>&lt;<a class="el" href="a02511.html">audio::Playlist</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00149_source.html#l00136">136</a> of file <a class="el" href="a00149_source.html">Loader.hpp</a>.</p>
-
-</div>
-</div>
-</div><!-- contents -->
+<div class="textblock"><p>Types and helpers for Transactions. </p>
+</div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:08 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

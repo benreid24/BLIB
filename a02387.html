@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::game Namespace Reference</title>
+<title>BLIB: Particles</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -51,6 +51,7 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -72,34 +73,80 @@ $(function() {
 </div>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="a02360.html">bl</a></li><li class="navelem"><a class="el" href="a02387.html">game</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a>  </div>
-  <div class="headertitle"><div class="title">bl::game Namespace Reference</div></div>
+  <div class="headertitle"><div class="title">Particles</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Contains a class to be implemented by the user.  
-<a href="a02387.html#details">More...</a></p>
+<p>A robust particle system supporting arbitrary particle types and user defined emitters, affectors, sinks, and renderer integration.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03139.html">Game</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for the main game instance. Apps using the BLIB-provided entrypoint should create a derived class and instantiate one instance globally before main()  <a href="a03139.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03874.html">bl::pcl::Affector&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for all particle affectors. Provides the interface used by ParticleManagers.  <a href="a03874.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03882.html">bl::pcl::DescriptorSetFactory&lt; T, GpuT &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descriptor set factory for the default descriptor set used by the default renderer. Provides an array of particle structs as well as a singular global object of config data to the shaders. Types must be specified in a specialization of <a class="el" href="a03942.html" title="Compile-time mapping struct for use with the default Renderer&lt;T&gt; implementation. Specialize this for ...">RenderConfigMap</a>.  <a href="a03882.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03886.html">bl::pcl::DescriptorSetInstance&lt; T, GpuT &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descriptor set instance for the default descriptor set used by the default renderer. Provides an array of particle structs as well as a singular global object of config data to the shaders. Types must be specified in a specialization of <a class="el" href="a03942.html" title="Compile-time mapping struct for use with the default Renderer&lt;T&gt; implementation. Specialize this for ...">RenderConfigMap</a>.  <a href="a03886.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03894.html">bl::pcl::EcsComponent</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default drawable component for particle systems. Used by the default Renderer&lt;T&gt; implementation. Provides a vertex buffer with a single point located at (0, 0, 0) for each particle. Transparency and pipeline are provided by Renderer&lt;T&gt; via RenderConfig&lt;T&gt; which must be provided by the user.  <a href="a03894.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03898.html">bl::pcl::Emitter&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for all particle emitters. Provides the interface used by ParticleManagers.  <a href="a03898.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03910.html">bl::pcl::Link&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">ECS component that provides the link between descriptor sets and particle systems.  <a href="a03910.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03914.html">bl::pcl::MetaUpdater&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic plugin base for update logic to be applied to particle systems prior to sinks, emitters, and affectors. Meta-updaters can be used to manipulate the particle manager.  <a href="a03914.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03870.html">bl::pcl::ParticleManager&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Particle manager for a specific type of particle. Instances are owned by the <a class="el" href="a03926.html" title="Top level engine system for the BLIB particle system. Owns all the ParticleManagers for each particle...">ParticleSystem</a> and should be obtained from there.  <a href="a03870.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03922.html">bl::pcl::ParticleManagerBase</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for particle managers. Particle managers own and manage specific particle types.  <a href="a03922.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03926.html">bl::pcl::ParticleSystem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Top level engine system for the BLIB particle system. Owns all the ParticleManagers for each particle type.  <a href="a03926.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03930.html">bl::pcl::RenderComponentMap&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compile-time config map used by the default Renderer&lt;T&gt; implementation. By default <a class="el" href="a03894.html" title="Default drawable component for particle systems. Used by the default Renderer&lt;T&gt; implementation....">EcsComponent</a> is used to render the particle system. Specialize this struct to specify a custom component to use instead. The constructor must have the same signature as the <a class="el" href="a03894.html" title="Default drawable component for particle systems. Used by the default Renderer&lt;T&gt; implementation....">EcsComponent</a> constructor.  <a href="a03930.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03934.html">bl::pcl::RenderConfigDefaults&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper struct that provides some sane defaults for the various render settings specified in <a class="el" href="a03942.html" title="Compile-time mapping struct for use with the default Renderer&lt;T&gt; implementation. Specialize this for ...">RenderConfigMap</a>.  <a href="a03934.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03938.html">bl::pcl::RenderConfigDescriptorList&lt; TFactories &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper struct to encode a variable list of descriptor sets for render pipeline creation.  <a href="a03938.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03942.html">bl::pcl::RenderConfigMap&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compile-time mapping struct for use with the default Renderer&lt;T&gt; implementation. Specialize this for your particle type and provide the pipeline and transparency settings to render with.  <a href="a03942.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03946.html">bl::pcl::Renderer&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default renderer implementation for particle systems. If you use the default all you need to do is specialize RenderConfig for your particle type to specify the pipeline and transparency settings to render with.  <a href="a03946.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03950.html">bl::pcl::RenderTypeMap&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compile-time type map to configure the <a class="el" href="a03946.html" title="Default renderer implementation for particle systems. If you use the default all you need to do is sp...">Renderer</a> type to use for a given particle type. Specialize this to set TRenderer to a custom type.  <a href="a03950.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03954.html">bl::pcl::Sink&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for all particle sinks. Provides the interface used by ParticleManagers.  <a href="a03954.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03962.html">bl::particle::System&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A very simple particle system. Particles not provided.  <a href="a03962.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Contains a class to be implemented by the user. </p>
-</div></div><!-- contents -->
+<p>A robust particle system supporting arbitrary particle types and user defined emitters, affectors, sinks, and renderer integration. </p>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Containers/FastEraseVector.hpp Source File</title>
+<title>BLIB: include/BLIB/Containers/Vector2d.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,61 +83,105 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">FastEraseVector.hpp</div></div>
+  <div class="headertitle"><div class="title">Vector2d.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00575.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_CONTAINERS_FASTERASEVECTOR_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_CONTAINERS_FASTERASEVECTOR_HPP</span></div>
+<a href="a00575.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_CONTAINERS_VECTOR2D_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_CONTAINERS_VECTOR2D_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02360.html">bl</a></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>ctr</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">template</span>&lt;<span class="keyword">class</span> T, <span class="keyword">class</span> Alloc = std::allocator&lt;T&gt;&gt;</div>
-<div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a02679.html">   22</a></span><span class="keyword">class </span><a class="code hl_class" href="a02679.html">FastEraseVector</a> : <span class="keyword">public</span> std::vector&lt;T, Alloc&gt; {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a02679.html#a8ecb676ceae1d63d038aeaf1027fc3ea">   24</a></span>    <span class="keyword">using </span><a class="code hl_typedef" href="a02679.html#a8ecb676ceae1d63d038aeaf1027fc3ea">iterator</a> = <span class="keyword">typename</span> std::vector&lt;T, Alloc&gt;::iterator;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02679.html#a2311c45c3a001bf19a0e1ba03d66413a">erase</a>(<a class="code hl_typedef" href="a02679.html#a8ecb676ceae1d63d038aeaf1027fc3ea">iterator</a> position);</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02679.html#a2311c45c3a001bf19a0e1ba03d66413a">erase</a>(std::size_t index);</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>};</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a02846.html">   17</a></span><span class="keyword">class </span><a class="code hl_class" href="a02846.html">Vector2D</a> {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00023" data-start="{" data-end="}">
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a02846.html#ad869656d9df9b4b78ae01778f68cddfa">   23</a></span>    <a class="code hl_function" href="a02846.html#ad869656d9df9b4b78ae01778f68cddfa">Vector2D</a>()</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    : W(0)</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    , H(0) {}</div>
 </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a02846.html#af88ffe774714b8adeed446036ba537c5">   32</a></span>    <a class="code hl_function" href="a02846.html#af88ffe774714b8adeed446036ba537c5">Vector2D</a>(<span class="keyword">const</span> <a class="code hl_class" href="a02846.html">Vector2D</a>&amp; copy) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="a02846.html#ad1369cf2136a6f70882c28a75172b3da">   39</a></span>    <a class="code hl_function" href="a02846.html#ad1369cf2136a6f70882c28a75172b3da">Vector2D</a>(<a class="code hl_class" href="a02846.html">Vector2D</a>&amp;&amp; move) = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">template</span>&lt;<span class="keyword">class</span> T, <span class="keyword">class</span> Alloc&gt;</div>
-<div class="foldopen" id="foldopen00044" data-start="{" data-end="}">
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="a02679.html#a2311c45c3a001bf19a0e1ba03d66413a">   44</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02679.html#a2311c45c3a001bf19a0e1ba03d66413a">FastEraseVector&lt;T, Alloc&gt;::erase</a>(<a class="code hl_typedef" href="a02679.html#a8ecb676ceae1d63d038aeaf1027fc3ea">iterator</a> position) {</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    std::swap(*position, std::vector&lt;T, Alloc&gt;::back());</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    std::vector&lt;T, Alloc&gt;::pop_back();</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}</div>
+<div class="foldopen" id="foldopen00047" data-start="{" data-end="}">
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="a02846.html#a59f2023c16eb08d91ea796de3e9f0371">   47</a></span>    <a class="code hl_class" href="a02846.html">Vector2D</a>&amp; <a class="code hl_function" href="a02846.html#a59f2023c16eb08d91ea796de3e9f0371">operator=</a>(<span class="keyword">const</span> <a class="code hl_class" href="a02846.html">Vector2D</a>&amp; copy) {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        data = copy.data;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        W    = copy.W;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        H    = copy.H;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    }</div>
 </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keyword">template</span>&lt;<span class="keyword">class</span> T, <span class="keyword">class</span> Alloc&gt;</div>
-<div class="foldopen" id="foldopen00050" data-start="{" data-end="}">
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="a02679.html#a2221d0efbe90ad0537e905e81bd6847e">   50</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02679.html#a2311c45c3a001bf19a0e1ba03d66413a">FastEraseVector&lt;T, Alloc&gt;::erase</a>(std::size_t i) {</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    std::swap((*<span class="keyword">this</span>)[i], std::vector&lt;T, Alloc&gt;::back());</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    std::vector&lt;T, Alloc&gt;::pop_back();</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="foldopen" id="foldopen00060" data-start="{" data-end="}">
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="a02846.html#a816dff03fa171614ed1a42a91f17900d">   60</a></span>    <a class="code hl_class" href="a02846.html">Vector2D</a>&amp; <a class="code hl_function" href="a02846.html#a816dff03fa171614ed1a42a91f17900d">operator=</a>(<a class="code hl_class" href="a02846.html">Vector2D</a>&amp;&amp; move) {</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        data = std::move(move.data);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        W    = move.W;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        H    = move.H;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    }</div>
 </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>} <span class="comment">// namespace ctr</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02360_html"><div class="ttname"><a href="a02360.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01448_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02679_html"><div class="ttname"><a href="a02679.html">bl::ctr::FastEraseVector</a></div><div class="ttdoc">A thin reskin of std::vector, this vector replaces the O(n) erase() methods of vector with a constant...</div><div class="ttdef"><b>Definition</b> <a href="a00575_source.html#l00022">FastEraseVector.hpp:22</a></div></div>
-<div class="ttc" id="aa02679_html_a2311c45c3a001bf19a0e1ba03d66413a"><div class="ttname"><a href="a02679.html#a2311c45c3a001bf19a0e1ba03d66413a">bl::ctr::FastEraseVector::erase</a></div><div class="ttdeci">void erase(iterator position)</div><div class="ttdoc">Erase a single element using an iterator.</div><div class="ttdef"><b>Definition</b> <a href="a00575_source.html#l00044">FastEraseVector.hpp:44</a></div></div>
-<div class="ttc" id="aa02679_html_a8ecb676ceae1d63d038aeaf1027fc3ea"><div class="ttname"><a href="a02679.html#a8ecb676ceae1d63d038aeaf1027fc3ea">bl::ctr::FastEraseVector::iterator</a></div><div class="ttdeci">typename std::vector&lt; T, Alloc &gt;::iterator iterator</div><div class="ttdef"><b>Definition</b> <a href="a00575_source.html#l00024">FastEraseVector.hpp:24</a></div></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="a02846.html#aadf0843e11534f3b0fbdfa5261537a63">   74</a></span>    <a class="code hl_function" href="a02846.html#aadf0843e11534f3b0fbdfa5261537a63">Vector2D</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> w, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> h, <span class="keyword">const</span> T&amp; val = T{}) { <a class="code hl_function" href="a02846.html#addd03b531462a52b98be67b2c707dfdd">setSize</a>(w, h, val); }</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="a02846.html#acb8f73e3bdc7ee695630efeb09f748cd">   83</a></span>    T&amp; <a class="code hl_function" href="a02846.html#acb8f73e3bdc7ee695630efeb09f748cd">operator()</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> x, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> y) { <span class="keywordflow">return</span> data[y * W + x]; }</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="a02846.html#aee775fc296e148275d4eccaad6af733c">   92</a></span>    <span class="keyword">const</span> T&amp; <a class="code hl_function" href="a02846.html#aee775fc296e148275d4eccaad6af733c">operator()</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> x, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> y)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> data.at(y * W + x); }</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="foldopen" id="foldopen00100" data-start="{" data-end="}">
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="a02846.html#addd03b531462a52b98be67b2c707dfdd">  100</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02846.html#addd03b531462a52b98be67b2c707dfdd">setSize</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> x, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> y, <span class="keyword">const</span> T&amp; val = T{}) {</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        W = x;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        H = y;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        data.resize(W * H, val);</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    }</div>
+</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="a02846.html#a7b3a6efbb0b36e5322cb0e60dbf49deb">  109</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="a02846.html#a7b3a6efbb0b36e5322cb0e60dbf49deb">getWidth</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> W; }</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="a02846.html#af76d0091ac4a30e7aa1d5e5db6d902cc">  114</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="a02846.html#af76d0091ac4a30e7aa1d5e5db6d902cc">getHeight</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> H; }</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="a02846.html#a4e568cb4e1f4392503c1c313dbede54f">  119</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02846.html#a4e568cb4e1f4392503c1c313dbede54f">clear</a>() { data.clear(); }</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="a02846.html#a8d0168f36c2b24b5c9f88fb99e06181d">  127</a></span>    <span class="keyword">typename</span> std::vector&lt;T&gt;::iterator <a class="code hl_function" href="a02846.html#a8d0168f36c2b24b5c9f88fb99e06181d">begin</a>() { <span class="keywordflow">return</span> data.begin(); }</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="a02846.html#a91198d9611740ec20e4bf953ae374db3">  135</a></span>    <span class="keyword">typename</span> std::vector&lt;T&gt;::iterator <a class="code hl_function" href="a02846.html#a91198d9611740ec20e4bf953ae374db3">end</a>() { <span class="keywordflow">return</span> data.end(); }</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    std::vector&lt;T&gt; data;</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> W, H;</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>};</div>
+</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>} <span class="comment">// namespace ctr</span></div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02846_html"><div class="ttname"><a href="a02846.html">bl::ctr::Vector2D</a></div><div class="ttdoc">Utility class that wraps std::vector, making it indexable in two dimensions.</div><div class="ttdef"><b>Definition</b> <a href="a00575_source.html#l00017">Vector2d.hpp:17</a></div></div>
+<div class="ttc" id="aa02846_html_a4e568cb4e1f4392503c1c313dbede54f"><div class="ttname"><a href="a02846.html#a4e568cb4e1f4392503c1c313dbede54f">bl::ctr::Vector2D::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdoc">Clears all memory used by the vector, erasing all elements.</div><div class="ttdef"><b>Definition</b> <a href="a00575_source.html#l00119">Vector2d.hpp:119</a></div></div>
+<div class="ttc" id="aa02846_html_a59f2023c16eb08d91ea796de3e9f0371"><div class="ttname"><a href="a02846.html#a59f2023c16eb08d91ea796de3e9f0371">bl::ctr::Vector2D::operator=</a></div><div class="ttdeci">Vector2D &amp; operator=(const Vector2D &amp;copy)</div><div class="ttdoc">Copies into this vector from the given vector.</div><div class="ttdef"><b>Definition</b> <a href="a00575_source.html#l00047">Vector2d.hpp:47</a></div></div>
+<div class="ttc" id="aa02846_html_a7b3a6efbb0b36e5322cb0e60dbf49deb"><div class="ttname"><a href="a02846.html#a7b3a6efbb0b36e5322cb0e60dbf49deb">bl::ctr::Vector2D::getWidth</a></div><div class="ttdeci">unsigned int getWidth() const</div><div class="ttdoc">Returns the width of the vector.</div><div class="ttdef"><b>Definition</b> <a href="a00575_source.html#l00109">Vector2d.hpp:109</a></div></div>
+<div class="ttc" id="aa02846_html_a816dff03fa171614ed1a42a91f17900d"><div class="ttname"><a href="a02846.html#a816dff03fa171614ed1a42a91f17900d">bl::ctr::Vector2D::operator=</a></div><div class="ttdeci">Vector2D &amp; operator=(Vector2D &amp;&amp;move)</div><div class="ttdoc">Moves from the given vector into this vector.</div><div class="ttdef"><b>Definition</b> <a href="a00575_source.html#l00060">Vector2d.hpp:60</a></div></div>
+<div class="ttc" id="aa02846_html_a8d0168f36c2b24b5c9f88fb99e06181d"><div class="ttname"><a href="a02846.html#a8d0168f36c2b24b5c9f88fb99e06181d">bl::ctr::Vector2D::begin</a></div><div class="ttdeci">std::vector&lt; T &gt;::iterator begin()</div><div class="ttdoc">Provides a raw iterator to the underlying data. Useful for iterating all elements efficiently without...</div><div class="ttdef"><b>Definition</b> <a href="a00575_source.html#l00127">Vector2d.hpp:127</a></div></div>
+<div class="ttc" id="aa02846_html_a91198d9611740ec20e4bf953ae374db3"><div class="ttname"><a href="a02846.html#a91198d9611740ec20e4bf953ae374db3">bl::ctr::Vector2D::end</a></div><div class="ttdeci">std::vector&lt; T &gt;::iterator end()</div><div class="ttdoc">Provides a raw iterator to the underlying data. Useful for iterating all elements efficiently without...</div><div class="ttdef"><b>Definition</b> <a href="a00575_source.html#l00135">Vector2d.hpp:135</a></div></div>
+<div class="ttc" id="aa02846_html_aadf0843e11534f3b0fbdfa5261537a63"><div class="ttname"><a href="a02846.html#aadf0843e11534f3b0fbdfa5261537a63">bl::ctr::Vector2D::Vector2D</a></div><div class="ttdeci">Vector2D(unsigned int w, unsigned int h, const T &amp;val=T{})</div><div class="ttdoc">Creates the vector of the given width and height.</div><div class="ttdef"><b>Definition</b> <a href="a00575_source.html#l00074">Vector2d.hpp:74</a></div></div>
+<div class="ttc" id="aa02846_html_acb8f73e3bdc7ee695630efeb09f748cd"><div class="ttname"><a href="a02846.html#acb8f73e3bdc7ee695630efeb09f748cd">bl::ctr::Vector2D::operator()</a></div><div class="ttdeci">T &amp; operator()(unsigned int x, unsigned int y)</div><div class="ttdoc">Returns a reference to the element at the given position.</div><div class="ttdef"><b>Definition</b> <a href="a00575_source.html#l00083">Vector2d.hpp:83</a></div></div>
+<div class="ttc" id="aa02846_html_ad1369cf2136a6f70882c28a75172b3da"><div class="ttname"><a href="a02846.html#ad1369cf2136a6f70882c28a75172b3da">bl::ctr::Vector2D::Vector2D</a></div><div class="ttdeci">Vector2D(Vector2D &amp;&amp;move)=default</div><div class="ttdoc">Move construct a new Vector2D.</div></div>
+<div class="ttc" id="aa02846_html_ad869656d9df9b4b78ae01778f68cddfa"><div class="ttname"><a href="a02846.html#ad869656d9df9b4b78ae01778f68cddfa">bl::ctr::Vector2D::Vector2D</a></div><div class="ttdeci">Vector2D()</div><div class="ttdoc">Creates an empty 2d vector.</div><div class="ttdef"><b>Definition</b> <a href="a00575_source.html#l00023">Vector2d.hpp:23</a></div></div>
+<div class="ttc" id="aa02846_html_addd03b531462a52b98be67b2c707dfdd"><div class="ttname"><a href="a02846.html#addd03b531462a52b98be67b2c707dfdd">bl::ctr::Vector2D::setSize</a></div><div class="ttdeci">void setSize(unsigned int x, unsigned int y, const T &amp;val=T{})</div><div class="ttdoc">Resizes the vector to the given size.</div><div class="ttdef"><b>Definition</b> <a href="a00575_source.html#l00100">Vector2d.hpp:100</a></div></div>
+<div class="ttc" id="aa02846_html_aee775fc296e148275d4eccaad6af733c"><div class="ttname"><a href="a02846.html#aee775fc296e148275d4eccaad6af733c">bl::ctr::Vector2D::operator()</a></div><div class="ttdeci">const T &amp; operator()(unsigned int x, unsigned int y) const</div><div class="ttdoc">Returns a const reference to the element at the given position.</div><div class="ttdef"><b>Definition</b> <a href="a00575_source.html#l00092">Vector2d.hpp:92</a></div></div>
+<div class="ttc" id="aa02846_html_af76d0091ac4a30e7aa1d5e5db6d902cc"><div class="ttname"><a href="a02846.html#af76d0091ac4a30e7aa1d5e5db6d902cc">bl::ctr::Vector2D::getHeight</a></div><div class="ttdeci">unsigned int getHeight() const</div><div class="ttdoc">Returns the height of the vector.</div><div class="ttdef"><b>Definition</b> <a href="a00575_source.html#l00114">Vector2d.hpp:114</a></div></div>
+<div class="ttc" id="aa02846_html_af88ffe774714b8adeed446036ba537c5"><div class="ttname"><a href="a02846.html#af88ffe774714b8adeed446036ba537c5">bl::ctr::Vector2D::Vector2D</a></div><div class="ttdeci">Vector2D(const Vector2D &amp;copy)=default</div><div class="ttdoc">Copy construct a new Vector2D.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

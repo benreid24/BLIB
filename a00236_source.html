@@ -89,42 +89,42 @@ $(document).ready(function() { init_codefold(0); });
 <a href="a00236.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_ECS_HPP</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_ECS_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a01040.html">BLIB/ECS/Cleaner.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a01043.html">BLIB/ECS/ComponentMask.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a00992.html">BLIB/ECS/ComponentPool.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a01031.html">BLIB/ECS/ComponentSet.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="a00986.html">BLIB/ECS/Entity.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="a00998.html">BLIB/ECS/EntityBacked.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;<a class="code" href="a06211.html">BLIB/ECS/Events.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;<a class="code" href="a01004.html">BLIB/ECS/Registry.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;<a class="code" href="a01022.html">BLIB/ECS/Transaction.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;<a class="code" href="a01025.html">BLIB/ECS/View.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a01046.html">BLIB/ECS/Cleaner.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a01049.html">BLIB/ECS/ComponentMask.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a00998.html">BLIB/ECS/ComponentPool.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a01037.html">BLIB/ECS/ComponentSet.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="a00992.html">BLIB/ECS/Entity.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="a01004.html">BLIB/ECS/EntityBacked.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;<a class="code" href="a06376.html">BLIB/ECS/Events.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;<a class="code" href="a01010.html">BLIB/ECS/Registry.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;<a class="code" href="a01028.html">BLIB/ECS/Transaction.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;<a class="code" href="a01031.html">BLIB/ECS/View.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;<a class="code" href="a01013.html">BLIB/ECS/Traits/ChildAware.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;<a class="code" href="a01016.html">BLIB/ECS/Traits/ParentAware.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;<a class="code" href="a01010.html">BLIB/ECS/Traits/ParentAwareVersioned.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;<a class="code" href="a01007.html">BLIB/ECS/Traits/Versioned.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;<a class="code" href="a01019.html">BLIB/ECS/Traits/ChildAware.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;<a class="code" href="a01022.html">BLIB/ECS/Traits/ParentAware.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;<a class="code" href="a01016.html">BLIB/ECS/Traits/ParentAwareVersioned.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;<a class="code" href="a01013.html">BLIB/ECS/Traits/Versioned.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00986_html"><div class="ttname"><a href="a00986.html">Entity.hpp</a></div></div>
-<div class="ttc" id="aa00992_html"><div class="ttname"><a href="a00992.html">ComponentPool.hpp</a></div></div>
-<div class="ttc" id="aa00998_html"><div class="ttname"><a href="a00998.html">EntityBacked.hpp</a></div></div>
-<div class="ttc" id="aa01004_html"><div class="ttname"><a href="a01004.html">Registry.hpp</a></div></div>
-<div class="ttc" id="aa01007_html"><div class="ttname"><a href="a01007.html">Versioned.hpp</a></div></div>
-<div class="ttc" id="aa01010_html"><div class="ttname"><a href="a01010.html">ParentAwareVersioned.hpp</a></div></div>
-<div class="ttc" id="aa01013_html"><div class="ttname"><a href="a01013.html">ChildAware.hpp</a></div></div>
-<div class="ttc" id="aa01016_html"><div class="ttname"><a href="a01016.html">ParentAware.hpp</a></div></div>
-<div class="ttc" id="aa01022_html"><div class="ttname"><a href="a01022.html">Transaction.hpp</a></div></div>
-<div class="ttc" id="aa01025_html"><div class="ttname"><a href="a01025.html">View.hpp</a></div></div>
-<div class="ttc" id="aa01031_html"><div class="ttname"><a href="a01031.html">ComponentSet.hpp</a></div></div>
-<div class="ttc" id="aa01040_html"><div class="ttname"><a href="a01040.html">Cleaner.hpp</a></div></div>
-<div class="ttc" id="aa01043_html"><div class="ttname"><a href="a01043.html">ComponentMask.hpp</a></div></div>
-<div class="ttc" id="aa06211_html"><div class="ttname"><a href="a06211.html">Events.hpp</a></div></div>
+<div class="ttc" id="aa00992_html"><div class="ttname"><a href="a00992.html">Entity.hpp</a></div></div>
+<div class="ttc" id="aa00998_html"><div class="ttname"><a href="a00998.html">ComponentPool.hpp</a></div></div>
+<div class="ttc" id="aa01004_html"><div class="ttname"><a href="a01004.html">EntityBacked.hpp</a></div></div>
+<div class="ttc" id="aa01010_html"><div class="ttname"><a href="a01010.html">Registry.hpp</a></div></div>
+<div class="ttc" id="aa01013_html"><div class="ttname"><a href="a01013.html">Versioned.hpp</a></div></div>
+<div class="ttc" id="aa01016_html"><div class="ttname"><a href="a01016.html">ParentAwareVersioned.hpp</a></div></div>
+<div class="ttc" id="aa01019_html"><div class="ttname"><a href="a01019.html">ChildAware.hpp</a></div></div>
+<div class="ttc" id="aa01022_html"><div class="ttname"><a href="a01022.html">ParentAware.hpp</a></div></div>
+<div class="ttc" id="aa01028_html"><div class="ttname"><a href="a01028.html">Transaction.hpp</a></div></div>
+<div class="ttc" id="aa01031_html"><div class="ttname"><a href="a01031.html">View.hpp</a></div></div>
+<div class="ttc" id="aa01037_html"><div class="ttname"><a href="a01037.html">ComponentSet.hpp</a></div></div>
+<div class="ttc" id="aa01046_html"><div class="ttname"><a href="a01046.html">Cleaner.hpp</a></div></div>
+<div class="ttc" id="aa01049_html"><div class="ttname"><a href="a01049.html">ComponentMask.hpp</a></div></div>
+<div class="ttc" id="aa06376_html"><div class="ttname"><a href="a06376.html">Events.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

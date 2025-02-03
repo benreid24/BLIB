@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/GUI/Elements/Separator.hpp Source File</title>
+<title>BLIB: include/BLIB/Interfaces/GUI/Elements/CompositeElement.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,85 +83,189 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Separator.hpp</div></div>
+  <div class="headertitle"><div class="title">CompositeElement.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00731.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_GUI_ELEMENTS_SEPARATOR_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_GUI_ELEMENTS_SEPARATOR_HPP</span></div>
+<a href="a00731.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_INTERFACES_GUI_ELEMENTS_COMPOSITEELEMENT_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_INTERFACES_GUI_ELEMENTS_COMPOSITEELEMENT_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00746.html">BLIB/Interfaces/GUI/Elements/Element.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00752.html">BLIB/Interfaces/GUI/Elements/Element.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02360.html">bl</a></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>gui</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">/***</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> * @brief Basic element that is represented as a line between other elements. Note that the</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"> *        outline thickness is used as the line thickness and fill color for the line color</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"> * @ingroup GUI</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment"> */</span></div>
-<div class="foldopen" id="foldopen00016" data-start="{" data-end="};">
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a03463.html">   16</a></span><span class="keyword">class </span><a class="code hl_class" href="a03463.html">Separator</a> : <span class="keyword">public</span> <a class="code hl_class" href="a03419.html">Element</a> {</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a03463.html#a92e67393e74cccdc92bb3ea6b8a73033">   18</a></span>    <span class="keyword">typedef</span> std::shared_ptr&lt;Separator&gt; <a class="code hl_typedef" href="a03463.html#a92e67393e74cccdc92bb3ea6b8a73033">Ptr</a>;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a03463.html#aa3a2bce89d4ed26d49c9246c25ec93c7">   20</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> <a class="code hl_variable" href="a03463.html#aa3a2bce89d4ed26d49c9246c25ec93c7">DefaultThickness</a> = 1.f;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a03463.html#a8e27b73e8ac0553fa864ad002ae19b4d">   22</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a03463.html#a8e27b73e8ac0553fa864ad002ae19b4d">~Separator</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a03463.html#ad0731961632fe5b5a812099fd85d6704">   25</a></span>    <span class="keyword">enum</span> <a class="code hl_enumeration" href="a03463.html#ad0731961632fe5b5a812099fd85d6704">Direction</a> { <a class="code hl_enumvalue" href="a03463.html#ad0731961632fe5b5a812099fd85d6704aaeacfaa0eac28dee53054e6ce52eed9d">Horizontal</a>, <a class="code hl_enumvalue" href="a03463.html#ad0731961632fe5b5a812099fd85d6704a00bf78874a94368fc5747b29f68667a4">Vertical</a> };</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">static</span> <a class="code hl_typedef" href="a03463.html#a92e67393e74cccdc92bb3ea6b8a73033">Ptr</a> <a class="code hl_function" href="a03463.html#a699c67f7dc92402dc55c0226c5ce000d">create</a>(<a class="code hl_enumeration" href="a03463.html#ad0731961632fe5b5a812099fd85d6704">Direction</a> direction);</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <a class="code hl_enumeration" href="a03463.html#ad0731961632fe5b5a812099fd85d6704">Direction</a> <a class="code hl_function" href="a03463.html#a80eda3361abc3d2ffae81b7ac2da4bed">getDirection</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">template</span>&lt;std::<span class="keywordtype">size_t</span> N&gt;</div>
+<div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a03490.html">   17</a></span><span class="keyword">class </span><a class="code hl_class" href="a03490.html">CompositeElement</a> : <span class="keyword">public</span> <a class="code hl_class" href="a03498.html">Element</a> {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a03490.html#a56c7dc60fe40d739e296a825067a08fe">   23</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a03490.html#a56c7dc60fe40d739e296a825067a08fe">~CompositeElement</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="foldopen" id="foldopen00030" data-start="{" data-end="}">
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a03490.html#ab62878d5230ab1f6d25b2d1e53e95336">   30</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03490.html#ab62878d5230ab1f6d25b2d1e53e95336">update</a>(<span class="keywordtype">float</span> dt) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="foldopen" id="foldopen00039" data-start="{" data-end="}">
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="a03490.html#a37686b54197806fde269952b2754e47b">   39</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a03490.html#a37686b54197806fde269952b2754e47b">releaseFocus</a>(<span class="keyword">const</span> <a class="code hl_class" href="a03498.html">Element</a>* requester) <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="foldopen" id="foldopen00044" data-start="{" data-end="}">
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="a03463.html#aca1c3243e19cdc45acfe0853f3b0b62a">   44</a></span>    <span class="keywordtype">float</span> <a class="code hl_function" href="a03463.html#aca1c3243e19cdc45acfe0853f3b0b62a">getThickness</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="a03419.html#aea5114a9914b0b8534951d0e488b1419">renderSettings</a>().<a class="code hl_variable" href="a03647.html#a2f17a345da820fb310b8afb40896043f">outlineThickness</a>.value_or(<a class="code hl_variable" href="a03463.html#aa3a2bce89d4ed26d49c9246c25ec93c7">DefaultThickness</a>);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    }</div>
-</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keyword">protected</span>:</div>
+<div class="foldopen" id="foldopen00046" data-start="{" data-end="}">
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a03490.html#a0193b85cb6e3e01cf97c13fedadae4a0">   46</a></span>    <a class="code hl_function" href="a03490.html#a0193b85cb6e3e01cf97c13fedadae4a0">CompositeElement</a>();</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <a class="code hl_class" href="a03463.html">Separator</a>(<a class="code hl_enumeration" href="a03463.html#ad0731961632fe5b5a812099fd85d6704">Direction</a> direction);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keyword">virtual</span> sf::Vector2f <a class="code hl_function" href="a03463.html#acbc5fa438064e73bee81d32eae096546">minimumRequisition</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="a03595.html">rdr::Component</a>* <a class="code hl_function" href="a03463.html#a064c9e695c5bc9d6e884ac0b257dbddd">doPrepareRender</a>(<a class="code hl_class" href="a03635.html">rdr::Renderer</a>&amp; renderer) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keyword">const</span> <a class="code hl_enumeration" href="a03463.html#ad0731961632fe5b5a812099fd85d6704">Direction</a> dir;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>};</div>
+<div class="foldopen" id="foldopen00053" data-start="{" data-end="}">
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="a03490.html#af962c1f4c59f02f7d7b99a933b910d01">   53</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03490.html#af962c1f4c59f02f7d7b99a933b910d01">registerChildren</a>(<a class="code hl_class" href="a03498.html">Element</a>** children);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="a03490.html#a182daa489eb359e49c0d7ffdebeda546">   59</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03490.html#a182daa489eb359e49c0d7ffdebeda546">onAcquisition</a>() = 0;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="foldopen" id="foldopen00066" data-start="{" data-end="}">
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="a03490.html#a228e2ada6d9a18d82cac540e65daf802">   66</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03490.html#a228e2ada6d9a18d82cac540e65daf802">bringToTop</a>(<span class="keyword">const</span> <a class="code hl_class" href="a03498.html">Element</a>* child) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="foldopen" id="foldopen00076" data-start="{" data-end="}">
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="a03490.html#a33c69f7281c9d60656c38ff10c0771ea">   76</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a03490.html#a33c69f7281c9d60656c38ff10c0771ea">sendEventToChildren</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a03562.html">Event</a>&amp; event, <span class="keywordtype">bool</span> stopWhenConsumed = <span class="keyword">true</span>);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="foldopen" id="foldopen00083" data-start="{" data-end="}">
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="a03490.html#afb90f8b85c517d56f53b0e32deb4eb61">   83</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03490.html#afb90f8b85c517d56f53b0e32deb4eb61">prepareChildrenRender</a>(<a class="code hl_class" href="a03714.html">rdr::Renderer</a>&amp; renderer) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="foldopen" id="foldopen00091" data-start="{" data-end="}">
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="a03490.html#a44861344c20c2f90e4dc0028cd901d0b">   91</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a03490.html#a44861344c20c2f90e4dc0028cd901d0b">receivesOutOfBoundsEvents</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <a class="code hl_class" href="a03498.html">Element</a>* children[N];</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keywordtype">void</span> moveCb();</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keywordtype">void</span> acquisitionCb();</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>};</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="keyword">template</span>&lt;std::<span class="keywordtype">size_t</span> N&gt;</div>
+<div class="foldopen" id="foldopen00103" data-start="{" data-end="}">
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="a03490.html#a0193b85cb6e3e01cf97c13fedadae4a0">  103</a></span><a class="code hl_function" href="a03490.html#a0193b85cb6e3e01cf97c13fedadae4a0">CompositeElement&lt;N&gt;::CompositeElement</a>()</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>: <a class="code hl_class" href="a03498.html">Element</a>() {</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <a class="code hl_function" href="a03498.html#abc2879ece76f07e11c0878d692985fb9">getSignal</a>(<a class="code hl_enumvalue" href="a03562.html#a14b67eb968cc68b09a420e989b3a4a54a5c7a797c6e665cc925c587a4352212e2">Event::Moved</a>).<a class="code hl_function" href="a05394.html#ac48c3cecfd78a12d2e7762b1f1df54d1">willAlwaysCall</a>(std::bind(&amp;<a class="code hl_class" href="a03490.html">CompositeElement&lt;N&gt;::moveCb</a>, <span class="keyword">this</span>));</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <a class="code hl_function" href="a03498.html#abc2879ece76f07e11c0878d692985fb9">getSignal</a>(<a class="code hl_enumvalue" href="a03562.html#a14b67eb968cc68b09a420e989b3a4a54a640a541b7e49339af9729bbd45b728e6">Event::AcquisitionChanged</a>)</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        .<a class="code hl_function" href="a05394.html#ac48c3cecfd78a12d2e7762b1f1df54d1">willAlwaysCall</a>(std::bind(&amp;<a class="code hl_class" href="a03490.html">CompositeElement&lt;N&gt;::acquisitionCb</a>, <span class="keyword">this</span>));</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>}</div>
 </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>} <span class="comment">// namespace gui</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00746_html"><div class="ttname"><a href="a00746.html">Element.hpp</a></div></div>
-<div class="ttc" id="aa02360_html"><div class="ttname"><a href="a02360.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01448_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03419_html"><div class="ttname"><a href="a03419.html">bl::gui::Element</a></div><div class="ttdoc">Base class for all GUI elements. Provides the common interface used for positioning,...</div><div class="ttdef"><b>Definition</b> <a href="a00746_source.html#l00031">Element.hpp:33</a></div></div>
-<div class="ttc" id="aa03419_html_aea5114a9914b0b8534951d0e488b1419"><div class="ttname"><a href="a03419.html#aea5114a9914b0b8534951d0e488b1419">bl::gui::Element::renderSettings</a></div><div class="ttdeci">const RenderSettings &amp; renderSettings() const</div><div class="ttdoc">Returns the render settings for this object.</div><div class="ttdef"><b>Definition</b> <a href="a01838_source.html#l00355">Element.cpp:355</a></div></div>
-<div class="ttc" id="aa03463_html"><div class="ttname"><a href="a03463.html">bl::gui::Separator</a></div><div class="ttdef"><b>Definition</b> <a href="a00731_source.html#l00016">Separator.hpp:16</a></div></div>
-<div class="ttc" id="aa03463_html_a064c9e695c5bc9d6e884ac0b257dbddd"><div class="ttname"><a href="a03463.html#a064c9e695c5bc9d6e884ac0b257dbddd">bl::gui::Separator::doPrepareRender</a></div><div class="ttdeci">virtual rdr::Component * doPrepareRender(rdr::Renderer &amp;renderer) override</div><div class="ttdoc">Creates the visual component for this element.</div><div class="ttdef"><b>Definition</b> <a href="a01892_source.html#l00027">Separator.cpp:27</a></div></div>
-<div class="ttc" id="aa03463_html_a699c67f7dc92402dc55c0226c5ce000d"><div class="ttname"><a href="a03463.html#a699c67f7dc92402dc55c0226c5ce000d">bl::gui::Separator::create</a></div><div class="ttdeci">static Ptr create(Direction direction)</div><div class="ttdoc">Create a new separator in the given direction.</div><div class="ttdef"><b>Definition</b> <a href="a01892_source.html#l00009">Separator.cpp:9</a></div></div>
-<div class="ttc" id="aa03463_html_a80eda3361abc3d2ffae81b7ac2da4bed"><div class="ttname"><a href="a03463.html#a80eda3361abc3d2ffae81b7ac2da4bed">bl::gui::Separator::getDirection</a></div><div class="ttdeci">Direction getDirection() const</div><div class="ttdoc">Returns the direction the separator is facing.</div><div class="ttdef"><b>Definition</b> <a href="a01892_source.html#l00020">Separator.cpp:20</a></div></div>
-<div class="ttc" id="aa03463_html_a8e27b73e8ac0553fa864ad002ae19b4d"><div class="ttname"><a href="a03463.html#a8e27b73e8ac0553fa864ad002ae19b4d">bl::gui::Separator::~Separator</a></div><div class="ttdeci">virtual ~Separator()=default</div></div>
-<div class="ttc" id="aa03463_html_a92e67393e74cccdc92bb3ea6b8a73033"><div class="ttname"><a href="a03463.html#a92e67393e74cccdc92bb3ea6b8a73033">bl::gui::Separator::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Separator &gt; Ptr</div><div class="ttdef"><b>Definition</b> <a href="a00731_source.html#l00018">Separator.hpp:18</a></div></div>
-<div class="ttc" id="aa03463_html_aa3a2bce89d4ed26d49c9246c25ec93c7"><div class="ttname"><a href="a03463.html#aa3a2bce89d4ed26d49c9246c25ec93c7">bl::gui::Separator::DefaultThickness</a></div><div class="ttdeci">static constexpr float DefaultThickness</div><div class="ttdef"><b>Definition</b> <a href="a00731_source.html#l00020">Separator.hpp:20</a></div></div>
-<div class="ttc" id="aa03463_html_aca1c3243e19cdc45acfe0853f3b0b62a"><div class="ttname"><a href="a03463.html#aca1c3243e19cdc45acfe0853f3b0b62a">bl::gui::Separator::getThickness</a></div><div class="ttdeci">float getThickness() const</div><div class="ttdoc">Convenience method to get the thickness of the separator.</div><div class="ttdef"><b>Definition</b> <a href="a00731_source.html#l00044">Separator.hpp:44</a></div></div>
-<div class="ttc" id="aa03463_html_acbc5fa438064e73bee81d32eae096546"><div class="ttname"><a href="a03463.html#acbc5fa438064e73bee81d32eae096546">bl::gui::Separator::minimumRequisition</a></div><div class="ttdeci">virtual sf::Vector2f minimumRequisition() const override</div><div class="ttdoc">Returns the outline thickness in both the x and y components.</div><div class="ttdef"><b>Definition</b> <a href="a01892_source.html#l00022">Separator.cpp:22</a></div></div>
-<div class="ttc" id="aa03463_html_ad0731961632fe5b5a812099fd85d6704"><div class="ttname"><a href="a03463.html#ad0731961632fe5b5a812099fd85d6704">bl::gui::Separator::Direction</a></div><div class="ttdeci">Direction</div><div class="ttdoc">Direction the separator should be in.</div><div class="ttdef"><b>Definition</b> <a href="a00731_source.html#l00025">Separator.hpp:25</a></div></div>
-<div class="ttc" id="aa03463_html_ad0731961632fe5b5a812099fd85d6704a00bf78874a94368fc5747b29f68667a4"><div class="ttname"><a href="a03463.html#ad0731961632fe5b5a812099fd85d6704a00bf78874a94368fc5747b29f68667a4">bl::gui::Separator::Vertical</a></div><div class="ttdeci">@ Vertical</div><div class="ttdef"><b>Definition</b> <a href="a00731_source.html#l00025">Separator.hpp:25</a></div></div>
-<div class="ttc" id="aa03463_html_ad0731961632fe5b5a812099fd85d6704aaeacfaa0eac28dee53054e6ce52eed9d"><div class="ttname"><a href="a03463.html#ad0731961632fe5b5a812099fd85d6704aaeacfaa0eac28dee53054e6ce52eed9d">bl::gui::Separator::Horizontal</a></div><div class="ttdeci">@ Horizontal</div><div class="ttdef"><b>Definition</b> <a href="a00731_source.html#l00025">Separator.hpp:25</a></div></div>
-<div class="ttc" id="aa03595_html"><div class="ttname"><a href="a03595.html">bl::gui::rdr::Component</a></div><div class="ttdoc">Base class for renderer components. Each GUI element owns a handle to a component owned by the render...</div><div class="ttdef"><b>Definition</b> <a href="a00593_source.html#l00032">Component.hpp:32</a></div></div>
-<div class="ttc" id="aa03635_html"><div class="ttname"><a href="a03635.html">bl::gui::rdr::Renderer</a></div><div class="ttdoc">Top level GUI renderer. Manages components for elements. Behavior can be controlled by providing a di...</div><div class="ttdef"><b>Definition</b> <a href="a06685_source.html#l00029">Renderer.hpp:29</a></div></div>
-<div class="ttc" id="aa03647_html_a2f17a345da820fb310b8afb40896043f"><div class="ttname"><a href="a03647.html#a2f17a345da820fb310b8afb40896043f">bl::gui::RenderSettings::outlineThickness</a></div><div class="ttdeci">std::optional&lt; float &gt; outlineThickness</div><div class="ttdef"><b>Definition</b> <a href="a00689_source.html#l00040">RenderSettings.hpp:40</a></div></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="keyword">template</span>&lt;std::<span class="keywordtype">size_t</span> N&gt;</div>
+<div class="foldopen" id="foldopen00111" data-start="{" data-end="}">
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="a03490.html#ab62878d5230ab1f6d25b2d1e53e95336">  111</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03490.html#ab62878d5230ab1f6d25b2d1e53e95336">CompositeElement&lt;N&gt;::update</a>(<span class="keywordtype">float</span> dt) {</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <a class="code hl_function" href="a03498.html#ac4458e4f4a7dd0a552a1fdbb991244e7">Element::update</a>(dt);</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keywordflow">if</span> (dirty()) { assignAcquisition(getAcquisition()); }</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; N; ++i) { children[i]-&gt;update(dt); }</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>}</div>
+</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="keyword">template</span>&lt;std::<span class="keywordtype">size_t</span> N&gt;</div>
+<div class="foldopen" id="foldopen00118" data-start="{" data-end="}">
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="a03490.html#af962c1f4c59f02f7d7b99a933b910d01">  118</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03490.html#af962c1f4c59f02f7d7b99a933b910d01">CompositeElement&lt;N&gt;::registerChildren</a>(<a class="code hl_class" href="a03498.html">Element</a>** c) {</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; N; ++i) {</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        children[i] = c[i];</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        setChildParent(children[i]);</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    }</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>}</div>
+</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="keyword">template</span>&lt;std::<span class="keywordtype">size_t</span> N&gt;</div>
+<div class="foldopen" id="foldopen00126" data-start="{" data-end="}">
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="a03490.html#a33c69f7281c9d60656c38ff10c0771ea">  126</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a03490.html#a33c69f7281c9d60656c38ff10c0771ea">CompositeElement&lt;N&gt;::sendEventToChildren</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a03562.html">Event</a>&amp; e, <span class="keywordtype">bool</span> s) {</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keywordtype">bool</span> r = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; N; ++i) {</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="keywordflow">if</span> (children[i]-&gt;processEvent(e)) {</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            <span class="keywordflow">if</span> (s) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            r = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        }</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    }</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <span class="keywordflow">return</span> r;</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>}</div>
+</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="keyword">template</span>&lt;std::<span class="keywordtype">size_t</span> N&gt;</div>
+<div class="foldopen" id="foldopen00138" data-start="{" data-end="}">
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno"><a class="line" href="a03490.html#a228e2ada6d9a18d82cac540e65daf802">  138</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03490.html#a228e2ada6d9a18d82cac540e65daf802">CompositeElement&lt;N&gt;::bringToTop</a>(<span class="keyword">const</span> <a class="code hl_class" href="a03498.html">Element</a>*) {</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    moveToTop();</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>}</div>
+</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span><span class="keyword">template</span>&lt;std::<span class="keywordtype">size_t</span> N&gt;</div>
+<div class="foldopen" id="foldopen00143" data-start="{" data-end="}">
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="a03490.html#afb90f8b85c517d56f53b0e32deb4eb61">  143</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03490.html#afb90f8b85c517d56f53b0e32deb4eb61">CompositeElement&lt;N&gt;::prepareChildrenRender</a>(<a class="code hl_class" href="a03714.html">rdr::Renderer</a>&amp; renderer) {</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; N; ++i) { children[i]-&gt;prepareRender(renderer); }</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>}</div>
+</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span><span class="keyword">template</span>&lt;std::<span class="keywordtype">size_t</span> N&gt;</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="keywordtype">void</span> <a class="code hl_class" href="a03490.html">CompositeElement&lt;N&gt;::moveCb</a>() {</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; N; ++i) { children[i]-&gt;<a class="code hl_function" href="a03498.html#aaa5cd052c66f7cdf7928df76aabc4c8c">recalculatePosition</a>(); }</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>}</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span><span class="keyword">template</span>&lt;std::<span class="keywordtype">size_t</span> N&gt;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="keywordtype">void</span> CompositeElement&lt;N&gt;::acquisitionCb() {</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    onAcquisition();</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>}</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span><span class="keyword">template</span>&lt;std::<span class="keywordtype">size_t</span> N&gt;</div>
+<div class="foldopen" id="foldopen00158" data-start="{" data-end="}">
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno"><a class="line" href="a03490.html#a37686b54197806fde269952b2754e47b">  158</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a03490.html#a37686b54197806fde269952b2754e47b">CompositeElement&lt;N&gt;::releaseFocus</a>(<span class="keyword">const</span> <a class="code hl_class" href="a03498.html">Element</a>* r) {</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="a03498.html#ab5c567ea13f423a6b106becf3b9dd2ae">Element::releaseFocus</a>(r)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; N; ++i) {</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        <span class="keywordflow">if</span> (!children[i]-&gt;releaseFocus(r)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    }</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>}</div>
+</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><span class="keyword">template</span>&lt;std::<span class="keywordtype">size_t</span> N&gt;</div>
+<div class="foldopen" id="foldopen00168" data-start="{" data-end="}">
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno"><a class="line" href="a03490.html#a44861344c20c2f90e4dc0028cd901d0b">  168</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a03490.html#a44861344c20c2f90e4dc0028cd901d0b">CompositeElement&lt;N&gt;::receivesOutOfBoundsEvents</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; N; ++i) {</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        <span class="keywordflow">if</span> (children[i]-&gt;receivesOutOfBoundsEvents()) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    }</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>}</div>
+</div>
+</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>} <span class="comment">// namespace gui</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="preprocessor">#endif</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="ttc" id="aa00752_html"><div class="ttname"><a href="a00752.html">Element.hpp</a></div></div>
+<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03490_html"><div class="ttname"><a href="a03490.html">bl::gui::CompositeElement</a></div><div class="ttdoc">Intermediate class for elements that consist of other elements. Provides some helper methods to ensur...</div><div class="ttdef"><b>Definition</b> <a href="a00731_source.html#l00017">CompositeElement.hpp:17</a></div></div>
+<div class="ttc" id="aa03490_html_a0193b85cb6e3e01cf97c13fedadae4a0"><div class="ttname"><a href="a03490.html#a0193b85cb6e3e01cf97c13fedadae4a0">bl::gui::CompositeElement::CompositeElement</a></div><div class="ttdeci">CompositeElement()</div><div class="ttdoc">Construct a new Composite Element.</div><div class="ttdef"><b>Definition</b> <a href="a00731_source.html#l00103">CompositeElement.hpp:103</a></div></div>
+<div class="ttc" id="aa03490_html_a182daa489eb359e49c0d7ffdebeda546"><div class="ttname"><a href="a03490.html#a182daa489eb359e49c0d7ffdebeda546">bl::gui::CompositeElement::onAcquisition</a></div><div class="ttdeci">virtual void onAcquisition()=0</div><div class="ttdoc">Called when the acquisition changes. Allows elements to easily position children.</div></div>
+<div class="ttc" id="aa03490_html_a228e2ada6d9a18d82cac540e65daf802"><div class="ttname"><a href="a03490.html#a228e2ada6d9a18d82cac540e65daf802">bl::gui::CompositeElement::bringToTop</a></div><div class="ttdeci">virtual void bringToTop(const Element *child) override</div><div class="ttdoc">Does not affect child, but requests to move this element to the top as well.</div><div class="ttdef"><b>Definition</b> <a href="a00731_source.html#l00138">CompositeElement.hpp:138</a></div></div>
+<div class="ttc" id="aa03490_html_a33c69f7281c9d60656c38ff10c0771ea"><div class="ttname"><a href="a03490.html#a33c69f7281c9d60656c38ff10c0771ea">bl::gui::CompositeElement::sendEventToChildren</a></div><div class="ttdeci">bool sendEventToChildren(const Event &amp;event, bool stopWhenConsumed=true)</div><div class="ttdoc">Sends the given event to each child (in order of registerChildren) and returns the result....</div><div class="ttdef"><b>Definition</b> <a href="a00731_source.html#l00126">CompositeElement.hpp:126</a></div></div>
+<div class="ttc" id="aa03490_html_a37686b54197806fde269952b2754e47b"><div class="ttname"><a href="a03490.html#a37686b54197806fde269952b2754e47b">bl::gui::CompositeElement::releaseFocus</a></div><div class="ttdeci">virtual bool releaseFocus(const Element *requester) override</div><div class="ttdoc">Releases the focus of this Element, parent, and children, if not forced to stay in focus.</div><div class="ttdef"><b>Definition</b> <a href="a00731_source.html#l00158">CompositeElement.hpp:158</a></div></div>
+<div class="ttc" id="aa03490_html_a44861344c20c2f90e4dc0028cd901d0b"><div class="ttname"><a href="a03490.html#a44861344c20c2f90e4dc0028cd901d0b">bl::gui::CompositeElement::receivesOutOfBoundsEvents</a></div><div class="ttdeci">virtual bool receivesOutOfBoundsEvents() const override</div><div class="ttdoc">Returns whether or not this element should receive events that occurred outside the acquisition of it...</div><div class="ttdef"><b>Definition</b> <a href="a00731_source.html#l00168">CompositeElement.hpp:168</a></div></div>
+<div class="ttc" id="aa03490_html_a56c7dc60fe40d739e296a825067a08fe"><div class="ttname"><a href="a03490.html#a56c7dc60fe40d739e296a825067a08fe">bl::gui::CompositeElement::~CompositeElement</a></div><div class="ttdeci">virtual ~CompositeElement()=default</div><div class="ttdoc">Destroy the Composite Element object.</div></div>
+<div class="ttc" id="aa03490_html_ab62878d5230ab1f6d25b2d1e53e95336"><div class="ttname"><a href="a03490.html#ab62878d5230ab1f6d25b2d1e53e95336">bl::gui::CompositeElement::update</a></div><div class="ttdeci">virtual void update(float dt) override</div><div class="ttdoc">Updates the child elements.</div><div class="ttdef"><b>Definition</b> <a href="a00731_source.html#l00111">CompositeElement.hpp:111</a></div></div>
+<div class="ttc" id="aa03490_html_af962c1f4c59f02f7d7b99a933b910d01"><div class="ttname"><a href="a03490.html#af962c1f4c59f02f7d7b99a933b910d01">bl::gui::CompositeElement::registerChildren</a></div><div class="ttdeci">void registerChildren(Element **children)</div><div class="ttdoc">Initializes the internal child element pointers.</div><div class="ttdef"><b>Definition</b> <a href="a00731_source.html#l00118">CompositeElement.hpp:118</a></div></div>
+<div class="ttc" id="aa03490_html_afb90f8b85c517d56f53b0e32deb4eb61"><div class="ttname"><a href="a03490.html#afb90f8b85c517d56f53b0e32deb4eb61">bl::gui::CompositeElement::prepareChildrenRender</a></div><div class="ttdeci">virtual void prepareChildrenRender(rdr::Renderer &amp;renderer) override</div><div class="ttdoc">Calls prepareRender on each child.</div><div class="ttdef"><b>Definition</b> <a href="a00731_source.html#l00143">CompositeElement.hpp:143</a></div></div>
+<div class="ttc" id="aa03498_html"><div class="ttname"><a href="a03498.html">bl::gui::Element</a></div><div class="ttdoc">Base class for all GUI elements. Provides the common interface used for positioning,...</div><div class="ttdef"><b>Definition</b> <a href="a00752_source.html#l00031">Element.hpp:33</a></div></div>
+<div class="ttc" id="aa03498_html_aaa5cd052c66f7cdf7928df76aabc4c8c"><div class="ttname"><a href="a03498.html#aaa5cd052c66f7cdf7928df76aabc4c8c">bl::gui::Element::recalculatePosition</a></div><div class="ttdeci">void recalculatePosition()</div><div class="ttdoc">Recalculates the position relative to the parent. Called whenever the parent moves.</div><div class="ttdef"><b>Definition</b> <a href="a01865_source.html#l00335">Element.cpp:335</a></div></div>
+<div class="ttc" id="aa03498_html_ab5c567ea13f423a6b106becf3b9dd2ae"><div class="ttname"><a href="a03498.html#ab5c567ea13f423a6b106becf3b9dd2ae">bl::gui::Element::releaseFocus</a></div><div class="ttdeci">virtual bool releaseFocus(const Element *requester=nullptr)</div><div class="ttdoc">Releases the focus from this Element. Returns true if element not in focus or if the element is not f...</div><div class="ttdef"><b>Definition</b> <a href="a01865_source.html#l00084">Element.cpp:84</a></div></div>
+<div class="ttc" id="aa03498_html_abc2879ece76f07e11c0878d692985fb9"><div class="ttname"><a href="a03498.html#abc2879ece76f07e11c0878d692985fb9">bl::gui::Element::getSignal</a></div><div class="ttdeci">Signal &amp; getSignal(Event::Type trigger)</div><div class="ttdoc">Returns a modifiable reference to the signal for the given trigger. Undefined behavior if trigger is ...</div><div class="ttdef"><b>Definition</b> <a href="a01865_source.html#l00053">Element.cpp:53</a></div></div>
+<div class="ttc" id="aa03498_html_ac4458e4f4a7dd0a552a1fdbb991244e7"><div class="ttname"><a href="a03498.html#ac4458e4f4a7dd0a552a1fdbb991244e7">bl::gui::Element::update</a></div><div class="ttdeci">virtual void update(float dt)</div><div class="ttdoc">Updates this element.</div><div class="ttdef"><b>Definition</b> <a href="a01865_source.html#l00410">Element.cpp:410</a></div></div>
+<div class="ttc" id="aa03562_html"><div class="ttname"><a href="a03562.html">bl::gui::Event</a></div><div class="ttdoc">GUI analog of sf::Event. Represents user actions that can propagate through the Element tree.</div><div class="ttdef"><b>Definition</b> <a href="a06406_source.html#l00019">Event.hpp:19</a></div></div>
+<div class="ttc" id="aa03562_html_a14b67eb968cc68b09a420e989b3a4a54a5c7a797c6e665cc925c587a4352212e2"><div class="ttname"><a href="a03562.html#a14b67eb968cc68b09a420e989b3a4a54a5c7a797c6e665cc925c587a4352212e2">bl::gui::Event::Moved</a></div><div class="ttdeci">@ Moved</div><div class="ttdoc">Generic action for non text inputs to fire on change.</div><div class="ttdef"><b>Definition</b> <a href="a06406_source.html#l00039">Event.hpp:39</a></div></div>
+<div class="ttc" id="aa03562_html_a14b67eb968cc68b09a420e989b3a4a54a640a541b7e49339af9729bbd45b728e6"><div class="ttname"><a href="a03562.html#a14b67eb968cc68b09a420e989b3a4a54a640a541b7e49339af9729bbd45b728e6">bl::gui::Event::AcquisitionChanged</a></div><div class="ttdeci">@ AcquisitionChanged</div><div class="ttdoc">Focus was removed from element.</div><div class="ttdef"><b>Definition</b> <a href="a06406_source.html#l00043">Event.hpp:43</a></div></div>
+<div class="ttc" id="aa03714_html"><div class="ttname"><a href="a03714.html">bl::gui::rdr::Renderer</a></div><div class="ttdoc">Top level GUI renderer. Manages components for elements. Behavior can be controlled by providing a di...</div><div class="ttdef"><b>Definition</b> <a href="a06856_source.html#l00029">Renderer.hpp:29</a></div></div>
+<div class="ttc" id="aa05394_html_ac48c3cecfd78a12d2e7762b1f1df54d1"><div class="ttname"><a href="a05394.html#ac48c3cecfd78a12d2e7762b1f1df54d1">bl::util::Signal::willAlwaysCall</a></div><div class="ttdeci">void willAlwaysCall(const Callback &amp;cb)</div><div class="ttdoc">Set up a callback for always being called. Intended to be used by derived classes Callbacks set by th...</div><div class="ttdef"><b>Definition</b> <a href="a06901_source.html#l00087">Signal.hpp:87</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

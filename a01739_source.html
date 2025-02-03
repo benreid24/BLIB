@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Events/Dispatcher.cpp Source File</title>
+<title>BLIB: src/Scripts/ScriptLibrary.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,62 +79,42 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_1ff81008302cb45769f1dab653ab23f8.html">Events</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3ac9928fc2e7e2cbc53db7c1a11acda2.html">Scripts</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Dispatcher.cpp</div></div>
+  <div class="headertitle"><div class="title">ScriptLibrary.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01739.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00404.html">BLIB/Events.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02360.html">bl</a></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>event</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>priv</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="foldopen" id="foldopen00009" data-start="{" data-end="};">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a05403.html">    9</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a05403.html">ReserveOnStartupHelper</a> {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="a05403.html#a2e5c0b69d6c18e7d6864f942d70e5d38">   10</a></span>    <a class="code hl_function" href="a05403.html#a2e5c0b69d6c18e7d6864f942d70e5d38">ReserveOnStartupHelper</a>() { Dispatcher::dispatchers.reserve(128); }</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="a02386.html#a865c966fc289cfc34e75b4070c3e8e63">   11</a></span>} <a class="code hl_variable" href="a02386.html#a865c966fc289cfc34e75b4070c3e8e63">helper</a>;</div>
+<a href="a01739.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_SCRIPT_LIBRARY_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_SCRIPT_LIBRARY_HPP</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00503.html">BLIB/Scripts/SymbolTable.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>script</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="foldopen" id="foldopen00014" data-start="{" data-end="};">
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="a05550.html">   14</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a05550.html">Library</a> {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a05550.html#ace07fac924c00874885a109b4fb8ad2d">addBuiltIns</a>(<a class="code hl_class" href="a04878.html">SymbolTable</a>&amp; table);</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>};</div>
 </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>} <span class="comment">// namespace priv</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>std::mutex Dispatcher::dispatcherLock;</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>std::vector&lt;priv::SingleDispatcherBase*&gt; Dispatcher::dispatchers;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="foldopen" id="foldopen00017" data-start="{" data-end="}">
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a03095.html#ac7b00210042e2dd107ebbbf3ce7a2c8f">   17</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03095.html#ac7b00210042e2dd107ebbbf3ce7a2c8f">Dispatcher::syncListeners</a>() {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    std::lock_guard lock(dispatcherLock);</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordflow">for</span> (<a class="code hl_class" href="a03115.html">priv::SingleDispatcherBase</a>* d : dispatchers) { d-&gt;syncListeners(); }</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>}</div>
-</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="foldopen" id="foldopen00023" data-start="{" data-end="}">
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a03095.html#a34fde267ef1ef9b3bc71d7233556fd5a">   23</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03095.html#a34fde267ef1ef9b3bc71d7233556fd5a">Dispatcher::clearAllListeners</a>() {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    std::lock_guard lock(dispatcherLock);</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordflow">for</span> (<a class="code hl_class" href="a03115.html">priv::SingleDispatcherBase</a>* d : dispatchers) { d-&gt;clear(); }</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>}</div>
-</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>} <span class="comment">// namespace event</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00404_html"><div class="ttname"><a href="a00404.html">Events.hpp</a></div></div>
-<div class="ttc" id="aa02360_html"><div class="ttname"><a href="a02360.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01448_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02386_html_a865c966fc289cfc34e75b4070c3e8e63"><div class="ttname"><a href="a02386.html#a865c966fc289cfc34e75b4070c3e8e63">bl::event::priv::helper</a></div><div class="ttdeci">struct bl::event::priv::ReserveOnStartupHelper helper</div></div>
-<div class="ttc" id="aa03095_html_a34fde267ef1ef9b3bc71d7233556fd5a"><div class="ttname"><a href="a03095.html#a34fde267ef1ef9b3bc71d7233556fd5a">bl::event::Dispatcher::clearAllListeners</a></div><div class="ttdeci">static void clearAllListeners()</div><div class="ttdoc">Removes all listeners from the subscription queues. Meant mostly for unit test cleanup but may have o...</div><div class="ttdef"><b>Definition</b> <a href="a01739_source.html#l00023">Dispatcher.cpp:23</a></div></div>
-<div class="ttc" id="aa03095_html_ac7b00210042e2dd107ebbbf3ce7a2c8f"><div class="ttname"><a href="a03095.html#ac7b00210042e2dd107ebbbf3ce7a2c8f">bl::event::Dispatcher::syncListeners</a></div><div class="ttdeci">static void syncListeners()</div><div class="ttdoc">Synchronizes the listener buses. Called once per update cycle by the engine.</div><div class="ttdef"><b>Definition</b> <a href="a01739_source.html#l00017">Dispatcher.cpp:17</a></div></div>
-<div class="ttc" id="aa03115_html"><div class="ttname"><a href="a03115.html">bl::event::priv::SingleDispatcherBase</a></div><div class="ttdef"><b>Definition</b> <a href="a00542_source.html#l00018">SingleDispatcher.hpp:18</a></div></div>
-<div class="ttc" id="aa05403_html"><div class="ttname"><a href="a05403.html">bl::event::priv::ReserveOnStartupHelper</a></div><div class="ttdef"><b>Definition</b> <a href="a01739_source.html#l00009">Dispatcher.cpp:9</a></div></div>
-<div class="ttc" id="aa05403_html_a2e5c0b69d6c18e7d6864f942d70e5d38"><div class="ttname"><a href="a05403.html#a2e5c0b69d6c18e7d6864f942d70e5d38">bl::event::priv::ReserveOnStartupHelper::ReserveOnStartupHelper</a></div><div class="ttdeci">ReserveOnStartupHelper()</div><div class="ttdef"><b>Definition</b> <a href="a01739_source.html#l00010">Dispatcher.cpp:10</a></div></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>} <span class="comment">// namespace script</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00503_html"><div class="ttname"><a href="a00503.html">SymbolTable.hpp</a></div></div>
+<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04878_html"><div class="ttname"><a href="a04878.html">bl::script::SymbolTable</a></div><div class="ttdoc">Stack aware symbol table for managing functions and variables Each Script holds a single instance.</div><div class="ttdef"><b>Definition</b> <a href="a00503_source.html#l00026">SymbolTable.hpp:26</a></div></div>
+<div class="ttc" id="aa05550_html"><div class="ttname"><a href="a05550.html">bl::script::Library</a></div><div class="ttdoc">Static helper to add built-in functions to each script.</div><div class="ttdef"><b>Definition</b> <a href="a01739_source.html#l00014">ScriptLibrary.hpp:14</a></div></div>
+<div class="ttc" id="aa05550_html_ace07fac924c00874885a109b4fb8ad2d"><div class="ttname"><a href="a05550.html#ace07fac924c00874885a109b4fb8ad2d">bl::script::Library::addBuiltIns</a></div><div class="ttdeci">static void addBuiltIns(SymbolTable &amp;table)</div><div class="ttdef"><b>Definition</b> <a href="a01727_source.html#l00102">ScriptLibrary.cpp:102</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

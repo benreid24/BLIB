@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Scenes/SceneObjectECSAdaptor.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Scenes/SceneRenderContext.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,221 +83,114 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">SceneObjectECSAdaptor.hpp</div></div>
+  <div class="headertitle"><div class="title">SceneRenderContext.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01142.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_SCENES_SCENEOBJECTECSADAPTOR_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_SCENES_SCENEOBJECTECSADAPTOR_HPP</span></div>
+<a href="a01142.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_RENDERER_SCENERENDERCONTEXT_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_RENDERER_SCENERENDERCONTEXT_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00236.html">BLIB/ECS.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00986.html">BLIB/ECS/Entity.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a01349.html">BLIB/Render/Descriptors/DescriptorComponentStorage.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a01127.html">BLIB/Render/Scenes/Key.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a01118.html">BLIB/Render/Scenes/Scene.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a01151.html">BLIB/Render/Scenes/SceneObject.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a00428.html">BLIB/Util/IdAllocatorUnbounded.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;queue&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02360.html">bl</a></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span>scene</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>{</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00028" data-start="{" data-end="};">
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="a04363.html">   28</a></span><span class="keyword">class </span><a class="code hl_class" href="a04363.html">SceneObjectECSAdaptor</a> {</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keyword">static_assert</span>(std::is_same_v&lt;T, SceneObject&gt; || std::is_base_of_v&lt;SceneObject, T&gt;,</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>                  <span class="stringliteral">&quot;T must be SceneObject or derived from SceneObject&quot;</span>);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keyword">public</span>:</div>
-<div class="foldopen" id="foldopen00036" data-start="{" data-end="}">
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="a04363.html#ad4571d1a9a04cd7e09cda830661cc30a">   36</a></span>    <a class="code hl_function" href="a04363.html#ad4571d1a9a04cd7e09cda830661cc30a">SceneObjectECSAdaptor</a>(<a class="code hl_class" href="a02859.html">ecs::Registry</a>&amp; registry);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="foldopen" id="foldopen00041" data-start="{" data-end="}">
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a04363.html#a1f2441c81018008dbc33fe00adaea9c7">   41</a></span>    <a class="code hl_function" href="a04363.html#a1f2441c81018008dbc33fe00adaea9c7">~SceneObjectECSAdaptor</a>();</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="foldopen" id="foldopen00050" data-start="{" data-end="}">
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="a04363.html#a113892f5b9b3259d8f21efce6a501fbf">   50</a></span>    T* <a class="code hl_function" href="a04363.html#a113892f5b9b3259d8f21efce6a501fbf">allocate</a>(<a class="code hl_enumeration" href="a02346.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> updateFreq, <a class="code hl_struct" href="a02811.html">ecs::Entity</a> entity);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="foldopen" id="foldopen00058" data-start="{" data-end="}">
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="a04363.html#a3675b9085ef80a5a2355bfa349db9e05">   58</a></span>    <a class="code hl_struct" href="a02811.html">ecs::Entity</a> <a class="code hl_function" href="a04363.html#a3675b9085ef80a5a2355bfa349db9e05">getObjectEntity</a>(<a class="code hl_struct" href="a04327.html">Key</a> key) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="foldopen" id="foldopen00066" data-start="{" data-end="}">
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="a04363.html#a461d9aa846cd343d9691f2c20b9b6f48">   66</a></span>    T&amp; <a class="code hl_function" href="a04363.html#a461d9aa846cd343d9691f2c20b9b6f48">getObject</a>(<a class="code hl_struct" href="a04327.html">Key</a> key);</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a06853.html">BLIB/Render/Descriptors/DescriptorSetInstance.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a01361.html">BLIB/Render/Materials/MaterialPipeline.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a01457.html">BLIB/Render/Primitives/DrawParameters.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a01064.html">BLIB/Render/RenderPhase.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a01160.html">BLIB/Render/Scenes/SceneObject.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a01322.html">BLIB/Render/Vulkan/StandardAttachmentSet.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a00332.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span>scene</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="};">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="a04490.html">   26</a></span><span class="keyword">class </span><a class="code hl_class" href="a04490.html">SceneRenderContext</a> {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_class" href="a04490.html">SceneRenderContext</a>(VkCommandBuffer commandBuffer, std::uint32_t observerIndex,</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                       <span class="keyword">const</span> VkViewport&amp; viewport, <a class="code hl_enumeration" href="a02388.html#ga2046cc31338d7d8e2a4af56aa599986b">RenderPhase</a> renderPhase,</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>                       std::uint32_t renderPassId, <span class="keywordtype">bool</span> renderingToRenderTexture);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04490.html#ad6456ea55829a550b6f9bd23de1324c0">bindPipeline</a>(<a class="code hl_class" href="a04306.html">mat::MaterialPipeline</a>&amp; pipeline);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04490.html#a9f9dafa91dc6025a8ed7c4b4c5c12d3b">bindDescriptors</a>(VkPipelineLayout layout, <a class="code hl_enumeration" href="a02388.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> updateFreq,</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                         <a class="code hl_class" href="a04126.html">ds::DescriptorSetInstance</a>** descriptors, std::uint32_t descriptorCount);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04490.html#a25f6ac72e581b7ac3f387d14c51c8ab4">renderObject</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a04466.html">SceneObject</a>&amp; <span class="keywordtype">object</span>);</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="foldopen" id="foldopen00073" data-start="{" data-end="}">
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="a04363.html#a2daae5288111cc543eeec8ee98c3b1dd">   73</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04363.html#a2daae5288111cc543eeec8ee98c3b1dd">release</a>(<a class="code hl_struct" href="a04327.html">Key</a> key);</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="foldopen" id="foldopen00080" data-start="{" data-end="}">
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="a04363.html#a93f7f616563486d05bac28c62f630ea6">   80</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04363.html#a93f7f616563486d05bac28c62f630ea6">unlinkAll</a>(<a class="code hl_class" href="a04043.html">ds::DescriptorSetInstanceCache</a>&amp; descriptors);</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="foldopen" id="foldopen00085" data-start="{" data-end="}">
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="a04363.html#a2617974b4cb375723a6f0fa52dd7b192">   85</a></span>    <a class="code hl_typedef" href="a04015.html#a80984df19e4cbb663aa059d56784cf6e">ds::DescriptorComponentStorageBase::EntityCallback</a> <a class="code hl_function" href="a04363.html#a2617974b4cb375723a6f0fa52dd7b192">makeEntityCallback</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keyword">struct </span>Mapping {</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <a class="code hl_class" href="a05215.html">util::IdAllocatorUnbounded&lt;std::uint32_t&gt;</a> indexAlloc;</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        std::vector&lt;ecs::Entity&gt; entityMap;</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        Mapping()</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        : indexAlloc(32) {</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            entityMap.reserve(32);</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        }</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        std::uint32_t alloc(<a class="code hl_struct" href="a02811.html">ecs::Entity</a> ent) {</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            <span class="keyword">const</span> std::uint32_t i = indexAlloc.<a class="code hl_function" href="a05215.html#ae7fb1e9e6910be922de1188e21017610">allocate</a>();</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>            <span class="keywordflow">if</span> (i &gt;= entityMap.size()) { entityMap.resize(i + 1, <a class="code hl_variable" href="a02375.html#a01655307bcb32baf2884e18213123917">ecs::InvalidEntity</a>); }</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            entityMap[i] = ent;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            <span class="keywordflow">return</span> i;</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        }</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keywordtype">void</span> release(std::uint32_t i) {</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            <span class="keywordflow">if</span> (i &lt; entityMap.size()) {</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                indexAlloc.<a class="code hl_function" href="a05215.html#a999cf670cc7639d0c167ef6b950616b2">release</a>(i);</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                entityMap[i] = <a class="code hl_variable" href="a02375.html#a01655307bcb32baf2884e18213123917">ecs::InvalidEntity</a>;</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            }</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        }</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    };</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    ecs::Registry&amp; registry;</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    Mapping mapStatic;</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    Mapping mapDynamic;</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>};</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <a class="code hl_enumeration" href="a02388.html#ga2046cc31338d7d8e2a4af56aa599986b">RenderPhase</a> <a class="code hl_function" href="a04490.html#a57ad0b33b333ac921d0bc193210e938b">getRenderPhase</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    VkCommandBuffer <a class="code hl_function" href="a04490.html#a2c5c79bd74ff1085cf4661469e747c73">getCommandBuffer</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keyword">const</span> VkViewport&amp; <a class="code hl_function" href="a04490.html#a87b2a1a1eb4af4c31c04efc5dce3a523">parentViewport</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    std::uint32_t <a class="code hl_function" href="a04490.html#abce4311a40767d910a8197278d506db2">currentRenderPass</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a04490.html#a37041263e1002a5afda27e24ce22f601">targetIsRenderTexture</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    std::uint32_t <a class="code hl_function" href="a04490.html#a324799753fcad12c036226232086d7e1">currentObserverIndex</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keyword">const</span> VkCommandBuffer commandBuffer;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keyword">const</span> std::uint32_t observerIndex;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keyword">const</span> <a class="code hl_enumeration" href="a02388.html#ga2046cc31338d7d8e2a4af56aa599986b">RenderPhase</a> renderPhase;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    VkBuffer prevVB;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    VkBuffer prevIB;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <a class="code hl_enumeration" href="a02388.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> boundSpeed;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    std::array&lt;ds::DescriptorSetInstance*, Config::MaxDescriptorSets&gt; boundDescriptors;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keyword">const</span> VkViewport viewport;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keyword">const</span> std::uint32_t renderPassId;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> isRenderTexture;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>};</div>
+</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="a04490.html#a2c5c79bd74ff1085cf4661469e747c73">  113</a></span><span class="keyword">inline</span> VkCommandBuffer <a class="code hl_function" href="a04490.html#a2c5c79bd74ff1085cf4661469e747c73">SceneRenderContext::getCommandBuffer</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> commandBuffer; }</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="a04490.html#a87b2a1a1eb4af4c31c04efc5dce3a523">  115</a></span><span class="keyword">inline</span> <span class="keyword">const</span> VkViewport&amp; <a class="code hl_function" href="a04490.html#a87b2a1a1eb4af4c31c04efc5dce3a523">SceneRenderContext::parentViewport</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> viewport; }</div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="a04490.html#a57ad0b33b333ac921d0bc193210e938b">  117</a></span><span class="keyword">inline</span> <a class="code hl_enumeration" href="a02388.html#ga2046cc31338d7d8e2a4af56aa599986b">RenderPhase</a> <a class="code hl_function" href="a04490.html#a57ad0b33b333ac921d0bc193210e938b">SceneRenderContext::getRenderPhase</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> renderPhase; }</div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00120" data-start="{" data-end="}">
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="a04363.html#ad4571d1a9a04cd7e09cda830661cc30a">  120</a></span><a class="code hl_function" href="a04363.html#ad4571d1a9a04cd7e09cda830661cc30a">SceneObjectECSAdaptor&lt;T&gt;::SceneObjectECSAdaptor</a>(<a class="code hl_class" href="a02859.html">ecs::Registry</a>&amp; registry)</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>: registry(registry) {}</div>
-</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="a04490.html#abce4311a40767d910a8197278d506db2">  119</a></span><span class="keyword">inline</span> std::uint32_t <a class="code hl_function" href="a04490.html#abce4311a40767d910a8197278d506db2">SceneRenderContext::currentRenderPass</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> renderPassId; }</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="a04490.html#a37041263e1002a5afda27e24ce22f601">  121</a></span><span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a04490.html#a37041263e1002a5afda27e24ce22f601">SceneRenderContext::targetIsRenderTexture</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> isRenderTexture; }</div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00124" data-start="{" data-end="}">
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="a04363.html#a1f2441c81018008dbc33fe00adaea9c7">  124</a></span><a class="code hl_function" href="a04363.html#a1f2441c81018008dbc33fe00adaea9c7">SceneObjectECSAdaptor&lt;T&gt;::~SceneObjectECSAdaptor</a>() {</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keyword">const</span> <span class="keyword">auto</span> release = [<span class="keyword">this</span>](Mapping&amp; m) {</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; m.entityMap.size(); ++i) {</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            <span class="keywordflow">if</span> (m.indexAlloc.isAllocated(i)) { registry.<a class="code hl_function" href="a02859.html#a13aedbe896d70f77c9349c85ff22e7cc">removeComponent</a>&lt;T&gt;(m.entityMap[i]); }</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        }</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    };</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    release(mapStatic);</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    release(mapDynamic);</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>}</div>
-</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00136" data-start="{" data-end="}">
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno"><a class="line" href="a04363.html#a113892f5b9b3259d8f21efce6a501fbf">  136</a></span>T* <a class="code hl_function" href="a04363.html#a113892f5b9b3259d8f21efce6a501fbf">SceneObjectECSAdaptor&lt;T&gt;::allocate</a>(<a class="code hl_enumeration" href="a02346.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> updateFreq, <a class="code hl_struct" href="a02811.html">ecs::Entity</a> entity) {</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    Mapping&amp; bucket       = updateFreq == <a class="code hl_enumvalue" href="a02346.html#gga305dcc5dda3e28bd193ab31444664848a84a8921b25f505d0d2077aeb5db4bc16">UpdateSpeed::Static</a> ? mapStatic : mapDynamic;</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    <span class="keyword">const</span> std::uint32_t i = bucket.alloc(entity);</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    T* <span class="keywordtype">object</span>             = registry.emplaceComponent&lt;T&gt;(entity);</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    <span class="keywordtype">object</span>-&gt;sceneKey      = <a class="code hl_struct" href="a04327.html">Key</a>{updateFreq, i};</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="keywordflow">return</span> object;</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>}</div>
-</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00145" data-start="{" data-end="}">
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno"><a class="line" href="a04363.html#a3675b9085ef80a5a2355bfa349db9e05">  145</a></span><a class="code hl_struct" href="a02811.html">ecs::Entity</a> <a class="code hl_function" href="a04363.html#a3675b9085ef80a5a2355bfa349db9e05">SceneObjectECSAdaptor&lt;T&gt;::getObjectEntity</a>(<a class="code hl_struct" href="a04327.html">Key</a> key)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keyword">const</span> Mapping&amp; bucket = key.<a class="code hl_variable" href="a04327.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a> == <a class="code hl_enumvalue" href="a02346.html#gga305dcc5dda3e28bd193ab31444664848a84a8921b25f505d0d2077aeb5db4bc16">UpdateSpeed::Static</a> ? mapStatic : mapDynamic;</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    <span class="keywordflow">return</span> key.<a class="code hl_variable" href="a04327.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a> &lt; bucket.entityMap.size() ? bucket.entityMap[key.<a class="code hl_variable" href="a04327.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a>] :</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>                                                   <a class="code hl_variable" href="a02375.html#a01655307bcb32baf2884e18213123917">ecs::InvalidEntity</a>;</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>}</div>
-</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00152" data-start="{" data-end="}">
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno"><a class="line" href="a04363.html#a461d9aa846cd343d9691f2c20b9b6f48">  152</a></span><span class="keyword">inline</span> T&amp; <a class="code hl_function" href="a04363.html#a461d9aa846cd343d9691f2c20b9b6f48">SceneObjectECSAdaptor&lt;T&gt;::getObject</a>(<a class="code hl_struct" href="a04327.html">Key</a> key) {</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <span class="keywordflow">return</span> *registry.getComponent&lt;T&gt;(getObjectEntity(key));</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>}</div>
-</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00157" data-start="{" data-end="}">
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno"><a class="line" href="a04363.html#a2daae5288111cc543eeec8ee98c3b1dd">  157</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04363.html#a2daae5288111cc543eeec8ee98c3b1dd">SceneObjectECSAdaptor&lt;T&gt;::release</a>(<a class="code hl_struct" href="a04327.html">Key</a> key) {</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    Mapping&amp; bucket = key.<a class="code hl_variable" href="a04327.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a> == <a class="code hl_enumvalue" href="a02346.html#gga305dcc5dda3e28bd193ab31444664848a84a8921b25f505d0d2077aeb5db4bc16">UpdateSpeed::Static</a> ? mapStatic : mapDynamic;</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    bucket.release(key.<a class="code hl_variable" href="a04327.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a>);</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>}</div>
-</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00163" data-start="{" data-end="}">
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno"><a class="line" href="a04363.html#a93f7f616563486d05bac28c62f630ea6">  163</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04363.html#a93f7f616563486d05bac28c62f630ea6">SceneObjectECSAdaptor&lt;T&gt;::unlinkAll</a>(<a class="code hl_class" href="a04043.html">ds::DescriptorSetInstanceCache</a>&amp; descriptors) {</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <a class="code hl_enumeration" href="a02346.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> speed = <a class="code hl_enumvalue" href="a02346.html#gga305dcc5dda3e28bd193ab31444664848a84a8921b25f505d0d2077aeb5db4bc16">UpdateSpeed::Static</a>;</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    <span class="keywordflow">for</span> (Mapping* bucket : {&amp;mapStatic, &amp;mapDynamic}) {</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; bucket-&gt;indexAlloc.endId(); ++i) {</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>            <span class="keywordflow">if</span> (bucket-&gt;entityMap[i] != <a class="code hl_variable" href="a02375.html#a01655307bcb32baf2884e18213123917">ecs::InvalidEntity</a>) {</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>                descriptors.<a class="code hl_function" href="a04043.html#a6e7d26105df64eeed94d20246f352bd6">unlinkSceneObject</a>(bucket-&gt;entityMap[i], {speed, i});</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>            }</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        }</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        speed = <a class="code hl_enumvalue" href="a02346.html#gga305dcc5dda3e28bd193ab31444664848a971fd8cc345d8bd9f92e9f7d88fdf20c">UpdateSpeed::Dynamic</a>;</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    }</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>}</div>
-</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00176" data-start="{" data-end="}">
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno"><a class="line" href="a04363.html#a2617974b4cb375723a6f0fa52dd7b192">  176</a></span><a class="code hl_typedef" href="a04015.html#a80984df19e4cbb663aa059d56784cf6e">ds::DescriptorComponentStorageBase::EntityCallback</a> <a class="code hl_class" href="a04363.html">SceneObjectECSAdaptor&lt;T&gt;::makeEntityCallback</a>()<span class="keyword"></span></div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span><span class="keyword">    const </span>{</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    <span class="keywordflow">return</span> [<span class="keyword">this</span>](<a class="code hl_struct" href="a04327.html">scene::Key</a> key) { <span class="keywordflow">return</span> getObjectEntity(key); };</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>}</div>
-</div>
-</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>} <span class="comment">// namespace scene</span></div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="preprocessor">#endif</span></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="ttc" id="aa00236_html"><div class="ttname"><a href="a00236.html">ECS.hpp</a></div></div>
-<div class="ttc" id="aa00428_html"><div class="ttname"><a href="a00428.html">IdAllocatorUnbounded.hpp</a></div></div>
-<div class="ttc" id="aa00986_html"><div class="ttname"><a href="a00986.html">Entity.hpp</a></div></div>
-<div class="ttc" id="aa01118_html"><div class="ttname"><a href="a01118.html">Scene.hpp</a></div></div>
-<div class="ttc" id="aa01127_html"><div class="ttname"><a href="a01127.html">Key.hpp</a></div></div>
-<div class="ttc" id="aa01151_html"><div class="ttname"><a href="a01151.html">SceneObject.hpp</a></div></div>
-<div class="ttc" id="aa01349_html"><div class="ttname"><a href="a01349.html">DescriptorComponentStorage.hpp</a></div></div>
-<div class="ttc" id="aa02346_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a02346.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition</b> <a href="a01154_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
-<div class="ttc" id="aa02346_html_gga305dcc5dda3e28bd193ab31444664848a84a8921b25f505d0d2077aeb5db4bc16"><div class="ttname"><a href="a02346.html#gga305dcc5dda3e28bd193ab31444664848a84a8921b25f505d0d2077aeb5db4bc16">bl::rc::UpdateSpeed::Static</a></div><div class="ttdeci">@ Static</div><div class="ttdoc">Objects or data are not expected to update often after creation.</div></div>
-<div class="ttc" id="aa02346_html_gga305dcc5dda3e28bd193ab31444664848a971fd8cc345d8bd9f92e9f7d88fdf20c"><div class="ttname"><a href="a02346.html#gga305dcc5dda3e28bd193ab31444664848a971fd8cc345d8bd9f92e9f7d88fdf20c">bl::rc::UpdateSpeed::Dynamic</a></div><div class="ttdeci">@ Dynamic</div><div class="ttdoc">Objects or data are expected to update once per frame or similar.</div></div>
-<div class="ttc" id="aa02360_html"><div class="ttname"><a href="a02360.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01448_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02375_html_a01655307bcb32baf2884e18213123917"><div class="ttname"><a href="a02375.html#a01655307bcb32baf2884e18213123917">bl::ecs::InvalidEntity</a></div><div class="ttdeci">constexpr Entity InvalidEntity</div><div class="ttdoc">Special value to indicate that an Entity is not valid.</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00188">Entity.hpp:188</a></div></div>
-<div class="ttc" id="aa02811_html"><div class="ttname"><a href="a02811.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa02859_html"><div class="ttname"><a href="a02859.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition</b> <a href="a01004_source.html#l00034">Registry.hpp:34</a></div></div>
-<div class="ttc" id="aa02859_html_a13aedbe896d70f77c9349c85ff22e7cc"><div class="ttname"><a href="a02859.html#a13aedbe896d70f77c9349c85ff22e7cc">bl::ecs::Registry::removeComponent</a></div><div class="ttdeci">void removeComponent(Entity entity)</div><div class="ttdoc">Removes the given component from the given entity.</div><div class="ttdef"><b>Definition</b> <a href="a01004_source.html#l00711">Registry.hpp:711</a></div></div>
-<div class="ttc" id="aa04015_html_a80984df19e4cbb663aa059d56784cf6e"><div class="ttname"><a href="a04015.html#a80984df19e4cbb663aa059d56784cf6e">bl::rc::ds::DescriptorComponentStorageBase::EntityCallback</a></div><div class="ttdeci">std::function&lt; ecs::Entity(scene::Key)&gt; EntityCallback</div><div class="ttdoc">Callback signature to fetch entities from scene ids.</div><div class="ttdef"><b>Definition</b> <a href="a01349_source.html#l00041">DescriptorComponentStorage.hpp:41</a></div></div>
-<div class="ttc" id="aa04043_html"><div class="ttname"><a href="a04043.html">bl::rc::ds::DescriptorSetInstanceCache</a></div><div class="ttdoc">Utility class to ensure that descriptor sets are created only once across a set of pipelines present ...</div><div class="ttdef"><b>Definition</b> <a href="a01427_source.html#l00023">DescriptorSetInstanceCache.hpp:23</a></div></div>
-<div class="ttc" id="aa04043_html_a6e7d26105df64eeed94d20246f352bd6"><div class="ttname"><a href="a04043.html#a6e7d26105df64eeed94d20246f352bd6">bl::rc::ds::DescriptorSetInstanceCache::unlinkSceneObject</a></div><div class="ttdeci">void unlinkSceneObject(ecs::Entity entity, scene::Key key)</div><div class="ttdoc">Goes through all descriptor set instances and calls removeObject for the given object.</div><div class="ttdef"><b>Definition</b> <a href="a02306_source.html#l00025">DescriptorSetInstanceCache.cpp:25</a></div></div>
-<div class="ttc" id="aa04327_html"><div class="ttname"><a href="a04327.html">bl::rc::scene::Key</a></div><div class="ttdoc">Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...</div><div class="ttdef"><b>Definition</b> <a href="a01127_source.html#l00022">Key.hpp:22</a></div></div>
-<div class="ttc" id="aa04327_html_a5fa4592fd53a220f89ac7814aebfa6d6"><div class="ttname"><a href="a04327.html#a5fa4592fd53a220f89ac7814aebfa6d6">bl::rc::scene::Key::sceneId</a></div><div class="ttdeci">std::uint32_t sceneId</div><div class="ttdef"><b>Definition</b> <a href="a01127_source.html#l00026">Key.hpp:26</a></div></div>
-<div class="ttc" id="aa04327_html_abc689f231a25b15808c61dde6fda1d08"><div class="ttname"><a href="a04327.html#abc689f231a25b15808c61dde6fda1d08">bl::rc::scene::Key::updateFreq</a></div><div class="ttdeci">UpdateSpeed updateFreq</div><div class="ttdef"><b>Definition</b> <a href="a01127_source.html#l00025">Key.hpp:25</a></div></div>
-<div class="ttc" id="aa04363_html"><div class="ttname"><a href="a04363.html">bl::rc::scene::SceneObjectECSAdaptor</a></div><div class="ttdoc">Similar to SceneObjectStorage, but uses the ECS as underlying storage.</div><div class="ttdef"><b>Definition</b> <a href="a01142_source.html#l00028">SceneObjectECSAdaptor.hpp:28</a></div></div>
-<div class="ttc" id="aa04363_html_a113892f5b9b3259d8f21efce6a501fbf"><div class="ttname"><a href="a04363.html#a113892f5b9b3259d8f21efce6a501fbf">bl::rc::scene::SceneObjectECSAdaptor::allocate</a></div><div class="ttdeci">T * allocate(UpdateSpeed updateFreq, ecs::Entity entity)</div><div class="ttdoc">Allocates a new scene object.</div><div class="ttdef"><b>Definition</b> <a href="a01142_source.html#l00136">SceneObjectECSAdaptor.hpp:136</a></div></div>
-<div class="ttc" id="aa04363_html_a1f2441c81018008dbc33fe00adaea9c7"><div class="ttname"><a href="a04363.html#a1f2441c81018008dbc33fe00adaea9c7">bl::rc::scene::SceneObjectECSAdaptor::~SceneObjectECSAdaptor</a></div><div class="ttdeci">~SceneObjectECSAdaptor()</div><div class="ttdoc">Destroys all created components.</div><div class="ttdef"><b>Definition</b> <a href="a01142_source.html#l00124">SceneObjectECSAdaptor.hpp:124</a></div></div>
-<div class="ttc" id="aa04363_html_a2617974b4cb375723a6f0fa52dd7b192"><div class="ttname"><a href="a04363.html#a2617974b4cb375723a6f0fa52dd7b192">bl::rc::scene::SceneObjectECSAdaptor::makeEntityCallback</a></div><div class="ttdeci">ds::DescriptorComponentStorageBase::EntityCallback makeEntityCallback() const</div><div class="ttdoc">Returns a usable callback to map scene key to ECS id.</div><div class="ttdef"><b>Definition</b> <a href="a01142_source.html#l00176">SceneObjectECSAdaptor.hpp:176</a></div></div>
-<div class="ttc" id="aa04363_html_a2daae5288111cc543eeec8ee98c3b1dd"><div class="ttname"><a href="a04363.html#a2daae5288111cc543eeec8ee98c3b1dd">bl::rc::scene::SceneObjectECSAdaptor::release</a></div><div class="ttdeci">void release(Key key)</div><div class="ttdoc">Marks the given key as being free. Allows future allocation to reuse it.</div><div class="ttdef"><b>Definition</b> <a href="a01142_source.html#l00157">SceneObjectECSAdaptor.hpp:157</a></div></div>
-<div class="ttc" id="aa04363_html_a3675b9085ef80a5a2355bfa349db9e05"><div class="ttname"><a href="a04363.html#a3675b9085ef80a5a2355bfa349db9e05">bl::rc::scene::SceneObjectECSAdaptor::getObjectEntity</a></div><div class="ttdeci">ecs::Entity getObjectEntity(Key key) const</div><div class="ttdoc">Returns the ECS id for the given object key.</div><div class="ttdef"><b>Definition</b> <a href="a01142_source.html#l00145">SceneObjectECSAdaptor.hpp:145</a></div></div>
-<div class="ttc" id="aa04363_html_a461d9aa846cd343d9691f2c20b9b6f48"><div class="ttname"><a href="a04363.html#a461d9aa846cd343d9691f2c20b9b6f48">bl::rc::scene::SceneObjectECSAdaptor::getObject</a></div><div class="ttdeci">T &amp; getObject(Key key)</div><div class="ttdoc">Fetches the object with the given key.</div><div class="ttdef"><b>Definition</b> <a href="a01142_source.html#l00152">SceneObjectECSAdaptor.hpp:152</a></div></div>
-<div class="ttc" id="aa04363_html_a93f7f616563486d05bac28c62f630ea6"><div class="ttname"><a href="a04363.html#a93f7f616563486d05bac28c62f630ea6">bl::rc::scene::SceneObjectECSAdaptor::unlinkAll</a></div><div class="ttdeci">void unlinkAll(ds::DescriptorSetInstanceCache &amp;descriptors)</div><div class="ttdoc">Unlinks created objects.</div><div class="ttdef"><b>Definition</b> <a href="a01142_source.html#l00163">SceneObjectECSAdaptor.hpp:163</a></div></div>
-<div class="ttc" id="aa04363_html_ad4571d1a9a04cd7e09cda830661cc30a"><div class="ttname"><a href="a04363.html#ad4571d1a9a04cd7e09cda830661cc30a">bl::rc::scene::SceneObjectECSAdaptor::SceneObjectECSAdaptor</a></div><div class="ttdeci">SceneObjectECSAdaptor(ecs::Registry &amp;registry)</div><div class="ttdoc">Reserves some memory.</div><div class="ttdef"><b>Definition</b> <a href="a01142_source.html#l00120">SceneObjectECSAdaptor.hpp:120</a></div></div>
-<div class="ttc" id="aa05215_html"><div class="ttname"><a href="a05215.html">bl::util::IdAllocatorUnbounded</a></div><div class="ttdoc">Similar to IdAllocator, but with no max id restriction.</div><div class="ttdef"><b>Definition</b> <a href="a00428_source.html#l00019">IdAllocatorUnbounded.hpp:19</a></div></div>
-<div class="ttc" id="aa05215_html_a999cf670cc7639d0c167ef6b950616b2"><div class="ttname"><a href="a05215.html#a999cf670cc7639d0c167ef6b950616b2">bl::util::IdAllocatorUnbounded::release</a></div><div class="ttdeci">void release(T id)</div><div class="ttdoc">Releases the given id back into the pool. Double-release is an error.</div><div class="ttdef"><b>Definition</b> <a href="a00428_source.html#l00105">IdAllocatorUnbounded.hpp:105</a></div></div>
-<div class="ttc" id="aa05215_html_ae7fb1e9e6910be922de1188e21017610"><div class="ttname"><a href="a05215.html#ae7fb1e9e6910be922de1188e21017610">bl::util::IdAllocatorUnbounded::allocate</a></div><div class="ttdeci">T allocate()</div><div class="ttdoc">Allocates a new id from the allocator.</div><div class="ttdef"><b>Definition</b> <a href="a00428_source.html#l00090">IdAllocatorUnbounded.hpp:90</a></div></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="a04490.html#a324799753fcad12c036226232086d7e1">  123</a></span><span class="keyword">inline</span> std::uint32_t <a class="code hl_function" href="a04490.html#a324799753fcad12c036226232086d7e1">SceneRenderContext::currentObserverIndex</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> observerIndex; }</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>} <span class="comment">// namespace scene</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00332_html"><div class="ttname"><a href="a00332.html">Vulkan.hpp</a></div></div>
+<div class="ttc" id="aa01064_html"><div class="ttname"><a href="a01064.html">RenderPhase.hpp</a></div></div>
+<div class="ttc" id="aa01160_html"><div class="ttname"><a href="a01160.html">SceneObject.hpp</a></div></div>
+<div class="ttc" id="aa01322_html"><div class="ttname"><a href="a01322.html">StandardAttachmentSet.hpp</a></div></div>
+<div class="ttc" id="aa01361_html"><div class="ttname"><a href="a01361.html">MaterialPipeline.hpp</a></div></div>
+<div class="ttc" id="aa01457_html"><div class="ttname"><a href="a01457.html">DrawParameters.hpp</a></div></div>
+<div class="ttc" id="aa02388_html_ga2046cc31338d7d8e2a4af56aa599986b"><div class="ttname"><a href="a02388.html#ga2046cc31338d7d8e2a4af56aa599986b">bl::rc::RenderPhase</a></div><div class="ttdeci">RenderPhase</div><div class="ttdoc">Enum representing the different possible phases of rendering.</div><div class="ttdef"><b>Definition</b> <a href="a01064_source.html#l00020">RenderPhase.hpp:20</a></div></div>
+<div class="ttc" id="aa02388_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a02388.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition</b> <a href="a01163_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
+<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04126_html"><div class="ttname"><a href="a04126.html">bl::rc::ds::DescriptorSetInstance</a></div><div class="ttdoc">Base class for descriptor sets that exist for each scene. Derived classes are created by DescriptorSe...</div><div class="ttdef"><b>Definition</b> <a href="a06853_source.html#l00030">DescriptorSetInstance.hpp:30</a></div></div>
+<div class="ttc" id="aa04306_html"><div class="ttname"><a href="a04306.html">bl::rc::mat::MaterialPipeline</a></div><div class="ttdoc">Rendering pipeline for a material. Contains pipelines for each render phase.</div><div class="ttdef"><b>Definition</b> <a href="a01361_source.html#l00020">MaterialPipeline.hpp:20</a></div></div>
+<div class="ttc" id="aa04466_html"><div class="ttname"><a href="a04466.html">bl::rc::scene::SceneObject</a></div><div class="ttdoc">Base renderable object. Everything that is rendered will reference an instance of this....</div><div class="ttdef"><b>Definition</b> <a href="a01160_source.html#l00029">SceneObject.hpp:29</a></div></div>
+<div class="ttc" id="aa04490_html"><div class="ttname"><a href="a04490.html">bl::rc::scene::SceneRenderContext</a></div><div class="ttdoc">Container class that holds the required parameters to render a scene and provides methods for descrip...</div><div class="ttdef"><b>Definition</b> <a href="a01142_source.html#l00026">SceneRenderContext.hpp:26</a></div></div>
+<div class="ttc" id="aa04490_html_a25f6ac72e581b7ac3f387d14c51c8ab4"><div class="ttname"><a href="a04490.html#a25f6ac72e581b7ac3f387d14c51c8ab4">bl::rc::scene::SceneRenderContext::renderObject</a></div><div class="ttdeci">void renderObject(const SceneObject &amp;object)</div><div class="ttdoc">Issues the required commands to render the given scene object.</div><div class="ttdef"><b>Definition</b> <a href="a02150_source.html#l00046">SceneRenderContext.cpp:46</a></div></div>
+<div class="ttc" id="aa04490_html_a2c5c79bd74ff1085cf4661469e747c73"><div class="ttname"><a href="a04490.html#a2c5c79bd74ff1085cf4661469e747c73">bl::rc::scene::SceneRenderContext::getCommandBuffer</a></div><div class="ttdeci">VkCommandBuffer getCommandBuffer() const</div><div class="ttdoc">Returns the command buffer to use for rendering.</div><div class="ttdef"><b>Definition</b> <a href="a01142_source.html#l00113">SceneRenderContext.hpp:113</a></div></div>
+<div class="ttc" id="aa04490_html_a324799753fcad12c036226232086d7e1"><div class="ttname"><a href="a04490.html#a324799753fcad12c036226232086d7e1">bl::rc::scene::SceneRenderContext::currentObserverIndex</a></div><div class="ttdeci">std::uint32_t currentObserverIndex() const</div><div class="ttdoc">Returns the scene index of the current observer.</div><div class="ttdef"><b>Definition</b> <a href="a01142_source.html#l00123">SceneRenderContext.hpp:123</a></div></div>
+<div class="ttc" id="aa04490_html_a37041263e1002a5afda27e24ce22f601"><div class="ttname"><a href="a04490.html#a37041263e1002a5afda27e24ce22f601">bl::rc::scene::SceneRenderContext::targetIsRenderTexture</a></div><div class="ttdeci">bool targetIsRenderTexture() const</div><div class="ttdoc">Returns whether or not the current target is a render texture.</div><div class="ttdef"><b>Definition</b> <a href="a01142_source.html#l00121">SceneRenderContext.hpp:121</a></div></div>
+<div class="ttc" id="aa04490_html_a57ad0b33b333ac921d0bc193210e938b"><div class="ttname"><a href="a04490.html#a57ad0b33b333ac921d0bc193210e938b">bl::rc::scene::SceneRenderContext::getRenderPhase</a></div><div class="ttdeci">RenderPhase getRenderPhase() const</div><div class="ttdoc">Returns the current render phase.</div><div class="ttdef"><b>Definition</b> <a href="a01142_source.html#l00117">SceneRenderContext.hpp:117</a></div></div>
+<div class="ttc" id="aa04490_html_a87b2a1a1eb4af4c31c04efc5dce3a523"><div class="ttname"><a href="a04490.html#a87b2a1a1eb4af4c31c04efc5dce3a523">bl::rc::scene::SceneRenderContext::parentViewport</a></div><div class="ttdeci">const VkViewport &amp; parentViewport() const</div><div class="ttdoc">Returns the viewport the scene is being rendered to.</div><div class="ttdef"><b>Definition</b> <a href="a01142_source.html#l00115">SceneRenderContext.hpp:115</a></div></div>
+<div class="ttc" id="aa04490_html_a9f9dafa91dc6025a8ed7c4b4c5c12d3b"><div class="ttname"><a href="a04490.html#a9f9dafa91dc6025a8ed7c4b4c5c12d3b">bl::rc::scene::SceneRenderContext::bindDescriptors</a></div><div class="ttdeci">void bindDescriptors(VkPipelineLayout layout, UpdateSpeed updateFreq, ds::DescriptorSetInstance **descriptors, std::uint32_t descriptorCount)</div><div class="ttdoc">Binds the given descriptors. Only issues bind commands for descriptors that changed from the last cal...</div><div class="ttdef"><b>Definition</b> <a href="a02150_source.html#l00030">SceneRenderContext.cpp:30</a></div></div>
+<div class="ttc" id="aa04490_html_abce4311a40767d910a8197278d506db2"><div class="ttname"><a href="a04490.html#abce4311a40767d910a8197278d506db2">bl::rc::scene::SceneRenderContext::currentRenderPass</a></div><div class="ttdeci">std::uint32_t currentRenderPass() const</div><div class="ttdoc">Returns the id of the active render pass.</div><div class="ttdef"><b>Definition</b> <a href="a01142_source.html#l00119">SceneRenderContext.hpp:119</a></div></div>
+<div class="ttc" id="aa04490_html_ad6456ea55829a550b6f9bd23de1324c0"><div class="ttname"><a href="a04490.html#ad6456ea55829a550b6f9bd23de1324c0">bl::rc::scene::SceneRenderContext::bindPipeline</a></div><div class="ttdeci">void bindPipeline(mat::MaterialPipeline &amp;pipeline)</div><div class="ttdoc">Binds the given pipeline.</div><div class="ttdef"><b>Definition</b> <a href="a02150_source.html#l00026">SceneRenderContext.cpp:26</a></div></div>
+<div class="ttc" id="aa06853_html"><div class="ttname"><a href="a06853.html">DescriptorSetInstance.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

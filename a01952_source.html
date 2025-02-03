@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Serialization/Buffers/MemoryInputBuffer.cpp Source File</title>
+<title>BLIB: src/Interfaces/Menu/Drivers/MouseDriver.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,82 +79,62 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_e7c9606de6dc9534b0042ecacee5f21f.html">Serialization</a></li><li class="navelem"><a class="el" href="dir_47ff02213d38b4fcd8e0172b7fa926fb.html">Buffers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ce6405ba0afce575b27b3b998c1d24f9.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_a5850f6e383b3d533b6a0a91dee002d1.html">Menu</a></li><li class="navelem"><a class="el" href="dir_8225f553c4118c74e51abfe13787127e.html">Drivers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">MemoryInputBuffer.cpp</div></div>
+  <div class="headertitle"><div class="title">MouseDriver.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01952.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00851.html">BLIB/Serialization/Buffers/MemoryInputBuffer.hpp</a>&gt;</span></div>
+<a href="a01952.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00812.html">BLIB/Interfaces/Menu/Drivers/MouseDriver.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;cstring&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02360.html">bl</a></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>menu</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>serial</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a04915.html#ae927735128e70af3b58bfadc63cab01c">    9</a></span>MemoryInputBuffer::MemoryInputBuffer(<span class="keyword">const</span> sf::Packet&amp; packet)</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>: <a class="code hl_variable" href="a02324.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>(static_cast&lt;const char*&gt;(packet.getData()))</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>, len(packet.getDataSize())</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>, pos(0) {}</div>
+<div class="foldopen" id="foldopen00007" data-start="{" data-end="}">
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="a03734.html#a51b5c9e92209da473bf63d0b4932eb6a">    7</a></span><a class="code hl_function" href="a03734.html#a51b5c9e92209da473bf63d0b4932eb6a">MouseDriver::MouseDriver</a>(<a class="code hl_class" href="a03786.html">Menu</a>&amp; menu, <span class="keywordtype">bool</span> allowClick, sf::Mouse::Button abutt)</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>: menu(menu)</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>, clickActivates(allowClick)</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>, activateButton(abutt) {}</div>
 </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="a03734.html#a4a9cc6c526d12fe1b7a4e2010a8fbeec">   12</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03734.html#a4a9cc6c526d12fe1b7a4e2010a8fbeec">MouseDriver::setAllowButtonActivate</a>(<span class="keywordtype">bool</span> allow) { clickActivates = allow; }</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="foldopen" id="foldopen00014" data-start="{" data-end="}">
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="a04915.html#a5ab463e0bc1e1aae89ccbb1ed68c710f">   14</a></span>MemoryInputBuffer::MemoryInputBuffer(<span class="keyword">const</span> std::vector&lt;char&gt;&amp; v)</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>: <a class="code hl_variable" href="a02324.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>(v.data())</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>, len(v.size())</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>, pos(0) {}</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="a03734.html#a78b5b19a962df1aba0380023a65f5aab">   14</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03734.html#a78b5b19a962df1aba0380023a65f5aab">MouseDriver::setMouseActivateButton</a>(sf::Mouse::Button butt) { activateButton = butt; }</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="foldopen" id="foldopen00016" data-start="{" data-end="}">
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a03734.html#aaa57126748fdfef3f300ceec40761725">   16</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03734.html#aaa57126748fdfef3f300ceec40761725">MouseDriver::observe</a>(<span class="keyword">const</span> sf::Event&amp; event) {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordflow">if</span> (event.type == sf::Event::MouseMoved) {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        menu.<a class="code hl_function" href="a03786.html#a994d802c062248a8017e3bcb454073a9">processEvent</a>(<a class="code hl_struct" href="a03746.html">Event</a>(<a class="code hl_struct" href="a03758.html">Event::LocationEvent</a>(</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>            {<span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(<span class="keyword">event</span>.mouseMove.x), <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(event.mouseMove.y)})));</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    }</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (event.type == sf::Event::MouseButtonPressed &amp;&amp; clickActivates) {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordflow">if</span> (event.mouseButton.button == activateButton) {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>            menu.<a class="code hl_function" href="a03786.html#a994d802c062248a8017e3bcb454073a9">processEvent</a>(<a class="code hl_struct" href="a03746.html">Event</a>(<a class="code hl_struct" href="a03754.html">Event::ActivateEvent</a>()));</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        }</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    }</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
 </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="foldopen" id="foldopen00019" data-start="{" data-end="}">
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a04915.html#abaa37a16e7c9517401385ad541a94b94">   19</a></span>MemoryInputBuffer::MemoryInputBuffer(<span class="keyword">const</span> <span class="keywordtype">char</span>* data, std::size_t l)</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>: <a class="code hl_variable" href="a02324.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>(data)</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>, len(l)</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>, pos(0) {}</div>
-</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="foldopen" id="foldopen00024" data-start="{" data-end="}">
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a04915.html#a2f9f30c0f9c051df2cb054f114d8059d">   24</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a04915.html#a2f9f30c0f9c051df2cb054f114d8059d">MemoryInputBuffer::read</a>(<span class="keywordtype">char</span>* data, std::size_t s) {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">const</span> std::size_t r = std::min(len - pos, s);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    std::memcpy(data, &amp;buffer[pos], r);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    pos += r;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordflow">return</span> r == s;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
-</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a04915.html#ad5bbe1d1f73ad9ada0bba9b61d016ef2">   31</a></span>std::size_t <a class="code hl_function" href="a04915.html#ad5bbe1d1f73ad9ada0bba9b61d016ef2">MemoryInputBuffer::tellg</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> pos; }</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="a04915.html#a5950a553a6c3cb2a52e7223325d1badc">   33</a></span>std::size_t <a class="code hl_function" href="a04915.html#a5950a553a6c3cb2a52e7223325d1badc">MemoryInputBuffer::size</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> len; }</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="foldopen" id="foldopen00035" data-start="{" data-end="}">
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a04915.html#ad526a96030f540ce35fa1c0c5343cee3">   35</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a04915.html#ad526a96030f540ce35fa1c0c5343cee3">MemoryInputBuffer::seekg</a>(std::size_t p) {</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    pos = std::min(p, len);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">return</span> pos &lt;= len;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
-</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="a04915.html#a7326cb683fa44ffee86a4ab78239a8b3">   40</a></span><span class="keywordtype">char</span> <a class="code hl_function" href="a04915.html#a7326cb683fa44ffee86a4ab78239a8b3">MemoryInputBuffer::peek</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> pos &lt; len ? buffer[pos] : EOF; }</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="a04915.html#abe42825f4fc0023c24ff75b0cf0f88ab">   42</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a04915.html#abe42825f4fc0023c24ff75b0cf0f88ab">MemoryInputBuffer::good</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> pos &lt; len; }</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>} <span class="comment">// namespace serial</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00851_html"><div class="ttname"><a href="a00851.html">MemoryInputBuffer.hpp</a></div></div>
-<div class="ttc" id="aa02324_html_ad2ae6b0ac080ea0ac45f7a06ccc480ba"><div class="ttname"><a href="a02324.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a></div><div class="ttdeci">SoundHandle buffer</div><div class="ttdef"><b>Definition</b> <a href="a02324_source.html#l00025">AudioSystem.cpp:25</a></div></div>
-<div class="ttc" id="aa02360_html"><div class="ttname"><a href="a02360.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01448_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04915_html_a2f9f30c0f9c051df2cb054f114d8059d"><div class="ttname"><a href="a04915.html#a2f9f30c0f9c051df2cb054f114d8059d">bl::serial::MemoryInputBuffer::read</a></div><div class="ttdeci">virtual bool read(char *data, std::size_t len) override</div><div class="ttdoc">Reads data from the buffer.</div><div class="ttdef"><b>Definition</b> <a href="a01952_source.html#l00024">MemoryInputBuffer.cpp:24</a></div></div>
-<div class="ttc" id="aa04915_html_a5950a553a6c3cb2a52e7223325d1badc"><div class="ttname"><a href="a04915.html#a5950a553a6c3cb2a52e7223325d1badc">bl::serial::MemoryInputBuffer::size</a></div><div class="ttdeci">virtual std::size_t size() const override</div><div class="ttdoc">Returns the size of available input.</div><div class="ttdef"><b>Definition</b> <a href="a01952_source.html#l00033">MemoryInputBuffer.cpp:33</a></div></div>
-<div class="ttc" id="aa04915_html_a7326cb683fa44ffee86a4ab78239a8b3"><div class="ttname"><a href="a04915.html#a7326cb683fa44ffee86a4ab78239a8b3">bl::serial::MemoryInputBuffer::peek</a></div><div class="ttdeci">virtual char peek() const override</div><div class="ttdoc">Returns the next byte value to be read. May return EOF.</div><div class="ttdef"><b>Definition</b> <a href="a01952_source.html#l00040">MemoryInputBuffer.cpp:40</a></div></div>
-<div class="ttc" id="aa04915_html_abe42825f4fc0023c24ff75b0cf0f88ab"><div class="ttname"><a href="a04915.html#abe42825f4fc0023c24ff75b0cf0f88ab">bl::serial::MemoryInputBuffer::good</a></div><div class="ttdeci">virtual bool good() const override</div><div class="ttdoc">Returns whether or not the buffer is in a valid state.</div><div class="ttdef"><b>Definition</b> <a href="a01952_source.html#l00042">MemoryInputBuffer.cpp:42</a></div></div>
-<div class="ttc" id="aa04915_html_ad526a96030f540ce35fa1c0c5343cee3"><div class="ttname"><a href="a04915.html#ad526a96030f540ce35fa1c0c5343cee3">bl::serial::MemoryInputBuffer::seekg</a></div><div class="ttdeci">virtual bool seekg(std::size_t pos) override</div><div class="ttdoc">Sets the position of the read head in the buffer.</div><div class="ttdef"><b>Definition</b> <a href="a01952_source.html#l00035">MemoryInputBuffer.cpp:35</a></div></div>
-<div class="ttc" id="aa04915_html_ad5bbe1d1f73ad9ada0bba9b61d016ef2"><div class="ttname"><a href="a04915.html#ad5bbe1d1f73ad9ada0bba9b61d016ef2">bl::serial::MemoryInputBuffer::tellg</a></div><div class="ttdeci">virtual std::size_t tellg() const override</div><div class="ttdoc">Returns the current position of the read head in the buffer.</div><div class="ttdef"><b>Definition</b> <a href="a01952_source.html#l00031">MemoryInputBuffer.cpp:31</a></div></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>} <span class="comment">// namespace menu</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00812_html"><div class="ttname"><a href="a00812.html">MouseDriver.hpp</a></div></div>
+<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03734_html_a4a9cc6c526d12fe1b7a4e2010a8fbeec"><div class="ttname"><a href="a03734.html#a4a9cc6c526d12fe1b7a4e2010a8fbeec">bl::menu::MouseDriver::setAllowButtonActivate</a></div><div class="ttdeci">void setAllowButtonActivate(bool allow)</div><div class="ttdoc">Sets whether or not clicking the mouse sends activation events.</div><div class="ttdef"><b>Definition</b> <a href="a01952_source.html#l00012">MouseDriver.cpp:12</a></div></div>
+<div class="ttc" id="aa03734_html_a51b5c9e92209da473bf63d0b4932eb6a"><div class="ttname"><a href="a03734.html#a51b5c9e92209da473bf63d0b4932eb6a">bl::menu::MouseDriver::MouseDriver</a></div><div class="ttdeci">MouseDriver(Menu &amp;menu, bool allowClickActivate=true, sf::Mouse::Button activateButton=sf::Mouse::Left)</div><div class="ttdoc">Create a new mouse generator that services the given menu.</div><div class="ttdef"><b>Definition</b> <a href="a01952_source.html#l00007">MouseDriver.cpp:7</a></div></div>
+<div class="ttc" id="aa03734_html_a78b5b19a962df1aba0380023a65f5aab"><div class="ttname"><a href="a03734.html#a78b5b19a962df1aba0380023a65f5aab">bl::menu::MouseDriver::setMouseActivateButton</a></div><div class="ttdeci">void setMouseActivateButton(sf::Mouse::Button activateButton)</div><div class="ttdoc">Set the mouse button bound to activate events.</div><div class="ttdef"><b>Definition</b> <a href="a01952_source.html#l00014">MouseDriver.cpp:14</a></div></div>
+<div class="ttc" id="aa03734_html_aaa57126748fdfef3f300ceec40761725"><div class="ttname"><a href="a03734.html#aaa57126748fdfef3f300ceec40761725">bl::menu::MouseDriver::observe</a></div><div class="ttdeci">virtual void observe(const sf::Event &amp;event) override</div><div class="ttdoc">Processes the given window event and drives the menu if relevant.</div><div class="ttdef"><b>Definition</b> <a href="a01952_source.html#l00016">MouseDriver.cpp:16</a></div></div>
+<div class="ttc" id="aa03746_html"><div class="ttname"><a href="a03746.html">bl::menu::Event</a></div><div class="ttdoc">Data struct representing an event in a Menu.</div><div class="ttdef"><b>Definition</b> <a href="a06409_source.html#l00016">Event.hpp:16</a></div></div>
+<div class="ttc" id="aa03754_html"><div class="ttname"><a href="a03754.html">bl::menu::Event::ActivateEvent</a></div><div class="ttdoc">Data struct for an Activate event.</div><div class="ttdef"><b>Definition</b> <a href="a06409_source.html#l00039">Event.hpp:39</a></div></div>
+<div class="ttc" id="aa03758_html"><div class="ttname"><a href="a03758.html">bl::menu::Event::LocationEvent</a></div><div class="ttdoc">Data struct for a SelectorLocation event.</div><div class="ttdef"><b>Definition</b> <a href="a06409_source.html#l00045">Event.hpp:45</a></div></div>
+<div class="ttc" id="aa03786_html"><div class="ttname"><a href="a03786.html">bl::menu::Menu</a></div><div class="ttdoc">Primary class for mouseless menus.</div><div class="ttdef"><b>Definition</b> <a href="a06415_source.html#l00033">Menu.hpp:33</a></div></div>
+<div class="ttc" id="aa03786_html_a994d802c062248a8017e3bcb454073a9"><div class="ttname"><a href="a03786.html#a994d802c062248a8017e3bcb454073a9">bl::menu::Menu::processEvent</a></div><div class="ttdeci">void processEvent(const Event &amp;event)</div><div class="ttdoc">Processes the event and updates the Menu state.</div><div class="ttdef"><b>Definition</b> <a href="a01958_source.html#l00238">Menu.cpp:238</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

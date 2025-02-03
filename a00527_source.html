@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Tilemap/Direction.hpp Source File</title>
+<title>BLIB: include/BLIB/Events/ListenerGuard.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,57 +79,87 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_371518b0c1a3e83dfdc031931ecd4922.html">Tilemap</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_b1ab5f494aad7f0e2da16d9fefe047e9.html">Events</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Direction.hpp</div></div>
+  <div class="headertitle"><div class="title">ListenerGuard.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00527.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_TILEMAP_DIRECTION_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_TILEMAP_DIRECTION_HPP</span></div>
+<a href="a00527.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_EVENTS_LISTENERGUARD_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_EVENTS_LISTENERGUARD_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02360.html">bl</a></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a02428.html">    9</a></span><span class="keyword">namespace </span>tmap</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a02351.html#ga718359d5f56e8650998bc14f045c3f64">   16</a></span><span class="keyword">enum struct</span> <a class="code hl_enumeration" href="a02351.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> : std::uint8_t { <a class="code hl_enumvalue" href="a02351.html#gga718359d5f56e8650998bc14f045c3f64a258f49887ef8d14ac268c92b02503aaa">Up</a> = 0, <a class="code hl_enumvalue" href="a02351.html#gga718359d5f56e8650998bc14f045c3f64a92b09c7c48c520c3c55e497875da437c">Right</a> = 1, <a class="code hl_enumvalue" href="a02351.html#gga718359d5f56e8650998bc14f045c3f64a08a38277b0309070706f6652eeae9a53">Down</a> = 2, <a class="code hl_enumvalue" href="a02351.html#gga718359d5f56e8650998bc14f045c3f64a945d5e233cf7d6240f6b783b36a374ff">Left</a> = 3 };</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><a class="code hl_enumeration" href="a02351.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> <a class="code hl_function" href="a02351.html#ga1d948d110c8c972bc5b6f45d06c9e3f9">oppositeDirection</a>(<a class="code hl_enumeration" href="a02351.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> dir);</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00530.html">BLIB/Events/Dispatcher.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>event</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
+<div class="foldopen" id="foldopen00018" data-start="{" data-end="};">
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a03190.html">   18</a></span><span class="keyword">class </span><a class="code hl_class" href="a03190.html">ListenerGuard</a> {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <a class="code hl_class" href="a03190.html">ListenerGuard</a>(<a class="code hl_class" href="a03186.html">Listener&lt;TEvents...&gt;</a>* owner);</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><a class="code hl_enumeration" href="a02351.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> <a class="code hl_function" href="a02351.html#ga220339ef558132abe716abe33a18dadb">nextClockwiseDirection</a>(<a class="code hl_enumeration" href="a02351.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> dir);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><a class="code hl_enumeration" href="a02351.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> <a class="code hl_function" href="a02351.html#ga887ba83d0d54b0b5bd9ffb0ee4018fb7">nextCounterClockwiseDirection</a>(<a class="code hl_enumeration" href="a02351.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> dir);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <a class="code hl_function" href="a03190.html#a328851620e6bb20d1ddbebc9994a7dd3">~ListenerGuard</a>();</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03190.html#aaf8c7456d69baddfc086251a1fa77ae6">subscribe</a>(<span class="keywordtype">bool</span> defer = <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03190.html#a010f7f24a4188f4283499854147a520f">unsubscribe</a>();</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><a class="code hl_enumeration" href="a02351.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> <a class="code hl_function" href="a02351.html#ga50423a802de9a1c43478aab60328719e">directionFromString</a>(<span class="keyword">const</span> std::string&amp; dir);</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>std::string <a class="code hl_function" href="a02351.html#ga74da6f2d6ed6515b52ebdb22ecce7997">directionToString</a>(<a class="code hl_enumeration" href="a02351.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> dir);</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>} <span class="comment">// namespace tmap</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <a class="code hl_class" href="a03186.html">Listener</a>&lt;TEvents...&gt;* <span class="keyword">const</span> listener;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>};</div>
 </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02351_html_ga1d948d110c8c972bc5b6f45d06c9e3f9"><div class="ttname"><a href="a02351.html#ga1d948d110c8c972bc5b6f45d06c9e3f9">bl::tmap::oppositeDirection</a></div><div class="ttdeci">Direction oppositeDirection(Direction dir)</div><div class="ttdoc">Returns the Direction that is opposite of the given direction.</div><div class="ttdef"><b>Definition</b> <a href="a01733_source.html#l00009">Direction.cpp:9</a></div></div>
-<div class="ttc" id="aa02351_html_ga220339ef558132abe716abe33a18dadb"><div class="ttname"><a href="a02351.html#ga220339ef558132abe716abe33a18dadb">bl::tmap::nextClockwiseDirection</a></div><div class="ttdeci">Direction nextClockwiseDirection(Direction dir)</div><div class="ttdoc">Returns the next clockwise direction from the given current direction.</div><div class="ttdef"><b>Definition</b> <a href="a01733_source.html#l00025">Direction.cpp:25</a></div></div>
-<div class="ttc" id="aa02351_html_ga50423a802de9a1c43478aab60328719e"><div class="ttname"><a href="a02351.html#ga50423a802de9a1c43478aab60328719e">bl::tmap::directionFromString</a></div><div class="ttdeci">Direction directionFromString(const std::string &amp;dir)</div><div class="ttdoc">Converts the given string into a direction.</div><div class="ttdef"><b>Definition</b> <a href="a01733_source.html#l00057">Direction.cpp:57</a></div></div>
-<div class="ttc" id="aa02351_html_ga718359d5f56e8650998bc14f045c3f64"><div class="ttname"><a href="a02351.html#ga718359d5f56e8650998bc14f045c3f64">bl::tmap::Direction</a></div><div class="ttdeci">Direction</div><div class="ttdoc">Which direction an entity is facing in a tilemap.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00016">Direction.hpp:16</a></div></div>
-<div class="ttc" id="aa02351_html_ga74da6f2d6ed6515b52ebdb22ecce7997"><div class="ttname"><a href="a02351.html#ga74da6f2d6ed6515b52ebdb22ecce7997">bl::tmap::directionToString</a></div><div class="ttdeci">std::string directionToString(Direction dir)</div><div class="ttdoc">Converts the given direction to a string.</div><div class="ttdef"><b>Definition</b> <a href="a01733_source.html#l00070">Direction.cpp:70</a></div></div>
-<div class="ttc" id="aa02351_html_ga887ba83d0d54b0b5bd9ffb0ee4018fb7"><div class="ttname"><a href="a02351.html#ga887ba83d0d54b0b5bd9ffb0ee4018fb7">bl::tmap::nextCounterClockwiseDirection</a></div><div class="ttdeci">Direction nextCounterClockwiseDirection(Direction dir)</div><div class="ttdoc">Returns the next counterclockwise direction from the given current direction.</div><div class="ttdef"><b>Definition</b> <a href="a01733_source.html#l00041">Direction.cpp:41</a></div></div>
-<div class="ttc" id="aa02351_html_gga718359d5f56e8650998bc14f045c3f64a08a38277b0309070706f6652eeae9a53"><div class="ttname"><a href="a02351.html#gga718359d5f56e8650998bc14f045c3f64a08a38277b0309070706f6652eeae9a53">bl::tmap::Direction::Down</a></div><div class="ttdeci">@ Down</div></div>
-<div class="ttc" id="aa02351_html_gga718359d5f56e8650998bc14f045c3f64a258f49887ef8d14ac268c92b02503aaa"><div class="ttname"><a href="a02351.html#gga718359d5f56e8650998bc14f045c3f64a258f49887ef8d14ac268c92b02503aaa">bl::tmap::Direction::Up</a></div><div class="ttdeci">@ Up</div></div>
-<div class="ttc" id="aa02351_html_gga718359d5f56e8650998bc14f045c3f64a92b09c7c48c520c3c55e497875da437c"><div class="ttname"><a href="a02351.html#gga718359d5f56e8650998bc14f045c3f64a92b09c7c48c520c3c55e497875da437c">bl::tmap::Direction::Right</a></div><div class="ttdeci">@ Right</div></div>
-<div class="ttc" id="aa02351_html_gga718359d5f56e8650998bc14f045c3f64a945d5e233cf7d6240f6b783b36a374ff"><div class="ttname"><a href="a02351.html#gga718359d5f56e8650998bc14f045c3f64a945d5e233cf7d6240f6b783b36a374ff">bl::tmap::Direction::Left</a></div><div class="ttdeci">@ Left</div></div>
-<div class="ttc" id="aa02360_html"><div class="ttname"><a href="a02360.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01448_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
+<div class="foldopen" id="foldopen00055" data-start="{" data-end="}">
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="a03190.html#a96a8d50a80ae728156a8b5c32e3675e5">   55</a></span><a class="code hl_function" href="a03190.html#a96a8d50a80ae728156a8b5c32e3675e5">ListenerGuard&lt;TEvents...&gt;::ListenerGuard</a>(<a class="code hl_class" href="a03186.html">Listener&lt;TEvents...&gt;</a>* owner)</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>: listener(owner) {}</div>
+</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
+<div class="foldopen" id="foldopen00059" data-start="{" data-end="}">
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="a03190.html#a328851620e6bb20d1ddbebc9994a7dd3">   59</a></span><a class="code hl_function" href="a03190.html#a328851620e6bb20d1ddbebc9994a7dd3">ListenerGuard&lt;TEvents...&gt;::~ListenerGuard</a>() {</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    unsubscribe();</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>}</div>
+</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
+<div class="foldopen" id="foldopen00064" data-start="{" data-end="}">
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="a03190.html#aaf8c7456d69baddfc086251a1fa77ae6">   64</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03190.html#aaf8c7456d69baddfc086251a1fa77ae6">ListenerGuard&lt;TEvents...&gt;::subscribe</a>(<span class="keywordtype">bool</span> defer) {</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    unsubscribe();</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <a class="code hl_function" href="a03174.html#a36b6226eb7a776e0fc9c798689725bdc">Dispatcher::subscribe</a>(listener, defer);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>}</div>
+</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
+<div class="foldopen" id="foldopen00070" data-start="{" data-end="}">
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="a03190.html#a010f7f24a4188f4283499854147a520f">   70</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03190.html#a010f7f24a4188f4283499854147a520f">ListenerGuard&lt;TEvents...&gt;::unsubscribe</a>() {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <a class="code hl_function" href="a03174.html#a7d6b29860c56388036edd8a38f26a4c7">Dispatcher::unsubscribe</a>(listener);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>}</div>
+</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>} <span class="comment">// namespace event</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00530_html"><div class="ttname"><a href="a00530.html">Dispatcher.hpp</a></div></div>
+<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03174_html_a36b6226eb7a776e0fc9c798689725bdc"><div class="ttname"><a href="a03174.html#a36b6226eb7a776e0fc9c798689725bdc">bl::event::Dispatcher::subscribe</a></div><div class="ttdeci">static void subscribe(Listener&lt; TEvents... &gt; *listener, bool defer=false)</div><div class="ttdoc">Subscribe the given listener to the event stream for the event types given.</div><div class="ttdef"><b>Definition</b> <a href="a00530_source.html#l00093">Dispatcher.hpp:93</a></div></div>
+<div class="ttc" id="aa03174_html_a7d6b29860c56388036edd8a38f26a4c7"><div class="ttname"><a href="a03174.html#a7d6b29860c56388036edd8a38f26a4c7">bl::event::Dispatcher::unsubscribe</a></div><div class="ttdeci">static void unsubscribe(Listener&lt; TEvents... &gt; *listener, bool defer=false)</div><div class="ttdoc">Removes the given listener and prevents it from receiving any more events.</div><div class="ttdef"><b>Definition</b> <a href="a00530_source.html#l00104">Dispatcher.hpp:104</a></div></div>
+<div class="ttc" id="aa03186_html"><div class="ttname"><a href="a03186.html">bl::event::Listener</a></div><div class="ttdoc">Listener of multiple event types. Listeners should inherit this class with the types of events they w...</div><div class="ttdef"><b>Definition</b> <a href="a06394_source.html#l00049">Listener.hpp:49</a></div></div>
+<div class="ttc" id="aa03190_html"><div class="ttname"><a href="a03190.html">bl::event::ListenerGuard</a></div><div class="ttdoc">Version of scope guard but for classes. Classes that subscribe to event buses through a member Listen...</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00018">ListenerGuard.hpp:18</a></div></div>
+<div class="ttc" id="aa03190_html_a010f7f24a4188f4283499854147a520f"><div class="ttname"><a href="a03190.html#a010f7f24a4188f4283499854147a520f">bl::event::ListenerGuard::unsubscribe</a></div><div class="ttdeci">void unsubscribe()</div><div class="ttdoc">Unsubscribes the owner from the given event bus.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00070">ListenerGuard.hpp:70</a></div></div>
+<div class="ttc" id="aa03190_html_a328851620e6bb20d1ddbebc9994a7dd3"><div class="ttname"><a href="a03190.html#a328851620e6bb20d1ddbebc9994a7dd3">bl::event::ListenerGuard::~ListenerGuard</a></div><div class="ttdeci">~ListenerGuard()</div><div class="ttdoc">Unsubscribes if subscribed.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00059">ListenerGuard.hpp:59</a></div></div>
+<div class="ttc" id="aa03190_html_a96a8d50a80ae728156a8b5c32e3675e5"><div class="ttname"><a href="a03190.html#a96a8d50a80ae728156a8b5c32e3675e5">bl::event::ListenerGuard::ListenerGuard</a></div><div class="ttdeci">ListenerGuard(Listener&lt; TEvents... &gt; *owner)</div><div class="ttdoc">Creates an empty guard.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00055">ListenerGuard.hpp:55</a></div></div>
+<div class="ttc" id="aa03190_html_aaf8c7456d69baddfc086251a1fa77ae6"><div class="ttname"><a href="a03190.html#aaf8c7456d69baddfc086251a1fa77ae6">bl::event::ListenerGuard::subscribe</a></div><div class="ttdeci">void subscribe(bool defer=false)</div><div class="ttdoc">Subscribes the owner to the given bus.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00064">ListenerGuard.hpp:64</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

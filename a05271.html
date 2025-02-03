@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::util::ReadWriteLock Class Reference</title>
+<title>BLIB: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,181 +74,26 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02360.html">bl</a></li><li class="navelem"><a class="el" href="a02429.html">util</a></li><li class="navelem"><a class="el" href="a05271.html">ReadWriteLock</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02409.html">sys</a></li><li class="navelem"><a class="el" href="a05274.html">VelocitySystem</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="a05268.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::util::ReadWriteLock Class Reference<div class="ingroups"><a class="el" href="a02352.html">Util</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::sys::VelocitySystem Member List</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Reader-writer lock built on top of std::shared_mutex. The primary benefit of this class is that lockRead and lockWrite do not deadlock if called by the same thread more than once. Note that calling one and then the other will still deadlock.  
- <a href="a05271.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00446_source.html">ReadWriteLock.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::util::ReadWriteLock:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a05271.png" usemap="#bl::util::ReadWriteLock_map" alt=""/>
-  <map id="bl::util::ReadWriteLock_map" name="bl::util::ReadWriteLock_map">
-<area href="a05235.html" title="Helper class to make derived classes impossible for user to copy directly." alt="bl::util::NonCopyable" shape="rect" coords="0,0,135,24"/>
-  </map>
-</div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05275.html">ReadScopeGuard</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">RAII helper to acquire a read lock and release it when the scope is exited.  <a href="a05275.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05279.html">WriteScopeGuard</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">RAII helper to acquire a write lock and release it when the scope is exited.  <a href="a05279.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a3b8cc85b75b2b5a280c9ce246b9b2dd2" id="r_a3b8cc85b75b2b5a280c9ce246b9b2dd2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05271.html#a3b8cc85b75b2b5a280c9ce246b9b2dd2">ReadWriteLock</a> ()</td></tr>
-<tr class="memdesc:a3b8cc85b75b2b5a280c9ce246b9b2dd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Read Write Lock object.  <br /></td></tr>
-<tr class="separator:a3b8cc85b75b2b5a280c9ce246b9b2dd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71234a7cb8b764c834c02fcdc097a728" id="r_a71234a7cb8b764c834c02fcdc097a728"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05271.html#a71234a7cb8b764c834c02fcdc097a728">lockRead</a> ()</td></tr>
-<tr class="memdesc:a71234a7cb8b764c834c02fcdc097a728"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acquires a lock for reading a shared resource. Multiple threads may acquire a read lock provided that no thread holds a write lock.  <br /></td></tr>
-<tr class="separator:a71234a7cb8b764c834c02fcdc097a728"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad37b398dbe7861cd2763e20002069263" id="r_ad37b398dbe7861cd2763e20002069263"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05271.html#ad37b398dbe7861cd2763e20002069263">lockWrite</a> ()</td></tr>
-<tr class="memdesc:ad37b398dbe7861cd2763e20002069263"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acquires a lock for writing a shared resource. Only one thread may hold this lock.  <br /></td></tr>
-<tr class="separator:ad37b398dbe7861cd2763e20002069263"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abcce04734931a45bdeeab0241135133b" id="r_abcce04734931a45bdeeab0241135133b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05271.html#abcce04734931a45bdeeab0241135133b">unlockRead</a> ()</td></tr>
-<tr class="memdesc:abcce04734931a45bdeeab0241135133b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the read lock held by this thread.  <br /></td></tr>
-<tr class="separator:abcce04734931a45bdeeab0241135133b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a751259f66b9b1aece13bbf155cdd50c5" id="r_a751259f66b9b1aece13bbf155cdd50c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05271.html#a751259f66b9b1aece13bbf155cdd50c5">unlockWrite</a> ()</td></tr>
-<tr class="memdesc:a751259f66b9b1aece13bbf155cdd50c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the write lock held by this thread.  <br /></td></tr>
-<tr class="separator:a751259f66b9b1aece13bbf155cdd50c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Reader-writer lock built on top of std::shared_mutex. The primary benefit of this class is that lockRead and lockWrite do not deadlock if called by the same thread more than once. Note that calling one and then the other will still deadlock. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00446_source.html#l00022">22</a> of file <a class="el" href="a00446_source.html">ReadWriteLock.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a3b8cc85b75b2b5a280c9ce246b9b2dd2" name="a3b8cc85b75b2b5a280c9ce246b9b2dd2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b8cc85b75b2b5a280c9ce246b9b2dd2">&#9670;&#160;</a></span>ReadWriteLock()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::util::ReadWriteLock::ReadWriteLock </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Construct a new Read Write Lock object. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01682_source.html#l00007">7</a> of file <a class="el" href="a01682_source.html">ReadWriteLock.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a71234a7cb8b764c834c02fcdc097a728" name="a71234a7cb8b764c834c02fcdc097a728"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71234a7cb8b764c834c02fcdc097a728">&#9670;&#160;</a></span>lockRead()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::util::ReadWriteLock::lockRead </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Acquires a lock for reading a shared resource. Multiple threads may acquire a read lock provided that no thread holds a write lock. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01682_source.html#l00011">11</a> of file <a class="el" href="a01682_source.html">ReadWriteLock.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ad37b398dbe7861cd2763e20002069263" name="ad37b398dbe7861cd2763e20002069263"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad37b398dbe7861cd2763e20002069263">&#9670;&#160;</a></span>lockWrite()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::util::ReadWriteLock::lockWrite </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Acquires a lock for writing a shared resource. Only one thread may hold this lock. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01682_source.html#l00033">33</a> of file <a class="el" href="a01682_source.html">ReadWriteLock.cpp</a>.</p>
-
-</div>
-</div>
-<a id="abcce04734931a45bdeeab0241135133b" name="abcce04734931a45bdeeab0241135133b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abcce04734931a45bdeeab0241135133b">&#9670;&#160;</a></span>unlockRead()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::util::ReadWriteLock::unlockRead </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Releases the read lock held by this thread. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01682_source.html#l00021">21</a> of file <a class="el" href="a01682_source.html">ReadWriteLock.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a751259f66b9b1aece13bbf155cdd50c5" name="a751259f66b9b1aece13bbf155cdd50c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a751259f66b9b1aece13bbf155cdd50c5">&#9670;&#160;</a></span>unlockWrite()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::util::ReadWriteLock::unlockWrite </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Releases the write lock held by this thread. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01682_source.html#l00044">44</a> of file <a class="el" href="a01682_source.html">ReadWriteLock.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Util/<a class="el" href="a00446_source.html">ReadWriteLock.hpp</a></li>
-<li>src/Util/<a class="el" href="a01682_source.html">ReadWriteLock.cpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a05274.html">bl::sys::VelocitySystem</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a03130.html#a0ea4afb54444b6a57c92edf15e07e54e">earlyCleanup</a>()</td><td class="entry"><a class="el" href="a03130.html">bl::engine::System</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a03130.html#ad54860ab304e448edd55571f4e039634">notifyFrameStart</a>()</td><td class="entry"><a class="el" href="a03130.html">bl::engine::System</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a05274.html#a494c01b83516a88fa055529e354c6807">VelocitySystem</a>()</td><td class="entry"><a class="el" href="a05274.html">bl::sys::VelocitySystem</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a03130.html#aa94c5ee9b05530eb29c7ad3e5b801225">~System</a>()=default</td><td class="entry"><a class="el" href="a03130.html">bl::engine::System</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a05274.html#a0d45df25b1993c7f0c9ffbf3d52be752">~VelocitySystem</a>()=default</td><td class="entry"><a class="el" href="a05274.html">bl::sys::VelocitySystem</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:08 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

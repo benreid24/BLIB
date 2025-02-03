@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Graphics/BatchCircle.hpp Source File</title>
+<title>BLIB: include/BLIB/Graphics/Text/VulkanFont.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,49 +79,189 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_8af985930208ac2752e8061e22535a56.html">Graphics</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_8af985930208ac2752e8061e22535a56.html">Graphics</a></li><li class="navelem"><a class="el" href="dir_df7400529c16bbc4a3bd7a554f18870b.html">Text</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">BatchCircle.hpp</div></div>
+  <div class="headertitle"><div class="title">VulkanFont.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00929.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_GRAPHICS_BATCHCIRCLE_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_GRAPHICS_BATCHCIRCLE_HPP</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00968.html">BLIB/Graphics/Shapes2D/BatchShape2D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00974.html">BLIB/Graphics/Shapes2D/CircleBase.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02360.html">bl</a></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>gfx</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
-<div class="foldopen" id="foldopen00016" data-start="{" data-end="};">
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a03163.html">   16</a></span><span class="keyword">class </span><a class="code hl_class" href="a03163.html">BatchCircle</a> : <span class="keyword">public</span> <a class="code hl_class" href="a03247.html">s2d::CircleBase</a>&lt;s2d::BatchShape2D&gt; {</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <a class="code hl_class" href="a03163.html">BatchCircle</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> pointCount = 300);</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03163.html#afb1bb88aa076118b195162f3fea2b141">create</a>(<a class="code hl_class" href="a02967.html">engine::Engine</a>&amp; engine, <a class="code hl_class" href="a03167.html">BatchedShapes2D</a>&amp; owner, <span class="keywordtype">float</span> radius);</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>};</div>
+<a href="a00929.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">//</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">// SFML - Simple and Fast Multimedia Library</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">// Copyright (C) 2007-2022 Laurent Gomila (laurent@sfml-dev.org)</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">//</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">// This software is provided &#39;as-is&#39;, without any express or implied warranty.</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">// In no event will the authors be held liable for any damages arising from the use of this</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">// software.</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">//</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">// Permission is granted to anyone to use this software for any purpose,</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">// including commercial applications, and to alter it and redistribute it freely,</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">// subject to the following restrictions:</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">//</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">// 1. The origin of this software must not be misrepresented;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">//    you must not claim that you wrote the original software.</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment">//    If you use this software in a product, an acknowledgment</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment">//    in the product documentation would be appreciated but is not required.</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment">//</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment">// 2. Altered source versions must be plainly marked as such,</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">//    and must not be misrepresented as being the original software.</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">//</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">// 3. This notice may not be removed or altered from any source distribution.</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment">//</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#ifndef BLIB_GRAPHICS_TEXT_VULKANFONT_HPP</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#define BLIB_GRAPHICS_TEXT_VULKANFONT_HPP</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">// Headers</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#include &lt;<a class="code" href="a01082.html">BLIB/Render/Resources/TextureRef.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#include &lt;SFML/Graphics/Export.hpp&gt;</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#include &lt;SFML/Graphics/Glyph.hpp&gt;</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#include &lt;SFML/Graphics/Image.hpp&gt;</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#include &lt;SFML/Graphics/Rect.hpp&gt;</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#include &lt;map&gt;</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>{</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>{</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="keyword">class </span>Renderer;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="foldopen" id="foldopen00047" data-start="{" data-end="}">
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="a02434.html">   47</a></span><span class="keyword">namespace </span>res</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>{</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keyword">class </span><a class="code hl_class" href="a04402.html">TextureRef</a>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
 </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00968_html"><div class="ttname"><a href="a00968.html">BatchShape2D.hpp</a></div></div>
-<div class="ttc" id="aa00974_html"><div class="ttname"><a href="a00974.html">CircleBase.hpp</a></div></div>
-<div class="ttc" id="aa02360_html"><div class="ttname"><a href="a02360.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01448_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02967_html"><div class="ttname"><a href="a02967.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition</b> <a href="a06208_source.html#l00038">Engine.hpp:38</a></div></div>
-<div class="ttc" id="aa03163_html"><div class="ttname"><a href="a03163.html">bl::gfx::BatchCircle</a></div><div class="ttdoc">Basic circle that can be rendered in scenes as part of shape batches.</div><div class="ttdef"><b>Definition</b> <a href="a00929_source.html#l00016">BatchCircle.hpp:16</a></div></div>
-<div class="ttc" id="aa03163_html_afb1bb88aa076118b195162f3fea2b141"><div class="ttname"><a href="a03163.html#afb1bb88aa076118b195162f3fea2b141">bl::gfx::BatchCircle::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, BatchedShapes2D &amp;owner, float radius)</div><div class="ttdoc">Creates the circle entity and components.</div><div class="ttdef"><b>Definition</b> <a href="a02042_source.html#l00010">BatchCircle.cpp:10</a></div></div>
-<div class="ttc" id="aa03167_html"><div class="ttname"><a href="a03167.html">bl::gfx::BatchedShapes2D</a></div><div class="ttdoc">Drawable for a collection of batched 2d shapes. Create one of these and use with multiple BatchedCirc...</div><div class="ttdef"><b>Definition</b> <a href="a06139_source.html#l00020">BatchedShapes2D.hpp:22</a></div></div>
-<div class="ttc" id="aa03247_html"><div class="ttname"><a href="a03247.html">bl::gfx::s2d::CircleBase</a></div><div class="ttdoc">Intermediate base class for circles. Use gfx::CircleBase or gfx::BatchedCircle.</div><div class="ttdef"><b>Definition</b> <a href="a00974_source.html#l00022">CircleBase.hpp:22</a></div></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="foldopen" id="foldopen00054" data-start="{" data-end="}">
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="a02435.html">   54</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02435.html">sf</a></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>{</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">class </span>InputStream;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="foldopen" id="foldopen00063" data-start="{" data-end="};">
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="a03374.html">   63</a></span><span class="keyword">class </span><a class="code hl_class" href="a03374.html">VulkanFont</a> {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00065" data-start="{" data-end="};">
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="a03378.html">   65</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="a03378.html">Info</a> {</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="a03378.html#a15cef9f7c76a75d9cf63b0537db351e3">   66</a></span>        std::string <a class="code hl_variable" href="a03378.html#a15cef9f7c76a75d9cf63b0537db351e3">family</a>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    };</div>
+</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <a class="code hl_function" href="a03374.html#a3835521eff91d97015df6f2257dd7acf">VulkanFont</a>();</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <a class="code hl_function" href="a03374.html#a3835521eff91d97015df6f2257dd7acf">VulkanFont</a>(<span class="keyword">const</span> <a class="code hl_class" href="a03374.html">VulkanFont</a>&amp; copy);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <a class="code hl_function" href="a03374.html#afb3edf77c26249d145f51654041cde86">~VulkanFont</a>();</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a03374.html#a5d6321199cdb878e5461f85e7067547e">loadFromFile</a>(<span class="keyword">const</span> std::string&amp; filename);</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a03374.html#af31fb7799224533a0edd78b79d425e0c">loadFromMemory</a>(<span class="keyword">const</span> <span class="keywordtype">void</span>* data, std::size_t sizeInBytes);</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a03374.html#a608058beee7e79028655224cb3207bfd">loadFromStream</a>(InputStream&amp; stream);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keyword">const</span> <a class="code hl_struct" href="a03378.html">Info</a>&amp; <a class="code hl_function" href="a03374.html#a050ffbef23b108ab497359d1c9b9289b">getInfo</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keyword">const</span> Glyph&amp; <a class="code hl_function" href="a03374.html#abefaa74fea84f9a9e7bd7416ff76f2fa">getGlyph</a>(Uint32 codePoint, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> characterSize, <span class="keywordtype">bool</span> bold,</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>                          <span class="keywordtype">float</span> outlineThickness = 0.f) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a03374.html#a43daefc6af7cd8d7fd43a71cfd36d35a">hasGlyph</a>(Uint32 codePoint) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keywordtype">float</span> <a class="code hl_function" href="a03374.html#a3381b509acdef4abf4c81c9a89b36cf9">getKerning</a>(Uint32 first, Uint32 second, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> characterSize,</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>                     <span class="keywordtype">bool</span> bold = <span class="keyword">false</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    <span class="keywordtype">float</span> <a class="code hl_function" href="a03374.html#aaba62e3158e2073c23989951942e3533">getLineSpacing</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> characterSize) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="keywordtype">float</span> <a class="code hl_function" href="a03374.html#a2bff79f8efef5fdcae06da07fccb41af">getUnderlinePosition</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> characterSize) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <span class="keywordtype">float</span> <a class="code hl_function" href="a03374.html#a86e7617fc3763e358078040b7cece134">getUnderlineThickness</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> characterSize) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    <span class="keyword">const</span> Image&amp; <a class="code hl_function" href="a03374.html#af08e8f259a1d8eb98923ad53c944cc80">getGlyphAtlas</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    <a class="code hl_class" href="a03374.html">VulkanFont</a>&amp; <a class="code hl_function" href="a03374.html#abb4584daa52f5bbdb2d48fe5a530ec5f">operator=</a>(<span class="keyword">const</span> <a class="code hl_class" href="a03374.html">VulkanFont</a>&amp; right);</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    <a class="code hl_class" href="a04402.html">bl::rc::res::TextureRef</a> <a class="code hl_function" href="a03374.html#a593294549ed69bd90f93f2b8da9f68ed">syncTexture</a>(<a class="code hl_class" href="a04346.html">bl::rc::Renderer</a>&amp; renderer) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <span class="keyword">struct </span>Row {</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        Row(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> rowTop, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> rowHeight)</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        : width(0)</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>        , top(rowTop)</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>        , height(rowHeight) {}</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span> </div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> width;  </div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> top;    </div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> height; </div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    };</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    <span class="keyword">typedef</span> std::map&lt;Uint64, Glyph&gt; GlyphTable; </div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <span class="keywordtype">void</span> cleanup();</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    Glyph loadGlyph(Uint32 codePoint, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> characterSize, <span class="keywordtype">bool</span> bold,</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>                    <span class="keywordtype">float</span> outlineThickness) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    IntRect findGlyphRect(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> width, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> height) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    <span class="keywordtype">bool</span> setCurrentSize(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> characterSize) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    <span class="comment">// Member data</span></div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    <span class="keyword">mutable</span> <span class="keywordtype">bool</span> needsUpload;</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    <span class="keyword">mutable</span> <a class="code hl_class" href="a04402.html">bl::rc::res::TextureRef</a> vulkanTexture;</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    <span class="keywordtype">void</span>* m_library;   </div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    <span class="keywordtype">void</span>* m_face;      </div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    <span class="keywordtype">void</span>* m_streamRec; </div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    <span class="keywordtype">void</span>* m_stroker;   </div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    <span class="keywordtype">int</span>* m_refCount;   </div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    <span class="keywordtype">bool</span> m_isSmooth;   </div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    Info m_info;       </div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    <span class="keyword">mutable</span> GlyphTable glyphs;     </div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    <span class="keyword">mutable</span> Image texture;         </div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    <span class="keyword">mutable</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nextRow;  </div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    <span class="keyword">mutable</span> std::vector&lt;Row&gt; rows; </div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    <span class="keyword">mutable</span> std::vector&lt;Uint8&gt; m_pixelBuffer; </div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    std::vector&lt;char&gt; buffer;</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span><span class="preprocessor">#ifdef SFML_SYSTEM_ANDROID</span></div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    <span class="keywordtype">void</span>* m_stream; </div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>};</div>
+</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span> </div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>} <span class="comment">// namespace sf</span></div>
+</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01082_html"><div class="ttname"><a href="a01082.html">TextureRef.hpp</a></div></div>
+<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02435_html"><div class="ttname"><a href="a02435.html">sf</a></div><div class="ttdef"><b>Definition</b> <a href="a00929_source.html#l00054">VulkanFont.hpp:55</a></div></div>
+<div class="ttc" id="aa03374_html"><div class="ttname"><a href="a03374.html">sf::VulkanFont</a></div><div class="ttdoc">Adaptation of sf::Font for use with Vulkan.</div><div class="ttdef"><b>Definition</b> <a href="a00929_source.html#l00063">VulkanFont.hpp:63</a></div></div>
+<div class="ttc" id="aa03374_html_a050ffbef23b108ab497359d1c9b9289b"><div class="ttname"><a href="a03374.html#a050ffbef23b108ab497359d1c9b9289b">sf::VulkanFont::getInfo</a></div><div class="ttdeci">const Info &amp; getInfo() const</div><div class="ttdoc">Returns the font information.</div><div class="ttdef"><b>Definition</b> <a href="a02039_source.html#l00343">VulkanFont.cpp:343</a></div></div>
+<div class="ttc" id="aa03374_html_a2bff79f8efef5fdcae06da07fccb41af"><div class="ttname"><a href="a03374.html#a2bff79f8efef5fdcae06da07fccb41af">sf::VulkanFont::getUnderlinePosition</a></div><div class="ttdeci">float getUnderlinePosition(unsigned int characterSize) const</div><div class="ttdoc">Returns the position of the underline for the given font size.</div><div class="ttdef"><b>Definition</b> <a href="a02039_source.html#l00423">VulkanFont.cpp:423</a></div></div>
+<div class="ttc" id="aa03374_html_a3381b509acdef4abf4c81c9a89b36cf9"><div class="ttname"><a href="a03374.html#a3381b509acdef4abf4c81c9a89b36cf9">sf::VulkanFont::getKerning</a></div><div class="ttdeci">float getKerning(Uint32 first, Uint32 second, unsigned int characterSize, bool bold=false) const</div><div class="ttdoc">Returns the kerning between the given characters.</div><div class="ttdef"><b>Definition</b> <a href="a02039_source.html#l00375">VulkanFont.cpp:375</a></div></div>
+<div class="ttc" id="aa03374_html_a3835521eff91d97015df6f2257dd7acf"><div class="ttname"><a href="a03374.html#a3835521eff91d97015df6f2257dd7acf">sf::VulkanFont::VulkanFont</a></div><div class="ttdeci">VulkanFont()</div><div class="ttdoc">Creates an empty font.</div><div class="ttdef"><b>Definition</b> <a href="a02039_source.html#l00083">VulkanFont.cpp:83</a></div></div>
+<div class="ttc" id="aa03374_html_a43daefc6af7cd8d7fd43a71cfd36d35a"><div class="ttname"><a href="a03374.html#a43daefc6af7cd8d7fd43a71cfd36d35a">sf::VulkanFont::hasGlyph</a></div><div class="ttdeci">bool hasGlyph(Uint32 codePoint) const</div><div class="ttdoc">Returns whether or not the font contains the requested character.</div><div class="ttdef"><b>Definition</b> <a href="a02039_source.html#l00370">VulkanFont.cpp:370</a></div></div>
+<div class="ttc" id="aa03374_html_a593294549ed69bd90f93f2b8da9f68ed"><div class="ttname"><a href="a03374.html#a593294549ed69bd90f93f2b8da9f68ed">sf::VulkanFont::syncTexture</a></div><div class="ttdeci">bl::rc::res::TextureRef syncTexture(bl::rc::Renderer &amp;renderer) const</div><div class="ttdoc">Creates or updates the Vulkan texture for the rendered glyphs if necessary.</div><div class="ttdef"><b>Definition</b> <a href="a02039_source.html#l00757">VulkanFont.cpp:757</a></div></div>
+<div class="ttc" id="aa03374_html_a5d6321199cdb878e5461f85e7067547e"><div class="ttname"><a href="a03374.html#a5d6321199cdb878e5461f85e7067547e">sf::VulkanFont::loadFromFile</a></div><div class="ttdeci">bool loadFromFile(const std::string &amp;filename)</div><div class="ttdoc">Loads the font from the given file.</div><div class="ttdef"><b>Definition</b> <a href="a02039_source.html#l00142">VulkanFont.cpp:142</a></div></div>
+<div class="ttc" id="aa03374_html_a608058beee7e79028655224cb3207bfd"><div class="ttname"><a href="a03374.html#a608058beee7e79028655224cb3207bfd">sf::VulkanFont::loadFromStream</a></div><div class="ttdeci">bool loadFromStream(InputStream &amp;stream)</div><div class="ttdoc">Loads the font from the given stream.</div><div class="ttdef"><b>Definition</b> <a href="a02039_source.html#l00268">VulkanFont.cpp:268</a></div></div>
+<div class="ttc" id="aa03374_html_a86e7617fc3763e358078040b7cece134"><div class="ttname"><a href="a03374.html#a86e7617fc3763e358078040b7cece134">sf::VulkanFont::getUnderlineThickness</a></div><div class="ttdeci">float getUnderlineThickness(unsigned int characterSize) const</div><div class="ttdoc">Returns the thickness of the underline for the given font size.</div><div class="ttdef"><b>Definition</b> <a href="a02039_source.html#l00438">VulkanFont.cpp:438</a></div></div>
+<div class="ttc" id="aa03374_html_aaba62e3158e2073c23989951942e3533"><div class="ttname"><a href="a03374.html#aaba62e3158e2073c23989951942e3533">sf::VulkanFont::getLineSpacing</a></div><div class="ttdeci">float getLineSpacing(unsigned int characterSize) const</div><div class="ttdoc">Returns the amount of space between letters for the given font size.</div><div class="ttdef"><b>Definition</b> <a href="a02039_source.html#l00413">VulkanFont.cpp:413</a></div></div>
+<div class="ttc" id="aa03374_html_abb4584daa52f5bbdb2d48fe5a530ec5f"><div class="ttname"><a href="a03374.html#abb4584daa52f5bbdb2d48fe5a530ec5f">sf::VulkanFont::operator=</a></div><div class="ttdeci">VulkanFont &amp; operator=(const VulkanFont &amp;right)</div><div class="ttdoc">Copies the value from another font.</div><div class="ttdef"><b>Definition</b> <a href="a02039_source.html#l00456">VulkanFont.cpp:456</a></div></div>
+<div class="ttc" id="aa03374_html_abefaa74fea84f9a9e7bd7416ff76f2fa"><div class="ttname"><a href="a03374.html#abefaa74fea84f9a9e7bd7416ff76f2fa">sf::VulkanFont::getGlyph</a></div><div class="ttdeci">const Glyph &amp; getGlyph(Uint32 codePoint, unsigned int characterSize, bool bold, float outlineThickness=0.f) const</div><div class="ttdoc">Returns the glyph information for the requested character and settings.</div><div class="ttdef"><b>Definition</b> <a href="a02039_source.html#l00346">VulkanFont.cpp:346</a></div></div>
+<div class="ttc" id="aa03374_html_af08e8f259a1d8eb98923ad53c944cc80"><div class="ttname"><a href="a03374.html#af08e8f259a1d8eb98923ad53c944cc80">sf::VulkanFont::getGlyphAtlas</a></div><div class="ttdeci">const Image &amp; getGlyphAtlas() const</div><div class="ttdoc">Returns the rendered glyph atlas.</div><div class="ttdef"><b>Definition</b> <a href="a02039_source.html#l00453">VulkanFont.cpp:453</a></div></div>
+<div class="ttc" id="aa03374_html_af31fb7799224533a0edd78b79d425e0c"><div class="ttname"><a href="a03374.html#af31fb7799224533a0edd78b79d425e0c">sf::VulkanFont::loadFromMemory</a></div><div class="ttdeci">bool loadFromMemory(const void *data, std::size_t sizeInBytes)</div><div class="ttdoc">Loads the font from the given memory.</div><div class="ttdef"><b>Definition</b> <a href="a02039_source.html#l00208">VulkanFont.cpp:208</a></div></div>
+<div class="ttc" id="aa03374_html_afb3edf77c26249d145f51654041cde86"><div class="ttname"><a href="a03374.html#afb3edf77c26249d145f51654041cde86">sf::VulkanFont::~VulkanFont</a></div><div class="ttdeci">~VulkanFont()</div><div class="ttdoc">Destroys the font.</div><div class="ttdef"><b>Definition</b> <a href="a02039_source.html#l00131">VulkanFont.cpp:131</a></div></div>
+<div class="ttc" id="aa03378_html"><div class="ttname"><a href="a03378.html">sf::VulkanFont::Info</a></div><div class="ttdef"><b>Definition</b> <a href="a00929_source.html#l00065">VulkanFont.hpp:65</a></div></div>
+<div class="ttc" id="aa03378_html_a15cef9f7c76a75d9cf63b0537db351e3"><div class="ttname"><a href="a03378.html#a15cef9f7c76a75d9cf63b0537db351e3">sf::VulkanFont::Info::family</a></div><div class="ttdeci">std::string family</div><div class="ttdef"><b>Definition</b> <a href="a00929_source.html#l00066">VulkanFont.hpp:66</a></div></div>
+<div class="ttc" id="aa04346_html"><div class="ttname"><a href="a04346.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a06862_source.html#l00043">Renderer.hpp:43</a></div></div>
+<div class="ttc" id="aa04402_html"><div class="ttname"><a href="a04402.html">bl::rc::res::TextureRef</a></div><div class="ttdoc">Lightweight reference to a texture inside of a TexturePool. Once all references to a texture are dest...</div><div class="ttdef"><b>Definition</b> <a href="a01082_source.html#l00027">TextureRef.hpp:27</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

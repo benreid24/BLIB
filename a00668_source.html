@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/GUI/Renderer/TextEntryComponentBase.hpp Source File</title>
+<title>BLIB: include/BLIB/Interfaces/GUI/Renderer/ComponentFactory.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,59 +83,62 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">TextEntryComponentBase.hpp</div></div>
+  <div class="headertitle"><div class="title">ComponentFactory.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00668.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_GUI_RENDERER_TEXTENTRYCOMPONENTBASE_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_GUI_RENDERER_TEXTENTRYCOMPONENTBASE_HPP</span></div>
+<a href="a00668.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_GUI_RENDERER_COMPONENTFACTORY_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_GUI_RENDERER_COMPONENTFACTORY_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00593.html">BLIB/Interfaces/GUI/Renderer/Component.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02360.html">bl</a></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>gui</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>rdr</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a03639.html">   17</a></span><span class="keyword">class </span><a class="code hl_class" href="a03639.html">TextEntryComponentBase</a> : <span class="keyword">public</span> <a class="code hl_class" href="a03595.html">Component</a> {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a03639.html#aae45ebb0c6c1a855fc5b6ac713243386">   22</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a03639.html#aae45ebb0c6c1a855fc5b6ac713243386">~TextEntryComponentBase</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a03639.html#a448b09e0ab4d3607f39b02c1c8283cc4">   30</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="a03639.html#a448b09e0ab4d3607f39b02c1c8283cc4">findCursorPosition</a>(<span class="keyword">const</span> sf::Vector2f&amp; overlayPos) <span class="keyword">const</span> = 0;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a03639.html#a489472fdb69660af52fd27bd8984ae82">   35</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03639.html#a489472fdb69660af52fd27bd8984ae82">onCaratStateUpdate</a>() = 0;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="a03639.html#a8eb787fab7432c5d02a885bfcdc34c7b">   40</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03639.html#a8eb787fab7432c5d02a885bfcdc34c7b">resetCaratFlash</a>() = 0;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">protected</span>:</div>
-<div class="foldopen" id="foldopen00048" data-start="{" data-end="}">
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="a03639.html#a792165dab949e3ea28bf583c4b1b242b">   48</a></span>    <a class="code hl_function" href="a03639.html#a792165dab949e3ea28bf583c4b1b242b">TextEntryComponentBase</a>(<a class="code hl_enumeration" href="a03595.html#ad04144636950185c959ad6394f0c5c52">Component::HighlightState</a> highlightState)</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    : <a class="code hl_class" href="a03595.html">Component</a>(highlightState) {}</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00599.html">BLIB/Interfaces/GUI/Renderer/Component.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>gui</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>rdr</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
+<div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a03678.html">   19</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a03678.html">ComponentFactory</a> {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a03678.html#a93c04bfc46919ebdb430f1951d3c011c">   20</a></span>    <span class="keyword">using </span><a class="code hl_typedef" href="a03678.html#a93c04bfc46919ebdb430f1951d3c011c">Ptr</a> = std::unique_ptr&lt;ComponentFactory&gt;;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a03678.html#abeba91c27bdfaa6660e103803d67760d">   25</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a03678.html#abeba91c27bdfaa6660e103803d67760d">~ComponentFactory</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a03678.html#af66919470aff11cda1a0853418c3e2b2">   30</a></span>    <span class="keyword">virtual</span> <a class="code hl_typedef" href="a03674.html#a947a8f9a8831f3c495cb9aa7ca89a374">Component::Ptr</a> <a class="code hl_function" href="a03678.html#af66919470aff11cda1a0853418c3e2b2">create</a>() = 0;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>};</div>
 </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>};</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00040" data-start="{" data-end="};">
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="a03682.html">   40</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a03682.html">GenericFactory</a> : <span class="keyword">public</span> <a class="code hl_struct" href="a03678.html">ComponentFactory</a> {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">static_assert</span>(std::is_base_of_v&lt;Component, T&gt;, <span class="stringliteral">&quot;T must derive from Component&quot;</span>);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a03682.html#a66cf47da6365f405770a0ff7fd950a8b">   46</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a03682.html#a66cf47da6365f405770a0ff7fd950a8b">~GenericFactory</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="a03682.html#ae74553d8839fa9e63947dcdc8735fbf4">   51</a></span>    <span class="keyword">virtual</span> <a class="code hl_typedef" href="a03674.html#a947a8f9a8831f3c495cb9aa7ca89a374">Component::Ptr</a> <a class="code hl_function" href="a03682.html#ae74553d8839fa9e63947dcdc8735fbf4">create</a>()<span class="keyword"> override </span>{ <span class="keywordflow">return</span> std::make_unique&lt;T&gt;(); }</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>};</div>
 </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>} <span class="comment">// namespace rdr</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>} <span class="comment">// namespace gui</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00593_html"><div class="ttname"><a href="a00593.html">Component.hpp</a></div></div>
-<div class="ttc" id="aa02360_html"><div class="ttname"><a href="a02360.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01448_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03595_html"><div class="ttname"><a href="a03595.html">bl::gui::rdr::Component</a></div><div class="ttdoc">Base class for renderer components. Each GUI element owns a handle to a component owned by the render...</div><div class="ttdef"><b>Definition</b> <a href="a00593_source.html#l00032">Component.hpp:32</a></div></div>
-<div class="ttc" id="aa03595_html_ad04144636950185c959ad6394f0c5c52"><div class="ttname"><a href="a03595.html#ad04144636950185c959ad6394f0c5c52">bl::gui::rdr::Component::HighlightState</a></div><div class="ttdeci">HighlightState</div><div class="ttdoc">How the component responds to mouse over state.</div><div class="ttdef"><b>Definition</b> <a href="a00593_source.html#l00040">Component.hpp:40</a></div></div>
-<div class="ttc" id="aa03639_html"><div class="ttname"><a href="a03639.html">bl::gui::rdr::TextEntryComponentBase</a></div><div class="ttdoc">Intermediate base class for components of TextEntry elements.</div><div class="ttdef"><b>Definition</b> <a href="a00668_source.html#l00017">TextEntryComponentBase.hpp:17</a></div></div>
-<div class="ttc" id="aa03639_html_a448b09e0ab4d3607f39b02c1c8283cc4"><div class="ttname"><a href="a03639.html#a448b09e0ab4d3607f39b02c1c8283cc4">bl::gui::rdr::TextEntryComponentBase::findCursorPosition</a></div><div class="ttdeci">virtual unsigned int findCursorPosition(const sf::Vector2f &amp;overlayPos) const =0</div><div class="ttdoc">Called to determine what index the carat should move to when the text is clicked.</div></div>
-<div class="ttc" id="aa03639_html_a489472fdb69660af52fd27bd8984ae82"><div class="ttname"><a href="a03639.html#a489472fdb69660af52fd27bd8984ae82">bl::gui::rdr::TextEntryComponentBase::onCaratStateUpdate</a></div><div class="ttdeci">virtual void onCaratStateUpdate()=0</div><div class="ttdoc">Called when the carat changes position or toggles visibility.</div></div>
-<div class="ttc" id="aa03639_html_a792165dab949e3ea28bf583c4b1b242b"><div class="ttname"><a href="a03639.html#a792165dab949e3ea28bf583c4b1b242b">bl::gui::rdr::TextEntryComponentBase::TextEntryComponentBase</a></div><div class="ttdeci">TextEntryComponentBase(Component::HighlightState highlightState)</div><div class="ttdoc">Calls the base Component constructor.</div><div class="ttdef"><b>Definition</b> <a href="a00668_source.html#l00048">TextEntryComponentBase.hpp:48</a></div></div>
-<div class="ttc" id="aa03639_html_a8eb787fab7432c5d02a885bfcdc34c7b"><div class="ttname"><a href="a03639.html#a8eb787fab7432c5d02a885bfcdc34c7b">bl::gui::rdr::TextEntryComponentBase::resetCaratFlash</a></div><div class="ttdeci">virtual void resetCaratFlash()=0</div><div class="ttdoc">Called when the carat flash timer should be reset.</div></div>
-<div class="ttc" id="aa03639_html_aae45ebb0c6c1a855fc5b6ac713243386"><div class="ttname"><a href="a03639.html#aae45ebb0c6c1a855fc5b6ac713243386">bl::gui::rdr::TextEntryComponentBase::~TextEntryComponentBase</a></div><div class="ttdeci">virtual ~TextEntryComponentBase()=default</div><div class="ttdoc">Destroys the component.</div></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>} <span class="comment">// namespace rdr</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>} <span class="comment">// namespace gui</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00599_html"><div class="ttname"><a href="a00599.html">Component.hpp</a></div></div>
+<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03674_html_a947a8f9a8831f3c495cb9aa7ca89a374"><div class="ttname"><a href="a03674.html#a947a8f9a8831f3c495cb9aa7ca89a374">bl::gui::rdr::Component::Ptr</a></div><div class="ttdeci">std::unique_ptr&lt; Component &gt; Ptr</div><div class="ttdef"><b>Definition</b> <a href="a00599_source.html#l00034">Component.hpp:34</a></div></div>
+<div class="ttc" id="aa03678_html"><div class="ttname"><a href="a03678.html">bl::gui::rdr::ComponentFactory</a></div><div class="ttdoc">Base class for component factories. Component factories are owned by FactoryTables,...</div><div class="ttdef"><b>Definition</b> <a href="a00668_source.html#l00019">ComponentFactory.hpp:19</a></div></div>
+<div class="ttc" id="aa03678_html_a93c04bfc46919ebdb430f1951d3c011c"><div class="ttname"><a href="a03678.html#a93c04bfc46919ebdb430f1951d3c011c">bl::gui::rdr::ComponentFactory::Ptr</a></div><div class="ttdeci">std::unique_ptr&lt; ComponentFactory &gt; Ptr</div><div class="ttdef"><b>Definition</b> <a href="a00668_source.html#l00020">ComponentFactory.hpp:20</a></div></div>
+<div class="ttc" id="aa03678_html_abeba91c27bdfaa6660e103803d67760d"><div class="ttname"><a href="a03678.html#abeba91c27bdfaa6660e103803d67760d">bl::gui::rdr::ComponentFactory::~ComponentFactory</a></div><div class="ttdeci">virtual ~ComponentFactory()=default</div><div class="ttdoc">Destroys the factory.</div></div>
+<div class="ttc" id="aa03678_html_af66919470aff11cda1a0853418c3e2b2"><div class="ttname"><a href="a03678.html#af66919470aff11cda1a0853418c3e2b2">bl::gui::rdr::ComponentFactory::create</a></div><div class="ttdeci">virtual Component::Ptr create()=0</div><div class="ttdoc">Called when a Component needs to be created.</div></div>
+<div class="ttc" id="aa03682_html"><div class="ttname"><a href="a03682.html">bl::gui::rdr::GenericFactory</a></div><div class="ttdoc">Generic factory for components with simple constructors. Provided for convenience.</div><div class="ttdef"><b>Definition</b> <a href="a00668_source.html#l00040">ComponentFactory.hpp:40</a></div></div>
+<div class="ttc" id="aa03682_html_a66cf47da6365f405770a0ff7fd950a8b"><div class="ttname"><a href="a03682.html#a66cf47da6365f405770a0ff7fd950a8b">bl::gui::rdr::GenericFactory::~GenericFactory</a></div><div class="ttdeci">virtual ~GenericFactory()=default</div><div class="ttdoc">Destroys the factory.</div></div>
+<div class="ttc" id="aa03682_html_ae74553d8839fa9e63947dcdc8735fbf4"><div class="ttname"><a href="a03682.html#ae74553d8839fa9e63947dcdc8735fbf4">bl::gui::rdr::GenericFactory::create</a></div><div class="ttdeci">virtual Component::Ptr create() override</div><div class="ttdoc">Creates a Component of type T.</div><div class="ttdef"><b>Definition</b> <a href="a00668_source.html#l00051">ComponentFactory.hpp:51</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

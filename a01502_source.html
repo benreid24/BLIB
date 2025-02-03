@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Components/Mesh.cpp Source File</title>
+<title>BLIB: src/Components/Orientation3D.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,38 +83,89 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Mesh.cpp</div></div>
+  <div class="headertitle"><div class="title">Orientation3D.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01502.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00074.html">BLIB/Components/Mesh.hpp</a>&gt;</span></div>
+<a href="a01502.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00053.html">BLIB/Components/Orientation3D.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02360.html">bl</a></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>com</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
 <div class="foldopen" id="foldopen00007" data-start="{" data-end="}">
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="a02603.html#af0c0061167c1dded9dc5c2b8a71aa93d">    7</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02603.html#af0c0061167c1dded9dc5c2b8a71aa93d">Mesh::create</a>(<a class="code hl_struct" href="a04583.html">rc::vk::VulkanState</a>&amp; vulkanState, std::uint32_t vertexCount,</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>                  std::uint32_t indexCount) {</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <a class="code hl_variable" href="a02603.html#a11a861d64d0ccbf3609b15778808ae30">gpuBuffer</a>.<a class="code hl_function" href="a03911.html#ad0b395bc88a2cf9c8cce245b5d9763bf">create</a>(vulkanState, vertexCount, indexCount);</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <a class="code hl_variable" href="a03947.html#a9c3ad2caaf2846e720343ec52eaf1073">drawParams</a> = <a class="code hl_variable" href="a02603.html#a11a861d64d0ccbf3609b15778808ae30">gpuBuffer</a>.<a class="code hl_function" href="a03911.html#af615777e9f82e5c6bdad436203b4f024">getDrawParameters</a>();</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>}</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="a02654.html#a65e09b4c73a47adb059a052274a3a0f0">    7</a></span><a class="code hl_function" href="a02654.html#a65e09b4c73a47adb059a052274a3a0f0">Orientation3D::Orientation3D</a>(<span class="keywordtype">float</span> yaw, <span class="keywordtype">float</span> pitch, <span class="keywordtype">float</span> roll)</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>: roll(roll) {</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <a class="code hl_function" href="a02654.html#a7d4a859619d866c0bcccb83016d16ced">setYawAndPitch</a>(yaw, pitch);</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>}</div>
 </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>} <span class="comment">// namespace com</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00074_html"><div class="ttname"><a href="a00074.html">Mesh.hpp</a></div></div>
-<div class="ttc" id="aa02360_html"><div class="ttname"><a href="a02360.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01448_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02603_html_a11a861d64d0ccbf3609b15778808ae30"><div class="ttname"><a href="a02603.html#a11a861d64d0ccbf3609b15778808ae30">bl::com::Mesh::gpuBuffer</a></div><div class="ttdeci">rc::buf::IndexBuffer gpuBuffer</div><div class="ttdef"><b>Definition</b> <a href="a00074_source.html#l00018">Mesh.hpp:18</a></div></div>
-<div class="ttc" id="aa02603_html_af0c0061167c1dded9dc5c2b8a71aa93d"><div class="ttname"><a href="a02603.html#af0c0061167c1dded9dc5c2b8a71aa93d">bl::com::Mesh::create</a></div><div class="ttdeci">void create(rc::vk::VulkanState &amp;vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount)</div><div class="ttdoc">Helper method to initialize all the mesh data.</div><div class="ttdef"><b>Definition</b> <a href="a01502_source.html#l00007">Mesh.cpp:7</a></div></div>
-<div class="ttc" id="aa03911_html_ad0b395bc88a2cf9c8cce245b5d9763bf"><div class="ttname"><a href="a03911.html#ad0b395bc88a2cf9c8cce245b5d9763bf">bl::rc::buf::IndexBufferT::create</a></div><div class="ttdeci">void create(vk::VulkanState &amp;vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount)</div><div class="ttdoc">Creates the vertex and index buffers.</div><div class="ttdef"><b>Definition</b> <a href="a01322_source.html#l00149">IndexBuffer.hpp:149</a></div></div>
-<div class="ttc" id="aa03911_html_af615777e9f82e5c6bdad436203b4f024"><div class="ttname"><a href="a03911.html#af615777e9f82e5c6bdad436203b4f024">bl::rc::buf::IndexBufferT::getDrawParameters</a></div><div class="ttdeci">prim::DrawParameters getDrawParameters() const</div><div class="ttdoc">Builds and returns the parameters required to render the index buffer.</div><div class="ttdef"><b>Definition</b> <a href="a01322_source.html#l00208">IndexBuffer.hpp:208</a></div></div>
-<div class="ttc" id="aa03947_html_a9c3ad2caaf2846e720343ec52eaf1073"><div class="ttname"><a href="a03947.html#a9c3ad2caaf2846e720343ec52eaf1073">bl::rc::rcom::DrawableBase::drawParams</a></div><div class="ttdeci">prim::DrawParameters drawParams</div><div class="ttdef"><b>Definition</b> <a href="a01058_source.html#l00154">DrawableBase.hpp:154</a></div></div>
-<div class="ttc" id="aa04583_html"><div class="ttname"><a href="a04583.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition</b> <a href="a01307_source.html#l00039">VulkanState.hpp:39</a></div></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="foldopen" id="foldopen00012" data-start="{" data-end="}">
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="a02654.html#ab53e6fe6f67e60636ee36d838134bd44">   12</a></span><a class="code hl_function" href="a02654.html#a65e09b4c73a47adb059a052274a3a0f0">Orientation3D::Orientation3D</a>(<span class="keyword">const</span> glm::vec3&amp; dir, <span class="keywordtype">float</span> r)</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>: faceDir(dir)</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>, roll(r) {}</div>
+</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="foldopen" id="foldopen00016" data-start="{" data-end="}">
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a02654.html#af253d8e8e9856019ef683f5e73d756a8">   16</a></span><a class="code hl_function" href="a02654.html#a65e09b4c73a47adb059a052274a3a0f0">Orientation3D::Orientation3D</a>(<span class="keyword">const</span> glm::vec3&amp; lookAt, <span class="keyword">const</span> glm::vec3&amp; from, <span class="keywordtype">float</span> r)</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>: faceDir(glm::normalize(lookAt - from))</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>, roll(r) {}</div>
+</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a02654.html#a935595e4769dbaeb584c5af72052fa1b">   20</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02654.html#a935595e4769dbaeb584c5af72052fa1b">Orientation3D::setPitch</a>(<span class="keywordtype">float</span> p) { <a class="code hl_function" href="a02654.html#a7d4a859619d866c0bcccb83016d16ced">setYawAndPitch</a>(<a class="code hl_function" href="a02654.html#a7caa149cc7a3799ef2ba5d06510a9540">getYaw</a>(), p); }</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a02654.html#a272c7bcb7b91ccab7d01fcbc1125ac7a">   22</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02654.html#a272c7bcb7b91ccab7d01fcbc1125ac7a">Orientation3D::applyPitch</a>(<span class="keywordtype">float</span> offset) { <a class="code hl_function" href="a02654.html#a7d4a859619d866c0bcccb83016d16ced">setYawAndPitch</a>(<a class="code hl_function" href="a02654.html#a7caa149cc7a3799ef2ba5d06510a9540">getYaw</a>(), <a class="code hl_function" href="a02654.html#ac3b4fcaf367105dbbf5a8c188a2ea240">getPitch</a>() + offset); }</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a02654.html#ac3b4fcaf367105dbbf5a8c188a2ea240">   24</a></span><span class="keywordtype">float</span> <a class="code hl_function" href="a02654.html#ac3b4fcaf367105dbbf5a8c188a2ea240">Orientation3D::getPitch</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> glm::degrees(std::asin(faceDir.y)); }</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="a02654.html#af3f17113b18e44bae8af536e8e4dafea">   26</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02654.html#af3f17113b18e44bae8af536e8e4dafea">Orientation3D::setYaw</a>(<span class="keywordtype">float</span> y) { <a class="code hl_function" href="a02654.html#a7d4a859619d866c0bcccb83016d16ced">setYawAndPitch</a>(y, <a class="code hl_function" href="a02654.html#ac3b4fcaf367105dbbf5a8c188a2ea240">getPitch</a>()); }</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="a02654.html#a2863ca46af23ea5d7189324567c93757">   28</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02654.html#a2863ca46af23ea5d7189324567c93757">Orientation3D::applyYaw</a>(<span class="keywordtype">float</span> offset) { <a class="code hl_function" href="a02654.html#a7d4a859619d866c0bcccb83016d16ced">setYawAndPitch</a>(<a class="code hl_function" href="a02654.html#a7caa149cc7a3799ef2ba5d06510a9540">getYaw</a>(), <a class="code hl_function" href="a02654.html#ac3b4fcaf367105dbbf5a8c188a2ea240">getPitch</a>() + offset); }</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a02654.html#a7caa149cc7a3799ef2ba5d06510a9540">   30</a></span><span class="keywordtype">float</span> <a class="code hl_function" href="a02654.html#a7caa149cc7a3799ef2ba5d06510a9540">Orientation3D::getYaw</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> glm::degrees(std::atan2(faceDir.z, faceDir.x)); }</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a02654.html#ae076f8a1b20405ca19e08e7825405376">   32</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02654.html#ae076f8a1b20405ca19e08e7825405376">Orientation3D::setRoll</a>(<span class="keywordtype">float</span> r) { roll = r; }</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="a02654.html#a2f1c20894c65b552fd6293a829fb100a">   34</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02654.html#a2f1c20894c65b552fd6293a829fb100a">Orientation3D::applyRoll</a>(<span class="keywordtype">float</span> r) { roll += r; }</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="foldopen" id="foldopen00036" data-start="{" data-end="}">
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="a02654.html#afbb197f10284feaa07e55db73af7df07">   36</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02654.html#afbb197f10284feaa07e55db73af7df07">Orientation3D::lookAt</a>(<span class="keyword">const</span> glm::vec3&amp; pos, <span class="keyword">const</span> glm::vec3&amp; from) {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    faceDir = glm::normalize(pos - from);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
+</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="foldopen" id="foldopen00040" data-start="{" data-end="}">
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="a02654.html#a7d4a859619d866c0bcccb83016d16ced">   40</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02654.html#a7d4a859619d866c0bcccb83016d16ced">Orientation3D::setYawAndPitch</a>(<span class="keywordtype">float</span> yaw, <span class="keywordtype">float</span> pitch) {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">const</span> <span class="keywordtype">float</span> yawRad   = glm::radians(yaw);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keyword">const</span> <span class="keywordtype">float</span> pitchRad = glm::radians(pitch);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    faceDir              = glm::normalize(glm::vec3{std::cos(yawRad) * std::cos(pitchRad),</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                                       std::sin(pitchRad),</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                                       std::sin(yawRad) * std::cos(pitchRad)});</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}</div>
+</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="a02654.html#a55e316ef43064a70e7fa741556e5734a">   48</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02654.html#a55e316ef43064a70e7fa741556e5734a">Orientation3D::setFaceDirection</a>(<span class="keyword">const</span> glm::vec3&amp; f) { faceDir = f; }</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>} <span class="comment">// namespace com</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00053_html"><div class="ttname"><a href="a00053.html">Orientation3D.hpp</a></div></div>
+<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02654_html_a272c7bcb7b91ccab7d01fcbc1125ac7a"><div class="ttname"><a href="a02654.html#a272c7bcb7b91ccab7d01fcbc1125ac7a">bl::com::Orientation3D::applyPitch</a></div><div class="ttdeci">void applyPitch(float offset)</div><div class="ttdoc">Adds the given offset to the pitch of the orientation.</div><div class="ttdef"><b>Definition</b> <a href="a01502_source.html#l00022">Orientation3D.cpp:22</a></div></div>
+<div class="ttc" id="aa02654_html_a2863ca46af23ea5d7189324567c93757"><div class="ttname"><a href="a02654.html#a2863ca46af23ea5d7189324567c93757">bl::com::Orientation3D::applyYaw</a></div><div class="ttdeci">void applyYaw(float offset)</div><div class="ttdoc">Adds the given offset to the yaw of the orientation.</div><div class="ttdef"><b>Definition</b> <a href="a01502_source.html#l00028">Orientation3D.cpp:28</a></div></div>
+<div class="ttc" id="aa02654_html_a2f1c20894c65b552fd6293a829fb100a"><div class="ttname"><a href="a02654.html#a2f1c20894c65b552fd6293a829fb100a">bl::com::Orientation3D::applyRoll</a></div><div class="ttdeci">void applyRoll(float roll)</div><div class="ttdoc">Adds the given roll to the roll angle of the orientation.</div><div class="ttdef"><b>Definition</b> <a href="a01502_source.html#l00034">Orientation3D.cpp:34</a></div></div>
+<div class="ttc" id="aa02654_html_a55e316ef43064a70e7fa741556e5734a"><div class="ttname"><a href="a02654.html#a55e316ef43064a70e7fa741556e5734a">bl::com::Orientation3D::setFaceDirection</a></div><div class="ttdeci">void setFaceDirection(const glm ::vec3 &amp;faceDir)</div><div class="ttdoc">Sets the direction the orientation is facing towards.</div><div class="ttdef"><b>Definition</b> <a href="a01502_source.html#l00048">Orientation3D.cpp:48</a></div></div>
+<div class="ttc" id="aa02654_html_a65e09b4c73a47adb059a052274a3a0f0"><div class="ttname"><a href="a02654.html#a65e09b4c73a47adb059a052274a3a0f0">bl::com::Orientation3D::Orientation3D</a></div><div class="ttdeci">Orientation3D(float yaw=0.f, float pitch=0.f, float roll=0.f)</div><div class="ttdoc">Creates a new orientation from the given Euler angles.</div><div class="ttdef"><b>Definition</b> <a href="a01502_source.html#l00007">Orientation3D.cpp:7</a></div></div>
+<div class="ttc" id="aa02654_html_a7caa149cc7a3799ef2ba5d06510a9540"><div class="ttname"><a href="a02654.html#a7caa149cc7a3799ef2ba5d06510a9540">bl::com::Orientation3D::getYaw</a></div><div class="ttdeci">float getYaw() const</div><div class="ttdoc">Returns the yaw of the orientation in degrees.</div><div class="ttdef"><b>Definition</b> <a href="a01502_source.html#l00030">Orientation3D.cpp:30</a></div></div>
+<div class="ttc" id="aa02654_html_a7d4a859619d866c0bcccb83016d16ced"><div class="ttname"><a href="a02654.html#a7d4a859619d866c0bcccb83016d16ced">bl::com::Orientation3D::setYawAndPitch</a></div><div class="ttdeci">void setYawAndPitch(float yaw, float pitch)</div><div class="ttdoc">Sets both the yaw and pitch of the orientation. Call this if both are changing as it's more efficient...</div><div class="ttdef"><b>Definition</b> <a href="a01502_source.html#l00040">Orientation3D.cpp:40</a></div></div>
+<div class="ttc" id="aa02654_html_a935595e4769dbaeb584c5af72052fa1b"><div class="ttname"><a href="a02654.html#a935595e4769dbaeb584c5af72052fa1b">bl::com::Orientation3D::setPitch</a></div><div class="ttdeci">void setPitch(float pitch)</div><div class="ttdoc">Sets the pitch angle of the orientation.</div><div class="ttdef"><b>Definition</b> <a href="a01502_source.html#l00020">Orientation3D.cpp:20</a></div></div>
+<div class="ttc" id="aa02654_html_ac3b4fcaf367105dbbf5a8c188a2ea240"><div class="ttname"><a href="a02654.html#ac3b4fcaf367105dbbf5a8c188a2ea240">bl::com::Orientation3D::getPitch</a></div><div class="ttdeci">float getPitch() const</div><div class="ttdoc">Returns the pitch of the orientation in degrees.</div><div class="ttdef"><b>Definition</b> <a href="a01502_source.html#l00024">Orientation3D.cpp:24</a></div></div>
+<div class="ttc" id="aa02654_html_ae076f8a1b20405ca19e08e7825405376"><div class="ttname"><a href="a02654.html#ae076f8a1b20405ca19e08e7825405376">bl::com::Orientation3D::setRoll</a></div><div class="ttdeci">void setRoll(float roll)</div><div class="ttdoc">Sets the roll of the orientation.</div><div class="ttdef"><b>Definition</b> <a href="a01502_source.html#l00032">Orientation3D.cpp:32</a></div></div>
+<div class="ttc" id="aa02654_html_af3f17113b18e44bae8af536e8e4dafea"><div class="ttname"><a href="a02654.html#af3f17113b18e44bae8af536e8e4dafea">bl::com::Orientation3D::setYaw</a></div><div class="ttdeci">void setYaw(float yaw)</div><div class="ttdoc">Sets the yaw angle of the orientation.</div><div class="ttdef"><b>Definition</b> <a href="a01502_source.html#l00026">Orientation3D.cpp:26</a></div></div>
+<div class="ttc" id="aa02654_html_afbb197f10284feaa07e55db73af7df07"><div class="ttname"><a href="a02654.html#afbb197f10284feaa07e55db73af7df07">bl::com::Orientation3D::lookAt</a></div><div class="ttdeci">void lookAt(const glm::vec3 &amp;lookAt, const glm::vec3 &amp;from)</div><div class="ttdoc">Orients the orientation to look at the given position from its current position.</div><div class="ttdef"><b>Definition</b> <a href="a01502_source.html#l00036">Orientation3D.cpp:36</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

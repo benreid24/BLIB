@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Descriptors/Builtin/TexturePoolInstance.cpp Source File</title>
+<title>BLIB: src/Render/Vulkan/RenderPass.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,77 +79,69 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_c46d59b26ba1c7a895704386ecf9511b.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_1c9d8e1815e637956400971975ea0cfc.html">Builtin</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_2a24e9216d188d12785cf0650df1274b.html">Vulkan</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">TexturePoolInstance.cpp</div></div>
+  <div class="headertitle"><div class="title">RenderPass.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02282.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01373.html">BLIB/Render/Descriptors/Builtin/TexturePoolInstance.hpp</a>&gt;</span></div>
+<a href="a02282.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01283.html">BLIB/Render/Vulkan/RenderPass.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a01133.html">BLIB/Render/Scenes/SceneRenderContext.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02360.html">bl</a></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>rc</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>vk</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>ds</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
-<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="a04011.html#a6fb14178747dc7abe113072d98970c95">   11</a></span><a class="code hl_function" href="a04011.html#a6fb14178747dc7abe113072d98970c95">TexturePoolInstance::TexturePoolInstance</a>(<a class="code hl_class" href="a04291.html">res::TexturePool</a>&amp; texturePool)</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>: <a class="code hl_class" href="a04039.html">DescriptorSetInstance</a>(Bindless, SpeedAgnostic)</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>, texturePool(texturePool) {}</div>
+<div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a04626.html#ad011998d18306cfe27a9e94d15cf2460">    9</a></span><a class="code hl_function" href="a04626.html#ad011998d18306cfe27a9e94d15cf2460">RenderPass::RenderPass</a>(<a class="code hl_struct" href="a04694.html">VulkanState</a>&amp; vs, <a class="code hl_class" href="a04630.html">RenderPassParameters</a>&amp;&amp; params)</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>: vulkanState(vs) {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    std::vector&lt;VkSubpassDescription&gt; subpasses;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    subpasses.reserve(params.subpasses.size());</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sp : params.subpasses) {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        subpasses.emplace_back();</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        subpasses.back().pipelineBindPoint    = VK_PIPELINE_BIND_POINT_GRAPHICS;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        subpasses.back().colorAttachmentCount = sp.colorAttachments.size();</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        subpasses.back().pColorAttachments    = sp.colorAttachments.data();</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keywordflow">if</span> (sp.depthAttachment.has_value()) {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>            subpasses.back().pDepthStencilAttachment = &amp;sp.depthAttachment.value();</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        }</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    }</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    VkRenderPassCreateInfo renderPassInfo{};</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    renderPassInfo.sType           = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    renderPassInfo.attachmentCount = params.attachments.size();</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    renderPassInfo.pAttachments    = params.attachments.data();</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    renderPassInfo.subpassCount    = subpasses.size();</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    renderPassInfo.pSubpasses      = subpasses.data();</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    renderPassInfo.dependencyCount = params.dependencies.size();</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    renderPassInfo.pDependencies   = params.dependencies.data();</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordflow">if</span> (vkCreateRenderPass(vulkanState.<a class="code hl_variable" href="a04694.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, &amp;renderPassInfo, <span class="keyword">nullptr</span>, &amp;renderPass) !=</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        VK_SUCCESS) {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to create render pass&quot;</span>);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
 </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keywordtype">void</span> TexturePoolInstance::bindForPipeline(<a class="code hl_class" href="a04383.html">scene::SceneRenderContext</a>&amp; <a class="code hl_variable" href="a01646.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>, VkPipelineLayout layout,</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>                                          std::uint32_t setIndex, <a class="code hl_enumeration" href="a02346.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a>)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    texturePool.<a class="code hl_function" href="a04291.html#a44f86f7c5c05af9fe35baabb7f021436">bindDescriptors</a>(</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <a class="code hl_variable" href="a01646.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.getCommandBuffer(), layout, setIndex, <a class="code hl_variable" href="a01646.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.targetIsRenderTexture());</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>}</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keywordtype">void</span> TexturePoolInstance::bindForObject(<a class="code hl_class" href="a04383.html">scene::SceneRenderContext</a>&amp;, VkPipelineLayout, std::uint32_t,</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>                                        <a class="code hl_struct" href="a04327.html">scene::Key</a>)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="comment">// noop</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>}</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keywordtype">void</span> TexturePoolInstance::releaseObject(<a class="code hl_struct" href="a02811.html">ecs::Entity</a>, scene::Key) {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="comment">// noop</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keywordtype">void</span> TexturePoolInstance::init(DescriptorComponentStorageCache&amp;) {</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="comment">// noop</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>}</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keywordtype">bool</span> TexturePoolInstance::allocateObject(ecs::Entity, scene::Key) {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="comment">// noop</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keywordtype">void</span> TexturePoolInstance::handleFrameStart() {</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="comment">// noop</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>} <span class="comment">// namespace ds</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01133_html"><div class="ttname"><a href="a01133.html">SceneRenderContext.hpp</a></div></div>
-<div class="ttc" id="aa01373_html"><div class="ttname"><a href="a01373.html">TexturePoolInstance.hpp</a></div></div>
-<div class="ttc" id="aa01646_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a01646.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a01646_source.html#l00013">World2D.cpp:13</a></div></div>
-<div class="ttc" id="aa02346_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a02346.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition</b> <a href="a01154_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
-<div class="ttc" id="aa02360_html"><div class="ttname"><a href="a02360.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01448_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02811_html"><div class="ttname"><a href="a02811.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa04011_html_a6fb14178747dc7abe113072d98970c95"><div class="ttname"><a href="a04011.html#a6fb14178747dc7abe113072d98970c95">bl::rc::ds::TexturePoolInstance::TexturePoolInstance</a></div><div class="ttdeci">TexturePoolInstance(res::TexturePool &amp;texturePool)</div><div class="ttdoc">Creates the descriptor set instance.</div><div class="ttdef"><b>Definition</b> <a href="a02282_source.html#l00011">TexturePoolInstance.cpp:11</a></div></div>
-<div class="ttc" id="aa04039_html"><div class="ttname"><a href="a04039.html">bl::rc::ds::DescriptorSetInstance</a></div><div class="ttdoc">Base class for descriptor sets that exist for each scene. Derived classes are created by DescriptorSe...</div><div class="ttdef"><b>Definition</b> <a href="a06682_source.html#l00030">DescriptorSetInstance.hpp:30</a></div></div>
-<div class="ttc" id="aa04291_html"><div class="ttname"><a href="a04291.html">bl::rc::res::TexturePool</a></div><div class="ttdoc">Resource manager for textures on the GPU. Utilizes BindlessTextureArray to provide a large array,...</div><div class="ttdef"><b>Definition</b> <a href="a01067_source.html#l00032">TexturePool.hpp:32</a></div></div>
-<div class="ttc" id="aa04291_html_a44f86f7c5c05af9fe35baabb7f021436"><div class="ttname"><a href="a04291.html#a44f86f7c5c05af9fe35baabb7f021436">bl::rc::res::TexturePool::bindDescriptors</a></div><div class="ttdeci">void bindDescriptors(VkCommandBuffer commandBuffer, VkPipelineLayout pipelineLayout, std::uint32_t setIndex, bool forRenderTexture)</div><div class="ttdoc">Helper method to bind the descriptor set.</div><div class="ttdef"><b>Definition</b> <a href="a02066_source.html#l00136">TexturePool.cpp:136</a></div></div>
-<div class="ttc" id="aa04327_html"><div class="ttname"><a href="a04327.html">bl::rc::scene::Key</a></div><div class="ttdoc">Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...</div><div class="ttdef"><b>Definition</b> <a href="a01127_source.html#l00022">Key.hpp:22</a></div></div>
-<div class="ttc" id="aa04383_html"><div class="ttname"><a href="a04383.html">bl::rc::scene::SceneRenderContext</a></div><div class="ttdoc">Container class that holds the required parameters to render a scene and provides methods for descrip...</div><div class="ttdef"><b>Definition</b> <a href="a01133_source.html#l00025">SceneRenderContext.hpp:25</a></div></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="a04626.html#abd170528aea214831e7e4f49d515dd62">   38</a></span><a class="code hl_function" href="a04626.html#abd170528aea214831e7e4f49d515dd62">RenderPass::~RenderPass</a>() { vkDestroyRenderPass(vulkanState.<a class="code hl_variable" href="a04694.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, renderPass, <span class="keyword">nullptr</span>); }</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>} <span class="comment">// namespace vk</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa01283_html"><div class="ttname"><a href="a01283.html">RenderPass.hpp</a></div></div>
+<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04626_html_abd170528aea214831e7e4f49d515dd62"><div class="ttname"><a href="a04626.html#abd170528aea214831e7e4f49d515dd62">bl::rc::vk::RenderPass::~RenderPass</a></div><div class="ttdeci">~RenderPass()</div><div class="ttdoc">Destroy the Render Pass object.</div><div class="ttdef"><b>Definition</b> <a href="a02282_source.html#l00038">RenderPass.cpp:38</a></div></div>
+<div class="ttc" id="aa04626_html_ad011998d18306cfe27a9e94d15cf2460"><div class="ttname"><a href="a04626.html#ad011998d18306cfe27a9e94d15cf2460">bl::rc::vk::RenderPass::RenderPass</a></div><div class="ttdeci">RenderPass(VulkanState &amp;vulkanState, RenderPassParameters &amp;&amp;params)</div><div class="ttdoc">Construct a new Render Pass.</div><div class="ttdef"><b>Definition</b> <a href="a02282_source.html#l00009">RenderPass.cpp:9</a></div></div>
+<div class="ttc" id="aa04630_html"><div class="ttname"><a href="a04630.html">bl::rc::vk::RenderPassParameters</a></div><div class="ttdoc">Parameter builder class used to construct RenderPass objects in the renderer.</div><div class="ttdef"><b>Definition</b> <a href="a01286_source.html#l00022">RenderPassParameters.hpp:22</a></div></div>
+<div class="ttc" id="aa04694_html"><div class="ttname"><a href="a04694.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition</b> <a href="a01319_source.html#l00039">VulkanState.hpp:39</a></div></div>
+<div class="ttc" id="aa04694_html_a6ad0249d08d9ffb87af35b42f11a1db5"><div class="ttname"><a href="a04694.html#a6ad0249d08d9ffb87af35b42f11a1db5">bl::rc::vk::VulkanState::device</a></div><div class="ttdeci">VkDevice device</div><div class="ttdef"><b>Definition</b> <a href="a01319_source.html#l00222">VulkanState.hpp:222</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

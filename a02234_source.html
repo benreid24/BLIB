@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Vulkan/Utils/QueueFamilyLocator.cpp Source File</title>
+<title>BLIB: src/Render/Vulkan/RenderTexture.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,73 +79,156 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_2a24e9216d188d12785cf0650df1274b.html">Vulkan</a></li><li class="navelem"><a class="el" href="dir_5a895c0b57455ce42bcec1a8fbc390f8.html">Utils</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_2a24e9216d188d12785cf0650df1274b.html">Vulkan</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">QueueFamilyLocator.cpp</div></div>
+  <div class="headertitle"><div class="title">RenderTexture.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02234.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a02228.html">Render/Vulkan/Utils/QueueFamilyLocator.hpp</a>&gt;</span></div>
+<a href="a02234.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01301.html">BLIB/Render/Vulkan/RenderTexture.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a01262.html">BLIB/Render/Vulkan/VkCheck.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02360.html">bl</a></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="foldopen" id="foldopen00010" data-start="{" data-end="}">
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="a05427.html#abf077b33effb16d9e597eb7e516845a6">   10</a></span><a class="code hl_function" href="a05427.html#ab5c31507770656779a3aa5fa99c59e54">QueueFamilyLocator::QueueFamilyLocator</a>(VkPhysicalDevice device, VkSurfaceKHR surface) {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <a class="code hl_function" href="a05427.html#ad1c1d597b0e1b2a45334ae128242570b">populate</a>(device, surface);</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>}</div>
-</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="foldopen" id="foldopen00014" data-start="{" data-end="}">
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="a05427.html#ad1c1d597b0e1b2a45334ae128242570b">   14</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05427.html#ad1c1d597b0e1b2a45334ae128242570b">QueueFamilyLocator::populate</a>(VkPhysicalDevice device, VkSurfaceKHR surface) {</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    std::uint32_t queueFamilyCount = 0;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    vkGetPhysicalDeviceQueueFamilyProperties(device, &amp;queueFamilyCount, <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    std::vector&lt;VkQueueFamilyProperties&gt; queueFamilies(queueFamilyCount);</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    vkGetPhysicalDeviceQueueFamilyProperties(device, &amp;queueFamilyCount, queueFamilies.data());</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="comment">// find queues</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; queueFamilies.size(); ++i) {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="comment">// graphics queue</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keywordflow">if</span> (queueFamilies[i].queueFlags &amp; VK_QUEUE_GRAPHICS_BIT) { <a class="code hl_variable" href="a05427.html#ab88679f0de04a766f7cd93b6b8330c95">graphicsFamily</a> = i; }</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="comment">// presentation support</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        VkBool32 presentSupport = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <a class="code hl_define" href="a01262.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkGetPhysicalDeviceSurfaceSupportKHR(device, i, surface, &amp;presentSupport));</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordflow">if</span> (presentSupport) { <a class="code hl_variable" href="a05427.html#a8ec71bc186887ea633c17e7c85d0fff4">presentFamily</a> = i; }</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="a05427.html#aecff064c1d89b3dee0d7344bd84c6b74">complete</a>()) <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    }</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>}</div>
-</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a00905.html">BLIB/Cameras/2D/Camera2D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00890.html">BLIB/Cameras/3D/Camera3D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a01217.html">BLIB/Render/Graph/Assets/FinalRenderTextureAsset.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a06862.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a01328.html">BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span>vk</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>RenderTexture::RenderTexture(engine::Engine&amp; engine, Renderer&amp; renderer, rg::AssetFactory&amp; factory,</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>                             <span class="keyword">const</span> glm::u32vec2&amp; size, VkSampler sampler)</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>: RenderTarget(engine, renderer, factory, true) {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    commandBuffers.create(renderer.vulkanState());</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    attachments.emptyInit(renderer.vulkanState());</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    framebuffers.emptyInit(renderer.vulkanState());</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    scissor.extent.width  = size.x;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    scissor.extent.height = size.y;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    scissor.offset        = {0, 0};</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    viewport.minDepth     = 0.f;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    viewport.maxDepth     = 1.f;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    viewport.x            = 0.f;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    viewport.y            = 0.f;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    viewport.width        = size.x;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    viewport.height       = size.y;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    texture = renderer.texturePool().createRenderTexture(size, sampler);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    resize(size);</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="foldopen" id="foldopen00035" data-start="{" data-end="}">
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a05427.html#aecff064c1d89b3dee0d7344bd84c6b74">   35</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a05427.html#aecff064c1d89b3dee0d7344bd84c6b74">QueueFamilyLocator::complete</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="a05427.html#ab88679f0de04a766f7cd93b6b8330c95">graphicsFamily</a>.has_value() &amp;&amp; <a class="code hl_variable" href="a05427.html#a8ec71bc186887ea633c17e7c85d0fff4">presentFamily</a>.has_value();</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    graphAssets.putAsset&lt;rgi::FinalRenderTextureAsset&gt;(</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        framebuffers, viewport, scissor, clearColors, std::size(clearColors));</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}</div>
-</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01262_html"><div class="ttname"><a href="a01262.html">VkCheck.hpp</a></div></div>
-<div class="ttc" id="aa01262_html_a95c2f7535355f5f3855410ab629f9310"><div class="ttname"><a href="a01262.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a></div><div class="ttdeci">#define vkCheck(expr)</div><div class="ttdef"><b>Definition</b> <a href="a01262_source.html#l00015">VkCheck.hpp:15</a></div></div>
-<div class="ttc" id="aa02228_html"><div class="ttname"><a href="a02228.html">QueueFamilyLocator.hpp</a></div></div>
-<div class="ttc" id="aa02360_html"><div class="ttname"><a href="a02360.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01448_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa05427_html_a8ec71bc186887ea633c17e7c85d0fff4"><div class="ttname"><a href="a05427.html#a8ec71bc186887ea633c17e7c85d0fff4">bl::rc::QueueFamilyLocator::presentFamily</a></div><div class="ttdeci">std::optional&lt; std::uint32_t &gt; presentFamily</div><div class="ttdef"><b>Definition</b> <a href="a02228_source.html#l00014">QueueFamilyLocator.hpp:14</a></div></div>
-<div class="ttc" id="aa05427_html_ab5c31507770656779a3aa5fa99c59e54"><div class="ttname"><a href="a05427.html#ab5c31507770656779a3aa5fa99c59e54">bl::rc::QueueFamilyLocator::QueueFamilyLocator</a></div><div class="ttdeci">QueueFamilyLocator()=default</div></div>
-<div class="ttc" id="aa05427_html_ab88679f0de04a766f7cd93b6b8330c95"><div class="ttname"><a href="a05427.html#ab88679f0de04a766f7cd93b6b8330c95">bl::rc::QueueFamilyLocator::graphicsFamily</a></div><div class="ttdeci">std::optional&lt; std::uint32_t &gt; graphicsFamily</div><div class="ttdef"><b>Definition</b> <a href="a02228_source.html#l00013">QueueFamilyLocator.hpp:13</a></div></div>
-<div class="ttc" id="aa05427_html_ad1c1d597b0e1b2a45334ae128242570b"><div class="ttname"><a href="a05427.html#ad1c1d597b0e1b2a45334ae128242570b">bl::rc::QueueFamilyLocator::populate</a></div><div class="ttdeci">void populate(VkPhysicalDevice device, VkSurfaceKHR surface)</div><div class="ttdef"><b>Definition</b> <a href="a02234_source.html#l00014">QueueFamilyLocator.cpp:14</a></div></div>
-<div class="ttc" id="aa05427_html_aecff064c1d89b3dee0d7344bd84c6b74"><div class="ttname"><a href="a05427.html#aecff064c1d89b3dee0d7344bd84c6b74">bl::rc::QueueFamilyLocator::complete</a></div><div class="ttdeci">bool complete() const</div><div class="ttdef"><b>Definition</b> <a href="a02234_source.html#l00035">QueueFamilyLocator.cpp:35</a></div></div>
+<div class="foldopen" id="foldopen00039" data-start="{" data-end="}">
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="a04638.html#a675ff7fe0fabaf0f4aa90c9dd48a00e0">   39</a></span>RenderTexture::~RenderTexture() {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    destroy();</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    commandBuffers.destroy();</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>}</div>
+</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="foldopen" id="foldopen00044" data-start="{" data-end="}">
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="a04638.html#a05cdb4fa3bb44c51b5cdfab121bfaee7">   44</a></span><span class="keywordtype">void</span> RenderTexture::resize(<span class="keyword">const</span> glm::u32vec2&amp; size) {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">if</span> (getSize() != size) { texture-&gt;resize(size); }</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    scissor.extent.width  = size.x;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    scissor.extent.height = size.y;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    viewport.width        = size.x;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    viewport.height       = size.y;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    VkRenderPass renderPass = renderer.renderPassCache()</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                                  .getRenderPass(Config::RenderPassIds::StandardAttachmentDefault)</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                                  .rawPass();</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    attachments.visit([<span class="keyword">this</span>, size, renderPass, &amp;i](<span class="keyword">auto</span>&amp; a) {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        a.depthBuffer.create(renderer.vulkanState(),</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                             StandardAttachmentBuffers::findDepthFormat(renderer.vulkanState()),</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                             VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                             {size.x, size.y});</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        a.attachmentSet.setRenderExtent(scissor.extent);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        a.attachmentSet.setAttachments(texture.asRenderTexture()-&gt;getImages().getRaw(i).image,</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                                       texture.asRenderTexture()-&gt;getImages().getRaw(i).view,</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                                       a.depthBuffer.image(),</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                                       a.depthBuffer.view());</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        ++i;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    });</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    i = 0;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    framebuffers.visit([<span class="keyword">this</span>, &amp;i, renderPass](<span class="keyword">auto</span>&amp; fb) {</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        fb.create(renderer.vulkanState(), renderPass, attachments.getRaw(i).attachmentSet);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        ++i;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    });</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>}</div>
+</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="foldopen" id="foldopen00078" data-start="{" data-end="}">
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="a04638.html#a56d442e0c77d46924396934d91ae48b1">   78</a></span><span class="keywordtype">void</span> RenderTexture::destroy() {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordflow">if</span> (texture) {</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        clearScenes();</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        framebuffers.cleanup([](<span class="keyword">auto</span>&amp; fb) { fb.deferCleanup(); });</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        attachments.cleanup([](<span class="keyword">auto</span>&amp; a) { a.depthBuffer.deferDestroy(); });</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        texture.release();</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    }</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>}</div>
+</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="keywordtype">void</span> RenderTexture::render() {</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordflow">if</span> (texture) {</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keyword">auto</span> commandBuffer = commandBuffers.begin();</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        framebuffers.current().beginRender(</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            commandBuffer, scissor, clearColors, std::size(clearColors), <span class="keyword">true</span>, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        renderScene(commandBuffer);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        renderSceneFinal(commandBuffer);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        VkClearAttachment attachment{};</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        attachment.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        attachment.clearValue = clearColors[1];</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        VkClearRect rect{};</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        rect.rect           = scissor;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        rect.baseArrayLayer = 0;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        rect.layerCount     = 1;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        vkCmdClearAttachments(commandBuffer, 1, &amp;attachment, 1, &amp;rect);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        renderOverlay(commandBuffer);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        framebuffers.current().finishRender(commandBuffer);</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        commandBuffers.submit();</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    }</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>}</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="foldopen" id="foldopen00114" data-start="{" data-end="}">
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="a04642.html#a01ab39f2b39a3dfb44b32a0e60fbe81b">  114</a></span><span class="keywordtype">void</span> RenderTexture::Handle::release() {</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keywordflow">if</span> (texture) {</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        renderer-&gt;destroyRenderTexture(texture);</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        texture = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    }</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>}</div>
+</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>} <span class="comment">// namespace vk</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00890_html"><div class="ttname"><a href="a00890.html">Camera3D.hpp</a></div></div>
+<div class="ttc" id="aa00905_html"><div class="ttname"><a href="a00905.html">Camera2D.hpp</a></div></div>
+<div class="ttc" id="aa01217_html"><div class="ttname"><a href="a01217.html">FinalRenderTextureAsset.hpp</a></div></div>
+<div class="ttc" id="aa01301_html"><div class="ttname"><a href="a01301.html">RenderTexture.hpp</a></div></div>
+<div class="ttc" id="aa01328_html"><div class="ttname"><a href="a01328.html">StandardAttachmentBuffers.hpp</a></div></div>
+<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa06862_html"><div class="ttname"><a href="a06862.html">Renderer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Vulkan/Utils/QueueFamilyLocator.hpp Source File</title>
+<title>BLIB: src/Render/Vulkan/CleanupManager.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,54 +79,81 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_2a24e9216d188d12785cf0650df1274b.html">Vulkan</a></li><li class="navelem"><a class="el" href="dir_5a895c0b57455ce42bcec1a8fbc390f8.html">Utils</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_2a24e9216d188d12785cf0650df1274b.html">Vulkan</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">QueueFamilyLocator.hpp</div></div>
+  <div class="headertitle"><div class="title">CleanupManager.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02228.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_UTILS_QUEUEFAMILYLOCATOR_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_VULKAN_UTILS_QUEUEFAMILYLOCATOR_HPP</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00332.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02360.html">bl</a></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="foldopen" id="foldopen00012" data-start="{" data-end="};">
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="a05427.html">   12</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a05427.html">QueueFamilyLocator</a> {</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="a05427.html#ab88679f0de04a766f7cd93b6b8330c95">   13</a></span>    std::optional&lt;std::uint32_t&gt; <a class="code hl_variable" href="a05427.html#ab88679f0de04a766f7cd93b6b8330c95">graphicsFamily</a>;</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="a05427.html#a8ec71bc186887ea633c17e7c85d0fff4">   14</a></span>    std::optional&lt;std::uint32_t&gt; <a class="code hl_variable" href="a05427.html#a8ec71bc186887ea633c17e7c85d0fff4">presentFamily</a>;</div>
+<a href="a02228.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01262.html">BLIB/Render/Vulkan/CleanupManager.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>vk</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>CleanupManager::CleanupManager()</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>: clearIndex(0)</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>, isClearing(false) {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; v : buckets) { v.reserve(64); }</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    addedDuringClear.reserve(4);</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>}</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a05427.html#ab5c31507770656779a3aa5fa99c59e54">   16</a></span>    <a class="code hl_function" href="a05427.html#ab5c31507770656779a3aa5fa99c59e54">QueueFamilyLocator</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <a class="code hl_function" href="a05427.html#ab5c31507770656779a3aa5fa99c59e54">QueueFamilyLocator</a>(VkPhysicalDevice device, VkSurfaceKHR surface);</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05427.html#ad1c1d597b0e1b2a45334ae128242570b">populate</a>(VkPhysicalDevice device, VkSurfaceKHR surface);</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a05427.html#aecff064c1d89b3dee0d7344bd84c6b74">complete</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>};</div>
-</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keywordtype">void</span> CleanupManager::flush() {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    std::unique_lock lock(mutex);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; bucket : buckets) {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; cb : bucket) { cb(); }</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    }</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>}</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00332_html"><div class="ttname"><a href="a00332.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa02360_html"><div class="ttname"><a href="a02360.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01448_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa05427_html"><div class="ttname"><a href="a05427.html">bl::rc::QueueFamilyLocator</a></div><div class="ttdef"><b>Definition</b> <a href="a02228_source.html#l00012">QueueFamilyLocator.hpp:12</a></div></div>
-<div class="ttc" id="aa05427_html_a8ec71bc186887ea633c17e7c85d0fff4"><div class="ttname"><a href="a05427.html#a8ec71bc186887ea633c17e7c85d0fff4">bl::rc::QueueFamilyLocator::presentFamily</a></div><div class="ttdeci">std::optional&lt; std::uint32_t &gt; presentFamily</div><div class="ttdef"><b>Definition</b> <a href="a02228_source.html#l00014">QueueFamilyLocator.hpp:14</a></div></div>
-<div class="ttc" id="aa05427_html_ab5c31507770656779a3aa5fa99c59e54"><div class="ttname"><a href="a05427.html#ab5c31507770656779a3aa5fa99c59e54">bl::rc::QueueFamilyLocator::QueueFamilyLocator</a></div><div class="ttdeci">QueueFamilyLocator()=default</div></div>
-<div class="ttc" id="aa05427_html_ab88679f0de04a766f7cd93b6b8330c95"><div class="ttname"><a href="a05427.html#ab88679f0de04a766f7cd93b6b8330c95">bl::rc::QueueFamilyLocator::graphicsFamily</a></div><div class="ttdeci">std::optional&lt; std::uint32_t &gt; graphicsFamily</div><div class="ttdef"><b>Definition</b> <a href="a02228_source.html#l00013">QueueFamilyLocator.hpp:13</a></div></div>
-<div class="ttc" id="aa05427_html_ad1c1d597b0e1b2a45334ae128242570b"><div class="ttname"><a href="a05427.html#ad1c1d597b0e1b2a45334ae128242570b">bl::rc::QueueFamilyLocator::populate</a></div><div class="ttdeci">void populate(VkPhysicalDevice device, VkSurfaceKHR surface)</div><div class="ttdef"><b>Definition</b> <a href="a02234_source.html#l00014">QueueFamilyLocator.cpp:14</a></div></div>
-<div class="ttc" id="aa05427_html_aecff064c1d89b3dee0d7344bd84c6b74"><div class="ttname"><a href="a05427.html#aecff064c1d89b3dee0d7344bd84c6b74">bl::rc::QueueFamilyLocator::complete</a></div><div class="ttdeci">bool complete() const</div><div class="ttdef"><b>Definition</b> <a href="a02234_source.html#l00035">QueueFamilyLocator.cpp:35</a></div></div>
+<div class="foldopen" id="foldopen00023" data-start="{" data-end="}">
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a04538.html#aa8511d9ff0c759834c2c63a525363e8d">   23</a></span><span class="keywordtype">void</span> CleanupManager::add(<span class="keyword">const</span> <a class="code hl_typedef" href="a04538.html#a7231a9195e01c0dba86bc19ce2f56544">Callback</a>&amp; cb) {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordflow">if</span> (!isClearing) {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        std::unique_lock lock(mutex);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        buckets[addIndex()].emplace_back(cb);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    }</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordflow">else</span> { addedDuringClear.emplace_back(cb); }</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
+</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="foldopen" id="foldopen00031" data-start="{" data-end="}">
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a04538.html#a0be2d519d4e836c5040713fda94e8cee">   31</a></span><span class="keywordtype">void</span> CleanupManager::add(<a class="code hl_typedef" href="a04538.html#a7231a9195e01c0dba86bc19ce2f56544">Callback</a>&amp;&amp; cb) {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordflow">if</span> (!isClearing) {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        std::unique_lock lock(mutex);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        buckets[addIndex()].emplace_back(std::forward&lt;Callback&gt;(cb));</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">else</span> { addedDuringClear.emplace_back(std::forward&lt;Callback&gt;(cb)); }</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}</div>
+</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keywordtype">void</span> CleanupManager::onFrameStart() {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    isClearing = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    std::unique_lock lock(mutex);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; cb : buckets[clearIndex]) { cb(); }</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">const</span> <span class="keyword">auto</span> indexToClear = clearIndex;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    clearIndex              = clearIndex &lt; Config::MaxConcurrentFrames ? clearIndex + 1 : 0;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    lock.unlock();</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    isClearing = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    buckets[indexToClear].swap(addedDuringClear);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    addedDuringClear.clear();</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>}</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>} <span class="comment">// namespace vk</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa01262_html"><div class="ttname"><a href="a01262.html">CleanupManager.hpp</a></div></div>
+<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04538_html_a7231a9195e01c0dba86bc19ce2f56544"><div class="ttname"><a href="a04538.html#a7231a9195e01c0dba86bc19ce2f56544">bl::rc::vk::CleanupManager::Callback</a></div><div class="ttdeci">std::function&lt; void()&gt; Callback</div><div class="ttdoc">Signature of cleanup callbacks.</div><div class="ttdef"><b>Definition</b> <a href="a01262_source.html#l00026">CleanupManager.hpp:26</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::ds::Scene3DInstance Class Reference</title>
+<title>BLIB: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,346 +74,42 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02360.html">bl</a></li><li class="navelem"><a class="el" href="a02370.html">rc</a></li><li class="navelem"><a class="el" href="a02413.html">ds</a></li><li class="navelem"><a class="el" href="a03995.html">Scene3DInstance</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02412.html">rc</a></li><li class="navelem"><a class="el" href="a02451.html">buf</a></li><li class="navelem"><a class="el" href="a03998.html">StaticUniformBuffer</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="a03992.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::rc::ds::Scene3DInstance Class Reference<div class="ingroups"><a class="el" href="a02346.html">Renderer</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::rc::buf::StaticUniformBuffer&lt; T &gt; Member List</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Descriptor set instance for common scene data.  
- <a href="a03995.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a01385_source.html">Scene3DInstance.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::rc::ds::Scene3DInstance:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a03995.png" usemap="#bl::rc::ds::Scene3DInstance_map" alt=""/>
-  <map id="bl::rc::ds::Scene3DInstance_map" name="bl::rc::ds::Scene3DInstance_map">
-<area href="a04083.html" title="Base class for descriptor sets for scene data (cameras, lighting, etc)" alt="bl::rc::ds::SceneDescriptorSetInstance" shape="rect" coords="0,56,225,80"/>
-<area href="a04039.html" title="Base class for descriptor sets that exist for each scene. Derived classes are created by DescriptorSe..." alt="bl::rc::ds::DescriptorSetInstance" shape="rect" coords="0,0,225,24"/>
-  </map>
-</div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a0d2abd5826961d67047b9e5b4d60e611" id="r_a0d2abd5826961d67047b9e5b4d60e611"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04039.html#a0d2abd5826961d67047b9e5b4d60e611">BindMode</a> { <a class="el" href="a04039.html#a0d2abd5826961d67047b9e5b4d60e611aca3f770200fb26547b3e7b354d670957">Bindless</a>
-, <a class="el" href="a04039.html#a0d2abd5826961d67047b9e5b4d60e611a98d12a1bb275ddccb59ac803d85d829c">Bindful</a>
- }</td></tr>
-<tr class="memdesc:a0d2abd5826961d67047b9e5b4d60e611"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bind mode of the descriptor set.  <a href="a04039.html#a0d2abd5826961d67047b9e5b4d60e611">More...</a><br /></td></tr>
-<tr class="separator:a0d2abd5826961d67047b9e5b4d60e611"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56d01a7643e3e65933db3c5a957db66f" id="r_a56d01a7643e3e65933db3c5a957db66f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04039.html#a56d01a7643e3e65933db3c5a957db66f">SpeedBucketSetting</a> { <a class="el" href="a04039.html#a56d01a7643e3e65933db3c5a957db66fabac649864fea33d090a888e842a80ffd">RebindForNewSpeed</a>
-, <a class="el" href="a04039.html#a56d01a7643e3e65933db3c5a957db66fa0e36b32fa7aa8a6327f0832d2470a57d">SpeedAgnostic</a>
- }</td></tr>
-<tr class="memdesc:a56d01a7643e3e65933db3c5a957db66f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether or not the descriptor set needs to be re-bound for different update speeds.  <a href="a04039.html#a56d01a7643e3e65933db3c5a957db66f">More...</a><br /></td></tr>
-<tr class="separator:a56d01a7643e3e65933db3c5a957db66f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:ad9195c5767fa81dc60dcc4b298201e43" id="r_ad9195c5767fa81dc60dcc4b298201e43"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03995.html#ad9195c5767fa81dc60dcc4b298201e43">Scene3DInstance</a> (<a class="el" href="a04583.html">vk::VulkanState</a> &amp;vulkanState, VkDescriptorSetLayout layout)</td></tr>
-<tr class="memdesc:ad9195c5767fa81dc60dcc4b298201e43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new instance of the descriptor set.  <br /></td></tr>
-<tr class="separator:ad9195c5767fa81dc60dcc4b298201e43"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e91a432b49b14d0ebba8082f5bc48c9" id="r_a7e91a432b49b14d0ebba8082f5bc48c9"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03995.html#a7e91a432b49b14d0ebba8082f5bc48c9">~Scene3DInstance</a> ()</td></tr>
-<tr class="memdesc:a7e91a432b49b14d0ebba8082f5bc48c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the descriptor set.  <br /></td></tr>
-<tr class="separator:a7e91a432b49b14d0ebba8082f5bc48c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0135cab959d2ab6c8c454054e1c23d4" id="r_ad0135cab959d2ab6c8c454054e1c23d4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04083.html#ad0135cab959d2ab6c8c454054e1c23d4">updateObserverCamera</a> (std::uint32_t observerIndex, const glm::mat4 &amp;projView)</td></tr>
-<tr class="memdesc:ad0135cab959d2ab6c8c454054e1c23d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the camera value for the given observer.  <br /></td></tr>
-<tr class="separator:ad0135cab959d2ab6c8c454054e1c23d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd986b19a260694d023fae3ca6e492e7" id="r_afd986b19a260694d023fae3ca6e492e7"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04039.html#afd986b19a260694d023fae3ca6e492e7">isBindless</a> () const</td></tr>
-<tr class="memdesc:afd986b19a260694d023fae3ca6e492e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not this descriptor set needs to be bound per-object.  <br /></td></tr>
-<tr class="separator:afd986b19a260694d023fae3ca6e492e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f4c36f9496f74f8f8f4c17449eb5e6c" id="r_a1f4c36f9496f74f8f8f4c17449eb5e6c"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04039.html#a1f4c36f9496f74f8f8f4c17449eb5e6c">needsRebindForNewSpeed</a> () const</td></tr>
-<tr class="memdesc:a1f4c36f9496f74f8f8f4c17449eb5e6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the descriptor set needs to be re-bound for new speed.  <br /></td></tr>
-<tr class="separator:a1f4c36f9496f74f8f8f4c17449eb5e6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:a0a145382ab1e64d8c85dd63939bb0aca" id="r_a0a145382ab1e64d8c85dd63939bb0aca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03923.html">buf::UniformBuffer</a>&lt; glm::mat4 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04083.html#a0a145382ab1e64d8c85dd63939bb0aca">cameraBuffer</a></td></tr>
-<tr class="separator:a0a145382ab1e64d8c85dd63939bb0aca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Descriptor set instance for common scene data. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01385_source.html#l00028">28</a> of file <a class="el" href="a01385_source.html">Scene3DInstance.hpp</a>.</p>
-</div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="a0d2abd5826961d67047b9e5b4d60e611" name="a0d2abd5826961d67047b9e5b4d60e611"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d2abd5826961d67047b9e5b4d60e611">&#9670;&#160;</a></span>BindMode</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="a04039.html#a0d2abd5826961d67047b9e5b4d60e611">bl::rc::ds::DescriptorSetInstance::BindMode</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Bind mode of the descriptor set. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a0d2abd5826961d67047b9e5b4d60e611aca3f770200fb26547b3e7b354d670957" name="a0d2abd5826961d67047b9e5b4d60e611aca3f770200fb26547b3e7b354d670957"></a>Bindless&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a0d2abd5826961d67047b9e5b4d60e611a98d12a1bb275ddccb59ac803d85d829c" name="a0d2abd5826961d67047b9e5b4d60e611a98d12a1bb275ddccb59ac803d85d829c"></a>Bindful&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="a06682_source.html#l00033">33</a> of file <a class="el" href="a06682_source.html">DescriptorSetInstance.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a56d01a7643e3e65933db3c5a957db66f" name="a56d01a7643e3e65933db3c5a957db66f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a56d01a7643e3e65933db3c5a957db66f">&#9670;&#160;</a></span>SpeedBucketSetting</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="a04039.html#a56d01a7643e3e65933db3c5a957db66f">bl::rc::ds::DescriptorSetInstance::SpeedBucketSetting</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Whether or not the descriptor set needs to be re-bound for different update speeds. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a56d01a7643e3e65933db3c5a957db66fabac649864fea33d090a888e842a80ffd" name="a56d01a7643e3e65933db3c5a957db66fabac649864fea33d090a888e842a80ffd"></a>RebindForNewSpeed&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a56d01a7643e3e65933db3c5a957db66fa0e36b32fa7aa8a6327f0832d2470a57d" name="a56d01a7643e3e65933db3c5a957db66fa0e36b32fa7aa8a6327f0832d2470a57d"></a>SpeedAgnostic&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="a06682_source.html#l00036">36</a> of file <a class="el" href="a06682_source.html">DescriptorSetInstance.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad9195c5767fa81dc60dcc4b298201e43" name="ad9195c5767fa81dc60dcc4b298201e43"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad9195c5767fa81dc60dcc4b298201e43">&#9670;&#160;</a></span>Scene3DInstance()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::rc::ds::Scene3DInstance::Scene3DInstance </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04583.html">vk::VulkanState</a> &amp;&#160;</td>
-          <td class="paramname"><em>vulkanState</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkDescriptorSetLayout&#160;</td>
-          <td class="paramname"><em>layout</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates a new instance of the descriptor set. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">vulkanState</td><td><a class="el" href="a04239.html" title="Top level rendering system of the game engine.">Renderer</a> Vulkan state </td></tr>
-    <tr><td class="paramname">layout</td><td>The layout of the descriptor set </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02285_source.html#l00013">13</a> of file <a class="el" href="a02285_source.html">Scene3DInstance.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a7e91a432b49b14d0ebba8082f5bc48c9" name="a7e91a432b49b14d0ebba8082f5bc48c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7e91a432b49b14d0ebba8082f5bc48c9">&#9670;&#160;</a></span>~Scene3DInstance()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::rc::ds::Scene3DInstance::~Scene3DInstance </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Destroys the descriptor set. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02285_source.html#l00017">17</a> of file <a class="el" href="a02285_source.html">Scene3DInstance.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="afd986b19a260694d023fae3ca6e492e7" name="afd986b19a260694d023fae3ca6e492e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd986b19a260694d023fae3ca6e492e7">&#9670;&#160;</a></span>isBindless()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr bool bl::rc::ds::DescriptorSetInstance::isBindless </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns whether or not this descriptor set needs to be bound per-object. </p>
-
-<p class="definition">Definition at line <a class="el" href="a06682_source.html#l00122">122</a> of file <a class="el" href="a06682_source.html">DescriptorSetInstance.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a1f4c36f9496f74f8f8f4c17449eb5e6c" name="a1f4c36f9496f74f8f8f4c17449eb5e6c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1f4c36f9496f74f8f8f4c17449eb5e6c">&#9670;&#160;</a></span>needsRebindForNewSpeed()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr bool bl::rc::ds::DescriptorSetInstance::needsRebindForNewSpeed </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns whether or not the descriptor set needs to be re-bound for new speed. </p>
-
-<p class="definition">Definition at line <a class="el" href="a06682_source.html#l00124">124</a> of file <a class="el" href="a06682_source.html">DescriptorSetInstance.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ad0135cab959d2ab6c8c454054e1c23d4" name="ad0135cab959d2ab6c8c454054e1c23d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0135cab959d2ab6c8c454054e1c23d4">&#9670;&#160;</a></span>updateObserverCamera()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::ds::SceneDescriptorSetInstance::updateObserverCamera </td>
-          <td>(</td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>observerIndex</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const glm::mat4 &amp;&#160;</td>
-          <td class="paramname"><em>projView</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Updates the camera value for the given observer. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">observerIndex</td><td>Index of the observer to update </td></tr>
-    <tr><td class="paramname">projView</td><td>Camera matrix for the given observer </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02309_source.html#l00014">14</a> of file <a class="el" href="a02309_source.html">SceneDescriptorSetInstance.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a0a145382ab1e64d8c85dd63939bb0aca" name="a0a145382ab1e64d8c85dd63939bb0aca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0a145382ab1e64d8c85dd63939bb0aca">&#9670;&#160;</a></span>cameraBuffer</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03923.html">buf::UniformBuffer</a>&lt;glm::mat4&gt; bl::rc::ds::SceneDescriptorSetInstance::cameraBuffer</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01421_source.html#l00043">43</a> of file <a class="el" href="a01421_source.html">SceneDescriptorSetInstance.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Render/Descriptors/Builtin/<a class="el" href="a01385_source.html">Scene3DInstance.hpp</a></li>
-<li>src/Render/Descriptors/Builtin/<a class="el" href="a02285_source.html">Scene3DInstance.cpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a03998.html">bl::rc::buf::StaticUniformBuffer&lt; T &gt;</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a03998.html#a7dc54d5b59629aeee037901ee32e9266">alignedUniformSize</a>() const</td><td class="entry"><a class="el" href="a03998.html">bl::rc::buf::StaticUniformBuffer&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a04506.html#ac7eb35d2804ad40e76823182f4eae9c8">cancelQueuedTransfer</a>()</td><td class="entry"><a class="el" href="a04506.html">bl::rc::tfr::Transferable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03998.html#abcf42218512d2fb9fe338b78db7f6cc7">create</a>(vk::VulkanState &amp;vulkanState, std::uint32_t size)</td><td class="entry"><a class="el" href="a03998.html">bl::rc::buf::StaticUniformBuffer&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a03998.html#adef6022bb4ceee2b5b68ada939b0e0c0">destroy</a>()</td><td class="entry"><a class="el" href="a03998.html">bl::rc::buf::StaticUniformBuffer&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03998.html#a9890c4ea8b3792725d00b4ea415a944d">fill</a>(const T &amp;value)</td><td class="entry"><a class="el" href="a03998.html">bl::rc::buf::StaticUniformBuffer&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a03998.html#afa4bada37fc5dab97ff847ea11298cbf">gpuBufferHandle</a>()</td><td class="entry"><a class="el" href="a03998.html">bl::rc::buf::StaticUniformBuffer&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04506.html#a2fbe7414a05994b43584022f6d333c0d">isQueued</a>() const</td><td class="entry"><a class="el" href="a04506.html">bl::rc::tfr::Transferable</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a03998.html#abda1c8f5ee21c2f83ce3e24ad33310cc">operator[]</a>(std::uint32_t i)</td><td class="entry"><a class="el" href="a03998.html">bl::rc::buf::StaticUniformBuffer&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03998.html#adfc3842e2d1999d6d4d19294bbd0be2b">operator[]</a>(std::uint32_t i) const</td><td class="entry"><a class="el" href="a03998.html">bl::rc::buf::StaticUniformBuffer&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a04506.html#af2cddcfa3664702cb39bba2e304e5074">queueTransfer</a>(SyncRequirement syncReq=SyncRequirement::Immediate)</td><td class="entry"><a class="el" href="a04506.html">bl::rc::tfr::Transferable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03998.html#aa6b81432f3f0d6273182af7cedda2912">size</a>() const</td><td class="entry"><a class="el" href="a03998.html">bl::rc::buf::StaticUniformBuffer&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a03998.html#a985008c0f6e3bccac9ec9d8ad86a2be3">StaticUniformBuffer</a>()=default</td><td class="entry"><a class="el" href="a03998.html">bl::rc::buf::StaticUniformBuffer&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03998.html#a6021451a11a18cda02ef13e522598ede">StaticUniformBuffer</a>(vk::VulkanState &amp;vulkanState, std::uint32_t size)</td><td class="entry"><a class="el" href="a03998.html">bl::rc::buf::StaticUniformBuffer&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a04506.html#a998a9c05422f6188b474d275866a6b2b">stopTransferringEveryFrame</a>()</td><td class="entry"><a class="el" href="a04506.html">bl::rc::tfr::Transferable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04506.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> enum name</td><td class="entry"><a class="el" href="a04506.html">bl::rc::tfr::Transferable</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a03998.html#a58e7d8ec1a91bee661a40ad86ec3c401">totalAlignedSize</a>() const</td><td class="entry"><a class="el" href="a03998.html">bl::rc::buf::StaticUniformBuffer&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04506.html#a168f2c871b5f008471d22febc6fed7c1">Transferable</a>()</td><td class="entry"><a class="el" href="a04506.html">bl::rc::tfr::Transferable</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a04506.html#acf37a5209f8b287ba4e03acf9aeaaf5d">Transferable</a>(vk::VulkanState &amp;vs)</td><td class="entry"><a class="el" href="a04506.html">bl::rc::tfr::Transferable</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04506.html#affdc9c965d73f5227f2d3e0c8a17064e">transferEveryFrame</a>(SyncRequirement syncReq=SyncRequirement::Immediate)</td><td class="entry"><a class="el" href="a04506.html">bl::rc::tfr::Transferable</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a04506.html#ae134133a20147f77b4feae59dc9b447d">vulkanState</a></td><td class="entry"><a class="el" href="a04506.html">bl::rc::tfr::Transferable</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04506.html#a05233a758f0875563aea077dde3096f6">~Transferable</a>()</td><td class="entry"><a class="el" href="a04506.html">bl::rc::tfr::Transferable</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Resources/Bundling/Bundle.cpp Source File</title>
+<title>BLIB: src/Components/Transform3D.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,106 +79,95 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7a475d59e09b1ce69b1dfbc6b0817add.html">Resources</a></li><li class="navelem"><a class="el" href="dir_650c2bb72fa499737589ce0469633186.html">Bundling</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c610c8504d46288da7634b3c0b18263f.html">Components</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Bundle.cpp</div></div>
+  <div class="headertitle"><div class="title">Transform3D.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01544.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00110.html">BLIB/Resources/Bundling/Bundle.hpp</a>&gt;</span></div>
+<a href="a01544.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00083.html">BLIB/Components/Transform3D.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="a01535.html">Utils.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00266.html">BLIB/Logging.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a01319.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;glm/gtx/transform.hpp&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02360.html">bl</a></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>resource</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>com</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>bundle</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{}</div>
+<div class="foldopen" id="foldopen00010" data-start="{" data-end="}">
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="a02706.html#a93f7aef5374c02c7b0b590cc3c561749">   10</a></span><a class="code hl_function" href="a02706.html#a93f7aef5374c02c7b0b590cc3c561749">Transform3D::Transform3D</a>()</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>: position(0.f, 0.f, 0.f)</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>, orientation()</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>, scaleFactors(1.f, 1.f, 1.f) {}</div>
+</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="foldopen" id="foldopen00015" data-start="{" data-end="}">
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="a04591.html#ad38b2daf40dfdeb50e0bfeca12b82ec5">   15</a></span><a class="code hl_function" href="a04591.html#ad38b2daf40dfdeb50e0bfeca12b82ec5">Bundle::Bundle</a>(<span class="keyword">const</span> std::string&amp; path)</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>: source(path)</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>, touchTime(<a class="code hl_namespace" href="a02377.html">std</a>::chrono::steady_clock::now()) {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    std::ifstream fileHandle(path.c_str(), std::ios::binary);</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordflow">if</span> (fileHandle.good()) {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keywordflow">if</span> (manifest.<a class="code hl_function" href="a04603.html#af644d928891785dc98ff4eb2a4dfecda">load</a>(fileHandle)) {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>            <span class="keyword">const</span> std::streampos cpos = fileHandle.tellg();</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>            fileHandle.seekg(0, std::ios_base::end);</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>            <span class="keyword">const</span> std::streamoff dataSize = fileHandle.tellg() - cpos;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>            fileHandle.seekg(cpos);</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            data.resize(dataSize);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            fileHandle.read(data.data(), dataSize);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            <a class="code hl_define" href="a00230.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;Loaded bundle &#39;&quot;</span> &lt;&lt; path &lt;&lt; <span class="stringliteral">&quot;&#39; size=&quot;</span> &lt;&lt; <a class="code hl_function" href="a01535.html#a322792b1134b720d302428923b61a4c7">formatSize</a>(data.size());</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        }</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordflow">else</span> { <a class="code hl_define" href="a00230.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load bundle &#39;&quot;</span> &lt;&lt; path &lt;&lt; <span class="stringliteral">&quot;&#39;&quot;</span>; }</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    }</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordflow">else</span> { <a class="code hl_define" href="a00230.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to open bundle file: &#39;&quot;</span> &lt;&lt; path &lt;&lt; <span class="stringliteral">&quot;&#39;&quot;</span>; }</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>}</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="a02706.html#aaf9312274ffe979f5976e8cf4deaa604">   15</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02706.html#aaf9312274ffe979f5976e8cf4deaa604">Transform3D::setPosition</a>(<span class="keyword">const</span> glm::vec3&amp; pos) {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    position = pos;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <a class="code hl_function" href="a04026.html#abc4119ed29d76990f87b758707bdc4dc">markDirty</a>();</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>}</div>
 </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="foldopen" id="foldopen00034" data-start="{" data-end="}">
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="a04591.html#acc4d1154848a80c64f0a0b405bca16ff">   34</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a04591.html#acc4d1154848a80c64f0a0b405bca16ff">Bundle::getResource</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keywordtype">char</span>** buf, std::size_t&amp; len) {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    touchTime = std::chrono::steady_clock::now();</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keyword">const</span> <a class="code hl_struct" href="a04595.html">BundledFileMetadata</a> info = manifest.<a class="code hl_function" href="a04603.html#a5ee5ad07b7fe5b2d1e6f815810e059cd">getFileInfo</a>(path);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordflow">if</span> (info.<a class="code hl_variable" href="a04595.html#a783336c2da607da4cc7b5c30fc8b48d5">length</a> &lt; 0) {</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <a class="code hl_define" href="a00230.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Resource &#39;&quot;</span> &lt;&lt; path &lt;&lt; <span class="stringliteral">&quot;&#39; not found in bundle &#39;&quot;</span> &lt;&lt; source &lt;&lt; <span class="stringliteral">&quot;&#39;&quot;</span>;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    }</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">if</span> (info.<a class="code hl_variable" href="a04595.html#a621069bb47edd12e2f1670ee79a5eb1f">offset</a> &gt;= <span class="keyword">static_cast&lt;</span>std::int64_t<span class="keyword">&gt;</span>(data.size())) {</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <a class="code hl_define" href="a00230.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Resource &#39;&quot;</span> &lt;&lt; path &lt;&lt; <span class="stringliteral">&quot;&#39; has invalid offset &quot;</span> &lt;&lt; info.<a class="code hl_variable" href="a04595.html#a621069bb47edd12e2f1670ee79a5eb1f">offset</a></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                     &lt;&lt; <span class="stringliteral">&quot; in bundle &#39;&quot;</span> &lt;&lt; source &lt;&lt; <span class="stringliteral">&quot;&#39;&quot;</span>;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    }</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">if</span> (info.<a class="code hl_variable" href="a04595.html#a621069bb47edd12e2f1670ee79a5eb1f">offset</a> + info.<a class="code hl_variable" href="a04595.html#a783336c2da607da4cc7b5c30fc8b48d5">length</a> &gt; <span class="keyword">static_cast&lt;</span>std::int64_t<span class="keyword">&gt;</span>(data.size())) {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <a class="code hl_define" href="a00230.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Resource &#39;&quot;</span> &lt;&lt; path &lt;&lt; <span class="stringliteral">&quot;&#39; has invalid offset + size (&quot;</span> &lt;&lt; info.<a class="code hl_variable" href="a04595.html#a621069bb47edd12e2f1670ee79a5eb1f">offset</a></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                     &lt;&lt; <span class="stringliteral">&quot; + &quot;</span> &lt;&lt; info.<a class="code hl_variable" href="a04595.html#a783336c2da607da4cc7b5c30fc8b48d5">length</a> &lt;&lt; <span class="stringliteral">&quot;) in bundle &#39;&quot;</span> &lt;&lt; source &lt;&lt; <span class="stringliteral">&quot;&#39;&quot;</span>;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    *buf = &amp;data[info.<a class="code hl_variable" href="a04595.html#a621069bb47edd12e2f1670ee79a5eb1f">offset</a>];</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    len  = info.<a class="code hl_variable" href="a04595.html#a783336c2da607da4cc7b5c30fc8b48d5">length</a>;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="foldopen" id="foldopen00020" data-start="{" data-end="}">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a02706.html#a81c49520645e7d7649dd57acbd45b349">   20</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02706.html#a81c49520645e7d7649dd57acbd45b349">Transform3D::move</a>(<span class="keyword">const</span> glm::vec3&amp; offset) {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    position += offset;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <a class="code hl_function" href="a04026.html#abc4119ed29d76990f87b758707bdc4dc">markDirty</a>();</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>}</div>
 </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="foldopen" id="foldopen00057" data-start="{" data-end="}">
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="a04591.html#a1c80e54b6086c8b44350320cdd539c92">   57</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a04591.html#a1c80e54b6086c8b44350320cdd539c92">Bundle::expired</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordflow">return</span> std::chrono::duration_cast&lt;std::chrono::seconds&gt;(std::chrono::steady_clock::now() -</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                                                            touchTime)</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>               .count() &gt;= <a class="code hl_variable" href="a04591.html#a3085e4ecd8ab1d2abd315da5cfc03735">Lifetime</a>;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>}</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="foldopen" id="foldopen00025" data-start="{" data-end="}">
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a02706.html#a243635bc65bb129fbf3cf95ae233d9aa">   25</a></span><a class="code hl_class" href="a02654.html">Orientation3D</a>&amp; <a class="code hl_function" href="a02706.html#a243635bc65bb129fbf3cf95ae233d9aa">Transform3D::getOrientationForChange</a>() {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <a class="code hl_function" href="a04026.html#abc4119ed29d76990f87b758707bdc4dc">markDirty</a>();</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordflow">return</span> orientation;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
 </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>} <span class="comment">// namespace bundle</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>} <span class="comment">// namespace resource</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00110_html"><div class="ttname"><a href="a00110.html">Bundle.hpp</a></div></div>
-<div class="ttc" id="aa00230_html_a459f7ea96e34815206480bf681ee2a2f"><div class="ttname"><a href="a00230.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a></div><div class="ttdeci">#define BL_LOG_INFO</div><div class="ttdoc">Helper macro to log at info level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a00230_source.html#l00107">Logger.hpp:107</a></div></div>
-<div class="ttc" id="aa00230_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00230.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a00230_source.html#l00101">Logger.hpp:101</a></div></div>
-<div class="ttc" id="aa00266_html"><div class="ttname"><a href="a00266.html">Logging.hpp</a></div></div>
-<div class="ttc" id="aa01535_html"><div class="ttname"><a href="a01535.html">Utils.hpp</a></div></div>
-<div class="ttc" id="aa01535_html_a322792b1134b720d302428923b61a4c7"><div class="ttname"><a href="a01535.html#a322792b1134b720d302428923b61a4c7">formatSize</a></div><div class="ttdeci">std::string formatSize(unsigned int byteCount)</div><div class="ttdef"><b>Definition</b> <a href="a01535_source.html#l00006">Utils.hpp:6</a></div></div>
-<div class="ttc" id="aa02360_html"><div class="ttname"><a href="a02360.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01448_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02377_html"><div class="ttname"><a href="a02377.html">std</a></div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00193">Entity.hpp:194</a></div></div>
-<div class="ttc" id="aa04591_html_a1c80e54b6086c8b44350320cdd539c92"><div class="ttname"><a href="a04591.html#a1c80e54b6086c8b44350320cdd539c92">bl::resource::bundle::Bundle::expired</a></div><div class="ttdeci">bool expired() const</div><div class="ttdoc">Returns whether or not this bundle has expired and should be purged.</div><div class="ttdef"><b>Definition</b> <a href="a01544_source.html#l00057">Bundle.cpp:57</a></div></div>
-<div class="ttc" id="aa04591_html_a3085e4ecd8ab1d2abd315da5cfc03735"><div class="ttname"><a href="a04591.html#a3085e4ecd8ab1d2abd315da5cfc03735">bl::resource::bundle::Bundle::Lifetime</a></div><div class="ttdeci">static constexpr unsigned int Lifetime</div><div class="ttdoc">Bundles expire after 60 seconds of no interaction.</div><div class="ttdef"><b>Definition</b> <a href="a00110_source.html#l00025">Bundle.hpp:25</a></div></div>
-<div class="ttc" id="aa04591_html_acc4d1154848a80c64f0a0b405bca16ff"><div class="ttname"><a href="a04591.html#acc4d1154848a80c64f0a0b405bca16ff">bl::resource::bundle::Bundle::getResource</a></div><div class="ttdeci">bool getResource(const std::string &amp;path, char **buffer, std::size_t &amp;len)</div><div class="ttdoc">Loads the given resource from the bundle.</div><div class="ttdef"><b>Definition</b> <a href="a01544_source.html#l00034">Bundle.cpp:34</a></div></div>
-<div class="ttc" id="aa04591_html_ad38b2daf40dfdeb50e0bfeca12b82ec5"><div class="ttname"><a href="a04591.html#ad38b2daf40dfdeb50e0bfeca12b82ec5">bl::resource::bundle::Bundle::Bundle</a></div><div class="ttdeci">Bundle(const std::string &amp;path)</div><div class="ttdoc">Loads the bundle from the path.</div><div class="ttdef"><b>Definition</b> <a href="a01544_source.html#l00015">Bundle.cpp:15</a></div></div>
-<div class="ttc" id="aa04595_html"><div class="ttname"><a href="a04595.html">bl::resource::bundle::BundledFileMetadata</a></div><div class="ttdoc">Basic struct containing metadata about a file in a bundle.</div><div class="ttdef"><b>Definition</b> <a href="a00122_source.html#l00019">BundledFileMetadata.hpp:19</a></div></div>
-<div class="ttc" id="aa04595_html_a621069bb47edd12e2f1670ee79a5eb1f"><div class="ttname"><a href="a04595.html#a621069bb47edd12e2f1670ee79a5eb1f">bl::resource::bundle::BundledFileMetadata::offset</a></div><div class="ttdeci">std::int64_t offset</div><div class="ttdoc">The offset of the file in the bundle, relative to the start of the file.</div><div class="ttdef"><b>Definition</b> <a href="a00122_source.html#l00021">BundledFileMetadata.hpp:21</a></div></div>
-<div class="ttc" id="aa04595_html_a783336c2da607da4cc7b5c30fc8b48d5"><div class="ttname"><a href="a04595.html#a783336c2da607da4cc7b5c30fc8b48d5">bl::resource::bundle::BundledFileMetadata::length</a></div><div class="ttdeci">std::int64_t length</div><div class="ttdoc">The number of bytes the file has.</div><div class="ttdef"><b>Definition</b> <a href="a00122_source.html#l00024">BundledFileMetadata.hpp:24</a></div></div>
-<div class="ttc" id="aa04603_html_a5ee5ad07b7fe5b2d1e6f815810e059cd"><div class="ttname"><a href="a04603.html#a5ee5ad07b7fe5b2d1e6f815810e059cd">bl::resource::bundle::BundleMetadata::getFileInfo</a></div><div class="ttdeci">BundledFileMetadata getFileInfo(const std::string &amp;path) const</div><div class="ttdoc">Get the information locating a specific file in the bundle.</div><div class="ttdef"><b>Definition</b> <a href="a01538_source.html#l00015">BundleMetadata.cpp:15</a></div></div>
-<div class="ttc" id="aa04603_html_af644d928891785dc98ff4eb2a4dfecda"><div class="ttname"><a href="a04603.html#af644d928891785dc98ff4eb2a4dfecda">bl::resource::bundle::BundleMetadata::load</a></div><div class="ttdeci">bool load(std::istream &amp;stream)</div><div class="ttdoc">Loads the bundle metadata from the given stream.</div><div class="ttdef"><b>Definition</b> <a href="a01538_source.html#l00026">BundleMetadata.cpp:26</a></div></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="foldopen" id="foldopen00030" data-start="{" data-end="}">
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a02706.html#abcd56e8b138a09be424780e28550c666">   30</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02706.html#abcd56e8b138a09be424780e28550c666">Transform3D::setScale</a>(<span class="keyword">const</span> glm::vec3&amp; s) {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    scaleFactors = s;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <a class="code hl_function" href="a04026.html#abc4119ed29d76990f87b758707bdc4dc">markDirty</a>();</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>}</div>
+</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="foldopen" id="foldopen00035" data-start="{" data-end="}">
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a02706.html#a03cde2caaf50d82628fc06389a123458">   35</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02706.html#a03cde2caaf50d82628fc06389a123458">Transform3D::scale</a>(<span class="keyword">const</span> glm::vec3&amp; f) {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    scaleFactors.x *= f.x;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    scaleFactors.y *= f.y;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    scaleFactors.z *= f.z;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <a class="code hl_function" href="a04026.html#abc4119ed29d76990f87b758707bdc4dc">markDirty</a>();</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>}</div>
+</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="foldopen" id="foldopen00042" data-start="{" data-end="}">
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="a02706.html#adfae73aa6db622d679b3bc6ef9a01552">   42</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02706.html#adfae73aa6db622d679b3bc6ef9a01552">Transform3D::refreshDescriptor</a>(glm::mat4&amp; dest) {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    dest = glm::translate(position);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    dest *= glm::rotate(glm::radians(orientation.<a class="code hl_function" href="a02654.html#ad1254dbe4b652931409c850475fc857d">getRoll</a>()), orientation.<a class="code hl_function" href="a02654.html#a5f03e1a36bfde59000a175711a691a56">getFaceDirection</a>());</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    dest *= glm::scale(scaleFactors);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}</div>
+</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>} <span class="comment">// namespace com</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00083_html"><div class="ttname"><a href="a00083.html">Transform3D.hpp</a></div></div>
+<div class="ttc" id="aa01319_html"><div class="ttname"><a href="a01319.html">VulkanState.hpp</a></div></div>
+<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02654_html"><div class="ttname"><a href="a02654.html">bl::com::Orientation3D</a></div><div class="ttdoc">Angle-axis representation of a 3d orientation.</div><div class="ttdef"><b>Definition</b> <a href="a00053_source.html#l00015">Orientation3D.hpp:15</a></div></div>
+<div class="ttc" id="aa02654_html_a5f03e1a36bfde59000a175711a691a56"><div class="ttname"><a href="a02654.html#a5f03e1a36bfde59000a175711a691a56">bl::com::Orientation3D::getFaceDirection</a></div><div class="ttdeci">constexpr const glm::vec3 &amp; getFaceDirection() const</div><div class="ttdoc">Returns a normalized direction vector that the orientation is facing.</div><div class="ttdef"><b>Definition</b> <a href="a00053_source.html#l00138">Orientation3D.hpp:138</a></div></div>
+<div class="ttc" id="aa02654_html_ad1254dbe4b652931409c850475fc857d"><div class="ttname"><a href="a02654.html#ad1254dbe4b652931409c850475fc857d">bl::com::Orientation3D::getRoll</a></div><div class="ttdeci">constexpr float getRoll() const</div><div class="ttdoc">Returns the roll of the orientation in degrees.</div><div class="ttdef"><b>Definition</b> <a href="a00053_source.html#l00136">Orientation3D.hpp:136</a></div></div>
+<div class="ttc" id="aa02706_html_a03cde2caaf50d82628fc06389a123458"><div class="ttname"><a href="a02706.html#a03cde2caaf50d82628fc06389a123458">bl::com::Transform3D::scale</a></div><div class="ttdeci">void scale(const glm::vec3 &amp;factors)</div><div class="ttdoc">Multiplies the current scale of the transform by the given factors.</div><div class="ttdef"><b>Definition</b> <a href="a01544_source.html#l00035">Transform3D.cpp:35</a></div></div>
+<div class="ttc" id="aa02706_html_a243635bc65bb129fbf3cf95ae233d9aa"><div class="ttname"><a href="a02706.html#a243635bc65bb129fbf3cf95ae233d9aa">bl::com::Transform3D::getOrientationForChange</a></div><div class="ttdeci">Orientation3D &amp; getOrientationForChange()</div><div class="ttdoc">Returns the orientation of the transform and marks itself as dirty. Use this if you are going to modi...</div><div class="ttdef"><b>Definition</b> <a href="a01544_source.html#l00025">Transform3D.cpp:25</a></div></div>
+<div class="ttc" id="aa02706_html_a81c49520645e7d7649dd57acbd45b349"><div class="ttname"><a href="a02706.html#a81c49520645e7d7649dd57acbd45b349">bl::com::Transform3D::move</a></div><div class="ttdeci">void move(const glm::vec3 &amp;offset)</div><div class="ttdoc">Translates the transform.</div><div class="ttdef"><b>Definition</b> <a href="a01544_source.html#l00020">Transform3D.cpp:20</a></div></div>
+<div class="ttc" id="aa02706_html_a93f7aef5374c02c7b0b590cc3c561749"><div class="ttname"><a href="a02706.html#a93f7aef5374c02c7b0b590cc3c561749">bl::com::Transform3D::Transform3D</a></div><div class="ttdeci">Transform3D()</div><div class="ttdoc">Creates a new transform with no scaling and sane defaults.</div><div class="ttdef"><b>Definition</b> <a href="a01544_source.html#l00010">Transform3D.cpp:10</a></div></div>
+<div class="ttc" id="aa02706_html_aaf9312274ffe979f5976e8cf4deaa604"><div class="ttname"><a href="a02706.html#aaf9312274ffe979f5976e8cf4deaa604">bl::com::Transform3D::setPosition</a></div><div class="ttdeci">void setPosition(const glm::vec3 &amp;pos)</div><div class="ttdoc">Sets the position of the transform.</div><div class="ttdef"><b>Definition</b> <a href="a01544_source.html#l00015">Transform3D.cpp:15</a></div></div>
+<div class="ttc" id="aa02706_html_abcd56e8b138a09be424780e28550c666"><div class="ttname"><a href="a02706.html#abcd56e8b138a09be424780e28550c666">bl::com::Transform3D::setScale</a></div><div class="ttdeci">void setScale(const glm::vec3 &amp;scale)</div><div class="ttdoc">Sets the scale of the transform.</div><div class="ttdef"><b>Definition</b> <a href="a01544_source.html#l00030">Transform3D.cpp:30</a></div></div>
+<div class="ttc" id="aa02706_html_adfae73aa6db622d679b3bc6ef9a01552"><div class="ttname"><a href="a02706.html#adfae73aa6db622d679b3bc6ef9a01552">bl::com::Transform3D::refreshDescriptor</a></div><div class="ttdeci">virtual void refreshDescriptor(glm::mat4 &amp;dest) override</div><div class="ttdoc">Computes the transform and populates the given transform matrix.</div><div class="ttdef"><b>Definition</b> <a href="a01544_source.html#l00042">Transform3D.cpp:42</a></div></div>
+<div class="ttc" id="aa04026_html_abc4119ed29d76990f87b758707bdc4dc"><div class="ttname"><a href="a04026.html#abc4119ed29d76990f87b758707bdc4dc">bl::rc::rcom::DescriptorComponentBase&lt; Transform3D, glm::mat4 &gt;::markDirty</a></div><div class="ttdeci">void markDirty()</div><div class="ttdoc">Call this when the component is modified.</div><div class="ttdef"><b>Definition</b> <a href="a01073_source.html#l00092">DescriptorComponentBase.hpp:150</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

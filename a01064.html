@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Components/DescriptorComponentBase.hpp File Reference</title>
+<title>BLIB: include/BLIB/Render/RenderPhase.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,52 +74,159 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1fe4435017a66f2c0b1af7ce232fd611.html">Components</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">DescriptorComponentBase.hpp File Reference</div></div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">RenderPhase.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00986_source.html">BLIB/ECS/Entity.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00266_source.html">BLIB/Logging.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01349_source.html">BLIB/Render/Descriptors/DescriptorComponentStorage.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01127_source.html">BLIB/Render/Scenes/Key.hpp</a>&gt;</code><br />
-<code>#include &lt;array&gt;</code><br />
-<code>#include &lt;cstdint&gt;</code><br />
+<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;type_traits&gt;</code><br />
 </div>
 <p><a href="a01064_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03943.html">bl::rc::rcom::DescriptorComponentBase&lt; TCom, TPayload &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for ECS components that map into descriptor sets.  <a href="a03943.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a02360" id="r_a02360"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02360.html">bl</a></td></tr>
-<tr class="memdesc:a02360"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a02402" id="r_a02402"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02402.html">bl</a></td></tr>
+<tr class="memdesc:a02402"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02370" id="r_a02370"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02370.html">bl::rc</a></td></tr>
-<tr class="memdesc:a02370"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a04239.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
+<tr class="memitem:a02412" id="r_a02412"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02412.html">bl::rc</a></td></tr>
+<tr class="memdesc:a02412"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a04346.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02371" id="r_a02371"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02371.html">bl::rc::vk</a></td></tr>
-<tr class="memdesc:a02371"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of interfaces and utilities directly related to Vulkan. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02411" id="r_a02411"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02411.html">bl::rc::rcom</a></td></tr>
-<tr class="memdesc:a02411"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of ECS components for the renderer. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga2046cc31338d7d8e2a4af56aa599986b" id="r_ga2046cc31338d7d8e2a4af56aa599986b"><td class="memItemLeft" align="right" valign="top">enum struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02388.html#ga2046cc31338d7d8e2a4af56aa599986b">bl::rc::RenderPhase</a> : std::uint8_t { <br />
+&#160;&#160;<a class="el" href="a02388.html#gga2046cc31338d7d8e2a4af56aa599986ba6adf97f83acf6453d4a6a4b1070f3754">bl::rc::RenderPhase::None</a> = 0
+, <a class="el" href="a02388.html#gga2046cc31338d7d8e2a4af56aa599986ba7a1920d61156abc05a60135aefe8bc67">bl::rc::RenderPhase::Default</a> = 0x1 &lt;&lt; 0
+, <a class="el" href="a02388.html#gga2046cc31338d7d8e2a4af56aa599986ba353488005629cf8d75def358ee005f3d">bl::rc::RenderPhase::ShadowMap</a> = 0x1 &lt;&lt; 1
+, <a class="el" href="a02388.html#gga2046cc31338d7d8e2a4af56aa599986ba6b551379c3c0b59326abdaf3b4395bd3">bl::rc::RenderPhase::Overlay</a> = 0x1 &lt;&lt; 2
+, <br />
+&#160;&#160;<a class="el" href="a02388.html#gga2046cc31338d7d8e2a4af56aa599986bab1c94ca2fbc3e78fc30069c8d0f01680">bl::rc::RenderPhase::All</a> = 0xFF
+<br />
+ }</td></tr>
+<tr class="memdesc:ga2046cc31338d7d8e2a4af56aa599986b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum representing the different possible phases of rendering.  <a href="a02388.html#ga2046cc31338d7d8e2a4af56aa599986b">More...</a><br /></td></tr>
+<tr class="separator:ga2046cc31338d7d8e2a4af56aa599986b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a98dec97cf96b939f86124f0f4809d7da" id="r_a98dec97cf96b939f86124f0f4809d7da"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02412.html#a98dec97cf96b939f86124f0f4809d7da">bl::rc::renderPhaseIndex</a> (<a class="el" href="a02388.html#ga2046cc31338d7d8e2a4af56aa599986b">RenderPhase</a> phase)</td></tr>
+<tr class="memdesc:a98dec97cf96b939f86124f0f4809d7da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the index of the given render phase.  <br /></td></tr>
+<tr class="separator:a98dec97cf96b939f86124f0f4809d7da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e0f981482b7b6253a968f6a0d0d6db5" id="r_a3e0f981482b7b6253a968f6a0d0d6db5"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="a02388.html#ga2046cc31338d7d8e2a4af56aa599986b">bl::rc::RenderPhase</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01064.html#a3e0f981482b7b6253a968f6a0d0d6db5">operator|</a> (<a class="el" href="a02388.html#ga2046cc31338d7d8e2a4af56aa599986b">bl::rc::RenderPhase</a> left, <a class="el" href="a02388.html#ga2046cc31338d7d8e2a4af56aa599986b">bl::rc::RenderPhase</a> right)</td></tr>
+<tr class="memdesc:a3e0f981482b7b6253a968f6a0d0d6db5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combine two render phases into one.  <br /></td></tr>
+<tr class="separator:a3e0f981482b7b6253a968f6a0d0d6db5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b5c99c934bee40d402ff29dc74bb080" id="r_a2b5c99c934bee40d402ff29dc74bb080"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01064.html#a2b5c99c934bee40d402ff29dc74bb080">operator&amp;</a> (<a class="el" href="a02388.html#ga2046cc31338d7d8e2a4af56aa599986b">bl::rc::RenderPhase</a> left, <a class="el" href="a02388.html#ga2046cc31338d7d8e2a4af56aa599986b">bl::rc::RenderPhase</a> right)</td></tr>
+<tr class="memdesc:a2b5c99c934bee40d402ff29dc74bb080"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests whether two phases overlap.  <br /></td></tr>
+<tr class="separator:a2b5c99c934bee40d402ff29dc74bb080"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a2b5c99c934bee40d402ff29dc74bb080" name="a2b5c99c934bee40d402ff29dc74bb080"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b5c99c934bee40d402ff29dc74bb080">&#9670;&#160;</a></span>operator&amp;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool operator&amp; </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02388.html#ga2046cc31338d7d8e2a4af56aa599986b">bl::rc::RenderPhase</a>&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02388.html#ga2046cc31338d7d8e2a4af56aa599986b">bl::rc::RenderPhase</a>&#160;</td>
+          <td class="paramname"><em>right</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Tests whether two phases overlap. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">left</td><td>The left phase to test </td></tr>
+    <tr><td class="paramname">right</td><td>The right phase to test </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the phases overlap, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01064_source.html#l00090">90</a> of file <a class="el" href="a01064_source.html">RenderPhase.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3e0f981482b7b6253a968f6a0d0d6db5" name="a3e0f981482b7b6253a968f6a0d0d6db5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e0f981482b7b6253a968f6a0d0d6db5">&#9670;&#160;</a></span>operator|()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="a02388.html#ga2046cc31338d7d8e2a4af56aa599986b">bl::rc::RenderPhase</a> operator| </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02388.html#ga2046cc31338d7d8e2a4af56aa599986b">bl::rc::RenderPhase</a>&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02388.html#ga2046cc31338d7d8e2a4af56aa599986b">bl::rc::RenderPhase</a>&#160;</td>
+          <td class="paramname"><em>right</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Combine two render phases into one. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">left</td><td>The left render phase to combine </td></tr>
+    <tr><td class="paramname">right</td><td>The right render phase to combine </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The combined render phase </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01064_source.html#l00076">76</a> of file <a class="el" href="a01064_source.html">RenderPhase.hpp</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

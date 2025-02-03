@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Vulkan/RenderPassParameters.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Vulkan/Texture.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,90 +83,106 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">RenderPassParameters.hpp</div></div>
+  <div class="headertitle"><div class="title">Texture.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01274.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_RENDERPASSPARAMETERS_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_VULKAN_RENDERPASSPARAMETERS_HPP</span></div>
+<a href="a01274.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_RENDERER_TEXTURE_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_RENDERER_TEXTURE_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00332.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02360.html">bl</a></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span>vk</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">class </span>RenderPass;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01325.html">BLIB/Render/Vulkan/TextureBase.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00224.html">BLIB/Resources.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;SFML/Graphics/Image.hpp&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>vk</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">struct </span>VulkanState;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a04519.html">   22</a></span><span class="keyword">class </span><a class="code hl_class" href="a04519.html">RenderPassParameters</a> {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a04678.html">   22</a></span><span class="keyword">class </span><a class="code hl_class" href="a04678.html">Texture</a> : <span class="keyword">public</span> <a class="code hl_class" href="a04682.html">TextureBase</a> {</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">public</span>:</div>
-<div class="foldopen" id="foldopen00029" data-start="{" data-end="};">
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a04523.html">   29</a></span>    <span class="keyword">class </span><a class="code hl_class" href="a04523.html">SubPass</a> {</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <a class="code hl_function" href="a04523.html#af59febea8d9397a3198fc61db360adf8">SubPass</a>();</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a04678.html#a1dedc29c248cdfefd474f09a62acd4be">   24</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> VkFormat <a class="code hl_variable" href="a04678.html#a1dedc29c248cdfefd474f09a62acd4be">DefaultFormat</a> = VK_FORMAT_R8G8B8A8_UNORM;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_function" href="a04678.html#afc1f7714d8ed74fd624b8fa9fc51decb">Texture</a>();</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a04678.html#ab8ac21d6e7ff5f1de2e0dda02cc52b21">   35</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a04678.html#ab8ac21d6e7ff5f1de2e0dda02cc52b21">~Texture</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <a class="code hl_class" href="a04523.html">SubPass</a>&amp; <a class="code hl_function" href="a04523.html#aceae349a2d8eded2ae0db312d12e2454">withAttachment</a>(std::uint32_t index, VkImageLayout layout);</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <a class="code hl_class" href="a04523.html">SubPass</a>&amp; <a class="code hl_function" href="a04523.html#ac686f180eece4c15a8b00e729e608ebb">withDepthAttachment</a>(std::uint32_t index, VkImageLayout layout);</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <a class="code hl_class" href="a04523.html">SubPass</a>&amp;&amp; <a class="code hl_function" href="a04523.html#af9dc875ebea2e5f896af0e08934bbfd2">build</a>();</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        std::vector&lt;VkAttachmentReference&gt; colorAttachments;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        std::optional&lt;VkAttachmentReference&gt; depthAttachment;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="a04523.html#aa8ab806874e69ead344abef1c5e76aa0">   66</a></span>        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a04515.html">RenderPass</a>;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    };</div>
-</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04678.html#ab59693df0ab6cda93732346c6eee112d">resize</a>(<span class="keyword">const</span> glm::u32vec2&amp; <a class="code hl_function" href="a04682.html#a60b1e7c1e469732eb0066a579cdc9bbc">size</a>) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04678.html#a07d9d3e82ba1c20c73bf844d2eb1fb90">update</a>(<span class="keyword">const</span> sf::Image&amp; content, <span class="keyword">const</span> glm::u32vec2&amp; destPos = {0, 0},</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                <span class="keyword">const</span> sf::IntRect&amp; source = {});</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04678.html#a07d9d3e82ba1c20c73bf844d2eb1fb90">update</a>(<span class="keyword">const</span> <a class="code hl_class" href="a04818.html">resource::Ref&lt;sf::Image&gt;</a>&amp; content, <span class="keyword">const</span> glm::u32vec2&amp; destPos = {0, 0},</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>                <span class="keyword">const</span> sf::IntRect&amp; source = {});</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    VkImage <a class="code hl_function" href="a04678.html#a6a87c1d8eeab631aa442dfdaf3dc6502">getImage</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <a class="code hl_function" href="a04519.html#a16f52c825c72793c10ab1f356bf4c06c">RenderPassParameters</a>();</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <a class="code hl_class" href="a04519.html">RenderPassParameters</a>&amp; <a class="code hl_function" href="a04519.html#ab4a7ac7704ca1b4b6699088ccd8a5d00">addSubpass</a>(<a class="code hl_class" href="a04523.html">SubPass</a>&amp;&amp; subpass);</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <a class="code hl_class" href="a04519.html">RenderPassParameters</a>&amp; <a class="code hl_function" href="a04519.html#abd6568d1fa4d137ac4f740c4a8392ae3">addSubpassDependency</a>(VkSubpassDependency dependency);</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <a class="code hl_class" href="a04519.html">RenderPassParameters</a>&amp; <a class="code hl_function" href="a04519.html#a13dc01b847adb714906ab5a2311d5be4">addAttachment</a>(VkAttachmentDescription attachment);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    VkImageView <a class="code hl_function" href="a04678.html#aadc4c85cb2b350373d415ac7282e9e8c">getView</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="comment">// transfer data</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keyword">const</span> sf::Image* altImg;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    resource::Ref&lt;sf::Image&gt; transferImg;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    glm::u32vec2 destPos;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    sf::IntRect source;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="comment">// texture data</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    VkImage image;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    VmaAllocation alloc;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    VmaAllocationInfo allocInfo;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    VkImageView view;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    VkImageLayout currentLayout;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> create(<span class="keyword">const</span> glm::u32vec2&amp; <a class="code hl_function" href="a04682.html#a60b1e7c1e469732eb0066a579cdc9bbc">size</a>) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keywordtype">void</span> createFromContentsAndQueue();</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> executeTransfer(VkCommandBuffer commandBuffer,</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>                                 tfr::TransferContext&amp; transferEngine) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keywordtype">void</span> cleanup();</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keywordtype">void</span> reset();</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keywordtype">void</span> updateTrans(<span class="keyword">const</span> sf::Image&amp; data);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keyword">virtual</span> VkImage getCurrentImage() <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keyword">virtual</span> VkImageLayout getCurrentImageLayout() <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keyword">virtual</span> VkFormat getFormat() <span class="keyword">const override</span>;</div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <a class="code hl_class" href="a04519.html">RenderPassParameters</a>&amp;&amp; <a class="code hl_function" href="a04519.html#a3e44e61fc730471f14e699f447f6cf84">build</a>();</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    std::vector&lt;VkAttachmentDescription&gt; attachments;</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    std::vector&lt;SubPass&gt; subpasses;</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    std::vector&lt;VkSubpassDependency&gt; dependencies;</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="a04519.html#aa8ab806874e69ead344abef1c5e76aa0">  111</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a04515.html">RenderPass</a>;</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>};</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="a04678.html#aca1ccc949c6170876ec275e6c3c92a59">   99</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a04398.html">res::TexturePool</a>;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="a04678.html#a713c98eafbeaafeac77f2d17326f92b3">  100</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a04358.html">res::BindlessTextureArray</a>;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>};</div>
 </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>} <span class="comment">// namespace vk</span></div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00332_html"><div class="ttname"><a href="a00332.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa02360_html"><div class="ttname"><a href="a02360.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01448_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04515_html"><div class="ttname"><a href="a04515.html">bl::rc::vk::RenderPass</a></div><div class="ttdoc">Represents a render pass in the renderer. A scene is comprised of a sequence of render passes and eac...</div><div class="ttdef"><b>Definition</b> <a href="a01271_source.html#l00019">RenderPass.hpp:19</a></div></div>
-<div class="ttc" id="aa04519_html"><div class="ttname"><a href="a04519.html">bl::rc::vk::RenderPassParameters</a></div><div class="ttdoc">Parameter builder class used to construct RenderPass objects in the renderer.</div><div class="ttdef"><b>Definition</b> <a href="a01274_source.html#l00022">RenderPassParameters.hpp:22</a></div></div>
-<div class="ttc" id="aa04519_html_a13dc01b847adb714906ab5a2311d5be4"><div class="ttname"><a href="a04519.html#a13dc01b847adb714906ab5a2311d5be4">bl::rc::vk::RenderPassParameters::addAttachment</a></div><div class="ttdeci">RenderPassParameters &amp; addAttachment(VkAttachmentDescription attachment)</div><div class="ttdoc">Adds an image attachment to this render pass.</div><div class="ttdef"><b>Definition</b> <a href="a02264_source.html#l00028">RenderPassParameters.cpp:28</a></div></div>
-<div class="ttc" id="aa04519_html_a16f52c825c72793c10ab1f356bf4c06c"><div class="ttname"><a href="a04519.html#a16f52c825c72793c10ab1f356bf4c06c">bl::rc::vk::RenderPassParameters::RenderPassParameters</a></div><div class="ttdeci">RenderPassParameters()</div><div class="ttdoc">Construct a new Render Pass Parameters object.</div><div class="ttdef"><b>Definition</b> <a href="a02264_source.html#l00012">RenderPassParameters.cpp:12</a></div></div>
-<div class="ttc" id="aa04519_html_a3e44e61fc730471f14e699f447f6cf84"><div class="ttname"><a href="a04519.html#a3e44e61fc730471f14e699f447f6cf84">bl::rc::vk::RenderPassParameters::build</a></div><div class="ttdeci">RenderPassParameters &amp;&amp; build()</div><div class="ttdoc">Performs validation and returns a usable rvalue reference to this object.</div><div class="ttdef"><b>Definition</b> <a href="a02264_source.html#l00033">RenderPassParameters.cpp:33</a></div></div>
-<div class="ttc" id="aa04519_html_ab4a7ac7704ca1b4b6699088ccd8a5d00"><div class="ttname"><a href="a04519.html#ab4a7ac7704ca1b4b6699088ccd8a5d00">bl::rc::vk::RenderPassParameters::addSubpass</a></div><div class="ttdeci">RenderPassParameters &amp; addSubpass(SubPass &amp;&amp;subpass)</div><div class="ttdoc">Adds a subpass to the render pass to be created.</div><div class="ttdef"><b>Definition</b> <a href="a02264_source.html#l00018">RenderPassParameters.cpp:18</a></div></div>
-<div class="ttc" id="aa04519_html_abd6568d1fa4d137ac4f740c4a8392ae3"><div class="ttname"><a href="a04519.html#abd6568d1fa4d137ac4f740c4a8392ae3">bl::rc::vk::RenderPassParameters::addSubpassDependency</a></div><div class="ttdeci">RenderPassParameters &amp; addSubpassDependency(VkSubpassDependency dependency)</div><div class="ttdoc">Adds a blocking dependency to block the renderer between subpasses.</div><div class="ttdef"><b>Definition</b> <a href="a02264_source.html#l00023">RenderPassParameters.cpp:23</a></div></div>
-<div class="ttc" id="aa04523_html"><div class="ttname"><a href="a04523.html">bl::rc::vk::RenderPassParameters::SubPass</a></div><div class="ttdoc">Helper parameter class that represents a subpass within a render pass.</div><div class="ttdef"><b>Definition</b> <a href="a01274_source.html#l00029">RenderPassParameters.hpp:29</a></div></div>
-<div class="ttc" id="aa04523_html_ac686f180eece4c15a8b00e729e608ebb"><div class="ttname"><a href="a04523.html#ac686f180eece4c15a8b00e729e608ebb">bl::rc::vk::RenderPassParameters::SubPass::withDepthAttachment</a></div><div class="ttdeci">SubPass &amp; withDepthAttachment(std::uint32_t index, VkImageLayout layout)</div><div class="ttdoc">Adds a depth attachment to this subpass.</div><div class="ttdef"><b>Definition</b> <a href="a02264_source.html#l00053">RenderPassParameters.cpp:53</a></div></div>
-<div class="ttc" id="aa04523_html_aceae349a2d8eded2ae0db312d12e2454"><div class="ttname"><a href="a04523.html#aceae349a2d8eded2ae0db312d12e2454">bl::rc::vk::RenderPassParameters::SubPass::withAttachment</a></div><div class="ttdeci">SubPass &amp; withAttachment(std::uint32_t index, VkImageLayout layout)</div><div class="ttdoc">Adds an attachment reference to the subpass.</div><div class="ttdef"><b>Definition</b> <a href="a02264_source.html#l00045">RenderPassParameters.cpp:45</a></div></div>
-<div class="ttc" id="aa04523_html_af59febea8d9397a3198fc61db360adf8"><div class="ttname"><a href="a04523.html#af59febea8d9397a3198fc61db360adf8">bl::rc::vk::RenderPassParameters::SubPass::SubPass</a></div><div class="ttdeci">SubPass()</div><div class="ttdoc">Construct a new Sub Pass object.</div><div class="ttdef"><b>Definition</b> <a href="a02264_source.html#l00043">RenderPassParameters.cpp:43</a></div></div>
-<div class="ttc" id="aa04523_html_af9dc875ebea2e5f896af0e08934bbfd2"><div class="ttname"><a href="a04523.html#af9dc875ebea2e5f896af0e08934bbfd2">bl::rc::vk::RenderPassParameters::SubPass::build</a></div><div class="ttdeci">SubPass &amp;&amp; build()</div><div class="ttdoc">Performs validation and returns a usable rvalue reference to this object.</div><div class="ttdef"><b>Definition</b> <a href="a02264_source.html#l00061">RenderPassParameters.cpp:61</a></div></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="a04678.html#a6a87c1d8eeab631aa442dfdaf3dc6502">  105</a></span><span class="keyword">inline</span> VkImage <a class="code hl_function" href="a04678.html#a6a87c1d8eeab631aa442dfdaf3dc6502">Texture::getImage</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> image; }</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="a04678.html#aadc4c85cb2b350373d415ac7282e9e8c">  107</a></span><span class="keyword">inline</span> VkImageView <a class="code hl_function" href="a04678.html#aadc4c85cb2b350373d415ac7282e9e8c">Texture::getView</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> view; }</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>} <span class="comment">// namespace vk</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00224_html"><div class="ttname"><a href="a00224.html">Resources.hpp</a></div></div>
+<div class="ttc" id="aa01325_html"><div class="ttname"><a href="a01325.html">TextureBase.hpp</a></div></div>
+<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04358_html"><div class="ttname"><a href="a04358.html">bl::rc::res::BindlessTextureArray</a></div><div class="ttdoc">Utility class to help manage an array of Sampler2D as part of a descriptor set. Utilized by TexturePo...</div><div class="ttdef"><b>Definition</b> <a href="a01091_source.html#l00026">BindlessTextureArray.hpp:26</a></div></div>
+<div class="ttc" id="aa04398_html"><div class="ttname"><a href="a04398.html">bl::rc::res::TexturePool</a></div><div class="ttdoc">Resource manager for textures on the GPU. Utilizes BindlessTextureArray to provide a large array,...</div><div class="ttdef"><b>Definition</b> <a href="a01076_source.html#l00032">TexturePool.hpp:32</a></div></div>
+<div class="ttc" id="aa04678_html"><div class="ttname"><a href="a04678.html">bl::rc::vk::Texture</a></div><div class="ttdoc">Helper struct to manage a texture in Vulkan. Textures are managed and owned by the TexturePool and sh...</div><div class="ttdef"><b>Definition</b> <a href="a01274_source.html#l00022">Texture.hpp:22</a></div></div>
+<div class="ttc" id="aa04678_html_a07d9d3e82ba1c20c73bf844d2eb1fb90"><div class="ttname"><a href="a04678.html#a07d9d3e82ba1c20c73bf844d2eb1fb90">bl::rc::vk::Texture::update</a></div><div class="ttdeci">void update(const sf::Image &amp;content, const glm::u32vec2 &amp;destPos={0, 0}, const sf::IntRect &amp;source={})</div><div class="ttdoc">Updates the content of the texture from the given image. Performs no bounds validation.</div><div class="ttdef"><b>Definition</b> <a href="a02246_source.html#l00049">Texture.cpp:49</a></div></div>
+<div class="ttc" id="aa04678_html_a1dedc29c248cdfefd474f09a62acd4be"><div class="ttname"><a href="a04678.html#a1dedc29c248cdfefd474f09a62acd4be">bl::rc::vk::Texture::DefaultFormat</a></div><div class="ttdeci">static constexpr VkFormat DefaultFormat</div><div class="ttdef"><b>Definition</b> <a href="a01274_source.html#l00024">Texture.hpp:24</a></div></div>
+<div class="ttc" id="aa04678_html_a6a87c1d8eeab631aa442dfdaf3dc6502"><div class="ttname"><a href="a04678.html#a6a87c1d8eeab631aa442dfdaf3dc6502">bl::rc::vk::Texture::getImage</a></div><div class="ttdeci">VkImage getImage() const</div><div class="ttdoc">Returns the Vulkan image handle.</div><div class="ttdef"><b>Definition</b> <a href="a01274_source.html#l00105">Texture.hpp:105</a></div></div>
+<div class="ttc" id="aa04678_html_aadc4c85cb2b350373d415ac7282e9e8c"><div class="ttname"><a href="a04678.html#aadc4c85cb2b350373d415ac7282e9e8c">bl::rc::vk::Texture::getView</a></div><div class="ttdeci">VkImageView getView() const</div><div class="ttdoc">Returns the Vulkan image view handle.</div><div class="ttdef"><b>Definition</b> <a href="a01274_source.html#l00107">Texture.hpp:107</a></div></div>
+<div class="ttc" id="aa04678_html_ab59693df0ab6cda93732346c6eee112d"><div class="ttname"><a href="a04678.html#ab59693df0ab6cda93732346c6eee112d">bl::rc::vk::Texture::resize</a></div><div class="ttdeci">virtual void resize(const glm::u32vec2 &amp;size) override</div><div class="ttdoc">Resizes the texture to the given size.</div><div class="ttdef"><b>Definition</b> <a href="a02246_source.html#l00066">Texture.cpp:66</a></div></div>
+<div class="ttc" id="aa04678_html_ab8ac21d6e7ff5f1de2e0dda02cc52b21"><div class="ttname"><a href="a04678.html#ab8ac21d6e7ff5f1de2e0dda02cc52b21">bl::rc::vk::Texture::~Texture</a></div><div class="ttdeci">virtual ~Texture()=default</div><div class="ttdoc">Does nothing.</div></div>
+<div class="ttc" id="aa04678_html_afc1f7714d8ed74fd624b8fa9fc51decb"><div class="ttname"><a href="a04678.html#afc1f7714d8ed74fd624b8fa9fc51decb">bl::rc::vk::Texture::Texture</a></div><div class="ttdeci">Texture()</div><div class="ttdoc">Creates an empty Texture.</div><div class="ttdef"><b>Definition</b> <a href="a02246_source.html#l00012">Texture.cpp:12</a></div></div>
+<div class="ttc" id="aa04682_html"><div class="ttname"><a href="a04682.html">bl::rc::vk::TextureBase</a></div><div class="ttdoc">Base class for textures. Provides common members and boilerplate.</div><div class="ttdef"><b>Definition</b> <a href="a01325_source.html#l00025">TextureBase.hpp:25</a></div></div>
+<div class="ttc" id="aa04682_html_a60b1e7c1e469732eb0066a579cdc9bbc"><div class="ttname"><a href="a04682.html#a60b1e7c1e469732eb0066a579cdc9bbc">bl::rc::vk::TextureBase::size</a></div><div class="ttdeci">const glm::vec2 &amp; size() const</div><div class="ttdoc">Returns the size of the texture in pixels.</div><div class="ttdef"><b>Definition</b> <a href="a01325_source.html#l00154">TextureBase.hpp:154</a></div></div>
+<div class="ttc" id="aa04818_html"><div class="ttname"><a href="a04818.html">bl::resource::Ref</a></div><div class="ttdoc">Represents a reference to a managed resource. Performs reference counting, but resources are never de...</div><div class="ttdef"><b>Definition</b> <a href="a00155_source.html#l00026">Ref.hpp:26</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

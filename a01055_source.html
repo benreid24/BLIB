@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces.hpp Source File</title>
+<title>BLIB: include/BLIB/Cameras.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,25 +83,43 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Interfaces.hpp</div></div>
+  <div class="headertitle"><div class="title">Cameras.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01055.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_INTERFACES_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_INTERFACES_HPP</span></div>
+<a href="a01055.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_CAMERAS_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_CAMERAS_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a00692.html">BLIB/Interfaces/GUI.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a00587.html">BLIB/Interfaces/Menu.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a00812.html">BLIB/Interfaces/Utilities.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00587_html"><div class="ttname"><a href="a00587.html">Menu.hpp</a></div></div>
-<div class="ttc" id="aa00692_html"><div class="ttname"><a href="a00692.html">GUI.hpp</a></div></div>
-<div class="ttc" id="aa00812_html"><div class="ttname"><a href="a00812.html">Utilities.hpp</a></div></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a06289.html">BLIB/Cameras/2D/Affectors/CameraShake.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a00905.html">BLIB/Cameras/2D/Camera2D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a00908.html">BLIB/Cameras/2D/CameraAffector2D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a00899.html">BLIB/Cameras/2D/CameraController2D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a00902.html">BLIB/Cameras/2D/Controllers/ConstrainedFollower.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="a06292.html">BLIB/Cameras/3D/Affectors/CameraShake.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="a00890.html">BLIB/Cameras/3D/Camera3D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;<a class="code" href="a00881.html">BLIB/Cameras/3D/CameraAffector3D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;<a class="code" href="a00887.html">BLIB/Cameras/3D/CameraController3D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;<a class="code" href="a00878.html">BLIB/Cameras/3D/Controllers/OrbiterController.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;<a class="code" href="a00896.html">BLIB/Cameras/Camera.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;<a class="code" href="a00893.html">BLIB/Cameras/OverlayCamera.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00878_html"><div class="ttname"><a href="a00878.html">OrbiterController.hpp</a></div></div>
+<div class="ttc" id="aa00881_html"><div class="ttname"><a href="a00881.html">CameraAffector3D.hpp</a></div></div>
+<div class="ttc" id="aa00887_html"><div class="ttname"><a href="a00887.html">CameraController3D.hpp</a></div></div>
+<div class="ttc" id="aa00890_html"><div class="ttname"><a href="a00890.html">Camera3D.hpp</a></div></div>
+<div class="ttc" id="aa00893_html"><div class="ttname"><a href="a00893.html">OverlayCamera.hpp</a></div></div>
+<div class="ttc" id="aa00896_html"><div class="ttname"><a href="a00896.html">Camera.hpp</a></div></div>
+<div class="ttc" id="aa00899_html"><div class="ttname"><a href="a00899.html">CameraController2D.hpp</a></div></div>
+<div class="ttc" id="aa00902_html"><div class="ttname"><a href="a00902.html">ConstrainedFollower.hpp</a></div></div>
+<div class="ttc" id="aa00905_html"><div class="ttname"><a href="a00905.html">Camera2D.hpp</a></div></div>
+<div class="ttc" id="aa00908_html"><div class="ttname"><a href="a00908.html">CameraAffector2D.hpp</a></div></div>
+<div class="ttc" id="aa06289_html"><div class="ttname"><a href="a06289.html">CameraShake.hpp</a></div></div>
+<div class="ttc" id="aa06292_html"><div class="ttname"><a href="a06292.html">CameraShake.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

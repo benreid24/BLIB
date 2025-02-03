@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Vulkan/TextureBase.cpp Source File</title>
+<title>BLIB: src/Render/Vulkan/DescriptorSet.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,91 +83,124 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">TextureBase.cpp</div></div>
+  <div class="headertitle"><div class="title">DescriptorSet.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02243.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01313.html">BLIB/Render/Vulkan/TextureBase.hpp</a>&gt;</span></div>
+<a href="a02243.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01304.html">BLIB/Render/Vulkan/DescriptorSet.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a01082.html">BLIB/Render/Resources/BindlessTextureArray.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a01319.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02360.html">bl</a></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>vk</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
-<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="a04571.html#a52581ca16b4d967be2b36679fa8f6a99">   11</a></span><a class="code hl_function" href="a04571.html#a52581ca16b4d967be2b36679fa8f6a99">TextureBase::TextureBase</a>()</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>: parent(nullptr)</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>, sampler(nullptr)</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>, sizeRaw(0, 0)</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>, sizeF(0.f, 0.f)</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>, hasTransparency(false) {}</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00485.html">BLIB/Util/Random.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>vk</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
+<div class="foldopen" id="foldopen00014" data-start="{" data-end="}">
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="a04570.html#adb62e07ed7670ac7dc13a2399d8c6449">   14</a></span><a class="code hl_function" href="a04570.html#adb62e07ed7670ac7dc13a2399d8c6449">DescriptorSet::DescriptorSet</a>()</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>: vulkanState(nullptr)</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>, set(nullptr) {}</div>
 </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
 <div class="foldopen" id="foldopen00018" data-start="{" data-end="}">
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a04571.html#a8d946ed1049b7da73182a7f75175f15b">   18</a></span>glm::vec2 <a class="code hl_function" href="a04571.html#a8d946ed1049b7da73182a7f75175f15b">TextureBase::convertCoord</a>(<span class="keyword">const</span> glm::vec2&amp; src)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="comment">// TODO - texture atlasing at the renderer level</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordflow">return</span> src;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>}</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a04570.html#a8f194eda22254c760637377a84bb7c9b">   18</a></span><a class="code hl_function" href="a04570.html#adb62e07ed7670ac7dc13a2399d8c6449">DescriptorSet::DescriptorSet</a>(<a class="code hl_struct" href="a04694.html">VulkanState</a>&amp; vs)</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>: vulkanState(&amp;vs)</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>, set(nullptr) {}</div>
 </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="foldopen" id="foldopen00023" data-start="{" data-end="}">
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a04571.html#a004793986a4b22f3f232a32560d66911">   23</a></span>glm::vec2 <a class="code hl_function" href="a04571.html#a004793986a4b22f3f232a32560d66911">TextureBase::normalizeAndConvertCoord</a>(<span class="keyword">const</span> glm::vec2&amp; src)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="a04571.html#a8d946ed1049b7da73182a7f75175f15b">convertCoord</a>(src / <a class="code hl_function" href="a04571.html#a60b1e7c1e469732eb0066a579cdc9bbc">size</a>());</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="foldopen" id="foldopen00022" data-start="{" data-end="}">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a04570.html#a4188235e62ffe691c6d2717246e2428f">   22</a></span><a class="code hl_function" href="a04570.html#adb62e07ed7670ac7dc13a2399d8c6449">DescriptorSet::DescriptorSet</a>(<a class="code hl_struct" href="a04694.html">VulkanState</a>&amp; vs, VkDescriptorSetLayout layout, <span class="keywordtype">bool</span> ded)</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>: <a class="code hl_class" href="a04570.html">DescriptorSet</a>(vs) {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <a class="code hl_function" href="a04570.html#ab4688b60580626c3a49ae1dc37a8b64a">allocate</a>(layout, ded);</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
 </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="foldopen" id="foldopen00027" data-start="{" data-end="}">
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="a04571.html#a95d03e27413f0b5d8cf613e9e86c2fb8">   27</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04571.html#a95d03e27413f0b5d8cf613e9e86c2fb8">TextureBase::setSampler</a>(VkSampler s) {</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    sampler = s;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    parent-&gt;<a class="code hl_function" href="a04251.html#a4391f27c5fdb95e7260b27818bbac02f">updateTexture</a>(<span class="keyword">this</span>);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="a04570.html#a751625200d6da3a6c87198702c834997">   27</a></span><a class="code hl_function" href="a04570.html#adb62e07ed7670ac7dc13a2399d8c6449">DescriptorSet::DescriptorSet</a>(<a class="code hl_class" href="a04570.html">DescriptorSet</a>&amp;&amp; ds)</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>: vulkanState(ds.vulkanState)</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>, alloc(ds.alloc)</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>, set(ds.set) {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    ds.set = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>}</div>
 </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="foldopen" id="foldopen00032" data-start="{" data-end="}">
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a04571.html#a5776de15d5caef14e4f589c01e3c17a0">   32</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04571.html#a5776de15d5caef14e4f589c01e3c17a0">TextureBase::ensureSize</a>(<span class="keyword">const</span> glm::u32vec2&amp; s) {</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordflow">if</span> (s.x &lt;= <a class="code hl_function" href="a04571.html#af742b97c49bc11a70448a85788144e5d">rawSize</a>().x &amp;&amp; s.y &lt;= <a class="code hl_function" href="a04571.html#af742b97c49bc11a70448a85788144e5d">rawSize</a>().y) <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <a class="code hl_function" href="a04571.html#aaabbfa8cbecc8c3cf5732ce44457d69d">resize</a>(s);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="a04570.html#a799707e8dfa2b1993b61607fe8a1dd1d">   34</a></span><a class="code hl_function" href="a04570.html#a799707e8dfa2b1993b61607fe8a1dd1d">DescriptorSet::~DescriptorSet</a>() { <a class="code hl_function" href="a04570.html#a13eec443ddabd8645770709f0e0e5fe7">deferRelease</a>(); }</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="foldopen" id="foldopen00036" data-start="{" data-end="}">
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="a04570.html#a012e03bc0e13567b074cd6a8c4fb181e">   36</a></span><a class="code hl_class" href="a04570.html">DescriptorSet</a>&amp; <a class="code hl_function" href="a04570.html#a680805f15fbf1ceb8bb6d151101642bf">DescriptorSet::operator=</a>(<a class="code hl_class" href="a04570.html">DescriptorSet</a>&amp;&amp; ds) {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    alloc  = ds.alloc;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    set    = ds.set;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    ds.set = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}</div>
 </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="foldopen" id="foldopen00038" data-start="{" data-end="}">
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="a04571.html#a803ff25731959fbe5b00c22e6cd63cd9">   38</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04571.html#a803ff25731959fbe5b00c22e6cd63cd9">TextureBase::updateSize</a>(<span class="keyword">const</span> glm::u32vec2&amp; s) {</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    sizeRaw = s;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    sizeF.x = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(sizeRaw.x);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    sizeF.y = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(sizeRaw.y);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>}</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="a04570.html#aa43ef2b83bb29be6560d26ca964071a7">   43</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04570.html#aa43ef2b83bb29be6560d26ca964071a7">DescriptorSet::init</a>(<a class="code hl_struct" href="a04694.html">VulkanState</a>&amp; vs) { vulkanState = &amp;vs; }</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="foldopen" id="foldopen00045" data-start="{" data-end="}">
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="a04570.html#ab4688b60580626c3a49ae1dc37a8b64a">   45</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04570.html#ab4688b60580626c3a49ae1dc37a8b64a">DescriptorSet::allocate</a>(VkDescriptorSetLayout layout, <span class="keywordtype">bool</span> dedicated) {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <a class="code hl_function" href="a04570.html#a13eec443ddabd8645770709f0e0e5fe7">deferRelease</a>();</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    alloc = vulkanState-&gt;<a class="code hl_variable" href="a04694.html#ac6ea18991f2fd8391eb44229ae2ac8f7">descriptorPool</a>.<a class="code hl_function" href="a04554.html#aa1e76e7083828e104e5014691e688a28">allocate</a>(layout, &amp;set, 1, dedicated);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
 </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="a04571.html#aa00edc0514f24a38fef1d80c00a717ce">   44</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04571.html#aa00edc0514f24a38fef1d80c00a717ce">TextureBase::updateTransparency</a>(<span class="keywordtype">bool</span> t) { hasTransparency = t; }</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a04571.html#aa00a1452a027978d846ca933d64ba38f">   46</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04571.html#aa00a1452a027978d846ca933d64ba38f">TextureBase::updateDescriptors</a>() { parent-&gt;<a class="code hl_function" href="a04251.html#a4391f27c5fdb95e7260b27818bbac02f">updateTexture</a>(<span class="keyword">this</span>); }</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>} <span class="comment">// namespace vk</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01082_html"><div class="ttname"><a href="a01082.html">BindlessTextureArray.hpp</a></div></div>
-<div class="ttc" id="aa01313_html"><div class="ttname"><a href="a01313.html">TextureBase.hpp</a></div></div>
-<div class="ttc" id="aa02360_html"><div class="ttname"><a href="a02360.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01448_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04251_html_a4391f27c5fdb95e7260b27818bbac02f"><div class="ttname"><a href="a04251.html#a4391f27c5fdb95e7260b27818bbac02f">bl::rc::res::BindlessTextureArray::updateTexture</a></div><div class="ttdeci">void updateTexture(vk::TextureBase *texture)</div><div class="ttdoc">Updates the descriptor set for the given texture. Updates are performed in sync with the GPU to avoid...</div><div class="ttdef"><b>Definition</b> <a href="a02081_source.html#l00120">BindlessTextureArray.cpp:120</a></div></div>
-<div class="ttc" id="aa04571_html_a004793986a4b22f3f232a32560d66911"><div class="ttname"><a href="a04571.html#a004793986a4b22f3f232a32560d66911">bl::rc::vk::TextureBase::normalizeAndConvertCoord</a></div><div class="ttdeci">glm::vec2 normalizeAndConvertCoord(const glm::vec2 &amp;src) const</div><div class="ttdoc">Performs convertCoord but first normalizes the coordinate to this texture.</div><div class="ttdef"><b>Definition</b> <a href="a02243_source.html#l00023">TextureBase.cpp:23</a></div></div>
-<div class="ttc" id="aa04571_html_a52581ca16b4d967be2b36679fa8f6a99"><div class="ttname"><a href="a04571.html#a52581ca16b4d967be2b36679fa8f6a99">bl::rc::vk::TextureBase::TextureBase</a></div><div class="ttdeci">TextureBase()</div><div class="ttdoc">Initializes to sane defaults.</div><div class="ttdef"><b>Definition</b> <a href="a02243_source.html#l00011">TextureBase.cpp:11</a></div></div>
-<div class="ttc" id="aa04571_html_a5776de15d5caef14e4f589c01e3c17a0"><div class="ttname"><a href="a04571.html#a5776de15d5caef14e4f589c01e3c17a0">bl::rc::vk::TextureBase::ensureSize</a></div><div class="ttdeci">void ensureSize(const glm::u32vec2 &amp;size)</div><div class="ttdoc">Resizes the texture to be the given size unless it is already bigger.</div><div class="ttdef"><b>Definition</b> <a href="a02243_source.html#l00032">TextureBase.cpp:32</a></div></div>
-<div class="ttc" id="aa04571_html_a60b1e7c1e469732eb0066a579cdc9bbc"><div class="ttname"><a href="a04571.html#a60b1e7c1e469732eb0066a579cdc9bbc">bl::rc::vk::TextureBase::size</a></div><div class="ttdeci">const glm::vec2 &amp; size() const</div><div class="ttdoc">Returns the size of the texture in pixels.</div><div class="ttdef"><b>Definition</b> <a href="a01313_source.html#l00154">TextureBase.hpp:154</a></div></div>
-<div class="ttc" id="aa04571_html_a803ff25731959fbe5b00c22e6cd63cd9"><div class="ttname"><a href="a04571.html#a803ff25731959fbe5b00c22e6cd63cd9">bl::rc::vk::TextureBase::updateSize</a></div><div class="ttdeci">void updateSize(const glm::u32vec2 &amp;newSize)</div><div class="ttdoc">Derived classes should call this whenever the size changes.</div><div class="ttdef"><b>Definition</b> <a href="a02243_source.html#l00038">TextureBase.cpp:38</a></div></div>
-<div class="ttc" id="aa04571_html_a8d946ed1049b7da73182a7f75175f15b"><div class="ttname"><a href="a04571.html#a8d946ed1049b7da73182a7f75175f15b">bl::rc::vk::TextureBase::convertCoord</a></div><div class="ttdeci">glm::vec2 convertCoord(const glm::vec2 &amp;src) const</div><div class="ttdoc">Returns the normalized coordinate for this texture, taking into account atlasing performed by the ren...</div><div class="ttdef"><b>Definition</b> <a href="a02243_source.html#l00018">TextureBase.cpp:18</a></div></div>
-<div class="ttc" id="aa04571_html_a95d03e27413f0b5d8cf613e9e86c2fb8"><div class="ttname"><a href="a04571.html#a95d03e27413f0b5d8cf613e9e86c2fb8">bl::rc::vk::TextureBase::setSampler</a></div><div class="ttdeci">void setSampler(VkSampler sampler)</div><div class="ttdoc">Updates the sampler that this texture uses.</div><div class="ttdef"><b>Definition</b> <a href="a02243_source.html#l00027">TextureBase.cpp:27</a></div></div>
-<div class="ttc" id="aa04571_html_aa00a1452a027978d846ca933d64ba38f"><div class="ttname"><a href="a04571.html#aa00a1452a027978d846ca933d64ba38f">bl::rc::vk::TextureBase::updateDescriptors</a></div><div class="ttdeci">void updateDescriptors()</div><div class="ttdoc">Derived classes should call this whenever the Vulkan handles change.</div><div class="ttdef"><b>Definition</b> <a href="a02243_source.html#l00046">TextureBase.cpp:46</a></div></div>
-<div class="ttc" id="aa04571_html_aa00edc0514f24a38fef1d80c00a717ce"><div class="ttname"><a href="a04571.html#aa00edc0514f24a38fef1d80c00a717ce">bl::rc::vk::TextureBase::updateTransparency</a></div><div class="ttdeci">void updateTransparency(bool isTrans)</div><div class="ttdoc">Derived classes should call this when the contents change.</div><div class="ttdef"><b>Definition</b> <a href="a02243_source.html#l00044">TextureBase.cpp:44</a></div></div>
-<div class="ttc" id="aa04571_html_aaabbfa8cbecc8c3cf5732ce44457d69d"><div class="ttname"><a href="a04571.html#aaabbfa8cbecc8c3cf5732ce44457d69d">bl::rc::vk::TextureBase::resize</a></div><div class="ttdeci">virtual void resize(const glm::u32vec2 &amp;size)=0</div><div class="ttdoc">Resizes the texture to the given size.</div></div>
-<div class="ttc" id="aa04571_html_af742b97c49bc11a70448a85788144e5d"><div class="ttname"><a href="a04571.html#af742b97c49bc11a70448a85788144e5d">bl::rc::vk::TextureBase::rawSize</a></div><div class="ttdeci">const glm::u32vec2 &amp; rawSize() const</div><div class="ttdoc">Returns the size of the texture in pixels.</div><div class="ttdef"><b>Definition</b> <a href="a01313_source.html#l00152">TextureBase.hpp:152</a></div></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="foldopen" id="foldopen00050" data-start="{" data-end="}">
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="a04570.html#a76d00935670fc4f545dbfbf4e995b51e">   50</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04570.html#a76d00935670fc4f545dbfbf4e995b51e">DescriptorSet::release</a>() {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">if</span> (set) {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        vulkanState-&gt;<a class="code hl_variable" href="a04694.html#ac6ea18991f2fd8391eb44229ae2ac8f7">descriptorPool</a>.<a class="code hl_function" href="a04554.html#ac2810fc740edbfef995ff375e1b5a14e">release</a>(alloc);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        set = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    }</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
+</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="foldopen" id="foldopen00057" data-start="{" data-end="}">
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="a04570.html#a13eec443ddabd8645770709f0e0e5fe7">   57</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04570.html#a13eec443ddabd8645770709f0e0e5fe7">DescriptorSet::deferRelease</a>() {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordflow">if</span> (set) {</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        vulkanState-&gt;<a class="code hl_variable" href="a04694.html#a0c4eb8115deab88591131a3d5afd4eea">cleanupManager</a>.<a class="code hl_function" href="a04538.html#a0be2d519d4e836c5040713fda94e8cee">add</a>([vs = vulkanState, alloc = alloc, set = set]() {</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            vs-&gt;descriptorPool.release(alloc, &amp;set);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        });</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        set = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    }</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}</div>
+</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="foldopen" id="foldopen00066" data-start="{" data-end="}">
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="a04570.html#ae4a8a14a81043505262f935af71963f9">   66</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04570.html#ae4a8a14a81043505262f935af71963f9">DescriptorSet::bind</a>(VkCommandBuffer commandBuffer, VkPipelineBindPoint bindPoint,</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                         VkPipelineLayout layout, std::uint32_t index) {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    vkCmdBindDescriptorSets(commandBuffer, bindPoint, layout, index, 1, &amp;set, 0, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>}</div>
+</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>} <span class="comment">// namespace vk</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00485_html"><div class="ttname"><a href="a00485.html">Random.hpp</a></div></div>
+<div class="ttc" id="aa01304_html"><div class="ttname"><a href="a01304.html">DescriptorSet.hpp</a></div></div>
+<div class="ttc" id="aa01319_html"><div class="ttname"><a href="a01319.html">VulkanState.hpp</a></div></div>
+<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04538_html_a0be2d519d4e836c5040713fda94e8cee"><div class="ttname"><a href="a04538.html#a0be2d519d4e836c5040713fda94e8cee">bl::rc::vk::CleanupManager::add</a></div><div class="ttdeci">void add(Callback &amp;&amp;cb)</div><div class="ttdoc">Adds the given callback to the queue.</div><div class="ttdef"><b>Definition</b> <a href="a02228_source.html#l00031">CleanupManager.cpp:31</a></div></div>
+<div class="ttc" id="aa04554_html_aa1e76e7083828e104e5014691e688a28"><div class="ttname"><a href="a04554.html#aa1e76e7083828e104e5014691e688a28">bl::rc::vk::DescriptorPool::allocate</a></div><div class="ttdeci">AllocationHandle allocate(VkDescriptorSetLayout layout, VkDescriptorSet *sets, std::size_t setCount, bool dedicatedPool=false)</div><div class="ttdoc">Allocates sets from the pool and returns a handle that can be used to release the allocated sets once...</div><div class="ttdef"><b>Definition</b> <a href="a02249_source.html#l00062">DescriptorPool.cpp:62</a></div></div>
+<div class="ttc" id="aa04554_html_ac2810fc740edbfef995ff375e1b5a14e"><div class="ttname"><a href="a04554.html#ac2810fc740edbfef995ff375e1b5a14e">bl::rc::vk::DescriptorPool::release</a></div><div class="ttdeci">void release(AllocationHandle handle, const VkDescriptorSet *sets=nullptr)</div><div class="ttdoc">Releases descriptor sets allocated from this pool.</div><div class="ttdef"><b>Definition</b> <a href="a02249_source.html#l00107">DescriptorPool.cpp:107</a></div></div>
+<div class="ttc" id="aa04570_html"><div class="ttname"><a href="a04570.html">bl::rc::vk::DescriptorSet</a></div><div class="ttdoc">Wrapper around a single allocated descriptor set from the DescriptorPool.</div><div class="ttdef"><b>Definition</b> <a href="a01304_source.html#l00020">DescriptorSet.hpp:20</a></div></div>
+<div class="ttc" id="aa04570_html_a13eec443ddabd8645770709f0e0e5fe7"><div class="ttname"><a href="a04570.html#a13eec443ddabd8645770709f0e0e5fe7">bl::rc::vk::DescriptorSet::deferRelease</a></div><div class="ttdeci">void deferRelease()</div><div class="ttdoc">Defers release of the descriptor set if any.</div><div class="ttdef"><b>Definition</b> <a href="a02243_source.html#l00057">DescriptorSet.cpp:57</a></div></div>
+<div class="ttc" id="aa04570_html_a680805f15fbf1ceb8bb6d151101642bf"><div class="ttname"><a href="a04570.html#a680805f15fbf1ceb8bb6d151101642bf">bl::rc::vk::DescriptorSet::operator=</a></div><div class="ttdeci">DescriptorSet &amp; operator=(const DescriptorSet &amp;)=delete</div><div class="ttdoc">Deleted.</div></div>
+<div class="ttc" id="aa04570_html_a76d00935670fc4f545dbfbf4e995b51e"><div class="ttname"><a href="a04570.html#a76d00935670fc4f545dbfbf4e995b51e">bl::rc::vk::DescriptorSet::release</a></div><div class="ttdeci">void release()</div><div class="ttdoc">Immediately releases the descriptor set if any.</div><div class="ttdef"><b>Definition</b> <a href="a02243_source.html#l00050">DescriptorSet.cpp:50</a></div></div>
+<div class="ttc" id="aa04570_html_a799707e8dfa2b1993b61607fe8a1dd1d"><div class="ttname"><a href="a04570.html#a799707e8dfa2b1993b61607fe8a1dd1d">bl::rc::vk::DescriptorSet::~DescriptorSet</a></div><div class="ttdeci">~DescriptorSet()</div><div class="ttdoc">Defers release of the set if allocated.</div><div class="ttdef"><b>Definition</b> <a href="a02243_source.html#l00034">DescriptorSet.cpp:34</a></div></div>
+<div class="ttc" id="aa04570_html_aa43ef2b83bb29be6560d26ca964071a7"><div class="ttname"><a href="a04570.html#aa43ef2b83bb29be6560d26ca964071a7">bl::rc::vk::DescriptorSet::init</a></div><div class="ttdeci">void init(VulkanState &amp;vs)</div><div class="ttdoc">Deferred init of Vulkan state pointer. For use with PerFrame.</div><div class="ttdef"><b>Definition</b> <a href="a02243_source.html#l00043">DescriptorSet.cpp:43</a></div></div>
+<div class="ttc" id="aa04570_html_ab4688b60580626c3a49ae1dc37a8b64a"><div class="ttname"><a href="a04570.html#ab4688b60580626c3a49ae1dc37a8b64a">bl::rc::vk::DescriptorSet::allocate</a></div><div class="ttdeci">void allocate(VkDescriptorSetLayout layout, bool dedicatedPool=false)</div><div class="ttdoc">Creates and allocates the descriptor set. Defers release of the prior set if any.</div><div class="ttdef"><b>Definition</b> <a href="a02243_source.html#l00045">DescriptorSet.cpp:45</a></div></div>
+<div class="ttc" id="aa04570_html_adb62e07ed7670ac7dc13a2399d8c6449"><div class="ttname"><a href="a04570.html#adb62e07ed7670ac7dc13a2399d8c6449">bl::rc::vk::DescriptorSet::DescriptorSet</a></div><div class="ttdeci">DescriptorSet()</div><div class="ttdoc">Creates an un-allocated descriptor set.</div><div class="ttdef"><b>Definition</b> <a href="a02243_source.html#l00014">DescriptorSet.cpp:14</a></div></div>
+<div class="ttc" id="aa04570_html_ae4a8a14a81043505262f935af71963f9"><div class="ttname"><a href="a04570.html#ae4a8a14a81043505262f935af71963f9">bl::rc::vk::DescriptorSet::bind</a></div><div class="ttdeci">void bind(VkCommandBuffer commandBuffer, VkPipelineBindPoint bindPoint, VkPipelineLayout layout, std::uint32_t index)</div><div class="ttdoc">Issues the bind command into the command buffer to bind the descriptor set.</div><div class="ttdef"><b>Definition</b> <a href="a02243_source.html#l00066">DescriptorSet.cpp:66</a></div></div>
+<div class="ttc" id="aa04694_html"><div class="ttname"><a href="a04694.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition</b> <a href="a01319_source.html#l00039">VulkanState.hpp:39</a></div></div>
+<div class="ttc" id="aa04694_html_a0c4eb8115deab88591131a3d5afd4eea"><div class="ttname"><a href="a04694.html#a0c4eb8115deab88591131a3d5afd4eea">bl::rc::vk::VulkanState::cleanupManager</a></div><div class="ttdeci">CleanupManager cleanupManager</div><div class="ttdef"><b>Definition</b> <a href="a01319_source.html#l00232">VulkanState.hpp:232</a></div></div>
+<div class="ttc" id="aa04694_html_ac6ea18991f2fd8391eb44229ae2ac8f7"><div class="ttname"><a href="a04694.html#ac6ea18991f2fd8391eb44229ae2ac8f7">bl::rc::vk::VulkanState::descriptorPool</a></div><div class="ttdeci">DescriptorPool descriptorPool</div><div class="ttdef"><b>Definition</b> <a href="a01319_source.html#l00230">VulkanState.hpp:230</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Util/Timer.cpp Source File</title>
+<title>BLIB: src/Engine/Worlds/World2D.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,69 +79,141 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3e37c3eecdc42aac03248fab5c81cb58.html">Util</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_266f93317af4541d167a38e4bcc97170.html">Worlds</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Timer.cpp</div></div>
+  <div class="headertitle"><div class="title">World2D.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01673.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00491.html">BLIB/Util/Timer.hpp</a>&gt;</span></div>
+<a href="a01673.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00347.html">BLIB/Engine/Worlds/World2D.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02360.html">bl</a></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>util</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a06334.html">BLIB/Systems/Physics2D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>Timer::Timer()</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>: <a class="code hl_variable" href="a02324.html#a1656129c4a4fd8809254194f08f0ac70">paused</a>(false) {}</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="foldopen" id="foldopen00010" data-start="{" data-end="}">
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="a05323.html#aecde32b54c94ec7f5c2eca40e0975584">   10</a></span><a class="code hl_class" href="a05323.html">Timer</a>&amp; Timer::get() {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keyword">static</span> <a class="code hl_class" href="a05323.html">Timer</a> <a class="code hl_variable" href="a02324.html#ab105e62bb50794909d1a163cae4af596">timer</a>;</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="a02324.html#ab105e62bb50794909d1a163cae4af596">timer</a>;</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>}</div>
-</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="a05323.html#a57708d1e70962d8764fc11839425d332">   15</a></span>sf::Time Timer::timeElapsedRaw()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> clock.getElapsedTime(); }</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="foldopen" id="foldopen00017" data-start="{" data-end="}">
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a05323.html#ac99ffbd80e0e1af189f47fdecdacdb26">   17</a></span>sf::Time Timer::timeElapsed()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    sf::Time ret = clock.getElapsedTime() - offset;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="a02324.html#a1656129c4a4fd8809254194f08f0ac70">paused</a>) ret -= (clock.getElapsedTime() - timePaused);</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>}</div>
-</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a05323.html#a04d476133cd5a6559d4a7cbd5fbe2d48">   23</a></span><span class="keywordtype">float</span> Timer::timeElapsedSeconds()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> timeElapsed().asSeconds(); }</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>engine</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">struct </span>QueryContext {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="a01673.html#a6546e90ed77dc1a7bfeba3fb43a02fd8">   12</a></span>    <a class="code hl_typedef" href="a03170.html#a31b38168d1f8ab70aa04f4a22ebe4934">World2D::WorldQueryCallback</a> <a class="code hl_variable" href="a01673.html#a6546e90ed77dc1a7bfeba3fb43a02fd8">callback</a>;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="a01673.html#a1f6d09b30c54854dfca659b7463ac207">   13</a></span>    <span class="keywordtype">void</span>* <a class="code hl_variable" href="a01673.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>};</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keywordtype">bool</span> worldQueryCallback(b2ShapeId shape, <span class="keywordtype">void</span>* <a class="code hl_variable" href="a01673.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    QueryContext* myCtx       = <span class="keyword">static_cast&lt;</span>QueryContext*<span class="keyword">&gt;</span>(<a class="code hl_variable" href="a01673.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    com::Physics2D* component = <a class="code hl_function" href="a05238.html#ae26fe097457e92bce06111184c162d91">sys::Physics2D::getPhysicsComponentFromShape</a>(shape);</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordflow">return</span> myCtx-&gt;callback(component, myCtx-&gt;ctx);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> MaxWorkers =</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    std::thread::hardware_concurrency() / 2 + std::thread::hardware_concurrency() % 2;</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a05323.html#af2414c20069843d3a9a7b98efa5b3b83">   25</a></span><span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">int</span> Timer::timeElapsedMilliseconds()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> timeElapsed().asMilliseconds(); }</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="foldopen" id="foldopen00027" data-start="{" data-end="}">
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="a05323.html#a4bb92a9c02daeb62980e97e37c258a8f">   27</a></span><span class="keywordtype">void</span> Timer::pause() {</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_variable" href="a02324.html#a1656129c4a4fd8809254194f08f0ac70">paused</a>     = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    timePaused = clock.getElapsedTime();</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">struct </span>TaskSet {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    TaskSet(util::ThreadPool&amp; threadPool)</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    : <a class="code hl_variable" href="a01673.html#a96323642920a8b43095d6ec28ffb0e8d">threadPool</a>(<a class="code hl_variable" href="a01673.html#a96323642920a8b43095d6ec28ffb0e8d">threadPool</a>) {}</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a01673.html#a96323642920a8b43095d6ec28ffb0e8d">   29</a></span>    util::ThreadPool&amp; <a class="code hl_variable" href="a01673.html#a96323642920a8b43095d6ec28ffb0e8d">threadPool</a>;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a01673.html#acc5e51ec474c9c6a3bfba3f61be87eec">   30</a></span>    std::vector&lt;std::future&lt;void&gt;&gt; <a class="code hl_variable" href="a01673.html#acc5e51ec474c9c6a3bfba3f61be87eec">tasks</a>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>};</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keywordtype">void</span>* parallelizePhysicsTasks(b2TaskCallback* task, int32_t itemCount, int32_t minRange,</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>                              <span class="keywordtype">void</span>* taskContext, <span class="keywordtype">void</span>* userContext) {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    TaskSet&amp; manager = *<span class="keyword">static_cast&lt;</span>TaskSet*<span class="keyword">&gt;</span>(userContext);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    manager.tasks.reserve(std::max(itemCount / minRange, 1));</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">for</span> (int32_t i = 0; i &lt; itemCount; i += minRange) {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        manager.tasks.emplace_back(</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            manager.threadPool.queueTask([task, itemCount, minRange, taskContext, i]() {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>                task(i,</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>                     i + std::min(i + minRange, itemCount),</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                     (i / minRange) % MaxWorkers,</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                     taskContext);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            }));</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    }</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">return</span> &amp;manager;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keywordtype">void</span> waitPhysicsTasks(<span class="keywordtype">void</span>*, <span class="keywordtype">void</span>* userContext) {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    TaskSet&amp; manager = *<span class="keyword">static_cast&lt;</span>TaskSet*<span class="keyword">&gt;</span>(userContext);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; f : manager.<a class="code hl_variable" href="a01673.html#acc5e51ec474c9c6a3bfba3f61be87eec">tasks</a>) { f.wait(); }</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    manager.tasks.clear();</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>}</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>} <span class="comment">// namespace</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="foldopen" id="foldopen00058" data-start="{" data-end="}">
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="a03170.html#af1d522545fa17502abd9ca8299f039c4">   58</a></span><a class="code hl_function" href="a03170.html#af1d522545fa17502abd9ca8299f039c4">World2D::World2D</a>(<a class="code hl_class" href="a03046.html">Engine</a>&amp; owner)</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>: <a class="code hl_class" href="a03166.html">BasicWorld</a>(owner)</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>, worldToBoxScale(1.f)</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>, gravity(0.f, 0.f) {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    b2WorldDef def = b2DefaultWorldDef();</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    def.gravity.x  = gravity.x;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    def.gravity.y  = gravity.y;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    def.userTaskContext = <span class="keyword">new</span> TaskSet(owner.<a class="code hl_function" href="a03046.html#aedfefce58fb93fbe6208ab381496a6ef">threadPool</a>());</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    def.enqueueTask     = &amp;parallelizePhysicsTasks;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    def.finishTask      = &amp;waitPhysicsTasks;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    def.workerCount     = MaxWorkers;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    boxWorld = b2CreateWorld(&amp;def);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>}</div>
 </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="foldopen" id="foldopen00032" data-start="{" data-end="}">
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a05323.html#a3493011738abc4ec4481f297c053fc50">   32</a></span><span class="keywordtype">void</span> Timer::resume() {</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_variable" href="a02324.html#a1656129c4a4fd8809254194f08f0ac70">paused</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    offset += clock.getElapsedTime() - timePaused;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="foldopen" id="foldopen00074" data-start="{" data-end="}">
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="a03170.html#a0f9fccfcc38eb86e8bacc79f94af8830">   74</a></span><a class="code hl_function" href="a03170.html#a0f9fccfcc38eb86e8bacc79f94af8830">World2D::~World2D</a>() {</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordflow">if</span> (b2World_IsValid(boxWorld)) { b2DestroyWorld(boxWorld); }</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>}</div>
 </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>} <span class="comment">// namespace util</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00491_html"><div class="ttname"><a href="a00491.html">Timer.hpp</a></div></div>
-<div class="ttc" id="aa02324_html_a1656129c4a4fd8809254194f08f0ac70"><div class="ttname"><a href="a02324.html#a1656129c4a4fd8809254194f08f0ac70">paused</a></div><div class="ttdeci">bool paused</div><div class="ttdef"><b>Definition</b> <a href="a02324_source.html#l00079">AudioSystem.cpp:79</a></div></div>
-<div class="ttc" id="aa02324_html_ab105e62bb50794909d1a163cae4af596"><div class="ttname"><a href="a02324.html#ab105e62bb50794909d1a163cae4af596">timer</a></div><div class="ttdeci">sf::Clock timer</div><div class="ttdef"><b>Definition</b> <a href="a02324_source.html#l00059">AudioSystem.cpp:59</a></div></div>
-<div class="ttc" id="aa02360_html"><div class="ttname"><a href="a02360.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01448_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa05323_html"><div class="ttname"><a href="a05323.html">bl::util::Timer</a></div><div class="ttdoc">Global class for tracking time. Implemented over the top of sf::Clock to allow for pausing.</div><div class="ttdef"><b>Definition</b> <a href="a00491_source.html#l00017">Timer.hpp:17</a></div></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="foldopen" id="foldopen00078" data-start="{" data-end="}">
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="a03170.html#abbdfbe7dc771a0103e843495df6b9171">   78</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03170.html#abbdfbe7dc771a0103e843495df6b9171">World2D::setGravity</a>(<span class="keyword">const</span> glm::vec2&amp; g) {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    gravity = g;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    b2World_SetGravity(boxWorld, {g.x, g.y});</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>}</div>
+</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="a03170.html#a7e00df89460eec2f8e4e7eaeee11b04f">   83</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03170.html#a7e00df89460eec2f8e4e7eaeee11b04f">World2D::setLengthUnitScale</a>(<span class="keywordtype">float</span> s) { worldToBoxScale = s; }</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="foldopen" id="foldopen00085" data-start="{" data-end="}">
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="a03170.html#a762a5dcfc5cb91cc4f57bd18f1be5263">   85</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03170.html#a762a5dcfc5cb91cc4f57bd18f1be5263">World2D::queryAABB</a>(glm::vec2 lower, glm::vec2 upper, b2QueryFilter filter,</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                        <a class="code hl_typedef" href="a03170.html#a31b38168d1f8ab70aa04f4a22ebe4934">WorldQueryCallback</a> cb, <span class="keywordtype">void</span>* <a class="code hl_variable" href="a01673.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    QueryContext myCtx{cb, <a class="code hl_variable" href="a01673.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>};</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    b2World_OverlapAABB(boxWorld,</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                        {{lower.x * worldToBoxScale, lower.y * worldToBoxScale},</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                         upper.x * worldToBoxScale,</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>                         upper.y * worldToBoxScale},</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>                        filter,</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                        &amp;worldQueryCallback,</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                        &amp;myCtx);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>}</div>
+</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>} <span class="comment">// namespace engine</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00347_html"><div class="ttname"><a href="a00347.html">World2D.hpp</a></div></div>
+<div class="ttc" id="aa01673_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a01673.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a01673_source.html#l00013">World2D.cpp:13</a></div></div>
+<div class="ttc" id="aa01673_html_a6546e90ed77dc1a7bfeba3fb43a02fd8"><div class="ttname"><a href="a01673.html#a6546e90ed77dc1a7bfeba3fb43a02fd8">callback</a></div><div class="ttdeci">World2D::WorldQueryCallback callback</div><div class="ttdef"><b>Definition</b> <a href="a01673_source.html#l00012">World2D.cpp:12</a></div></div>
+<div class="ttc" id="aa01673_html_a96323642920a8b43095d6ec28ffb0e8d"><div class="ttname"><a href="a01673.html#a96323642920a8b43095d6ec28ffb0e8d">threadPool</a></div><div class="ttdeci">util::ThreadPool &amp; threadPool</div><div class="ttdef"><b>Definition</b> <a href="a01673_source.html#l00029">World2D.cpp:29</a></div></div>
+<div class="ttc" id="aa01673_html_acc5e51ec474c9c6a3bfba3f61be87eec"><div class="ttname"><a href="a01673.html#acc5e51ec474c9c6a3bfba3f61be87eec">tasks</a></div><div class="ttdeci">std::vector&lt; std::future&lt; void &gt; &gt; tasks</div><div class="ttdef"><b>Definition</b> <a href="a01673_source.html#l00030">World2D.cpp:30</a></div></div>
+<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03046_html"><div class="ttname"><a href="a03046.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition</b> <a href="a06373_source.html#l00038">Engine.hpp:38</a></div></div>
+<div class="ttc" id="aa03046_html_aedfefce58fb93fbe6208ab381496a6ef"><div class="ttname"><a href="a03046.html#aedfefce58fb93fbe6208ab381496a6ef">bl::engine::Engine::threadPool</a></div><div class="ttdeci">util::ThreadPool &amp; threadPool()</div><div class="ttdoc">Returns the engine thread pool.</div><div class="ttdef"><b>Definition</b> <a href="a06373_source.html#l00315">Engine.hpp:315</a></div></div>
+<div class="ttc" id="aa03166_html"><div class="ttname"><a href="a03166.html">bl::engine::BasicWorld</a></div><div class="ttdoc">Basic world that uses a specific scene type.</div><div class="ttdef"><b>Definition</b> <a href="a00344_source.html#l00018">BasicWorld.hpp:18</a></div></div>
+<div class="ttc" id="aa03170_html_a0f9fccfcc38eb86e8bacc79f94af8830"><div class="ttname"><a href="a03170.html#a0f9fccfcc38eb86e8bacc79f94af8830">bl::engine::World2D::~World2D</a></div><div class="ttdeci">virtual ~World2D()</div><div class="ttdoc">Destroys the world.</div><div class="ttdef"><b>Definition</b> <a href="a01673_source.html#l00074">World2D.cpp:74</a></div></div>
+<div class="ttc" id="aa03170_html_a31b38168d1f8ab70aa04f4a22ebe4934"><div class="ttname"><a href="a03170.html#a31b38168d1f8ab70aa04f4a22ebe4934">bl::engine::World2D::WorldQueryCallback</a></div><div class="ttdeci">bool(*)(com::Physics2D *, void *) WorldQueryCallback</div><div class="ttdoc">Callback signature for world spatial queries. Return false to terminate the query.</div><div class="ttdef"><b>Definition</b> <a href="a00347_source.html#l00022">World2D.hpp:22</a></div></div>
+<div class="ttc" id="aa03170_html_a762a5dcfc5cb91cc4f57bd18f1be5263"><div class="ttname"><a href="a03170.html#a762a5dcfc5cb91cc4f57bd18f1be5263">bl::engine::World2D::queryAABB</a></div><div class="ttdeci">void queryAABB(glm::vec2 upperBound, glm::vec2 lowerBound, b2QueryFilter filter, WorldQueryCallback callback, void *ctx) const</div><div class="ttdoc">Queries the world and calls the callback for each entity within the rectangle.</div><div class="ttdef"><b>Definition</b> <a href="a01673_source.html#l00085">World2D.cpp:85</a></div></div>
+<div class="ttc" id="aa03170_html_a7e00df89460eec2f8e4e7eaeee11b04f"><div class="ttname"><a href="a03170.html#a7e00df89460eec2f8e4e7eaeee11b04f">bl::engine::World2D::setLengthUnitScale</a></div><div class="ttdeci">void setLengthUnitScale(float worldToBoxScale)</div><div class="ttdoc">Sets the scale factor to convert world units to Box2D meters. Default is 1.</div><div class="ttdef"><b>Definition</b> <a href="a01673_source.html#l00083">World2D.cpp:83</a></div></div>
+<div class="ttc" id="aa03170_html_abbdfbe7dc771a0103e843495df6b9171"><div class="ttname"><a href="a03170.html#abbdfbe7dc771a0103e843495df6b9171">bl::engine::World2D::setGravity</a></div><div class="ttdeci">void setGravity(const glm::vec2 &amp;gravity)</div><div class="ttdoc">Set the acceleration of gravity in the physics world.</div><div class="ttdef"><b>Definition</b> <a href="a01673_source.html#l00078">World2D.cpp:78</a></div></div>
+<div class="ttc" id="aa03170_html_af1d522545fa17502abd9ca8299f039c4"><div class="ttname"><a href="a03170.html#af1d522545fa17502abd9ca8299f039c4">bl::engine::World2D::World2D</a></div><div class="ttdeci">World2D(Engine &amp;owner)</div><div class="ttdoc">Creates the world.</div><div class="ttdef"><b>Definition</b> <a href="a01673_source.html#l00058">World2D.cpp:58</a></div></div>
+<div class="ttc" id="aa05238_html_ae26fe097457e92bce06111184c162d91"><div class="ttname"><a href="a05238.html#ae26fe097457e92bce06111184c162d91">bl::sys::Physics2D::getPhysicsComponentFromShape</a></div><div class="ttdeci">static com::Physics2D * getPhysicsComponentFromShape(b2ShapeId shapeId)</div><div class="ttdoc">Helper method to get the physics component from a Box2D shape id.</div><div class="ttdef"><b>Definition</b> <a href="a06943_source.html#l00130">Physics2D.cpp:130</a></div></div>
+<div class="ttc" id="aa06334_html"><div class="ttname"><a href="a06334.html">Physics2D.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

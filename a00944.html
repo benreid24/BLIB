@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Graphics/Dummy2D.hpp File Reference</title>
+<title>BLIB: include/BLIB/Graphics/Drawable.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -81,38 +81,44 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">Dummy2D.hpp File Reference</div></div>
+  <div class="headertitle"><div class="title">Drawable.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00236_source.html">BLIB/ECS.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00998_source.html">BLIB/ECS/EntityBacked.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00905_source.html">BLIB/Graphics/Components/OverlayScalable.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00101_source.html">BLIB/Components/MaterialInstance.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00074_source.html">BLIB/Components/Toggler.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00236_source.html">BLIB/ECS.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01004_source.html">BLIB/ECS/EntityBacked.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00407_source.html">BLIB/Engine.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01067_source.html">BLIB/Render/Components/DrawableBase.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01154_source.html">BLIB/Render/Scenes/CodeScene.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a06883_source.html">BLIB/Resources/State.hpp</a>&gt;</code><br />
+<code>#include &lt;type_traits&gt;</code><br />
 </div>
 <p><a href="a00944_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03231.html">bl::gfx::Dummy2D</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dummy graphical entity that is not actually drawn. Useful for anchoring in parent trees.  <a href="a03231.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03306.html">bl::gfx::Drawable&lt; TCom &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for <a class="el" href="a03306.html" title="Base class for Drawable objects. A Drawable object should inherit this class for the drawable compone...">Drawable</a> objects. A <a class="el" href="a03306.html" title="Base class for Drawable objects. A Drawable object should inherit this class for the drawable compone...">Drawable</a> object should inherit this class for the drawable component that it wraps.  <a href="a03306.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a02360" id="r_a02360"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02360.html">bl</a></td></tr>
-<tr class="memdesc:a02360"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a02402" id="r_a02402"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02402.html">bl</a></td></tr>
+<tr class="memdesc:a02402"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02368" id="r_a02368"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02368.html">bl::engine</a></td></tr>
-<tr class="memdesc:a02368"><td class="mdescLeft">&#160;</td><td class="mdescRight">The core game engine and related classes. <br /></td></tr>
+<tr class="memitem:a02410" id="r_a02410"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02410.html">bl::engine</a></td></tr>
+<tr class="memdesc:a02410"><td class="mdescLeft">&#160;</td><td class="mdescRight">The core game engine and related classes. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02372" id="r_a02372"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02372.html">bl::gfx</a></td></tr>
-<tr class="memdesc:a02372"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of SFML-like classes for drawing. <br /></td></tr>
+<tr class="memitem:a02414" id="r_a02414"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02414.html">bl::gfx</a></td></tr>
+<tr class="memdesc:a02414"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of SFML-like classes for drawing. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

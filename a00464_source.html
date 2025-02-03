@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Util/ThreadPool.hpp Source File</title>
+<title>BLIB: include/BLIB/Util/IdAllocator.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,80 +83,160 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">ThreadPool.hpp</div></div>
+  <div class="headertitle"><div class="title">IdAllocator.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00464.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_UTIL_THREADPOOL_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_UTIL_THREADPOOL_HPP</span></div>
+<a href="a00464.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_UTIL_IDALLOCATOR_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_UTIL_IDALLOCATOR_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00479.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;atomic&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;condition_variable&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;future&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;list&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;mutex&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;queue&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;shared_mutex&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;thread&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02360.html">bl</a></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span>util</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
-<div class="foldopen" id="foldopen00024" data-start="{" data-end="};">
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a05319.html">   24</a></span><span class="keyword">class </span><a class="code hl_class" href="a05319.html">ThreadPool</a> : <span class="keyword">private</span> <a class="code hl_class" href="a05235.html">NonCopyable</a> {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="a05319.html#a1da062602c1bbf14d5d17ce12e777697">   27</a></span>    <span class="keyword">using </span><a class="code hl_typedef" href="a05319.html#a1da062602c1bbf14d5d17ce12e777697">Task</a> = std::function&lt;void()&gt;;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <a class="code hl_function" href="a05319.html#a460d8cce09b5e1c14157d395457e3bfd">ThreadPool</a>();</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_function" href="a05319.html#af14005becc6ac6d61be21015e323968c">~ThreadPool</a>();</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a05319.html#a267094fe3aa471ed368b229e7ace11e8">start</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> workerCount = 0);</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a05319.html#ad9a5691b5c3c8a79d4d635a528702cca">running</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00548.html">BLIB/Containers/RingQueue.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>util</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00020" data-start="{" data-end="};">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a05322.html">   20</a></span><span class="keyword">class </span><a class="code hl_class" href="a05322.html">IdAllocator</a> {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">static_assert</span>(std::is_integral_v&lt;T&gt;, <span class="stringliteral">&quot;IdAllocator only works with integer types&quot;</span>);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="foldopen" id="foldopen00029" data-start="{" data-end="}">
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a05322.html#a84d27d7a1840b55554a33714467e68f9">   29</a></span>    <a class="code hl_function" href="a05322.html#a84d27d7a1840b55554a33714467e68f9">IdAllocator</a>(std::size_t totalIdCount);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="foldopen" id="foldopen00036" data-start="{" data-end="}">
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="a05322.html#afae55550466c97d1fcc00e5c8c3691d9">   36</a></span>    <span class="keyword">constexpr</span> T <a class="code hl_function" href="a05322.html#afae55550466c97d1fcc00e5c8c3691d9">highestId</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="foldopen" id="foldopen00043" data-start="{" data-end="}">
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="a05322.html#a7a2dece49fd8749c6c12f91c079fff66">   43</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a05322.html#a7a2dece49fd8749c6c12f91c079fff66">isAllocated</a>(T <span class="keywordtype">id</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="foldopen" id="foldopen00051" data-start="{" data-end="}">
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="a05322.html#a0e4335decc172e313f218e337173021a">   51</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a05322.html#a0e4335decc172e313f218e337173021a">available</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05319.html#a38acd300a96f722e47c9f6214bfa759f">drain</a>();</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05319.html#a5422d1988e881339da8cecd35049d352">shutdown</a>();</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    std::future&lt;void&gt; <a class="code hl_function" href="a05319.html#a2093b8daf49ca46987c69b69c1a10e59">queueTask</a>(<a class="code hl_typedef" href="a05319.html#a1da062602c1bbf14d5d17ce12e777697">Task</a>&amp;&amp; task);</div>
+<div class="foldopen" id="foldopen00058" data-start="{" data-end="}">
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="a05322.html#af110687b026e2b4d9bcbf3cd557e2bc9">   58</a></span>    T <a class="code hl_function" href="a05322.html#af110687b026e2b4d9bcbf3cd557e2bc9">allocate</a>();</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="foldopen" id="foldopen00065" data-start="{" data-end="}">
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="a05322.html#aacb7d0882aa9261efa1fbfb538f73a59">   65</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05322.html#aacb7d0882aa9261efa1fbfb538f73a59">release</a>(T <span class="keywordtype">id</span>);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="foldopen" id="foldopen00071" data-start="{" data-end="}">
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="a05322.html#a88a336a850d9499e8f1378430558e88c">   71</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05322.html#a88a336a850d9499e8f1378430558e88c">releaseAll</a>();</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    std::atomic_bool shuttingDown;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    std::list&lt;std::thread&gt; workers;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    std::queue&lt;std::packaged_task&lt;void()&gt;&gt; tasks;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    std::atomic_uint32_t inFlightCount;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    std::mutex taskMutex;</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    std::condition_variable taskQueuedCv;</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    std::condition_variable_any taskDoneCv;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordtype">void</span> worker();</div>
+<div class="foldopen" id="foldopen00076" data-start="{" data-end="}">
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="a05322.html#a25944e7625d1729b9c3c94005812090e">   76</a></span>    <span class="keyword">constexpr</span> std::size_t <a class="code hl_function" href="a05322.html#a25944e7625d1729b9c3c94005812090e">totalIds</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    T nextId;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    T maxId;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    std::vector&lt;bool&gt; usedIds;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <a class="code hl_class" href="a02834.html">ctr::RingQueue&lt;T&gt;</a> freeIds;</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>};</div>
-</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>} <span class="comment">// namespace util</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00479_html"><div class="ttname"><a href="a00479.html">NonCopyable.hpp</a></div></div>
-<div class="ttc" id="aa02360_html"><div class="ttname"><a href="a02360.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01448_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa05235_html"><div class="ttname"><a href="a05235.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition</b> <a href="a00479_source.html#l00013">NonCopyable.hpp:13</a></div></div>
-<div class="ttc" id="aa05319_html"><div class="ttname"><a href="a05319.html">bl::util::ThreadPool</a></div><div class="ttdoc">Provides a thread pool with variable concurrency and support for draining.</div><div class="ttdef"><b>Definition</b> <a href="a00464_source.html#l00024">ThreadPool.hpp:24</a></div></div>
-<div class="ttc" id="aa05319_html_a1da062602c1bbf14d5d17ce12e777697"><div class="ttname"><a href="a05319.html#a1da062602c1bbf14d5d17ce12e777697">bl::util::ThreadPool::Task</a></div><div class="ttdeci">std::function&lt; void()&gt; Task</div><div class="ttdoc">Callback signature of tasks to be submitted.</div><div class="ttdef"><b>Definition</b> <a href="a00464_source.html#l00027">ThreadPool.hpp:27</a></div></div>
-<div class="ttc" id="aa05319_html_a2093b8daf49ca46987c69b69c1a10e59"><div class="ttname"><a href="a05319.html#a2093b8daf49ca46987c69b69c1a10e59">bl::util::ThreadPool::queueTask</a></div><div class="ttdeci">std::future&lt; void &gt; queueTask(Task &amp;&amp;task)</div><div class="ttdoc">Queues a task to be executed by a worker. Returns an invalid future if the pool is not accepting task...</div><div class="ttdef"><b>Definition</b> <a href="a01691_source.html#l00063">ThreadPool.cpp:63</a></div></div>
-<div class="ttc" id="aa05319_html_a267094fe3aa471ed368b229e7ace11e8"><div class="ttname"><a href="a05319.html#a267094fe3aa471ed368b229e7ace11e8">bl::util::ThreadPool::start</a></div><div class="ttdeci">bool start(unsigned int workerCount=0)</div><div class="ttdoc">Starts the thread pool with the given concurrency. If the workerCount is 0 then std::thread::hardware...</div><div class="ttdef"><b>Definition</b> <a href="a01691_source.html#l00016">ThreadPool.cpp:16</a></div></div>
-<div class="ttc" id="aa05319_html_a38acd300a96f722e47c9f6214bfa759f"><div class="ttname"><a href="a05319.html#a38acd300a96f722e47c9f6214bfa759f">bl::util::ThreadPool::drain</a></div><div class="ttdeci">void drain()</div><div class="ttdoc">Blocks until the task queue is empty and all workers are idle. If more tasks are submitted during thi...</div><div class="ttdef"><b>Definition</b> <a href="a01691_source.html#l00031">ThreadPool.cpp:31</a></div></div>
-<div class="ttc" id="aa05319_html_a460d8cce09b5e1c14157d395457e3bfd"><div class="ttname"><a href="a05319.html#a460d8cce09b5e1c14157d395457e3bfd">bl::util::ThreadPool::ThreadPool</a></div><div class="ttdeci">ThreadPool()</div><div class="ttdoc">Initializes the thread pool. Does not start it.</div><div class="ttdef"><b>Definition</b> <a href="a01691_source.html#l00010">ThreadPool.cpp:10</a></div></div>
-<div class="ttc" id="aa05319_html_a5422d1988e881339da8cecd35049d352"><div class="ttname"><a href="a05319.html#a5422d1988e881339da8cecd35049d352">bl::util::ThreadPool::shutdown</a></div><div class="ttdeci">void shutdown()</div><div class="ttdoc">Prevents new tasks from being submitted, drains the queue, and stops all workers.</div><div class="ttdef"><b>Definition</b> <a href="a01691_source.html#l00037">ThreadPool.cpp:37</a></div></div>
-<div class="ttc" id="aa05319_html_ad9a5691b5c3c8a79d4d635a528702cca"><div class="ttname"><a href="a05319.html#ad9a5691b5c3c8a79d4d635a528702cca">bl::util::ThreadPool::running</a></div><div class="ttdeci">bool running() const</div><div class="ttdoc">Returns whether or not the pool is running.</div><div class="ttdef"><b>Definition</b> <a href="a01691_source.html#l00029">ThreadPool.cpp:29</a></div></div>
-<div class="ttc" id="aa05319_html_af14005becc6ac6d61be21015e323968c"><div class="ttname"><a href="a05319.html#af14005becc6ac6d61be21015e323968c">bl::util::ThreadPool::~ThreadPool</a></div><div class="ttdeci">~ThreadPool()</div><div class="ttdoc">Terminates the pool.</div><div class="ttdef"><b>Definition</b> <a href="a01691_source.html#l00014">ThreadPool.cpp:14</a></div></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00088" data-start="{" data-end="}">
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="a05322.html#a84d27d7a1840b55554a33714467e68f9">   88</a></span><a class="code hl_function" href="a05322.html#a84d27d7a1840b55554a33714467e68f9">IdAllocator&lt;T&gt;::IdAllocator</a>(std::size_t maxIdCount)</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>: nextId(0)</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>, maxId(0)</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>, usedIds(maxIdCount, false)</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>, freeIds(maxIdCount) {}</div>
+</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00095" data-start="{" data-end="}">
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="a05322.html#afae55550466c97d1fcc00e5c8c3691d9">   95</a></span><span class="keyword">constexpr</span> T <a class="code hl_function" href="a05322.html#afae55550466c97d1fcc00e5c8c3691d9">IdAllocator&lt;T&gt;::highestId</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keywordflow">return</span> maxId;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>}</div>
+</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00100" data-start="{" data-end="}">
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="a05322.html#a7a2dece49fd8749c6c12f91c079fff66">  100</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a05322.html#a7a2dece49fd8749c6c12f91c079fff66">IdAllocator&lt;T&gt;::isAllocated</a>(T <span class="keywordtype">id</span>)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keywordflow">return</span> usedIds[id];</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>}</div>
+</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00105" data-start="{" data-end="}">
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="a05322.html#a0e4335decc172e313f218e337173021a">  105</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a05322.html#a0e4335decc172e313f218e337173021a">IdAllocator&lt;T&gt;::available</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordflow">return</span> nextId &lt; freeIds.capacity() || !freeIds.empty();</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>}</div>
+</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00110" data-start="{" data-end="}">
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="a05322.html#af110687b026e2b4d9bcbf3cd557e2bc9">  110</a></span>T <a class="code hl_function" href="a05322.html#af110687b026e2b4d9bcbf3cd557e2bc9">IdAllocator&lt;T&gt;::allocate</a>() {</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    T <span class="keywordtype">id</span> = nextId;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="keywordflow">if</span> (!freeIds.empty()) {</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="keywordtype">id</span> = freeIds.front();</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        freeIds.pop();</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    }</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (nextId &lt; freeIds.capacity()) { ++nextId; }</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    maxId       = std::max(maxId, <span class="keywordtype">id</span>);</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    usedIds[id] = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keywordflow">return</span> id;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>}</div>
+</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00124" data-start="{" data-end="}">
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="a05322.html#aacb7d0882aa9261efa1fbfb538f73a59">  124</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05322.html#aacb7d0882aa9261efa1fbfb538f73a59">IdAllocator&lt;T&gt;::release</a>(T <span class="keywordtype">id</span>) {</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    freeIds.push(<span class="keywordtype">id</span>);</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    usedIds[id] = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keywordflow">while</span> (!usedIds[maxId] &amp;&amp; maxId &gt; 0) { --maxId; }</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>}</div>
+</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00131" data-start="{" data-end="}">
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno"><a class="line" href="a05322.html#a88a336a850d9499e8f1378430558e88c">  131</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05322.html#a88a336a850d9499e8f1378430558e88c">IdAllocator&lt;T&gt;::releaseAll</a>() {</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    freeIds.clear();</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    nextId = 0;</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    maxId  = 0;</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    usedIds.clear();</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    usedIds.resize(freeIds.capacity(), <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>}</div>
+</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00140" data-start="{" data-end="}">
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno"><a class="line" href="a05322.html#a25944e7625d1729b9c3c94005812090e">  140</a></span><span class="keyword">constexpr</span> std::size_t <a class="code hl_function" href="a05322.html#a25944e7625d1729b9c3c94005812090e">IdAllocator&lt;T&gt;::totalIds</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="keywordflow">return</span> usedIds.size();</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>}</div>
+</div>
+</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>} <span class="comment">// namespace util</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span><span class="preprocessor">#endif</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="ttc" id="aa00548_html"><div class="ttname"><a href="a00548.html">RingQueue.hpp</a></div></div>
+<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02834_html"><div class="ttname"><a href="a02834.html">bl::ctr::RingQueue</a></div><div class="ttdoc">Queue that uses a fixed size buffer internally to maintain contiguous storage and avoid allocations....</div><div class="ttdef"><b>Definition</b> <a href="a00548_source.html#l00020">RingQueue.hpp:20</a></div></div>
+<div class="ttc" id="aa05322_html"><div class="ttname"><a href="a05322.html">bl::util::IdAllocator</a></div><div class="ttdoc">Utility to allocate integral ids in some range [0, max). Allows ids to be reused as well as tracks th...</div><div class="ttdef"><b>Definition</b> <a href="a00464_source.html#l00020">IdAllocator.hpp:20</a></div></div>
+<div class="ttc" id="aa05322_html_a0e4335decc172e313f218e337173021a"><div class="ttname"><a href="a05322.html#a0e4335decc172e313f218e337173021a">bl::util::IdAllocator::available</a></div><div class="ttdeci">bool available() const</div><div class="ttdoc">Returns whether or not any ids are available to be allocated. It is undefined behavior to call alloca...</div><div class="ttdef"><b>Definition</b> <a href="a00464_source.html#l00105">IdAllocator.hpp:105</a></div></div>
+<div class="ttc" id="aa05322_html_a25944e7625d1729b9c3c94005812090e"><div class="ttname"><a href="a05322.html#a25944e7625d1729b9c3c94005812090e">bl::util::IdAllocator::totalIds</a></div><div class="ttdeci">constexpr std::size_t totalIds() const</div><div class="ttdoc">Returns the total number of ids that can be allocated.</div><div class="ttdef"><b>Definition</b> <a href="a00464_source.html#l00140">IdAllocator.hpp:140</a></div></div>
+<div class="ttc" id="aa05322_html_a7a2dece49fd8749c6c12f91c079fff66"><div class="ttname"><a href="a05322.html#a7a2dece49fd8749c6c12f91c079fff66">bl::util::IdAllocator::isAllocated</a></div><div class="ttdeci">bool isAllocated(T id) const</div><div class="ttdoc">Returns whether or not the given id is allocated.</div><div class="ttdef"><b>Definition</b> <a href="a00464_source.html#l00100">IdAllocator.hpp:100</a></div></div>
+<div class="ttc" id="aa05322_html_a84d27d7a1840b55554a33714467e68f9"><div class="ttname"><a href="a05322.html#a84d27d7a1840b55554a33714467e68f9">bl::util::IdAllocator::IdAllocator</a></div><div class="ttdeci">IdAllocator(std::size_t totalIdCount)</div><div class="ttdoc">Construct a new Id Allocator. Ids will be in range [0, totalIdCount)</div><div class="ttdef"><b>Definition</b> <a href="a00464_source.html#l00088">IdAllocator.hpp:88</a></div></div>
+<div class="ttc" id="aa05322_html_a88a336a850d9499e8f1378430558e88c"><div class="ttname"><a href="a05322.html#a88a336a850d9499e8f1378430558e88c">bl::util::IdAllocator::releaseAll</a></div><div class="ttdeci">void releaseAll()</div><div class="ttdoc">Clears the state of the entire allocator and marks all ids as free.</div><div class="ttdef"><b>Definition</b> <a href="a00464_source.html#l00131">IdAllocator.hpp:131</a></div></div>
+<div class="ttc" id="aa05322_html_aacb7d0882aa9261efa1fbfb538f73a59"><div class="ttname"><a href="a05322.html#aacb7d0882aa9261efa1fbfb538f73a59">bl::util::IdAllocator::release</a></div><div class="ttdeci">void release(T id)</div><div class="ttdoc">Marks the given id as being available for use again.</div><div class="ttdef"><b>Definition</b> <a href="a00464_source.html#l00124">IdAllocator.hpp:124</a></div></div>
+<div class="ttc" id="aa05322_html_af110687b026e2b4d9bcbf3cd557e2bc9"><div class="ttname"><a href="a05322.html#af110687b026e2b4d9bcbf3cd557e2bc9">bl::util::IdAllocator::allocate</a></div><div class="ttdeci">T allocate()</div><div class="ttdoc">Allocates an id for use. Undefined behavior if available() returns false.</div><div class="ttdef"><b>Definition</b> <a href="a00464_source.html#l00110">IdAllocator.hpp:110</a></div></div>
+<div class="ttc" id="aa05322_html_afae55550466c97d1fcc00e5c8c3691d9"><div class="ttname"><a href="a05322.html#afae55550466c97d1fcc00e5c8c3691d9">bl::util::IdAllocator::highestId</a></div><div class="ttdeci">constexpr T highestId() const</div><div class="ttdoc">Returns the current highest id that has been allocated.</div><div class="ttdef"><b>Definition</b> <a href="a00464_source.html#l00095">IdAllocator.hpp:95</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

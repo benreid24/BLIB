@@ -1,5 +1,11 @@
 var searchData=
 [
-  ['textwrapbehavior_0',['TextWrapBehavior',['../a03431.html#a7087646f91fb0a51e7ea0c6cb492e767',1,'bl::gui::Label']]],
-  ['type_1',['type',['../a02591.html#aee8a1c3030a8c7f2ba2a4d15ef805b8d',1,'bl::com::Hitbox2D::Type'],['../a03251.html#a51134f8d4c4b33e1007fe0be2c281fbd',1,'bl::gfx::s2d::IconBase::Type'],['../a03327.html#a998c68f6754c45abe61bec4c145a20eb',1,'bl::input::Control::Type'],['../a03339.html#ad11d8007c9ffce98cf9c6f5d2a9d13e8',1,'bl::input::DirectionalControl::Type'],['../a03363.html#af51fc6317d9bc2bfecb33fa0126f3a55',1,'bl::input::MovementControl::Type'],['../a03375.html#aa19fe4c25677f5642a399d9c5a4afe32',1,'bl::input::Trigger::Type'],['../a03483.html#a14b67eb968cc68b09a420e989b3a4a54',1,'bl::gui::Event::Type'],['../a03667.html#a15949041ae1890617fac8f50072a2156',1,'bl::menu::Event::Type'],['../a04747.html#ae46c56f7af29255ac8f117a0f97d593b',1,'bl::script::PrimitiveValue::Type'],['../a04947.html#ad11017cf1f678269d054eff8bb9caf6a',1,'bl::serial::json::Value::Type'],['../a05411.html#a6e51da7bbcf066924bc91010aae6e012',1,'bl::input::Encoder::ControlInfo::Type']]]
+  ['scissormode_0',['ScissorMode',['../a02658.html#a10e3c7c111c570a34f8845082711e823',1,'bl::com::OverlayScaler']]],
+  ['shutdowntype_1',['ShutdownType',['../a03066.html#a610f7ea530340c0339eae47bea563204',1,'bl::engine::event::Shutdown']]],
+  ['spacemode_2',['SpaceMode',['../a03574.html#a7be24b6df8ddd6710ecab4193c7ab781',1,'bl::gui::LinePacker']]],
+  ['speedbucketsetting_3',['SpeedBucketSetting',['../a04126.html#a56d01a7643e3e65933db3c5a957db66f',1,'bl::rc::ds::DescriptorSetInstance']]],
+  ['splitscreendirection_4',['SplitscreenDirection',['../a04346.html#acd8a52db9b80d8d4cddbbcccd1502ee3',1,'bl::rc::Renderer']]],
+  ['state_5',['State',['../a03398.html#aef25e3f51fd2c7beb576e27e9a30f6be',1,'bl::input::Configurator']]],
+  ['style_6',['Style',['../a03558.html#ab5ed19ef2dc0fba1a8b63b0d469eca88',1,'bl::gui::Window']]],
+  ['syncrequirement_7',['SyncRequirement',['../a04506.html#a109f9d7acc098649830f276c266b47d0',1,'bl::rc::tfr::Transferable']]]
 ];

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Cameras/2D/CameraAffector2D.hpp Source File</title>
+<title>BLIB: include/BLIB/Cameras/2D/Controllers/ConstrainedFollower.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,49 +79,70 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_c04a943c4d3cd1d05b5d3c5b1d0dd453.html">Cameras</a></li><li class="navelem"><a class="el" href="dir_ce0cefa5b1d3b64155b48c92eb17890c.html">2D</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_c04a943c4d3cd1d05b5d3c5b1d0dd453.html">Cameras</a></li><li class="navelem"><a class="el" href="dir_ce0cefa5b1d3b64155b48c92eb17890c.html">2D</a></li><li class="navelem"><a class="el" href="dir_6d8118606a55f09fb8c43633a428c04c.html">Controllers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">CameraAffector2D.hpp</div></div>
+  <div class="headertitle"><div class="title">ConstrainedFollower.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00902.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_CAMERAS_2D_CAMERAAFFECTOR2D_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_CAMERAS_2D_CAMERAAFFECTOR2D_HPP</span></div>
+<a href="a00902.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_CAMERAS_2D_CONTROLLERS_CONSTRAINEDFOLLOWER_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_CAMERAS_2D_CONTROLLERS_CONSTRAINEDFOLLOWER_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02360.html">bl</a></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>cam</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a02527.html">   17</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a02527.html">CameraAffector2D</a> {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="a02527.html#a4d9c78fcc8b312545e0d4a01fd9798d5">   21</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a02527.html#a4d9c78fcc8b312545e0d4a01fd9798d5">~CameraAffector2D</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a02527.html#add831e36ba4f55892120ac666b718a3f">update</a>(<span class="keywordtype">float</span> dt, <span class="keywordtype">bool</span>&amp; recomputeView, <span class="keywordtype">bool</span>&amp; recomputeProj);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a02527.html#a00249fdd22bbbefc0572a86a6b4a7b3f">applyOnView</a>(<span class="keywordtype">float</span>&amp; rotation);</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00899.html">BLIB/Cameras/2D/CameraController2D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a06361.html">BLIB/Components/Transform2D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00236.html">BLIB/ECS.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;SFML/Graphics/Rect.hpp&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>cam</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span>c2d</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
+<div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a02578.html">   22</a></span><span class="keyword">class </span><a class="code hl_class" href="a02578.html">ConstrainedFollower</a> : <span class="keyword">public</span> <a class="code hl_struct" href="a02574.html">CameraController2D</a> {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <a class="code hl_class" href="a02578.html">ConstrainedFollower</a>(<a class="code hl_class" href="a02938.html">ecs::Registry</a>&amp; registry, <a class="code hl_struct" href="a02890.html">ecs::Entity</a> follow, <span class="keyword">const</span> sf::FloatRect&amp; area,</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>                        <span class="keywordtype">bool</span> followRotation = <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="a02578.html#aabd1daba5bd87b141592bc605095bf53">   38</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a02578.html#aabd1daba5bd87b141592bc605095bf53">~ConstrainedFollower</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a02527.html#aeddb09aeaf0e999d9c27a84453534d1b">applyOnProj</a>(glm::vec2&amp; center, glm::vec2&amp; size);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>};</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a02578.html#a2c4a03acbe1f94fcdbeec19ced239756">update</a>(<span class="keywordtype">float</span> dt) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <a class="code hl_class" href="a02866.html">ecs::ComponentPool&lt;com::Transform2D&gt;</a>* pool;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <a class="code hl_struct" href="a02890.html">ecs::Entity</a> follow;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">const</span> sf::FloatRect area;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> followRotation;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordtype">bool</span> warned;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>};</div>
 </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>} <span class="comment">// namespace cam</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02360_html"><div class="ttname"><a href="a02360.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01448_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02527_html"><div class="ttname"><a href="a02527.html">bl::cam::CameraAffector2D</a></div><div class="ttdoc">Base class for affectors that can be applied to 2d cameras. An affecter modifies the behavior of the ...</div><div class="ttdef"><b>Definition</b> <a href="a00902_source.html#l00017">CameraAffector2D.hpp:17</a></div></div>
-<div class="ttc" id="aa02527_html_a00249fdd22bbbefc0572a86a6b4a7b3f"><div class="ttname"><a href="a02527.html#a00249fdd22bbbefc0572a86a6b4a7b3f">bl::cam::CameraAffector2D::applyOnView</a></div><div class="ttdeci">virtual void applyOnView(float &amp;rotation)</div><div class="ttdoc">Base method does nothing. Use this to make changes to the parameters used to construct the camera's v...</div><div class="ttdef"><b>Definition</b> <a href="a01988_source.html#l00009">CameraAffector2D.cpp:9</a></div></div>
-<div class="ttc" id="aa02527_html_a4d9c78fcc8b312545e0d4a01fd9798d5"><div class="ttname"><a href="a02527.html#a4d9c78fcc8b312545e0d4a01fd9798d5">bl::cam::CameraAffector2D::~CameraAffector2D</a></div><div class="ttdeci">virtual ~CameraAffector2D()=default</div><div class="ttdoc">Destroys the affector.</div></div>
-<div class="ttc" id="aa02527_html_add831e36ba4f55892120ac666b718a3f"><div class="ttname"><a href="a02527.html#add831e36ba4f55892120ac666b718a3f">bl::cam::CameraAffector2D::update</a></div><div class="ttdeci">virtual void update(float dt, bool &amp;recomputeView, bool &amp;recomputeProj)</div><div class="ttdoc">Updates the affector.</div><div class="ttdef"><b>Definition</b> <a href="a01988_source.html#l00007">CameraAffector2D.cpp:7</a></div></div>
-<div class="ttc" id="aa02527_html_aeddb09aeaf0e999d9c27a84453534d1b"><div class="ttname"><a href="a02527.html#aeddb09aeaf0e999d9c27a84453534d1b">bl::cam::CameraAffector2D::applyOnProj</a></div><div class="ttdeci">virtual void applyOnProj(glm::vec2 &amp;center, glm::vec2 &amp;size)</div><div class="ttdoc">Base method does nothing. Use this to make changes to the parameters used to construct the camera's p...</div><div class="ttdef"><b>Definition</b> <a href="a01988_source.html#l00011">CameraAffector2D.cpp:11</a></div></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>} <span class="comment">// namespace c2d</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>} <span class="comment">// namespace cam</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00236_html"><div class="ttname"><a href="a00236.html">ECS.hpp</a></div></div>
+<div class="ttc" id="aa00899_html"><div class="ttname"><a href="a00899.html">CameraController2D.hpp</a></div></div>
+<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02574_html"><div class="ttname"><a href="a02574.html">bl::cam::CameraController2D</a></div><div class="ttdoc">Base class for 2d camera controllers.</div><div class="ttdef"><b>Definition</b> <a href="a00899_source.html#l00015">CameraController2D.hpp:15</a></div></div>
+<div class="ttc" id="aa02578_html"><div class="ttname"><a href="a02578.html">bl::cam::c2d::ConstrainedFollower</a></div><div class="ttdoc">2d camera controller that centers a camera on an entity while keeping the visible region constrained ...</div><div class="ttdef"><b>Definition</b> <a href="a00902_source.html#l00022">ConstrainedFollower.hpp:22</a></div></div>
+<div class="ttc" id="aa02578_html_a2c4a03acbe1f94fcdbeec19ced239756"><div class="ttname"><a href="a02578.html#a2c4a03acbe1f94fcdbeec19ced239756">bl::cam::c2d::ConstrainedFollower::update</a></div><div class="ttdeci">virtual void update(float dt) override</div><div class="ttdoc">Updates the controller to keep the camera centered.</div><div class="ttdef"><b>Definition</b> <a href="a02009_source.html#l00023">ConstrainedFollower.cpp:23</a></div></div>
+<div class="ttc" id="aa02578_html_aabd1daba5bd87b141592bc605095bf53"><div class="ttname"><a href="a02578.html#aabd1daba5bd87b141592bc605095bf53">bl::cam::c2d::ConstrainedFollower::~ConstrainedFollower</a></div><div class="ttdeci">virtual ~ConstrainedFollower()=default</div><div class="ttdoc">Destroys the controller.</div></div>
+<div class="ttc" id="aa02866_html"><div class="ttname"><a href="a02866.html">bl::ecs::ComponentPool</a></div><div class="ttdoc">Provides storage and management for components in the ECS. Used internally in the Registry.</div><div class="ttdef"><b>Definition</b> <a href="a00998_source.html#l00079">ComponentPool.hpp:79</a></div></div>
+<div class="ttc" id="aa02890_html"><div class="ttname"><a href="a02890.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a00992_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa02938_html"><div class="ttname"><a href="a02938.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition</b> <a href="a01010_source.html#l00034">Registry.hpp:34</a></div></div>
+<div class="ttc" id="aa06361_html"><div class="ttname"><a href="a06361.html">Transform2D.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

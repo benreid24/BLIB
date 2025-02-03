@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Scripts/Error.cpp Source File</title>
+<title>BLIB: src/Util/ThreadPool.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,65 +79,143 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3ac9928fc2e7e2cbc53db7c1a11acda2.html">Scripts</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3e37c3eecdc42aac03248fab5c81cb58.html">Util</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Error.cpp</div></div>
+  <div class="headertitle"><div class="title">ThreadPool.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01718.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00515.html">BLIB/Scripts/Error.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;sstream&gt;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02360.html">bl</a></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>{</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span>script</div>
+<a href="a01718.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00461.html">BLIB/Util/ThreadPool.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a00266.html">BLIB/Logging.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;cmath&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>util</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>std::string buildMsg(<span class="keyword">const</span> std::string&amp; err, <span class="keyword">const</span> <a class="code hl_typedef" href="a03759.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; src) {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    std::stringstream ss;</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    ss &lt;&lt; <span class="stringliteral">&quot;Line &quot;</span> &lt;&lt; src-&gt;sourceLine &lt;&lt; <span class="stringliteral">&quot; position &quot;</span> &lt;&lt; src-&gt;sourceColumn &lt;&lt; <span class="stringliteral">&quot;: &quot;</span> &lt;&lt; err;</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordflow">return</span> ss.str();</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>}</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>} <span class="comment">// namespace</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="foldopen" id="foldopen00017" data-start="{" data-end="}">
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a04731.html#aff6398a2a255bf7a3ad554af2761bc98">   17</a></span><a class="code hl_function" href="a04731.html#aff6398a2a255bf7a3ad554af2761bc98">Error::Error</a>(<span class="keyword">const</span> std::string&amp; msg)</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>: error(msg)</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>, stack(msg) {}</div>
+<div class="foldopen" id="foldopen00010" data-start="{" data-end="}">
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="a05414.html#a460d8cce09b5e1c14157d395457e3bfd">   10</a></span><a class="code hl_function" href="a05414.html#a460d8cce09b5e1c14157d395457e3bfd">ThreadPool::ThreadPool</a>()</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>: shuttingDown(false)</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>, inFlightCount(0) {}</div>
 </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="foldopen" id="foldopen00021" data-start="{" data-end="}">
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="a04731.html#adb15b3075a9c7aeebaa80bf997ea5214">   21</a></span><a class="code hl_function" href="a04731.html#aff6398a2a255bf7a3ad554af2761bc98">Error::Error</a>(<span class="keyword">const</span> std::string&amp; msg, <span class="keyword">const</span> <a class="code hl_typedef" href="a03759.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; src)</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>: error(buildMsg(msg, src))</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>, stack(error) {}</div>
-</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="foldopen" id="foldopen00025" data-start="{" data-end="}">
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a04731.html#ac99cb5f39c84b2f623ea6f4c49810f3d">   25</a></span><a class="code hl_function" href="a04731.html#aff6398a2a255bf7a3ad554af2761bc98">Error::Error</a>(<span class="keyword">const</span> std::string&amp; msg, <span class="keyword">const</span> <a class="code hl_typedef" href="a03759.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; src, <span class="keyword">const</span> <a class="code hl_class" href="a04731.html">Error</a>&amp; prev)</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>: error(buildMsg(msg, src))</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>, stack(error + <span class="stringliteral">&quot;\n    &quot;</span> + prev.stack) {}</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="a05414.html#af14005becc6ac6d61be21015e323968c">   14</a></span><a class="code hl_function" href="a05414.html#af14005becc6ac6d61be21015e323968c">ThreadPool::~ThreadPool</a>() { <a class="code hl_function" href="a05414.html#a5422d1988e881339da8cecd35049d352">shutdown</a>(); }</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="foldopen" id="foldopen00016" data-start="{" data-end="}">
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a05414.html#a267094fe3aa471ed368b229e7ace11e8">   16</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a05414.html#a267094fe3aa471ed368b229e7ace11e8">ThreadPool::start</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> wc) {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="a05414.html#ad9a5691b5c3c8a79d4d635a528702cca">running</a>()) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordflow">if</span> (wc == 0) { wc = std::max(std::thread::hardware_concurrency(), 4u); }</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <a class="code hl_define" href="a00230.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;Thread pool starting with &quot;</span> &lt;&lt; wc &lt;&lt; <span class="stringliteral">&quot; workers&quot;</span>;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; wc; ++i) {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        workers.emplace_back(std::bind(&amp;ThreadPool::worker, <span class="keyword">this</span>));</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    }</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>}</div>
 </div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a04731.html#a95abc9d3c1314074a22834fa7e6a2dfd">   29</a></span><span class="keyword">const</span> std::string&amp; <a class="code hl_function" href="a04731.html#a95abc9d3c1314074a22834fa7e6a2dfd">Error::message</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> error; }</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a05414.html#ad9a5691b5c3c8a79d4d635a528702cca">   29</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a05414.html#ad9a5691b5c3c8a79d4d635a528702cca">ThreadPool::running</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> !workers.empty() &amp;&amp; !shuttingDown.load(); }</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a04731.html#ab1e1a09a7f8dfda9edcac4bd6d1df391">   31</a></span><span class="keyword">const</span> std::string&amp; <a class="code hl_function" href="a04731.html#ab1e1a09a7f8dfda9edcac4bd6d1df391">Error::stacktrace</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> stack; }</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>} <span class="comment">// namespace script</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00515_html"><div class="ttname"><a href="a00515.html">Error.hpp</a></div></div>
-<div class="ttc" id="aa02360_html"><div class="ttname"><a href="a02360.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01448_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03759_html_a3f49fe9da8742463aa757f89f67a8827"><div class="ttname"><a href="a03759.html#a3f49fe9da8742463aa757f89f67a8827">bl::parser::Node::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Node &gt; Ptr</div><div class="ttdef"><b>Definition</b> <a href="a00011_source.html#l00024">Node.hpp:24</a></div></div>
-<div class="ttc" id="aa04731_html"><div class="ttname"><a href="a04731.html">bl::script::Error</a></div><div class="ttdoc">Script utility class to represent an error. Can be used to build a call stack for script errors.</div><div class="ttdef"><b>Definition</b> <a href="a00515_source.html#l00017">Error.hpp:17</a></div></div>
-<div class="ttc" id="aa04731_html_a95abc9d3c1314074a22834fa7e6a2dfd"><div class="ttname"><a href="a04731.html#a95abc9d3c1314074a22834fa7e6a2dfd">bl::script::Error::message</a></div><div class="ttdeci">const std::string &amp; message() const</div><div class="ttdoc">Returns the contained error message.</div><div class="ttdef"><b>Definition</b> <a href="a01718_source.html#l00029">Error.cpp:29</a></div></div>
-<div class="ttc" id="aa04731_html_ab1e1a09a7f8dfda9edcac4bd6d1df391"><div class="ttname"><a href="a04731.html#ab1e1a09a7f8dfda9edcac4bd6d1df391">bl::script::Error::stacktrace</a></div><div class="ttdeci">const std::string &amp; stacktrace() const</div><div class="ttdoc">Returns the full stack trace, formatted.</div><div class="ttdef"><b>Definition</b> <a href="a01718_source.html#l00031">Error.cpp:31</a></div></div>
-<div class="ttc" id="aa04731_html_aff6398a2a255bf7a3ad554af2761bc98"><div class="ttname"><a href="a04731.html#aff6398a2a255bf7a3ad554af2761bc98">bl::script::Error::Error</a></div><div class="ttdeci">Error(const std::string &amp;error)</div><div class="ttdoc">Constructs a root Error with an empty call stack.</div><div class="ttdef"><b>Definition</b> <a href="a01718_source.html#l00017">Error.cpp:17</a></div></div>
+<div class="foldopen" id="foldopen00031" data-start="{" data-end="}">
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a05414.html#a38acd300a96f722e47c9f6214bfa759f">   31</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05414.html#a38acd300a96f722e47c9f6214bfa759f">ThreadPool::drain</a>() {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    std::unique_lock lock(taskMutex);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">const</span> <span class="keyword">auto</span> isDrained = [<span class="keyword">this</span>]() { <span class="keywordflow">return</span> tasks.empty() &amp;&amp; inFlightCount.load() == 0; };</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordflow">if</span> (!isDrained()) { taskDoneCv.wait(lock, isDrained); }</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}</div>
+</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="foldopen" id="foldopen00037" data-start="{" data-end="}">
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="a05414.html#a5422d1988e881339da8cecd35049d352">   37</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05414.html#a5422d1988e881339da8cecd35049d352">ThreadPool::shutdown</a>() {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_define" href="a00230.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;Thread pool shutting down&quot;</span>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    shuttingDown.store(<span class="keyword">true</span>);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    taskQueuedCv.notify_all();</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; t : workers) {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">if</span> (!t.joinable()) { <span class="keywordflow">continue</span>; }</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        t.join();</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    }</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    std::unique_lock lock(taskMutex);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    workers.clear();</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    inFlightCount.store(0);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="comment">// run remaining tasks serially</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordflow">while</span> (!tasks.empty()) {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        tasks.front()();</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        tasks.pop();</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    }</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    shuttingDown.store(<span class="keyword">false</span>);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <a class="code hl_define" href="a00230.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;Thread pool shut down&quot;</span>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>}</div>
+</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="foldopen" id="foldopen00063" data-start="{" data-end="}">
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="a05414.html#a2093b8daf49ca46987c69b69c1a10e59">   63</a></span>std::future&lt;void&gt; <a class="code hl_function" href="a05414.html#a2093b8daf49ca46987c69b69c1a10e59">ThreadPool::queueTask</a>(<a class="code hl_typedef" href="a05414.html#a1da062602c1bbf14d5d17ce12e777697">Task</a>&amp;&amp; task) {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="a05414.html#ad9a5691b5c3c8a79d4d635a528702cca">running</a>()) { <span class="keywordflow">return</span> {}; }</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    std::unique_lock lock(taskMutex);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordflow">if</span> (shuttingDown.load()) { <span class="keywordflow">return</span> {}; } <span class="comment">// in case of race</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keyword">auto</span>&amp; t = tasks.emplace(std::forward&lt;Task&gt;(task));</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keyword">auto</span> f  = t.get_future();</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    lock.unlock();</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    taskQueuedCv.notify_one();</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordflow">return</span> f;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>}</div>
+</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keywordtype">void</span> ThreadPool::worker() {</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <a class="code hl_define" href="a00230.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;Worker thread started&quot;</span>;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keywordflow">while</span> (!shuttingDown) {</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        std::unique_lock lock(taskMutex);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keywordflow">if</span> (shuttingDown) { <span class="keywordflow">break</span>; }</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordflow">if</span> (tasks.empty()) { taskQueuedCv.wait(lock); }</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="keywordflow">if</span> (tasks.empty()) { <span class="keywordflow">continue</span>; }</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        std::packaged_task&lt;void()&gt; task = std::move(tasks.front());</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        ++inFlightCount;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        tasks.pop();</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        lock.unlock();</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        task();</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        lock.lock();</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        --inFlightCount;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        taskDoneCv.notify_all();</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    }</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <a class="code hl_define" href="a00230.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;Worker thread terminated&quot;</span>;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>}</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>} <span class="comment">// namespace util</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00230_html_a459f7ea96e34815206480bf681ee2a2f"><div class="ttname"><a href="a00230.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a></div><div class="ttdeci">#define BL_LOG_INFO</div><div class="ttdoc">Helper macro to log at info level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a00230_source.html#l00107">Logger.hpp:107</a></div></div>
+<div class="ttc" id="aa00266_html"><div class="ttname"><a href="a00266.html">Logging.hpp</a></div></div>
+<div class="ttc" id="aa00461_html"><div class="ttname"><a href="a00461.html">ThreadPool.hpp</a></div></div>
+<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa05414_html_a1da062602c1bbf14d5d17ce12e777697"><div class="ttname"><a href="a05414.html#a1da062602c1bbf14d5d17ce12e777697">bl::util::ThreadPool::Task</a></div><div class="ttdeci">std::function&lt; void()&gt; Task</div><div class="ttdoc">Callback signature of tasks to be submitted.</div><div class="ttdef"><b>Definition</b> <a href="a00461_source.html#l00027">ThreadPool.hpp:27</a></div></div>
+<div class="ttc" id="aa05414_html_a2093b8daf49ca46987c69b69c1a10e59"><div class="ttname"><a href="a05414.html#a2093b8daf49ca46987c69b69c1a10e59">bl::util::ThreadPool::queueTask</a></div><div class="ttdeci">std::future&lt; void &gt; queueTask(Task &amp;&amp;task)</div><div class="ttdoc">Queues a task to be executed by a worker. Returns an invalid future if the pool is not accepting task...</div><div class="ttdef"><b>Definition</b> <a href="a01718_source.html#l00063">ThreadPool.cpp:63</a></div></div>
+<div class="ttc" id="aa05414_html_a267094fe3aa471ed368b229e7ace11e8"><div class="ttname"><a href="a05414.html#a267094fe3aa471ed368b229e7ace11e8">bl::util::ThreadPool::start</a></div><div class="ttdeci">bool start(unsigned int workerCount=0)</div><div class="ttdoc">Starts the thread pool with the given concurrency. If the workerCount is 0 then std::thread::hardware...</div><div class="ttdef"><b>Definition</b> <a href="a01718_source.html#l00016">ThreadPool.cpp:16</a></div></div>
+<div class="ttc" id="aa05414_html_a38acd300a96f722e47c9f6214bfa759f"><div class="ttname"><a href="a05414.html#a38acd300a96f722e47c9f6214bfa759f">bl::util::ThreadPool::drain</a></div><div class="ttdeci">void drain()</div><div class="ttdoc">Blocks until the task queue is empty and all workers are idle. If more tasks are submitted during thi...</div><div class="ttdef"><b>Definition</b> <a href="a01718_source.html#l00031">ThreadPool.cpp:31</a></div></div>
+<div class="ttc" id="aa05414_html_a460d8cce09b5e1c14157d395457e3bfd"><div class="ttname"><a href="a05414.html#a460d8cce09b5e1c14157d395457e3bfd">bl::util::ThreadPool::ThreadPool</a></div><div class="ttdeci">ThreadPool()</div><div class="ttdoc">Initializes the thread pool. Does not start it.</div><div class="ttdef"><b>Definition</b> <a href="a01718_source.html#l00010">ThreadPool.cpp:10</a></div></div>
+<div class="ttc" id="aa05414_html_a5422d1988e881339da8cecd35049d352"><div class="ttname"><a href="a05414.html#a5422d1988e881339da8cecd35049d352">bl::util::ThreadPool::shutdown</a></div><div class="ttdeci">void shutdown()</div><div class="ttdoc">Prevents new tasks from being submitted, drains the queue, and stops all workers.</div><div class="ttdef"><b>Definition</b> <a href="a01718_source.html#l00037">ThreadPool.cpp:37</a></div></div>
+<div class="ttc" id="aa05414_html_ad9a5691b5c3c8a79d4d635a528702cca"><div class="ttname"><a href="a05414.html#ad9a5691b5c3c8a79d4d635a528702cca">bl::util::ThreadPool::running</a></div><div class="ttdeci">bool running() const</div><div class="ttdoc">Returns whether or not the pool is running.</div><div class="ttdef"><b>Definition</b> <a href="a01718_source.html#l00029">ThreadPool.cpp:29</a></div></div>
+<div class="ttc" id="aa05414_html_af14005becc6ac6d61be21015e323968c"><div class="ttname"><a href="a05414.html#af14005becc6ac6d61be21015e323968c">bl::util::ThreadPool::~ThreadPool</a></div><div class="ttdeci">~ThreadPool()</div><div class="ttdoc">Terminates the pool.</div><div class="ttdef"><b>Definition</b> <a href="a01718_source.html#l00014">ThreadPool.cpp:14</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

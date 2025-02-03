@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Input/Listener.cpp Source File</title>
+<title>BLIB: src/Resources/ResourceManager.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,63 +79,50 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_25af87635f61d97ebff867d1c53b4626.html">Input</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7a475d59e09b1ce69b1dfbc6b0817add.html">Resources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Listener.cpp</div></div>
+  <div class="headertitle"><div class="title">ResourceManager.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01589.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a06232.html">BLIB/Input/Listener.hpp</a>&gt;</span></div>
+<a href="a01589.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00164.html">BLIB/Resources/ResourceManager.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a00176.html">BLIB/Input/Actor.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a00146.html">BLIB/Resources/GarbageCollector.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02360.html">bl</a></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>input</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>resource</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
 <div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a03355.html#a079b505ecaed9f6afd8278bbb7f38a44">    9</a></span><a class="code hl_function" href="a03355.html#a079b505ecaed9f6afd8278bbb7f38a44">Listener::Listener</a>()</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>: owner(nullptr) {}</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a04830.html#aefb504334dee80cd3692d5cd7492c48e">    9</a></span><a class="code hl_function" href="a04830.html#aefb504334dee80cd3692d5cd7492c48e">ResourceManagerBase::ResourceManagerBase</a>()</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>: gcPeriod(300) {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    GarbageCollector::get().registerManager(<span class="keyword">this</span>);</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>}</div>
 </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="foldopen" id="foldopen00012" data-start="{" data-end="}">
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="a03355.html#ae3540d1af77f94edd329e089eec2da82">   12</a></span><a class="code hl_function" href="a03355.html#a079b505ecaed9f6afd8278bbb7f38a44">Listener::Listener</a>(<span class="keyword">const</span> <a class="code hl_class" href="a03355.html">Listener</a>&amp; l)</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>: owner(l.owner) {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <a class="code hl_class" href="a03355.html">Listener</a>&amp; c = <span class="keyword">const_cast&lt;</span><a class="code hl_class" href="a03355.html">Listener</a>&amp;<span class="keyword">&gt;</span>(l);</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordflow">if</span> (owner) { owner-&gt;<a class="code hl_function" href="a03315.html#a863a02458bc5d034b2fdb33076ea58b3">replaceListener</a>(c, *<span class="keyword">this</span>); }</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>}</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="a04830.html#a772009bb487d321e8bd0d6fef65cd701">   14</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04830.html#a772009bb487d321e8bd0d6fef65cd701">ResourceManagerBase::unregister</a>() { GarbageCollector::get().unregisterManager(<span class="keyword">this</span>); }</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="foldopen" id="foldopen00016" data-start="{" data-end="}">
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a04830.html#aa056d7f00c7176bf9f0871883a02b9ca">   16</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04830.html#aa056d7f00c7176bf9f0871883a02b9ca">ResourceManagerBase::setGCPeriod</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> gc) {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    gcPeriod = gc;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    GarbageCollector::get().managerPeriodChanged(<span class="keyword">this</span>);</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>}</div>
 </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="foldopen" id="foldopen00018" data-start="{" data-end="}">
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a03355.html#a29b323fc5a97661724c3a97790d72758">   18</a></span><a class="code hl_function" href="a03355.html#a079b505ecaed9f6afd8278bbb7f38a44">Listener::Listener</a>(<a class="code hl_class" href="a03355.html">Listener</a>&amp;&amp; l)</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>: owner(l.owner) {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordflow">if</span> (owner) { owner-&gt;<a class="code hl_function" href="a03315.html#a863a02458bc5d034b2fdb33076ea58b3">replaceListener</a>(l, *<span class="keyword">this</span>); }</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    l.owner = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}</div>
-</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="foldopen" id="foldopen00024" data-start="{" data-end="}">
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a03355.html#a483ff531396a8a888ece355a945985cd">   24</a></span><a class="code hl_function" href="a03355.html#a483ff531396a8a888ece355a945985cd">Listener::~Listener</a>() {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">if</span> (owner) { owner-&gt;<a class="code hl_function" href="a03315.html#a56283b2fa7496cb11af9ce65ea40a5d6">removeListener</a>(*<span class="keyword">this</span>); }</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
-</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>} <span class="comment">// namespace input</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00176_html"><div class="ttname"><a href="a00176.html">Actor.hpp</a></div></div>
-<div class="ttc" id="aa02360_html"><div class="ttname"><a href="a02360.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01448_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03315_html_a56283b2fa7496cb11af9ce65ea40a5d6"><div class="ttname"><a href="a03315.html#a56283b2fa7496cb11af9ce65ea40a5d6">bl::input::Actor::removeListener</a></div><div class="ttdeci">void removeListener(input::Listener &amp;listener)</div><div class="ttdoc">Removes the given listener. Does not have to be the active listener.</div><div class="ttdef"><b>Definition</b> <a href="a01592_source.html#l00168">Actor.cpp:168</a></div></div>
-<div class="ttc" id="aa03315_html_a863a02458bc5d034b2fdb33076ea58b3"><div class="ttname"><a href="a03315.html#a863a02458bc5d034b2fdb33076ea58b3">bl::input::Actor::replaceListener</a></div><div class="ttdeci">void replaceListener(input::Listener &amp;oldListener, input::Listener &amp;newListener)</div><div class="ttdoc">Replaces the old listener with the new, keeping it at the same position in the queue.</div><div class="ttdef"><b>Definition</b> <a href="a01592_source.html#l00178">Actor.cpp:178</a></div></div>
-<div class="ttc" id="aa03355_html"><div class="ttname"><a href="a03355.html">bl::input::Listener</a></div><div class="ttdoc">Base class for input listeners that can subscribe to an Actor. The base class keeps the input system ...</div><div class="ttdef"><b>Definition</b> <a href="a06232_source.html#l00019">Listener.hpp:19</a></div></div>
-<div class="ttc" id="aa03355_html_a079b505ecaed9f6afd8278bbb7f38a44"><div class="ttname"><a href="a03355.html#a079b505ecaed9f6afd8278bbb7f38a44">bl::input::Listener::Listener</a></div><div class="ttdeci">Listener()</div><div class="ttdoc">Construct a new Listener object.</div><div class="ttdef"><b>Definition</b> <a href="a01589_source.html#l00009">Listener.cpp:9</a></div></div>
-<div class="ttc" id="aa03355_html_a483ff531396a8a888ece355a945985cd"><div class="ttname"><a href="a03355.html#a483ff531396a8a888ece355a945985cd">bl::input::Listener::~Listener</a></div><div class="ttdeci">virtual ~Listener()</div><div class="ttdoc">Unsubscribes the listener if subscribed.</div><div class="ttdef"><b>Definition</b> <a href="a01589_source.html#l00024">Listener.cpp:24</a></div></div>
-<div class="ttc" id="aa06232_html"><div class="ttname"><a href="a06232.html">Listener.hpp</a></div></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>} <span class="comment">// namespace resource</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00146_html"><div class="ttname"><a href="a00146.html">GarbageCollector.hpp</a></div></div>
+<div class="ttc" id="aa00164_html"><div class="ttname"><a href="a00164.html">ResourceManager.hpp</a></div></div>
+<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04830_html_a772009bb487d321e8bd0d6fef65cd701"><div class="ttname"><a href="a04830.html#a772009bb487d321e8bd0d6fef65cd701">bl::resource::ResourceManagerBase::unregister</a></div><div class="ttdeci">void unregister()</div><div class="ttdef"><b>Definition</b> <a href="a01589_source.html#l00014">ResourceManager.cpp:14</a></div></div>
+<div class="ttc" id="aa04830_html_aa056d7f00c7176bf9f0871883a02b9ca"><div class="ttname"><a href="a04830.html#aa056d7f00c7176bf9f0871883a02b9ca">bl::resource::ResourceManagerBase::setGCPeriod</a></div><div class="ttdeci">void setGCPeriod(unsigned int period)</div><div class="ttdef"><b>Definition</b> <a href="a01589_source.html#l00016">ResourceManager.cpp:16</a></div></div>
+<div class="ttc" id="aa04830_html_aefb504334dee80cd3692d5cd7492c48e"><div class="ttname"><a href="a04830.html#aefb504334dee80cd3692d5cd7492c48e">bl::resource::ResourceManagerBase::ResourceManagerBase</a></div><div class="ttdeci">ResourceManagerBase()</div><div class="ttdef"><b>Definition</b> <a href="a01589_source.html#l00009">ResourceManager.cpp:9</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

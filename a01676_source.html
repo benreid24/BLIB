@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Util/ImageStitcher.cpp Source File</title>
+<title>BLIB: src/Engine/Flags.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,94 +79,51 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3e37c3eecdc42aac03248fab5c81cb58.html">Util</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">ImageStitcher.cpp</div></div>
+  <div class="headertitle"><div class="title">Flags.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01676.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00422.html">BLIB/Util/ImageStitcher.hpp</a>&gt;</span></div>
+<a href="a01676.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a06385.html">BLIB/Engine/Flags.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a06691.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;limits&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02360.html">bl</a></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>util</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="foldopen" id="foldopen00010" data-start="{" data-end="}">
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="a05219.html#ac8e74bc718f7801e069d12700afc1776">   10</a></span><a class="code hl_function" href="a05219.html#ab387134964eba43d367d2b6bdfe0b0af">ImageStitcher::ImageStitcher</a>(<span class="keyword">const</span> <a class="code hl_class" href="a04239.html">rc::Renderer</a>&amp; renderer, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> padding)</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>: <a class="code hl_class" href="a05219.html">ImageStitcher</a>(renderer.vulkanState().physicalDeviceProperties.limits.maxImageDimension2D,</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>                padding) {}</div>
-</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="foldopen" id="foldopen00014" data-start="{" data-end="}">
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="a05219.html#ab387134964eba43d367d2b6bdfe0b0af">   14</a></span><a class="code hl_function" href="a05219.html#ab387134964eba43d367d2b6bdfe0b0af">ImageStitcher::ImageStitcher</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mw, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> padding)</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>: maxWidth(mw)</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>, padding(padding) {}</div>
-</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>engine</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">constexpr</span> std::uint32_t StateFlags =</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <a class="code hl_enumvalue" href="a03090.html#ae7955b695f60cd16d25d471f25029d8dafd37413afad2613e79b3d725c30147b9">Flags::PopState</a> | <a class="code hl_enumvalue" href="a03090.html#ae7955b695f60cd16d25d471f25029d8da9791dc5708a5a487e2626efe2e4a5a87">Flags::_priv_PushState</a> | <a class="code hl_enumvalue" href="a03090.html#ae7955b695f60cd16d25d471f25029d8da9615eccc4a0ae23cd7c339a58e8bcb2e">Flags::_priv_ReplaceState</a> | <a class="code hl_enumvalue" href="a03090.html#ae7955b695f60cd16d25d471f25029d8dadbeb889a6d0bd8a174aa2f787f83f39d">Flags::Terminate</a>;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>} <span class="comment">// namespace</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>Flags::Flags()</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>: flags(<a class="code hl_enumvalue" href="a02377.html#ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754">None</a>) {}</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a03090.html#a0ecf9b3771da20f26b5aeb5f3475eb00">   16</a></span><span class="keywordtype">void</span> Flags::set(<a class="code hl_enumeration" href="a03090.html#ae7955b695f60cd16d25d471f25029d8d">Flag</a> flag) { flags |= flag; }</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a05219.html#ad91c10b73470d6709aed6ac723d8354e">   18</a></span><span class="keyword">const</span> sf::Image&amp; <a class="code hl_function" href="a05219.html#ad91c10b73470d6709aed6ac723d8354e">ImageStitcher::getStitchedImage</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> image; }</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a03090.html#a062af9a6e0e642fcb4f5f3d1f1957b9b">   18</a></span><span class="keywordtype">bool</span> Flags::active(<a class="code hl_enumeration" href="a03090.html#ae7955b695f60cd16d25d471f25029d8d">Flag</a> flag)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> (flags &amp; flag) != 0; }</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="foldopen" id="foldopen00020" data-start="{" data-end="}">
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a05219.html#af6f4bfc07bb91772c53ce58d49dab7b7">   20</a></span>glm::u32vec2 <a class="code hl_function" href="a05219.html#af6f4bfc07bb91772c53ce58d49dab7b7">ImageStitcher::addImage</a>(<span class="keyword">const</span> sf::Image&amp; img) {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> maxRowHeight = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(img.getSize().y) * 2.f;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> bestRowDiff        = std::numeric_limits&lt;unsigned int&gt;::max();</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    Row* bestRow                    = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">for</span> (Row&amp; row : rows) {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordflow">if</span> (row.height &gt;= img.getSize().y &amp;&amp; row.height &lt;= maxRowHeight) {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            <span class="keywordflow">if</span> (row.width + img.getSize().x &lt;= maxWidth) {</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> diff = row.height - img.getSize().y;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>                <span class="keywordflow">if</span> (!bestRow || diff &lt; bestRowDiff) {</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>                    bestRow     = &amp;row;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                    bestRowDiff = diff;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                }</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            }</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        }</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">if</span> (!bestRow) {</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordflow">if</span> (image.getSize().y + img.getSize().y + padding &gt; maxWidth) {</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            <a class="code hl_define" href="a00230.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;New stitched image row will exceed maximum height&quot;</span>;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        }</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        bestRow = &amp;rows.emplace_back(image.getSize().y + padding, img.getSize().y);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    }</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">const</span> sf::Vector2u requiredSize(</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        std::max(image.getSize().x, bestRow-&gt;width + img.getSize().x + padding),</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        std::max(image.getSize().y, bestRow-&gt;y + bestRow-&gt;height));</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">if</span> (requiredSize.x &gt; image.getSize().x || requiredSize.y &gt; image.getSize().y) {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        sf::Image newImage;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        newImage.create(requiredSize.x, requiredSize.y, sf::Color::Transparent);</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        newImage.copy(image, 0, 0);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        image = std::move(newImage);</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    }</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keyword">const</span> glm::u32vec2 pos(bestRow-&gt;width + padding, bestRow-&gt;y);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    bestRow-&gt;width += img.getSize().x + padding;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    image.copy(img, pos.x, pos.y);</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordflow">return</span> pos;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>}</div>
-</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>} <span class="comment">// namespace util</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00230_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00230.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a00230_source.html#l00101">Logger.hpp:101</a></div></div>
-<div class="ttc" id="aa00422_html"><div class="ttname"><a href="a00422.html">ImageStitcher.hpp</a></div></div>
-<div class="ttc" id="aa02360_html"><div class="ttname"><a href="a02360.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01448_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04239_html"><div class="ttname"><a href="a04239.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a06691_source.html#l00042">Renderer.hpp:42</a></div></div>
-<div class="ttc" id="aa05219_html"><div class="ttname"><a href="a05219.html">bl::util::ImageStitcher</a></div><div class="ttdoc">Helper class to combine multiple images into one large atlas image.</div><div class="ttdef"><b>Definition</b> <a href="a00422_source.html#l00022">ImageStitcher.hpp:22</a></div></div>
-<div class="ttc" id="aa05219_html_ab387134964eba43d367d2b6bdfe0b0af"><div class="ttname"><a href="a05219.html#ab387134964eba43d367d2b6bdfe0b0af">bl::util::ImageStitcher::ImageStitcher</a></div><div class="ttdeci">ImageStitcher(unsigned int maxWidth, unsigned int padding=2)</div><div class="ttdoc">Creates the stitcher with the given max width and padding.</div><div class="ttdef"><b>Definition</b> <a href="a01676_source.html#l00014">ImageStitcher.cpp:14</a></div></div>
-<div class="ttc" id="aa05219_html_ad91c10b73470d6709aed6ac723d8354e"><div class="ttname"><a href="a05219.html#ad91c10b73470d6709aed6ac723d8354e">bl::util::ImageStitcher::getStitchedImage</a></div><div class="ttdeci">const sf::Image &amp; getStitchedImage() const</div><div class="ttdoc">Returns the combined image.</div><div class="ttdef"><b>Definition</b> <a href="a01676_source.html#l00018">ImageStitcher.cpp:18</a></div></div>
-<div class="ttc" id="aa05219_html_af6f4bfc07bb91772c53ce58d49dab7b7"><div class="ttname"><a href="a05219.html#af6f4bfc07bb91772c53ce58d49dab7b7">bl::util::ImageStitcher::addImage</a></div><div class="ttdeci">glm::u32vec2 addImage(const sf::Image &amp;img)</div><div class="ttdoc">Adds an image to the atlas and returns it's position in the atlas.</div><div class="ttdef"><b>Definition</b> <a href="a01676_source.html#l00020">ImageStitcher.cpp:20</a></div></div>
-<div class="ttc" id="aa06691_html"><div class="ttname"><a href="a06691.html">Renderer.hpp</a></div></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a03090.html#ae9b24580adb96ddf4288424b10cb5800">   20</a></span><span class="keywordtype">bool</span> Flags::stateChangeReady()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> (flags &amp; StateFlags) != 0; }</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keywordtype">void</span> Flags::clear() { flags = None; }</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>} <span class="comment">// namespace engine</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa02377_html_ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754"><div class="ttname"><a href="a02377.html#ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754">bl::ecs::Flags::None</a></div><div class="ttdeci">@ None</div><div class="ttdoc">The entity has no special flags.</div></div>
+<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03090_html_ae7955b695f60cd16d25d471f25029d8d"><div class="ttname"><a href="a03090.html#ae7955b695f60cd16d25d471f25029d8d">bl::engine::Flags::Flag</a></div><div class="ttdeci">Flag</div><div class="ttdoc">The flags that may be used to control the Engine.</div><div class="ttdef"><b>Definition</b> <a href="a06385_source.html#l00028">Flags.hpp:28</a></div></div>
+<div class="ttc" id="aa03090_html_ae7955b695f60cd16d25d471f25029d8da9615eccc4a0ae23cd7c339a58e8bcb2e"><div class="ttname"><a href="a03090.html#ae7955b695f60cd16d25d471f25029d8da9615eccc4a0ae23cd7c339a58e8bcb2e">bl::engine::Flags::_priv_ReplaceState</a></div><div class="ttdeci">@ _priv_ReplaceState</div><div class="ttdoc">Used internally by the engine, do not use directly.</div><div class="ttdef"><b>Definition</b> <a href="a06385_source.html#l00034">Flags.hpp:33</a></div></div>
+<div class="ttc" id="aa03090_html_ae7955b695f60cd16d25d471f25029d8da9791dc5708a5a487e2626efe2e4a5a87"><div class="ttname"><a href="a03090.html#ae7955b695f60cd16d25d471f25029d8da9791dc5708a5a487e2626efe2e4a5a87">bl::engine::Flags::_priv_PushState</a></div><div class="ttdeci">@ _priv_PushState</div><div class="ttdoc">Returns to the previous state. Terminates if no previous state.</div><div class="ttdef"><b>Definition</b> <a href="a06385_source.html#l00032">Flags.hpp:32</a></div></div>
+<div class="ttc" id="aa03090_html_ae7955b695f60cd16d25d471f25029d8dadbeb889a6d0bd8a174aa2f787f83f39d"><div class="ttname"><a href="a03090.html#ae7955b695f60cd16d25d471f25029d8dadbeb889a6d0bd8a174aa2f787f83f39d">bl::engine::Flags::Terminate</a></div><div class="ttdeci">@ Terminate</div><div class="ttdoc">Special value indicating that no flags are set.</div><div class="ttdef"><b>Definition</b> <a href="a06385_source.html#l00030">Flags.hpp:30</a></div></div>
+<div class="ttc" id="aa03090_html_ae7955b695f60cd16d25d471f25029d8dafd37413afad2613e79b3d725c30147b9"><div class="ttname"><a href="a03090.html#ae7955b695f60cd16d25d471f25029d8dafd37413afad2613e79b3d725c30147b9">bl::engine::Flags::PopState</a></div><div class="ttdeci">@ PopState</div><div class="ttdoc">Terminates the Engine's run() method.</div><div class="ttdef"><b>Definition</b> <a href="a06385_source.html#l00031">Flags.hpp:31</a></div></div>
+<div class="ttc" id="aa06385_html"><div class="ttname"><a href="a06385.html">Flags.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

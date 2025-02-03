@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Logging</title>
+<title>BLIB: src/Render/Descriptors/Builtin/SlideshowInstance.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -51,7 +51,6 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
-</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -73,32 +72,42 @@ $(function() {
 </div>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_c46d59b26ba1c7a895704386ecf9511b.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_1c9d8e1815e637956400971975ea0cfc.html">Builtin</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
-  <div class="headertitle"><div class="title">Logging</div></div>
+<a href="#namespaces">Namespaces</a>  </div>
+  <div class="headertitle"><div class="title">SlideshowInstance.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p>Structured logging with configurable outputs, predefined levels, and timestamps in local machine time or utc.  
-<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;<a class="el" href="a01424_source.html">BLIB/Render/Descriptors/Builtin/SlideshowInstance.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a06373_source.html">BLIB/Engine/Engine.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a06874_source.html">BLIB/Render/Config.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a06862_source.html">BLIB/Render/Renderer.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00260_source.html">BLIB/Systems/Animation2DSystem.hpp</a>&gt;</code><br />
+</div>
+<p><a href="a02342_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03727.html">bl::logging::Config</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global log config class. Stores the various output streams and their configured log levels. Loggers flush their output here. Logging is threadsafe, however none of the public methods are threadsafe.  <a href="a03727.html#details">More...</a><br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a02402" id="r_a02402"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02402.html">bl</a></td></tr>
+<tr class="memdesc:a02402"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03731.html">bl::logging::Logger</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Actual logging class. Provides several static methods to begin log output. Instances of <a class="el" href="a03731.html" title="Actual logging class. Provides several static methods to begin log output. Instances of Logger only l...">Logger</a> only live long enough to build the log line and flush it via the LoggerConfig singleton instance.  <a href="a03731.html#details">More...</a><br /></td></tr>
+<tr class="memitem:a02412" id="r_a02412"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02412.html">bl::rc</a></td></tr>
+<tr class="memdesc:a02412"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a04346.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02458" id="r_a02458"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02458.html">bl::rc::ds</a></td></tr>
+<tr class="memdesc:a02458"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and utilities for managing descriptor sets. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Structured logging with configurable outputs, predefined levels, and timestamps in local machine time or utc. </p>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

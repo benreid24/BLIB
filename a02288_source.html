@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Descriptors/Builtin/FadeEffectFactory.cpp Source File</title>
+<title>BLIB: src/Render/Vulkan/Pipeline.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,54 +79,151 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_c46d59b26ba1c7a895704386ecf9511b.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_1c9d8e1815e637956400971975ea0cfc.html">Builtin</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_2a24e9216d188d12785cf0650df1274b.html">Vulkan</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">FadeEffectFactory.cpp</div></div>
+  <div class="headertitle"><div class="title">Pipeline.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02288.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01397.html">BLIB/Render/Descriptors/Builtin/FadeEffectFactory.hpp</a>&gt;</span></div>
+<a href="a02288.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01289.html">BLIB/Render/Vulkan/Pipeline.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a06691.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a06862.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02360.html">bl</a></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>rc</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>ds</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>vk</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keywordtype">void</span> FadeEffectFactory::init(engine::Engine&amp;, Renderer&amp; renderer) {</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    vk::DescriptorPool::SetBindingInfo bindingInfo;</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="comment">// sampled image (fade factor is float push constant)</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    bindingInfo.bindings[0].binding            = 0;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    bindingInfo.bindings[0].descriptorCount    = 1;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    bindingInfo.bindings[0].descriptorType     = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    bindingInfo.bindings[0].pImmutableSamplers = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    bindingInfo.bindings[0].stageFlags         = VK_SHADER_STAGE_FRAGMENT_BIT;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    bindingInfo.bindingCount                   = 1;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <a class="code hl_variable" href="a04031.html#a272948ed73908bcc35626a495366cba6">descriptorSetLayout</a> = renderer.vulkanState().descriptorPool.createLayout(bindingInfo);</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>}</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>std::unique_ptr&lt;DescriptorSetInstance&gt; FadeEffectFactory::createDescriptorSet()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;No instances should be created for FadeEffectFactory&quot;</span>);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>std::type_index FadeEffectFactory::creates()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <span class="keyword">typeid</span>(void); }</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>} <span class="comment">// namespace ds</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01397_html"><div class="ttname"><a href="a01397.html">FadeEffectFactory.hpp</a></div></div>
-<div class="ttc" id="aa02360_html"><div class="ttname"><a href="a02360.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01448_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04031_html_a272948ed73908bcc35626a495366cba6"><div class="ttname"><a href="a04031.html#a272948ed73908bcc35626a495366cba6">bl::rc::ds::DescriptorSetFactory::descriptorSetLayout</a></div><div class="ttdeci">VkDescriptorSetLayout descriptorSetLayout</div><div class="ttdef"><b>Definition</b> <a href="a06676_source.html#l00066">DescriptorSetFactory.hpp:66</a></div></div>
-<div class="ttc" id="aa06691_html"><div class="ttname"><a href="a06691.html">Renderer.hpp</a></div></div>
+<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="a04590.html#a887391831897bc7460f51f5986eac126">   11</a></span><a class="code hl_function" href="a04590.html#a887391831897bc7460f51f5986eac126">Pipeline::Pipeline</a>(<a class="code hl_class" href="a04346.html">Renderer</a>&amp; renderer, std::uint32_t <span class="keywordtype">id</span>, <a class="code hl_class" href="a04610.html">PipelineParameters</a>&amp;&amp; params)</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>: id(id)</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>, renderer(renderer)</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>, createParams(params) {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    pipelines.fill(<span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="comment">// create or fetch layout</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    layout = renderer.<a class="code hl_function" href="a04346.html#aa6e1520b62bd8f1daec35df801e9d8dd">pipelineLayoutCache</a>().<a class="code hl_function" href="a04374.html#a3d82ee894d5246ffb5422326d659452a">getLayout</a>(std::move(params.layoutParams));</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="comment">// fill pipelines with nullptr</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    pipelines.fill(<span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}</div>
+</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="foldopen" id="foldopen00024" data-start="{" data-end="}">
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a04590.html#a1d57975a718d565a44e8c07c95332326">   24</a></span><a class="code hl_function" href="a04590.html#a1d57975a718d565a44e8c07c95332326">Pipeline::~Pipeline</a>() {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> pipeline : pipelines) {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordflow">if</span> (pipeline != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            vkDestroyPipeline(renderer.<a class="code hl_function" href="a04346.html#afdefecf57155696e1523bb6b256fc8bd">vulkanState</a>().<a class="code hl_variable" href="a04694.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, pipeline, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        }</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    }</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
+</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="foldopen" id="foldopen00032" data-start="{" data-end="}">
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a04590.html#a4dbf56eca4795bb6bae91f2c7fb4e330">   32</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04590.html#a4dbf56eca4795bb6bae91f2c7fb4e330">Pipeline::bind</a>(VkCommandBuffer commandBuffer, std::uint32_t renderPassId) {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordflow">if</span> (!pipelines[renderPassId]) { createForRenderPass(renderPassId); }</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelines[renderPassId]);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}</div>
+</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keywordtype">void</span> Pipeline::createForRenderPass(std::uint32_t rpid) {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="comment">// Load shaders</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <a class="code hl_class" href="a02842.html">ctr::StaticVector&lt;VkPipelineShaderStageCreateInfo, 5&gt;</a> shaderStages;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; shader : createParams.shaders) {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        shaderStages.<a class="code hl_function" href="a02842.html#a915cf93bc46819d0361448fad7c5ddf0">push_back</a>({});</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        shaderStages.<a class="code hl_function" href="a02842.html#a8ee5bad16ad74a58646588fa190b07c6">back</a>().sType  = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        shaderStages.<a class="code hl_function" href="a02842.html#a8ee5bad16ad74a58646588fa190b07c6">back</a>().stage  = shader.stage;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        shaderStages.<a class="code hl_function" href="a02842.html#a8ee5bad16ad74a58646588fa190b07c6">back</a>().module = renderer.<a class="code hl_function" href="a04346.html#afdefecf57155696e1523bb6b256fc8bd">vulkanState</a>().<a class="code hl_variable" href="a04694.html#a34e7c2be0ebbc7d63ef38c74273fa7a3">shaderCache</a>.<a class="code hl_function" href="a04394.html#ad10d56d22b2735a5c105b46130ca3bad">loadShader</a>(shader.path);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        shaderStages.<a class="code hl_function" href="a02842.html#a8ee5bad16ad74a58646588fa190b07c6">back</a>().pName  = shader.entrypoint.c_str();</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    }</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="comment">// Configure vertices</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    VkPipelineVertexInputStateCreateInfo vertexInputInfo{};</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    vertexInputInfo.vertexBindingDescriptionCount   = 1;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    vertexInputInfo.pVertexBindingDescriptions      = &amp;createParams.vertexBinding;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    vertexInputInfo.vertexAttributeDescriptionCount = createParams.vertexAttributes.<a class="code hl_function" href="a02842.html#a193bce5b1c717bf9126271f837501bce">size</a>();</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    vertexInputInfo.pVertexAttributeDescriptions    = createParams.vertexAttributes.<a class="code hl_function" href="a02842.html#a2a14c8d01a362b4190eab550a107051d">data</a>();</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="comment">// Configure primitives</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    VkPipelineInputAssemblyStateCreateInfo inputAssembly{};</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    inputAssembly.sType    = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    inputAssembly.topology = createParams.primitiveType;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    inputAssembly.primitiveRestartEnable = VK_FALSE;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="comment">// Always have 1 dynamic viewport and scissor</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    VkPipelineViewportStateCreateInfo viewportState{};</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    viewportState.sType         = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    viewportState.viewportCount = 1;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    viewportState.scissorCount  = 1;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="comment">// Dynamic states</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    VkPipelineDynamicStateCreateInfo dynamicState{};</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    dynamicState.sType             = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    dynamicState.dynamicStateCount = createParams.dynamicStates.<a class="code hl_function" href="a02842.html#a193bce5b1c717bf9126271f837501bce">size</a>();</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    dynamicState.pDynamicStates    = createParams.dynamicStates.<a class="code hl_function" href="a02842.html#a2a14c8d01a362b4190eab550a107051d">data</a>();</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    VkGraphicsPipelineCreateInfo pipelineInfo{};</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    pipelineInfo.sType               = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    pipelineInfo.stageCount          = shaderStages.<a class="code hl_function" href="a02842.html#a193bce5b1c717bf9126271f837501bce">size</a>();</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    pipelineInfo.pStages             = shaderStages.<a class="code hl_function" href="a02842.html#a2a14c8d01a362b4190eab550a107051d">data</a>();</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    pipelineInfo.pVertexInputState   = &amp;vertexInputInfo;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    pipelineInfo.pInputAssemblyState = &amp;inputAssembly;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    pipelineInfo.pViewportState      = &amp;viewportState;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    pipelineInfo.pRasterizationState = &amp;createParams.rasterizer;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    pipelineInfo.pMultisampleState   = &amp;createParams.msaa;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    pipelineInfo.pDepthStencilState  = createParams.depthStencil;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    pipelineInfo.pColorBlendState    = &amp;createParams.colorBlending;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    pipelineInfo.pDynamicState       = &amp;dynamicState;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    pipelineInfo.layout              = layout-&gt;<a class="code hl_function" href="a04594.html#aed1aaaea447ae45a2c6799e5ecb3fa56">rawLayout</a>();</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    pipelineInfo.subpass             = 0;              <span class="comment">// TODO - consider dynamic subpass if needed</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    pipelineInfo.basePipelineHandle  = VK_NULL_HANDLE; <span class="comment">// Optional</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    pipelineInfo.basePipelineIndex   = -1;             <span class="comment">// Optional</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    pipelineInfo.renderPass = renderer.<a class="code hl_function" href="a04346.html#a78088be551b272e054fc4034b5aaf31e">renderPassCache</a>().<a class="code hl_function" href="a04378.html#ad075fee264f0adfeb7c93a8133cf877f">getRenderPass</a>(rpid).<a class="code hl_function" href="a04626.html#a2b408d041da558b67ed167df55f17339">rawPass</a>();</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keywordflow">if</span> (vkCreateGraphicsPipelines(renderer.<a class="code hl_function" href="a04346.html#afdefecf57155696e1523bb6b256fc8bd">vulkanState</a>().<a class="code hl_variable" href="a04694.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>,</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                                  VK_NULL_HANDLE,</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                                  1,</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                                  &amp;pipelineInfo,</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>                                  <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>                                  &amp;pipelines[rpid]) != VK_SUCCESS) {</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to create graphics pipeline&quot;</span>);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    }</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>}</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>} <span class="comment">// namespace vk</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa01289_html"><div class="ttname"><a href="a01289.html">Pipeline.hpp</a></div></div>
+<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02842_html"><div class="ttname"><a href="a02842.html">bl::ctr::StaticVector</a></div><div class="ttdoc">Wrapper over std::array that provides a vector-like interface with a fixed capacity.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00020">StaticVector.hpp:20</a></div></div>
+<div class="ttc" id="aa02842_html_a193bce5b1c717bf9126271f837501bce"><div class="ttname"><a href="a02842.html#a193bce5b1c717bf9126271f837501bce">bl::ctr::StaticVector::size</a></div><div class="ttdeci">std::size_t size() const</div><div class="ttdoc">Returns the current number of elements in the vector.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00277">StaticVector.hpp:277</a></div></div>
+<div class="ttc" id="aa02842_html_a2a14c8d01a362b4190eab550a107051d"><div class="ttname"><a href="a02842.html#a2a14c8d01a362b4190eab550a107051d">bl::ctr::StaticVector::data</a></div><div class="ttdeci">T * data()</div><div class="ttdoc">Returns a pointer to the first element in the vector.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00318">StaticVector.hpp:318</a></div></div>
+<div class="ttc" id="aa02842_html_a8ee5bad16ad74a58646588fa190b07c6"><div class="ttname"><a href="a02842.html#a8ee5bad16ad74a58646588fa190b07c6">bl::ctr::StaticVector::back</a></div><div class="ttdeci">T &amp; back()</div><div class="ttdoc">Returns a reference to the last element in the vector.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00298">StaticVector.hpp:298</a></div></div>
+<div class="ttc" id="aa02842_html_a915cf93bc46819d0361448fad7c5ddf0"><div class="ttname"><a href="a02842.html#a915cf93bc46819d0361448fad7c5ddf0">bl::ctr::StaticVector::push_back</a></div><div class="ttdeci">void push_back(const T &amp;value)</div><div class="ttdoc">Append a value to the end of the vector.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00203">StaticVector.hpp:203</a></div></div>
+<div class="ttc" id="aa04346_html"><div class="ttname"><a href="a04346.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a06862_source.html#l00043">Renderer.hpp:43</a></div></div>
+<div class="ttc" id="aa04346_html_a78088be551b272e054fc4034b5aaf31e"><div class="ttname"><a href="a04346.html#a78088be551b272e054fc4034b5aaf31e">bl::rc::Renderer::renderPassCache</a></div><div class="ttdeci">res::RenderPassCache &amp; renderPassCache()</div><div class="ttdoc">Returns the render pass cache of this renderer.</div><div class="ttdef"><b>Definition</b> <a href="a06862_source.html#l00269">Renderer.hpp:269</a></div></div>
+<div class="ttc" id="aa04346_html_aa6e1520b62bd8f1daec35df801e9d8dd"><div class="ttname"><a href="a04346.html#aa6e1520b62bd8f1daec35df801e9d8dd">bl::rc::Renderer::pipelineLayoutCache</a></div><div class="ttdeci">res::PipelineLayoutCache &amp; pipelineLayoutCache()</div><div class="ttdoc">Returns the pipeline layout cache of this renderer.</div><div class="ttdef"><b>Definition</b> <a href="a06862_source.html#l00275">Renderer.hpp:275</a></div></div>
+<div class="ttc" id="aa04346_html_afdefecf57155696e1523bb6b256fc8bd"><div class="ttname"><a href="a04346.html#afdefecf57155696e1523bb6b256fc8bd">bl::rc::Renderer::vulkanState</a></div><div class="ttdeci">vk::VulkanState &amp; vulkanState()</div><div class="ttdoc">Returns the Vulkan state of the renderer.</div><div class="ttdef"><b>Definition</b> <a href="a06862_source.html#l00261">Renderer.hpp:261</a></div></div>
+<div class="ttc" id="aa04374_html_a3d82ee894d5246ffb5422326d659452a"><div class="ttname"><a href="a04374.html#a3d82ee894d5246ffb5422326d659452a">bl::rc::res::PipelineLayoutCache::getLayout</a></div><div class="ttdeci">vk::PipelineLayout * getLayout(vk::PipelineLayout::LayoutParams &amp;&amp;params)</div><div class="ttdoc">Creates or fetches a layout that has the given creation parameters.</div><div class="ttdef"><b>Definition</b> <a href="a02099_source.html#l00013">PipelineLayoutCache.cpp:13</a></div></div>
+<div class="ttc" id="aa04378_html_ad075fee264f0adfeb7c93a8133cf877f"><div class="ttname"><a href="a04378.html#ad075fee264f0adfeb7c93a8133cf877f">bl::rc::res::RenderPassCache::getRenderPass</a></div><div class="ttdeci">vk::RenderPass &amp; getRenderPass(std::uint32_t renderPassId)</div><div class="ttdoc">Fetches the render pass with the given id. Throws an exception if the id does not exist yet....</div><div class="ttdef"><b>Definition</b> <a href="a02123_source.html#l00028">RenderPassCache.cpp:28</a></div></div>
+<div class="ttc" id="aa04394_html_ad10d56d22b2735a5c105b46130ca3bad"><div class="ttname"><a href="a04394.html#ad10d56d22b2735a5c105b46130ca3bad">bl::rc::res::ShaderModuleCache::loadShader</a></div><div class="ttdeci">VkShaderModule loadShader(const std::string &amp;path)</div><div class="ttdoc">Loads a new shader.</div><div class="ttdef"><b>Definition</b> <a href="a02102_source.html#l00016">ShaderModuleCache.cpp:16</a></div></div>
+<div class="ttc" id="aa04590_html_a1d57975a718d565a44e8c07c95332326"><div class="ttname"><a href="a04590.html#a1d57975a718d565a44e8c07c95332326">bl::rc::vk::Pipeline::~Pipeline</a></div><div class="ttdeci">~Pipeline()</div><div class="ttdoc">Destroy the Pipeline and frees Vulkan resources.</div><div class="ttdef"><b>Definition</b> <a href="a02288_source.html#l00024">Pipeline.cpp:24</a></div></div>
+<div class="ttc" id="aa04590_html_a4dbf56eca4795bb6bae91f2c7fb4e330"><div class="ttname"><a href="a04590.html#a4dbf56eca4795bb6bae91f2c7fb4e330">bl::rc::vk::Pipeline::bind</a></div><div class="ttdeci">void bind(VkCommandBuffer commandBuffer, std::uint32_t renderPassId)</div><div class="ttdoc">Issues the command to bind the pipeline.</div><div class="ttdef"><b>Definition</b> <a href="a02288_source.html#l00032">Pipeline.cpp:32</a></div></div>
+<div class="ttc" id="aa04590_html_a887391831897bc7460f51f5986eac126"><div class="ttname"><a href="a04590.html#a887391831897bc7460f51f5986eac126">bl::rc::vk::Pipeline::Pipeline</a></div><div class="ttdeci">Pipeline(Renderer &amp;renderer, std::uint32_t id, PipelineParameters &amp;&amp;params)</div><div class="ttdoc">Construct a new Pipeline.</div><div class="ttdef"><b>Definition</b> <a href="a02288_source.html#l00011">Pipeline.cpp:11</a></div></div>
+<div class="ttc" id="aa04594_html_aed1aaaea447ae45a2c6799e5ecb3fa56"><div class="ttname"><a href="a04594.html#aed1aaaea447ae45a2c6799e5ecb3fa56">bl::rc::vk::PipelineLayout::rawLayout</a></div><div class="ttdeci">constexpr VkPipelineLayout rawLayout() const</div><div class="ttdoc">Returns the Vulkan layout handle.</div><div class="ttdef"><b>Definition</b> <a href="a01313_source.html#l00189">PipelineLayout.hpp:189</a></div></div>
+<div class="ttc" id="aa04610_html"><div class="ttname"><a href="a04610.html">bl::rc::vk::PipelineParameters</a></div><div class="ttdoc">Parameters used to create a Pipeline. This class performs some basic validation and provides sane def...</div><div class="ttdef"><b>Definition</b> <a href="a01259_source.html#l00032">PipelineParameters.hpp:32</a></div></div>
+<div class="ttc" id="aa04626_html_a2b408d041da558b67ed167df55f17339"><div class="ttname"><a href="a04626.html#a2b408d041da558b67ed167df55f17339">bl::rc::vk::RenderPass::rawPass</a></div><div class="ttdeci">constexpr VkRenderPass rawPass() const</div><div class="ttdoc">Returns the Vulkan render pass handle.</div><div class="ttdef"><b>Definition</b> <a href="a01283_source.html#l00049">RenderPass.hpp:49</a></div></div>
+<div class="ttc" id="aa04694_html_a34e7c2be0ebbc7d63ef38c74273fa7a3"><div class="ttname"><a href="a04694.html#a34e7c2be0ebbc7d63ef38c74273fa7a3">bl::rc::vk::VulkanState::shaderCache</a></div><div class="ttdeci">res::ShaderModuleCache shaderCache</div><div class="ttdef"><b>Definition</b> <a href="a01319_source.html#l00228">VulkanState.hpp:228</a></div></div>
+<div class="ttc" id="aa04694_html_a6ad0249d08d9ffb87af35b42f11a1db5"><div class="ttname"><a href="a04694.html#a6ad0249d08d9ffb87af35b42f11a1db5">bl::rc::vk::VulkanState::device</a></div><div class="ttdeci">VkDevice device</div><div class="ttdef"><b>Definition</b> <a href="a01319_source.html#l00222">VulkanState.hpp:222</a></div></div>
+<div class="ttc" id="aa06862_html"><div class="ttname"><a href="a06862.html">Renderer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

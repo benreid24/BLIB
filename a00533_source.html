@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Events/Dispatcher.hpp Source File</title>
+<title>BLIB: include/BLIB/Events/ListenerImpl.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,116 +83,46 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Dispatcher.hpp</div></div>
+  <div class="headertitle"><div class="title">ListenerImpl.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00533.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_EVENTS_DISPATCHER_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_EVENTS_DISPATCHER_HPP</span></div>
+<a href="a00533.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_EVENTS_LISTENERIMPL_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_EVENTS_LISTENERIMPL_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a06229.html">BLIB/Events/Listener.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00542.html">BLIB/Events/SingleDispatcher.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00545.html">BLIB/Events/SubscribeHelpers.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a00479.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a00446.html">BLIB/Util/ReadWriteLock.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;mutex&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;shared_mutex&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;typeindex&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;unordered_set&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02360.html">bl</a></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
-<div class="foldopen" id="foldopen00020" data-start="{" data-end="}">
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a02385.html">   20</a></span><span class="keyword">namespace </span>event</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>{</div>
-<div class="foldopen" id="foldopen00022" data-start="{" data-end="}">
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a02386.html">   22</a></span><span class="keyword">namespace </span>priv</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>{</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">struct </span><a class="code hl_struct" href="a05403.html">ReserveOnStartupHelper</a>;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#ifndef BLIB_EVENTS_DISPATCHER_HPP</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#error &quot;Implementation file included out of order. Do not manually include&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>event</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
+<div class="foldopen" id="foldopen00013" data-start="{" data-end="}">
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="a03186.html#ab97aa9e4eb4dcdb8f571309a90796447">   13</a></span><a class="code hl_function" href="a03186.html#ab97aa9e4eb4dcdb8f571309a90796447">Listener&lt;TEvents...&gt;::Listener</a>()</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>: subscribed(false) {}</div>
 </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="foldopen" id="foldopen00037" data-start="{" data-end="};">
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="a03095.html">   37</a></span><span class="keyword">class </span><a class="code hl_class" href="a03095.html">Dispatcher</a> : <span class="keyword">private</span> <a class="code hl_class" href="a05235.html">util::NonCopyable</a> {</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03095.html#a36b6226eb7a776e0fc9c798689725bdc">subscribe</a>(<a class="code hl_class" href="a03107.html">Listener&lt;TEvents...&gt;</a>* listener, <span class="keywordtype">bool</span> defer = <span class="keyword">false</span>);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03095.html#a7d6b29860c56388036edd8a38f26a4c7">unsubscribe</a>(<a class="code hl_class" href="a03107.html">Listener&lt;TEvents...&gt;</a>* listener, <span class="keywordtype">bool</span> defer = <span class="keyword">false</span>);</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03095.html#a7e8186fd38d7cf4f57fffaaaf7f8cb80">dispatch</a>(<span class="keyword">const</span> T&amp; event);</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03095.html#ac7b00210042e2dd107ebbbf3ce7a2c8f">syncListeners</a>();</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03095.html#a34fde267ef1ef9b3bc71d7233556fd5a">clearAllListeners</a>();</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keyword">static</span> std::mutex dispatcherLock;</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keyword">static</span> std::vector&lt;priv::SingleDispatcherBase*&gt; dispatchers;</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="a03095.html#ab2b6a71a292609980a8839f1e83d14c2">   87</a></span>    <span class="keyword">friend</span> <span class="keyword">struct </span><a class="code hl_struct" href="a05403.html">priv::ReserveOnStartupHelper</a>;</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>};</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
+<div class="foldopen" id="foldopen00017" data-start="{" data-end="}">
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a03186.html#a86f9cc35c59d1a12d10d3798405bdd40">   17</a></span><a class="code hl_function" href="a03186.html#a86f9cc35c59d1a12d10d3798405bdd40">Listener&lt;TEvents...&gt;::~Listener</a>() {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordflow">if</span> (subscribed) { <a class="code hl_function" href="a03174.html#a7d6b29860c56388036edd8a38f26a4c7">Dispatcher::unsubscribe</a>(<span class="keyword">this</span>); }</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>}</div>
 </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
-<div class="foldopen" id="foldopen00093" data-start="{" data-end="}">
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="a03095.html#a36b6226eb7a776e0fc9c798689725bdc">   93</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03095.html#a36b6226eb7a776e0fc9c798689725bdc">Dispatcher::subscribe</a>(<a class="code hl_class" href="a03107.html">Listener&lt;TEvents...&gt;</a>* listener, <span class="keywordtype">bool</span> defer) {</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <a class="code hl_struct" href="a03127.html">priv::SubscriberHelper</a>&lt;TEvents...&gt; subscriber(dispatchers, dispatcherLock, listener, defer);</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    listener-&gt;subscribed = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>}</div>
-</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00099" data-start="{" data-end="}">
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="a03095.html#a7e8186fd38d7cf4f57fffaaaf7f8cb80">   99</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03095.html#a7e8186fd38d7cf4f57fffaaaf7f8cb80">Dispatcher::dispatch</a>(<span class="keyword">const</span> T&amp; event) {</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <a class="code hl_class" href="a03119.html">priv::SingleDispatcher&lt;T&gt;::get</a>(dispatchers, dispatcherLock).dispatch(event);</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>}</div>
-</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
-<div class="foldopen" id="foldopen00104" data-start="{" data-end="}">
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="a03095.html#a7d6b29860c56388036edd8a38f26a4c7">  104</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03095.html#a7d6b29860c56388036edd8a38f26a4c7">Dispatcher::unsubscribe</a>(<a class="code hl_class" href="a03107.html">Listener&lt;TEvents...&gt;</a>* listener, <span class="keywordtype">bool</span> defer) {</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <a class="code hl_struct" href="a03135.html">priv::UnSubscriberHelper</a>&lt;TEvents...&gt; subscriber(dispatchers, dispatcherLock, listener, defer);</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    listener-&gt;subscribed = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>}</div>
-</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>} <span class="comment">// namespace event</span></div>
-</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="preprocessor">#include &lt;<a class="code" href="a00536.html">BLIB/Events/ListenerImpl.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00446_html"><div class="ttname"><a href="a00446.html">ReadWriteLock.hpp</a></div></div>
-<div class="ttc" id="aa00479_html"><div class="ttname"><a href="a00479.html">NonCopyable.hpp</a></div></div>
-<div class="ttc" id="aa00536_html"><div class="ttname"><a href="a00536.html">ListenerImpl.hpp</a></div></div>
-<div class="ttc" id="aa00542_html"><div class="ttname"><a href="a00542.html">SingleDispatcher.hpp</a></div></div>
-<div class="ttc" id="aa00545_html"><div class="ttname"><a href="a00545.html">SubscribeHelpers.hpp</a></div></div>
-<div class="ttc" id="aa02360_html"><div class="ttname"><a href="a02360.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01448_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03095_html"><div class="ttname"><a href="a03095.html">bl::event::Dispatcher</a></div><div class="ttdoc">Event dispatcher capable of handling events of many different types. The dispatcher is threadsafe....</div><div class="ttdef"><b>Definition</b> <a href="a00533_source.html#l00037">Dispatcher.hpp:37</a></div></div>
-<div class="ttc" id="aa03095_html_a34fde267ef1ef9b3bc71d7233556fd5a"><div class="ttname"><a href="a03095.html#a34fde267ef1ef9b3bc71d7233556fd5a">bl::event::Dispatcher::clearAllListeners</a></div><div class="ttdeci">static void clearAllListeners()</div><div class="ttdoc">Removes all listeners from the subscription queues. Meant mostly for unit test cleanup but may have o...</div><div class="ttdef"><b>Definition</b> <a href="a01739_source.html#l00023">Dispatcher.cpp:23</a></div></div>
-<div class="ttc" id="aa03095_html_a36b6226eb7a776e0fc9c798689725bdc"><div class="ttname"><a href="a03095.html#a36b6226eb7a776e0fc9c798689725bdc">bl::event::Dispatcher::subscribe</a></div><div class="ttdeci">static void subscribe(Listener&lt; TEvents... &gt; *listener, bool defer=false)</div><div class="ttdoc">Subscribe the given listener to the event stream for the event types given.</div><div class="ttdef"><b>Definition</b> <a href="a00533_source.html#l00093">Dispatcher.hpp:93</a></div></div>
-<div class="ttc" id="aa03095_html_a7d6b29860c56388036edd8a38f26a4c7"><div class="ttname"><a href="a03095.html#a7d6b29860c56388036edd8a38f26a4c7">bl::event::Dispatcher::unsubscribe</a></div><div class="ttdeci">static void unsubscribe(Listener&lt; TEvents... &gt; *listener, bool defer=false)</div><div class="ttdoc">Removes the given listener and prevents it from receiving any more events.</div><div class="ttdef"><b>Definition</b> <a href="a00533_source.html#l00104">Dispatcher.hpp:104</a></div></div>
-<div class="ttc" id="aa03095_html_a7e8186fd38d7cf4f57fffaaaf7f8cb80"><div class="ttname"><a href="a03095.html#a7e8186fd38d7cf4f57fffaaaf7f8cb80">bl::event::Dispatcher::dispatch</a></div><div class="ttdeci">static void dispatch(const T &amp;event)</div><div class="ttdoc">Dispatches the given event to each listener that is subscribed to that type of event.</div><div class="ttdef"><b>Definition</b> <a href="a00533_source.html#l00099">Dispatcher.hpp:99</a></div></div>
-<div class="ttc" id="aa03095_html_ac7b00210042e2dd107ebbbf3ce7a2c8f"><div class="ttname"><a href="a03095.html#ac7b00210042e2dd107ebbbf3ce7a2c8f">bl::event::Dispatcher::syncListeners</a></div><div class="ttdeci">static void syncListeners()</div><div class="ttdoc">Synchronizes the listener buses. Called once per update cycle by the engine.</div><div class="ttdef"><b>Definition</b> <a href="a01739_source.html#l00017">Dispatcher.cpp:17</a></div></div>
-<div class="ttc" id="aa03107_html"><div class="ttname"><a href="a03107.html">bl::event::Listener</a></div><div class="ttdoc">Listener of multiple event types. Listeners should inherit this class with the types of events they w...</div><div class="ttdef"><b>Definition</b> <a href="a06229_source.html#l00049">Listener.hpp:49</a></div></div>
-<div class="ttc" id="aa03119_html"><div class="ttname"><a href="a03119.html">bl::event::priv::SingleDispatcher</a></div><div class="ttdef"><b>Definition</b> <a href="a00542_source.html#l00026">SingleDispatcher.hpp:26</a></div></div>
-<div class="ttc" id="aa03127_html"><div class="ttname"><a href="a03127.html">bl::event::priv::SubscriberHelper</a></div><div class="ttdef"><b>Definition</b> <a href="a00545_source.html#l00020">SubscribeHelpers.hpp:20</a></div></div>
-<div class="ttc" id="aa03135_html"><div class="ttname"><a href="a03135.html">bl::event::priv::UnSubscriberHelper</a></div><div class="ttdef"><b>Definition</b> <a href="a00545_source.html#l00035">SubscribeHelpers.hpp:35</a></div></div>
-<div class="ttc" id="aa05235_html"><div class="ttname"><a href="a05235.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition</b> <a href="a00479_source.html#l00013">NonCopyable.hpp:13</a></div></div>
-<div class="ttc" id="aa05403_html"><div class="ttname"><a href="a05403.html">bl::event::priv::ReserveOnStartupHelper</a></div><div class="ttdef"><b>Definition</b> <a href="a01739_source.html#l00009">Dispatcher.cpp:9</a></div></div>
-<div class="ttc" id="aa06229_html"><div class="ttname"><a href="a06229.html">Listener.hpp</a></div></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>} <span class="comment">// namespace event</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03174_html_a7d6b29860c56388036edd8a38f26a4c7"><div class="ttname"><a href="a03174.html#a7d6b29860c56388036edd8a38f26a4c7">bl::event::Dispatcher::unsubscribe</a></div><div class="ttdeci">static void unsubscribe(Listener&lt; TEvents... &gt; *listener, bool defer=false)</div><div class="ttdoc">Removes the given listener and prevents it from receiving any more events.</div><div class="ttdef"><b>Definition</b> <a href="a00530_source.html#l00104">Dispatcher.hpp:104</a></div></div>
+<div class="ttc" id="aa03186_html_a86f9cc35c59d1a12d10d3798405bdd40"><div class="ttname"><a href="a03186.html#a86f9cc35c59d1a12d10d3798405bdd40">bl::event::Listener::~Listener</a></div><div class="ttdeci">virtual ~Listener()</div><div class="ttdoc">Destroy the Listener. Unsubscribes if still subscribed.</div><div class="ttdef"><b>Definition</b> <a href="a00533_source.html#l00017">ListenerImpl.hpp:17</a></div></div>
+<div class="ttc" id="aa03186_html_ab97aa9e4eb4dcdb8f571309a90796447"><div class="ttname"><a href="a03186.html#ab97aa9e4eb4dcdb8f571309a90796447">bl::event::Listener::Listener</a></div><div class="ttdeci">Listener()</div><div class="ttdoc">Construct a new Listener object.</div><div class="ttdef"><b>Definition</b> <a href="a00533_source.html#l00013">ListenerImpl.hpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

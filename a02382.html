@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::engine::event Namespace Reference</title>
+<title>BLIB: Input</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -51,6 +51,7 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -72,61 +73,132 @@ $(function() {
 </div>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="a02360.html">bl</a></li><li class="navelem"><a class="el" href="a02368.html">engine</a></li><li class="navelem"><a class="el" href="a02382.html">event</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
-  <div class="headertitle"><div class="title">bl::engine::event Namespace Reference</div></div>
+<a href="#groups">Modules</a> &#124;
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
+  <div class="headertitle"><div class="title">Input</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of <a class="el" href="a02967.html" title="Core engine class that owns engine resources and the main game loop.">Engine</a> events.  
-<a href="a02382.html#details">More...</a></p>
+<p>Input system for building event based control systems.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="groups" name="groups"></a>
+Modules</h2></td></tr>
+<tr class="memitem:a02396" id="r_a02396"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02396.html">Controllers</a></td></tr>
+<tr class="memdesc:a02396"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of constexpr configs for some common controllers (joysticks) <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02971.html">Paused</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when the engine is paused.  <a href="a02971.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03394.html">bl::input::Actor</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a single actor (player) that can give input. Listeners subscribe to a single actor for their input. Each actor has it's own control set and scheme.  <a href="a03394.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02975.html">PlayerAdded</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when a player is added to the engine.  <a href="a02975.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03398.html">bl::input::Configurator</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper to set controls from window events.  <a href="a03398.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02979.html">PlayerRemoved</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when a player is removed from the engine.  <a href="a02979.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03406.html">bl::input::Control</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a control in the input system. A <a class="el" href="a03406.html" title="Represents a control in the input system. A Control is a Trigger and a DispatchPolicy which fully def...">Control</a> is a <a class="el" href="a03454.html" title="Wrapper around keyboard and mouse buttons. Triggers activate Controls.">Trigger</a> and a DispatchPolicy which fully define the control and its behavior.  <a href="a03406.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02983.html">Resumed</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when the engine is resumed.  <a href="a02983.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03414.html">bl::input::controllers::Xbox360</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Some constansts for buttons and axes for an Xbox 360 controller. Tested on Windows. For the sticks left and up are negative. For the D-Pad left is negative but up is positive. For the triggers LT is positive and RT is negative.  <a href="a03414.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02987.html">Shutdown</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when the <a class="el" href="a02967.html" title="Core engine class that owns engine resources and the main game loop.">Engine</a> shuts down.  <a href="a02987.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03418.html">bl::input::DirectionalControl</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03406.html" title="Represents a control in the input system. A Control is a Trigger and a DispatchPolicy which fully def...">Control</a> data for a directional input.  <a href="a03418.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02991.html">Startup</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when the engine is first started.  <a href="a02991.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03426.html">bl::input::InputSystem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System for managing complex input workflows and maintaining a stack of subscribers to input based events.  <a href="a03426.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02995.html">StateChange</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when the engine switches states.  <a href="a02995.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03430.html">bl::input::Joystick</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper struct representing a full joystick for inputs.  <a href="a03430.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02999.html">WindowResized</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when the engine window is resized from a user event.  <a href="a02999.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03434.html">bl::input::Listener</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for input listeners that can subscribe to an <a class="el" href="a03394.html" title="Represents a single actor (player) that can give input. Listeners subscribe to a single actor for the...">Actor</a>. The base class keeps the input system updated if it gets copied, moved, or destructed.  <a href="a03434.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03003.html">WorldCreated</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when a world is created.  <a href="a03003.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03438.html">bl::input::ListenerBoundary</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper class that ignores and blocks all inputs. Use this as a backstop between menus/states to avoid inputs from leaking back to inactive listeners.  <a href="a03438.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03007.html">WorldDestroyed</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired just before a world is destroyed.  <a href="a03007.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03442.html">bl::input::MovementControl</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03406.html" title="Represents a control in the input system. A Control is a Trigger and a DispatchPolicy which fully def...">Control</a> data for a movement control (ie WASD or a joystick)  <a href="a03442.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03454.html">bl::input::Trigger</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper around keyboard and mouse buttons. Triggers activate Controls.  <a href="a03454.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03738.html">bl::menu::MovementDriver&lt; MovementControl, ActivateTrigger &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper class to receive user input from the InputSystem and drive a menu with it. Must be subscribed to an <a class="el" href="a03394.html" title="Represents a single actor (player) that can give input. Listeners subscribe to a single actor for the...">input::Actor</a> to work.  <a href="a03738.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03742.html">bl::menu::TriggerDriver&lt; UpTrigger, RightTrigger, DownTrigger, LeftTrigger, ActivateTrigger &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper class to receive user input from the InputSystem and drive a menu with it. Must be subscribed to an <a class="el" href="a03394.html" title="Represents a single actor (player) that can give input. Listeners subscribe to a single actor for the...">input::Actor</a> to work.  <a href="a03742.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga9b480cda76caba52b2ab392fea396ce3" id="r_ga9b480cda76caba52b2ab392fea396ce3"><td class="memItemLeft" align="right" valign="top">enum struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02382.html#ga9b480cda76caba52b2ab392fea396ce3">bl::input::DispatchType</a> { <br />
+&#160;&#160;<a class="el" href="a02382.html#gga9b480cda76caba52b2ab392fea396ce3a4d96fa471faee72faaa4f964a6ba1a59">bl::input::DispatchType::_INVALID</a>
+, <a class="el" href="a02382.html#gga9b480cda76caba52b2ab392fea396ce3a8fedffe1c43e73f34a3a78a88cef6a2f">bl::input::DispatchType::TriggerActivated</a>
+, <a class="el" href="a02382.html#gga9b480cda76caba52b2ab392fea396ce3af1e3a99580f4887a08a5ed8f06514ca1">bl::input::DispatchType::DirectionChanged</a>
+, <a class="el" href="a02382.html#gga9b480cda76caba52b2ab392fea396ce3a5714712617d87312d28599dbe656c610">bl::input::DispatchType::MovementUp</a>
+, <br />
+&#160;&#160;<a class="el" href="a02382.html#gga9b480cda76caba52b2ab392fea396ce3ac0d5d6c93aa5c0e51810fea4bab6e9dd">bl::input::DispatchType::MovementRight</a>
+, <a class="el" href="a02382.html#gga9b480cda76caba52b2ab392fea396ce3a54b19e0f3ef6c7d6518a228bac33bd19">bl::input::DispatchType::MovementDown</a>
+, <a class="el" href="a02382.html#gga9b480cda76caba52b2ab392fea396ce3a2167767cdca679d310f54992383aa9dc">bl::input::DispatchType::MovementLeft</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:ga9b480cda76caba52b2ab392fea396ce3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates if a control notification is the first activation of that control or if it is a repeated signal (ie sent every update loop while active). Also used for breaking down movement control events into directions usable by Menus.  <a href="a02382.html#ga9b480cda76caba52b2ab392fea396ce3">More...</a><br /></td></tr>
+<tr class="separator:ga9b480cda76caba52b2ab392fea396ce3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Collection of <a class="el" href="a02967.html" title="Core engine class that owns engine resources and the main game loop.">Engine</a> events. </p>
-</div></div><!-- contents -->
+<p>Input system for building event based control systems. </p>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="ga9b480cda76caba52b2ab392fea396ce3" name="ga9b480cda76caba52b2ab392fea396ce3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9b480cda76caba52b2ab392fea396ce3">&#9670;&#160;</a></span>DispatchType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum struct <a class="el" href="a02382.html#ga9b480cda76caba52b2ab392fea396ce3">bl::input::DispatchType</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Indicates if a control notification is the first activation of that control or if it is a repeated signal (ie sent every update loop while active). Also used for breaking down movement control events into directions usable by Menus. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga9b480cda76caba52b2ab392fea396ce3a4d96fa471faee72faaa4f964a6ba1a59" name="gga9b480cda76caba52b2ab392fea396ce3a4d96fa471faee72faaa4f964a6ba1a59"></a>_INVALID&#160;</td><td class="fielddoc"><p>Used internally only. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga9b480cda76caba52b2ab392fea396ce3a8fedffe1c43e73f34a3a78a88cef6a2f" name="gga9b480cda76caba52b2ab392fea396ce3a8fedffe1c43e73f34a3a78a88cef6a2f"></a>TriggerActivated&#160;</td><td class="fielddoc"><p>The a trigger control was activated by an event. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga9b480cda76caba52b2ab392fea396ce3af1e3a99580f4887a08a5ed8f06514ca1" name="gga9b480cda76caba52b2ab392fea396ce3af1e3a99580f4887a08a5ed8f06514ca1"></a>DirectionChanged&#160;</td><td class="fielddoc"><p>The directional control changed values. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga9b480cda76caba52b2ab392fea396ce3a5714712617d87312d28599dbe656c610" name="gga9b480cda76caba52b2ab392fea396ce3a5714712617d87312d28599dbe656c610"></a>MovementUp&#160;</td><td class="fielddoc"><p>Movement control was activated in the up/forward direction. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga9b480cda76caba52b2ab392fea396ce3ac0d5d6c93aa5c0e51810fea4bab6e9dd" name="gga9b480cda76caba52b2ab392fea396ce3ac0d5d6c93aa5c0e51810fea4bab6e9dd"></a>MovementRight&#160;</td><td class="fielddoc"><p>Movement control was activated in the right direction. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga9b480cda76caba52b2ab392fea396ce3a54b19e0f3ef6c7d6518a228bac33bd19" name="gga9b480cda76caba52b2ab392fea396ce3a54b19e0f3ef6c7d6518a228bac33bd19"></a>MovementDown&#160;</td><td class="fielddoc"><p>Movement control was activated in the down/backward direction. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga9b480cda76caba52b2ab392fea396ce3a2167767cdca679d310f54992383aa9dc" name="gga9b480cda76caba52b2ab392fea396ce3a2167767cdca679d310f54992383aa9dc"></a>MovementLeft&#160;</td><td class="fielddoc"><p>Movement control was activated in the left direction. </p>
+</td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a00197_source.html#l00016">16</a> of file <a class="el" href="a00197_source.html">DispatchType.hpp</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

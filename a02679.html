@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::ctr::FastEraseVector&lt; T, Alloc &gt; Class Template Reference</title>
+<title>BLIB: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,145 +74,41 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02360.html">bl</a></li><li class="navelem"><a class="el" href="a02374.html">ctr</a></li><li class="navelem"><a class="el" href="a02679.html">FastEraseVector</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02411.html">com</a></li><li class="navelem"><a class="el" href="a02682.html">Shape2D</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="a02676.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::ctr::FastEraseVector&lt; T, Alloc &gt; Class Template Reference<div class="ingroups"><a class="el" href="a02334.html">Containers</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::com::Shape2D Member List</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>A thin reskin of std::vector, this vector replaces the O(n) <a class="el" href="a02679.html#a2311c45c3a001bf19a0e1ba03d66413a" title="Erase a single element using an iterator.">erase()</a> methods of vector with a constant time implementation. It works by copying the last item into the position being erased, then popping the last item. This vector works best for items that are trivial to copy.  
- <a href="a02679.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00575_source.html">FastEraseVector.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::ctr::FastEraseVector&lt; T, Alloc &gt;:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a02679.png" alt=""/>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a8ecb676ceae1d63d038aeaf1027fc3ea" id="r_a8ecb676ceae1d63d038aeaf1027fc3ea"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02679.html#a8ecb676ceae1d63d038aeaf1027fc3ea">iterator</a> = typename std::vector&lt; T, Alloc &gt;::iterator</td></tr>
-<tr class="separator:a8ecb676ceae1d63d038aeaf1027fc3ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a2311c45c3a001bf19a0e1ba03d66413a" id="r_a2311c45c3a001bf19a0e1ba03d66413a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02679.html#a2311c45c3a001bf19a0e1ba03d66413a">erase</a> (<a class="el" href="a02679.html#a8ecb676ceae1d63d038aeaf1027fc3ea">iterator</a> position)</td></tr>
-<tr class="memdesc:a2311c45c3a001bf19a0e1ba03d66413a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erase a single element using an iterator.  <br /></td></tr>
-<tr class="separator:a2311c45c3a001bf19a0e1ba03d66413a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2221d0efbe90ad0537e905e81bd6847e" id="r_a2221d0efbe90ad0537e905e81bd6847e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02679.html#a2221d0efbe90ad0537e905e81bd6847e">erase</a> (std::size_t index)</td></tr>
-<tr class="memdesc:a2221d0efbe90ad0537e905e81bd6847e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erase a single element using an index.  <br /></td></tr>
-<tr class="separator:a2221d0efbe90ad0537e905e81bd6847e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;class T, class Alloc = std::allocator&lt;T&gt;&gt;<br />
-class bl::ctr::FastEraseVector&lt; T, Alloc &gt;</div><p>A thin reskin of std::vector, this vector replaces the O(n) <a class="el" href="a02679.html#a2311c45c3a001bf19a0e1ba03d66413a" title="Erase a single element using an iterator.">erase()</a> methods of vector with a constant time implementation. It works by copying the last item into the position being erased, then popping the last item. This vector works best for items that are trivial to copy. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>Type of object to store </td></tr>
-    <tr><td class="paramname">Alloc</td><td>Allocator type to use, defaults to std::allocator&lt;T&gt; </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00575_source.html#l00022">22</a> of file <a class="el" href="a00575_source.html">FastEraseVector.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a8ecb676ceae1d63d038aeaf1027fc3ea" name="a8ecb676ceae1d63d038aeaf1027fc3ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8ecb676ceae1d63d038aeaf1027fc3ea">&#9670;&#160;</a></span>iterator</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T , class Alloc  = std::allocator&lt;T&gt;&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a02679.html">bl::ctr::FastEraseVector</a>&lt; T, Alloc &gt;::iterator =  typename std::vector&lt;T, Alloc&gt;::iterator</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00575_source.html#l00024">24</a> of file <a class="el" href="a00575_source.html">FastEraseVector.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2311c45c3a001bf19a0e1ba03d66413a" name="a2311c45c3a001bf19a0e1ba03d66413a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2311c45c3a001bf19a0e1ba03d66413a">&#9670;&#160;</a></span>erase() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T , class Alloc &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a02679.html">bl::ctr::FastEraseVector</a>&lt; T, Alloc &gt;::erase </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02679.html#a8ecb676ceae1d63d038aeaf1027fc3ea">iterator</a>&#160;</td>
-          <td class="paramname"><em>position</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Erase a single element using an iterator. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">position</td><td>Element to erase </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00575_source.html#l00044">44</a> of file <a class="el" href="a00575_source.html">FastEraseVector.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a2221d0efbe90ad0537e905e81bd6847e" name="a2221d0efbe90ad0537e905e81bd6847e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2221d0efbe90ad0537e905e81bd6847e">&#9670;&#160;</a></span>erase() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T , class Alloc &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a02679.html">bl::ctr::FastEraseVector</a>&lt; T, Alloc &gt;::erase </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>index</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Erase a single element using an index. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">position</td><td>Element to erase </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00575_source.html#l00050">50</a> of file <a class="el" href="a00575_source.html">FastEraseVector.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Containers/<a class="el" href="a00575_source.html">FastEraseVector.hpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a02682.html">bl::com::Shape2D</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a04030.html#a8882b94c4192bbb155516e890d407fa5">addToScene</a>(ecs::Registry &amp;ecs, ecs::Entity entity, Scene *scene, UpdateSpeed updateSpeed)</td><td class="entry"><a class="el" href="a04030.html">bl::rc::rcom::DrawableBase</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a02682.html#a7a8cb9a0336647802f8f3ba7072511a7">commit</a>()</td><td class="entry"><a class="el" href="a02682.html">bl::com::Shape2D</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04030.html#aba09d98e0f8f44a23bd45f323771af5d">containsTransparency</a></td><td class="entry"><a class="el" href="a04030.html">bl::rc::rcom::DrawableBase</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a04030.html#a03ee0c5d330728cbcf4311e90530c934">DrawableBase</a>()</td><td class="entry"><a class="el" href="a04030.html">bl::rc::rcom::DrawableBase</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04030.html#a9c3ad2caaf2846e720343ec52eaf1073">drawParams</a></td><td class="entry"><a class="el" href="a04030.html">bl::rc::rcom::DrawableBase</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a04030.html#ae45355f25423458c4c47fc73afee4c40">getContainsTransparency</a>() const</td><td class="entry"><a class="el" href="a04030.html">bl::rc::rcom::DrawableBase</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04030.html#acd260ae8ccd23ad287973753fd3b1e46">getCurrentPipeline</a>() const</td><td class="entry"><a class="el" href="a04030.html">bl::rc::rcom::DrawableBase</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a02682.html#a0ed4e74e72a2a3ac220afed9882d1b0f">getDefaultMaterialPipelineId</a>() const override</td><td class="entry"><a class="el" href="a02682.html">bl::com::Shape2D</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04030.html#a384850584e064dbe818d32c30b949882">getDrawParameters</a>() const</td><td class="entry"><a class="el" href="a04030.html">bl::rc::rcom::DrawableBase</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a04030.html#a8d43362deeda9fb67d70fefbeb31cd72">getDrawParametersForEdit</a>()</td><td class="entry"><a class="el" href="a04030.html">bl::rc::rcom::DrawableBase</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04030.html#a26b8ddd2d665d35d61b298aff9d3e09c">getSceneRef</a>() const</td><td class="entry"><a class="el" href="a04030.html">bl::rc::rcom::DrawableBase</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a02682.html#a63a225298268932d4e1799e37b2bf84d">indexBuffer</a></td><td class="entry"><a class="el" href="a02682.html">bl::com::Shape2D</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04030.html#ac6734cb46c6a01be5589c748b9956b9e">init</a>(com::MaterialInstance *material)</td><td class="entry"><a class="el" href="a04030.html">bl::rc::rcom::DrawableBase</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a04030.html#a58ebefb943d38f5240c8a0e98be4e9a3">isHidden</a>() const</td><td class="entry"><a class="el" href="a04030.html">bl::rc::rcom::DrawableBase</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04030.html#a90b4f7dc1b91ff4a26d69865187226ee">rebucket</a>()</td><td class="entry"><a class="el" href="a04030.html">bl::rc::rcom::DrawableBase</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a04030.html#ad8f60ae99d5d5498cceb480c981eae46">removeFromScene</a>(ecs::Registry &amp;ecs, ecs::Entity entity)</td><td class="entry"><a class="el" href="a04030.html">bl::rc::rcom::DrawableBase</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04030.html#a8bb8775f76513523c663e248a67e1d64">setContainsTransparency</a>(bool transparent)</td><td class="entry"><a class="el" href="a04030.html">bl::rc::rcom::DrawableBase</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a04030.html#aee0207a9ccc82d92bfd3a8059ceb4b73">setHidden</a>(bool hide)</td><td class="entry"><a class="el" href="a04030.html">bl::rc::rcom::DrawableBase</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04030.html#ab08990a036324010f3f4b620312b5370">syncDrawParamsToScene</a>()</td><td class="entry"><a class="el" href="a04030.html">bl::rc::rcom::DrawableBase</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a04030.html#a91e169c8cb2fba49c3732563cd73934c">~DrawableBase</a>()</td><td class="entry"><a class="el" href="a04030.html">bl::rc::rcom::DrawableBase</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

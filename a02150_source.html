@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Graph/Task.cpp Source File</title>
+<title>BLIB: src/Render/Scenes/SceneRenderContext.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,34 +79,128 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_7ebf59129457ae24134db92256c2545a.html">Graph</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_90555a6f6bc1bb4149f0b831943ef307.html">Scenes</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Task.cpp</div></div>
+  <div class="headertitle"><div class="title">SceneRenderContext.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02150.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01187.html">BLIB/Render/Graph/Task.hpp</a>&gt;</span></div>
+<a href="a02150.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01142.html">BLIB/Render/Scenes/SceneRenderContext.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02360.html">bl</a></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a01334.html">BLIB/Render/Buffers/IndexBuffer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>rg</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>rc</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a04179.html#a4a21c62dc186d4f548cbefde6c600e25">    9</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04179.html#a4a21c62dc186d4f548cbefde6c600e25">Task::update</a>(<span class="keywordtype">float</span>) {}</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>} <span class="comment">// namespace rg</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01187_html"><div class="ttname"><a href="a01187.html">Task.hpp</a></div></div>
-<div class="ttc" id="aa02360_html"><div class="ttname"><a href="a02360.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01448_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04179_html_a4a21c62dc186d4f548cbefde6c600e25"><div class="ttname"><a href="a04179.html#a4a21c62dc186d4f548cbefde6c600e25">bl::rc::rg::Task::update</a></div><div class="ttdeci">virtual void update(float dt)</div><div class="ttdoc">Called each frame with the elapsed time.</div><div class="ttdef"><b>Definition</b> <a href="a02150_source.html#l00009">Task.cpp:9</a></div></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>scene</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="a04490.html#ad91777bcc74aba2c24a101d9de8bfa49">   11</a></span><a class="code hl_function" href="a04490.html#ad91777bcc74aba2c24a101d9de8bfa49">SceneRenderContext::SceneRenderContext</a>(VkCommandBuffer commandBuffer, std::uint32_t observerIndex,</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>                                       <span class="keyword">const</span> VkViewport&amp; vp, <a class="code hl_enumeration" href="a02388.html#ga2046cc31338d7d8e2a4af56aa599986b">RenderPhase</a> phase, std::uint32_t rpid,</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>                                       <span class="keywordtype">bool</span> isrt)</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>: commandBuffer(commandBuffer)</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>, observerIndex(observerIndex)</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>, renderPhase(phase)</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>, prevVB(nullptr)</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>, prevIB(nullptr)</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>, boundSpeed(<a class="code hl_namespace" href="a02420.html">std</a>::numeric_limits&lt;<a class="code hl_enumeration" href="a02388.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a>&gt;::max())</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>, viewport(vp)</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>, renderPassId(rpid)</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>, isRenderTexture(isrt) {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    boundDescriptors.fill(<span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>}</div>
+</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="}">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="a04490.html#ad6456ea55829a550b6f9bd23de1324c0">   26</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04490.html#ad6456ea55829a550b6f9bd23de1324c0">SceneRenderContext::bindPipeline</a>(<a class="code hl_class" href="a04306.html">mat::MaterialPipeline</a>&amp; pipeline) {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    pipeline.<a class="code hl_function" href="a04306.html#a14d1dca3b55eb6b1b73bffe672af0c63">bind</a>(commandBuffer, renderPhase, renderPassId);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
+</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="foldopen" id="foldopen00030" data-start="{" data-end="}">
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a04490.html#a9f9dafa91dc6025a8ed7c4b4c5c12d3b">   30</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04490.html#a9f9dafa91dc6025a8ed7c4b4c5c12d3b">SceneRenderContext::bindDescriptors</a>(VkPipelineLayout layout, <a class="code hl_enumeration" href="a02388.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> speed,</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                                         <a class="code hl_class" href="a04126.html">ds::DescriptorSetInstance</a>** descriptors,</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                                         std::uint32_t descriptorCount) {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> speedChange = speed != boundSpeed;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordtype">bool</span> bind              = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; descriptorCount; ++i) {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordflow">if</span> (bind || descriptors[i] != boundDescriptors[i] ||</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            (descriptors[i]-&gt;needsRebindForNewSpeed() &amp;&amp; speedChange)) {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            bind                = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            boundDescriptors[i] = descriptors[i];</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            descriptors[i]-&gt;<a class="code hl_function" href="a04126.html#a149c32afd1bac4d5417412d41e11db53">bindForPipeline</a>(*<span class="keyword">this</span>, layout, i, speed);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        }</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    }</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    boundSpeed = speed;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}</div>
+</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="foldopen" id="foldopen00046" data-start="{" data-end="}">
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a04490.html#a25f6ac72e581b7ac3f387d14c51c8ab4">   46</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04490.html#a25f6ac72e581b7ac3f387d14c51c8ab4">SceneRenderContext::renderObject</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a04466.html">SceneObject</a>&amp; <span class="keywordtype">object</span>) {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">if</span> (prevVB != <span class="keywordtype">object</span>.drawParams.vertexBuffer) {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        prevVB = <span class="keywordtype">object</span>.drawParams.vertexBuffer;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        VkBuffer vertexBuffers[] = {<span class="keywordtype">object</span>.drawParams.vertexBuffer};</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        VkDeviceSize offsets[]   = {0};</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        vkCmdBindVertexBuffers(commandBuffer, 0, 1, vertexBuffers, offsets);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    }</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordflow">switch</span> (<span class="keywordtype">object</span>.drawParams.type) {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a04330.html#abe53ce802d2125e3553fd3c7fca439f8a10461f19cdb5aadba2fc9986be6400bd">prim::DrawParameters::DrawType::VertexBuffer</a>:</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        vkCmdDraw(commandBuffer,</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>                  <span class="keywordtype">object</span>.drawParams.vertexCount,</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                  <span class="keywordtype">object</span>.drawParams.instanceCount,</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                  <span class="keywordtype">object</span>.drawParams.vertexOffset,</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                  <span class="keywordtype">object</span>.drawParams.instanceCount == 1 ? <span class="keywordtype">object</span>.sceneKey.sceneId :</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>                                                         <span class="keywordtype">object</span>.drawParams.firstInstance);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a04330.html#abe53ce802d2125e3553fd3c7fca439f8a7c3895116254ff0417e58b6286de27c0">prim::DrawParameters::DrawType::IndexBuffer</a>:</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keywordflow">if</span> (prevIB != <span class="keywordtype">object</span>.drawParams.indexBuffer) {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            prevIB = <span class="keywordtype">object</span>.drawParams.indexBuffer;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            vkCmdBindIndexBuffer(</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                commandBuffer, <span class="keywordtype">object</span>.drawParams.indexBuffer, 0, <a class="code hl_variable" href="a03990.html#a97600659a596051a04944dbb357eb622">buf::IndexBuffer::IndexType</a>);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        }</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        vkCmdDrawIndexed(commandBuffer,</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                         <span class="keywordtype">object</span>.drawParams.indexCount,</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>                         <span class="keywordtype">object</span>.drawParams.instanceCount,</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                         <span class="keywordtype">object</span>.drawParams.indexOffset,</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                         <span class="keywordtype">object</span>.drawParams.vertexOffset,</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                         <span class="keywordtype">object</span>.drawParams.instanceCount == 1 ? <span class="keywordtype">object</span>.sceneKey.sceneId :</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                                                                <span class="keywordtype">object</span>.drawParams.firstInstance);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    }</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>}</div>
+</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>} <span class="comment">// namespace scene</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa01142_html"><div class="ttname"><a href="a01142.html">SceneRenderContext.hpp</a></div></div>
+<div class="ttc" id="aa01334_html"><div class="ttname"><a href="a01334.html">IndexBuffer.hpp</a></div></div>
+<div class="ttc" id="aa02388_html_ga2046cc31338d7d8e2a4af56aa599986b"><div class="ttname"><a href="a02388.html#ga2046cc31338d7d8e2a4af56aa599986b">bl::rc::RenderPhase</a></div><div class="ttdeci">RenderPhase</div><div class="ttdoc">Enum representing the different possible phases of rendering.</div><div class="ttdef"><b>Definition</b> <a href="a01064_source.html#l00020">RenderPhase.hpp:20</a></div></div>
+<div class="ttc" id="aa02388_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a02388.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition</b> <a href="a01163_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
+<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02420_html"><div class="ttname"><a href="a02420.html">std</a></div><div class="ttdef"><b>Definition</b> <a href="a00992_source.html#l00193">Entity.hpp:194</a></div></div>
+<div class="ttc" id="aa03990_html_a97600659a596051a04944dbb357eb622"><div class="ttname"><a href="a03990.html#a97600659a596051a04944dbb357eb622">bl::rc::buf::IndexBufferT::IndexType</a></div><div class="ttdeci">static constexpr VkIndexType IndexType</div><div class="ttdef"><b>Definition</b> <a href="a01334_source.html#l00028">IndexBuffer.hpp:28</a></div></div>
+<div class="ttc" id="aa04126_html"><div class="ttname"><a href="a04126.html">bl::rc::ds::DescriptorSetInstance</a></div><div class="ttdoc">Base class for descriptor sets that exist for each scene. Derived classes are created by DescriptorSe...</div><div class="ttdef"><b>Definition</b> <a href="a06853_source.html#l00030">DescriptorSetInstance.hpp:30</a></div></div>
+<div class="ttc" id="aa04126_html_a149c32afd1bac4d5417412d41e11db53"><div class="ttname"><a href="a04126.html#a149c32afd1bac4d5417412d41e11db53">bl::rc::ds::DescriptorSetInstance::bindForPipeline</a></div><div class="ttdeci">virtual void bindForPipeline(scene::SceneRenderContext &amp;ctx, VkPipelineLayout layout, std::uint32_t setIndex, UpdateSpeed updateFreq) const =0</div><div class="ttdoc">Called once after the pipeline is bound. This should bind the descriptor set.</div></div>
+<div class="ttc" id="aa04306_html"><div class="ttname"><a href="a04306.html">bl::rc::mat::MaterialPipeline</a></div><div class="ttdoc">Rendering pipeline for a material. Contains pipelines for each render phase.</div><div class="ttdef"><b>Definition</b> <a href="a01361_source.html#l00020">MaterialPipeline.hpp:20</a></div></div>
+<div class="ttc" id="aa04306_html_a14d1dca3b55eb6b1b73bffe672af0c63"><div class="ttname"><a href="a04306.html#a14d1dca3b55eb6b1b73bffe672af0c63">bl::rc::mat::MaterialPipeline::bind</a></div><div class="ttdeci">void bind(VkCommandBuffer commandBuffer, RenderPhase phase, std::uint32_t renderPassId)</div><div class="ttdoc">Binds the appropriate pipeline for the given render phase and render pass id.</div><div class="ttdef"><b>Definition</b> <a href="a02300_source.html#l00027">MaterialPipeline.cpp:27</a></div></div>
+<div class="ttc" id="aa04330_html_abe53ce802d2125e3553fd3c7fca439f8a10461f19cdb5aadba2fc9986be6400bd"><div class="ttname"><a href="a04330.html#abe53ce802d2125e3553fd3c7fca439f8a10461f19cdb5aadba2fc9986be6400bd">bl::rc::prim::DrawParameters::DrawType::VertexBuffer</a></div><div class="ttdeci">@ VertexBuffer</div></div>
+<div class="ttc" id="aa04330_html_abe53ce802d2125e3553fd3c7fca439f8a7c3895116254ff0417e58b6286de27c0"><div class="ttname"><a href="a04330.html#abe53ce802d2125e3553fd3c7fca439f8a7c3895116254ff0417e58b6286de27c0">bl::rc::prim::DrawParameters::DrawType::IndexBuffer</a></div><div class="ttdeci">@ IndexBuffer</div></div>
+<div class="ttc" id="aa04466_html"><div class="ttname"><a href="a04466.html">bl::rc::scene::SceneObject</a></div><div class="ttdoc">Base renderable object. Everything that is rendered will reference an instance of this....</div><div class="ttdef"><b>Definition</b> <a href="a01160_source.html#l00029">SceneObject.hpp:29</a></div></div>
+<div class="ttc" id="aa04490_html_a25f6ac72e581b7ac3f387d14c51c8ab4"><div class="ttname"><a href="a04490.html#a25f6ac72e581b7ac3f387d14c51c8ab4">bl::rc::scene::SceneRenderContext::renderObject</a></div><div class="ttdeci">void renderObject(const SceneObject &amp;object)</div><div class="ttdoc">Issues the required commands to render the given scene object.</div><div class="ttdef"><b>Definition</b> <a href="a02150_source.html#l00046">SceneRenderContext.cpp:46</a></div></div>
+<div class="ttc" id="aa04490_html_a9f9dafa91dc6025a8ed7c4b4c5c12d3b"><div class="ttname"><a href="a04490.html#a9f9dafa91dc6025a8ed7c4b4c5c12d3b">bl::rc::scene::SceneRenderContext::bindDescriptors</a></div><div class="ttdeci">void bindDescriptors(VkPipelineLayout layout, UpdateSpeed updateFreq, ds::DescriptorSetInstance **descriptors, std::uint32_t descriptorCount)</div><div class="ttdoc">Binds the given descriptors. Only issues bind commands for descriptors that changed from the last cal...</div><div class="ttdef"><b>Definition</b> <a href="a02150_source.html#l00030">SceneRenderContext.cpp:30</a></div></div>
+<div class="ttc" id="aa04490_html_ad6456ea55829a550b6f9bd23de1324c0"><div class="ttname"><a href="a04490.html#ad6456ea55829a550b6f9bd23de1324c0">bl::rc::scene::SceneRenderContext::bindPipeline</a></div><div class="ttdeci">void bindPipeline(mat::MaterialPipeline &amp;pipeline)</div><div class="ttdoc">Binds the given pipeline.</div><div class="ttdef"><b>Definition</b> <a href="a02150_source.html#l00026">SceneRenderContext.cpp:26</a></div></div>
+<div class="ttc" id="aa04490_html_ad91777bcc74aba2c24a101d9de8bfa49"><div class="ttname"><a href="a04490.html#ad91777bcc74aba2c24a101d9de8bfa49">bl::rc::scene::SceneRenderContext::SceneRenderContext</a></div><div class="ttdeci">SceneRenderContext(VkCommandBuffer commandBuffer, std::uint32_t observerIndex, const VkViewport &amp;viewport, RenderPhase renderPhase, std::uint32_t renderPassId, bool renderingToRenderTexture)</div><div class="ttdoc">Creates a scene render context.</div><div class="ttdef"><b>Definition</b> <a href="a02150_source.html#l00011">SceneRenderContext.cpp:11</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

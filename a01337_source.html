@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Buffers/DynamicSSBO.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Buffers/FullyDynamicSSBO.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,256 +83,180 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">DynamicSSBO.hpp</div></div>
+  <div class="headertitle"><div class="title">FullyDynamicSSBO.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01337.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_BUFFERS_DYNAMICSSBO_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_BUFFERS_DYNAMICSSBO_HPP</span></div>
+<a href="a01337.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_BUFFERS_FULLYDYNAMICSSBO_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_BUFFERS_FULLYDYNAMICSSBO_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01103.html">BLIB/Render/Transfers/Transferable.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a01268.html">BLIB/Render/Vulkan/AlignedBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a01283.html">BLIB/Render/Vulkan/Buffer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a01295.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01112.html">BLIB/Render/Transfers/Transferable.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a01280.html">BLIB/Render/Vulkan/AlignedBuffer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a01295.html">BLIB/Render/Vulkan/Buffer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a01307.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a00452.html">BLIB/Util/VectorRef.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;array&gt;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;limits&gt;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02360.html">bl</a></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span>rc</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span>buf</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00025" data-start="{" data-end="};">
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a03899.html">   25</a></span><span class="keyword">class </span><a class="code hl_class" href="a03899.html">DynamicSSBO</a> {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a03899.html#a0a5b4e96e616f2bfc8ecf5d1b2d87b0c">   30</a></span>    <a class="code hl_function" href="a03899.html#a0a5b4e96e616f2bfc8ecf5d1b2d87b0c">DynamicSSBO</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="foldopen" id="foldopen00038" data-start="{" data-end="}">
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="a03899.html#a03deee49729db2f47d210b28d17888ce">   38</a></span>    <a class="code hl_function" href="a03899.html#a03deee49729db2f47d210b28d17888ce">DynamicSSBO</a>(<a class="code hl_struct" href="a04583.html">vk::VulkanState</a>&amp; vulkanState, std::uint32_t <a class="code hl_function" href="a03899.html#a7ec9eb4551ffbd98c58a3dc8511ed517">size</a>);</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="foldopen" id="foldopen00046" data-start="{" data-end="}">
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a03899.html#a48f356db4e9b1c87e3c347c127015337">   46</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03899.html#a48f356db4e9b1c87e3c347c127015337">create</a>(<a class="code hl_struct" href="a04583.html">vk::VulkanState</a>&amp; vulkanState, std::uint32_t <a class="code hl_function" href="a03899.html#a7ec9eb4551ffbd98c58a3dc8511ed517">size</a>);</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="foldopen" id="foldopen00053" data-start="{" data-end="}">
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="a03899.html#a7644fb0e3ca3b2713dd82ca5a303bf26">   53</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03899.html#a7644fb0e3ca3b2713dd82ca5a303bf26">fill</a>(<span class="keyword">const</span> T&amp; value);</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="foldopen" id="foldopen00061" data-start="{" data-end="}">
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="a03899.html#aac6527089f71e85fdcb15d749faec55d">   61</a></span>    T&amp; <a class="code hl_function" href="a03899.html#aac6527089f71e85fdcb15d749faec55d">operator[]</a>(std::uint32_t i);</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="foldopen" id="foldopen00069" data-start="{" data-end="}">
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="a03899.html#af168fa8b23861e717dcc42b62325f817">   69</a></span>    <span class="keyword">const</span> T&amp; <a class="code hl_function" href="a03899.html#af168fa8b23861e717dcc42b62325f817">operator[]</a>(std::uint32_t i) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="foldopen" id="foldopen00077" data-start="{" data-end="}">
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="a03899.html#a46a6369f262a34f548b5e67264e3886a">   77</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03899.html#a46a6369f262a34f548b5e67264e3886a">assignRef</a>(<a class="code hl_class" href="a05363.html">util::VectorRef</a>&lt;T, <a class="code hl_class" href="a04415.html">vk::AlignedBuffer&lt;T&gt;</a>&gt;&amp; ref, std::uint32_t i);</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="foldopen" id="foldopen00086" data-start="{" data-end="}">
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="a03899.html#a96ca8036b6374261422ce9670d392647">   86</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a03899.html#a96ca8036b6374261422ce9670d392647">ensureSize</a>(std::uint32_t newSize);</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="foldopen" id="foldopen00091" data-start="{" data-end="}">
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="a03899.html#a7ec9eb4551ffbd98c58a3dc8511ed517">   91</a></span>    <span class="keyword">constexpr</span> std::uint32_t <a class="code hl_function" href="a03899.html#a7ec9eb4551ffbd98c58a3dc8511ed517">size</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="foldopen" id="foldopen00096" data-start="{" data-end="}">
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="a03899.html#a3eebd316263f803c0995aeda1676e4bd">   96</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03899.html#a3eebd316263f803c0995aeda1676e4bd">destroy</a>();</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
-<div class="foldopen" id="foldopen00101" data-start="{" data-end="}">
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="a03899.html#a574a6b812a6f5529a908c310b1352f81">  101</a></span>    <span class="keyword">constexpr</span> <a class="code hl_class" href="a04471.html">vk::PerFrame&lt;vk::Buffer&gt;</a>&amp; <a class="code hl_function" href="a03899.html#a574a6b812a6f5529a908c310b1352f81">gpuBufferHandles</a>();</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
-<div class="foldopen" id="foldopen00109" data-start="{" data-end="}">
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="a03899.html#ad98fc5f5b13cca0e4f8a2fe15ba44b1f">  109</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03899.html#ad98fc5f5b13cca0e4f8a2fe15ba44b1f">transferRange</a>(std::uint32_t start, std::uint32_t numElements);</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
-<div class="foldopen" id="foldopen00114" data-start="{" data-end="}">
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="a03899.html#a1c0ca56e15180792c9a79fd78aa39c7b">  114</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03899.html#a1c0ca56e15180792c9a79fd78aa39c7b">transferAll</a>();</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="foldopen" id="foldopen00119" data-start="{" data-end="}">
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="a03899.html#afc7d10dcb2da6e14eb6493b1bbc97493">  119</a></span>    <span class="keyword">constexpr</span> VkDeviceSize <a class="code hl_function" href="a03899.html#afc7d10dcb2da6e14eb6493b1bbc97493">getTotalRange</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="foldopen" id="foldopen00127" data-start="{" data-end="}">
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="a03899.html#ac428faec82a5985ce30e69defc1cc449">  127</a></span>    VkBuffer <a class="code hl_function" href="a03899.html#ac428faec82a5985ce30e69defc1cc449">getRawBuffer</a>(std::uint32_t frameIndex);</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <span class="keyword">struct </span>DirtyRange {</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        std::uint32_t start;</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        std::uint32_t size;</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        DirtyRange()</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        : start(0)</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        , size(0) {}</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        DirtyRange(std::uint32_t s, std::uint32_t si)</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        : start(s)</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        , size(si) {}</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    };</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    vk::VulkanState* vulkanState;</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    vk::AlignedBuffer&lt;T&gt; cpuBuffer;</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    vk::PerFrame&lt;vk::Buffer&gt; gpuBuffers;</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    std::array&lt;DirtyRange, Config::MaxConcurrentFrames&gt; dirtyRanges;</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    std::uint32_t dirtyThresh;</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>};</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00153" data-start="{" data-end="}">
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno"><a class="line" href="a03899.html#a03deee49729db2f47d210b28d17888ce">  153</a></span><a class="code hl_function" href="a03899.html#a0a5b4e96e616f2bfc8ecf5d1b2d87b0c">DynamicSSBO&lt;T&gt;::DynamicSSBO</a>(<a class="code hl_struct" href="a04583.html">vk::VulkanState</a>&amp; vulkanState, std::uint32_t size) {</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    create(vulkanState, size);</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>}</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00027" data-start="{" data-end="};">
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="a03986.html">   27</a></span><span class="keyword">class </span><a class="code hl_class" href="a03986.html">FullyDynamicSSBO</a> {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a03986.html#a506955b450d4c01769673f61bf441914">   32</a></span>    <a class="code hl_function" href="a03986.html#a506955b450d4c01769673f61bf441914">FullyDynamicSSBO</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="foldopen" id="foldopen00040" data-start="{" data-end="}">
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="a03986.html#aadc0bd57395f56727e6ea476fc5da511">   40</a></span>    <a class="code hl_function" href="a03986.html#aadc0bd57395f56727e6ea476fc5da511">FullyDynamicSSBO</a>(<a class="code hl_struct" href="a04694.html">vk::VulkanState</a>&amp; vulkanState, std::uint32_t size);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="foldopen" id="foldopen00048" data-start="{" data-end="}">
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="a03986.html#a6d8dd31c0093084f29aeacebe32735f9">   48</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03986.html#a6d8dd31c0093084f29aeacebe32735f9">create</a>(<a class="code hl_struct" href="a04694.html">vk::VulkanState</a>&amp; vulkanState, std::uint32_t size);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
+<div class="foldopen" id="foldopen00057" data-start="{" data-end="}">
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="a03986.html#aaed2197048503e99606f1a7d0724f292">   57</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03986.html#aaed2197048503e99606f1a7d0724f292">fill</a>(<span class="keyword">const</span> U&amp; value);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="foldopen" id="foldopen00067" data-start="{" data-end="}">
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="a03986.html#ab8b230bdcaa651a8b455bbe218fcb102">   67</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a03986.html#ab8b230bdcaa651a8b455bbe218fcb102">ensureSize</a>(std::uint32_t newSize, <span class="keywordtype">bool</span> skipCopy = <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="foldopen" id="foldopen00072" data-start="{" data-end="}">
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="a03986.html#af4da6404f3723915a1e1df56bbbf6e4b">   72</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03986.html#af4da6404f3723915a1e1df56bbbf6e4b">destroy</a>();</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
+<div class="foldopen" id="foldopen00084" data-start="{" data-end="}">
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="a03986.html#aeb0471734871bd6702c8ec706dd0852f">   84</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a03986.html#aeb0471734871bd6702c8ec706dd0852f">performFullCopy</a>(U* base, std::size_t len);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="foldopen" id="foldopen00089" data-start="{" data-end="}">
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="a03986.html#a6277c6cde4cabf017a9ffa9790abce5a">   89</a></span>    <a class="code hl_class" href="a04578.html">vk::PerFrame&lt;vk::Buffer&gt;</a>&amp; <a class="code hl_function" href="a03986.html#a6277c6cde4cabf017a9ffa9790abce5a">gpuBufferHandles</a>();</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="foldopen" id="foldopen00094" data-start="{" data-end="}">
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="a03986.html#a7c5b2505cdf99156bc33067dd46be159">   94</a></span>    VkDeviceSize <a class="code hl_function" href="a03986.html#a7c5b2505cdf99156bc33067dd46be159">getTotalRange</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="foldopen" id="foldopen00102" data-start="{" data-end="}">
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="a03986.html#a7fb4e37e96b3bccea1507af72bec54b7">  102</a></span>    VkBuffer <a class="code hl_function" href="a03986.html#a7fb4e37e96b3bccea1507af72bec54b7">getRawBuffer</a>(std::uint32_t frameIndex);</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <a class="code hl_struct" href="a04694.html">vk::VulkanState</a>* vulkanState;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <a class="code hl_class" href="a04578.html">vk::PerFrame&lt;vk::Buffer&gt;</a> gpuBuffers;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    std::uint32_t alignment;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>};</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00113" data-start="{" data-end="}">
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="a03986.html#aadc0bd57395f56727e6ea476fc5da511">  113</a></span><a class="code hl_function" href="a03986.html#a506955b450d4c01769673f61bf441914">FullyDynamicSSBO&lt;T&gt;::FullyDynamicSSBO</a>(<a class="code hl_struct" href="a04694.html">vk::VulkanState</a>&amp; vulkanState, std::uint32_t size) {</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    create(vulkanState, size);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>}</div>
 </div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00158" data-start="{" data-end="}">
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno"><a class="line" href="a03899.html#a48f356db4e9b1c87e3c347c127015337">  158</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03899.html#a48f356db4e9b1c87e3c347c127015337">DynamicSSBO&lt;T&gt;::create</a>(<a class="code hl_struct" href="a04583.html">vk::VulkanState</a>&amp; vs, std::uint32_t size) {</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    vulkanState = &amp;vs;</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    dirtyThresh = size * 7 / 10;</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    cpuBuffer.create(vs, <a class="code hl_class" href="a04415.html">vk::AlignedBuffer&lt;T&gt;::StorageBuffer</a>, size);</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    gpuBuffers.init(vs, [&amp;vs, <span class="keyword">this</span>](<a class="code hl_class" href="a04427.html">vk::Buffer</a>&amp; <a class="code hl_variable" href="a02324.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>) {</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        <a class="code hl_variable" href="a02324.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>.createWithFallback(</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>            vs,</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>            cpuBuffer.alignedSize(),</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>            VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT | VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT,</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>            VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>            VK_BUFFER_USAGE_STORAGE_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT |</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>                VK_BUFFER_USAGE_TRANSFER_SRC_BIT,</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>            VMA_ALLOCATION_CREATE_HOST_ACCESS_SEQUENTIAL_WRITE_BIT |</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>                VMA_ALLOCATION_CREATE_MAPPED_BIT);</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    });</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>}</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00118" data-start="{" data-end="}">
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="a03986.html#a6d8dd31c0093084f29aeacebe32735f9">  118</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03986.html#a6d8dd31c0093084f29aeacebe32735f9">FullyDynamicSSBO&lt;T&gt;::create</a>(<a class="code hl_struct" href="a04694.html">vk::VulkanState</a>&amp; vs, std::uint32_t size) {</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    vulkanState = &amp;vs;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    alignment   = vs.<a class="code hl_function" href="a04694.html#aa657ce523a4854213de68f7e5f8f6e02">computeAlignedSize</a>(</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        <span class="keyword">sizeof</span>(T), vs.<a class="code hl_variable" href="a04694.html#ab4dc332e9cb03272482bf24e95a1a7ad">physicalDeviceProperties</a>.limits.minStorageBufferOffsetAlignment);</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    gpuBuffers.init(vs, [<span class="keyword">this</span>, &amp;vs, size](<a class="code hl_class" href="a04534.html">vk::Buffer</a>&amp; <a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>) {</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>.createWithFallback(</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            vs,</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            alignment * size,</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT | VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT,</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>            VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            VK_BUFFER_USAGE_STORAGE_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT |</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>                VK_BUFFER_USAGE_TRANSFER_SRC_BIT,</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            VMA_ALLOCATION_CREATE_HOST_ACCESS_SEQUENTIAL_WRITE_BIT |</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>                VMA_ALLOCATION_CREATE_MAPPED_BIT);</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    });</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>}</div>
 </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
+<div class="foldopen" id="foldopen00138" data-start="{" data-end="}">
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno"><a class="line" href="a03986.html#aaed2197048503e99606f1a7d0724f292">  138</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03986.html#aaed2197048503e99606f1a7d0724f292">FullyDynamicSSBO&lt;T&gt;::fill</a>(<span class="keyword">const</span> U&amp; value) {</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    <span class="keywordtype">char</span>* dst = <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(gpuBuffers.current().getMappedMemory());</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    <span class="keywordtype">char</span>* end = dst + gpuBuffers.current().getSize();</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="keywordflow">while</span> (dst != end) {</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        T* slot = <span class="keyword">static_cast&lt;</span>T*<span class="keyword">&gt;</span>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>(dst));</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        *slot   = *value;</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        dst += alignment;</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    }</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>}</div>
+</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00149" data-start="{" data-end="}">
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno"><a class="line" href="a03986.html#af4da6404f3723915a1e1df56bbbf6e4b">  149</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03986.html#af4da6404f3723915a1e1df56bbbf6e4b">FullyDynamicSSBO&lt;T&gt;::destroy</a>() {</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    gpuBuffers.cleanup([](<a class="code hl_class" href="a04534.html">vk::Buffer</a>&amp; <a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>) { <a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>.destroy(); });</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>}</div>
+</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00154" data-start="{" data-end="}">
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno"><a class="line" href="a03986.html#a6277c6cde4cabf017a9ffa9790abce5a">  154</a></span><a class="code hl_class" href="a04578.html">vk::PerFrame&lt;vk::Buffer&gt;</a>&amp; <a class="code hl_function" href="a03986.html#a6277c6cde4cabf017a9ffa9790abce5a">FullyDynamicSSBO&lt;T&gt;::gpuBufferHandles</a>() {</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    <span class="keywordflow">return</span> gpuBuffers;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>}</div>
+</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00159" data-start="{" data-end="}">
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="a03986.html#a7c5b2505cdf99156bc33067dd46be159">  159</a></span>VkDeviceSize <a class="code hl_function" href="a03986.html#a7c5b2505cdf99156bc33067dd46be159">FullyDynamicSSBO&lt;T&gt;::getTotalRange</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <span class="keywordflow">return</span> gpuBuffers.<a class="code hl_function" href="a04578.html#a76f94a32e0a5e764699b33b49b629547">current</a>().getSize();</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>}</div>
+</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00164" data-start="{" data-end="}">
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno"><a class="line" href="a03986.html#a7fb4e37e96b3bccea1507af72bec54b7">  164</a></span>VkBuffer <a class="code hl_function" href="a03986.html#a7fb4e37e96b3bccea1507af72bec54b7">FullyDynamicSSBO&lt;T&gt;::getRawBuffer</a>(std::uint32_t frameIndex) {</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    <span class="keywordflow">return</span> gpuBuffers.getRaw(frameIndex).getBuffer();</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>}</div>
+</div>
+</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00169" data-start="{" data-end="}">
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno"><a class="line" href="a03986.html#ab8b230bdcaa651a8b455bbe218fcb102">  169</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a03986.html#ab8b230bdcaa651a8b455bbe218fcb102">FullyDynamicSSBO&lt;T&gt;::ensureSize</a>(std::uint32_t desiredSize, <span class="keywordtype">bool</span> skipCopy) {</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="keyword">const</span> std::uint32_t requiredSize = desiredSize * alignment;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <span class="keywordflow">if</span> (requiredSize &gt; gpuBuffers.current().getSize()) {</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        std::uint32_t newSize = gpuBuffers.current().getSize() * 2;</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        <span class="keywordflow">while</span> (newSize &lt; requiredSize) { newSize *= 2; }</div>
 <div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00177" data-start="{" data-end="}">
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno"><a class="line" href="a03899.html#a7644fb0e3ca3b2713dd82ca5a303bf26">  177</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03899.html#a7644fb0e3ca3b2713dd82ca5a303bf26">DynamicSSBO&lt;T&gt;::fill</a>(<span class="keyword">const</span> T&amp; value) {</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    cpuBuffer.fill(value);</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>}</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        gpuBuffers.visit([<span class="keyword">this</span>, newSize, skipCopy](<a class="code hl_class" href="a04534.html">vk::Buffer</a>&amp; <a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>) {</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>            <a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>.ensureSize(newSize, skipCopy);</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>        });</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    }</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>}</div>
 </div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00182" data-start="{" data-end="}">
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno"><a class="line" href="a03899.html#aac6527089f71e85fdcb15d749faec55d">  182</a></span>T&amp; <a class="code hl_function" href="a03899.html#aac6527089f71e85fdcb15d749faec55d">DynamicSSBO&lt;T&gt;::operator[]</a>(std::uint32_t i) {</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    <span class="keywordflow">return</span> cpuBuffer[i];</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>}</div>
-</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="foldopen" id="foldopen00187" data-start="{" data-end="}">
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno"><a class="line" href="a03899.html#af168fa8b23861e717dcc42b62325f817">  187</a></span><span class="keyword">const</span> T&amp; <a class="code hl_function" href="a03899.html#aac6527089f71e85fdcb15d749faec55d">DynamicSSBO&lt;T&gt;::operator[]</a>(std::uint32_t i)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <span class="keywordflow">return</span> cpuBuffer[i];</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>}</div>
-</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00191" data-start="{" data-end="}">
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno"><a class="line" href="a03899.html#a46a6369f262a34f548b5e67264e3886a">  191</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03899.html#a46a6369f262a34f548b5e67264e3886a">DynamicSSBO&lt;T&gt;::assignRef</a>(<a class="code hl_class" href="a05363.html">util::VectorRef</a>&lt;T, <a class="code hl_class" href="a04415.html">vk::AlignedBuffer&lt;T&gt;</a>&gt;&amp; ref, std::uint32_t i) {</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    ref.assign(cpuBuffer, i);</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>}</div>
-</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00196" data-start="{" data-end="}">
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno"><a class="line" href="a03899.html#a7ec9eb4551ffbd98c58a3dc8511ed517">  196</a></span><span class="keyword">constexpr</span> std::uint32_t <a class="code hl_function" href="a03899.html#a7ec9eb4551ffbd98c58a3dc8511ed517">DynamicSSBO&lt;T&gt;::size</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    <span class="keywordflow">return</span> cpuBuffer.size();</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno"><a class="line" href="a03986.html#aeb0471734871bd6702c8ec706dd0852f">  187</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a03986.html#aeb0471734871bd6702c8ec706dd0852f">FullyDynamicSSBO&lt;T&gt;::performFullCopy</a>(U* base, std::size_t len) {</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> grew = ensureSize(len, <span class="keyword">true</span>);</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    U* end          = base + len;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    <span class="keywordtype">char</span>* dst       = <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(gpuBuffers.current().getMappedMemory());</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <span class="keywordflow">while</span> (base != end) {</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        T* slot = <span class="keyword">static_cast&lt;</span>T*<span class="keyword">&gt;</span>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>(dst));</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        *slot   = *base;</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        ++base;</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        dst += alignment;</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    }</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    <span class="keywordflow">return</span> grew;</div>
 <div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>}</div>
 </div>
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00201" data-start="{" data-end="}">
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno"><a class="line" href="a03899.html#a3eebd316263f803c0995aeda1676e4bd">  201</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03899.html#a3eebd316263f803c0995aeda1676e4bd">DynamicSSBO&lt;T&gt;::destroy</a>() {</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    cpuBuffer.clear();</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    gpuBuffers.cleanup([](<a class="code hl_class" href="a04427.html">vk::Buffer</a>&amp; <a class="code hl_variable" href="a02324.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>) { <a class="code hl_variable" href="a02324.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>.destroy(); });</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>}</div>
-</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span> </div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00207" data-start="{" data-end="}">
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno"><a class="line" href="a03899.html#a574a6b812a6f5529a908c310b1352f81">  207</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <a class="code hl_class" href="a04471.html">vk::PerFrame&lt;vk::Buffer&gt;</a>&amp; <a class="code hl_function" href="a03899.html#a574a6b812a6f5529a908c310b1352f81">DynamicSSBO&lt;T&gt;::gpuBufferHandles</a>() {</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    <span class="keywordflow">return</span> gpuBuffers;</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>}</div>
-</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00212" data-start="{" data-end="}">
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno"><a class="line" href="a03899.html#a96ca8036b6374261422ce9670d392647">  212</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a03899.html#a96ca8036b6374261422ce9670d392647">DynamicSSBO&lt;T&gt;::ensureSize</a>(std::uint32_t desiredSize) {</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    <span class="keywordflow">if</span> (desiredSize &gt; cpuBuffer.size()) {</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>        std::uint32_t newSize = cpuBuffer.<a class="code hl_function" href="a04471.html#a3b125f17ebf5c4d2fa150c2518f8f00d">size</a>() * 2;</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        <span class="keywordflow">while</span> (newSize &lt; desiredSize) { newSize *= 2; }</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span> </div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        dirtyThresh = newSize * 7 / 10;</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>        cpuBuffer.resize(newSize);</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        gpuBuffers.visit(</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>            [<span class="keyword">this</span>](<a class="code hl_class" href="a04427.html">vk::Buffer</a>&amp; <a class="code hl_variable" href="a02324.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>) { <a class="code hl_variable" href="a02324.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>.ensureSize(cpuBuffer.alignedSize()); });</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span> </div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    }</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>}</div>
-</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00228" data-start="{" data-end="}">
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno"><a class="line" href="a03899.html#ad98fc5f5b13cca0e4f8a2fe15ba44b1f">  228</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03899.html#ad98fc5f5b13cca0e4f8a2fe15ba44b1f">DynamicSSBO&lt;T&gt;::transferRange</a>(std::uint32_t start, std::uint32_t numElements) {</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    dirtyRanges[vulkanState-&gt;currentFrameIndex()] = DirtyRange{start, numElements};</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span> </div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    <span class="comment">// determine if we should copy ranges or just copy entire buffer</span></div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    std::uint32_t totalSize = 0;</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; range : dirtyRanges) { totalSize += range.size; }</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    <span class="keywordflow">if</span> (totalSize &gt;= dirtyThresh) {</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>        std::memcpy(</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>            gpuBuffers.current().getMappedMemory(), cpuBuffer.data(), cpuBuffer.alignedSize());</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    }</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (totalSize &gt; 0) {</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>        <span class="comment">// consolidate ranges before copy</span></div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        std::uint32_t start = std::numeric_limits&lt;std::uint32_t&gt;::max();</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>        std::uint32_t end   = 0;</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; range : dirtyRanges) {</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>            <span class="keywordflow">if</span> (range.size == 0) <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>            <span class="keyword">const</span> std::uint32_t ne = range.start + range.size;</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>            start                  = range.start &lt; start ? range.start : start;</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>            end                    = ne &gt; end ? ne : end;</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        }</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>        <span class="keywordflow">if</span> (end &gt; start) {</div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>            <span class="keyword">const</span> std::uint32_t size = (end - start) * cpuBuffer.elementSize();</div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>            <span class="keywordtype">void</span>* dst                = <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(gpuBuffers.current().getMappedMemory()) +</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>                        (start * cpuBuffer.elementSize());</div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>            std::memcpy(dst, &amp;cpuBuffer[start], size);</div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>        }</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>    }</div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>}</div>
-</div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span> </div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00258" data-start="{" data-end="}">
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno"><a class="line" href="a03899.html#a1c0ca56e15180792c9a79fd78aa39c7b">  258</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03899.html#a1c0ca56e15180792c9a79fd78aa39c7b">DynamicSSBO&lt;T&gt;::transferAll</a>() {</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    dirtyRanges[vulkanState-&gt;currentFrameIndex()] = DirtyRange{0, size()};</div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    std::memcpy(gpuBuffers.current().getMappedMemory(), cpuBuffer.data(), cpuBuffer.alignedSize());</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>}</div>
-</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span> </div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00264" data-start="{" data-end="}">
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno"><a class="line" href="a03899.html#afc7d10dcb2da6e14eb6493b1bbc97493">  264</a></span><span class="keyword">constexpr</span> VkDeviceSize <a class="code hl_function" href="a03899.html#afc7d10dcb2da6e14eb6493b1bbc97493">DynamicSSBO&lt;T&gt;::getTotalRange</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    <span class="keywordflow">return</span> cpuBuffer.alignedSize();</div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>}</div>
-</div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00269" data-start="{" data-end="}">
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno"><a class="line" href="a03899.html#ac428faec82a5985ce30e69defc1cc449">  269</a></span>VkBuffer <a class="code hl_function" href="a03899.html#ac428faec82a5985ce30e69defc1cc449">DynamicSSBO&lt;T&gt;::getRawBuffer</a>(std::uint32_t frameIndex) {</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    <span class="keywordflow">return</span> gpuBuffers.getRaw(frameIndex).getBuffer();</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>}</div>
-</div>
-</div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span> </div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>} <span class="comment">// namespace buf</span></div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span> </div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span><span class="preprocessor">#endif</span></div>
-</div>
-</div>
-</div>
-</div>
-</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>} <span class="comment">// namespace buf</span></div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span><span class="preprocessor">#endif</span></div>
 </div>
 </div>
 </div>
@@ -343,39 +267,34 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 </div>
 <div class="ttc" id="aa00452_html"><div class="ttname"><a href="a00452.html">VectorRef.hpp</a></div></div>
-<div class="ttc" id="aa01103_html"><div class="ttname"><a href="a01103.html">Transferable.hpp</a></div></div>
-<div class="ttc" id="aa01268_html"><div class="ttname"><a href="a01268.html">AlignedBuffer.hpp</a></div></div>
-<div class="ttc" id="aa01283_html"><div class="ttname"><a href="a01283.html">Buffer.hpp</a></div></div>
-<div class="ttc" id="aa01295_html"><div class="ttname"><a href="a01295.html">PerFrame.hpp</a></div></div>
-<div class="ttc" id="aa02324_html_ad2ae6b0ac080ea0ac45f7a06ccc480ba"><div class="ttname"><a href="a02324.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a></div><div class="ttdeci">SoundHandle buffer</div><div class="ttdef"><b>Definition</b> <a href="a02324_source.html#l00025">AudioSystem.cpp:25</a></div></div>
-<div class="ttc" id="aa02360_html"><div class="ttname"><a href="a02360.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01448_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03899_html"><div class="ttname"><a href="a03899.html">bl::rc::buf::DynamicSSBO</a></div><div class="ttdoc">Device-local SSBO intended for use with per-object data for dynamic objects.</div><div class="ttdef"><b>Definition</b> <a href="a01337_source.html#l00025">DynamicSSBO.hpp:25</a></div></div>
-<div class="ttc" id="aa03899_html_a03deee49729db2f47d210b28d17888ce"><div class="ttname"><a href="a03899.html#a03deee49729db2f47d210b28d17888ce">bl::rc::buf::DynamicSSBO::DynamicSSBO</a></div><div class="ttdeci">DynamicSSBO(vk::VulkanState &amp;vulkanState, std::uint32_t size)</div><div class="ttdoc">Creates a new SSBO.</div><div class="ttdef"><b>Definition</b> <a href="a01337_source.html#l00153">DynamicSSBO.hpp:153</a></div></div>
-<div class="ttc" id="aa03899_html_a0a5b4e96e616f2bfc8ecf5d1b2d87b0c"><div class="ttname"><a href="a03899.html#a0a5b4e96e616f2bfc8ecf5d1b2d87b0c">bl::rc::buf::DynamicSSBO::DynamicSSBO</a></div><div class="ttdeci">DynamicSSBO()=default</div><div class="ttdoc">Creates a new SSBO.</div></div>
-<div class="ttc" id="aa03899_html_a1c0ca56e15180792c9a79fd78aa39c7b"><div class="ttname"><a href="a03899.html#a1c0ca56e15180792c9a79fd78aa39c7b">bl::rc::buf::DynamicSSBO::transferAll</a></div><div class="ttdeci">void transferAll()</div><div class="ttdoc">Copies the entire buffer.</div><div class="ttdef"><b>Definition</b> <a href="a01337_source.html#l00258">DynamicSSBO.hpp:258</a></div></div>
-<div class="ttc" id="aa03899_html_a3eebd316263f803c0995aeda1676e4bd"><div class="ttname"><a href="a03899.html#a3eebd316263f803c0995aeda1676e4bd">bl::rc::buf::DynamicSSBO::destroy</a></div><div class="ttdeci">void destroy()</div><div class="ttdoc">Frees the GPU buffers.</div><div class="ttdef"><b>Definition</b> <a href="a01337_source.html#l00201">DynamicSSBO.hpp:201</a></div></div>
-<div class="ttc" id="aa03899_html_a46a6369f262a34f548b5e67264e3886a"><div class="ttname"><a href="a03899.html#a46a6369f262a34f548b5e67264e3886a">bl::rc::buf::DynamicSSBO::assignRef</a></div><div class="ttdeci">void assignRef(util::VectorRef&lt; T, vk::AlignedBuffer&lt; T &gt; &gt; &amp;ref, std::uint32_t i)</div><div class="ttdoc">Assigns the stable reference to the CPU side storage of this SSBO.</div><div class="ttdef"><b>Definition</b> <a href="a01337_source.html#l00191">DynamicSSBO.hpp:191</a></div></div>
-<div class="ttc" id="aa03899_html_a48f356db4e9b1c87e3c347c127015337"><div class="ttname"><a href="a03899.html#a48f356db4e9b1c87e3c347c127015337">bl::rc::buf::DynamicSSBO::create</a></div><div class="ttdeci">void create(vk::VulkanState &amp;vulkanState, std::uint32_t size)</div><div class="ttdoc">Creates a new SSBO.</div><div class="ttdef"><b>Definition</b> <a href="a01337_source.html#l00158">DynamicSSBO.hpp:158</a></div></div>
-<div class="ttc" id="aa03899_html_a574a6b812a6f5529a908c310b1352f81"><div class="ttname"><a href="a03899.html#a574a6b812a6f5529a908c310b1352f81">bl::rc::buf::DynamicSSBO::gpuBufferHandles</a></div><div class="ttdeci">constexpr vk::PerFrame&lt; vk::Buffer &gt; &amp; gpuBufferHandles()</div><div class="ttdoc">Returns the Buffer objects of the GPU buffers.</div><div class="ttdef"><b>Definition</b> <a href="a01337_source.html#l00207">DynamicSSBO.hpp:207</a></div></div>
-<div class="ttc" id="aa03899_html_a7644fb0e3ca3b2713dd82ca5a303bf26"><div class="ttname"><a href="a03899.html#a7644fb0e3ca3b2713dd82ca5a303bf26">bl::rc::buf::DynamicSSBO::fill</a></div><div class="ttdeci">void fill(const T &amp;value)</div><div class="ttdoc">Fills the buffer with the given value.</div><div class="ttdef"><b>Definition</b> <a href="a01337_source.html#l00177">DynamicSSBO.hpp:177</a></div></div>
-<div class="ttc" id="aa03899_html_a7ec9eb4551ffbd98c58a3dc8511ed517"><div class="ttname"><a href="a03899.html#a7ec9eb4551ffbd98c58a3dc8511ed517">bl::rc::buf::DynamicSSBO::size</a></div><div class="ttdeci">constexpr std::uint32_t size() const</div><div class="ttdoc">Returns the number of elements in the buffer.</div><div class="ttdef"><b>Definition</b> <a href="a01337_source.html#l00196">DynamicSSBO.hpp:196</a></div></div>
-<div class="ttc" id="aa03899_html_a96ca8036b6374261422ce9670d392647"><div class="ttname"><a href="a03899.html#a96ca8036b6374261422ce9670d392647">bl::rc::buf::DynamicSSBO::ensureSize</a></div><div class="ttdeci">bool ensureSize(std::uint32_t newSize)</div><div class="ttdoc">If the buffer size is less than the required size, re-creates the buffer to be at least the given siz...</div><div class="ttdef"><b>Definition</b> <a href="a01337_source.html#l00212">DynamicSSBO.hpp:212</a></div></div>
-<div class="ttc" id="aa03899_html_aac6527089f71e85fdcb15d749faec55d"><div class="ttname"><a href="a03899.html#aac6527089f71e85fdcb15d749faec55d">bl::rc::buf::DynamicSSBO::operator[]</a></div><div class="ttdeci">T &amp; operator[](std::uint32_t i)</div><div class="ttdoc">Returns the element at the given index.</div><div class="ttdef"><b>Definition</b> <a href="a01337_source.html#l00182">DynamicSSBO.hpp:182</a></div></div>
-<div class="ttc" id="aa03899_html_ac428faec82a5985ce30e69defc1cc449"><div class="ttname"><a href="a03899.html#ac428faec82a5985ce30e69defc1cc449">bl::rc::buf::DynamicSSBO::getRawBuffer</a></div><div class="ttdeci">VkBuffer getRawBuffer(std::uint32_t frameIndex)</div><div class="ttdoc">Helper method to return the raw buffer handle for the given frame index.</div><div class="ttdef"><b>Definition</b> <a href="a01337_source.html#l00269">DynamicSSBO.hpp:269</a></div></div>
-<div class="ttc" id="aa03899_html_ad98fc5f5b13cca0e4f8a2fe15ba44b1f"><div class="ttname"><a href="a03899.html#ad98fc5f5b13cca0e4f8a2fe15ba44b1f">bl::rc::buf::DynamicSSBO::transferRange</a></div><div class="ttdeci">void transferRange(std::uint32_t start, std::uint32_t numElements)</div><div class="ttdoc">Copies the given dirty range into the GPU buffer, as well as the prior dirty range.</div><div class="ttdef"><b>Definition</b> <a href="a01337_source.html#l00228">DynamicSSBO.hpp:228</a></div></div>
-<div class="ttc" id="aa03899_html_af168fa8b23861e717dcc42b62325f817"><div class="ttname"><a href="a03899.html#af168fa8b23861e717dcc42b62325f817">bl::rc::buf::DynamicSSBO::operator[]</a></div><div class="ttdeci">const T &amp; operator[](std::uint32_t i) const</div><div class="ttdoc">Returns the element at the given index.</div><div class="ttdef"><b>Definition</b> <a href="a01337_source.html#l00187">DynamicSSBO.hpp:187</a></div></div>
-<div class="ttc" id="aa03899_html_afc7d10dcb2da6e14eb6493b1bbc97493"><div class="ttname"><a href="a03899.html#afc7d10dcb2da6e14eb6493b1bbc97493">bl::rc::buf::DynamicSSBO::getTotalRange</a></div><div class="ttdeci">constexpr VkDeviceSize getTotalRange() const</div><div class="ttdoc">Returns the size of the SSBO on the device.</div><div class="ttdef"><b>Definition</b> <a href="a01337_source.html#l00264">DynamicSSBO.hpp:264</a></div></div>
-<div class="ttc" id="aa04415_html"><div class="ttname"><a href="a04415.html">bl::rc::vk::AlignedBuffer</a></div><div class="ttdoc">Utility class to store a buffer of PODs on the CPU aligned for the UBO requirements of the device bei...</div><div class="ttdef"><b>Definition</b> <a href="a01268_source.html#l00023">AlignedBuffer.hpp:23</a></div></div>
-<div class="ttc" id="aa04427_html"><div class="ttname"><a href="a04427.html">bl::rc::vk::Buffer</a></div><div class="ttdoc">Wrapper over Vulkan buffers. Provides simpler interfaces and resize ability.</div><div class="ttdef"><b>Definition</b> <a href="a01283_source.html#l00019">Buffer.hpp:19</a></div></div>
-<div class="ttc" id="aa04471_html"><div class="ttname"><a href="a04471.html">bl::rc::vk::PerFrame</a></div><div class="ttdoc">Utility struct to easily double-buffer objects and data on a per-frame basis. One object of type T wi...</div><div class="ttdef"><b>Definition</b> <a href="a01295_source.html#l00024">PerFrame.hpp:24</a></div></div>
-<div class="ttc" id="aa04471_html_a3b125f17ebf5c4d2fa150c2518f8f00d"><div class="ttname"><a href="a04471.html#a3b125f17ebf5c4d2fa150c2518f8f00d">bl::rc::vk::PerFrame::size</a></div><div class="ttdeci">std::size_t size() const</div><div class="ttdoc">Returns the number of contained objects.</div><div class="ttdef"><b>Definition</b> <a href="a01307_source.html#l00360">VulkanState.hpp:360</a></div></div>
-<div class="ttc" id="aa04583_html"><div class="ttname"><a href="a04583.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition</b> <a href="a01307_source.html#l00039">VulkanState.hpp:39</a></div></div>
-<div class="ttc" id="aa05363_html"><div class="ttname"><a href="a05363.html">bl::util::VectorRef</a></div><div class="ttdoc">Utility struct to provide a stable iterator into a vector where indices do not change.</div><div class="ttdef"><b>Definition</b> <a href="a00452_source.html#l00018">VectorRef.hpp:18</a></div></div>
+<div class="ttc" id="aa01112_html"><div class="ttname"><a href="a01112.html">Transferable.hpp</a></div></div>
+<div class="ttc" id="aa01280_html"><div class="ttname"><a href="a01280.html">AlignedBuffer.hpp</a></div></div>
+<div class="ttc" id="aa01295_html"><div class="ttname"><a href="a01295.html">Buffer.hpp</a></div></div>
+<div class="ttc" id="aa01307_html"><div class="ttname"><a href="a01307.html">PerFrame.hpp</a></div></div>
+<div class="ttc" id="aa02366_html_ad2ae6b0ac080ea0ac45f7a06ccc480ba"><div class="ttname"><a href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a></div><div class="ttdeci">SoundHandle buffer</div><div class="ttdef"><b>Definition</b> <a href="a02366_source.html#l00025">AudioSystem.cpp:25</a></div></div>
+<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03986_html"><div class="ttname"><a href="a03986.html">bl::rc::buf::FullyDynamicSSBO</a></div><div class="ttdoc">Device-local SSBO intended for use with per-object data for dynamic objects. This version of DynamicS...</div><div class="ttdef"><b>Definition</b> <a href="a01337_source.html#l00027">FullyDynamicSSBO.hpp:27</a></div></div>
+<div class="ttc" id="aa03986_html_a506955b450d4c01769673f61bf441914"><div class="ttname"><a href="a03986.html#a506955b450d4c01769673f61bf441914">bl::rc::buf::FullyDynamicSSBO::FullyDynamicSSBO</a></div><div class="ttdeci">FullyDynamicSSBO()=default</div><div class="ttdoc">Creates a new SSBO.</div></div>
+<div class="ttc" id="aa03986_html_a6277c6cde4cabf017a9ffa9790abce5a"><div class="ttname"><a href="a03986.html#a6277c6cde4cabf017a9ffa9790abce5a">bl::rc::buf::FullyDynamicSSBO::gpuBufferHandles</a></div><div class="ttdeci">vk::PerFrame&lt; vk::Buffer &gt; &amp; gpuBufferHandles()</div><div class="ttdoc">Returns the Buffer objects of the GPU buffers.</div><div class="ttdef"><b>Definition</b> <a href="a01337_source.html#l00154">FullyDynamicSSBO.hpp:154</a></div></div>
+<div class="ttc" id="aa03986_html_a6d8dd31c0093084f29aeacebe32735f9"><div class="ttname"><a href="a03986.html#a6d8dd31c0093084f29aeacebe32735f9">bl::rc::buf::FullyDynamicSSBO::create</a></div><div class="ttdeci">void create(vk::VulkanState &amp;vulkanState, std::uint32_t size)</div><div class="ttdoc">Creates a new SSBO.</div><div class="ttdef"><b>Definition</b> <a href="a01337_source.html#l00118">FullyDynamicSSBO.hpp:118</a></div></div>
+<div class="ttc" id="aa03986_html_a7c5b2505cdf99156bc33067dd46be159"><div class="ttname"><a href="a03986.html#a7c5b2505cdf99156bc33067dd46be159">bl::rc::buf::FullyDynamicSSBO::getTotalRange</a></div><div class="ttdeci">VkDeviceSize getTotalRange() const</div><div class="ttdoc">Returns the size of the SSBO on the device.</div><div class="ttdef"><b>Definition</b> <a href="a01337_source.html#l00159">FullyDynamicSSBO.hpp:159</a></div></div>
+<div class="ttc" id="aa03986_html_a7fb4e37e96b3bccea1507af72bec54b7"><div class="ttname"><a href="a03986.html#a7fb4e37e96b3bccea1507af72bec54b7">bl::rc::buf::FullyDynamicSSBO::getRawBuffer</a></div><div class="ttdeci">VkBuffer getRawBuffer(std::uint32_t frameIndex)</div><div class="ttdoc">Helper method to return the raw buffer handle for the given frame index.</div><div class="ttdef"><b>Definition</b> <a href="a01337_source.html#l00164">FullyDynamicSSBO.hpp:164</a></div></div>
+<div class="ttc" id="aa03986_html_aadc0bd57395f56727e6ea476fc5da511"><div class="ttname"><a href="a03986.html#aadc0bd57395f56727e6ea476fc5da511">bl::rc::buf::FullyDynamicSSBO::FullyDynamicSSBO</a></div><div class="ttdeci">FullyDynamicSSBO(vk::VulkanState &amp;vulkanState, std::uint32_t size)</div><div class="ttdoc">Creates a new SSBO.</div><div class="ttdef"><b>Definition</b> <a href="a01337_source.html#l00113">FullyDynamicSSBO.hpp:113</a></div></div>
+<div class="ttc" id="aa03986_html_aaed2197048503e99606f1a7d0724f292"><div class="ttname"><a href="a03986.html#aaed2197048503e99606f1a7d0724f292">bl::rc::buf::FullyDynamicSSBO::fill</a></div><div class="ttdeci">void fill(const U &amp;value)</div><div class="ttdoc">Fills the buffer with the given value.</div><div class="ttdef"><b>Definition</b> <a href="a01337_source.html#l00138">FullyDynamicSSBO.hpp:138</a></div></div>
+<div class="ttc" id="aa03986_html_ab8b230bdcaa651a8b455bbe218fcb102"><div class="ttname"><a href="a03986.html#ab8b230bdcaa651a8b455bbe218fcb102">bl::rc::buf::FullyDynamicSSBO::ensureSize</a></div><div class="ttdeci">bool ensureSize(std::uint32_t newSize, bool skipCopy=false)</div><div class="ttdoc">If the buffer size is less than the required size, re-creates the buffer to be at least the given siz...</div><div class="ttdef"><b>Definition</b> <a href="a01337_source.html#l00169">FullyDynamicSSBO.hpp:169</a></div></div>
+<div class="ttc" id="aa03986_html_aeb0471734871bd6702c8ec706dd0852f"><div class="ttname"><a href="a03986.html#aeb0471734871bd6702c8ec706dd0852f">bl::rc::buf::FullyDynamicSSBO::performFullCopy</a></div><div class="ttdeci">bool performFullCopy(U *base, std::size_t len)</div><div class="ttdoc">Populates the current frame's buffer from the array of source elements. Will resize the buffer if req...</div><div class="ttdef"><b>Definition</b> <a href="a01337_source.html#l00187">FullyDynamicSSBO.hpp:187</a></div></div>
+<div class="ttc" id="aa03986_html_af4da6404f3723915a1e1df56bbbf6e4b"><div class="ttname"><a href="a03986.html#af4da6404f3723915a1e1df56bbbf6e4b">bl::rc::buf::FullyDynamicSSBO::destroy</a></div><div class="ttdeci">void destroy()</div><div class="ttdoc">Frees the GPU buffers.</div><div class="ttdef"><b>Definition</b> <a href="a01337_source.html#l00149">FullyDynamicSSBO.hpp:149</a></div></div>
+<div class="ttc" id="aa04534_html"><div class="ttname"><a href="a04534.html">bl::rc::vk::Buffer</a></div><div class="ttdoc">Wrapper over Vulkan buffers. Provides simpler interfaces and resize ability.</div><div class="ttdef"><b>Definition</b> <a href="a01295_source.html#l00019">Buffer.hpp:19</a></div></div>
+<div class="ttc" id="aa04578_html"><div class="ttname"><a href="a04578.html">bl::rc::vk::PerFrame</a></div><div class="ttdoc">Utility struct to easily double-buffer objects and data on a per-frame basis. One object of type T wi...</div><div class="ttdef"><b>Definition</b> <a href="a01307_source.html#l00024">PerFrame.hpp:24</a></div></div>
+<div class="ttc" id="aa04578_html_a76f94a32e0a5e764699b33b49b629547"><div class="ttname"><a href="a04578.html#a76f94a32e0a5e764699b33b49b629547">bl::rc::vk::PerFrame::current</a></div><div class="ttdeci">T &amp; current()</div><div class="ttdoc">Returns the active buffered object for the current frame.</div><div class="ttdef"><b>Definition</b> <a href="a01319_source.html#l00303">VulkanState.hpp:303</a></div></div>
+<div class="ttc" id="aa04694_html"><div class="ttname"><a href="a04694.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition</b> <a href="a01319_source.html#l00039">VulkanState.hpp:39</a></div></div>
+<div class="ttc" id="aa04694_html_aa657ce523a4854213de68f7e5f8f6e02"><div class="ttname"><a href="a04694.html#aa657ce523a4854213de68f7e5f8f6e02">bl::rc::vk::VulkanState::computeAlignedSize</a></div><div class="ttdeci">static VkDeviceSize computeAlignedSize(VkDeviceSize dataSize, VkDeviceSize alignment)</div><div class="ttdoc">Computes the aligned size of data given its actual size and alignment requirement.</div><div class="ttdef"><b>Definition</b> <a href="a02252_source.html#l00664">VulkanState.cpp:664</a></div></div>
+<div class="ttc" id="aa04694_html_ab4dc332e9cb03272482bf24e95a1a7ad"><div class="ttname"><a href="a04694.html#ab4dc332e9cb03272482bf24e95a1a7ad">bl::rc::vk::VulkanState::physicalDeviceProperties</a></div><div class="ttdeci">VkPhysicalDeviceProperties physicalDeviceProperties</div><div class="ttdef"><b>Definition</b> <a href="a01319_source.html#l00221">VulkanState.hpp:221</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

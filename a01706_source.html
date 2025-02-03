@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Scripts/ScriptImpl.hpp Source File</title>
+<title>BLIB: src/Util/StreamUtil.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,73 +79,59 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3ac9928fc2e7e2cbc53db7c1a11acda2.html">Scripts</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3e37c3eecdc42aac03248fab5c81cb58.html">Util</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">ScriptImpl.hpp</div></div>
+  <div class="headertitle"><div class="title">StreamUtil.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01706.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_SCRIPTS_SCRIPTIMPL_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_SCRIPTS_SCRIPTIMPL_HPP</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00035.html">BLIB/Scripts.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02360.html">bl</a></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>script</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
-<div class="foldopen" id="foldopen00015" data-start="{" data-end="};">
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="a05451.html">   15</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a05451.html">ScriptImpl</a> {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">static</span> <a class="code hl_class" href="a04747.html">PrimitiveValue</a> <a class="code hl_function" href="a05451.html#ab89b5a71f7593314d16d29d070158abd">computeValue</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="a03759.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; value, <a class="code hl_class" href="a04767.html">SymbolTable</a>&amp; table);</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a05451.html#ad600bd780c64799931298593de49beaf">runFunction</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="a03759.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; call, <a class="code hl_class" href="a04767.html">SymbolTable</a>&amp; table, <a class="code hl_class" href="a04771.html">Value</a>&amp; result);</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">static</span> std::optional&lt;Value&gt; <a class="code hl_function" href="a05451.html#a6b8c371d6bd8211fc97a31e753a2254d">runStatementList</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="a03759.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; statement,</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>                                                 <a class="code hl_class" href="a04767.html">SymbolTable</a>&amp; table);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">static</span> std::optional&lt;Value&gt; <a class="code hl_function" href="a05451.html#aafe0c3f6b3e62a67995275bc5dfeade3">runStatement</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="a03759.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; statement,</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                                             <a class="code hl_class" href="a04767.html">SymbolTable</a>&amp; table);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keyword">static</span> std::optional&lt;Value&gt; <a class="code hl_function" href="a05451.html#aaba966c59056e1324676b3a8121ea060">runConditional</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="a03759.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; conditional,</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>                                               <a class="code hl_class" href="a04767.html">SymbolTable</a>&amp; table);</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keyword">static</span> std::optional&lt;Value&gt; <a class="code hl_function" href="a05451.html#a0b0bccc4c272547de40f824c62ac4103">runLoop</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="a03759.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; loop, <a class="code hl_class" href="a04767.html">SymbolTable</a>&amp; table);</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keyword">static</span> std::optional&lt;Value&gt; <a class="code hl_function" href="a05451.html#ac9c951d23f831210e7f40dc70808af70">runForLoop</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="a03759.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; loop, <a class="code hl_class" href="a04767.html">SymbolTable</a>&amp; table);</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a05451.html#a7bf3baa166e50473900bee9137b6a093">evaluateCond</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="a03759.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; pgroup, <a class="code hl_class" href="a04767.html">SymbolTable</a>&amp; table);</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a05451.html#a2e339a085d8372e636fc1c8fbeaff707">equals</a>(<span class="keyword">const</span> <a class="code hl_class" href="a04771.html">Value</a>&amp; left, <span class="keyword">const</span> <a class="code hl_class" href="a04771.html">Value</a>&amp; right);</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>};</div>
+<a href="a01706.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00458.html">BLIB/Util/StreamUtil.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>util</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
+<div class="foldopen" id="foldopen00007" data-start="{" data-end="}">
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="a05398.html#aaefeea8843d802e72a42de4a6b38597b">    7</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a05398.html#aaefeea8843d802e72a42de4a6b38597b">StreamUtil::skipWhitespace</a>(std::istream&amp; s) {</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keywordflow">while</span> (s.good() &amp;&amp; std::isspace(s.peek())) { s.get(); }</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keywordflow">return</span> s.good();</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>}</div>
 </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>} <span class="comment">// namespace script</span></div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00035_html"><div class="ttname"><a href="a00035.html">Scripts.hpp</a></div></div>
-<div class="ttc" id="aa02360_html"><div class="ttname"><a href="a02360.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01448_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03759_html_a3f49fe9da8742463aa757f89f67a8827"><div class="ttname"><a href="a03759.html#a3f49fe9da8742463aa757f89f67a8827">bl::parser::Node::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Node &gt; Ptr</div><div class="ttdef"><b>Definition</b> <a href="a00011_source.html#l00024">Node.hpp:24</a></div></div>
-<div class="ttc" id="aa04747_html"><div class="ttname"><a href="a04747.html">bl::script::PrimitiveValue</a></div><div class="ttdoc">Represents the lowest level values in scripts.</div><div class="ttdef"><b>Definition</b> <a href="a00512_source.html#l00023">PrimitiveValue.hpp:23</a></div></div>
-<div class="ttc" id="aa04767_html"><div class="ttname"><a href="a04767.html">bl::script::SymbolTable</a></div><div class="ttdoc">Stack aware symbol table for managing functions and variables Each Script holds a single instance.</div><div class="ttdef"><b>Definition</b> <a href="a00506_source.html#l00026">SymbolTable.hpp:26</a></div></div>
-<div class="ttc" id="aa04771_html"><div class="ttname"><a href="a04771.html">bl::script::Value</a></div><div class="ttdoc">Main representation of a value in scripts.</div><div class="ttdef"><b>Definition</b> <a href="a00521_source.html#l00022">Value.hpp:22</a></div></div>
-<div class="ttc" id="aa05451_html"><div class="ttname"><a href="a05451.html">bl::script::ScriptImpl</a></div><div class="ttdoc">Collection of testable utility methods for executing components of scripts.</div><div class="ttdef"><b>Definition</b> <a href="a01706_source.html#l00015">ScriptImpl.hpp:15</a></div></div>
-<div class="ttc" id="aa05451_html_a0b0bccc4c272547de40f824c62ac4103"><div class="ttname"><a href="a05451.html#a0b0bccc4c272547de40f824c62ac4103">bl::script::ScriptImpl::runLoop</a></div><div class="ttdeci">static std::optional&lt; Value &gt; runLoop(const parser::Node::Ptr &amp;loop, SymbolTable &amp;table)</div><div class="ttdoc">Runs a Loop.</div><div class="ttdef"><b>Definition</b> <a href="a01721_source.html#l00206">ScriptImpl.cpp:206</a></div></div>
-<div class="ttc" id="aa05451_html_a2e339a085d8372e636fc1c8fbeaff707"><div class="ttname"><a href="a05451.html#a2e339a085d8372e636fc1c8fbeaff707">bl::script::ScriptImpl::equals</a></div><div class="ttdeci">static bool equals(const Value &amp;left, const Value &amp;right)</div><div class="ttdoc">Helper function that exposes the ability to compare values.</div><div class="ttdef"><b>Definition</b> <a href="a01721_source.html#l00298">ScriptImpl.cpp:298</a></div></div>
-<div class="ttc" id="aa05451_html_a6b8c371d6bd8211fc97a31e753a2254d"><div class="ttname"><a href="a05451.html#a6b8c371d6bd8211fc97a31e753a2254d">bl::script::ScriptImpl::runStatementList</a></div><div class="ttdeci">static std::optional&lt; Value &gt; runStatementList(const parser::Node::Ptr &amp;statement, SymbolTable &amp;table)</div><div class="ttdoc">Executes a list of statements. Can take Statement, StmtList, or StmtBlock.</div><div class="ttdef"><b>Definition</b> <a href="a01721_source.html#l00177">ScriptImpl.cpp:177</a></div></div>
-<div class="ttc" id="aa05451_html_a7bf3baa166e50473900bee9137b6a093"><div class="ttname"><a href="a05451.html#a7bf3baa166e50473900bee9137b6a093">bl::script::ScriptImpl::evaluateCond</a></div><div class="ttdeci">static bool evaluateCond(const parser::Node::Ptr &amp;pgroup, SymbolTable &amp;table)</div><div class="ttdoc">Evaluates a PGroup to true or false.</div><div class="ttdef"><b>Definition</b> <a href="a01721_source.html#l00302">ScriptImpl.cpp:302</a></div></div>
-<div class="ttc" id="aa05451_html_aaba966c59056e1324676b3a8121ea060"><div class="ttname"><a href="a05451.html#aaba966c59056e1324676b3a8121ea060">bl::script::ScriptImpl::runConditional</a></div><div class="ttdeci">static std::optional&lt; Value &gt; runConditional(const parser::Node::Ptr &amp;conditional, SymbolTable &amp;table)</div><div class="ttdoc">Runs a Conditional.</div><div class="ttdef"><b>Definition</b> <a href="a01721_source.html#l00260">ScriptImpl.cpp:260</a></div></div>
-<div class="ttc" id="aa05451_html_aafe0c3f6b3e62a67995275bc5dfeade3"><div class="ttname"><a href="a05451.html#aafe0c3f6b3e62a67995275bc5dfeade3">bl::script::ScriptImpl::runStatement</a></div><div class="ttdeci">static std::optional&lt; Value &gt; runStatement(const parser::Node::Ptr &amp;statement, SymbolTable &amp;table)</div><div class="ttdoc">Executes a statement.</div><div class="ttdef"><b>Definition</b> <a href="a01721_source.html#l00097">ScriptImpl.cpp:97</a></div></div>
-<div class="ttc" id="aa05451_html_ab89b5a71f7593314d16d29d070158abd"><div class="ttname"><a href="a05451.html#ab89b5a71f7593314d16d29d070158abd">bl::script::ScriptImpl::computeValue</a></div><div class="ttdeci">static PrimitiveValue computeValue(const parser::Node::Ptr &amp;value, SymbolTable &amp;table)</div><div class="ttdoc">Takes a Value Node and computes the actual Value.</div><div class="ttdef"><b>Definition</b> <a href="a01721_source.html#l00053">ScriptImpl.cpp:53</a></div></div>
-<div class="ttc" id="aa05451_html_ac9c951d23f831210e7f40dc70808af70"><div class="ttname"><a href="a05451.html#ac9c951d23f831210e7f40dc70808af70">bl::script::ScriptImpl::runForLoop</a></div><div class="ttdeci">static std::optional&lt; Value &gt; runForLoop(const parser::Node::Ptr &amp;loop, SymbolTable &amp;table)</div><div class="ttdoc">Runs a ForLoop.</div><div class="ttdef"><b>Definition</b> <a href="a01721_source.html#l00230">ScriptImpl.cpp:230</a></div></div>
-<div class="ttc" id="aa05451_html_ad600bd780c64799931298593de49beaf"><div class="ttname"><a href="a05451.html#ad600bd780c64799931298593de49beaf">bl::script::ScriptImpl::runFunction</a></div><div class="ttdeci">static void runFunction(const parser::Node::Ptr &amp;call, SymbolTable &amp;table, Value &amp;result)</div><div class="ttdoc">Performs a function call. Evaluates arguments, updates SymbolTable, and runs statements.</div><div class="ttdef"><b>Definition</b> <a href="a01721_source.html#l00069">ScriptImpl.cpp:69</a></div></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="foldopen" id="foldopen00012" data-start="{" data-end="}">
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="a05398.html#aaededcb8364f5c2f9a83aaa2d017955a">   12</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a05398.html#aaededcb8364f5c2f9a83aaa2d017955a">StreamUtil::skipUntil</a>(std::istream&amp; s, <span class="keywordtype">char</span> delim) {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordflow">while</span> (s.good() &amp;&amp; s.peek() != delim) { s.get(); }</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordflow">return</span> s.good() &amp;&amp; s.peek() == delim;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>}</div>
+</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="foldopen" id="foldopen00017" data-start="{" data-end="}">
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a05398.html#a2fa0042b61855f6ef422d7a6fde449e8">   17</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a05398.html#a2fa0042b61855f6ef422d7a6fde449e8">StreamUtil::isNumeric</a>(<span class="keywordtype">char</span> c) {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordflow">return</span> std::isdigit(<span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(c)) || c == <span class="charliteral">&#39;-&#39;</span>;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>}</div>
+</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="foldopen" id="foldopen00021" data-start="{" data-end="}">
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="a05398.html#a8ee4ee3ad1c725fb70215e7e2dd34eeb">   21</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a05398.html#a8ee4ee3ad1c725fb70215e7e2dd34eeb">StreamUtil::writeRepeated</a>(std::ostream&amp; s, <span class="keywordtype">char</span> c, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> count) {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; count; ++i) { s &lt;&lt; c; }</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordflow">return</span> s.good();</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>}</div>
+</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>} <span class="comment">// namespace util</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00458_html"><div class="ttname"><a href="a00458.html">StreamUtil.hpp</a></div></div>
+<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa05398_html_a2fa0042b61855f6ef422d7a6fde449e8"><div class="ttname"><a href="a05398.html#a2fa0042b61855f6ef422d7a6fde449e8">bl::util::StreamUtil::isNumeric</a></div><div class="ttdeci">static bool isNumeric(char c)</div><div class="ttdoc">Returns whether or not the given character is numeric. Allows digits and '-'.</div><div class="ttdef"><b>Definition</b> <a href="a01706_source.html#l00017">StreamUtil.cpp:17</a></div></div>
+<div class="ttc" id="aa05398_html_a8ee4ee3ad1c725fb70215e7e2dd34eeb"><div class="ttname"><a href="a05398.html#a8ee4ee3ad1c725fb70215e7e2dd34eeb">bl::util::StreamUtil::writeRepeated</a></div><div class="ttdeci">static bool writeRepeated(std::ostream &amp;stream, char c, unsigned int count)</div><div class="ttdoc">Writes the given character into the stream a given number of times.</div><div class="ttdef"><b>Definition</b> <a href="a01706_source.html#l00021">StreamUtil.cpp:21</a></div></div>
+<div class="ttc" id="aa05398_html_aaededcb8364f5c2f9a83aaa2d017955a"><div class="ttname"><a href="a05398.html#aaededcb8364f5c2f9a83aaa2d017955a">bl::util::StreamUtil::skipUntil</a></div><div class="ttdeci">static bool skipUntil(std::istream &amp;stream, char delim)</div><div class="ttdoc">Skips all characters up until the given delimeter character.</div><div class="ttdef"><b>Definition</b> <a href="a01706_source.html#l00012">StreamUtil.cpp:12</a></div></div>
+<div class="ttc" id="aa05398_html_aaefeea8843d802e72a42de4a6b38597b"><div class="ttname"><a href="a05398.html#aaefeea8843d802e72a42de4a6b38597b">bl::util::StreamUtil::skipWhitespace</a></div><div class="ttdeci">static bool skipWhitespace(std::istream &amp;stream)</div><div class="ttdoc">Skips whitespace up until the next non-whitespace character.</div><div class="ttdef"><b>Definition</b> <a href="a01706_source.html#l00007">StreamUtil.cpp:7</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

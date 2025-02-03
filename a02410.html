@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::serial::json Namespace Reference</title>
+<title>BLIB: bl::engine Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,458 +74,99 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02360.html">bl</a></li><li class="navelem"><a class="el" href="a02363.html">serial</a></li><li class="navelem"><a class="el" href="a02410.html">json</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02410.html">engine</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
-<a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">bl::serial::json Namespace Reference</div></div>
+<a href="#typedef-members">Typedefs</a>  </div>
+  <div class="headertitle"><div class="title">bl::engine Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of classes and utilities for interacting with JSON files.  
+<p>The core game engine and related classes.  
 <a href="a02410.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a02426" id="r_a02426"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02426.html">priv</a></td></tr>
-<tr class="memdesc:a02426"><td class="mdescLeft">&#160;</td><td class="mdescRight">Private inline helper methods. <br /></td></tr>
+<tr class="memitem:a02425" id="r_a02425"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02425.html">event</a></td></tr>
+<tr class="memdesc:a02425"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of <a class="el" href="a03046.html" title="Core engine class that owns engine resources and the main game loop.">Engine</a> events. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02427" id="r_a02427"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02427.html">priv</a></td></tr>
+<tr class="memdesc:a02427"><td class="mdescLeft">&#160;</td><td class="mdescRight">Private implementation details. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02426" id="r_a02426"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02426.html">unittest</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04939.html">Base</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a04939.html" title="Base class for all json types.">Base</a> class for all json types.  <a href="a04939.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03166.html">BasicWorld</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic world that uses a specific scene type.  <a href="a03166.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04943.html">Group</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A collection of fields as (std::string, <a class="el" href="a04947.html" title="Represents any value type in JSON.">Value</a>) pairs. This is the top level data type that should be used.  <a href="a04943.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03042.html">Configuration</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global typeless configuration store for engine settings. Applications may add their own configuration settings to the store as well. Some examples of configuration are the path prefixes for songs in Playlists and spritesheets in Animations. Reading the configuration is threadsafe, however all calls to <a class="el" href="a03042.html#ae1351f2a965cfbadda243cf5c25a9196" title="Sets the value for the given type and key in the config store. Keys may be duplicated across types....">set()</a> should be performed before any concurrent access is attempted.  <a href="a03042.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04951.html">Loader</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to load JSON objects from input streams or files. Each call consumes from the given file or stream, so only call if you know that content will be present. Prefer the global read/write methods or <a class="el" href="a04955.html" title="Helper class for SerializableField. Specializations are provided for json native types,...">Serializer</a>, this is mainly for internal use.  <a href="a04951.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03046.html">Engine</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core engine class that owns engine resources and the main game loop.  <a href="a03046.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04955.html">Serializer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper class for <a class="el" href="a05071.html" title="Represents a field in a class that can be serialized. Serializable objects should inherit from Serial...">SerializableField</a>. Specializations are provided for json native types, vector, and unordered_map. User defined types should either implement <a class="el" href="a05091.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> or provide a specialization of this class.  <a href="a04955.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03090.html">Flags</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of flags that can be set to modify or control the behavior of the <a class="el" href="a03046.html" title="Core engine class that owns engine resources and the main game loop.">Engine</a>. All flags are read by the engine at the end of each update loop.  <a href="a03090.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04967.html">Serializer&lt; bool, false &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03094.html">FrameStage</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Container for the names of each stage of a frame in the engine. Used by <a class="el" href="a03134.html" title="Central registry for systems in the engine. Systems should be registered here before the engine is st...">Systems</a> to bucket systems by when they should run.  <a href="a03094.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05035.html">Serializer&lt; ctr::Vector2D&lt; U &gt;, false &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03098.html">Player</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03046.html" title="Core engine class that owns engine resources and the main game loop.">Engine</a> level concept of a player. Wraps renderer Observer and input system Actor.  <a href="a03098.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05015.html">Serializer&lt; glm::vec&lt; 2, U, P &gt;, false &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03102.html">Properties</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper for managing application properties.  <a href="a03102.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05019.html">Serializer&lt; glm::vec&lt; 3, U, P &gt;, false &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03110.html">Property</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper class to manage application properties stored in engine <a class="el" href="a03042.html" title="Global typeless configuration store for engine settings. Applications may add their own configuration...">Configuration</a>.  <a href="a03110.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05023.html">Serializer&lt; glm::vec&lt; 4, U, P &gt;, false &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03114.html">Settings</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of settings to create an <a class="el" href="a03046.html" title="Core engine class that owns engine resources and the main game loop.">Engine</a> with, organized as a builder.  <a href="a03114.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03939.html">Serializer&lt; rc::Color &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03122.html">State</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base interface for all engine states. The <a class="el" href="a03046.html" title="Core engine class that owns engine resources and the main game loop.">Engine</a> class manages the main game loop, application logic should be implemented in a set of EngineState classes which can be plugged into the <a class="el" href="a03046.html" title="Core engine class that owns engine resources and the main game loop.">Engine</a>.  <a href="a03122.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05031.html">Serializer&lt; script::Value, false &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03126.html">StateMask</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper struct for state masks. An engine state has a mask which determines which systems run while that state is active. Any systems whose mask overlaps the state mask are executed each frame while the others are skipped.  <a href="a03126.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05027.html">Serializer&lt; sf::Rect&lt; U &gt;, false &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03130.html">System</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for <a class="el" href="a03046.html" title="Core engine class that owns engine resources and the main game loop.">Engine</a> systems which can be registered in the <a class="el" href="a03134.html" title="Central registry for systems in the engine. Systems should be registered here before the engine is st...">Systems</a> registry.  <a href="a03130.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05007.html">Serializer&lt; sf::Vector2&lt; U &gt;, false &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03134.html">Systems</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Central registry for systems in the engine. <a class="el" href="a03134.html" title="Central registry for systems in the engine. Systems should be registered here before the engine is st...">Systems</a> should be registered here before the engine is started otherwise their init() method will not be called.  <a href="a03134.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05011.html">Serializer&lt; sf::Vector3&lt; U &gt;, false &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03154.html">Window</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper over SFML windows. Uses GLFW on Macos for proper Vulkan surface creation.  <a href="a03154.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04987.html">Serializer&lt; std::array&lt; U, N &gt;, false &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03158.html">Worker</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03158.html" title="Worker interface providing access to the background worker thread of the engine. This thread performs...">Worker</a> interface providing access to the background worker thread of the engine. This thread performs logging and other async engine tasks that are relatively lightweight and sporadic. The thread is terminated when the engine instance is destructed.  <a href="a03158.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05051.html">Serializer&lt; std::pair&lt; U, V &gt;, false &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03162.html">World</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for engine worlds. A world is a scene and all the entities in it. Players can be in worlds. Only derived world classes may be used.  <a href="a03162.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04979.html">Serializer&lt; std::string, false &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04999.html">Serializer&lt; std::unordered_map&lt; std::string, U &gt;, false &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05003.html">Serializer&lt; std::unordered_map&lt; U, V &gt;, false &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04995.html">Serializer&lt; std::unordered_set&lt; U &gt;, false &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05039.html">Serializer&lt; std::variant&lt; Ts... &gt;, false &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04991.html">Serializer&lt; std::vector&lt; U &gt;, false &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04963.html">Serializer&lt; T, false &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04971.html">Serializer&lt; T, true &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04975.html">Serializer&lt; U *, false &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04983.html">Serializer&lt; U[N], false &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04935.html">SourceInfo</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds source location of any json object.  <a href="a04935.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04947.html">Value</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents any value type in JSON.  <a href="a04947.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03170.html">World2D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03162.html" title="Base class for engine worlds. A world is a scene and all the entities in it. Players can be in worlds...">World</a> type for 2d worlds with physics and collisions.  <a href="a03170.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a1651c2f4db91ae08cdd9015e247eef67" id="r_a1651c2f4db91ae08cdd9015e247eef67"><td class="memItemLeft" align="right" valign="top">typedef std::vector&lt; <a class="el" href="a04947.html">Value</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02410.html#a1651c2f4db91ae08cdd9015e247eef67">List</a></td></tr>
-<tr class="separator:a1651c2f4db91ae08cdd9015e247eef67"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a190ee1013a9c24252da21b2cf81c4f38" id="r_a190ee1013a9c24252da21b2cf81c4f38"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02410.html#a190ee1013a9c24252da21b2cf81c4f38">operator&lt;&lt;</a> (std::ostream &amp;stream, const <a class="el" href="a04935.html">SourceInfo</a> &amp;info)</td></tr>
-<tr class="separator:a190ee1013a9c24252da21b2cf81c4f38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11ebc17c99ccf22733cc24cc38ed7997" id="r_a11ebc17c99ccf22733cc24cc38ed7997"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02410.html#a11ebc17c99ccf22733cc24cc38ed7997">operator&lt;&lt;</a> (std::ostream &amp;stream, const <a class="el" href="a04947.html#ad11017cf1f678269d054eff8bb9caf6a">Value::Type</a> &amp;type)</td></tr>
-<tr class="separator:a11ebc17c99ccf22733cc24cc38ed7997"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aacfee524435d566df4f0bb2928785baa" id="r_aacfee524435d566df4f0bb2928785baa"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02410.html#aacfee524435d566df4f0bb2928785baa">operator&lt;&lt;</a> (std::ostream &amp;stream, const <a class="el" href="a04943.html">Group</a> &amp;type)</td></tr>
-<tr class="separator:aacfee524435d566df4f0bb2928785baa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57231d1058a4b5a48df1c7f9c50ec793" id="r_a57231d1058a4b5a48df1c7f9c50ec793"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02410.html#a57231d1058a4b5a48df1c7f9c50ec793">operator&lt;&lt;</a> (std::ostream &amp;stream, const <a class="el" href="a04947.html">Value</a> &amp;type)</td></tr>
-<tr class="separator:a57231d1058a4b5a48df1c7f9c50ec793"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31981f3bf0f51f86d312a77b568e4ca2" id="r_a31981f3bf0f51f86d312a77b568e4ca2"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02410.html#a31981f3bf0f51f86d312a77b568e4ca2">operator&lt;&lt;</a> (std::ostream &amp;stream, const <a class="el" href="a02410.html#a1651c2f4db91ae08cdd9015e247eef67">List</a> &amp;list)</td></tr>
-<tr class="separator:a31981f3bf0f51f86d312a77b568e4ca2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca7e5b1125da5cb3c18094fcba0dab5c" id="r_aca7e5b1125da5cb3c18094fcba0dab5c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02410.html#aca7e5b1125da5cb3c18094fcba0dab5c">loadFromStream</a> (std::istream &amp;stream, <a class="el" href="a04943.html">json::Group</a> &amp;result)</td></tr>
-<tr class="memdesc:aca7e5b1125da5cb3c18094fcba0dab5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads json data from the given stream and returns the constructed <a class="el" href="a04943.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">Group</a>.  <br /></td></tr>
-<tr class="separator:aca7e5b1125da5cb3c18094fcba0dab5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abafe31160a5a79c2a59fe5a5d3c1b052" id="r_abafe31160a5a79c2a59fe5a5d3c1b052"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02410.html#abafe31160a5a79c2a59fe5a5d3c1b052">loadFromFile</a> (const std::string &amp;file, <a class="el" href="a04943.html">json::Group</a> &amp;result)</td></tr>
-<tr class="memdesc:abafe31160a5a79c2a59fe5a5d3c1b052"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads json data from the given file.  <br /></td></tr>
-<tr class="separator:abafe31160a5a79c2a59fe5a5d3c1b052"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25d9b0f9ef427b7695586081ef46fafb" id="r_a25d9b0f9ef427b7695586081ef46fafb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02410.html#a25d9b0f9ef427b7695586081ef46fafb">saveToFile</a> (const std::string &amp;file, const <a class="el" href="a04943.html">json::Group</a> &amp;data)</td></tr>
-<tr class="memdesc:a25d9b0f9ef427b7695586081ef46fafb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves a <a class="el" href="a04943.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a> to the given file.  <br /></td></tr>
-<tr class="separator:a25d9b0f9ef427b7695586081ef46fafb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f108f53c4876f00f6a3e9ef5a59b25a" id="r_a8f108f53c4876f00f6a3e9ef5a59b25a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02410.html#a8f108f53c4876f00f6a3e9ef5a59b25a">saveToStream</a> (std::ostream &amp;stream, const <a class="el" href="a04943.html">json::Group</a> &amp;data)</td></tr>
-<tr class="memdesc:a8f108f53c4876f00f6a3e9ef5a59b25a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a <a class="el" href="a04943.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a> to the given stream.  <br /></td></tr>
-<tr class="separator:a8f108f53c4876f00f6a3e9ef5a59b25a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga57d216bfcb86b8f4150d59bf58be39f0" id="r_ga57d216bfcb86b8f4150d59bf58be39f0"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02378.html#ga57d216bfcb86b8f4150d59bf58be39f0">EngineWindow</a> = <a class="el" href="a03154.html">Window</a>&lt; sf::WindowBase &gt;</td></tr>
+<tr class="memdesc:ga57d216bfcb86b8f4150d59bf58be39f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default window type used by the engine.  <br /></td></tr>
+<tr class="separator:ga57d216bfcb86b8f4150d59bf58be39f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Collection of classes and utilities for interacting with JSON files. </p>
-</div><h2 class="groupheader">Typedef Documentation</h2>
-<a id="a1651c2f4db91ae08cdd9015e247eef67" name="a1651c2f4db91ae08cdd9015e247eef67"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1651c2f4db91ae08cdd9015e247eef67">&#9670;&#160;</a></span>List</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::vector&lt;<a class="el" href="a04947.html">Value</a>&gt; <a class="el" href="a02410.html#a1651c2f4db91ae08cdd9015e247eef67">bl::serial::json::List</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a06721_source.html#l00021">21</a> of file <a class="el" href="a06721_source.html">JSON.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="abafe31160a5a79c2a59fe5a5d3c1b052" name="abafe31160a5a79c2a59fe5a5d3c1b052"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abafe31160a5a79c2a59fe5a5d3c1b052">&#9670;&#160;</a></span>loadFromFile()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::serial::json::loadFromFile </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>file</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a04943.html">json::Group</a> &amp;&#160;</td>
-          <td class="paramname"><em>result</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Loads json data from the given file. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">file</td><td>Filename to load from </td></tr>
-    <tr><td class="paramname">result</td><td><a class="el" href="a04943.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">Group</a> to read into </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01943_source.html#l00331">331</a> of file <a class="el" href="a01943_source.html">JSON.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aca7e5b1125da5cb3c18094fcba0dab5c" name="aca7e5b1125da5cb3c18094fcba0dab5c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca7e5b1125da5cb3c18094fcba0dab5c">&#9670;&#160;</a></span>loadFromStream()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::serial::json::loadFromStream </td>
-          <td>(</td>
-          <td class="paramtype">std::istream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a04943.html">json::Group</a> &amp;&#160;</td>
-          <td class="paramname"><em>result</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Loads json data from the given stream and returns the constructed <a class="el" href="a04943.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">Group</a>. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">stream</td><td>Stream containing valid json </td></tr>
-    <tr><td class="paramname">result</td><td>JSON <a class="el" href="a04943.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">Group</a> to read into </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01943_source.html#l00326">326</a> of file <a class="el" href="a01943_source.html">JSON.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aacfee524435d566df4f0bb2928785baa" name="aacfee524435d566df4f0bb2928785baa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aacfee524435d566df4f0bb2928785baa">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[1/5]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::ostream &amp; bl::serial::json::operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a04943.html">Group</a> &amp;&#160;</td>
-          <td class="paramname"><em>type</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01943_source.html#l00309">309</a> of file <a class="el" href="a01943_source.html">JSON.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a31981f3bf0f51f86d312a77b568e4ca2" name="a31981f3bf0f51f86d312a77b568e4ca2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31981f3bf0f51f86d312a77b568e4ca2">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[2/5]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::ostream &amp; bl::serial::json::operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a02410.html#a1651c2f4db91ae08cdd9015e247eef67">List</a> &amp;&#160;</td>
-          <td class="paramname"><em>list</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01943_source.html#l00314">314</a> of file <a class="el" href="a01943_source.html">JSON.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a190ee1013a9c24252da21b2cf81c4f38" name="a190ee1013a9c24252da21b2cf81c4f38"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a190ee1013a9c24252da21b2cf81c4f38">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[3/5]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::ostream &amp; bl::serial::json::operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a04935.html">SourceInfo</a> &amp;&#160;</td>
-          <td class="paramname"><em>info</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01943_source.html#l00216">216</a> of file <a class="el" href="a01943_source.html">JSON.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a57231d1058a4b5a48df1c7f9c50ec793" name="a57231d1058a4b5a48df1c7f9c50ec793"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a57231d1058a4b5a48df1c7f9c50ec793">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[4/5]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::ostream &amp; bl::serial::json::operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a04947.html">Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>type</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01943_source.html#l00304">304</a> of file <a class="el" href="a01943_source.html">JSON.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a11ebc17c99ccf22733cc24cc38ed7997" name="a11ebc17c99ccf22733cc24cc38ed7997"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a11ebc17c99ccf22733cc24cc38ed7997">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[5/5]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::ostream &amp; bl::serial::json::operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a04947.html#ad11017cf1f678269d054eff8bb9caf6a">Value::Type</a> &amp;&#160;</td>
-          <td class="paramname"><em>type</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01943_source.html#l00277">277</a> of file <a class="el" href="a01943_source.html">JSON.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a25d9b0f9ef427b7695586081ef46fafb" name="a25d9b0f9ef427b7695586081ef46fafb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25d9b0f9ef427b7695586081ef46fafb">&#9670;&#160;</a></span>saveToFile()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::serial::json::saveToFile </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>file</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a04943.html">json::Group</a> &amp;&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Saves a <a class="el" href="a04943.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a> to the given file. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">file</td><td>Filename to save to </td></tr>
-    <tr><td class="paramname">data</td><td>The top level json data to save </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01943_source.html#l00336">336</a> of file <a class="el" href="a01943_source.html">JSON.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a8f108f53c4876f00f6a3e9ef5a59b25a" name="a8f108f53c4876f00f6a3e9ef5a59b25a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f108f53c4876f00f6a3e9ef5a59b25a">&#9670;&#160;</a></span>saveToStream()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::serial::json::saveToStream </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a04943.html">json::Group</a> &amp;&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Writes a <a class="el" href="a04943.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a> to the given stream. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">stream</td><td>The stream to write to </td></tr>
-    <tr><td class="paramname">data</td><td>The top level json data to write </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01943_source.html#l00342">342</a> of file <a class="el" href="a01943_source.html">JSON.cpp</a>.</p>
-
-</div>
-</div>
-</div><!-- contents -->
+<div class="textblock"><p>The core game engine and related classes. </p>
+</div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:08 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

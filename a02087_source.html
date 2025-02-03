@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Resources/ScenePool.cpp Source File</title>
+<title>BLIB: src/ECS/DependencyGraph.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,69 +79,76 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_9db9147e11516848db92abd3a50398f1.html">Resources</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b1a122bf62c958266ec5bf64d14fde5a.html">ECS</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">ScenePool.cpp</div></div>
+  <div class="headertitle"><div class="title">DependencyGraph.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02087.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01070.html">BLIB/Render/Resources/ScenePool.hpp</a>&gt;</span></div>
+<a href="a02087.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00989.html">BLIB/ECS/DependencyGraph.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a00407.html">BLIB/Engine.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00404.html">BLIB/Events.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a01343.html">BLIB/Render/Events/SceneDestroyed.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02360.html">bl</a></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>res</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
-<div class="foldopen" id="foldopen00013" data-start="{" data-end="}">
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="a04275.html#aca923e993cf4122f317b08d3ea35614c">   13</a></span><a class="code hl_function" href="a04275.html#aca923e993cf4122f317b08d3ea35614c">ScenePool::ScenePool</a>(<a class="code hl_class" href="a02967.html">engine::Engine</a>&amp; e)</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>: engine(e) {}</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>ecs</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
+<div class="foldopen" id="foldopen00007" data-start="{" data-end="}">
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="a02886.html#a42ca2d87dfe5867e1e48b7cd927e8998">    7</a></span><a class="code hl_function" href="a02886.html#a42ca2d87dfe5867e1e48b7cd927e8998">ecs::DependencyGraph::DependencyGraph</a>(std::size_t capacityHint)</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>: parentsToChildren(capacityHint)</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>, childrenToParents(capacityHint) {}</div>
+</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="a02886.html#a5be0aef92ec886c39769384811f02ccc">   11</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02886.html#a5be0aef92ec886c39769384811f02ccc">DependencyGraph::addDependency</a>(<a class="code hl_struct" href="a02890.html">Entity</a> parent, <a class="code hl_struct" href="a02890.html">Entity</a> child) {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    parentsToChildren.add(parent.<a class="code hl_function" href="a02890.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>(), child);</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    childrenToParents.add(child.<a class="code hl_function" href="a02890.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>(), parent);</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>}</div>
 </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="foldopen" id="foldopen00016" data-start="{" data-end="}">
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a04275.html#af95a257c30a09327e366c659ced32611">   16</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04275.html#af95a257c30a09327e366c659ced32611">ScenePool::cleanup</a>() {</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    std::unique_lock lock(mutex);</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    scenes.clear();</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>}</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a02886.html#a306e898c7fab38052be04f243e154f8c">   16</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a02886.html#a306e898c7fab38052be04f243e154f8c">DependencyGraph::hasDependencies</a>(<a class="code hl_struct" href="a02890.html">Entity</a> parent)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordflow">return</span> parentsToChildren.hasValues(parent.<a class="code hl_function" href="a02890.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>());</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>}</div>
 </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keywordtype">void</span> ScenePool::release(Entry* entry) {</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    vkDeviceWaitIdle(engine.<a class="code hl_function" href="a02967.html#a04332dee562be55a73c43b5eed176837">renderer</a>().<a class="code hl_function" href="a04239.html#afdefecf57155696e1523bb6b256fc8bd">vulkanState</a>().<a class="code hl_variable" href="a04583.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>);</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    std::unique_lock lock(mutex);</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="foldopen" id="foldopen00020" data-start="{" data-end="}">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a02886.html#a578885f410b0ca7aa8551962258bb59f">   20</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02886.html#a578885f410b0ca7aa8551962258bb59f">DependencyGraph::removeDependency</a>(<a class="code hl_struct" href="a02890.html">Entity</a> parent, <a class="code hl_struct" href="a02890.html">Entity</a> child) {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    parentsToChildren.removeValue(parent.<a class="code hl_function" href="a02890.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>(), child);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    childrenToParents.removeValue(child.<a class="code hl_function" href="a02890.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>(), parent);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>}</div>
+</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    bl::event::Dispatcher::dispatch&lt;rc::event::SceneDestroyed&gt;({entry-&gt;scene.get()});</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = scenes.begin(); it != scenes.end(); ++it) {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keywordflow">if</span> (&amp;(*it) == entry) {</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            scenes.erase(it);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        }</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    }</div>
+<div class="foldopen" id="foldopen00025" data-start="{" data-end="}">
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a02886.html#a46bb4369e09fcc49d21b3f8c07946f4c">   25</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02886.html#a46bb4369e09fcc49d21b3f8c07946f4c">DependencyGraph::clear</a>() {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    parentsToChildren.clear();</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    childrenToParents.clear();</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
+</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="foldopen" id="foldopen00030" data-start="{" data-end="}">
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a02886.html#a334277ed7244554257b87ee0530b6d3a">   30</a></span><a class="code hl_struct" href="a02742.html">ctr::IndexMappedList&lt;std::uint32_t, Entity&gt;::Range</a> <a class="code hl_function" href="a02886.html#a334277ed7244554257b87ee0530b6d3a">DependencyGraph::getResources</a>(<a class="code hl_struct" href="a02890.html">Entity</a> child) {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordflow">return</span> childrenToParents.getValues(child.<a class="code hl_function" href="a02890.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>());</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>}</div>
+</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>} <span class="comment">// namespace res</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00404_html"><div class="ttname"><a href="a00404.html">Events.hpp</a></div></div>
-<div class="ttc" id="aa00407_html"><div class="ttname"><a href="a00407.html">Engine.hpp</a></div></div>
-<div class="ttc" id="aa01070_html"><div class="ttname"><a href="a01070.html">ScenePool.hpp</a></div></div>
-<div class="ttc" id="aa01343_html"><div class="ttname"><a href="a01343.html">SceneDestroyed.hpp</a></div></div>
-<div class="ttc" id="aa02360_html"><div class="ttname"><a href="a02360.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01448_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02967_html"><div class="ttname"><a href="a02967.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition</b> <a href="a06208_source.html#l00038">Engine.hpp:38</a></div></div>
-<div class="ttc" id="aa02967_html_a04332dee562be55a73c43b5eed176837"><div class="ttname"><a href="a02967.html#a04332dee562be55a73c43b5eed176837">bl::engine::Engine::renderer</a></div><div class="ttdeci">rc::Renderer &amp; renderer()</div><div class="ttdoc">Returns the rendering system of the engine.</div><div class="ttdef"><b>Definition</b> <a href="a06208_source.html#l00305">Engine.hpp:305</a></div></div>
-<div class="ttc" id="aa04239_html_afdefecf57155696e1523bb6b256fc8bd"><div class="ttname"><a href="a04239.html#afdefecf57155696e1523bb6b256fc8bd">bl::rc::Renderer::vulkanState</a></div><div class="ttdeci">vk::VulkanState &amp; vulkanState()</div><div class="ttdoc">Returns the Vulkan state of the renderer.</div><div class="ttdef"><b>Definition</b> <a href="a06691_source.html#l00254">Renderer.hpp:254</a></div></div>
-<div class="ttc" id="aa04275_html_aca923e993cf4122f317b08d3ea35614c"><div class="ttname"><a href="a04275.html#aca923e993cf4122f317b08d3ea35614c">bl::rc::res::ScenePool::ScenePool</a></div><div class="ttdeci">ScenePool(engine::Engine &amp;engine)</div><div class="ttdoc">Creates a new scene pool.</div><div class="ttdef"><b>Definition</b> <a href="a02087_source.html#l00013">ScenePool.cpp:13</a></div></div>
-<div class="ttc" id="aa04275_html_af95a257c30a09327e366c659ced32611"><div class="ttname"><a href="a04275.html#af95a257c30a09327e366c659ced32611">bl::rc::res::ScenePool::cleanup</a></div><div class="ttdeci">void cleanup()</div><div class="ttdoc">Destroys all scenes.</div><div class="ttdef"><b>Definition</b> <a href="a02087_source.html#l00016">ScenePool.cpp:16</a></div></div>
-<div class="ttc" id="aa04583_html_a6ad0249d08d9ffb87af35b42f11a1db5"><div class="ttname"><a href="a04583.html#a6ad0249d08d9ffb87af35b42f11a1db5">bl::rc::vk::VulkanState::device</a></div><div class="ttdeci">VkDevice device</div><div class="ttdef"><b>Definition</b> <a href="a01307_source.html#l00222">VulkanState.hpp:222</a></div></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>} <span class="comment">// namespace ecs</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00989_html"><div class="ttname"><a href="a00989.html">DependencyGraph.hpp</a></div></div>
+<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02742_html"><div class="ttname"><a href="a02742.html">bl::ctr::IndexMappedList::Range</a></div><div class="ttdoc">Helper struct to allow range-based for loops.</div><div class="ttdef"><b>Definition</b> <a href="a00560_source.html#l00188">IndexMappedList.hpp:188</a></div></div>
+<div class="ttc" id="aa02886_html_a306e898c7fab38052be04f243e154f8c"><div class="ttname"><a href="a02886.html#a306e898c7fab38052be04f243e154f8c">bl::ecs::DependencyGraph::hasDependencies</a></div><div class="ttdeci">bool hasDependencies(Entity parent) const</div><div class="ttdoc">Returns whether or not the given entity has others depending on it.</div><div class="ttdef"><b>Definition</b> <a href="a02087_source.html#l00016">DependencyGraph.cpp:16</a></div></div>
+<div class="ttc" id="aa02886_html_a334277ed7244554257b87ee0530b6d3a"><div class="ttname"><a href="a02886.html#a334277ed7244554257b87ee0530b6d3a">bl::ecs::DependencyGraph::getResources</a></div><div class="ttdeci">ctr::IndexMappedList&lt; std::uint32_t, Entity &gt;::Range getResources(Entity child)</div><div class="ttdoc">Returns an iterable of dependencies for the given entity.</div><div class="ttdef"><b>Definition</b> <a href="a02087_source.html#l00030">DependencyGraph.cpp:30</a></div></div>
+<div class="ttc" id="aa02886_html_a42ca2d87dfe5867e1e48b7cd927e8998"><div class="ttname"><a href="a02886.html#a42ca2d87dfe5867e1e48b7cd927e8998">bl::ecs::DependencyGraph::DependencyGraph</a></div><div class="ttdeci">DependencyGraph(std::size_t capacityHint)</div><div class="ttdoc">Creates the graph with the given capacity hint.</div><div class="ttdef"><b>Definition</b> <a href="a02087_source.html#l00007">DependencyGraph.cpp:7</a></div></div>
+<div class="ttc" id="aa02886_html_a46bb4369e09fcc49d21b3f8c07946f4c"><div class="ttname"><a href="a02886.html#a46bb4369e09fcc49d21b3f8c07946f4c">bl::ecs::DependencyGraph::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdoc">Clears out all relationship data.</div><div class="ttdef"><b>Definition</b> <a href="a02087_source.html#l00025">DependencyGraph.cpp:25</a></div></div>
+<div class="ttc" id="aa02886_html_a578885f410b0ca7aa8551962258bb59f"><div class="ttname"><a href="a02886.html#a578885f410b0ca7aa8551962258bb59f">bl::ecs::DependencyGraph::removeDependency</a></div><div class="ttdeci">void removeDependency(Entity parent, Entity child)</div><div class="ttdoc">Removes the given dependency.</div><div class="ttdef"><b>Definition</b> <a href="a02087_source.html#l00020">DependencyGraph.cpp:20</a></div></div>
+<div class="ttc" id="aa02886_html_a5be0aef92ec886c39769384811f02ccc"><div class="ttname"><a href="a02886.html#a5be0aef92ec886c39769384811f02ccc">bl::ecs::DependencyGraph::addDependency</a></div><div class="ttdeci">void addDependency(Entity parent, Entity child)</div><div class="ttdoc">Adds a dependency between two entities.</div><div class="ttdef"><b>Definition</b> <a href="a02087_source.html#l00011">DependencyGraph.cpp:11</a></div></div>
+<div class="ttc" id="aa02890_html"><div class="ttname"><a href="a02890.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a00992_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa02890_html_aa3cb71b47f3a72f20913a27233a5dad0"><div class="ttname"><a href="a02890.html#aa3cb71b47f3a72f20913a27233a5dad0">bl::ecs::Entity::getIndex</a></div><div class="ttdeci">std::uint64_t getIndex() const</div><div class="ttdoc">Returns the 0-based index for the entity.</div><div class="ttdef"><b>Definition</b> <a href="a00992_source.html#l00107">Entity.hpp:107</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:24:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>
