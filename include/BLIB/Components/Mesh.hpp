@@ -31,7 +31,7 @@ struct Mesh : public rc::rcom::DrawableBase {
      * @brief Returns the default material pipeline for rendering
      */
     virtual std::uint32_t getDefaultMaterialPipelineId() const override {
-        return rc::Config::MaterialPipelineIds::Mesh3D;
+        return rc::Config::MaterialPipelineIds::Mesh3DSkinned;
     }
 };
 

@@ -73,6 +73,7 @@ public:
             spriteEntity, engine.renderer(), texture);
         bl::com::MaterialInstance& smat = *engine.ecs().emplaceComponent<bl::com::MaterialInstance>(
             spriteEntity, engine.renderer(), scom);
+        scom.init(&smat);
         smat.setMaterial(engine.renderer().materialPool().getOrCreateFromTexture(texture));
         scom.addToScene(engine.ecs(), spriteEntity, scene2d, bl::rc::UpdateSpeed::Dynamic);
         spritePosition->setPosition({1920.f * 0.5f, 1080.f * 0.25f});
@@ -109,6 +110,7 @@ public:
             engine.ecs().emplaceComponent<bl::com::MaterialInstance>(
                 meshEntity, engine.renderer(), *mesh);
         meshMaterial->setMaterial(engine.renderer().materialPool().getOrCreateFromTexture(texture));
+        mesh->init(meshMaterial);
         mesh->create(engine.renderer().vulkanState(), Vertices.size(), Indices.size());
         mesh->gpuBuffer.vertices() = Vertices;
         for (auto& v : mesh->gpuBuffer.vertices()) {
