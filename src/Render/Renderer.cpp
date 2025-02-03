@@ -60,6 +60,8 @@ void Renderer::initialize() {
         FrameStage::RenderDescriptorRefresh, AllMask);
     engine.systems().registerSystem<sys::TextureDescriptorSystem>(
         FrameStage::RenderDescriptorRefresh, AllMask);
+    engine.systems().registerSystem<sys::MaterialDescriptorSystem>(
+        FrameStage::RenderDescriptorRefresh, AllMask);
 
     // asset providers
     assetFactory.addProvider<rgi::StandardAssetProvider>(rg::AssetTags::RenderedSceneOutput);

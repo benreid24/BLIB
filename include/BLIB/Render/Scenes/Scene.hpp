@@ -107,7 +107,7 @@ protected:
      */
     struct BatchChange {
         scene::SceneObject* changed;
-        std::uint32_t newPipeline;
+        mat::MaterialPipeline* newPipeline;
         bool newTrans;
     };
 
@@ -152,7 +152,7 @@ protected:
      * @param change Details of the change
      * @param ogPipeline The original pipeline of the object being changed
      */
-    virtual void doBatchChange(const BatchChange& change, std::uint32_t ogPipeline) = 0;
+    virtual void doBatchChange(const BatchChange& change, mat::MaterialPipeline* ogPipeline) = 0;
 
     /**
      * @brief Called when an object should be removed from the scene
@@ -160,7 +160,7 @@ protected:
      * @param object The object to be removed
      * @param pipeline The pipeline used to render the object being removed
      */
-    virtual void doObjectRemoval(scene::SceneObject* object, std::uint32_t pipeline) = 0;
+    virtual void doObjectRemoval(scene::SceneObject* object, mat::MaterialPipeline* pipeline) = 0;
 
 private:
     struct ObjectAdd {
@@ -176,8 +176,8 @@ private:
     };
 
     std::uint32_t nextObserverIndex;
-    std::vector<std::uint32_t> staticPipelines;
-    std::vector<std::uint32_t> dynamicPipelines;
+    std::vector<mat::MaterialPipeline*> staticPipelines;
+    std::vector<mat::MaterialPipeline*> dynamicPipelines;
 
     std::recursive_mutex queueMutex;
     bool isClearingQueues;

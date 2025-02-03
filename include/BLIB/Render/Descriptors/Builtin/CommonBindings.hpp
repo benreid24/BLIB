@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_DESCRIPTORS_BUILTIN_COMMONBINDINGS_HPP
 #define BLIB_RENDER_DESCRIPTORS_BUILTIN_COMMONBINDINGS_HPP
 
-#include <BLIB/Components/Texture.hpp>
+#include <BLIB/Components/MaterialInstance.hpp>
 #include <BLIB/Components/Transform2D.hpp>
 #include <BLIB/Components/Transform3D.hpp>
 #include <BLIB/Render/Descriptors/Generic/ObjectStorageBuffer.hpp>
@@ -21,7 +21,7 @@ namespace priv
 using Transform2DBinding = ObjectStorageBuffer<glm::mat4, com::Transform2D>;
 using Transform3DBinding = ObjectStorageBuffer<glm::mat4, com::Transform3D>;
 using TextureBinding =
-    ObjectStorageBuffer<std::uint32_t, com::Texture, true, buf::StaticSSBO<std::uint32_t>,
+    ObjectStorageBuffer<std::uint32_t, com::MaterialInstance, true, buf::StaticSSBO<std::uint32_t>,
                         buf::StaticSSBO<std::uint32_t>>;
 
 } // namespace priv

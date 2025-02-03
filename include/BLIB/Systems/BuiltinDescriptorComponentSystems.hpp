@@ -1,7 +1,7 @@
 #ifndef BLIB_SYSTEMS_BUILTINDESCRIPTORCOMPONENTSYSTEMS_HPP
 #define BLIB_SYSTEMS_BUILTINDESCRIPTORCOMPONENTSYSTEMS_HPP
 
-#include <BLIB/Components/Texture.hpp>
+#include <BLIB/Components/MaterialInstance.hpp>
 #include <BLIB/Components/Transform2D.hpp>
 #include <BLIB/Components/Transform3D.hpp>
 #include <BLIB/Engine/Engine.hpp>
@@ -21,7 +21,14 @@ using Transform3DDescriptorSystem = DescriptorComponentSystem<com::Transform3D, 
  * @brief Descriptor component system for textures
  * @ingroup Systems
  */
-using TextureDescriptorSystem = DescriptorComponentSystem<com::Texture, std::uint32_t>;
+using TextureDescriptorSystem = DescriptorComponentSystem<com::MaterialInstance, std::uint32_t>;
+
+/**
+ * @brief Descriptor component system for materials
+ * @ingroup Systems
+ */
+using MaterialDescriptorSystem =
+    DescriptorComponentSystem<com::MaterialInstance, rc::mat::MaterialDescriptor>;
 
 } // namespace sys
 } // namespace bl

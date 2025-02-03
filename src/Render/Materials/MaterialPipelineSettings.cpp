@@ -38,19 +38,19 @@ MaterialPipelineSettings& MaterialPipelineSettings::withRenderPhase(RenderPhase 
     return *this;
 }
 
-MaterialPipelineSettings& MaterialPipelineSettings::withPhasePipelineOverride(
+MaterialPipelineSettings& MaterialPipelineSettings::withRenderPhasePipelineOverride(
     RenderPhase phase, PhasePipelineOverride overrideBehavior) {
     renderPhaseOverrides[renderPhaseIndex(phase)] = PipelineInfo(overrideBehavior);
     return *this;
 }
 
-MaterialPipelineSettings& MaterialPipelineSettings::withRenderPhaseShaderOverride(
+MaterialPipelineSettings& MaterialPipelineSettings::withRenderPhasePipelineOverride(
     RenderPhase phase, std::uint32_t pipelineId) {
     renderPhaseOverrides[renderPhaseIndex(phase)] = PipelineInfo(pipelineId);
     return *this;
 }
 
-MaterialPipelineSettings& MaterialPipelineSettings::withRenderPhaseShaderOverride(
+MaterialPipelineSettings& MaterialPipelineSettings::withRenderPhasePipelineOverride(
     RenderPhase phase, vk::PipelineParameters* params) {
     renderPhaseOverrides[renderPhaseIndex(phase)] = PipelineInfo(params);
     return *this;
@@ -68,6 +68,8 @@ MaterialPipelineSettings&& MaterialPipelineSettings::build() {
                 BL_LOG_CRITICAL << "Material pipeline cannot have both an override and parameters";
                 return false;
             }
+
+            info.pipelineParams->build();
         }
 
         if (info.id != Config::PipelineIds::None) {

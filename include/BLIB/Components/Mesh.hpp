@@ -28,17 +28,10 @@ struct Mesh : public rc::rcom::DrawableBase {
                 std::uint32_t indexCount);
 
     /**
-     * @brief Returns the default pipeline for regular scenes
+     * @brief Returns the default material pipeline for rendering
      */
-    virtual std::uint32_t getDefaultScenePipelineId() const override {
-        return rc::Config::PipelineIds::SkinnedMeshes;
-    }
-
-    /**
-     * @brief Returns the default pipeline for overlays
-     */
-    virtual std::uint32_t getDefaultOverlayPipelineId() const override {
-        return rc::Config::PipelineIds::SkinnedMeshes;
+    virtual std::uint32_t getDefaultMaterialPipelineId() const override {
+        return rc::Config::MaterialPipelineIds::Mesh3D;
     }
 };
 

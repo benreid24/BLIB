@@ -19,7 +19,7 @@ Sprite::Sprite(engine::World& world, ecs::Entity existing, rc::res::TextureRef t
 void Sprite::create(engine::World& world, rc::res::TextureRef texture,
                     const sf::FloatRect& region) {
     Drawable::create(world, world.engine().renderer(), texture, region);
-    Textured::create(world.engine().ecs(), entity(), texture);
+    Textured::create(world.engine().renderer(), &material(), texture);
     OverlayScalable::create(world.engine(), entity());
     OverlayScalable::setLocalSize(component().getSize());
     component().setContainsTransparency(Textured::getTexture()->containsTransparency());
@@ -28,7 +28,7 @@ void Sprite::create(engine::World& world, rc::res::TextureRef texture,
 void Sprite::create(engine::World& world, ecs::Entity existing, rc::res::TextureRef texture,
                     const sf::FloatRect& region) {
     Drawable::createComponentOnly(world, existing, world.engine().renderer(), texture, region);
-    Textured::create(world.engine().ecs(), entity(), texture);
+    Textured::create(world.engine().renderer(), &material(), texture);
     OverlayScalable::create(world.engine(), entity());
     OverlayScalable::setLocalSize(component().getSize());
     component().setContainsTransparency(Textured::getTexture()->containsTransparency());

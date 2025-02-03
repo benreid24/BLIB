@@ -12,7 +12,7 @@ BatchedSprites::BatchedSprites(engine::World& world, rc::res::TextureRef texture
 void BatchedSprites::create(engine::World& world, rc::res::TextureRef texture,
                             unsigned int initialCapacity) {
     Drawable::create(world, world.engine().renderer(), texture, initialCapacity);
-    Textured::create(world.engine().ecs(), entity(), texture);
+    Textured::create(world.engine().renderer(), &material(), texture);
     Transform2D::create(world.engine().ecs(), entity());
 }
 

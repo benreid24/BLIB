@@ -49,7 +49,7 @@ void Animation2D::createWithUniquePlayer(engine::World& world,
     Drawable::create(world);
     OverlayScalable::create(world.engine(), entity());
     OverlayScalable::setLocalSize(getSize(animation));
-    Animation2DPlayer::create(world, entity(), animation, play, forceLoop);
+    Animation2DPlayer::create(world, entity(), material(), animation, play, forceLoop);
     component().create(world.engine(), Animation2DPlayer::getPlayer());
     component().setContainsTransparency(Textured::getTexture()->containsTransparency());
 }
@@ -60,7 +60,7 @@ void Animation2D::createWithUniquePlayer(engine::World& world, ecs::Entity exist
     Drawable::createComponentOnly(world, existing);
     OverlayScalable::create(world.engine(), entity());
     OverlayScalable::setLocalSize(getSize(animation));
-    Animation2DPlayer::create(world, entity(), animation, play, forceLoop);
+    Animation2DPlayer::create(world, entity(), material(), animation, play, forceLoop);
     component().create(world.engine(), Animation2DPlayer::getPlayer());
     component().setContainsTransparency(Textured::getTexture()->containsTransparency());
 }
@@ -69,7 +69,7 @@ void Animation2D::createWithSharedPlayer(engine::World& world, const Animation2D
     Drawable::create(world);
     OverlayScalable::create(world.engine(), entity());
     OverlayScalable::setLocalSize(player.getLocalSize());
-    Animation2DPlayer::create(world, entity(), player.getPlayerEntity());
+    Animation2DPlayer::create(world, entity(), player.getPlayerEntity(), material());
     component().create(world.engine(), Animation2DPlayer::getPlayer());
     component().setContainsTransparency(Textured::getTexture()->containsTransparency());
 }
@@ -79,7 +79,7 @@ void Animation2D::createWithSharedPlayer(engine::World& world, ecs::Entity exist
     Drawable::createComponentOnly(world, existing);
     OverlayScalable::create(world.engine(), entity());
     OverlayScalable::setLocalSize(player.getLocalSize());
-    Animation2DPlayer::create(world, entity(), player.getPlayerEntity());
+    Animation2DPlayer::create(world, entity(), player.getPlayerEntity(), material());
     component().create(world.engine(), Animation2DPlayer::getPlayer());
     component().setContainsTransparency(Textured::getTexture()->containsTransparency());
 }

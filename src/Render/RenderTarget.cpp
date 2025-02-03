@@ -237,6 +237,7 @@ void RenderTarget::renderOverlay(VkCommandBuffer commandBuffer) {
             scene::SceneRenderContext ctx(commandBuffer,
                                           scenes.back().overlayIndex,
                                           viewport,
+                                          RenderPhase::Overlay,
                                           isRenderTexture ?
                                               Config::RenderPassIds::StandardAttachmentDefault :
                                               Config::RenderPassIds::SwapchainDefault,

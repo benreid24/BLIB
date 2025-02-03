@@ -6,24 +6,35 @@ namespace bl
 {
 namespace com
 {
-com::MaterialInstance::MaterialInstance(rc::Renderer& renderer,
-                                        rc::rcom::DrawableBase& drawComponent,
-                                        rc::mat::MaterialPipeline* pipeline)
+MaterialInstance::MaterialInstance(rc::Renderer& renderer, rc::rcom::DrawableBase& drawComponent)
+: renderer(renderer)
+, drawable(drawComponent)
+, pipeline(
+      &renderer.materialPipelineCache().getPipeline(drawComponent.getDefaultMaterialPipelineId())) {
+}
+
+MaterialInstance::MaterialInstance(rc::Renderer& renderer, rc::rcom::DrawableBase& drawComponent,
+                                   std::uint32_t materialPipelineId)
+: renderer(renderer)
+, drawable(drawComponent)
+, pipeline(&renderer.materialPipelineCache().getPipeline(materialPipelineId)) {}
+
+MaterialInstance::MaterialInstance(rc::Renderer& renderer, rc::rcom::DrawableBase& drawComponent,
+                                   rc::mat::MaterialPipeline* pipeline)
 : renderer(renderer)
 , drawable(drawComponent)
 , pipeline(pipeline) {}
 
-com::MaterialInstance::MaterialInstance(rc::Renderer& renderer,
-                                        rc::rcom::DrawableBase& drawComponent,
-                                        rc::mat::MaterialPipeline* pipeline,
-                                        const rc::res::MaterialRef& material)
+MaterialInstance::MaterialInstance(rc::Renderer& renderer, rc::rcom::DrawableBase& drawComponent,
+                                   rc::mat::MaterialPipeline* pipeline,
+                                   const rc::res::MaterialRef& material)
 : renderer(renderer)
 , drawable(drawComponent)
 , pipeline(pipeline)
 , material(material) {}
 
 void MaterialInstance::setMaterial(const rc::res::MaterialRef& m) {
-    material = material;
+    material = m;
     onMaterialChange();
 }
 
@@ -50,9 +61,7 @@ MaterialInstance& MaterialInstance::operator=(const MaterialInstance& copy) {
     return *this;
 }
 
-void MaterialInstance::onPipelineChange() {
-    // TODO - notify drawable to update scenes
-}
+void MaterialInstance::onPipelineChange() { drawable.rebucket(); }
 
 void MaterialInstance::onMaterialChange() { markDirty(); }
 
@@ -63,6 +72,10 @@ void MaterialInstance::refreshDescriptor(rc::mat::MaterialDescriptor& d) {
         d.normalTextureId  = material->getNormalMap().id();
         d.uvTextureId      = material->getUVMap().id();
     }
+}
+
+void MaterialInstance::refreshDescriptor(std::uint32_t& tid) {
+    if (material) { tid = material->getTexture().id(); }
 }
 
 } // namespace com

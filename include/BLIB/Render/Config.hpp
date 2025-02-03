@@ -67,28 +67,41 @@ struct Config {
     };
 
     /**
-     * @brief Built-in pipelines. Built-in MaterialPipelines using these pipelines share the same id
+     * @brief Built-in pipelines
      */
     struct PipelineIds {
         static constexpr std::uint32_t None = 0;
 
-        static constexpr std::uint32_t ShadowPassMeshes        = 1;
-        static constexpr std::uint32_t ShadowPassSkinnedMeshes = 2;
+        static constexpr std::uint32_t LitMesh3D          = 1;
+        static constexpr std::uint32_t UnlitMesh3D        = 2;
+        static constexpr std::uint32_t LitSkinnedMesh3D   = 3;
+        static constexpr std::uint32_t UnlitSkinnedMesh3D = 4;
 
-        static constexpr std::uint32_t SkinnedMeshes = 3;
+        static constexpr std::uint32_t Lit2DGeometry               = 5;
+        static constexpr std::uint32_t Unlit2DGeometry             = 6;
+        static constexpr std::uint32_t Unlit2DGeometryNoDepthWrite = 7;
+        static constexpr std::uint32_t LitSkinned2DGeometry        = 8;
+        static constexpr std::uint32_t UnlitSkinned2DGeometry      = 9;
 
-        static constexpr std::uint32_t Lit2DGeometry               = 4;
-        static constexpr std::uint32_t Unlit2DGeometry             = 5;
-        static constexpr std::uint32_t Unlit2DGeometryNoDepthWrite = 6;
-        static constexpr std::uint32_t LitSkinned2DGeometry        = 7;
-        static constexpr std::uint32_t UnlitSkinned2DGeometry      = 8;
-
-        static constexpr std::uint32_t Text           = 9;
-        static constexpr std::uint32_t SlideshowLit   = 10;
-        static constexpr std::uint32_t SlideshowUnlit = 11;
-        static constexpr std::uint32_t Lines2D        = 12;
+        static constexpr std::uint32_t Text           = 10;
+        static constexpr std::uint32_t SlideshowLit   = 11;
+        static constexpr std::uint32_t SlideshowUnlit = 12;
+        static constexpr std::uint32_t Lines2D        = 13;
 
         static constexpr std::uint32_t FadeEffect = 100;
+    };
+
+    /**
+     * @brief Built-in MaterialPipeline ids
+     */
+    struct MaterialPipelineIds {
+        static constexpr std::uint32_t Mesh3D            = 1;
+        static constexpr std::uint32_t Mesh3DSkinned     = 2;
+        static constexpr std::uint32_t Geometry2D        = 3;
+        static constexpr std::uint32_t Geometry2DSkinned = 4;
+        static constexpr std::uint32_t Text              = 5;
+        static constexpr std::uint32_t Slideshow2D       = 6;
+        static constexpr std::uint32_t Lines2D           = 7;
     };
 
     /**

@@ -29,12 +29,12 @@ namespace pcl
 template<typename T>
 class Renderer {
 public:
-    using TComponent                           = typename RenderComponentMap<T>::TComponent;
-    static constexpr std::uint32_t PipelineId  = RenderConfigMap<T>::PipelineId;
-    static constexpr bool ContainsTransparency = RenderConfigMap<T>::ContainsTransparency;
-    using TGlobalsPayload                      = typename RenderConfigMap<T>::GlobalShaderPayload;
+    using TComponent                                  = typename RenderComponentMap<T>::TComponent;
+    static constexpr std::uint32_t MaterialPipelineId = RenderConfigMap<T>::MaterialPipelineId;
+    static constexpr bool ContainsTransparency        = RenderConfigMap<T>::ContainsTransparency;
+    using TGlobalsPayload = typename RenderConfigMap<T>::GlobalShaderPayload;
 
-    static_assert(PipelineId != priv::PipelineNotSet,
+    static_assert(MaterialPipelineId != priv::PipelineNotSet,
                   "Specialize RenderConfigMap and specify pipeline id and transparency");
 
     /**

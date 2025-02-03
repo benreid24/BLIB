@@ -30,7 +30,7 @@ public:
      * @param params The parameters to create the pipeline with
      * @return Pipeline& The newly created pipeline
      */
-    vk::Pipeline& createPipline(std::uint32_t pipelineId, vk::PipelineParameters&& params);
+    vk::Pipeline& createPipeline(std::uint32_t pipelineId, vk::PipelineParameters&& params);
 
     /**
      * @brief Creates or returns an existing pipeline using the given parameters and a free id

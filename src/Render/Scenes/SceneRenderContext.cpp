@@ -9,9 +9,11 @@ namespace rc
 namespace scene
 {
 SceneRenderContext::SceneRenderContext(VkCommandBuffer commandBuffer, std::uint32_t observerIndex,
-                                       const VkViewport& vp, std::uint32_t rpid, bool isrt)
+                                       const VkViewport& vp, RenderPhase phase, std::uint32_t rpid,
+                                       bool isrt)
 : commandBuffer(commandBuffer)
 , observerIndex(observerIndex)
+, renderPhase(phase)
 , prevVB(nullptr)
 , prevIB(nullptr)
 , boundSpeed(std::numeric_limits<UpdateSpeed>::max())
@@ -21,8 +23,8 @@ SceneRenderContext::SceneRenderContext(VkCommandBuffer commandBuffer, std::uint3
     boundDescriptors.fill(nullptr);
 }
 
-void SceneRenderContext::bindPipeline(vk::Pipeline& pipeline) {
-    pipeline.bind(commandBuffer, renderPassId);
+void SceneRenderContext::bindPipeline(mat::MaterialPipeline& pipeline) {
+    pipeline.bind(commandBuffer, renderPhase, renderPassId);
 }
 
 void SceneRenderContext::bindDescriptors(VkPipelineLayout layout, UpdateSpeed speed,

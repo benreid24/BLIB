@@ -83,8 +83,8 @@ public:
      * @param overrideBehavior The override behavior for the render phase
      * @return A reference to this object
      */
-    MaterialPipelineSettings& withPhasePipelineOverride(RenderPhase phase,
-                                                        PhasePipelineOverride overrideBehavior);
+    MaterialPipelineSettings& withRenderPhasePipelineOverride(
+        RenderPhase phase, PhasePipelineOverride overrideBehavior);
 
     /**
      * @brief Sets an override using a specific pipeline for the given render phase
@@ -93,8 +93,8 @@ public:
      * @param pipelineId The id of the pipeline to use during the given phase
      * @return A reference to this object
      */
-    MaterialPipelineSettings& withRenderPhaseShaderOverride(RenderPhase phase,
-                                                            std::uint32_t pipelineId);
+    MaterialPipelineSettings& withRenderPhasePipelineOverride(RenderPhase phase,
+                                                              std::uint32_t pipelineId);
 
     /**
      * @brief Sets an override using a specific pipeline from parameters for the given render phase
@@ -103,8 +103,8 @@ public:
      * @param params The parameters of the pipeline to override with
      * @return A reference to this object
      */
-    MaterialPipelineSettings& withRenderPhaseShaderOverride(RenderPhase phase,
-                                                            vk::PipelineParameters* params);
+    MaterialPipelineSettings& withRenderPhasePipelineOverride(RenderPhase phase,
+                                                              vk::PipelineParameters* params);
 
     /**
      * @brief Validates the settings and returns an rvalue reference to this object

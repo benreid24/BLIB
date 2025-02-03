@@ -22,8 +22,17 @@ namespace com
  * @ingroup Components
  */
 class MaterialInstance
-: public rc::rcom::DescriptorComponentBase<MaterialInstance, rc::mat::MaterialDescriptor> {
+: public rc::rcom::DescriptorComponentBase<MaterialInstance, rc::mat::MaterialDescriptor,
+                                           std::uint32_t> {
 public:
+    /**
+     * @brief Creates the material instance using the default pipeline from the drawable component
+     *
+     * @param renderer The renderer instance
+     * @param drawComponent The drawable component for the entity
+     */
+    MaterialInstance(rc::Renderer& renderer, rc::rcom::DrawableBase& drawComponent);
+
     /**
      * @brief Creates the material instance from a pipeline
      *
@@ -33,6 +42,16 @@ public:
      */
     MaterialInstance(rc::Renderer& renderer, rc::rcom::DrawableBase& drawComponent,
                      rc::mat::MaterialPipeline* pipeline);
+
+    /**
+     * @brief Creates the material instance from a pipeline id
+     *
+     * @param renderer The renderer instance
+     * @param drawComponent The drawable component for the entity
+     * @param materialPipelineId The pipeline id to render with
+     */
+    MaterialInstance(rc::Renderer& renderer, rc::rcom::DrawableBase& drawComponent,
+                     std::uint32_t materialPipelineId);
 
     /**
      * @brief Creates the material instance from a pipeline and a material
@@ -53,7 +72,7 @@ public:
     /**
      * @brief Returns the pipeline used by the entity
      */
-    const rc::mat::MaterialPipeline& getPipeline() const;
+    rc::mat::MaterialPipeline& getPipeline() const;
 
     /**
      * @brief Update the material used by the entity
@@ -101,14 +120,15 @@ private:
     void onMaterialChange();
 
     // from descriptor base
-    void refreshDescriptor(rc::mat::MaterialDescriptor& descriptor);
+    virtual void refreshDescriptor(rc::mat::MaterialDescriptor& descriptor) override;
+    virtual void refreshDescriptor(std::uint32_t& textureId) override;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 inline const rc::res::MaterialRef& MaterialInstance::getMaterial() const { return material; }
 
-inline const rc::mat::MaterialPipeline& MaterialInstance::getPipeline() const { return *pipeline; }
+inline rc::mat::MaterialPipeline& MaterialInstance::getPipeline() const { return *pipeline; }
 
 } // namespace com
 } // namespace bl

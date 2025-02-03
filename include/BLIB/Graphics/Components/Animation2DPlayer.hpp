@@ -68,19 +68,22 @@ protected:
      * @param world The world to create the player in
      * @param entity The parent entity
      * @param player The entity with the player component
+     * @param material The material of the entity
      */
-    void create(engine::World& world, ecs::Entity entity, ecs::Entity player);
+    void create(engine::World& world, ecs::Entity entity, ecs::Entity player,
+                com::MaterialInstance& material);
 
     /**
      * @brief Creates the animation components with a dedicated player component on this entity
      *
      * @param world The world to create the player in
      * @param entity The parent entity
+     * @param material The material of the entity
      * @param animation The animation to use
      * @param play True to begin playing immediately, false to start paused
      * @param forceLoop True to loop the animation, false to use the animation's loop setting
      */
-    void create(engine::World& world, ecs::Entity entity,
+    void create(engine::World& world, ecs::Entity entity, com::MaterialInstance& material,
                 const resource::Ref<gfx::a2d::AnimationData>& animation, bool play, bool forceLoop);
 
 private:

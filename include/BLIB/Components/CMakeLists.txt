@@ -15,7 +15,6 @@ target_sources(BLIB PUBLIC
 	Slideshow.hpp
 	Sprite.hpp
 	Text.hpp
-	Texture.hpp
 	TilemapPosition.hpp
 	Toggler.hpp
 	Transform2D.hpp

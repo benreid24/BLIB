@@ -26,9 +26,6 @@ constexpr std::uint32_t PipelineNotSet = std::numeric_limits<std::uint32_t>::max
  */
 template<typename T>
 struct RenderConfigDefaults {
-    static constexpr std::initializer_list<std::uint32_t> RenderPassIds = {
-        bl::rc::Config::RenderPassIds::StandardAttachmentDefault,
-        bl::rc::Config::RenderPassIds::SwapchainDefault};
     using GlobalShaderPayload = std::monostate;
 };
 
@@ -56,7 +53,7 @@ struct RenderConfigDescriptorList {
 template<typename T>
 struct RenderConfigMap {
     /// The id of the pipeline to render the particle system with
-    static constexpr std::uint32_t PipelineId = priv::PipelineNotSet;
+    static constexpr std::uint32_t MaterialPipelineId = priv::PipelineNotSet;
 
     /// The transparency setting to render the particle system with
     static constexpr bool ContainsTransparency = false;
@@ -76,10 +73,6 @@ struct RenderConfigMap {
 
     /// The fragment shader to create the pipeline with
     static constexpr const char* FragmentShader = nullptr;
-
-    /// The list of render pass ids the pipeline will be used with
-    static constexpr std::initializer_list<std::uint32_t> RenderPassIds =
-        RenderConfigDefaults<T>::RenderPassIds;
 
     /// The topology type the pipeline should be created with
     static constexpr VkPrimitiveTopology Topology = VK_PRIMITIVE_TOPOLOGY_POINT_LIST;

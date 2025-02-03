@@ -12,7 +12,7 @@ void VertexBuffer2D::create(engine::World& world, unsigned int vc) {
 
 void VertexBuffer2D::create(engine::World& world, unsigned int vc, rc::res::TextureRef txtr) {
     create(world, vc);
-    Textured::create(world.engine().ecs(), entity(), txtr);
+    Textured::create(world.engine().renderer(), &material(), txtr);
 }
 
 void VertexBuffer2D::scaleToSize(const glm::vec2& size) {

@@ -49,7 +49,7 @@ void CodeScene::renderScene(scene::SceneRenderContext& context) {
     renderCallback(ctx);
 }
 
-void CodeScene::doObjectRemoval(SceneObject* object, std::uint32_t) {
+void CodeScene::doObjectRemoval(SceneObject* object, mat::MaterialPipeline*) {
     CodeSceneObject* obj     = static_cast<CodeSceneObject*>(object);
     const ecs::Entity entity = objects.getObjectEntity(obj->sceneKey);
 
@@ -64,9 +64,9 @@ SceneObject* CodeScene::doAdd(ecs::Entity entity, rcom::DrawableBase& object,
                               UpdateSpeed updateFreq) {
     CodeSceneObject& obj = *objects.allocate(updateFreq, entity).newObject;
 
-    obj.pipeline = &renderer.pipelineCache().getPipeline(object.getCurrentPipeline());
+    obj.pipeline = object.getCurrentPipeline();
     obj.descriptorCount =
-        obj.pipeline->pipelineLayout().initDescriptorSets(descriptorSets, obj.descriptors.data());
+        obj.pipeline->getLayout().initDescriptorSets(descriptorSets, obj.descriptors.data());
     obj.perObjStart = obj.descriptorCount;
     for (unsigned int i = 0; i < obj.descriptorCount; ++i) {
         obj.descriptors[i]->allocateObject(entity, obj.sceneKey);
@@ -89,18 +89,18 @@ void CodeScene::setDefaultNearAndFarPlanes(cam::Camera& camera) const {
     camera.setNearAndFarPlanes(0.f, -1000.f);
 }
 
-void CodeScene::doBatchChange(const BatchChange& change, std::uint32_t ogPipeline) {
+void CodeScene::doBatchChange(const BatchChange& change, mat::MaterialPipeline* ogPipeline) {
     if (ogPipeline != change.newPipeline) {
         CodeSceneObject& object  = *static_cast<CodeSceneObject*>(change.changed);
-        object.pipeline          = &renderer.pipelineCache().getPipeline(change.newPipeline);
+        object.pipeline          = change.newPipeline;
         const ecs::Entity entity = objects.getObjectEntity(object.sceneKey);
         object.descriptorCount =
-            object.pipeline->pipelineLayout().updateDescriptorSets(descriptorSets,
-                                                                   object.descriptors.data(),
-                                                                   object.descriptorCount,
-                                                                   entity,
-                                                                   object.sceneKey.sceneId,
-                                                                   object.sceneKey.updateFreq);
+            object.pipeline->getLayout().updateDescriptorSets(descriptorSets,
+                                                              object.descriptors.data(),
+                                                              object.descriptorCount,
+                                                              entity,
+                                                              object.sceneKey.sceneId,
+                                                              object.sceneKey.updateFreq);
         object.perObjStart = object.descriptorCount;
         for (unsigned int i = 0; i < object.descriptorCount; ++i) {
             if (!object.descriptors[i]->isBindless()) {
@@ -123,13 +123,13 @@ void CodeScene::RenderContext::renderObject(rcom::DrawableBase& object) {
 
     if (!obj->hidden) {
         renderContext.bindPipeline(*obj->pipeline);
-        renderContext.bindDescriptors(obj->pipeline->pipelineLayout().rawLayout(),
+        renderContext.bindDescriptors(obj->pipeline->getLayout().rawLayout(),
                                       obj->sceneKey.updateFreq,
                                       obj->descriptors.data(),
                                       obj->descriptorCount);
         for (std::uint8_t i = obj->perObjStart; i < obj->descriptorCount; ++i) {
             obj->descriptors[i]->bindForObject(
-                renderContext, obj->pipeline->pipelineLayout().rawLayout(), i, obj->sceneKey);
+                renderContext, obj->pipeline->getLayout().rawLayout(), i, obj->sceneKey);
         }
         renderContext.renderObject(*obj);
     }

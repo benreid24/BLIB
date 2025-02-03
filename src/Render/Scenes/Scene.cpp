@@ -9,11 +9,6 @@ namespace bl
 {
 namespace rc
 {
-namespace
-{
-constexpr std::uint32_t NoPipeline = std::numeric_limits<std::uint32_t>::max();
-}
-
 Scene::Scene(engine::Engine& engine,
              const ds::DescriptorComponentStorageBase::EntityCallback& entityCb)
 : engine(engine)
@@ -22,8 +17,8 @@ Scene::Scene(engine::Engine& engine,
 , descriptorSets(descriptorComponents)
 , descriptorComponents(engine.ecs(), renderer.vulkanState(), entityCb)
 , nextObserverIndex(0)
-, staticPipelines(DefaultSceneObjectCapacity, NoPipeline)
-, dynamicPipelines(DefaultSceneObjectCapacity, NoPipeline)
+, staticPipelines(DefaultSceneObjectCapacity, nullptr)
+, dynamicPipelines(DefaultSceneObjectCapacity, nullptr)
 , isClearingQueues(false) {
     queuedBatchChanges.reserve(32);
     queuedAdds.reserve(32);
@@ -97,7 +92,7 @@ void Scene::removeObject(scene::SceneObject* obj) {
 void Scene::rebucketObject(rcom::DrawableBase& obj) {
     std::unique_lock lock(queueMutex);
     queuedBatchChanges.emplace_back(
-        BatchChange{obj.sceneRef.object, obj.pipeline, obj.containsTransparency});
+        BatchChange{obj.sceneRef.object, obj.getCurrentPipeline(), obj.containsTransparency});
 }
 
 void Scene::removeQueuedObject(scene::SceneObject* obj) {
@@ -106,11 +101,11 @@ void Scene::removeQueuedObject(scene::SceneObject* obj) {
     auto& objectPipelines =
         obj->sceneKey.updateFreq == UpdateSpeed::Static ? staticPipelines : dynamicPipelines;
     const auto cachedKey = obj->sceneKey.sceneId;
-    std::uint32_t pipeline =
-        cachedKey < objectPipelines.size() ? objectPipelines[cachedKey] : NoPipeline;
-    if (pipeline != NoPipeline) {
+    mat::MaterialPipeline* pipeline =
+        cachedKey < objectPipelines.size() ? objectPipelines[cachedKey] : nullptr;
+    if (pipeline != nullptr) {
         doObjectRemoval(obj, pipeline);
-        objectPipelines[cachedKey] = NoPipeline;
+        objectPipelines[cachedKey] = nullptr;
     }
 }
 
@@ -128,9 +123,9 @@ void Scene::addQueuedObject(ObjectAdd& add) {
         auto& objectPipelines =
             sobj->sceneKey.updateFreq == UpdateSpeed::Static ? staticPipelines : dynamicPipelines;
         if (sobj->sceneKey.sceneId >= objectPipelines.size()) {
-            objectPipelines.resize(sobj->sceneKey.sceneId + 1, NoPipeline);
+            objectPipelines.resize(sobj->sceneKey.sceneId + 1, nullptr);
         }
-        objectPipelines[sobj->sceneKey.sceneId] = object.pipeline;
+        objectPipelines[sobj->sceneKey.sceneId] = object.getCurrentPipeline();
     }
     else { BL_LOG_ERROR << "Failed to add " << add.entity << " to scene " << this; }
 }

@@ -29,17 +29,10 @@ struct Text : public rc::rcom::DrawableBase {
     void updateDrawParams(std::uint32_t vertexCount);
 
     /**
-     * @brief Returns the default pipeline for regular scenes
+     * @brief Returns the default material pipeline for rendering
      */
-    virtual std::uint32_t getDefaultScenePipelineId() const override {
-        return rc::Config::PipelineIds::Text;
-    }
-
-    /**
-     * @brief Returns the default pipeline for overlays
-     */
-    virtual std::uint32_t getDefaultOverlayPipelineId() const override {
-        return rc::Config::PipelineIds::Text;
+    virtual std::uint32_t getDefaultMaterialPipelineId() const override {
+        return rc::Config::MaterialPipelineIds::Text;
     }
 };
 

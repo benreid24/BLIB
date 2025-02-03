@@ -26,7 +26,7 @@ PipelineCache::PipelineCache(Renderer& r)
 
 void PipelineCache::cleanup() { cache.clear(); }
 
-vk::Pipeline& PipelineCache::createPipline(std::uint32_t id, vk::PipelineParameters&& params) {
+vk::Pipeline& PipelineCache::createPipeline(std::uint32_t id, vk::PipelineParameters&& params) {
     const auto insertResult =
         cache.try_emplace(id, renderer, id, std::forward<vk::PipelineParameters>(params));
     if (!insertResult.second) { BL_LOG_WARN << "Pipeline with id " << id << " already exists"; }
@@ -54,7 +54,7 @@ vk::Pipeline& PipelineCache::getOrCreatePipeline(vk::PipelineParameters&& params
     std::uint32_t newId = nextId;
     while (pipelineExists(newId)) { ++newId; }
     nextId = newId + 1;
-    return createPipline(newId, std::forward<vk::PipelineParameters>(params));
+    return createPipeline(newId, std::forward<vk::PipelineParameters>(params));
 }
 
 void PipelineCache::createBuiltins() {
@@ -91,83 +91,121 @@ void PipelineCache::createBuiltins() {
     rasterizer.depthBiasClamp          = 0.0f; // Optional
     rasterizer.depthBiasSlopeFactor    = 0.0f; // Optional
 
-    createPipline(Config::PipelineIds::SkinnedMeshes,
-                  vk::PipelineParameters()
-                      .withShaders(Config::ShaderIds::SkinnedMeshVertex,
-                                   Config::ShaderIds::SkinnedMeshFragment)
-                      .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
-                      .withRasterizer(rasterizer)
-                      .withDepthStencilState(&depthStencilDepthEnabled)
-                      .addDescriptorSet<ds::TexturePoolFactory>()
-                      .addDescriptorSet<ds::Scene3DFactory>()
-                      .addDescriptorSet<ds::Object3DFactory>()
-                      .build());
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // TODO - actual 3d rendering pipelines
 
-    createPipline(Config::PipelineIds::LitSkinned2DGeometry,
-                  vk::PipelineParameters()
-                      .withShaders(Config::ShaderIds::Vertex2DSkinned,
-                                   Config::ShaderIds::Fragment2DSkinnedLit)
-                      .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
-                      .withRasterizer(rasterizer)
-                      .withDepthStencilState(&depthStencilDepthEnabled)
-                      .addDescriptorSet<ds::TexturePoolFactory>()
-                      .addDescriptorSet<ds::Scene2DFactory>()
-                      .addDescriptorSet<ds::Object2DFactory>()
-                      .build());
+    createPipeline(Config::PipelineIds::LitMesh3D,
+                   vk::PipelineParameters()
+                       .withShaders(Config::ShaderIds::MeshVertex, Config::ShaderIds::MeshFragment)
+                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                       .withRasterizer(rasterizer)
+                       .withDepthStencilState(&depthStencilDepthEnabled)
+                       .addDescriptorSet<ds::TexturePoolFactory>()
+                       .addDescriptorSet<ds::Scene3DFactory>()
+                       .addDescriptorSet<ds::Object3DFactory>()
+                       .build());
 
-    createPipline(Config::PipelineIds::UnlitSkinned2DGeometry,
-                  vk::PipelineParameters()
-                      .withShaders(Config::ShaderIds::Vertex2DSkinned,
-                                   Config::ShaderIds::Fragment2DSkinnedUnlit)
-                      .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
-                      .withRasterizer(rasterizer)
-                      .withDepthStencilState(&depthStencilDepthEnabled)
-                      .addDescriptorSet<ds::TexturePoolFactory>()
-                      .addDescriptorSet<ds::Scene2DFactory>()
-                      .addDescriptorSet<ds::Object2DFactory>()
-                      .build());
+    createPipeline(Config::PipelineIds::UnlitMesh3D,
+                   vk::PipelineParameters()
+                       .withShaders(Config::ShaderIds::MeshVertex, Config::ShaderIds::MeshFragment)
+                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                       .withRasterizer(rasterizer)
+                       .withDepthStencilState(&depthStencilDepthEnabled)
+                       .addDescriptorSet<ds::TexturePoolFactory>()
+                       .addDescriptorSet<ds::Scene3DFactory>()
+                       .addDescriptorSet<ds::Object3DFactory>()
+                       .build());
 
-    createPipline(Config::PipelineIds::Lit2DGeometry,
-                  vk::PipelineParameters()
-                      .withShaders(Config::ShaderIds::Vertex2D, Config::ShaderIds::Fragment2DLit)
-                      .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
-                      .withRasterizer(rasterizer)
-                      .withDepthStencilState(&depthStencilDepthEnabled)
-                      .addDescriptorSet<ds::Scene2DFactory>()
-                      .addDescriptorSet<ds::Object2DFactory>()
-                      .build());
+    createPipeline(Config::PipelineIds::LitSkinnedMesh3D,
+                   vk::PipelineParameters()
+                       .withShaders(Config::ShaderIds::SkinnedMeshVertex,
+                                    Config::ShaderIds::SkinnedMeshFragment)
+                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                       .withRasterizer(rasterizer)
+                       .withDepthStencilState(&depthStencilDepthEnabled)
+                       .addDescriptorSet<ds::TexturePoolFactory>()
+                       .addDescriptorSet<ds::Scene3DFactory>()
+                       .addDescriptorSet<ds::Object3DFactory>()
+                       .build());
 
-    createPipline(Config::PipelineIds::Unlit2DGeometry,
-                  vk::PipelineParameters()
-                      .withShaders(Config::ShaderIds::Vertex2D, Config::ShaderIds::Fragment2DUnlit)
-                      .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
-                      .withRasterizer(rasterizer)
-                      .withDepthStencilState(&depthStencilDepthEnabled)
-                      .addDescriptorSet<ds::Scene2DFactory>()
-                      .addDescriptorSet<ds::Object2DFactory>()
-                      .build());
+    createPipeline(Config::PipelineIds::UnlitSkinnedMesh3D,
+                   vk::PipelineParameters()
+                       .withShaders(Config::ShaderIds::SkinnedMeshVertex,
+                                    Config::ShaderIds::SkinnedMeshFragment)
+                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                       .withRasterizer(rasterizer)
+                       .withDepthStencilState(&depthStencilDepthEnabled)
+                       .addDescriptorSet<ds::TexturePoolFactory>()
+                       .addDescriptorSet<ds::Scene3DFactory>()
+                       .addDescriptorSet<ds::Object3DFactory>()
+                       .build());
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    createPipline(Config::PipelineIds::Lines2D,
-                  vk::PipelineParameters()
-                      .withShaders(Config::ShaderIds::Vertex2D, Config::ShaderIds::Fragment2DUnlit)
-                      .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_LINE_LIST)
-                      .withRasterizer(rasterizer)
-                      .withDepthStencilState(&depthStencilDepthEnabled)
-                      .addDescriptorSet<ds::Scene2DFactory>()
-                      .addDescriptorSet<ds::Object2DFactory>()
-                      .build());
+    createPipeline(Config::PipelineIds::LitSkinned2DGeometry,
+                   vk::PipelineParameters()
+                       .withShaders(Config::ShaderIds::Vertex2DSkinned,
+                                    Config::ShaderIds::Fragment2DSkinnedLit)
+                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                       .withRasterizer(rasterizer)
+                       .withDepthStencilState(&depthStencilDepthEnabled)
+                       .addDescriptorSet<ds::TexturePoolFactory>()
+                       .addDescriptorSet<ds::Scene2DFactory>()
+                       .addDescriptorSet<ds::Object2DFactory>()
+                       .build());
 
-    createPipline(Config::PipelineIds::Unlit2DGeometryNoDepthWrite,
-                  vk::PipelineParameters()
-                      .withShaders(Config::ShaderIds::Vertex2D, Config::ShaderIds::Fragment2DUnlit)
-                      .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
-                      .withRasterizer(rasterizer)
-                      .withDepthStencilState(&depthStencilDepthWriteDisabled)
-                      .addDescriptorSet<ds::Scene2DFactory>()
-                      .addDescriptorSet<ds::Object2DFactory>()
-                      .build());
+    createPipeline(Config::PipelineIds::UnlitSkinned2DGeometry,
+                   vk::PipelineParameters()
+                       .withShaders(Config::ShaderIds::Vertex2DSkinned,
+                                    Config::ShaderIds::Fragment2DSkinnedUnlit)
+                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                       .withRasterizer(rasterizer)
+                       .withDepthStencilState(&depthStencilDepthEnabled)
+                       .addDescriptorSet<ds::TexturePoolFactory>()
+                       .addDescriptorSet<ds::Scene2DFactory>()
+                       .addDescriptorSet<ds::Object2DFactory>()
+                       .build());
 
-    createPipline(
+    createPipeline(Config::PipelineIds::Lit2DGeometry,
+                   vk::PipelineParameters()
+                       .withShaders(Config::ShaderIds::Vertex2D, Config::ShaderIds::Fragment2DLit)
+                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                       .withRasterizer(rasterizer)
+                       .withDepthStencilState(&depthStencilDepthEnabled)
+                       .addDescriptorSet<ds::Scene2DFactory>()
+                       .addDescriptorSet<ds::Object2DFactory>()
+                       .build());
+
+    createPipeline(Config::PipelineIds::Unlit2DGeometry,
+                   vk::PipelineParameters()
+                       .withShaders(Config::ShaderIds::Vertex2D, Config::ShaderIds::Fragment2DUnlit)
+                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                       .withRasterizer(rasterizer)
+                       .withDepthStencilState(&depthStencilDepthEnabled)
+                       .addDescriptorSet<ds::Scene2DFactory>()
+                       .addDescriptorSet<ds::Object2DFactory>()
+                       .build());
+
+    createPipeline(Config::PipelineIds::Lines2D,
+                   vk::PipelineParameters()
+                       .withShaders(Config::ShaderIds::Vertex2D, Config::ShaderIds::Fragment2DUnlit)
+                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_LINE_LIST)
+                       .withRasterizer(rasterizer)
+                       .withDepthStencilState(&depthStencilDepthEnabled)
+                       .addDescriptorSet<ds::Scene2DFactory>()
+                       .addDescriptorSet<ds::Object2DFactory>()
+                       .build());
+
+    createPipeline(Config::PipelineIds::Unlit2DGeometryNoDepthWrite,
+                   vk::PipelineParameters()
+                       .withShaders(Config::ShaderIds::Vertex2D, Config::ShaderIds::Fragment2DUnlit)
+                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                       .withRasterizer(rasterizer)
+                       .withDepthStencilState(&depthStencilDepthWriteDisabled)
+                       .addDescriptorSet<ds::Scene2DFactory>()
+                       .addDescriptorSet<ds::Object2DFactory>()
+                       .build());
+
+    createPipeline(
         Config::PipelineIds::Text,
         vk::PipelineParameters()
             .withShaders(Config::ShaderIds::Vertex2DSkinned, Config::ShaderIds::TextFragment)
@@ -179,7 +217,7 @@ void PipelineCache::createBuiltins() {
             .addDescriptorSet<ds::Object2DFactory>()
             .build());
 
-    createPipline(
+    createPipeline(
         Config::PipelineIds::SlideshowLit,
         vk::PipelineParameters()
             .withShaders(Config::ShaderIds::SlideshowVert, Config::ShaderIds::Fragment2DSkinnedLit)
@@ -194,22 +232,22 @@ void PipelineCache::createBuiltins() {
             .addDescriptorSet<ds::SlideshowFactory>()
             .build());
 
-    createPipline(Config::PipelineIds::SlideshowUnlit,
-                  vk::PipelineParameters()
-                      .withShaders(Config::ShaderIds::SlideshowVert,
-                                   Config::ShaderIds::Fragment2DSkinnedUnlit)
-                      .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
-                      .withRasterizer(rasterizer)
-                      .withVertexFormat(prim::SlideshowVertex::bindingDescription(),
-                                        prim::SlideshowVertex::attributeDescriptions())
-                      .withDepthStencilState(&depthStencilDepthEnabled)
-                      .addDescriptorSet<ds::TexturePoolFactory>()
-                      .addDescriptorSet<ds::Scene2DFactory>()
-                      .addDescriptorSet<ds::Object2DFactory>()
-                      .addDescriptorSet<ds::SlideshowFactory>()
-                      .build());
+    createPipeline(Config::PipelineIds::SlideshowUnlit,
+                   vk::PipelineParameters()
+                       .withShaders(Config::ShaderIds::SlideshowVert,
+                                    Config::ShaderIds::Fragment2DSkinnedUnlit)
+                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                       .withRasterizer(rasterizer)
+                       .withVertexFormat(prim::SlideshowVertex::bindingDescription(),
+                                         prim::SlideshowVertex::attributeDescriptions())
+                       .withDepthStencilState(&depthStencilDepthEnabled)
+                       .addDescriptorSet<ds::TexturePoolFactory>()
+                       .addDescriptorSet<ds::Scene2DFactory>()
+                       .addDescriptorSet<ds::Object2DFactory>()
+                       .addDescriptorSet<ds::SlideshowFactory>()
+                       .build());
 
-    createPipline(
+    createPipeline(
         Config::PipelineIds::FadeEffect,
         vk::PipelineParameters()
             .withShaders(Config::ShaderIds::EmptyVertex, Config::ShaderIds::FadeEffectFragment)

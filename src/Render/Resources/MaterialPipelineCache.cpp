@@ -37,11 +37,28 @@ bool MaterialPipelineCache::pipelineExists(std::uint32_t pipelineId) const {
 }
 
 void MaterialPipelineCache::createBuiltins() {
-    for (std::uint32_t i = 0; i < 110; ++i) {
-        if (renderer.pipelineCache().pipelineExists(i)) {
-            createPipeline(i, mat::MaterialPipelineSettings(i).build());
-        }
-    }
+    const auto make = [this](std::uint32_t materialId, std::uint32_t pipelineId) {
+        createPipeline(materialId, mat::MaterialPipelineSettings(pipelineId).build());
+    };
+    const auto makeOverlayPair = [this](std::uint32_t materialId,
+                                        std::uint32_t pipelineId,
+                                        std::uint32_t overlayPipelineId) {
+        createPipeline(materialId,
+                       mat::MaterialPipelineSettings(pipelineId)
+                           .withRenderPhasePipelineOverride(RenderPhase::Overlay, overlayPipelineId)
+                           .build());
+    };
+
+    using MId = Config::MaterialPipelineIds;
+    using PId = Config::PipelineIds;
+
+    makeOverlayPair(MId::Mesh3D, PId::LitMesh3D, PId::UnlitMesh3D);
+    makeOverlayPair(MId::Mesh3DSkinned, PId::LitSkinnedMesh3D, PId::UnlitSkinnedMesh3D);
+    makeOverlayPair(MId::Geometry2D, PId::Lit2DGeometry, PId::Unlit2DGeometry);
+    makeOverlayPair(MId::Geometry2DSkinned, PId::LitSkinned2DGeometry, PId::UnlitSkinned2DGeometry);
+    makeOverlayPair(MId::Slideshow2D, PId::SlideshowLit, PId::SlideshowUnlit);
+    make(MId::Text, PId::Text);
+    make(MId::Lines2D, PId::Lines2D);
 }
 
 } // namespace res

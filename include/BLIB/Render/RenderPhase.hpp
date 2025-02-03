@@ -25,11 +25,11 @@ enum struct RenderPhase : std::uint8_t {
     /// processing buffers
     Default = 0x1 << 0,
 
-    /// Represents rendering to an offscreen texture
-    OffscreenTexture = 0x1 << 1,
-
     /// Represents rendering to a shadow map
-    ShadowMap = 0x1 << 2,
+    ShadowMap = 0x1 << 1,
+
+    /// Represents rendering to UI overlay
+    Overlay = 0x1 << 2,
 
     /// Helper value representing all phases
     All = 0xFF

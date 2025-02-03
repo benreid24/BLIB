@@ -53,14 +53,15 @@ void Renderer<T>::init(engine::World& w) {
 
             using DescriptorList = typename RenderConfigMap<T>::DescriptorSets;
 
-            bl::rc::vk::PipelineParameters params(RenderConfigMap<T>::RenderPassIds);
+            bl::rc::vk::PipelineParameters params;
             params.withShaders(RenderConfigMap<T>::VertexShader,
                                RenderConfigMap<T>::FragmentShader);
             params.withPrimitiveType(RenderConfigMap<T>::Topology);
             DescriptorList::addParameters(params);
             params.withRasterizer(rasterizer);
             params.withDepthStencilState(&depthStencil);
-            w.engine().renderer().pipelineCache().createPipline(PipelineId, params.build());
+            w.engine().renderer().materialPipelineCache().createPipeline(
+                MaterialPipelineId, rc::mat::MaterialPipelineSettings(&params).build());
         }
     }
 
@@ -74,11 +75,12 @@ void Renderer<T>::addToScene(rc::Scene* scene) {
 
     entity    = world->createEntity();
     component = world->engine().ecs().emplaceComponent<TComponent>(
-        entity, world->engine(), ContainsTransparency, PipelineId);
+        entity, world->engine(), ContainsTransparency);
+    component->init(world->engine().ecs().emplaceComponent<com::MaterialInstance>(
+        entity, world->engine().renderer(), *component, MaterialPipelineId));
     link          = world->engine().ecs().emplaceComponent<Link<T>>(entity);
     link->globals = &globals;
-    component->addToSceneWithPipeline(
-        world->engine().ecs(), entity, scene, bl::rc::UpdateSpeed::Dynamic, PipelineId);
+    component->addToScene(world->engine().ecs(), entity, scene, bl::rc::UpdateSpeed::Dynamic);
 }
 
 template<typename T>

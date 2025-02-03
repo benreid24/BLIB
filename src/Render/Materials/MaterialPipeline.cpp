@@ -16,7 +16,12 @@ MaterialPipeline::MaterialPipeline(Renderer& renderer, std::uint32_t id,
     mainPipeline = resolvePipeline(settings.mainPipeline);
     for (unsigned int i = 0; i < Config::MaxRenderPhases; ++i) {
         pipelines[i] = resolvePipeline(settings.renderPhaseOverrides[i]);
+        // TODO - validate layouts compatible (overrides use same or subset)
     }
+}
+
+VkPipeline MaterialPipeline::getRawPipeline(RenderPhase phase, std::uint32_t renderPassId) const {
+    return pipelines[renderPhaseIndex(phase)]->rawPipeline(renderPassId);
 }
 
 void MaterialPipeline::bind(VkCommandBuffer commandBuffer, RenderPhase phase,

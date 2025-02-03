@@ -52,11 +52,13 @@ void OverlayHighlightProvider::doCreate(engine::World& world) {
     world.engine().ecs().setEntityParentDestructionBehavior(
         cover.entity(), ecs::ParentDestructionBehavior::OrphanedByParent);
     cover.getTransform().setDepth(cam::OverlayCamera::MinDepth);
+    cover.material().setPipeline(
+        rc::mat::MaterialPipelineSettings(rc::Config::PipelineIds::Unlit2DGeometryNoDepthWrite)
+            .build());
 }
 
 void OverlayHighlightProvider::doSceneAdd(rc::Overlay* scene) {
-    cover.addToSceneWithCustomPipeline(
-        scene, rc::UpdateSpeed::Dynamic, rc::Config::PipelineIds::Unlit2DGeometryNoDepthWrite);
+    cover.addToScene(scene, rc::UpdateSpeed::Dynamic);
     cover.setHidden(true);
 }
 
