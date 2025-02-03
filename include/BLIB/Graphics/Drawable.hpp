@@ -267,7 +267,7 @@ void Drawable<TCom>::retryFlash(float onPeriod, float offPeriod) {
 
 template<typename TCom>
 void Drawable<TCom>::initMaterial() {
-    materialInstance = engine().ecs().emplaceComponent<com::MaterialInstance>(
+    materialInstance = engine().ecs().template emplaceComponent<com::MaterialInstance>(
         entity(), engine().renderer(), component());
     component().init(materialInstance);
 }
