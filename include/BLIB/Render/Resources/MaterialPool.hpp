@@ -40,7 +40,7 @@ private:
 
     MaterialPool(Renderer& renderer);
 
-    friend class Renderer;
+    friend class ::bl::rc::Renderer;
 };
 
 } // namespace res
