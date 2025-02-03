@@ -56,7 +56,7 @@ private:
 template<typename T, typename TP>
 void DescriptorComponentSystem<T, TP>::update(std::mutex&, float, float, float, float) {
     pool->forEach([](ecs::Entity, T& component) {
-        if (component.isDirty()) { component.refresh<TP>(); }
+        if (component.isDirty()) { component.template refresh<TP>(); }
     });
 }
 
