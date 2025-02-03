@@ -16,7 +16,6 @@ void Text::updateDrawParams(std::uint32_t vc) {
 
     drawParams             = vertices.getDrawParameters();
     drawParams.vertexCount = vc;
-    pipeline               = rc::Config::PipelineIds::Text;
     containsTransparency   = true;
 
     if (getSceneRef().object) {

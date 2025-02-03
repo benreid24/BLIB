@@ -3,6 +3,7 @@
 
 #include <BLIB/Render/Buffers/VertexBuffer.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
+#include <BLIB/Render/Materials/MaterialPipeline.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
 
 namespace bl
@@ -30,9 +31,8 @@ struct EcsComponent : public bl::rc::rcom::DrawableBase {
      *
      * @param engine The game engine instance
      * @param transparency Whether particles are semi-transparent or not
-     * @param pipeline The pipeline to render with
      */
-    EcsComponent(engine::Engine& engine, bool transparency, std::uint32_t pipeline);
+    EcsComponent(engine::Engine& engine, bool transparency);
 
     /**
      * @brief Resizes the vertex buffer to 4 points and populates them as a rectangle like a sprite
@@ -42,17 +42,10 @@ struct EcsComponent : public bl::rc::rcom::DrawableBase {
     void makeSprite(const rc::res::TextureRef& texture);
 
     /**
-     * @brief Returns the default pipeline for regular scenes
+     * @brief Returns the default pipeline
      */
-    virtual std::uint32_t getDefaultScenePipelineId() const override {
-        return getCurrentPipeline();
-    }
-
-    /**
-     * @brief Returns the default pipeline for overlays
-     */
-    virtual std::uint32_t getDefaultOverlayPipelineId() const override {
-        return getCurrentPipeline();
+    virtual std::uint32_t getDefaultMaterialPipelineId() const override {
+        return getCurrentPipeline()->getId();
     }
 };
 

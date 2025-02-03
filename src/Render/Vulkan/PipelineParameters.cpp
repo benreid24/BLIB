@@ -3,6 +3,7 @@
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Primitives/Vertex.hpp>
+#include <BLIB/Util/HashCombine.hpp>
 #include <stdexcept>
 
 namespace bl
@@ -12,25 +13,12 @@ namespace rc
 namespace vk
 {
 PipelineParameters::PipelineParameters()
-: PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
-                      Config::RenderPassIds::SwapchainDefault}) {}
-
-PipelineParameters::PipelineParameters(const std::initializer_list<std::uint32_t>& rpids)
 : primitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
 , rasterizer{}
 , msaa{}
 , colorBlending{}
 , depthStencil(nullptr)
-, renderPassCount(rpids.size())
-, subpass(0)
 , localDepthStencil{} {
-    if (renderPassCount > Config::MaxRenderPasses) {
-        throw std::runtime_error("Too many render passes");
-    }
-    std::copy(rpids.begin(), rpids.end(), renderPassIds.begin());
-
-    shaders.reserve(4);
-
     rasterizer.sType                   = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
     rasterizer.depthClampEnable        = VK_FALSE;
     rasterizer.rasterizerDiscardEnable = VK_FALSE;
@@ -62,9 +50,21 @@ PipelineParameters::PipelineParameters(const std::initializer_list<std::uint32_t
     withDynamicStates({VK_DYNAMIC_STATE_SCISSOR, VK_DYNAMIC_STATE_VIEWPORT});
 }
 
-PipelineParameters& PipelineParameters::forSubpass(std::uint32_t i) {
-    subpass = i;
-    return *this;
+PipelineParameters::PipelineParameters(const PipelineParameters& copy)
+: layoutParams(copy.layoutParams)
+, shaders(copy.shaders)
+, dynamicStates(copy.dynamicStates)
+, vertexBinding(copy.vertexBinding)
+, vertexAttributes(copy.vertexAttributes)
+, primitiveType(copy.primitiveType)
+, rasterizer(copy.rasterizer)
+, msaa(copy.msaa)
+, colorAttachmentBlendStates(copy.colorAttachmentBlendStates)
+, colorBlending(copy.colorBlending)
+, depthStencil(&localDepthStencil)
+, localDepthStencil(copy.depthStencil ? *copy.depthStencil : copy.localDepthStencil) {
+    colorBlending.pAttachments    = colorAttachmentBlendStates.data();
+    colorBlending.attachmentCount = colorAttachmentBlendStates.size();
 }
 
 PipelineParameters& PipelineParameters::withShaders(const std::string& vert,
@@ -82,16 +82,33 @@ PipelineParameters& PipelineParameters::withShaders(const std::string& vert,
     return *this;
 }
 
-PipelineParameters& PipelineParameters::addShader(const std::string& path,
-                                                  VkShaderStageFlagBits stage,
-                                                  const std::string& entrypoint) {
+PipelineParameters& PipelineParameters::withShader(const std::string& path,
+                                                   VkShaderStageFlagBits stage,
+                                                   const std::string& entrypoint) {
+    for (auto& shader : shaders) {
+        if (shader.stage == stage) {
+            shader.path       = path;
+            shader.entrypoint = entrypoint;
+            return *this;
+        }
+    }
     shaders.emplace_back(path, stage, entrypoint);
+    return *this;
+}
+
+PipelineParameters& PipelineParameters::removeShader(VkShaderStageFlagBits stage) {
+    for (unsigned int i = 0; i < shaders.size(); ++i) {
+        if (shaders[i].stage == stage) {
+            shaders.erase(i);
+            return *this;
+        }
+    }
     return *this;
 }
 
 PipelineParameters& PipelineParameters::withDynamicStates(
     const std::initializer_list<VkDynamicState>& states) {
-    dynamicStates.reserve(dynamicStates.size() + states.size());
+    dynamicStates.clear();
     for (const VkDynamicState state : states) { dynamicStates.emplace_back(state); }
     return *this;
 }
@@ -109,6 +126,11 @@ PipelineParameters& PipelineParameters::withRasterizer(
 
 PipelineParameters& PipelineParameters::withMSAA(const VkPipelineMultisampleStateCreateInfo& m) {
     msaa = m;
+    return *this;
+}
+
+PipelineParameters& PipelineParameters::removeDescriptorSet(unsigned int i) {
+    layoutParams.removeDescriptorSet(i);
     return *this;
 }
 
@@ -203,6 +225,152 @@ PipelineParameters&& PipelineParameters::build() {
     return std::move(*this);
 }
 
+bool PipelineParameters::operator==(const PipelineParameters& right) const {
+    if (layoutParams != right.layoutParams) { return false; }
+    if (shaders.size() != right.shaders.size()) { return false; }
+    for (unsigned int i = 0; i < shaders.size(); ++i) {
+        if (shaders[i].stage != right.shaders[i].stage) { return false; }
+        if (shaders[i].path != right.shaders[i].path) { return false; }
+        if (shaders[i].entrypoint != right.shaders[i].entrypoint) { return false; }
+    }
+
+    if (dynamicStates.size() != right.dynamicStates.size()) { return false; }
+    for (unsigned int i = 0; i < dynamicStates.size(); ++i) {
+        if (dynamicStates[i] != right.dynamicStates[i]) { return false; }
+    }
+
+    if (vertexBinding.binding != right.vertexBinding.binding) { return false; }
+    if (vertexAttributes.size() != right.vertexAttributes.size()) { return false; }
+    for (unsigned int i = 0; i < vertexAttributes.size(); ++i) {
+        if (vertexAttributes[i].binding != right.vertexAttributes[i].binding) { return false; }
+        if (vertexAttributes[i].location != right.vertexAttributes[i].location) { return false; }
+        if (vertexAttributes[i].format != right.vertexAttributes[i].format) { return false; }
+        if (vertexAttributes[i].offset != right.vertexAttributes[i].offset) { return false; }
+    }
+
+    if (primitiveType != right.primitiveType) { return false; }
+    if (rasterizer.flags != right.rasterizer.flags) { return false; }
+    if (rasterizer.depthClampEnable != right.rasterizer.depthClampEnable) { return false; }
+    if (rasterizer.rasterizerDiscardEnable != right.rasterizer.rasterizerDiscardEnable) {
+        return false;
+    }
+    if (rasterizer.polygonMode != right.rasterizer.polygonMode) { return false; }
+    if (rasterizer.lineWidth != right.rasterizer.lineWidth) { return false; }
+    if (rasterizer.cullMode != right.rasterizer.cullMode) { return false; }
+    if (rasterizer.frontFace != right.rasterizer.frontFace) { return false; }
+    if (rasterizer.depthBiasEnable != right.rasterizer.depthBiasEnable) { return false; }
+    if (rasterizer.depthBiasConstantFactor != right.rasterizer.depthBiasConstantFactor) {
+        return false;
+    }
+    if (rasterizer.depthBiasClamp != right.rasterizer.depthBiasClamp) { return false; }
+    if (rasterizer.depthBiasSlopeFactor != right.rasterizer.depthBiasSlopeFactor) { return false; }
+
+    if (msaa.flags != right.msaa.flags) { return false; }
+    if (msaa.rasterizationSamples != right.msaa.rasterizationSamples) { return false; }
+    if (msaa.sampleShadingEnable != right.msaa.sampleShadingEnable) { return false; }
+    if (msaa.minSampleShading != right.msaa.minSampleShading) { return false; }
+    if (msaa.pSampleMask != right.msaa.pSampleMask) { return false; }
+    if (msaa.alphaToCoverageEnable != right.msaa.alphaToCoverageEnable) { return false; }
+    if (msaa.alphaToOneEnable != right.msaa.alphaToOneEnable) { return false; }
+
+    if (colorAttachmentBlendStates.size() != right.colorAttachmentBlendStates.size()) {
+        return false;
+    }
+    for (unsigned int i = 0; i < colorAttachmentBlendStates.size(); ++i) {
+        if (colorAttachmentBlendStates[i].blendEnable !=
+            right.colorAttachmentBlendStates[i].blendEnable) {
+            return false;
+        }
+        if (colorAttachmentBlendStates[i].srcColorBlendFactor !=
+            right.colorAttachmentBlendStates[i].srcColorBlendFactor) {
+            return false;
+        }
+        if (colorAttachmentBlendStates[i].dstColorBlendFactor !=
+            right.colorAttachmentBlendStates[i].dstColorBlendFactor) {
+            return false;
+        }
+        if (colorAttachmentBlendStates[i].colorBlendOp !=
+            right.colorAttachmentBlendStates[i].colorBlendOp) {
+            return false;
+        }
+        if (colorAttachmentBlendStates[i].srcAlphaBlendFactor !=
+            right.colorAttachmentBlendStates[i].srcAlphaBlendFactor) {
+            return false;
+        }
+        if (colorAttachmentBlendStates[i].dstAlphaBlendFactor !=
+            right.colorAttachmentBlendStates[i].dstAlphaBlendFactor) {
+            return false;
+        }
+        if (colorAttachmentBlendStates[i].alphaBlendOp !=
+            right.colorAttachmentBlendStates[i].alphaBlendOp) {
+            return false;
+        }
+        if (colorAttachmentBlendStates[i].colorWriteMask !=
+            right.colorAttachmentBlendStates[i].colorWriteMask) {
+            return false;
+        }
+    }
+
+    if (colorBlending.flags != right.colorBlending.flags) { return false; }
+    if (colorBlending.logicOpEnable != right.colorBlending.logicOpEnable) { return false; }
+    if (colorBlending.logicOp != right.colorBlending.logicOp) { return false; }
+    for (unsigned int i = 0; i < 4; ++i) {
+        if (colorBlending.blendConstants[i] != right.colorBlending.blendConstants[i]) {
+            return false;
+        }
+    }
+
+    if (depthStencil) {
+        if (depthStencil != right.depthStencil) { return false; }
+    }
+    else {
+        if (localDepthStencil.flags != right.localDepthStencil.flags) { return false; }
+        if (localDepthStencil.depthTestEnable != right.localDepthStencil.depthTestEnable) {
+            return false;
+        }
+        if (localDepthStencil.depthWriteEnable != right.localDepthStencil.depthWriteEnable) {
+            return false;
+        }
+        if (localDepthStencil.depthCompareOp != right.localDepthStencil.depthCompareOp) {
+            return false;
+        }
+        if (localDepthStencil.depthBoundsTestEnable !=
+            right.localDepthStencil.depthBoundsTestEnable) {
+            return false;
+        }
+        if (localDepthStencil.minDepthBounds != right.localDepthStencil.minDepthBounds) {
+            return false;
+        }
+        if (localDepthStencil.maxDepthBounds != right.localDepthStencil.maxDepthBounds) {
+            return false;
+        }
+        if (localDepthStencil.stencilTestEnable != right.localDepthStencil.stencilTestEnable) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool PipelineParameters::operator!=(const PipelineParameters& right) const {
+    return !this->operator==(right);
+}
+
 } // namespace vk
 } // namespace rc
 } // namespace bl
+
+namespace std
+{
+std::size_t std::hash<bl::rc::vk::PipelineParameters>::operator()(
+    const bl::rc::vk::PipelineParameters& params) const {
+    // hashing the shaders is generally enough as we do not need speed nor will we have many
+    // pipelines sharing the same set of shaders
+    std::size_t result = hash<size_t>()(params.shaders.size());
+    for (unsigned int i = 0; i < params.shaders.size(); ++i) {
+        const size_t nh = hash<std::string>()(params.shaders[i].path);
+        result          = bl::util::hashCombine(result, nh);
+    }
+    return result;
+}
+} // namespace std

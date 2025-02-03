@@ -6,18 +6,15 @@ namespace rc
 {
 namespace res
 {
-MaterialPool::MaterialPool(vk::VulkanState& vs)
-: vulkanState(vs)
-, materials(MaxMaterialCount)
-//, materialUniforms(MaxMaterialCount)
-, freeSlots(MaxMaterialCount)
-, textureImageWriteInfo(MaxMaterialCount) {}
+MaterialPool::MaterialPool(Renderer& renderer)
+: renderer(renderer) {}
 
-MaterialPool::~MaterialPool() {
-    // TODO
+MaterialRef MaterialPool::getOrCreateFromTexture(const res::TextureRef& texture) {
+    for (auto it = materials.begin(); it != materials.end(); ++it) {
+        if (it->getTexture().id() == texture.id()) { return it.makeRef(); }
+    }
+    return materials.emplace(texture);
 }
-
-// TODO
 
 } // namespace res
 } // namespace rc

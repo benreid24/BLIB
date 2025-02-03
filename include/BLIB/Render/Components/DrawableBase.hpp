@@ -14,7 +14,8 @@ namespace bl
 namespace com
 {
 class Rendered;
-}
+class MaterialInstance;
+} // namespace com
 namespace ecs
 {
 class Registry;
@@ -27,6 +28,10 @@ namespace scene
 {
 class SceneSync;
 }
+namespace mat
+{
+class MaterialPipeline;
+}
 
 namespace rcom
 {
@@ -36,24 +41,22 @@ namespace rcom
  * @ingroup Renderer
  */
 struct DrawableBase {
-    static constexpr std::uint32_t PipelineNotSet = std::numeric_limits<std::uint32_t>::max();
-
     /**
-     * @brief Sets reasonable defaults
+     * @brief Creates the component with sane defaults
      */
     DrawableBase();
+
+    /**
+     * @brief Must be called after creation to finish initializing the drawable component
+     *
+     * @param material The material of the entity
+     */
+    void init(com::MaterialInstance* material);
 
     /**
      * @brief Performs some cleanup
      */
     ~DrawableBase();
-
-    /**
-     * @brief Sets the pipeline to render with. Re-buckets if already in a scene
-     *
-     * @param pipeline The new pipeline to render with
-     */
-    void setPipeline(std::uint32_t pipeline);
 
     /**
      * @brief Adds this component to the given scene
@@ -64,18 +67,6 @@ struct DrawableBase {
      * @param updateSpeed The expected frequency of changes to descriptors for this entity
      */
     void addToScene(ecs::Registry& ecs, ecs::Entity entity, Scene* scene, UpdateSpeed updateSpeed);
-
-    /**
-     * @brief Adds this component to the given scene with a custom pipeline
-     *
-     * @param ecs The engine ECS registry instance
-     * @param entity The id of the entity that this component belongs to
-     * @param scene The scene to add to
-     * @param updateSpeed The expected frequency of changes to descriptors for this entity
-     * @param pipeline The pipeline id to render with
-     */
-    void addToSceneWithPipeline(ecs::Registry& ecs, ecs::Entity entity, Scene* scene,
-                                UpdateSpeed updateSpeed, std::uint32_t pipeline);
 
     /**
      * @brief Removes this component from its current scene
@@ -110,7 +101,7 @@ struct DrawableBase {
     /**
      * @brief Returns the current pipeline used to render this component
      */
-    std::uint32_t getCurrentPipeline() const { return pipeline; }
+    mat::MaterialPipeline* getCurrentPipeline() const;
 
     /**
      * @brief Returns whether the rendered component has transparency
@@ -140,22 +131,17 @@ struct DrawableBase {
     void rebucket();
 
     /**
-     * @brief Derived components should return the default pipeline to use in regular scenes
+     * @brief Derived components should return the default pipeline to use
      */
-    virtual std::uint32_t getDefaultScenePipelineId() const = 0;
-
-    /**
-     * @brief Derived components should return the default pipeline to use in regular scenes
-     */
-    virtual std::uint32_t getDefaultOverlayPipelineId() const = 0;
+    virtual std::uint32_t getDefaultMaterialPipelineId() const = 0;
 
 protected:
-    std::uint32_t pipeline;
     prim::DrawParameters drawParams;
     bool containsTransparency;
 
 private:
     com::Rendered* renderComponent;
+    com::MaterialInstance* material;
     SceneObjectRef sceneRef;
     bool hidden;
 

@@ -69,26 +69,24 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
         if (!obj.entity.flagSet(ecs::Flags::Dummy)) {
             vkCmdSetScissor(ctx.getCommandBuffer(), 0, 1, &obj.cachedScissor);
 
-            const vk::PipelineLayout& layout = obj.pipeline->pipelineLayout();
+            const vk::PipelineLayout& layout = obj.pipeline->getLayout();
             const VkPipelineLayout vkl       = layout.rawLayout();
-            const VkPipeline vkp             = obj.pipeline->rawPipeline(ctx.currentRenderPass());
+            const VkPipeline vkp =
+                obj.pipeline->getRawPipeline(ctx.getRenderPhase(), ctx.currentRenderPass());
             if (vkl != currentPipelineLayout || currentSpeed != obj.sceneKey.updateFreq) {
                 currentSpeed          = obj.sceneKey.updateFreq;
                 currentPipelineLayout = vkl;
                 currentPipeline       = vkp;
                 ctx.bindPipeline(*obj.pipeline);
-                ctx.bindDescriptors(obj.pipeline->pipelineLayout().rawLayout(),
-                                    obj.sceneKey.updateFreq,
-                                    obj.descriptors.data(),
-                                    obj.descriptorCount);
+                ctx.bindDescriptors(
+                    vkl, obj.sceneKey.updateFreq, obj.descriptors.data(), obj.descriptorCount);
             }
             else if (currentPipeline != vkp) {
                 currentPipeline = vkp;
                 ctx.bindPipeline(*obj.pipeline);
             }
             for (std::uint8_t i = obj.perObjStart; i < obj.descriptorCount; ++i) {
-                obj.descriptors[i]->bindForObject(
-                    ctx, obj.pipeline->pipelineLayout().rawLayout(), i, obj.sceneKey);
+                obj.descriptors[i]->bindForObject(ctx, vkl, i, obj.sceneKey);
             }
             ctx.renderObject(obj);
         }
@@ -105,9 +103,9 @@ scene::SceneObject* Overlay::doAdd(ecs::Entity entity, rcom::DrawableBase& objec
 
     obj.entity   = entity;
     obj.overlay  = this;
-    obj.pipeline = &renderer.pipelineCache().getPipeline(object.getCurrentPipeline());
+    obj.pipeline = object.getCurrentPipeline();
     obj.descriptorCount =
-        obj.pipeline->pipelineLayout().initDescriptorSets(descriptorSets, obj.descriptors.data());
+        obj.pipeline->getLayout().initDescriptorSets(descriptorSets, obj.descriptors.data());
     obj.perObjStart     = obj.descriptorCount;
     obj.overlayViewport = &cachedParentViewport;
     for (unsigned int i = 0; i < obj.descriptorCount; ++i) {
@@ -128,7 +126,7 @@ scene::SceneObject* Overlay::doAdd(ecs::Entity entity, rcom::DrawableBase& objec
     return &obj;
 }
 
-void Overlay::doObjectRemoval(scene::SceneObject* object, std::uint32_t) {
+void Overlay::doObjectRemoval(scene::SceneObject* object, mat::MaterialPipeline*) {
     ovy::OverlayObject* obj = static_cast<ovy::OverlayObject*>(object);
     obj->overlayViewport    = nullptr;
 
@@ -155,18 +153,18 @@ void Overlay::doObjectRemoval(scene::SceneObject* object, std::uint32_t) {
     bl::event::Dispatcher::dispatch<rc::event::SceneObjectRemoved>({this, obj->entity});
 }
 
-void Overlay::doBatchChange(const BatchChange& change, std::uint32_t ogPipeline) {
+void Overlay::doBatchChange(const BatchChange& change, mat::MaterialPipeline* ogPipeline) {
     if (ogPipeline != change.newPipeline) {
         ovy::OverlayObject& object = *static_cast<ovy::OverlayObject*>(change.changed);
-        object.pipeline            = &renderer.pipelineCache().getPipeline(change.newPipeline);
+        object.pipeline            = change.newPipeline;
         const ecs::Entity entity   = objects.getObjectEntity(object.sceneKey);
         object.descriptorCount =
-            object.pipeline->pipelineLayout().updateDescriptorSets(descriptorSets,
-                                                                   object.descriptors.data(),
-                                                                   object.descriptorCount,
-                                                                   entity,
-                                                                   object.sceneKey.sceneId,
-                                                                   object.sceneKey.updateFreq);
+            object.pipeline->getLayout().updateDescriptorSets(descriptorSets,
+                                                              object.descriptors.data(),
+                                                              object.descriptorCount,
+                                                              entity,
+                                                              object.sceneKey.sceneId,
+                                                              object.sceneKey.updateFreq);
         object.perObjStart = object.descriptorCount;
         for (unsigned int i = 0; i < object.descriptorCount; ++i) {
             if (!object.descriptors[i]->isBindless()) {

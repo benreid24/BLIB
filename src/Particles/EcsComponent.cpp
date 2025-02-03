@@ -6,7 +6,7 @@ namespace bl
 {
 namespace pcl
 {
-EcsComponent::EcsComponent(engine::Engine& engine, bool transparency, std::uint32_t pipeline) {
+EcsComponent::EcsComponent(engine::Engine& engine, bool transparency) {
     vertexBuffer.create(engine.renderer().vulkanState(), 1);
 
     auto& vertices       = vertexBuffer.vertices();
@@ -20,7 +20,6 @@ EcsComponent::EcsComponent(engine::Engine& engine, bool transparency, std::uint3
     drawParams.instanceCount = 0;
     drawParams.firstInstance = 0;
     containsTransparency     = transparency;
-    this->pipeline           = pipeline;
 }
 
 void EcsComponent::makeSprite(const rc::res::TextureRef& texture) {

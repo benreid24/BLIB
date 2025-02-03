@@ -63,6 +63,7 @@ void ForwardRenderTask::execute(const rg::ExecutionContext& ctx) {
     scene::SceneRenderContext sceneCtx(ctx.commandBuffer,
                                        ctx.observerIndex,
                                        output->viewport,
+                                       RenderPhase::Default,
                                        output->renderPassId,
                                        ctx.renderingToRenderTexture);
     scene->scene->renderScene(sceneCtx);

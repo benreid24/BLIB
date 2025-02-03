@@ -6,6 +6,7 @@ target_sources(BLIB PUBLIC
 	BatchedSprites.hpp
 	Hitbox2D.hpp
 	MarkedForDeath.hpp
+	MaterialInstance.hpp
 	Mesh.hpp
 	Orientation3D.hpp
 	OverlayScaler.hpp
@@ -14,7 +15,6 @@ target_sources(BLIB PUBLIC
 	Slideshow.hpp
 	Sprite.hpp
 	Text.hpp
-	Texture.hpp
 	TilemapPosition.hpp
 	Toggler.hpp
 	Transform2D.hpp

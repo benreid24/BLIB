@@ -57,7 +57,8 @@ protected:
      * @param object The object to be removed
      * @param pipeline The pipeline used to render the object being removed
      */
-    virtual void doObjectRemoval(scene::SceneObject* object, std::uint32_t pipeline) override;
+    virtual void doObjectRemoval(scene::SceneObject* object,
+                                 mat::MaterialPipeline* pipeline) override;
 
     /**
      * @brief Called by Scene in handleDescriptorSync for objects that need to be re-batched
@@ -65,16 +66,17 @@ protected:
      * @param change Details of the change
      * @param ogPipeline The original pipeline of the object being changed
      */
-    virtual void doBatchChange(const BatchChange& change, std::uint32_t ogPipeline) override;
+    virtual void doBatchChange(const BatchChange& change,
+                               mat::MaterialPipeline* ogPipeline) override;
 
 private:
     struct PipelineBatch {
-        PipelineBatch(vk::Pipeline& pipeline)
+        PipelineBatch(mat::MaterialPipeline& pipeline)
         : pipeline(pipeline) {
             objects.reserve(Config::DefaultSceneObjectCapacity / 2);
         }
 
-        vk::Pipeline& pipeline;
+        mat::MaterialPipeline& pipeline;
         std::vector<SceneObject*> objects;
     };
 
@@ -118,7 +120,7 @@ private:
     std::vector<bool> dynamicTransCache;
 
     void handleAddressChange(UpdateSpeed speed, SceneObject* oldBase);
-    void releaseObject(SceneObject* object, std::uint32_t pipeline);
+    void releaseObject(SceneObject* object, mat::MaterialPipeline* pipeline);
 };
 
 } // namespace scene

@@ -43,25 +43,27 @@ void Animation2DPlayer::useExistingPlayer(ecs::Entity pent) {
     }
 }
 
-void Animation2DPlayer::create(engine::World& w, ecs::Entity entity, ecs::Entity pent) {
+void Animation2DPlayer::create(engine::World& w, ecs::Entity entity, ecs::Entity pent,
+                               com::MaterialInstance& material) {
     world = &w;
     me    = entity;
     useExistingPlayer(pent);
-    Textured::create(w.engine().ecs(),
-                     entity,
+    Textured::create(w.engine().renderer(),
+                     &material,
                      world->engine().renderer().texturePool().getOrLoadTexture(
                          player->getAnimation()->resolvedSpritesheet()));
 }
 
 void Animation2DPlayer::create(engine::World& w, ecs::Entity entity,
+                               com::MaterialInstance& material,
                                const resource::Ref<gfx::a2d::AnimationData>& anim, bool play,
                                bool forceLoop) {
     world = &w;
     me    = entity;
     createNewPlayer(anim, play, forceLoop);
-    Textured::create(w.engine().ecs(),
-                     entity,
-                     w.engine().renderer().texturePool().getOrLoadTexture(
+    Textured::create(w.engine().renderer(),
+                     &material,
+                     world->engine().renderer().texturePool().getOrLoadTexture(
                          player->getAnimation()->resolvedSpritesheet()));
 }
 

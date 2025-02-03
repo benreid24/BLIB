@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_VULKAN_PIPELINEPARAMETERS_HPP
 #define BLIB_RENDER_VULKAN_PIPELINEPARAMETERS_HPP
 
+#include <BLIB/Containers/StaticVector.hpp>
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
 #include <BLIB/Render/Vulkan/PipelineLayout.hpp>
@@ -31,25 +32,16 @@ class Pipeline;
 class PipelineParameters {
 public:
     /**
-     * @brief Creates the parameters using the StandardAttachmentDefault and SwapchainDefault render
-     *        passes as defaults
+     * @brief Creates the parameters using sane defaults
      */
     PipelineParameters();
 
     /**
-     * @brief Construct new Pipeline Parameters for a given render pass
+     * @brief Copies the pipeline parameters
      *
-     * @param renderPassIds The ids of the render passes the pipeline will be used with
+     * @param copy The parameters to copy
      */
-    PipelineParameters(const std::initializer_list<std::uint32_t>& renderPassIds);
-
-    /**
-     * @brief Configures which subpass this pipeline is for. Default is 0
-     *
-     * @param subpassIndex The subpass this pipeline is for
-     * @return A reference to this object
-     */
-    PipelineParameters& forSubpass(std::uint32_t subpassIndex);
+    PipelineParameters(const PipelineParameters& copy);
 
     /**
      * @brief Helper method to setup vertex and fragment shaders for the pipeline
@@ -68,8 +60,16 @@ public:
      * @param entrypoint The entrypoint inside the shader to run
      * @return PipelineParameters& A reference to this object
      */
-    PipelineParameters& addShader(const std::string& path, VkShaderStageFlagBits stage,
-                                  const std::string& entrypoint = "main");
+    PipelineParameters& withShader(const std::string& path, VkShaderStageFlagBits stage,
+                                   const std::string& entrypoint = "main");
+
+    /**
+     * @brief Clears the given shader stage and replaces it with a noop
+     *
+     * @param stage The stage of the shader to remove
+     * @return A reference to this object
+     */
+    PipelineParameters& removeShader(VkShaderStageFlagBits stage);
 
     /**
      * @brief Configures which pipeline states are dynamic. Viewport and scissor are always dynamic
@@ -130,6 +130,27 @@ public:
      */
     template<typename TFactory, typename... TArgs>
     PipelineParameters& addDescriptorSet(TArgs&&... args);
+
+    /**
+     * @brief Like addDescriptorSet but replaces an existing descriptor set factory at the given
+     *        index (which must be valid)
+     *
+     * @tparam TFactory The type of descriptor set factory to create and add
+     * @tparam ...TArgs Types of arguments to the factory's constructor
+     * @param i The index of the descriptor set to replace
+     * @param ...args Arguments to the factory's constructor
+     * @return A reference to this object
+     */
+    template<typename TFactory, typename... TArgs>
+    PipelineParameters& replaceDescriptorSet(unsigned int i, TArgs&&... args);
+
+    /**
+     * @brief Removes the descriptor set factory at the given index
+     *
+     * @param i The index of the descriptor set to remove
+     * @return A reference to this object
+     */
+    PipelineParameters& removeDescriptorSet(unsigned int i);
 
     /**
      * @brief Adds a push constant range config to this pipeline. All pipelines are configured to
@@ -195,6 +216,22 @@ public:
      */
     PipelineParameters&& build();
 
+    /**
+     * @brief Tests whether these parameters are equal to the given parameters
+     *
+     * @param right The parameters to compare to
+     * @return True if the parameters are equal, false otherwise
+     */
+    bool operator==(const PipelineParameters& right) const;
+
+    /**
+     * @brief Tests whether these parameters are not equal to the given parameters
+     *
+     * @param right The parameters to compare to
+     * @return True if the parameters are not equal, false otherwise
+     */
+    bool operator!=(const PipelineParameters& right) const;
+
 private:
     struct ShaderInfo {
         std::string path;
@@ -218,23 +255,21 @@ private:
     };
 
     PipelineLayout::LayoutParams layoutParams;
-    std::vector<ShaderInfo> shaders;
-    std::vector<VkDynamicState> dynamicStates;
+    ctr::StaticVector<ShaderInfo, 5> shaders;
+    ctr::StaticVector<VkDynamicState, 8> dynamicStates;
     VkVertexInputBindingDescription vertexBinding;
-    std::vector<VkVertexInputAttributeDescription> vertexAttributes;
+    ctr::StaticVector<VkVertexInputAttributeDescription, 6> vertexAttributes;
     VkPrimitiveTopology primitiveType;
     VkPipelineRasterizationStateCreateInfo rasterizer;
     VkPipelineMultisampleStateCreateInfo msaa;
-    std::vector<VkPipelineColorBlendAttachmentState> colorAttachmentBlendStates;
+    ctr::StaticVector<VkPipelineColorBlendAttachmentState, 4> colorAttachmentBlendStates;
     VkPipelineColorBlendStateCreateInfo colorBlending;
     VkPipelineDepthStencilStateCreateInfo* depthStencil;
-    std::array<std::uint32_t, Config::MaxRenderPasses> renderPassIds;
-    std::uint32_t renderPassCount;
-    std::uint32_t subpass;
 
     VkPipelineDepthStencilStateCreateInfo localDepthStencil;
 
     friend class Pipeline;
+    friend struct std::hash<PipelineParameters>;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -255,8 +290,22 @@ PipelineParameters& PipelineParameters::addDescriptorSet(TArgs&&... args) {
     return *this;
 }
 
+template<typename TFactory, typename... TArgs>
+PipelineParameters& PipelineParameters::replaceDescriptorSet(unsigned int i, TArgs&&... args) {
+    layoutParams.replaceDescriptorSet<TFactory>(i, std::forward<TArgs>(args)...);
+    return *this;
+}
+
 } // namespace vk
 } // namespace rc
 } // namespace bl
+
+namespace std
+{
+template<>
+struct hash<bl::rc::vk::PipelineParameters> {
+    std::size_t operator()(const bl::rc::vk::PipelineParameters& params) const;
+};
+} // namespace std
 
 #endif

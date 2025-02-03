@@ -41,17 +41,10 @@ struct Animation2D : public rc::rcom::DrawableBase {
     void create(engine::Engine& engine, const Animation2DPlayer& anim);
 
     /**
-     * @brief Returns the default pipeline for regular scenes
+     * @brief Returns the default material pipeline for rendering
      */
-    virtual std::uint32_t getDefaultScenePipelineId() const override {
-        return rc::Config::PipelineIds::LitSkinned2DGeometry;
-    }
-
-    /**
-     * @brief Returns the default pipeline for overlays
-     */
-    virtual std::uint32_t getDefaultOverlayPipelineId() const override {
-        return rc::Config::PipelineIds::UnlitSkinned2DGeometry;
+    virtual std::uint32_t getDefaultMaterialPipelineId() const override {
+        return rc::Config::MaterialPipelineIds::Geometry2DSkinned;
     }
 
 private:

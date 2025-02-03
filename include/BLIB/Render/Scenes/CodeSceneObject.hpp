@@ -24,7 +24,7 @@ struct CodeSceneObject : public SceneObject {
      */
     CodeSceneObject() = default;
 
-    vk::Pipeline* pipeline;
+    mat::MaterialPipeline* pipeline;
     std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets> descriptors;
     std::uint8_t descriptorCount;
     std::uint8_t perObjStart;

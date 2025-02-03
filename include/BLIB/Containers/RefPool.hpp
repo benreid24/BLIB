@@ -1,13 +1,14 @@
-#ifndef BLIB_UTIL_REFCOUNTED_HPP
-#define BLIB_UTIL_REFCOUNTED_HPP
+#ifndef BLIB_CONTAINERS_REFPOOL_HPP
+#define BLIB_CONTAINERS_REFPOOL_HPP
 
 #include <list>
 #include <memory>
+#include <stdexcept>
 #include <type_traits>
 
 namespace bl
 {
-namespace util
+namespace ctr
 {
 template<typename T>
 class RefPool;
@@ -37,7 +38,7 @@ struct Payload {
  *
  * @tparam T The type of resource being ref counted
  * @tparam TDerived Derived type of T that this ref points to
- * @ingroup Util
+ * @ingroup Containers
  */
 template<typename T, typename TDerived = T>
 class Ref {
@@ -255,7 +256,7 @@ private:
  *
  * @tparam T The type of resource being managed
  * @tparam TInject Optional arguments to inject into each resource construction
- * @ingroup Util
+ * @ingroup Containers
  */
 template<typename T>
 class RefPool {
@@ -311,7 +312,9 @@ void Ref<T, TDerived>::decrement() {
 }
 
 template<typename T>
-inline void RefPool<T>::clear() {}
+inline void RefPool<T>::clear() {
+    storage.clear();
+}
 
 template<typename T>
 void RefPool<T>::release(priv::Payload<T>* value) {
@@ -341,7 +344,7 @@ inline Ref<T, TDerived> RefPool<T>::emplaceDerived(TArgs&&... args) {
     return Ref<T, TDerived>(&created);
 }
 
-} // namespace util
+} // namespace ctr
 } // namespace bl
 
 #endif

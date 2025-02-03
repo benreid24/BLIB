@@ -70,6 +70,9 @@
 #include <BLIB/Render/Graph/TaskInput.hpp>
 #include <BLIB/Render/Graph/Tasks/FadeEffectTask.hpp>
 #include <BLIB/Render/Graph/Tasks/ForwardRenderTask.hpp>
+#include <BLIB/Render/Materials/Material.hpp>
+#include <BLIB/Render/Materials/MaterialPipeline.hpp>
+#include <BLIB/Render/Materials/MaterialPipelineSettings.hpp>
 #include <BLIB/Render/Observer.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
 #include <BLIB/Render/Overlays/OverlayObject.hpp>
@@ -78,8 +81,7 @@
 #include <BLIB/Render/RenderTarget.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Render/Resources/BindlessTextureArray.hpp>
-#include <BLIB/Render/Resources/Material.hpp>
-#include <BLIB/Render/Resources/MaterialPool.hpp>
+#include <BLIB/Render/Resources/MaterialPipelineCache.hpp>
 #include <BLIB/Render/Resources/PipelineCache.hpp>
 #include <BLIB/Render/Resources/PipelineLayoutCache.hpp>
 #include <BLIB/Render/Resources/RenderPassCache.hpp>

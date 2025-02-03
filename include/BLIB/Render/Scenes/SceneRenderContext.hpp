@@ -2,9 +2,10 @@
 #define BLIB_RENDER_RENDERER_SCENERENDERCONTEXT_HPP
 
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
+#include <BLIB/Render/Materials/MaterialPipeline.hpp>
 #include <BLIB/Render/Primitives/DrawParameters.hpp>
+#include <BLIB/Render/RenderPhase.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
-#include <BLIB/Render/Vulkan/Pipeline.hpp>
 #include <BLIB/Render/Vulkan/StandardAttachmentSet.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <array>
@@ -30,19 +31,20 @@ public:
      * @param commandBuffer The command buffer to record commands into
      * @param observerIndex Index of the observer currently rendering the scene
      * @param viewport The current viewport
+     * @param renderPhase The current renderer phase
      * @param renderPassId The id of the render pass that is currently active
      * @param renderingToRenderTexture True if target is render texture, false otherwise
      */
     SceneRenderContext(VkCommandBuffer commandBuffer, std::uint32_t observerIndex,
-                       const VkViewport& viewport, std::uint32_t renderPassId,
-                       bool renderingToRenderTexture);
+                       const VkViewport& viewport, RenderPhase renderPhase,
+                       std::uint32_t renderPassId, bool renderingToRenderTexture);
 
     /**
      * @brief Binds the given pipeline
      *
      * @param pipeline The pipeline to bind
      */
-    void bindPipeline(vk::Pipeline& pipeline);
+    void bindPipeline(mat::MaterialPipeline& pipeline);
 
     /**
      * @brief Binds the given descriptors. Only issues bind commands for descriptors that changed
@@ -64,33 +66,39 @@ public:
     void renderObject(const SceneObject& object);
 
     /**
+     * @brief Returns the current render phase
+     */
+    RenderPhase getRenderPhase() const;
+
+    /**
      * @brief Returns the command buffer to use for rendering
      */
-    constexpr VkCommandBuffer getCommandBuffer() const;
+    VkCommandBuffer getCommandBuffer() const;
 
     /**
      * @brief Returns the viewport the scene is being rendered to
      */
-    constexpr const VkViewport& parentViewport() const;
+    const VkViewport& parentViewport() const;
 
     /**
      * @brief Returns the id of the active render pass
      */
-    constexpr std::uint32_t currentRenderPass() const;
+    std::uint32_t currentRenderPass() const;
 
     /**
      * @brief Returns whether or not the current target is a render texture
      */
-    constexpr bool targetIsRenderTexture() const;
+    bool targetIsRenderTexture() const;
 
     /**
      * @brief Returns the scene index of the current observer
      */
-    constexpr std::uint32_t currentObserverIndex() const;
+    std::uint32_t currentObserverIndex() const;
 
 private:
     const VkCommandBuffer commandBuffer;
     const std::uint32_t observerIndex;
+    const RenderPhase renderPhase;
     VkBuffer prevVB;
     VkBuffer prevIB;
     UpdateSpeed boundSpeed;
@@ -102,21 +110,17 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr VkCommandBuffer SceneRenderContext::getCommandBuffer() const {
-    return commandBuffer;
-}
+inline VkCommandBuffer SceneRenderContext::getCommandBuffer() const { return commandBuffer; }
 
-inline constexpr const VkViewport& SceneRenderContext::parentViewport() const { return viewport; }
+inline const VkViewport& SceneRenderContext::parentViewport() const { return viewport; }
 
-inline constexpr std::uint32_t SceneRenderContext::currentRenderPass() const {
-    return renderPassId;
-}
+inline RenderPhase SceneRenderContext::getRenderPhase() const { return renderPhase; }
 
-inline constexpr bool SceneRenderContext::targetIsRenderTexture() const { return isRenderTexture; }
+inline std::uint32_t SceneRenderContext::currentRenderPass() const { return renderPassId; }
 
-inline constexpr std::uint32_t SceneRenderContext::currentObserverIndex() const {
-    return observerIndex;
-}
+inline bool SceneRenderContext::targetIsRenderTexture() const { return isRenderTexture; }
+
+inline std::uint32_t SceneRenderContext::currentObserverIndex() const { return observerIndex; }
 
 } // namespace scene
 } // namespace rc

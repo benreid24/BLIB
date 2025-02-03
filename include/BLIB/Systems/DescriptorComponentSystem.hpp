@@ -19,8 +19,9 @@ namespace sys
  */
 template<typename TCom, typename TPayload>
 class DescriptorComponentSystem : public engine::System {
-    static_assert(std::is_base_of_v<rc::rcom::DescriptorComponentBase<TCom, TPayload>, TCom>,
-                  "Component must derive from DescriptorComponentBase");
+    static_assert(
+        std::is_base_of_v<rc::rcom::priv::DescriptorComponentPayloadBase<TCom, TPayload>, TCom>,
+        "Component must derive from DescriptorComponentBase");
 
 public:
     /**
@@ -55,7 +56,7 @@ private:
 template<typename T, typename TP>
 void DescriptorComponentSystem<T, TP>::update(std::mutex&, float, float, float, float) {
     pool->forEach([](ecs::Entity, T& component) {
-        if (component.isDirty()) { component.refresh(); }
+        if (component.isDirty()) { component.template refresh<TP>(); }
     });
 }
 

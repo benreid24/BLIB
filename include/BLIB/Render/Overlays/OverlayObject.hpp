@@ -6,10 +6,10 @@
 #include <BLIB/ECS/Traits/ParentAware.hpp>
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
+#include <BLIB/Render/Materials/MaterialPipeline.hpp>
 #include <BLIB/Render/Primitives/DrawParameters.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
-#include <BLIB/Render/Vulkan/Pipeline.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <array>
 #include <cstdint>
@@ -35,7 +35,7 @@ struct OverlayObject
 
     ecs::Entity entity;
     Overlay* overlay;
-    vk::Pipeline* pipeline;
+    mat::MaterialPipeline* pipeline;
     std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets> descriptors;
     std::uint8_t descriptorCount;
     std::uint8_t perObjStart;

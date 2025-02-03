@@ -55,7 +55,7 @@ public:
         font = bl::resource::ResourceManager<sf::VulkanFont>::load("Resources/Fonts/font.ttf");
 
         // get first observer and set background color
-        bl::rc::Observer& p1 = engine.renderer().getObserver(0);
+        bl::rc::Observer& p1 = engine.getPlayer().getRenderObserver();
         p1.setClearColor({0.f, 0.f, 1.f, 1.f});
 
         // create 2d scene and camera for observer 1
@@ -68,10 +68,13 @@ public:
 
         // create sprite in scene
         bl::ecs::Entity spriteEntity = p1World->createEntity();
-        spritePosition = engine.ecs().emplaceComponent<bl::com::Transform2D>(spriteEntity);
-        engine.ecs().emplaceComponent<bl::com::Texture>(spriteEntity, texture);
+        spritePosition        = engine.ecs().emplaceComponent<bl::com::Transform2D>(spriteEntity);
         bl::com::Sprite& scom = *engine.ecs().emplaceComponent<bl::com::Sprite>(
             spriteEntity, engine.renderer(), texture);
+        bl::com::MaterialInstance& smat = *engine.ecs().emplaceComponent<bl::com::MaterialInstance>(
+            spriteEntity, engine.renderer(), scom);
+        scom.init(&smat);
+        smat.setMaterial(engine.renderer().materialPool().getOrCreateFromTexture(texture));
         scom.addToScene(engine.ecs(), spriteEntity, scene2d, bl::rc::UpdateSpeed::Dynamic);
         spritePosition->setPosition({1920.f * 0.5f, 1080.f * 0.25f});
         spritePosition->setScale({100.f / texture->size().x, 100.f / texture->size().y});
@@ -102,8 +105,12 @@ public:
         // create object in scene
         meshEntity = p2World->createEntity();
         engine.ecs().emplaceComponent<bl::com::Transform3D>(meshEntity);
-        engine.ecs().emplaceComponent<bl::com::Texture>(meshEntity, texture);
         bl::com::Mesh* mesh = engine.ecs().emplaceComponent<bl::com::Mesh>(meshEntity);
+        bl::com::MaterialInstance* meshMaterial =
+            engine.ecs().emplaceComponent<bl::com::MaterialInstance>(
+                meshEntity, engine.renderer(), *mesh);
+        meshMaterial->setMaterial(engine.renderer().materialPool().getOrCreateFromTexture(texture));
+        mesh->init(meshMaterial);
         mesh->create(engine.renderer().vulkanState(), Vertices.size(), Indices.size());
         mesh->gpuBuffer.vertices() = Vertices;
         for (auto& v : mesh->gpuBuffer.vertices()) {

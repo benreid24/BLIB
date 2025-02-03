@@ -33,9 +33,10 @@ public:
      * @brief Construct a new Pipeline
      *
      * @param renderer The renderer the pipeline will belong to
+     * @param id The id of the pipeline
      * @param params The parameters to create the pipeline with
      */
-    Pipeline(Renderer& renderer, PipelineParameters&& params);
+    Pipeline(Renderer& renderer, std::uint32_t id, PipelineParameters&& params);
 
     /**
      * @brief Destroy the Pipeline and frees Vulkan resources
@@ -55,7 +56,7 @@ public:
      *
      * @param renderPassId The render pass to use to get the specific pipeline
      */
-    VkPipeline rawPipeline(std::uint32_t renderPassId) const;
+    VkPipeline rawPipeline(std::uint32_t renderPassId);
 
     /**
      * @brief Issues the command to bind the pipeline
@@ -65,10 +66,25 @@ public:
      */
     void bind(VkCommandBuffer commandBuffer, std::uint32_t renderPassId);
 
+    /**
+     * @brief Returns a new copy of PipelineParameters identical to the ones used to create this
+     *        pipeline
+     */
+    const PipelineParameters& getCreationParameters() const;
+
+    /**
+     * @brief Returns the id of this pipeline
+     */
+    std::uint32_t getId() const { return id; }
+
 private:
+    std::uint32_t id;
     Renderer& renderer;
     PipelineLayout* layout;
     std::array<VkPipeline, Config::MaxRenderPasses> pipelines;
+    PipelineParameters createParams;
+
+    void createForRenderPass(std::uint32_t rpid);
 
     friend class PipelineCache;
 };
@@ -77,7 +93,12 @@ private:
 
 inline constexpr const PipelineLayout& Pipeline::pipelineLayout() const { return *layout; }
 
-inline VkPipeline Pipeline::rawPipeline(std::uint32_t rpid) const { return pipelines[rpid]; }
+inline VkPipeline Pipeline::rawPipeline(std::uint32_t rpid) {
+    if (!pipelines[rpid]) { createForRenderPass(rpid); }
+    return pipelines[rpid];
+}
+
+inline const PipelineParameters& Pipeline::getCreationParameters() const { return createParams; }
 
 } // namespace vk
 } // namespace rc

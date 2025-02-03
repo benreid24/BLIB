@@ -174,7 +174,7 @@ public:
      *
      * @param dest The matrix to populate
      */
-    void refreshDescriptor(glm::mat4& dest);
+    virtual void refreshDescriptor(glm::mat4& dest) override;
 
     /**
      * @brief Creates a transform matrix from the components of a 2d transform

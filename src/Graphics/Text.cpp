@@ -26,7 +26,8 @@ void Text::create(engine::World& world, const sf::VulkanFont& f, const sf::Strin
     queueCommit();
 
     Drawable::create(world);
-    Textured::create(world.engine().ecs(), entity(), font->syncTexture(world.engine().renderer()));
+    Textured::create(
+        world.engine().renderer(), &material(), font->syncTexture(world.engine().renderer()));
     OverlayScalable::create(world.engine(), entity());
     OverlayScalable::getOverlayScaler().setScaleCallback([this]() {
         if (wordWrapWidth > 0.f) { queueCommit(); }

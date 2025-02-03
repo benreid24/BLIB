@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_VULKAN_PIPELINELAYOUT_HPP
 #define BLIB_RENDER_VULKAN_PIPELINELAYOUT_HPP
 
+#include <BLIB/Containers/StaticVector.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
 #include <BLIB/Util/HashCombine.hpp>
@@ -50,54 +51,60 @@ public:
         };
 
     public:
-        LayoutParams()
-        : dsCount(0)
-        , pcCount(0) {}
+        LayoutParams() = default;
 
         LayoutParams(const LayoutParams& c)
         : descriptorSets(c.descriptorSets)
-        , dsCount(c.dsCount)
-        , pushConstants(c.pushConstants)
-        , pcCount(c.pcCount) {}
+        , pushConstants(c.pushConstants) {}
 
         LayoutParams(LayoutParams&& c)
         : descriptorSets(std::move(c.descriptorSets))
-        , dsCount(c.dsCount)
-        , pushConstants(std::move(c.pushConstants))
-        , pcCount(c.pcCount) {}
+        , pushConstants(std::move(c.pushConstants)) {}
 
         template<typename TFactory, typename... TArgs>
         void addDescriptorSet(TArgs&&... args) {
 #ifdef BLIB_DEBUG
-            if (dsCount >= 4) { throw std::runtime_error("Exceeded 4 descriptor sets"); }
+            if (descriptorSets.size() >= 4) {
+                throw std::runtime_error("Exceeded 4 descriptor sets");
+            }
 #endif
 
-            descriptorSets[dsCount].factoryType = typeid(TFactory);
-            descriptorSets[dsCount].factory =
-                std::make_unique<TFactory>(std::forward<TArgs>(args)...);
-            ++dsCount;
+            descriptorSets.emplace_back(typeid(TFactory),
+                                        std::make_unique<TFactory>(std::forward<TArgs>(args)...));
         }
+
+        template<typename TFactory, typename... TArgs>
+        void replaceDescriptorSet(unsigned int i, TArgs&&... args) {
+            descriptorSets[i].factoryType = typeid(TFactory);
+            descriptorSets[i].factory = std::make_unique<TFactory>(std::forward<TArgs>(args)...);
+        }
+
+        void removeDescriptorSet(unsigned int i) { descriptorSets.erase(i); }
 
         void addPushConstantRange(std::uint32_t offset, std::uint32_t size,
                                   VkShaderStageFlags shaderStages = VK_SHADER_STAGE_ALL_GRAPHICS) {
 #ifdef BLIB_DEBUG
-            if (pcCount >= 4) { throw std::runtime_error("Exceeded 4 push constant ranges"); }
+            if (pushConstants.size() >= 4) {
+                throw std::runtime_error("Exceeded 4 push constant ranges");
+            }
 #endif
 
-            pushConstants[pcCount] = VkPushConstantRange{shaderStages, offset, size};
-            ++pcCount;
+            pushConstants.push_back(VkPushConstantRange{shaderStages, offset, size});
         }
 
         bool operator==(const LayoutParams& right) const {
-            if (dsCount != right.dsCount || pcCount != right.pcCount) { return false; }
+            if (descriptorSets.size() != right.descriptorSets.size() ||
+                pushConstants.size() != right.pushConstants.size()) {
+                return false;
+            }
 
-            for (std::uint32_t i = 0; i < dsCount; ++i) {
+            for (std::uint32_t i = 0; i < descriptorSets.size(); ++i) {
                 if (descriptorSets[i].factoryType != right.descriptorSets[i].factoryType) {
                     return false;
                 }
             }
 
-            for (std::uint32_t i = 0; i < pcCount; ++i) {
+            for (std::uint32_t i = 0; i < pushConstants.size(); ++i) {
                 if (pushConstants[i].offset != right.pushConstants[i].offset) { return false; }
                 if (pushConstants[i].size != right.pushConstants[i].size) { return false; }
                 if (pushConstants[i].stageFlags != right.pushConstants[i].stageFlags) {
@@ -109,10 +116,8 @@ public:
         }
 
     private:
-        std::array<DescriptorSet, 4> descriptorSets;
-        std::size_t dsCount;
-        std::array<VkPushConstantRange, 4> pushConstants;
-        std::size_t pcCount;
+        ctr::StaticVector<DescriptorSet, 4> descriptorSets;
+        ctr::StaticVector<VkPushConstantRange, 4> pushConstants;
 
         friend struct std::hash<LayoutParams>;
         friend class PipelineLayout;
@@ -176,8 +181,7 @@ public:
 private:
     Renderer& renderer;
     VkPipelineLayout layout;
-    std::array<ds::DescriptorSetFactory*, 4> descriptorSets;
-    const std::uint32_t dsCount;
+    ctr::StaticVector<ds::DescriptorSetFactory*, 4> descriptorSets;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -194,11 +198,11 @@ template<>
 struct hash<bl::rc::vk::PipelineLayout::LayoutParams> {
     size_t operator()(const bl::rc::vk::PipelineLayout::LayoutParams& params) const {
         size_t result = hash<size_t>()(params.descriptorSets.size());
-        for (size_t i = 0; i < params.dsCount; ++i) {
+        for (size_t i = 0; i < params.descriptorSets.size(); ++i) {
             const size_t nh = hash<type_index>()(params.descriptorSets[i].factoryType);
             result          = bl::util::hashCombine(result, nh);
         }
-        for (size_t i = 0; i < params.pcCount; ++i) {
+        for (size_t i = 0; i < params.pushConstants.size(); ++i) {
             const size_t nh =
                 bl::util::hashCombine(hash<std::uint32_t>()(params.pushConstants[i].offset),
                                       hash<std::uint32_t>()(params.pushConstants[i].size));

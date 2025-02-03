@@ -23,15 +23,12 @@ namespace pcl
 {
 template<>
 struct RenderConfigMap<Particle> {
-    static constexpr std::uint32_t PipelineId  = ParticlePipelineId;
-    static constexpr bool ContainsTransparency = false;
+    static constexpr std::uint32_t MaterialPipelineId = ParticlePipelineId;
+    static constexpr bool ContainsTransparency        = false;
 
     static constexpr bool CreateRenderPipeline = true; // set to true to create pipeline for us
 
     // Below settings only used when pipeline is created
-
-    static constexpr std::initializer_list<std::uint32_t> RenderPassIds =
-        bl::pcl::RenderConfigDefaults<Particle>::RenderPassIds;
 
     using GlobalShaderPayload = ShaderPayload;
     using DescriptorSets =

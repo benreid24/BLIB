@@ -75,7 +75,7 @@ public:
      *
      * @param dest The matrix to populate
      */
-    void refreshDescriptor(glm::mat4& dest);
+    virtual void refreshDescriptor(glm::mat4& dest) override;
 
 private:
     glm::vec3 position;

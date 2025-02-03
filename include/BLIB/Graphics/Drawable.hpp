@@ -1,6 +1,7 @@
 #ifndef BLIB_GRAPHICS_DRAWABLE_HPP
 #define BLIB_GRAPHICS_DRAWABLE_HPP
 
+#include <BLIB/Components/MaterialInstance.hpp>
 #include <BLIB/Components/Toggler.hpp>
 #include <BLIB/ECS.hpp>
 #include <BLIB/ECS/EntityBacked.hpp>
@@ -21,9 +22,6 @@ class World;
 /// Collection of SFML-like classes for drawing
 namespace gfx
 {
-template<typename TCom>
-class Drawable;
-
 /**
  * @brief Base class for Drawable objects. A Drawable object should inherit this class for the
  *        drawable component that it wraps
@@ -66,16 +64,6 @@ public:
     void addToScene(rc::Scene* scene, rc::UpdateSpeed updateFreq);
 
     /**
-     * @brief Adds this entity to the given scene with custom pipelines
-     *
-     * @param scene The scene to add to
-     * @param updateFreq Whether the entity is expected to be dynamic or static
-     * @param pipeline The pipeline to render with
-     */
-    void addToSceneWithCustomPipeline(rc::Scene* scene, rc::UpdateSpeed updateFreq,
-                                      std::uint32_t pipeline);
-
-    /**
      * @brief Set whether the entity is hidden or not. May only be called on entities in a scene
      *
      * @param hide True to block rendering, false to render normally
@@ -96,6 +84,16 @@ public:
      * @brief Returns the drawable component. Only call after create()
      */
     const TCom& component() const;
+
+    /**
+     * @brief Returns the material instance for this entity. Only call after create()
+     */
+    com::MaterialInstance& material();
+
+    /**
+     * @brief Returns the material instance for this entity. Only call after create()
+     */
+    const com::MaterialInstance& material() const;
 
     /**
      * @brief Causes the drawable to flash with the given settings
@@ -171,12 +169,14 @@ protected:
 
 private:
     TCom* handle;
+    com::MaterialInstance* materialInstance;
 
     template<typename U>
     friend class Drawable;
 
     void doFlash(float on, float off);
     void retryFlash(float on, float off);
+    void initMaterial();
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -202,19 +202,6 @@ void Drawable<TCom>::addToScene(rc::Scene* scene, rc::UpdateSpeed updateFreq) {
 #endif
 
     component().addToScene(engine().ecs(), entity(), scene, updateFreq);
-    onAdd(component().getSceneRef());
-}
-
-template<typename TCom>
-void Drawable<TCom>::addToSceneWithCustomPipeline(rc::Scene* scene, rc::UpdateSpeed updateFreq,
-                                                  std::uint32_t pipeline) {
-#ifdef BLIB_DEBUG
-    if (entity() == ecs::InvalidEntity || !handle) {
-        throw std::runtime_error("Drawable must be created before adding to scene");
-    }
-#endif
-
-    component().addToSceneWithPipeline(engine().ecs(), entity(), scene, updateFreq, pipeline);
     onAdd(component().getSceneRef());
 }
 
@@ -251,6 +238,16 @@ const TCom& Drawable<TCom>::component() const {
 }
 
 template<typename TCom>
+com::MaterialInstance& Drawable<TCom>::material() {
+    return *materialInstance;
+}
+
+template<typename TCom>
+const com::MaterialInstance& Drawable<TCom>::material() const {
+    return *materialInstance;
+}
+
+template<typename TCom>
 void Drawable<TCom>::flash(float onPeriod, float offPeriod) {
     if (component().getSceneRef().object) { doFlash(onPeriod, offPeriod); }
     else {
@@ -266,6 +263,13 @@ void Drawable<TCom>::retryFlash(float onPeriod, float offPeriod) {
         BL_LOG_WARN << "Failed to flash object (" << entity()
                     << ") Not in scene after delayed retry";
     }
+}
+
+template<typename TCom>
+void Drawable<TCom>::initMaterial() {
+    materialInstance = engine().ecs().template emplaceComponent<com::MaterialInstance>(
+        entity(), engine().renderer(), component());
+    component().init(materialInstance);
 }
 
 template<typename TCom>
@@ -305,6 +309,7 @@ void Drawable<TCom>::createComponentOnly(engine::World& world, ecs::Entity exist
     if (handle != nullptr) { destroy(); }
     createFromExistingEntity(world, existing);
     handle = engine().ecs().template emplaceComponent<TCom>(entity(), std::forward<TArgs>(args)...);
+    initMaterial();
 }
 
 template<typename TCom>
@@ -314,6 +319,7 @@ void Drawable<TCom>::create(engine::World& world, TArgs&&... args) {
     createEntityOnly(world);
     handle = world.engine().ecs().template emplaceComponent<TCom>(entity(),
                                                                   std::forward<TArgs>(args)...);
+    initMaterial();
 }
 
 template<typename TCom>

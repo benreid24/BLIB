@@ -106,8 +106,9 @@ private:
     virtual void setDefaultNearAndFarPlanes(cam::Camera& camera) const override;
     virtual SceneObject* doAdd(ecs::Entity entity, rcom::DrawableBase& object,
                                UpdateSpeed updateFreq) override;
-    virtual void doBatchChange(const BatchChange& change, std::uint32_t ogPipeline) override;
-    virtual void doObjectRemoval(SceneObject* object, std::uint32_t pipeline) override;
+    virtual void doBatchChange(const BatchChange& change,
+                               mat::MaterialPipeline* ogPipeline) override;
+    virtual void doObjectRemoval(SceneObject* object, mat::MaterialPipeline* pipeline) override;
 };
 
 } // namespace scene

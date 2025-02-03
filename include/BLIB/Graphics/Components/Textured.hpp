@@ -1,7 +1,7 @@
 #ifndef BLIB_GRAPHICS_COMPONENTS_TEXTURED_HPP
 #define BLIB_GRAPHICS_COMPONENTS_TEXTURED_HPP
 
-#include <BLIB/Components/Texture.hpp>
+#include <BLIB/Components/MaterialInstance.hpp>
 #include <BLIB/ECS.hpp>
 
 namespace bl
@@ -36,29 +36,24 @@ public:
 
 protected:
     /**
-     * @brief Creates the texture component in the ECS
+     * @brief Creates the texture component
      *
-     * @tparam ...TArgs Argument types to the texture's constructor
-     * @param registry The ECS registry instance
-     * @param entity The ECS entity id
-     * @param ...args Arguments to the texture's constructor
+     * @param renderer The renderer instance
+     * @param The entity's material instance
+     * @param texture The texture to use
      */
-    template<typename... TArgs>
-    void create(ecs::Registry& registry, ecs::Entity entity, TArgs&&... args);
+    void create(rc::Renderer& renderer, com::MaterialInstance* material,
+                const rc::res::TextureRef& texture);
 
 private:
-    com::Texture* handle;
+    rc::Renderer* renderer;
+    com::MaterialInstance* handle;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline void Textured::setTexture(const rc::res::TextureRef& t) { handle->setTexture(t); }
-
-inline const rc::res::TextureRef& Textured::getTexture() const { return handle->getTexture(); }
-
-template<typename... TArgs>
-void Textured::create(ecs::Registry& registry, ecs::Entity entity, TArgs&&... args) {
-    handle = registry.emplaceComponent<com::Texture>(entity, std::forward<TArgs>(args)...);
+inline const rc::res::TextureRef& Textured::getTexture() const {
+    return handle->getMaterial()->getTexture();
 }
 
 } // namespace bcom

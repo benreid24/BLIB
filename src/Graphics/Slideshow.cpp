@@ -46,7 +46,7 @@ void Slideshow::createWithUniquePlayer(engine::World& world,
     Drawable::create(world);
     OverlayScalable::create(world.engine(), entity());
     OverlayScalable::setLocalSize(getSize(animation));
-    Animation2DPlayer::create(world, entity(), animation, play, forceLoop);
+    Animation2DPlayer::create(world, entity(), material(), animation, play, forceLoop);
     component().create(world.engine().renderer().vulkanState(), Animation2DPlayer::getPlayer());
     component().setContainsTransparency(Textured::getTexture()->containsTransparency());
 }
@@ -57,7 +57,7 @@ void Slideshow::createWithUniquePlayer(engine::World& world, ecs::Entity existin
     Drawable::createComponentOnly(world, existing);
     OverlayScalable::create(world.engine(), entity());
     OverlayScalable::setLocalSize(getSize(animation));
-    Animation2DPlayer::create(world, entity(), animation, play, forceLoop);
+    Animation2DPlayer::create(world, entity(), material(), animation, play, forceLoop);
     component().create(world.engine().renderer().vulkanState(), Animation2DPlayer::getPlayer());
     component().setContainsTransparency(Textured::getTexture()->containsTransparency());
 }
@@ -66,7 +66,7 @@ void Slideshow::createWithSharedPlayer(engine::World& world, const Slideshow& pl
     Drawable::create(world);
     OverlayScalable::create(world.engine(), entity());
     OverlayScalable::setLocalSize(player.getLocalSize());
-    Animation2DPlayer::create(world, entity(), player.getPlayerEntity());
+    Animation2DPlayer::create(world, entity(), player.getPlayerEntity(), material());
     component().create(world.engine().renderer().vulkanState(), Animation2DPlayer::getPlayer());
     component().setContainsTransparency(Textured::getTexture()->containsTransparency());
 }
@@ -76,7 +76,7 @@ void Slideshow::createWithSharedPlayer(engine::World& world, ecs::Entity existin
     Drawable::createComponentOnly(world, existing);
     OverlayScalable::create(world.engine(), entity());
     OverlayScalable::setLocalSize(player.getLocalSize());
-    Animation2DPlayer::create(world, entity(), player.getPlayerEntity());
+    Animation2DPlayer::create(world, entity(), player.getPlayerEntity(), material());
     component().create(world.engine().renderer().vulkanState(), Animation2DPlayer::getPlayer());
     component().setContainsTransparency(Textured::getTexture()->containsTransparency());
 }

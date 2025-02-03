@@ -16,11 +16,12 @@ Renderer::Renderer(engine::Engine& engine, engine::EngineWindow& window)
 , window(window)
 , state(window)
 , textures(state)
-, materials(state)
+, materials(*this)
 , descriptorSetFactoryCache(engine, *this)
 , renderPasses(*this)
 , pipelineLayouts(*this)
 , pipelines(*this)
+, materialPipelines(*this)
 , scenes(engine)
 , imageExporter(*this)
 , splitscreenDirection(SplitscreenDirection::TopAndBottom)
@@ -59,6 +60,8 @@ void Renderer::initialize() {
         FrameStage::RenderDescriptorRefresh, AllMask);
     engine.systems().registerSystem<sys::TextureDescriptorSystem>(
         FrameStage::RenderDescriptorRefresh, AllMask);
+    engine.systems().registerSystem<sys::MaterialDescriptorSystem>(
+        FrameStage::RenderDescriptorRefresh, AllMask);
 
     // asset providers
     assetFactory.addProvider<rgi::StandardAssetProvider>(rg::AssetTags::RenderedSceneOutput);
@@ -69,6 +72,7 @@ void Renderer::initialize() {
     renderPasses.addDefaults();
     textures.init();
     pipelines.createBuiltins();
+    materialPipelines.createBuiltins();
 
     // swapchain framebuffers
     VkRenderPass renderPass =
