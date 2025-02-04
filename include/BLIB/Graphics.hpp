@@ -24,6 +24,7 @@
 #include <BLIB/Graphics/Components/OverlayScalable.hpp>
 #include <BLIB/Graphics/Components/Textured.hpp>
 #include <BLIB/Graphics/Components/Transform2D.hpp>
+#include <BLIB/Graphics/Cube.hpp>
 #include <BLIB/Graphics/Drawable.hpp>
 #include <BLIB/Graphics/Dummy2D.hpp>
 #include <BLIB/Graphics/Rectangle.hpp>

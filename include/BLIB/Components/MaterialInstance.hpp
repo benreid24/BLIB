@@ -65,6 +65,17 @@ public:
                      rc::mat::MaterialPipeline* pipeline, const rc::res::MaterialRef& material);
 
     /**
+     * @brief Creates the material instance from a pipeline and a material
+     *
+     * @param renderer The renderer instance
+     * @param drawComponent The drawable component for the entity
+     * @param materialPipelineId The material pipeline id to render with
+     * @param material The material to use
+     */
+    MaterialInstance(rc::Renderer& renderer, rc::rcom::DrawableBase& drawComponent,
+                     std::uint32_t materialPipelineId, const rc::res::MaterialRef& material);
+
+    /**
      * @brief Returns the material used by the entity
      */
     const rc::res::MaterialRef& getMaterial() const;

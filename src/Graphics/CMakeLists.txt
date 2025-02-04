@@ -12,6 +12,7 @@ target_sources(BLIB PRIVATE
 	BatchSpriteSimple.cpp
 	BatchTriangle.cpp
 	Circle.cpp
+	Cube.cpp
 	Dummy2D.cpp
 	Icon.cpp
 	Rectangle.cpp

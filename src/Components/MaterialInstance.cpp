@@ -33,6 +33,14 @@ MaterialInstance::MaterialInstance(rc::Renderer& renderer, rc::rcom::DrawableBas
 , pipeline(pipeline)
 , material(material) {}
 
+MaterialInstance::MaterialInstance(rc::Renderer& renderer, rc::rcom::DrawableBase& drawComponent,
+                                   std::uint32_t materialPipelineId,
+                                   const rc::res::MaterialRef& material)
+: renderer(renderer)
+, drawable(drawComponent)
+, pipeline(&renderer.materialPipelineCache().getPipeline(materialPipelineId))
+, material(material) {}
+
 void MaterialInstance::setMaterial(const rc::res::MaterialRef& m) {
     material = m;
     onMaterialChange();
