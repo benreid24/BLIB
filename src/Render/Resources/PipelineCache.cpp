@@ -91,6 +91,11 @@ void PipelineCache::createBuiltins() {
     rasterizer.depthBiasClamp          = 0.0f; // Optional
     rasterizer.depthBiasSlopeFactor    = 0.0f; // Optional
 
+    VkPipelineRasterizationStateCreateInfo rasterizer3d = rasterizer;
+    // TODO - culling?
+    /*rasterizer3d.cullMode                               = VK_CULL_MODE_BACK_BIT;
+    rasterizer3d.frontFace                              = VK_FRONT_FACE_CLOCKWISE;*/
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // TODO - actual 3d rendering pipelines
 
@@ -98,9 +103,8 @@ void PipelineCache::createBuiltins() {
                    vk::PipelineParameters()
                        .withShaders(Config::ShaderIds::MeshVertex, Config::ShaderIds::MeshFragment)
                        .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
-                       .withRasterizer(rasterizer)
+                       .withRasterizer(rasterizer3d)
                        .withDepthStencilState(&depthStencilDepthEnabled)
-                       .addDescriptorSet<ds::TexturePoolFactory>()
                        .addDescriptorSet<ds::Scene3DFactory>()
                        .addDescriptorSet<ds::Object3DFactory>()
                        .build());
@@ -109,9 +113,8 @@ void PipelineCache::createBuiltins() {
                    vk::PipelineParameters()
                        .withShaders(Config::ShaderIds::MeshVertex, Config::ShaderIds::MeshFragment)
                        .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
-                       .withRasterizer(rasterizer)
+                       .withRasterizer(rasterizer3d)
                        .withDepthStencilState(&depthStencilDepthEnabled)
-                       .addDescriptorSet<ds::TexturePoolFactory>()
                        .addDescriptorSet<ds::Scene3DFactory>()
                        .addDescriptorSet<ds::Object3DFactory>()
                        .build());
@@ -121,7 +124,7 @@ void PipelineCache::createBuiltins() {
                        .withShaders(Config::ShaderIds::SkinnedMeshVertex,
                                     Config::ShaderIds::SkinnedMeshFragment)
                        .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
-                       .withRasterizer(rasterizer)
+                       .withRasterizer(rasterizer3d)
                        .withDepthStencilState(&depthStencilDepthEnabled)
                        .addDescriptorSet<ds::TexturePoolFactory>()
                        .addDescriptorSet<ds::Scene3DFactory>()
@@ -133,7 +136,7 @@ void PipelineCache::createBuiltins() {
                        .withShaders(Config::ShaderIds::SkinnedMeshVertex,
                                     Config::ShaderIds::SkinnedMeshFragment)
                        .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
-                       .withRasterizer(rasterizer)
+                       .withRasterizer(rasterizer3d)
                        .withDepthStencilState(&depthStencilDepthEnabled)
                        .addDescriptorSet<ds::TexturePoolFactory>()
                        .addDescriptorSet<ds::Scene3DFactory>()

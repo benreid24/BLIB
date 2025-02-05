@@ -21,6 +21,7 @@ target_sources(BLIB PUBLIC
 	Text.hpp
 	Triangle.hpp
 	VertexBuffer2D.hpp
+	VertexBuffer3D.hpp
 )
 
 add_subdirectory(Animation2D)

@@ -35,5 +35,6 @@
 #include <BLIB/Graphics/Text/VulkanFont.hpp>
 #include <BLIB/Graphics/Triangle.hpp>
 #include <BLIB/Graphics/VertexBuffer2D.hpp>
+#include <BLIB/Graphics/VertexBuffer3D.hpp>
 
 #endif

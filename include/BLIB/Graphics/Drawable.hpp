@@ -151,6 +151,19 @@ protected:
      * @tparam ...TArgs Argument types to the component's constructor
      * @param world The world to create the object in
      * @param materialPipelineId The material pipeline id to render with
+     * @param ...args Arguments to the component's constructor
+     */
+    template<typename... TArgs>
+    void createWithMaterial(engine::World& world, std::uint32_t materialPipelineId,
+                            TArgs&&... args);
+
+    /**
+     * @brief Creates the ECS entity and drawable component using specific material parameters. Will
+     *        destroy the prior instance if any
+     *
+     * @tparam ...TArgs Argument types to the component's constructor
+     * @param world The world to create the object in
+     * @param materialPipelineId The material pipeline id to render with
      * @param material The material to use
      * @param ...args Arguments to the component's constructor
      */
@@ -315,6 +328,19 @@ void Drawable<TCom>::onAdd(const rc::rcom::SceneObjectRef&) {}
 
 template<typename TCom>
 void Drawable<TCom>::onRemove() {}
+
+template<typename TCom>
+template<typename... TArgs>
+void Drawable<TCom>::createWithMaterial(engine::World& world, std::uint32_t materialPipelineId,
+                                        TArgs&&... args) {
+    if (handle != nullptr) { destroy(); }
+    createEntityOnly(world);
+    handle           = world.engine().ecs().template emplaceComponent<TCom>(entity(),
+                                                                  std::forward<TArgs>(args)...);
+    materialInstance = engine().ecs().template emplaceComponent<com::MaterialInstance>(
+        entity(), engine().renderer(), component(), materialPipelineId);
+    component().init(materialInstance);
+}
 
 template<typename TCom>
 template<typename... TArgs>

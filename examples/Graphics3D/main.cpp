@@ -35,7 +35,7 @@ public:
     virtual void observe(const sf::Event& event) override {
         switch (event.type) {
         case sf::Event::MouseWheelScrolled:
-            distance *= 1.f + event.mouseWheelScroll.delta * DistancePercentPerTick;
+            distance *= 1.f - event.mouseWheelScroll.delta * DistancePercentPerTick;
             break;
 
         case sf::Event::MouseButtonPressed:
@@ -51,10 +51,9 @@ public:
 
         case sf::Event::MouseMoved:
             if (dragging) {
-                const glm::vec2 pos(event.mouseButton.x, event.mouseButton.y);
+                const glm::vec2 pos(event.mouseMove.x, event.mouseMove.y);
                 const glm::vec2 diff = pos - prevDrag;
                 prevDrag             = pos;
-                BL_LOG_INFO << diff;
 
                 yaw += diff.x * YawPerPixel;
                 pitch += diff.y * PitchPerPixel;
@@ -83,6 +82,7 @@ public:
 private:
     bl::rc::Scene* scene;
     bl::gfx::Cube cube1;
+    bl::gfx::VertexBuffer3D floor;
     CameraController* controller;
 
     virtual const char* name() const override { return "DemoState"; }
@@ -93,9 +93,26 @@ private:
             engine.getPlayer().enterWorld<bl::engine::BasicWorld<bl::rc::scene::Scene3D>>();
         scene      = world->scene();
         auto& o    = engine.renderer().getObserver();
-        auto* cam  = o.setCamera<bl::cam::Camera3D>(glm::vec3(0.f, -3.f, -5.f), glm::vec3(0.f));
+        auto* cam  = o.setCamera<bl::cam::Camera3D>(glm::vec3(0.f, 3.f, 5.f), glm::vec3(0.f));
         controller = cam->setController<CameraController>();
         o.setClearColor({0.f, 0.f, 0.f, 1.f});
+
+        constexpr float FloorSize = 5.f;
+        floor.create(*world, 6);
+        floor[0].pos   = {-FloorSize, 0.f, -FloorSize};
+        floor[0].color = {0.f, 1.f, 1.f, 1.f};
+        floor[1].pos   = {FloorSize, 0.f, FloorSize};
+        floor[1].color = {1.f, 0.f, 0.f, 1.f};
+        floor[2].pos   = {-FloorSize, 0.f, FloorSize};
+        floor[2].color = {0.f, 1.f, 0.f, 1.f};
+        floor[3].pos   = {-FloorSize, 0.f, -FloorSize};
+        floor[3].color = {0.f, 1.f, 1.f, 1.f};
+        floor[4].pos   = {FloorSize, 0.f, -FloorSize};
+        floor[4].color = {1.f, 0.f, 1.f, 1.f};
+        floor[5].pos   = {FloorSize, 0.f, FloorSize};
+        floor[5].color = {1.f, 0.f, 0.f, 1.f};
+        floor.commit();
+        floor.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
         cube1.create(*world, 1.f);
         cube1.addToScene(scene, bl::rc::UpdateSpeed::Static);

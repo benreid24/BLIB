@@ -15,47 +15,62 @@ void Cube::create(engine::World& world, float size, const bl::rc::res::MaterialR
                   std::uint32_t materialPipelineId) {
     Drawable::createWithMaterial(world, materialPipelineId, material);
     Transform3D::create(world.engine().ecs(), entity());
-    component().create(world.engine().renderer().vulkanState(), 8, 36);
+    component().create(world.engine().renderer().vulkanState(), 24, 36);
 
     const float s = size * 0.5f;
-    const auto face =
-        [this](unsigned int i, unsigned int v0, unsigned int v1, unsigned int v2, unsigned int v3) {
-            const unsigned int b                   = i * 6;
-            component().gpuBuffer.indices()[b + 0] = v0;
-            component().gpuBuffer.indices()[b + 1] = v1;
-            component().gpuBuffer.indices()[b + 2] = v2;
-            component().gpuBuffer.indices()[b + 3] = v0;
-            component().gpuBuffer.indices()[b + 4] = v2;
-            component().gpuBuffer.indices()[b + 5] = v3;
-        };
 
     // top vertices
-    component().gpuBuffer.vertices()[0].pos      = {-s, -s, s}; // back left
-    component().gpuBuffer.vertices()[0].texCoord = {0.f, 0.f};
-    component().gpuBuffer.vertices()[1].pos      = {s, -s, s}; // back right
-    component().gpuBuffer.vertices()[1].texCoord = {1.f, 0.f};
-    component().gpuBuffer.vertices()[2].pos      = {s, -s, -s}; // front right
-    component().gpuBuffer.vertices()[2].texCoord = {1.f, 1.f};
-    component().gpuBuffer.vertices()[3].pos      = {-s, -s, -s}; // front left
-    component().gpuBuffer.vertices()[3].texCoord = {0.f, 1.f};
+    component().gpuBuffer.vertices()[0].pos = {-s, s, -s}; // back left
+    component().gpuBuffer.vertices()[1].pos = {s, s, -s};  // back right
+    component().gpuBuffer.vertices()[2].pos = {s, s, s};   // front right
+    component().gpuBuffer.vertices()[3].pos = {-s, s, s};  // front left
+
+    // right vertices
+    component().gpuBuffer.vertices()[4].pos = {s, s, s};   // front top
+    component().gpuBuffer.vertices()[5].pos = {s, s, -s};  // back top
+    component().gpuBuffer.vertices()[6].pos = {s, -s, -s}; // back bottom
+    component().gpuBuffer.vertices()[7].pos = {s, -s, s};  // front bottom
 
     // bottom vertices
-    component().gpuBuffer.vertices()[4].pos      = {-s, s, s}; // back left
-    component().gpuBuffer.vertices()[4].texCoord = {0.f, 0.f};
-    component().gpuBuffer.vertices()[5].pos      = {s, s, s}; // back right
-    component().gpuBuffer.vertices()[5].texCoord = {1.f, 0.f};
-    component().gpuBuffer.vertices()[6].pos      = {s, s, -s}; // front right
-    component().gpuBuffer.vertices()[6].texCoord = {1.f, 1.f};
-    component().gpuBuffer.vertices()[7].pos      = {-s, s, -s}; // front left
-    component().gpuBuffer.vertices()[7].texCoord = {0.f, 1.f};
+    component().gpuBuffer.vertices()[8].pos  = {-s, -s, -s}; // back left
+    component().gpuBuffer.vertices()[9].pos  = {s, -s, -s};  // back right
+    component().gpuBuffer.vertices()[10].pos = {s, -s, s};   // front right
+    component().gpuBuffer.vertices()[11].pos = {-s, -s, s};  // front left
+
+    // left vertices
+    component().gpuBuffer.vertices()[12].pos = {-s, s, -s};  // back top
+    component().gpuBuffer.vertices()[13].pos = {-s, s, s};   // front top
+    component().gpuBuffer.vertices()[14].pos = {-s, -s, s};  // front bottom
+    component().gpuBuffer.vertices()[15].pos = {-s, -s, -s}; // back bottom
+
+    // front vertices
+    component().gpuBuffer.vertices()[16].pos = {-s, s, s};  // top left
+    component().gpuBuffer.vertices()[17].pos = {s, s, s};   // top right
+    component().gpuBuffer.vertices()[18].pos = {s, -s, s};  // bottom right
+    component().gpuBuffer.vertices()[19].pos = {-s, -s, s}; // bottom left
+
+    // back vertices
+    component().gpuBuffer.vertices()[20].pos = {-s, s, -s};  // top left
+    component().gpuBuffer.vertices()[21].pos = {s, s, -s};   // top right
+    component().gpuBuffer.vertices()[22].pos = {s, -s, -s};  // bottom right
+    component().gpuBuffer.vertices()[23].pos = {-s, -s, -s}; // bottom left
 
     // faces
-    face(0, 0, 1, 2, 3); // top
-    face(1, 1, 5, 6, 2); // right
-    face(2, 7, 6, 5, 4); // bottom
-    face(3, 0, 4, 7, 3); // left
-    face(4, 3, 2, 6, 7); // front
-    face(5, 1, 0, 4, 5); // back
+    for (unsigned int face = 0; face < 6; ++face) {
+        const unsigned int vb                             = face * 4;
+        component().gpuBuffer.vertices()[vb + 0].texCoord = glm::vec2(0.f, 0.f);
+        component().gpuBuffer.vertices()[vb + 1].texCoord = glm::vec2(1.f, 0.f);
+        component().gpuBuffer.vertices()[vb + 2].texCoord = glm::vec2(1.f, 1.f);
+        component().gpuBuffer.vertices()[vb + 3].texCoord = glm::vec2(0.f, 1.f);
+
+        const unsigned int b                   = face * 6;
+        component().gpuBuffer.indices()[b + 0] = vb + 0;
+        component().gpuBuffer.indices()[b + 1] = vb + 1;
+        component().gpuBuffer.indices()[b + 2] = vb + 2;
+        component().gpuBuffer.indices()[b + 3] = vb + 0;
+        component().gpuBuffer.indices()[b + 4] = vb + 2;
+        component().gpuBuffer.indices()[b + 5] = vb + 3;
+    }
 
     component().gpuBuffer.queueTransfer();
 }
