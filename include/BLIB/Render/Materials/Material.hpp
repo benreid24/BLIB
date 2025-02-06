@@ -39,6 +39,21 @@ public:
     Material(const res::TextureRef& texture);
 
     /**
+     * @brief Destroys the material
+     */
+    ~Material() = default;
+
+    /**
+     * @brief Copies the material
+     */
+    Material& operator=(const Material&) = default;
+
+    /**
+     * @brief Copies the material
+     */
+    Material& operator=(Material&&) = default;
+
+    /**
      * @brief Returns the diffuse texture of this material
      */
     const res::TextureRef& getTexture() const { return texture; }

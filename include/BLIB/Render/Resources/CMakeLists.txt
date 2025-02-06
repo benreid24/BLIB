@@ -3,6 +3,7 @@ target_sources(BLIB PUBLIC
     GlobalDescriptors.hpp
     MaterialPipelineCache.hpp
     MaterialPool.hpp
+    MaterialRef.hpp
     PipelineCache.hpp
     PipelineLayoutCache.hpp
     RenderPassCache.hpp

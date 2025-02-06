@@ -27,10 +27,12 @@ void GlobalDescriptors::init() {
     auto& vulkanState = renderer.vulkanState();
 
     // create descriptor layout
-    VkDescriptorSetLayoutBinding setBindings[] = {texturePool.getLayoutBinding()};
+    VkDescriptorSetLayoutBinding setBindings[] = {texturePool.getLayoutBinding(),
+                                                  materialPool.getLayoutBinding()};
+    constexpr std::size_t NBindings            = std::size(setBindings);
     VkDescriptorSetLayoutCreateInfo descriptorCreateInfo{};
     descriptorCreateInfo.sType        = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
-    descriptorCreateInfo.bindingCount = std::size(setBindings);
+    descriptorCreateInfo.bindingCount = NBindings;
     descriptorCreateInfo.pBindings    = setBindings;
     if (VK_SUCCESS !=
         vkCreateDescriptorSetLayout(
@@ -39,15 +41,17 @@ void GlobalDescriptors::init() {
     }
 
     // create descriptor pool
-    VkDescriptorPoolSize poolSize{};
-    poolSize.type            = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-    poolSize.descriptorCount = Config::MaxTextureCount * 2 * Config::MaxConcurrentFrames;
+    VkDescriptorPoolSize poolSizes[NBindings]{}; // doesn't handle dupes of types
+    for (std::size_t i = 0; i < NBindings; ++i) {
+        poolSizes[i].type            = setBindings[i].descriptorType;
+        poolSizes[i].descriptorCount = setBindings[i].descriptorCount * Config::MaxConcurrentFrames;
+    }
 
     VkDescriptorPoolCreateInfo poolCreate{};
     poolCreate.sType         = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
     poolCreate.maxSets       = 2 * Config::MaxConcurrentFrames;
-    poolCreate.poolSizeCount = 1;
-    poolCreate.pPoolSizes    = &poolSize;
+    poolCreate.poolSizeCount = NBindings;
+    poolCreate.pPoolSizes    = poolSizes;
     if (VK_SUCCESS !=
         vkCreateDescriptorPool(vulkanState.device, &poolCreate, nullptr, &descriptorPool)) {
         throw std::runtime_error("Failed to create texture descriptor pool");
@@ -73,7 +77,7 @@ void GlobalDescriptors::init() {
                           [&i, &allocatedSets](auto& set) { set = allocatedSets[i++]; });
 
     texturePool.init(descriptorSets, rtDescriptorSets);
-    materialPool.init();
+    materialPool.init(descriptorSets, rtDescriptorSets);
 }
 
 void GlobalDescriptors::cleanup() {
