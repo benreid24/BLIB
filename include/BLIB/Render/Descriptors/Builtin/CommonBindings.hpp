@@ -6,6 +6,7 @@
 #include <BLIB/Components/Transform3D.hpp>
 #include <BLIB/Render/Descriptors/Generic/ObjectStorageBuffer.hpp>
 #include <BLIB/Render/Descriptors/GenericDescriptorSetInstance.hpp>
+#include <BLIB/Render/Materials/MaterialId.hpp>
 #include <glm/glm.hpp>
 
 namespace bl
@@ -23,6 +24,9 @@ using Transform3DBinding = ObjectStorageBuffer<glm::mat4, com::Transform3D>;
 using TextureBinding =
     ObjectStorageBuffer<std::uint32_t, com::MaterialInstance, true, buf::StaticSSBO<std::uint32_t>,
                         buf::StaticSSBO<std::uint32_t>>;
+using MaterialBinding =
+    ObjectStorageBuffer<mat::MaterialId, com::MaterialInstance, true,
+                        buf::StaticSSBO<std::uint32_t>, buf::StaticSSBO<std::uint32_t>>;
 
 } // namespace priv
 } // namespace ds

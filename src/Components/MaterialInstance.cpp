@@ -73,14 +73,7 @@ void MaterialInstance::onPipelineChange() { drawable.rebucket(); }
 
 void MaterialInstance::onMaterialChange() { markDirty(); }
 
-void MaterialInstance::refreshDescriptor(rc::mat::MaterialDescriptor& d) {
-    if (material) {
-        // id method is always safe on ref even if invalid
-        d.diffuseTextureId = material->getTexture().id();
-        d.normalTextureId  = material->getNormalMap().id();
-        d.uvTextureId      = material->getUVMap().id();
-    }
-}
+void MaterialInstance::refreshDescriptor(rc::mat::MaterialId& d) { d = material.getId(); }
 
 void MaterialInstance::refreshDescriptor(std::uint32_t& tid) {
     if (material) { tid = material->getTexture().id(); }

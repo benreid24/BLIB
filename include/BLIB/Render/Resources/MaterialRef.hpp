@@ -96,6 +96,11 @@ public:
     mat::Material& getForEdit();
 
     /**
+     * @brief Returns the underlying material id
+     */
+    std::uint32_t getId() const { return id; }
+
+    /**
      * @brief Returns whether this ref points to a resource or not
      */
     bool isValid() const { return owner != nullptr; }

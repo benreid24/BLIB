@@ -10,7 +10,7 @@ void VertexBuffer3D::create(engine::World& world, unsigned int vc) {
     component().create(world.engine(), vc);
 }
 
-void VertexBuffer3D::scaleToSize(const glm::vec2& size) {
+void VertexBuffer3D::scaleToSize(const glm::vec2&) {
     // noop
 }
 

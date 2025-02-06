@@ -11,7 +11,7 @@ namespace ds
 {
 namespace priv
 {
-using Object3DBindings = Bindings<Transform3DBinding, TextureBinding>;
+using Object3DBindings = Bindings<Transform3DBinding, MaterialBinding>;
 }
 
 /**

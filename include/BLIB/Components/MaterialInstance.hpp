@@ -4,6 +4,7 @@
 #include <BLIB/Render/Components/DescriptorComponentBase.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
 #include <BLIB/Render/Materials/MaterialDescriptor.hpp>
+#include <BLIB/Render/Materials/MaterialId.hpp>
 #include <BLIB/Render/Materials/MaterialPipeline.hpp>
 #include <BLIB/Render/Resources/MaterialPool.hpp>
 
@@ -22,8 +23,7 @@ namespace com
  * @ingroup Components
  */
 class MaterialInstance
-: public rc::rcom::DescriptorComponentBase<MaterialInstance, rc::mat::MaterialDescriptor,
-                                           std::uint32_t> {
+: public rc::rcom::DescriptorComponentBase<MaterialInstance, rc::mat::MaterialId, std::uint32_t> {
 public:
     /**
      * @brief Creates the material instance using the default pipeline from the drawable component
@@ -131,7 +131,7 @@ private:
     void onMaterialChange();
 
     // from descriptor base
-    virtual void refreshDescriptor(rc::mat::MaterialDescriptor& descriptor) override;
+    virtual void refreshDescriptor(rc::mat::MaterialId& descriptor) override;
     virtual void refreshDescriptor(std::uint32_t& textureId) override;
 };
 

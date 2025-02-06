@@ -28,7 +28,7 @@ using TextureDescriptorSystem = DescriptorComponentSystem<com::MaterialInstance,
  * @ingroup Systems
  */
 using MaterialDescriptorSystem =
-    DescriptorComponentSystem<com::MaterialInstance, rc::mat::MaterialDescriptor>;
+    DescriptorComponentSystem<com::MaterialInstance, rc::mat::MaterialId>;
 
 } // namespace sys
 } // namespace bl
