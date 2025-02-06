@@ -1,7 +1,7 @@
 #ifndef BLIB_GRAPHICS_VERTEXBUFFER3D_HPP
 #define BLIB_GRAPHICS_VERTEXBUFFER3D_HPP
 
-#include <BLIB/Components/VertexBuffer.hpp>
+#include <BLIB/Components/VertexBuffer3D.hpp>
 #include <BLIB/Graphics/Components/Textured.hpp>
 #include <BLIB/Graphics/Components/Transform3D.hpp>
 #include <BLIB/Graphics/Drawable.hpp>
@@ -16,7 +16,7 @@ namespace gfx
  * @ingroup Graphics
  */
 class VertexBuffer3D
-: public Drawable<com::VertexBuffer>
+: public Drawable<com::VertexBuffer3D>
 , public bcom::Transform3D {
 public:
     /**
@@ -53,7 +53,7 @@ public:
      * @param i The index to access
      * @return The vertex at the index
      */
-    rc::prim::Vertex& operator[](unsigned int i) { return component()[i]; }
+    rc::prim::Vertex3D& operator[](unsigned int i) { return component()[i]; }
 
     /**
      * @brief Access the vertex at the given index
@@ -61,12 +61,12 @@ public:
      * @param i The index to access
      * @return The vertex at the index
      */
-    const rc::prim::Vertex& operator[](unsigned int i) const { return component()[i]; }
+    const rc::prim::Vertex3D& operator[](unsigned int i) const { return component()[i]; }
 
     /**
      * @brief Writes the buffer and syncs the draw parameters
      */
-    void commit() { component().commit(); }
+    void commit();
 
 private:
     virtual void scaleToSize(const glm::vec2& size) override;

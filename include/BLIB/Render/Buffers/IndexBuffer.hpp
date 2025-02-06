@@ -4,6 +4,7 @@
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Primitives/DrawParameters.hpp>
 #include <BLIB/Render/Primitives/Vertex.hpp>
+#include <BLIB/Render/Primitives/Vertex3D.hpp>
 #include <BLIB/Render/Transfers/Transferable.hpp>
 #include <BLIB/Render/Vulkan/Buffer.hpp>
 #include <cstring>
@@ -332,6 +333,12 @@ void IndexBufferT<T>::insertBarrierBeforeWrite() {
  * @ingroup Renderer
  */
 using IndexBuffer = IndexBufferT<prim::Vertex>;
+
+/**
+ * @brief Convenience alias for a standard index buffer
+ * @ingroup Renderer
+ */
+using IndexBuffer3D = IndexBufferT<prim::Vertex3D>;
 
 } // namespace buf
 } // namespace rc

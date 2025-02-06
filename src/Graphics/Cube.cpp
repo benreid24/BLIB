@@ -72,6 +72,11 @@ void Cube::create(engine::World& world, float size, const bl::rc::res::MaterialR
         component().gpuBuffer.indices()[b + 5] = vb + 3;
     }
 
+    // preprocessing
+    rc::prim::Vertex3D::computeTBN(component().gpuBuffer.vertices().data(),
+                                   component().gpuBuffer.indices().data(),
+                                   component().gpuBuffer.indices().size());
+
     component().gpuBuffer.queueTransfer();
 }
 

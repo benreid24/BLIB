@@ -1,8 +1,11 @@
 #version 450
 
-layout(location = 0) in vec4 fragColor;
-layout(location = 1) in vec2 texCoords;
-layout(location = 2) flat in uint objectIndex;
+layout(location = 0) in FS_IN {
+    vec4 fragColor;
+    vec2 texCoords;
+    flat uint objectIndex;
+    mat3 TBN;
+} fs_in;
 
 layout(location = 0) out vec4 outColor;
 
@@ -22,11 +25,11 @@ layout(std140, set = 2, binding = 1) readonly buffer tex {
 } skin;
 
 void main() {
-    uint textureIndex = materials.pool[objectIndex].diffuseId;
-    vec4 texColor = texture(textures[textureIndex], texCoords);
+    uint textureIndex = materials.pool[fs_in.objectIndex].diffuseId;
+    vec4 texColor = texture(textures[textureIndex], fs_in.texCoords);
     if (texColor.a == 0.0) {
         discard;
     }
 
-    outColor = fragColor * texColor;
+    outColor = fs_in.fragColor * texColor;
 }

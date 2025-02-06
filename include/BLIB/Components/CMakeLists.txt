@@ -20,4 +20,5 @@ target_sources(BLIB PUBLIC
 	Transform2D.hpp
 	Transform3D.hpp
 	VertexBuffer.hpp
+	VertexBuffer3D.hpp
 )

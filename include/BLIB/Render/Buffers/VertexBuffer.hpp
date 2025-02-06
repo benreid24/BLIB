@@ -3,6 +3,7 @@
 
 #include <BLIB/Render/Primitives/DrawParameters.hpp>
 #include <BLIB/Render/Primitives/Vertex.hpp>
+#include <BLIB/Render/Primitives/Vertex3D.hpp>
 #include <BLIB/Render/Transfers/Transferable.hpp>
 #include <BLIB/Render/Vulkan/Buffer.hpp>
 #include <cstring>
@@ -82,7 +83,7 @@ public:
     constexpr VkBuffer bufferHandle() const;
 
 private:
-    std::vector<prim::Vertex> cpuVertexBuffer;
+    std::vector<T> cpuVertexBuffer;
     vk::Buffer gpuVertexBuffer;
 
     virtual void executeTransfer(VkCommandBuffer commandBuffer,
@@ -188,6 +189,12 @@ void VertexBufferT<T>::executeTransfer(VkCommandBuffer commandBuffer,
  * @ingroup Renderer
  */
 using VertexBuffer = VertexBufferT<prim::Vertex>;
+
+/**
+ * @brief Convenience alias for a standard vertex buffer
+ * @ingroup Renderer
+ */
+using VertexBuffer3D = VertexBufferT<prim::Vertex3D>;
 
 } // namespace buf
 } // namespace rc

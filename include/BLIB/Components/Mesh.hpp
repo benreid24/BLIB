@@ -15,7 +15,7 @@ namespace com
  * @ingroup Components
  */
 struct Mesh : public rc::rcom::DrawableBase {
-    rc::buf::IndexBuffer gpuBuffer;
+    rc::buf::IndexBuffer3D gpuBuffer;
 
     /**
      * @brief Helper method to initialize all the mesh data

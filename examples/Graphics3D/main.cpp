@@ -141,7 +141,7 @@ int main() {
             .withVideoMode(sf::VideoMode(1920, 1080, 32))
             .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
             .withTitle("3D Graphics Demo")
-            .withLetterBoxOnResize(true));
+            .withLetterBoxOnResize(false));
     bl::engine::Engine engine(engineSettings);
 
     engine.run(std::make_shared<DemoState>());

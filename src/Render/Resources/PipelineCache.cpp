@@ -10,6 +10,7 @@
 #include <BLIB/Render/Descriptors/Builtin/Scene3DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/SlideshowFactory.hpp>
 #include <BLIB/Render/Primitives/SlideshowVertex.hpp>
+#include <BLIB/Render/Primitives/Vertex3D.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -102,6 +103,8 @@ void PipelineCache::createBuiltins() {
                    vk::PipelineParameters()
                        .withShaders(Config::ShaderIds::MeshVertex, Config::ShaderIds::MeshFragment)
                        .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                       .withVertexFormat(prim::Vertex3D::bindingDescription(),
+                                         prim::Vertex3D::attributeDescriptions())
                        .withRasterizer(rasterizer3d)
                        .withDepthStencilState(&depthStencilDepthEnabled)
                        .addDescriptorSet<ds::Scene3DFactory>()
@@ -112,6 +115,8 @@ void PipelineCache::createBuiltins() {
                    vk::PipelineParameters()
                        .withShaders(Config::ShaderIds::MeshVertex, Config::ShaderIds::MeshFragment)
                        .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                       .withVertexFormat(prim::Vertex3D::bindingDescription(),
+                                         prim::Vertex3D::attributeDescriptions())
                        .withRasterizer(rasterizer3d)
                        .withDepthStencilState(&depthStencilDepthEnabled)
                        .addDescriptorSet<ds::Scene3DFactory>()
@@ -123,6 +128,8 @@ void PipelineCache::createBuiltins() {
                        .withShaders(Config::ShaderIds::SkinnedMeshVertex,
                                     Config::ShaderIds::SkinnedMeshFragment)
                        .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                       .withVertexFormat(prim::Vertex3D::bindingDescription(),
+                                         prim::Vertex3D::attributeDescriptions())
                        .withRasterizer(rasterizer3d)
                        .withDepthStencilState(&depthStencilDepthEnabled)
                        .addDescriptorSet<ds::GlobalDataFactory>()
@@ -135,6 +142,8 @@ void PipelineCache::createBuiltins() {
                        .withShaders(Config::ShaderIds::SkinnedMeshVertex,
                                     Config::ShaderIds::SkinnedMeshFragment)
                        .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                       .withVertexFormat(prim::Vertex3D::bindingDescription(),
+                                         prim::Vertex3D::attributeDescriptions())
                        .withRasterizer(rasterizer3d)
                        .withDepthStencilState(&depthStencilDepthEnabled)
                        .addDescriptorSet<ds::GlobalDataFactory>()
