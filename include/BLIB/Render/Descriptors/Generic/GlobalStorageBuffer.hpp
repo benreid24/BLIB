@@ -39,7 +39,8 @@ public:
     DescriptorSetInstance::BindMode getBindMode() const override;
     DescriptorSetInstance::SpeedBucketSetting getSpeedMode() const override;
     void init(vk::VulkanState& vulkanState, DescriptorComponentStorageCache& storageCache) override;
-    void writeSet(SetWriteHelper& writer, UpdateSpeed speed, std::uint32_t frameIndex) override;
+    void writeSet(SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed speed,
+                  std::uint32_t frameIndex) override;
     bool allocateObject(ecs::Entity entity, scene::Key key) override;
     void releaseObject(ecs::Entity entity, scene::Key key) override;
     void onFrameStart() override;
@@ -74,8 +75,8 @@ void GlobalStorageBuffer<T, TStorage>::init(vk::VulkanState& vulkanState,
 }
 
 template<typename T, typename TStorage>
-void GlobalStorageBuffer<T, TStorage>::writeSet(SetWriteHelper& writer, UpdateSpeed speed,
-                                                std::uint32_t frameIndex) {
+void GlobalStorageBuffer<T, TStorage>::writeSet(SetWriteHelper& writer, VkDescriptorSet set,
+                                                UpdateSpeed speed, std::uint32_t frameIndex) {
     VkBuffer buf;
     if constexpr (std::is_same_v<TStorage, buf::StaticSSBO<T>>) {
         buf = storage.gpuBufferHandle().getBuffer();
@@ -87,7 +88,7 @@ void GlobalStorageBuffer<T, TStorage>::writeSet(SetWriteHelper& writer, UpdateSp
     bufferInfo.offset                  = 0;
     bufferInfo.range                   = storage.getTotalRange();
 
-    VkWriteDescriptorSet& setWrite = writer.getNewSetWrite();
+    VkWriteDescriptorSet& setWrite = writer.getNewSetWrite(set);
     setWrite.dstBinding            = getBindingIndex();
     setWrite.pBufferInfo           = &bufferInfo;
     setWrite.descriptorType        = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;

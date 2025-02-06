@@ -44,7 +44,8 @@ public:
     DescriptorSetInstance::BindMode getBindMode() const override;
     DescriptorSetInstance::SpeedBucketSetting getSpeedMode() const override;
     void init(vk::VulkanState& vulkanState, DescriptorComponentStorageCache& storageCache) override;
-    void writeSet(SetWriteHelper& writer, UpdateSpeed speed, std::uint32_t frameIndex) override;
+    void writeSet(SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed speed,
+                  std::uint32_t frameIndex) override;
     bool allocateObject(ecs::Entity entity, scene::Key key) override;
     void releaseObject(ecs::Entity entity, scene::Key key) override;
     void onFrameStart() override;
@@ -82,7 +83,7 @@ void ObjectStorageBuffer<T, TComponent, Optional, TDynamicStorage, TStaticStorag
 template<typename T, typename TComponent, bool Optional, typename TDynamicStorage,
          typename TStaticStorage>
 void ObjectStorageBuffer<T, TComponent, Optional, TDynamicStorage, TStaticStorage>::writeSet(
-    SetWriteHelper& writer, UpdateSpeed speed, std::uint32_t frameIndex) {
+    SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed speed, std::uint32_t frameIndex) {
     VkDescriptorBufferInfo& bufferInfo = writer.getNewBufferInfo();
     bufferInfo.buffer                  = speed == UpdateSpeed::Dynamic ?
                                              components->getDynamicBuffer().getRawBuffer(frameIndex) :
@@ -92,7 +93,7 @@ void ObjectStorageBuffer<T, TComponent, Optional, TDynamicStorage, TStaticStorag
                                              components->getDynamicBuffer().getTotalRange() :
                                              components->getStaticBuffer().getTotalRange();
 
-    VkWriteDescriptorSet& setWrite = writer.getNewSetWrite();
+    VkWriteDescriptorSet& setWrite = writer.getNewSetWrite(set);
     setWrite.dstBinding            = getBindingIndex();
     setWrite.pBufferInfo           = &bufferInfo;
     setWrite.descriptorType        = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;

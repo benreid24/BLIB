@@ -70,10 +70,12 @@ public:
      * @brief Called to write this binding to the given descriptor set
      *
      * @param writer The writer for the descriptor set being updated
+     * @param set The descriptor set to write to
      * @param speed The speed of the set being written
      * @param frameIndex The index to use for PerFrame resources
      */
-    virtual void writeSet(SetWriteHelper& writer, UpdateSpeed speed, std::uint32_t frameIndex) = 0;
+    virtual void writeSet(SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed speed,
+                          std::uint32_t frameIndex) = 0;
 
     /**
      * @brief Called when a new object will be using the descriptor set

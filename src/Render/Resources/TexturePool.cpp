@@ -19,53 +19,8 @@ TexturePool::TexturePool(vk::VulkanState& vs)
     toRelease.reserve(64);
 }
 
-void TexturePool::init() {
-    // create descriptor layout
-    VkDescriptorSetLayoutBinding setBindings[] = {textures.getLayoutBinding()};
-    VkDescriptorSetLayoutCreateInfo descriptorCreateInfo{};
-    descriptorCreateInfo.sType        = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
-    descriptorCreateInfo.bindingCount = std::size(setBindings);
-    descriptorCreateInfo.pBindings    = setBindings;
-    if (VK_SUCCESS !=
-        vkCreateDescriptorSetLayout(
-            vulkanState.device, &descriptorCreateInfo, nullptr, &descriptorSetLayout)) {
-        throw std::runtime_error("Failed to create texture pool descriptor set layout");
-    }
-
-    // create descriptor pool
-    VkDescriptorPoolSize poolSize{};
-    poolSize.type            = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-    poolSize.descriptorCount = Config::MaxTextureCount * 2 * Config::MaxConcurrentFrames;
-
-    VkDescriptorPoolCreateInfo poolCreate{};
-    poolCreate.sType         = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
-    poolCreate.maxSets       = 2 * Config::MaxConcurrentFrames;
-    poolCreate.poolSizeCount = 1;
-    poolCreate.pPoolSizes    = &poolSize;
-    if (VK_SUCCESS !=
-        vkCreateDescriptorPool(vulkanState.device, &poolCreate, nullptr, &descriptorPool)) {
-        throw std::runtime_error("Failed to create texture descriptor pool");
-    }
-
-    // allocate descriptor set
-    VkDescriptorSet allocatedSets[2 * Config::MaxConcurrentFrames];
-    std::array<VkDescriptorSetLayout, 2 * Config::MaxConcurrentFrames> setLayouts;
-    setLayouts.fill(descriptorSetLayout);
-
-    VkDescriptorSetAllocateInfo setAlloc{};
-    setAlloc.sType              = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
-    setAlloc.descriptorPool     = descriptorPool;
-    setAlloc.descriptorSetCount = setLayouts.size();
-    setAlloc.pSetLayouts        = setLayouts.data();
-    if (VK_SUCCESS != vkAllocateDescriptorSets(vulkanState.device, &setAlloc, allocatedSets)) {
-        throw std::runtime_error("Failed to allocate texture descriptor set");
-    }
-
-    unsigned int i = 0;
-    descriptorSets.init(vulkanState, [&i, &allocatedSets](auto& set) { set = allocatedSets[i++]; });
-    rtDescriptorSets.init(vulkanState,
-                          [&i, &allocatedSets](auto& set) { set = allocatedSets[i++]; });
-
+void TexturePool::init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
+                       vk::PerFrame<VkDescriptorSet>& rtDescriptorSets) {
     // create error texture pattern and init texture array
     constexpr unsigned int ErrorSize    = 1024;
     constexpr unsigned int ErrorBoxSize = 64;
@@ -86,8 +41,6 @@ void TexturePool::init() {
 void TexturePool::cleanup() {
     TextureRef::disableCleanup();
     textures.cleanup();
-    vkDestroyDescriptorPool(vulkanState.device, descriptorPool, nullptr);
-    vkDestroyDescriptorSetLayout(vulkanState.device, descriptorSetLayout, nullptr);
 }
 
 void TexturePool::releaseUnused() {
@@ -131,13 +84,6 @@ void TexturePool::doRelease(std::uint32_t i) {
     else { freeRtSlots.release(i - reverseFileMap.size()); }
 
     textures.resetTexture(i);
-}
-
-void TexturePool::bindDescriptors(VkCommandBuffer cb, VkPipelineLayout pipelineLayout,
-                                  std::uint32_t setIndex, bool forRt) {
-    const VkDescriptorSet ds = forRt ? rtDescriptorSets.current() : descriptorSets.current();
-    vkCmdBindDescriptorSets(
-        cb, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout, setIndex, 1, &ds, 0, nullptr);
 }
 
 void TexturePool::queueForRelease(std::uint32_t i) {
@@ -258,7 +204,10 @@ TextureRef TexturePool::getOrLoadTexture(const sf::Image& src, VkSampler sampler
     return txtr;
 }
 
-void TexturePool::onFrameStart() { textures.commitDescriptorUpdates(); }
+void TexturePool::onFrameStart(ds::SetWriteHelper& setWriter, VkDescriptorSet currentSet,
+                               VkDescriptorSet currentRtSet) {
+    textures.commitDescriptorUpdates(setWriter, currentSet, currentRtSet);
+}
 
 TextureRef TexturePool::getBlankTexture() {
     if (!blankTexture.get()) {
@@ -267,6 +216,16 @@ TextureRef TexturePool::getBlankTexture() {
         blankTexture = createTexture(src);
     }
     return blankTexture;
+}
+
+VkDescriptorSetLayoutBinding TexturePool::getLayoutBinding() const {
+    VkDescriptorSetLayoutBinding binding{};
+    binding.descriptorCount    = Config::MaxTextureCount;
+    binding.binding            = TextureArrayBindIndex;
+    binding.stageFlags         = VK_SHADER_STAGE_FRAGMENT_BIT;
+    binding.descriptorType     = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+    binding.pImmutableSamplers = 0;
+    return binding;
 }
 
 } // namespace res

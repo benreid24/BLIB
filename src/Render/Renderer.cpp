@@ -15,6 +15,7 @@ Renderer::Renderer(engine::Engine& engine, engine::EngineWindow& window)
 : engine(engine)
 , window(window)
 , state(window)
+, globalDescriptors(*this, textures, materials)
 , textures(state)
 , materials(*this)
 , descriptorSetFactoryCache(engine, *this)
@@ -70,7 +71,7 @@ void Renderer::initialize() {
     // create renderer instance data
     state.init();
     renderPasses.addDefaults();
-    textures.init();
+    globalDescriptors.init();
     pipelines.createBuiltins();
     materialPipelines.createBuiltins();
 
@@ -105,7 +106,7 @@ void Renderer::cleanup() {
     pipelines.cleanup();
     pipelineLayouts.cleanup();
     descriptorSetFactoryCache.cleanup();
-    textures.cleanup();
+    globalDescriptors.cleanup();
     framebuffers.cleanup([](vk::Framebuffer& fb) { fb.cleanup(); });
     renderPasses.cleanup();
     state.cleanup();
@@ -141,7 +142,7 @@ void Renderer::renderFrame() {
     framebuffers.current().recreateIfChanged(*currentFrame);
 
     // kick off transfers
-    textures.onFrameStart();
+    globalDescriptors.onFrameStart();
     for (auto& rt : renderTextures) { rt->handleDescriptorSync(); }
     if (commonObserver.hasScene()) { commonObserver.handleDescriptorSync(); }
     else {

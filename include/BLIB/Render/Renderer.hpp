@@ -6,6 +6,7 @@
 #include <BLIB/Render/Graph/AssetFactory.hpp>
 #include <BLIB/Render/Graph/Strategy.hpp>
 #include <BLIB/Render/Observer.hpp>
+#include <BLIB/Render/Resources/GlobalDescriptors.hpp>
 #include <BLIB/Render/Resources/MaterialPipelineCache.hpp>
 #include <BLIB/Render/Resources/MaterialPool.hpp>
 #include <BLIB/Render/Resources/PipelineCache.hpp>
@@ -202,6 +203,11 @@ public:
     rg::AssetFactory& getAssetFactory();
 
     /**
+     * @brief Returns the global descriptor data instance
+     */
+    res::GlobalDescriptors& getGlobalDescriptorData();
+
+    /**
      * @brief Returns the framebuffers for the swap chain frames
      */
     vk::PerSwapFrame<vk::Framebuffer>& getSwapframeBuffers();
@@ -213,6 +219,7 @@ private:
     sf::Rect<std::uint32_t> renderRegion;
     vk::VulkanState state;
     vk::PerSwapFrame<vk::Framebuffer> framebuffers;
+    res::GlobalDescriptors globalDescriptors;
     res::TexturePool textures;
     res::MaterialPool materials;
     ds::DescriptorSetFactoryCache descriptorSetFactoryCache;
@@ -281,6 +288,8 @@ inline ds::DescriptorSetFactoryCache& Renderer::descriptorFactoryCache() {
 }
 
 inline tfr::TextureExporter& Renderer::textureExporter() { return imageExporter; }
+
+inline res::GlobalDescriptors& Renderer::getGlobalDescriptorData() { return globalDescriptors; }
 
 inline Observer& Renderer::getCommonObserver() { return commonObserver; }
 

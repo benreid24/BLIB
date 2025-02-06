@@ -67,6 +67,7 @@ private:
     TBindings bindings;
     vk::DescriptorSet staticDescriptorSet;
     vk::PerFrame<vk::DescriptorSet> dynamicDescriptorSets;
+    SetWriteHelper setWriter;
 
     virtual void init(DescriptorComponentStorageCache& storageCache) override;
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
@@ -157,17 +158,15 @@ void GenericDescriptorSetInstance<TBindings>::handleFrameStart() {
 template<typename TBindings>
 void GenericDescriptorSetInstance<TBindings>::updateStaticDescriptors() {
     staticDescriptorSet.allocate(descriptorSetLayout);
-    SetWriteHelper writer(staticDescriptorSet.getSet());
-    bindings.writeSet(writer, UpdateSpeed::Static, 0);
-    writer.performWrite(vulkanState.device);
+    bindings.writeSet(setWriter, staticDescriptorSet.getSet(), UpdateSpeed::Static, 0);
+    setWriter.performWrite(vulkanState.device);
 }
 
 template<typename TBindings>
 void GenericDescriptorSetInstance<TBindings>::updateDynamicDescriptors(std::uint32_t i) {
     dynamicDescriptorSets.getRaw(i).allocate(descriptorSetLayout);
-    SetWriteHelper writer(dynamicDescriptorSets.getRaw(i).getSet());
-    bindings.writeSet(writer, UpdateSpeed::Dynamic, i);
-    writer.performWrite(vulkanState.device);
+    bindings.writeSet(setWriter, dynamicDescriptorSets.getRaw(i).getSet(), UpdateSpeed::Dynamic, i);
+    setWriter.performWrite(vulkanState.device);
 }
 
 template<typename TBindings>

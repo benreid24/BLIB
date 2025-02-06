@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_RESOURCES_BINDLESSTEXTUREARRAY_HPP
 #define BLIB_RENDER_RESOURCES_BINDLESSTEXTUREARRAY_HPP
 
+#include <BLIB/Render/Descriptors/SetWriteHelper.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
 #include <BLIB/Render/Vulkan/Texture.hpp>
 #include <BLIB/Render/Vulkan/TextureDoubleBuffered.hpp>
@@ -34,11 +35,6 @@ public:
      */
     BindlessTextureArray(vk::VulkanState& vulkanState, std::uint32_t arraySize,
                          std::uint32_t bindIndex);
-
-    /**
-     * @brief Returns a layout binding to be used for descriptor set layout creation
-     */
-    VkDescriptorSetLayoutBinding getLayoutBinding() const;
 
     /**
      * @brief Initializes the array and writes to the descriptor set. Fill the error pattern if a
@@ -110,8 +106,13 @@ public:
     /**
      * @brief Performs the descriptor updates for all queued textures. Waits for the device to be
      *        idle only if there are queued textures
+     *
+     * @param setWriter The descriptor set updater to use
+     * @param currentSet The current standard texture descriptor set
+     * @param currentRtSet The current render texture descriptor set
      */
-    void commitDescriptorUpdates();
+    void commitDescriptorUpdates(ds::SetWriteHelper& setWriter, VkDescriptorSet currentSet,
+                                 VkDescriptorSet currentRtSet);
 
 private:
     const std::uint32_t bindIndex;
@@ -121,8 +122,6 @@ private:
     vk::Texture errorTexture;
     std::vector<vk::Texture> textures;
     std::vector<vk::TextureDoubleBuffered> renderTextures;
-    vk::PerFrame<VkDescriptorSet>* descriptorSets;
-    vk::PerFrame<VkDescriptorSet>* rtDescriptorSets;
     vk::PerFrame<std::vector<vk::TextureBase*>> queuedUpdates;
 
     friend class vk::Texture;

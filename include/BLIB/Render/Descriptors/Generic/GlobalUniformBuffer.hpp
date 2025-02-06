@@ -38,7 +38,8 @@ public:
     DescriptorSetInstance::BindMode getBindMode() const override;
     DescriptorSetInstance::SpeedBucketSetting getSpeedMode() const override;
     void init(vk::VulkanState& vulkanState, DescriptorComponentStorageCache& storageCache) override;
-    void writeSet(SetWriteHelper& writer, UpdateSpeed speed, std::uint32_t frameIndex) override;
+    void writeSet(SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed speed,
+                  std::uint32_t frameIndex) override;
     bool allocateObject(ecs::Entity entity, scene::Key key) override;
     void releaseObject(ecs::Entity entity, scene::Key key) override;
     void onFrameStart() override;
@@ -72,14 +73,14 @@ void GlobalUniformBuffer<T>::init(vk::VulkanState& vs, DescriptorComponentStorag
 }
 
 template<typename T>
-void GlobalUniformBuffer<T>::writeSet(SetWriteHelper& writer, UpdateSpeed speed,
-                                      std::uint32_t frameIndex) {
+void GlobalUniformBuffer<T>::writeSet(SetWriteHelper& writer, VkDescriptorSet set,
+                                      UpdateSpeed speed, std::uint32_t frameIndex) {
     VkDescriptorBufferInfo& bufferInfo = writer.getNewBufferInfo();
     bufferInfo.buffer                  = buffer.gpuBufferHandles().getRaw(frameIndex).getBuffer();
     bufferInfo.offset                  = 0;
     bufferInfo.range                   = buffer.alignedUniformSize();
 
-    VkWriteDescriptorSet& setWrite = writer.getNewSetWrite();
+    VkWriteDescriptorSet& setWrite = writer.getNewSetWrite(set);
     setWrite.dstBinding            = getBindingIndex();
     setWrite.pBufferInfo           = &bufferInfo;
     setWrite.descriptorType        = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;

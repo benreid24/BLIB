@@ -66,9 +66,11 @@ public:
      * @brief Called when a descriptor set needs to be written
      *
      * @param writer The set writer to use
+     * @param set The descriptor set to write to
      * @param frameIndex The index to use for PerFrame resources
      */
-    void writeSet(SetWriteHelper& writer, UpdateSpeed speed, std::uint32_t frameIndex);
+    void writeSet(SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed speed,
+                  std::uint32_t frameIndex);
 
     /**
      * @brief Called when a new object will be using the descriptor set
@@ -169,9 +171,9 @@ void Bindings<TBindings...>::onFrameStart() {
 }
 
 template<typename... TBindings>
-void Bindings<TBindings...>::writeSet(SetWriteHelper& writer, UpdateSpeed speed,
-                                      std::uint32_t frameIndex) {
-    ((std::get<TBindings>(bindings).writeSet(writer, speed, frameIndex)), ...);
+void Bindings<TBindings...>::writeSet(SetWriteHelper& writer, VkDescriptorSet set,
+                                      UpdateSpeed speed, std::uint32_t frameIndex) {
+    ((std::get<TBindings>(bindings).writeSet(writer, set, speed, frameIndex)), ...);
 }
 
 template<typename... TBindings>

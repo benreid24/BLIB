@@ -114,7 +114,11 @@ private:
         floor.commit();
         floor.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
-        cube1.create(*world, 1.f);
+        auto containerTexture =
+            engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/container.jpg");
+        auto material = engine.renderer().materialPool().getOrCreateFromTexture(containerTexture);
+        cube1.create(*world, 1.f, material);
+        cube1.getTransform().setPosition({0.f, 0.501f, 0.f});
         cube1.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
         bl::event::Dispatcher::subscribe(controller);

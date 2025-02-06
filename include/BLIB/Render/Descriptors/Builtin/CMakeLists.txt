@@ -1,6 +1,8 @@
 target_sources(BLIB PUBLIC
     CommonBindings.hpp
 	FadeEffectFactory.hpp
+	GlobalDataFactory.hpp
+	GlobalDataInstance.hpp
 	Object2DFactory.hpp
 	Object2DInstance.hpp
 	Object3DFactory.hpp
@@ -11,6 +13,4 @@ target_sources(BLIB PUBLIC
 	Scene3DInstance.hpp
 	SlideshowFactory.hpp
 	SlideshowInstance.hpp
-	TexturePoolFactory.hpp
-	TexturePoolInstance.hpp
 )

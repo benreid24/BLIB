@@ -23,6 +23,8 @@ namespace rc
 {
 namespace res
 {
+class GlobalDescriptors;
+
 /**
  * @brief Resource manager for textures on the GPU. Utilizes BindlessTextureArray to provide a large
  *        array, in a single descriptor set, of Sampler2D instances for each texture
@@ -32,22 +34,6 @@ namespace res
 class TexturePool {
 public:
     static constexpr std::uint32_t TextureArrayBindIndex = 0;
-
-    /**
-     * @brief Returns the layout of the descriptor set containing the textures
-     */
-    VkDescriptorSetLayout getDescriptorLayout() const;
-
-    /**
-     * @brief Helper method to bind the descriptor set
-     *
-     * @param commandBuffer Command buffer to issue bind command into
-     * @param pipelineLayout The layout of the active pipeline
-     * @param setIndex The index to bind to
-     * @param forRenderTexture True to omit RT images, false to bind all
-     */
-    void bindDescriptors(VkCommandBuffer commandBuffer, VkPipelineLayout pipelineLayout,
-                         std::uint32_t setIndex, bool forRenderTexture);
 
     /**
      * @brief Creates an empty texture of the given size
@@ -115,6 +101,11 @@ public:
      */
     TextureRef getBlankTexture();
 
+    /**
+     * @brief Returns a layout binding to be used for descriptor set layout creation
+     */
+    VkDescriptorSetLayoutBinding getLayoutBinding() const;
+
 private:
     std::mutex mutex;
     vk::VulkanState& vulkanState;
@@ -129,15 +120,12 @@ private:
     std::vector<std::uint32_t> toRelease;
     TextureRef blankTexture;
 
-    VkDescriptorPool descriptorPool;
-    VkDescriptorSetLayout descriptorSetLayout;
-    vk::PerFrame<VkDescriptorSet> descriptorSets;
-    vk::PerFrame<VkDescriptorSet> rtDescriptorSets;
-
     TexturePool(vk::VulkanState& vulkanState);
-    void init();
+    void init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
+              vk::PerFrame<VkDescriptorSet>& rtDescriptorSets);
     void cleanup();
-    void onFrameStart();
+    void onFrameStart(ds::SetWriteHelper& setWriter, VkDescriptorSet currentSet,
+                      VkDescriptorSet currentRtSet);
 
     TextureRef allocateTexture();
     void queueForRelease(std::uint32_t i);
@@ -146,13 +134,8 @@ private:
 
     friend class TextureRef;
     friend class bl::rc::Renderer;
+    friend class GlobalDescriptors;
 };
-
-//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
-
-inline VkDescriptorSetLayout TexturePool::getDescriptorLayout() const {
-    return descriptorSetLayout;
-}
 
 } // namespace res
 } // namespace rc

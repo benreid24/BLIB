@@ -1,8 +1,8 @@
-#ifndef BLIB_RENDER_DESCRIPTORS_BUILTIN_TEXTURESDESCRIPTORSETINSTANCE_HPP
-#define BLIB_RENDER_DESCRIPTORS_BUILTIN_TEXTURESDESCRIPTORSETINSTANCE_HPP
+#ifndef BLIB_RENDER_DESCRIPTORS_BUILTIN_GLOBALDATAINSTANCE_HPP
+#define BLIB_RENDER_DESCRIPTORS_BUILTIN_GLOBALDATAINSTANCE_HPP
 
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
-#include <BLIB/Render/Resources/TexturePool.hpp>
+#include <BLIB/Render/Resources/GlobalDescriptors.hpp>
 
 namespace bl
 {
@@ -11,26 +11,27 @@ namespace rc
 namespace ds
 {
 /**
- * @brief Descriptor set instance that binds the bindless texture pool descriptor set
+ * @brief Descriptor set instance that contains renderer global data such as texture and material
+ *        pools
  *
  * @ingroup Renderer
  */
-class TexturePoolInstance : public DescriptorSetInstance {
+class GlobalDataInstance : public DescriptorSetInstance {
 public:
     /**
      * @brief Creates the descriptor set instance
      *
-     * @param texturePool Texture pool to bind
+     * @param globals The renderer global data
      */
-    TexturePoolInstance(res::TexturePool& texturePool);
+    GlobalDataInstance(res::GlobalDescriptors& globals);
 
     /**
      * @brief Destroys the descriptor set instance
      */
-    virtual ~TexturePoolInstance() = default;
+    virtual ~GlobalDataInstance() = default;
 
 private:
-    res::TexturePool& texturePool;
+    res::GlobalDescriptors& globals;
 
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                  std::uint32_t setIndex, UpdateSpeed updateFreq) const override;

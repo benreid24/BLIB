@@ -32,10 +32,10 @@ void Cube::create(engine::World& world, float size, const bl::rc::res::MaterialR
     component().gpuBuffer.vertices()[7].pos = {s, -s, s};  // front bottom
 
     // bottom vertices
-    component().gpuBuffer.vertices()[8].pos  = {-s, -s, -s}; // back left
-    component().gpuBuffer.vertices()[9].pos  = {s, -s, -s};  // back right
-    component().gpuBuffer.vertices()[10].pos = {s, -s, s};   // front right
-    component().gpuBuffer.vertices()[11].pos = {-s, -s, s};  // front left
+    component().gpuBuffer.vertices()[8].pos  = {-s, -s, s};  // front left
+    component().gpuBuffer.vertices()[9].pos  = {s, -s, s};   // front right
+    component().gpuBuffer.vertices()[10].pos = {s, -s, -s};  // back right
+    component().gpuBuffer.vertices()[11].pos = {-s, -s, -s}; // back left
 
     // left vertices
     component().gpuBuffer.vertices()[12].pos = {-s, s, -s};  // back top
@@ -50,10 +50,10 @@ void Cube::create(engine::World& world, float size, const bl::rc::res::MaterialR
     component().gpuBuffer.vertices()[19].pos = {-s, -s, s}; // bottom left
 
     // back vertices
-    component().gpuBuffer.vertices()[20].pos = {-s, s, -s};  // top left
-    component().gpuBuffer.vertices()[21].pos = {s, s, -s};   // top right
-    component().gpuBuffer.vertices()[22].pos = {s, -s, -s};  // bottom right
-    component().gpuBuffer.vertices()[23].pos = {-s, -s, -s}; // bottom left
+    component().gpuBuffer.vertices()[20].pos = {s, s, -s};   // top right
+    component().gpuBuffer.vertices()[21].pos = {-s, s, -s};  // top left
+    component().gpuBuffer.vertices()[22].pos = {-s, -s, -s}; // bottom left
+    component().gpuBuffer.vertices()[23].pos = {s, -s, -s};  // bottom right
 
     // faces
     for (unsigned int face = 0; face < 6; ++face) {

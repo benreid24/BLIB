@@ -16,6 +16,18 @@ MaterialRef MaterialPool::getOrCreateFromTexture(const res::TextureRef& texture)
     return materials.emplace(texture);
 }
 
+void MaterialPool::init() {
+    // TODO - create uniform buffer
+}
+
+void MaterialPool::cleanup() {
+    // TODO - anything?
+}
+
+void MaterialPool::onFrameStart() {
+    // TODO - write set updates if any
+}
+
 } // namespace res
 } // namespace rc
 } // namespace bl

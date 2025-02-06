@@ -3,12 +3,12 @@
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/Builtin/FadeEffectFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/GlobalDataFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Object2DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Object3DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene2DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene3DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/SlideshowFactory.hpp>
-#include <BLIB/Render/Descriptors/Builtin/TexturePoolFactory.hpp>
 #include <BLIB/Render/Primitives/SlideshowVertex.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
@@ -92,9 +92,8 @@ void PipelineCache::createBuiltins() {
     rasterizer.depthBiasSlopeFactor    = 0.0f; // Optional
 
     VkPipelineRasterizationStateCreateInfo rasterizer3d = rasterizer;
-    // TODO - culling?
-    /*rasterizer3d.cullMode                               = VK_CULL_MODE_BACK_BIT;
-    rasterizer3d.frontFace                              = VK_FRONT_FACE_CLOCKWISE;*/
+    rasterizer3d.cullMode                               = VK_CULL_MODE_BACK_BIT;
+    rasterizer3d.frontFace                              = VK_FRONT_FACE_CLOCKWISE;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // TODO - actual 3d rendering pipelines
@@ -126,7 +125,7 @@ void PipelineCache::createBuiltins() {
                        .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                        .withRasterizer(rasterizer3d)
                        .withDepthStencilState(&depthStencilDepthEnabled)
-                       .addDescriptorSet<ds::TexturePoolFactory>()
+                       .addDescriptorSet<ds::GlobalDataFactory>()
                        .addDescriptorSet<ds::Scene3DFactory>()
                        .addDescriptorSet<ds::Object3DFactory>()
                        .build());
@@ -138,7 +137,7 @@ void PipelineCache::createBuiltins() {
                        .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                        .withRasterizer(rasterizer3d)
                        .withDepthStencilState(&depthStencilDepthEnabled)
-                       .addDescriptorSet<ds::TexturePoolFactory>()
+                       .addDescriptorSet<ds::GlobalDataFactory>()
                        .addDescriptorSet<ds::Scene3DFactory>()
                        .addDescriptorSet<ds::Object3DFactory>()
                        .build());
@@ -151,7 +150,7 @@ void PipelineCache::createBuiltins() {
                        .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                        .withRasterizer(rasterizer)
                        .withDepthStencilState(&depthStencilDepthEnabled)
-                       .addDescriptorSet<ds::TexturePoolFactory>()
+                       .addDescriptorSet<ds::GlobalDataFactory>()
                        .addDescriptorSet<ds::Scene2DFactory>()
                        .addDescriptorSet<ds::Object2DFactory>()
                        .build());
@@ -163,7 +162,7 @@ void PipelineCache::createBuiltins() {
                        .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                        .withRasterizer(rasterizer)
                        .withDepthStencilState(&depthStencilDepthEnabled)
-                       .addDescriptorSet<ds::TexturePoolFactory>()
+                       .addDescriptorSet<ds::GlobalDataFactory>()
                        .addDescriptorSet<ds::Scene2DFactory>()
                        .addDescriptorSet<ds::Object2DFactory>()
                        .build());
@@ -215,7 +214,7 @@ void PipelineCache::createBuiltins() {
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withRasterizer(rasterizer)
             .withDepthStencilState(&depthStencilDepthEnabled)
-            .addDescriptorSet<ds::TexturePoolFactory>()
+            .addDescriptorSet<ds::GlobalDataFactory>()
             .addDescriptorSet<ds::Scene2DFactory>()
             .addDescriptorSet<ds::Object2DFactory>()
             .build());
@@ -229,7 +228,7 @@ void PipelineCache::createBuiltins() {
             .withVertexFormat(prim::SlideshowVertex::bindingDescription(),
                               prim::SlideshowVertex::attributeDescriptions())
             .withDepthStencilState(&depthStencilDepthEnabled)
-            .addDescriptorSet<ds::TexturePoolFactory>()
+            .addDescriptorSet<ds::GlobalDataFactory>()
             .addDescriptorSet<ds::Scene2DFactory>()
             .addDescriptorSet<ds::Object2DFactory>()
             .addDescriptorSet<ds::SlideshowFactory>()
@@ -244,7 +243,7 @@ void PipelineCache::createBuiltins() {
                        .withVertexFormat(prim::SlideshowVertex::bindingDescription(),
                                          prim::SlideshowVertex::attributeDescriptions())
                        .withDepthStencilState(&depthStencilDepthEnabled)
-                       .addDescriptorSet<ds::TexturePoolFactory>()
+                       .addDescriptorSet<ds::GlobalDataFactory>()
                        .addDescriptorSet<ds::Scene2DFactory>()
                        .addDescriptorSet<ds::Object2DFactory>()
                        .addDescriptorSet<ds::SlideshowFactory>()

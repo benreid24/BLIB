@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_DESCRIPTORS_BUILTINT_TEXTUREPOOLFACTORY_HPP
-#define BLIB_RENDER_DESCRIPTORS_BUILTINT_TEXTUREPOOLFACTORY_HPP
+#ifndef BLIB_RENDER_DESCRIPTORS_BUILTINT_GLOBALDATAFACTORY_HPP
+#define BLIB_RENDER_DESCRIPTORS_BUILTINT_GLOBALDATAFACTORY_HPP
 
 #include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
 
@@ -9,7 +9,7 @@ namespace rc
 {
 namespace res
 {
-class TexturePool;
+class GlobalDescriptors;
 }
 
 namespace ds
@@ -19,20 +19,20 @@ namespace ds
  *
  * @ingroup Renderer
  */
-class TexturePoolFactory : public DescriptorSetFactory {
+class GlobalDataFactory : public DescriptorSetFactory {
 public:
     /**
      * @brief Creates the factory
      */
-    TexturePoolFactory() = default;
+    GlobalDataFactory() = default;
 
     /**
      * @brief Destroys the factory
      */
-    virtual ~TexturePoolFactory() = default;
+    virtual ~GlobalDataFactory() = default;
 
 private:
-    res::TexturePool* texturePool;
+    res::GlobalDescriptors* globalData;
 
     virtual void init(engine::Engine& engine, Renderer& renderer) override;
     virtual std::unique_ptr<DescriptorSetInstance> createDescriptorSet() const override;

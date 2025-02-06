@@ -2,6 +2,7 @@
 #define BLIB_RENDER_DESCRIPTORS_SETWRITEHELPER
 
 #include <BLIB/Vulkan.hpp>
+#include <vector>
 
 namespace bl
 {
@@ -18,17 +19,37 @@ class SetWriteHelper {
 public:
     /**
      * @brief Creates a noop writer
-     *
-     * @param set The set to write to
      */
-    SetWriteHelper(VkDescriptorSet set);
+    SetWriteHelper();
+
+    /**
+     * @brief Hints the writer to the number of set writes to allocate for
+     *
+     * @param writeCount The expected amount of set writes
+     */
+    void hintWriteCount(std::size_t writeCount);
+
+    /**
+     * @brief Hints the writer to the number of buffer infos to allocate for
+     *
+     * @param writeCount The expected amount of buffer infos
+     */
+    void hintBufferInfoCount(std::size_t bufferInfoCount);
+
+    /**
+     * @brief Hints the writer to the number of image infos to allocate for
+     *
+     * @param writeCount The expected amount of image infos
+     */
+    void hintImageInfoCount(std::size_t imageInfoCount);
 
     /**
      * @brief Creates and returns a new write operation to be applied
      *
+     * @param set The set to write to
      * @return The write operation to be populated
      */
-    VkWriteDescriptorSet& getNewSetWrite();
+    VkWriteDescriptorSet& getNewSetWrite(VkDescriptorSet set);
 
     /**
      * @brief Creates and returns a buffer info to be used in a write operation
@@ -38,6 +59,13 @@ public:
     VkDescriptorBufferInfo& getNewBufferInfo();
 
     /**
+     * @brief Creates and returns an image info to be used in a write operation
+     *
+     * return The image info to be populated
+     */
+    VkDescriptorImageInfo& getNewImageInfo();
+
+    /**
      * @brief Performs the descriptor write of the created operations
      *
      * @param device The Vulkan device to use
@@ -45,52 +73,65 @@ public:
     void performWrite(VkDevice device);
 
 private:
-    const VkDescriptorSet set;
-
-    VkWriteDescriptorSet setWrites[8];
-    unsigned int setWriteCount;
-
-    VkDescriptorBufferInfo bufferInfos[16];
-    unsigned int nextBufferInfo;
+    std::vector<VkWriteDescriptorSet> setWrites;
+    std::vector<VkDescriptorBufferInfo> bufferInfos;
+    std::vector<VkDescriptorImageInfo> imageInfos;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline SetWriteHelper::SetWriteHelper(VkDescriptorSet set)
-: set(set)
-, setWriteCount(0)
-, nextBufferInfo(0) {}
+inline SetWriteHelper::SetWriteHelper() {}
 
-inline VkWriteDescriptorSet& SetWriteHelper::getNewSetWrite() {
-#ifdef BLIB_DEBUG
-    if (setWriteCount >= std::size(setWrites)) { throw std::runtime_error("Too many set writes"); }
-#endif
+inline void SetWriteHelper::hintWriteCount(std::size_t writeCount) {
+    setWrites.reserve(setWrites.size() + writeCount);
+}
 
-    VkWriteDescriptorSet& write = setWrites[setWriteCount];
-    ++setWriteCount;
-    write                 = {};
-    write.sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-    write.descriptorCount = 1;
-    write.dstArrayElement = 0;
-    write.dstSet          = set;
+inline void SetWriteHelper::hintBufferInfoCount(std::size_t bufferInfoCount) {
+    bufferInfos.reserve(bufferInfos.size() + bufferInfoCount);
+}
+
+inline void SetWriteHelper::hintImageInfoCount(std::size_t imageInfoCount) {
+    imageInfos.reserve(imageInfos.size() + imageInfoCount);
+}
+
+inline VkWriteDescriptorSet& SetWriteHelper::getNewSetWrite(VkDescriptorSet set) {
+    VkWriteDescriptorSet& write = setWrites.emplace_back(VkWriteDescriptorSet{});
+    write                       = {};
+    write.sType                 = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+    write.descriptorCount       = 1;
+    write.dstArrayElement       = 0;
+    write.dstSet                = set;
     return write;
 }
 
 inline VkDescriptorBufferInfo& SetWriteHelper::getNewBufferInfo() {
-#ifdef BLIB_DEBUG
-    if (nextBufferInfo >= std::size(bufferInfos)) {
-        throw std::runtime_error("Too many set writes");
+    const VkDescriptorBufferInfo* base = bufferInfos.data();
+    VkDescriptorBufferInfo& info       = bufferInfos.emplace_back(VkDescriptorBufferInfo{});
+    if (base != bufferInfos.data()) {
+        for (auto& write : setWrites) {
+            write.pBufferInfo = bufferInfos.data() + (write.pBufferInfo - base);
+        }
     }
-#endif
+    return info;
+}
 
-    VkDescriptorBufferInfo& info = bufferInfos[nextBufferInfo];
-    ++nextBufferInfo;
-    info = {};
+inline VkDescriptorImageInfo& SetWriteHelper::getNewImageInfo() {
+    const VkDescriptorImageInfo* base = imageInfos.data();
+    VkDescriptorImageInfo& info       = imageInfos.emplace_back(VkDescriptorImageInfo{});
+    if (base != imageInfos.data()) {
+        for (auto& write : setWrites) {
+            write.pImageInfo = imageInfos.data() + (write.pImageInfo - base);
+        }
+    }
     return info;
 }
 
 inline void SetWriteHelper::performWrite(VkDevice device) {
-    vkUpdateDescriptorSets(device, setWriteCount, setWrites, 0, nullptr);
+    if (!setWrites.empty()) {
+        vkUpdateDescriptorSets(device, setWrites.size(), setWrites.data(), 0, nullptr);
+        setWrites.clear();
+        bufferInfos.clear();
+    }
 }
 
 } // namespace ds

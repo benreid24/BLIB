@@ -2,7 +2,11 @@
 #define BLIB_RENDER_RESOURCES_MATERIALPOOL_HPP
 
 #include <BLIB/Containers/RefPoolDirect.hpp>
+#include <BLIB/Render/Buffers/UniformBuffer.hpp>
 #include <BLIB/Render/Materials/Material.hpp>
+#include <BLIB/Render/Materials/MaterialDescriptor.hpp>
+#include <BLIB/Render/Vulkan/PerFrame.hpp>
+#include <BLIB/Vulkan.hpp>
 
 namespace bl
 {
@@ -12,6 +16,8 @@ class Renderer;
 
 namespace res
 {
+class GlobalDescriptors;
+
 /**
  * @brief Reference counted handle to a material
  *
@@ -37,10 +43,15 @@ public:
 private:
     Renderer& renderer;
     ctr::RefPoolDirect<mat::Material> materials;
+    buf::UniformBuffer<mat::MaterialDescriptor> gpuPool;
 
     MaterialPool(Renderer& renderer);
+    void init();
+    void cleanup();
+    void onFrameStart();
 
     friend class ::bl::rc::Renderer;
+    friend class GlobalDescriptors;
 };
 
 } // namespace res
