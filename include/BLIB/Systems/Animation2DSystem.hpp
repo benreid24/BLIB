@@ -18,6 +18,11 @@
 
 namespace bl
 {
+namespace rc
+{
+class Renderer;
+}
+
 namespace sys
 {
 /**

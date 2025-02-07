@@ -22,6 +22,19 @@ namespace ds
 class SceneDescriptorSetInstance : public DescriptorSetInstance {
 public:
     /**
+     * @brief Basic uniform struct containing observer info used during render
+     */
+    struct ObserverInfo {
+        glm::mat4 projView;
+        glm::vec3 pos;
+
+        ObserverInfo() = default;
+        ObserverInfo(const glm::mat4& projView, const glm::vec3& pos)
+        : projView(projView)
+        , pos(pos) {}
+    };
+
+    /**
      * @brief Creates the descriptor set instance
      */
     SceneDescriptorSetInstance();
@@ -35,12 +48,12 @@ public:
      * @brief Updates the camera value for the given observer
      *
      * @param observerIndex Index of the observer to update
-     * @param projView Camera matrix for the given observer
+     * @param info The observer's camera info
      */
-    void updateObserverCamera(std::uint32_t observerIndex, const glm::mat4& projView);
+    void updateObserverCamera(std::uint32_t observerIndex, const ObserverInfo& info);
 
 protected:
-    buf::UniformBuffer<glm::mat4> cameraBuffer;
+    buf::UniformBuffer<ObserverInfo> cameraBuffer;
 };
 
 } // namespace ds

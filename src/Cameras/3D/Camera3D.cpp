@@ -85,5 +85,7 @@ void Camera3D::removeAffector(const CameraAffector3D* a) {
 
 glm::vec2 Camera3D::getViewerSize() const { return cachedViewportSize; }
 
+glm::vec3 Camera3D::getObserverPosition() const { return getPosition(); }
+
 } // namespace cam
 } // namespace bl

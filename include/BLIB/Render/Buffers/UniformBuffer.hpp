@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_BUFFERS_UNIFORMBUFFER_HPP
 #define BLIB_RENDER_BUFFERS_UNIFORMBUFFER_HPP
 
+#include <BLIB/Render/Buffers/Alignment.hpp>
 #include <BLIB/Render/Transfers/Transferable.hpp>
 #include <BLIB/Render/Vulkan/Buffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
@@ -110,8 +111,7 @@ template<typename T>
 void UniformBuffer<T>::create(vk::VulkanState& vs, std::uint32_t size) {
     vulkanState = &vs;
     count       = size;
-    alignment   = vs.computeAlignedSize(
-        sizeof(T), vs.physicalDeviceProperties.limits.minUniformBufferOffsetAlignment);
+    alignment   = computeAlignment(sizeof(T), Alignment::UboBindOffset);
 
     gpuBuffers.init(vs, [this, &vs, size](vk::Buffer& buffer) {
         buffer.create(vs,

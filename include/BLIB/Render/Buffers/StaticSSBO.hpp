@@ -1,8 +1,8 @@
 #ifndef BLIB_RENDER_BUFFERS_STATICSSBO_HPP
 #define BLIB_RENDER_BUFFERS_STATICSSBO_HPP
 
+#include <BLIB/Render/Buffers/AlignedBuffer.hpp>
 #include <BLIB/Render/Transfers/Transferable.hpp>
-#include <BLIB/Render/Vulkan/AlignedBuffer.hpp>
 #include <BLIB/Render/Vulkan/Buffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 
@@ -125,7 +125,7 @@ public:
     VkBuffer getRawBuffer(std::uint32_t frameIndex);
 
 private:
-    vk::AlignedBuffer<T> cpuBuffer;
+    buf::AlignedBuffer<T> cpuBuffer;
     vk::Buffer gpuBuffer;
     std::uint32_t copyStart;
     std::uint32_t copyCount;
@@ -149,7 +149,7 @@ void StaticSSBO<T>::create(vk::VulkanState& vs, std::uint32_t size) {
     copyCount         = size;
     trackingExpansion = false;
 
-    cpuBuffer.create(vk::AlignedBuffer<T>::Std430, size);
+    cpuBuffer.create(buf::Alignment::Std430, size);
     gpuBuffer.create(vs,
                      cpuBuffer.alignedSize(),
                      VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,

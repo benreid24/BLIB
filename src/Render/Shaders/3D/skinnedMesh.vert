@@ -17,6 +17,7 @@ layout(location = 0) out VS_OUTPUT {
 
 layout(set = 1, binding = 0) uniform cam {
     mat4 viewProj;
+    vec3 camPos;
 } camera;
 
 layout(std140, set = 2, binding = 0) readonly buffer obj {

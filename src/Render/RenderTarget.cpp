@@ -132,11 +132,12 @@ void RenderTarget::handleDescriptorSync() {
 
         const glm::mat4 projView = scenes.back().camera->getProjectionMatrix(viewport) *
                                    scenes.back().camera->getViewMatrix();
-        scenes.back().scene->updateObserverCamera(scenes.back().observerIndex, projView);
+        scenes.back().scene->updateObserverCamera(
+            scenes.back().observerIndex, {projView, scenes.back().camera->getObserverPosition()});
         scenes.back().scene->handleDescriptorSync();
         if (scenes.back().overlay) {
             scenes.back().overlay->updateObserverCamera(scenes.back().overlayIndex,
-                                                        overlayProjView);
+                                                        {overlayProjView, glm::vec3()});
             scenes.back().overlay->handleDescriptorSync();
         }
     }

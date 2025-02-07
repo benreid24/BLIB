@@ -198,7 +198,8 @@ private:
     void handleDescriptorSync();
     void syncObjects();
     std::uint32_t registerObserver();
-    void updateObserverCamera(std::uint32_t observerIndex, const glm::mat4& projView);
+    void updateObserverCamera(std::uint32_t observerIndex,
+                              const ds::SceneDescriptorSetInstance::ObserverInfo& info);
 
     friend class scene::SceneSync;
     friend class RenderTarget;

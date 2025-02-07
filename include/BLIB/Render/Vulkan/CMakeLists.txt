@@ -1,5 +1,4 @@
 target_sources(BLIB PUBLIC
-    AlignedBuffer.hpp
     AttachmentBuffer.hpp
     AttachmentSet.hpp
     Buffer.hpp

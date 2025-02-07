@@ -35,8 +35,9 @@ std::uint32_t Scene::registerObserver() {
     return nextObserverIndex++;
 }
 
-void Scene::updateObserverCamera(std::uint32_t observerIndex, const glm::mat4& projView) {
-    descriptorSets.updateObserverCamera(observerIndex, projView);
+void Scene::updateObserverCamera(std::uint32_t observerIndex,
+                                 const ds::SceneDescriptorSetInstance::ObserverInfo& info) {
+    descriptorSets.updateObserverCamera(observerIndex, info);
 }
 
 void Scene::handleDescriptorSync() {

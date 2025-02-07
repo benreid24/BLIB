@@ -61,6 +61,7 @@ void Scene2DInstance::init(DescriptorComponentStorageCache&) {
 
             VkDescriptorBufferInfo cameraBufferWrite{};
             cameraBufferWrite.buffer = cameraBuffer.gpuBufferHandles().getRaw(j).getBuffer();
+            // TODO - need to do UBO bind offset here?
             cameraBufferWrite.offset =
                 static_cast<VkDeviceSize>(i) * cameraBuffer.alignedUniformSize();
             cameraBufferWrite.range = cameraBuffer.alignedUniformSize();

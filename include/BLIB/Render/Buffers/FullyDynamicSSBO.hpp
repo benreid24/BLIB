@@ -2,7 +2,7 @@
 #define BLIB_RENDER_BUFFERS_FULLYDYNAMICSSBO_HPP
 
 #include <BLIB/Render/Transfers/Transferable.hpp>
-#include <BLIB/Render/Vulkan/AlignedBuffer.hpp>
+#include <BLIB/Render/Buffers/AlignedBuffer.hpp>
 #include <BLIB/Render/Vulkan/Buffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Util/VectorRef.hpp>

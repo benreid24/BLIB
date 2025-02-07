@@ -30,9 +30,9 @@ void DescriptorSetInstanceCache::handleDescriptorSync() {
     for (auto& pair : cache) { pair.second->handleFrameStart(); }
 }
 
-void DescriptorSetInstanceCache::updateObserverCamera(std::uint32_t observerIndex,
-                                                      const glm::mat4& projView) {
-    for (auto* set : sceneSets) { set->updateObserverCamera(observerIndex, projView); }
+void DescriptorSetInstanceCache::updateObserverCamera(
+    std::uint32_t observerIndex, const SceneDescriptorSetInstance::ObserverInfo& info) {
+    for (auto* set : sceneSets) { set->updateObserverCamera(observerIndex, info); }
 }
 
 } // namespace ds

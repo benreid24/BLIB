@@ -1,8 +1,8 @@
 #ifndef BLIB_RENDER_BUFFERS_STATICUNIFORMBUFFER_HPP
 #define BLIB_RENDER_BUFFERS_STATICUNIFORMBUFFER_HPP
 
+#include <BLIB/Render/Buffers/AlignedBuffer.hpp>
 #include <BLIB/Render/Transfers/Transferable.hpp>
-#include <BLIB/Render/Vulkan/AlignedBuffer.hpp>
 #include <BLIB/Render/Vulkan/Buffer.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 
@@ -93,7 +93,7 @@ public:
     std::uint32_t totalAlignedSize() const;
 
 private:
-    vk::AlignedBuffer<T> cpuBuffer;
+    buf::AlignedBuffer<T> cpuBuffer;
     vk::Buffer gpuBuffer;
 
     virtual void executeTransfer(VkCommandBuffer commandBuffer,
@@ -110,7 +110,7 @@ StaticUniformBuffer<T>::StaticUniformBuffer(vk::VulkanState& vulkanState, std::u
 template<typename T>
 void StaticUniformBuffer<T>::create(vk::VulkanState& vs, std::uint32_t size) {
     vulkanState = &vs;
-    cpuBuffer.create(vk::AlignedBuffer<T>::Std140, size);
+    cpuBuffer.create(buf::Alignment::Std140, size);
 
     gpuBuffer.create(vs,
                      cpuBuffer.alignedSize(),

@@ -29,6 +29,7 @@ namespace rc
 {
 class Renderer;
 
+/// Collection of interfaces and utilities directly related to Vulkan
 namespace vk
 {
 /**
@@ -210,6 +211,11 @@ struct VulkanState {
      * @return True if the extension is available, false otherwise
      */
     bool extensionIsAvailable(const char* extName) const;
+
+    /**
+     * @brief Returns the physical device properties of the current device
+     */
+    static const VkPhysicalDeviceProperties& getPhysicalDeviceProperties();
 
     engine::EngineWindow& window;
     VkInstance instance;

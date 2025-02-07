@@ -41,9 +41,10 @@ public:
      * @brief Updates the camera value for the given observer in each contained scene descriptor set
      *
      * @param observerIndex Index of the observer to update
-     * @param projView Camera matrix for the given observer
+     * @param info The camera info for the observer
      */
-    void updateObserverCamera(std::uint32_t observerIndex, const glm::mat4& projView);
+    void updateObserverCamera(std::uint32_t observerIndex,
+                              const SceneDescriptorSetInstance::ObserverInfo& info);
 
     /**
      * @brief Goes through all descriptor set instances and calls removeObject for the given object

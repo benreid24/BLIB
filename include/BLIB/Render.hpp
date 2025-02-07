@@ -8,6 +8,7 @@
 
 #include <BLIB/Engine/Engine.hpp>
 
+#include <BLIB/Render/Buffers/AlignedBuffer.hpp>
 #include <BLIB/Render/Buffers/DynamicSSBO.hpp>
 #include <BLIB/Render/Buffers/FullyDynamicSSBO.hpp>
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
@@ -19,6 +20,8 @@
 #include <BLIB/Render/Components/SceneObjectRef.hpp>
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/Builtin/FadeEffectFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/GlobalDataFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/GlobalDataInstance.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Object2DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Object2DInstance.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Object3DFactory.hpp>
@@ -29,8 +32,6 @@
 #include <BLIB/Render/Descriptors/Builtin/Scene3DInstance.hpp>
 #include <BLIB/Render/Descriptors/Builtin/SlideshowFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/SlideshowInstance.hpp>
-#include <BLIB/Render/Descriptors/Builtin/GlobalDataFactory.hpp>
-#include <BLIB/Render/Descriptors/Builtin/GlobalDataInstance.hpp>
 #include <BLIB/Render/Descriptors/DescriptorComponentStorage.hpp>
 #include <BLIB/Render/Descriptors/DescriptorComponentStorageCache.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
@@ -102,7 +103,6 @@
 #include <BLIB/Render/Transfers/TransferEngine.hpp>
 #include <BLIB/Render/Transfers/Transferable.hpp>
 #include <BLIB/Render/UpdateSpeed.hpp>
-#include <BLIB/Render/Vulkan/AlignedBuffer.hpp>
 #include <BLIB/Render/Vulkan/AttachmentBuffer.hpp>
 #include <BLIB/Render/Vulkan/AttachmentSet.hpp>
 #include <BLIB/Render/Vulkan/Buffer.hpp>

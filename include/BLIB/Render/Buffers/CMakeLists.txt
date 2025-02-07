@@ -1,4 +1,6 @@
 target_sources(BLIB PUBLIC
+    AlignedBuffer.hpp
+    Alignment.hpp
 	BatchIndexBuffer.hpp
 	DynamicSSBO.hpp
 	FullyDynamicSSBO.hpp

@@ -120,5 +120,7 @@ void Camera2D::update(float dt) {
 
 glm::vec2 Camera2D::getViewerSize() const { return size; }
 
+glm::vec3 Camera2D::getObserverPosition() const { return {getCenter(), nearPlane()}; }
+
 } // namespace cam
 } // namespace bl

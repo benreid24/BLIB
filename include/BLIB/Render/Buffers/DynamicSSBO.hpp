@@ -1,8 +1,8 @@
 #ifndef BLIB_RENDER_BUFFERS_DYNAMICSSBO_HPP
 #define BLIB_RENDER_BUFFERS_DYNAMICSSBO_HPP
 
+#include <BLIB/Render/Buffers/AlignedBuffer.hpp>
 #include <BLIB/Render/Transfers/Transferable.hpp>
-#include <BLIB/Render/Vulkan/AlignedBuffer.hpp>
 #include <BLIB/Render/Vulkan/Buffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Util/VectorRef.hpp>
@@ -74,7 +74,7 @@ public:
      * @param ref The reference to populate
      * @param i The object index to assign
      */
-    void assignRef(util::VectorRef<T, vk::AlignedBuffer<T>>& ref, std::uint32_t i);
+    void assignRef(util::VectorRef<T, buf::AlignedBuffer<T>>& ref, std::uint32_t i);
 
     /**
      * @brief If the buffer size is less than the required size, re-creates the buffer to be at
@@ -141,7 +141,7 @@ private:
     };
 
     vk::VulkanState* vulkanState;
-    vk::AlignedBuffer<T> cpuBuffer;
+    buf::AlignedBuffer<T> cpuBuffer;
     vk::PerFrame<vk::Buffer> gpuBuffers;
     std::array<DirtyRange, Config::MaxConcurrentFrames> dirtyRanges;
     std::uint32_t dirtyThresh;
@@ -159,7 +159,7 @@ void DynamicSSBO<T>::create(vk::VulkanState& vs, std::uint32_t size) {
     vulkanState = &vs;
     dirtyThresh = size * 7 / 10;
 
-    cpuBuffer.create(vk::AlignedBuffer<T>::Std430, size);
+    cpuBuffer.create(buf::Alignment::Std430, size);
     gpuBuffers.init(vs, [&vs, this](vk::Buffer& buffer) {
         buffer.createWithFallback(
             vs,
@@ -188,7 +188,7 @@ const T& DynamicSSBO<T>::operator[](std::uint32_t i) const {
     return cpuBuffer[i];
 }
 template<typename T>
-void DynamicSSBO<T>::assignRef(util::VectorRef<T, vk::AlignedBuffer<T>>& ref, std::uint32_t i) {
+void DynamicSSBO<T>::assignRef(util::VectorRef<T, buf::AlignedBuffer<T>>& ref, std::uint32_t i) {
     ref.assign(cpuBuffer, i);
 }
 

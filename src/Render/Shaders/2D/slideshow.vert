@@ -11,6 +11,7 @@ layout(location = 3) out vec2 fragPos;
 
 layout(set = 1, binding = 0) uniform cam {
     mat4 viewProj;
+    vec3 camPos;
 } camera;
 
 layout(std430, set = 2, binding = 0) readonly buffer obj {

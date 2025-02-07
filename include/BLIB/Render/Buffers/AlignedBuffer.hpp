@@ -1,16 +1,16 @@
-#ifndef BLIB_RENDER_VULKAN_ALIGNEDBUFFER_HPP
-#define BLIB_RENDER_VULKAN_ALIGNEDBUFFER_HPP
+#ifndef BLIB_RENDER_BUFFERS_ALIGNEDBUFFER_HPP
+#define BLIB_RENDER_BUFFERS_ALIGNEDBUFFER_HPP
 
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Buffers/Alignment.hpp>
 #include <BLIB/Vulkan.hpp>
+#include <stdexcept>
 #include <vector>
 
 namespace bl
 {
 namespace rc
 {
-/// Collection of interfaces and utilities directly related to Vulkan
-namespace vk
+namespace buf
 {
 /**
  * @brief Utility class to store a buffer of PODs on the CPU aligned for the UBO requirements of the
@@ -22,8 +22,6 @@ namespace vk
 template<typename T>
 class AlignedBuffer {
 public:
-    enum Layout { Std140, Std430 };
-
     /**
      * @brief Creates an empty buffer
      */
@@ -46,7 +44,7 @@ public:
      * @param usage The use-case to align for
      * @param size Number of elements in the buffer
      */
-    AlignedBuffer(Layout usage, std::uint32_t size);
+    AlignedBuffer(Alignment usage, std::uint32_t size);
 
     /**
      * @brief Creates a new buffer of the given size. Must be called before any operations may be
@@ -56,7 +54,7 @@ public:
      * @param usage The use-case to align for
      * @param size Number of elements in the buffer
      */
-    void create(Layout usage, std::uint32_t size);
+    void create(Alignment usage, std::uint32_t size);
 
     /**
      * @brief Empties the CPU buffer
@@ -155,14 +153,13 @@ AlignedBuffer<T>::AlignedBuffer()
 , storedElements(0) {}
 
 template<typename T>
-AlignedBuffer<T>::AlignedBuffer(Layout use, std::uint32_t size) {
+AlignedBuffer<T>::AlignedBuffer(Alignment use, std::uint32_t size) {
     create(use, size);
 }
 
 template<typename T>
-void AlignedBuffer<T>::create(Layout use, std::uint32_t size) {
-    alignment =
-        use == Layout::Std140 ? vk::VulkanState::computeAlignedSize(sizeof(T), 16) : sizeof(T);
+void AlignedBuffer<T>::create(Alignment use, std::uint32_t size) {
+    alignment = computeAlignment(sizeof(T), use);
     resize(size);
 }
 
@@ -276,7 +273,7 @@ void AlignedBuffer<T>::emplace(TArgs&&... args) {
     ++storedElements;
 }
 
-} // namespace vk
+} // namespace buf
 } // namespace rc
 } // namespace bl
 

@@ -21,6 +21,8 @@ namespace vk
 {
 namespace
 {
+VkPhysicalDeviceProperties* globalDeviceProperties = nullptr;
+
 #ifdef BLIB_DEBUG
 const std::unordered_set<std::string> RequestedValidationLayers{"VK_LAYER_KHRONOS_validation"};
 #endif
@@ -167,6 +169,8 @@ void VulkanState::init() {
     descriptorPool.init();
     samplerCache.init();
     shaderCache.init(device);
+
+    globalDeviceProperties = &physicalDeviceProperties;
 }
 
 void VulkanState::cleanup() {
@@ -676,6 +680,10 @@ bool VulkanState::extensionIsAvailable(const char* ext) const {
         if (strcmp(ext, e.extensionName) == 0) { return true; }
     }
     return false;
+}
+
+const VkPhysicalDeviceProperties& VulkanState::getPhysicalDeviceProperties() {
+    return *globalDeviceProperties;
 }
 
 } // namespace vk

@@ -4,6 +4,7 @@ target_sources(BLIB PRIVATE
     RenderTarget.cpp
 )
 
+add_subdirectory(Buffers)
 add_subdirectory(Components)
 add_subdirectory(Descriptors)
 add_subdirectory(Graph)

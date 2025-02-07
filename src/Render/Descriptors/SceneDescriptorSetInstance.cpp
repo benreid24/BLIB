@@ -12,7 +12,7 @@ SceneDescriptorSetInstance::SceneDescriptorSetInstance()
 : DescriptorSetInstance(Bindless, SpeedAgnostic) {}
 
 void SceneDescriptorSetInstance::updateObserverCamera(std::uint32_t observerIndex,
-                                                      const glm::mat4& cam) {
+                                                      const ObserverInfo& cam) {
     cameraBuffer[observerIndex] = cam;
 }
 
