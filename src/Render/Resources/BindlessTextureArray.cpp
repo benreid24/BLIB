@@ -135,7 +135,6 @@ void BindlessTextureArray::commitDescriptorUpdates(ds::SetWriteHelper& setWriter
         for (unsigned int j = 0; j < queuedUpdates.current().size(); ++j) {
             vk::TextureBase* texture = queuedUpdates.current()[j];
             const bool isRT          = dynamic_cast<vk::TextureDoubleBuffered*>(texture) != nullptr;
-            const unsigned int k     = queuedUpdates.current().size() + j;
 
             std::uint32_t i;
             VkImageView view;

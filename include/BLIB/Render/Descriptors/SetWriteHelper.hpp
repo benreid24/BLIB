@@ -87,11 +87,23 @@ inline void SetWriteHelper::hintWriteCount(std::size_t writeCount) {
 }
 
 inline void SetWriteHelper::hintBufferInfoCount(std::size_t bufferInfoCount) {
+    const VkDescriptorBufferInfo* base = bufferInfos.data();
     bufferInfos.reserve(bufferInfos.size() + bufferInfoCount);
+    if (base != bufferInfos.data()) {
+        for (auto& write : setWrites) {
+            write.pBufferInfo = bufferInfos.data() + (write.pBufferInfo - base);
+        }
+    }
 }
 
 inline void SetWriteHelper::hintImageInfoCount(std::size_t imageInfoCount) {
+    const VkDescriptorImageInfo* base = imageInfos.data();
     imageInfos.reserve(imageInfos.size() + imageInfoCount);
+    if (base != imageInfos.data()) {
+        for (auto& write : setWrites) {
+            write.pImageInfo = imageInfos.data() + (write.pImageInfo - base);
+        }
+    }
 }
 
 inline VkWriteDescriptorSet& SetWriteHelper::getNewSetWrite(VkDescriptorSet set) {
