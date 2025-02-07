@@ -64,15 +64,20 @@ public:
     const res::TextureRef& getNormalMap() const { return normalMap; }
 
     /**
-     * @brief Returns the uv texture of this material
+     * @brief Returns the specular texture of this material
      */
-    const res::TextureRef& getUVMap() const { return uvMap; }
+    const res::TextureRef& getSpecularMap() const { return specularMap; }
+
+    /**
+     * @brief Returns the shininess of the material
+     */
+    float getShininess() const { return shininess; }
 
 private:
     res::TextureRef texture;
     res::TextureRef normalMap;
-    res::TextureRef uvMap;
-    // TODO - other parameters?
+    res::TextureRef specularMap;
+    float shininess;
 };
 
 } // namespace mat

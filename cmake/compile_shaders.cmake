@@ -30,6 +30,13 @@ function(compile_shaders)
     # Enable proper DEPFILE handling
     cmake_policy(SET CMP0116 NEW)
 
+    # Enable shader debugging in debug mode
+    if((CMAKE_BUILD_TYPE MATCHES "Debug|RelWithDebInfo") OR (CMAKE_CONFIGURATION MATCHES "Debug|RelWithDebInfo"))
+        set(debug_flags "-g")
+    else()
+        set(debug_flags "")
+    endif()
+
     # Provide macro for shader path and compute full shader path for build
     target_compile_definitions(${ARG_TARGET} PUBLIC SHADER_PATH=${SHADER_PATH})
     set(shader_dir "${CMAKE_SOURCE_DIR}/${SHADER_PATH}")
@@ -58,7 +65,7 @@ function(compile_shaders)
         add_custom_command(
             OUTPUT ${compiled_file}
             COMMENT "Compiling shader '${shader_file}'"
-            COMMAND ${glslc_binary} -MD ${src_abs} -MF ${dep_file} -o ${compiled_file} ${include_flags}
+            COMMAND ${glslc_binary} -MD ${src_abs} -MF ${dep_file} -o ${compiled_file} ${include_flags} ${debug_flags}
             DEPFILE ${dep_file}
             BYPRODUCTS ${dep_file}
             DEPENDS ${shader_file}

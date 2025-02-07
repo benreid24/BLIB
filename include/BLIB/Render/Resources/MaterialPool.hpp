@@ -48,10 +48,6 @@ public:
 private:
     static constexpr std::uint32_t InvalidId = std::numeric_limits<std::uint32_t>::max();
 
-    struct MaterialUniformPack {
-        mat::MaterialDescriptor pack[16];
-    };
-
     // core data
     std::mutex mutex;
     std::mutex syncQueueMutex;
@@ -59,7 +55,7 @@ private:
 
     // material data
     std::vector<mat::Material> materials;
-    buf::StaticUniformBuffer<MaterialUniformPack> gpuPool;
+    buf::StaticUniformBuffer<mat::MaterialDescriptor> gpuPool;
 
     // management data
     std::vector<std::uint32_t> refCounts;

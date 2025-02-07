@@ -6,10 +6,12 @@ namespace rc
 {
 namespace mat
 {
-Material::Material() {}
+Material::Material()
+: shininess(0.5f) {}
 
 Material::Material(const res::TextureRef& texture)
-: texture(texture) {}
+: texture(texture)
+, shininess(0.5f) {}
 
 } // namespace mat
 } // namespace rc

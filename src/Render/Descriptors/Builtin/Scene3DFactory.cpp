@@ -20,7 +20,7 @@ void Scene3DFactory::init(engine::Engine&, Renderer& renderer) {
     bindingInfo.bindings[0].binding         = 0;
     bindingInfo.bindings[0].descriptorCount = 1;
     bindingInfo.bindings[0].descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-    bindingInfo.bindings[0].stageFlags      = VK_SHADER_STAGE_VERTEX_BIT;
+    bindingInfo.bindings[0].stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
 
     bindingInfo.bindings[1].binding         = 1;
     bindingInfo.bindings[1].descriptorCount = 1;

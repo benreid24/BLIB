@@ -17,9 +17,8 @@ namespace mat
 struct MaterialDescriptor {
     std::uint32_t diffuseTextureId;
     std::uint32_t normalTextureId;
-    std::uint32_t uvTextureId;
-
-    std::uint32_t padding;
+    std::uint32_t specularTextureId;
+    float shininess;
 };
 
 } // namespace mat

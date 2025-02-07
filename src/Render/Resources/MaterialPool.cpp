@@ -35,7 +35,7 @@ MaterialRef MaterialPool::getOrCreateFromTexture(const res::TextureRef& texture)
 void MaterialPool::init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
                         vk::PerFrame<VkDescriptorSet>& rtDescriptorSets) {
     materials.resize(MaxMaterialCount);
-    gpuPool.create(renderer.vulkanState(), MaxMaterialCount / 16);
+    gpuPool.create(renderer.vulkanState(), MaxMaterialCount);
     refCounts.resize(MaxMaterialCount, 0);
 
     VkDescriptorBufferInfo bufferInfo;
@@ -94,11 +94,12 @@ void MaterialPool::onFrameStart() {
     if (!toSync.empty()) {
         std::unique_lock lock(mutex);
         for (std::uint32_t i : toSync) {
-            auto& d            = gpuPool[i / 16].pack[i % 16];
-            auto& m            = materials[i];
-            d.diffuseTextureId = m.getTexture().id();
-            d.normalTextureId  = m.getNormalMap().id();
-            d.uvTextureId      = m.getUVMap().id();
+            auto& d             = gpuPool[i];
+            auto& m             = materials[i];
+            d.diffuseTextureId  = m.getTexture().id();
+            d.normalTextureId   = m.getNormalMap().id();
+            d.specularTextureId = m.getSpecularMap().id();
+            d.shininess         = m.getShininess();
         }
         toSync.clear();
         gpuPool.queueTransfer(tfr::Transferable::SyncRequirement::Immediate);
