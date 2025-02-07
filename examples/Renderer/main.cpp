@@ -8,15 +8,15 @@
 
 namespace
 {
-const std::vector<bl::rc::prim::Vertex> Vertices = {
-    bl::rc::prim::Vertex{-0.5f, -0.5f, 0.f, 0.0f, 1.f},
-    bl::rc::prim::Vertex{0.5f, -0.5f, 0.f, 1.0f, 1.f},
-    bl::rc::prim::Vertex{0.5f, 0.5f, 0.f, 1.0f, 0.f},
-    bl::rc::prim::Vertex{-0.5f, 0.5f, 0.f, 0.0f, 0.f},
+const std::vector<bl::rc::prim::Vertex3D> Vertices = {
+    bl::rc::prim::Vertex3D{glm::vec3(-0.5f, -0.5f, 0.f), glm::vec2(0.0f, 1.f)},
+    bl::rc::prim::Vertex3D{glm::vec3(0.5f, -0.5f, 0.f), glm::vec2(1.0f, 1.f)},
+    bl::rc::prim::Vertex3D{glm::vec3(0.5f, 0.5f, 0.f), glm::vec2(1.0f, 0.f)},
+    bl::rc::prim::Vertex3D{glm::vec3(-0.5f, 0.5f, 0.f), glm::vec2(0.0f, 0.f)},
 
-    bl::rc::prim::Vertex{1.f, 0.f, 0.5f, 0.0f, 0.f},
-    bl::rc::prim::Vertex{1.f, 0.1f, -0.5f, 0.0f, 1.f},
-    bl::rc::prim::Vertex{0.75f, 0.7f, 0.5f, 1.0f, 1.f}};
+    bl::rc::prim::Vertex3D{glm::vec3(1.f, 0.f, 0.5f), glm::vec2(0.0f, 0.f)},
+    bl::rc::prim::Vertex3D{glm::vec3(1.f, 0.1f, -0.5f), glm::vec2(0.0f, 1.f)},
+    bl::rc::prim::Vertex3D{glm::vec3(0.75f, 0.7f, 0.5f), glm::vec2(1.0f, 1.f)}};
 const std::vector<std::uint32_t> Indices = {0, 1, 2, 2, 3, 0, 4, 5, 6};
 } // namespace
 

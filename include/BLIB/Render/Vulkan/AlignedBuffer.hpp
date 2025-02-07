@@ -22,7 +22,7 @@ namespace vk
 template<typename T>
 class AlignedBuffer {
 public:
-    enum Usage { UniformBuffer, StorageBuffer };
+    enum Layout { Std140, Std430 };
 
     /**
      * @brief Creates an empty buffer
@@ -46,7 +46,7 @@ public:
      * @param usage The use-case to align for
      * @param size Number of elements in the buffer
      */
-    AlignedBuffer(VulkanState& vulkanState, Usage usage, std::uint32_t size);
+    AlignedBuffer(Layout usage, std::uint32_t size);
 
     /**
      * @brief Creates a new buffer of the given size. Must be called before any operations may be
@@ -56,7 +56,7 @@ public:
      * @param usage The use-case to align for
      * @param size Number of elements in the buffer
      */
-    void create(VulkanState& vulkanState, Usage usage, std::uint32_t size);
+    void create(Layout usage, std::uint32_t size);
 
     /**
      * @brief Empties the CPU buffer
@@ -155,17 +155,14 @@ AlignedBuffer<T>::AlignedBuffer()
 , storedElements(0) {}
 
 template<typename T>
-AlignedBuffer<T>::AlignedBuffer(VulkanState& vulkanState, Usage use, std::uint32_t size) {
-    create(vulkanState, use, size);
+AlignedBuffer<T>::AlignedBuffer(Layout use, std::uint32_t size) {
+    create(use, size);
 }
 
 template<typename T>
-void AlignedBuffer<T>::create(VulkanState& vulkanState, Usage use, std::uint32_t size) {
-    const auto align =
-        use == Usage::UniformBuffer ?
-            vulkanState.physicalDeviceProperties.limits.minUniformBufferOffsetAlignment :
-            vulkanState.physicalDeviceProperties.limits.minStorageBufferOffsetAlignment;
-    alignment = vulkanState.computeAlignedSize(sizeof(T), align);
+void AlignedBuffer<T>::create(Layout use, std::uint32_t size) {
+    alignment =
+        use == Layout::Std140 ? vk::VulkanState::computeAlignedSize(sizeof(T), 16) : sizeof(T);
     resize(size);
 }
 

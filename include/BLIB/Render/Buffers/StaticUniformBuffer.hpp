@@ -110,7 +110,7 @@ StaticUniformBuffer<T>::StaticUniformBuffer(vk::VulkanState& vulkanState, std::u
 template<typename T>
 void StaticUniformBuffer<T>::create(vk::VulkanState& vs, std::uint32_t size) {
     vulkanState = &vs;
-    cpuBuffer.create(vs, vk::AlignedBuffer<T>::UniformBuffer, size);
+    cpuBuffer.create(vk::AlignedBuffer<T>::Std140, size);
 
     gpuBuffer.create(vs,
                      cpuBuffer.alignedSize(),

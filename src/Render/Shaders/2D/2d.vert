@@ -11,7 +11,7 @@ layout(set = 0, binding = 0) uniform cam {
     mat4 viewProj;
 } camera;
 
-layout(std140, set = 1, binding = 0) readonly buffer obj {
+layout(std430, set = 1, binding = 0) readonly buffer obj {
     mat4 model[];
 } object;
 

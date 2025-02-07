@@ -1,8 +1,12 @@
 #ifndef BLIB_RENDER_DESCRIPTORS_SCENE3DINSTANCE_HPP
 #define BLIB_RENDER_DESCRIPTORS_SCENE3DINSTANCE_HPP
 
+#include <BLIB/Render/Buffers/StaticUniformBuffer.hpp>
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
+#include <BLIB/Render/Lighting/LightingDescriptor3D.hpp>
+#include <BLIB/Render/Lighting/PointLight3D.hpp>
+#include <BLIB/Render/Lighting/SpotLight3D.hpp>
 #include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/PerFrameVector.hpp>
@@ -45,6 +49,9 @@ private:
     const VkDescriptorSetLayout setLayout;
     vk::PerFrameVector<VkDescriptorSet> descriptorSets;
     vk::DescriptorPool::AllocationHandle allocHandle;
+    buf::StaticUniformBuffer<lgt::LightingDescriptor3D> globalLightInfo;
+    buf::StaticUniformBuffer<lgt::SpotLight3D> spotlights;
+    buf::StaticUniformBuffer<lgt::PointLight3D> pointLights;
 
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                  std::uint32_t setIndex, UpdateSpeed updateFreq) const override;

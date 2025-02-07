@@ -13,10 +13,10 @@ layout(set = 1, binding = 0) uniform cam {
     mat4 viewProj;
 } camera;
 
-layout(std140, set = 2, binding = 0) readonly buffer obj {
+layout(std430, set = 2, binding = 0) readonly buffer obj {
     mat4 model[];
 } object;
-layout(std140, set = 2, binding = 1) readonly buffer tex {
+layout(std430, set = 2, binding = 1) readonly buffer tex {
     uint index[];
 } skin;
 

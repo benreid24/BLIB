@@ -149,7 +149,7 @@ void StaticSSBO<T>::create(vk::VulkanState& vs, std::uint32_t size) {
     copyCount         = size;
     trackingExpansion = false;
 
-    cpuBuffer.create(vs, vk::AlignedBuffer<T>::StorageBuffer, size);
+    cpuBuffer.create(vk::AlignedBuffer<T>::Std430, size);
     gpuBuffer.create(vs,
                      cpuBuffer.alignedSize(),
                      VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,

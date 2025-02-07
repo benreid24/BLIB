@@ -15,12 +15,27 @@ void Scene3DFactory::init(engine::Engine&, Renderer& renderer) {
     vulkanState = &renderer.vulkanState();
 
     vk::DescriptorPool::SetBindingInfo bindingInfo;
-    bindingInfo.bindingCount = 1;
+    bindingInfo.bindingCount = 4;
 
     bindingInfo.bindings[0].binding         = 0;
     bindingInfo.bindings[0].descriptorCount = 1;
     bindingInfo.bindings[0].descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
     bindingInfo.bindings[0].stageFlags      = VK_SHADER_STAGE_VERTEX_BIT;
+
+    bindingInfo.bindings[1].binding         = 1;
+    bindingInfo.bindings[1].descriptorCount = 1;
+    bindingInfo.bindings[1].descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+    bindingInfo.bindings[1].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
+
+    bindingInfo.bindings[2].binding         = 2;
+    bindingInfo.bindings[2].descriptorCount = 1;
+    bindingInfo.bindings[2].descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+    bindingInfo.bindings[2].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
+
+    bindingInfo.bindings[3].binding         = 3;
+    bindingInfo.bindings[3].descriptorCount = 1;
+    bindingInfo.bindings[3].descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+    bindingInfo.bindings[3].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
 
     descriptorSetLayout = vulkanState->descriptorPool.createLayout(bindingInfo);
 }

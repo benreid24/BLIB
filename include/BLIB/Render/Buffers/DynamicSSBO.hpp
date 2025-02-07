@@ -159,7 +159,7 @@ void DynamicSSBO<T>::create(vk::VulkanState& vs, std::uint32_t size) {
     vulkanState = &vs;
     dirtyThresh = size * 7 / 10;
 
-    cpuBuffer.create(vs, vk::AlignedBuffer<T>::StorageBuffer, size);
+    cpuBuffer.create(vk::AlignedBuffer<T>::Std430, size);
     gpuBuffers.init(vs, [&vs, this](vk::Buffer& buffer) {
         buffer.createWithFallback(
             vs,
