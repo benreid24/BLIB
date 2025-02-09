@@ -21,6 +21,10 @@ namespace vk
 {
 struct VulkanState;
 }
+namespace lgt
+{
+class Scene3DLighting;
+}
 
 namespace ds
 {
@@ -61,6 +65,8 @@ private:
     virtual void init(DescriptorComponentStorageCache& storageCache) override;
     virtual bool allocateObject(ecs::Entity entity, scene::Key key) override;
     virtual void handleFrameStart() override;
+
+    friend class lgt::Scene3DLighting;
 };
 
 } // namespace ds

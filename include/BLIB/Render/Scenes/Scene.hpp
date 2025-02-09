@@ -196,6 +196,7 @@ private:
 
     // called by Observer
     void handleDescriptorSync();
+    virtual void onDescriptorSync() {}
     void syncObjects();
     std::uint32_t registerObserver();
     void updateObserverCamera(std::uint32_t observerIndex,

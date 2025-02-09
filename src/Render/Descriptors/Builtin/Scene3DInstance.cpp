@@ -127,9 +127,9 @@ void Scene3DInstance::init(DescriptorComponentStorageCache&) {
     globalLightInfo[0].globalAmbient     = glm::vec3(0.2f);
     spotlights.fill(lgt::SpotLight3D());
     pointLights.fill(lgt::PointLight3D());
-    globalLightInfo.queueTransfer();
-    spotlights.queueTransfer();
-    pointLights.queueTransfer();
+    globalLightInfo.transferEveryFrame();
+    spotlights.transferEveryFrame();
+    pointLights.transferEveryFrame();
 }
 
 bool Scene3DInstance::allocateObject(ecs::Entity, scene::Key) {

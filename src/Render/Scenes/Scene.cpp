@@ -44,6 +44,7 @@ void Scene::handleDescriptorSync() {
     std::unique_lock lock(objectMutex);
 
     // sync descriptors
+    onDescriptorSync();
     descriptorSets.handleDescriptorSync();
     descriptorComponents.syncDescriptors();
 }

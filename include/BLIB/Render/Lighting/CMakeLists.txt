@@ -3,6 +3,7 @@ target_sources(BLIB PUBLIC
     Color3D.hpp
     LightingDescriptor3D.hpp
     Light2D.hpp
+    Light3D.hpp
     PointLight3D.hpp
     Scene2DLighting.hpp
     Scene3DLighting.hpp
