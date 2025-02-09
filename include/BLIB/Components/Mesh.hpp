@@ -28,6 +28,16 @@ struct Mesh : public rc::rcom::DrawableBase {
                 std::uint32_t indexCount);
 
     /**
+     * @brief Helper method to initialize all the mesh data
+     *
+     * @param vulkanState Renderer Vulkan state
+     * @param vertices An existing vertex buffer to take over
+     * @param indices An existing index buffer to take over
+     */
+    void create(rc::vk::VulkanState& vulkanState, std::vector<rc::prim::Vertex3D>&& vertices,
+                std::vector<std::uint32_t>&& indices);
+
+    /**
      * @brief Returns the default material pipeline for rendering
      */
     virtual std::uint32_t getDefaultMaterialPipelineId() const override {

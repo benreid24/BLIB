@@ -17,7 +17,7 @@ namespace ds
  */
 using Object3DFactory =
     GenericDescriptorSetFactory<priv::Object3DBindings, VK_SHADER_STAGE_VERTEX_BIT,
-                                VK_SHADER_STAGE_VERTEX_BIT>;
+                                VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT>;
 
 } // namespace ds
 } // namespace rc

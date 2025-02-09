@@ -17,6 +17,7 @@ target_sources(BLIB PUBLIC
 	Icon.hpp
 	Rectangle.hpp
 	Slideshow.hpp
+	Sphere.hpp
 	Sprite.hpp
 	Text.hpp
 	Triangle.hpp

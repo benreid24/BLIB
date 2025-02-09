@@ -80,10 +80,12 @@ public:
     virtual ~DemoState() = default;
 
 private:
-    bl::rc::Scene* scene;
-    bl::gfx::Cube cube1;
-    bl::gfx::VertexBuffer3D floor;
     CameraController* controller;
+    bl::rc::Scene* scene;
+
+    bl::gfx::VertexBuffer3D floor;
+    bl::gfx::Cube cube1;
+    bl::gfx::Sphere light1;
 
     virtual const char* name() const override { return "DemoState"; }
 
@@ -120,6 +122,10 @@ private:
         cube1.create(*world, 1.f, material);
         cube1.getTransform().setPosition({0.f, 0.501f, 0.f});
         cube1.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
+        light1.create(*world, 0.2f, 4, {}, bl::rc::Config::MaterialPipelineIds::Mesh3D);
+        light1.getTransform().setPosition({2.f, 4.f, 1.f});
+        light1.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
         bl::event::Dispatcher::subscribe(controller);
     }

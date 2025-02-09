@@ -122,6 +122,9 @@ void Scene3DInstance::init(DescriptorComponentStorageCache&) {
 
     // populate lighting with defaults
     globalLightInfo.fill(lgt::LightingDescriptor3D());
+    globalLightInfo[0].sun.color.diffuse = glm::vec3{0.75f};
+    globalLightInfo[0].sun.dir           = glm::normalize(glm::vec3(2.f, 7.f, 1.f));
+    globalLightInfo[0].globalAmbient     = glm::vec3(0.2f);
     spotlights.fill(lgt::SpotLight3D());
     pointLights.fill(lgt::PointLight3D());
     globalLightInfo.queueTransfer();

@@ -43,6 +43,16 @@ public:
     void create(vk::VulkanState& vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount);
 
     /**
+     * @brief Creates the index buffer by moving from existing CPU buffers
+     *
+     * @param vulkanState The renderer vulkan state
+     * @param vertices The vertex buffer to move from
+     * @param indices The index buffer to move from
+     */
+    void create(vk::VulkanState& vulkanState, std::vector<T>&& vertices,
+                std::vector<std::uint32_t>&& indices);
+
+    /**
      * @brief Frees both the vertex buffer and index buffer
      */
     void destroy();
@@ -135,6 +145,7 @@ private:
     std::uint32_t indexWriteStart;
     std::uint32_t indexWriteCount;
 
+    void createCommon(vk::VulkanState& vs, std::uint32_t vc, std::uint32_t ic);
     virtual void executeTransfer(VkCommandBuffer commandBuffer,
                                  tfr::TransferContext& context) override;
 };
@@ -142,31 +153,23 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>
-inline IndexBufferT<T>::~IndexBufferT() {
+IndexBufferT<T>::~IndexBufferT() {
     deferDestruction();
 }
 
 template<typename T>
 void IndexBufferT<T>::create(vk::VulkanState& vs, std::uint32_t vc, std::uint32_t ic) {
-    vulkanState = &vs;
+    createCommon(vs, vc, ic);
     cpuVertexBuffer.resize(vc);
     cpuIndexBuffer.resize(ic, 0);
-    gpuVertexBuffer.create(vs,
-                           vc * sizeof(T),
-                           VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
-                           VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT |
-                               VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
-                           0);
-    gpuIndexBuffer.create(vs,
-                          ic * sizeof(std::uint32_t),
-                          VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
-                          VK_BUFFER_USAGE_INDEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT |
-                              VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
-                          0);
-    vertexWriteStart = 0;
-    vertexWriteCount = vc;
-    indexWriteStart  = 0;
-    indexWriteCount  = ic;
+}
+
+template<typename T>
+void IndexBufferT<T>::create(vk::VulkanState& vulkanState, std::vector<T>&& vertices,
+                             std::vector<std::uint32_t>&& indices) {
+    createCommon(vulkanState, vertices.size(), indices.size());
+    cpuVertexBuffer = std::move(vertices);
+    cpuIndexBuffer  = std::move(indices);
 }
 
 template<typename T>
@@ -178,7 +181,7 @@ void IndexBufferT<T>::destroy() {
 }
 
 template<typename T>
-inline void IndexBufferT<T>::deferDestruction() {
+void IndexBufferT<T>::deferDestruction() {
     cpuVertexBuffer.clear();
     cpuIndexBuffer.clear();
     gpuVertexBuffer.deferDestruction();
@@ -265,6 +268,27 @@ void IndexBufferT<T>::configureWriteRange(std::uint32_t vs, std::uint32_t vc, st
     vertexWriteStart = vs;
     vertexWriteCount = vc;
     indexWriteStart  = is;
+    indexWriteCount  = ic;
+}
+
+template<typename T>
+void IndexBufferT<T>::createCommon(vk::VulkanState& vs, std::uint32_t vc, std::uint32_t ic) {
+    vulkanState = &vs;
+    gpuVertexBuffer.create(vs,
+                           vc * sizeof(T),
+                           VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
+                           VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT |
+                               VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
+                           0);
+    gpuIndexBuffer.create(vs,
+                          ic * sizeof(std::uint32_t),
+                          VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
+                          VK_BUFFER_USAGE_INDEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT |
+                              VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
+                          0);
+    vertexWriteStart = 0;
+    vertexWriteCount = vc;
+    indexWriteStart  = 0;
     indexWriteCount  = ic;
 }
 

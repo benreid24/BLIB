@@ -29,6 +29,7 @@
 #include <BLIB/Graphics/Dummy2D.hpp>
 #include <BLIB/Graphics/Rectangle.hpp>
 #include <BLIB/Graphics/Slideshow.hpp>
+#include <BLIB/Graphics/Sphere.hpp>
 #include <BLIB/Graphics/Sprite.hpp>
 #include <BLIB/Graphics/Text.hpp>
 #include <BLIB/Graphics/Text/BasicText.hpp>

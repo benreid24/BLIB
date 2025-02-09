@@ -17,6 +17,7 @@ target_sources(BLIB PRIVATE
 	Icon.cpp
 	Rectangle.cpp
 	Slideshow.cpp
+	Sphere.cpp
 	Sprite.cpp
 	Text.cpp
 	Triangle.cpp
