@@ -107,26 +107,28 @@ template<typename... TArgs>
 SpotLightHandle Scene3DLighting::createSpotlight(TArgs&&... args) {
     if (!spotIds.available()) {
         BL_LOG_ERROR << "Exceeded max spot light count";
-        return {*this, spotLights, util::Random::get<std::size_t>(0, spotLights.size())};
+        return SpotLightHandle{
+            this, spotLights, util::Random::get<std::size_t>(0, spotLights.size())};
     }
 
     const std::size_t i = spotIds.allocate();
     new (&spotLights[i]) PointLight3D(std::forward<TArgs>(args)...);
     activeSpots.emplace_back(i);
-    return {*this, spotLights, i};
+    return SpotLightHandle{this, spotLights, i};
 }
 
 template<typename... TArgs>
 PointLightHandle Scene3DLighting::createPointLight(TArgs&&... args) {
     if (!spotIds.available()) {
         BL_LOG_ERROR << "Exceeded max point light count";
-        return {*this, pointLights, util::Random::get<std::size_t>(0, pointLights.size())};
+        return PointLightHandle{
+            this, pointLights, util::Random::get<std::size_t>(0, pointLights.size())};
     }
 
     const std::size_t i = pointIds.allocate();
     new (&pointLights[i]) PointLight3D(std::forward<TArgs>(args)...);
     activePoints.emplace_back(i);
-    return {*this, pointLights, i};
+    return PointLightHandle{this, pointLights, i};
 }
 
 } // namespace lgt

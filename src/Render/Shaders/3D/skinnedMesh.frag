@@ -56,7 +56,7 @@ void main() {
     uint specularIndex = material.specularId;
     vec3 specularColor = vec3(texture(textures[specularIndex], fs_in.texCoords));
 
-    vec3 viewDir = normalize(fs_in.fragPos - camera.camPos);
+    vec3 viewDir = normalize(camera.camPos - fs_in.fragPos);
     vec3 normal = fs_in.TBN[2]; // TODO - normal map
 
     mat3 lightColors = mat3(vec3(0.0), vec3(lighting.info.globalAmbient), vec3(0.0));

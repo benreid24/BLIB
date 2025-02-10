@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_LIGHTING_COLOR3D_HPP
 #define BLIB_RENDER_LIGHTING_COLOR3D_HPP
 
+#include <BLIB/Render/Color.hpp>
 #include <glm/glm.hpp>
 
 namespace bl
@@ -23,6 +24,19 @@ struct alignas(16) Color3D {
      * @brief Initializes all colors to black (no light)
      */
     Color3D() = default;
+
+    /**
+     * @brief Convenience method to assign all 3 colors to a single color
+     *
+     * @param color The color to set to
+     * @return A reference to this object
+     */
+    Color3D& operator=(const Color& color) {
+        ambient  = color;
+        diffuse  = color;
+        specular = color;
+        return *this;
+    }
 };
 
 } // namespace lgt

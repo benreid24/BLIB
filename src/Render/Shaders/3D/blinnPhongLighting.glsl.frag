@@ -47,8 +47,8 @@ mat3 computeSunLight(Sunlight light, vec3 normal, vec3 viewDir, float shininess)
     float diff = max(dot(normal, lightDir), 0.0);
 
     // specular shading
-    vec3 reflectDir = reflect(-lightDir, normal);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
+    vec3 halfwayDir = normalize(lightDir + viewDir);
+    float spec = diff > 0.0 ? pow(max(dot(normal, halfwayDir), 0.0), shininess) : 0.0;
 
     // combine results
     vec3 ambient = vec3(light.color.ambient);
@@ -65,8 +65,8 @@ mat3 computePointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir
     float diff = max(dot(normal, lightDir), 0.0);
 
     // specular shading
-    vec3 reflectDir = reflect(-lightDir, normal);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
+    vec3 halfwayDir = normalize(lightDir + viewDir);
+    float spec = diff > 0.0 ? pow(max(dot(normal, halfwayDir), 0.0), shininess) : 0.0;
 
     // attenuation
     float dist = length(posDiff);
@@ -94,8 +94,8 @@ mat3 computeSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir, 
     float diff = max(dot(normal, lightDir), 0.0);
 
     // specular shading
-    vec3 reflectDir = reflect(-lightDir, normal);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
+    vec3 halfwayDir = normalize(lightDir + viewDir);
+    float spec = diff > 0.0 ? pow(max(dot(normal, halfwayDir), 0.0), shininess) : 0.0;
 
     // attenuation
     float dist = length(posDiff);

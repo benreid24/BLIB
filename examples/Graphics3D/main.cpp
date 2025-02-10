@@ -81,11 +81,16 @@ public:
 
 private:
     CameraController* controller;
-    bl::rc::Scene* scene;
+    bl::rc::scene::Scene3D* scene;
 
     bl::gfx::VertexBuffer3D floor;
     bl::gfx::Cube cube1;
+    bl::gfx::Cube cube2;
+    bl::gfx::Cube cube3;
+    bl::gfx::Cube cube4;
+
     bl::gfx::Sphere light1;
+    bl::gfx::Sphere light2;
 
     virtual const char* name() const override { return "DemoState"; }
 
@@ -93,7 +98,7 @@ private:
         // create scene and camera
         auto world =
             engine.getPlayer().enterWorld<bl::engine::BasicWorld<bl::rc::scene::Scene3D>>();
-        scene      = world->scene();
+        scene      = static_cast<bl::rc::scene::Scene3D*>(world->scene().get());
         auto& o    = engine.renderer().getObserver();
         auto* cam  = o.setCamera<bl::cam::Camera3D>(glm::vec3(0.f, 3.f, 5.f), glm::vec3(0.f));
         controller = cam->setController<CameraController>();
@@ -119,13 +124,40 @@ private:
         auto containerTexture =
             engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/container.jpg");
         auto material = engine.renderer().materialPool().getOrCreateFromTexture(containerTexture);
+
         cube1.create(*world, 1.f, material);
         cube1.getTransform().setPosition({0.f, 0.501f, 0.f});
         cube1.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
+        cube2.create(*world, 1.f, material);
+        cube2.getTransform().setPosition({-2.f, 1.501f, 1.f});
+        cube2.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
+        cube3.create(*world, 1.f, material);
+        cube3.getTransform().setPosition({2.f, 1.501f, 2.f});
+        cube3.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
+        cube4.create(*world, 1.f, material);
+        cube4.getTransform().setPosition({-2.f, 4.501f, -1.f});
+        cube4.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
+        const bl::rc::Color light1Color(sf::Color(80, 180, 255));
         light1.create(*world, 0.2f, 4, {}, bl::rc::Config::MaterialPipelineIds::Mesh3D);
-        light1.getTransform().setPosition({2.f, 4.f, 1.f});
+        light1.getTransform().setPosition({1.f, 2.f, 1.f});
+        light1.setColor(light1Color);
         light1.addToScene(scene, bl::rc::UpdateSpeed::Static);
+        auto light1Handle        = scene->getLighting().createPointLight();
+        light1Handle.get().color = light1Color;
+        light1Handle.get().pos   = light1.getTransform().getPosition();
+
+        const bl::rc::Color light2Color(sf::Color::White);
+        light2.create(*world, 0.2f, 4, {}, bl::rc::Config::MaterialPipelineIds::Mesh3D);
+        light2.getTransform().setPosition({-1.f, 3.f, -2.f});
+        light2.setColor(light2Color);
+        light2.addToScene(scene, bl::rc::UpdateSpeed::Static);
+        auto light2Handle        = scene->getLighting().createPointLight();
+        light2Handle.get().color = light2Color;
+        light2Handle.get().pos   = light2.getTransform().getPosition();
 
         bl::event::Dispatcher::subscribe(controller);
     }

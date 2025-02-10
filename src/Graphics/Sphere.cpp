@@ -115,6 +115,11 @@ void Sphere::create(engine::World& world, float size, int detailLevel,
     // normalize vertices to make sphere
     for (auto& v : vertices) { v.pos = size * glm::normalize(v.pos); }
 
+    // preprocessing
+    rc::prim::Vertex3D::computeTBN(component().gpuBuffer.vertices().data(),
+                                   component().gpuBuffer.indices().data(),
+                                   component().gpuBuffer.indices().size());
+
     // create mesh
     component().create(
         world.engine().renderer().vulkanState(), std::move(vertices), std::move(indices));

@@ -25,7 +25,7 @@ struct alignas(16) LightingDescriptor3D {
      */
     LightingDescriptor3D()
     : sun()
-    , globalAmbient(1.f)
+    , globalAmbient(0.f)
     , nPointLights(0)
     , nSpotLights(0) {}
 };

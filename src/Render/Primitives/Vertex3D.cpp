@@ -14,7 +14,7 @@ void computeSingleTBN(Vertex3D& v1, Vertex3D& v2, Vertex3D& v3) {
     const glm::vec3 edge1    = v2.pos - v1.pos;
     const glm::vec3 edge2    = v3.pos - v1.pos;
     const glm::vec2 deltaUV1 = v2.texCoord - v1.texCoord;
-    const glm::vec2 deltaUV2 = v3.texCoord - v2.texCoord;
+    const glm::vec2 deltaUV2 = v3.texCoord - v1.texCoord;
 
     const float f = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV2.x * deltaUV1.y);
 
@@ -28,7 +28,7 @@ void computeSingleTBN(Vertex3D& v1, Vertex3D& v2, Vertex3D& v3) {
     bitangent.y = f * (-deltaUV2.x * edge1.y + deltaUV1.x * edge2.y);
     bitangent.z = f * (-deltaUV2.x * edge1.z + deltaUV1.x * edge2.z);
 
-    const glm::vec3 normal = glm::normalize(glm::cross(edge1, edge2));
+    const glm::vec3 normal = glm::normalize(glm::cross(edge2, edge1));
     v1.normal              = normal;
     v2.normal              = normal;
     v3.normal              = normal;
