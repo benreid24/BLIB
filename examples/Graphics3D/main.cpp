@@ -106,18 +106,13 @@ private:
 
         constexpr float FloorSize = 5.f;
         floor.create(*world, 6);
-        floor[0].pos   = {-FloorSize, 0.f, -FloorSize};
-        floor[0].color = {0.f, 1.f, 1.f, 1.f};
-        floor[1].pos   = {FloorSize, 0.f, FloorSize};
-        floor[1].color = {1.f, 0.f, 0.f, 1.f};
-        floor[2].pos   = {-FloorSize, 0.f, FloorSize};
-        floor[2].color = {0.f, 1.f, 0.f, 1.f};
-        floor[3].pos   = {-FloorSize, 0.f, -FloorSize};
-        floor[3].color = {0.f, 1.f, 1.f, 1.f};
-        floor[4].pos   = {FloorSize, 0.f, -FloorSize};
-        floor[4].color = {1.f, 0.f, 1.f, 1.f};
-        floor[5].pos   = {FloorSize, 0.f, FloorSize};
-        floor[5].color = {1.f, 0.f, 0.f, 1.f};
+        floor[0].pos = {-FloorSize, 0.f, -FloorSize};
+        floor[1].pos = {FloorSize, 0.f, FloorSize};
+        floor[2].pos = {-FloorSize, 0.f, FloorSize};
+        floor[3].pos = {-FloorSize, 0.f, -FloorSize};
+        floor[4].pos = {FloorSize, 0.f, -FloorSize};
+        floor[5].pos = {FloorSize, 0.f, FloorSize};
+        for (unsigned int i = 0; i < 6; ++i) { floor[i].color = {0.4f, 0.4f, 0.4f, 1.f}; }
         floor.commit();
         floor.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
@@ -155,9 +150,10 @@ private:
         light2.getTransform().setPosition({-1.f, 3.f, -2.f});
         light2.setColor(light2Color);
         light2.addToScene(scene, bl::rc::UpdateSpeed::Static);
-        auto light2Handle        = scene->getLighting().createPointLight();
-        light2Handle.get().color = light2Color;
-        light2Handle.get().pos   = light2.getTransform().getPosition();
+        auto light2Handle                     = scene->getLighting().createPointLight();
+        light2Handle.get().color              = light2Color;
+        light2Handle.get().pos                = light2.getTransform().getPosition();
+        light2Handle.get().attenuation.linear = light2Handle.get().attenuation.quadratic = 0.15f;
 
         bl::event::Dispatcher::subscribe(controller);
     }
