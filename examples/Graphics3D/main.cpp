@@ -88,6 +88,8 @@ private:
     bl::gfx::Cube cube2;
     bl::gfx::Cube cube3;
     bl::gfx::Cube cube4;
+    bl::gfx::Cube cube5;
+    bl::gfx::Cube cube6;
 
     bl::gfx::Sphere light1;
     bl::gfx::Sphere light2;
@@ -135,6 +137,21 @@ private:
         cube4.create(*world, 1.f, material);
         cube4.getTransform().setPosition({-2.f, 4.501f, -1.f});
         cube4.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
+        auto diffuse =
+            engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/container2.png");
+        auto specular = engine.renderer().texturePool().getOrLoadTexture(
+            "Resources/Textures/container2_specular.png");
+        auto material2 =
+            engine.renderer().materialPool().getOrCreateFromDiffuseAndSpecular(diffuse, specular);
+
+        cube5.create(*world, 1.f, material2);
+        cube5.getTransform().setPosition({2.f, 1.501f, -2.f});
+        cube5.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
+        cube6.create(*world, 1.f, material2);
+        cube6.getTransform().setPosition({-2.f, 0.75f, -2.f});
+        cube6.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
         const bl::rc::Color light1Color(sf::Color(80, 180, 255));
         light1.create(*world, 0.2f, 4, {}, bl::rc::Config::MaterialPipelineIds::Mesh3D);

@@ -32,6 +32,21 @@ MaterialRef MaterialPool::getOrCreateFromTexture(const res::TextureRef& texture)
     return MaterialRef(this, newId);
 }
 
+MaterialRef MaterialPool::getOrCreateFromDiffuseAndSpecular(const TextureRef& diffuse,
+                                                            const TextureRef& specular) {
+    std::unique_lock lock(mutex);
+
+    const auto key = std::make_pair(diffuse.id(), specular.id());
+    const auto it  = diffuseSpecularToMaterialId.find(key);
+    if (it != diffuseSpecularToMaterialId.end()) { return MaterialRef(this, it->second); }
+
+    const auto newId                 = freeIds.allocate();
+    diffuseSpecularToMaterialId[key] = newId;
+    materials[newId]                 = mat::Material(diffuse, specular);
+    markForUpdate(newId);
+    return MaterialRef(this, newId);
+}
+
 void MaterialPool::init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
                         vk::PerFrame<VkDescriptorSet>& rtDescriptorSets) {
     materials.resize(MaxMaterialCount);

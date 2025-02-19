@@ -7,6 +7,7 @@
 #include <BLIB/Render/Materials/MaterialDescriptor.hpp>
 #include <BLIB/Render/Resources/MaterialRef.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
+#include <BLIB/Util/Hashes.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <cstdint>
@@ -38,7 +39,17 @@ public:
      * @param texture The texture the material should use
      * @return A ref to the material
      */
-    MaterialRef getOrCreateFromTexture(const res::TextureRef& texture);
+    MaterialRef getOrCreateFromTexture(const TextureRef& texture);
+
+    /**
+     * @brief Creates or returns an existing material from a diffuse and specular texture
+     *
+     * @param diffuse The diffuse texture the material should use
+     * @param specular The specular texture the material should use
+     * @return A ref to the material
+     */
+    MaterialRef getOrCreateFromDiffuseAndSpecular(const TextureRef& diffuse,
+                                                  const TextureRef& specular);
 
     /**
      * @brief Returns a layout binding to be used for descriptor set layout creation
@@ -64,6 +75,9 @@ private:
 
     // indexes
     std::vector<std::uint32_t> textureIdToMaterialId;
+    std::unordered_map<std::pair<std::uint32_t, std::uint32_t>, std::uint32_t,
+                       util::PairHash<std::uint32_t, std::uint32_t>>
+        diffuseSpecularToMaterialId;
 
     MaterialPool(Renderer& renderer);
     void init(vk::PerFrame<VkDescriptorSet>& descriptorSets,

@@ -39,6 +39,14 @@ public:
     Material(const res::TextureRef& texture);
 
     /**
+     * @brief Creates a material from a diffuse and specular texture
+     *
+     * @param diffuse The diffuse texture the material should use
+     * @param specular The specular texture the material should use
+     */
+    Material(const res::TextureRef& diffuse, const res::TextureRef& specular);
+
+    /**
      * @brief Destroys the material
      */
     ~Material() = default;
