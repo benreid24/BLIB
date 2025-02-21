@@ -204,14 +204,6 @@ public:
     glm::mat4 computeGlobalTransform() const;
 
     /**
-     * @brief Returns whether or not the transform requires a refresh. Prefer this to inherited
-     *        methods from ecs traits or descriptor component base
-     */
-    bool requiresRefresh() const {
-        return ParentAwareVersioned::refreshRequired() || DescriptorComponentBase::isDirty();
-    }
-
-    /**
      * @brief Transforms the given point by this transform
      *
      * @param src The point to transform

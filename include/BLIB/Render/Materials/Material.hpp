@@ -16,6 +16,8 @@ namespace mat
  */
 class Material {
 public:
+    static constexpr float DefaultShininess = 0.5f;
+
     /**
      * @brief Creates an empty material
      */
@@ -32,19 +34,15 @@ public:
     Material(Material&&) = default;
 
     /**
-     * @brief Creates a material from a single texture
-     *
-     * @param texture The texture to create the material from
-     */
-    Material(const res::TextureRef& texture);
-
-    /**
-     * @brief Creates a material from a diffuse and specular texture
+     * @brief Creates a material from its components
      *
      * @param diffuse The diffuse texture the material should use
      * @param specular The specular texture the material should use
+     * @param normal The normal map for the texture
+     * @param shininess The shininess parameter of the texture
      */
-    Material(const res::TextureRef& diffuse, const res::TextureRef& specular);
+    Material(const res::TextureRef& diffuse, const res::TextureRef& specular,
+             const res::TextureRef& normal, float shininess = DefaultShininess);
 
     /**
      * @brief Destroys the material

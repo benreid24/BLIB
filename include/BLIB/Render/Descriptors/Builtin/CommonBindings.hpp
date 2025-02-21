@@ -26,7 +26,7 @@ using TextureBinding =
                         buf::StaticSSBO<std::uint32_t>>;
 using MaterialBinding =
     ObjectStorageBuffer<mat::MaterialId, com::MaterialInstance, true,
-                        buf::StaticSSBO<std::uint32_t>, buf::StaticSSBO<std::uint32_t>>;
+                        buf::StaticSSBO<mat::MaterialId>, buf::StaticSSBO<mat::MaterialId>>;
 
 } // namespace priv
 } // namespace ds

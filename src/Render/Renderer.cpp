@@ -54,16 +54,6 @@ void Renderer::initialize() {
         engine::StateMask::Running | engine::StateMask::Menu | engine::StateMask::Editor,
         *this);
 
-    // descriptor systems
-    engine.systems().registerSystem<sys::Transform2DDescriptorSystem>(
-        FrameStage::RenderDescriptorRefresh, AllMask);
-    engine.systems().registerSystem<sys::Transform3DDescriptorSystem>(
-        FrameStage::RenderDescriptorRefresh, AllMask);
-    engine.systems().registerSystem<sys::TextureDescriptorSystem>(
-        FrameStage::RenderDescriptorRefresh, AllMask);
-    engine.systems().registerSystem<sys::MaterialDescriptorSystem>(
-        FrameStage::RenderDescriptorRefresh, AllMask);
-
     // asset providers
     assetFactory.addProvider<rgi::StandardAssetProvider>(rg::AssetTags::RenderedSceneOutput);
     assetFactory.addProvider<rgi::StandardAssetProvider>(rg::AssetTags::PostFXOutput);

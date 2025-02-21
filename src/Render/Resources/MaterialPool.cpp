@@ -8,7 +8,11 @@ namespace rc
 {
 namespace res
 {
-// TODO - default normal maps
+namespace
+{
+bool defaultsInitialized = false;
+sf::Image normalImage;
+} // namespace
 
 MaterialPool::MaterialPool(Renderer& renderer)
 : renderer(renderer)
@@ -16,6 +20,8 @@ MaterialPool::MaterialPool(Renderer& renderer)
 
 MaterialRef MaterialPool::getOrCreateFromTexture(const res::TextureRef& texture) {
     std::unique_lock lock(mutex);
+
+    checkLazyInit();
 
     if (texture.id() < textureIdToMaterialId.size() &&
         textureIdToMaterialId[texture.id()] != InvalidId) {
@@ -27,7 +33,7 @@ MaterialRef MaterialPool::getOrCreateFromTexture(const res::TextureRef& texture)
     }
     const auto newId                    = freeIds.allocate();
     textureIdToMaterialId[texture.id()] = newId;
-    materials[newId]                    = mat::Material(texture);
+    materials[newId]                    = mat::Material(texture, texture, defaultNormalMap);
     markForUpdate(newId);
     return MaterialRef(this, newId);
 }
@@ -36,13 +42,15 @@ MaterialRef MaterialPool::getOrCreateFromDiffuseAndSpecular(const TextureRef& di
                                                             const TextureRef& specular) {
     std::unique_lock lock(mutex);
 
+    checkLazyInit();
+
     const auto key = std::make_pair(diffuse.id(), specular.id());
     const auto it  = diffuseSpecularToMaterialId.find(key);
     if (it != diffuseSpecularToMaterialId.end()) { return MaterialRef(this, it->second); }
 
     const auto newId                 = freeIds.allocate();
     diffuseSpecularToMaterialId[key] = newId;
-    materials[newId]                 = mat::Material(diffuse, specular);
+    materials[newId]                 = mat::Material(diffuse, specular, defaultNormalMap);
     markForUpdate(newId);
     return MaterialRef(this, newId);
 }
@@ -74,6 +82,16 @@ void MaterialPool::init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
     rtDescriptorSets.visit(visitor);
     vkUpdateDescriptorSets(
         renderer.vulkanState().device, setWrites.size(), setWrites.data(), 0, nullptr);
+}
+
+void MaterialPool::checkLazyInit() {
+    if (!defaultsInitialized) {
+        defaultsInitialized = true;
+
+        normalImage.create(2, 2, sf::Color(0, 0, 255));
+        defaultNormalMap = renderer.texturePool().createTexture(
+            normalImage, renderer.vulkanState().samplerCache.filteredRepeated());
+    }
 }
 
 void MaterialPool::cleanup() { gpuPool.destroy(); }

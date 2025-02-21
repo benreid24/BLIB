@@ -5,6 +5,5 @@ target_sources(BLIB PRIVATE
 	Physics2D.cpp
 	RendererUpdateSystem.cpp
 	TogglerSystem.cpp
-	Transform2DDescriptorSystem.cpp
 	VelocitySystem.cpp
 )

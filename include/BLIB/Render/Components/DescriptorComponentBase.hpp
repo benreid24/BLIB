@@ -64,10 +64,8 @@ public:
      *
      * @param descriptorSet The descriptor set module to link to
      * @param sceneKeyh The key of the object in the scene
-     * @param payload Pointer to the data to manage in the descriptor set buffer
      */
-    void link(ds::DescriptorComponentStorageBase* descriptorSet, scene::Key sceneKey,
-              void* payload);
+    void link(ds::DescriptorComponentStorageBase* descriptorSet, scene::Key sceneKey);
 
     /**
      * @brief Unlinks the component from a scene object
@@ -75,15 +73,15 @@ public:
     void unlink();
 
     /**
-     * @brief Returns whether or not this component is dirty and needs to be synced
-     */
-    constexpr bool isDirty() const;
-
-    /**
      * @brief Refreshes and syncs the descriptor value and marks as clean
      */
     template<typename TPayload = TFirstPayload>
-    void refresh();
+    void refresh(TPayload& payload);
+
+    /**
+     * @brief Returns the scene key of this entity
+     */
+    scene::Key getSceneKey() const { return sceneKey; }
 
 protected:
     /**
@@ -94,16 +92,13 @@ protected:
 private:
     ds::DescriptorComponentStorageBase* descriptorSet;
     scene::Key sceneKey;
-    void* payload;
-    bool dirty;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename TCom, typename TFirstPayload, typename... TPayloads>
 DescriptorComponentBase<TCom, TFirstPayload, TPayloads...>::DescriptorComponentBase()
-: descriptorSet(nullptr)
-, dirty(0) {
+: descriptorSet(nullptr) {
     static_assert(
         std::is_base_of_v<DescriptorComponentBase<TCom, TFirstPayload, TPayloads...>, TCom>,
         "Descriptor component must inherit DescriptorComponentBase");
@@ -111,18 +106,14 @@ DescriptorComponentBase<TCom, TFirstPayload, TPayloads...>::DescriptorComponentB
 
 template<typename TCom, typename TFirstPayload, typename... TPayloads>
 void DescriptorComponentBase<TCom, TFirstPayload, TPayloads...>::link(
-    ds::DescriptorComponentStorageBase* set, scene::Key k, void* p) {
+    ds::DescriptorComponentStorageBase* set, scene::Key k) {
 #ifdef BLIB_DEBUG
     if (descriptorSet != nullptr && descriptorSet != set) {
         BL_LOG_ERROR << "Component is used in more than one descriptor set component module";
     }
 #endif
     descriptorSet = set;
-    payload       = p;
-    if (k.sceneId != scene::Key::InvalidSceneId) {
-        dirty    = true;
-        sceneKey = k;
-    }
+    if (k.sceneId != scene::Key::InvalidSceneId) { sceneKey = k; }
 }
 
 template<typename TCom, typename TFirstPayload, typename... TPayloads>
@@ -131,24 +122,15 @@ inline void DescriptorComponentBase<TCom, TFirstPayload, TPayloads...>::unlink()
 }
 
 template<typename TCom, typename TFirstPayload, typename... TPayloads>
-constexpr bool DescriptorComponentBase<TCom, TFirstPayload, TPayloads...>::isDirty() const {
-    return dirty && descriptorSet != nullptr;
-}
-
-template<typename TCom, typename TFirstPayload, typename... TPayloads>
 template<typename TPayload>
-void DescriptorComponentBase<TCom, TFirstPayload, TPayloads...>::refresh() {
-    if (descriptorSet != nullptr) {
-        descriptorSet->markObjectDirty(sceneKey);
-        static_cast<priv::DescriptorComponentPayloadBase<TCom, TPayload>*>(this)->refreshDescriptor(
-            *static_cast<TPayload*>(payload));
-        dirty = false;
-    }
+void DescriptorComponentBase<TCom, TFirstPayload, TPayloads...>::refresh(TPayload& payload) {
+    using PayloadBase = priv::DescriptorComponentPayloadBase<TCom, TPayload>;
+    static_cast<PayloadBase*>(this)->refreshDescriptor(payload);
 }
 
 template<typename TCom, typename TFirstPayload, typename... TPayloads>
 void DescriptorComponentBase<TCom, TFirstPayload, TPayloads...>::markDirty() {
-    dirty = true;
+    if (descriptorSet != nullptr) { descriptorSet->markObjectDirty(sceneKey, this); }
 }
 
 } // namespace rcom

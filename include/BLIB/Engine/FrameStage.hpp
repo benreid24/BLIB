@@ -49,11 +49,8 @@ struct FrameStage {
         /// Separate stage for descriptors to be modified prior to syncing into scene buffers
         RenderEarlyRefresh = 6,
 
-        /// Syncs dirty descriptor components (ie transforms) into scene-local descriptor sets
-        RenderDescriptorRefresh = 7,
-
         /// The number of engine stages
-        COUNT = 8
+        COUNT = 7
     };
 };
 

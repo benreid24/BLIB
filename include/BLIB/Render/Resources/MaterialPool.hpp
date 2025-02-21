@@ -73,6 +73,9 @@ private:
     util::IdAllocator<std::uint32_t> freeIds;
     std::vector<std::uint32_t> toSync;
 
+    // default maps
+    TextureRef defaultNormalMap;
+
     // indexes
     std::vector<std::uint32_t> textureIdToMaterialId;
     std::unordered_map<std::pair<std::uint32_t, std::uint32_t>, std::uint32_t,
@@ -82,6 +85,7 @@ private:
     MaterialPool(Renderer& renderer);
     void init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
               vk::PerFrame<VkDescriptorSet>& rtDescriptorSets);
+    void checkLazyInit();
     void cleanup();
     void onFrameStart();
 

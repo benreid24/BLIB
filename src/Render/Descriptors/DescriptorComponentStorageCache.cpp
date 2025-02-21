@@ -17,6 +17,10 @@ void DescriptorComponentStorageCache::syncDescriptors() {
     for (auto& pair : cache) { pair.second->performSync(); }
 }
 
+void DescriptorComponentStorageCache::copyFromECS() {
+    for (auto& pair : cache) { pair.second->copyFromECS(); }
+}
+
 } // namespace ds
 } // namespace rc
 } // namespace bl

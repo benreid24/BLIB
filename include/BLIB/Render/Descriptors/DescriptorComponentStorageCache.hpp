@@ -48,6 +48,11 @@ public:
      */
     void syncDescriptors();
 
+    /**
+     * @brief Copies descriptor data from ECS components into local buffers
+     */
+    void copyFromECS();
+
 private:
     ecs::Registry& registry;
     vk::VulkanState& vulkanState;

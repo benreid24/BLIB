@@ -76,6 +76,9 @@ void Scene::syncObjects() {
     queuedAdds.clear();
 
     isClearingQueues = false;
+
+    // copy ECS components into descriptor buffers
+    descriptorComponents.copyFromECS();
 }
 
 void Scene::createAndAddObject(ecs::Entity entity, rcom::DrawableBase& object,

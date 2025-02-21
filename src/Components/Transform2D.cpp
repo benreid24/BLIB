@@ -144,7 +144,7 @@ void Transform2D::ensureUpdated() {
 glm::vec3 Transform2D::transformPoint(const glm::vec3& src) const {
     glm::mat4 localMat(1.f);
     const glm::mat4* mat = &localMat;
-    if (requiresRefresh()) { localMat = computeGlobalTransform(); }
+    if (refreshRequired()) { localMat = computeGlobalTransform(); }
     else { mat = &cachedGlobalTransform; }
 
     const glm::vec4 np = (*mat) * glm::vec4(src, 1.f);

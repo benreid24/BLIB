@@ -9,14 +9,12 @@ namespace mat
 Material::Material()
 : shininess(0.5f) {}
 
-Material::Material(const res::TextureRef& texture)
-: texture(texture)
-, shininess(0.5f) {}
-
-Material::Material(const res::TextureRef& diffuse, const res::TextureRef& specular)
+Material::Material(const res::TextureRef& diffuse, const res::TextureRef& specular,
+                   const res::TextureRef& normal, float shininess)
 : texture(diffuse)
 , specularMap(specular)
-, shininess(0.5f) {}
+, normalMap(normal)
+, shininess(shininess) {}
 
 } // namespace mat
 } // namespace rc

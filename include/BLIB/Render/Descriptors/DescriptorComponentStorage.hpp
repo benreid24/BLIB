@@ -49,8 +49,9 @@ public:
      * @brief Marks the given object's descriptors dirty for this frame
      *
      * @param key The scene key of the object that refreshed descriptors
+     * @param component Pointer to the component being marked dirty
      */
-    void markObjectDirty(scene::Key key);
+    void markObjectDirty(scene::Key key, void* component);
 
     /**
      * @brief Flushes underlying buffers for changed components
@@ -58,18 +59,24 @@ public:
     virtual void performSync() = 0;
 
     /**
+     * @brief Performs the copy from ECS components to renderer buffers
+     */
+    virtual void copyFromECS() = 0;
+
+    /**
      * @brief Returns the ranges of dirty dynamic elements
      */
-    constexpr const DirtyRange& dirtyDynamicRange() const;
+    const DirtyRange& dirtyDynamicRange() const;
 
     /**
      * @brief Returns the ranges of static dynamic elements
      */
-    constexpr const DirtyRange& dirtyStaticRange() const;
+    const DirtyRange& dirtyStaticRange() const;
 
 protected:
     DirtyRange dirtyDynamic;
     DirtyRange dirtyStatic;
+    std::vector<void*> dirtyComponents;
 };
 
 /**
@@ -123,24 +130,29 @@ public:
     virtual void performSync() override;
 
     /**
+     * @brief Performs the copy from ECS components to renderer buffers
+     */
+    virtual void copyFromECS() override;
+
+    /**
      * @brief Returns a reference to the underlying dynamic buffer
      */
-    constexpr TDynamicStorage& getDynamicBuffer();
+    TDynamicStorage& getDynamicBuffer();
 
     /**
      * @brief Returns a reference to the underlying static buffer
      */
-    constexpr TStaticStorage& getStaticBuffer();
+    TStaticStorage& getStaticBuffer();
 
     /**
      * @brief Returns true if the dynamic descriptor sets need to be updated this frame
      */
-    constexpr bool dynamicDescriptorUpdateRequired() const;
+    bool dynamicDescriptorUpdateRequired() const;
 
     /**
      * @brief Returns true if the static descriptor sets need to be updated this frame
      */
-    constexpr bool staticDescriptorUpdateRequired() const;
+    bool staticDescriptorUpdateRequired() const;
 
 private:
     ecs::Registry& registry;
@@ -157,7 +169,7 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline void DescriptorComponentStorageBase::markObjectDirty(scene::Key key) {
+inline void DescriptorComponentStorageBase::markObjectDirty(scene::Key key, void* component) {
     auto& range = key.updateFreq == UpdateSpeed::Dynamic ? dirtyDynamic : dirtyStatic;
     if (range.start > range.end) {
         range.start = key.sceneId;
@@ -167,14 +179,15 @@ inline void DescriptorComponentStorageBase::markObjectDirty(scene::Key key) {
         range.start = key.sceneId < range.start ? key.sceneId : range.start;
         range.end   = key.sceneId > range.end ? key.sceneId : range.end;
     }
+    dirtyComponents.emplace_back(component);
 }
 
-inline constexpr const DescriptorComponentStorageBase::DirtyRange&
+inline const DescriptorComponentStorageBase::DirtyRange&
 DescriptorComponentStorageBase::dirtyDynamicRange() const {
     return dirtyDynamic;
 }
 
-inline constexpr const DescriptorComponentStorageBase::DirtyRange&
+inline const DescriptorComponentStorageBase::DirtyRange&
 DescriptorComponentStorageBase::dirtyStaticRange() const {
     return dirtyStatic;
 }
@@ -191,6 +204,7 @@ DescriptorComponentStorage<TCom, TPayload, TDynamicStorage, TStaticStorage>::
     staticBuffer.create(vulkanState, Config::DefaultSceneObjectCapacity);
     dynCounts.resize(Config::DefaultSceneObjectCapacity, 0);
     statCounts.resize(Config::DefaultSceneObjectCapacity, 0);
+    dirtyComponents.reserve(Config::DefaultSceneObjectCapacity);
 }
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
@@ -201,26 +215,24 @@ bool DescriptorComponentStorage<TCom, TPayload, TDynamicStorage, TStaticStorage>
 
     if (key.updateFreq == UpdateSpeed::Dynamic) {
         if (dynamicBuffer.ensureSize(key.sceneId + 1)) {
-            refreshLinks(key.updateFreq);
             dynamicRefresh = 0x1 << Config::MaxConcurrentFrames;
         }
-        component->link(this, key, &dynamicBuffer[key.sceneId]);
+        component->link(this, key);
 
         if (key.sceneId >= dynCounts.size()) { dynCounts.resize(key.sceneId + 1, 0); }
         dynCounts[key.sceneId] += 1;
     }
     else {
         if (staticBuffer.ensureSize(key.sceneId + 1)) {
-            refreshLinks(key.updateFreq);
             statCounts.resize(key.sceneId + 1, 0);
             staticRefresh = 0x1 << Config::MaxConcurrentFrames;
         }
-        component->link(this, key, &staticBuffer[key.sceneId]);
+        component->link(this, key);
 
         if (key.sceneId >= statCounts.size()) { statCounts.resize(key.sceneId + 1, 0); }
         statCounts[key.sceneId] += 1;
     }
-    markObjectDirty(key);
+    markObjectDirty(key, component);
     return true;
 }
 
@@ -233,7 +245,11 @@ void DescriptorComponentStorage<TCom, TPayload, TDynamicStorage, TStaticStorage>
     auto& refCount = refCounts[key.sceneId];
     if (refCount == 1) {
         TCom* component = registry.getComponent<TCom>(entity);
-        if (component) { component->unlink(); }
+        if (component) {
+            component->unlink();
+            std::erase_if(dirtyComponents,
+                          [component](void* c) { return static_cast<TCom*>(c) == component; });
+        }
     }
     refCount = refCount > 0 ? refCount - 1 : 0;
 }
@@ -254,50 +270,39 @@ void DescriptorComponentStorage<TCom, TPayload, TDynamicStorage, TStaticStorage>
 }
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
-constexpr TDynamicStorage&
+void DescriptorComponentStorage<TCom, TPayload, TDynamicStorage, TStaticStorage>::copyFromECS() {
+    for (void* c : dirtyComponents) {
+        TCom* com         = static_cast<TCom*>(c);
+        auto& payload     = (com->getSceneKey().updateFreq == UpdateSpeed::Dynamic) ?
+                                dynamicBuffer[com->getSceneKey().sceneId] :
+                                staticBuffer[com->getSceneKey().sceneId];
+        using PayloadType = std::remove_reference_t<decltype(payload)>;
+        static_cast<TCom*>(c)->template refresh<PayloadType>(payload);
+    }
+    dirtyComponents.clear();
+}
+
+template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
+TDynamicStorage&
 DescriptorComponentStorage<TCom, TPayload, TDynamicStorage, TStaticStorage>::getDynamicBuffer() {
     return dynamicBuffer;
 }
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
-constexpr TStaticStorage&
+TStaticStorage&
 DescriptorComponentStorage<TCom, TPayload, TDynamicStorage, TStaticStorage>::getStaticBuffer() {
     return staticBuffer;
 }
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
-void DescriptorComponentStorage<TCom, TPayload, TDynamicStorage, TStaticStorage>::refreshLinks(
-    UpdateSpeed speed) {
-    scene::Key key(speed, 0);
-    const std::uint32_t end =
-        speed == UpdateSpeed::Dynamic ? dynamicBuffer.size() : staticBuffer.size();
-    for (; key.sceneId < end; ++key.sceneId) {
-        const ecs::Entity entity = getEntityFromSceneKey(key);
-        if (entity != ecs::InvalidEntity) {
-            TCom* component = registry.getComponent<TCom>(entity);
-            if (component) {
-                if (speed == UpdateSpeed::Dynamic) {
-                    component->link(
-                        this, {speed, scene::Key::InvalidSceneId}, &dynamicBuffer[key.sceneId]);
-                }
-                else {
-                    component->link(
-                        this, {speed, scene::Key::InvalidSceneId}, &staticBuffer[key.sceneId]);
-                }
-            }
-        }
-    }
-}
-
-template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
-constexpr bool DescriptorComponentStorage<TCom, TPayload, TDynamicStorage,
-                                          TStaticStorage>::dynamicDescriptorUpdateRequired() const {
+bool DescriptorComponentStorage<TCom, TPayload, TDynamicStorage,
+                                TStaticStorage>::dynamicDescriptorUpdateRequired() const {
     return dynamicRefresh != 0;
 }
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
-constexpr bool DescriptorComponentStorage<TCom, TPayload, TDynamicStorage,
-                                          TStaticStorage>::staticDescriptorUpdateRequired() const {
+bool DescriptorComponentStorage<TCom, TPayload, TDynamicStorage,
+                                TStaticStorage>::staticDescriptorUpdateRequired() const {
     return staticRefresh != 0;
 }
 

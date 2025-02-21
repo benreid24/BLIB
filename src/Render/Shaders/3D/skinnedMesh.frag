@@ -41,10 +41,10 @@ layout(std140, set = 1, binding = 3) uniform block_spot_lights {
 
 layout(std430, set = 2, binding = 1) readonly buffer tex {
     uint index[];
-} skin;
+} material;
 
 void main() {
-    uint matIndex = skin.index[fs_in.objectIndex];
+    uint matIndex = material.index[fs_in.objectIndex];
     Material material = materials.pool[matIndex];
 
     uint diffuseIndex = material.diffuseId;
@@ -57,7 +57,9 @@ void main() {
     vec3 specularColor = vec3(texture(textures[specularIndex], fs_in.texCoords));
 
     vec3 viewDir = normalize(camera.camPos - fs_in.fragPos);
-    vec3 normal = fs_in.TBN[2]; // TODO - normal map
+    uint normalIndex = material.normalId;
+    vec3 tangentSpaceNormal = vec3(texture(textures[normalIndex], fs_in.texCoords));
+    vec3 normal = normalize(fs_in.TBN * tangentSpaceNormal);
 
     mat3 lightColors = mat3(vec3(0.0), vec3(lighting.info.globalAmbient), vec3(0.0));
     lightColors += computeSunLight(lighting.info.sun, normal, viewDir, material.shininess);
