@@ -18,6 +18,16 @@ MaterialPool::MaterialPool(Renderer& renderer)
 : renderer(renderer)
 , freeIds(MaxMaterialCount) {}
 
+MaterialRef MaterialPool::create(const TextureRef& diffuse, const TextureRef& specular,
+                                 const TextureRef& normal, float shininess) {
+    std::unique_lock lock(mutex);
+
+    const auto newId = freeIds.allocate();
+    materials[newId] = mat::Material(diffuse, specular, normal, shininess);
+    markForUpdate(newId);
+    return MaterialRef(this, newId);
+}
+
 MaterialRef MaterialPool::getOrCreateFromTexture(const res::TextureRef& texture) {
     std::unique_lock lock(mutex);
 
@@ -88,7 +98,7 @@ void MaterialPool::checkLazyInit() {
     if (!defaultsInitialized) {
         defaultsInitialized = true;
 
-        normalImage.create(2, 2, sf::Color(0, 0, 255));
+        normalImage.create(2, 2, sf::Color(128, 128, 255));
         defaultNormalMap = renderer.texturePool().createTexture(
             normalImage, renderer.vulkanState().samplerCache.filteredRepeated());
     }

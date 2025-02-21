@@ -34,6 +34,18 @@ public:
     static constexpr std::uint32_t MaxMaterialCount      = 2048;
 
     /**
+     * @brief Creates a new material from all of its parameters
+     *
+     * @param diffuse The diffuse texture
+     * @param specular The specular map
+     * @param normal The normal map
+     * @param shininess The shininess
+     * @return A reference to the new material
+     */
+    MaterialRef create(const TextureRef& diffuse, const TextureRef& specular,
+                       const TextureRef& normal, float shininess);
+
+    /**
      * @brief Creates or returns an existing material from a texture
      *
      * @param texture The texture the material should use

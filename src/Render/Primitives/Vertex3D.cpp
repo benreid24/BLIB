@@ -29,9 +29,10 @@ void computeSingleTBN(Vertex3D& v1, Vertex3D& v2, Vertex3D& v3) {
     bitangent.z = f * (-deltaUV2.x * edge1.z + deltaUV1.x * edge2.z);
 
     const glm::vec3 normal = glm::normalize(glm::cross(edge2, edge1));
-    v1.normal              = normal;
-    v2.normal              = normal;
-    v3.normal              = normal;
+
+    v1.normal = normal;
+    v2.normal = normal;
+    v3.normal = normal;
 
     v1.tangent = tangent;
     v2.tangent = tangent;

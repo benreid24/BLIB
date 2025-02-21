@@ -58,8 +58,9 @@ void main() {
 
     vec3 viewDir = normalize(camera.camPos - fs_in.fragPos);
     uint normalIndex = material.normalId;
-    vec3 tangentSpaceNormal = vec3(texture(textures[normalIndex], fs_in.texCoords));
-    vec3 normal = normalize(fs_in.TBN * tangentSpaceNormal);
+    vec3 normal = texture(textures[normalIndex], fs_in.texCoords).rgb;
+    normal = normalize(normal * 2.0 - 1.0);
+    normal = normalize(fs_in.TBN * normal);
 
     mat3 lightColors = mat3(vec3(0.0), vec3(lighting.info.globalAmbient), vec3(0.0));
     lightColors += computeSunLight(lighting.info.sun, normal, viewDir, material.shininess);

@@ -90,6 +90,7 @@ private:
     bl::gfx::Cube cube4;
     bl::gfx::Cube cube5;
     bl::gfx::Cube cube6;
+    bl::gfx::Cube cube7;
 
     bl::gfx::Sphere light1;
     bl::gfx::Sphere light2;
@@ -153,6 +154,16 @@ private:
         cube6.getTransform().setPosition({-2.f, 0.75f, -2.f});
         cube6.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
+        auto diffuse3 =
+            engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/brickwall.jpg");
+        auto normal3 = engine.renderer().texturePool().getOrLoadTexture(
+            "Resources/Textures/brickwall_normal.jpg");
+        auto material3 = engine.renderer().materialPool().create(diffuse3, diffuse3, normal3, 0.5f);
+
+        cube7.create(*world, 1.f, material3);
+        cube7.getTransform().setPosition({2.f, 1.75f, 0.f});
+        cube7.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
         const bl::rc::Color light1Color(sf::Color(80, 180, 255));
         light1.create(*world, 0.2f, 4, {}, bl::rc::Config::MaterialPipelineIds::Mesh3D);
         light1.getTransform().setPosition({1.f, 2.f, 1.f});
@@ -164,7 +175,7 @@ private:
 
         const bl::rc::Color light2Color(sf::Color::White);
         light2.create(*world, 0.2f, 4, {}, bl::rc::Config::MaterialPipelineIds::Mesh3D);
-        light2.getTransform().setPosition({-1.f, 3.f, -2.f});
+        light2.getTransform().setPosition({-0.7f, 2.f, -1.6f});
         light2.setColor(light2Color);
         light2.addToScene(scene, bl::rc::UpdateSpeed::Static);
         auto light2Handle                     = scene->getLighting().createPointLight();
