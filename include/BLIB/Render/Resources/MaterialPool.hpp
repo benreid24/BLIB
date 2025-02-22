@@ -39,11 +39,14 @@ public:
      * @param diffuse The diffuse texture
      * @param specular The specular map
      * @param normal The normal map
+     * @param parallax The parallax map
+     * @param heightScale The scale to apply to the parallax map
      * @param shininess The shininess
      * @return A reference to the new material
      */
     MaterialRef create(const TextureRef& diffuse, const TextureRef& specular,
-                       const TextureRef& normal, float shininess);
+                       const TextureRef& normal, const TextureRef& parallax, float heightScale,
+                       float shininess);
 
     /**
      * @brief Creates or returns an existing material from a texture
@@ -64,9 +67,32 @@ public:
                                                   const TextureRef& specular);
 
     /**
+     * @brief Creates or returns an existing material from a diffuse, normal, and parallax texture
+     *
+     * @param diffuse The diffuse map
+     * @param normal The normal map
+     * @param parallax The parallax map
+     * @param heightScale The scale to apply to the parallax map
+     * @return A ref to the material
+     */
+    MaterialRef getOrCreateFromNormalAndParallax(const TextureRef& diffuse,
+                                                 const TextureRef& normal,
+                                                 const TextureRef& parallax, float heightScale);
+
+    /**
      * @brief Returns a layout binding to be used for descriptor set layout creation
      */
     VkDescriptorSetLayoutBinding getLayoutBinding() const;
+
+    /**
+     * @brief Returns the default normal map for materials without an explicit map
+     */
+    TextureRef getDefaultNormalMap();
+
+    /**
+     * @brief Returns the default parallax map for materials without an explicit map
+     */
+    TextureRef getDefaultParallaxMap();
 
 private:
     static constexpr std::uint32_t InvalidId = std::numeric_limits<std::uint32_t>::max();
@@ -87,12 +113,18 @@ private:
 
     // default maps
     TextureRef defaultNormalMap;
+    TextureRef defaultParallaxMap;
 
     // indexes
     std::vector<std::uint32_t> textureIdToMaterialId;
     std::unordered_map<std::pair<std::uint32_t, std::uint32_t>, std::uint32_t,
                        util::PairHash<std::uint32_t, std::uint32_t>>
         diffuseSpecularToMaterialId;
+    std::unordered_map<
+        std::pair<std::uint32_t, std::pair<std::uint32_t, std::uint32_t>>, std::uint32_t,
+        util::PairHash<std::uint32_t, std::pair<std::uint32_t, std::uint32_t>,
+                       std::hash<std::uint32_t>, util::PairHash<std::uint32_t, std::uint32_t>>>
+        normalParallaxToMaterialId;
 
     MaterialPool(Renderer& renderer);
     void init(vk::PerFrame<VkDescriptorSet>& descriptorSets,

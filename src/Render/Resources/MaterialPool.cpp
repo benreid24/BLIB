@@ -12,6 +12,7 @@ namespace
 {
 bool defaultsInitialized = false;
 sf::Image normalImage;
+sf::Image parallaxImage;
 } // namespace
 
 MaterialPool::MaterialPool(Renderer& renderer)
@@ -19,11 +20,12 @@ MaterialPool::MaterialPool(Renderer& renderer)
 , freeIds(MaxMaterialCount) {}
 
 MaterialRef MaterialPool::create(const TextureRef& diffuse, const TextureRef& specular,
-                                 const TextureRef& normal, float shininess) {
+                                 const TextureRef& normal, const TextureRef& parallax,
+                                 float heightScale, float shininess) {
     std::unique_lock lock(mutex);
 
     const auto newId = freeIds.allocate();
-    materials[newId] = mat::Material(diffuse, specular, normal, shininess);
+    materials[newId] = mat::Material(diffuse, specular, normal, parallax, heightScale, shininess);
     markForUpdate(newId);
     return MaterialRef(this, newId);
 }
@@ -43,7 +45,7 @@ MaterialRef MaterialPool::getOrCreateFromTexture(const res::TextureRef& texture)
     }
     const auto newId                    = freeIds.allocate();
     textureIdToMaterialId[texture.id()] = newId;
-    materials[newId]                    = mat::Material(texture, texture, defaultNormalMap);
+    materials[newId] = mat::Material(texture, texture, defaultNormalMap, defaultParallaxMap);
     markForUpdate(newId);
     return MaterialRef(this, newId);
 }
@@ -60,7 +62,7 @@ MaterialRef MaterialPool::getOrCreateFromDiffuseAndSpecular(const TextureRef& di
 
     const auto newId                 = freeIds.allocate();
     diffuseSpecularToMaterialId[key] = newId;
-    materials[newId]                 = mat::Material(diffuse, specular, defaultNormalMap);
+    materials[newId] = mat::Material(diffuse, specular, defaultNormalMap, defaultParallaxMap);
     markForUpdate(newId);
     return MaterialRef(this, newId);
 }
@@ -101,10 +103,33 @@ void MaterialPool::checkLazyInit() {
         normalImage.create(2, 2, sf::Color(128, 128, 255));
         defaultNormalMap = renderer.texturePool().createTexture(
             normalImage, renderer.vulkanState().samplerCache.filteredRepeated());
+
+        parallaxImage.create(2, 2, sf::Color::Black);
+        defaultParallaxMap = renderer.texturePool().createTexture(
+            parallaxImage, renderer.vulkanState().samplerCache.filteredRepeated());
     }
 }
 
 void MaterialPool::cleanup() { gpuPool.destroy(); }
+
+MaterialRef MaterialPool::getOrCreateFromNormalAndParallax(const TextureRef& diffuse,
+                                                           const TextureRef& normal,
+                                                           const TextureRef& parallax,
+                                                           float heightScale) {
+    std::unique_lock lock(mutex);
+
+    checkLazyInit();
+
+    const auto key = std::make_pair(diffuse.id(), std::make_pair(normal.id(), parallax.id()));
+    const auto it  = normalParallaxToMaterialId.find(key);
+    if (it != normalParallaxToMaterialId.end()) { return MaterialRef(this, it->second); }
+
+    const auto newId                = freeIds.allocate();
+    normalParallaxToMaterialId[key] = newId;
+    materials[newId] = mat::Material(diffuse, diffuse, normal, parallax, heightScale);
+    markForUpdate(newId);
+    return MaterialRef(this, newId);
+}
 
 VkDescriptorSetLayoutBinding MaterialPool::getLayoutBinding() const {
     VkDescriptorSetLayoutBinding binding{};
@@ -142,11 +167,23 @@ void MaterialPool::onFrameStart() {
             d.diffuseTextureId  = m.getTexture().id();
             d.normalTextureId   = m.getNormalMap().id();
             d.specularTextureId = m.getSpecularMap().id();
+            d.parallaxTextureId = m.getParallaxMap().id();
+            d.heightScale       = m.getHeightScale();
             d.shininess         = m.getShininess();
         }
         toSync.clear();
         gpuPool.queueTransfer(tfr::Transferable::SyncRequirement::Immediate);
     }
+}
+
+TextureRef MaterialPool::getDefaultNormalMap() {
+    checkLazyInit();
+    return defaultNormalMap;
+}
+
+TextureRef MaterialPool::getDefaultParallaxMap() {
+    checkLazyInit();
+    return defaultParallaxMap;
 }
 
 } // namespace res

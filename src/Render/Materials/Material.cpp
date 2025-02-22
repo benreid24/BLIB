@@ -10,11 +10,14 @@ Material::Material()
 : shininess(0.5f) {}
 
 Material::Material(const res::TextureRef& diffuse, const res::TextureRef& specular,
-                   const res::TextureRef& normal, float shininess)
+                   const res::TextureRef& normal, const res::TextureRef& parallax,
+                   float heightScale, float shininess)
 : texture(diffuse)
 , specularMap(specular)
 , normalMap(normal)
-, shininess(shininess) {}
+, parallaxMap(parallax)
+, shininess(shininess)
+, heightScale(heightScale) {}
 
 } // namespace mat
 } // namespace rc

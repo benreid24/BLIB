@@ -123,11 +123,29 @@ private:
             engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/container.jpg");
         auto material = engine.renderer().materialPool().getOrCreateFromTexture(containerTexture);
 
-        cube1.create(*world, 1.f, material);
+        auto brickTexture =
+            engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/bricks2.jpg");
+        auto brickNormal = engine.renderer().texturePool().getOrLoadTexture(
+            "Resources/Textures/bricks2_normal.jpg");
+        auto brickParallax =
+            engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/bricks2_disp.jpg");
+        auto brickMaterial = engine.renderer().materialPool().getOrCreateFromNormalAndParallax(
+            brickTexture, brickNormal, brickParallax, 0.1f);
+
+        auto woodTexture =
+            engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/wood.png");
+        auto toyBoxNormal = engine.renderer().texturePool().getOrLoadTexture(
+            "Resources/Textures/toy_box_normal.png");
+        auto toyBoxParallax =
+            engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/toy_box_disp.png");
+        auto toyBoxMaterial = engine.renderer().materialPool().getOrCreateFromNormalAndParallax(
+            woodTexture, toyBoxNormal, toyBoxParallax, 0.1f);
+
+        cube1.create(*world, 1.f, brickMaterial);
         cube1.getTransform().setPosition({0.f, 0.501f, 0.f});
         cube1.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
-        cube2.create(*world, 1.f, material);
+        cube2.create(*world, 1.f, toyBoxMaterial);
         cube2.getTransform().setPosition({-2.f, 1.501f, 1.f});
         cube2.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
@@ -158,7 +176,13 @@ private:
             engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/brickwall.jpg");
         auto normal3 = engine.renderer().texturePool().getOrLoadTexture(
             "Resources/Textures/brickwall_normal.jpg");
-        auto material3 = engine.renderer().materialPool().create(diffuse3, diffuse3, normal3, 0.5f);
+        auto material3 = engine.renderer().materialPool().create(
+            diffuse3,
+            diffuse3,
+            normal3,
+            engine.renderer().materialPool().getDefaultParallaxMap(),
+            0.f,
+            0.5f);
 
         cube7.create(*world, 1.f, material3);
         cube7.getTransform().setPosition({2.f, 1.75f, 0.f});
