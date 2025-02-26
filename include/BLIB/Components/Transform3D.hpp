@@ -3,6 +3,7 @@
 
 #include <BLIB/Components/Orientation3D.hpp>
 #include <BLIB/Render/Components/DescriptorComponentBase.hpp>
+#include <BLIB/Render/Descriptors/Builtin/Transform3DPayload.hpp>
 #include <glm/glm.hpp>
 
 namespace bl
@@ -14,7 +15,8 @@ namespace com
  *
  * @ingroup Components
  */
-class Transform3D : public rc::rcom::DescriptorComponentBase<Transform3D, glm::mat4> {
+class Transform3D
+: public rc::rcom::DescriptorComponentBase<Transform3D, rc::ds::Transform3DPayload> {
 public:
     /**
      * @brief Creates a new transform with no scaling and sane defaults
@@ -73,9 +75,9 @@ public:
     /**
      * @brief Computes the transform and populates the given transform matrix
      *
-     * @param dest The matrix to populate
+     * @param dest The payload to populate
      */
-    virtual void refreshDescriptor(glm::mat4& dest) override;
+    virtual void refreshDescriptor(rc::ds::Transform3DPayload& dest) override;
 
 private:
     glm::vec3 position;

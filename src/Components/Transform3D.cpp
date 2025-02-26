@@ -39,10 +39,11 @@ void Transform3D::scale(const glm::vec3& f) {
     markDirty();
 }
 
-void Transform3D::refreshDescriptor(glm::mat4& dest) {
-    dest = glm::translate(position);
-    dest *= glm::rotate(glm::radians(orientation.getRoll()), orientation.getFaceDirection());
-    dest *= glm::scale(scaleFactors);
+void Transform3D::refreshDescriptor(rc::ds::Transform3DPayload& dest) {
+    glm::mat4 transform = glm::translate(position);
+    transform *= glm::rotate(glm::radians(orientation.getRoll()), orientation.getFaceDirection());
+    transform *= glm::scale(scaleFactors);
+    dest = transform;
 }
 
 } // namespace com

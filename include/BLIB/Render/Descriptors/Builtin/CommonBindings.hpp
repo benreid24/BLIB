@@ -4,6 +4,7 @@
 #include <BLIB/Components/MaterialInstance.hpp>
 #include <BLIB/Components/Transform2D.hpp>
 #include <BLIB/Components/Transform3D.hpp>
+#include <BLIB/Render/Descriptors/Builtin/Transform3DPayload.hpp>
 #include <BLIB/Render/Descriptors/Generic/ObjectStorageBuffer.hpp>
 #include <BLIB/Render/Descriptors/GenericDescriptorSetInstance.hpp>
 #include <BLIB/Render/Materials/MaterialId.hpp>
@@ -20,7 +21,7 @@ namespace ds
 namespace priv
 {
 using Transform2DBinding = ObjectStorageBuffer<glm::mat4, com::Transform2D>;
-using Transform3DBinding = ObjectStorageBuffer<glm::mat4, com::Transform3D>;
+using Transform3DBinding = ObjectStorageBuffer<Transform3DPayload, com::Transform3D>;
 using TextureBinding =
     ObjectStorageBuffer<std::uint32_t, com::MaterialInstance, true, buf::StaticSSBO<std::uint32_t>,
                         buf::StaticSSBO<std::uint32_t>>;
