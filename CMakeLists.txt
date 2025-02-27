@@ -60,6 +60,12 @@ target_include_directories(volk SYSTEM PUBLIC ${BLIB_PATH}/lib/Vulkan-Headers/in
 
 add_subdirectory(lib/box2d)
 
+set(BUILD_SHARED_LIBS Off)
+set(ASSIMP_BUILD_TESTS Off)
+set(ASSIMP_INSTALL Off)
+set(USE_STATIC_CRT On)
+add_subdirectory(lib/assimp)
+
 if(APPLE)
     set(GLFW_LIBRARY_TYPE "STATIC")
     add_subdirectory(lib/glfw)

@@ -63,7 +63,8 @@ private:
     util::VectorRef<T> light;
 
     Light3D(Scene3DLighting* owner, std::vector<T>& v, std::size_t i)
-    : light(v, i) {}
+    : owner(owner)
+    , light(v, i) {}
 
     friend class Scene3DLighting;
 };

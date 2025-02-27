@@ -103,6 +103,7 @@ function(configure_blib_target target_name)
         ${BLIB_PATH}/lib/volk
         ${BLIB_PATH}/lib/plf_colony
         ${BLIB_PATH}/lib/box2d/include
+        ${BLIB_PATH}/lib/assimp/include
     )
     if(APPLE)
         target_include_directories(${target_name} SYSTEM PUBLIC ${BLIB_PATH}/lib/glfw/include)

@@ -22,7 +22,7 @@ public:
 
     virtual ~CameraController() = default;
 
-    virtual void update(float dt) override {
+    virtual void update(float) override {
         const float cosPitch = std::cos(pitch);
         const float x        = std::cos(yaw) * distance * cosPitch;
         const float y        = std::sin(pitch) * distance;

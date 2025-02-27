@@ -147,9 +147,10 @@ template<std::uint32_t I>
 VkDescriptorType Bindings<TBindings...>::getTypeHelper(std::uint32_t index) const {
     if (index == I) { return std::get<I>(bindings).getDescriptorType(); }
     if constexpr (I + 1 < sizeof...(TBindings)) { return getTypeHelper<I + 1>(index); }
-
-    // unreachable ideally
-    throw std::runtime_error("Failed to find binding");
+    else {
+        // unreachable ideally
+        throw std::runtime_error("Failed to find binding");
+    }
 }
 
 template<typename... TBindings>
