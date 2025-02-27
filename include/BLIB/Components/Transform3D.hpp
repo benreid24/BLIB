@@ -1,10 +1,11 @@
 #ifndef BLIB_COMPONENTS_TRANSFORM3D_HPP
 #define BLIB_COMPONENTS_TRANSFORM3D_HPP
 
-#include <BLIB/Components/Orientation3D.hpp>
 #include <BLIB/Render/Components/DescriptorComponentBase.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Transform3DPayload.hpp>
 #include <glm/glm.hpp>
+#include <glm/gtc/quaternion.hpp>
+#include <glm/gtx/quaternion.hpp>
 
 namespace bl
 {
@@ -40,18 +41,50 @@ public:
     /**
      * @brief Returns the position of the transform
      */
-    constexpr const glm::vec3& getPosition() const;
+    const glm::vec3& getPosition() const;
 
     /**
-     * @brief Returns the orientation of the transform and marks itself as dirty. Use this if you
-     *        are going to modify the orientation
+     * @brief Returns the rotation quaternion of the transform
      */
-    Orientation3D& getOrientationForChange();
+    const glm::quat& getRotation() const;
 
     /**
-     * @brief Returns the orientation of the transform
+     * @brief Sets the rotation of the transform to the given Euler angles
+     *
+     * @param eulerAngles The Euler angles to rotate to
      */
-    constexpr const Orientation3D& getOrientation() const;
+    void setRotationEulerAngles(const glm::vec3& eulerAngles);
+
+    /**
+     * @brief Rotates the transform about a given axis
+     *
+     * @param axis The axis to rotate about
+     * @param angle The angle to rotate in degrees
+     */
+    void rotate(const glm::vec3& axis, float angle);
+
+    /**
+     * @brief Orients the transform to face the given position
+     *
+     * @param pos The position to look at
+     * @param up The up vector
+     */
+    void lookAt(const glm::vec3& pos, const glm::vec3& up = {0.f, 1.f, 0.f});
+
+    /**
+     * @brief Returns the forward direction unit vector local to this transform
+     */
+    glm::vec3 getForwardDir() const;
+
+    /**
+     * @brief Returns the right direction unit vector local to this transform
+     */
+    glm::vec3 getRightDir() const;
+
+    /**
+     * @brief Returns the up direction unit vector local to this transform
+     */
+    glm::vec3 getUpDir() const;
 
     /**
      * @brief Sets the scale of the transform
@@ -70,7 +103,7 @@ public:
     /**
      * @brief Returns the current scale factors of the transform
      */
-    constexpr const glm::vec3& getScale() const;
+    const glm::vec3& getScale() const;
 
     /**
      * @brief Computes the transform and populates the given transform matrix
@@ -81,17 +114,17 @@ public:
 
 private:
     glm::vec3 position;
-    Orientation3D orientation;
+    glm::quat rotation;
     glm::vec3 scaleFactors;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr const glm::vec3& Transform3D::getPosition() const { return position; }
+inline const glm::vec3& Transform3D::getPosition() const { return position; }
 
-inline constexpr const Orientation3D& Transform3D::getOrientation() const { return orientation; }
+inline const glm::quat& Transform3D::getRotation() const { return rotation; }
 
-inline constexpr const glm::vec3& Transform3D::getScale() const { return scaleFactors; }
+inline const glm::vec3& Transform3D::getScale() const { return scaleFactors; }
 
 } // namespace com
 } // namespace bl

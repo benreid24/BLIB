@@ -133,5 +133,6 @@ void Sphere::setColor(const rc::Color& c) {
 void Sphere::scaleToSize(const glm::vec2&) {
     // noop
 }
+
 } // namespace gfx
 } // namespace bl

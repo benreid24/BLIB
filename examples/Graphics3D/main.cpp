@@ -94,6 +94,7 @@ private:
 
     bl::gfx::Sphere light1;
     bl::gfx::Sphere light2;
+    bl::gfx::Cone light3;
 
     virtual const char* name() const override { return "DemoState"; }
 
@@ -206,6 +207,13 @@ private:
         light2Handle.get().color              = light2Color;
         light2Handle.get().pos                = light2.getTransform().getPosition();
         light2Handle.get().attenuation.linear = light2Handle.get().attenuation.quadratic = 0.15f;
+
+        const bl::rc::Color light3Color(sf::Color(255, 100, 50));
+        light3.create(*world, 0.4f, 0.12f, 4, {}, bl::rc::Config::MaterialPipelineIds::Mesh3D);
+        light3.getTransform().setPosition({2.5f, 2.f, 3.f});
+        light3.getTransform().lookAt({0.f, 0.75f, 0.f});
+        // light3.setColor(light3Color);
+        light3.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
         bl::event::Dispatcher::subscribe(controller);
     }

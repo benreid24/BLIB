@@ -12,6 +12,7 @@ target_sources(BLIB PUBLIC
 	BatchSpriteSimple.hpp
 	BatchTriangle.hpp
 	Circle.hpp
+	Cone.hpp
 	Drawable.hpp
 	Dummy2D.hpp
 	Icon.hpp

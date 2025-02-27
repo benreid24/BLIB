@@ -58,7 +58,7 @@ public:
     /**
      * @brief Returns a normalized direction vector that the orientation is facing
      */
-    constexpr const glm::vec3& getFaceDirection() const;
+    const glm::vec3& getFaceDirection() const;
 
     /**
      * @brief Sets the pitch angle of the orientation
@@ -110,7 +110,7 @@ public:
     /**
      * @brief Returns the roll of the orientation in degrees
      */
-    constexpr float getRoll() const;
+    float getRoll() const;
 
     /**
      * @brief Sets the roll of the orientation
@@ -133,9 +133,9 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr float Orientation3D::getRoll() const { return roll; }
+inline float Orientation3D::getRoll() const { return roll; }
 
-inline constexpr const glm::vec3& Orientation3D::getFaceDirection() const { return faceDir; }
+inline const glm::vec3& Orientation3D::getFaceDirection() const { return faceDir; }
 
 } // namespace com
 } // namespace bl
