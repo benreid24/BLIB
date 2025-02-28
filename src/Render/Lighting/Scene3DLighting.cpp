@@ -59,7 +59,12 @@ void Scene3DLighting::sync() {
 
     di                                      = 0;
     instance.globalLightInfo[0].nSpotLights = activeSpots.size();
-    for (std::size_t i : activeSpots) { instance.spotlights[di++] = spotLights[i]; }
+    for (std::size_t i : activeSpots) {
+        auto& light       = instance.spotlights[di++];
+        light             = spotLights[i];
+        light.cutoff      = std::cos(glm::radians(light.cutoff));
+        light.outerCutoff = std::cos(glm::radians(light.outerCutoff));
+    }
 }
 
 } // namespace lgt

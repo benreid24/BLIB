@@ -44,10 +44,16 @@ void Transform3D::rotate(const glm::vec3& axis, float angle) {
     markDirty();
 }
 
-void Transform3D::lookAt(const glm::vec3& pos, const glm::vec3& up) {
+void Transform3D::lookAt(const glm::vec3& pos, const glm::vec3& worldUp) {
     glm::vec3 forward = glm::normalize(pos - position);
-    glm::vec3 right   = glm::normalize(glm::cross(up, forward));
-    glm::vec3 newUp   = glm::cross(forward, right);
+
+    glm::vec3 up = worldUp;
+    if (glm::abs(glm::dot(forward, worldUp)) > 0.999f) {
+        up = glm::abs(forward.y) > 0.999f ? glm::vec3(1, 0, 0) : glm::vec3(0, 1, 0);
+    }
+
+    glm::vec3 right = glm::normalize(glm::cross(up, forward));
+    glm::vec3 newUp = glm::cross(forward, right);
 
     glm::mat3 rotationMatrix(right, newUp, forward);
     rotation = glm::quat_cast(rotationMatrix);
@@ -55,7 +61,7 @@ void Transform3D::lookAt(const glm::vec3& pos, const glm::vec3& up) {
     markDirty();
 }
 
-glm::vec3 Transform3D::getForwardDir() const { return rotation * glm::vec3(0.f, 0.f, -1.f); }
+glm::vec3 Transform3D::getForwardDir() const { return rotation * glm::vec3(0.f, 0.f, 1.f); }
 
 glm::vec3 Transform3D::getRightDir() const { return rotation * glm::vec3(1.f, 0.f, 0.f); }
 

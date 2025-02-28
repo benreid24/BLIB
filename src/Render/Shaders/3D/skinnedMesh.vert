@@ -46,5 +46,5 @@ void main() {
     vec3 N = normalize(vec3(model.normal * inNormal));
     T = normalize(T - dot(T, N) * N);
     vec3 B = cross(N, T);
-    vs_out.TBN = mat3(T, B, N);
+    vs_out.TBN = mat3(T, -B, N);
 }

@@ -208,12 +208,19 @@ private:
         light2Handle.get().pos                = light2.getTransform().getPosition();
         light2Handle.get().attenuation.linear = light2Handle.get().attenuation.quadratic = 0.15f;
 
+        constexpr glm::vec3 light3PointAt = {0.f, 0.5f, .75f};
         const bl::rc::Color light3Color(sf::Color(255, 100, 50));
         light3.create(*world, 0.4f, 0.12f, 4, {}, bl::rc::Config::MaterialPipelineIds::Mesh3D);
-        light3.getTransform().setPosition({2.5f, 2.f, 3.f});
-        light3.getTransform().lookAt({0.f, 0.75f, 0.f});
-        // light3.setColor(light3Color);
+        light3.getTransform().setPosition({0.5f, 1.5f, 3.f});
+        light3.getTransform().lookAt(light3PointAt);
+        light3.setColor(light3Color);
         light3.addToScene(scene, bl::rc::UpdateSpeed::Static);
+        auto light3Handle        = scene->getLighting().createSpotlight();
+        light3Handle.get().color = light3Color;
+        light3Handle.get().pos =
+            light3.getTransform().getPosition() + light3.getTransform().getForwardDir() * 0.2f;
+        light3Handle.get().attenuation.linear = light3Handle.get().attenuation.quadratic = 0.05f;
+        light3Handle.get().pointAt(light3PointAt);
 
         bl::event::Dispatcher::subscribe(controller);
     }

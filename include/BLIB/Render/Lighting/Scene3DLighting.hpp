@@ -112,14 +112,14 @@ SpotLightHandle Scene3DLighting::createSpotlight(TArgs&&... args) {
     }
 
     const std::size_t i = spotIds.allocate();
-    new (&spotLights[i]) PointLight3D(std::forward<TArgs>(args)...);
+    new (&spotLights[i]) SpotLight3D(std::forward<TArgs>(args)...);
     activeSpots.emplace_back(i);
     return SpotLightHandle{this, spotLights, i};
 }
 
 template<typename... TArgs>
 PointLightHandle Scene3DLighting::createPointLight(TArgs&&... args) {
-    if (!spotIds.available()) {
+    if (!pointIds.available()) {
         BL_LOG_ERROR << "Exceeded max point light count";
         return PointLightHandle{
             this, pointLights, util::Random::get<std::size_t>(0, pointLights.size())};

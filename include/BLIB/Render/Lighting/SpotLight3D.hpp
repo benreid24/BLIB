@@ -17,9 +17,9 @@ namespace lgt
  * @ingroup Renderer
  */
 struct SpotLight3D {
-    glm::vec3 pos;
+    alignas(16) glm::vec3 pos;
     float cutoff;
-    glm::vec3 dir;
+    alignas(16) glm::vec3 dir;
     float outerCutoff;
     Attenuation attenuation;
     Color3D color;
@@ -34,6 +34,13 @@ struct SpotLight3D {
     , outerCutoff(20.f)
     , attenuation()
     , color() {}
+
+    /**
+     * @brief Helper method to point the light at a specific position
+     *
+     * @param position The position to point at
+     */
+    void pointAt(const glm::vec3& position) { dir = glm::normalize(position - pos); }
 };
 
 } // namespace lgt
