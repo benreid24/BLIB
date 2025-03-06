@@ -12,6 +12,7 @@ target_sources(BLIB PUBLIC
     Input.hpp
     Interfaces.hpp
     Logging.hpp
+    Models.hpp
     Parser.hpp
     Particles.hpp
     Render.hpp
@@ -36,6 +37,7 @@ add_subdirectory(Input)
 add_subdirectory(Interfaces)
 add_subdirectory(Logging)
 add_subdirectory(Math)
+add_subdirectory(Models)
 add_subdirectory(Parser)
 add_subdirectory(Particles)
 add_subdirectory(Render)

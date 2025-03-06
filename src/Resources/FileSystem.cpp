@@ -20,6 +20,8 @@ bool FileSystem::useBundle(const std::string& bundlePath) {
     return true;
 }
 
+bool FileSystem::isUsingBundle() { return bundles.has_value(); }
+
 bool FileSystem::getData(const std::string& path, char** buffer, std::size_t& len) {
     if (bundles.has_value()) { return bundles.value().getResource(path, buffer, len); }
     else {
