@@ -100,7 +100,7 @@ vec2 parallaxMap(Material material, vec3 viewDir) {
 
     // map viewDir to tangent space
     mat3 invTBN = transpose(fs_in.TBN);
-    viewDir = viewDir * invTBN;
+    viewDir = normalize(fs_in.TBN * viewDir);
 
     // number of depth layers
     const float minLayers = 8;

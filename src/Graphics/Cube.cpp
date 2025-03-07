@@ -72,6 +72,18 @@ void Cube::create(engine::World& world, float size, const bl::rc::res::MaterialR
         component().gpuBuffer.indices()[b + 5] = vb + 3;
     }
 
+    // Right (+X)
+    component().gpuBuffer.vertices()[4].texCoord = glm::vec2(0.f, 1.f);
+    component().gpuBuffer.vertices()[5].texCoord = glm::vec2(1.f, 1.f);
+    component().gpuBuffer.vertices()[6].texCoord = glm::vec2(1.f, 0.f);
+    component().gpuBuffer.vertices()[7].texCoord = glm::vec2(0.f, 0.f);
+
+    // Left (-X)
+    component().gpuBuffer.vertices()[12].texCoord = glm::vec2(0.f, 1.f);
+    component().gpuBuffer.vertices()[13].texCoord = glm::vec2(1.f, 1.f);
+    component().gpuBuffer.vertices()[14].texCoord = glm::vec2(1.f, 0.f);
+    component().gpuBuffer.vertices()[15].texCoord = glm::vec2(0.f, 0.f);
+
     // preprocessing
     rc::prim::Vertex3D::computeTBN(component().gpuBuffer.vertices().data(),
                                    component().gpuBuffer.indices().data(),
