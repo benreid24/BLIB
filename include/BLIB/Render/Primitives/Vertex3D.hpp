@@ -21,7 +21,6 @@ struct Vertex3D {
     glm::vec4 color;
     glm::vec2 texCoord;
     glm::vec3 tangent;
-    glm::vec3 bitangent;
     glm::vec3 normal;
 
     /**
@@ -74,7 +73,7 @@ struct Vertex3D {
      *
      * @return Descriptions for each attribute
      */
-    static std::array<VkVertexInputAttributeDescription, 6> attributeDescriptions();
+    static std::array<VkVertexInputAttributeDescription, 5> attributeDescriptions();
 };
 
 } // namespace prim

@@ -21,7 +21,6 @@ struct Vertex3DSkinned {
     glm::vec4 color;
     glm::vec2 texCoord;
     glm::vec3 tangent;
-    glm::vec3 bitangent;
     glm::vec3 normal;
     std::uint32_t boneIndices[4];
     float boneWeights[4];
@@ -59,7 +58,7 @@ struct Vertex3DSkinned {
      *
      * @return Descriptions for each attribute
      */
-    static std::array<VkVertexInputAttributeDescription, 8> attributeDescriptions();
+    static std::array<VkVertexInputAttributeDescription, 7> attributeDescriptions();
 };
 
 } // namespace prim

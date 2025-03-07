@@ -23,11 +23,6 @@ void computeSingleTBN(Vertex3D& v1, Vertex3D& v2, Vertex3D& v3) {
     tangent.y = f * (deltaUV2.y * edge1.y - deltaUV1.y * edge2.y);
     tangent.z = f * (deltaUV2.y * edge1.z - deltaUV1.y * edge2.z);
 
-    glm::vec3 bitangent;
-    bitangent.x = f * (-deltaUV2.x * edge1.x + deltaUV1.x * edge2.x);
-    bitangent.y = f * (-deltaUV2.x * edge1.y + deltaUV1.x * edge2.y);
-    bitangent.z = f * (-deltaUV2.x * edge1.z + deltaUV1.x * edge2.z);
-
     const glm::vec3 normal = glm::normalize(glm::cross(edge2, edge1));
 
     v1.normal = normal;
@@ -37,10 +32,6 @@ void computeSingleTBN(Vertex3D& v1, Vertex3D& v2, Vertex3D& v3) {
     v1.tangent = tangent;
     v2.tangent = tangent;
     v3.tangent = tangent;
-
-    v1.bitangent = bitangent;
-    v2.bitangent = bitangent;
-    v3.bitangent = bitangent;
 }
 } // namespace
 
@@ -49,7 +40,6 @@ Vertex3D::Vertex3D()
 , color(1.f)
 , texCoord()
 , tangent()
-, bitangent()
 , normal() {}
 
 Vertex3D::Vertex3D(const glm::vec3& pos, const glm::vec2& texCoord)
@@ -57,7 +47,6 @@ Vertex3D::Vertex3D(const glm::vec3& pos, const glm::vec2& texCoord)
 , texCoord(texCoord)
 , color(1.f)
 , tangent()
-, bitangent()
 , normal() {}
 
 Vertex3D::Vertex3D(const glm::vec3& pos, const glm::vec4& color)
@@ -65,7 +54,6 @@ Vertex3D::Vertex3D(const glm::vec3& pos, const glm::vec4& color)
 , texCoord()
 , color(color)
 , tangent()
-, bitangent()
 , normal() {}
 
 void Vertex3D::computeTBN(Vertex3D* vertices, std::size_t n) {
@@ -92,8 +80,8 @@ VkVertexInputBindingDescription Vertex3D::bindingDescription() {
     return bindingDescription;
 }
 
-std::array<VkVertexInputAttributeDescription, 6> Vertex3D::attributeDescriptions() {
-    std::array<VkVertexInputAttributeDescription, 6> attributeDescriptions{};
+std::array<VkVertexInputAttributeDescription, 5> Vertex3D::attributeDescriptions() {
+    std::array<VkVertexInputAttributeDescription, 5> attributeDescriptions{};
 
     /*
     float: VK_FORMAT_R32_SFLOAT
@@ -126,17 +114,11 @@ std::array<VkVertexInputAttributeDescription, 6> Vertex3D::attributeDescriptions
     attributeDescriptions[3].format   = VK_FORMAT_R32G32B32_SFLOAT;
     attributeDescriptions[3].offset   = offsetof(Vertex3D, tangent);
 
-    // bitangent
+    // normal
     attributeDescriptions[4].binding  = 0;
     attributeDescriptions[4].location = 4;
     attributeDescriptions[4].format   = VK_FORMAT_R32G32B32_SFLOAT;
-    attributeDescriptions[4].offset   = offsetof(Vertex3D, bitangent);
-
-    // normal
-    attributeDescriptions[5].binding  = 0;
-    attributeDescriptions[5].location = 5;
-    attributeDescriptions[5].format   = VK_FORMAT_R32G32B32_SFLOAT;
-    attributeDescriptions[5].offset   = offsetof(Vertex3D, normal);
+    attributeDescriptions[4].offset   = offsetof(Vertex3D, normal);
 
     return attributeDescriptions;
 }

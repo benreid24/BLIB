@@ -11,7 +11,6 @@ Vertex3DSkinned::Vertex3DSkinned()
 , color(1.f)
 , texCoord()
 , tangent()
-, bitangent()
 , normal() {}
 
 Vertex3DSkinned::Vertex3DSkinned(const glm::vec3& pos, const glm::vec2& texCoord)
@@ -19,7 +18,6 @@ Vertex3DSkinned::Vertex3DSkinned(const glm::vec3& pos, const glm::vec2& texCoord
 , texCoord(texCoord)
 , color(1.f)
 , tangent()
-, bitangent()
 , normal() {}
 
 Vertex3DSkinned::Vertex3DSkinned(const glm::vec3& pos, const glm::vec4& color)
@@ -27,7 +25,6 @@ Vertex3DSkinned::Vertex3DSkinned(const glm::vec3& pos, const glm::vec4& color)
 , texCoord()
 , color(color)
 , tangent()
-, bitangent()
 , normal() {}
 
 VkVertexInputBindingDescription Vertex3DSkinned::bindingDescription() {
@@ -38,8 +35,8 @@ VkVertexInputBindingDescription Vertex3DSkinned::bindingDescription() {
     return bindingDescription;
 }
 
-std::array<VkVertexInputAttributeDescription, 8> Vertex3DSkinned::attributeDescriptions() {
-    std::array<VkVertexInputAttributeDescription, 8> attributeDescriptions{};
+std::array<VkVertexInputAttributeDescription, 7> Vertex3DSkinned::attributeDescriptions() {
+    std::array<VkVertexInputAttributeDescription, 7> attributeDescriptions{};
 
     /*
     float: VK_FORMAT_R32_SFLOAT
@@ -72,29 +69,23 @@ std::array<VkVertexInputAttributeDescription, 8> Vertex3DSkinned::attributeDescr
     attributeDescriptions[3].format   = VK_FORMAT_R32G32B32_SFLOAT;
     attributeDescriptions[3].offset   = offsetof(Vertex3DSkinned, tangent);
 
-    // bitangent
+    // normal
     attributeDescriptions[4].binding  = 0;
     attributeDescriptions[4].location = 4;
     attributeDescriptions[4].format   = VK_FORMAT_R32G32B32_SFLOAT;
-    attributeDescriptions[4].offset   = offsetof(Vertex3DSkinned, bitangent);
-
-    // normal
-    attributeDescriptions[5].binding  = 0;
-    attributeDescriptions[5].location = 5;
-    attributeDescriptions[5].format   = VK_FORMAT_R32G32B32_SFLOAT;
-    attributeDescriptions[5].offset   = offsetof(Vertex3DSkinned, normal);
+    attributeDescriptions[4].offset   = offsetof(Vertex3DSkinned, normal);
 
     // bone indices
-    attributeDescriptions[6].binding  = 0;
-    attributeDescriptions[6].location = 6;
-    attributeDescriptions[6].format   = VK_FORMAT_R32G32B32A32_UINT;
-    attributeDescriptions[6].offset   = offsetof(Vertex3DSkinned, boneIndices);
+    attributeDescriptions[5].binding  = 0;
+    attributeDescriptions[5].location = 5;
+    attributeDescriptions[5].format   = VK_FORMAT_R32G32B32A32_UINT;
+    attributeDescriptions[5].offset   = offsetof(Vertex3DSkinned, boneIndices);
 
     // bone weights
-    attributeDescriptions[7].binding  = 0;
-    attributeDescriptions[7].location = 7;
-    attributeDescriptions[7].format   = VK_FORMAT_R32G32B32A32_SFLOAT;
-    attributeDescriptions[7].offset   = offsetof(Vertex3DSkinned, boneWeights);
+    attributeDescriptions[6].binding  = 0;
+    attributeDescriptions[6].location = 6;
+    attributeDescriptions[6].format   = VK_FORMAT_R32G32B32A32_SFLOAT;
+    attributeDescriptions[6].offset   = offsetof(Vertex3DSkinned, boneWeights);
 
     return attributeDescriptions;
 }
