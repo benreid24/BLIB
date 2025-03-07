@@ -211,7 +211,7 @@ struct DefaultLoader<mdl::Model> : public LoaderBase<mdl::Model> {
     virtual ~DefaultLoader() = default;
     virtual bool load(const std::string& path, const char* buffer, std::size_t len, std::istream&,
                       mdl::Model& result) override {
-        if (!importer.import(buffer, len, result)) {
+        if (!importer.import(buffer, len, result, path)) {
             BL_LOG_ERROR << "Failed to load model: " << path;
             return false;
         }

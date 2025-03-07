@@ -2,6 +2,7 @@
 
 #include <BLIB/Logging.hpp>
 #include <BLIB/Resources.hpp>
+#include <BLIB/Util/FileUtil.hpp>
 #include <assimp/DefaultLogger.hpp>
 #include <assimp/IOStream.hpp>
 #include <assimp/IOSystem.hpp>
@@ -131,13 +132,13 @@ public:
 } // namespace
 
 Importer::Importer() {
-    Assimp::DefaultLogger::create("", Assimp::Logger::VERBOSE);
+    Assimp::DefaultLogger::create("", Assimp::Logger::NORMAL);
     Assimp::DefaultLogger::get()->attachStream(new DebugLogger(), Assimp::Logger::Debugging);
     Assimp::DefaultLogger::get()->attachStream(new InfoLogger(), Assimp::Logger::Info);
     Assimp::DefaultLogger::get()->attachStream(new WarnLogger(), Assimp::Logger::Warn);
     Assimp::DefaultLogger::get()->attachStream(new ErrorLogger(), Assimp::Logger::Err);
 
-    if (resource::FileSystem::isUsingBundle()) { importer.SetIOHandler(new AssimpIOSystem()); }
+    importer.SetIOHandler(new AssimpIOSystem());
 }
 
 bool Importer::import(const std::string& path, Model& result) {
@@ -147,16 +148,25 @@ bool Importer::import(const std::string& path, Model& result) {
         return false;
     }
     result.populate(scene);
+    importer.FreeScene();
     return true;
 }
 
-bool Importer::import(const char* buffer, std::size_t len, Model& result) {
+bool Importer::import(const char* buffer, std::size_t len, Model& result,
+                      const std::string& pathHint) {
+    if (!pathHint.empty()) {
+        const std::string dir = util::FileUtil::getPath(pathHint);
+        importer.GetIOHandler()->PushDirectory(dir.c_str());
+    }
     const aiScene* scene = importer.ReadFileFromMemory(buffer, len, PostProcessing);
     if (!scene) {
         BL_LOG_ERROR << "Failed to load model: " << importer.GetErrorString();
+        importer.GetIOHandler()->PopDirectory();
         return false;
     }
     result.populate(scene);
+    importer.GetIOHandler()->PopDirectory();
+    importer.FreeScene();
     return true;
 }
 

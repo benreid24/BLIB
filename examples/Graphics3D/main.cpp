@@ -2,7 +2,9 @@
 #include <BLIB/Components.hpp>
 #include <BLIB/Engine.hpp>
 #include <BLIB/Graphics.hpp>
+#include <BLIB/Models.hpp>
 #include <BLIB/Render.hpp>
+#include <BLIB/Resources.hpp>
 #include <BLIB/Systems.hpp>
 #include <iostream>
 
@@ -190,6 +192,9 @@ private:
         cube7.create(*world, 1.f, material3, bl::rc::Config::MaterialPipelineIds::Mesh3DMaterial);
         cube7.getTransform().setPosition({2.f, 1.75f, 0.f});
         cube7.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
+        auto model = bl::resource::ResourceManager<bl::mdl::Model>::load(
+            "Resources/Models/backpack/backpack.obj");
 
         const bl::rc::Color light1Color(sf::Color(80, 180, 255));
         light1.create(*world, 0.2f, 4, {}, bl::rc::Config::MaterialPipelineIds::Mesh3D);

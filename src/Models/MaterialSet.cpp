@@ -9,6 +9,7 @@ void MaterialSet::populate(const aiScene* scene) {
 
     for (unsigned int i = 0; i < scene->mNumMaterials; ++i) {
         const aiMaterial* src = scene->mMaterials[i];
+        Material& material    = materials.emplace_back();
 
         const auto loadTexture = [scene, src](aiTextureType type, Texture& tex) {
             aiString path;
@@ -21,12 +22,12 @@ void MaterialSet::populate(const aiScene* scene) {
             }
         };
 
-        src->Get(AI_MATKEY_BUMPSCALING, materials[i].heightScale);
-        src->Get(AI_MATKEY_SHININESS, materials[i].shininess);
-        loadTexture(aiTextureType_DIFFUSE, materials[i].diffuse);
-        loadTexture(aiTextureType_NORMALS, materials[i].normal);
-        loadTexture(aiTextureType_SPECULAR, materials[i].specular);
-        loadTexture(aiTextureType_HEIGHT, materials[i].parallax);
+        src->Get(AI_MATKEY_BUMPSCALING, material.heightScale);
+        src->Get(AI_MATKEY_SHININESS, material.shininess);
+        loadTexture(aiTextureType_DIFFUSE, material.diffuse);
+        loadTexture(aiTextureType_NORMALS, material.normal);
+        loadTexture(aiTextureType_SPECULAR, material.specular);
+        loadTexture(aiTextureType_HEIGHT, material.parallax);
     }
 }
 

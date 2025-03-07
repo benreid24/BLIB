@@ -36,9 +36,11 @@ public:
      * @param buffer The memory to load from
      * @param len The number of bytes available in buffer
      * @param result The model to populate with the imported data
+     * @param pathHint The path to set the directory to load other assets
      * @return True if the import was successful, false on error
      */
-    bool import(const char* buffer, std::size_t len, Model& result);
+    bool import(const char* buffer, std::size_t len, Model& result,
+                const std::string& pathHint = {});
 
 private:
     Assimp::Importer importer;

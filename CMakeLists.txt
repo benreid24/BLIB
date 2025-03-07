@@ -13,6 +13,9 @@ project(BLIB C CXX)
 set(BLIB_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 set(BLIB_PATH ${CMAKE_CURRENT_SOURCE_DIR} PARENT_SCOPE)
 
+# Use static msvc runtime in sync with assimp
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+
 # Determine glslc path
 if(APPLE)
     set(DEFAULT_GLSLC_PATH "${BLIB_PATH}/tools/glslc/Macos/glslc")
