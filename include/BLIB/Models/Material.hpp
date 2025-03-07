@@ -19,6 +19,14 @@ struct Material {
     Texture specular;
     Texture parallax;
     float shininess;
+    float heightScale;
+
+    /**
+     * @brief Initializes the material with sane defaults
+     */
+    Material()
+    : shininess(0.5f)
+    , heightScale(0.f) {}
 };
 
 } // namespace mdl

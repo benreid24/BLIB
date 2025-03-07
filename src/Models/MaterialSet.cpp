@@ -21,6 +21,7 @@ void MaterialSet::populate(const aiScene* scene) {
             }
         };
 
+        src->Get(AI_MATKEY_BUMPSCALING, materials[i].heightScale);
         src->Get(AI_MATKEY_SHININESS, materials[i].shininess);
         loadTexture(aiTextureType_DIFFUSE, materials[i].diffuse);
         loadTexture(aiTextureType_NORMALS, materials[i].normal);
