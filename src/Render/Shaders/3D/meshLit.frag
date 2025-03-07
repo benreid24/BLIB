@@ -8,6 +8,7 @@ layout(location = 0) in FS_IN {
     vec3 fragPos;
     vec4 fragColor;
     vec2 texCoords;
+    flat uint objectIndex;
     mat3 TBN;
 } fs_in;
 

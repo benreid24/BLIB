@@ -6,10 +6,15 @@ compile_shaders(
     SHADERS
 	empty.vert
 
-    3D/mesh.frag
     3D/mesh.vert
-    3D/skinnedMesh.vert
-    3D/skinnedMesh.frag
+    3D/meshLit.frag
+    3D/meshUnlit.frag
+    
+    3D/meshMaterial.vert
+    3D/meshMaterialLit.frag
+    3D/meshMaterialUnlit.frag
+
+    3D/meshSkinned.vert
 
     2D/skinned2d.vert
     2D/skinned2d.frag

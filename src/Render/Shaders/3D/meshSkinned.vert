@@ -6,6 +6,8 @@ layout(location = 2) in vec2 inTexCoords;
 layout(location = 3) in vec3 inTangent;
 layout(location = 4) in vec3 inBitangent;
 layout(location = 5) in vec3 inNormal;
+layout(location = 6) in ivec4 boneIndices;
+layout(location = 7) in vec4 boneWeights;
 
 struct ModelTransform {
     mat4 transform;
@@ -29,6 +31,8 @@ layout(set = 1, binding = 0) readonly buffer obj {
     ModelTransform model[];
 } object;
 
+// TODO - bone info + animation
+
 void main() {
     ModelTransform model = object.model[gl_InstanceIndex];
     vec4 inPos = vec4(inPosition, 1.0);
@@ -42,6 +46,6 @@ void main() {
     vec3 T = normalize(vec3(model.normal * inTangent));
     vec3 N = normalize(vec3(model.normal * inNormal));
     T = normalize(T - dot(T, N) * N);
-    vec3 B = cross(T, N);
+    vec3 B = cross(N, T);
     vs_out.TBN = mat3(T, B, N);
 }

@@ -142,19 +142,21 @@ private:
         auto toyBoxMaterial = engine.renderer().materialPool().getOrCreateFromNormalAndParallax(
             woodTexture, toyBoxNormal, toyBoxParallax, 0.1f);
 
-        cube1.create(*world, 1.f, brickMaterial);
+        cube1.create(
+            *world, 1.f, brickMaterial, bl::rc::Config::MaterialPipelineIds::Mesh3DMaterial);
         cube1.getTransform().setPosition({0.f, 0.501f, 0.f});
         cube1.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
-        cube2.create(*world, 1.f, toyBoxMaterial);
+        cube2.create(
+            *world, 1.f, toyBoxMaterial, bl::rc::Config::MaterialPipelineIds::Mesh3DMaterial);
         cube2.getTransform().setPosition({-2.f, 1.501f, 1.f});
         cube2.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
-        cube3.create(*world, 1.f, material);
+        cube3.create(*world, 1.f, material, bl::rc::Config::MaterialPipelineIds::Mesh3DMaterial);
         cube3.getTransform().setPosition({2.f, 1.501f, 2.f});
         cube3.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
-        cube4.create(*world, 1.f, material);
+        cube4.create(*world, 1.f, material, bl::rc::Config::MaterialPipelineIds::Mesh3DMaterial);
         cube4.getTransform().setPosition({-2.f, 4.501f, -1.f});
         cube4.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
@@ -165,11 +167,11 @@ private:
         auto material2 =
             engine.renderer().materialPool().getOrCreateFromDiffuseAndSpecular(diffuse, specular);
 
-        cube5.create(*world, 1.f, material2);
+        cube5.create(*world, 1.f, material2, bl::rc::Config::MaterialPipelineIds::Mesh3DMaterial);
         cube5.getTransform().setPosition({2.f, 1.501f, -2.f});
         cube5.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
-        cube6.create(*world, 1.f, material2);
+        cube6.create(*world, 1.f, material2, bl::rc::Config::MaterialPipelineIds::Mesh3DMaterial);
         cube6.getTransform().setPosition({-2.f, 0.75f, -2.f});
         cube6.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
@@ -185,7 +187,7 @@ private:
             0.f,
             0.5f);
 
-        cube7.create(*world, 1.f, material3);
+        cube7.create(*world, 1.f, material3, bl::rc::Config::MaterialPipelineIds::Mesh3DMaterial);
         cube7.getTransform().setPosition({2.f, 1.75f, 0.f});
         cube7.addToScene(scene, bl::rc::UpdateSpeed::Static);
 

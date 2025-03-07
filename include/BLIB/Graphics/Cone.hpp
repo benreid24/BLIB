@@ -17,7 +17,7 @@ namespace gfx
  * @ingroup Graphics
  */
 class Cone
-: public Drawable<com::Mesh>
+: public Drawable<com::BasicMesh>
 , public bcom::Transform3D {
 public:
     /**
@@ -37,7 +37,7 @@ public:
      */
     Cone(engine::World& world, float height, float radius, unsigned int pointCount,
          const bl::rc::res::MaterialRef& material = {},
-         std::uint32_t materialPipelineId         = rc::Config::MaterialPipelineIds::Mesh3DSkinned);
+         std::uint32_t materialPipelineId         = rc::Config::MaterialPipelineIds::Mesh3D);
 
     /**
      * @brief Creates the sphere with a given size and material
@@ -51,7 +51,7 @@ public:
      */
     void create(engine::World& world, float height, float radius, unsigned int pointCount,
                 const bl::rc::res::MaterialRef& material = {},
-                std::uint32_t materialPipelineId = rc::Config::MaterialPipelineIds::Mesh3DSkinned);
+                std::uint32_t materialPipelineId         = rc::Config::MaterialPipelineIds::Mesh3D);
 
     /**
      * @brief Sets the color of the sphere

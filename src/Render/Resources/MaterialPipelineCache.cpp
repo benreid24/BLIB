@@ -53,7 +53,8 @@ void MaterialPipelineCache::createBuiltins() {
     using PId = Config::PipelineIds;
 
     makeOverlayPair(MId::Mesh3D, PId::LitMesh3D, PId::UnlitMesh3D);
-    makeOverlayPair(MId::Mesh3DSkinned, PId::LitSkinnedMesh3D, PId::UnlitSkinnedMesh3D);
+    makeOverlayPair(MId::Mesh3DMaterial, PId::LitMesh3DMaterial, PId::UnlitMesh3DMaterial);
+    makeOverlayPair(MId::Mesh3DSkinned, PId::LitMesh3DSkinned, PId::UnlitMesh3DSkinned);
     makeOverlayPair(MId::Geometry2D, PId::Lit2DGeometry, PId::Unlit2DGeometry);
     makeOverlayPair(MId::Geometry2DSkinned, PId::LitSkinned2DGeometry, PId::UnlitSkinned2DGeometry);
     makeOverlayPair(MId::Slideshow2D, PId::SlideshowLit, PId::SlideshowUnlit);

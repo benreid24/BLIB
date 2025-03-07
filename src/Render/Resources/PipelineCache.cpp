@@ -97,36 +97,37 @@ void PipelineCache::createBuiltins() {
     rasterizer3d.frontFace                              = VK_FRONT_FACE_CLOCKWISE;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // TODO - actual 3d rendering pipelines
 
-    createPipeline(Config::PipelineIds::LitMesh3D,
-                   vk::PipelineParameters()
-                       .withShaders(Config::ShaderIds::MeshVertex, Config::ShaderIds::MeshFragment)
-                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
-                       .withVertexFormat(prim::Vertex3D::bindingDescription(),
-                                         prim::Vertex3D::attributeDescriptions())
-                       .withRasterizer(rasterizer3d)
-                       .withDepthStencilState(&depthStencilDepthEnabled)
-                       .addDescriptorSet<ds::Scene3DFactory>()
-                       .addDescriptorSet<ds::Object3DFactory>()
-                       .build());
+    createPipeline(
+        Config::PipelineIds::LitMesh3D,
+        vk::PipelineParameters()
+            .withShaders(Config::ShaderIds::MeshVertex, Config::ShaderIds::MeshFragmentLit)
+            .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+            .withVertexFormat(prim::Vertex3D::bindingDescription(),
+                              prim::Vertex3D::attributeDescriptions())
+            .withRasterizer(rasterizer3d)
+            .withDepthStencilState(&depthStencilDepthEnabled)
+            .addDescriptorSet<ds::Scene3DFactory>()
+            .addDescriptorSet<ds::Object3DFactory>()
+            .build());
 
-    createPipeline(Config::PipelineIds::UnlitMesh3D,
-                   vk::PipelineParameters()
-                       .withShaders(Config::ShaderIds::MeshVertex, Config::ShaderIds::MeshFragment)
-                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
-                       .withVertexFormat(prim::Vertex3D::bindingDescription(),
-                                         prim::Vertex3D::attributeDescriptions())
-                       .withRasterizer(rasterizer3d)
-                       .withDepthStencilState(&depthStencilDepthEnabled)
-                       .addDescriptorSet<ds::Scene3DFactory>()
-                       .addDescriptorSet<ds::Object3DFactory>()
-                       .build());
+    createPipeline(
+        Config::PipelineIds::UnlitMesh3D,
+        vk::PipelineParameters()
+            .withShaders(Config::ShaderIds::MeshVertex, Config::ShaderIds::MeshFragmentUnlit)
+            .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+            .withVertexFormat(prim::Vertex3D::bindingDescription(),
+                              prim::Vertex3D::attributeDescriptions())
+            .withRasterizer(rasterizer3d)
+            .withDepthStencilState(&depthStencilDepthEnabled)
+            .addDescriptorSet<ds::Scene3DFactory>()
+            .addDescriptorSet<ds::Object3DFactory>()
+            .build());
 
-    createPipeline(Config::PipelineIds::LitSkinnedMesh3D,
+    createPipeline(Config::PipelineIds::LitMesh3DMaterial,
                    vk::PipelineParameters()
-                       .withShaders(Config::ShaderIds::SkinnedMeshVertex,
-                                    Config::ShaderIds::SkinnedMeshFragment)
+                       .withShaders(Config::ShaderIds::MeshVertexMaterial,
+                                    Config::ShaderIds::MeshFragmentMaterialLit)
                        .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                        .withVertexFormat(prim::Vertex3D::bindingDescription(),
                                          prim::Vertex3D::attributeDescriptions())
@@ -137,10 +138,38 @@ void PipelineCache::createBuiltins() {
                        .addDescriptorSet<ds::Object3DFactory>()
                        .build());
 
-    createPipeline(Config::PipelineIds::UnlitSkinnedMesh3D,
+    createPipeline(Config::PipelineIds::UnlitMesh3DMaterial,
                    vk::PipelineParameters()
-                       .withShaders(Config::ShaderIds::SkinnedMeshVertex,
-                                    Config::ShaderIds::SkinnedMeshFragment)
+                       .withShaders(Config::ShaderIds::MeshVertexMaterial,
+                                    Config::ShaderIds::MeshFragmentMaterialUnlit)
+                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                       .withVertexFormat(prim::Vertex3D::bindingDescription(),
+                                         prim::Vertex3D::attributeDescriptions())
+                       .withRasterizer(rasterizer3d)
+                       .withDepthStencilState(&depthStencilDepthEnabled)
+                       .addDescriptorSet<ds::GlobalDataFactory>()
+                       .addDescriptorSet<ds::Scene3DFactory>()
+                       .addDescriptorSet<ds::Object3DFactory>()
+                       .build());
+
+    createPipeline(Config::PipelineIds::LitMesh3DSkinned,
+                   vk::PipelineParameters()
+                       .withShaders(Config::ShaderIds::MeshVertexSkinned,
+                                    Config::ShaderIds::MeshFragmentSkinnedLit)
+                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                       .withVertexFormat(prim::Vertex3D::bindingDescription(),
+                                         prim::Vertex3D::attributeDescriptions())
+                       .withRasterizer(rasterizer3d)
+                       .withDepthStencilState(&depthStencilDepthEnabled)
+                       .addDescriptorSet<ds::GlobalDataFactory>()
+                       .addDescriptorSet<ds::Scene3DFactory>()
+                       .addDescriptorSet<ds::Object3DFactory>()
+                       .build());
+
+    createPipeline(Config::PipelineIds::UnlitMesh3DSkinned,
+                   vk::PipelineParameters()
+                       .withShaders(Config::ShaderIds::MeshVertexSkinned,
+                                    Config::ShaderIds::MeshFragmentSkinnedUnlit)
                        .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                        .withVertexFormat(prim::Vertex3D::bindingDescription(),
                                          prim::Vertex3D::attributeDescriptions())

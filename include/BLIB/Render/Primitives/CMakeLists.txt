@@ -3,4 +3,5 @@ target_sources(BLIB PUBLIC
     SlideshowVertex.hpp
     Vertex.hpp
     Vertex3D.hpp
+    Vertex3DSkinned.hpp
 )

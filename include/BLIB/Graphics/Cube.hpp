@@ -17,7 +17,7 @@ namespace gfx
  * @ingroup Graphics
  */
 class Cube
-: public Drawable<com::Mesh>
+: public Drawable<com::BasicMesh>
 , public bcom::Transform3D {
 public:
     /**
@@ -34,7 +34,7 @@ public:
      * @param materialPipelineId The id of the material pipeline to render with
      */
     Cube(engine::World& world, float size, const bl::rc::res::MaterialRef& material = {},
-         std::uint32_t materialPipelineId = rc::Config::MaterialPipelineIds::Mesh3DSkinned);
+         std::uint32_t materialPipelineId = rc::Config::MaterialPipelineIds::Mesh3D);
 
     /**
      * @brief Creates the cube with a given size and material
@@ -45,7 +45,7 @@ public:
      * @param materialPipelineId The id of the material pipeline to render with
      */
     void create(engine::World& world, float size, const bl::rc::res::MaterialRef& material = {},
-                std::uint32_t materialPipelineId = rc::Config::MaterialPipelineIds::Mesh3DSkinned);
+                std::uint32_t materialPipelineId = rc::Config::MaterialPipelineIds::Mesh3D);
 
 private:
     virtual void scaleToSize(const glm::vec2& size) override;

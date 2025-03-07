@@ -12,7 +12,7 @@ struct ModelTransform {
     mat3 normal;
 };
 
-layout(location = 0) out VS_OUTPUT {
+layout(location = 0) out VS_OUT {
     vec3 fragPos;
     vec4 fragColor;
     vec2 texCoords;
@@ -25,12 +25,9 @@ layout(set = 1, binding = 0) uniform cam {
     vec3 camPos;
 } camera;
 
-layout(std140, set = 2, binding = 0) readonly buffer obj {
+layout(set = 2, binding = 0) readonly buffer obj {
     ModelTransform model[];
 } object;
-layout(std140, set = 2, binding = 1) readonly buffer tex {
-    uint index[];
-} skin;
 
 void main() {
     ModelTransform model = object.model[gl_InstanceIndex];
@@ -41,10 +38,10 @@ void main() {
 	vs_out.fragColor = inColor;
 	vs_out.texCoords = inTexCoords;
     vs_out.objectIndex = gl_InstanceIndex;
-
-    vec3 T = normalize(vec3(model.normal * inTangent));
-    vec3 N = normalize(vec3(model.normal * inNormal));
-    T = normalize(T - dot(T, N) * N);
-    vec3 B = cross(N, T);
-    vs_out.TBN = mat3(T, -B, N);
+    
+    vec3 T = normalize(model.normal * inTangent);
+    vec3 N = normalize(model.normal * inNormal);
+    //T = normalize(T - dot(T, N) * N);
+    vec3 B = cross(T, N);
+    vs_out.TBN = mat3(T, B, N);
 }

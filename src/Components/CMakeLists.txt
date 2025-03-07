@@ -6,7 +6,6 @@ target_sources(BLIB PRIVATE
 	BatchedSprites.cpp
 	Hitbox2D.cpp
 	MaterialInstance.cpp
-	Mesh.cpp
 	Orientation3D.cpp
 	OverlayScaler.cpp
 	Physics2D.cpp

@@ -20,19 +20,27 @@ VkShaderModule ShaderModuleCache::loadShader(const std::string& path) {
     char* data      = nullptr;
     std::size_t len = 0;
 
-    if (path[0] <= static_cast<int>(Config::ShaderIds::MaxId)) {
+    if (path[1] == '\0') {
         switch (path[0]) {
         case Config::ShaderIds::EmptyVertex[0]:
             return loadShader(BUILTIN_SHADER("empty.vert.spv"));
 
         case Config::ShaderIds::MeshVertex[0]:
             return loadShader(BUILTIN_SHADER("3D/mesh.vert.spv"));
-        case Config::ShaderIds::MeshFragment[0]:
-            return loadShader(BUILTIN_SHADER("3D/mesh.frag.spv"));
-        case Config::ShaderIds::SkinnedMeshVertex[0]:
-            return loadShader(BUILTIN_SHADER("3D/skinnedMesh.vert.spv"));
-        case Config::ShaderIds::SkinnedMeshFragment[0]:
-            return loadShader(BUILTIN_SHADER("3D/skinnedMesh.frag.spv"));
+        case Config::ShaderIds::MeshFragmentLit[0]:
+            return loadShader(BUILTIN_SHADER("3D/meshLit.frag.spv"));
+        case Config::ShaderIds::MeshFragmentUnlit[0]:
+            return loadShader(BUILTIN_SHADER("3D/meshUnlit.frag.spv"));
+
+        case Config::ShaderIds::MeshVertexMaterial[0]:
+            return loadShader(BUILTIN_SHADER("3D/meshMaterial.vert.spv"));
+        case Config::ShaderIds::MeshFragmentMaterialLit[0]:
+            return loadShader(BUILTIN_SHADER("3D/meshMaterialLit.frag.spv"));
+        case Config::ShaderIds::MeshFragmentMaterialUnlit[0]:
+            return loadShader(BUILTIN_SHADER("3D/meshMaterialUnlit.frag.spv"));
+
+        case Config::ShaderIds::MeshVertexSkinned[0]:
+            return loadShader(BUILTIN_SHADER("3D/meshSkinned.vert.spv"));
 
         case Config::ShaderIds::Vertex2D[0]:
             return loadShader(BUILTIN_SHADER("2D/2d.vert.spv"));
