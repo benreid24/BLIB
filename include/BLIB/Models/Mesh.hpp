@@ -25,12 +25,33 @@ public:
     Mesh();
 
     /**
+     * @brief Basic copy constructor
+     */
+    Mesh(const Mesh&) = default;
+
+    /**
+     * @brief Creates the mesh from the source mesh but applies the given transform to all vertices
+     *
+     * @param src The source mesh
+     * @param transform The transform to apply to all vertices
+     */
+    Mesh(const Mesh& src, const glm::mat4& transform);
+
+    /**
      * @brief Populates the mesh from the given assimp mesh
      *
      * @param mesh The assimp source mesh
      * @param bones The set of bones in the model
      */
     void populate(const aiMesh* mesh, BoneSet& bones);
+
+    /**
+     * @brief Merges the vertices and indices of the given mesh into this mesh
+     *
+     * @param other The mesh to merge into this one
+     * @param transform The transform to apply to the vertices of the other mesh
+     */
+    void combine(const Mesh& other, const glm::mat4& transform);
 
     /**
      * @brief Returns the vertices of the mesh

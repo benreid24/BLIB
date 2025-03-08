@@ -29,6 +29,12 @@ public:
     void populate(const aiScene* scene);
 
     /**
+     * @brief Merges all child nodes up into the parent node and combines meshes that use the same
+     *        material. Applies node transform to vertices when merging up
+     */
+    void mergeChildren();
+
+    /**
      * @brief Returns the root node of the model
      */
     const Node& getRoot() const { return root; }

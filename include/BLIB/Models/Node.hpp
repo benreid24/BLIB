@@ -30,6 +30,12 @@ public:
     void populate(const aiScene* scene, const aiNode* src, BoneSet& bones);
 
     /**
+     * @brief Merges all child node meshes into this mesh and combines meshes that use the same
+     *        material. Removes the child nodes
+     */
+    void mergeChildren();
+
+    /**
      * @brief Returns the children of this node
      */
     const std::vector<Node>& getChildren() const { return children; }

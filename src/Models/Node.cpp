@@ -27,5 +27,23 @@ void Node::populate(const aiScene* scene, const aiNode* src, BoneSet& bones) {
     }
 }
 
+void Node::mergeChildren() {
+    for (Node& child : children) {
+        child.mergeChildren();
+        for (const Mesh& mesh : child.getMeshes()) {
+            bool merged = false;
+            for (auto& m : meshes) {
+                if (m.getMaterialIndex() == mesh.getMaterialIndex()) {
+                    m.combine(mesh, child.getTransform());
+                    merged = true;
+                    break;
+                }
+            }
+            if (!merged) { meshes.emplace_back(mesh, child.getTransform()); }
+        }
+    }
+    children.clear();
+}
+
 } // namespace mdl
 } // namespace bl

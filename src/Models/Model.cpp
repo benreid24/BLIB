@@ -10,5 +10,7 @@ void Model::populate(const aiScene* scene) {
     bones.populate(scene);
 }
 
+void Model::mergeChildren() { root.mergeChildren(); }
+
 } // namespace mdl
 } // namespace bl
