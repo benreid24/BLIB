@@ -204,6 +204,11 @@ TextureRef TexturePool::getOrLoadTexture(const sf::Image& src, VkSampler sampler
     return txtr;
 }
 
+TextureRef TexturePool::getOrCreateTexture(const mdl::Texture& texture, VkSampler sampler) {
+    if (texture.isEmbedded()) { return getOrLoadTexture(texture.getEmbedded(), sampler); }
+    return getOrLoadTexture(texture.getFilePath(), sampler);
+}
+
 void TexturePool::onFrameStart(ds::SetWriteHelper& setWriter, VkDescriptorSet currentSet,
                                VkDescriptorSet currentRtSet) {
     textures.commitDescriptorUpdates(setWriter, currentSet, currentRtSet);

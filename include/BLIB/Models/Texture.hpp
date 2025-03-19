@@ -1,6 +1,8 @@
 #ifndef BLIB_MODELS_TEXTURE_HPP
 #define BLIB_MODELS_TEXTURE_HPP
 
+#include <BLIB/Util/HashCombine.hpp>
+#include <SFML/Graphics/Image.hpp>
 #include <assimp/texture.h>
 #include <string>
 #include <variant>
@@ -49,41 +51,49 @@ public:
     const std::string& getFilePath() const;
 
     /**
-     * @brief Returns the width of the embedded image
+     * @brief Returns the embedded image
      */
-    unsigned int getEmbeddedWidth() const;
+    const sf::Image& getEmbedded() const;
 
     /**
-     * @brief Returns the height of the embedded image
+     * @brief Texts whether this texture is the same as another
+     *
+     * @param other The other texture to compare to
+     * @return True if the textures are the same, false otherwise
      */
-    unsigned int getEmbeddedHeight() const;
-
-    /**
-     * @brief Returns the data of the embedded image
-     */
-    const aiTexel* getEmbeddedData() const;
+    bool operator==(const Texture& other) const {
+        if (isEmbedded() != other.isEmbedded()) return false;
+        if (isEmbedded()) { return false; }
+        return getFilePath() == other.getFilePath();
+    }
 
 private:
-    struct Raw {
-        unsigned int width;
-        unsigned int height;
-        const aiTexel* data;
-
-        Raw()
-        : width(0)
-        , height(0)
-        , data(nullptr) {}
-
-        Raw(unsigned int w, unsigned int h, const aiTexel* d)
-        : width(w)
-        , height(h)
-        , data(d) {}
-    };
-
-    std::variant<std::string, Raw> texture;
+    std::variant<std::string, sf::Image> texture;
 };
 
 } // namespace mdl
 } // namespace bl
+
+namespace std
+{
+template<>
+struct hash<bl::mdl::Texture> {
+    std::size_t operator()(const bl::mdl::Texture& tex) const {
+        if (tex.isEmbedded()) {
+            const sf::Image& img = tex.getEmbedded();
+            std::size_t result   = bl::util::hashCombine(std::hash<unsigned int>{}(img.getSize().x),
+                                                       std::hash<unsigned int>{}(img.getSize().y));
+            for (unsigned int x = 0; x < std::min(img.getSize().x, 10u); x++) {
+                for (unsigned int y = 0; y < std::min(img.getSize().y, 10u); ++y) {
+                    result = bl::util::hashCombine(
+                        result, std::hash<sf::Uint32>{}(img.getPixel(x, y).toInteger()));
+                }
+            }
+            return result;
+        }
+        return std::hash<std::string>{}(tex.getFilePath());
+    }
+};
+} // namespace std
 
 #endif

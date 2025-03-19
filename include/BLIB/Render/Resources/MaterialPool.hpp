@@ -2,6 +2,7 @@
 #define BLIB_RENDER_RESOURCES_MATERIALPOOL_HPP
 
 #include <BLIB/Containers/RefPoolDirect.hpp>
+#include <BLIB/Models/Material.hpp>
 #include <BLIB/Render/Buffers/StaticUniformBuffer.hpp>
 #include <BLIB/Render/Materials/Material.hpp>
 #include <BLIB/Render/Materials/MaterialDescriptor.hpp>
@@ -80,6 +81,14 @@ public:
                                                  const TextureRef& parallax, float heightScale);
 
     /**
+     * @brief Creates or returns an existing material from a model material
+     *
+     * @param material The source model material
+     * @return A ref to the material
+     */
+    MaterialRef getOrCreateFromModelMaterial(const mdl::Material& material);
+
+    /**
      * @brief Returns a layout binding to be used for descriptor set layout creation
      */
     VkDescriptorSetLayoutBinding getLayoutBinding() const;
@@ -125,6 +134,7 @@ private:
         util::PairHash<std::uint32_t, std::pair<std::uint32_t, std::uint32_t>,
                        std::hash<std::uint32_t>, util::PairHash<std::uint32_t, std::uint32_t>>>
         normalParallaxToMaterialId;
+    std::unordered_map<mdl::Material, std::uint32_t> modelMaterialToId;
 
     MaterialPool(Renderer& renderer);
     void init(vk::PerFrame<VkDescriptorSet>& descriptorSets,

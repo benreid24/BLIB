@@ -1,5 +1,6 @@
 target_sources(BLIB PUBLIC
 	Animation2D.hpp
+	BasicModel.hpp
 	BatchCircle.hpp
 	BatchedShapes2D.hpp
 	BatchedSlideshows.hpp

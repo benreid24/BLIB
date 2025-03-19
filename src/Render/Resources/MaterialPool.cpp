@@ -131,6 +131,26 @@ MaterialRef MaterialPool::getOrCreateFromNormalAndParallax(const TextureRef& dif
     return MaterialRef(this, newId);
 }
 
+MaterialRef MaterialPool::getOrCreateFromModelMaterial(const mdl::Material& src) {
+    std::unique_lock lock(mutex);
+
+    checkLazyInit();
+
+    const auto it = modelMaterialToId.find(src);
+    if (it != modelMaterialToId.end()) { return MaterialRef(this, it->second); }
+
+    const auto newId       = freeIds.allocate();
+    materials[newId]       = mat::Material(renderer.texturePool().getOrCreateTexture(src.diffuse),
+                                     renderer.texturePool().getOrCreateTexture(src.specular),
+                                     renderer.texturePool().getOrCreateTexture(src.normal),
+                                     renderer.texturePool().getOrCreateTexture(src.parallax),
+                                     src.heightScale,
+                                     src.shininess);
+    modelMaterialToId[src] = newId;
+    markForUpdate(newId);
+    return MaterialRef(this, newId);
+}
+
 VkDescriptorSetLayoutBinding MaterialPool::getLayoutBinding() const {
     VkDescriptorSetLayoutBinding binding{};
     binding.descriptorCount    = 1;

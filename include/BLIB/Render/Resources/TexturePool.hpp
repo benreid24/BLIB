@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_RENDERER_TEXTUREPOOL_HPP
 #define BLIB_RENDER_RENDERER_TEXTUREPOOL_HPP
 
+#include <BLIB/Models/Texture.hpp>
 #include <BLIB/Render/Resources/BindlessTextureArray.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
 #include <BLIB/Render/Vulkan/Texture.hpp>
@@ -83,6 +84,15 @@ public:
      * @return A ref to the new or existing texture
      */
     TextureRef getOrLoadTexture(const sf::Image& src, VkSampler sampler = nullptr);
+
+    /**
+     * @brief Gets or creates a texture from the given model texture
+     *
+     * @param texture The source model texture
+     * @param sampler The sampler to use
+     * @return A ref to the new or existing texture
+     */
+    TextureRef getOrCreateTexture(const mdl::Texture& texture, VkSampler sampler = nullptr);
 
     /**
      * @brief Frees all textures that no longer have any valid refs pointing to them

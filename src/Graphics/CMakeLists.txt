@@ -1,5 +1,6 @@
 target_sources(BLIB PRIVATE
 	Animation2D.cpp
+	BasicModel.cpp
 	BatchCircle.cpp
 	BatchedShapes2D.cpp
 	BatchedSlideshows.cpp
