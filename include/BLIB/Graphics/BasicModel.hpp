@@ -53,8 +53,19 @@ private:
         ecs::tx::EntityWrite, ecs::tx::ComponentRead<>,
         ecs::tx::ComponentWrite<com::Transform3D, com::BasicMesh, com::MaterialInstance>>;
 
-    void createComponents(engine::World& world, Tx& tx, ecs::Entity entity, const mdl::Mesh& src);
-    void createChild(engine::World& world, Tx& tx, const mdl::Mesh& src);
+    struct Child {
+        ecs::Entity entity;
+        com::BasicMesh* mesh;
+    };
+
+    ecs::Registry* ecs;
+    std::vector<Child> children;
+
+    com::BasicMesh* createComponents(engine::World& world, Tx& tx, ecs::Entity entity,
+                                     std::uint32_t materialPipelineId,
+                                     const resource::Ref<mdl::Model>& model, const mdl::Mesh& src);
+    void createChild(engine::World& world, Tx& tx, std::uint32_t materialPipelineId,
+                     const resource::Ref<mdl::Model>& model, const mdl::Mesh& src);
 
     virtual void onAdd(const rc::rcom::SceneObjectRef& sceneRef);
     virtual void onRemove();

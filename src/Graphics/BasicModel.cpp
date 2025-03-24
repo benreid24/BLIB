@@ -11,7 +11,7 @@ BasicModel::BasicModel() {}
 bool BasicModel::create(engine::World& world, const std::string& file, std::uint32_t mpid) {
     auto model = resource::ResourceManager<mdl::Model>::load(file);
     if (!model) { return false; }
-    return create(world, model);
+    return create(world, model, mpid);
 }
 
 bool BasicModel::create(engine::World& world, resource::Ref<mdl::Model> model, std::uint32_t mpid) {
@@ -24,33 +24,48 @@ bool BasicModel::create(engine::World& world, resource::Ref<mdl::Model> model, s
     Tx tx(world.engine().ecs());
 
     // put the first mesh directly on this entity
-    createComponents(world, tx, entity(), model->getRoot().getMeshes().front());
+    createComponents(world, tx, entity(), mpid, model, model->getRoot().getMeshes().front());
 
     // put the rest of the meshes on children
+    children.reserve(model->getRoot().getMeshes().size() - 1);
     for (std::size_t i = 1; i < model->getRoot().getMeshes().size(); ++i) {
-        createChild(world, tx, model->getRoot().getMeshes()[i]);
+        createChild(world, tx, mpid, model, model->getRoot().getMeshes()[i]);
     }
+
+    return true;
 }
 
-void BasicModel::createComponents(engine::World& world, Tx& tx, ecs::Entity entity,
-                                  const mdl::Mesh& src) {
+com::BasicMesh* BasicModel::createComponents(engine::World& world, Tx& tx, ecs::Entity entity,
+                                             std::uint32_t mpid,
+                                             const resource::Ref<mdl::Model>& model,
+                                             const mdl::Mesh& src) {
     world.engine().ecs().emplaceComponentWithTx<com::Transform3D>(entity, tx);
     auto* mesh = world.engine().ecs().emplaceComponentWithTx<com::BasicMesh>(entity, tx);
-    // TODO - init mesh & create material
+    mesh->create(world.engine().renderer().vulkanState(), src);
+    auto mat = world.engine().renderer().materialPool().getOrCreateFromModelMaterial(
+        model->getMaterials().getMaterial(src.getMaterialIndex()));
+    world.engine().ecs().emplaceComponentWithTx<com::MaterialInstance>(
+        entity, tx, world.engine().renderer(), *mesh, mpid, mat);
+    return mesh;
 }
 
-void BasicModel::createChild(engine::World& world, Tx& tx, const mdl::Mesh& src) {
+void BasicModel::createChild(engine::World& world, Tx& tx, std::uint32_t mpid,
+                             const resource::Ref<mdl::Model>& model, const mdl::Mesh& src) {
     auto child = world.createEntity();
     world.engine().ecs().setEntityParent(child, entity());
-    createComponents(world, tx, child, src);
+    auto* mesh = createComponents(world, tx, child, mpid, model, src);
+    children.emplace_back(Child{child, mesh});
 }
 
 void BasicModel::onAdd(const rc::rcom::SceneObjectRef& sceneRef) {
-    // TODO - add all children
+    for (auto& child : children) {
+        child.mesh->addToScene(
+            *ecs, child.entity, sceneRef.scene, sceneRef.object->sceneKey.updateFreq);
+    }
 }
 
 void BasicModel::onRemove() {
-    // TODO - remove all children
+    for (auto& child : children) { child.mesh->removeFromScene(*ecs, child.entity); }
 }
 
 } // namespace gfx

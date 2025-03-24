@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_PRIMITIVES_VERTEX3D_HPP
 #define BLIB_RENDER_PRIMITIVES_VERTEX3D_HPP
 
+#include <BLIB/Models/Vertex.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <array>
 #include <glm/glm.hpp>
@@ -60,6 +61,14 @@ struct Vertex3D {
      * @param nIndices The number of indices to process
      */
     static void computeTBN(Vertex3D* vertices, std::uint32_t* indices, std::size_t nIndices);
+
+    /**
+     * @brief Copies this vertex from a model vertex
+     *
+     * @param vertex The model vertex to update from
+     * @return A reference to this vertex
+     */
+    Vertex3D& operator=(const mdl::Vertex& vertex);
 
     /**
      * @brief Returns the vertex binding description for the renderer

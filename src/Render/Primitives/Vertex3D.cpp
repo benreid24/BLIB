@@ -72,6 +72,15 @@ void Vertex3D::computeTBN(Vertex3D* vertices, std::uint32_t* indices, std::size_
     }
 }
 
+Vertex3D& Vertex3D::operator=(const mdl::Vertex& copy) {
+    pos      = copy.pos;
+    color    = copy.color;
+    texCoord = copy.texCoord;
+    tangent  = copy.tangent;
+    normal   = copy.normal;
+    return *this;
+}
+
 VkVertexInputBindingDescription Vertex3D::bindingDescription() {
     VkVertexInputBindingDescription bindingDescription{};
     bindingDescription.binding   = 0;

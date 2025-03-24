@@ -1,6 +1,7 @@
 #ifndef BLIB_COMPONENTS_MESH_HPP
 #define BLIB_COMPONENTS_MESH_HPP
 
+#include <BLIB/Models/Mesh.hpp>
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
 #include <BLIB/Render/Primitives/Vertex3D.hpp>
@@ -48,6 +49,22 @@ struct Mesh : public rc::rcom::DrawableBase {
         gpuBuffer.create(vulkanState, std::move(vertices), std::move(indices));
         drawParams = gpuBuffer.getDrawParameters();
         gpuBuffer.queueTransfer();
+    }
+
+    /**
+     * @brief Creates the mesh from the loaded mesh source
+     *
+     * @param vulkanState Renderer Vulkan state
+     * @param src The mesh source
+     */
+    void create(rc::vk::VulkanState& vulkanState, const mdl::Mesh& src) {
+        create(vulkanState, src.getVertices().size(), src.getIndices().size());
+        for (unsigned int i = 0; i < src.getVertices().size(); ++i) {
+            gpuBuffer.vertices()[i] = src.getVertices()[i];
+        }
+        for (unsigned int i = 0; i < src.getIndices().size(); ++i) {
+            gpuBuffer.indices()[i] = src.getIndices()[i];
+        }
     }
 
     /**
