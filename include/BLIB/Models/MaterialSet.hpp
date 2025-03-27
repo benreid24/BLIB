@@ -26,8 +26,9 @@ public:
      * @brief Populates the material set from the given model
      *
      * @param scene The assimp scene to load from
+     * @param modelPath The path the model was loaded from
      */
-    void populate(const aiScene* scene);
+    void populate(const aiScene* scene, const std::string& modelPath);
 
     /**
      * @brief Returns the material with the given index

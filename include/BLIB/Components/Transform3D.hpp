@@ -17,7 +17,8 @@ namespace com
  * @ingroup Components
  */
 class Transform3D
-: public rc::rcom::DescriptorComponentBase<Transform3D, rc::ds::Transform3DPayload> {
+: public rc::rcom::DescriptorComponentBase<Transform3D, rc::ds::Transform3DPayload>
+, public ecs::trait::ParentAwareVersioned<Transform3D> {
 public:
     /**
      * @brief Creates a new transform with no scaling and sane defaults
@@ -112,10 +113,30 @@ public:
      */
     virtual void refreshDescriptor(rc::ds::Transform3DPayload& dest) override;
 
+    /**
+     * @brief Returns the local transform matrix of this transform
+     */
+    glm::mat4 getLocalTransform() const;
+
+    /**
+     * @brief Returns the global transform matrix of this transform
+     */
+    glm::mat4 getGlobalTransform() const;
+
+    /**
+     * @brief Transforms the given point by this transform
+     *
+     * @param src The point to transform
+     * @return The transformed point
+     */
+    glm::vec3 transformPoint(const glm::vec3& src) const;
+
 private:
     glm::vec3 position;
     glm::quat rotation;
     glm::vec3 scaleFactors;
+
+    void makeDirty();
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

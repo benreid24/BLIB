@@ -2,6 +2,7 @@
 #include <BLIB/Components.hpp>
 #include <BLIB/Engine.hpp>
 #include <BLIB/Graphics.hpp>
+#include <BLIB/Graphics/BasicModel.hpp>
 #include <BLIB/Models.hpp>
 #include <BLIB/Render.hpp>
 #include <BLIB/Resources.hpp>
@@ -94,6 +95,9 @@ private:
     bl::gfx::Cube cube6;
     bl::gfx::Cube cube7;
 
+    bl::gfx::BasicModel model1;
+    bl::gfx::BasicModel model2;
+
     bl::gfx::Sphere light1;
     bl::gfx::Sphere light2;
     bl::gfx::Cone light3;
@@ -113,11 +117,11 @@ private:
         constexpr float FloorSize = 5.f;
         floor.create(*world, 6);
         floor[0].pos = {-FloorSize, 0.f, -FloorSize};
-        floor[1].pos = {FloorSize, 0.f, FloorSize};
-        floor[2].pos = {-FloorSize, 0.f, FloorSize};
+        floor[2].pos = {FloorSize, 0.f, FloorSize};
+        floor[1].pos = {-FloorSize, 0.f, FloorSize};
         floor[3].pos = {-FloorSize, 0.f, -FloorSize};
-        floor[4].pos = {FloorSize, 0.f, -FloorSize};
-        floor[5].pos = {FloorSize, 0.f, FloorSize};
+        floor[5].pos = {FloorSize, 0.f, -FloorSize};
+        floor[4].pos = {FloorSize, 0.f, FloorSize};
         for (unsigned int i = 0; i < 6; ++i) { floor[i].color = {0.4f, 0.4f, 0.4f, 1.f}; }
         floor.commit();
         floor.addToScene(scene, bl::rc::UpdateSpeed::Static);
@@ -195,6 +199,15 @@ private:
 
         auto model = bl::resource::ResourceManager<bl::mdl::Model>::load(
             "Resources/Models/backpack/backpack.obj");
+        model1.create(*world, model);
+        model1.getTransform().setPosition({-1.f, 3.1f, 0.5f});
+        model1.getTransform().setScale({0.25f, 0.25f, 0.25f});
+        model1.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
+        model2.create(*world, "Resources/Models/Spider/Spider.obj");
+        model2.getTransform().setPosition({1.f, 0.1f, 3.5f});
+        model2.getTransform().setScale({0.015f, 0.015f, 0.015f});
+        model2.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
         const bl::rc::Color light1Color(sf::Color(80, 180, 255));
         light1.create(*world, 0.2f, 4, {}, bl::rc::Config::MaterialPipelineIds::Mesh3D);

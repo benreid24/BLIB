@@ -94,7 +94,7 @@ void PipelineCache::createBuiltins() {
 
     VkPipelineRasterizationStateCreateInfo rasterizer3d = rasterizer;
     rasterizer3d.cullMode                               = VK_CULL_MODE_BACK_BIT;
-    rasterizer3d.frontFace                              = VK_FRONT_FACE_CLOCKWISE;
+    rasterizer3d.frontFace                              = VK_FRONT_FACE_COUNTER_CLOCKWISE;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

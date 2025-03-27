@@ -37,8 +37,9 @@ public:
      * @brief Creates the texture from a file path
      *
      * @param file The file path to reference
+     * @param modelPath The path the model was loaded from
      */
-    void makeFromFile(const std::string& file);
+    void makeFromFile(const std::string& file, const std::string& modelPath);
 
     /**
      * @brief Returns whether this texture contains embedded image data

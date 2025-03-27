@@ -4,9 +4,9 @@ namespace bl
 {
 namespace mdl
 {
-void Model::populate(const aiScene* scene) {
+void Model::populate(const aiScene* scene, const std::string& path) {
     root.populate(scene, scene->mRootNode, bones);
-    materials.populate(scene);
+    materials.populate(scene, path);
     bones.populate(scene);
 }
 

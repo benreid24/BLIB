@@ -15,6 +15,7 @@ bool BasicModel::create(engine::World& world, const std::string& file, std::uint
 }
 
 bool BasicModel::create(engine::World& world, resource::Ref<mdl::Model> model, std::uint32_t mpid) {
+    ecs = &world.engine().ecs();
     model->mergeChildren();
     if (model->getRoot().getMeshes().empty()) { return false; }
 
@@ -44,8 +45,9 @@ com::BasicMesh* BasicModel::createComponents(engine::World& world, Tx& tx, ecs::
     mesh->create(world.engine().renderer().vulkanState(), src);
     auto mat = world.engine().renderer().materialPool().getOrCreateFromModelMaterial(
         model->getMaterials().getMaterial(src.getMaterialIndex()));
-    world.engine().ecs().emplaceComponentWithTx<com::MaterialInstance>(
+    auto* matInstance = world.engine().ecs().emplaceComponentWithTx<com::MaterialInstance>(
         entity, tx, world.engine().renderer(), *mesh, mpid, mat);
+    mesh->init(matInstance);
     return mesh;
 }
 
@@ -57,11 +59,8 @@ void BasicModel::createChild(engine::World& world, Tx& tx, std::uint32_t mpid,
     children.emplace_back(Child{child, mesh});
 }
 
-void BasicModel::onAdd(const rc::rcom::SceneObjectRef& sceneRef) {
-    for (auto& child : children) {
-        child.mesh->addToScene(
-            *ecs, child.entity, sceneRef.scene, sceneRef.object->sceneKey.updateFreq);
-    }
+void BasicModel::onAdd(rc::Scene* scene, rc::UpdateSpeed updateFreq) {
+    for (auto& child : children) { child.mesh->addToScene(*ecs, child.entity, scene, updateFreq); }
 }
 
 void BasicModel::onRemove() {

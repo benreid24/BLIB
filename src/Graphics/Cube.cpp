@@ -65,11 +65,11 @@ void Cube::create(engine::World& world, float size, const bl::rc::res::MaterialR
 
         const unsigned int b                   = face * 6;
         component().gpuBuffer.indices()[b + 0] = vb + 0;
-        component().gpuBuffer.indices()[b + 1] = vb + 1;
-        component().gpuBuffer.indices()[b + 2] = vb + 2;
+        component().gpuBuffer.indices()[b + 1] = vb + 2;
+        component().gpuBuffer.indices()[b + 2] = vb + 1;
         component().gpuBuffer.indices()[b + 3] = vb + 0;
-        component().gpuBuffer.indices()[b + 4] = vb + 2;
-        component().gpuBuffer.indices()[b + 5] = vb + 3;
+        component().gpuBuffer.indices()[b + 4] = vb + 3;
+        component().gpuBuffer.indices()[b + 5] = vb + 2;
     }
 
     // Right (+X)

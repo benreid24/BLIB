@@ -25,8 +25,9 @@ public:
      * @brief Populates the model from the Assimp scene
      *
      * @param scene The scene to populate from
+     * @param path The path the model was loaded from
      */
-    void populate(const aiScene* scene);
+    void populate(const aiScene* scene, const std::string& path = "");
 
     /**
      * @brief Merges all child nodes up into the parent node and combines meshes that use the same

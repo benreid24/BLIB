@@ -139,13 +139,18 @@ MaterialRef MaterialPool::getOrCreateFromModelMaterial(const mdl::Material& src)
     const auto it = modelMaterialToId.find(src);
     if (it != modelMaterialToId.end()) { return MaterialRef(this, it->second); }
 
-    const auto newId       = freeIds.allocate();
-    materials[newId]       = mat::Material(renderer.texturePool().getOrCreateTexture(src.diffuse),
-                                     renderer.texturePool().getOrCreateTexture(src.specular),
-                                     renderer.texturePool().getOrCreateTexture(src.normal),
-                                     renderer.texturePool().getOrCreateTexture(src.parallax),
-                                     src.heightScale,
-                                     src.shininess);
+    auto diffuse  = renderer.texturePool().getOrCreateTexture(src.diffuse);
+    auto specular = renderer.texturePool().getOrCreateTexture(src.specular);
+    auto normal   = renderer.texturePool().getOrCreateTexture(src.normal);
+    auto parallax = renderer.texturePool().getOrCreateTexture(src.parallax);
+    if (!specular) { specular = diffuse; }
+    if (!normal) { normal = defaultNormalMap; }
+    if (!parallax) { parallax = defaultParallaxMap; }
+
+    const auto newId = freeIds.allocate();
+    materials[newId] =
+        mat::Material(diffuse, specular, normal, parallax, src.heightScale, src.shininess);
+
     modelMaterialToId[src] = newId;
     markForUpdate(newId);
     return MaterialRef(this, newId);

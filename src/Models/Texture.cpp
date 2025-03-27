@@ -1,5 +1,7 @@
 #include <BLIB/Models/Texture.hpp>
 
+#include <BLIB/Resources/FileSystem.hpp>
+
 namespace bl
 {
 namespace mdl
@@ -21,7 +23,11 @@ void Texture::makeFromRaw(unsigned int width, unsigned int height, const aiTexel
     else { img.loadFromMemory(data, width); }
 }
 
-void Texture::makeFromFile(const std::string& file) { texture = file; }
+void Texture::makeFromFile(const std::string& file, const std::string& modelPath) {
+    const std::string rel = util::FileUtil::joinPath(modelPath, file);
+    if (resource::FileSystem::resourceExists(rel)) { texture = rel; }
+    else { texture = file; }
+}
 
 bool Texture::isEmbedded() const { return std::holds_alternative<sf::Image>(texture); }
 

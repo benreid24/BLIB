@@ -18,10 +18,9 @@ namespace mdl
 namespace
 {
 constexpr unsigned int PostProcessing =
-    aiProcess_Triangulate | aiProcess_GenNormals | aiProcess_CalcTangentSpace | aiProcess_FlipUVs |
-    aiProcess_JoinIdenticalVertices | aiProcess_LimitBoneWeights | aiProcess_ImproveCacheLocality |
-    aiProcess_RemoveRedundantMaterials | aiProcess_PopulateArmatureData | aiProcess_GenUVCoords |
-    aiProcess_OptimizeMeshes;
+    aiProcess_Triangulate | aiProcess_GenNormals | aiProcess_CalcTangentSpace |
+    aiProcess_LimitBoneWeights | aiProcess_RemoveRedundantMaterials |
+    aiProcess_PopulateArmatureData | aiProcess_GenUVCoords | aiProcess_OptimizeMeshes;
 
 class AssimpIOSystem;
 
@@ -147,24 +146,22 @@ bool Importer::import(const std::string& path, Model& result) {
         BL_LOG_ERROR << "Failed to load model: " << importer.GetErrorString();
         return false;
     }
-    result.populate(scene);
+    result.populate(scene, util::FileUtil::getPath(path));
     importer.FreeScene();
     return true;
 }
 
 bool Importer::import(const char* buffer, std::size_t len, Model& result,
                       const std::string& pathHint) {
-    if (!pathHint.empty()) {
-        const std::string dir = util::FileUtil::getPath(pathHint);
-        importer.GetIOHandler()->PushDirectory(dir.c_str());
-    }
+    const std::string dir = util::FileUtil::getPath(pathHint);
+    if (!pathHint.empty()) { importer.GetIOHandler()->PushDirectory(dir.c_str()); }
     const aiScene* scene = importer.ReadFileFromMemory(buffer, len, PostProcessing);
     if (!scene) {
         BL_LOG_ERROR << "Failed to load model: " << importer.GetErrorString();
         importer.GetIOHandler()->PopDirectory();
         return false;
     }
-    result.populate(scene);
+    result.populate(scene, dir);
     importer.GetIOHandler()->PopDirectory();
     importer.FreeScene();
     return true;

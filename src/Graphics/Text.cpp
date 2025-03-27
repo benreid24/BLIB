@@ -56,10 +56,6 @@ void Text::setFont(const sf::VulkanFont& f) {
     queueCommit();
 }
 
-void Text::onAdd(const rc::rcom::SceneObjectRef&) {}
-
-void Text::onRemove() {}
-
 void Text::ensureLocalSizeUpdated() {
     const auto bounds = getLocalBounds();
     OverlayScalable::setLocalSize({bounds.width + bounds.left, bounds.height + bounds.top});

@@ -185,9 +185,10 @@ protected:
     /**
      * @brief Called after the entity is added to a scene. Allows derived to sync data if required
      *
-     * @param sceneRef The scene object information
+     * @param scene The scene the object is being added to
+     * @param updateFreq The expected update frequency of the object's descriptors
      */
-    virtual void onAdd(const rc::rcom::SceneObjectRef& sceneRef);
+    virtual void onAdd(rc::Scene* scene, rc::UpdateSpeed updateFreq);
 
     /**
      * @brief Called after the entity is removed from a scene
@@ -229,7 +230,7 @@ void Drawable<TCom>::addToScene(rc::Scene* scene, rc::UpdateSpeed updateFreq) {
 #endif
 
     component().addToScene(engine().ecs(), entity(), scene, updateFreq);
-    onAdd(component().getSceneRef());
+    onAdd(scene, updateFreq);
 }
 
 template<typename TCom>
@@ -324,7 +325,7 @@ void Drawable<TCom>::stopFlashing() {
 }
 
 template<typename TCom>
-void Drawable<TCom>::onAdd(const rc::rcom::SceneObjectRef&) {}
+void Drawable<TCom>::onAdd(rc::Scene*, rc::UpdateSpeed) {}
 
 template<typename TCom>
 void Drawable<TCom>::onRemove() {}

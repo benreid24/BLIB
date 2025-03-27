@@ -46,8 +46,8 @@ void Cone::create(engine::World& world, float height, float radius, unsigned int
         vb[b + 2].pos = makePoint(i + 1);
 
         ib[ii + 0] = b;
-        ib[ii + 1] = b + 1;
-        ib[ii + 2] = b + 2;
+        ib[ii + 1] = b + 2;
+        ib[ii + 2] = b + 1;
         ii += 3;
     }
 
@@ -60,8 +60,8 @@ void Cone::create(engine::World& world, float height, float radius, unsigned int
         vb[b].color          = {1.f, 0.f, 0.f, 1.f};
 
         ib[ii + 0] = cb;
-        ib[ii + 2] = b + 0;
-        ib[ii + 1] = (i != pointCount - 1) ? b + 1 : cb + 1;
+        ib[ii + 1] = b + 0;
+        ib[ii + 2] = (i != pointCount - 1) ? b + 1 : cb + 1;
         ii += 3;
     }
 

@@ -67,8 +67,9 @@ private:
     void createChild(engine::World& world, Tx& tx, std::uint32_t materialPipelineId,
                      const resource::Ref<mdl::Model>& model, const mdl::Mesh& src);
 
-    virtual void onAdd(const rc::rcom::SceneObjectRef& sceneRef);
-    virtual void onRemove();
+    virtual void onAdd(rc::Scene* scene, rc::UpdateSpeed updateFreq) override;
+    virtual void onRemove() override;
+    virtual void scaleToSize(const glm::vec2&) override {}
 };
 
 } // namespace gfx

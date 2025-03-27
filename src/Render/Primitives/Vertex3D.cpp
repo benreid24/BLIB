@@ -23,7 +23,7 @@ void computeSingleTBN(Vertex3D& v1, Vertex3D& v2, Vertex3D& v3) {
     tangent.y = f * (deltaUV2.y * edge1.y - deltaUV1.y * edge2.y);
     tangent.z = f * (deltaUV2.y * edge1.z - deltaUV1.y * edge2.z);
 
-    const glm::vec3 normal = glm::normalize(glm::cross(edge2, edge1));
+    const glm::vec3 normal = glm::normalize(glm::cross(edge1, edge2));
 
     v1.normal = normal;
     v2.normal = normal;
