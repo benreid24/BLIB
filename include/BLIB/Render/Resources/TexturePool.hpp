@@ -89,10 +89,12 @@ public:
      * @brief Gets or creates a texture from the given model texture
      *
      * @param texture The source model texture
+     * @param fallback The fallback texture to use if loading fails
      * @param sampler The sampler to use
      * @return A ref to the new or existing texture
      */
-    TextureRef getOrCreateTexture(const mdl::Texture& texture, VkSampler sampler = nullptr);
+    TextureRef getOrCreateTexture(const mdl::Texture& texture, TextureRef fallback = {},
+                                  VkSampler sampler = nullptr);
 
     /**
      * @brief Frees all textures that no longer have any valid refs pointing to them

@@ -139,13 +139,14 @@ MaterialRef MaterialPool::getOrCreateFromModelMaterial(const mdl::Material& src)
     const auto it = modelMaterialToId.find(src);
     if (it != modelMaterialToId.end()) { return MaterialRef(this, it->second); }
 
-    auto diffuse  = renderer.texturePool().getOrCreateTexture(src.diffuse);
-    auto specular = renderer.texturePool().getOrCreateTexture(src.specular);
-    auto normal   = renderer.texturePool().getOrCreateTexture(src.normal);
-    auto parallax = renderer.texturePool().getOrCreateTexture(src.parallax);
-    if (!specular) { specular = diffuse; }
-    if (!normal) { normal = defaultNormalMap; }
-    if (!parallax) { parallax = defaultParallaxMap; }
+    auto diffuse = renderer.texturePool().getOrCreateTexture(
+        src.diffuse, {}, renderer.vulkanState().samplerCache.filteredRepeated());
+    auto specular = renderer.texturePool().getOrCreateTexture(
+        src.specular, diffuse, renderer.vulkanState().samplerCache.filteredRepeated());
+    auto normal = renderer.texturePool().getOrCreateTexture(
+        src.normal, defaultNormalMap, renderer.vulkanState().samplerCache.filteredRepeated());
+    auto parallax = renderer.texturePool().getOrCreateTexture(
+        src.parallax, defaultParallaxMap, renderer.vulkanState().samplerCache.filteredRepeated());
 
     const auto newId = freeIds.allocate();
     materials[newId] =

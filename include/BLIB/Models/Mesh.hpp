@@ -72,6 +72,8 @@ private:
     std::vector<Vertex> vertices;
     std::vector<std::uint32_t> indices;
     unsigned int materialIndex;
+
+    void transformVertices(const std::vector<Vertex>& src, const glm::mat4& transform);
 };
 
 } // namespace mdl

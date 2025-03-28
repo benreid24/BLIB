@@ -107,6 +107,13 @@ public:
     const glm::vec3& getScale() const;
 
     /**
+     * @brief Sets the transform matrix directly
+     *
+     * @param transform The transform matrix to assign
+     */
+    void setTransform(const glm::mat4& transform);
+
+    /**
      * @brief Computes the transform and populates the given transform matrix
      *
      * @param dest The payload to populate

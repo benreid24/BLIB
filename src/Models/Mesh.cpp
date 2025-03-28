@@ -1,5 +1,6 @@
 #include <BLIB/Models/Mesh.hpp>
 
+#include <BLIB/Logging.hpp>
 #include <BLIB/Models/BoneSet.hpp>
 #include <BLIB/Models/ConversionHelpers.hpp>
 #include <stdexcept>
@@ -14,21 +15,23 @@ Mesh::Mesh()
 Mesh::Mesh(const Mesh& src, const glm::mat4& transform)
 : materialIndex(src.materialIndex)
 , indices(src.indices) {
-    vertices.reserve(src.vertices.size());
-    for (const Vertex& v : src.vertices) {
-        Vertex newV = v;
-        newV.pos    = transform * glm::vec4(v.pos, 1.f);
-        vertices.emplace_back(newV);
-    }
+    transformVertices(src.vertices, transform);
 }
 
 void Mesh::combine(const Mesh& other, const glm::mat4& transform) {
-    vertices.reserve(vertices.size() + other.vertices.size());
     indices.reserve(indices.size() + other.indices.size());
     for (const std::uint32_t i : other.indices) { indices.emplace_back(i + vertices.size()); }
-    for (const Vertex& v : other.vertices) {
-        Vertex newV = v;
-        newV.pos    = transform * glm::vec4(v.pos, 1.f);
+    transformVertices(other.vertices, transform);
+}
+
+void Mesh::transformVertices(const std::vector<Vertex>& src, const glm::mat4& transform) {
+    const glm::mat4 normalTransform = glm::transpose(glm::inverse(transform));
+    vertices.reserve(vertices.size() + src.size());
+    for (const Vertex& v : src) {
+        Vertex newV  = v;
+        newV.pos     = transform * glm::vec4(v.pos, 1.f);
+        newV.normal  = glm::normalize(normalTransform * glm::vec4(v.normal, 0.f));
+        newV.tangent = glm::normalize(normalTransform * glm::vec4(v.tangent, 0.f));
         vertices.emplace_back(newV);
     }
 }
@@ -45,6 +48,11 @@ void Mesh::populate(const aiMesh* src, BoneSet& bones) {
 
     for (unsigned int i = 0; i < src->mNumFaces; ++i) {
         const aiFace& face = src->mFaces[i];
+        if (face.mNumIndices != 3) {
+            BL_LOG_ERROR << "Found face with more than 3 indices";
+            indices.resize(indices.size() - 3);
+            continue;
+        }
         for (unsigned int j = 0; j < face.mNumIndices; ++j) {
             indices[i * 3 + j] = face.mIndices[j];
         }

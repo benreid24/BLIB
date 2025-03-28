@@ -204,8 +204,13 @@ TextureRef TexturePool::getOrLoadTexture(const sf::Image& src, VkSampler sampler
     return txtr;
 }
 
-TextureRef TexturePool::getOrCreateTexture(const mdl::Texture& texture, VkSampler sampler) {
+TextureRef TexturePool::getOrCreateTexture(const mdl::Texture& texture, TextureRef fallback,
+                                           VkSampler sampler) {
     if (texture.isEmbedded()) { return getOrLoadTexture(texture.getEmbedded(), sampler); }
+    if (texture.getFilePath().empty() ||
+        !resource::ResourceManager<sf::Image>::load(texture.getFilePath())) {
+        return fallback;
+    }
     return getOrLoadTexture(texture.getFilePath(), sampler);
 }
 
