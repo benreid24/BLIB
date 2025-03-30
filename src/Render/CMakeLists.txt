@@ -2,6 +2,7 @@ target_sources(BLIB PRIVATE
     Observer.cpp
     Renderer.cpp
     RenderTarget.cpp
+    Settings.cpp
 )
 
 add_subdirectory(Buffers)

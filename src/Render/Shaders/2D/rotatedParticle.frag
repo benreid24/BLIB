@@ -14,6 +14,9 @@ struct Light {
 };
 
 layout(set = 0, binding = 0) uniform sampler2D textures[4096];
+layout(set = 0, binding = 2) uniform rsettings {
+    float gamma;
+} settings;
 layout(std140, set = 1, binding = 1) uniform lb {
     uint count;
     vec3 ambient;
@@ -57,4 +60,5 @@ void main() {
     lightColor = lightColor + lighting.ambient;
 
     outColor = fragColor * texColor * vec4(lightColor, 1.0);
+    outColor.rgb = pow(outColor.rgb, vec3(1.0 / settings.gamma));
 }

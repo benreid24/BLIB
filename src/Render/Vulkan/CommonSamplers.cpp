@@ -92,6 +92,31 @@ void CommonSamplers::cleanup() {
     vkDestroySampler(vulkanState.device, filteredTiled, nullptr);
 }
 
+VkSampler CommonSamplers::getSampler(Sampler sampler) const {
+    switch (sampler) {
+    case Sampler::NoFilterBorderClamped:
+        return noFilterClamped;
+
+    case Sampler::NoFilterEdgeClamped:
+        return noFilterEClamped;
+
+    case Sampler::MinFilterBorderClamped:
+        return minFilterClamped;
+
+    case Sampler::MagFilterBorderClamped:
+        return magFilterClamped;
+
+    case Sampler::FilteredBorderClamped:
+        return filteredClamped;
+
+    case Sampler::FilteredRepeated:
+        return filteredTiled;
+
+    default:
+        return noFilterClamped;
+    }
+}
+
 } // namespace vk
 } // namespace rc
 } // namespace bl

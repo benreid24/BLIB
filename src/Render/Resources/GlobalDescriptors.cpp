@@ -26,10 +26,18 @@ void GlobalDescriptors::bindDescriptors(VkCommandBuffer cb, VkPipelineLayout pip
 void GlobalDescriptors::init() {
     auto& vulkanState = renderer.vulkanState();
 
+    VkDescriptorSetLayoutBinding setBindings[3] = {
+        texturePool.getLayoutBinding(), materialPool.getLayoutBinding(), {}};
+
+    VkDescriptorSetLayoutBinding& settingsBinding = setBindings[2];
+    settingsBinding.descriptorCount               = 1;
+    settingsBinding.binding                       = 2;
+    settingsBinding.stageFlags                    = VK_SHADER_STAGE_ALL;
+    settingsBinding.descriptorType                = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+    settingsBinding.pImmutableSamplers            = 0;
+
     // create descriptor layout
-    VkDescriptorSetLayoutBinding setBindings[] = {texturePool.getLayoutBinding(),
-                                                  materialPool.getLayoutBinding()};
-    constexpr std::size_t NBindings            = std::size(setBindings);
+    constexpr std::size_t NBindings = std::size(setBindings);
     VkDescriptorSetLayoutCreateInfo descriptorCreateInfo{};
     descriptorCreateInfo.sType        = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
     descriptorCreateInfo.bindingCount = NBindings;
@@ -71,6 +79,7 @@ void GlobalDescriptors::init() {
         throw std::runtime_error("Failed to allocate texture descriptor set");
     }
 
+    // write descriptor set with texture and material pools
     unsigned int i = 0;
     descriptorSets.init(vulkanState, [&i, &allocatedSets](auto& set) { set = allocatedSets[i++]; });
     rtDescriptorSets.init(vulkanState,
@@ -78,11 +87,31 @@ void GlobalDescriptors::init() {
 
     texturePool.init(descriptorSets, rtDescriptorSets);
     materialPool.init(descriptorSets, rtDescriptorSets);
+
+    // write descriptor set with settings uniform
+    settingsBuffer.create(vulkanState, 1);
+    ds::SetWriteHelper writer;
+    for (unsigned int i = 0; i < std::size(allocatedSets); ++i) {
+        auto& bufferInfo  = writer.getNewBufferInfo();
+        bufferInfo.buffer = settingsBuffer.gpuBufferHandle().getBuffer();
+        bufferInfo.offset = 0;
+        bufferInfo.range  = settingsBuffer.totalAlignedSize();
+
+        auto& write           = writer.getNewSetWrite(allocatedSets[i]);
+        write.descriptorCount = 1;
+        write.dstBinding      = 2;
+        write.dstArrayElement = 0;
+        write.pBufferInfo     = &bufferInfo;
+        write.descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+    }
+    writer.performWrite(vulkanState.device);
+    updateSettings(renderer.getSettings());
 }
 
 void GlobalDescriptors::cleanup() {
     texturePool.cleanup();
     materialPool.cleanup();
+    settingsBuffer.destroy();
 
     vkDestroyDescriptorPool(renderer.vulkanState().device, descriptorPool, nullptr);
     vkDestroyDescriptorSetLayout(renderer.vulkanState().device, descriptorSetLayout, nullptr);
@@ -93,6 +122,11 @@ void GlobalDescriptors::onFrameStart() {
         descriptorWriter, descriptorSets.current(), rtDescriptorSets.current());
     materialPool.onFrameStart();
     descriptorWriter.performWrite(renderer.vulkanState().device);
+}
+
+void GlobalDescriptors::updateSettings(const Settings& settings) {
+    settingsBuffer[0].gamma = settings.getGamma();
+    settingsBuffer.queueTransfer();
 }
 
 } // namespace res

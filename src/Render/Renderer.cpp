@@ -132,6 +132,10 @@ void Renderer::renderFrame() {
     framebuffers.current().recreateIfChanged(*currentFrame);
 
     // kick off transfers
+    if (settings.dirty) {
+        globalDescriptors.updateSettings(settings);
+        settings.dirty = false;
+    }
     globalDescriptors.onFrameStart();
     for (auto& rt : renderTextures) { rt->handleDescriptorSync(); }
     if (commonObserver.hasScene()) { commonObserver.handleDescriptorSync(); }
@@ -266,7 +270,7 @@ void Renderer::setClearColor(const Color& color) {
 }
 
 vk::RenderTexture::Handle Renderer::createRenderTexture(const glm::u32vec2& size,
-                                                        VkSampler sampler) {
+                                                        vk::Sampler sampler) {
     std::unique_lock lock(renderMutex);
 
     renderTextures.emplace_back(new vk::RenderTexture(engine, *this, assetFactory, size, sampler));

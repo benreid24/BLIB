@@ -18,7 +18,7 @@ void TextureDoubleBuffered::create(const glm::u32vec2& s) {
     images.init(*vulkanState, [this, &s](auto& img) {
         vulkanState->createImage(s.x,
                                  s.y,
-                                 vk::StandardAttachmentBuffers::DefaultColorFormat,
+                                 getFormat(),
                                  VK_IMAGE_TILING_OPTIMAL,
                                  VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT |
                                      VK_IMAGE_USAGE_TRANSFER_SRC_BIT,
@@ -26,9 +26,7 @@ void TextureDoubleBuffered::create(const glm::u32vec2& s) {
                                  &img.image,
                                  &img.alloc,
                                  &img.allocInfo);
-        img.view = vulkanState->createImageView(img.image,
-                                                vk::StandardAttachmentBuffers::DefaultColorFormat,
-                                                VK_IMAGE_ASPECT_COLOR_BIT);
+        img.view = vulkanState->createImageView(img.image, getFormat(), VK_IMAGE_ASPECT_COLOR_BIT);
         vulkanState->transitionImageLayout(
             img.image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
     });
@@ -73,10 +71,6 @@ VkImage TextureDoubleBuffered::getCurrentImage() const { return images.current()
 VkImageLayout TextureDoubleBuffered::getCurrentImageLayout() const {
     // return the layout that we will be in at the end of the current frame
     return VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-}
-
-VkFormat TextureDoubleBuffered::getFormat() const {
-    return vk::StandardAttachmentBuffers::DefaultColorFormat;
 }
 
 } // namespace vk

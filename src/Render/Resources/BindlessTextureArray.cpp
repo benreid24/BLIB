@@ -1,6 +1,7 @@
 #include <BLIB/Render/Resources/BindlessTextureArray.hpp>
 
 #include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Vulkan/TextureFormat.hpp>
 
 namespace bl
 {
@@ -34,9 +35,10 @@ void BindlessTextureArray::init(vk::PerFrame<VkDescriptorSet>& ds,
     if (errorPattern.getSize().x == 0) { errorPattern.create(32, 32, sf::Color(245, 66, 242)); }
 
     // init error pattern texture
-    errorTexture.altImg = &errorPattern;
-    errorTexture.createFromContentsAndQueue();
+    errorTexture.altImg  = &errorPattern;
     errorTexture.sampler = vulkanState.samplerCache.filteredRepeated();
+    errorTexture.format  = vk::TextureFormat::SRGBA32Bit;
+    errorTexture.createFromContentsAndQueue();
     vulkanState.transferEngine.executeTransfers();
 
     // init all textures to error pattern

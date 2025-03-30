@@ -21,12 +21,12 @@ layout(location = 0) out VS_OUT {
     mat3 TBN;
 } vs_out;
 
-layout(set = 0, binding = 0) uniform cam {
+layout(set = 1, binding = 0) uniform cam {
     mat4 viewProj;
     vec3 camPos;
 } camera;
 
-layout(set = 1, binding = 0) readonly buffer obj {
+layout(set = 2, binding = 0) readonly buffer obj {
     ModelTransform model[];
 } object;
 

@@ -1,7 +1,9 @@
 #ifndef BLIB_RENDER_RESOURCES_GLOBALDESCRIPTORS_HPP
 #define BLIB_RENDER_RESOURCES_GLOBALDESCRIPTORS_HPP
 
+#include <BLIB/Render/Buffers/StaticUniformBuffer.hpp>
 #include <BLIB/Render/Descriptors/SetWriteHelper.hpp>
+#include <BLIB/Render/Settings.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <vector>
@@ -57,10 +59,22 @@ public:
      */
     void onFrameStart();
 
+    /**
+     * @brief Updates the render settings payload on the GPU for the shaders
+     *
+     * @param settings The new renderer settings
+     */
+    void updateSettings(const Settings& settings);
+
 private:
+    struct SettingsUniform {
+        float gamma;
+    };
+
     Renderer& renderer;
     TexturePool& texturePool;
     MaterialPool& materialPool;
+    buf::StaticUniformBuffer<SettingsUniform> settingsBuffer;
 
     VkDescriptorPool descriptorPool;
     VkDescriptorSetLayout descriptorSetLayout;

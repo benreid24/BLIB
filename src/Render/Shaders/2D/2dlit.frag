@@ -11,7 +11,11 @@ struct Light {
     vec2 position;
 };
 
-layout(std140, set = 0, binding = 1) uniform lb {
+layout(set = 0, binding = 2) uniform rsettings {
+    float gamma;
+} settings;
+
+layout(std140, set = 1, binding = 1) uniform lb {
     uint count;
     vec3 ambient;
     Light lights[512];
@@ -42,4 +46,5 @@ void main() {
     lightColor = lightColor + lighting.ambient;
 
     outColor = fragColor * vec4(lightColor, 1.0);
+    outColor.rgb = pow(outColor.rgb, vec3(1.0 / settings.gamma));
 }

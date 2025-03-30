@@ -14,17 +14,20 @@ layout(location = 0) in FS_IN {
 
 layout(location = 0) out vec4 outColor;
 
-layout(set = 0, binding = 0) uniform cam {
+layout(set = 0, binding = 2) uniform rsettings {
+    float gamma;
+} settings;
+layout(set = 1, binding = 0) uniform cam {
     mat4 viewProj;
     vec3 camPos;
 } camera;
-layout(set = 0, binding = 1) uniform block_light_info {
+layout(set = 1, binding = 1) uniform block_light_info {
     LightInfo info;
 } lighting;
-layout(set = 0, binding = 2) uniform block_point_lights {
+layout(set = 1, binding = 2) uniform block_point_lights {
     PointLight lights[MAX_POINT_LIGHTS];
 } pointLights;
-layout(std140, set = 0, binding = 3) uniform block_spot_lights {
+layout(std140, set = 1, binding = 3) uniform block_spot_lights {
     SpotLight lights[MAX_SPOT_LIGHTS];
 } spotLights;
 
@@ -47,4 +50,5 @@ void main() {
     vec3 lightColor = lightColors[0] * diffuse + lightColors[1] * diffuse + lightColors[2] * diffuse;
 
     outColor = fs_in.fragColor * vec4(lightColor, fs_in.fragColor.w);
+    outColor.rgb = pow(outColor.rgb, vec3(1.0 / settings.gamma));
 }

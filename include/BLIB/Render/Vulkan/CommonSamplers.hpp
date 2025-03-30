@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_VULKAN_COMMONSAMPLERS_HPP
 #define BLIB_RENDER_VULKAN_COMMONSAMPLERS_HPP
 
+#include <BLIB/Render/Vulkan/Sampler.hpp>
 #include <BLIB/Vulkan.hpp>
 
 namespace bl
@@ -47,6 +48,14 @@ public:
      * @brief Returns a sampler with filtering and repeated addressing
      */
     VkSampler filteredRepeated() const;
+
+    /**
+     * @brief Returns the sampler for the given enum value
+     *
+     * @param sampler The enum value to get the sampler for
+     * @return The sampler for the given enum value
+     */
+    VkSampler getSampler(Sampler sampler) const;
 
 private:
     VulkanState& vulkanState;

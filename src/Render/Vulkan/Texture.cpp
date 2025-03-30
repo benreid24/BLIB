@@ -29,7 +29,7 @@ void Texture::create(const glm::u32vec2& s) {
 
     vulkanState->createImage(s.x,
                              s.y,
-                             DefaultFormat,
+                             getFormat(),
                              VK_IMAGE_TILING_OPTIMAL,
                              VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT |
                                  VK_IMAGE_USAGE_TRANSFER_SRC_BIT,
@@ -37,7 +37,7 @@ void Texture::create(const glm::u32vec2& s) {
                              &image,
                              &alloc,
                              &allocInfo);
-    view = vulkanState->createImageView(image, DefaultFormat, VK_IMAGE_ASPECT_COLOR_BIT);
+    view = vulkanState->createImageView(image, getFormat(), VK_IMAGE_ASPECT_COLOR_BIT);
 
     vulkanState->transitionImageLayout(
         image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
@@ -237,8 +237,6 @@ void Texture::updateTrans(const sf::Image& content) {
 VkImage Texture::getCurrentImage() const { return image; }
 
 VkImageLayout Texture::getCurrentImageLayout() const { return currentLayout; }
-
-VkFormat Texture::getFormat() const { return DefaultFormat; }
 
 } // namespace vk
 } // namespace rc

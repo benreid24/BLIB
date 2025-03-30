@@ -3,6 +3,7 @@
 
 #include <BLIB/Render/Vulkan/AttachmentBuffer.hpp>
 #include <BLIB/Render/Vulkan/StandardAttachmentSet.hpp>
+#include <BLIB/Render/Vulkan/TextureFormat.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <BLIB/Vulkan.hpp>
 
@@ -20,7 +21,7 @@ namespace vk
  */
 class StandardAttachmentBuffers {
 public:
-    static constexpr VkFormat DefaultColorFormat = VK_FORMAT_R8G8B8A8_UNORM;
+    static constexpr VkFormat DefaultColorFormat = TextureFormat::SRGBA32Bit;
 
     /**
      * @brief Creates an empty render buffer with no resources

@@ -105,37 +105,35 @@ TextureRef TexturePool::allocateTexture() {
     return TextureRef{*this, textures.getTexture(i), i};
 }
 
-TextureRef TexturePool::createTexture(const sf::Image& src, VkSampler sampler) {
-    if (!sampler) { sampler = vulkanState.samplerCache.filteredBorderClamped(); }
-
+TextureRef TexturePool::createTexture(const sf::Image& src, VkFormat format, vk::Sampler sampler) {
     std::unique_lock lock(mutex);
 
     TextureRef txtr = allocateTexture();
     auto& t         = static_cast<vk::Texture&>(*txtr.get());
     t.altImg        = &src;
-    txtr->sampler   = sampler;
+    txtr->sampler   = vulkanState.samplerCache.getSampler(sampler);
+    txtr->format    = format;
     t.createFromContentsAndQueue();
     textures.updateTexture(txtr.get());
 
     return txtr;
 }
 
-TextureRef TexturePool::createTexture(const glm::u32vec2& size, VkSampler sampler) {
-    if (!sampler) { sampler = vulkanState.samplerCache.filteredBorderClamped(); }
-
+TextureRef TexturePool::createTexture(const glm::u32vec2& size, VkFormat format,
+                                      vk::Sampler sampler) {
     std::unique_lock lock(mutex);
 
     TextureRef txtr = allocateTexture();
     txtr->create(size);
-    txtr->sampler = sampler;
+    txtr->sampler = vulkanState.samplerCache.getSampler(sampler);
+    txtr->format  = format;
     textures.updateTexture(txtr.get());
 
     return txtr;
 }
 
-TextureRef TexturePool::createRenderTexture(const glm::u32vec2& size, VkSampler sampler) {
-    if (!sampler) { sampler = vulkanState.samplerCache.filteredBorderClamped(); }
-
+TextureRef TexturePool::createRenderTexture(const glm::u32vec2& size, VkFormat format,
+                                            vk::Sampler sampler) {
     std::unique_lock lock(mutex);
 
     // allocate id
@@ -152,15 +150,15 @@ TextureRef TexturePool::createRenderTexture(const glm::u32vec2& size, VkSampler 
     // init texture
     TextureRef txtr{*this, textures.getTexture(i), i};
     txtr->create(size);
-    txtr->sampler = sampler;
+    txtr->sampler = vulkanState.samplerCache.getSampler(sampler);
+    txtr->format  = format;
     textures.updateTexture(txtr.get());
 
     return txtr;
 }
 
-TextureRef TexturePool::getOrLoadTexture(const std::string& path, VkSampler sampler) {
-    if (!sampler) { sampler = vulkanState.samplerCache.filteredBorderClamped(); }
-
+TextureRef TexturePool::getOrLoadTexture(const std::string& path, VkFormat format,
+                                         vk::Sampler sampler) {
     std::unique_lock lock(mutex);
 
     auto it = fileMap.find(path);
@@ -174,16 +172,16 @@ TextureRef TexturePool::getOrLoadTexture(const std::string& path, VkSampler samp
     textures.prepareTextureUpdate(txtr.id(), path);
     it                        = fileMap.try_emplace(path, txtr.id()).first;
     reverseFileMap[txtr.id()] = &it->first;
-    txtr->sampler             = sampler;
+    txtr->sampler             = vulkanState.samplerCache.getSampler(sampler);
+    txtr->format              = format;
     static_cast<vk::Texture&>(*txtr.get()).createFromContentsAndQueue();
     textures.updateTexture(txtr.get());
 
     return txtr;
 }
 
-TextureRef TexturePool::getOrLoadTexture(const sf::Image& src, VkSampler sampler) {
-    if (!sampler) { sampler = vulkanState.samplerCache.filteredBorderClamped(); }
-
+TextureRef TexturePool::getOrLoadTexture(const sf::Image& src, VkFormat format,
+                                         vk::Sampler sampler) {
     std::unique_lock lock(mutex);
 
     auto it = imageMap.find(&src);
@@ -197,7 +195,8 @@ TextureRef TexturePool::getOrLoadTexture(const sf::Image& src, VkSampler sampler
     textures.prepareTextureUpdate(txtr.id(), src);
     it                         = imageMap.try_emplace(&src, txtr.id()).first;
     reverseImageMap[txtr.id()] = &src;
-    txtr->sampler              = sampler;
+    txtr->sampler              = vulkanState.samplerCache.getSampler(sampler);
+    txtr->format               = format;
     static_cast<vk::Texture&>(*txtr.get()).createFromContentsAndQueue();
     textures.updateTexture(txtr.get());
 
@@ -205,13 +204,13 @@ TextureRef TexturePool::getOrLoadTexture(const sf::Image& src, VkSampler sampler
 }
 
 TextureRef TexturePool::getOrCreateTexture(const mdl::Texture& texture, TextureRef fallback,
-                                           VkSampler sampler) {
-    if (texture.isEmbedded()) { return getOrLoadTexture(texture.getEmbedded(), sampler); }
+                                           VkFormat format, vk::Sampler sampler) {
+    if (texture.isEmbedded()) { return getOrLoadTexture(texture.getEmbedded(), format, sampler); }
     if (texture.getFilePath().empty() ||
         !resource::ResourceManager<sf::Image>::load(texture.getFilePath())) {
         return fallback;
     }
-    return getOrLoadTexture(texture.getFilePath(), sampler);
+    return getOrLoadTexture(texture.getFilePath(), format, sampler);
 }
 
 void TexturePool::onFrameStart(ds::SetWriteHelper& setWriter, VkDescriptorSet currentSet,

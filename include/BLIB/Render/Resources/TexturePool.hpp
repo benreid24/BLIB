@@ -4,7 +4,10 @@
 #include <BLIB/Models/Texture.hpp>
 #include <BLIB/Render/Resources/BindlessTextureArray.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
+#include <BLIB/Render/Vulkan/Sampler.hpp>
+#include <BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp>
 #include <BLIB/Render/Vulkan/Texture.hpp>
+#include <BLIB/Render/Vulkan/TextureFormat.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
 #include <BLIB/Vulkan.hpp>
@@ -40,28 +43,38 @@ public:
      * @brief Creates an empty texture of the given size
      *
      * @param size The size of the texture to create
+     * @param format The format of the texture
      * @param sampler The sampler to use
      * @return A reference to the new texture
      */
-    TextureRef createTexture(const glm::u32vec2& size, VkSampler sampler = nullptr);
+    TextureRef createTexture(const glm::u32vec2& size,
+                             VkFormat format     = vk::TextureFormat::LinearRGBA32Bit,
+                             vk::Sampler sampler = vk::Sampler::FilteredBorderClamped);
 
     /**
      * @brief Creates an empty texture of the given size to be rendered to
      *
      * @param size The size of the texture to create
+     * @param format The format of the texture
      * @param sampler The sampler to use
      * @return A reference to the new texture
      */
-    TextureRef createRenderTexture(const glm::u32vec2& size, VkSampler sampler = nullptr);
+    TextureRef createRenderTexture(
+        const glm::u32vec2& size,
+        VkFormat format     = vk::StandardAttachmentBuffers::DefaultColorFormat,
+        vk::Sampler sampler = vk::Sampler::FilteredBorderClamped);
 
     /**
      * @brief Creates a new texture from the given contents and sampler
      *
      * @param image The contents to fill the texture with
+     * @param format The format of the texture
      * @param sampler The sampler the texture should use
      * @return A reference to the new texture
      */
-    TextureRef createTexture(const sf::Image& image, VkSampler sampler = nullptr);
+    TextureRef createTexture(const sf::Image& image,
+                             VkFormat format     = vk::TextureFormat::LinearRGBA32Bit,
+                             vk::Sampler sampler = vk::Sampler::FilteredBorderClamped);
 
     /**
      * @brief Potentially creates a new texture and returns it. The texture contents are loaded from
@@ -69,10 +82,13 @@ public:
      *        is returned immediately.
      *
      * @param filePath The resource id to load the contents from
+     * @param format The format of the texture
      * @param sampler The sampler to use
      * @return A ref to the new or existing texture
      */
-    TextureRef getOrLoadTexture(const std::string& filePath, VkSampler sampler = nullptr);
+    TextureRef getOrLoadTexture(const std::string& filePath,
+                                VkFormat format     = vk::TextureFormat::LinearRGBA32Bit,
+                                vk::Sampler sampler = vk::Sampler::FilteredBorderClamped);
 
     /**
      * @brief Potentially creates a new texture and returns it. The texture contents are loaded from
@@ -80,21 +96,26 @@ public:
      *        is returned immediately.
      *
      * @param src The source image to load
+     * @param format The format of the texture
      * @param sampler The sampler to use
      * @return A ref to the new or existing texture
      */
-    TextureRef getOrLoadTexture(const sf::Image& src, VkSampler sampler = nullptr);
+    TextureRef getOrLoadTexture(const sf::Image& src,
+                                VkFormat format     = vk::TextureFormat::LinearRGBA32Bit,
+                                vk::Sampler sampler = vk::Sampler::FilteredBorderClamped);
 
     /**
      * @brief Gets or creates a texture from the given model texture
      *
      * @param texture The source model texture
      * @param fallback The fallback texture to use if loading fails
+     * @param format The format of the texture
      * @param sampler The sampler to use
      * @return A ref to the new or existing texture
      */
     TextureRef getOrCreateTexture(const mdl::Texture& texture, TextureRef fallback = {},
-                                  VkSampler sampler = nullptr);
+                                  VkFormat format     = vk::TextureFormat::LinearRGBA32Bit,
+                                  vk::Sampler sampler = vk::Sampler::FilteredBorderClamped);
 
     /**
      * @brief Frees all textures that no longer have any valid refs pointing to them

@@ -7,6 +7,7 @@
 #include <BLIB/Render/Vulkan/AttachmentBuffer.hpp>
 #include <BLIB/Render/Vulkan/DedicatedCommandBuffers.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
+#include <BLIB/Render/Vulkan/Sampler.hpp>
 #include <BLIB/Render/Vulkan/StandardAttachmentSet.hpp>
 #include <memory>
 
@@ -146,7 +147,7 @@ private:
 
     // called by renderer
     RenderTexture(engine::Engine& engine, Renderer& renderer, rg::AssetFactory& factory,
-                  const glm::u32vec2& size, VkSampler sampler = nullptr);
+                  const glm::u32vec2& size, Sampler sampler = Sampler::FilteredBorderClamped);
     void render();
 
     friend class bl::rc::Renderer;

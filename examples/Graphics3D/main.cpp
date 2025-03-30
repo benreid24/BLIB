@@ -126,12 +126,12 @@ private:
         floor.commit();
         floor.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
-        auto containerTexture =
-            engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/container.jpg");
+        auto containerTexture = engine.renderer().texturePool().getOrLoadTexture(
+            "Resources/Textures/container.jpg", bl::rc::vk::TextureFormat::SRGBA32Bit);
         auto material = engine.renderer().materialPool().getOrCreateFromTexture(containerTexture);
 
-        auto brickTexture =
-            engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/bricks2.jpg");
+        auto brickTexture = engine.renderer().texturePool().getOrLoadTexture(
+            "Resources/Textures/bricks2.jpg", bl::rc::vk::TextureFormat::SRGBA32Bit);
         auto brickNormal = engine.renderer().texturePool().getOrLoadTexture(
             "Resources/Textures/bricks2_normal.jpg");
         auto brickParallax =
@@ -139,8 +139,8 @@ private:
         auto brickMaterial = engine.renderer().materialPool().getOrCreateFromNormalAndParallax(
             brickTexture, brickNormal, brickParallax, 0.1f);
 
-        auto woodTexture =
-            engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/wood.png");
+        auto woodTexture = engine.renderer().texturePool().getOrLoadTexture(
+            "Resources/Textures/wood.png", bl::rc::vk::TextureFormat::SRGBA32Bit);
         auto toyBoxNormal = engine.renderer().texturePool().getOrLoadTexture(
             "Resources/Textures/toy_box_normal.png");
         auto toyBoxParallax =
@@ -166,8 +166,8 @@ private:
         cube4.getTransform().setPosition({-2.f, 4.501f, -1.f});
         cube4.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
-        auto diffuse =
-            engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/container2.png");
+        auto diffuse = engine.renderer().texturePool().getOrLoadTexture(
+            "Resources/Textures/container2.png", bl::rc::vk::TextureFormat::SRGBA32Bit);
         auto specular = engine.renderer().texturePool().getOrLoadTexture(
             "Resources/Textures/container2_specular.png");
         auto material2 =
@@ -181,8 +181,8 @@ private:
         cube6.getTransform().setPosition({-2.f, 0.75f, -2.f});
         cube6.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
-        auto diffuse3 =
-            engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/brickwall.jpg");
+        auto diffuse3 = engine.renderer().texturePool().getOrLoadTexture(
+            "Resources/Textures/brickwall.jpg", bl::rc::vk::TextureFormat::SRGBA32Bit);
         auto normal3 = engine.renderer().texturePool().getOrLoadTexture(
             "Resources/Textures/brickwall_normal.jpg");
         auto material3 = engine.renderer().materialPool().create(

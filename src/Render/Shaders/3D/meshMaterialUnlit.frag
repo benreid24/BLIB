@@ -23,6 +23,9 @@ struct Material {
 };
 
 layout(set = 0, binding = 0) uniform sampler2D textures[4096];
+layout(set = 0, binding = 2) uniform rsettings {
+    float gamma;
+} settings;
 layout(set = 0, binding = 1) uniform mat {
     Material pool[2048];
 } materials;
@@ -47,4 +50,5 @@ void main() {
     }
 
     outColor = fs_in.fragColor * diffuseColor;
+    outColor.rgb = pow(outColor.rgb, vec3(1.0 / settings.gamma));
 }

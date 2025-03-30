@@ -15,6 +15,7 @@
 #include <BLIB/Render/Resources/ScenePool.hpp>
 #include <BLIB/Render/Resources/TexturePool.hpp>
 #include <BLIB/Render/Scenes/SceneSync.hpp>
+#include <BLIB/Render/Settings.hpp>
 #include <BLIB/Render/Transfers/TextureExporter.hpp>
 #include <BLIB/Render/Vulkan/RenderTexture.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
@@ -115,8 +116,8 @@ public:
      * @param sampler Optional sampler to use
      * @return A handle to the render texture
      */
-    vk::RenderTexture::Handle createRenderTexture(const glm::u32vec2& size,
-                                                  VkSampler sampler = nullptr);
+    vk::RenderTexture::Handle createRenderTexture(
+        const glm::u32vec2& size, vk::Sampler sampler = vk::Sampler::FilteredBorderClamped);
 
     /**
      * @brief Returns the Vulkan state of the renderer
@@ -212,10 +213,21 @@ public:
      */
     vk::PerSwapFrame<vk::Framebuffer>& getSwapframeBuffers();
 
+    /**
+     * @brief Returns the render settings which can be changed
+     */
+    Settings& getSettings();
+
+    /**
+     * @brief Returns the render settings
+     */
+    const Settings& getSettings() const;
+
 private:
     std::mutex renderMutex;
     engine::Engine& engine;
     engine::EngineWindow& window;
+    Settings settings;
     sf::Rect<std::uint32_t> renderRegion;
     vk::VulkanState state;
     vk::PerSwapFrame<vk::Framebuffer> framebuffers;
@@ -324,6 +336,10 @@ T* Renderer::useRenderStrategy(TArgs&&... args) {
 inline rg::AssetFactory& Renderer::getAssetFactory() { return assetFactory; }
 
 inline vk::PerSwapFrame<vk::Framebuffer>& Renderer::getSwapframeBuffers() { return framebuffers; }
+
+inline Settings& Renderer::getSettings() { return settings; }
+
+inline const Settings& Renderer::getSettings() const { return settings; }
 
 } // namespace rc
 } // namespace bl

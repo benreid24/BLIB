@@ -121,7 +121,9 @@ inline VkDescriptorBufferInfo& SetWriteHelper::getNewBufferInfo() {
     VkDescriptorBufferInfo& info       = bufferInfos.emplace_back(VkDescriptorBufferInfo{});
     if (base != bufferInfos.data()) {
         for (auto& write : setWrites) {
-            write.pBufferInfo = bufferInfos.data() + (write.pBufferInfo - base);
+            if (write.pBufferInfo != nullptr) {
+                write.pBufferInfo = bufferInfos.data() + (write.pBufferInfo - base);
+            }
         }
     }
     return info;
@@ -132,7 +134,9 @@ inline VkDescriptorImageInfo& SetWriteHelper::getNewImageInfo() {
     VkDescriptorImageInfo& info       = imageInfos.emplace_back(VkDescriptorImageInfo{});
     if (base != imageInfos.data()) {
         for (auto& write : setWrites) {
-            write.pImageInfo = imageInfos.data() + (write.pImageInfo - base);
+            if (write.pImageInfo != nullptr) {
+                write.pImageInfo = imageInfos.data() + (write.pImageInfo - base);
+            }
         }
     }
     return info;

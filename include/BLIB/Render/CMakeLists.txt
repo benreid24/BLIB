@@ -5,6 +5,7 @@ target_sources(BLIB PUBLIC
     Renderer.hpp
     RenderPhase.hpp
     RenderTarget.hpp
+    Settings.hpp
     UpdateSpeed.hpp
 )
 

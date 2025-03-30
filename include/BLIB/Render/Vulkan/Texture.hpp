@@ -21,8 +21,6 @@ struct VulkanState;
  */
 class Texture : public TextureBase {
 public:
-    static constexpr VkFormat DefaultFormat = VK_FORMAT_R8G8B8A8_UNORM;
-
     /**
      * @brief Creates an empty Texture
      *
@@ -94,7 +92,6 @@ private:
     void updateTrans(const sf::Image& data);
     virtual VkImage getCurrentImage() const override;
     virtual VkImageLayout getCurrentImageLayout() const override;
-    virtual VkFormat getFormat() const override;
 
     friend class res::TexturePool;
     friend class res::BindlessTextureArray;

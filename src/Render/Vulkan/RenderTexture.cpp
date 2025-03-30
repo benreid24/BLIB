@@ -13,7 +13,7 @@ namespace rc
 namespace vk
 {
 RenderTexture::RenderTexture(engine::Engine& engine, Renderer& renderer, rg::AssetFactory& factory,
-                             const glm::u32vec2& size, VkSampler sampler)
+                             const glm::u32vec2& size, Sampler sampler)
 : RenderTarget(engine, renderer, factory, true) {
     commandBuffers.create(renderer.vulkanState());
     attachments.emptyInit(renderer.vulkanState());
@@ -29,7 +29,7 @@ RenderTexture::RenderTexture(engine::Engine& engine, Renderer& renderer, rg::Ass
     viewport.width        = size.x;
     viewport.height       = size.y;
 
-    texture = renderer.texturePool().createRenderTexture(size, sampler);
+    texture = renderer.texturePool().createRenderTexture(size, TextureFormat::SRGBA32Bit, sampler);
     resize(size);
 
     graphAssets.putAsset<rgi::FinalRenderTextureAsset>(

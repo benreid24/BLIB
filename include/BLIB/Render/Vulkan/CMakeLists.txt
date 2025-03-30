@@ -16,6 +16,7 @@ target_sources(BLIB PUBLIC
     RenderPass.hpp
     RenderPassParameters.hpp
     RenderTexture.hpp
+    Sampler.hpp
     SharedCommandBuffer.hpp
     SharedCommandPool.hpp
     StandardAttachmentSet.hpp
@@ -24,5 +25,6 @@ target_sources(BLIB PUBLIC
     Texture.hpp
     TextureBase.hpp
     TextureDoubleBuffered.hpp
+    TextureFormat.hpp
     VulkanState.hpp
 )

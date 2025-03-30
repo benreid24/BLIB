@@ -105,7 +105,7 @@ public:
     /**
      * @brief Returns the color format of the texture
      */
-    virtual VkFormat getFormat() const = 0;
+    VkFormat getFormat() const;
 
 protected:
     /**
@@ -137,6 +137,7 @@ protected:
 private:
     res::BindlessTextureArray* parent;
     VkSampler sampler;
+    VkFormat format;
     glm::u32vec2 sizeRaw;
     glm::vec2 sizeF;
     bool hasTransparency;
@@ -146,6 +147,8 @@ private:
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+inline VkFormat TextureBase::getFormat() const { return format; }
 
 inline VkSampler TextureBase::getSampler() const { return sampler; }
 

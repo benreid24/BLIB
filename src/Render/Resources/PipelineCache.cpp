@@ -107,6 +107,7 @@ void PipelineCache::createBuiltins() {
                               prim::Vertex3D::attributeDescriptions())
             .withRasterizer(rasterizer3d)
             .withDepthStencilState(&depthStencilDepthEnabled)
+            .addDescriptorSet<ds::GlobalDataFactory>()
             .addDescriptorSet<ds::Scene3DFactory>()
             .addDescriptorSet<ds::Object3DFactory>()
             .build());
@@ -120,6 +121,7 @@ void PipelineCache::createBuiltins() {
                               prim::Vertex3D::attributeDescriptions())
             .withRasterizer(rasterizer3d)
             .withDepthStencilState(&depthStencilDepthEnabled)
+            .addDescriptorSet<ds::GlobalDataFactory>()
             .addDescriptorSet<ds::Scene3DFactory>()
             .addDescriptorSet<ds::Object3DFactory>()
             .build());
@@ -211,6 +213,7 @@ void PipelineCache::createBuiltins() {
                        .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                        .withRasterizer(rasterizer)
                        .withDepthStencilState(&depthStencilDepthEnabled)
+                       .addDescriptorSet<ds::GlobalDataFactory>()
                        .addDescriptorSet<ds::Scene2DFactory>()
                        .addDescriptorSet<ds::Object2DFactory>()
                        .build());
@@ -221,6 +224,7 @@ void PipelineCache::createBuiltins() {
                        .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                        .withRasterizer(rasterizer)
                        .withDepthStencilState(&depthStencilDepthEnabled)
+                       .addDescriptorSet<ds::GlobalDataFactory>()
                        .addDescriptorSet<ds::Scene2DFactory>()
                        .addDescriptorSet<ds::Object2DFactory>()
                        .build());
@@ -231,6 +235,7 @@ void PipelineCache::createBuiltins() {
                        .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_LINE_LIST)
                        .withRasterizer(rasterizer)
                        .withDepthStencilState(&depthStencilDepthEnabled)
+                       .addDescriptorSet<ds::GlobalDataFactory>()
                        .addDescriptorSet<ds::Scene2DFactory>()
                        .addDescriptorSet<ds::Object2DFactory>()
                        .build());
@@ -241,6 +246,7 @@ void PipelineCache::createBuiltins() {
                        .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                        .withRasterizer(rasterizer)
                        .withDepthStencilState(&depthStencilDepthWriteDisabled)
+                       .addDescriptorSet<ds::GlobalDataFactory>()
                        .addDescriptorSet<ds::Scene2DFactory>()
                        .addDescriptorSet<ds::Object2DFactory>()
                        .build());
