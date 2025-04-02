@@ -2,7 +2,7 @@
 #define BLIB_RENDER_RENDERER_TEXTUREPOOL_HPP
 
 #include <BLIB/Models/Texture.hpp>
-#include <BLIB/Render/Resources/BindlessTextureArray.hpp>
+#include <BLIB/Render/Descriptors/SetWriteHelper.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
 #include <BLIB/Render/Vulkan/Sampler.hpp>
 #include <BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp>
@@ -30,14 +30,16 @@ namespace res
 class GlobalDescriptors;
 
 /**
- * @brief Resource manager for textures on the GPU. Utilizes BindlessTextureArray to provide a large
- *        array, in a single descriptor set, of Sampler2D instances for each texture
+ * @brief Resource manager for textures on the GPU. Provides a large texture array, in a single
+ *        descriptor set, of Sampler2D instances for each texture
  *
  * @ingroup Renderer
  */
 class TexturePool {
 public:
     static constexpr std::uint32_t TextureArrayBindIndex = 0;
+    static constexpr std::uint32_t FirstRenderTextureId =
+        Config::MaxTextureCount - Config::MaxRenderTextures;
 
     /**
      * @brief Creates an empty texture of the given size
@@ -140,18 +142,30 @@ public:
     VkDescriptorSetLayoutBinding getLayoutBinding() const;
 
 private:
+    // functional data
     std::mutex mutex;
     vk::VulkanState& vulkanState;
-    BindlessTextureArray textures;
+
+    // core data
+    std::vector<vk::Texture> textures;
+    sf::Image errorPattern;
+    vk::Texture errorTexture;
+    TextureRef blankTexture;
+
+    // allocation
     std::vector<std::atomic<std::uint32_t>> refCounts;
     util::IdAllocator<std::uint32_t> freeSlots;
     util::IdAllocator<std::uint32_t> freeRtSlots;
+
+    // indices
     std::unordered_map<std::string, std::uint32_t> fileMap;
     std::unordered_map<const sf::Image*, std::uint32_t> imageMap;
     std::vector<const std::string*> reverseFileMap;
     std::vector<const sf::Image*> reverseImageMap;
+
+    // dynamics
     std::vector<std::uint32_t> toRelease;
-    TextureRef blankTexture;
+    vk::PerFrame<std::vector<vk::Texture*>> queuedUpdates;
 
     TexturePool(vk::VulkanState& vulkanState);
     void init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
@@ -165,9 +179,15 @@ private:
     void releaseUnusedLocked();
     void doRelease(std::uint32_t i);
 
+    void updateTexture(vk::TextureBase* texture);
+    void resetTexture(std::uint32_t i);
+    void prepareTextureUpdate(std::uint32_t i, const sf::Image& src);
+    void prepareTextureUpdate(std::uint32_t i, const std::string& path);
+
     friend class TextureRef;
     friend class bl::rc::Renderer;
     friend class GlobalDescriptors;
+    friend class vk::TextureBase;
 };
 
 } // namespace res

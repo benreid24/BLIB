@@ -1,6 +1,6 @@
 #include <BLIB/Render/Vulkan/TextureBase.hpp>
 
-#include <BLIB/Render/Resources/BindlessTextureArray.hpp>
+#include <BLIB/Render/Resources/TexturePool.hpp>
 
 namespace bl
 {

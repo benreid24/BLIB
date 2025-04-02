@@ -51,7 +51,6 @@ void RenderTexture::resize(const glm::u32vec2& size) {
                                   .getRenderPass(Config::RenderPassIds::StandardAttachmentDefault)
                                   .rawPass();
 
-    unsigned int i = 0;
     depthBuffer.create(renderer.vulkanState(),
                        StandardAttachmentBuffers::findDepthFormat(renderer.vulkanState()),
                        VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,

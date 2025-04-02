@@ -1,5 +1,4 @@
 target_sources(BLIB PRIVATE
-    BindlessTextureArray.cpp
     GlobalDescriptors.cpp
     MaterialPipelineCache.cpp
     MaterialPool.cpp

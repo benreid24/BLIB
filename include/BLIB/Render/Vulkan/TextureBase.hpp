@@ -12,7 +12,6 @@ namespace rc
 namespace res
 {
 class TexturePool;
-class BindlessTextureArray;
 } // namespace res
 
 namespace vk
@@ -138,14 +137,13 @@ protected:
     void updateTransparency(bool isTrans);
 
 private:
-    res::BindlessTextureArray* parent;
+    res::TexturePool* parent;
     VkSampler sampler;
     VkFormat format;
     glm::u32vec2 sizeRaw;
     glm::vec2 sizeF;
     bool hasTransparency;
 
-    friend class res::BindlessTextureArray;
     friend class res::TexturePool;
 };
 

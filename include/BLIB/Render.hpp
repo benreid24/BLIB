@@ -81,7 +81,6 @@
 #include <BLIB/Render/Primitives/Vertex.hpp>
 #include <BLIB/Render/RenderTarget.hpp>
 #include <BLIB/Render/Renderer.hpp>
-#include <BLIB/Render/Resources/BindlessTextureArray.hpp>
 #include <BLIB/Render/Resources/MaterialPipelineCache.hpp>
 #include <BLIB/Render/Resources/PipelineCache.hpp>
 #include <BLIB/Render/Resources/PipelineLayoutCache.hpp>

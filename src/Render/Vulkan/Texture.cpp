@@ -1,6 +1,5 @@
 #include <BLIB/Render/Vulkan/Texture.hpp>
 
-#include <BLIB/Render/Resources/BindlessTextureArray.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 
 namespace bl

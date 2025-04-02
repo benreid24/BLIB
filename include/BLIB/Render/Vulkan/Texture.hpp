@@ -95,7 +95,6 @@ private:
     virtual VkImageLayout getCurrentImageLayout() const override;
 
     friend class res::TexturePool;
-    friend class res::BindlessTextureArray;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
