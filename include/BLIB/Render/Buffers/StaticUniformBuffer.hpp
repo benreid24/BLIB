@@ -33,16 +33,20 @@ public:
      *
      * @param vulkanState Renderer Vulkan state
      * @param size Number of elements to create
+     * @param alignment The alignment rule to follow when aligning array elements
      */
-    StaticUniformBuffer(vk::VulkanState& vulkanState, std::uint32_t size);
+    StaticUniformBuffer(vk::VulkanState& vulkanState, std::uint32_t size,
+                        Alignment alignment = Alignment::Std140);
 
     /**
      * @brief Creates a new StaticUniformBuffer
      *
      * @param vulkanState Renderer Vulkan state
      * @param size Number of elements to create
+     * @param alignment The alignment rule to follow when aligning array elements
      */
-    void create(vk::VulkanState& vulkanState, std::uint32_t size);
+    void create(vk::VulkanState& vulkanState, std::uint32_t size,
+                Alignment alignment = Alignment::Std140);
 
     /**
      * @brief Fills the buffer with the given value
@@ -103,14 +107,15 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>
-StaticUniformBuffer<T>::StaticUniformBuffer(vk::VulkanState& vulkanState, std::uint32_t size) {
-    create(vulkanState, size);
+StaticUniformBuffer<T>::StaticUniformBuffer(vk::VulkanState& vulkanState, std::uint32_t size,
+                                            Alignment alignment) {
+    create(vulkanState, size, alignment);
 }
 
 template<typename T>
-void StaticUniformBuffer<T>::create(vk::VulkanState& vs, std::uint32_t size) {
+void StaticUniformBuffer<T>::create(vk::VulkanState& vs, std::uint32_t size, Alignment alignment) {
     vulkanState = &vs;
-    cpuBuffer.create(buf::Alignment::Std140, size);
+    cpuBuffer.create(alignment, size);
 
     gpuBuffer.create(vs,
                      cpuBuffer.alignedSize(),

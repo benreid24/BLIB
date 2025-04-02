@@ -89,21 +89,23 @@ void GlobalDescriptors::init() {
     materialPool.init(descriptorSets, rtDescriptorSets);
 
     // write descriptor set with settings uniform
-    settingsBuffer.create(vulkanState, 1);
+    settingsBuffer.create(vulkanState, 2, buf::Alignment::UboBindOffset);
     ds::SetWriteHelper writer;
-    for (unsigned int i = 0; i < std::size(allocatedSets); ++i) {
+    const auto writeGlobalsSet = [this, &writer](VkDescriptorSet set, bool forRt) {
         auto& bufferInfo  = writer.getNewBufferInfo();
         bufferInfo.buffer = settingsBuffer.gpuBufferHandle().getBuffer();
-        bufferInfo.offset = 0;
-        bufferInfo.range  = settingsBuffer.totalAlignedSize();
+        bufferInfo.offset = forRt ? settingsBuffer.alignedUniformSize() : 0;
+        bufferInfo.range  = settingsBuffer.alignedUniformSize();
 
-        auto& write           = writer.getNewSetWrite(allocatedSets[i]);
+        auto& write           = writer.getNewSetWrite(set);
         write.descriptorCount = 1;
         write.dstBinding      = 2;
         write.dstArrayElement = 0;
         write.pBufferInfo     = &bufferInfo;
         write.descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-    }
+    };
+    descriptorSets.visit([&writeGlobalsSet](VkDescriptorSet set) { writeGlobalsSet(set, false); });
+    rtDescriptorSets.visit([&writeGlobalsSet](VkDescriptorSet set) { writeGlobalsSet(set, true); });
     writer.performWrite(vulkanState.device);
     updateSettings(renderer.getSettings());
 }
@@ -125,7 +127,12 @@ void GlobalDescriptors::onFrameStart() {
 }
 
 void GlobalDescriptors::updateSettings(const Settings& settings) {
+    // populate global settings
     settingsBuffer[0].gamma = settings.getGamma();
+
+    // handle render texture specific settings
+    settingsBuffer[1]       = settingsBuffer[0];
+    settingsBuffer[1].gamma = 1.f; // cancel out gamma correction
     settingsBuffer.queueTransfer();
 }
 

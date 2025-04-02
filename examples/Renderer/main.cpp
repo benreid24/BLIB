@@ -92,7 +92,9 @@ public:
         bl::rc::Observer& p2 = engine.addPlayer().getRenderObserver();
         auto p2World =
             engine.getPlayer(1).enterWorld<bl::engine::BasicWorld<bl::rc::scene::Scene3D>>();
-        bl::rc::SceneRef scene = p2World->scene();
+        bl::rc::SceneRef scene          = p2World->scene();
+        bl::rc::scene::Scene3D* scene3d = static_cast<bl::rc::scene::Scene3D*>(scene.get());
+        scene3d->getLighting().setAmbientLightColor({1.f, 1.f, 1.f});
 
         // create camera for observer 2
         p2.setClearColor({0.f, 1.f, 0.f, 1.f});
