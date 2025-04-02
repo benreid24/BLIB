@@ -2,7 +2,6 @@
 
 #include <BLIB/Render/Resources/TexturePool.hpp>
 #include <BLIB/Render/Vulkan/Texture.hpp>
-#include <BLIB/Render/Vulkan/TextureDoubleBuffered.hpp>
 
 namespace bl
 {
@@ -98,26 +97,6 @@ const vk::Texture* TextureRef::asBindlessTexture() const {
     return t;
 #else
     return static_cast<const vk::Texture*>(texture);
-#endif
-}
-
-vk::TextureDoubleBuffered* TextureRef::asRenderTexture() {
-#ifdef BLIB_DEBUG
-    vk::TextureDoubleBuffered* t = dynamic_cast<vk::TextureDoubleBuffered*>(texture);
-    if (!t) { throw std::runtime_error("Texture is not a render texture"); }
-    return t;
-#else
-    return static_cast<vk::TextureDoubleBuffered*>(texture);
-#endif
-}
-
-const vk::TextureDoubleBuffered* TextureRef::asRenderTexture() const {
-#ifdef BLIB_DEBUG
-    const vk::TextureDoubleBuffered* t = dynamic_cast<const vk::TextureDoubleBuffered*>(texture);
-    if (!t) { throw std::runtime_error("Texture is not a render texture"); }
-    return t;
-#else
-    return static_cast<const vk::TextureDoubleBuffered*>(texture);
 #endif
 }
 

@@ -123,16 +123,6 @@ public:
      */
     const vk::Texture* asBindlessTexture() const;
 
-    /**
-     * @brief Access the underlying texture as a render texture
-     */
-    vk::TextureDoubleBuffered* asRenderTexture();
-
-    /**
-     * @brief Access the underlying texture as a render texture
-     */
-    const vk::TextureDoubleBuffered* asRenderTexture() const;
-
 private:
     TexturePool* owner;
     vk::TextureBase* texture;

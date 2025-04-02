@@ -124,8 +124,11 @@ protected:
      * @brief Derived classes should create the texture here
      *
      * @param size The size of the texture to create
+     * @param usageFlags Extra usage flags to create the image with
+     * @param aspect The aspect to create the image view with
      */
-    virtual void create(const glm::u32vec2& size) = 0;
+    virtual void create(const glm::u32vec2& size, VkImageUsageFlags usageFlags = 0,
+                        VkImageAspectFlags aspect = VK_IMAGE_ASPECT_COLOR_BIT) = 0;
 
     /**
      * @brief Derived classes should call this when the contents change

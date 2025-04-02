@@ -24,7 +24,8 @@ void Texture::createFromContentsAndQueue() {
     queueTransfer(SyncRequirement::Immediate);
 }
 
-void Texture::create(const glm::u32vec2& s) {
+void Texture::create(const glm::u32vec2& s, VkImageUsageFlags usageFlags,
+                     VkImageAspectFlags aspect) {
     updateSize(s);
 
     vulkanState->createImage(s.x,
@@ -32,12 +33,12 @@ void Texture::create(const glm::u32vec2& s) {
                              getFormat(),
                              VK_IMAGE_TILING_OPTIMAL,
                              VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT |
-                                 VK_IMAGE_USAGE_TRANSFER_SRC_BIT,
+                                 VK_IMAGE_USAGE_TRANSFER_SRC_BIT | usageFlags,
                              VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
                              &image,
                              &alloc,
                              &allocInfo);
-    view = vulkanState->createImageView(image, getFormat(), VK_IMAGE_ASPECT_COLOR_BIT);
+    view = vulkanState->createImageView(image, getFormat(), aspect);
 
     vulkanState->transitionImageLayout(
         image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);

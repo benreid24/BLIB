@@ -105,7 +105,7 @@ public:
         // create object in scene
         meshEntity = p2World->createEntity();
         engine.ecs().emplaceComponent<bl::com::Transform3D>(meshEntity);
-        bl::com::Mesh* mesh = engine.ecs().emplaceComponent<bl::com::Mesh>(meshEntity);
+        bl::com::BasicMesh* mesh = engine.ecs().emplaceComponent<bl::com::BasicMesh>(meshEntity);
         bl::com::MaterialInstance* meshMaterial =
             engine.ecs().emplaceComponent<bl::com::MaterialInstance>(
                 meshEntity, engine.renderer(), *mesh);

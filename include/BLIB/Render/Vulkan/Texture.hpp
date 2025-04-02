@@ -83,7 +83,8 @@ private:
     VkImageView view;
     VkImageLayout currentLayout;
 
-    virtual void create(const glm::u32vec2& size) override;
+    virtual void create(const glm::u32vec2& size, VkImageUsageFlags usageFlags = 0,
+                        VkImageAspectFlags aspect = VK_IMAGE_ASPECT_COLOR_BIT) override;
     void createFromContentsAndQueue();
     virtual void executeTransfer(VkCommandBuffer commandBuffer,
                                  tfr::TransferContext& transferEngine) override;

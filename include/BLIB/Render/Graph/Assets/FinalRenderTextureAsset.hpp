@@ -26,7 +26,7 @@ public:
      * @param clearColors Pointer to array of clear colors for attachments
      * @param clearColorCount The number of clear colors
      */
-    FinalRenderTextureAsset(vk::PerFrame<vk::Framebuffer>& framebuffers, const VkViewport& viewport,
+    FinalRenderTextureAsset(vk::Framebuffer& framebuffers, const VkViewport& viewport,
                             const VkRect2D& scissor, const VkClearValue* clearColors,
                             const std::uint32_t clearColorCount);
 
@@ -41,7 +41,7 @@ public:
     virtual vk::Framebuffer& currentFramebuffer() override;
 
 private:
-    vk::PerFrame<vk::Framebuffer>& framebuffers;
+    vk::Framebuffer& framebuffer;
 
     virtual void doCreate(engine::Engine& engine, Renderer& renderer,
                           RenderTarget* observer) override;

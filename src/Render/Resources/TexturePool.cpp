@@ -124,9 +124,9 @@ TextureRef TexturePool::createTexture(const glm::u32vec2& size, VkFormat format,
     std::unique_lock lock(mutex);
 
     TextureRef txtr = allocateTexture();
+    txtr->sampler   = vulkanState.samplerCache.getSampler(sampler);
+    txtr->format    = format;
     txtr->create(size);
-    txtr->sampler = vulkanState.samplerCache.getSampler(sampler);
-    txtr->format  = format;
     textures.updateTexture(txtr.get());
 
     return txtr;
@@ -149,9 +149,9 @@ TextureRef TexturePool::createRenderTexture(const glm::u32vec2& size, VkFormat f
 
     // init texture
     TextureRef txtr{*this, textures.getTexture(i), i};
-    txtr->create(size);
     txtr->sampler = vulkanState.samplerCache.getSampler(sampler);
     txtr->format  = format;
+    txtr->create(size, VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT);
     textures.updateTexture(txtr.get());
 
     return txtr;

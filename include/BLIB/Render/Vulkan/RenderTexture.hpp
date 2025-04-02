@@ -142,8 +142,9 @@ private:
 
     DedicatedCommandBuffers commandBuffers;
     res::TextureRef texture;
-    PerFrame<FramePayload> attachments;
-    PerFrame<Framebuffer> framebuffers;
+    AttachmentBuffer depthBuffer;
+    StandardAttachmentSet attachmentSet;
+    Framebuffer framebuffer;
 
     // called by renderer
     RenderTexture(engine::Engine& engine, Renderer& renderer, rg::AssetFactory& factory,

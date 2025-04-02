@@ -4,7 +4,6 @@
 #include <BLIB/Render/Descriptors/SetWriteHelper.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
 #include <BLIB/Render/Vulkan/Texture.hpp>
-#include <BLIB/Render/Vulkan/TextureDoubleBuffered.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <SFML/Graphics/Image.hpp>
 #include <array>
@@ -57,7 +56,7 @@ public:
      * @param i The index of the texture to fetch
      * @return The texture at the given index
      */
-    vk::TextureBase& getTexture(std::uint32_t i);
+    vk::Texture& getTexture(std::uint32_t i);
 
     /**
      * @brief Loads the texture contents for the given texture from the given resource id. Utilizes
@@ -121,8 +120,7 @@ private:
     sf::Image errorPattern;
     vk::Texture errorTexture;
     std::vector<vk::Texture> textures;
-    std::vector<vk::TextureDoubleBuffered> renderTextures;
-    vk::PerFrame<std::vector<vk::TextureBase*>> queuedUpdates;
+    vk::PerFrame<std::vector<vk::Texture*>> queuedUpdates;
 
     friend class vk::Texture;
 };
@@ -133,10 +131,7 @@ inline std::uint32_t BindlessTextureArray::getBindIndex() const { return bindInd
 
 inline sf::Image& BindlessTextureArray::getErrorPattern() { return errorPattern; }
 
-inline vk::TextureBase& BindlessTextureArray::getTexture(std::uint32_t i) {
-    return i >= firstRtId ? static_cast<vk::TextureBase&>(renderTextures[i - firstRtId]) :
-                            static_cast<vk::TextureBase&>(textures[i]);
-}
+inline vk::Texture& BindlessTextureArray::getTexture(std::uint32_t i) { return textures[i]; }
 
 } // namespace res
 } // namespace rc

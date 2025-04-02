@@ -19,7 +19,6 @@ target_sources(BLIB PRIVATE
     Swapchain.cpp
     Texture.cpp
     TextureBase.cpp
-    TextureDoubleBuffered.cpp
     VulkanState.cpp
 )
 

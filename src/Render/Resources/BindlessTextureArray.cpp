@@ -14,15 +14,10 @@ BindlessTextureArray::BindlessTextureArray(vk::VulkanState& vs, std::uint32_t si
 : bindIndex(bind)
 , firstRtId(size - Config::MaxRenderTextures)
 , vulkanState(vs)
-, textures(size - Config::MaxRenderTextures)
-, renderTextures(Config::MaxRenderTextures) {
+, textures(size) {
     errorTexture.vulkanState = &vs;
     errorTexture.parent      = this;
     for (auto& t : textures) {
-        t.parent      = this;
-        t.vulkanState = &vs;
-    }
-    for (auto& t : renderTextures) {
         t.parent      = this;
         t.vulkanState = &vs;
     }
@@ -43,10 +38,9 @@ void BindlessTextureArray::init(vk::PerFrame<VkDescriptorSet>& ds,
 
     // init all textures to error pattern
     for (vk::Texture& txtr : textures) { txtr = errorTexture; }
-    for (vk::TextureDoubleBuffered& txtr : renderTextures) { txtr = errorTexture; }
 
     // fill descriptor set
-    const std::size_t len = textures.size() + renderTextures.size();
+    const std::size_t len = textures.size();
     std::vector<VkDescriptorImageInfo> imageInfos(len * Config::MaxConcurrentFrames,
                                                   VkDescriptorImageInfo{});
     for (unsigned int fi = 0; fi < Config::MaxConcurrentFrames; ++fi) {
@@ -57,12 +51,6 @@ void BindlessTextureArray::init(vk::PerFrame<VkDescriptorSet>& ds,
             info.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
             info.imageView   = textures[i].view;
             info.sampler     = textures[i].getSampler();
-        }
-        for (unsigned int i = 0; i < renderTextures.size(); ++i, ++infoIndex) {
-            auto& info       = imageInfos[infoIndex];
-            info.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-            info.imageView   = renderTextures[i].getImages().getRaw(fi).view;
-            info.sampler     = renderTextures[i].getSampler();
         }
     }
 
@@ -90,9 +78,6 @@ void BindlessTextureArray::cleanup() {
     for (vk::Texture& txtr : textures) {
         if (txtr.view != errorTexture.view) { txtr.cleanup(); }
     }
-    for (vk::TextureDoubleBuffered& txtr : renderTextures) {
-        if (txtr.getImages().getRaw(0).view != errorTexture.view) { txtr.cleanup(); }
-    }
     errorTexture.cleanup();
 }
 
@@ -107,23 +92,16 @@ void BindlessTextureArray::prepareTextureUpdate(std::uint32_t i, const sf::Image
 }
 
 void BindlessTextureArray::updateTexture(vk::TextureBase* texture) {
-    queuedUpdates.visit([texture](auto& vec) { vec.emplace_back(texture); });
+    queuedUpdates.visit(
+        [texture](auto& vec) { vec.emplace_back(static_cast<vk::Texture*>(texture)); });
 }
 
 void BindlessTextureArray::resetTexture(std::uint32_t i) {
-    if (i < firstRtId) {
-        vk::Texture* texture = &textures[i];
-        texture->cleanup();
-        *texture = errorTexture;
-        texture->reset();
-        updateTexture(texture);
-    }
-    else {
-        vk::TextureDoubleBuffered* texture = &renderTextures[i - firstRtId];
-        texture->cleanup();
-        *texture = errorTexture;
-        updateTexture(texture);
-    }
+    vk::Texture* texture = &textures[i];
+    texture->cleanup();
+    *texture = errorTexture;
+    texture->reset();
+    updateTexture(texture);
 }
 
 void BindlessTextureArray::commitDescriptorUpdates(ds::SetWriteHelper& setWriter,
@@ -135,21 +113,10 @@ void BindlessTextureArray::commitDescriptorUpdates(ds::SetWriteHelper& setWriter
         setWriter.hintImageInfoCount(queuedUpdates.current().size() * 2);
 
         for (unsigned int j = 0; j < queuedUpdates.current().size(); ++j) {
-            vk::TextureBase* texture = queuedUpdates.current()[j];
-            const bool isRT          = dynamic_cast<vk::TextureDoubleBuffered*>(texture) != nullptr;
-
-            std::uint32_t i;
-            VkImageView view;
-            if (!isRT) {
-                vk::Texture* cast = static_cast<vk::Texture*>(texture);
-                i                 = cast - textures.data();
-                view              = cast->view;
-            }
-            else {
-                vk::TextureDoubleBuffered* cast = static_cast<vk::TextureDoubleBuffered*>(texture);
-                i                               = cast - renderTextures.data() + textures.size();
-                view                            = cast->getImages().current().view;
-            }
+            vk::Texture* texture   = queuedUpdates.current()[j];
+            const std::uint32_t i  = texture - textures.data();
+            const bool isRT        = i >= firstRtId;
+            const VkImageView view = texture->view;
 
             auto& regularInfo       = setWriter.getNewImageInfo();
             regularInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
