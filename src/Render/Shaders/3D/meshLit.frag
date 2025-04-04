@@ -18,7 +18,8 @@ layout(set = 0, binding = 2) uniform rsettings {
     float gamma;
 } settings;
 layout(set = 1, binding = 0) uniform cam {
-    mat4 viewProj;
+    mat4 projection;
+    mat4 view;
     vec3 camPos;
 } camera;
 layout(set = 1, binding = 1) uniform block_light_info {

@@ -23,8 +23,6 @@ RenderTarget::RenderTarget(engine::Engine& e, Renderer& r, rg::AssetFactory& f, 
 
     clearColors[0].color        = {{0.f, 0.f, 0.f, 1.f}};
     clearColors[1].depthStencil = {1.f, 0};
-
-    overlayProjView = overlayCamera.getProjectionMatrix(viewport) * overlayCamera.getViewMatrix();
 }
 
 RenderTarget::~RenderTarget() {
@@ -130,14 +128,18 @@ void RenderTarget::handleDescriptorSync() {
             scenes.back().scene->setDefaultNearAndFarPlanes(*scenes.back().camera);
         }
 
-        const glm::mat4 projView = scenes.back().camera->getProjectionMatrix(viewport) *
-                                   scenes.back().camera->getViewMatrix();
         scenes.back().scene->updateObserverCamera(
-            scenes.back().observerIndex, {projView, scenes.back().camera->getObserverPosition()});
+            scenes.back().observerIndex,
+            {scenes.back().camera->getProjectionMatrix(viewport),
+             scenes.back().camera->getViewMatrix(),
+             scenes.back().camera->getObserverPosition()});
         scenes.back().scene->handleDescriptorSync();
         if (scenes.back().overlay) {
-            scenes.back().overlay->updateObserverCamera(scenes.back().overlayIndex,
-                                                        {overlayProjView, glm::vec3()});
+            scenes.back().overlay->updateObserverCamera(
+                scenes.back().overlayIndex,
+                {overlayCamera.getProjectionMatrix(viewport),
+                 overlayCamera.getViewMatrix(),
+                 glm::vec3()});
             scenes.back().overlay->handleDescriptorSync();
         }
     }

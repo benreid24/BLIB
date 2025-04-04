@@ -31,7 +31,8 @@ layout(set = 0, binding = 1) uniform mat {
 } materials;
 
 layout(set = 1, binding = 0) uniform cam {
-    mat4 viewProj;
+    mat4 projection;
+    mat4 view;
     vec3 camPos;
 } camera;
 

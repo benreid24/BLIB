@@ -10,7 +10,8 @@ layout(location = 2) flat out uint fragTextureId;
 layout(location = 3) out vec2 fragPos;
 
 layout(set = 1, binding = 0) uniform cam {
-    mat4 viewProj;
+    mat4 projection;
+    mat4 view;
     vec3 camPos;
 } camera;
 
@@ -23,7 +24,7 @@ layout(std430, set = 2, binding = 1) readonly buffer tex {
 
 void main() {
     vec4 worldPos = object.model[gl_InstanceIndex] * vec4(inPosition, 1.0);
-	gl_Position = camera.viewProj * worldPos;
+	gl_Position = camera.projection * camera.view * worldPos;
 	fragColor = inColor;
 	fragTexCoords = inTexCoords;
     fragTextureId = skin.index[gl_InstanceIndex];

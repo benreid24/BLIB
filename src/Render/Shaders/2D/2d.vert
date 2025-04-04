@@ -8,7 +8,8 @@ layout(location = 0) out vec4 fragColor;
 layout(location = 1) out vec2 fragPos;
 
 layout(set = 1, binding = 0) uniform cam {
-    mat4 viewProj;
+    mat4 projection;
+    mat4 view;
     vec3 camPos;
 } camera;
 
@@ -18,7 +19,7 @@ layout(std430, set = 2, binding = 0) readonly buffer obj {
 
 void main() {
     vec4 worldPos = object.model[gl_InstanceIndex] * vec4(inPosition, 1.0);
-	gl_Position = camera.viewProj * worldPos;
+	gl_Position = camera.projection * camera.view * worldPos;
 	fragColor = inColor;
 	fragPos = vec2(worldPos.x, worldPos.y);
 }

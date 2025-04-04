@@ -25,12 +25,14 @@ public:
      * @brief Basic uniform struct containing observer info used during render
      */
     struct ObserverInfo {
-        glm::mat4 projView;
+        glm::mat4 projection;
+        glm::mat4 view;
         glm::vec3 pos;
 
         ObserverInfo() = default;
-        ObserverInfo(const glm::mat4& projView, const glm::vec3& pos)
-        : projView(projView)
+        ObserverInfo(const glm::mat4& proj, const glm::mat4& view, const glm::vec3& pos)
+        : projection(proj)
+        , view(view)
         , pos(pos) {}
     };
 

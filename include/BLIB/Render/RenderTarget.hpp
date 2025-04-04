@@ -177,7 +177,6 @@ protected:
     std::list<SceneInstance> scenes;
     VkClearValue clearColors[2];
     cam::OverlayCamera overlayCamera;
-    glm::mat4 overlayProjView;
 
     RenderTarget(engine::Engine& engine, Renderer& renderer, rg::AssetFactory& factory,
                  bool isRenderTexture);

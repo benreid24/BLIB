@@ -20,7 +20,8 @@ layout(location = 0) out VS_OUT {
 } vs_out;
 
 layout(set = 1, binding = 0) uniform cam {
-    mat4 viewProj;
+    mat4 projection;
+    mat4 view;
     vec3 camPos;
 } camera;
 
@@ -32,7 +33,7 @@ void main() {
     ModelTransform model = object.model[gl_InstanceIndex];
     vec4 inPos = vec4(inPosition, 1.0);
 
-	gl_Position = camera.viewProj * model.transform * inPos;
+	gl_Position = camera.projection * camera.view * model.transform * inPos;
     vs_out.fragPos = vec3(model.transform * inPos);
 	vs_out.fragColor = inColor;
 	vs_out.texCoords = inTexCoords;
