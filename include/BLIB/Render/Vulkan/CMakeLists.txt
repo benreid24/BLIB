@@ -23,7 +23,6 @@ target_sources(BLIB PUBLIC
     StandardAttachmentBuffers.hpp
     Swapchain.hpp
     Texture.hpp
-    TextureBase.hpp
     TextureFormat.hpp
     VulkanState.hpp
 )

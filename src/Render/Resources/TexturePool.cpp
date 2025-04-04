@@ -337,9 +337,8 @@ void TexturePool::prepareTextureUpdate(std::uint32_t i, const sf::Image& src) {
     textures[i].altImg = &src;
 }
 
-void TexturePool::updateTexture(vk::TextureBase* texture) {
-    queuedUpdates.visit(
-        [texture](auto& vec) { vec.emplace_back(static_cast<vk::Texture*>(texture)); });
+void TexturePool::updateTexture(vk::Texture* texture) {
+    queuedUpdates.visit([texture](auto& vec) { vec.emplace_back(texture); });
 }
 
 void TexturePool::resetTexture(std::uint32_t i) {

@@ -56,10 +56,8 @@ void RenderTexture::resize(const glm::u32vec2& size) {
                        VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
                        {size.x, size.y});
     attachmentSet.setRenderExtent(scissor.extent);
-    attachmentSet.setAttachments(texture->getCurrentImage(),
-                                 texture.asBindlessTexture()->getView(),
-                                 depthBuffer.image(),
-                                 depthBuffer.view());
+    attachmentSet.setAttachments(
+        texture->getImage(), texture->getView(), depthBuffer.image(), depthBuffer.view());
 
     framebuffer.create(renderer.vulkanState(), renderPass, attachmentSet);
 }

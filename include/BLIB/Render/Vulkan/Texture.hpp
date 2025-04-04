@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_RENDERER_TEXTURE_HPP
 #define BLIB_RENDER_RENDERER_TEXTURE_HPP
 
-#include <BLIB/Render/Vulkan/TextureBase.hpp>
+#include <BLIB/Render/Transfers/Transferable.hpp>
 #include <BLIB/Resources.hpp>
 #include <SFML/Graphics/Image.hpp>
 
@@ -19,7 +19,7 @@ struct VulkanState;
  *
  * @ingroup Renderer
  */
-class Texture : public TextureBase {
+class Texture : public tfr::Transferable {
 public:
     /**
      * @brief Creates an empty Texture
@@ -33,11 +33,35 @@ public:
     virtual ~Texture() = default;
 
     /**
+     * @brief Returns the normalized coordinate for this texture, taking into account atlasing
+     *        performed by the renderer
+     *
+     * @param src The texture coordinate to convert
+     * @return The texture coordinate to use for geometry
+     */
+    glm::vec2 convertCoord(const glm::vec2& src) const;
+
+    /**
+     * @brief Performs convertCoord but first normalizes the coordinate to this texture
+     *
+     * @param src The unnormalized coordinate to normalize and convert
+     * @return The coordinate to use for geometry
+     */
+    glm::vec2 normalizeAndConvertCoord(const glm::vec2& src) const;
+
+    /**
+     * @brief Resizes the texture to be the given size unless it is already bigger
+     *
+     * @param size The size to ensure
+     */
+    void ensureSize(const glm::u32vec2& size);
+
+    /**
      * @brief Resizes the texture to the given size
      *
      * @param size The new texture size
      */
-    virtual void resize(const glm::u32vec2& size) override;
+    void resize(const glm::u32vec2& size);
 
     /**
      * @brief Updates the content of the texture from the given image. Performs no bounds validation
@@ -60,6 +84,18 @@ public:
                 const sf::IntRect& source = {});
 
     /**
+     * @brief Updates the sampler that this texture uses
+     *
+     * @param sampler The new sampler to use
+     */
+    void setSampler(VkSampler sampler);
+
+    /**
+     * @brief Returns the sampler used for this texture
+     */
+    VkSampler getSampler() const;
+
+    /**
      * @brief Returns the Vulkan image handle
      */
     VkImage getImage() const;
@@ -69,7 +105,39 @@ public:
      */
     VkImageView getView() const;
 
+    /**
+     * @brief Returns the color format of the texture
+     */
+    VkFormat getFormat() const;
+
+    /**
+     * @brief Returns whether or not this texture contains significant transparency (more than 10%)
+     */
+    bool containsTransparency() const;
+
+    /**
+     * @brief Returns the size of the texture in pixels
+     */
+    const glm::u32vec2& rawSize() const;
+
+    /**
+     * @brief Returns the size of the texture in pixels
+     */
+    glm::vec2 size() const;
+
+    /**
+     * @brief Returns the current image layout of the image for the current frame
+     */
+    VkImageLayout getCurrentImageLayout() const;
+
 private:
+    // base data
+    res::TexturePool* parent;
+    VkSampler sampler;
+    VkFormat format;
+    glm::u32vec2 sizeRaw;
+    bool hasTransparency;
+
     // transfer data
     const sf::Image* altImg;
     resource::Ref<sf::Image> transferImg;
@@ -83,16 +151,15 @@ private:
     VkImageView view;
     VkImageLayout currentLayout;
 
-    virtual void create(const glm::u32vec2& size, VkImageUsageFlags usageFlags = 0,
-                        VkImageAspectFlags aspect = VK_IMAGE_ASPECT_COLOR_BIT) override;
+    void create(const glm::u32vec2& size, VkImageUsageFlags usageFlags = 0,
+                VkImageAspectFlags aspect = VK_IMAGE_ASPECT_COLOR_BIT);
     void createFromContentsAndQueue();
     virtual void executeTransfer(VkCommandBuffer commandBuffer,
                                  tfr::TransferContext& transferEngine) override;
     void cleanup();
     void reset();
     void updateTrans(const sf::Image& data);
-    virtual VkImage getCurrentImage() const override;
-    virtual VkImageLayout getCurrentImageLayout() const override;
+    void updateDescriptors();
 
     friend class res::TexturePool;
 };
@@ -102,6 +169,18 @@ private:
 inline VkImage Texture::getImage() const { return image; }
 
 inline VkImageView Texture::getView() const { return view; }
+
+inline VkFormat Texture::getFormat() const { return format; }
+
+inline const glm::u32vec2& Texture::rawSize() const { return sizeRaw; }
+
+inline glm::vec2 Texture::size() const { return glm::vec2(sizeRaw); }
+
+inline bool Texture::containsTransparency() const { return hasTransparency; }
+
+inline VkSampler Texture::getSampler() const { return sampler; }
+
+inline VkImageLayout Texture::getCurrentImageLayout() const { return currentLayout; }
 
 } // namespace vk
 } // namespace rc

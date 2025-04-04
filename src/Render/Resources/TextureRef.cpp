@@ -19,7 +19,7 @@ TextureRef::TextureRef()
 , texture(nullptr)
 , arrayId(0) {}
 
-TextureRef::TextureRef(TexturePool& owner, vk::TextureBase& texture, std::uint32_t aid)
+TextureRef::TextureRef(TexturePool& owner, vk::Texture& texture, std::uint32_t aid)
 : owner(&owner)
 , texture(&texture)
 , arrayId(aid) {
@@ -79,26 +79,6 @@ void TextureRef::release() {
 TextureRef::operator bool() const { return texture != nullptr; }
 
 void TextureRef::disableCleanup() { rendererAlive = false; }
-
-vk::Texture* TextureRef::asBindlessTexture() {
-#ifdef BLIB_DEBUG
-    vk::Texture* t = dynamic_cast<vk::Texture*>(texture);
-    if (!t) { throw std::runtime_error("Texture is not a bindless texture"); }
-    return t;
-#else
-    return static_cast<vk::Texture*>(texture);
-#endif
-}
-
-const vk::Texture* TextureRef::asBindlessTexture() const {
-#ifdef BLIB_DEBUG
-    const vk::Texture* t = dynamic_cast<const vk::Texture*>(texture);
-    if (!t) { throw std::runtime_error("Texture is not a bindless texture"); }
-    return t;
-#else
-    return static_cast<const vk::Texture*>(texture);
-#endif
-}
 
 } // namespace res
 } // namespace rc

@@ -179,7 +179,7 @@ private:
     void releaseUnusedLocked();
     void doRelease(std::uint32_t i);
 
-    void updateTexture(vk::TextureBase* texture);
+    void updateTexture(vk::Texture* texture);
     void resetTexture(std::uint32_t i);
     void prepareTextureUpdate(std::uint32_t i, const sf::Image& src);
     void prepareTextureUpdate(std::uint32_t i, const std::string& path);
@@ -187,7 +187,7 @@ private:
     friend class TextureRef;
     friend class bl::rc::Renderer;
     friend class GlobalDescriptors;
-    friend class vk::TextureBase;
+    friend class vk::Texture;
 };
 
 } // namespace res

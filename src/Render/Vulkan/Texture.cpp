@@ -1,5 +1,6 @@
 #include <BLIB/Render/Vulkan/Texture.hpp>
 
+#include <BLIB/Render/Resources/TexturePool.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 
 namespace bl
@@ -9,12 +10,38 @@ namespace rc
 namespace vk
 {
 Texture::Texture()
-: altImg(nullptr)
+: parent(nullptr)
+, sampler(nullptr)
+, sizeRaw(0, 0)
+, hasTransparency(false)
+, altImg(nullptr)
 , destPos(0, 0)
 , source(0, 0, 0, 0)
 , image(nullptr)
 , view(nullptr)
 , currentLayout(VK_IMAGE_LAYOUT_UNDEFINED) {}
+
+glm::vec2 Texture::convertCoord(const glm::vec2& src) const {
+    // TODO - texture atlasing at the renderer level
+    return src;
+}
+
+glm::vec2 Texture::normalizeAndConvertCoord(const glm::vec2& src) const {
+    return convertCoord(src / size());
+}
+
+void Texture::setSampler(VkSampler s) {
+    sampler = s;
+    updateDescriptors();
+}
+
+void Texture::ensureSize(const glm::u32vec2& s) {
+    if (s.x <= rawSize().x && s.y <= rawSize().y) return;
+
+    resize(s);
+}
+
+void Texture::updateDescriptors() { parent->updateTexture(this); }
 
 void Texture::createFromContentsAndQueue() {
     const sf::Image& src = altImg ? *altImg : *transferImg;
@@ -25,7 +52,8 @@ void Texture::createFromContentsAndQueue() {
 
 void Texture::create(const glm::u32vec2& s, VkImageUsageFlags usageFlags,
                      VkImageAspectFlags aspect) {
-    updateSize(s);
+    // TODO - add other params (format, sampler, etc)
+    sizeRaw = s;
 
     vulkanState->createImage(s.x,
                              s.y,
@@ -225,18 +253,14 @@ void Texture::updateTrans(const sf::Image& content) {
         if (*a > 0 || *a < 255) {
             ++t;
             if (t >= thresh) {
-                updateTransparency(true);
+                hasTransparency = true;
                 return;
             }
         }
     }
 
-    updateTransparency(false);
+    hasTransparency = false;
 }
-
-VkImage Texture::getCurrentImage() const { return image; }
-
-VkImageLayout Texture::getCurrentImageLayout() const { return currentLayout; }
 
 } // namespace vk
 } // namespace rc
