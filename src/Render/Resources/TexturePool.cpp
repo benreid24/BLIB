@@ -40,10 +40,9 @@ void TexturePool::init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
             else { errorPattern.setPixel(x, y, sf::Color(255, 254, 196)); }
         }
     }
-    errorTexture.altImg  = &errorPattern;
-    errorTexture.sampler = vulkanState.samplerCache.filteredRepeated();
-    errorTexture.format  = vk::TextureFormat::SRGBA32Bit;
-    errorTexture.createFromContentsAndQueue();
+    errorTexture.altImg = &errorPattern;
+    errorTexture.createFromContentsAndQueue(vk::TextureFormat::SRGBA32Bit,
+                                            vk::Sampler::FilteredRepeated);
     vulkanState.transferEngine.executeTransfers();
 
     // init all textures to error pattern
@@ -60,7 +59,7 @@ void TexturePool::init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
             auto& info       = imageInfos[infoIndex];
             info.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
             info.imageView   = textures[i].view;
-            info.sampler     = textures[i].getSampler();
+            info.sampler     = textures[i].getSamplerHandle();
         }
     }
 
@@ -160,9 +159,7 @@ TextureRef TexturePool::createTexture(const sf::Image& src, VkFormat format, vk:
     TextureRef txtr = allocateTexture();
     auto& t         = static_cast<vk::Texture&>(*txtr.get());
     t.altImg        = &src;
-    txtr->sampler   = vulkanState.samplerCache.getSampler(sampler);
-    txtr->format    = format;
-    t.createFromContentsAndQueue();
+    t.createFromContentsAndQueue(format, sampler);
     updateTexture(txtr.get());
 
     return txtr;
@@ -173,9 +170,7 @@ TextureRef TexturePool::createTexture(const glm::u32vec2& size, VkFormat format,
     std::unique_lock lock(mutex);
 
     TextureRef txtr = allocateTexture();
-    txtr->sampler   = vulkanState.samplerCache.getSampler(sampler);
-    txtr->format    = format;
-    txtr->create(size);
+    txtr->create(size, format, sampler);
     updateTexture(txtr.get());
 
     return txtr;
@@ -198,9 +193,7 @@ TextureRef TexturePool::createRenderTexture(const glm::u32vec2& size, VkFormat f
 
     // init texture
     TextureRef txtr{*this, textures[i], i};
-    txtr->sampler = vulkanState.samplerCache.getSampler(sampler);
-    txtr->format  = format;
-    txtr->create(size, VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT);
+    txtr->create(size, format, sampler, VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT);
     updateTexture(txtr.get());
 
     return txtr;
@@ -221,9 +214,7 @@ TextureRef TexturePool::getOrLoadTexture(const std::string& path, VkFormat forma
     prepareTextureUpdate(txtr.id(), path);
     it                        = fileMap.try_emplace(path, txtr.id()).first;
     reverseFileMap[txtr.id()] = &it->first;
-    txtr->sampler             = vulkanState.samplerCache.getSampler(sampler);
-    txtr->format              = format;
-    static_cast<vk::Texture&>(*txtr.get()).createFromContentsAndQueue();
+    static_cast<vk::Texture&>(*txtr.get()).createFromContentsAndQueue(format, sampler);
     updateTexture(txtr.get());
 
     return txtr;
@@ -244,9 +235,7 @@ TextureRef TexturePool::getOrLoadTexture(const sf::Image& src, VkFormat format,
     prepareTextureUpdate(txtr.id(), src);
     it                         = imageMap.try_emplace(&src, txtr.id()).first;
     reverseImageMap[txtr.id()] = &src;
-    txtr->sampler              = vulkanState.samplerCache.getSampler(sampler);
-    txtr->format               = format;
-    static_cast<vk::Texture&>(*txtr.get()).createFromContentsAndQueue();
+    static_cast<vk::Texture&>(*txtr.get()).createFromContentsAndQueue(format, sampler);
     updateTexture(txtr.get());
 
     return txtr;
@@ -278,7 +267,7 @@ void TexturePool::onFrameStart(ds::SetWriteHelper& setWriter, VkDescriptorSet cu
             auto& regularInfo       = setWriter.getNewImageInfo();
             regularInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
             regularInfo.imageView   = view;
-            regularInfo.sampler     = texture->getSampler();
+            regularInfo.sampler     = texture->getSamplerHandle();
 
             auto& regularWrite           = setWriter.getNewSetWrite(currentSet);
             regularWrite.sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
@@ -293,7 +282,7 @@ void TexturePool::onFrameStart(ds::SetWriteHelper& setWriter, VkDescriptorSet cu
             auto& rtInfo       = setWriter.getNewImageInfo();
             rtInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
             rtInfo.imageView   = isRT ? errorTexture.view : view;
-            rtInfo.sampler     = isRT ? errorTexture.getSampler() : texture->getSampler();
+            rtInfo.sampler = isRT ? errorTexture.getSamplerHandle() : texture->getSamplerHandle();
 
             auto& rtWrite           = setWriter.getNewSetWrite(currentRtSet);
             rtWrite.sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;

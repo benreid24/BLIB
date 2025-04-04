@@ -11,7 +11,7 @@ namespace vk
 {
 Texture::Texture()
 : parent(nullptr)
-, sampler(nullptr)
+, sampler(Sampler::FilteredRepeated)
 , sizeRaw(0, 0)
 , hasTransparency(false)
 , altImg(nullptr)
@@ -30,7 +30,7 @@ glm::vec2 Texture::normalizeAndConvertCoord(const glm::vec2& src) const {
     return convertCoord(src / size());
 }
 
-void Texture::setSampler(VkSampler s) {
+void Texture::setSampler(Sampler s) {
     sampler = s;
     updateDescriptors();
 }
@@ -43,16 +43,19 @@ void Texture::ensureSize(const glm::u32vec2& s) {
 
 void Texture::updateDescriptors() { parent->updateTexture(this); }
 
-void Texture::createFromContentsAndQueue() {
+void Texture::createFromContentsAndQueue(VkFormat format, Sampler sampler) {
     const sf::Image& src = altImg ? *altImg : *transferImg;
-    create({src.getSize().x, src.getSize().y});
+    create({src.getSize().x, src.getSize().y}, format, sampler);
     updateTrans(src);
     queueTransfer(SyncRequirement::Immediate);
 }
 
-void Texture::create(const glm::u32vec2& s, VkImageUsageFlags usageFlags,
-                     VkImageAspectFlags aspect) {
-    // TODO - add other params (format, sampler, etc)
+void Texture::create(const glm::u32vec2& s, VkFormat fmt, Sampler smplr,
+                     VkImageUsageFlags usageFlags, VkImageAspectFlags aspectFlags) {
+    usage   = usageFlags;
+    aspect  = aspectFlags;
+    sampler = smplr;
+    format  = fmt;
     sizeRaw = s;
 
     vulkanState->createImage(s.x,
@@ -109,7 +112,7 @@ void Texture::resize(const glm::u32vec2& s) {
 
     // create new image
     const glm::u32vec2 oldSize = rawSize();
-    create(s);
+    create(s, format, sampler, usage, aspect);
 
     // copy from old to new
     auto cb = vulkanState->sharedCommandPool.createBuffer();
@@ -260,6 +263,10 @@ void Texture::updateTrans(const sf::Image& content) {
     }
 
     hasTransparency = false;
+}
+
+VkSampler Texture::getSamplerHandle() const {
+    return vulkanState->samplerCache.getSampler(sampler);
 }
 
 } // namespace vk

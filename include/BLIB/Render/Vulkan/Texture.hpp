@@ -2,6 +2,7 @@
 #define BLIB_RENDER_RENDERER_TEXTURE_HPP
 
 #include <BLIB/Render/Transfers/Transferable.hpp>
+#include <BLIB/Render/Vulkan/Sampler.hpp>
 #include <BLIB/Resources.hpp>
 #include <SFML/Graphics/Image.hpp>
 
@@ -88,12 +89,17 @@ public:
      *
      * @param sampler The new sampler to use
      */
-    void setSampler(VkSampler sampler);
+    void setSampler(Sampler sampler);
 
     /**
      * @brief Returns the sampler used for this texture
      */
-    VkSampler getSampler() const;
+    Sampler getSampler() const;
+
+    /**
+     * @brief Returns the Vulkan handle for the sampler for this texture
+     */
+    VkSampler getSamplerHandle() const;
 
     /**
      * @brief Returns the Vulkan image handle
@@ -133,7 +139,9 @@ public:
 private:
     // base data
     res::TexturePool* parent;
-    VkSampler sampler;
+    VkImageUsageFlags usage;
+    VkImageAspectFlags aspect;
+    Sampler sampler;
     VkFormat format;
     glm::u32vec2 sizeRaw;
     bool hasTransparency;
@@ -151,9 +159,10 @@ private:
     VkImageView view;
     VkImageLayout currentLayout;
 
-    void create(const glm::u32vec2& size, VkImageUsageFlags usageFlags = 0,
-                VkImageAspectFlags aspect = VK_IMAGE_ASPECT_COLOR_BIT);
-    void createFromContentsAndQueue();
+    void create(const glm::u32vec2& size, VkFormat format, Sampler sampler,
+                VkImageUsageFlags usageFlags = 0,
+                VkImageAspectFlags aspect    = VK_IMAGE_ASPECT_COLOR_BIT);
+    void createFromContentsAndQueue(VkFormat format, Sampler sampler);
     virtual void executeTransfer(VkCommandBuffer commandBuffer,
                                  tfr::TransferContext& transferEngine) override;
     void cleanup();
@@ -178,7 +187,7 @@ inline glm::vec2 Texture::size() const { return glm::vec2(sizeRaw); }
 
 inline bool Texture::containsTransparency() const { return hasTransparency; }
 
-inline VkSampler Texture::getSampler() const { return sampler; }
+inline Sampler Texture::getSampler() const { return sampler; }
 
 inline VkImageLayout Texture::getCurrentImageLayout() const { return currentLayout; }
 
