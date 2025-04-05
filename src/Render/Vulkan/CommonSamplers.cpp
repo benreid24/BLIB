@@ -48,6 +48,13 @@ void CommonSamplers::init() {
         throw std::runtime_error("Failed to create sampler");
     }
 
+    // all filter edge clamped
+    create.minFilter = VK_FILTER_LINEAR;
+    create.magFilter = VK_FILTER_LINEAR;
+    if (VK_SUCCESS != vkCreateSampler(vulkanState.device, &create, nullptr, &filteredEClamped)) {
+        throw std::runtime_error("Failed to create sampler");
+    }
+
     // min filter sampler
     create.addressModeU = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
     create.addressModeV = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
@@ -111,6 +118,9 @@ VkSampler CommonSamplers::getSampler(Sampler sampler) const {
 
     case Sampler::FilteredRepeated:
         return filteredTiled;
+
+    case Sampler::FilteredEdgeClamped:
+        return filteredEClamped;
 
     default:
         return noFilterClamped;

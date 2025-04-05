@@ -64,7 +64,7 @@ public:
      * @param ...args The arguments to pass to the constructor
      */
     template<typename... TArgs>
-    void emplace_back(TArgs&&... args);
+    T& emplace_back(TArgs&&... args);
 
     /**
      * @brief Removes the last element from the vector
@@ -219,12 +219,14 @@ void StaticVector<T, N>::push_back(T&& value) {
 
 template<typename T, std::size_t N>
 template<typename... TArgs>
-void StaticVector<T, N>::emplace_back(TArgs&&... args) {
+T& StaticVector<T, N>::emplace_back(TArgs&&... args) {
 #ifdef BLIB_DEBUG
     if (used >= N) { throw std::runtime_error("StaticVector is full"); }
 #endif
 
-    storage[used++].emplace(std::forward<TArgs>(args)...);
+    auto& slot = storage[used++];
+    slot.emplace(std::forward<TArgs>(args)...);
+    return slot.get();
 }
 
 template<typename T, std::size_t N>

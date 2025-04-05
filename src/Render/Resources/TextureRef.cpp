@@ -63,17 +63,21 @@ TextureRef& TextureRef::operator=(TextureRef&& copy) {
 }
 
 void TextureRef::addRef() {
+    auto& refCounts = texture->getType() == vk::Texture::Type::Cubemap ? owner->cubemapRefCounts :
+                                                                         owner->refCounts;
     const std::size_t i = id();
-    ++owner->refCounts[i];
+    ++refCounts[i];
 }
 
 void TextureRef::release() {
     if (!texture || !rendererAlive) return;
 
+    auto& refCounts = texture->getType() == vk::Texture::Type::Cubemap ? owner->cubemapRefCounts :
+                                                                         owner->refCounts;
     const std::size_t i = id();
-    --owner->refCounts[i];
+    --refCounts[i];
+    if (refCounts[i].load() == 0) { owner->queueForRelease(texture); }
     texture = nullptr;
-    if (owner->refCounts[i].load() == 0) { owner->queueForRelease(i); }
 }
 
 TextureRef::operator bool() const { return texture != nullptr; }

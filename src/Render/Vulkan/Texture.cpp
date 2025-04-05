@@ -9,6 +9,53 @@ namespace rc
 {
 namespace vk
 {
+namespace
+{
+std::uint32_t getLayerCount(Texture::Type type) {
+    switch (type) {
+    case Texture::Type::Cubemap:
+        return 6;
+    case Texture::Type::RenderTexture:
+    case Texture::Type::Texture2D:
+    default:
+        return 1;
+    }
+}
+
+VkImageUsageFlags getExtraUsage(Texture::Type type) {
+    switch (type) {
+    case Texture::Type::RenderTexture:
+        return VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
+    case Texture::Type::Cubemap:
+    case Texture::Type::Texture2D:
+    default:
+        return 0;
+    }
+}
+
+VkImageCreateFlags getCreateFlags(Texture::Type type) {
+    switch (type) {
+    case Texture::Type::Cubemap:
+        return VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT;
+    case Texture::Type::RenderTexture:
+    case Texture::Type::Texture2D:
+    default:
+        return 0;
+    }
+}
+
+VkImageViewType getViewType(Texture::Type type) {
+    switch (type) {
+    case Texture::Type::Cubemap:
+        return VK_IMAGE_VIEW_TYPE_CUBE;
+    case Texture::Type::RenderTexture:
+    case Texture::Type::Texture2D:
+    default:
+        return VK_IMAGE_VIEW_TYPE_2D;
+    }
+}
+} // namespace
+
 Texture::Texture()
 : parent(nullptr)
 , sampler(Sampler::FilteredRepeated)
@@ -43,32 +90,34 @@ void Texture::ensureSize(const glm::u32vec2& s) {
 
 void Texture::updateDescriptors() { parent->updateTexture(this); }
 
-void Texture::createFromContentsAndQueue(VkFormat format, Sampler sampler) {
+void Texture::createFromContentsAndQueue(Type type, VkFormat format, Sampler sampler) {
     const sf::Image& src = altImg ? *altImg : *transferImg;
-    create({src.getSize().x, src.getSize().y}, format, sampler);
+    create(type, {src.getSize().x, src.getSize().y}, format, sampler);
     updateTrans(src);
     queueTransfer(SyncRequirement::Immediate);
 }
 
-void Texture::create(const glm::u32vec2& s, VkFormat fmt, Sampler smplr,
-                     VkImageUsageFlags usageFlags, VkImageAspectFlags aspectFlags) {
-    usage   = usageFlags;
-    aspect  = aspectFlags;
+void Texture::create(Type t, const glm::u32vec2& s, VkFormat fmt, Sampler smplr) {
+    type    = t;
     sampler = smplr;
     format  = fmt;
     sizeRaw = s;
+    if (type == Type::Cubemap) { sizeRaw.x /= 6; }
 
     vulkanState->createImage(s.x,
                              s.y,
+                             getLayerCount(type),
                              getFormat(),
                              VK_IMAGE_TILING_OPTIMAL,
                              VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT |
-                                 VK_IMAGE_USAGE_TRANSFER_SRC_BIT | usageFlags,
+                                 VK_IMAGE_USAGE_TRANSFER_SRC_BIT | getExtraUsage(type),
+                             getCreateFlags(type),
                              VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
                              &image,
                              &alloc,
                              &allocInfo);
-    view = vulkanState->createImageView(image, getFormat(), aspect);
+    view = vulkanState->createImageView(
+        image, getFormat(), VK_IMAGE_ASPECT_COLOR_BIT, getLayerCount(type), getViewType(type));
 
     vulkanState->transitionImageLayout(
         image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
@@ -112,7 +161,7 @@ void Texture::resize(const glm::u32vec2& s) {
 
     // create new image
     const glm::u32vec2 oldSize = rawSize();
-    create(s, format, sampler, usage, aspect);
+    create(type, s, format, sampler);
 
     // copy from old to new
     auto cb = vulkanState->sharedCommandPool.createBuffer();
@@ -124,7 +173,7 @@ void Texture::resize(const glm::u32vec2& s) {
     copyInfo.srcSubresource.aspectMask     = VK_IMAGE_ASPECT_COLOR_BIT;
     copyInfo.srcSubresource.mipLevel       = 0;
     copyInfo.srcSubresource.baseArrayLayer = 0;
-    copyInfo.srcSubresource.layerCount     = 1;
+    copyInfo.srcSubresource.layerCount     = getLayerCount(type);
     copyInfo.dstSubresource                = copyInfo.srcSubresource;
 
     vkCmdCopyImage(cb,
@@ -153,7 +202,7 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
         barrier.subresourceRange.baseMipLevel   = 0;
         barrier.subresourceRange.levelCount     = 1;
         barrier.subresourceRange.baseArrayLayer = 0;
-        barrier.subresourceRange.layerCount     = 1;
+        barrier.subresourceRange.layerCount     = getLayerCount(type);
         barrier.srcAccessMask                   = VK_ACCESS_TRANSFER_WRITE_BIT;
         barrier.dstAccessMask                   = VK_ACCESS_SHADER_READ_BIT;
         engine.registerImageBarrier(barrier);
@@ -195,21 +244,29 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
             cb, image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
 
         // issue copy command
-        VkBufferImageCopy copyInfo{};
-        copyInfo.bufferOffset                    = 0;
-        copyInfo.bufferRowLength                 = 0;
-        copyInfo.bufferImageHeight               = 0;
-        copyInfo.imageSubresource.aspectMask     = VK_IMAGE_ASPECT_COLOR_BIT;
-        copyInfo.imageSubresource.mipLevel       = 0;
-        copyInfo.imageSubresource.baseArrayLayer = 0;
-        copyInfo.imageSubresource.layerCount     = 1;
-        copyInfo.imageOffset.x                   = destPos.x;
-        copyInfo.imageOffset.y                   = destPos.y;
-        copyInfo.imageExtent.width               = source.width;
-        copyInfo.imageExtent.height              = source.height;
-        copyInfo.imageExtent.depth               = 1;
-        vkCmdCopyBufferToImage(
-            cb, stagingBuffer, image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &copyInfo);
+        VkDeviceSize layerSize = sizeRaw.x * sizeRaw.y * 4;
+        VkBufferImageCopy copyInfos[6]{};
+        for (unsigned int face = 0; face < getLayerCount(type); ++face) {
+            auto& copyInfo                           = copyInfos[face];
+            copyInfo.bufferOffset                    = face * layerSize;
+            copyInfo.bufferRowLength                 = 0;
+            copyInfo.bufferImageHeight               = 0;
+            copyInfo.imageSubresource.aspectMask     = VK_IMAGE_ASPECT_COLOR_BIT;
+            copyInfo.imageSubresource.mipLevel       = 0;
+            copyInfo.imageSubresource.baseArrayLayer = face;
+            copyInfo.imageSubresource.layerCount     = 1;
+            copyInfo.imageOffset.x                   = destPos.x;
+            copyInfo.imageOffset.y                   = destPos.y;
+            copyInfo.imageExtent.width               = source.width;
+            copyInfo.imageExtent.height              = source.height;
+            copyInfo.imageExtent.depth               = 1;
+        }
+        vkCmdCopyBufferToImage(cb,
+                               stagingBuffer,
+                               image,
+                               VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+                               getLayerCount(type),
+                               copyInfos);
 
         // insert pipeline barrier
         transitionLayout();

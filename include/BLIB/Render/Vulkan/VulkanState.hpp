@@ -124,19 +124,22 @@ struct VulkanState {
      *
      * @param width The width of the image in pixels
      * @param height The height of the image in pixels
+     * @param layerCount The number of image layers to create
      * @param format The format of the pixel data
      * @param tiling The tiling setting for the created image
      * @param usage How the image will be used
+     * @param imageFlags Creation flags to create the image with
      * @param properties Requested memory properties for where the image is stored
      * @param image The image to be populated
      * @param vmaAlloc VMA allocation to be populated
      * @param vmaAllocInfo VMA allocation info to be populated
      * @param flags Optional flags to pass to VMA for memory alloc
      */
-    void createImage(std::uint32_t width, std::uint32_t height, VkFormat format,
-                     VkImageTiling tiling, VkImageUsageFlags usage,
-                     VkMemoryPropertyFlags properties, VkImage* image, VmaAllocation* vmaAlloc,
-                     VmaAllocationInfo* vmaAllocInfo, VmaAllocationCreateFlags flags = 0);
+    void createImage(std::uint32_t width, std::uint32_t height, std::uint32_t layerCount,
+                     VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage,
+                     VkImageCreateFlags imageFlags, VkMemoryPropertyFlags properties,
+                     VkImage* image, VmaAllocation* vmaAlloc, VmaAllocationInfo* vmaAllocInfo,
+                     VmaAllocationCreateFlags flags = 0);
 
     /**
      * @brief Converts an image from one layout to another
@@ -175,10 +178,14 @@ struct VulkanState {
      * @param image The image to create the view on
      * @param format The format of the image
      * @param aspectFlags Flags to use when creating the view
+     * @param layerCount The number of layers in the image
+     * @param viewType The type of image view to create
      * @return VkImageView The created image view
      */
     VkImageView createImageView(VkImage image, VkFormat format,
-                                VkImageAspectFlags aspectFlags = VK_IMAGE_ASPECT_COLOR_BIT);
+                                VkImageAspectFlags aspectFlags = VK_IMAGE_ASPECT_COLOR_BIT,
+                                std::uint32_t layerCount       = 1,
+                                VkImageViewType viewType       = VK_IMAGE_VIEW_TYPE_2D);
 
     /**
      * @brief Returns the current frame index. Used by PerFrame to return correct data

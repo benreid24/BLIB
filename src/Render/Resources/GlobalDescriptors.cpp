@@ -1,5 +1,6 @@
 #include <BLIB/Render/Resources/GlobalDescriptors.hpp>
 
+#include <BLIB/Containers/StaticVector.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Render/Resources/MaterialPool.hpp>
 #include <BLIB/Render/Resources/TexturePool.hpp>
@@ -26,8 +27,10 @@ void GlobalDescriptors::bindDescriptors(VkCommandBuffer cb, VkPipelineLayout pip
 void GlobalDescriptors::init() {
     auto& vulkanState = renderer.vulkanState();
 
-    VkDescriptorSetLayoutBinding setBindings[3] = {
-        texturePool.getLayoutBinding(), materialPool.getLayoutBinding(), {}};
+    VkDescriptorSetLayoutBinding setBindings[4] = {texturePool.getTextureLayoutBinding(),
+                                                   materialPool.getLayoutBinding(),
+                                                   {},
+                                                   texturePool.getCubemapLayoutBinding()};
 
     VkDescriptorSetLayoutBinding& settingsBinding = setBindings[2];
     settingsBinding.descriptorCount               = 1;
@@ -49,17 +52,25 @@ void GlobalDescriptors::init() {
     }
 
     // create descriptor pool
-    VkDescriptorPoolSize poolSizes[NBindings]{}; // doesn't handle dupes of types
+    ctr::StaticVector<VkDescriptorPoolSize, 10> poolSizes;
     for (std::size_t i = 0; i < NBindings; ++i) {
-        poolSizes[i].type            = setBindings[i].descriptorType;
-        poolSizes[i].descriptorCount = setBindings[i].descriptorCount * Config::MaxConcurrentFrames;
+        VkDescriptorPoolSize* poolSize = nullptr;
+        for (VkDescriptorPoolSize& ps : poolSizes) {
+            if (ps.type == setBindings[i].descriptorType) {
+                poolSize = &ps;
+                break;
+            }
+        }
+        if (!poolSize) { poolSize = &poolSizes.emplace_back(VkDescriptorPoolSize{}); }
+        poolSize->type = setBindings[i].descriptorType;
+        poolSize->descriptorCount += setBindings[i].descriptorCount * Config::MaxConcurrentFrames;
     }
 
     VkDescriptorPoolCreateInfo poolCreate{};
     poolCreate.sType         = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
     poolCreate.maxSets       = 2 * Config::MaxConcurrentFrames;
-    poolCreate.poolSizeCount = NBindings;
-    poolCreate.pPoolSizes    = poolSizes;
+    poolCreate.poolSizeCount = poolSizes.size();
+    poolCreate.pPoolSizes    = poolSizes.data();
     if (VK_SUCCESS !=
         vkCreateDescriptorPool(vulkanState.device, &poolCreate, nullptr, &descriptorPool)) {
         throw std::runtime_error("Failed to create texture descriptor pool");

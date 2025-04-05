@@ -517,14 +517,14 @@ void VulkanState::createBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
     allocInfo.usage         = VMA_MEMORY_USAGE_AUTO;
     allocInfo.flags         = allocFlags;
 
-    vmaCreateBuffer(vmaAllocator, &bufferInfo, &allocInfo, buffer, vmaAlloc, vmaAllocInfo);
+    vkCheck(vmaCreateBuffer(vmaAllocator, &bufferInfo, &allocInfo, buffer, vmaAlloc, vmaAllocInfo));
 }
 
-void VulkanState::createImage(std::uint32_t width, std::uint32_t height, VkFormat format,
-                              VkImageTiling tiling, VkImageUsageFlags usage,
-                              VkMemoryPropertyFlags properties, VkImage* image,
-                              VmaAllocation* vmaAlloc, VmaAllocationInfo* vmaAllocInfo,
-                              VmaAllocationCreateFlags flags) {
+void VulkanState::createImage(std::uint32_t width, std::uint32_t height, std::uint32_t layerCount,
+                              VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage,
+                              VkImageCreateFlags imageFlags, VkMemoryPropertyFlags properties,
+                              VkImage* image, VmaAllocation* vmaAlloc,
+                              VmaAllocationInfo* vmaAllocInfo, VmaAllocationCreateFlags flags) {
     std::unique_lock lock(imageAllocMutex);
 
     VkImageCreateInfo imageInfo{};
@@ -534,13 +534,14 @@ void VulkanState::createImage(std::uint32_t width, std::uint32_t height, VkForma
     imageInfo.extent.height = height;
     imageInfo.extent.depth  = 1;
     imageInfo.mipLevels     = 1;
-    imageInfo.arrayLayers   = 1;
+    imageInfo.arrayLayers   = layerCount;
     imageInfo.format        = format;
     imageInfo.tiling        = tiling;
     imageInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
     imageInfo.usage         = usage;
     imageInfo.samples       = VK_SAMPLE_COUNT_1_BIT;
     imageInfo.sharingMode   = VK_SHARING_MODE_EXCLUSIVE;
+    imageInfo.flags         = imageFlags;
 
     VmaAllocationCreateInfo allocInfo{};
     allocInfo.requiredFlags = properties;
@@ -645,21 +646,22 @@ void VulkanState::copyBufferToImage(VkBuffer buffer, VkImage image, std::uint32_
 }
 
 VkImageView VulkanState::createImageView(VkImage image, VkFormat format,
-                                         VkImageAspectFlags aspectFlags) {
+                                         VkImageAspectFlags aspectFlags, std::uint32_t layerCount,
+                                         VkImageViewType viewType) {
     VkImageViewCreateInfo viewInfo{};
     viewInfo.sType                           = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
     viewInfo.image                           = image;
-    viewInfo.viewType                        = VK_IMAGE_VIEW_TYPE_2D;
+    viewInfo.viewType                        = viewType;
     viewInfo.format                          = format;
     viewInfo.subresourceRange.aspectMask     = aspectFlags;
     viewInfo.subresourceRange.baseMipLevel   = 0;
     viewInfo.subresourceRange.levelCount     = 1;
     viewInfo.subresourceRange.baseArrayLayer = 0;
-    viewInfo.subresourceRange.layerCount     = 1;
+    viewInfo.subresourceRange.layerCount     = layerCount;
 
     VkImageView imageView;
     if (vkCreateImageView(device, &viewInfo, nullptr, &imageView) != VK_SUCCESS) {
-        throw std::runtime_error("Failed to create texture image view");
+        throw std::runtime_error("Failed to create image view");
     }
 
     return imageView;

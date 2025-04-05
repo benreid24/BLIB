@@ -28,6 +28,9 @@ enum struct Sampler {
     /// Filtering, clamped to border
     FilteredBorderClamped,
 
+    /// Filtering, clamped to edge
+    FilteredEdgeClamped,
+
     /// Filtering, repeated
     FilteredRepeated
 };

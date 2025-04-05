@@ -45,6 +45,11 @@ public:
     VkSampler filteredBorderClamped() const;
 
     /**
+     * @brief Returns a sampler with filtering and clamped to edge. Max anisotropy.
+     */
+    VkSampler filteredEdgeClamped() const;
+
+    /**
      * @brief Returns a sampler with filtering and repeated addressing
      */
     VkSampler filteredRepeated() const;
@@ -63,6 +68,7 @@ private:
     VkSampler noFilterEClamped;
     VkSampler minFilterClamped;
     VkSampler magFilterClamped;
+    VkSampler filteredEClamped;
     VkSampler filteredClamped;
     VkSampler filteredTiled;
 
@@ -86,6 +92,8 @@ inline VkSampler CommonSamplers::magFilterBorderClamped() const { return magFilt
 inline VkSampler CommonSamplers::filteredBorderClamped() const { return filteredClamped; }
 
 inline VkSampler CommonSamplers::filteredRepeated() const { return filteredTiled; }
+
+inline VkSampler CommonSamplers::filteredEdgeClamped() const { return filteredEClamped; }
 
 } // namespace vk
 } // namespace rc

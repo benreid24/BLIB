@@ -38,6 +38,7 @@ class GlobalDescriptors;
 class TexturePool {
 public:
     static constexpr std::uint32_t TextureArrayBindIndex = 0;
+    static constexpr std::uint32_t CubemapArrayBindIndex = 3;
     static constexpr std::uint32_t FirstRenderTextureId =
         Config::MaxTextureCount - Config::MaxRenderTextures;
 
@@ -120,6 +121,83 @@ public:
                                   vk::Sampler sampler = vk::Sampler::FilteredBorderClamped);
 
     /**
+     * @brief Creates a cubemap texture from the given faces
+     *
+     * @param right The right face image
+     * @param left The left face image
+     * @param top The top face image
+     * @param bottom The bottom face image
+     * @param back The back face image
+     * @param front The front face image
+     * @param format The format of the texture
+     * @param sampler The sampler to use
+     * @return A ref to the new cubemap texture
+     */
+    TextureRef createCubemap(const std::string& right, const std::string& left,
+                             const std::string& top, const std::string& bottom,
+                             const std::string& back, const std::string& front,
+                             VkFormat format     = vk::TextureFormat::SRGBA32Bit,
+                             vk::Sampler sampler = vk::Sampler::FilteredEdgeClamped);
+
+    /**
+     * @brief Creates a cubemap texture from the given faces
+     *
+     * @param right The right face image
+     * @param left The left face image
+     * @param top The top face image
+     * @param bottom The bottom face image
+     * @param back The back face image
+     * @param front The front face image
+     * @param format The format of the texture
+     * @param sampler The sampler to use
+     * @return A ref to the new cubemap texture
+     */
+    TextureRef createCubemap(resource::Ref<sf::Image> right, resource::Ref<sf::Image> left,
+                             resource::Ref<sf::Image> top, resource::Ref<sf::Image> bottom,
+                             resource::Ref<sf::Image> back, resource::Ref<sf::Image> front,
+                             VkFormat format     = vk::TextureFormat::SRGBA32Bit,
+                             vk::Sampler sampler = vk::Sampler::FilteredEdgeClamped);
+
+    /**
+     * @brief Creates a cubemap texture from the given packed texture. Should be packed according to
+     *        VK_TEXTURE_CUBE_MAP_{face} order in a row
+     *
+     * @param packed The packed image to use
+     * @param format The format of the texture
+     * @param sampler The sampler to use
+     * @return A ref to the new cubemap texture
+     */
+    TextureRef createCubemap(resource::Ref<sf::Image> packed,
+                             VkFormat format     = vk::TextureFormat::SRGBA32Bit,
+                             vk::Sampler sampler = vk::Sampler::FilteredEdgeClamped);
+
+    /**
+     * @brief Creates a cubemap texture from the given packed texture. Should be packed according to
+     *        VK_TEXTURE_CUBE_MAP_{face} order in a row
+     *
+     * @param packed The packed image to use
+     * @param format The format of the texture
+     * @param sampler The sampler to use
+     * @return A ref to the new cubemap texture
+     */
+    TextureRef getOrCreateCubemap(const std::string& packed,
+                                  VkFormat format     = vk::TextureFormat::SRGBA32Bit,
+                                  vk::Sampler sampler = vk::Sampler::FilteredEdgeClamped);
+
+    /**
+     * @brief Creates a cubemap texture from the given packed texture. Should be packed according to
+     *        VK_TEXTURE_CUBE_MAP_{face} order in a row
+     *
+     * @param packed The packed image to use. Will be copied to local storage
+     * @param format The format of the texture
+     * @param sampler The sampler to use
+     * @return A ref to the new cubemap texture
+     */
+    TextureRef createCubemap(const sf::Image& packed,
+                             VkFormat format     = vk::TextureFormat::SRGBA32Bit,
+                             vk::Sampler sampler = vk::Sampler::FilteredEdgeClamped);
+
+    /**
      * @brief Frees all textures that no longer have any valid refs pointing to them
      */
     void releaseUnused();
@@ -129,7 +207,7 @@ public:
      *
      * @param ref The texture to release
      */
-    void releaseTexture(const TextureRef& ref);
+    void releaseTexture(TextureRef& ref);
 
     /**
      * @brief Returns a shared blank texture. Do not modify the blank texture
@@ -137,9 +215,14 @@ public:
     TextureRef getBlankTexture();
 
     /**
-     * @brief Returns a layout binding to be used for descriptor set layout creation
+     * @brief Returns the layout binding for the texture array
      */
-    VkDescriptorSetLayoutBinding getLayoutBinding() const;
+    VkDescriptorSetLayoutBinding getTextureLayoutBinding() const;
+
+    /**
+     * @brief Returns the layout binding for the cubemap array
+     */
+    VkDescriptorSetLayoutBinding getCubemapLayoutBinding() const;
 
 private:
     // functional data
@@ -148,6 +231,7 @@ private:
 
     // core data
     std::vector<vk::Texture> textures;
+    std::vector<vk::Texture> cubemaps;
     sf::Image errorPattern;
     vk::Texture errorTexture;
     TextureRef blankTexture;
@@ -156,15 +240,19 @@ private:
     std::vector<std::atomic<std::uint32_t>> refCounts;
     util::IdAllocator<std::uint32_t> freeSlots;
     util::IdAllocator<std::uint32_t> freeRtSlots;
+    std::vector<std::atomic<std::uint32_t>> cubemapRefCounts;
+    util::IdAllocator<std::uint32_t> cubemapFreeSlots;
 
     // indices
     std::unordered_map<std::string, std::uint32_t> fileMap;
     std::unordered_map<const sf::Image*, std::uint32_t> imageMap;
     std::vector<const std::string*> reverseFileMap;
     std::vector<const sf::Image*> reverseImageMap;
+    std::unordered_map<std::string, std::uint32_t> cubemapFileMap;
+    std::vector<const std::string*> cubeMapReverseFileMap;
 
     // dynamics
-    std::vector<std::uint32_t> toRelease;
+    std::vector<vk::Texture*> toRelease;
     vk::PerFrame<std::vector<vk::Texture*>> queuedUpdates;
 
     TexturePool(vk::VulkanState& vulkanState);
@@ -175,14 +263,16 @@ private:
                       VkDescriptorSet currentRtSet);
 
     TextureRef allocateTexture();
-    void queueForRelease(std::uint32_t i);
+    TextureRef allocateCubemap();
+    void queueForRelease(vk::Texture* texture);
     void releaseUnusedLocked();
-    void doRelease(std::uint32_t i);
+    void doRelease(vk::Texture* texture);
+    void cancelRelease(vk::Texture* texture);
 
     void updateTexture(vk::Texture* texture);
-    void resetTexture(std::uint32_t i);
-    void prepareTextureUpdate(std::uint32_t i, const sf::Image& src);
-    void prepareTextureUpdate(std::uint32_t i, const std::string& path);
+    void resetTexture(vk::Texture* texture);
+    void prepareTextureUpdate(vk::Texture* texture, const sf::Image& src);
+    void prepareTextureUpdate(vk::Texture* texture, const std::string& path);
 
     friend class TextureRef;
     friend class bl::rc::Renderer;

@@ -31,6 +31,8 @@ struct Config {
 
     static constexpr std::uint32_t MaxRenderTextures = 32;
 
+    static constexpr std::uint32_t MaxCubemapCount = 16;
+
     static constexpr std::uint32_t ErrorTextureId = MaxTextureCount - Config::MaxRenderTextures - 1;
 
     static constexpr std::uint32_t DefaultSceneObjectCapacity = 128;

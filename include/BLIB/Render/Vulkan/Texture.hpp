@@ -23,6 +23,11 @@ struct VulkanState;
 class Texture : public tfr::Transferable {
 public:
     /**
+     * @brief The type of texture that this is
+     */
+    enum struct Type { Texture2D, RenderTexture, Cubemap };
+
+    /**
      * @brief Creates an empty Texture
      *
      */
@@ -32,6 +37,11 @@ public:
      * @brief Does nothing
      */
     virtual ~Texture() = default;
+
+    /**
+     * @brief Returns the type of texture this is
+     */
+    Type getType() const;
 
     /**
      * @brief Returns the normalized coordinate for this texture, taking into account atlasing
@@ -139,8 +149,7 @@ public:
 private:
     // base data
     res::TexturePool* parent;
-    VkImageUsageFlags usage;
-    VkImageAspectFlags aspect;
+    Type type;
     Sampler sampler;
     VkFormat format;
     glm::u32vec2 sizeRaw;
@@ -149,6 +158,7 @@ private:
     // transfer data
     const sf::Image* altImg;
     resource::Ref<sf::Image> transferImg;
+    sf::Image localImage;
     glm::u32vec2 destPos;
     sf::IntRect source;
 
@@ -159,10 +169,8 @@ private:
     VkImageView view;
     VkImageLayout currentLayout;
 
-    void create(const glm::u32vec2& size, VkFormat format, Sampler sampler,
-                VkImageUsageFlags usageFlags = 0,
-                VkImageAspectFlags aspect    = VK_IMAGE_ASPECT_COLOR_BIT);
-    void createFromContentsAndQueue(VkFormat format, Sampler sampler);
+    void create(Type type, const glm::u32vec2& size, VkFormat format, Sampler sampler);
+    void createFromContentsAndQueue(Type type, VkFormat format, Sampler sampler);
     virtual void executeTransfer(VkCommandBuffer commandBuffer,
                                  tfr::TransferContext& transferEngine) override;
     void cleanup();
@@ -190,6 +198,8 @@ inline bool Texture::containsTransparency() const { return hasTransparency; }
 inline Sampler Texture::getSampler() const { return sampler; }
 
 inline VkImageLayout Texture::getCurrentImageLayout() const { return currentLayout; }
+
+inline Texture::Type Texture::getType() const { return type; }
 
 } // namespace vk
 } // namespace rc
