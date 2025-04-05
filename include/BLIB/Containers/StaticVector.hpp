@@ -338,12 +338,12 @@ const T* StaticVector<T, N>::begin() const {
 
 template<typename T, std::size_t N>
 T* StaticVector<T, N>::end() {
-    return (&storage[used - 1].get()) + 1;
+    return (&storage[0].get()) + used;
 }
 
 template<typename T, std::size_t N>
 const T* StaticVector<T, N>::end() const {
-    return (&storage[used - 1].get()) + 1;
+    return (&storage[0].get()) + used;
 }
 
 } // namespace ctr

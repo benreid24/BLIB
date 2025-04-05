@@ -97,6 +97,7 @@ void CommonSamplers::cleanup() {
     vkDestroySampler(vulkanState.device, magFilterClamped, nullptr);
     vkDestroySampler(vulkanState.device, filteredClamped, nullptr);
     vkDestroySampler(vulkanState.device, filteredTiled, nullptr);
+    vkDestroySampler(vulkanState.device, filteredEClamped, nullptr);
 }
 
 VkSampler CommonSamplers::getSampler(Sampler sampler) const {

@@ -103,6 +103,9 @@ void TexturePool::cleanup() {
     for (vk::Texture& txtr : textures) {
         if (txtr.view != errorTexture.view) { txtr.cleanup(); }
     }
+    for (vk::Texture& txtr : cubemaps) {
+        if (txtr.view != errorTexture.view) { txtr.cleanup(); }
+    }
     errorTexture.cleanup();
 }
 
