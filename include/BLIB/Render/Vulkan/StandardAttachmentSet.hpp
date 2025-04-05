@@ -67,7 +67,8 @@ protected:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 inline StandardAttachmentSet::StandardAttachmentSet()
-: AttachmentSet(imageHandles, imageViewHandles) {}
+: AttachmentSet(imageHandles, imageViewHandles,
+                {VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_ASPECT_DEPTH_BIT}) {}
 
 inline constexpr VkImage StandardAttachmentSet::colorImage() const {
     return imageHandles[ColorIndex];

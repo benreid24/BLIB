@@ -113,7 +113,6 @@ private:
         auto& o    = engine.renderer().getObserver();
         auto* cam  = o.setCamera<bl::cam::Camera3D>(glm::vec3(0.f, 3.f, 5.f), glm::vec3(0.f));
         controller = cam->setController<CameraController>();
-        o.setClearColor({0.f, 0.f, 0.f, 1.f});
 
         constexpr float FloorSize = 5.f;
         floor.create(*world, 6);

@@ -12,7 +12,8 @@ Framebuffer::Framebuffer()
 : vulkanState(nullptr)
 , renderPass(nullptr)
 , target(nullptr)
-, framebuffer(nullptr) {}
+, framebuffer(nullptr)
+, renderStartCount(0) {}
 
 Framebuffer::~Framebuffer() {
     if (renderPass) { deferCleanup(); }
@@ -50,22 +51,40 @@ void Framebuffer::recreateIfChanged(const AttachmentSet& t) {
 
 void Framebuffer::beginRender(VkCommandBuffer commandBuffer, const VkRect2D& region,
                               const VkClearValue* clearColors, std::uint32_t clearColorCount,
-                              bool vp, VkRenderPass rpo) const {
+                              bool vp, VkRenderPass rpo, bool shouldClear) {
 #ifdef BLIB_DEBUG
     if (target == nullptr) {
         throw std::runtime_error("Framebuffer render started without specifying target");
     }
 #endif
 
-    // begin render pass
-    VkRenderPassBeginInfo renderPassInfo{};
-    renderPassInfo.sType           = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-    renderPassInfo.renderPass      = rpo != nullptr ? rpo : renderPass;
-    renderPassInfo.framebuffer     = framebuffer;
-    renderPassInfo.renderArea      = region;
-    renderPassInfo.clearValueCount = clearColorCount;
-    renderPassInfo.pClearValues    = clearColors;
-    vkCmdBeginRenderPass(commandBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+    if (renderStartCount == 0) {
+        // begin render pass
+        VkRenderPassBeginInfo renderPassInfo{};
+        renderPassInfo.sType           = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+        renderPassInfo.renderPass      = rpo != nullptr ? rpo : renderPass;
+        renderPassInfo.framebuffer     = framebuffer;
+        renderPassInfo.renderArea      = region;
+        renderPassInfo.clearValueCount = clearColorCount;
+        renderPassInfo.pClearValues    = clearColors;
+        vkCmdBeginRenderPass(commandBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+    }
+    else if (shouldClear) {
+        VkClearAttachment attachments[AttachmentSet::MaxAttachments]{};
+        for (unsigned int i = 0; i < target->size(); ++i) {
+            attachments[i].aspectMask      = target->imageAspects()[i];
+            attachments[i].colorAttachment = i;
+            attachments[i].clearValue      = clearColors[i];
+        }
+
+        VkClearRect rect;
+        rect.rect           = region;
+        rect.baseArrayLayer = 0;
+        rect.layerCount     = 1;
+
+        vkCmdClearAttachments(commandBuffer, target->size(), attachments, 1, &rect);
+    }
+
     vkCmdSetScissor(commandBuffer, 0, 1, &region);
 
     if (vp) {
@@ -79,10 +98,18 @@ void Framebuffer::beginRender(VkCommandBuffer commandBuffer, const VkRect2D& reg
 
         vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
     }
+
+    ++renderStartCount;
 }
 
-void Framebuffer::finishRender(VkCommandBuffer commandBuffer) const {
-    vkCmdEndRenderPass(commandBuffer);
+void Framebuffer::finishRender(VkCommandBuffer commandBuffer) {
+#ifdef BLIB_DEBUG
+    if (renderStartCount == 0) {
+        throw std::runtime_error("Framebuffer render finished without starting render");
+    }
+#endif
+
+    if (--renderStartCount == 0) { vkCmdEndRenderPass(commandBuffer); }
 }
 
 void Framebuffer::cleanup() {

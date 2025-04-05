@@ -5,6 +5,7 @@
 #include <BLIB/Cameras/OverlayCamera.hpp>
 #include <BLIB/Render/Color.hpp>
 #include <BLIB/Render/Graph/AssetPool.hpp>
+#include <BLIB/Render/Graph/Assets/FramebufferAsset.hpp>
 #include <BLIB/Render/Graph/RenderGraph.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
 #include <BLIB/Render/Resources/SceneRef.hpp>
@@ -148,6 +149,11 @@ public:
      */
     glm::u32vec2 getRegionSize() const;
 
+    /**
+     * @brief Returns the scissor of the render target
+     */
+    const VkRect2D& getScissor() const;
+
 protected:
     struct SceneInstance {
         SceneRef scene;
@@ -177,6 +183,7 @@ protected:
     std::list<SceneInstance> scenes;
     VkClearValue clearColors[2];
     cam::OverlayCamera overlayCamera;
+    rgi::FramebufferAsset* renderingTo;
 
     RenderTarget(engine::Engine& engine, Renderer& renderer, rg::AssetFactory& factory,
                  bool isRenderTexture);
@@ -288,6 +295,8 @@ inline const VkClearValue* RenderTarget::getClearColors() const { return clearCo
 inline glm::u32vec2 RenderTarget::getRegionSize() const {
     return {scissor.extent.width, scissor.extent.height};
 }
+
+inline const VkRect2D& RenderTarget::getScissor() const { return scissor; }
 
 } // namespace rc
 } // namespace bl

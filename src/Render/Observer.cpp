@@ -11,7 +11,7 @@ Observer::Observer(engine::Engine& e, Renderer& r, rg::AssetFactory& f, bool c, 
 : RenderTarget(e, r, f, false)
 , isCommon(c)
 , isVirtual(v) {
-    graphAssets.putAsset<rgi::FinalSwapframeAsset>(
+    renderingTo = graphAssets.putAsset<rgi::FinalSwapframeAsset>(
         renderer.getSwapframeBuffers(), viewport, scissor, clearColors, std::size(clearColors));
 }
 

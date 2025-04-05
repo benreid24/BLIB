@@ -54,12 +54,12 @@ public:
     /**
      * @brief Returns the attachment set to use to render to this target
      */
-    constexpr const StandardAttachmentSet& attachmentSet() const;
+    const StandardAttachmentSet& attachmentSet() const;
 
     /**
      * @brief Returns the size of the images contained in the buffer
      */
-    constexpr const VkExtent2D& bufferSize() const;
+    const VkExtent2D& bufferSize() const;
 
     /**
      * @brief Helper function find the proper format to use for the depth buffer
@@ -78,11 +78,11 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr const StandardAttachmentSet& StandardAttachmentBuffers::attachmentSet() const {
+inline const StandardAttachmentSet& StandardAttachmentBuffers::attachmentSet() const {
     return attachments;
 }
 
-inline constexpr const VkExtent2D& StandardAttachmentBuffers::bufferSize() const {
+inline const VkExtent2D& StandardAttachmentBuffers::bufferSize() const {
     return attachments.renderExtent();
 }
 

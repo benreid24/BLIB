@@ -30,7 +30,7 @@ RenderTexture::RenderTexture(engine::Engine& engine, Renderer& renderer, rg::Ass
     texture = renderer.texturePool().createRenderTexture(size, TextureFormat::SRGBA32Bit, sampler);
     resize(size);
 
-    graphAssets.putAsset<rgi::FinalRenderTextureAsset>(
+    renderingTo = graphAssets.putAsset<rgi::FinalRenderTextureAsset>(
         framebuffer, viewport, scissor, clearColors, std::size(clearColors));
 }
 

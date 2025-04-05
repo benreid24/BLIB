@@ -17,13 +17,30 @@ FramebufferAsset::FramebufferAsset(std::string_view tag, std::uint32_t renderPas
 , renderPass(nullptr)
 , clearColors(clearColors)
 , clearColorCount(clearColorCount)
-, cachedSize(0, 0) {}
+, cachedSize(0, 0)
+, clearOnRestart(false) {}
 
 void FramebufferAsset::notifyResize(glm::u32vec2 newSize) {
     if (newSize != cachedSize) {
         cachedSize = newSize;
         onResize(newSize);
     }
+}
+
+void FramebufferAsset::setShouldClearOnRestart(bool c) { clearOnRestart = c; }
+
+void FramebufferAsset::beginRender(VkCommandBuffer commandBuffer, bool setViewport) {
+    currentFramebuffer().beginRender(commandBuffer,
+                                     scissor,
+                                     clearColors,
+                                     clearColorCount,
+                                     setViewport,
+                                     renderPass ? renderPass->rawPass() : nullptr,
+                                     clearOnRestart);
+}
+
+void FramebufferAsset::finishRender(VkCommandBuffer commandBuffer) {
+    currentFramebuffer().finishRender(commandBuffer);
 }
 
 } // namespace rgi

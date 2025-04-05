@@ -102,37 +102,11 @@ void FadeEffectTask::onGraphInit() {
 }
 
 void FadeEffectTask::execute(const rg::ExecutionContext& ctx) {
-    if (!ctx.isFinalStep) {
-        output->currentFramebuffer().beginRender(ctx.commandBuffer,
-                                                 output->scissor,
-                                                 output->clearColors,
-                                                 output->clearColorCount,
-                                                 false,
-                                                 output->getRenderPass().rawPass());
-    }
-    else {
-        VkClearAttachment attachments[2]{};
-        attachments[0].aspectMask      = VK_IMAGE_ASPECT_COLOR_BIT;
-        attachments[0].colorAttachment = 0;
-        attachments[0].clearValue      = output->clearColors[0];
-        attachments[1].aspectMask      = VK_IMAGE_ASPECT_DEPTH_BIT;
-        attachments[1].clearValue      = output->clearColors[1];
-
-        VkClearRect rects[2]{};
-        rects[0].rect           = output->scissor;
-        rects[0].baseArrayLayer = 0;
-        rects[0].layerCount     = 1;
-        rects[1]                = rects[0];
-
-        vkCmdClearAttachments(ctx.commandBuffer, 2, attachments, 2, rects);
-    }
-
-    vkCmdSetScissor(ctx.commandBuffer, 0, 1, &output->scissor);
-    vkCmdSetViewport(ctx.commandBuffer, 0, 1, &output->viewport);
+    output->beginRender(ctx.commandBuffer, true);
 
     VkBuffer vb            = indexBuffer.vertexBufferHandle();
     VkDeviceSize offsets[] = {0};
-    pipeline->bind(ctx.commandBuffer, output->renderPassId);
+    pipeline->bind(ctx.commandBuffer, output->getRenderPassId());
     vkCmdBindVertexBuffers(ctx.commandBuffer, 0, 1, &vb, offsets);
     vkCmdBindIndexBuffer(
         ctx.commandBuffer, indexBuffer.indexBufferHandle(), 0, buf::IndexBuffer::IndexType);
@@ -157,7 +131,7 @@ void FadeEffectTask::execute(const rg::ExecutionContext& ctx) {
                      indexBuffer.getDrawParameters().vertexOffset,
                      indexBuffer.getDrawParameters().firstInstance);
 
-    if (!ctx.isFinalStep) { output->currentFramebuffer().finishRender(ctx.commandBuffer); }
+    output->finishRender(ctx.commandBuffer);
 }
 
 void FadeEffectTask::update(float dt) {

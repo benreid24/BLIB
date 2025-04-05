@@ -69,17 +69,19 @@ public:
      * @param clearColorCount The number of clear colors
      * @param setViewport True to set viewport to region, false to leave unset
      * @param renderPass Optional render pass to use in place of the pass the fb was created with
+     * @param clearOnRestart If true, clears the framebuffer on restart of the render pass
      */
     void beginRender(VkCommandBuffer commandBuffer, const VkRect2D& region,
                      const VkClearValue* clearColors, std::uint32_t clearColorCount,
-                     bool setViewport = true, VkRenderPass renderPass = nullptr) const;
+                     bool setViewport = true, VkRenderPass renderPass = nullptr,
+                     bool clearOnRestart = false);
 
     /**
      * @brief Ends the render pass
      *
      * @param commandBuffer The primary command buffer to issue commands into
      */
-    void finishRender(VkCommandBuffer commandBuffer) const;
+    void finishRender(VkCommandBuffer commandBuffer);
 
 private:
     VulkanState* vulkanState;
@@ -87,6 +89,7 @@ private:
     const vk::AttachmentSet* target;
     VkFramebuffer framebuffer;
     VkImageView cachedAttachment;
+    unsigned int renderStartCount;
 };
 
 } // namespace vk

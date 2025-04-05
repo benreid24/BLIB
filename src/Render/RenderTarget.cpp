@@ -17,7 +17,8 @@ RenderTarget::RenderTarget(engine::Engine& e, Renderer& r, rg::AssetFactory& f, 
 , engine(e)
 , renderer(r)
 , graphAssets(f, this)
-, resourcesFreed(false) {
+, resourcesFreed(false)
+, renderingTo(nullptr) {
     viewport.minDepth = 0.f;
     viewport.maxDepth = 1.f;
 
@@ -154,6 +155,7 @@ void RenderTarget::syncSceneObjects() {
 
 void RenderTarget::setClearColor(const Color& color) {
     clearColors[0].color = {{color.r(), color.g(), color.b(), color.a()}};
+    renderingTo->setShouldClearOnRestart(true);
 }
 
 glm::vec2 RenderTarget::transformToWorldSpace(const glm::vec2& sp) const {
@@ -223,9 +225,6 @@ void RenderTarget::renderSceneFinal(VkCommandBuffer commandBuffer) {
 void RenderTarget::renderOverlay(VkCommandBuffer commandBuffer) {
     if (hasScene()) {
         if (scenes.back().overlay) {
-            vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
-            vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
-
             VkClearAttachment attachment{};
             attachment.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT;
             attachment.clearValue = clearColors[1];
