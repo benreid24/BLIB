@@ -35,16 +35,20 @@ MaterialRef MaterialPool::getOrCreateFromTexture(const res::TextureRef& texture)
 
     checkLazyInit();
 
+    const bool canCache = texture->getType() != vk::Texture::Type::Cubemap;
+
     if (texture.id() < textureIdToMaterialId.size() &&
-        textureIdToMaterialId[texture.id()] != InvalidId) {
+        textureIdToMaterialId[texture.id()] != InvalidId && canCache) {
         return MaterialRef(this, textureIdToMaterialId[texture.id()]);
     }
 
-    if (textureIdToMaterialId.size() <= texture.id()) {
-        textureIdToMaterialId.resize(texture.id() + 1, InvalidId);
+    const auto newId = freeIds.allocate();
+    if (canCache) {
+        if (textureIdToMaterialId.size() <= texture.id()) {
+            textureIdToMaterialId.resize(texture.id() + 1, InvalidId);
+        }
+        textureIdToMaterialId[texture.id()] = newId;
     }
-    const auto newId                    = freeIds.allocate();
-    textureIdToMaterialId[texture.id()] = newId;
     materials[newId] = mat::Material(texture, texture, defaultNormalMap, defaultParallaxMap);
     markForUpdate(newId);
     return MaterialRef(this, newId);

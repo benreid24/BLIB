@@ -30,6 +30,7 @@
 #include <BLIB/Graphics/Drawable.hpp>
 #include <BLIB/Graphics/Dummy2D.hpp>
 #include <BLIB/Graphics/Rectangle.hpp>
+#include <BLIB/Graphics/Skybox.hpp>
 #include <BLIB/Graphics/Slideshow.hpp>
 #include <BLIB/Graphics/Sphere.hpp>
 #include <BLIB/Graphics/Sprite.hpp>

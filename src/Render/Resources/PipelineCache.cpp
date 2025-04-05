@@ -96,6 +96,9 @@ void PipelineCache::createBuiltins() {
     rasterizer3d.cullMode                               = VK_CULL_MODE_BACK_BIT;
     rasterizer3d.frontFace                              = VK_FRONT_FACE_COUNTER_CLOCKWISE;
 
+    VkPipelineRasterizationStateCreateInfo skyboxRasterizer = rasterizer3d;
+    skyboxRasterizer.cullMode                               = VK_CULL_MODE_FRONT_BIT;
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     createPipeline(
@@ -181,6 +184,21 @@ void PipelineCache::createBuiltins() {
                        .addDescriptorSet<ds::Scene3DFactory>()
                        .addDescriptorSet<ds::Object3DFactory>()
                        .build());
+
+    createPipeline(
+        Config::PipelineIds::Skybox,
+        vk::PipelineParameters()
+            .withShaders(Config::ShaderIds::SkyboxVertex, Config::ShaderIds::SkyboxFragment)
+            .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+            .withVertexFormat(prim::Vertex3D::bindingDescription(),
+                              prim::Vertex3D::attributeDescriptions())
+            .withRasterizer(skyboxRasterizer)
+            .withDepthStencilState(&depthStencilDepthEnabled)
+            .addDescriptorSet<ds::GlobalDataFactory>()
+            .addDescriptorSet<ds::Scene3DFactory>()
+            .addDescriptorSet<ds::Object3DFactory>()
+            .build());
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     createPipeline(Config::PipelineIds::LitSkinned2DGeometry,

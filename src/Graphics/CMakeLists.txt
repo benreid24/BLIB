@@ -18,6 +18,7 @@ target_sources(BLIB PRIVATE
 	Dummy2D.cpp
 	Icon.cpp
 	Rectangle.cpp
+	Skybox.cpp
 	Slideshow.cpp
 	Sphere.cpp
 	Sprite.cpp

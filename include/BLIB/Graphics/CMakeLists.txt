@@ -18,6 +18,7 @@ target_sources(BLIB PUBLIC
 	Dummy2D.hpp
 	Icon.hpp
 	Rectangle.hpp
+	Skybox.hpp
 	Slideshow.hpp
 	Sphere.hpp
 	Sprite.hpp

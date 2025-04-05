@@ -58,17 +58,20 @@ struct Config {
         static constexpr char MeshFragmentSkinnedLit[]   = {5, 0}; // MeshFragmentMaterialLit
         static constexpr char MeshFragmentSkinnedUnlit[] = {6, 0}; // MeshFragmentMaterialUnlit
 
-        static constexpr char Vertex2D[]        = {8, 0};
-        static constexpr char Fragment2DLit[]   = {9, 0};
-        static constexpr char Fragment2DUnlit[] = {10, 0};
+        static constexpr char SkyboxVertex[]   = {8, 0};
+        static constexpr char SkyboxFragment[] = {9, 0};
 
-        static constexpr char Vertex2DSkinned[]           = {11, 0};
-        static constexpr char Fragment2DSkinnedUnlit[]    = {12, 0};
-        static constexpr char Fragment2DSkinnedLit[]      = {13, 0};
-        static constexpr char Fragment2DRotatedParticle[] = {14, 0};
+        static constexpr char Vertex2D[]        = {10, 0};
+        static constexpr char Fragment2DLit[]   = {11, 0};
+        static constexpr char Fragment2DUnlit[] = {12, 0};
 
-        static constexpr char TextFragment[]  = {15, 0};
-        static constexpr char SlideshowVert[] = {16, 0};
+        static constexpr char Vertex2DSkinned[]           = {13, 0};
+        static constexpr char Fragment2DSkinnedUnlit[]    = {14, 0};
+        static constexpr char Fragment2DSkinnedLit[]      = {15, 0};
+        static constexpr char Fragment2DRotatedParticle[] = {16, 0};
+
+        static constexpr char TextFragment[]  = {17, 0};
+        static constexpr char SlideshowVert[] = {18, 0};
 
         static constexpr char FadeEffectFragment[] = {127, 0};
 
@@ -87,6 +90,7 @@ struct Config {
         static constexpr std::uint32_t UnlitMesh3DMaterial = 4;
         static constexpr std::uint32_t LitMesh3DSkinned    = 5;
         static constexpr std::uint32_t UnlitMesh3DSkinned  = 6;
+        static constexpr std::uint32_t Skybox              = 7;
 
         static constexpr std::uint32_t Lit2DGeometry               = 100;
         static constexpr std::uint32_t Unlit2DGeometry             = 101;
@@ -114,6 +118,7 @@ struct Config {
         static constexpr std::uint32_t Text              = 6;
         static constexpr std::uint32_t Slideshow2D       = 7;
         static constexpr std::uint32_t Lines2D           = 8;
+        static constexpr std::uint32_t Skybox            = 9;
     };
 
     /**

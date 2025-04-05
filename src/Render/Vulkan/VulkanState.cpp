@@ -567,7 +567,8 @@ void VulkanState::transitionImageLayout(VkImage image, VkImageLayout oldLayout,
 }
 
 void VulkanState::transitionImageLayout(VkCommandBuffer commandBuffer, VkImage image,
-                                        VkImageLayout oldLayout, VkImageLayout newLayout) {
+                                        VkImageLayout oldLayout, VkImageLayout newLayout,
+                                        std::uint32_t layerCount) {
     VkImageMemoryBarrier barrier{};
     barrier.sType               = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
     barrier.oldLayout           = oldLayout;
@@ -580,7 +581,7 @@ void VulkanState::transitionImageLayout(VkCommandBuffer commandBuffer, VkImage i
     barrier.subresourceRange.baseMipLevel   = 0;
     barrier.subresourceRange.levelCount     = 1;
     barrier.subresourceRange.baseArrayLayer = 0;
-    barrier.subresourceRange.layerCount     = 1;
+    barrier.subresourceRange.layerCount     = layerCount;
 
     VkPipelineStageFlags sourceStage;
     VkPipelineStageFlags destinationStage;

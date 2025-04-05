@@ -317,7 +317,7 @@ TextureRef TexturePool::createCubemap(resource::Ref<sf::Image> right, resource::
                                       VkFormat format, vk::Sampler sampler) {
     // validate faces
     std::array<sf::Image*, 6> faces = {
-        right.get(), left.get(), top.get(), bottom.get(), back.get(), front.get()};
+        right.get(), left.get(), top.get(), bottom.get(), front.get(), back.get()};
     glm::u32vec2 faceSize(0, 0);
     for (auto& face : faces) {
         if (face && face->getSize().x > 0) {
@@ -344,11 +344,11 @@ TextureRef TexturePool::createCubemap(resource::Ref<sf::Image> right, resource::
 
     // stitch images into new image
     cm->altImg = &cm->localImage;
-    cm->localImage.create(faceSize.x * 6, faceSize.y, sf::Color::Transparent);
+    cm->localImage.create(faceSize.x, faceSize.y * 6, sf::Color::Transparent);
     for (std::size_t i = 0; i < 6; ++i) {
-        if (faces[i]) { cm->localImage.copy(*faces[i], i * faceSize.x, 0); }
+        if (faces[i]) { cm->localImage.copy(*faces[i], 0, i * faceSize.y); }
         else {
-            generateErrorPattern(cm->localImage, i * faceSize.x, 0, faceSize.x, faceSize.y, 16);
+            generateErrorPattern(cm->localImage, 0, i * faceSize.y, faceSize.x, faceSize.y, 16);
             BL_LOG_WARN << "Cubemap face " << i << " is invalid, using error pattern";
         }
     }

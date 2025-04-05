@@ -85,6 +85,7 @@ public:
 private:
     CameraController* controller;
     bl::rc::scene::Scene3D* scene;
+    bl::gfx::Skybox skybox;
 
     bl::gfx::VertexBuffer3D floor;
     bl::gfx::Cube cube1;
@@ -125,6 +126,15 @@ private:
         for (unsigned int i = 0; i < 6; ++i) { floor[i].color = {0.4f, 0.4f, 0.4f, 1.f}; }
         floor.commit();
         floor.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
+        skybox.create(*world,
+                      "Resources/Textures/skybox/right.jpg",
+                      "Resources/Textures/skybox/left.jpg",
+                      "Resources/Textures/skybox/top.jpg",
+                      "Resources/Textures/skybox/bottom.jpg",
+                      "Resources/Textures/skybox/back.jpg",
+                      "Resources/Textures/skybox/front.jpg");
+        skybox.addToScene(scene);
 
         auto containerTexture = engine.renderer().texturePool().getOrLoadTexture(
             "Resources/Textures/container.jpg", bl::rc::vk::TextureFormat::SRGBA32Bit);

@@ -102,10 +102,10 @@ void Texture::create(Type t, const glm::u32vec2& s, VkFormat fmt, Sampler smplr)
     sampler = smplr;
     format  = fmt;
     sizeRaw = s;
-    if (type == Type::Cubemap) { sizeRaw.x /= 6; }
+    sizeRaw.y /= getLayerCount(type);
 
-    vulkanState->createImage(s.x,
-                             s.y,
+    vulkanState->createImage(sizeRaw.x,
+                             sizeRaw.y,
                              getLayerCount(type),
                              getFormat(),
                              VK_IMAGE_TILING_OPTIMAL,
@@ -220,10 +220,11 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
             source.top    = 0;
             source.width  = src.getSize().x;
             source.height = src.getSize().y;
+            source.height /= getLayerCount(type);
         }
 
         // create staging buffer
-        const VkDeviceSize stageSize = source.width * source.height * 4;
+        const VkDeviceSize stageSize = source.width * source.height * 4 * getLayerCount(type);
         VkBuffer stagingBuffer;
         void* data;
         engine.createTemporaryStagingBuffer(stageSize, stagingBuffer, &data);
@@ -240,8 +241,11 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
         else { std::memcpy(data, src.getPixelsPtr(), stageSize); }
 
         // transition to transfer dst prior to copy
-        vulkanState->transitionImageLayout(
-            cb, image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+        vulkanState->transitionImageLayout(cb,
+                                           image,
+                                           VK_IMAGE_LAYOUT_UNDEFINED,
+                                           VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+                                           getLayerCount(type));
 
         // issue copy command
         VkDeviceSize layerSize = sizeRaw.x * sizeRaw.y * 4;

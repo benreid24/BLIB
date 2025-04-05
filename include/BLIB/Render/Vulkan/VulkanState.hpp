@@ -157,9 +157,11 @@ struct VulkanState {
      * @param image The image to convert
      * @param oldLayout The current layout to convert from
      * @param newLayout The layout to convert to
+     * @param layerCount The number of layers to transition
      */
     void transitionImageLayout(VkCommandBuffer commandbuffer, VkImage image,
-                               VkImageLayout oldLayout, VkImageLayout newLayout);
+                               VkImageLayout oldLayout, VkImageLayout newLayout,
+                               std::uint32_t layerCount = 1);
 
     /**
      * @brief Helper function to copy a raw buffer's contents into an image

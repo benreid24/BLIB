@@ -16,6 +16,9 @@ compile_shaders(
 
     3D/meshSkinned.vert
 
+    3D/skybox.vert
+    3D/skybox.frag
+
     2D/skinned2d.vert
     2D/skinned2d.frag
     2D/skinned2dlit.frag

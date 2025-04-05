@@ -51,6 +51,7 @@ void MaterialPipelineCache::createBuiltins() {
 
     using MId = Config::MaterialPipelineIds;
     using PId = Config::PipelineIds;
+    using B   = mat::MaterialPipelineSettings::PhasePipelineOverride;
 
     makeOverlayPair(MId::Mesh3D, PId::LitMesh3D, PId::UnlitMesh3D);
     makeOverlayPair(MId::Mesh3DMaterial, PId::LitMesh3DMaterial, PId::UnlitMesh3DMaterial);
@@ -60,6 +61,11 @@ void MaterialPipelineCache::createBuiltins() {
     makeOverlayPair(MId::Slideshow2D, PId::SlideshowLit, PId::SlideshowUnlit);
     make(MId::Text, PId::Text);
     make(MId::Lines2D, PId::Lines2D);
+    createPipeline(MId::Skybox,
+                   mat::MaterialPipelineSettings(PId::Skybox)
+                       .withRenderPhasePipelineOverride(RenderPhase::Overlay, B::None)
+                       .withRenderPhasePipelineOverride(RenderPhase::ShadowMap, B::None)
+                       .build());
 }
 
 } // namespace res
