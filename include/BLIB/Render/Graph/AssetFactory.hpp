@@ -2,6 +2,7 @@
 #define BLIB_RENDER_GRAPH_ASSETFACTORY_HPP
 
 #include <BLIB/Render/Graph/AssetProvider.hpp>
+#include <initializer_list>
 #include <memory>
 #include <string_view>
 #include <unordered_map>
@@ -30,7 +31,22 @@ public:
      */
     template<typename T, typename... TArgs>
     void addProvider(std::string_view tag, TArgs&&... args) {
-        providers.try_emplace(tag, std::make_unique<T>(std::forward<TArgs>(args)...));
+        auto& p = assetProviders.emplace_back(std::make_unique<T>(std::forward<TArgs>(args)...));
+        providers.try_emplace(tag, p.get());
+    }
+
+    /**
+     * @brief Adds a single asset provider for multiple tags
+     *
+     * @tparam T The type of provider to add
+     * @tparam ...TArgs Argument types to the provider's constructor
+     * @param tags The tags to assign the provider to
+     * @param ...args Arguments to the provider's constructor
+     */
+    template<typename T, typename... TArgs>
+    void addProvider(std::initializer_list<std::string_view> tags, TArgs&&... args) {
+        auto& p = assetProviders.emplace_back(std::make_unique<T>(std::forward<TArgs>(args)...));
+        for (const auto& tag : tags) { providers.try_emplace(tag, p.get()); }
     }
 
     /**
@@ -42,7 +58,8 @@ public:
     Asset* createAsset(std::string_view tag);
 
 private:
-    std::unordered_map<std::string_view, std::unique_ptr<AssetProvider>> providers;
+    std::vector<std::unique_ptr<AssetProvider>> assetProviders;
+    std::unordered_map<std::string_view, AssetProvider*> providers;
 };
 
 } // namespace rg

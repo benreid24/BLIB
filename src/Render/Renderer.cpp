@@ -55,8 +55,13 @@ void Renderer::initialize() {
         *this);
 
     // asset providers
-    assetFactory.addProvider<rgi::StandardAssetProvider>(rg::AssetTags::RenderedSceneOutput);
-    assetFactory.addProvider<rgi::StandardAssetProvider>(rg::AssetTags::PostFXOutput);
+    assetFactory
+        .addProvider<rgi::StandardAssetProvider<Config::RenderPassIds::StandardAttachmentDefault,
+                                                vk::TextureFormat::SRGBA32Bit>>(
+            {rg::AssetTags::RenderedSceneOutput, rg::AssetTags::PostFXOutput});
+    assetFactory.addProvider<rgi::StandardAssetProvider<Config::RenderPassIds::HDRAttachmentDefault,
+                                                        vk::TextureFormat::HDRColor>>(
+        rg::AssetTags::RenderedSceneOutputHDR);
 
     // create renderer instance data
     state.init();

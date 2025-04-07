@@ -3,7 +3,6 @@
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/Builtin/ColorAttachmentInstance.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
-#include <BLIB/Render/Graph/Assets/StandardTargetAsset.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -15,7 +14,7 @@ namespace rgi
 FadeEffectTask::FadeEffectTask(float fadeTime, float start, float end)
 : renderer(nullptr) {
     assetTags.concreteOutputs.emplace_back(rg::AssetTags::FinalFrameOutput);
-    assetTags.createdOutput = rg::AssetTags::PostFXOutput;
+    assetTags.createdOutputs.emplace_back(rg::AssetTags::PostFXOutput);
     assetTags.requiredInputs.emplace_back(rg::AssetTags::RenderedSceneOutput);
 
     fade(fadeTime, start, end);
@@ -53,8 +52,8 @@ void FadeEffectTask::create(engine::Engine&, Renderer& r, Scene* s) {
 }
 
 void FadeEffectTask::onGraphInit() {
-    StandardTargetAsset* input =
-        dynamic_cast<StandardTargetAsset*>(&assets.requiredInputs[0]->asset.get());
+    FramebufferAsset* input =
+        dynamic_cast<FramebufferAsset*>(&assets.requiredInputs[0]->asset.get());
     if (!input) { throw std::runtime_error("Got bad input"); }
 
     output = dynamic_cast<FramebufferAsset*>(&assets.output->asset.get());

@@ -20,8 +20,8 @@ struct TaskAssetTags {
     /// List of external assets the task can select to output to
     std::vector<std::string_view> concreteOutputs;
 
-    /// The type of output that the task can create to output to
-    std::string_view createdOutput;
+    /// The type of outputs that the task can create to output to
+    std::vector<std::string_view> createdOutputs;
 
     /// List of required inputs
     std::vector<TaskInput> requiredInputs;

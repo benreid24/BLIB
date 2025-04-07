@@ -9,14 +9,13 @@ namespace vk
 StandardAttachmentBuffers::StandardAttachmentBuffers()
 : owner(nullptr) {}
 
-void StandardAttachmentBuffers::create(VulkanState& vs, const VkExtent2D& size) {
+void StandardAttachmentBuffers::create(VulkanState& vs, const VkExtent2D& size,
+                                       VkFormat colorFormat) {
     owner = &vs;
     attachments.setRenderExtent(size);
 
-    colorAttachment.create(vs,
-                           DefaultColorFormat,
-                           VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
-                           size);
+    colorAttachment.create(
+        vs, colorFormat, VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT, size);
     depthAttachment.create(
         vs, findDepthFormat(vs), VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, size);
     attachments.setAttachments(colorAttachment.image(),

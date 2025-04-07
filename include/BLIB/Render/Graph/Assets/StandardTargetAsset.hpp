@@ -15,14 +15,30 @@ namespace rgi
 /**
  * @brief Asset for a standard render target consisting of a single color and depth attachment
  *
+ * @tparam RenderPassId The id of the render pass to use
+ * @tparam ColorFormat The format of the color attachment
  * @ingroup Renderer
  */
+template<std::uint32_t RenderPassId, VkFormat ColorFormat>
 class StandardTargetAsset : public FramebufferAsset {
 public:
     /**
      * @brief Creates a new asset but does not allocate the attachments
+     *
+     * @param tag The tag the asset is being created for
      */
-    StandardTargetAsset();
+    StandardTargetAsset(std::string_view tag)
+    : FramebufferAsset(tag, RenderPassId, cachedViewport, cachedScissor, nullptr, 2)
+    , renderer(nullptr)
+    , cachedViewport{}
+    , cachedScissor{} {
+        cachedViewport.minDepth = 0.f;
+        cachedViewport.maxDepth = 1.f;
+        cachedScissor.offset.x  = 0;
+        cachedScissor.offset.y  = 0;
+        cachedViewport.x        = 0.f;
+        cachedViewport.y        = 0.f;
+    }
 
     /**
      * @brief Frees resources
@@ -32,7 +48,7 @@ public:
     /**
      * @brief Returns the current framebuffer to use
      */
-    virtual vk::Framebuffer& currentFramebuffer() override;
+    virtual vk::Framebuffer& currentFramebuffer() override { return framebuffers.current(); }
 
     /**
      * @brief Returns the framebuffer at the given frame index
@@ -40,7 +56,9 @@ public:
      * @param i The frame index of the framebuffer to return
      * @return The framebuffer at the given index
      */
-    virtual vk::Framebuffer& getFramebuffer(std::uint32_t i) override;
+    virtual vk::Framebuffer& getFramebuffer(std::uint32_t i) override {
+        return framebuffers.getRaw(i);
+    }
 
     /**
      * @brief Returns the images that are rendered to
@@ -55,11 +73,39 @@ private:
     VkViewport cachedViewport;
     VkRect2D cachedScissor;
 
-    virtual void doCreate(engine::Engine& engine, Renderer& renderer,
-                          RenderTarget* observer) override;
-    virtual void doPrepareForInput(const rg::ExecutionContext& context) override;
-    virtual void doPrepareForOutput(const rg::ExecutionContext& context) override;
-    virtual void onResize(glm::u32vec2 newSize) override;
+    virtual void doCreate(engine::Engine&, Renderer& r, RenderTarget* o) override {
+        renderer = &r;
+        observer = o;
+        images.emptyInit(r.vulkanState());
+        framebuffers.emptyInit(r.vulkanState());
+        renderPass = &renderer->renderPassCache().getRenderPass(renderPassId);
+        onResize(o->getRegionSize());
+    }
+
+    virtual void doPrepareForInput(const rg::ExecutionContext&) override {}
+    virtual void doPrepareForOutput(const rg::ExecutionContext&) override {}
+
+    virtual void onResize(glm::u32vec2 newSize) override {
+        clearColors                 = observer->getClearColors();
+        cachedScissor.extent.width  = newSize.x;
+        cachedScissor.extent.height = newSize.y;
+        cachedViewport.width        = static_cast<float>(newSize.x);
+        cachedViewport.height       = static_cast<float>(newSize.y);
+
+        if (renderer) {
+            images.init(
+                renderer->vulkanState(), [this, newSize](vk::StandardAttachmentBuffers& image) {
+                    image.create(renderer->vulkanState(), {newSize.x, newSize.y}, ColorFormat);
+                });
+            unsigned int i = 0;
+            framebuffers.init(renderer->vulkanState(), [this, &i](vk::Framebuffer& fb) {
+                fb.create(renderer->vulkanState(),
+                          renderPass->rawPass(),
+                          images.getRaw(i).attachmentSet());
+                ++i;
+            });
+        }
+    }
 };
 
 } // namespace rgi

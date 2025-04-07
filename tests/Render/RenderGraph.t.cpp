@@ -114,7 +114,7 @@ struct TestTask : public Task {
     : created(false)
     , graphInit(false) {}
 
-    virtual void create(engine::Engine&, Renderer&) override { created = true; }
+    virtual void create(engine::Engine&, Renderer&, Scene*) override { created = true; }
 
     virtual void execute(const ExecutionContext&) override {
         ASSERT_TRUE(assets.output->asset.valid());
@@ -146,7 +146,7 @@ struct TestTask : public Task {
 struct ShadowMapTask : public TestTask {
     ShadowMapTask()
     : TestTask() {
-        assetTags.createdOutput = ShadowMapTag;
+        assetTags.createdOutputs.emplace_back(ShadowMapTag);
         assetTags.requiredInputs.emplace_back(AssetTags::SceneObjectsInput);
         assetTags.requiredInputs.emplace_back(ShadowLightsTag);
     }
@@ -173,7 +173,7 @@ struct SceneRenderTask : public TestTask {
     SceneRenderTask()
     : TestTask() {
         assetTags.concreteOutputs.emplace_back(AssetTags::FinalFrameOutput);
-        assetTags.createdOutput = AssetTags::RenderedSceneOutput;
+        assetTags.createdOutputs.emplace_back(AssetTags::RenderedSceneOutput);
         assetTags.requiredInputs.emplace_back(AssetTags::SceneObjectsInput);
         assetTags.optionalInputs.emplace_back(ShadowMapTag);
     }
@@ -214,7 +214,7 @@ struct PostFXTask : public TestTask {
     PostFXTask()
     : TestTask() {
         assetTags.concreteOutputs.emplace_back(AssetTags::FinalFrameOutput);
-        assetTags.createdOutput = AssetTags::PostFXOutput;
+        assetTags.createdOutputs.emplace_back(AssetTags::PostFXOutput);
         assetTags.requiredInputs.emplace_back(
             TaskInput{AssetTags::RenderedSceneOutput, AssetTags::PostFXOutput});
     }
@@ -272,7 +272,7 @@ TEST(RenderGraph, BasicSceneRender) {
     Swapframe* swapframe = pool.putAsset<Swapframe>();
 
     engine::Engine engine(engine::Settings{});
-    RenderGraph graph(engine, engine.renderer(), pool, nullptr);
+    RenderGraph graph(engine, engine.renderer(), pool, nullptr, nullptr);
 
     graph.putTask<SceneRenderTask>();
 
@@ -290,7 +290,7 @@ TEST(RenderGraph, SceneWithPostFX) {
     Swapframe* swapframe = pool.putAsset<Swapframe>();
 
     engine::Engine engine(engine::Settings{});
-    RenderGraph graph(engine, engine.renderer(), pool, nullptr);
+    RenderGraph graph(engine, engine.renderer(), pool, nullptr, nullptr);
 
     graph.putTask<SceneRenderTask>();
     graph.putTask<PostFXTask>();
@@ -310,7 +310,7 @@ TEST(RenderGraph, SceneWithPostFXAndShadows) {
     pool.putAsset<ShadowLights>();
 
     engine::Engine engine(engine::Settings{});
-    RenderGraph graph(engine, engine.renderer(), pool, nullptr);
+    RenderGraph graph(engine, engine.renderer(), pool, nullptr, nullptr);
 
     graph.putTask<SceneRenderTask>();
     graph.putTask<PostFXTask>();
@@ -331,7 +331,7 @@ TEST(RenderGraph, SceneWithPostFXChainAndShadows) {
     pool.putAsset<ShadowLights>();
 
     engine::Engine engine(engine::Settings{});
-    RenderGraph graph(engine, engine.renderer(), pool, nullptr);
+    RenderGraph graph(engine, engine.renderer(), pool, nullptr, nullptr);
 
     graph.putTask<SceneRenderTask>();
     graph.putTask<PostFXTask>();
@@ -354,8 +354,8 @@ TEST(RenderGraph, MultipleGraphsSharedAssets) {
 
     engine::Engine engine(engine::Settings{});
 
-    RenderGraph graph1(engine, engine.renderer(), pool, nullptr);
-    RenderGraph graph2(engine, engine.renderer(), pool, nullptr);
+    RenderGraph graph1(engine, engine.renderer(), pool, nullptr, nullptr);
+    RenderGraph graph2(engine, engine.renderer(), pool, nullptr, nullptr);
 
     graph1.putTask<SceneRenderTask>();
     graph1.putTask<PostFXTask>();

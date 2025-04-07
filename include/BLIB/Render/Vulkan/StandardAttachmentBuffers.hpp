@@ -38,8 +38,10 @@ public:
      *
      * @param vulkaState Renderer vulkan state
      * @param size The size of the color and depth attachments to create
+     * @param colorFormat The format to create the color attachment with
      */
-    void create(VulkanState& vulkaState, const VkExtent2D& size);
+    void create(VulkanState& vulkaState, const VkExtent2D& size,
+                VkFormat colorFormat = DefaultColorFormat);
 
     /**
      * @brief Destroys the images, views, sampler, and frees GPU memory

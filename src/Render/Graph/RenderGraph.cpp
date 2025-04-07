@@ -103,7 +103,9 @@ void RenderGraph::build() {
         for (auto tag : tags.options) {
             for (auto& ctask : tasks) {
                 if (ctask.get() != task && !ctask->assets.output &&
-                    ctask->assetTags.createdOutput == tag) {
+                    std::find(ctask->assetTags.createdOutputs.begin(),
+                              ctask->assetTags.createdOutputs.end(),
+                              tag) != ctask->assetTags.createdOutputs.end()) {
                     asset                = assets.createAsset(tag, ctask.get());
                     ctask->assets.output = asset;
                     return true;

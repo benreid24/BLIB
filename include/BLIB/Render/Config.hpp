@@ -23,7 +23,7 @@ struct Config {
 
     static constexpr std::size_t MaxDescriptorBindings = 8;
 
-    static constexpr std::uint32_t MaxRenderPasses = 4;
+    static constexpr std::uint32_t MaxRenderPasses = 8;
 
     static constexpr std::size_t MaxRenderPhases = 8;
 
@@ -129,6 +129,7 @@ struct Config {
     struct RenderPassIds {
         static constexpr std::uint32_t StandardAttachmentDefault = 0;
         static constexpr std::uint32_t SwapchainDefault          = 1;
+        static constexpr std::uint32_t HDRAttachmentDefault      = 2;
     };
 
     static constexpr std::uint32_t SPIRVMagicNumber = 0x07230203;

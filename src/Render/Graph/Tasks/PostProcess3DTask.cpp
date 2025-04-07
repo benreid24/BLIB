@@ -2,7 +2,6 @@
 
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
-#include <BLIB/Render/Graph/Assets/StandardTargetAsset.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -15,8 +14,8 @@ PostProcess3DTask::PostProcess3DTask()
 : renderer(nullptr)
 , output(nullptr) {
     assetTags.concreteOutputs.emplace_back(rg::AssetTags::FinalFrameOutput);
-    assetTags.createdOutput = rg::AssetTags::PostFXOutput;
-    assetTags.requiredInputs.emplace_back(rg::AssetTags::RenderedSceneOutput);
+    assetTags.createdOutputs.emplace_back(rg::AssetTags::PostFXOutput);
+    assetTags.requiredInputs.emplace_back(rg::AssetTags::RenderedSceneOutputHDR);
 }
 
 void PostProcess3DTask::create(engine::Engine&, Renderer& r, Scene* s) {

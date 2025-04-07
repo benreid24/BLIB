@@ -12,7 +12,11 @@ namespace rgi
 {
 ForwardRenderTask::ForwardRenderTask() {
     assetTags.concreteOutputs.emplace_back(rg::AssetTags::FinalFrameOutput);
-    assetTags.createdOutput = rg::AssetTags::RenderedSceneOutput;
+
+    assetTags.createdOutputs.reserve(2);
+    assetTags.createdOutputs.emplace_back(rg::AssetTags::RenderedSceneOutput);
+    assetTags.createdOutputs.emplace_back(rg::AssetTags::RenderedSceneOutputHDR);
+
     assetTags.requiredInputs.emplace_back(rg::AssetTags::SceneObjectsInput);
 }
 

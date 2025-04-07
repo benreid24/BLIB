@@ -3,6 +3,7 @@
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp>
+#include <BLIB/Render/Vulkan/TextureFormat.hpp>
 
 namespace bl
 {
@@ -118,6 +119,30 @@ void RenderPassCache::addDefaults() {
     primaryParams.addSubpassDependency(swapchainAvailDep);
     primaryParams.addSubpassDependency(depthDependency);
     createRenderPass(Config::RenderPassIds::SwapchainDefault, primaryParams.build());
+
+    // HDR rendering
+    VkAttachmentDescription hdrColorAttachment{};
+    hdrColorAttachment.format         = vk::TextureFormat::HDRColor;
+    hdrColorAttachment.samples        = VK_SAMPLE_COUNT_1_BIT;
+    hdrColorAttachment.loadOp         = VK_ATTACHMENT_LOAD_OP_CLEAR;
+    hdrColorAttachment.storeOp        = VK_ATTACHMENT_STORE_OP_STORE;
+    hdrColorAttachment.stencilLoadOp  = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+    hdrColorAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+    hdrColorAttachment.initialLayout  = VK_IMAGE_LAYOUT_UNDEFINED;
+    hdrColorAttachment.finalLayout    = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+
+    vk::RenderPassParameters hdrParams;
+    hdrParams.addAttachment(hdrColorAttachment);
+    hdrParams.addAttachment(depthAttachment);
+    hdrParams.addSubpass(
+        vk::RenderPassParameters::SubPass()
+            .withAttachment(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL)
+            .withDepthAttachment(1, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL)
+            .build());
+    hdrParams.addSubpassDependency(renderCompleteDep);
+    hdrParams.addSubpassDependency(swapchainAvailDep);
+    hdrParams.addSubpassDependency(depthDependency);
+    createRenderPass(Config::RenderPassIds::HDRAttachmentDefault, hdrParams.build());
 }
 
 } // namespace res
