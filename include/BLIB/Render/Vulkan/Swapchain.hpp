@@ -68,7 +68,7 @@ public:
      *
      * @return The current swap chain image index
      */
-    constexpr std::uint32_t currentIndex() const;
+    std::uint32_t currentIndex() const;
 
     /**
      * @brief Returns the number of images in the swap chain
@@ -90,7 +90,7 @@ public:
      *
      * @return The format of images in the swap chain
      */
-    constexpr VkFormat swapImageFormat() const;
+    VkFormat swapImageFormat() const;
 
 private:
     struct Frame {
@@ -125,7 +125,7 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr std::uint32_t Swapchain::currentIndex() const { return currentImageIndex; }
+inline std::uint32_t Swapchain::currentIndex() const { return currentImageIndex; }
 
 inline std::size_t Swapchain::length() const { return renderFrames.size(); }
 
@@ -133,7 +133,7 @@ inline const StandardAttachmentSet& Swapchain::swapFrameAtIndex(unsigned int i) 
     return renderFrames[i];
 }
 
-inline constexpr VkFormat Swapchain::swapImageFormat() const { return imageFormat; }
+inline VkFormat Swapchain::swapImageFormat() const { return imageFormat; }
 
 template<typename T>
 PerSwapFrame<T>::PerSwapFrame()
@@ -158,12 +158,12 @@ void PerSwapFrame<T>::cleanup(const TCb& visitor) {
 }
 
 template<typename T>
-constexpr T& PerSwapFrame<T>::current() {
+T& PerSwapFrame<T>::current() {
     return data[chain->currentIndex()];
 }
 
 template<typename T>
-constexpr const T& PerSwapFrame<T>::current() const {
+const T& PerSwapFrame<T>::current() const {
     return data[chain->currentIndex()];
 }
 

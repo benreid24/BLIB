@@ -10,6 +10,7 @@
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>
+#include <BLIB/Render/Vulkan/PipelineInstance.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <array>
@@ -100,6 +101,14 @@ public:
      * @param camera The camera to initialize
      */
     virtual void setDefaultNearAndFarPlanes(cam::Camera& camera) const = 0;
+
+    /**
+     * @brief Initializes the pipeline instance for the given pipeline id
+     *
+     * @param pipelineId The id of the pipeline to fetch and create the instance for
+     * @param instance The instance to populate with pipeline and descriptor sets
+     */
+    void initPipelineInstance(std::uint32_t pipelineId, vk::PipelineInstance& instance);
 
 protected:
     /**

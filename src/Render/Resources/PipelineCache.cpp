@@ -2,7 +2,7 @@
 
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Config.hpp>
-#include <BLIB/Render/Descriptors/Builtin/FadeEffectFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/ColorAttachmentFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/GlobalDataFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Object2DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Object3DFactory.hpp>
@@ -311,6 +311,8 @@ void PipelineCache::createBuiltins() {
                        .addDescriptorSet<ds::SlideshowFactory>()
                        .build());
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     createPipeline(
         Config::PipelineIds::FadeEffect,
         vk::PipelineParameters()
@@ -318,7 +320,19 @@ void PipelineCache::createBuiltins() {
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withRasterizer(rasterizer)
             .withDepthStencilState(&depthStencilDepthDisabled)
-            .addDescriptorSet<ds::FadeEffectFactory>()
+            .addDescriptorSet<ds::ColorAttachmentFactory>()
+            .addPushConstantRange(0, sizeof(float), VK_SHADER_STAGE_FRAGMENT_BIT)
+            .build());
+
+    createPipeline(
+        Config::PipelineIds::PostProcess3D,
+        vk::PipelineParameters()
+            .withShaders(Config::ShaderIds::EmptyVertex, Config::ShaderIds::PostProcess3DFragment)
+            .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+            .withRasterizer(rasterizer)
+            .withDepthStencilState(&depthStencilDepthDisabled)
+            .addDescriptorSet<ds::ColorAttachmentFactory>()
+            .addDescriptorSet<ds::GlobalDataFactory>()
             .addPushConstantRange(0, sizeof(float), VK_SHADER_STAGE_FRAGMENT_BIT)
             .build());
 }

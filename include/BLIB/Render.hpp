@@ -19,7 +19,8 @@
 #include <BLIB/Render/Components/DrawableBase.hpp>
 #include <BLIB/Render/Components/SceneObjectRef.hpp>
 #include <BLIB/Render/Config.hpp>
-#include <BLIB/Render/Descriptors/Builtin/FadeEffectFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/ColorAttachmentFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/ColorAttachmentInstance.hpp>
 #include <BLIB/Render/Descriptors/Builtin/GlobalDataFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/GlobalDataInstance.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Object2DFactory.hpp>

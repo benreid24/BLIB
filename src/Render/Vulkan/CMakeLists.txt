@@ -8,6 +8,7 @@ target_sources(BLIB PRIVATE
     DescriptorSet.cpp
     Framebuffer.cpp
     Pipeline.cpp
+    PipelineInstance.cpp
     PipelineLayout.cpp
     PipelineParameters.cpp
     RenderPass.cpp

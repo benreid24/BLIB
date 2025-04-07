@@ -32,6 +32,10 @@ void FinalSwapframeAsset::doPrepareForOutput(const rg::ExecutionContext&) {
 
 vk::Framebuffer& FinalSwapframeAsset::currentFramebuffer() { return framebuffers.current(); }
 
+vk::Framebuffer& FinalSwapframeAsset::getFramebuffer(std::uint32_t i) {
+    return framebuffers.getRaw(i);
+}
+
 void FinalSwapframeAsset::onResize(glm::u32vec2) {
     // noop
 }

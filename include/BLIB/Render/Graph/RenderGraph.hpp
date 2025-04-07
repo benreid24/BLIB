@@ -36,9 +36,10 @@ public:
      * @param renderer The renderer instance
      * @param assetPool The targets's asset pool
      * @param target The render target the graph belongs to
+     * @param scene The scene that the graph is rendering to
      */
     RenderGraph(engine::Engine& engine, Renderer& renderer, AssetPool& assetPool,
-                RenderTarget* target);
+                RenderTarget* target, Scene* scene);
 
     /**
      * @brief Adds a new task to the graph to become a part of the render process
@@ -53,7 +54,7 @@ public:
         T* task = new T(std::forward<TArgs>(args)...);
         tasks.emplace_back(task);
         needsRebuild = true;
-        static_cast<Task*>(task)->create(engine, renderer);
+        static_cast<Task*>(task)->create(engine, renderer, scene);
         return task;
     }
 
@@ -163,7 +164,7 @@ public:
     /**
      * @brief Returns whether or not the graph needs to be repopulated from scratch
      */
-    constexpr bool needsRepopulation() const { return needsReset; }
+    bool needsRepopulation() const { return needsReset; }
 
     /**
      * @brief Clears all tasks from the graph and marks it for re-population
@@ -198,6 +199,7 @@ private:
     engine::Engine& engine;
     Renderer& renderer;
     RenderTarget* observer;
+    Scene* scene;
     GraphAssetPool assets;
     std::vector<std::unique_ptr<Task>> tasks;
     std::vector<TimelineStage> timeline;

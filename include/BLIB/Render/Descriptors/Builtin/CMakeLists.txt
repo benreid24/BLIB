@@ -1,6 +1,7 @@
 target_sources(BLIB PUBLIC
+    ColorAttachmentFactory.hpp
+	ColorAttachmentInstance.hpp
     CommonBindings.hpp
-	FadeEffectFactory.hpp
 	GlobalDataFactory.hpp
 	GlobalDataInstance.hpp
 	Object2DFactory.hpp

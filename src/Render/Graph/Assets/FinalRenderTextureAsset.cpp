@@ -34,6 +34,8 @@ void FinalRenderTextureAsset::doPrepareForOutput(const rg::ExecutionContext&) {
 
 vk::Framebuffer& FinalRenderTextureAsset::currentFramebuffer() { return framebuffer; }
 
+vk::Framebuffer& FinalRenderTextureAsset::getFramebuffer(std::uint32_t) { return framebuffer; }
+
 void FinalRenderTextureAsset::onResize(glm::u32vec2) {
     // noop
 }

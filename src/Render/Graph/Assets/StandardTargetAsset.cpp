@@ -64,6 +64,10 @@ void StandardTargetAsset::onResize(glm::u32vec2 newSize) {
 
 vk::Framebuffer& StandardTargetAsset::currentFramebuffer() { return framebuffers.current(); }
 
+vk::Framebuffer& StandardTargetAsset::getFramebuffer(std::uint32_t i) {
+    return framebuffers.getRaw(i);
+}
+
 } // namespace rgi
 } // namespace rc
 } // namespace bl

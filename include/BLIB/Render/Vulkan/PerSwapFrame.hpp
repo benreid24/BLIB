@@ -53,14 +53,30 @@ public:
      *
      * @return The currently active object
      */
-    constexpr T& current();
+    T& current();
 
     /**
      * @brief Returns a reference to the currently active object
      *
      * @return The currently active object
      */
-    constexpr const T& current() const;
+    const T& current() const;
+
+    /**
+     * @brief Returns the object at the given index
+     *
+     * @param i The index of the object to access
+     * @return The object at the given index
+     */
+    T& getRaw(std::uint32_t i) { return data[i]; }
+
+    /**
+     * @brief Returns the object at the given index
+     *
+     * @param i The index of the object to access
+     * @return The object at the given index
+     */
+    const T& getRaw(std::uint32_t i) const { return data[i]; }
 
 private:
     Swapchain* chain;

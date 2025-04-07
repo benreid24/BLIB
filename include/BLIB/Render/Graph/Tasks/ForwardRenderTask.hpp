@@ -32,7 +32,7 @@ private:
     FramebufferAsset* output;
     SceneAsset* scene;
 
-    virtual void create(engine::Engine& engine, Renderer& renderer) override;
+    virtual void create(engine::Engine& engine, Renderer& renderer, Scene* scene) override;
     virtual void onGraphInit() override;
     virtual void execute(const rg::ExecutionContext& ctx) override;
 };

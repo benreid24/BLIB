@@ -40,6 +40,14 @@ public:
      */
     virtual vk::Framebuffer& currentFramebuffer() override;
 
+    /**
+     * @brief Returns the framebuffer at the given frame
+     *
+     * @param i The frame index of the framebuffer to return
+     * @return The framebuffer at the given index
+     */
+    virtual vk::Framebuffer& getFramebuffer(std::uint32_t i) override;
+
 private:
     vk::Framebuffer& framebuffer;
 

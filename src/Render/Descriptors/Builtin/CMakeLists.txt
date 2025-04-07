@@ -1,5 +1,6 @@
 target_sources(BLIB PRIVATE
-	FadeEffectFactory.cpp
+	ColorAttachmentFactory.cpp
+	ColorAttachmentInstance.cpp
 	GlobalDataFactory.cpp
 	GlobalDataInstance.cpp
 	Scene2DFactory.cpp

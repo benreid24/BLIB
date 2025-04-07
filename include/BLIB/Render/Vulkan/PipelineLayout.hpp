@@ -140,7 +140,7 @@ public:
     /**
      * @brief Returns the Vulkan layout handle
      */
-    constexpr VkPipelineLayout rawLayout() const;
+    VkPipelineLayout rawLayout() const;
 
     /**
      * @brief Creates descriptor set instances for this layout
@@ -178,6 +178,11 @@ public:
                                        std::uint32_t descriptorCount, ecs::Entity entity,
                                        std::uint32_t sceneId, UpdateSpeed updateSpeed) const;
 
+    /**
+     * @brief Returns the number of descriptor sets in this layout
+     */
+    std::uint32_t getDescriptorSetCount() const { return descriptorSets.size(); }
+
 private:
     Renderer& renderer;
     VkPipelineLayout layout;
@@ -186,7 +191,7 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr VkPipelineLayout PipelineLayout::rawLayout() const { return layout; }
+inline VkPipelineLayout PipelineLayout::rawLayout() const { return layout; }
 
 } // namespace vk
 } // namespace rc

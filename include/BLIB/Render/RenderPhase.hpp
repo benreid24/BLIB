@@ -31,6 +31,9 @@ enum struct RenderPhase : std::uint8_t {
     /// Represents rendering to UI overlay
     Overlay = 0x1 << 2,
 
+    /// Represents post processing phases
+    PostProcess = 0x1 << 3,
+
     /// Helper value representing all phases
     All = 0xFF
 };

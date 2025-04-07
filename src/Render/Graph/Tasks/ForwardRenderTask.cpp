@@ -16,7 +16,7 @@ ForwardRenderTask::ForwardRenderTask() {
     assetTags.requiredInputs.emplace_back(rg::AssetTags::SceneObjectsInput);
 }
 
-void ForwardRenderTask::create(engine::Engine&, Renderer&) {
+void ForwardRenderTask::create(engine::Engine&, Renderer&, Scene*) {
     // noop
 }
 

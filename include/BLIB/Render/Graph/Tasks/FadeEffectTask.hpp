@@ -2,12 +2,13 @@
 #define BLIB_RENDER_GRAPH_TASKS_FADEEFFECTTASK_HPP
 
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
+#include <BLIB/Render/Descriptors/Builtin/ColorAttachmentInstance.hpp>
 #include <BLIB/Render/Graph/Assets/FramebufferAsset.hpp>
 #include <BLIB/Render/Graph/Assets/StandardTargetAsset.hpp>
 #include <BLIB/Render/Graph/Task.hpp>
 #include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
-#include <BLIB/Render/Vulkan/Pipeline.hpp>
+#include <BLIB/Render/Vulkan/PipelineInstance.hpp>
 
 namespace bl
 {
@@ -64,26 +65,25 @@ public:
     /**
      * @brief Returns whether or not the fade is complete
      */
-    constexpr bool complete() const { return factor == fadeEnd; }
+    bool complete() const { return factor == fadeEnd; }
 
     /**
      * @brief Returns the current fade factor
      */
-    constexpr float currentFactor() const { return factor; }
+    float currentFactor() const { return factor; }
 
 private:
     Renderer* renderer;
+    Scene* scene;
     FramebufferAsset* output;
     buf::IndexBuffer indexBuffer;
-    vk::Pipeline* pipeline;
-    vk::DescriptorPool::AllocationHandle dsAlloc;
-    vk::PerFrame<VkDescriptorSet> descriptorSets;
-    VkImageView cachedView;
+    vk::PipelineInstance pipeline;
+    ds::ColorAttachmentInstance* colorAttachmentSet;
     float fadeEnd;
     float fadeSpeed;
     float factor;
 
-    virtual void create(engine::Engine& engine, Renderer& renderer) override;
+    virtual void create(engine::Engine& engine, Renderer& renderer, Scene* scene) override;
     virtual void onGraphInit() override;
     virtual void execute(const rg::ExecutionContext& ctx) override;
 };

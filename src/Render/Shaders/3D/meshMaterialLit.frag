@@ -94,7 +94,6 @@ void main() {
     vec3 lightColor = lightColors[0] * diffuse + lightColors[1] * diffuse + lightColors[2] * specularColor;
 
     outColor = fs_in.fragColor * vec4(lightColor, diffuseColor.w);
-    outColor.rgb = pow(outColor.rgb, vec3(1.0 / settings.gamma));
 }
 
 vec2 parallaxMap(Material material, vec3 viewDir) {

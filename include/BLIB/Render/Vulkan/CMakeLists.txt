@@ -11,6 +11,7 @@ target_sources(BLIB PUBLIC
     PerFrame.hpp
     PerSwapFrame.hpp
     Pipeline.hpp
+    PipelineInstance.hpp
     PipelineLayout.hpp
     PipelineParameters.hpp
     RenderPass.hpp

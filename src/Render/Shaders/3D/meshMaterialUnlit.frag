@@ -51,5 +51,4 @@ void main() {
     }
 
     outColor = fs_in.fragColor * diffuseColor;
-    outColor.rgb = pow(outColor.rgb, vec3(1.0 / settings.gamma));
 }

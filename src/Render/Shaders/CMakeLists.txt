@@ -32,4 +32,5 @@ compile_shaders(
     2D/slideshow.vert
 
     PostFX/fadeEffect.frag
+    PostFX/3dPostProcess.frag
 )

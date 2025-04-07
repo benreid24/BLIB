@@ -135,6 +135,27 @@ public:
     void configureWriteRange(std::uint32_t vertexWriteStart, std::uint32_t vertexWriteCount,
                              std::uint32_t indexWriteStart, std::uint32_t indexWriteCount);
 
+    /**
+     * @brief Issues the commands to bind the index and vertex buffers
+     *
+     * @param commandBuffer The command buffer to write to
+     */
+    void bind(VkCommandBuffer commandBuffer);
+
+    /**
+     * @brief Issues the commands to draw the buffer after binding
+     *
+     * @param commandBuffer The command buffer to write to
+     */
+    void draw(VkCommandBuffer commandBuffer);
+
+    /**
+     * @brief Calls both bind and draw
+     *
+     * @param commandBuffer The command buffer to write to
+     */
+    void bindAndDraw(VkCommandBuffer commandBuffer);
+
 private:
     std::vector<T> cpuVertexBuffer;
     std::vector<std::uint32_t> cpuIndexBuffer;
@@ -269,6 +290,27 @@ void IndexBufferT<T>::configureWriteRange(std::uint32_t vs, std::uint32_t vc, st
     vertexWriteCount = vc;
     indexWriteStart  = is;
     indexWriteCount  = ic;
+}
+
+template<typename T>
+void IndexBufferT<T>::bind(VkCommandBuffer commandBuffer) {
+    VkBuffer vb            = vertexBufferHandle();
+    VkDeviceSize offsets[] = {0};
+    vkCmdBindVertexBuffers(commandBuffer, 0, 1, &vb, offsets);
+    vkCmdBindIndexBuffer(commandBuffer, indexBufferHandle(), 0, IndexType);
+}
+
+template<typename T>
+void IndexBufferT<T>::draw(VkCommandBuffer commandBuffer) {
+    const auto params = getDrawParameters();
+    vkCmdDrawIndexed(
+        commandBuffer, params.indexCount, 1, 0, params.vertexOffset, params.firstInstance);
+}
+
+template<typename T>
+void IndexBufferT<T>::bindAndDraw(VkCommandBuffer commandBuffer) {
+    bind(commandBuffer);
+    draw(commandBuffer);
 }
 
 template<typename T>

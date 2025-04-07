@@ -41,6 +41,14 @@ public:
      */
     virtual vk::Framebuffer& currentFramebuffer() override;
 
+    /**
+     * @brief Returns the framebuffer at the given swap frame index
+     *
+     * @param i The swap frame index of the framebuffer to return
+     * @return The framebuffer at the given index
+     */
+    virtual vk::Framebuffer& getFramebuffer(std::uint32_t i) override;
+
 private:
     vk::PerSwapFrame<vk::Framebuffer>& framebuffers;
 

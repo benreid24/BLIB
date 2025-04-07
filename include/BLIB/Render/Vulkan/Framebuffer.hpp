@@ -83,6 +83,11 @@ public:
      */
     void finishRender(VkCommandBuffer commandBuffer);
 
+    /**
+     * @brief Returns the attachment set of this framebuffer
+     */
+    const vk::AttachmentSet& getAttachmentSet() const { return *target; }
+
 private:
     VulkanState* vulkanState;
     VkRenderPass renderPass;

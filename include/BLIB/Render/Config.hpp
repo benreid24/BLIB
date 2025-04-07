@@ -44,36 +44,37 @@ struct Config {
      * @brief Special ids for built-in shaders
      */
     struct ShaderIds {
-        static constexpr char EmptyVertex[] = {0, 0};
+        static constexpr char EmptyVertex[] = {1, 0};
 
-        static constexpr char MeshVertex[]        = {1, 0};
-        static constexpr char MeshFragmentLit[]   = {2, 0};
-        static constexpr char MeshFragmentUnlit[] = {3, 0};
+        static constexpr char MeshVertex[]        = {2, 0};
+        static constexpr char MeshFragmentLit[]   = {3, 0};
+        static constexpr char MeshFragmentUnlit[] = {4, 0};
 
-        static constexpr char MeshVertexMaterial[]        = {4, 0};
-        static constexpr char MeshFragmentMaterialLit[]   = {5, 0};
-        static constexpr char MeshFragmentMaterialUnlit[] = {6, 0};
+        static constexpr char MeshVertexMaterial[]        = {5, 0};
+        static constexpr char MeshFragmentMaterialLit[]   = {6, 0};
+        static constexpr char MeshFragmentMaterialUnlit[] = {7, 0};
 
-        static constexpr char MeshVertexSkinned[]        = {7, 0};
-        static constexpr char MeshFragmentSkinnedLit[]   = {5, 0}; // MeshFragmentMaterialLit
-        static constexpr char MeshFragmentSkinnedUnlit[] = {6, 0}; // MeshFragmentMaterialUnlit
+        static constexpr char MeshVertexSkinned[]        = {8, 0};
+        static constexpr char MeshFragmentSkinnedLit[]   = {6, 0}; // MeshFragmentMaterialLit
+        static constexpr char MeshFragmentSkinnedUnlit[] = {7, 0}; // MeshFragmentMaterialUnlit
 
-        static constexpr char SkyboxVertex[]   = {8, 0};
-        static constexpr char SkyboxFragment[] = {9, 0};
+        static constexpr char SkyboxVertex[]   = {9, 0};
+        static constexpr char SkyboxFragment[] = {10, 0};
 
-        static constexpr char Vertex2D[]        = {10, 0};
-        static constexpr char Fragment2DLit[]   = {11, 0};
-        static constexpr char Fragment2DUnlit[] = {12, 0};
+        static constexpr char Vertex2D[]        = {11, 0};
+        static constexpr char Fragment2DLit[]   = {12, 0};
+        static constexpr char Fragment2DUnlit[] = {13, 0};
 
-        static constexpr char Vertex2DSkinned[]           = {13, 0};
-        static constexpr char Fragment2DSkinnedUnlit[]    = {14, 0};
-        static constexpr char Fragment2DSkinnedLit[]      = {15, 0};
-        static constexpr char Fragment2DRotatedParticle[] = {16, 0};
+        static constexpr char Vertex2DSkinned[]           = {14, 0};
+        static constexpr char Fragment2DSkinnedUnlit[]    = {15, 0};
+        static constexpr char Fragment2DSkinnedLit[]      = {16, 0};
+        static constexpr char Fragment2DRotatedParticle[] = {17, 0};
 
-        static constexpr char TextFragment[]  = {17, 0};
-        static constexpr char SlideshowVert[] = {18, 0};
+        static constexpr char TextFragment[]  = {18, 0};
+        static constexpr char SlideshowVert[] = {19, 0};
 
-        static constexpr char FadeEffectFragment[] = {127, 0};
+        static constexpr char PostProcess3DFragment[] = {126, 0};
+        static constexpr char FadeEffectFragment[]    = {127, 0};
 
         static constexpr std::uint32_t MaxId = 128;
     };
@@ -91,6 +92,7 @@ struct Config {
         static constexpr std::uint32_t LitMesh3DSkinned    = 5;
         static constexpr std::uint32_t UnlitMesh3DSkinned  = 6;
         static constexpr std::uint32_t Skybox              = 7;
+        static constexpr std::uint32_t PostProcess3D       = 8;
 
         static constexpr std::uint32_t Lit2DGeometry               = 100;
         static constexpr std::uint32_t Unlit2DGeometry             = 101;

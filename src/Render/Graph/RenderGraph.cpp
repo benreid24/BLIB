@@ -16,10 +16,11 @@ namespace rg
 {
 
 RenderGraph::RenderGraph(engine::Engine& engine, Renderer& renderer, AssetPool& pool,
-                         RenderTarget* observer)
+                         RenderTarget* observer, Scene* scene)
 : engine(engine)
 , renderer(renderer)
 , observer(observer)
+, scene(scene)
 , assets(pool)
 , needsRebuild(false)
 , needsReset(true) {

@@ -35,6 +35,14 @@ public:
     virtual vk::Framebuffer& currentFramebuffer() override;
 
     /**
+     * @brief Returns the framebuffer at the given frame index
+     *
+     * @param i The frame index of the framebuffer to return
+     * @return The framebuffer at the given index
+     */
+    virtual vk::Framebuffer& getFramebuffer(std::uint32_t i) override;
+
+    /**
      * @brief Returns the images that are rendered to
      */
     constexpr vk::PerFrame<vk::StandardAttachmentBuffers>& getImages() { return images; }

@@ -12,6 +12,8 @@ namespace bl
 {
 namespace rc
 {
+class Scene;
+
 namespace rg
 {
 struct GraphAsset;
@@ -34,8 +36,9 @@ public:
      *
      * @param engine The engine instance
      * @param renderer The renderer instance
+     * @param scene The scene the graph is rendering to
      */
-    virtual void create(engine::Engine& engine, Renderer& renderer) = 0;
+    virtual void create(engine::Engine& engine, Renderer& renderer, Scene* scene) = 0;
 
     /**
      * @brief Called after assets are assigned and created. Called when graph is rebuilt

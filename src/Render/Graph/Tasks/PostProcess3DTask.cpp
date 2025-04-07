@@ -1,7 +1,6 @@
-#include <BLIB/Render/Graph/Tasks/FadeEffectTask.hpp>
+#include <BLIB/Render/Graph/Tasks/PostProcess3DTask.hpp>
 
 #include <BLIB/Render/Config.hpp>
-#include <BLIB/Render/Descriptors/Builtin/ColorAttachmentInstance.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Graph/Assets/StandardTargetAsset.hpp>
 #include <BLIB/Render/Renderer.hpp>
@@ -12,34 +11,20 @@ namespace rc
 {
 namespace rgi
 {
-FadeEffectTask::FadeEffectTask(float fadeTime, float start, float end)
-: renderer(nullptr) {
+PostProcess3DTask::PostProcess3DTask()
+: renderer(nullptr)
+, output(nullptr) {
     assetTags.concreteOutputs.emplace_back(rg::AssetTags::FinalFrameOutput);
     assetTags.createdOutput = rg::AssetTags::PostFXOutput;
     assetTags.requiredInputs.emplace_back(rg::AssetTags::RenderedSceneOutput);
-
-    fade(fadeTime, start, end);
 }
 
-FadeEffectTask::~FadeEffectTask() {}
-
-void FadeEffectTask::fadeTo(float fadeTime, float factorEnd) {
-    fadeEnd   = factorEnd;
-    fadeSpeed = (fadeEnd - factor) / fadeTime;
-}
-
-void FadeEffectTask::fade(float fadeTime, float fadeStart, float factorEnd) {
-    factor    = fadeStart;
-    fadeEnd   = factorEnd;
-    fadeSpeed = (fadeEnd - factor) / fadeTime;
-}
-
-void FadeEffectTask::create(engine::Engine&, Renderer& r, Scene* s) {
+void PostProcess3DTask::create(engine::Engine&, Renderer& r, Scene* s) {
     renderer = &r;
     scene    = s;
 
-    // fetch pipeline and descriptor set
-    s->initPipelineInstance(Config::PipelineIds::FadeEffect, pipeline);
+    // fetch pipeline
+    s->initPipelineInstance(Config::PipelineIds::PostProcess3D, pipeline);
     colorAttachmentSet = &s->getDescriptorSet<ds::ColorAttachmentInstance>();
 
     // create index buffer
@@ -52,9 +37,9 @@ void FadeEffectTask::create(engine::Engine&, Renderer& r, Scene* s) {
     indexBuffer.queueTransfer(tfr::Transferable::SyncRequirement::Immediate);
 }
 
-void FadeEffectTask::onGraphInit() {
-    StandardTargetAsset* input =
-        dynamic_cast<StandardTargetAsset*>(&assets.requiredInputs[0]->asset.get());
+void PostProcess3DTask::onGraphInit() {
+    FramebufferAsset* input =
+        dynamic_cast<FramebufferAsset*>(&assets.requiredInputs[0]->asset.get());
     if (!input) { throw std::runtime_error("Got bad input"); }
 
     output = dynamic_cast<FramebufferAsset*>(&assets.output->asset.get());
@@ -65,7 +50,7 @@ void FadeEffectTask::onGraphInit() {
         &input->getFramebuffer(0), 0, renderer->vulkanState().samplerCache.filteredBorderClamped());
 }
 
-void FadeEffectTask::execute(const rg::ExecutionContext& ctx) {
+void PostProcess3DTask::execute(const rg::ExecutionContext& ctx) {
     output->beginRender(ctx.commandBuffer, true);
 
     scene::SceneRenderContext renderCtx(ctx.commandBuffer,
@@ -76,33 +61,12 @@ void FadeEffectTask::execute(const rg::ExecutionContext& ctx) {
                                         ctx.renderingToRenderTexture);
 
     pipeline.bind(renderCtx);
-    vkCmdPushConstants(ctx.commandBuffer,
-                       pipeline.getPipeline().pipelineLayout().rawLayout(),
-                       VK_SHADER_STAGE_FRAGMENT_BIT,
-                       0,
-                       sizeof(float),
-                       &factor);
     indexBuffer.bindAndDraw(ctx.commandBuffer);
 
     output->finishRender(ctx.commandBuffer);
 }
 
-void FadeEffectTask::update(float dt) {
-    if (factor < fadeEnd) {
-        factor += fadeSpeed * dt;
-        if (factor >= fadeEnd) {
-            fadeSpeed = 0.f;
-            factor    = fadeEnd;
-        }
-    }
-    else if (factor > fadeEnd) {
-        factor += fadeSpeed * dt;
-        if (factor <= fadeEnd) {
-            fadeSpeed = 0.f;
-            factor    = fadeEnd;
-        }
-    }
-}
+void PostProcess3DTask::update(float) {}
 
 } // namespace rgi
 } // namespace rc

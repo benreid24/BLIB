@@ -137,5 +137,10 @@ void Scene::addQueuedObject(ObjectAdd& add) {
 
 void Scene::addGraphTasks(rg::RenderGraph&) {}
 
+void Scene::initPipelineInstance(std::uint32_t pid, vk::PipelineInstance& instance) {
+    vk::Pipeline* pipeline = &renderer.pipelineCache().getPipeline(pid);
+    instance.init(pipeline, descriptorSets);
+}
+
 } // namespace rc
 } // namespace bl

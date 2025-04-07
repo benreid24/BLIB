@@ -47,9 +47,9 @@ public:
     /**
      * @brief Returns the layout of this pipeline
      *
-     * @return constexpr VkPipelineLayout The layout of this pipeline
+     * @return The layout of this pipeline
      */
-    constexpr const PipelineLayout& pipelineLayout() const;
+    const PipelineLayout& pipelineLayout() const;
 
     /**
      * @brief Returns the underlying Vulkan pipeline handle
@@ -91,7 +91,7 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr const PipelineLayout& Pipeline::pipelineLayout() const { return *layout; }
+inline const PipelineLayout& Pipeline::pipelineLayout() const { return *layout; }
 
 inline VkPipeline Pipeline::rawPipeline(std::uint32_t rpid) {
     if (!pipelines[rpid]) { createForRenderPass(rpid); }

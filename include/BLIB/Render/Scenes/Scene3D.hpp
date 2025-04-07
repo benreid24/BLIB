@@ -52,6 +52,13 @@ protected:
      */
     virtual void onDescriptorSync() override;
 
+    /**
+     * @brief Adds render graph tasks specific to 3d rendering
+     *
+     * @param graph The graph to add tasks to
+     */
+    virtual void addGraphTasks(rg::RenderGraph& graph) override;
+
 private:
     lgt::Scene3DLighting lighting;
 };

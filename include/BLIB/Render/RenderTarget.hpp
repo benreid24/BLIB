@@ -168,7 +168,7 @@ protected:
                       SceneRef s)
         : scene(s)
         , overlay(nullptr)
-        , graph(e, r, pool, owner)
+        , graph(e, r, pool, owner, s.get())
         , observerIndex(0)
         , overlayIndex(0) {}
     };

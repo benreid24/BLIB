@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_DESCRIPTORS_FADEEFFECTFACTORY_HPP
-#define BLIB_RENDER_DESCRIPTORS_FADEEFFECTFACTORY_HPP
+#ifndef BLIB_RENDER_DESCRIPTORS_COLORATTACHMENTFACTORY_HPP
+#define BLIB_RENDER_DESCRIPTORS_COLORATTACHMENTFACTORY_HPP
 
 #include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
 
@@ -10,18 +10,20 @@ namespace rc
 namespace ds
 {
 /**
- * @brief Descriptor set factory that provides the layout for the fade effect descriptor set
+ * @brief Descriptor set factory that provides a single binding for a color attachment
  *
  * @ingroup Renderer
  */
-class FadeEffectFactory : public DescriptorSetFactory {
+class ColorAttachmentFactory : public DescriptorSetFactory {
 public:
     /**
      * @brief Frees resources
      */
-    virtual ~FadeEffectFactory() = default;
+    virtual ~ColorAttachmentFactory() = default;
 
 private:
+    vk::VulkanState* vs;
+
     virtual void init(engine::Engine& engine, Renderer& renderer) override;
     virtual std::unique_ptr<DescriptorSetInstance> createDescriptorSet() const override;
     virtual std::type_index creates() const override;

@@ -31,6 +31,15 @@ public:
     virtual vk::Framebuffer& currentFramebuffer() = 0;
 
     /**
+     * @brief Returns the framebuffer at the given frame (or swap frame) index. Care should be taken
+     *        to use valid indices for the type of assets being queried
+     *
+     * @param i The frame or swap frame index of the framebuffer to return
+     * @return The framebuffer at the given index
+     */
+    virtual vk::Framebuffer& getFramebuffer(std::uint32_t i) = 0;
+
+    /**
      * @brief Returns the render pass to use to render to the swap frame
      */
     const vk::RenderPass& getRenderPass() const { return *renderPass; }
