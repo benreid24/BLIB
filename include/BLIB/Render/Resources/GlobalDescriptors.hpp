@@ -69,6 +69,7 @@ public:
 private:
     struct SettingsUniform {
         float gamma;
+        float exposure;
     };
 
     Renderer& renderer;

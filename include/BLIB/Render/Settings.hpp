@@ -32,8 +32,22 @@ public:
      */
     Settings& setGamma(float g);
 
+    /**
+     * @brief Returns the exposure factor used for HDR tone mapping
+     */
+    float getExposureFactor() const;
+
+    /**
+     * @brief Sets the exposure factor used for HDR tone mapping
+     *
+     * @param e The exposure factor to use
+     * @return A reference to this object
+     */
+    Settings& setExposureFactor(float e);
+
 private:
     float gamma;
+    float exposure;
     bool dirty;
 
     friend class Renderer;
@@ -42,6 +56,8 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 inline float Settings::getGamma() const { return gamma; }
+
+inline float Settings::getExposureFactor() const { return exposure; }
 
 } // namespace rc
 } // namespace bl

@@ -220,21 +220,27 @@ private:
 
         const bl::rc::Color light1Color(sf::Color(80, 180, 255));
         light1.create(*world, 0.2f, 4, {}, bl::rc::Config::MaterialPipelineIds::Mesh3D);
-        light1.getTransform().setPosition({1.f, 2.f, 1.f});
+        light1.getTransform().setPosition({1.f, 1.5f, 1.f});
         light1.setColor(light1Color);
         light1.addToScene(scene, bl::rc::UpdateSpeed::Static);
-        auto light1Handle        = scene->getLighting().createPointLight();
-        light1Handle.get().color = light1Color;
-        light1Handle.get().pos   = light1.getTransform().getPosition();
+        auto light1Handle                        = scene->getLighting().createPointLight();
+        light1Handle.get().color                 = light1Color;
+        light1Handle.get().attenuation.constant  = 0.5f;
+        light1Handle.get().attenuation.linear    = 0.01f;
+        light1Handle.get().attenuation.quadratic = 0.01f;
+        light1Handle.get().pos                   = light1.getTransform().getPosition();
 
         const bl::rc::Color light2Color(sf::Color::White);
         light2.create(*world, 0.2f, 4, {}, bl::rc::Config::MaterialPipelineIds::Mesh3D);
-        light2.getTransform().setPosition({-0.7f, 2.f, -1.6f});
+        light2.getTransform().setPosition({-0.7f, 1.f, -1.6f});
         light2.setColor(light2Color);
         light2.addToScene(scene, bl::rc::UpdateSpeed::Static);
-        auto light2Handle                     = scene->getLighting().createPointLight();
-        light2Handle.get().color              = light2Color;
-        light2Handle.get().pos                = light2.getTransform().getPosition();
+        auto light2Handle                        = scene->getLighting().createPointLight();
+        light2Handle.get().color                 = light2Color;
+        light2Handle.get().attenuation.constant  = 0.1f;
+        light2Handle.get().attenuation.linear    = 0.01f;
+        light2Handle.get().attenuation.quadratic = 0.01f;
+        light2Handle.get().pos                   = light2.getTransform().getPosition();
         light2Handle.get().attenuation.linear = light2Handle.get().attenuation.quadratic = 0.15f;
 
         constexpr glm::vec3 light3PointAt = {0.f, 0.5f, .75f};
@@ -244,8 +250,11 @@ private:
         light3.getTransform().lookAt(light3PointAt);
         light3.setColor(light3Color);
         light3.addToScene(scene, bl::rc::UpdateSpeed::Static);
-        auto light3Handle        = scene->getLighting().createSpotlight();
-        light3Handle.get().color = light3Color;
+        auto light3Handle                        = scene->getLighting().createSpotlight();
+        light3Handle.get().color                 = light3Color;
+        light3Handle.get().attenuation.constant  = 0.5f;
+        light3Handle.get().attenuation.linear    = 0.02f;
+        light3Handle.get().attenuation.quadratic = 0.02f;
         light3Handle.get().pos =
             light3.getTransform().getPosition() + light3.getTransform().getForwardDir() * 0.2f;
         light3Handle.get().attenuation.linear = light3Handle.get().attenuation.quadratic = 0.05f;

@@ -11,11 +11,18 @@ constexpr float DefaultGamma = 2.2f;
 
 Settings::Settings()
 : gamma(DefaultGamma)
+, exposure(1.f)
 , dirty(true) {}
 
 Settings& Settings::setGamma(float g) {
     gamma = g;
     dirty = true;
+    return *this;
+}
+
+Settings& Settings::setExposureFactor(float e) {
+    exposure = e;
+    dirty    = true;
     return *this;
 }
 

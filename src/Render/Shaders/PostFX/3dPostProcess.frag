@@ -8,6 +8,7 @@ layout(set = 0, binding = 0) uniform sampler2D inColorAttachment;
 
 layout(set = 1, binding = 2) uniform rsettings {
     float gamma;
+    float exposure;
 } settings;
 
 void main() {
@@ -16,5 +17,9 @@ void main() {
 
     // TODO - 3d post processing effects
 
+    // hdr
+    outColor.rgb = vec3(1.0) - exp(-outColor.rgb * settings.exposure);
+
+    // gamma correction
     outColor.rgb = pow(outColor.rgb, vec3(1.0 / settings.gamma));
 }

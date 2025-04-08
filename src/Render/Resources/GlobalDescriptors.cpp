@@ -139,7 +139,8 @@ void GlobalDescriptors::onFrameStart() {
 
 void GlobalDescriptors::updateSettings(const Settings& settings) {
     // populate global settings
-    settingsBuffer[0].gamma = settings.getGamma();
+    settingsBuffer[0].gamma    = settings.getGamma();
+    settingsBuffer[0].exposure = settings.getExposureFactor();
 
     // handle render texture specific settings
     settingsBuffer[1]       = settingsBuffer[0];
