@@ -34,10 +34,12 @@ public:
 private:
     Renderer* renderer;
     Scene* scene;
+    FramebufferAsset* input;
     FramebufferAsset* output;
     buf::IndexBuffer indexBuffer;
     vk::PipelineInstance pipeline;
     ds::ColorAttachmentInstance* colorAttachmentSet;
+    vk::PerFrame<VkImageView> cachedInputViews;
 
     virtual void create(engine::Engine& engine, Renderer& renderer, Scene* scene) override;
     virtual void onGraphInit() override;

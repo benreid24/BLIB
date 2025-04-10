@@ -47,6 +47,11 @@ VkFormat StandardAttachmentBuffers::findDepthFormat(VulkanState& vs) {
         VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT);
 }
 
+VkImageAspectFlags VulkanState::guessImageAspect(VkFormat, VkImageUsageFlags usage) {
+    if (usage & VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT) { return VK_IMAGE_ASPECT_DEPTH_BIT; }
+    return VK_IMAGE_ASPECT_COLOR_BIT;
+}
+
 } // namespace vk
 } // namespace rc
 } // namespace bl

@@ -13,6 +13,9 @@ namespace rc
 {
 namespace vk
 {
+template<std::uint32_t N>
+class AttachmentBufferSet;
+
 /**
  * @brief Base class representing an attachment set that can be rendered to. Derived classes can
  *        provide additional functionality
@@ -33,7 +36,7 @@ public:
      */
     template<std::size_t N>
     AttachmentSet(std::array<VkImage, N>& images, std::array<VkImageView, N>& views,
-                  const std::initializer_list<VkImageAspectFlags>& aspects);
+                  const std::array<VkImageAspectFlags, N>& aspects);
 
     /**
      * @brief Returns a pointer to the start of the images
@@ -78,7 +81,14 @@ private:
     std::array<VkImageAspectFlags, MaxAttachments> aspects;
     std::uint32_t n;
 
-    AttachmentSet() = delete;
+    AttachmentSet();
+
+    template<std::size_t N>
+    void init(std::array<VkImage, N>& images, std::array<VkImageView, N>& views,
+              const std::array<VkImageAspectFlags, N>& aspects);
+
+    template<std::uint32_t N>
+    friend class AttachmentBufferSet;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -93,13 +103,28 @@ inline std::uint32_t AttachmentSet::size() const { return n; }
 
 inline const VkExtent2D& AttachmentSet::renderExtent() const { return extent; }
 
+inline AttachmentSet::AttachmentSet()
+: extent{0, 0}
+, imagesPointer(nullptr)
+, viewsPointer(nullptr)
+, n(0) {}
+
 template<std::size_t N>
 inline AttachmentSet::AttachmentSet(std::array<VkImage, N>& images,
                                     std::array<VkImageView, N>& views,
-                                    const std::initializer_list<VkImageAspectFlags>& aspects)
+                                    const std::array<VkImageAspectFlags, N>& aspects)
 : imagesPointer(images.data())
 , viewsPointer(views.data())
 , n(N) {
+    std::copy(aspects.begin(), aspects.end(), this->aspects.begin());
+}
+
+template<std::size_t N>
+inline void AttachmentSet::init(std::array<VkImage, N>& images, std::array<VkImageView, N>& views,
+                                const std::array<VkImageAspectFlags, N>& aspects) {
+    imagesPointer = images.data();
+    viewsPointer  = views.data();
+    n             = N;
     std::copy(aspects.begin(), aspects.end(), this->aspects.begin());
 }
 

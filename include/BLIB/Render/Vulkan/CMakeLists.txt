@@ -1,5 +1,6 @@
 target_sources(BLIB PUBLIC
     AttachmentBuffer.hpp
+    AttachmentBufferSet.hpp
     AttachmentSet.hpp
     Buffer.hpp
     CleanupManager.hpp

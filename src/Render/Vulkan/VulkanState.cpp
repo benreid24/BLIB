@@ -500,6 +500,13 @@ VkFormat VulkanState::findSupportedFormat(const std::initializer_list<VkFormat>&
     throw std::runtime_error("failed to find supported format!");
 }
 
+VkFormat VulkanState::findDepthFormat() {
+    return findSupportedFormat(
+        {VK_FORMAT_D24_UNORM_S8_UINT, VK_FORMAT_D32_SFLOAT_S8_UINT, VK_FORMAT_D32_SFLOAT},
+        VK_IMAGE_TILING_OPTIMAL,
+        VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT);
+}
+
 void VulkanState::createBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
                                VmaAllocationCreateFlags allocFlags,
                                VkMemoryPropertyFlags properties, VkBuffer* buffer,

@@ -19,12 +19,12 @@ namespace rgi
  * @ingroup Renderer
  */
 template<std::uint32_t RenderPassId, VkFormat ColorFormat>
-class StandardAssetProvider : public rg::AssetProvider {
+class StandardTargetProvider : public rg::AssetProvider {
 public:
     /**
      * @brief Creates the provider
      */
-    StandardAssetProvider() = default;
+    StandardTargetProvider() = default;
 
 private:
     virtual rg::Asset* create(std::string_view tag) override {

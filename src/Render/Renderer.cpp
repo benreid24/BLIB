@@ -2,6 +2,7 @@
 
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
+#include <BLIB/Render/Graph/Providers/GenericTargetProvider.hpp>
 #include <BLIB/Render/Graph/Providers/StandardTargetProvider.hpp>
 #include <BLIB/Render/Graph/Strategies/ForwardRenderStrategy.hpp>
 #include <BLIB/Systems.hpp>
@@ -56,12 +57,20 @@ void Renderer::initialize() {
 
     // asset providers
     assetFactory
-        .addProvider<rgi::StandardAssetProvider<Config::RenderPassIds::StandardAttachmentDefault,
-                                                vk::TextureFormat::SRGBA32Bit>>(
+        .addProvider<rgi::StandardTargetProvider<Config::RenderPassIds::StandardAttachmentDefault,
+                                                 vk::TextureFormat::SRGBA32Bit>>(
             {rg::AssetTags::RenderedSceneOutput, rg::AssetTags::PostFXOutput});
-    assetFactory.addProvider<rgi::StandardAssetProvider<Config::RenderPassIds::HDRAttachmentDefault,
-                                                        vk::TextureFormat::HDRColor>>(
-        rg::AssetTags::RenderedSceneOutputHDR);
+    assetFactory
+        .addProvider<rgi::StandardTargetProvider<Config::RenderPassIds::HDRAttachmentDefault,
+                                                 vk::TextureFormat::HDRColor>>(
+            rg::AssetTags::RenderedSceneOutputHDR);
+    assetFactory.addProvider<rgi::GenericTargetProvider<Config::RenderPassIds::BloomPass, 1>>(
+        rg::AssetTags::ColorAttachmentSingle,
+        rgi::TargetSize(rgi::TargetSize::ObserverSize),
+        std::array<VkFormat, 1>{vk::TextureFormat::HDRColor},
+        std::array<VkImageUsageFlags, 1>{VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT |
+                                         VK_IMAGE_USAGE_SAMPLED_BIT},
+        std::array<VkClearValue, 1>{VkClearValue{.color = {{0.f, 0.f, 0.f, 1.f}}}});
 
     // create renderer instance data
     state.init();

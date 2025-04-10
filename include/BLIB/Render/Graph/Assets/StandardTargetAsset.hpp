@@ -63,7 +63,7 @@ public:
     /**
      * @brief Returns the images that are rendered to
      */
-    constexpr vk::PerFrame<vk::StandardAttachmentBuffers>& getImages() { return images; }
+    vk::PerFrame<vk::StandardAttachmentBuffers>& getImages() { return images; }
 
 private:
     Renderer* renderer;

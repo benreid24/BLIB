@@ -52,12 +52,12 @@ public:
     /**
      * @brief The Vulkan handle to the image of the attachment buffer
      */
-    constexpr VkImage image() const;
+    VkImage image() const;
 
     /**
      * @brief Vulkan handle to the view of the attachment buffer
      */
-    constexpr VkImageView view() const;
+    VkImageView view() const;
 
 private:
     VulkanState* vulkanState;
@@ -69,9 +69,9 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr VkImage AttachmentBuffer::image() const { return imageHandle; }
+inline VkImage AttachmentBuffer::image() const { return imageHandle; }
 
-inline constexpr VkImageView AttachmentBuffer::view() const { return viewHandle; }
+inline VkImageView AttachmentBuffer::view() const { return viewHandle; }
 
 } // namespace vk
 } // namespace rc

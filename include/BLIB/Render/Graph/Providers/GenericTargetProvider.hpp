@@ -1,0 +1,55 @@
+#ifndef BLIB_RENDER_GRAPH_PROVIDERS_GENERICTARGETPROVIDER_HPP
+#define BLIB_RENDER_GRAPH_PROVIDERS_GENERICTARGETPROVIDER_HPP
+
+#include <BLIB/Render/Graph/AssetProvider.hpp>
+#include <BLIB/Render/Graph/Assets/GenericTargetAsset.hpp>
+#include <BLIB/Vulkan.hpp>
+
+namespace bl
+{
+namespace rc
+{
+namespace rgi
+{
+/**
+ * @brief Provider for GenericTargetAsset assets
+ *
+ * @tparam RenderPassId The id of the render pass to use
+ * @tparam AttachmentCount The number of attachments to create
+ * @ingroup Renderer
+ */
+template<std::uint32_t RenderPassId, std::uint32_t AttachmentCount>
+class GenericTargetProvider : public rg::AssetProvider {
+public:
+    /**
+     * @brief Creates the provider
+     *
+     * @param imageFormats The formats of the attachments
+     * @param imageUsages How the attachments will be used
+     */
+    GenericTargetProvider(const TargetSize& size,
+                          const std::array<VkFormat, AttachmentCount>& imageFormats,
+                          const std::array<VkImageUsageFlags, AttachmentCount>& imageUsages,
+                          const std::array<VkClearValue, AttachmentCount>& clearColors)
+    : size(size)
+    , imageFormats(imageFormats)
+    , imageUsages(imageUsages)
+    , clearColors(clearColors) {}
+
+private:
+    const TargetSize size;
+    std::array<VkFormat, AttachmentCount> imageFormats;
+    std::array<VkImageUsageFlags, AttachmentCount> imageUsages;
+    std::array<VkClearValue, AttachmentCount> clearColors;
+
+    virtual rg::Asset* create(std::string_view tag) override {
+        return new GenericTargetAsset<RenderPassId, AttachmentCount>(
+            tag, imageFormats, imageUsages, clearColors, size);
+    }
+};
+
+} // namespace rgi
+} // namespace rc
+} // namespace bl
+
+#endif

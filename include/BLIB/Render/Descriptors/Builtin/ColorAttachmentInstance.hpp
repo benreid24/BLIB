@@ -41,6 +41,16 @@ public:
     void initAttachments(const vk::Framebuffer* framebuffers, std::uint32_t attachmentIndex,
                          VkSampler sampler);
 
+    /**
+     * @brief Updates the descriptor for the current frame
+     *
+     * @param framebuffer The framebuffer to get the attachment from
+     * @param attachmentIndex The index of the attachment to bind
+     * @param sampler The sampler to use
+     */
+    void updateAttachment(const vk::Framebuffer& framebuffer, std::uint32_t attachmentIndex,
+                          VkSampler sampler);
+
 private:
     vk::VulkanState& vulkanState;
     VkDescriptorSetLayout layout;

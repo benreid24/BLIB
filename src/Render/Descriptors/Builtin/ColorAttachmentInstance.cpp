@@ -59,6 +59,25 @@ void ColorAttachmentInstance::initAttachments(const vk::Framebuffer* framebuffer
         vulkanState.device, descriptorWrites.size(), descriptorWrites.data(), 0, nullptr);
 }
 
+void ColorAttachmentInstance::updateAttachment(const vk::Framebuffer& framebuffer,
+                                               std::uint32_t attachmentIndex, VkSampler sampler) {
+    VkDescriptorImageInfo imageInfo{};
+    imageInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+    imageInfo.imageView   = framebuffer.getAttachmentSet().imageViews()[attachmentIndex];
+    imageInfo.sampler     = sampler;
+
+    VkWriteDescriptorSet write{};
+    write.sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+    write.dstSet          = descriptorSets.current();
+    write.dstBinding      = 0;
+    write.dstArrayElement = 0;
+    write.descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+    write.descriptorCount = 1;
+    write.pImageInfo      = &imageInfo;
+
+    vkUpdateDescriptorSets(vulkanState.device, 1, &write, 0, nullptr);
+}
+
 } // namespace ds
 } // namespace rc
 } // namespace bl

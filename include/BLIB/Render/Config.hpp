@@ -130,6 +130,7 @@ struct Config {
         static constexpr std::uint32_t StandardAttachmentDefault = 0;
         static constexpr std::uint32_t SwapchainDefault          = 1;
         static constexpr std::uint32_t HDRAttachmentDefault      = 2;
+        static constexpr std::uint32_t BloomPass                 = 3;
     };
 
     static constexpr std::uint32_t SPIRVMagicNumber = 0x07230203;

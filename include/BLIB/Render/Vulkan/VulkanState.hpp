@@ -120,6 +120,20 @@ struct VulkanState {
                                  VkImageTiling tiling, VkFormatFeatureFlags features);
 
     /**
+     * @brief Finds and returns the best available depth format
+     */
+    VkFormat findDepthFormat();
+
+    /**
+     * @brief Helper method to guess the aspect of an image based on its format and usage
+     *
+     * @param format The image format
+     * @param usage The image usage
+     * @return The probable image aspect
+     */
+    static VkImageAspectFlags guessImageAspect(VkFormat format, VkImageUsageFlags usage);
+
+    /**
      * @brief Helper function to create an image
      *
      * @param width The width of the image in pixels

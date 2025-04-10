@@ -20,6 +20,7 @@ struct AssetTags {
     static constexpr std::string_view PostFXOutput           = "_builtin_PostFXOutput";
     static constexpr std::string_view FinalFrameOutput       = "_builtin_FinalFrameOutput";
     static constexpr std::string_view SceneObjectsInput      = "_builtin_SceneObjectsInput";
+    static constexpr std::string_view ColorAttachmentSingle  = "_builtin_ColorAttachmentSingle";
 };
 
 } // namespace rg
