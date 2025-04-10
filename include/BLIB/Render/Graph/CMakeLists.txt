@@ -8,6 +8,7 @@ target_sources(BLIB PUBLIC
 	ExecutionContext.hpp
 	GraphAsset.hpp
 	GraphAssetPool.hpp
+	MultiAsset.hpp
 	RenderGraph.hpp
 	Task.hpp
 	TaskAssets.hpp

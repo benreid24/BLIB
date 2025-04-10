@@ -36,16 +36,22 @@ public:
     , imageUsages(imageUsages)
     , clearColors(clearColors) {}
 
+    /**
+     * @brief Creates a new generic target asset
+     *
+     * @param tag The tag to create the asset for
+     * @return The newly created asset
+     */
+    virtual rg::Asset* create(std::string_view tag) override {
+        return new GenericTargetAsset<RenderPassId, AttachmentCount>(
+            tag, imageFormats, imageUsages, clearColors, size);
+    }
+
 private:
     const TargetSize size;
     std::array<VkFormat, AttachmentCount> imageFormats;
     std::array<VkImageUsageFlags, AttachmentCount> imageUsages;
     std::array<VkClearValue, AttachmentCount> clearColors;
-
-    virtual rg::Asset* create(std::string_view tag) override {
-        return new GenericTargetAsset<RenderPassId, AttachmentCount>(
-            tag, imageFormats, imageUsages, clearColors, size);
-    }
 };
 
 } // namespace rgi

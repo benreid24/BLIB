@@ -1,4 +1,5 @@
 target_sources(BLIB PUBLIC
+	BloomAssets.hpp
 	FinalRenderTextureAsset.hpp
 	FinalSwapframeAsset.hpp
 	FramebufferAsset.hpp

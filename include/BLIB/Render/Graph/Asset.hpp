@@ -23,6 +23,8 @@ class AssetRef;
 class AssetPool;
 class GraphAssetPool;
 class RenderGraph;
+template<typename T, std::uint32_t N>
+class MultiAsset;
 
 /**
  * @brief Base class for assets in render graphs
@@ -64,12 +66,12 @@ public:
     /**
      * @brief Returns the tag of this asset
      */
-    constexpr std::string_view getTag() const { return tag; }
+    std::string_view getTag() const { return tag; }
 
     /**
      * @brief Returns true if the asset was manually created, false if created by the factory
      */
-    constexpr bool isExternal() const { return external; }
+    bool isExternal() const { return external; }
 
 protected:
     /**
@@ -100,6 +102,8 @@ private:
     friend class AssetRef;
     friend class AssetPool;
     friend class RenderGraph;
+    template<typename T, std::uint32_t N>
+    friend class MultiAsset;
 };
 
 } // namespace rg

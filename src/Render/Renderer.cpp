@@ -2,6 +2,7 @@
 
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
+#include <BLIB/Render/Graph/Providers/BloomProviders.hpp>
 #include <BLIB/Render/Graph/Providers/GenericTargetProvider.hpp>
 #include <BLIB/Render/Graph/Providers/StandardTargetProvider.hpp>
 #include <BLIB/Render/Graph/Strategies/ForwardRenderStrategy.hpp>
@@ -64,8 +65,8 @@ void Renderer::initialize() {
         .addProvider<rgi::StandardTargetProvider<Config::RenderPassIds::HDRAttachmentDefault,
                                                  vk::TextureFormat::HDRColor>>(
             rg::AssetTags::RenderedSceneOutputHDR);
-    assetFactory.addProvider<rgi::GenericTargetProvider<Config::RenderPassIds::BloomPass, 1>>(
-        rg::AssetTags::ColorAttachmentSingle,
+    assetFactory.addProvider<rgi::BloomColorAttachmentPairProvider>(
+        rg::AssetTags::BloomColorAttachmentPair,
         rgi::TargetSize(rgi::TargetSize::ObserverSize),
         std::array<VkFormat, 1>{vk::TextureFormat::HDRColor},
         std::array<VkImageUsageFlags, 1>{VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT |
