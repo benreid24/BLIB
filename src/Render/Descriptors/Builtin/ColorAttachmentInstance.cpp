@@ -16,6 +16,7 @@ ColorAttachmentInstance::ColorAttachmentInstance(vk::VulkanState& vulkanState,
     descriptorSets.emptyInit(vulkanState);
     dsAlloc = vulkanState.descriptorPool.allocate(
         layout, descriptorSets.rawData(), descriptorSets.size());
+    cachedViews.emptyInit(vulkanState);
 }
 
 ColorAttachmentInstance::~ColorAttachmentInstance() {
@@ -25,6 +26,30 @@ ColorAttachmentInstance::~ColorAttachmentInstance() {
 void ColorAttachmentInstance::bindForPipeline(scene::SceneRenderContext& ctx,
                                               VkPipelineLayout layout, std::uint32_t setIndex,
                                               UpdateSpeed) const {
+    const vk::Framebuffer& fb = framebuffers[vulkanState.currentFrameIndex()];
+    VkImageView& cachedView   = cachedViews.getRaw(vulkanState.currentFrameIndex());
+
+    // update descriptor on change
+    if (cachedView != fb.getAttachmentSet().imageViews()[attachmentIndex]) {
+        cachedView = fb.getAttachmentSet().imageViews()[attachmentIndex];
+
+        VkDescriptorImageInfo imageInfo{};
+        imageInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+        imageInfo.imageView   = cachedView;
+        imageInfo.sampler     = sampler;
+
+        VkWriteDescriptorSet write{};
+        write.sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+        write.dstSet          = descriptorSets.current();
+        write.dstBinding      = 0;
+        write.dstArrayElement = 0;
+        write.descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+        write.descriptorCount = 1;
+        write.pImageInfo      = &imageInfo;
+
+        vkUpdateDescriptorSets(vulkanState.device, 1, &write, 0, nullptr);
+    }
+
     vkCmdBindDescriptorSets(ctx.getCommandBuffer(),
                             VK_PIPELINE_BIND_POINT_GRAPHICS,
                             layout,
@@ -35,13 +60,18 @@ void ColorAttachmentInstance::bindForPipeline(scene::SceneRenderContext& ctx,
                             nullptr);
 }
 
-void ColorAttachmentInstance::initAttachments(const vk::Framebuffer* framebuffers,
-                                              std::uint32_t attachmentIndex, VkSampler sampler) {
+void ColorAttachmentInstance::initAttachments(const vk::Framebuffer* fbs, std::uint32_t ai,
+                                              VkSampler smp) {
+    attachmentIndex = ai;
+    framebuffers    = fbs;
+    sampler         = smp;
+
     std::array<VkDescriptorImageInfo, Config::MaxConcurrentFrames> imageInfos{};
     for (unsigned int i = 0; i < Config::MaxConcurrentFrames; ++i) {
         imageInfos[i].imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
         imageInfos[i].imageView = framebuffers[i].getAttachmentSet().imageViews()[attachmentIndex];
         imageInfos[i].sampler   = sampler;
+        cachedViews.getRaw(i)   = imageInfos[i].imageView;
     }
 
     std::array<VkWriteDescriptorSet, Config::MaxConcurrentFrames> descriptorWrites{};

@@ -56,6 +56,10 @@ private:
     VkDescriptorSetLayout layout;
     vk::DescriptorPool::AllocationHandle dsAlloc;
     vk::PerFrame<VkDescriptorSet> descriptorSets;
+    const vk::Framebuffer* framebuffers;
+    mutable vk::PerFrame<VkImageView> cachedViews;
+    std::uint32_t attachmentIndex;
+    VkSampler sampler;
 
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                  std::uint32_t setIndex, UpdateSpeed updateFreq) const override;

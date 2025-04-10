@@ -21,7 +21,6 @@ PostProcess3DTask::PostProcess3DTask()
 void PostProcess3DTask::create(engine::Engine&, Renderer& r, Scene* s) {
     renderer = &r;
     scene    = s;
-    cachedInputViews.emptyInit(r.vulkanState());
 
     // fetch pipeline
     s->initPipelineInstance(Config::PipelineIds::PostProcess3D, pipeline);
@@ -47,24 +46,9 @@ void PostProcess3DTask::onGraphInit() {
     auto& set = scene->getDescriptorSet<ds::ColorAttachmentInstance>();
     set.initAttachments(
         &input->getFramebuffer(0), 0, renderer->vulkanState().samplerCache.filteredBorderClamped());
-
-    // cache views
-    int i = 0;
-    cachedInputViews.init(renderer->vulkanState(), [this, &i](VkImageView& view) {
-        view = input->getFramebuffer(i++).getAttachmentSet().imageViews()[0];
-    });
 }
 
 void PostProcess3DTask::execute(const rg::ExecutionContext& ctx) {
-    // update descriptor set if attachment view changes
-    if (cachedInputViews.current() !=
-        input->currentFramebuffer().getAttachmentSet().imageViews()[0]) {
-        auto& set = scene->getDescriptorSet<ds::ColorAttachmentInstance>();
-        set.updateAttachment(input->currentFramebuffer(),
-                             0,
-                             renderer->vulkanState().samplerCache.filteredBorderClamped());
-    }
-
     output->beginRender(ctx.commandBuffer, true);
 
     scene::SceneRenderContext renderCtx(ctx.commandBuffer,
