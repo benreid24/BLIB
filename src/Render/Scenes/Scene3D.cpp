@@ -3,6 +3,7 @@
 #include <BLIB/Cameras/3D/Camera3D.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene3DFactory.hpp>
 #include <BLIB/Render/Graph/RenderGraph.hpp>
+#include <BLIB/Render/Graph/Tasks/BloomTask.hpp>
 #include <BLIB/Render/Graph/Tasks/PostProcess3DTask.hpp>
 
 namespace bl
@@ -34,7 +35,10 @@ void Scene3D::setDefaultNearAndFarPlanes(cam::Camera& cam) const {
 
 void Scene3D::onDescriptorSync() { lighting.sync(); }
 
-void Scene3D::addGraphTasks(rg::RenderGraph& graph) { graph.putTask<rgi::PostProcess3DTask>(); }
+void Scene3D::addGraphTasks(rg::RenderGraph& graph) {
+    graph.putTask<rgi::PostProcess3DTask>();
+    graph.putTask<rgi::BloomTask>();
+}
 
 } // namespace scene
 } // namespace rc

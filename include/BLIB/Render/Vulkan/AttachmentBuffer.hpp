@@ -40,6 +40,16 @@ public:
                 const VkExtent2D& extent);
 
     /**
+     * @brief Clears the attachment buffer and transitions it to
+     *        VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
+     *
+     * @param aspect The image aspect
+     * @param clearColor The color to clear to
+     */
+    void clearAndPrepareForSampling(VkImageAspectFlags aspect    = VK_IMAGE_ASPECT_COLOR_BIT,
+                                    VkClearColorValue clearColor = {{0.f, 0.f, 0.f, 1.f}});
+
+    /**
      * @brief Destroys the attachment buffer
      */
     void destroy();

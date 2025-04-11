@@ -57,23 +57,26 @@ void RenderPassCache::addDefaults() {
     depthAttachment.initialLayout  = VK_IMAGE_LAYOUT_UNDEFINED;
     depthAttachment.finalLayout    = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
 
-    VkSubpassDependency renderCompleteDep{};
-    renderCompleteDep.srcSubpass      = 0;
-    renderCompleteDep.dstSubpass      = VK_SUBPASS_EXTERNAL;
-    renderCompleteDep.srcStageMask    = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-    renderCompleteDep.dstStageMask    = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
-    renderCompleteDep.srcAccessMask   = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
-    renderCompleteDep.dstAccessMask   = VK_ACCESS_SHADER_READ_BIT;
-    renderCompleteDep.dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
+    // block fragment shader reads until pass is done
+    VkSubpassDependency postPassRenderCompleteDep{};
+    postPassRenderCompleteDep.srcSubpass      = 0;
+    postPassRenderCompleteDep.dstSubpass      = VK_SUBPASS_EXTERNAL;
+    postPassRenderCompleteDep.srcStageMask    = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+    postPassRenderCompleteDep.dstStageMask    = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
+    postPassRenderCompleteDep.srcAccessMask   = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+    postPassRenderCompleteDep.dstAccessMask   = VK_ACCESS_SHADER_READ_BIT;
+    postPassRenderCompleteDep.dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
 
-    VkSubpassDependency swapchainAvailDep{};
-    swapchainAvailDep.srcSubpass    = VK_SUBPASS_EXTERNAL;
-    swapchainAvailDep.dstSubpass    = 0;
-    swapchainAvailDep.srcStageMask  = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-    swapchainAvailDep.srcAccessMask = 0;
-    swapchainAvailDep.dstStageMask  = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-    swapchainAvailDep.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+    /// block fragment shader writes until prior pass is done
+    VkSubpassDependency prePassRenderDoneDep{};
+    prePassRenderDoneDep.srcSubpass    = VK_SUBPASS_EXTERNAL;
+    prePassRenderDoneDep.dstSubpass    = 0;
+    prePassRenderDoneDep.srcStageMask  = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+    prePassRenderDoneDep.srcAccessMask = 0;
+    prePassRenderDoneDep.dstStageMask  = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+    prePassRenderDoneDep.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
 
+    // do not write depth buffer until prior use is done
     VkSubpassDependency depthDependency{};
     depthDependency.srcSubpass = VK_SUBPASS_EXTERNAL;
     depthDependency.dstSubpass = 0;
@@ -92,8 +95,8 @@ void RenderPassCache::addDefaults() {
             .withAttachment(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL)
             .withDepthAttachment(1, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL)
             .build());
-    sceneParams.addSubpassDependency(renderCompleteDep);
-    sceneParams.addSubpassDependency(swapchainAvailDep);
+    sceneParams.addSubpassDependency(postPassRenderCompleteDep);
+    sceneParams.addSubpassDependency(prePassRenderDoneDep);
     sceneParams.addSubpassDependency(depthDependency);
     createRenderPass(Config::RenderPassIds::StandardAttachmentDefault, sceneParams.build());
 
@@ -116,7 +119,7 @@ void RenderPassCache::addDefaults() {
             .withAttachment(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL)
             .withDepthAttachment(1, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL)
             .build());
-    primaryParams.addSubpassDependency(swapchainAvailDep);
+    primaryParams.addSubpassDependency(prePassRenderDoneDep);
     primaryParams.addSubpassDependency(depthDependency);
     createRenderPass(Config::RenderPassIds::SwapchainDefault, primaryParams.build());
 
@@ -139,10 +142,19 @@ void RenderPassCache::addDefaults() {
             .withAttachment(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL)
             .withDepthAttachment(1, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL)
             .build());
-    hdrParams.addSubpassDependency(renderCompleteDep);
-    hdrParams.addSubpassDependency(swapchainAvailDep);
+    hdrParams.addSubpassDependency(postPassRenderCompleteDep);
+    hdrParams.addSubpassDependency(prePassRenderDoneDep);
     hdrParams.addSubpassDependency(depthDependency);
     createRenderPass(Config::RenderPassIds::HDRAttachmentDefault, hdrParams.build());
+
+    vk::RenderPassParameters bloomParams;
+    bloomParams.addAttachment(hdrColorAttachment);
+    bloomParams.addSubpass(vk::RenderPassParameters::SubPass()
+                               .withAttachment(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL)
+                               .build());
+    bloomParams.addSubpassDependency(postPassRenderCompleteDep);
+    bloomParams.addSubpassDependency(prePassRenderDoneDep);
+    createRenderPass(Config::RenderPassIds::BloomPass, bloomParams.build());
 }
 
 } // namespace res

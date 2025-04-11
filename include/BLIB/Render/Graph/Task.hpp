@@ -30,7 +30,7 @@ public:
     /**
      * @brief Initializes the task
      */
-    Task();
+    Task() = default;
 
     /**
      * @brief Destroys the task
@@ -70,10 +70,6 @@ protected:
     TaskAssets assets;
 
 private:
-    static constexpr unsigned int NotInTimeline = std::numeric_limits<unsigned int>::max();
-
-    unsigned int depth;
-
     friend class RenderGraph;
 };
 

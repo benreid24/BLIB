@@ -2,6 +2,7 @@
 
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
+#include <BLIB/Render/Graph/Assets/BloomAssets.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -15,7 +16,9 @@ PostProcess3DTask::PostProcess3DTask()
 , output(nullptr) {
     assetTags.concreteOutputs.emplace_back(rg::AssetTags::FinalFrameOutput);
     assetTags.createdOutputs.emplace_back(rg::AssetTags::PostFXOutput);
-    assetTags.requiredInputs.emplace_back(rg::AssetTags::RenderedSceneOutputHDR);
+    assetTags.requiredInputs.emplace_back(
+        rg::TaskInput(rg::AssetTags::RenderedSceneOutputHDR, rg::TaskInput::Shared));
+    assetTags.optionalInputs.emplace_back(rg::AssetTags::BloomColorAttachmentPair);
 }
 
 void PostProcess3DTask::create(engine::Engine&, Renderer& r, Scene* s) {
@@ -23,8 +26,7 @@ void PostProcess3DTask::create(engine::Engine&, Renderer& r, Scene* s) {
     scene    = s;
 
     // fetch pipeline
-    s->initPipelineInstance(Config::PipelineIds::PostProcess3D, pipeline);
-    colorAttachmentSet = &s->getDescriptorSet<ds::ColorAttachmentInstance>();
+    pipeline = &renderer->pipelineCache().getPipeline(Config::PipelineIds::PostProcess3D);
 
     // create index buffer
     indexBuffer.create(r.vulkanState(), 4, 6);
@@ -43,22 +45,44 @@ void PostProcess3DTask::onGraphInit() {
     output = dynamic_cast<FramebufferAsset*>(&assets.output->asset.get());
     if (!output) { throw std::runtime_error("Got bad output"); }
 
-    auto& set = scene->getDescriptorSet<ds::ColorAttachmentInstance>();
-    set.initAttachments(
-        &input->getFramebuffer(0), 0, renderer->vulkanState().samplerCache.filteredBorderClamped());
+    // init scene input descriptor set
+    const auto sampler   = renderer->vulkanState().samplerCache.noFilterEdgeClamped();
+    const auto setLayout = renderer->descriptorFactoryCache()
+                               .getFactoryThatMakes<ds::ColorAttachmentInstance>()
+                               ->getDescriptorLayout();
+
+    colorAttachmentSet.emplace(renderer->vulkanState(), setLayout);
+    colorAttachmentSet.value().initAttachments(input->getAttachmentSets(), 0, sampler);
+
+    // init bloom blur descriptor set
+    bloomAttachmentSet.emplace(renderer->vulkanState(), setLayout);
+    if (assets.optionalInputs[0]) {
+        auto& bloomBlur =
+            dynamic_cast<BloomColorAttachmentPairAsset&>(assets.optionalInputs[0]->asset.get());
+        bloomAttachmentSet.value().initAttachments(
+            bloomBlur.get(0).getAttachmentSets(), 0, sampler);
+    }
+    else {
+        dummyBloomBuffer.emplace();
+        dummyBloomBuffer.value().create(
+            renderer->vulkanState(),
+            {32, 32},
+            {vk::TextureFormat::HDRColor},
+            {VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT});
+        dummyBloomBuffer.value().getBuffer(0).clearAndPrepareForSampling();
+        bloomAttachmentSet.value().initAttachments(
+            &dummyBloomBuffer.value().attachmentSet(), 0, sampler);
+    }
 }
 
 void PostProcess3DTask::execute(const rg::ExecutionContext& ctx) {
     output->beginRender(ctx.commandBuffer, true);
 
-    scene::SceneRenderContext renderCtx(ctx.commandBuffer,
-                                        ctx.observerIndex,
-                                        output->getViewport(),
-                                        RenderPhase::PostProcess,
-                                        output->getRenderPassId(),
-                                        ctx.renderingToRenderTexture);
-
-    pipeline.bind(renderCtx);
+    pipeline->bind(ctx.commandBuffer, output->getRenderPassId());
+    colorAttachmentSet->bind(ctx.commandBuffer, pipeline->pipelineLayout().rawLayout(), 0);
+    bloomAttachmentSet->bind(ctx.commandBuffer, pipeline->pipelineLayout().rawLayout(), 1);
+    renderer->getGlobalDescriptorData().bindDescriptors(
+        ctx.commandBuffer, pipeline->pipelineLayout().rawLayout(), 2, ctx.renderingToRenderTexture);
     indexBuffer.bindAndDraw(ctx.commandBuffer);
 
     output->finishRender(ctx.commandBuffer);

@@ -24,7 +24,7 @@ using BloomColorAttachmentProvider = GenericTargetProvider<Config::RenderPassIds
  * @ingroup Renderer
  */
 using BloomColorAttachmentPairProvider =
-    MultiAssetProvider<BloomColorAttachmentProvider, BloomColorAttachmentPairAsset, 2>;
+    MultiAssetProvider<BloomColorAttachmentProvider, BloomColorAttachmentAsset, 2>;
 
 } // namespace rgi
 } // namespace rc

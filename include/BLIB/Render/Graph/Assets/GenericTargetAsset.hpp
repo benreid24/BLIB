@@ -7,6 +7,9 @@
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 
+// if getting circular include errors start here
+#include <BLIB/Render/Renderer.hpp>
+
 namespace bl
 {
 namespace rc

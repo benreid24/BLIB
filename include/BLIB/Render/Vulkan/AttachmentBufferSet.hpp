@@ -46,6 +46,14 @@ public:
                 const std::array<VkImageUsageFlags, BufferCount>& usages);
 
     /**
+     * @brief Access the attachment buffer at the given index
+     *
+     * @param i The index of the attachment buffer to get
+     * @return The attachment buffer at the given index
+     */
+    AttachmentBuffer& getBuffer(std::uint32_t i);
+
+    /**
      * @brief Destroys the images, views, sampler, and frees GPU memory
      */
     void destroy();
@@ -91,6 +99,11 @@ void AttachmentBufferSet<BufferCount>::create(
         aspects[i] = VulkanState::guessImageAspect(bufferFormats[i], usages[i]);
     }
     attachments.init(images, views, aspects);
+}
+
+template<std::uint32_t BufferCount>
+AttachmentBuffer& AttachmentBufferSet<BufferCount>::getBuffer(std::uint32_t i) {
+    return buffers[i];
 }
 
 template<std::uint32_t BufferCount>

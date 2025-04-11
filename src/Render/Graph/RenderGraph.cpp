@@ -88,8 +88,6 @@ void RenderGraph::build() {
 
     // first link all inputs for concrete assets, mark tasks missing inputs
     for (auto& task : tasks) {
-        task->depth = Task::NotInTimeline;
-
         for (unsigned int i = 0; i < task->assetTags.requiredInputs.size(); ++i) {
             tryLinkConcreteInput(
                 task.get(), task->assetTags.requiredInputs[i], task->assets.requiredInputs[i]);
@@ -181,14 +179,8 @@ void RenderGraph::build() {
     timeline.resize(depth + 1);
     traverse(
         [this](Task* task, unsigned int d) {
-            if (task->depth == Task::NotInTimeline || d > task->depth) {
-                if (task->depth != Task::NotInTimeline) {
-                    (timeline.rbegin() + task->depth)->removeTask(task);
-                }
-                else { task->onGraphInit(); }
-                task->depth = d;
-                (timeline.rbegin() + d)->tasks.emplace_back(task);
-            }
+            task->onGraphInit();
+            (timeline.rbegin() + d)->tasks.emplace_back(task);
         },
         swapframe);
 
@@ -238,14 +230,14 @@ void RenderGraph::build() {
 
     // for each task now determine soonest step it can run and move it
     const auto findSoonest = [](Task* task) -> unsigned int {
-        unsigned int soonest = std::numeric_limits<unsigned int>::max();
+        unsigned int soonest = 0;
 
         for (GraphAsset* asset : task->assets.requiredInputs) {
-            soonest = soonest > asset->firstAvailableStep ? asset->firstAvailableStep : soonest;
+            soonest = std::max(asset->firstAvailableStep, soonest);
         }
-        for (GraphAsset* asset : task->assets.requiredInputs) {
+        for (GraphAsset* asset : task->assets.optionalInputs) {
             if (!asset) continue;
-            soonest = soonest > asset->firstAvailableStep ? asset->firstAvailableStep : soonest;
+            soonest = std::max(asset->firstAvailableStep, soonest);
         }
 
         return soonest;

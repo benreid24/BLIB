@@ -74,6 +74,30 @@ void AttachmentBuffer::deferDestroy() {
     }
 }
 
+void AttachmentBuffer::clearAndPrepareForSampling(VkImageAspectFlags aspect,
+                                                  VkClearColorValue color) {
+    auto commandBuffer = vulkanState->sharedCommandPool.createBuffer();
+    vulkanState->transitionImageLayout(commandBuffer,
+                                       imageHandle,
+                                       VK_IMAGE_LAYOUT_UNDEFINED,
+                                       VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+
+    VkImageSubresourceRange range{};
+    range.aspectMask     = aspect;
+    range.baseArrayLayer = 0;
+    range.baseMipLevel   = 0;
+    range.layerCount     = 1;
+    range.levelCount     = 1;
+
+    vkCmdClearColorImage(
+        commandBuffer, imageHandle, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, &color, 1, &range);
+    vulkanState->transitionImageLayout(commandBuffer,
+                                       imageHandle,
+                                       VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+                                       VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+    commandBuffer.submit();
+}
+
 } // namespace vk
 } // namespace rc
 } // namespace bl

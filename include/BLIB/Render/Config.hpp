@@ -73,8 +73,10 @@ struct Config {
         static constexpr char TextFragment[]  = {18, 0};
         static constexpr char SlideshowVert[] = {19, 0};
 
-        static constexpr char PostProcess3DFragment[] = {126, 0};
-        static constexpr char FadeEffectFragment[]    = {127, 0};
+        static constexpr char BloomBlurFragment[]            = {124, 0};
+        static constexpr char BloomHighlightFilterFragment[] = {125, 0};
+        static constexpr char PostProcess3DFragment[]        = {126, 0};
+        static constexpr char FadeEffectFragment[]           = {127, 0};
 
         static constexpr std::uint32_t MaxId = 128;
     };
@@ -92,7 +94,10 @@ struct Config {
         static constexpr std::uint32_t LitMesh3DSkinned    = 5;
         static constexpr std::uint32_t UnlitMesh3DSkinned  = 6;
         static constexpr std::uint32_t Skybox              = 7;
-        static constexpr std::uint32_t PostProcess3D       = 8;
+
+        static constexpr std::uint32_t PostProcess3D        = 50;
+        static constexpr std::uint32_t BloomHighlightFilter = 51;
+        static constexpr std::uint32_t BloomBlur            = 52;
 
         static constexpr std::uint32_t Lit2DGeometry               = 100;
         static constexpr std::uint32_t Unlit2DGeometry             = 101;

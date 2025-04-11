@@ -5,8 +5,10 @@
 #include <BLIB/Render/Descriptors/Builtin/ColorAttachmentInstance.hpp>
 #include <BLIB/Render/Graph/Assets/FramebufferAsset.hpp>
 #include <BLIB/Render/Graph/Task.hpp>
+#include <BLIB/Render/Vulkan/AttachmentBufferSet.hpp>
 #include <BLIB/Render/Vulkan/Pipeline.hpp>
 #include <BLIB/Render/Vulkan/PipelineInstance.hpp>
+#include <optional>
 
 namespace bl
 {
@@ -37,8 +39,10 @@ private:
     FramebufferAsset* input;
     FramebufferAsset* output;
     buf::IndexBuffer indexBuffer;
-    vk::PipelineInstance pipeline;
-    ds::ColorAttachmentInstance* colorAttachmentSet;
+    vk::Pipeline* pipeline;
+    std::optional<ds::ColorAttachmentInstance> colorAttachmentSet;
+    std::optional<ds::ColorAttachmentInstance> bloomAttachmentSet;
+    std::optional<vk::AttachmentBufferSet<1>> dummyBloomBuffer;
 
     virtual void create(engine::Engine& engine, Renderer& renderer, Scene* scene) override;
     virtual void onGraphInit() override;

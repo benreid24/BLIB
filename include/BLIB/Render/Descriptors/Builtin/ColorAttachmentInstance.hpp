@@ -32,14 +32,25 @@ public:
     virtual ~ColorAttachmentInstance();
 
     /**
-     * @brief Must be called before rendering with the framebuffers to get input attachments from
+     * @brief Creates the descriptor set with the given attachments
      *
-     * @param framebuffers The framebuffers. Must be Config::MaxConcurrentFrames buffers
+     * @param attachmentSet The attachment set to bind
      * @param attachmentIndex The index of the color attachment to bind
      * @param sampler The sampler to use
      */
-    void initAttachments(const vk::Framebuffer* framebuffers, std::uint32_t attachmentIndex,
+    void initAttachments(const vk::AttachmentSet* attachmentSet, std::uint32_t attachmentIndex,
                          VkSampler sampler);
+
+    /**
+     * @brief Creates the descriptor set with the given attachments
+     *
+     * @param attachmentSets The attachment sets to bind per frame
+     * @param attachmentIndex The index of the color attachment to bind
+     * @param sampler The sampler to use
+     */
+    void initAttachments(
+        const std::array<const vk::AttachmentSet*, Config::MaxConcurrentFrames>& attachmentSets,
+        std::uint32_t attachmentIndex, VkSampler sampler);
 
     /**
      * @brief Issues the command to bind the descriptor set, updating if the underlying images have
@@ -52,14 +63,49 @@ public:
     void bind(VkCommandBuffer commandBuffer, VkPipelineLayout layout, std::uint32_t setIndex) const;
 
 private:
+    class Source {
+    public:
+        Source() = default;
+
+        void init(const vk::AttachmentSet* attachmentSet) {
+            type   = Type::Single;
+            single = attachmentSet;
+        }
+
+        void init(const std::array<const vk::AttachmentSet*, Config::MaxConcurrentFrames>&
+                      attachmentSets) {
+            type     = Type::PerFrame;
+            perFrame = attachmentSets;
+        }
+
+        const vk::AttachmentSet* get(std::uint32_t index) const {
+            switch (type) {
+            case Type::Single:
+                return single;
+            case Type::PerFrame:
+                return perFrame[index];
+            }
+        }
+
+    private:
+        enum struct Type { Single, PerFrame };
+        Type type;
+        union {
+            const vk::AttachmentSet* single;
+            std::array<const vk::AttachmentSet*, Config::MaxConcurrentFrames> perFrame;
+        };
+    };
+
     vk::VulkanState& vulkanState;
     VkDescriptorSetLayout layout;
     vk::DescriptorPool::AllocationHandle dsAlloc;
     vk::PerFrame<VkDescriptorSet> descriptorSets;
-    const vk::Framebuffer* framebuffers;
+    Source source;
     mutable vk::PerFrame<VkImageView> cachedViews;
     std::uint32_t attachmentIndex;
     VkSampler sampler;
+
+    void commonInit();
 
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                  std::uint32_t setIndex, UpdateSpeed updateFreq) const override;

@@ -72,6 +72,10 @@ VkShaderModule ShaderModuleCache::loadShader(const std::string& path) {
             return loadShader(BUILTIN_SHADER("PostFX/fadeEffect.frag.spv"));
         case Config::ShaderIds::PostProcess3DFragment[0]:
             return loadShader(BUILTIN_SHADER("PostFX/3dPostProcess.frag.spv"));
+        case Config::ShaderIds::BloomBlurFragment[0]:
+            return loadShader(BUILTIN_SHADER("PostFX/bloomBlur.frag.spv"));
+        case Config::ShaderIds::BloomHighlightFilterFragment[0]:
+            return loadShader(BUILTIN_SHADER("PostFX/bloomHighlightFilter.frag.spv"));
 
         default:
             BL_LOG_ERROR << "Invalid built-in shader id: " << static_cast<int>(path[0]);

@@ -218,16 +218,19 @@ private:
     template<typename T>
     void traverse(T&& taskVisitor, GraphAsset* start) {
         std::queue<VisitorStep> toVisit;
-        std::unordered_set<Task*> visited;
+        std::unordered_map<Task*, unsigned int> visited;
         toVisit.emplace(VisitorStep{start->outputtedBy, 0});
+        visited[start->outputtedBy] = 0;
 
         const auto processInputs = [&toVisit, &visited](std::vector<GraphAsset*>& inputs,
                                                         unsigned int newSteps) {
             for (GraphAsset* asset : inputs) {
                 if (!asset || !asset->outputtedBy) continue;
-                if (visited.find(asset->outputtedBy) != visited.end()) { continue; }
 
-                visited.emplace(asset->outputtedBy);
+                auto it = visited.find(asset->outputtedBy);
+                if (it != visited.end() && it->second > newSteps) { continue; }
+
+                visited[asset->outputtedBy] = newSteps;
                 toVisit.emplace(VisitorStep{asset->outputtedBy, newSteps});
             }
         };
@@ -237,11 +240,11 @@ private:
             toVisit.pop();
 
             const unsigned int newSteps = step.stepsFromEnd + 1;
-            taskVisitor(step.task, step.stepsFromEnd);
-
             processInputs(step.task->assets.requiredInputs, newSteps);
             processInputs(step.task->assets.optionalInputs, newSteps);
         }
+
+        for (auto& pair : visited) { taskVisitor(pair.first, pair.second); }
     }
 };
 

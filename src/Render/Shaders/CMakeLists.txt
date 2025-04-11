@@ -33,4 +33,6 @@ compile_shaders(
 
     PostFX/fadeEffect.frag
     PostFX/3dPostProcess.frag
+    PostFX/bloomBlur.frag
+    PostFX/bloomHighlightFilter.frag
 )

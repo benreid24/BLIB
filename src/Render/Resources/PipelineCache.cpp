@@ -332,8 +332,31 @@ void PipelineCache::createBuiltins() {
             .withRasterizer(rasterizer)
             .withDepthStencilState(&depthStencilDepthDisabled)
             .addDescriptorSet<ds::ColorAttachmentFactory>()
+            .addDescriptorSet<ds::ColorAttachmentFactory>()
             .addDescriptorSet<ds::GlobalDataFactory>()
-            .addPushConstantRange(0, sizeof(float), VK_SHADER_STAGE_FRAGMENT_BIT)
+            .build());
+
+    constexpr std::uint32_t BloomPcSize =
+        sizeof(float) * (Settings::MaxBloomFilterSize + 1) + sizeof(std::uint32_t) * 2;
+    createPipeline(Config::PipelineIds::BloomHighlightFilter,
+                   vk::PipelineParameters()
+                       .withShaders(Config::ShaderIds::EmptyVertex,
+                                    Config::ShaderIds::BloomHighlightFilterFragment)
+                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                       .withRasterizer(rasterizer)
+                       .withDepthStencilState(&depthStencilDepthDisabled)
+                       .addDescriptorSet<ds::ColorAttachmentFactory>()
+                       .addPushConstantRange(0, BloomPcSize, VK_SHADER_STAGE_FRAGMENT_BIT)
+                       .build());
+    createPipeline(
+        Config::PipelineIds::BloomBlur,
+        vk::PipelineParameters()
+            .withShaders(Config::ShaderIds::EmptyVertex, Config::ShaderIds::BloomBlurFragment)
+            .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+            .withRasterizer(rasterizer)
+            .withDepthStencilState(&depthStencilDepthDisabled)
+            .addDescriptorSet<ds::ColorAttachmentFactory>()
+            .addPushConstantRange(0, BloomPcSize, VK_SHADER_STAGE_FRAGMENT_BIT)
             .build());
 }
 

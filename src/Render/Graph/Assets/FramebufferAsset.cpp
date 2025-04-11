@@ -43,6 +43,15 @@ void FramebufferAsset::finishRender(VkCommandBuffer commandBuffer) {
     currentFramebuffer().finishRender(commandBuffer);
 }
 
+std::array<const vk::AttachmentSet*, Config::MaxConcurrentFrames>
+FramebufferAsset::getAttachmentSets() {
+    std::array<const vk::AttachmentSet*, Config::MaxConcurrentFrames> sets;
+    for (std::uint32_t i = 0; i < Config::MaxConcurrentFrames; ++i) {
+        sets[i] = &getFramebuffer(i).getAttachmentSet();
+    }
+    return sets;
+}
+
 } // namespace rgi
 } // namespace rc
 } // namespace bl

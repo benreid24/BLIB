@@ -25,12 +25,12 @@ ColorAttachmentInstance::~ColorAttachmentInstance() {
 
 void ColorAttachmentInstance::bind(VkCommandBuffer commandBuffer, VkPipelineLayout layout,
                                    std::uint32_t setIndex) const {
-    const vk::Framebuffer& fb = framebuffers[vulkanState.currentFrameIndex()];
-    VkImageView& cachedView   = cachedViews.getRaw(vulkanState.currentFrameIndex());
+    const vk::AttachmentSet& attachments = *source.get(vulkanState.currentFrameIndex());
+    VkImageView& cachedView              = cachedViews.getRaw(vulkanState.currentFrameIndex());
 
     // update descriptor on change
-    if (cachedView != fb.getAttachmentSet().imageViews()[attachmentIndex]) {
-        cachedView = fb.getAttachmentSet().imageViews()[attachmentIndex];
+    if (cachedView != attachments.imageViews()[attachmentIndex]) {
+        cachedView = attachments.imageViews()[attachmentIndex];
 
         VkDescriptorImageInfo imageInfo{};
         imageInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
@@ -65,18 +65,30 @@ void ColorAttachmentInstance::bindForPipeline(scene::SceneRenderContext& ctx,
     bind(ctx.getCommandBuffer(), layout, setIndex);
 }
 
-void ColorAttachmentInstance::initAttachments(const vk::Framebuffer* fbs, std::uint32_t ai,
+void ColorAttachmentInstance::initAttachments(const vk::AttachmentSet* set, std::uint32_t ai,
                                               VkSampler smp) {
+    source.init(set);
     attachmentIndex = ai;
-    framebuffers    = fbs;
     sampler         = smp;
+    commonInit();
+}
 
+void ColorAttachmentInstance::initAttachments(
+    const std::array<const vk::AttachmentSet*, Config::MaxConcurrentFrames>& sets, std::uint32_t ai,
+    VkSampler smp) {
+    source.init(sets);
+    attachmentIndex = ai;
+    sampler         = smp;
+    commonInit();
+}
+
+void ColorAttachmentInstance::commonInit() {
     std::array<VkDescriptorImageInfo, Config::MaxConcurrentFrames> imageInfos{};
     for (unsigned int i = 0; i < Config::MaxConcurrentFrames; ++i) {
         imageInfos[i].imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-        imageInfos[i].imageView = framebuffers[i].getAttachmentSet().imageViews()[attachmentIndex];
-        imageInfos[i].sampler   = sampler;
-        cachedViews.getRaw(i)   = imageInfos[i].imageView;
+        imageInfos[i].imageView   = source.get(i)->imageViews()[attachmentIndex];
+        imageInfos[i].sampler     = sampler;
+        cachedViews.getRaw(i)     = imageInfos[i].imageView;
     }
 
     std::array<VkWriteDescriptorSet, Config::MaxConcurrentFrames> descriptorWrites{};

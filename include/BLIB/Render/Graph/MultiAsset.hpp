@@ -54,6 +54,22 @@ public:
     const T& operator[](std::uint32_t i) const;
 
     /**
+     * @brief Access the given asset
+     *
+     * @param i The index of the asset to get
+     * @return The asset at the given index
+     */
+    T& get(std::uint32_t i);
+
+    /**
+     * @brief Access the given asset
+     *
+     * @param i The index of the asset to get
+     * @return The asset at the given index
+     */
+    const T& get(std::uint32_t i) const;
+
+    /**
      * @brief Returns the number of assets contained
      */
     constexpr std::uint32_t size() const;
@@ -90,6 +106,16 @@ T& MultiAsset<T, N>::operator[](std::uint32_t i) {
 
 template<typename T, std::uint32_t N>
 const T& MultiAsset<T, N>::operator[](std::uint32_t i) const {
+    return *assets[i];
+}
+
+template<typename T, std::uint32_t N>
+T& MultiAsset<T, N>::get(std::uint32_t i) {
+    return *assets[i];
+}
+
+template<typename T, std::uint32_t N>
+const T& MultiAsset<T, N>::get(std::uint32_t i) const {
     return *assets[i];
 }
 

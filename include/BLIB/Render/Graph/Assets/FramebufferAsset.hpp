@@ -40,6 +40,12 @@ public:
     virtual vk::Framebuffer& getFramebuffer(std::uint32_t i) = 0;
 
     /**
+     * @brief Helper method to get per frame attachment sets. Should only be called if the
+     *        underlying attachments are per frame
+     */
+    std::array<const vk::AttachmentSet*, Config::MaxConcurrentFrames> getAttachmentSets();
+
+    /**
      * @brief Returns the render pass to use to render to the swap frame
      */
     const vk::RenderPass& getRenderPass() const { return *renderPass; }
