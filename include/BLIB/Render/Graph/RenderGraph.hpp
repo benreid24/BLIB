@@ -189,10 +189,19 @@ public:
 private:
     struct TimelineStage {
         std::vector<Task*> tasks;
+
+        void removeTask(Task* task) {
+            for (auto it = tasks.begin(); it != tasks.end(); ++it) {
+                if (*it == task) {
+                    tasks.erase(it);
+                    return;
+                }
+            }
+        }
     };
 
     struct VisitorStep {
-        GraphAsset* asset;
+        Task* task;
         unsigned int stepsFromEnd;
     };
 
@@ -209,19 +218,17 @@ private:
     template<typename T>
     void traverse(T&& taskVisitor, GraphAsset* start) {
         std::queue<VisitorStep> toVisit;
-        std::unordered_set<GraphAsset*> visited;
-        toVisit.emplace(VisitorStep{start, 0});
+        std::unordered_set<Task*> visited;
+        toVisit.emplace(VisitorStep{start->outputtedBy, 0});
 
         const auto processInputs = [&toVisit, &visited](std::vector<GraphAsset*>& inputs,
                                                         unsigned int newSteps) {
             for (GraphAsset* asset : inputs) {
                 if (!asset || !asset->outputtedBy) continue;
+                if (visited.find(asset->outputtedBy) != visited.end()) { continue; }
 
-                if (visited.find(asset) != visited.end()) {
-                    throw std::runtime_error("Cycle detected in render graph");
-                }
-                visited.emplace(asset);
-                toVisit.emplace(VisitorStep{asset, newSteps});
+                visited.emplace(asset->outputtedBy);
+                toVisit.emplace(VisitorStep{asset->outputtedBy, newSteps});
             }
         };
 
@@ -230,10 +237,10 @@ private:
             toVisit.pop();
 
             const unsigned int newSteps = step.stepsFromEnd + 1;
-            taskVisitor(step.asset->outputtedBy, step.stepsFromEnd);
+            taskVisitor(step.task, step.stepsFromEnd);
 
-            processInputs(step.asset->outputtedBy->assets.requiredInputs, newSteps);
-            processInputs(step.asset->outputtedBy->assets.optionalInputs, newSteps);
+            processInputs(step.task->assets.requiredInputs, newSteps);
+            processInputs(step.task->assets.optionalInputs, newSteps);
         }
     }
 };

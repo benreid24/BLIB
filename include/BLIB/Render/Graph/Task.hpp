@@ -5,6 +5,7 @@
 #include <BLIB/Render/Graph/GraphAsset.hpp>
 #include <BLIB/Render/Graph/TaskAssetTags.hpp>
 #include <BLIB/Render/Graph/TaskAssets.hpp>
+#include <limits>
 #include <string_view>
 #include <vector>
 
@@ -26,6 +27,11 @@ class RenderGraph;
  */
 class Task {
 public:
+    /**
+     * @brief Initializes the task
+     */
+    Task();
+
     /**
      * @brief Destroys the task
      */
@@ -64,6 +70,10 @@ protected:
     TaskAssets assets;
 
 private:
+    static constexpr unsigned int NotInTimeline = std::numeric_limits<unsigned int>::max();
+
+    unsigned int depth;
+
     friend class RenderGraph;
 };
 

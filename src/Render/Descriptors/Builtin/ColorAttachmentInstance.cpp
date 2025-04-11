@@ -23,9 +23,8 @@ ColorAttachmentInstance::~ColorAttachmentInstance() {
     vulkanState.descriptorPool.release(dsAlloc, descriptorSets.rawData());
 }
 
-void ColorAttachmentInstance::bindForPipeline(scene::SceneRenderContext& ctx,
-                                              VkPipelineLayout layout, std::uint32_t setIndex,
-                                              UpdateSpeed) const {
+void ColorAttachmentInstance::bind(VkCommandBuffer commandBuffer, VkPipelineLayout layout,
+                                   std::uint32_t setIndex) const {
     const vk::Framebuffer& fb = framebuffers[vulkanState.currentFrameIndex()];
     VkImageView& cachedView   = cachedViews.getRaw(vulkanState.currentFrameIndex());
 
@@ -50,7 +49,7 @@ void ColorAttachmentInstance::bindForPipeline(scene::SceneRenderContext& ctx,
         vkUpdateDescriptorSets(vulkanState.device, 1, &write, 0, nullptr);
     }
 
-    vkCmdBindDescriptorSets(ctx.getCommandBuffer(),
+    vkCmdBindDescriptorSets(commandBuffer,
                             VK_PIPELINE_BIND_POINT_GRAPHICS,
                             layout,
                             setIndex,
@@ -58,6 +57,12 @@ void ColorAttachmentInstance::bindForPipeline(scene::SceneRenderContext& ctx,
                             &descriptorSets.current(),
                             0,
                             nullptr);
+}
+
+void ColorAttachmentInstance::bindForPipeline(scene::SceneRenderContext& ctx,
+                                              VkPipelineLayout layout, std::uint32_t setIndex,
+                                              UpdateSpeed) const {
+    bind(ctx.getCommandBuffer(), layout, setIndex);
 }
 
 void ColorAttachmentInstance::initAttachments(const vk::Framebuffer* fbs, std::uint32_t ai,
@@ -87,25 +92,6 @@ void ColorAttachmentInstance::initAttachments(const vk::Framebuffer* fbs, std::u
 
     vkUpdateDescriptorSets(
         vulkanState.device, descriptorWrites.size(), descriptorWrites.data(), 0, nullptr);
-}
-
-void ColorAttachmentInstance::updateAttachment(const vk::Framebuffer& framebuffer,
-                                               std::uint32_t attachmentIndex, VkSampler sampler) {
-    VkDescriptorImageInfo imageInfo{};
-    imageInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-    imageInfo.imageView   = framebuffer.getAttachmentSet().imageViews()[attachmentIndex];
-    imageInfo.sampler     = sampler;
-
-    VkWriteDescriptorSet write{};
-    write.sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-    write.dstSet          = descriptorSets.current();
-    write.dstBinding      = 0;
-    write.dstArrayElement = 0;
-    write.descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-    write.descriptorCount = 1;
-    write.pImageInfo      = &imageInfo;
-
-    vkUpdateDescriptorSets(vulkanState.device, 1, &write, 0, nullptr);
 }
 
 } // namespace ds

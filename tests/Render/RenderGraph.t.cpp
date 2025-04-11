@@ -21,6 +21,7 @@ namespace
 
 constexpr std::string_view ShadowLightsTag = "shadow-lights";
 constexpr std::string_view ShadowMapTag    = "shadowmap";
+constexpr std::string_view SharedTag       = "shared";
 
 struct TestAsset : public Asset {
     bool created;
@@ -80,6 +81,11 @@ struct PostFXOutput : public TestAsset {
     , rendered(false) {}
 };
 
+struct BloomAsset : public TestAsset {
+    BloomAsset()
+    : TestAsset(AssetTags::BloomColorAttachmentPair) {}
+};
+
 struct Swapframe : public TestAsset {
     bool rendered;
 
@@ -90,7 +96,7 @@ struct Swapframe : public TestAsset {
 
 template<typename T>
 struct TestProvider : public AssetProvider {
-    virtual Asset* create() override { return new T(); }
+    virtual Asset* create(std::string_view) override { return new T(); }
 };
 
 void setupFactory(AssetFactory& factory) {
@@ -100,6 +106,7 @@ void setupFactory(AssetFactory& factory) {
     factory.addProvider<TestProvider<SceneRenderOutput>>(AssetTags::RenderedSceneOutput);
     factory.addProvider<TestProvider<PostFXOutput>>(AssetTags::PostFXOutput);
     factory.addProvider<TestProvider<Swapframe>>(AssetTags::FinalFrameOutput);
+    factory.addProvider<TestProvider<BloomAsset>>(AssetTags::BloomColorAttachmentPair);
 }
 
 /////////////////////////////////////// TASKS ////////////////////////////////////////////
@@ -163,7 +170,6 @@ struct ShadowMapTask : public TestTask {
         EXPECT_NE(dynamic_cast<ShadowLights*>(&assets.requiredInputs[1]->asset.get()), nullptr);
     }
 
-    // Inherited via TestTask
     virtual void onExecute() override {
         dynamic_cast<ShadowMap*>(&assets.output->asset.get())->rendered = true;
     }
@@ -197,7 +203,6 @@ struct SceneRenderTask : public TestTask {
         EXPECT_NE(dynamic_cast<SceneObjects*>(&assets.requiredInputs[0]->asset.get()), nullptr);
     }
 
-    // Inherited via TestTask
     virtual void onExecute() override {
         if (assets.output->asset->getTag() == AssetTags::FinalFrameOutput) {
             dynamic_cast<Swapframe*>(&assets.output->asset.get())->rendered = true;
@@ -243,7 +248,6 @@ struct PostFXTask : public TestTask {
         }
     }
 
-    // Inherited via TestTask
     virtual void onExecute() override {
         if (assets.requiredInputs[0]->asset->getTag() == AssetTags::RenderedSceneOutput) {
             EXPECT_TRUE(
@@ -259,6 +263,59 @@ struct PostFXTask : public TestTask {
         }
         else { dynamic_cast<PostFXOutput*>(&assets.output->asset.get())->rendered = true; }
     }
+};
+
+struct PostFXBloomTask : public TestTask {
+    PostFXBloomTask()
+    : TestTask() {
+        assetTags.concreteOutputs.emplace_back(AssetTags::FinalFrameOutput);
+        assetTags.createdOutputs.emplace_back(AssetTags::PostFXOutput);
+        assetTags.requiredInputs.emplace_back(
+            TaskInput{AssetTags::RenderedSceneOutput, TaskInput::Shared});
+        assetTags.requiredInputs.emplace_back(TaskInput{AssetTags::BloomColorAttachmentPair});
+    }
+
+    virtual void onGraphInit() override {
+        graphInit = true;
+
+        ASSERT_NE(dynamic_cast<Swapframe*>(&assets.output->asset.get()), nullptr);
+        dynamic_cast<Swapframe*>(&assets.output->asset.get())->rendered = true;
+
+        ASSERT_EQ(assets.requiredInputs.size(), 2);
+        ASSERT_TRUE(assets.requiredInputs[0]->asset.valid());
+        ASSERT_TRUE(assets.requiredInputs[1]->asset.valid());
+        ASSERT_TRUE(assets.requiredInputs[0]->asset->getTag() == AssetTags::RenderedSceneOutput ||
+                    assets.requiredInputs[0]->asset->getTag() ==
+                        AssetTags::BloomColorAttachmentPair);
+        ASSERT_TRUE(assets.requiredInputs[1]->asset->getTag() == AssetTags::RenderedSceneOutput ||
+                    assets.requiredInputs[1]->asset->getTag() ==
+                        AssetTags::BloomColorAttachmentPair);
+    }
+
+    virtual void onExecute() override {}
+};
+
+struct BloomTask : public TestTask {
+    BloomTask()
+    : TestTask() {
+        assetTags.createdOutputs.emplace_back(AssetTags::BloomColorAttachmentPair);
+        assetTags.requiredInputs.emplace_back(
+            TaskInput{AssetTags::RenderedSceneOutput, TaskInput::Shared});
+    }
+
+    virtual void onGraphInit() override {
+        graphInit = true;
+
+        ASSERT_EQ(assets.output->asset->getTag(), AssetTags::BloomColorAttachmentPair);
+        ASSERT_NE(dynamic_cast<BloomAsset*>(&assets.output->asset.get()), nullptr);
+
+        ASSERT_EQ(assets.requiredInputs.size(), 1);
+        ASSERT_TRUE(assets.requiredInputs[0]->asset.valid());
+        EXPECT_NE(dynamic_cast<SceneRenderOutput*>(&assets.requiredInputs[0]->asset.get()),
+                  nullptr);
+    }
+
+    virtual void onExecute() override {}
 };
 
 } // namespace
@@ -370,6 +427,26 @@ TEST(RenderGraph, MultipleGraphsSharedAssets) {
     swapframe->rendered = false;
     graph2.execute(nullptr, 0, false);
     graph2.executeFinal(nullptr, 0, false);
+    EXPECT_TRUE(swapframe->rendered);
+}
+
+TEST(RenderGraph, TasksSharingInputs) {
+    AssetFactory factory;
+    setupFactory(factory);
+
+    AssetPool pool(factory, nullptr);
+    pool.putAsset<SceneObjects>();
+    Swapframe* swapframe = pool.putAsset<Swapframe>();
+
+    engine::Engine engine(engine::Settings{});
+    RenderGraph graph(engine, engine.renderer(), pool, nullptr, nullptr);
+
+    graph.putTask<SceneRenderTask>();
+    graph.putTask<PostFXBloomTask>();
+    graph.putTask<BloomTask>();
+
+    graph.execute(nullptr, 0, false);
+    graph.executeFinal(nullptr, 0, false);
     EXPECT_TRUE(swapframe->rendered);
 }
 

@@ -6,6 +6,9 @@ namespace rc
 {
 namespace rg
 {
+Task::Task()
+: depth(NotInTimeline) {}
+
 void Task::update(float) {}
 
 } // namespace rg

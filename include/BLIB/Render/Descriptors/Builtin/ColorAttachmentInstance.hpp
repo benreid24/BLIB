@@ -42,14 +42,14 @@ public:
                          VkSampler sampler);
 
     /**
-     * @brief Updates the descriptor for the current frame
+     * @brief Issues the command to bind the descriptor set, updating if the underlying images have
+     *        changed
      *
-     * @param framebuffer The framebuffer to get the attachment from
-     * @param attachmentIndex The index of the attachment to bind
-     * @param sampler The sampler to use
+     * @param commandBuffer The command buffer to write commands into
+     * @param layout The layout of the current pipeline
+     * @param setIndex The index to bind the set at
      */
-    void updateAttachment(const vk::Framebuffer& framebuffer, std::uint32_t attachmentIndex,
-                          VkSampler sampler);
+    void bind(VkCommandBuffer commandBuffer, VkPipelineLayout layout, std::uint32_t setIndex) const;
 
 private:
     vk::VulkanState& vulkanState;
