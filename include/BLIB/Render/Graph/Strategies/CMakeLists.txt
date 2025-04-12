@@ -1,3 +1,5 @@
 target_sources(BLIB PUBLIC
-	ForwardRenderStrategy.hpp
+	OverlayRenderStrategy.hpp
+	Scene2DRenderStrategy.hpp
+	Scene3DForwardRenderStrategy.hpp
 )

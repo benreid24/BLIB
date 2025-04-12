@@ -64,7 +64,9 @@
 #include <BLIB/Render/Graph/GraphAssetPool.hpp>
 #include <BLIB/Render/Graph/Providers/SimpleAssetProvider.hpp>
 #include <BLIB/Render/Graph/RenderGraph.hpp>
-#include <BLIB/Render/Graph/Strategies/ForwardRenderStrategy.hpp>
+#include <BLIB/Render/Graph/Strategies/OverlayRenderStrategy.hpp>
+#include <BLIB/Render/Graph/Strategies/Scene2DRenderStrategy.hpp>
+#include <BLIB/Render/Graph/Strategies/Scene3DForwardRenderStrategy.hpp>
 #include <BLIB/Render/Graph/Strategy.hpp>
 #include <BLIB/Render/Graph/Task.hpp>
 #include <BLIB/Render/Graph/TaskAssetTags.hpp>

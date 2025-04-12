@@ -4,12 +4,19 @@
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Events/SceneObjectRemoved.hpp>
+#include <BLIB/Render/Graph/Strategies/OverlayRenderStrategy.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
 {
 namespace rc
 {
+namespace
+{
+rgi::OverlayRenderStrategy defaultStrategy;
+rg::Strategy* strategy = &defaultStrategy;
+} // namespace
+
 Overlay::Overlay(engine::Engine& e)
 : Scene(e, objects.makeEntityCallback())
 , objects(e.ecs())
@@ -225,6 +232,10 @@ void Overlay::sortRoots() {
             return lpos->getGlobalDepth() < rpos->getGlobalDepth();
         });
 }
+
+void Overlay::useRenderStrategy(rg::Strategy* ns) { strategy = ns; }
+
+rg::Strategy* Overlay::getRenderStrategy() { return strategy; }
 
 } // namespace rc
 } // namespace bl

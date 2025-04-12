@@ -135,8 +135,6 @@ void Scene::addQueuedObject(ObjectAdd& add) {
     else { BL_LOG_ERROR << "Failed to add " << add.entity << " to scene " << this; }
 }
 
-void Scene::addGraphTasks(rg::RenderGraph&) {}
-
 void Scene::initPipelineInstance(std::uint32_t pid, vk::PipelineInstance& instance) {
     vk::Pipeline* pipeline = &renderer.pipelineCache().getPipeline(pid);
     instance.init(pipeline, descriptorSets);

@@ -2,9 +2,7 @@
 
 #include <BLIB/Cameras/3D/Camera3D.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene3DFactory.hpp>
-#include <BLIB/Render/Graph/RenderGraph.hpp>
-#include <BLIB/Render/Graph/Tasks/BloomTask.hpp>
-#include <BLIB/Render/Graph/Tasks/PostProcess3DTask.hpp>
+#include <BLIB/Render/Graph/Strategies/Scene3DForwardRenderStrategy.hpp>
 
 namespace bl
 {
@@ -16,6 +14,9 @@ namespace
 {
 constexpr float DefaultNear = 0.1f;
 constexpr float DefaultFar  = 100.f;
+
+rgi::Scene3DForwardRenderStrategy defaultStrategy;
+rg::Strategy* strategy = &defaultStrategy;
 } // namespace
 
 Scene3D::Scene3D(engine::Engine& e)
@@ -35,10 +36,9 @@ void Scene3D::setDefaultNearAndFarPlanes(cam::Camera& cam) const {
 
 void Scene3D::onDescriptorSync() { lighting.sync(); }
 
-void Scene3D::addGraphTasks(rg::RenderGraph& graph) {
-    graph.putTask<rgi::PostProcess3DTask>();
-    graph.putTask<rgi::BloomTask>();
-}
+void Scene3D::useRenderStrategy(rg::Strategy* ns) { strategy = ns; }
+
+rg::Strategy* Scene3D::getRenderStrategy() { return strategy; }
 
 } // namespace scene
 } // namespace rc

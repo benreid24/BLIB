@@ -1,3 +1,5 @@
 target_sources(BLIB PRIVATE
-	ForwardRenderStrategy.cpp
+	OverlayRenderStrategy.cpp
+	Scene2DRenderStrategy.cpp
+	Scene3DForwardRenderStrategy.cpp
 )

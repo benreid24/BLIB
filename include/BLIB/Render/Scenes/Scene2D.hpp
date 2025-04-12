@@ -34,6 +34,19 @@ public:
      */
     lgt::Scene2DLighting& getLighting() { return lighting; }
 
+    /**
+     * @brief Replaces the current strategy with a new one of type T. Default is
+     *        rgi::Scene2DRenderStrategy
+     *
+     * @param strategy The new render strategy to use
+     */
+    static void useRenderStrategy(rg::Strategy* strategy);
+
+    /**
+     * @brief Returns the render strategy to use for this scene type
+     */
+    virtual rg::Strategy* getRenderStrategy() override;
+
 protected:
     /**
      * @brief Creates a 2d camera

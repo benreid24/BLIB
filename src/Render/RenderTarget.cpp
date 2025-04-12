@@ -113,7 +113,7 @@ void RenderTarget::onSceneAdd() {
 void RenderTarget::onSceneChange() {
     if (hasScene()) {
         graphAssets.replaceAsset<rgi::SceneAsset>(scenes.back().scene.get());
-        scenes.back().graph.populate(renderer.getRenderStrategy(), *scenes.back().scene);
+        scenes.back().graph.populate(*scenes.back().scene);
         graphAssets.releaseUnused();
     }
 }
@@ -208,7 +208,7 @@ void RenderTarget::renderScene(VkCommandBuffer commandBuffer) {
 #endif
 
         if (scenes.back().graph.needsRepopulation()) {
-            scenes.back().graph.populate(renderer.getRenderStrategy(), *scenes.back().scene);
+            scenes.back().graph.populate(*scenes.back().scene);
         }
 
         scenes.back().graph.execute(commandBuffer, scenes.back().observerIndex, isRenderTexture);

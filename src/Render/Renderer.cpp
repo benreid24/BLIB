@@ -5,7 +5,6 @@
 #include <BLIB/Render/Graph/Providers/BloomProviders.hpp>
 #include <BLIB/Render/Graph/Providers/GenericTargetProvider.hpp>
 #include <BLIB/Render/Graph/Providers/SimpleAssetProvider.hpp>
-#include <BLIB/Render/Graph/Strategies/ForwardRenderStrategy.hpp>
 #include <BLIB/Systems.hpp>
 #include <cmath>
 
@@ -308,11 +307,6 @@ void Renderer::destroyRenderTexture(vk::RenderTexture* rt) {
             }
         }
     });
-}
-
-rg::Strategy& Renderer::getRenderStrategy() {
-    if (!strategy) { useRenderStrategy<rgi::ForwardRenderStrategy>(); }
-    return *strategy;
 }
 
 void Renderer::processWindowRecreate() {

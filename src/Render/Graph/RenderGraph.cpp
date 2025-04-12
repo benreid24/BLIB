@@ -164,11 +164,10 @@ void RenderGraph::markDirty() { needsRebuild = true; }
 
 void RenderGraph::reset() { needsReset = true; }
 
-void RenderGraph::populate(Strategy& strategy, Scene& scene) {
+void RenderGraph::populate(Scene& scene) {
     needsReset = false;
     tasks.clear();
-    strategy.populate(*this);
-    scene.addGraphTasks(*this);
+    scene.getRenderStrategy()->populate(*this);
     build();
 }
 

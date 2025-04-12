@@ -34,6 +34,19 @@ public:
      */
     lgt::Scene3DLighting& getLighting() { return lighting; }
 
+    /**
+     * @brief Replaces the current strategy with a new one of type T. Default is
+     *        rgi::Scene2DRenderStrategy
+     *
+     * @param strategy The new render strategy to use
+     */
+    static void useRenderStrategy(rg::Strategy* strategy);
+
+    /**
+     * @brief Returns the render strategy to use for this scene type
+     */
+    virtual rg::Strategy* getRenderStrategy() override;
+
 protected:
     /**
      * @brief Creates a 3d camera
@@ -51,13 +64,6 @@ protected:
      * @brief Syncs the lighting descriptor set
      */
     virtual void onDescriptorSync() override;
-
-    /**
-     * @brief Adds render graph tasks specific to 3d rendering
-     *
-     * @param graph The graph to add tasks to
-     */
-    virtual void addGraphTasks(rg::RenderGraph& graph) override;
 
 private:
     lgt::Scene3DLighting lighting;

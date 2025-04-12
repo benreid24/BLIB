@@ -182,23 +182,6 @@ public:
     void setClearColor(const Color& color);
 
     /**
-     * @brief Replaces the current strategy with a new one of type T. Default is
-     *        rgi::ForwardRendererStrategy
-     *
-     * @tparam T The new strategy type
-     * @tparam ...TArgs Argument types to the strategy's constructor
-     * @param ...args Arguments to the strategy's constructor
-     * @return A pointer to the new strategy
-     */
-    template<typename T, typename... TArgs>
-    T* useRenderStrategy(TArgs&&... args);
-
-    /**
-     * @brief Returns the current renderer strategy
-     */
-    rg::Strategy& getRenderStrategy();
-
-    /**
      * @brief Returns the graph asset factory used by the renderer
      */
     rg::AssetFactory& getAssetFactory();
@@ -247,7 +230,6 @@ private:
     std::vector<std::unique_ptr<Observer>> virtualObservers;
     VkClearValue clearColors[2];
     std::vector<std::unique_ptr<vk::RenderTexture>> renderTextures;
-    std::unique_ptr<rg::Strategy> strategy;
     rg::AssetFactory assetFactory;
     scene::SceneSync sceneSync;
 
@@ -321,15 +303,6 @@ SceneRef RenderTarget::pushScene(TArgs&&... args) {
     SceneRef s = renderer.scenePool().allocateScene<TScene, TArgs...>(std::forward<TArgs>(args)...);
     scenes.emplace_back(engine, renderer, this, graphAssets, s);
     onSceneAdd();
-    return s;
-}
-
-template<typename T, typename... TArgs>
-T* Renderer::useRenderStrategy(TArgs&&... args) {
-    static_assert(std::is_base_of_v<rg::Strategy, T>, "Strategy must derive from rg::Strategy");
-
-    T* s = new T(std::forward<TArgs>(args)...);
-    strategy.reset(s);
     return s;
 }
 

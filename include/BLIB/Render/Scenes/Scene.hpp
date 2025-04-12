@@ -46,7 +46,8 @@ class ScenePool;
 namespace rg
 {
 class RenderGraph;
-}
+class Strategy;
+} // namespace rg
 
 /**
  * @brief Base class for all scene types and overlays. Provides common scene logic and object
@@ -71,11 +72,9 @@ public:
     virtual void renderScene(scene::SceneRenderContext& context) = 0;
 
     /**
-     * @brief Adds scene specific tasks to the render graph. Default adds nothing
-     *
-     * @param graph The graph to populate
+     * @brief Returns the render strategy to use for this scene type
      */
-    virtual void addGraphTasks(rg::RenderGraph& graph);
+    virtual rg::Strategy* getRenderStrategy() = 0;
 
     /**
      * @brief Provides direct access to the descriptor set of the given type. Creates it if not
@@ -171,6 +170,11 @@ protected:
      */
     virtual void doObjectRemoval(scene::SceneObject* object, mat::MaterialPipeline* pipeline) = 0;
 
+    /**
+     * @brief Called at the beginning of the frame when descriptors are being updated
+     */
+    virtual void onDescriptorSync() {}
+
 private:
     struct ObjectAdd {
         ecs::Entity entity;
@@ -205,7 +209,6 @@ private:
 
     // called by Observer
     void handleDescriptorSync();
-    virtual void onDescriptorSync() {}
     void syncObjects();
     std::uint32_t registerObserver();
     void updateObserverCamera(std::uint32_t observerIndex,

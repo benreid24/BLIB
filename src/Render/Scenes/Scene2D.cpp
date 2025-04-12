@@ -2,6 +2,7 @@
 
 #include <BLIB/Cameras/2D/Camera2D.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene2DFactory.hpp>
+#include <BLIB/Render/Graph/Strategies/Scene2DRenderStrategy.hpp>
 
 namespace bl
 {
@@ -13,6 +14,9 @@ namespace
 {
 constexpr float DefaultNear = 0.f;
 constexpr float DefaultFar  = 1000.f;
+
+rgi::Scene2DRenderStrategy defaultStrategy;
+rg::Strategy* strategy = &defaultStrategy;
 } // namespace
 
 Scene2D::Scene2D(engine::Engine& e)
@@ -29,6 +33,10 @@ std::unique_ptr<cam::Camera> Scene2D::createDefaultCamera() {
 void Scene2D::setDefaultNearAndFarPlanes(cam::Camera& cam) const {
     cam.setNearAndFarPlanes(DefaultNear, -DefaultFar);
 }
+
+void Scene2D::useRenderStrategy(rg::Strategy* ns) { strategy = ns; }
+
+rg::Strategy* Scene2D::getRenderStrategy() { return strategy; }
 
 } // namespace scene
 } // namespace rc

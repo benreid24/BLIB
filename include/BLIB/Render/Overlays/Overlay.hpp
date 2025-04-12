@@ -59,6 +59,19 @@ public:
      */
     virtual void renderScene(scene::SceneRenderContext& context) override;
 
+    /**
+     * @brief Replaces the current strategy with a new one of type T. Default is
+     *        rgi::OverlayRenderStrategy
+     *
+     * @param strategy The new render strategy to use
+     */
+    static void useRenderStrategy(rg::Strategy* strategy);
+
+    /**
+     * @brief Returns the render strategy to use for this scene type
+     */
+    virtual rg::Strategy* getRenderStrategy() override;
+
 protected:
     /**
      * @brief Called when an object is added to the scene. Derived should create the SceneObject
@@ -99,7 +112,7 @@ protected:
     /**
      * @brief Noop
      */
-    virtual void setDefaultNearAndFarPlanes(cam::Camera&) const override {};
+    virtual void setDefaultNearAndFarPlanes(cam::Camera&) const override {}
 
 private:
     ecs::ComponentPool<ovy::OverlayObject>* ecsPool;

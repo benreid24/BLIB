@@ -175,10 +175,9 @@ public:
     /**
      * @brief Clears and re-populates the tasks in the graph. Re-builds the graph
      *
-     * @param strategy The renderer strategy to use
      * @param scene The scene to get additional tasks from
      */
-    void populate(Strategy& strategy, Scene& scene);
+    void populate(Scene& scene);
 
     /**
      * @brief Calls update on all contained tasks
