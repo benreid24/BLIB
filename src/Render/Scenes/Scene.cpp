@@ -140,5 +140,10 @@ void Scene::initPipelineInstance(std::uint32_t pid, vk::PipelineInstance& instan
     instance.init(pipeline, descriptorSets);
 }
 
+void Scene::renderScene(scene::SceneRenderContext& ctx) {
+    renderOpaqueObjects(ctx);
+    renderTransparentObjects(ctx);
+}
+
 } // namespace rc
 } // namespace bl

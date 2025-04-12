@@ -101,7 +101,8 @@ private:
     SceneObjectStorage<CodeSceneObject> objects;
     lgt::Scene2DLighting lighting;
 
-    virtual void renderScene(scene::SceneRenderContext& context) override;
+    virtual void renderOpaqueObjects(scene::SceneRenderContext& context) override;
+    virtual void renderTransparentObjects(scene::SceneRenderContext& context) override;
     virtual std::unique_ptr<cam::Camera> createDefaultCamera() override;
     virtual void setDefaultNearAndFarPlanes(cam::Camera& camera) const override;
     virtual SceneObject* doAdd(ecs::Entity entity, rcom::DrawableBase& object,

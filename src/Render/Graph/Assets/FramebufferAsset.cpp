@@ -18,7 +18,8 @@ FramebufferAsset::FramebufferAsset(std::string_view tag, std::uint32_t renderPas
 , clearColors(clearColors)
 , clearColorCount(clearColorCount)
 , cachedSize(0, 0)
-, clearOnRestart(false) {}
+, clearOnRestart(false)
+, startCount(0) {}
 
 void FramebufferAsset::notifyResize(glm::u32vec2 newSize) {
     if (newSize != cachedSize) {
@@ -36,11 +37,13 @@ void FramebufferAsset::beginRender(VkCommandBuffer commandBuffer, bool setViewpo
                                      clearColorCount,
                                      setViewport,
                                      renderPass ? renderPass->rawPass() : nullptr,
-                                     clearOnRestart);
+                                     clearOnRestart || startCount == 0);
+    ++startCount;
 }
 
 void FramebufferAsset::finishRender(VkCommandBuffer commandBuffer) {
     currentFramebuffer().finishRender(commandBuffer);
+    --startCount;
 }
 
 std::array<const vk::AttachmentSet*, Config::MaxConcurrentFrames>

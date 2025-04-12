@@ -1,4 +1,4 @@
-#include <BLIB/Render/Graph/Tasks/ForwardRenderTask.hpp>
+#include <BLIB/Render/Graph/Tasks/ForwardRenderOpaqueTask.hpp>
 
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
@@ -10,31 +10,31 @@ namespace rc
 {
 namespace rgi
 {
-ForwardRenderTask::ForwardRenderTask() {
+ForwardRenderOpaqueTask::ForwardRenderOpaqueTask() {
     assetTags.outputs.emplace_back(rg::TaskOutput({rg::AssetTags::RenderedSceneOutputHDR,
                                                    rg::AssetTags::RenderedSceneOutput,
                                                    rg::AssetTags::FinalFrameOutput},
                                                   {rg::TaskOutput::CreatedByTask,
                                                    rg::TaskOutput::CreatedByTask,
-                                                   rg::TaskOutput::CreatedExternally}));
+                                                   rg::TaskOutput::CreatedExternally},
+                                                  {rg::TaskOutput::Shared},
+                                                  rg::TaskOutput::First));
 
-    assetTags.requiredInputs.emplace_back(rg::AssetTags::SceneObjectsInput);
+    assetTags.requiredInputs.emplace_back(rg::AssetTags::SceneInput);
 }
 
-void ForwardRenderTask::create(engine::Engine&, Renderer&, Scene*) {
+void ForwardRenderOpaqueTask::create(engine::Engine&, Renderer&, Scene*) {
     // noop
 }
 
-void ForwardRenderTask::onGraphInit() {
+void ForwardRenderOpaqueTask::onGraphInit() {
     scene = dynamic_cast<SceneAsset*>(&assets.requiredInputs[0]->asset.get());
     if (!scene) { throw std::runtime_error("Got invalid scene for forward renderer"); }
 }
 
-void ForwardRenderTask::execute(const rg::ExecutionContext& ctx, rg::Asset* output) {
+void ForwardRenderOpaqueTask::execute(const rg::ExecutionContext& ctx, rg::Asset* output) {
     FramebufferAsset* fb = dynamic_cast<FramebufferAsset*>(output);
     if (!fb) { throw std::runtime_error("Got invalid output for forward renderer"); }
-
-    fb->beginRender(ctx.commandBuffer, true);
 
     scene::SceneRenderContext sceneCtx(ctx.commandBuffer,
                                        ctx.observerIndex,
@@ -42,9 +42,7 @@ void ForwardRenderTask::execute(const rg::ExecutionContext& ctx, rg::Asset* outp
                                        RenderPhase::Default,
                                        fb->getRenderPassId(),
                                        ctx.renderingToRenderTexture);
-    scene->scene->renderScene(sceneCtx);
-
-    fb->finishRender(ctx.commandBuffer);
+    scene->scene->renderOpaqueObjects(sceneCtx);
 }
 
 } // namespace rgi

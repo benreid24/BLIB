@@ -194,8 +194,6 @@ protected:
 
     void renderScene(VkCommandBuffer commandBuffer);
     void renderSceneFinal(VkCommandBuffer commandBuffer);
-    void renderOverlay(VkCommandBuffer commandBuffer);
-    void compositeSceneAndOverlay(VkCommandBuffer commandBuffer);
 
     void cleanup();
     void onSceneAdd();

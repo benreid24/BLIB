@@ -22,8 +22,9 @@ public:
      * @brief Creates the asset from a scene
      *
      * @param scene The scene to provide
+     * @param tag The tag to create the asset with
      */
-    SceneAsset(Scene* scene);
+    SceneAsset(Scene* scene, std::string_view tag);
 
     /**
      * @brief Destroys the asset

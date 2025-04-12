@@ -90,6 +90,11 @@ public:
      */
     const VkViewport& getViewport() const { return viewport; }
 
+    /**
+     * @brief Returns the scissor used when rendering
+     */
+    const VkRect2D& getScissor() const { return scissor; }
+
 protected:
     const std::uint32_t renderPassId;
     const VkViewport& viewport;
@@ -123,6 +128,7 @@ protected:
 
 private:
     glm::u32vec2 cachedSize;
+    unsigned int startCount;
 };
 
 } // namespace rgi

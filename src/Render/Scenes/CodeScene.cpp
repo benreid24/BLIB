@@ -44,10 +44,12 @@ CodeScene::CodeScene(engine::Engine& engine, RenderCallback&& renderCallback)
 
 CodeScene::~CodeScene() { objects.unlinkAll(descriptorSets); }
 
-void CodeScene::renderScene(scene::SceneRenderContext& context) {
+void CodeScene::renderOpaqueObjects(scene::SceneRenderContext& context) {
     RenderContext ctx(context);
     renderCallback(ctx);
 }
+
+void CodeScene::renderTransparentObjects(scene::SceneRenderContext&) {}
 
 void CodeScene::doObjectRemoval(SceneObject* object, mat::MaterialPipeline*) {
     CodeSceneObject* obj     = static_cast<CodeSceneObject*>(object);

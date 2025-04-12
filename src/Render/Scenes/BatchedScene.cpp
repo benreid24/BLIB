@@ -224,44 +224,50 @@ void BatchedScene::doBatchChange(const BatchChange& change, mat::MaterialPipelin
     }
 }
 
-void BatchedScene::renderScene(scene::SceneRenderContext& ctx) {
-    for (ObjectBatch* batch : std::array<ObjectBatch*, 2>{&opaqueObjects, &transparentObjects}) {
-        for (LayoutBatch& lb : batch->batches) {
-            const VkPipelineLayout layout = lb.layout.rawLayout();
-            UpdateSpeed speed             = UpdateSpeed::Dynamic;
+void BatchedScene::renderBatch(scene::SceneRenderContext& ctx, ObjectBatch& batch) {
+    for (LayoutBatch& lb : batch.batches) {
+        const VkPipelineLayout layout = lb.layout.rawLayout();
+        UpdateSpeed speed             = UpdateSpeed::Dynamic;
 
-            for (auto* pipelineBatches : std::array<std::vector<PipelineBatch>*, 2>{
-                     &lb.dynamicBatches, &lb.staticBatches}) {
-                // bind layout descriptors
-                ctx.bindDescriptors(layout, speed, lb.descriptors.data(), lb.descriptorCount);
+        for (auto* pipelineBatches :
+             std::array<std::vector<PipelineBatch>*, 2>{&lb.dynamicBatches, &lb.staticBatches}) {
+            // bind layout descriptors
+            ctx.bindDescriptors(layout, speed, lb.descriptors.data(), lb.descriptorCount);
 
-                // render each pipeline
-                if (!lb.bindless) {
-                    for (PipelineBatch& pb : *pipelineBatches) {
-                        ctx.bindPipeline(pb.pipeline);
-                        for (SceneObject* obj : pb.objects) {
-                            if (obj->hidden) { continue; }
-                            for (std::uint8_t i = lb.perObjStart; i < lb.descriptorCount; ++i) {
-                                lb.descriptors[i]->bindForObject(ctx, layout, i, obj->sceneKey);
-                            }
-                            ctx.renderObject(*obj);
+            // render each pipeline
+            if (!lb.bindless) {
+                for (PipelineBatch& pb : *pipelineBatches) {
+                    ctx.bindPipeline(pb.pipeline);
+                    for (SceneObject* obj : pb.objects) {
+                        if (obj->hidden) { continue; }
+                        for (std::uint8_t i = lb.perObjStart; i < lb.descriptorCount; ++i) {
+                            lb.descriptors[i]->bindForObject(ctx, layout, i, obj->sceneKey);
                         }
+                        ctx.renderObject(*obj);
                     }
                 }
-                else {
-                    for (PipelineBatch& pb : *pipelineBatches) {
-                        ctx.bindPipeline(pb.pipeline);
-                        for (SceneObject* obj : pb.objects) {
-                            if (obj->hidden) { continue; }
-                            ctx.renderObject(*obj);
-                        }
-                    }
-                }
-
-                speed = UpdateSpeed::Static;
             }
+            else {
+                for (PipelineBatch& pb : *pipelineBatches) {
+                    ctx.bindPipeline(pb.pipeline);
+                    for (SceneObject* obj : pb.objects) {
+                        if (obj->hidden) { continue; }
+                        ctx.renderObject(*obj);
+                    }
+                }
+            }
+
+            speed = UpdateSpeed::Static;
         }
     }
+}
+
+void BatchedScene::renderTransparentObjects(scene::SceneRenderContext& ctx) {
+    renderBatch(ctx, transparentObjects);
+}
+
+void BatchedScene::renderOpaqueObjects(scene::SceneRenderContext& ctx) {
+    renderBatch(ctx, opaqueObjects);
 }
 
 void BatchedScene::handleAddressChange(UpdateSpeed speed, SceneObject* base) {

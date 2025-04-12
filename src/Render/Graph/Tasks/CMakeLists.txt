@@ -1,6 +1,8 @@
 target_sources(BLIB PRIVATE
 	BloomTask.cpp
 	FadeEffectTask.cpp
-	ForwardRenderTask.cpp
+	ForwardRenderOpaqueTask.cpp
+	ForwardRenderTransparentTask.cpp
 	PostProcess3DTask.cpp
+	RenderOverlayTask.cpp
 )

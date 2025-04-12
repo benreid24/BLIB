@@ -183,13 +183,9 @@ void Renderer::renderFrame() {
     // record commands to render scenes
     for (auto& o : observers) { o->renderScene(commandBuffer); }
     if (!virtualObservers.empty()) {
-        clearDepthBuffer();
         for (auto& o : virtualObservers) { o->renderScene(commandBuffer); }
     }
-    if (commonObserver.hasScene()) {
-        clearDepthBuffer();
-        commonObserver.renderScene(commandBuffer);
-    }
+    if (commonObserver.hasScene()) { commonObserver.renderScene(commandBuffer); }
 
     // perform render pass for final scene renders and overlays
     framebuffers.current().beginRender(commandBuffer,
@@ -199,14 +195,14 @@ void Renderer::renderFrame() {
                                        false);
 
     // render scene outputs
-    for (auto& o : observers) { o->compositeSceneAndOverlay(commandBuffer); }
+    for (auto& o : observers) { o->renderSceneFinal(commandBuffer); }
     if (!virtualObservers.empty()) {
         clearDepthBuffer();
-        for (auto& o : virtualObservers) { o->compositeSceneAndOverlay(commandBuffer); }
+        for (auto& o : virtualObservers) { o->renderSceneFinal(commandBuffer); }
     }
     if (commonObserver.hasScene()) {
         clearDepthBuffer();
-        commonObserver.compositeSceneAndOverlay(commandBuffer);
+        commonObserver.renderSceneFinal(commandBuffer);
     }
 
     // complete frame

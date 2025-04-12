@@ -1,5 +1,7 @@
 target_sources(BLIB PUBLIC
 	FadeEffectTask.hpp
-	ForwardRenderTask.hpp
+	ForwardRenderOpaqueTask.hpp
+	ForwardRenderTransparentTask.hpp
 	PostProcess3DTask.hpp
+	RenderOverlayTask.hpp
 )

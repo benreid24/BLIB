@@ -54,7 +54,7 @@ struct TestAsset : public Asset {
 
 struct SceneObjects : public TestAsset {
     SceneObjects()
-    : TestAsset(AssetTags::SceneObjectsInput) {}
+    : TestAsset(AssetTags::SceneInput) {}
 };
 
 struct ShadowLights : public TestAsset {
@@ -105,7 +105,7 @@ struct TestProvider : public AssetProvider {
 };
 
 void setupFactory(AssetFactory& factory) {
-    factory.addProvider<TestProvider<SceneObjects>>(AssetTags::SceneObjectsInput);
+    factory.addProvider<TestProvider<SceneObjects>>(AssetTags::SceneInput);
     factory.addProvider<TestProvider<ShadowLights>>(ShadowLightsTag);
     factory.addProvider<TestProvider<ShadowMap>>(ShadowMapTag);
     factory.addProvider<TestProvider<SceneRenderOutput>>(AssetTags::RenderedSceneOutput);
@@ -159,7 +159,7 @@ struct ShadowMapTask : public TestTask {
     ShadowMapTask()
     : TestTask() {
         assetTags.outputs.emplace_back(TaskOutput(ShadowMapTag, TaskOutput::CreatedByTask));
-        assetTags.requiredInputs.emplace_back(AssetTags::SceneObjectsInput);
+        assetTags.requiredInputs.emplace_back(AssetTags::SceneInput);
         assetTags.requiredInputs.emplace_back(ShadowLightsTag);
     }
 
@@ -186,7 +186,7 @@ struct SceneRenderTask : public TestTask {
         assetTags.outputs.emplace_back(
             TaskOutput({AssetTags::RenderedSceneOutput, AssetTags::FinalFrameOutput},
                        {TaskOutput::CreatedByTask, TaskOutput::CreatedExternally}));
-        assetTags.requiredInputs.emplace_back(AssetTags::SceneObjectsInput);
+        assetTags.requiredInputs.emplace_back(AssetTags::SceneInput);
         assetTags.optionalInputs.emplace_back(ShadowMapTag);
     }
 
@@ -333,7 +333,7 @@ struct ExternalSharingTask : public TestTask {
     , executedAtCount(10000) {
         assetTags.outputs.emplace_back(TaskOutput(
             AssetTags::FinalFrameOutput, TaskOutput::CreatedExternally, TaskOutput::Shared, order));
-        assetTags.requiredInputs.emplace_back(TaskInput{AssetTags::SceneObjectsInput});
+        assetTags.requiredInputs.emplace_back(TaskInput{AssetTags::SceneInput});
     }
 
     virtual void onGraphInit() override {
@@ -344,7 +344,7 @@ struct ExternalSharingTask : public TestTask {
 
         ASSERT_EQ(assets.requiredInputs.size(), 1);
         ASSERT_TRUE(assets.requiredInputs[0]->asset.valid());
-        ASSERT_TRUE(assets.requiredInputs[0]->asset->getTag() == AssetTags::SceneObjectsInput);
+        ASSERT_TRUE(assets.requiredInputs[0]->asset->getTag() == AssetTags::SceneInput);
     }
 
     virtual void onExecute() override { executedAtCount = counter++; }

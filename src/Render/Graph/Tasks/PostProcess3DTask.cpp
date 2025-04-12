@@ -77,16 +77,12 @@ void PostProcess3DTask::execute(const rg::ExecutionContext& ctx, rg::Asset* outp
     FramebufferAsset* fb = dynamic_cast<FramebufferAsset*>(output);
     if (!fb) { throw std::runtime_error("Got bad output"); }
 
-    fb->beginRender(ctx.commandBuffer, true);
-
     pipeline->bind(ctx.commandBuffer, fb->getRenderPassId());
     colorAttachmentSet->bind(ctx.commandBuffer, pipeline->pipelineLayout().rawLayout(), 0);
     bloomAttachmentSet->bind(ctx.commandBuffer, pipeline->pipelineLayout().rawLayout(), 1);
     renderer->getGlobalDescriptorData().bindDescriptors(
         ctx.commandBuffer, pipeline->pipelineLayout().rawLayout(), 2, ctx.renderingToRenderTexture);
     indexBuffer.bindAndDraw(ctx.commandBuffer);
-
-    fb->finishRender(ctx.commandBuffer);
 }
 
 void PostProcess3DTask::update(float) {}

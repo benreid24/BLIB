@@ -65,11 +65,25 @@ public:
     virtual ~Scene() = default;
 
     /**
-     * @brief Derived classes should record render commands in here
+     * @brief Calls renderOpaqueObjects then renderTransparentObjects
      *
      * @param context Render context containing scene render data
      */
-    virtual void renderScene(scene::SceneRenderContext& context) = 0;
+    void renderScene(scene::SceneRenderContext& context);
+
+    /**
+     * @brief Derived classes should draw opaque objects here
+     *
+     * @param context Render context containing scene render data
+     */
+    virtual void renderOpaqueObjects(scene::SceneRenderContext& context) = 0;
+
+    /**
+     * @brief Derived classes should draw transparent objects here
+     *
+     * @param context Render context containing scene render data
+     */
+    virtual void renderTransparentObjects(scene::SceneRenderContext& context) = 0;
 
     /**
      * @brief Returns the render strategy to use for this scene type

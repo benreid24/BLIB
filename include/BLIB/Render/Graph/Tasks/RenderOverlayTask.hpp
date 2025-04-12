@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_GRAPH_TASKS_FORWARDRENDERTASK_HPP
-#define BLIB_RENDER_GRAPH_TASKS_FORWARDRENDERTASK_HPP
+#ifndef BLIB_RENDER_GRAPH_TASKS_RENDEROVERLAYTASK_HPP
+#define BLIB_RENDER_GRAPH_TASKS_RENDEROVERLAYTASK_HPP
 
 #include <BLIB/Render/Graph/Assets/FramebufferAsset.hpp>
 #include <BLIB/Render/Graph/Assets/SceneAsset.hpp>
@@ -12,24 +12,27 @@ namespace rc
 namespace rgi
 {
 /**
- * @brief Basic forward renderer that calls into the scene render methods
+ * @brief Basic render task that calls Overlay render method
  *
  * @ingroup Renderer
  */
-class ForwardRenderTask : public rg::Task {
+class RenderOverlayTask : public rg::Task {
 public:
     /**
-     * @brief Creates a new forward renderer task
+     * @brief Creates the task
+     *
+     * @param observerIndexOverride Optional override to use for observer index
      */
-    ForwardRenderTask();
+    RenderOverlayTask(unsigned int* observerIndexOverride = nullptr);
 
     /**
      * @brief Destroys the task
      */
-    virtual ~ForwardRenderTask() = default;
+    virtual ~RenderOverlayTask() = default;
 
 private:
     SceneAsset* scene;
+    unsigned int* observerIndexOverride;
 
     virtual void create(engine::Engine& engine, Renderer& renderer, Scene* scene) override;
     virtual void onGraphInit() override;

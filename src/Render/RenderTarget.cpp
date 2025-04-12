@@ -3,7 +3,9 @@
 #include <BLIB/Cameras/2D/Camera2D.hpp>
 #include <BLIB/Cameras/3D/Camera3D.hpp>
 #include <BLIB/Engine/Engine.hpp>
+#include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Graph/Assets/SceneAsset.hpp>
+#include <BLIB/Render/Graph/Tasks/RenderOverlayTask.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Render/Scenes/Scene2D.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -59,6 +61,10 @@ Overlay* RenderTarget::createSceneOverlay() {
     scenes.back().overlayRef   = renderer.scenePool().allocateScene<Overlay>();
     scenes.back().overlay      = static_cast<Overlay*>(scenes.back().overlayRef.get());
     scenes.back().overlayIndex = scenes.back().overlay->registerObserver();
+    graphAssets.replaceAsset<rgi::SceneAsset>(scenes.back().overlay, rg::AssetTags::OverlayInput);
+    scenes.back().graph.removeTasks<rgi::RenderOverlayTask>();
+    scenes.back().graph.putTask<rgi::RenderOverlayTask>(&scenes.back().overlayIndex);
+
     return scenes.back().overlay;
 }
 
@@ -112,7 +118,8 @@ void RenderTarget::onSceneAdd() {
 
 void RenderTarget::onSceneChange() {
     if (hasScene()) {
-        graphAssets.replaceAsset<rgi::SceneAsset>(scenes.back().scene.get());
+        graphAssets.replaceAsset<rgi::SceneAsset>(scenes.back().scene.get(),
+                                                  rg::AssetTags::SceneInput);
         scenes.back().graph.populate(*scenes.back().scene);
         graphAssets.releaseUnused();
     }
@@ -220,38 +227,6 @@ void RenderTarget::renderSceneFinal(VkCommandBuffer commandBuffer) {
         scenes.back().graph.executeFinal(
             commandBuffer, scenes.back().observerIndex, isRenderTexture);
     }
-}
-
-void RenderTarget::renderOverlay(VkCommandBuffer commandBuffer) {
-    if (hasScene()) {
-        if (scenes.back().overlay) {
-            VkClearAttachment attachment{};
-            attachment.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT;
-            attachment.clearValue = clearColors[1];
-
-            VkClearRect rect{};
-            rect.rect           = scissor;
-            rect.baseArrayLayer = 0;
-            rect.layerCount     = 1;
-
-            vkCmdClearAttachments(commandBuffer, 1, &attachment, 1, &rect);
-
-            scene::SceneRenderContext ctx(commandBuffer,
-                                          scenes.back().overlayIndex,
-                                          viewport,
-                                          RenderPhase::Overlay,
-                                          isRenderTexture ?
-                                              Config::RenderPassIds::StandardAttachmentDefault :
-                                              Config::RenderPassIds::SwapchainDefault,
-                                          isRenderTexture);
-            scenes.back().overlay->renderScene(ctx);
-        }
-    }
-}
-
-void RenderTarget::compositeSceneAndOverlay(VkCommandBuffer commandBuffer) {
-    renderSceneFinal(commandBuffer);
-    renderOverlay(commandBuffer);
 }
 
 void RenderTarget::resetAssets() { graphAssets.startFrame(); }

@@ -15,13 +15,13 @@ namespace rg
  * @ingroup Renderer
  */
 struct AssetTags {
-    static constexpr std::string_view RenderedSceneOutput    = "_builtin_RenderedSceneOutput";
-    static constexpr std::string_view RenderedSceneOutputHDR = "_builtin_RenderedSceneOutputHDR";
-    static constexpr std::string_view PostFXOutput           = "_builtin_PostFXOutput";
-    static constexpr std::string_view FinalFrameOutput       = "_builtin_FinalFrameOutput";
-    static constexpr std::string_view SceneObjectsInput      = "_builtin_SceneObjectsInput";
-    static constexpr std::string_view BloomColorAttachmentPair =
-        "_builtin_BloomColorAttachmentPair";
+    static constexpr std::string_view RenderedSceneOutput      = "_builtin_RenderedSceneOutput";
+    static constexpr std::string_view RenderedSceneOutputHDR   = "_builtin_RenderedSceneOutputHDR";
+    static constexpr std::string_view PostFXOutput             = "_builtin_PostFXOutput";
+    static constexpr std::string_view FinalFrameOutput         = "_builtin_FinalFrameOutput";
+    static constexpr std::string_view SceneInput               = "_builtin_SceneInput";
+    static constexpr std::string_view OverlayInput             = "_builtin_OverlayInput";
+    static constexpr std::string_view BloomColorAttachmentPair = "_builtin_BloomColorImagePair";
 };
 
 } // namespace rg

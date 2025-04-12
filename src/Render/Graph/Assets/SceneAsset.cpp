@@ -1,15 +1,13 @@
 #include <BLIB/Render/Graph/Assets/SceneAsset.hpp>
 
-#include <BLIB/Render/Graph/AssetTags.hpp>
-
 namespace bl
 {
 namespace rc
 {
 namespace rgi
 {
-SceneAsset::SceneAsset(Scene* s)
-: Asset(rg::AssetTags::SceneObjectsInput)
+SceneAsset::SceneAsset(Scene* s, std::string_view tag)
+: Asset(tag)
 , scene(s) {}
 
 void SceneAsset::doCreate(engine::Engine&, Renderer&, RenderTarget*) {

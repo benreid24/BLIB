@@ -31,11 +31,18 @@ public:
     virtual ~BatchedScene();
 
     /**
-     * @brief Derived classes should record render commands in here
+     * @brief Renders opaque objects in the scene
      *
      * @param context Render context containing scene render data
      */
-    virtual void renderScene(scene::SceneRenderContext& context) override;
+    virtual void renderOpaqueObjects(scene::SceneRenderContext& context) override;
+
+    /**
+     * @brief Renders opaque transparent in the scene
+     *
+     * @param context Render context containing scene render data
+     */
+    virtual void renderTransparentObjects(scene::SceneRenderContext& context) override;
 
 protected:
     /**
@@ -121,6 +128,7 @@ private:
 
     void handleAddressChange(UpdateSpeed speed, SceneObject* oldBase);
     void releaseObject(SceneObject* object, mat::MaterialPipeline* pipeline);
+    void renderBatch(scene::SceneRenderContext& ctx, ObjectBatch& batch);
 };
 
 } // namespace scene

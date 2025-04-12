@@ -53,11 +53,16 @@ public:
     virtual ~Overlay();
 
     /**
-     * @brief Derived classes should record render commands in here
+     * @brief Renders all objects in the overlay
      *
      * @param context Render context containing scene render data
      */
-    virtual void renderScene(scene::SceneRenderContext& context) override;
+    virtual void renderOpaqueObjects(scene::SceneRenderContext& context) override;
+
+    /**
+     * @brief Does nothing
+     */
+    virtual void renderTransparentObjects(scene::SceneRenderContext&) override {}
 
     /**
      * @brief Replaces the current strategy with a new one of type T. Default is

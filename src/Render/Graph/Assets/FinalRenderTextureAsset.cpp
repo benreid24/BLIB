@@ -25,15 +25,15 @@ void FinalRenderTextureAsset::doCreate(engine::Engine&, Renderer& renderer, Rend
 }
 
 void FinalRenderTextureAsset::doPrepareForInput(const rg::ExecutionContext&) {
-    // noop, handled by renderpass
+    // noop, handled by render pass
 }
 
-void FinalRenderTextureAsset::doStartOutput(const rg::ExecutionContext&) {
-    // noop, handled by RenderTexture
+void FinalRenderTextureAsset::doStartOutput(const rg::ExecutionContext& ctx) {
+    beginRender(ctx.commandBuffer, true);
 }
 
-void FinalRenderTextureAsset::doEndOutput(const rg::ExecutionContext&) {
-    // noop, handled by RenderTexture
+void FinalRenderTextureAsset::doEndOutput(const rg::ExecutionContext& ctx) {
+    finishRender(ctx.commandBuffer);
 }
 
 vk::Framebuffer& FinalRenderTextureAsset::currentFramebuffer() { return framebuffer; }

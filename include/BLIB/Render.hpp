@@ -73,7 +73,6 @@
 #include <BLIB/Render/Graph/TaskAssets.hpp>
 #include <BLIB/Render/Graph/TaskInput.hpp>
 #include <BLIB/Render/Graph/Tasks/FadeEffectTask.hpp>
-#include <BLIB/Render/Graph/Tasks/ForwardRenderTask.hpp>
 #include <BLIB/Render/Materials/Material.hpp>
 #include <BLIB/Render/Materials/MaterialPipeline.hpp>
 #include <BLIB/Render/Materials/MaterialPipelineSettings.hpp>

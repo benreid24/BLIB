@@ -26,12 +26,12 @@ void FinalSwapframeAsset::doPrepareForInput(const rg::ExecutionContext&) {
     // noop, handled by render pass
 }
 
-void FinalSwapframeAsset::doStartOutput(const rg::ExecutionContext&) {
-    // noop, handled by renderer
+void FinalSwapframeAsset::doStartOutput(const rg::ExecutionContext& ctx) {
+    beginRender(ctx.commandBuffer, true);
 }
 
-void FinalSwapframeAsset::doEndOutput(const rg::ExecutionContext&) {
-    // noop, handled by renderer
+void FinalSwapframeAsset::doEndOutput(const rg::ExecutionContext& ctx) {
+    finishRender(ctx.commandBuffer);
 }
 
 vk::Framebuffer& FinalSwapframeAsset::currentFramebuffer() { return framebuffers.current(); }
