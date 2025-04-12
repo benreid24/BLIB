@@ -29,7 +29,9 @@ void AssetPool::releaseUnused() {
 Asset* AssetPool::getAsset(std::string_view tag, GraphAssetPool* requester) {
     const auto it = assets.find(tag);
     if (it != assets.end()) {
-        if (requester == nullptr && !it->second.empty()) { return it->second.front().get(); }
+        if (!it->second.empty() && (requester == nullptr || it->second.front()->isExternal())) {
+            return it->second.front().get();
+        }
         for (auto& asset : it->second) {
             if (!asset->isOwnedBy(requester)) {
                 asset->addOwner(requester);

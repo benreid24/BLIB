@@ -26,8 +26,9 @@ GraphAsset* GraphAssetPool::getAssetForOutput(std::string_view tag, Task* task) 
         // dont return non-external assets for inputs
         if (!task && !asset->isExternal()) { return nullptr; }
 
-        auto& set      = assets[tag];
-        GraphAsset* ga = &set.emplace_back(asset);
+        auto& set            = assets[tag];
+        const bool createNew = !asset->isExternal() || set.empty();
+        GraphAsset* ga       = createNew ? &set.emplace_back(asset) : &set.front();
         return ga;
     }
     return nullptr;

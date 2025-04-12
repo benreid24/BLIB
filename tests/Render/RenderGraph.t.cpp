@@ -326,6 +326,33 @@ struct BloomTask : public TestTask {
     virtual void onExecute() override {}
 };
 
+struct ExternalSharingTask : public TestTask {
+    ExternalSharingTask(TaskOutput::Order order, int& counter)
+    : TestTask()
+    , counter(counter)
+    , executedAtCount(10000) {
+        assetTags.outputs.emplace_back(TaskOutput(
+            AssetTags::FinalFrameOutput, TaskOutput::CreatedExternally, TaskOutput::Shared, order));
+        assetTags.requiredInputs.emplace_back(TaskInput{AssetTags::SceneObjectsInput});
+    }
+
+    virtual void onGraphInit() override {
+        graphInit = true;
+
+        ASSERT_NE(dynamic_cast<Swapframe*>(&assets.outputs[0]->asset.get()), nullptr);
+        dynamic_cast<Swapframe*>(&assets.outputs[0]->asset.get())->rendered = true;
+
+        ASSERT_EQ(assets.requiredInputs.size(), 1);
+        ASSERT_TRUE(assets.requiredInputs[0]->asset.valid());
+        ASSERT_TRUE(assets.requiredInputs[0]->asset->getTag() == AssetTags::SceneObjectsInput);
+    }
+
+    virtual void onExecute() override { executedAtCount = counter++; }
+
+    int& counter;
+    int executedAtCount;
+};
+
 } // namespace
 
 TEST(RenderGraph, BasicSceneRender) {
@@ -457,6 +484,29 @@ TEST(RenderGraph, TasksSharingInputs) {
     graph.execute(nullptr, 0, false);
     graph.executeFinal(nullptr, 0, false);
     EXPECT_TRUE(swapframe->rendered);
+}
+
+TEST(RenderGraph, TasksSharingExternalInputsAndOutputs) {
+    AssetFactory factory;
+    setupFactory(factory);
+
+    AssetPool pool(factory, nullptr);
+    pool.putAsset<SceneObjects>();
+    Swapframe* swapframe = pool.putAsset<Swapframe>();
+
+    engine::Engine engine(engine::Settings{});
+    RenderGraph graph(engine, engine.renderer(), pool, nullptr, nullptr);
+
+    int counter = 0;
+    auto* task1 = graph.putTask<ExternalSharingTask>(TaskOutput::First, counter);
+    auto* task2 = graph.putTask<ExternalSharingTask>(TaskOutput::Last, counter);
+
+    graph.execute(nullptr, 0, false);
+    graph.executeFinal(nullptr, 0, false);
+    EXPECT_TRUE(swapframe->rendered);
+    EXPECT_EQ(counter, 2);
+    EXPECT_EQ(task1->executedAtCount, 0);
+    EXPECT_EQ(task2->executedAtCount, 1);
 }
 
 } // namespace unittest
