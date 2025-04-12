@@ -13,9 +13,12 @@ namespace rgi
 {
 FadeEffectTask::FadeEffectTask(float fadeTime, float start, float end)
 : renderer(nullptr) {
-    assetTags.concreteOutputs.emplace_back(rg::AssetTags::FinalFrameOutput);
-    assetTags.createdOutputs.emplace_back(rg::AssetTags::PostFXOutput);
-    assetTags.requiredInputs.emplace_back(rg::AssetTags::RenderedSceneOutput);
+    assetTags.outputs.emplace_back(
+        rg::TaskOutput({rg::AssetTags::PostFXOutput, rg::AssetTags::FinalFrameOutput},
+                       {rg::TaskOutput::CreatedByTask, rg::TaskOutput::CreatedExternally},
+                       {rg::TaskOutput::Exclusive, rg::TaskOutput::Shared}));
+    assetTags.requiredInputs.emplace_back(rg::AssetTags::RenderedSceneOutput,
+                                          rg::TaskInput::Exclusive);
 
     fade(fadeTime, start, end);
 }
@@ -56,22 +59,22 @@ void FadeEffectTask::onGraphInit() {
         dynamic_cast<FramebufferAsset*>(&assets.requiredInputs[0]->asset.get());
     if (!input) { throw std::runtime_error("Got bad input"); }
 
-    output = dynamic_cast<FramebufferAsset*>(&assets.output->asset.get());
-    if (!output) { throw std::runtime_error("Got bad output"); }
-
     auto& set = scene->getDescriptorSet<ds::ColorAttachmentInstance>();
     set.initAttachments(
         input->getAttachmentSets(), 0, renderer->vulkanState().samplerCache.noFilterEdgeClamped());
 }
 
-void FadeEffectTask::execute(const rg::ExecutionContext& ctx) {
-    output->beginRender(ctx.commandBuffer, true);
+void FadeEffectTask::execute(const rg::ExecutionContext& ctx, rg::Asset* output) {
+    FramebufferAsset* fb = dynamic_cast<FramebufferAsset*>(output);
+    if (!fb) { throw std::runtime_error("Got bad output"); }
+
+    fb->beginRender(ctx.commandBuffer, true);
 
     scene::SceneRenderContext renderCtx(ctx.commandBuffer,
                                         ctx.observerIndex,
-                                        output->getViewport(),
+                                        fb->getViewport(),
                                         RenderPhase::PostProcess,
-                                        output->getRenderPassId(),
+                                        fb->getRenderPassId(),
                                         ctx.renderingToRenderTexture);
 
     pipeline.bind(renderCtx);
@@ -83,7 +86,7 @@ void FadeEffectTask::execute(const rg::ExecutionContext& ctx) {
                        &factor);
     indexBuffer.bindAndDraw(ctx.commandBuffer);
 
-    output->finishRender(ctx.commandBuffer);
+    fb->finishRender(ctx.commandBuffer);
 }
 
 void FadeEffectTask::update(float dt) {

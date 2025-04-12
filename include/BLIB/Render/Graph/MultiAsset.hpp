@@ -80,7 +80,8 @@ private:
     virtual void doCreate(engine::Engine& engine, Renderer& renderer,
                           RenderTarget* observer) override;
     virtual void doPrepareForInput(const ExecutionContext& context) override;
-    virtual void doPrepareForOutput(const ExecutionContext& context) override;
+    virtual void doStartOutput(const rg::ExecutionContext& context) override;
+    virtual void doEndOutput(const rg::ExecutionContext& context) override;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -136,8 +137,13 @@ void MultiAsset<T, N>::doPrepareForInput(const ExecutionContext& context) {
 }
 
 template<typename T, std::uint32_t N>
-void MultiAsset<T, N>::doPrepareForOutput(const ExecutionContext& context) {
-    for (auto& asset : assets) { asset->prepareForOutput(context); }
+void MultiAsset<T, N>::doStartOutput(const ExecutionContext& context) {
+    for (auto& asset : assets) { asset->startOutput(context); }
+}
+
+template<typename T, std::uint32_t N>
+void MultiAsset<T, N>::doEndOutput(const ExecutionContext& context) {
+    for (auto& asset : assets) { asset->endOutput(context); }
 }
 
 } // namespace rg

@@ -2,6 +2,7 @@
 #define BLIB_RENDER_GRAPH_ASSETS_STANDARDATTACHMENTASSET_HPP
 
 #include <BLIB/Render/Graph/Assets/FramebufferAsset.hpp>
+#include <BLIB/Render/Graph/Assets/RenderPassBehavior.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp>
@@ -17,9 +18,11 @@ namespace rgi
  *
  * @tparam RenderPassId The id of the render pass to use
  * @tparam ColorFormat The format of the color attachment
+ * @tparam RenderPassMode Whether this asset is responsible for render pass start/stop
  * @ingroup Renderer
  */
-template<std::uint32_t RenderPassId, VkFormat ColorFormat>
+template<std::uint32_t RenderPassId, VkFormat ColorFormat,
+         RenderPassBehavior RenderPassMode = RenderPassBehavior::StartedByAsset>
 class StandardTargetAsset : public FramebufferAsset {
 public:
     /**
@@ -83,7 +86,18 @@ private:
     }
 
     virtual void doPrepareForInput(const rg::ExecutionContext&) override {}
-    virtual void doPrepareForOutput(const rg::ExecutionContext&) override {}
+
+    virtual void doStartOutput(const rg::ExecutionContext& context) override {
+        if constexpr (RenderPassMode == RenderPassBehavior::StartedByAsset) {
+            beginRender(context.commandBuffer, true);
+        }
+    }
+
+    virtual void doEndOutput(const rg::ExecutionContext& context) override {
+        if constexpr (RenderPassMode == RenderPassBehavior::StartedByAsset) {
+            finishRender(context.commandBuffer);
+        }
+    }
 
     virtual void onResize(glm::u32vec2 newSize) override {
         clearColors                 = observer->getClearColors();
@@ -107,6 +121,22 @@ private:
         }
     }
 };
+
+/**
+ * @brief Helper typedef for standard target assets using regular color formats
+ *
+ * @ingroup Renderer
+ */
+using LDRStandardTargetAsset = StandardTargetAsset<Config::RenderPassIds::StandardAttachmentDefault,
+                                                   vk::TextureFormat::SRGBA32Bit>;
+
+/**
+ * @brief Helper typedef for standard target assets using HDR color formats
+ *
+ * @ingroup Renderer
+ */
+using HDRStandardTargetAsset =
+    StandardTargetAsset<Config::RenderPassIds::HDRAttachmentDefault, vk::TextureFormat::HDRColor>;
 
 } // namespace rgi
 } // namespace rc

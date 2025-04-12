@@ -74,7 +74,6 @@ public:
 private:
     Renderer* renderer;
     Scene* scene;
-    FramebufferAsset* output;
     buf::IndexBuffer indexBuffer;
     vk::PipelineInstance pipeline;
     ds::ColorAttachmentInstance* colorAttachmentSet;
@@ -84,7 +83,7 @@ private:
 
     virtual void create(engine::Engine& engine, Renderer& renderer, Scene* scene) override;
     virtual void onGraphInit() override;
-    virtual void execute(const rg::ExecutionContext& ctx) override;
+    virtual void execute(const rg::ExecutionContext& ctx, rg::Asset* output) override;
 };
 
 } // namespace rgi

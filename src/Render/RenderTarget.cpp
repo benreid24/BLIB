@@ -254,5 +254,7 @@ void RenderTarget::compositeSceneAndOverlay(VkCommandBuffer commandBuffer) {
     renderOverlay(commandBuffer);
 }
 
+void RenderTarget::resetAssets() { graphAssets.startFrame(); }
+
 } // namespace rc
 } // namespace bl

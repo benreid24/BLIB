@@ -62,7 +62,7 @@
 #include <BLIB/Render/Graph/ExecutionContext.hpp>
 #include <BLIB/Render/Graph/GraphAsset.hpp>
 #include <BLIB/Render/Graph/GraphAssetPool.hpp>
-#include <BLIB/Render/Graph/Providers/StandardTargetProvider.hpp>
+#include <BLIB/Render/Graph/Providers/SimpleAssetProvider.hpp>
 #include <BLIB/Render/Graph/RenderGraph.hpp>
 #include <BLIB/Render/Graph/Strategies/ForwardRenderStrategy.hpp>
 #include <BLIB/Render/Graph/Strategy.hpp>

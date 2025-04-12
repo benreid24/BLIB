@@ -16,9 +16,11 @@ namespace rgi
  *
  * @tparam RenderPassId The id of the render pass to use
  * @tparam AttachmentCount The number of attachments to create
+ * @tparam RenderPassMode Whether this asset is responsible for render pass start/stop
  * @ingroup Renderer
  */
-template<std::uint32_t RenderPassId, std::uint32_t AttachmentCount>
+template<std::uint32_t RenderPassId, std::uint32_t AttachmentCount,
+         RenderPassBehavior RenderPassMode>
 class GenericTargetProvider : public rg::AssetProvider {
 public:
     /**
@@ -43,7 +45,7 @@ public:
      * @return The newly created asset
      */
     virtual rg::Asset* create(std::string_view tag) override {
-        return new GenericTargetAsset<RenderPassId, AttachmentCount>(
+        return new GenericTargetAsset<RenderPassId, AttachmentCount, RenderPassMode>(
             tag, imageFormats, imageUsages, clearColors, size);
     }
 

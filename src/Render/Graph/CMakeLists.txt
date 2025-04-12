@@ -6,6 +6,7 @@ target_sources(BLIB PRIVATE
 	RenderGraph.cpp
 	Task.cpp
 	TaskAssets.cpp
+	Timeline.cpp
 )
 
 add_subdirectory(Assets)

@@ -2,6 +2,7 @@
 #define BLIB_RENDER_GRAPH_ASSETS_GENERICTARGETASSET_HPP
 
 #include <BLIB/Render/Graph/Assets/FramebufferAsset.hpp>
+#include <BLIB/Render/Graph/Assets/RenderPassBehavior.hpp>
 #include <BLIB/Render/Graph/Assets/TargetSize.hpp>
 #include <BLIB/Render/Vulkan/AttachmentBufferSet.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
@@ -20,10 +21,12 @@ namespace rgi
  * @brief Generic asset for a templated set of attachments
  *
  * @tparam RenderPassId The id of the render pass to use
- * @tparam param AttachmentCount The number of attachments to create
+ * @tparam AttachmentCount The number of attachments to create
+ * @tparam RenderPassMode Whether this asset is responsible for render pass start/stop
  * @ingroup Renderer
  */
-template<std::uint32_t RenderPassId, std::uint32_t AttachmentCount>
+template<std::uint32_t RenderPassId, std::uint32_t AttachmentCount,
+         RenderPassBehavior RenderPassMode>
 class GenericTargetAsset : public FramebufferAsset {
 public:
     /**
@@ -102,7 +105,18 @@ private:
     }
 
     virtual void doPrepareForInput(const rg::ExecutionContext&) override {}
-    virtual void doPrepareForOutput(const rg::ExecutionContext&) override {}
+
+    virtual void doStartOutput(const rg::ExecutionContext& context) override {
+        if constexpr (RenderPassMode == RenderPassBehavior::StartedByAsset) {
+            beginRender(context.commandBuffer, true);
+        }
+    }
+
+    virtual void doEndOutput(const rg::ExecutionContext& context) override {
+        if constexpr (RenderPassMode == RenderPassBehavior::StartedByAsset) {
+            finishRender(context.commandBuffer);
+        }
+    }
 
     virtual void onResize(glm::u32vec2 newSize) override {
         switch (size.type) {

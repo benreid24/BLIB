@@ -29,12 +29,13 @@ struct UniformPayload {
 } // namespace
 
 BloomTask::BloomTask() {
-    assetTags.requiredInputs.emplace_back(
-        rg::TaskInput(rg::AssetTags::RenderedSceneOutputHDR, rg::TaskInput::Shared));
-    assetTags.createdOutputs.emplace_back(rg::AssetTags::BloomColorAttachmentPair);
+    assetTags.requiredInputs.emplace_back(rg::TaskInput(rg::AssetTags::RenderedSceneOutputHDR));
+    assetTags.outputs.emplace_back(rg::TaskOutput(rg::AssetTags::BloomColorAttachmentPair,
+                                                  rg::TaskOutput::CreatedByTask,
+                                                  rg::TaskOutput::Exclusive));
 }
 
-void BloomTask::create(engine::Engine&, Renderer& r, Scene* scene) {
+void BloomTask::create(engine::Engine&, Renderer& r, Scene*) {
     renderer = &r;
 
     filterHighlightPipeline =
@@ -53,7 +54,7 @@ void BloomTask::create(engine::Engine&, Renderer& r, Scene* scene) {
 void BloomTask::onGraphInit() {
     input = dynamic_cast<FramebufferAsset*>(&assets.requiredInputs[0]->asset.get());
     if (!input) { throw std::runtime_error("Got bad input"); }
-    output = dynamic_cast<BloomColorAttachmentPairAsset*>(&assets.output->asset.get());
+    output = dynamic_cast<BloomColorAttachmentPairAsset*>(&assets.outputs[0]->asset.get());
     if (!output) { throw std::runtime_error("Got bad output"); }
 
     const auto sampler   = renderer->vulkanState().samplerCache.noFilterEdgeClamped();
@@ -71,7 +72,7 @@ void BloomTask::onGraphInit() {
     output2Descriptor.value().initAttachments(output->get(1).getAttachmentSets(), 0, sampler);
 }
 
-void BloomTask::execute(const rg::ExecutionContext& ctx) {
+void BloomTask::execute(const rg::ExecutionContext& ctx, rg::Asset*) {
     BloomColorAttachmentAsset* targets[2]       = {&output->get(0), &output->get(1)};
     ds::ColorAttachmentInstance* attachments[2] = {
         &output1Descriptor.value(),

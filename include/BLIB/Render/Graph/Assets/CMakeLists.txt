@@ -4,6 +4,7 @@ target_sources(BLIB PUBLIC
 	FinalSwapframeAsset.hpp
 	FramebufferAsset.hpp
 	GenericTargetAsset.hpp
+	RenderPassBehavior.hpp
 	SceneAsset.hpp
 	StandardTargetAsset.hpp
 	TargetSize.hpp

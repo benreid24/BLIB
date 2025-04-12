@@ -22,51 +22,28 @@ RenderGraph::RenderGraph(engine::Engine& engine, Renderer& renderer, AssetPool& 
 , observer(observer)
 , scene(scene)
 , assets(pool)
+, timeline(engine, renderer, observer)
 , needsRebuild(false)
 , needsReset(true) {
     tasks.reserve(8);
-    timeline.reserve(8);
 }
 
 void RenderGraph::execute(VkCommandBuffer commandBuffer, std::uint32_t oi, bool rt) {
     if (needsRebuild) { build(); }
 
-    if (timeline.size() > 1) {
-        const ExecutionContext ctx(engine, renderer, commandBuffer, oi, rt, false);
-        for (auto it = timeline.begin(); it != timeline.end() - 1; ++it) {
-            for (Task* task : it->tasks) {
-                for (GraphAsset* input : task->assets.requiredInputs) {
-                    input->asset->prepareForInput(ctx);
-                }
-                for (GraphAsset* input : task->assets.optionalInputs) {
-                    if (input) { input->asset->prepareForInput(ctx); }
-                }
-                task->assets.output->asset->prepareForOutput(ctx);
-                task->execute(ctx);
-            }
-        }
-    }
+    const ExecutionContext ctx(engine, renderer, commandBuffer, oi, rt, false);
+    timeline.execute(ctx);
 }
 
 void RenderGraph::executeFinal(VkCommandBuffer commandBuffer, std::uint32_t oi, bool rt) {
     const ExecutionContext ctx(engine, renderer, commandBuffer, oi, rt, true);
-    for (Task* task : timeline.back().tasks) {
-        for (GraphAsset* input : task->assets.requiredInputs) {
-            input->asset->prepareForInput(ctx);
-        }
-        for (GraphAsset* input : task->assets.optionalInputs) {
-            if (input) { input->asset->prepareForInput(ctx); }
-        }
-        task->assets.output->asset->prepareForOutput(ctx);
-        task->execute(ctx);
-    }
+    timeline.executeFinal(ctx);
 }
 
 void RenderGraph::build() {
     needsRebuild = false;
     for (auto& task : tasks) { task->assets.init(task->assetTags); }
     assets.reset();
-    timeline.clear();
 
     std::vector<Task*> missingInputs;
     missingInputs.reserve(tasks.size());
@@ -86,7 +63,7 @@ void RenderGraph::build() {
             addInputTask(task);
         };
 
-    // first link all inputs for concrete assets, mark tasks missing inputs
+    // first link all inputs for external assets, mark tasks missing inputs
     for (auto& task : tasks) {
         for (unsigned int i = 0; i < task->assetTags.requiredInputs.size(); ++i) {
             tryLinkConcreteInput(
@@ -100,23 +77,35 @@ void RenderGraph::build() {
 
     const auto findAssetCreator =
         [this](Task* task, const TaskInput& tags, GraphAsset*& asset) -> bool {
-        for (auto tag : tags.options) {
-            for (auto& ctask : tasks) {
-                if (ctask.get() != task &&
-                    std::find(ctask->assetTags.createdOutputs.begin(),
-                              ctask->assetTags.createdOutputs.end(),
-                              tag) != ctask->assetTags.createdOutputs.end()) {
-                    if (!ctask->assets.output) {
-                        asset                = assets.createAsset(tag, ctask.get());
-                        ctask->assets.output = asset;
-                        return true;
-                    }
+        for (auto tag : tags.options) {    // for all input slot options
+            for (auto& ctask : tasks) {    // for all tasks
+                if (ctask.get() != task) { // that are not the requesting task
+                    for (auto& output : ctask->assetTags.outputs) { // for each task output slot
+                        for (auto& option : output.options) {       // for each output slot option
+                            // if the slot matches and the task is allowed to create the asset
+                            if (option.tag == tag &&
+                                option.createMode == TaskOutput::CreatedByTask) {
+                                const unsigned int i = &output - ctask->assetTags.outputs.data();
+                                auto*& outputPtr     = ctask->assets.outputs[i];
 
-                    // allow tasks to share created outputs
-                    else if (tags.shareMode != TaskInput::Exclusive &&
-                             ctask->assets.output->asset->getTag() == tag) {
-                        asset = ctask->assets.output;
-                        return true;
+                                // create the asset if it does not exist
+                                if (!outputPtr) {
+                                    asset = assets.createAsset(tag, ctask.get());
+                                    asset->outputtedBy.emplace_back(ctask.get());
+                                    outputPtr = asset;
+                                    return true;
+                                }
+
+                                // allow tasks to share already created assets if permitted
+                                else if (tags.shareMode != TaskInput::Exclusive &&
+                                         option.shareMode != TaskOutput::Exclusive &&
+                                         outputPtr->asset->getTag() == tag) {
+                                    outputPtr->outputtedBy.emplace_back(task);
+                                    asset = outputPtr;
+                                    return true;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -142,121 +131,33 @@ void RenderGraph::build() {
         }
     }
 
-    // link task outputs that are not yet linked
+    // link remaining task outputs to external (or other task) assets
     for (auto& task : tasks) {
-        if (!task->assets.output) {
-            for (std::string_view tag : task->assetTags.concreteOutputs) {
-                GraphAsset* asset = assets.getAssetForOutput(tag, task.get());
+        for (unsigned int i = 0; i < task->assets.outputs.size(); ++i) {
+            if (task->assets.outputs[i]) { continue; }
+
+            const auto& params = task->assetTags.outputs[i];
+            for (auto& option : params.options) {
+                if (option.createMode != TaskOutput::CreatedExternally) { continue; }
+
+                GraphAsset* asset = assets.getAssetForOutput(option.tag, task.get());
                 if (asset) {
-                    task->assets.output = asset;
+                    asset->outputtedBy.emplace_back(task.get());
+                    task->assets.outputs[i] = asset;
                     break;
                 }
             }
-        }
-    }
-
-    // assemble timeline
-    GraphAsset* swapframe = assets.getFinalOutput();
-
-    // create reachable assets and determine depth
-    unsigned int depth = 0;
-    traverse(
-        [this, &depth](Task* task, unsigned int d) {
-            depth = std::max(depth, d);
-
-            // create assets
-            task->assets.output->asset->create(engine, renderer, observer);
-            for (GraphAsset* input : task->assets.requiredInputs) {
-                input->asset->create(engine, renderer, observer);
-            }
-            for (GraphAsset* input : task->assets.optionalInputs) {
-                if (input) { input->asset->create(engine, renderer, observer); }
-            }
-        },
-        swapframe);
-
-    // populate timeline
-    timeline.resize(depth + 1);
-    traverse(
-        [this](Task* task, unsigned int d) {
-            task->onGraphInit();
-            (timeline.rbegin() + d)->tasks.emplace_back(task);
-        },
-        swapframe);
-
-    // shift tasks forward as much as possible. start by finding leaf inputs
-    std::queue<std::pair<GraphAsset*, Task*>> toVisit;
-
-    for (auto& step : timeline) {
-        for (Task* task : step.tasks) {
-            for (GraphAsset* asset : task->assets.requiredInputs) {
-                if (!asset->outputtedBy) {
-                    toVisit.emplace(asset, task);
-                    asset->firstAvailableStep = 0;
-                }
-            }
-            for (GraphAsset* asset : task->assets.optionalInputs) {
-                if (asset && !asset->outputtedBy) {
-                    toVisit.emplace(asset, task);
-                    asset->firstAvailableStep = 0;
-                }
+            if (!task->assets.outputs[i]) {
+                BL_LOG_WARN << "Found dead-end for task with unlinked output";
             }
         }
     }
 
-    const auto isInput = [](GraphAsset* asset, Task* task) -> bool {
-        for (GraphAsset* i : task->assets.requiredInputs) {
-            if (i == asset) { return true; }
-        }
-        for (GraphAsset* i : task->assets.optionalInputs) {
-            if (i == asset) { return true; }
-        }
-        return false;
-    };
+    // build timeline
+    timeline.build(tasks, assets.getFinalOutput());
 
-    // traverse graph up from leafs and populate firstAvailableStep for each asset
-    while (!toVisit.empty()) {
-        auto node = toVisit.front();
-        toVisit.pop();
-
-        auto* nodeOutput = node.second->assets.output;
-        nodeOutput->firstAvailableStep =
-            std::max(nodeOutput->firstAvailableStep, node.first->firstAvailableStep + 1);
-
-        for (auto& task : tasks) {
-            if (isInput(nodeOutput, task.get())) { toVisit.emplace(nodeOutput, task.get()); }
-        }
-    }
-
-    // for each task now determine soonest step it can run and move it
-    const auto findSoonest = [](Task* task) -> unsigned int {
-        unsigned int soonest = 0;
-
-        for (GraphAsset* asset : task->assets.requiredInputs) {
-            soonest = std::max(asset->firstAvailableStep, soonest);
-        }
-        for (GraphAsset* asset : task->assets.optionalInputs) {
-            if (!asset) continue;
-            soonest = std::max(asset->firstAvailableStep, soonest);
-        }
-
-        return soonest;
-    };
-
-    unsigned int i = 0;
-    for (auto& step : timeline) {
-        for (auto it = step.tasks.begin(); it != step.tasks.end();) {
-            Task* task                 = *it;
-            const unsigned int soonest = findSoonest(task);
-            if (soonest != i) {
-                it = step.tasks.erase(it);
-                timeline[soonest].tasks.emplace_back(task);
-            }
-            else { ++it; }
-        }
-
-        ++i;
-    }
+    // notify tasks of graph creation
+    for (auto& task : tasks) { task->onGraphInit(); }
 }
 
 void RenderGraph::markDirty() { needsRebuild = true; }
@@ -274,7 +175,6 @@ void RenderGraph::populate(Strategy& strategy, Scene& scene) {
 void RenderGraph::update(float dt) {
     for (auto& task : tasks) { task->update(dt); }
 }
-
 } // namespace rg
 } // namespace rc
 } // namespace bl

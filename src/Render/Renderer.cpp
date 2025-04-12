@@ -4,7 +4,7 @@
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Graph/Providers/BloomProviders.hpp>
 #include <BLIB/Render/Graph/Providers/GenericTargetProvider.hpp>
-#include <BLIB/Render/Graph/Providers/StandardTargetProvider.hpp>
+#include <BLIB/Render/Graph/Providers/SimpleAssetProvider.hpp>
 #include <BLIB/Render/Graph/Strategies/ForwardRenderStrategy.hpp>
 #include <BLIB/Systems.hpp>
 #include <cmath>
@@ -57,14 +57,10 @@ void Renderer::initialize() {
         *this);
 
     // asset providers
-    assetFactory
-        .addProvider<rgi::StandardTargetProvider<Config::RenderPassIds::StandardAttachmentDefault,
-                                                 vk::TextureFormat::SRGBA32Bit>>(
-            {rg::AssetTags::RenderedSceneOutput, rg::AssetTags::PostFXOutput});
-    assetFactory
-        .addProvider<rgi::StandardTargetProvider<Config::RenderPassIds::HDRAttachmentDefault,
-                                                 vk::TextureFormat::HDRColor>>(
-            rg::AssetTags::RenderedSceneOutputHDR);
+    assetFactory.addProvider<rgi::SimpleAssetProvider<rgi::LDRStandardTargetAsset>>(
+        {rg::AssetTags::RenderedSceneOutput, rg::AssetTags::PostFXOutput});
+    assetFactory.addProvider<rgi::SimpleAssetProvider<rgi::HDRStandardTargetAsset>>(
+        rg::AssetTags::RenderedSceneOutputHDR);
     assetFactory.addProvider<rgi::BloomColorAttachmentPairProvider>(
         rg::AssetTags::BloomColorAttachmentPair,
         rgi::TargetSize(rgi::TargetSize::ObserverSize),
@@ -158,6 +154,13 @@ void Renderer::renderFrame() {
         for (auto& o : observers) { o->handleDescriptorSync(); }
     }
     state.transferEngine.executeTransfers();
+
+    // reset graph asset states
+    for (auto& rt : renderTextures) { rt->resetAssets(); }
+    if (commonObserver.hasScene()) { commonObserver.resetAssets(); }
+    else {
+        for (auto& o : observers) { o->resetAssets(); }
+    }
 
     // render offscreen textures
     for (auto& rt : renderTextures) { rt->render(); }

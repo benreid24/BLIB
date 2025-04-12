@@ -11,11 +11,12 @@ namespace rc
 namespace rgi
 {
 ForwardRenderTask::ForwardRenderTask() {
-    assetTags.concreteOutputs.emplace_back(rg::AssetTags::FinalFrameOutput);
-
-    assetTags.createdOutputs.reserve(2);
-    assetTags.createdOutputs.emplace_back(rg::AssetTags::RenderedSceneOutput);
-    assetTags.createdOutputs.emplace_back(rg::AssetTags::RenderedSceneOutputHDR);
+    assetTags.outputs.emplace_back(rg::TaskOutput({rg::AssetTags::RenderedSceneOutputHDR,
+                                                   rg::AssetTags::RenderedSceneOutput,
+                                                   rg::AssetTags::FinalFrameOutput},
+                                                  {rg::TaskOutput::CreatedByTask,
+                                                   rg::TaskOutput::CreatedByTask,
+                                                   rg::TaskOutput::CreatedExternally}));
 
     assetTags.requiredInputs.emplace_back(rg::AssetTags::SceneObjectsInput);
 }
@@ -25,25 +26,25 @@ void ForwardRenderTask::create(engine::Engine&, Renderer&, Scene*) {
 }
 
 void ForwardRenderTask::onGraphInit() {
-    output = dynamic_cast<FramebufferAsset*>(&assets.output->asset.get());
-    if (!output) { throw std::runtime_error("Got invalid output for forward renderer"); }
-
     scene = dynamic_cast<SceneAsset*>(&assets.requiredInputs[0]->asset.get());
     if (!scene) { throw std::runtime_error("Got invalid scene for forward renderer"); }
 }
 
-void ForwardRenderTask::execute(const rg::ExecutionContext& ctx) {
-    output->beginRender(ctx.commandBuffer, true);
+void ForwardRenderTask::execute(const rg::ExecutionContext& ctx, rg::Asset* output) {
+    FramebufferAsset* fb = dynamic_cast<FramebufferAsset*>(output);
+    if (!fb) { throw std::runtime_error("Got invalid output for forward renderer"); }
+
+    fb->beginRender(ctx.commandBuffer, true);
 
     scene::SceneRenderContext sceneCtx(ctx.commandBuffer,
                                        ctx.observerIndex,
-                                       output->getViewport(),
+                                       fb->getViewport(),
                                        RenderPhase::Default,
-                                       output->getRenderPassId(),
+                                       fb->getRenderPassId(),
                                        ctx.renderingToRenderTexture);
     scene->scene->renderScene(sceneCtx);
 
-    output->finishRender(ctx.commandBuffer);
+    fb->finishRender(ctx.commandBuffer);
 }
 
 } // namespace rgi

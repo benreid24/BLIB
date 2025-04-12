@@ -4,6 +4,7 @@
 #include <BLIB/Render/Graph/AssetPool.hpp>
 #include <BLIB/Render/Graph/GraphAssetPool.hpp>
 #include <BLIB/Render/Graph/Task.hpp>
+#include <BLIB/Render/Graph/Timeline.hpp>
 #include <memory>
 #include <queue>
 #include <stdexcept>
@@ -187,65 +188,15 @@ public:
     void update(float dt);
 
 private:
-    struct TimelineStage {
-        std::vector<Task*> tasks;
-
-        void removeTask(Task* task) {
-            for (auto it = tasks.begin(); it != tasks.end(); ++it) {
-                if (*it == task) {
-                    tasks.erase(it);
-                    return;
-                }
-            }
-        }
-    };
-
-    struct VisitorStep {
-        Task* task;
-        unsigned int stepsFromEnd;
-    };
-
     engine::Engine& engine;
     Renderer& renderer;
     RenderTarget* observer;
     Scene* scene;
     GraphAssetPool assets;
     std::vector<std::unique_ptr<Task>> tasks;
-    std::vector<TimelineStage> timeline;
+    Timeline timeline;
     bool needsRebuild;
     bool needsReset;
-
-    template<typename T>
-    void traverse(T&& taskVisitor, GraphAsset* start) {
-        std::queue<VisitorStep> toVisit;
-        std::unordered_map<Task*, unsigned int> visited;
-        toVisit.emplace(VisitorStep{start->outputtedBy, 0});
-        visited[start->outputtedBy] = 0;
-
-        const auto processInputs = [&toVisit, &visited](std::vector<GraphAsset*>& inputs,
-                                                        unsigned int newSteps) {
-            for (GraphAsset* asset : inputs) {
-                if (!asset || !asset->outputtedBy) continue;
-
-                auto it = visited.find(asset->outputtedBy);
-                if (it != visited.end() && it->second > newSteps) { continue; }
-
-                visited[asset->outputtedBy] = newSteps;
-                toVisit.emplace(VisitorStep{asset->outputtedBy, newSteps});
-            }
-        };
-
-        while (!toVisit.empty()) {
-            const VisitorStep step = toVisit.front();
-            toVisit.pop();
-
-            const unsigned int newSteps = step.stepsFromEnd + 1;
-            processInputs(step.task->assets.requiredInputs, newSteps);
-            processInputs(step.task->assets.optionalInputs, newSteps);
-        }
-
-        for (auto& pair : visited) { taskVisitor(pair.first, pair.second); }
-    }
 };
 
 } // namespace rg

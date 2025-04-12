@@ -136,6 +136,11 @@ public:
      */
     void reset(GraphAssetPool* pool);
 
+    /**
+     * @brief Resets asset states for a new frame
+     */
+    void startFrame();
+
 private:
     AssetFactory& factory;
     RenderTarget* observer;

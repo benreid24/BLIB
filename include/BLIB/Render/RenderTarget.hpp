@@ -190,6 +190,7 @@ protected:
     void handleDescriptorSync();
     void syncSceneObjects();
     void update(float dt);
+    void resetAssets();
 
     void renderScene(VkCommandBuffer commandBuffer);
     void renderSceneFinal(VkCommandBuffer commandBuffer);

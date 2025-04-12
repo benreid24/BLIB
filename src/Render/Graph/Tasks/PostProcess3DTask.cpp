@@ -12,12 +12,12 @@ namespace rc
 namespace rgi
 {
 PostProcess3DTask::PostProcess3DTask()
-: renderer(nullptr)
-, output(nullptr) {
-    assetTags.concreteOutputs.emplace_back(rg::AssetTags::FinalFrameOutput);
-    assetTags.createdOutputs.emplace_back(rg::AssetTags::PostFXOutput);
-    assetTags.requiredInputs.emplace_back(
-        rg::TaskInput(rg::AssetTags::RenderedSceneOutputHDR, rg::TaskInput::Shared));
+: renderer(nullptr) {
+    assetTags.outputs.emplace_back(
+        rg::TaskOutput({rg::AssetTags::PostFXOutput, rg::AssetTags::FinalFrameOutput},
+                       {rg::TaskOutput::CreatedByTask, rg::TaskOutput::CreatedExternally},
+                       {rg::TaskOutput::Exclusive, rg::TaskOutput::Shared}));
+    assetTags.requiredInputs.emplace_back(rg::TaskInput(rg::AssetTags::RenderedSceneOutputHDR));
     assetTags.optionalInputs.emplace_back(rg::AssetTags::BloomColorAttachmentPair);
 }
 
@@ -39,11 +39,9 @@ void PostProcess3DTask::create(engine::Engine&, Renderer& r, Scene* s) {
 }
 
 void PostProcess3DTask::onGraphInit() {
-    input = dynamic_cast<FramebufferAsset*>(&assets.requiredInputs[0]->asset.get());
+    FramebufferAsset* input =
+        dynamic_cast<FramebufferAsset*>(&assets.requiredInputs[0]->asset.get());
     if (!input) { throw std::runtime_error("Got bad input"); }
-
-    output = dynamic_cast<FramebufferAsset*>(&assets.output->asset.get());
-    if (!output) { throw std::runtime_error("Got bad output"); }
 
     // init scene input descriptor set
     const auto sampler   = renderer->vulkanState().samplerCache.noFilterEdgeClamped();
@@ -75,17 +73,20 @@ void PostProcess3DTask::onGraphInit() {
     }
 }
 
-void PostProcess3DTask::execute(const rg::ExecutionContext& ctx) {
-    output->beginRender(ctx.commandBuffer, true);
+void PostProcess3DTask::execute(const rg::ExecutionContext& ctx, rg::Asset* output) {
+    FramebufferAsset* fb = dynamic_cast<FramebufferAsset*>(output);
+    if (!fb) { throw std::runtime_error("Got bad output"); }
 
-    pipeline->bind(ctx.commandBuffer, output->getRenderPassId());
+    fb->beginRender(ctx.commandBuffer, true);
+
+    pipeline->bind(ctx.commandBuffer, fb->getRenderPassId());
     colorAttachmentSet->bind(ctx.commandBuffer, pipeline->pipelineLayout().rawLayout(), 0);
     bloomAttachmentSet->bind(ctx.commandBuffer, pipeline->pipelineLayout().rawLayout(), 1);
     renderer->getGlobalDescriptorData().bindDescriptors(
         ctx.commandBuffer, pipeline->pipelineLayout().rawLayout(), 2, ctx.renderingToRenderTexture);
     indexBuffer.bindAndDraw(ctx.commandBuffer);
 
-    output->finishRender(ctx.commandBuffer);
+    fb->finishRender(ctx.commandBuffer);
 }
 
 void PostProcess3DTask::update(float) {}

@@ -15,7 +15,8 @@ namespace rgi
  *
  * @ingroup Renderer
  */
-using BloomColorAttachmentAsset = rgi::GenericTargetAsset<Config::RenderPassIds::BloomPass, 1>;
+using BloomColorAttachmentAsset =
+    rgi::GenericTargetAsset<Config::RenderPassIds::BloomPass, 1, RenderPassBehavior::StartedByTask>;
 
 /**
  * @brief Pair of BloomColorAttachment used for the bloom pass

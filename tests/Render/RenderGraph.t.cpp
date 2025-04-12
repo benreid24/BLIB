@@ -41,9 +41,14 @@ struct TestAsset : public Asset {
         preparedForInput = true;
     }
 
-    virtual void doPrepareForOutput(const ExecutionContext&) override {
+    virtual void doStartOutput(const ExecutionContext&) override {
         EXPECT_TRUE(created);
         preparedForOutput = true;
+    }
+
+    virtual void doEndOutput(const ExecutionContext&) override {
+        EXPECT_TRUE(created);
+        EXPECT_TRUE(preparedForOutput);
     }
 };
 
@@ -123,9 +128,9 @@ struct TestTask : public Task {
 
     virtual void create(engine::Engine&, Renderer&, Scene*) override { created = true; }
 
-    virtual void execute(const ExecutionContext&) override {
-        ASSERT_TRUE(assets.output->asset.valid());
-        TestAsset* asset = dynamic_cast<TestAsset*>(&assets.output->asset.get());
+    virtual void execute(const ExecutionContext&, Asset* output) override {
+        ASSERT_TRUE(assets.outputs[0]->asset.valid());
+        TestAsset* asset = dynamic_cast<TestAsset*>(output);
         ASSERT_NE(asset, nullptr);
         ASSERT_TRUE(asset->preparedForOutput);
 
@@ -153,7 +158,7 @@ struct TestTask : public Task {
 struct ShadowMapTask : public TestTask {
     ShadowMapTask()
     : TestTask() {
-        assetTags.createdOutputs.emplace_back(ShadowMapTag);
+        assetTags.outputs.emplace_back(TaskOutput(ShadowMapTag, TaskOutput::CreatedByTask));
         assetTags.requiredInputs.emplace_back(AssetTags::SceneObjectsInput);
         assetTags.requiredInputs.emplace_back(ShadowLightsTag);
     }
@@ -161,8 +166,8 @@ struct ShadowMapTask : public TestTask {
     virtual void onGraphInit() override {
         graphInit = true;
 
-        ASSERT_EQ(assets.output->asset->getTag(), ShadowMapTag);
-        ASSERT_NE(dynamic_cast<ShadowMap*>(&assets.output->asset.get()), nullptr);
+        ASSERT_EQ(assets.outputs[0]->asset->getTag(), ShadowMapTag);
+        ASSERT_NE(dynamic_cast<ShadowMap*>(&assets.outputs[0]->asset.get()), nullptr);
         ASSERT_EQ(assets.requiredInputs.size(), 2);
         ASSERT_TRUE(assets.requiredInputs[0]->asset.valid());
         ASSERT_TRUE(assets.requiredInputs[1]->asset.valid());
@@ -171,15 +176,16 @@ struct ShadowMapTask : public TestTask {
     }
 
     virtual void onExecute() override {
-        dynamic_cast<ShadowMap*>(&assets.output->asset.get())->rendered = true;
+        dynamic_cast<ShadowMap*>(&assets.outputs[0]->asset.get())->rendered = true;
     }
 };
 
 struct SceneRenderTask : public TestTask {
     SceneRenderTask()
     : TestTask() {
-        assetTags.concreteOutputs.emplace_back(AssetTags::FinalFrameOutput);
-        assetTags.createdOutputs.emplace_back(AssetTags::RenderedSceneOutput);
+        assetTags.outputs.emplace_back(
+            TaskOutput({AssetTags::RenderedSceneOutput, AssetTags::FinalFrameOutput},
+                       {TaskOutput::CreatedByTask, TaskOutput::CreatedExternally}));
         assetTags.requiredInputs.emplace_back(AssetTags::SceneObjectsInput);
         assetTags.optionalInputs.emplace_back(ShadowMapTag);
     }
@@ -187,12 +193,12 @@ struct SceneRenderTask : public TestTask {
     virtual void onGraphInit() override {
         graphInit = true;
 
-        if (assets.output->asset->getTag() == AssetTags::FinalFrameOutput) {
-            ASSERT_NE(dynamic_cast<Swapframe*>(&assets.output->asset.get()), nullptr);
+        if (assets.outputs[0]->asset->getTag() == AssetTags::FinalFrameOutput) {
+            ASSERT_NE(dynamic_cast<Swapframe*>(&assets.outputs[0]->asset.get()), nullptr);
         }
         else {
-            ASSERT_EQ(assets.output->asset->getTag(), AssetTags::RenderedSceneOutput);
-            ASSERT_NE(dynamic_cast<SceneRenderOutput*>(&assets.output->asset.get()), nullptr);
+            ASSERT_EQ(assets.outputs[0]->asset->getTag(), AssetTags::RenderedSceneOutput);
+            ASSERT_NE(dynamic_cast<SceneRenderOutput*>(&assets.outputs[0]->asset.get()), nullptr);
         }
 
         if (assets.optionalInputs.size() > 0 && assets.optionalInputs[0]) {
@@ -204,10 +210,10 @@ struct SceneRenderTask : public TestTask {
     }
 
     virtual void onExecute() override {
-        if (assets.output->asset->getTag() == AssetTags::FinalFrameOutput) {
-            dynamic_cast<Swapframe*>(&assets.output->asset.get())->rendered = true;
+        if (assets.outputs[0]->asset->getTag() == AssetTags::FinalFrameOutput) {
+            dynamic_cast<Swapframe*>(&assets.outputs[0]->asset.get())->rendered = true;
         }
-        else { dynamic_cast<SceneRenderOutput*>(&assets.output->asset.get())->rendered = true; }
+        else { dynamic_cast<SceneRenderOutput*>(&assets.outputs[0]->asset.get())->rendered = true; }
 
         if (assets.optionalInputs.size() > 0 && assets.optionalInputs[0]) {
             EXPECT_TRUE(dynamic_cast<ShadowMap*>(&assets.optionalInputs[0]->asset.get())->rendered);
@@ -218,23 +224,25 @@ struct SceneRenderTask : public TestTask {
 struct PostFXTask : public TestTask {
     PostFXTask()
     : TestTask() {
-        assetTags.concreteOutputs.emplace_back(AssetTags::FinalFrameOutput);
-        assetTags.createdOutputs.emplace_back(AssetTags::PostFXOutput);
-        assetTags.requiredInputs.emplace_back(
-            TaskInput{AssetTags::RenderedSceneOutput, AssetTags::PostFXOutput});
+        assetTags.outputs.emplace_back(
+            TaskOutput({AssetTags::PostFXOutput, AssetTags::FinalFrameOutput},
+                       {TaskOutput::CreatedByTask, TaskOutput::CreatedExternally},
+                       {TaskOutput::Exclusive, TaskOutput::Shared}));
+        assetTags.requiredInputs.emplace_back(TaskInput(
+            {AssetTags::RenderedSceneOutput, AssetTags::PostFXOutput}, rg::TaskInput::Exclusive));
     }
 
     virtual void onGraphInit() override {
         graphInit = true;
 
-        if (assets.output->asset->getTag() == AssetTags::FinalFrameOutput) {
-            ASSERT_NE(dynamic_cast<Swapframe*>(&assets.output->asset.get()), nullptr);
-            dynamic_cast<Swapframe*>(&assets.output->asset.get())->rendered = true;
+        if (assets.outputs[0]->asset->getTag() == AssetTags::FinalFrameOutput) {
+            ASSERT_NE(dynamic_cast<Swapframe*>(&assets.outputs[0]->asset.get()), nullptr);
+            dynamic_cast<Swapframe*>(&assets.outputs[0]->asset.get())->rendered = true;
         }
         else {
-            ASSERT_EQ(assets.output->asset->getTag(), AssetTags::PostFXOutput);
-            ASSERT_NE(dynamic_cast<PostFXOutput*>(&assets.output->asset.get()), nullptr);
-            dynamic_cast<PostFXOutput*>(&assets.output->asset.get())->rendered = true;
+            ASSERT_EQ(assets.outputs[0]->asset->getTag(), AssetTags::PostFXOutput);
+            ASSERT_NE(dynamic_cast<PostFXOutput*>(&assets.outputs[0]->asset.get()), nullptr);
+            dynamic_cast<PostFXOutput*>(&assets.outputs[0]->asset.get())->rendered = true;
         }
 
         ASSERT_EQ(assets.requiredInputs.size(), 1);
@@ -258,28 +266,28 @@ struct PostFXTask : public TestTask {
                 dynamic_cast<PostFXOutput*>(&assets.requiredInputs[0]->asset.get())->rendered);
         }
 
-        if (assets.output->asset->getTag() == AssetTags::FinalFrameOutput) {
-            dynamic_cast<Swapframe*>(&assets.output->asset.get())->rendered = true;
+        if (assets.outputs[0]->asset->getTag() == AssetTags::FinalFrameOutput) {
+            dynamic_cast<Swapframe*>(&assets.outputs[0]->asset.get())->rendered = true;
         }
-        else { dynamic_cast<PostFXOutput*>(&assets.output->asset.get())->rendered = true; }
+        else { dynamic_cast<PostFXOutput*>(&assets.outputs[0]->asset.get())->rendered = true; }
     }
 };
 
 struct PostFXBloomTask : public TestTask {
     PostFXBloomTask()
     : TestTask() {
-        assetTags.concreteOutputs.emplace_back(AssetTags::FinalFrameOutput);
-        assetTags.createdOutputs.emplace_back(AssetTags::PostFXOutput);
-        assetTags.requiredInputs.emplace_back(
-            TaskInput{AssetTags::RenderedSceneOutput, TaskInput::Shared});
+        assetTags.outputs.emplace_back(
+            TaskOutput({AssetTags::PostFXOutput, AssetTags::FinalFrameOutput},
+                       {TaskOutput::CreatedByTask, TaskOutput::CreatedExternally}));
+        assetTags.requiredInputs.emplace_back(TaskInput{AssetTags::RenderedSceneOutput});
         assetTags.requiredInputs.emplace_back(TaskInput{AssetTags::BloomColorAttachmentPair});
     }
 
     virtual void onGraphInit() override {
         graphInit = true;
 
-        ASSERT_NE(dynamic_cast<Swapframe*>(&assets.output->asset.get()), nullptr);
-        dynamic_cast<Swapframe*>(&assets.output->asset.get())->rendered = true;
+        ASSERT_NE(dynamic_cast<Swapframe*>(&assets.outputs[0]->asset.get()), nullptr);
+        dynamic_cast<Swapframe*>(&assets.outputs[0]->asset.get())->rendered = true;
 
         ASSERT_EQ(assets.requiredInputs.size(), 2);
         ASSERT_TRUE(assets.requiredInputs[0]->asset.valid());
@@ -298,16 +306,16 @@ struct PostFXBloomTask : public TestTask {
 struct BloomTask : public TestTask {
     BloomTask()
     : TestTask() {
-        assetTags.createdOutputs.emplace_back(AssetTags::BloomColorAttachmentPair);
-        assetTags.requiredInputs.emplace_back(
-            TaskInput{AssetTags::RenderedSceneOutput, TaskInput::Shared});
+        assetTags.outputs.emplace_back(
+            TaskOutput(AssetTags::BloomColorAttachmentPair, TaskOutput::CreatedByTask));
+        assetTags.requiredInputs.emplace_back(TaskInput{AssetTags::RenderedSceneOutput});
     }
 
     virtual void onGraphInit() override {
         graphInit = true;
 
-        ASSERT_EQ(assets.output->asset->getTag(), AssetTags::BloomColorAttachmentPair);
-        ASSERT_NE(dynamic_cast<BloomAsset*>(&assets.output->asset.get()), nullptr);
+        ASSERT_EQ(assets.outputs[0]->asset->getTag(), AssetTags::BloomColorAttachmentPair);
+        ASSERT_NE(dynamic_cast<BloomAsset*>(&assets.outputs[0]->asset.get()), nullptr);
 
         ASSERT_EQ(assets.requiredInputs.size(), 1);
         ASSERT_TRUE(assets.requiredInputs[0]->asset.valid());
@@ -331,11 +339,12 @@ TEST(RenderGraph, BasicSceneRender) {
     engine::Engine engine(engine::Settings{});
     RenderGraph graph(engine, engine.renderer(), pool, nullptr, nullptr);
 
-    graph.putTask<SceneRenderTask>();
+    SceneRenderTask* task = graph.putTask<SceneRenderTask>();
 
     graph.execute(nullptr, 0, false);
     graph.executeFinal(nullptr, 0, false);
     EXPECT_TRUE(swapframe->rendered);
+    EXPECT_TRUE(task->graphInit);
 }
 
 TEST(RenderGraph, SceneWithPostFX) {

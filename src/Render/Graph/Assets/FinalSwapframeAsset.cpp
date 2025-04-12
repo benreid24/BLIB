@@ -23,11 +23,15 @@ void FinalSwapframeAsset::doCreate(engine::Engine&, Renderer& renderer, RenderTa
 }
 
 void FinalSwapframeAsset::doPrepareForInput(const rg::ExecutionContext&) {
-    // noop, handled by renderpass
+    // noop, handled by render pass
 }
 
-void FinalSwapframeAsset::doPrepareForOutput(const rg::ExecutionContext&) {
-    // noop, handled by renderpass
+void FinalSwapframeAsset::doStartOutput(const rg::ExecutionContext&) {
+    // noop, handled by renderer
+}
+
+void FinalSwapframeAsset::doEndOutput(const rg::ExecutionContext&) {
+    // noop, handled by renderer
 }
 
 vk::Framebuffer& FinalSwapframeAsset::currentFramebuffer() { return framebuffers.current(); }

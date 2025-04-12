@@ -20,7 +20,11 @@ void SceneAsset::doPrepareForInput(const rg::ExecutionContext&) {
     // noop
 }
 
-void SceneAsset::doPrepareForOutput(const rg::ExecutionContext&) {
+void SceneAsset::doStartOutput(const rg::ExecutionContext&) {
+    // noop
+}
+
+void SceneAsset::doEndOutput(const rg::ExecutionContext&) {
     // noop
 }
 

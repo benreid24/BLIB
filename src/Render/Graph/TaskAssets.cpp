@@ -6,11 +6,14 @@ namespace rc
 {
 namespace rg
 {
-TaskAssets::TaskAssets()
-: output(nullptr) {}
+TaskAssets::TaskAssets() {}
 
 void TaskAssets::init(const TaskAssetTags& tags) {
-    output = nullptr;
+    outputs.clear();
+    requiredInputs.clear();
+    optionalInputs.clear();
+
+    outputs.resize(tags.outputs.size(), nullptr);
     requiredInputs.resize(tags.requiredInputs.size(), nullptr);
     optionalInputs.resize(tags.optionalInputs.size(), nullptr);
 }

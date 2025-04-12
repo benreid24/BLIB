@@ -19,6 +19,7 @@ namespace rg
 {
 struct GraphAsset;
 class RenderGraph;
+class Timeline;
 
 /**
  * @brief Base class for tasks within a RenderGraph
@@ -52,11 +53,13 @@ public:
     virtual void onGraphInit() = 0;
 
     /**
-     * @brief Called once per rendered frame
+     * @brief Called once per output. If a task has multiple outputs this will be called multiple
+     *        times. Should only operate on the current output
      *
      * @param ctx The execution context
+     * @param output The asset being executed on
      */
-    virtual void execute(const ExecutionContext& ctx) = 0;
+    virtual void execute(const ExecutionContext& ctx, Asset* output) = 0;
 
     /**
      * @brief Called each frame with the elapsed time
@@ -70,7 +73,10 @@ protected:
     TaskAssets assets;
 
 private:
+    void prepareInputs(const ExecutionContext& ctx);
+
     friend class RenderGraph;
+    friend class Timeline;
 };
 
 } // namespace rg

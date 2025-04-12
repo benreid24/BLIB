@@ -14,6 +14,8 @@ target_sources(BLIB PUBLIC
 	TaskAssets.hpp
 	TaskAssetTags.hpp
 	TaskInput.hpp
+	TaskOutput.hpp
+	Timeline.hpp
 )
 
 add_subdirectory(Assets)

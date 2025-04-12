@@ -76,6 +76,12 @@ void AssetPool::reset(GraphAssetPool* gp) {
     }
 }
 
+void AssetPool::startFrame() {
+    for (auto& as : assets) {
+        for (auto& a : as.second) { a->reset(); }
+    }
+}
+
 } // namespace rg
 } // namespace rc
 } // namespace bl

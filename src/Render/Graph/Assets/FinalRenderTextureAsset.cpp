@@ -28,8 +28,12 @@ void FinalRenderTextureAsset::doPrepareForInput(const rg::ExecutionContext&) {
     // noop, handled by renderpass
 }
 
-void FinalRenderTextureAsset::doPrepareForOutput(const rg::ExecutionContext&) {
-    // noop, handled by renderpass
+void FinalRenderTextureAsset::doStartOutput(const rg::ExecutionContext&) {
+    // noop, handled by RenderTexture
+}
+
+void FinalRenderTextureAsset::doEndOutput(const rg::ExecutionContext&) {
+    // noop, handled by RenderTexture
 }
 
 vk::Framebuffer& FinalRenderTextureAsset::currentFramebuffer() { return framebuffer; }

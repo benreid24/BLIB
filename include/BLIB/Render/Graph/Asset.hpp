@@ -23,6 +23,8 @@ class AssetRef;
 class AssetPool;
 class GraphAssetPool;
 class RenderGraph;
+class Timeline;
+class Task;
 template<typename T, std::uint32_t N>
 class MultiAsset;
 
@@ -57,11 +59,19 @@ public:
 
     /**
      * @brief Prepares the asset for being an output. Child classes should insert pipeline barriers
-     *        here if required
+     *        or start render passes here if required
      *
      * @param context The current execution context
      */
-    virtual void doPrepareForOutput(const ExecutionContext& context) = 0;
+    virtual void doStartOutput(const ExecutionContext& context) = 0;
+
+    /**
+     * @brief Finalizes the asset when output is done. Child classes should insert pipeline barriers
+     *        or end render passes here if required
+     *
+     * @param context The current execution context
+     */
+    virtual void doEndOutput(const ExecutionContext& context) = 0;
 
     /**
      * @brief Returns the tag of this asset
@@ -82,7 +92,7 @@ protected:
     Asset(std::string_view tag);
 
 private:
-    enum struct InputMode { Unset, Input, Output };
+    enum struct InputMode { Unset, Input, OutputStart, OutputEnd };
 
     std::string_view tag;
     bool created;
@@ -93,7 +103,9 @@ private:
 
     void create(engine::Engine& engine, Renderer& renderer, RenderTarget* observer);
     void prepareForInput(const ExecutionContext& ctx);
-    void prepareForOutput(const ExecutionContext& ctx);
+    void startOutput(const ExecutionContext& ctx);
+    void endOutput(const ExecutionContext& ctx);
+    void reset();
 
     bool isOwnedBy(GraphAssetPool* pool);
     void addOwner(GraphAssetPool* pool);
@@ -102,6 +114,8 @@ private:
     friend class AssetRef;
     friend class AssetPool;
     friend class RenderGraph;
+    friend class Timeline;
+    friend class Task;
     template<typename T, std::uint32_t N>
     friend class MultiAsset;
 };

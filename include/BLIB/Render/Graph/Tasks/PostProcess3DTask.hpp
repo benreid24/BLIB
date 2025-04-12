@@ -36,8 +36,6 @@ public:
 private:
     Renderer* renderer;
     Scene* scene;
-    FramebufferAsset* input;
-    FramebufferAsset* output;
     buf::IndexBuffer indexBuffer;
     vk::Pipeline* pipeline;
     std::optional<ds::ColorAttachmentInstance> colorAttachmentSet;
@@ -46,7 +44,7 @@ private:
 
     virtual void create(engine::Engine& engine, Renderer& renderer, Scene* scene) override;
     virtual void onGraphInit() override;
-    virtual void execute(const rg::ExecutionContext& ctx) override;
+    virtual void execute(const rg::ExecutionContext& ctx, rg::Asset* output) override;
     virtual void update(float dt) override;
 };
 

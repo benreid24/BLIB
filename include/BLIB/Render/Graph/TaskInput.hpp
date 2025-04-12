@@ -42,7 +42,7 @@ struct TaskInput {
      * @param input The tag of the asset for this input slot
      * @param shareMode The sharing behavior of the input
      */
-    TaskInput(std::string_view input, ShareMode shareMode = Exclusive)
+    TaskInput(std::string_view input, ShareMode shareMode = Shared)
     : options(1, input)
     , shareMode(shareMode) {}
 
@@ -52,7 +52,7 @@ struct TaskInput {
      * @param inputs The different options for the input slot
      * @param shareMode The sharing behavior of the input
      */
-    TaskInput(std::initializer_list<std::string_view> inputs, ShareMode shareMode = Exclusive)
+    TaskInput(std::initializer_list<std::string_view> inputs, ShareMode shareMode = Shared)
     : options(inputs)
     , shareMode(shareMode) {}
 };

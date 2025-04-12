@@ -29,10 +29,17 @@ void Asset::prepareForInput(const ExecutionContext& ctx) {
     }
 }
 
-void Asset::prepareForOutput(const ExecutionContext& ctx) {
-    if (mode != InputMode::Output) {
-        mode = InputMode::Output;
-        doPrepareForOutput(ctx);
+void Asset::startOutput(const ExecutionContext& ctx) {
+    if (mode != InputMode::OutputStart) {
+        mode = InputMode::OutputStart;
+        doStartOutput(ctx);
+    }
+}
+
+void Asset::endOutput(const ExecutionContext& ctx) {
+    if (mode != InputMode::OutputEnd) {
+        mode = InputMode::OutputEnd;
+        doEndOutput(ctx);
     }
 }
 
@@ -46,6 +53,8 @@ void Asset::removeOwner(GraphAssetPool* pool) {
     const auto it = std::find(owners.begin(), owners.end(), pool);
     if (it != owners.end()) { owners.erase(it); }
 }
+
+void Asset::reset() { mode = InputMode::Unset; }
 
 } // namespace rg
 } // namespace rc
