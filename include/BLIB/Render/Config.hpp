@@ -17,7 +17,7 @@ namespace rc
 struct Config {
     static constexpr unsigned int MaxConcurrentFrames = 2;
 
-    static constexpr unsigned int MaxSceneObservers = 5;
+    static constexpr unsigned int MaxSceneObservers = 64;
 
     static constexpr std::size_t MaxDescriptorSets = 4;
 

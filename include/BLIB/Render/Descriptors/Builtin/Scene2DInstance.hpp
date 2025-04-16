@@ -61,11 +61,7 @@ private:
         alignas(16) Light lights[MaxLightCount];
     };
 
-    vk::VulkanState& vulkanState;
-    const VkDescriptorSetLayout setLayout;
     buf::StaticUniformBuffer<Lighting> lighting;
-    vk::PerFrameVector<VkDescriptorSet> descriptorSets;
-    vk::DescriptorPool::AllocationHandle allocHandle;
 
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                  std::uint32_t setIndex, UpdateSpeed updateFreq) const override;

@@ -13,13 +13,10 @@ namespace rc
 namespace ds
 {
 Scene3DInstance::Scene3DInstance(vk::VulkanState& vulkanState, VkDescriptorSetLayout layout)
-: vulkanState(vulkanState)
-, setLayout(layout) {}
+: SceneDescriptorSetInstance(vulkanState, layout) {}
 
 Scene3DInstance::~Scene3DInstance() {
-    cameraBuffer.stopTransferringEveryFrame();
-    vulkanState.descriptorPool.release(allocHandle);
-    cameraBuffer.destroy();
+    cleanup();
     globalLightInfo.destroy();
     spotlights.destroy();
     pointLights.destroy();
@@ -48,38 +45,25 @@ void Scene3DInstance::releaseObject(ecs::Entity, scene::Key) {
 
 void Scene3DInstance::init(DescriptorComponentStorageCache&) {
     // allocate memory
-    cameraBuffer.create(vulkanState, Config::MaxSceneObservers);
-    cameraBuffer.transferEveryFrame(tfr::Transferable::SyncRequirement::Immediate);
+    createCameraBuffer();
     globalLightInfo.create(vulkanState, 1);
     spotlights.create(vulkanState, lgt::Scene3DLighting::MaxSpotLights);
     pointLights.create(vulkanState, lgt::Scene3DLighting::MaxPointLights);
 
     // allocate descriptors
-    descriptorSets.emptyInit(vulkanState, Config::MaxSceneObservers);
-    allocHandle = vulkanState.descriptorPool.allocate(
-        setLayout, descriptorSets.data(), descriptorSets.totalSize());
+    allocateDescriptorSets();
 
     // create and configureWrite descriptors
     SetWriteHelper setWriter;
     setWriter.hintWriteCount(descriptorSets.size() * Config::MaxConcurrentFrames * 4);
     setWriter.hintBufferInfoCount(descriptorSets.size() * Config::MaxConcurrentFrames * 4);
-    for (std::uint32_t i = 0; i < descriptorSets.size(); ++i) {
-        // write descriptors
+
+    // write descriptors
+    for (std::uint32_t i = 0; i < Config::MaxSceneObservers; ++i) {
         for (std::uint32_t j = 0; j < Config::MaxConcurrentFrames; ++j) {
             const auto set = descriptorSets.getRaw(i, j);
 
-            VkDescriptorBufferInfo& cameraBufferInfo = setWriter.getNewBufferInfo();
-            cameraBufferInfo.buffer = cameraBuffer.gpuBufferHandles().getRaw(j).getBuffer();
-            cameraBufferInfo.offset =
-                static_cast<VkDeviceSize>(i) * cameraBuffer.alignedUniformSize();
-            cameraBufferInfo.range = cameraBuffer.alignedUniformSize();
-
-            VkWriteDescriptorSet& cameraWrite = setWriter.getNewSetWrite(set);
-            cameraWrite.descriptorCount       = 1;
-            cameraWrite.dstBinding            = 0;
-            cameraWrite.dstArrayElement       = 0;
-            cameraWrite.pBufferInfo           = &cameraBufferInfo;
-            cameraWrite.descriptorType        = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+            writeCameraDescriptor(setWriter, i, j);
 
             VkDescriptorBufferInfo& lightInfoBufferInfo = setWriter.getNewBufferInfo();
             lightInfoBufferInfo.buffer = globalLightInfo.gpuBufferHandle().getBuffer();

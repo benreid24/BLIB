@@ -9,7 +9,6 @@
 #include <BLIB/Render/Lighting/SpotLight3D.hpp>
 #include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
-#include <BLIB/Render/Vulkan/PerFrameVector.hpp>
 #include <array>
 #include <glm/glm.hpp>
 
@@ -49,10 +48,6 @@ public:
     virtual ~Scene3DInstance();
 
 private:
-    vk::VulkanState& vulkanState;
-    const VkDescriptorSetLayout setLayout;
-    vk::PerFrameVector<VkDescriptorSet> descriptorSets;
-    vk::DescriptorPool::AllocationHandle allocHandle;
     buf::StaticUniformBuffer<lgt::LightingDescriptor3D> globalLightInfo;
     buf::StaticUniformBuffer<lgt::SpotLight3D> spotlights;
     buf::StaticUniformBuffer<lgt::PointLight3D> pointLights;
