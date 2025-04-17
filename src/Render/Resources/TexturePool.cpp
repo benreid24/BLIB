@@ -61,40 +61,53 @@ void TexturePool::init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
     errorTexture.createFromContentsAndQueue(
         vk::Texture::Type::Texture2D, vk::TextureFormat::SRGBA32Bit, vk::Sampler::FilteredRepeated);
     vulkanState.transferEngine.executeTransfers();
+    errorCubemapView = vulkanState.createImageView(errorTexture.getImage(),
+                                                   errorTexture.getFormat(),
+                                                   VK_IMAGE_ASPECT_COLOR_BIT,
+                                                   6,
+                                                   VK_IMAGE_VIEW_TYPE_CUBE);
 
     // init all textures to error pattern
     for (vk::Texture& txtr : textures) { txtr.currentView = errorTexture.currentView; }
-    for (vk::Texture& txtr : cubemaps) { txtr.currentView = errorTexture.currentView; }
+    for (vk::Texture& txtr : cubemaps) { txtr.currentView = errorCubemapView; }
 
     // fill descriptor set
     VkDescriptorImageInfo errorInfo{};
     errorInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
     errorInfo.imageView   = errorTexture.getView();
     errorInfo.sampler     = errorTexture.getSamplerHandle();
-    std::vector<VkDescriptorImageInfo> imageInfos(
-        Config::MaxTextureCount * Config::MaxConcurrentFrames, errorInfo);
+    std::vector<VkDescriptorImageInfo> imageInfos(Config::MaxTextureCount, errorInfo);
+
+    VkDescriptorImageInfo errorCubeInfo{};
+    errorCubeInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+    errorCubeInfo.imageView   = errorCubemapView;
+    errorCubeInfo.sampler     = errorTexture.getSamplerHandle();
+    std::vector<VkDescriptorImageInfo> imageCubeInfos(Config::MaxCubemapCount, errorCubeInfo);
 
     std::array<VkWriteDescriptorSet, 4 * Config::MaxConcurrentFrames> setWrites{};
-    unsigned int i = 0;
-    const auto visitor =
-        [this, &i, &setWrites, &imageInfos](auto& set, std::uint32_t bindIndex, std::uint32_t len) {
-            setWrites[i].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-            setWrites[i].descriptorCount = len;
-            setWrites[i].dstBinding      = bindIndex;
-            setWrites[i].dstArrayElement = 0;
-            setWrites[i].dstSet          = set;
-            setWrites[i].pImageInfo      = imageInfos.data();
-            setWrites[i].descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-            ++i;
-        };
+    unsigned int i     = 0;
+    const auto visitor = [this, &i, &setWrites](auto& set,
+                                                std::uint32_t bindIndex,
+                                                const std::vector<VkDescriptorImageInfo>& infos) {
+        setWrites[i].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+        setWrites[i].descriptorCount = infos.size();
+        setWrites[i].dstBinding      = bindIndex;
+        setWrites[i].dstArrayElement = 0;
+        setWrites[i].dstSet          = set;
+        setWrites[i].pImageInfo      = infos.data();
+        setWrites[i].descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+        ++i;
+    };
     descriptorSets.visit(
-        [&visitor](auto& set) { visitor(set, TextureArrayBindIndex, Config::MaxTextureCount); });
+        [&visitor, &imageInfos](auto& set) { visitor(set, TextureArrayBindIndex, imageInfos); });
     rtDescriptorSets.visit(
-        [&visitor](auto& set) { visitor(set, TextureArrayBindIndex, Config::MaxTextureCount); });
-    descriptorSets.visit(
-        [&visitor](auto& set) { visitor(set, CubemapArrayBindIndex, Config::MaxCubemapCount); });
-    rtDescriptorSets.visit(
-        [&visitor](auto& set) { visitor(set, CubemapArrayBindIndex, Config::MaxCubemapCount); });
+        [&visitor, &imageInfos](auto& set) { visitor(set, TextureArrayBindIndex, imageInfos); });
+    descriptorSets.visit([&visitor, &imageCubeInfos](auto& set) {
+        visitor(set, CubemapArrayBindIndex, imageCubeInfos);
+    });
+    rtDescriptorSets.visit([&visitor, &imageCubeInfos](auto& set) {
+        visitor(set, CubemapArrayBindIndex, imageCubeInfos);
+    });
     vkUpdateDescriptorSets(vulkanState.device, setWrites.size(), setWrites.data(), 0, nullptr);
 }
 
@@ -104,8 +117,9 @@ void TexturePool::cleanup() {
         if (txtr.currentView != errorTexture.getView()) { txtr.cleanup(); }
     }
     for (vk::Texture& txtr : cubemaps) {
-        if (txtr.currentView != errorTexture.getView()) { txtr.cleanup(); }
+        if (txtr.currentView != errorCubemapView) { txtr.cleanup(); }
     }
+    vkDestroyImageView(vulkanState.device, errorCubemapView, nullptr);
     errorTexture.cleanup();
 }
 
@@ -501,7 +515,17 @@ void TexturePool::updateTexture(vk::Texture* texture) {
 
 void TexturePool::resetTexture(vk::Texture* texture) {
     texture->cleanup();
-    *texture = errorTexture;
+
+    switch (texture->getType()) {
+    case vk::Texture::Type::Cubemap:
+        texture->currentView = errorCubemapView;
+        break;
+
+    default:
+        texture->currentView = errorTexture.getView();
+        break;
+    }
+
     texture->reset();
     updateTexture(texture);
 }

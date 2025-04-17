@@ -33,10 +33,7 @@ Image::~Image() { deferDestroy(); }
 void Image::create(VulkanState& vs, Type t, VkFormat fmt, VkImageUsageFlags usg,
                    const VkExtent2D& extent, VkImageAspectFlags asp, VmaAllocationCreateFlags af,
                    VkMemoryPropertyFlags mem, VkImageCreateFlags ef) {
-    if (vulkanState && size.width == extent.width && size.height == extent.height) {
-        //
-        return;
-    }
+    if (vulkanState && size.width == extent.width && size.height == extent.height) { return; }
     size = extent;
 
     deferDestroy();
