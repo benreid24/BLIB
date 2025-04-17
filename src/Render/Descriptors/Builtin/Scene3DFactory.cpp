@@ -16,25 +16,46 @@ void Scene3DFactory::init(engine::Engine&, Renderer& renderer) {
     vulkanState = &renderer.vulkanState();
 
     vk::DescriptorPool::SetBindingInfo bindingInfo;
-    bindingInfo.bindingCount = 4;
+    bindingInfo.bindingCount = 7;
 
+    // camera info
     bindingInfo.bindings[0] = SceneDescriptorSetInstance::getCameraBufferBindingInfo(
         0, VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT);
 
-    bindingInfo.bindings[1].binding         = 1;
+    // sunlight & global lighting
     bindingInfo.bindings[1].descriptorCount = 1;
     bindingInfo.bindings[1].descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
     bindingInfo.bindings[1].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
 
-    bindingInfo.bindings[2].binding         = 2;
+    // spot lights
     bindingInfo.bindings[2].descriptorCount = 1;
     bindingInfo.bindings[2].descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
     bindingInfo.bindings[2].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
 
-    bindingInfo.bindings[3].binding         = 3;
+    // point lights
     bindingInfo.bindings[3].descriptorCount = 1;
     bindingInfo.bindings[3].descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
     bindingInfo.bindings[3].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
+
+    // spot lights with shadows
+    bindingInfo.bindings[4].descriptorCount = 1;
+    bindingInfo.bindings[4].descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+    bindingInfo.bindings[4].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
+
+    // spot light shadow maps
+    bindingInfo.bindings[5].descriptorCount = Config::MaxSpotShadows;
+    bindingInfo.bindings[5].descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+    bindingInfo.bindings[5].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
+
+    // point lights with shadows
+    bindingInfo.bindings[6].descriptorCount = 1;
+    bindingInfo.bindings[6].descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+    bindingInfo.bindings[6].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
+
+    // point light shadow maps
+    bindingInfo.bindings[7].descriptorCount = Config::MaxPointShadows;
+    bindingInfo.bindings[7].descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+    bindingInfo.bindings[7].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
 
     descriptorSetLayout = vulkanState->descriptorPool.createLayout(bindingInfo);
 }

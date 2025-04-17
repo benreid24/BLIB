@@ -28,7 +28,9 @@ constexpr unsigned int MaxSets = 500;
 } // namespace
 
 DescriptorPool::SetBindingInfo::SetBindingInfo()
-: bindingCount(0) {}
+: bindingCount(0) {
+    for (unsigned int i = 0; i < Config::MaxDescriptorBindings; ++i) { bindings[i].binding = i; }
+}
 
 DescriptorPool::DescriptorPool(VulkanState& vs)
 : vulkanState(vs) {}

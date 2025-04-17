@@ -3,6 +3,7 @@
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/SetWriteHelper.hpp>
 #include <BLIB/Render/Lighting/Scene3DLighting.hpp>
+#include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>
 #include <array>
 
@@ -12,8 +13,9 @@ namespace rc
 {
 namespace ds
 {
-Scene3DInstance::Scene3DInstance(vk::VulkanState& vulkanState, VkDescriptorSetLayout layout)
-: SceneDescriptorSetInstance(vulkanState, layout) {}
+Scene3DInstance::Scene3DInstance(Renderer& renderer, VkDescriptorSetLayout layout)
+: SceneDescriptorSetInstance(renderer.vulkanState(), layout)
+, renderer(renderer) {}
 
 Scene3DInstance::~Scene3DInstance() {
     cleanup();
@@ -49,6 +51,29 @@ void Scene3DInstance::init(DescriptorComponentStorageCache&) {
     globalLightInfo.create(vulkanState, 1);
     spotlights.create(vulkanState, lgt::Scene3DLighting::MaxSpotLights);
     pointLights.create(vulkanState, lgt::Scene3DLighting::MaxPointLights);
+    spotlightsWithShadows.create(vulkanState, Config::MaxSpotShadows);
+    pointLightsWithShadows.create(vulkanState, Config::MaxPointShadows);
+
+    // TODO - resize shadow maps on settings change (use events?)
+    for (vk::Image& map : spotShadowMapImages) {
+        map.create(vulkanState,
+                   vk::Image::Type::Image2D,
+                   vulkanState.findDepthFormat(),
+                   VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
+                   renderer.getSettings().getShadowMapResolution(),
+                   VK_IMAGE_ASPECT_DEPTH_BIT,
+                   0);
+    }
+
+    for (vk::Image& map : pointShadowMapImages) {
+        map.create(vulkanState,
+                   vk::Image::Type::Cubemap,
+                   vulkanState.findDepthFormat(),
+                   VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
+                   renderer.getSettings().getShadowMapResolution(),
+                   VK_IMAGE_ASPECT_DEPTH_BIT,
+                   0);
+    }
 
     // allocate descriptors
     allocateDescriptorSets();
@@ -100,6 +125,8 @@ void Scene3DInstance::init(DescriptorComponentStorageCache&) {
             spotlightWrite.dstArrayElement       = 0;
             spotlightWrite.pBufferInfo           = &spotlightInfo;
             spotlightWrite.descriptorType        = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+
+            // TODO - write new buffers & samplers
         }
     }
     setWriter.performWrite(vulkanState.device);

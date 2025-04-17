@@ -16,6 +16,7 @@ namespace bl
 {
 namespace rc
 {
+class Renderer;
 namespace vk
 {
 struct VulkanState;
@@ -37,20 +38,41 @@ public:
     /**
      * @brief Creates a new instance of the descriptor set
      *
-     * @param vulkanState Renderer Vulkan state
+     * @param renderer The renderer instance
      * @param layout The layout of the descriptor set
      */
-    Scene3DInstance(vk::VulkanState& vulkanState, VkDescriptorSetLayout layout);
+    Scene3DInstance(Renderer& renderer, VkDescriptorSetLayout layout);
 
     /**
      * @brief Destroys the descriptor set
      */
     virtual ~Scene3DInstance();
 
+    /**
+     * @brief Returns the image for the spotlight shadow map
+     *
+     * @param i The index of the shadow map image to get
+     * @return The shadow map at the given index
+     */
+    const vk::Image& getSpotlightShadowMap(unsigned int i) const;
+
+    /**
+     * @brief Returns the image for the point light shadow map
+     *
+     * @param i The index of the shadow map image to get
+     * @return The shadow map at the given index
+     */
+    const vk::Image& getPointLightShadowMap(unsigned int i) const;
+
 private:
+    Renderer& renderer;
     buf::StaticUniformBuffer<lgt::LightingDescriptor3D> globalLightInfo;
     buf::StaticUniformBuffer<lgt::SpotLight3D> spotlights;
     buf::StaticUniformBuffer<lgt::PointLight3D> pointLights;
+    buf::StaticUniformBuffer<lgt::SpotLight3D> spotlightsWithShadows;
+    std::array<vk::Image, Config::MaxSpotShadows> spotShadowMapImages;
+    buf::StaticUniformBuffer<lgt::PointLight3D> pointLightsWithShadows;
+    std::array<vk::Image, Config::MaxPointShadows> pointShadowMapImages;
 
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                  std::uint32_t setIndex, UpdateSpeed updateFreq) const override;
@@ -63,6 +85,16 @@ private:
 
     friend class lgt::Scene3DLighting;
 };
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+inline const vk::Image& Scene3DInstance::getSpotlightShadowMap(unsigned int i) const {
+    return spotShadowMapImages[i];
+}
+
+inline const vk::Image& Scene3DInstance::getPointLightShadowMap(unsigned int i) const {
+    return pointShadowMapImages[i];
+}
 
 } // namespace ds
 } // namespace rc

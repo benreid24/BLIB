@@ -1,5 +1,7 @@
 #define MAX_POINT_LIGHTS 128
 #define MAX_SPOT_LIGHTS 128
+#define MAX_SPOT_SHADOWS 16
+#define MAX_POINT_SHADOWS 16
 
 struct Color {
     vec4 ambient;

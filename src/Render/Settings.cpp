@@ -60,5 +60,11 @@ Settings& Settings::setBloomPassCount(std::uint32_t pc) {
     return *this;
 }
 
+Settings& Settings::setShadowMapResolution(const VkExtent2D& res) {
+    shadowMapResolution = res;
+    dirty               = true;
+    return *this;
+}
+
 } // namespace rc
 } // namespace bl

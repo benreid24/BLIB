@@ -36,7 +36,7 @@ public:
     struct SetBindingInfo {
         SetBindingInfo();
 
-        std::array<VkDescriptorSetLayoutBinding, Config::MaxDescriptorSets> bindings;
+        std::array<VkDescriptorSetLayoutBinding, Config::MaxDescriptorBindings> bindings;
         std::uint32_t bindingCount;
     };
 

@@ -46,6 +46,14 @@ layout(set = 1, binding = 2) uniform block_point_lights {
 layout(std140, set = 1, binding = 3) uniform block_spot_lights {
     SpotLight lights[MAX_SPOT_LIGHTS];
 } spotLights;
+layout(set = 1, binding = 4) uniform block_point_lights_shadows {
+    PointLight lights[MAX_POINT_SHADOWS];
+} pointLightsWithShadows;
+layout(set = 1, binding = 5) uniform sampler2D spotShadowMaps[MAX_SPOT_SHADOWS];
+layout(std140, set = 1, binding = 6) uniform block_spot_lights_shadows {
+    SpotLight lights[MAX_SPOT_LIGHTS];
+} spotLightsWithShadows;
+layout(set = 1, binding = 7) uniform samplerCube pointShadowMaps[MAX_POINT_SHADOWS];
 
 layout(std430, set = 2, binding = 1) readonly buffer tex {
     uint index[];

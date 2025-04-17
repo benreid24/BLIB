@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_SETTINGS_HPP
 #define BLIB_RENDER_SETTINGS_HPP
 
+#include <BLIB/Vulkan.hpp>
 #include <array>
 #include <initializer_list>
 
@@ -94,6 +95,19 @@ public:
      */
     Settings& setBloomFilters(std::initializer_list<float> filters);
 
+    /**
+     * @brief Sets the resoltuion to render shadow maps at
+     *
+     * @param resolution The shadow map resolution to use
+     * @return A reference to this object
+     */
+    Settings& setShadowMapResolution(const VkExtent2D& resolution);
+
+    /**
+     * @brief Returns the resolution to render shadow maps at
+     */
+    const VkExtent2D& getShadowMapResolution() const;
+
 private:
     float gamma;
     float exposure;
@@ -101,6 +115,7 @@ private:
     std::array<float, MaxBloomFilterSize> bloomFilters;
     std::uint32_t bloomFilterSize;
     std::uint32_t bloomPasses;
+    VkExtent2D shadowMapResolution;
     bool dirty;
 
     friend class Renderer;
@@ -121,6 +136,8 @@ inline std::uint32_t Settings::getBloomFilterSize() const { return bloomFilterSi
 inline const std::array<float, Settings::MaxBloomFilterSize>& Settings::getBloomFilters() const {
     return bloomFilters;
 }
+
+inline const VkExtent2D& Settings::getShadowMapResolution() const { return shadowMapResolution; }
 
 } // namespace rc
 } // namespace bl
