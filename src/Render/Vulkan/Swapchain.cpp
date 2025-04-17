@@ -158,7 +158,7 @@ void Swapchain::cleanup() {
     for (StandardAttachmentSet& frame : renderFrames) {
         vkDestroyImageView(vulkanState.device, frame.colorImageView(), nullptr);
     }
-    for (AttachmentBuffer& depthBuffer : depthBuffers) { depthBuffer.destroy(); }
+    for (Image& depthBuffer : depthBuffers) { depthBuffer.destroy(); }
     vkDestroySwapchainKHR(vulkanState.device, swapchain, nullptr);
 }
 
@@ -169,7 +169,7 @@ void Swapchain::deferCleanup() {
                 vkDestroyImageView(device, view, nullptr);
             });
     }
-    for (AttachmentBuffer& depthBuffer : depthBuffers) { depthBuffer.deferDestroy(); }
+    for (Image& depthBuffer : depthBuffers) { depthBuffer.deferDestroy(); }
     vulkanState.cleanupManager.add([device = vulkanState.device, chain = swapchain]() {
         vkDestroySwapchainKHR(device, chain, nullptr);
     });
@@ -266,9 +266,12 @@ void Swapchain::createSwapchain() {
     depthBuffers.resize(imageCount);
     for (unsigned int i = 0; i < imageCount; ++i) {
         depthBuffers[i].create(vulkanState,
+                               Image::Type::Image2D,
                                StandardAttachmentBuffers::findDepthFormat(vulkanState),
                                VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
-                               createInfo.imageExtent);
+                               createInfo.imageExtent,
+                               VK_IMAGE_ASPECT_DEPTH_BIT,
+                               VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT);
     }
 
     // assign attachment sets
@@ -277,8 +280,8 @@ void Swapchain::createSwapchain() {
         renderFrames[i].setRenderExtent(createInfo.imageExtent);
         renderFrames[i].setAttachments(images[i],
                                        vulkanState.createImageView(images[i], imageFormat),
-                                       depthBuffers[i].image(),
-                                       depthBuffers[i].view());
+                                       depthBuffers[i].getImage(),
+                                       depthBuffers[i].getView());
     }
 }
 

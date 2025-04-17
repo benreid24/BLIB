@@ -52,12 +52,15 @@ void RenderTexture::resize(const glm::u32vec2& size) {
                                   .rawPass();
 
     depthBuffer.create(renderer.vulkanState(),
+                       Image::Type::Image2D,
                        StandardAttachmentBuffers::findDepthFormat(renderer.vulkanState()),
                        VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
-                       {size.x, size.y});
+                       {size.x, size.y},
+                       VK_IMAGE_ASPECT_DEPTH_BIT,
+                       VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT);
     attachmentSet.setRenderExtent(scissor.extent);
     attachmentSet.setAttachments(
-        texture->getImage(), texture->getView(), depthBuffer.image(), depthBuffer.view());
+        texture->getImage(), texture->getView(), depthBuffer.getImage(), depthBuffer.getView());
 
     framebuffer.create(renderer.vulkanState(), renderPass, attachmentSet);
 }

@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_VULKAN_STANDARDIMAGEBUFFER_HPP
 #define BLIB_RENDER_VULKAN_STANDARDIMAGEBUFFER_HPP
 
-#include <BLIB/Render/Vulkan/AttachmentBuffer.hpp>
+#include <BLIB/Render/Vulkan/Image.hpp>
 #include <BLIB/Render/Vulkan/StandardAttachmentSet.hpp>
 #include <BLIB/Render/Vulkan/TextureFormat.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
@@ -74,8 +74,8 @@ public:
 private:
     VulkanState* owner;
     StandardAttachmentSet attachments;
-    AttachmentBuffer colorAttachment;
-    AttachmentBuffer depthAttachment;
+    Image colorAttachment;
+    Image depthAttachment;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

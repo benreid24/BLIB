@@ -4,8 +4,8 @@
 #include <BLIB/Render/RenderTarget.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
-#include <BLIB/Render/Vulkan/AttachmentBuffer.hpp>
 #include <BLIB/Render/Vulkan/DedicatedCommandBuffers.hpp>
+#include <BLIB/Render/Vulkan/Image.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/Sampler.hpp>
 #include <BLIB/Render/Vulkan/StandardAttachmentSet.hpp>
@@ -136,13 +136,13 @@ public:
 
 private:
     struct FramePayload {
-        AttachmentBuffer depthBuffer;
+        Image depthBuffer;
         StandardAttachmentSet attachmentSet;
     };
 
     DedicatedCommandBuffers commandBuffers;
     res::TextureRef texture;
-    AttachmentBuffer depthBuffer;
+    Image depthBuffer;
     StandardAttachmentSet attachmentSet;
     Framebuffer framebuffer;
 

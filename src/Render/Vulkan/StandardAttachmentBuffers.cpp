@@ -14,14 +14,24 @@ void StandardAttachmentBuffers::create(VulkanState& vs, const VkExtent2D& size,
     owner = &vs;
     attachments.setRenderExtent(size);
 
-    colorAttachment.create(
-        vs, colorFormat, VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT, size);
-    depthAttachment.create(
-        vs, findDepthFormat(vs), VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, size);
-    attachments.setAttachments(colorAttachment.image(),
-                               colorAttachment.view(),
-                               depthAttachment.image(),
-                               depthAttachment.view());
+    colorAttachment.create(vs,
+                           Image::Type::Image2D,
+                           colorFormat,
+                           VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
+                           size,
+                           VK_IMAGE_ASPECT_COLOR_BIT,
+                           VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT);
+    depthAttachment.create(vs,
+                           Image::Type::Image2D,
+                           findDepthFormat(vs),
+                           VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
+                           size,
+                           VK_IMAGE_ASPECT_DEPTH_BIT,
+                           VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT);
+    attachments.setAttachments(colorAttachment.getImage(),
+                               colorAttachment.getView(),
+                               depthAttachment.getImage(),
+                               depthAttachment.getView());
 }
 
 void StandardAttachmentBuffers::destroy() {

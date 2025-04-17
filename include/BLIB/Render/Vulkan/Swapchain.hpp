@@ -1,8 +1,8 @@
 #ifndef BLIB_RENDER_VULKAN_SWAPCHAIN_HPP
 #define BLIB_RENDER_VULKAN_SWAPCHAIN_HPP
 
-#include <BLIB/Render/Vulkan/AttachmentBuffer.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
+#include <BLIB/Render/Vulkan/Image.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/PerSwapFrame.hpp>
 #include <BLIB/Render/Vulkan/StandardAttachmentSet.hpp>
@@ -112,7 +112,7 @@ private:
     VkSurfaceKHR oldSurface;
     VkFormat imageFormat;
     std::vector<StandardAttachmentSet> renderFrames;
-    std::vector<AttachmentBuffer> depthBuffers;
+    std::vector<Image> depthBuffers;
     vk::PerFrame<Frame> frameData;
     std::uint32_t currentImageIndex;
     bool outOfDate;

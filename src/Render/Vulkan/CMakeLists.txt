@@ -1,5 +1,4 @@
 target_sources(BLIB PRIVATE
-    AttachmentBuffer.cpp
     Buffer.cpp
     CleanupManager.cpp
     CommonSamplers.cpp
@@ -7,6 +6,7 @@ target_sources(BLIB PRIVATE
     DescriptorPool.cpp
     DescriptorSet.cpp
     Framebuffer.cpp
+    Image.cpp
     Pipeline.cpp
     PipelineInstance.cpp
     PipelineLayout.cpp

@@ -1,5 +1,4 @@
 target_sources(BLIB PUBLIC
-    AttachmentBuffer.hpp
     AttachmentBufferSet.hpp
     AttachmentSet.hpp
     Buffer.hpp
@@ -9,6 +8,7 @@ target_sources(BLIB PUBLIC
     DescriptorPool.hpp
     DescriptorSet.hpp
     Framebuffer.hpp
+    Image.hpp
     PerFrame.hpp
     PerSwapFrame.hpp
     Pipeline.hpp

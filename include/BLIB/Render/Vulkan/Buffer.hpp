@@ -69,7 +69,7 @@ public:
     /**
      * @brief Returns whether or not the buffer is currently created
      */
-    constexpr bool created() const;
+    bool created() const;
 
     /**
      * @brief Destroys the buffer immediately
@@ -85,12 +85,12 @@ public:
     /**
      * @brief Returns the Vulkan buffer handle
      */
-    constexpr VkBuffer getBuffer() const;
+    VkBuffer getBuffer() const;
 
     /**
      * @brief Returns the VMA allocation
      */
-    constexpr VmaAllocation getAlloc() const;
+    VmaAllocation getAlloc() const;
 
     /**
      * @brief Maps the buffer. Does not check if buffer is map-able or if it is already mapped
@@ -101,7 +101,7 @@ public:
     /**
      * @brief Returns a pointer to the mapped buffer memory
      */
-    constexpr void* getMappedMemory() const;
+    void* getMappedMemory() const;
 
     /**
      * @brief Unmaps the buffer. Does not check if the buffer is currently mapped
@@ -111,7 +111,7 @@ public:
     /**
      * @brief Returns the size of the buffer in bytes
      */
-    constexpr VkDeviceSize getSize() const;
+    VkDeviceSize getSize() const;
 
     /**
      * @brief Records a pipeline barrier to prevent writes from occurring before fragment shader
@@ -135,15 +135,15 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr bool Buffer::created() const { return vulkanState != nullptr; }
+inline bool Buffer::created() const { return vulkanState != nullptr; }
 
-inline constexpr VkBuffer Buffer::getBuffer() const { return buffer; }
+inline VkBuffer Buffer::getBuffer() const { return buffer; }
 
-inline constexpr VmaAllocation Buffer::getAlloc() const { return alloc; }
+inline VmaAllocation Buffer::getAlloc() const { return alloc; }
 
-inline constexpr void* Buffer::getMappedMemory() const { return mapped; }
+inline void* Buffer::getMappedMemory() const { return mapped; }
 
-inline constexpr VkDeviceSize Buffer::getSize() const { return size; }
+inline VkDeviceSize Buffer::getSize() const { return size; }
 
 } // namespace vk
 } // namespace rc

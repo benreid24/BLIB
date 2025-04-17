@@ -2,6 +2,7 @@
 #define BLIB_RENDER_RENDERER_TEXTURE_HPP
 
 #include <BLIB/Render/Transfers/Transferable.hpp>
+#include <BLIB/Render/Vulkan/Image.hpp>
 #include <BLIB/Render/Vulkan/Sampler.hpp>
 #include <BLIB/Resources.hpp>
 #include <SFML/Graphics/Image.hpp>
@@ -25,7 +26,11 @@ public:
     /**
      * @brief The type of texture that this is
      */
-    enum struct Type { Texture2D, RenderTexture, Cubemap };
+    enum struct Type {
+        Texture2D = Image::Type::Image2D,
+        Cubemap   = Image::Type::Cubemap,
+        RenderTexture
+    };
 
     /**
      * @brief Creates an empty Texture
@@ -151,8 +156,8 @@ private:
     res::TexturePool* parent;
     Type type;
     Sampler sampler;
-    VkFormat format;
-    glm::u32vec2 sizeRaw;
+    Image image;
+    VkImageView currentView;
     bool hasTransparency;
 
     // transfer data
@@ -161,13 +166,6 @@ private:
     sf::Image localImage;
     glm::u32vec2 destPos;
     sf::IntRect source;
-
-    // texture data
-    VkImage image;
-    VmaAllocation alloc;
-    VmaAllocationInfo allocInfo;
-    VkImageView view;
-    VkImageLayout currentLayout;
 
     void create(Type type, const glm::u32vec2& size, VkFormat format, Sampler sampler);
     void createFromContentsAndQueue(Type type, VkFormat format, Sampler sampler);
@@ -183,21 +181,23 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline VkImage Texture::getImage() const { return image; }
+inline VkImage Texture::getImage() const { return image.getImage(); }
 
-inline VkImageView Texture::getView() const { return view; }
+inline VkImageView Texture::getView() const { return image.getView(); }
 
-inline VkFormat Texture::getFormat() const { return format; }
+inline VkFormat Texture::getFormat() const { return image.getFormat(); }
 
-inline const glm::u32vec2& Texture::rawSize() const { return sizeRaw; }
+inline const glm::u32vec2& Texture::rawSize() const {
+    return {image.getSize().width, image.getSize().height};
+}
 
-inline glm::vec2 Texture::size() const { return glm::vec2(sizeRaw); }
+inline glm::vec2 Texture::size() const { return glm::vec2(rawSize()); }
 
 inline bool Texture::containsTransparency() const { return hasTransparency; }
 
 inline Sampler Texture::getSampler() const { return sampler; }
 
-inline VkImageLayout Texture::getCurrentImageLayout() const { return currentLayout; }
+inline VkImageLayout Texture::getCurrentImageLayout() const { return image.getCurrentLayout(); }
 
 inline Texture::Type Texture::getType() const { return type; }
 

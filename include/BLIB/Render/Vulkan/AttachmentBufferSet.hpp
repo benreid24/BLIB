@@ -1,8 +1,8 @@
-#ifndef BLIB_RENDER_VULKAN_ATTACHMENTBUFFERSET_HPP
-#define BLIB_RENDER_VULKAN_ATTACHMENTBUFFERSET_HPP
+#ifndef BLIB_RENDER_VULKAN_IMAGESET_HPP
+#define BLIB_RENDER_VULKAN_IMAGESET_HPP
 
-#include <BLIB/Render/Vulkan/AttachmentBuffer.hpp>
 #include <BLIB/Render/Vulkan/AttachmentSet.hpp>
+#include <BLIB/Render/Vulkan/Image.hpp>
 #include <BLIB/Render/Vulkan/TextureFormat.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <BLIB/Vulkan.hpp>
@@ -51,7 +51,7 @@ public:
      * @param i The index of the attachment buffer to get
      * @return The attachment buffer at the given index
      */
-    AttachmentBuffer& getBuffer(std::uint32_t i);
+    Image& getBuffer(std::uint32_t i);
 
     /**
      * @brief Destroys the images, views, sampler, and frees GPU memory
@@ -78,7 +78,7 @@ private:
     std::array<VkImage, BufferCount> images;
     std::array<VkImageView, BufferCount> views;
     AttachmentSet attachments;
-    std::array<AttachmentBuffer, BufferCount> buffers;
+    std::array<Image, BufferCount> buffers;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -93,16 +93,22 @@ void AttachmentBufferSet<BufferCount>::create(
 
     std::array<VkImageAspectFlags, BufferCount> aspects;
     for (std::uint32_t i = 0; i < BufferCount; ++i) {
-        buffers[i].create(vulkaState, bufferFormats[i], usages[i], size);
-        images[i]  = buffers[i].image();
-        views[i]   = buffers[i].view();
         aspects[i] = VulkanState::guessImageAspect(bufferFormats[i], usages[i]);
+        buffers[i].create(vulkaState,
+                          Image::Type::Image2D,
+                          bufferFormats[i],
+                          usages[i],
+                          size,
+                          aspects[i],
+                          VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT);
+        images[i] = buffers[i].getImage();
+        views[i]  = buffers[i].getView();
     }
     attachments.init(images, views, aspects);
 }
 
 template<std::uint32_t BufferCount>
-AttachmentBuffer& AttachmentBufferSet<BufferCount>::getBuffer(std::uint32_t i) {
+Image& AttachmentBufferSet<BufferCount>::getBuffer(std::uint32_t i) {
     return buffers[i];
 }
 

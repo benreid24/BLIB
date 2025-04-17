@@ -11,17 +11,6 @@ namespace vk
 {
 namespace
 {
-std::uint32_t getLayerCount(Texture::Type type) {
-    switch (type) {
-    case Texture::Type::Cubemap:
-        return 6;
-    case Texture::Type::RenderTexture:
-    case Texture::Type::Texture2D:
-    default:
-        return 1;
-    }
-}
-
 VkImageUsageFlags getExtraUsage(Texture::Type type) {
     switch (type) {
     case Texture::Type::RenderTexture:
@@ -33,40 +22,27 @@ VkImageUsageFlags getExtraUsage(Texture::Type type) {
     }
 }
 
-VkImageCreateFlags getCreateFlags(Texture::Type type) {
+Image::Type mapType(Texture::Type type) {
     switch (type) {
-    case Texture::Type::Cubemap:
-        return VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT;
     case Texture::Type::RenderTexture:
+        return Image::Type::Image2D;
+
+    case Texture::Type::Cubemap:
     case Texture::Type::Texture2D:
     default:
-        return 0;
+        return static_cast<Image::Type>(type);
     }
 }
 
-VkImageViewType getViewType(Texture::Type type) {
-    switch (type) {
-    case Texture::Type::Cubemap:
-        return VK_IMAGE_VIEW_TYPE_CUBE;
-    case Texture::Type::RenderTexture:
-    case Texture::Type::Texture2D:
-    default:
-        return VK_IMAGE_VIEW_TYPE_2D;
-    }
-}
 } // namespace
 
 Texture::Texture()
 : parent(nullptr)
 , sampler(Sampler::FilteredRepeated)
-, sizeRaw(0, 0)
 , hasTransparency(false)
 , altImg(nullptr)
 , destPos(0, 0)
-, source(0, 0, 0, 0)
-, image(nullptr)
-, view(nullptr)
-, currentLayout(VK_IMAGE_LAYOUT_UNDEFINED) {}
+, source(0, 0, 0, 0) {}
 
 glm::vec2 Texture::convertCoord(const glm::vec2& src) const {
     // TODO - texture atlasing at the renderer level
@@ -92,7 +68,9 @@ void Texture::updateDescriptors() { parent->updateTexture(this); }
 
 void Texture::createFromContentsAndQueue(Type type, VkFormat format, Sampler sampler) {
     const sf::Image& src = altImg ? *altImg : *transferImg;
-    create(type, {src.getSize().x, src.getSize().y}, format, sampler);
+    glm::vec2 createSize = {src.getSize().x, src.getSize().y};
+    if (type == Type::Cubemap) { createSize.y /= 6; }
+    create(type, createSize, format, sampler);
     updateTrans(src);
     queueTransfer(SyncRequirement::Immediate);
 }
@@ -100,28 +78,16 @@ void Texture::createFromContentsAndQueue(Type type, VkFormat format, Sampler sam
 void Texture::create(Type t, const glm::u32vec2& s, VkFormat fmt, Sampler smplr) {
     type    = t;
     sampler = smplr;
-    format  = fmt;
-    sizeRaw = s;
-    sizeRaw.y /= getLayerCount(type);
 
-    vulkanState->createImage(sizeRaw.x,
-                             sizeRaw.y,
-                             getLayerCount(type),
-                             getFormat(),
-                             VK_IMAGE_TILING_OPTIMAL,
-                             VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT |
-                                 VK_IMAGE_USAGE_TRANSFER_SRC_BIT | getExtraUsage(type),
-                             getCreateFlags(type),
-                             VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
-                             &image,
-                             &alloc,
-                             &allocInfo);
-    view = vulkanState->createImageView(
-        image, getFormat(), VK_IMAGE_ASPECT_COLOR_BIT, getLayerCount(type), getViewType(type));
-
-    vulkanState->transitionImageLayout(
-        image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
-    currentLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
+    image.create(*vulkanState,
+                 mapType(type),
+                 fmt,
+                 VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT |
+                     VK_IMAGE_USAGE_TRANSFER_SRC_BIT | getExtraUsage(type),
+                 {s.x, s.y},
+                 VK_IMAGE_ASPECT_COLOR_BIT);
+    image.transitionLayout(VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+    currentView = image.getView();
 
     queueTransfer(SyncRequirement::Immediate);
 }
@@ -144,48 +110,7 @@ void Texture::update(const resource::Ref<sf::Image>& content, const glm::u32vec2
 }
 
 void Texture::resize(const glm::u32vec2& s) {
-    // cache data needed to delete original image
-    VkImage oldImage = image;
-
-    // queue deletion of original resources
-    vulkanState->cleanupManager.add(
-        [vulkanState = vulkanState, oldImage, oldAlloc = alloc, oldView = view]() {
-            vkDestroyImageView(vulkanState->device, oldView, nullptr);
-            vmaDestroyImage(vulkanState->vmaAllocator, oldImage, oldAlloc);
-        });
-
-    // transition original image to transfer source layout
-    vulkanState->transitionImageLayout(
-        image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL);
-    currentLayout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
-
-    // create new image
-    const glm::u32vec2 oldSize = rawSize();
-    create(type, s, format, sampler);
-
-    // copy from old to new
-    auto cb = vulkanState->sharedCommandPool.createBuffer();
-
-    VkImageCopy copyInfo{};
-    copyInfo.extent.width                  = std::min(oldSize.x, s.x);
-    copyInfo.extent.height                 = std::min(oldSize.y, s.y);
-    copyInfo.extent.depth                  = 1;
-    copyInfo.srcSubresource.aspectMask     = VK_IMAGE_ASPECT_COLOR_BIT;
-    copyInfo.srcSubresource.mipLevel       = 0;
-    copyInfo.srcSubresource.baseArrayLayer = 0;
-    copyInfo.srcSubresource.layerCount     = getLayerCount(type);
-    copyInfo.dstSubresource                = copyInfo.srcSubresource;
-
-    vkCmdCopyImage(cb,
-                   oldImage,
-                   VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
-                   image,
-                   VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
-                   1,
-                   &copyInfo);
-
-    cb.submit();
-
+    image.resize(s, true);
     updateDescriptors();
 }
 
@@ -197,16 +122,16 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
         barrier.newLayout                       = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
         barrier.srcQueueFamilyIndex             = VK_QUEUE_FAMILY_IGNORED;
         barrier.dstQueueFamilyIndex             = VK_QUEUE_FAMILY_IGNORED;
-        barrier.image                           = image;
+        barrier.image                           = image.getImage();
         barrier.subresourceRange.aspectMask     = VK_IMAGE_ASPECT_COLOR_BIT;
         barrier.subresourceRange.baseMipLevel   = 0;
         barrier.subresourceRange.levelCount     = 1;
         barrier.subresourceRange.baseArrayLayer = 0;
-        barrier.subresourceRange.layerCount     = getLayerCount(type);
+        barrier.subresourceRange.layerCount     = image.getLayerCount();
         barrier.srcAccessMask                   = VK_ACCESS_TRANSFER_WRITE_BIT;
         barrier.dstAccessMask                   = VK_ACCESS_SHADER_READ_BIT;
         engine.registerImageBarrier(barrier);
-        currentLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+        image.notifyNewLayout(VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
     };
 
     // copy image contents if required
@@ -220,11 +145,11 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
             source.top    = 0;
             source.width  = src.getSize().x;
             source.height = src.getSize().y;
-            source.height /= getLayerCount(type);
+            source.height /= image.getLayerCount();
         }
 
         // create staging buffer
-        const VkDeviceSize stageSize = source.width * source.height * 4 * getLayerCount(type);
+        const VkDeviceSize stageSize = source.width * source.height * 4 * image.getLayerCount();
         VkBuffer stagingBuffer;
         void* data;
         engine.createTemporaryStagingBuffer(stageSize, stagingBuffer, &data);
@@ -241,16 +166,12 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
         else { std::memcpy(data, src.getPixelsPtr(), stageSize); }
 
         // transition to transfer dst prior to copy
-        vulkanState->transitionImageLayout(cb,
-                                           image,
-                                           VK_IMAGE_LAYOUT_UNDEFINED,
-                                           VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
-                                           getLayerCount(type));
+        image.transitionLayout(cb, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, true);
 
         // issue copy command
-        VkDeviceSize layerSize = sizeRaw.x * sizeRaw.y * 4;
+        VkDeviceSize layerSize = image.getSize().width * image.getSize().height * 4;
         VkBufferImageCopy copyInfos[6]{};
-        for (unsigned int face = 0; face < getLayerCount(type); ++face) {
+        for (unsigned int face = 0; face < image.getLayerCount(); ++face) {
             auto& copyInfo                           = copyInfos[face];
             copyInfo.bufferOffset                    = face * layerSize;
             copyInfo.bufferRowLength                 = 0;
@@ -267,9 +188,9 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
         }
         vkCmdCopyBufferToImage(cb,
                                stagingBuffer,
-                               image,
+                               image.getImage(),
                                VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
-                               getLayerCount(type),
+                               image.getLayerCount(),
                                copyInfos);
 
         // insert pipeline barrier
@@ -285,13 +206,13 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
         source.width  = 0;
         source.height = 0;
     }
-    else if (currentLayout != VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL) { transitionLayout(); }
+    else if (image.getCurrentLayout() != VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL) {
+        transitionLayout();
+    }
 }
 
 void Texture::cleanup() {
-    vkDestroyImageView(vulkanState->device, view, nullptr);
-    vmaDestroyImage(vulkanState->vmaAllocator, image, alloc);
-
+    image.destroy();
     cancelQueuedTransfer();
 }
 

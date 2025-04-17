@@ -63,13 +63,13 @@ void TexturePool::init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
     vulkanState.transferEngine.executeTransfers();
 
     // init all textures to error pattern
-    for (vk::Texture& txtr : textures) { txtr = errorTexture; }
-    for (vk::Texture& txtr : cubemaps) { txtr = errorTexture; }
+    for (vk::Texture& txtr : textures) { txtr.currentView = errorTexture.currentView; }
+    for (vk::Texture& txtr : cubemaps) { txtr.currentView = errorTexture.currentView; }
 
     // fill descriptor set
     VkDescriptorImageInfo errorInfo{};
     errorInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-    errorInfo.imageView   = errorTexture.view;
+    errorInfo.imageView   = errorTexture.getView();
     errorInfo.sampler     = errorTexture.getSamplerHandle();
     std::vector<VkDescriptorImageInfo> imageInfos(
         Config::MaxTextureCount * Config::MaxConcurrentFrames, errorInfo);
@@ -101,10 +101,10 @@ void TexturePool::init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
 void TexturePool::cleanup() {
     TextureRef::disableCleanup();
     for (vk::Texture& txtr : textures) {
-        if (txtr.view != errorTexture.view) { txtr.cleanup(); }
+        if (txtr.currentView != errorTexture.getView()) { txtr.cleanup(); }
     }
     for (vk::Texture& txtr : cubemaps) {
-        if (txtr.view != errorTexture.view) { txtr.cleanup(); }
+        if (txtr.currentView != errorTexture.getView()) { txtr.cleanup(); }
     }
     errorTexture.cleanup();
 }
@@ -421,7 +421,7 @@ void TexturePool::onFrameStart(ds::SetWriteHelper& setWriter, VkDescriptorSet cu
             const vk::Texture* base = isCubemap ? cubemaps.data() : textures.data();
             const std::uint32_t i   = texture - base;
             const bool isRT         = texture->getType() == vk::Texture::Type::RenderTexture;
-            const VkImageView view  = texture->view;
+            const VkImageView view  = texture->currentView;
 
             auto& regularInfo       = setWriter.getNewImageInfo();
             regularInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
@@ -440,7 +440,7 @@ void TexturePool::onFrameStart(ds::SetWriteHelper& setWriter, VkDescriptorSet cu
             // write error texture to rt set if is rt itself
             auto& rtInfo       = setWriter.getNewImageInfo();
             rtInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-            rtInfo.imageView   = isRT ? errorTexture.view : view;
+            rtInfo.imageView   = isRT ? errorTexture.getView() : view;
             rtInfo.sampler = isRT ? errorTexture.getSamplerHandle() : texture->getSamplerHandle();
 
             auto& rtWrite           = setWriter.getNewSetWrite(currentRtSet);

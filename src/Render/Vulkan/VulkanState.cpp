@@ -567,9 +567,9 @@ VkResult VulkanState::submitCommandBuffer(const VkSubmitInfo& submitInfo, VkFenc
 }
 
 void VulkanState::transitionImageLayout(VkImage image, VkImageLayout oldLayout,
-                                        VkImageLayout newLayout) {
+                                        VkImageLayout newLayout, std::uint32_t layerCount) {
     auto commandBuffer = sharedCommandPool.createBuffer();
-    transitionImageLayout(commandBuffer, image, oldLayout, newLayout);
+    transitionImageLayout(commandBuffer, image, oldLayout, newLayout, layerCount);
     commandBuffer.submit();
 }
 
