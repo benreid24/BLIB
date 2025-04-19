@@ -51,10 +51,9 @@ void Scene3DInstance::init(DescriptorComponentStorageCache&) {
     globalLightInfo.create(vulkanState, 1);
     spotlights.create(vulkanState, lgt::Scene3DLighting::MaxSpotLights);
     pointLights.create(vulkanState, lgt::Scene3DLighting::MaxPointLights);
-    spotlightsWithShadows.create(vulkanState, Config::MaxSpotShadows);
-    pointLightsWithShadows.create(vulkanState, Config::MaxPointShadows);
 
     // TODO - resize shadow maps on settings change (use events?)
+    auto commandBuffer = vulkanState.sharedCommandPool.createBuffer();
     for (vk::Image& map : spotShadowMapImages) {
         map.create(vulkanState,
                    vk::Image::Type::Image2D,
@@ -63,6 +62,7 @@ void Scene3DInstance::init(DescriptorComponentStorageCache&) {
                    renderer.getSettings().getShadowMapResolution(),
                    VK_IMAGE_ASPECT_DEPTH_BIT,
                    0);
+        map.clearDepthAndPrepareForSampling(commandBuffer);
     }
 
     for (vk::Image& map : pointShadowMapImages) {
@@ -73,15 +73,21 @@ void Scene3DInstance::init(DescriptorComponentStorageCache&) {
                    renderer.getSettings().getShadowMapResolution(),
                    VK_IMAGE_ASPECT_DEPTH_BIT,
                    0);
+        map.clearDepthAndPrepareForSampling(commandBuffer);
     }
+    commandBuffer.submit();
 
     // allocate descriptors
     allocateDescriptorSets();
 
     // create and configureWrite descriptors
+    const std::uint32_t bufferWriteCount = Config::MaxConcurrentFrames * 4;
+    const std::uint32_t imageWriteCount =
+        Config::MaxConcurrentFrames * (pointShadowMapImages.size() + spotShadowMapImages.size());
     SetWriteHelper setWriter;
-    setWriter.hintWriteCount(descriptorSets.size() * Config::MaxConcurrentFrames * 4);
-    setWriter.hintBufferInfoCount(descriptorSets.size() * Config::MaxConcurrentFrames * 4);
+    setWriter.hintWriteCount(descriptorSets.size() * (bufferWriteCount + imageWriteCount));
+    setWriter.hintBufferInfoCount(descriptorSets.size() * bufferWriteCount);
+    setWriter.hintImageInfoCount(descriptorSets.size() * imageWriteCount);
 
     // write descriptors
     for (std::uint32_t i = 0; i < Config::MaxSceneObservers; ++i) {
@@ -126,7 +132,35 @@ void Scene3DInstance::init(DescriptorComponentStorageCache&) {
             spotlightWrite.pBufferInfo           = &spotlightInfo;
             spotlightWrite.descriptorType        = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
 
-            // TODO - write new buffers & samplers
+            // TODO - is this the one we want?
+            VkSampler sampler = vulkanState.samplerCache.filteredRepeated();
+            for (unsigned int i = 0; i < pointShadowMapImages.size(); ++i) {
+                VkDescriptorImageInfo& imageInfo = setWriter.getNewImageInfo();
+                imageInfo.imageLayout            = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+                imageInfo.imageView              = pointShadowMapImages[i].getView();
+                imageInfo.sampler                = sampler;
+
+                VkWriteDescriptorSet& write = setWriter.getNewSetWrite(set);
+                write.descriptorCount       = 1;
+                write.dstBinding            = 4;
+                write.dstArrayElement       = i;
+                write.pImageInfo            = &imageInfo;
+                write.descriptorType        = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+            }
+
+            for (unsigned int i = 0; i < spotShadowMapImages.size(); ++i) {
+                VkDescriptorImageInfo& imageInfo = setWriter.getNewImageInfo();
+                imageInfo.imageLayout            = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+                imageInfo.imageView              = pointShadowMapImages[i].getView();
+                imageInfo.sampler                = sampler;
+
+                VkWriteDescriptorSet& write = setWriter.getNewSetWrite(set);
+                write.descriptorCount       = 1;
+                write.dstBinding            = 5;
+                write.dstArrayElement       = i;
+                write.pImageInfo            = &imageInfo;
+                write.descriptorType        = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+            }
         }
     }
     setWriter.performWrite(vulkanState.device);

@@ -28,6 +28,7 @@ public:
     virtual ~Scene3DFactory();
 
 private:
+    Renderer* renderer;
     vk::VulkanState* vulkanState;
 
     virtual void init(engine::Engine&, Renderer& renderer) override;

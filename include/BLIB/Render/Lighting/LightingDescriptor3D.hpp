@@ -19,6 +19,8 @@ struct alignas(16) LightingDescriptor3D {
     alignas(16) glm::vec3 globalAmbient;
     std::uint32_t nPointLights;
     std::uint32_t nSpotLights;
+    std::uint32_t nPointShadows;
+    std::uint32_t nSpotShadows;
 
     /**
      * @brief Initializes with sane defaults
@@ -27,7 +29,9 @@ struct alignas(16) LightingDescriptor3D {
     : sun()
     , globalAmbient(0.f)
     , nPointLights(0)
-    , nSpotLights(0) {}
+    , nSpotLights(0)
+    , nPointShadows(0)
+    , nSpotShadows(0) {}
 };
 
 } // namespace lgt

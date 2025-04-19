@@ -31,14 +31,8 @@ layout(set = 1, binding = 2) uniform block_point_lights {
 layout(std140, set = 1, binding = 3) uniform block_spot_lights {
     SpotLight lights[MAX_SPOT_LIGHTS];
 } spotLights;
-layout(set = 1, binding = 4) uniform block_point_lights_shadows {
-    PointLight lights[MAX_POINT_SHADOWS];
-} pointLightsWithShadows;
-layout(set = 1, binding = 5) uniform sampler2D spotShadowMaps[MAX_SPOT_SHADOWS];
-layout(std140, set = 1, binding = 6) uniform block_spot_lights_shadows {
-    SpotLight lights[MAX_SPOT_LIGHTS];
-} spotLightsWithShadows;
-layout(set = 1, binding = 7) uniform samplerCube pointShadowMaps[MAX_POINT_SHADOWS];
+layout(set = 1, binding = 4) uniform sampler2D spotShadowMaps[MAX_SPOT_SHADOWS];
+layout(set = 1, binding = 5) uniform samplerCube pointShadowMaps[MAX_POINT_SHADOWS];
 
 void main() {
     vec3 viewDir = normalize(camera.camPos - fs_in.fragPos);
@@ -47,11 +41,19 @@ void main() {
     mat3 lightColors = mat3(vec3(0.0), vec3(lighting.info.globalAmbient), vec3(0.0));
     lightColors += computeSunLight(lighting.info.sun, normal, viewDir, 1.0);
 
-    for (uint i = 0; i < lighting.info.nPointLights; i += 1) {
+    for (uint i = 0; i < lighting.info.nPointShadows; i += 1) {
+        // TODO - shadowing
+        lightColors += computePointLight(pointLights.lights[i], normal, fs_in.fragPos, viewDir, 1.0);
+    }
+    for (uint i = MAX_POINT_SHADOWS; i < MAX_POINT_SHADOWS + lighting.info.nPointLights; i += 1) {
         lightColors += computePointLight(pointLights.lights[i], normal, fs_in.fragPos, viewDir, 1.0);
     }
 
-    for (uint i = 0; i < lighting.info.nSpotLights; i += 1) {
+    for (uint i = 0; i < lighting.info.nSpotShadows; i += 1) {
+        // TODO - shadowing
+        lightColors += computeSpotLight(spotLights.lights[i], normal, fs_in.fragPos, viewDir, 1.0);
+    }
+    for (uint i = MAX_SPOT_SHADOWS; i < MAX_SPOT_SHADOWS + lighting.info.nSpotLights; i += 1) {
         lightColors += computeSpotLight(spotLights.lights[i], normal, fs_in.fragPos, viewDir, 1.0);
     }
 

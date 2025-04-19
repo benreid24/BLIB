@@ -103,27 +103,29 @@ void Image::resize(const glm::u32vec2& newSize, bool copyContents) {
            extraCreateFlags);
 
     // copy from old to new
-    auto cb = vulkanState->sharedCommandPool.createBuffer();
+    if (copyContents) {
+        auto cb = vulkanState->sharedCommandPool.createBuffer();
 
-    VkImageCopy copyInfo{};
-    copyInfo.extent.width                  = std::min(oldSize.x, newSize.x);
-    copyInfo.extent.height                 = std::min(oldSize.y, oldSize.y);
-    copyInfo.extent.depth                  = 1;
-    copyInfo.srcSubresource.aspectMask     = aspect;
-    copyInfo.srcSubresource.mipLevel       = 0;
-    copyInfo.srcSubresource.baseArrayLayer = 0;
-    copyInfo.srcSubresource.layerCount     = getLayerCount();
-    copyInfo.dstSubresource                = copyInfo.srcSubresource;
+        VkImageCopy copyInfo{};
+        copyInfo.extent.width                  = std::min(oldSize.x, newSize.x);
+        copyInfo.extent.height                 = std::min(oldSize.y, oldSize.y);
+        copyInfo.extent.depth                  = 1;
+        copyInfo.srcSubresource.aspectMask     = aspect;
+        copyInfo.srcSubresource.mipLevel       = 0;
+        copyInfo.srcSubresource.baseArrayLayer = 0;
+        copyInfo.srcSubresource.layerCount     = getLayerCount();
+        copyInfo.dstSubresource                = copyInfo.srcSubresource;
 
-    vkCmdCopyImage(cb,
-                   oldImage,
-                   VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
-                   imageHandle,
-                   VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
-                   1,
-                   &copyInfo);
+        vkCmdCopyImage(cb,
+                       oldImage,
+                       VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
+                       imageHandle,
+                       VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+                       1,
+                       &copyInfo);
 
-    cb.submit();
+        cb.submit();
+    }
 }
 
 void Image::destroy() {
@@ -145,6 +147,11 @@ void Image::deferDestroy() {
 
 void Image::clearAndPrepareForSampling(VkClearColorValue color) {
     auto commandBuffer = vulkanState->sharedCommandPool.createBuffer();
+    clearAndPrepareForSampling(commandBuffer, color);
+    commandBuffer.submit();
+}
+
+void Image::clearAndPrepareForSampling(VkCommandBuffer commandBuffer, VkClearColorValue color) {
     vulkanState->transitionImageLayout(commandBuffer,
                                        imageHandle,
                                        VK_IMAGE_LAYOUT_UNDEFINED,
@@ -159,11 +166,40 @@ void Image::clearAndPrepareForSampling(VkClearColorValue color) {
 
     vkCmdClearColorImage(
         commandBuffer, imageHandle, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, &color, 1, &range);
+    vkCmdClearDepthStencilImage(
+        commandBuffer, imageHandle, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, nullptr, 1, &range);
     vulkanState->transitionImageLayout(commandBuffer,
                                        imageHandle,
                                        VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
                                        VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+}
+
+void Image::clearDepthAndPrepareForSampling(VkClearDepthStencilValue color) {
+    auto commandBuffer = vulkanState->sharedCommandPool.createBuffer();
+    clearDepthAndPrepareForSampling(commandBuffer, color);
     commandBuffer.submit();
+}
+
+void Image::clearDepthAndPrepareForSampling(VkCommandBuffer commandBuffer,
+                                            VkClearDepthStencilValue color) {
+    vulkanState->transitionImageLayout(commandBuffer,
+                                       imageHandle,
+                                       VK_IMAGE_LAYOUT_UNDEFINED,
+                                       VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+
+    VkImageSubresourceRange range{};
+    range.aspectMask     = aspect;
+    range.baseArrayLayer = 0;
+    range.baseMipLevel   = 0;
+    range.layerCount     = 1;
+    range.levelCount     = 1;
+
+    vkCmdClearDepthStencilImage(
+        commandBuffer, imageHandle, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, &color, 1, &range);
+    vulkanState->transitionImageLayout(commandBuffer,
+                                       imageHandle,
+                                       VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+                                       VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
 }
 
 VkImageViewType Image::getViewType() const {

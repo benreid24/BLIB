@@ -80,10 +80,11 @@ private:
 
         const vk::AttachmentSet* get(std::uint32_t index) const {
             switch (type) {
-            case Type::Single:
-                return single;
             case Type::PerFrame:
                 return perFrame[index];
+            case Type::Single:
+            default:
+                return single;
             }
         }
 

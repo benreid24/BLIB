@@ -23,8 +23,10 @@ namespace lgt
  */
 class Scene3DLighting {
 public:
-    static constexpr std::uint32_t MaxPointLights = 128;
-    static constexpr std::uint32_t MaxSpotLights  = 128;
+    static constexpr std::uint32_t MaxPointLights  = 128;
+    static constexpr std::uint32_t MaxSpotLights   = 128;
+    static constexpr std::uint32_t MaxPointShadows = 16;
+    static constexpr std::uint32_t MaxSpotShadows  = 16;
 
     /**
      * @brief Creates the lighting manager
@@ -66,6 +68,16 @@ public:
     SpotLightHandle createSpotlight(TArgs&&... args);
 
     /**
+     * @brief Creates a new spot light in the scene that casts shadows
+     *
+     * @tparam ...TArgs Argument types to the light's constructor
+     * @param ... args Arguments to the light's constructor
+     * @return A handle to the new light
+     */
+    template<typename... TArgs>
+    SpotLightHandle createSpotlightWithShadow(TArgs&&... args);
+
+    /**
      * @brief Creates a new point light in the scene
      *
      * @tparam ...TArgs Argument types to the light's constructor
@@ -76,6 +88,16 @@ public:
     PointLightHandle createPointLight(TArgs&&... args);
 
     /**
+     * @brief Creates a new point light in the scene that casts shadows
+     *
+     * @tparam ...TArgs Argument types to the light's constructor
+     * @param ... Arguments to the light's constructor
+     * @return A handle to the new light
+     */
+    template<typename... TArgs>
+    PointLightHandle createPointLightWithShadow(TArgs&&... args);
+
+    /**
      * @brief Called by owning scene prior to render. Do not call manually
      */
     void sync();
@@ -83,14 +105,19 @@ public:
 private:
     ds::Scene3DInstance& instance;
     util::IdAllocator<std::size_t> spotIds;
+    util::IdAllocator<std::size_t> spotShadowIds;
     std::vector<SpotLight3D> spotLights;
     std::vector<std::uint32_t> activeSpots;
     util::IdAllocator<std::size_t> pointIds;
+    util::IdAllocator<std::size_t> pointShadowIds;
     std::vector<PointLight3D> pointLights;
     std::vector<std::uint32_t> activePoints;
+    std::uint32_t spotShadowCount;
+    std::uint32_t pointShadowCount;
 
     void removeLight(const PointLightHandle& light);
     void removeLight(const SpotLightHandle& light);
+    void addIndex(std::vector<std::uint32_t>& vec, std::uint32_t i);
 
     template<typename T>
     friend class Light3D;
@@ -108,12 +135,26 @@ SpotLightHandle Scene3DLighting::createSpotlight(TArgs&&... args) {
     if (!spotIds.available()) {
         BL_LOG_ERROR << "Exceeded max spot light count";
         return SpotLightHandle{
-            this, spotLights, util::Random::get<std::size_t>(0, spotLights.size())};
+            this, spotLights, util::Random::get<std::size_t>(MaxSpotShadows, spotLights.size())};
     }
 
-    const std::size_t i = spotIds.allocate();
+    const std::size_t i = spotIds.allocate() + MaxSpotShadows;
     new (&spotLights[i]) SpotLight3D(std::forward<TArgs>(args)...);
-    activeSpots.emplace_back(i);
+    addIndex(activeSpots, i);
+    return SpotLightHandle{this, spotLights, i};
+}
+
+template<typename... TArgs>
+SpotLightHandle Scene3DLighting::createSpotlightWithShadow(TArgs&&... args) {
+    if (!spotShadowIds.available()) {
+        BL_LOG_ERROR << "Exceeded max shadow spot light count";
+        return SpotLightHandle{this, spotLights, util::Random::get<std::size_t>(0, MaxSpotShadows)};
+    }
+
+    const std::size_t i = spotShadowIds.allocate();
+    new (&spotLights[i]) SpotLight3D(std::forward<TArgs>(args)...);
+    addIndex(activeSpots, i);
+    ++spotShadowCount;
     return SpotLightHandle{this, spotLights, i};
 }
 
@@ -122,12 +163,27 @@ PointLightHandle Scene3DLighting::createPointLight(TArgs&&... args) {
     if (!pointIds.available()) {
         BL_LOG_ERROR << "Exceeded max point light count";
         return PointLightHandle{
-            this, pointLights, util::Random::get<std::size_t>(0, pointLights.size())};
+            this, pointLights, util::Random::get<std::size_t>(MaxPointShadows, pointLights.size())};
     }
 
-    const std::size_t i = pointIds.allocate();
+    const std::size_t i = pointIds.allocate() + MaxPointShadows;
     new (&pointLights[i]) PointLight3D(std::forward<TArgs>(args)...);
-    activePoints.emplace_back(i);
+    addIndex(activePoints, i);
+    return PointLightHandle{this, pointLights, i};
+}
+
+template<typename... TArgs>
+PointLightHandle Scene3DLighting::createPointLightWithShadow(TArgs&&... args) {
+    if (!pointShadowIds.available()) {
+        BL_LOG_ERROR << "Exceeded max shadow point light count";
+        return PointLightHandle{
+            this, pointLights, util::Random::get<std::size_t>(0, MaxPointShadows)};
+    }
+
+    const std::size_t i = pointShadowIds.allocate();
+    new (&pointLights[i]) PointLight3D(std::forward<TArgs>(args)...);
+    addIndex(activePoints, i);
+    ++pointShadowCount;
     return PointLightHandle{this, pointLights, i};
 }
 

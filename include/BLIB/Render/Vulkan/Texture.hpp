@@ -139,7 +139,7 @@ public:
     /**
      * @brief Returns the size of the texture in pixels
      */
-    const glm::u32vec2& rawSize() const;
+    glm::u32vec2 rawSize() const;
 
     /**
      * @brief Returns the size of the texture in pixels
@@ -187,7 +187,7 @@ inline VkImageView Texture::getView() const { return image.getView(); }
 
 inline VkFormat Texture::getFormat() const { return image.getFormat(); }
 
-inline const glm::u32vec2& Texture::rawSize() const {
+inline glm::u32vec2 Texture::rawSize() const {
     return {image.getSize().width, image.getSize().height};
 }
 

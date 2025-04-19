@@ -40,6 +40,8 @@ struct LightInfo {
     vec4 globalAmbient;
     uint nPointLights;
     uint nSpotLights;
+    uint nPointShadows;
+    uint nSpotShadows;
 };
 
 mat3 computeSunLight(Sunlight light, vec3 normal, vec3 viewDir, float shininess) {

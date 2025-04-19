@@ -61,12 +61,40 @@ public:
     void resize(const glm::u32vec2& newSize, bool copyContents);
 
     /**
-     * @brief Clears the image and transitions it to
+     * @brief Clears the color image and transitions it to
      *        VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
      *
      * @param clearColor The color to clear to
      */
     void clearAndPrepareForSampling(VkClearColorValue clearColor = {{0.f, 0.f, 0.f, 1.f}});
+
+    /**
+     * @brief Clears the color image and transitions it to
+     *        VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
+     *
+     * @param commandBuffer The command buffer to issue commands into
+     * @param clearColor The color to clear to
+     */
+    void clearAndPrepareForSampling(VkCommandBuffer commandBuffer,
+                                    VkClearColorValue clearColor = {{0.f, 0.f, 0.f, 1.f}});
+
+    /**
+     * @brief Clears the depth image and transitions it to
+     *        VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
+     *
+     * @param clearColor The color to clear to
+     */
+    void clearDepthAndPrepareForSampling(VkClearDepthStencilValue clearColor = {1.f, 0});
+
+    /**
+     * @brief Clears the depth image and transitions it to
+     *        VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
+     *
+     * @param commandBuffer The command buffer to submit commands into
+     * @param clearColor The color to clear to
+     */
+    void clearDepthAndPrepareForSampling(VkCommandBuffer commandBuffer,
+                                         VkClearDepthStencilValue clearColor = {1.f, 0});
 
     /**
      * @brief Destroys the image

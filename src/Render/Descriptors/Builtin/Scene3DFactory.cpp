@@ -12,8 +12,8 @@ namespace ds
 {
 Scene3DFactory::~Scene3DFactory() {}
 
-void Scene3DFactory::init(engine::Engine&, Renderer& renderer) {
-    vulkanState = &renderer.vulkanState();
+void Scene3DFactory::init(engine::Engine&, Renderer& r) {
+    renderer = &r;
 
     vk::DescriptorPool::SetBindingInfo bindingInfo;
     bindingInfo.bindingCount = 7;
@@ -61,7 +61,7 @@ void Scene3DFactory::init(engine::Engine&, Renderer& renderer) {
 }
 
 std::unique_ptr<DescriptorSetInstance> Scene3DFactory::createDescriptorSet() const {
-    return std::make_unique<Scene3DInstance>(*vulkanState, descriptorSetLayout);
+    return std::make_unique<Scene3DInstance>(*renderer, descriptorSetLayout);
 }
 
 std::type_index Scene3DFactory::creates() const { return typeid(Scene3DInstance); }

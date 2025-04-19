@@ -69,9 +69,7 @@ private:
     buf::StaticUniformBuffer<lgt::LightingDescriptor3D> globalLightInfo;
     buf::StaticUniformBuffer<lgt::SpotLight3D> spotlights;
     buf::StaticUniformBuffer<lgt::PointLight3D> pointLights;
-    buf::StaticUniformBuffer<lgt::SpotLight3D> spotlightsWithShadows;
     std::array<vk::Image, Config::MaxSpotShadows> spotShadowMapImages;
-    buf::StaticUniformBuffer<lgt::PointLight3D> pointLightsWithShadows;
     std::array<vk::Image, Config::MaxPointShadows> pointShadowMapImages;
 
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
