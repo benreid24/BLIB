@@ -13,6 +13,7 @@ constexpr float DefaultGamma                  = 2.2f;
 constexpr std::uint32_t DefaultBloomPassCount = 2;
 constexpr float DefaultBloomThreshold         = 1.f;
 constexpr float DefaultBloomFilters[] = {0.227027f, 0.1945946f, 0.1216216f, 0.054054f, 0.016216f};
+constexpr VkExtent2D DefaultShadowMapResolution = {1024, 1024};
 } // namespace
 
 Settings::Settings()
@@ -21,6 +22,7 @@ Settings::Settings()
 , bloomThreshold(DefaultBloomThreshold)
 , bloomPasses(DefaultBloomPassCount)
 , bloomFilterSize(std::size(DefaultBloomFilters))
+, shadowMapResolution(DefaultShadowMapResolution)
 , dirty(true) {
     for (unsigned int i = 0; i < std::size(DefaultBloomFilters); ++i) {
         bloomFilters[i] = DefaultBloomFilters[i];

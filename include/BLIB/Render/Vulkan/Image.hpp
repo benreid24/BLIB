@@ -45,12 +45,14 @@ public:
      * @param aspect The aspect of the image to create
      * @param allocFlags Memory allocation flags to use
      * @param extraCreateFlags Extra image creation flags to use
+     * @param viewAspect The aspect to use for view creation
      */
     void create(VulkanState& vulkanState, Type type, VkFormat format, VkImageUsageFlags usage,
                 const VkExtent2D& extent, VkImageAspectFlags aspect,
                 VmaAllocationCreateFlags allocFlags  = 0,
                 VkMemoryPropertyFlags memoryLocation = VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
-                VkImageCreateFlags extraCreateFlags  = 0);
+                VkImageCreateFlags extraCreateFlags  = 0,
+                VkImageAspectFlags viewAspect        = VK_IMAGE_ASPECT_FLAG_BITS_MAX_ENUM);
 
     /**
      * @brief Resizes the image to the new size, optionally copying over the old contents
@@ -191,6 +193,7 @@ private:
 
     VkFormat format;
     VkImageAspectFlags aspect;
+    VkImageAspectFlags viewAspect;
     VkImageUsageFlags usage;
     VmaAllocationCreateFlags allocFlags;
     VkImageCreateFlags extraCreateFlags;

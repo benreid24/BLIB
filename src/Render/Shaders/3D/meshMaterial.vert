@@ -1,15 +1,11 @@
 #version 450
+#extension GL_GOOGLE_include_directive : require
 
 layout(location = 0) in vec3 inPosition;
 layout(location = 1) in vec4 inColor;
 layout(location = 2) in vec2 inTexCoords;
 layout(location = 3) in vec3 inTangent;
 layout(location = 4) in vec3 inNormal;
-
-struct ModelTransform {
-    mat4 transform;
-    mat3 normal;
-};
 
 layout(location = 0) out VS_OUT {
     vec3 fragPos;
@@ -19,15 +15,9 @@ layout(location = 0) out VS_OUT {
     mat3 TBN;
 } vs_out;
 
-layout(set = 1, binding = 0) uniform cam {
-    mat4 projection;
-    mat4 view;
-    vec3 camPos;
-} camera;
-
-layout(set = 2, binding = 0) readonly buffer obj {
-    ModelTransform model[];
-} object;
+#define SCENE_SET_NUMBER 1
+#define OBJECTS_SET_NUMBER 2
+#include "./uniforms.glsl"
 
 void main() {
     ModelTransform model = object.model[gl_InstanceIndex];

@@ -1,5 +1,6 @@
 #include <BLIB/Render/Vulkan/PipelineLayout.hpp>
 
+#include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -11,7 +12,7 @@ namespace vk
 PipelineLayout::PipelineLayout(Renderer& renderer, LayoutParams&& params)
 : renderer(renderer) {
     // setup descriptors
-    std::array<VkDescriptorSetLayout, 4> descriptorLayouts;
+    std::array<VkDescriptorSetLayout, Config::MaxDescriptorSets> descriptorLayouts;
     for (unsigned int i = 0; i < params.descriptorSets.size(); ++i) {
         descriptorSets.emplace_back(renderer.descriptorFactoryCache().getOrAddFactory(
             params.descriptorSets[i].factoryType, std::move(params.descriptorSets[i].factory)));

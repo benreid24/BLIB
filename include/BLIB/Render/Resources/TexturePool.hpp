@@ -233,9 +233,10 @@ private:
     std::vector<vk::Texture> textures;
     std::vector<vk::Texture> cubemaps;
     sf::Image errorPattern;
+    sf::Image errorPatternCube;
     vk::Texture errorTexture;
+    vk::Texture errorCubemap;
     TextureRef blankTexture;
-    VkImageView errorCubemapView;
 
     // allocation
     std::vector<std::atomic<std::uint32_t>> refCounts;

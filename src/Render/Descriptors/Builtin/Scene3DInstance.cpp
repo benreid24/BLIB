@@ -60,8 +60,11 @@ void Scene3DInstance::init(DescriptorComponentStorageCache&) {
                    vulkanState.findDepthFormat(),
                    VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
                    renderer.getSettings().getShadowMapResolution(),
-                   VK_IMAGE_ASPECT_DEPTH_BIT,
-                   0);
+                   VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT,
+                   0,
+                   VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
+                   0,
+                   VK_IMAGE_ASPECT_DEPTH_BIT);
         map.clearDepthAndPrepareForSampling(commandBuffer);
     }
 
@@ -71,8 +74,11 @@ void Scene3DInstance::init(DescriptorComponentStorageCache&) {
                    vulkanState.findDepthFormat(),
                    VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
                    renderer.getSettings().getShadowMapResolution(),
-                   VK_IMAGE_ASPECT_DEPTH_BIT,
-                   0);
+                   VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT,
+                   0,
+                   VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
+                   0,
+                   VK_IMAGE_ASPECT_DEPTH_BIT);
         map.clearDepthAndPrepareForSampling(commandBuffer);
     }
     commandBuffer.submit();
@@ -134,10 +140,10 @@ void Scene3DInstance::init(DescriptorComponentStorageCache&) {
 
             // TODO - is this the one we want?
             VkSampler sampler = vulkanState.samplerCache.filteredRepeated();
-            for (unsigned int i = 0; i < pointShadowMapImages.size(); ++i) {
+            for (unsigned int i = 0; i < spotShadowMapImages.size(); ++i) {
                 VkDescriptorImageInfo& imageInfo = setWriter.getNewImageInfo();
                 imageInfo.imageLayout            = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-                imageInfo.imageView              = pointShadowMapImages[i].getView();
+                imageInfo.imageView              = spotShadowMapImages[i].getView();
                 imageInfo.sampler                = sampler;
 
                 VkWriteDescriptorSet& write = setWriter.getNewSetWrite(set);
@@ -148,7 +154,7 @@ void Scene3DInstance::init(DescriptorComponentStorageCache&) {
                 write.descriptorType        = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
             }
 
-            for (unsigned int i = 0; i < spotShadowMapImages.size(); ++i) {
+            for (unsigned int i = 0; i < pointShadowMapImages.size(); ++i) {
                 VkDescriptorImageInfo& imageInfo = setWriter.getNewImageInfo();
                 imageInfo.imageLayout            = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
                 imageInfo.imageView              = pointShadowMapImages[i].getView();

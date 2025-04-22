@@ -567,15 +567,16 @@ VkResult VulkanState::submitCommandBuffer(const VkSubmitInfo& submitInfo, VkFenc
 }
 
 void VulkanState::transitionImageLayout(VkImage image, VkImageLayout oldLayout,
-                                        VkImageLayout newLayout, std::uint32_t layerCount) {
+                                        VkImageLayout newLayout, std::uint32_t layerCount,
+                                        VkImageAspectFlags aspect) {
     auto commandBuffer = sharedCommandPool.createBuffer();
-    transitionImageLayout(commandBuffer, image, oldLayout, newLayout, layerCount);
+    transitionImageLayout(commandBuffer, image, oldLayout, newLayout, layerCount, aspect);
     commandBuffer.submit();
 }
 
 void VulkanState::transitionImageLayout(VkCommandBuffer commandBuffer, VkImage image,
                                         VkImageLayout oldLayout, VkImageLayout newLayout,
-                                        std::uint32_t layerCount) {
+                                        std::uint32_t layerCount, VkImageAspectFlags aspect) {
     VkImageMemoryBarrier barrier{};
     barrier.sType               = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
     barrier.oldLayout           = oldLayout;
@@ -584,7 +585,7 @@ void VulkanState::transitionImageLayout(VkCommandBuffer commandBuffer, VkImage i
     barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
 
     barrier.image                           = image;
-    barrier.subresourceRange.aspectMask     = VK_IMAGE_ASPECT_COLOR_BIT;
+    barrier.subresourceRange.aspectMask     = aspect;
     barrier.subresourceRange.baseMipLevel   = 0;
     barrier.subresourceRange.levelCount     = 1;
     barrier.subresourceRange.baseArrayLayer = 0;

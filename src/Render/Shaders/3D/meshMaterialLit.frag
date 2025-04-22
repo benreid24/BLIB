@@ -1,8 +1,6 @@
 #version 450
 #extension GL_GOOGLE_include_directive : require
 
-#include "./blinnPhongLighting.glsl.frag"
-
 layout(location = 0) in FS_IN {
     vec3 fragPos;
     vec4 fragColor;
@@ -13,45 +11,11 @@ layout(location = 0) in FS_IN {
 
 layout(location = 0) out vec4 outColor;
 
-struct Material {
-    uint diffuseId;
-    uint normalId;
-    uint specularId;
-    uint parallaxId;
-    float shininess;
-    float heightScale;
-    float padding0;
-    float padding1;
-};
-
-layout(set = 0, binding = 0) uniform sampler2D textures[4096];
-layout(set = 0, binding = 1) uniform mat {
-    Material pool[2048];
-} materials;
-layout(set = 0, binding = 2) uniform rsettings {
-    float gamma;
-} settings;
-
-layout(set = 1, binding = 0) uniform cam {
-    mat4 projection;
-    mat4 view;
-    vec3 camPos;
-} camera;
-layout(set = 1, binding = 1) uniform block_light_info {
-    LightInfo info;
-} lighting;
-layout(set = 1, binding = 2) uniform block_point_lights {
-    PointLight lights[MAX_POINT_LIGHTS];
-} pointLights;
-layout(std140, set = 1, binding = 3) uniform block_spot_lights {
-    SpotLight lights[MAX_SPOT_LIGHTS];
-} spotLights;
-layout(set = 1, binding = 4) uniform sampler2D spotShadowMaps[MAX_SPOT_SHADOWS];
-layout(set = 1, binding = 5) uniform samplerCube pointShadowMaps[MAX_POINT_SHADOWS];
-
-layout(std430, set = 2, binding = 1) readonly buffer tex {
-    uint index[];
-} material;
+#define GLOBALS_SET_NUMBER 0
+#define SCENE_SET_NUMBER 1
+#define OBJECTS_SET_NUMBER 2
+#include "./uniforms.glsl"
+#include "./blinnPhongLighting.glsl.frag"
 
 vec2 parallaxMap(Material material, vec3 viewDir);
 

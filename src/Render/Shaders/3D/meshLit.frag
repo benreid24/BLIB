@@ -2,8 +2,6 @@
 #extension GL_ARB_separate_shader_objects : enable
 #extension GL_GOOGLE_include_directive : require
 
-#include "./blinnPhongLighting.glsl.frag"
-
 layout(location = 0) in FS_IN {
     vec3 fragPos;
     vec4 fragColor;
@@ -14,25 +12,10 @@ layout(location = 0) in FS_IN {
 
 layout(location = 0) out vec4 outColor;
 
-layout(set = 0, binding = 2) uniform rsettings {
-    float gamma;
-} settings;
-layout(set = 1, binding = 0) uniform cam {
-    mat4 projection;
-    mat4 view;
-    vec3 camPos;
-} camera;
-layout(set = 1, binding = 1) uniform block_light_info {
-    LightInfo info;
-} lighting;
-layout(set = 1, binding = 2) uniform block_point_lights {
-    PointLight lights[MAX_POINT_LIGHTS];
-} pointLights;
-layout(std140, set = 1, binding = 3) uniform block_spot_lights {
-    SpotLight lights[MAX_SPOT_LIGHTS];
-} spotLights;
-layout(set = 1, binding = 4) uniform sampler2D spotShadowMaps[MAX_SPOT_SHADOWS];
-layout(set = 1, binding = 5) uniform samplerCube pointShadowMaps[MAX_POINT_SHADOWS];
+#define GLOBALS_SET_NUMBER 0
+#define SCENE_SET_NUMBER 1
+#include "./uniforms.glsl"
+#include "./blinnPhongLighting.glsl.frag"
 
 void main() {
     vec3 viewDir = normalize(camera.camPos - fs_in.fragPos);

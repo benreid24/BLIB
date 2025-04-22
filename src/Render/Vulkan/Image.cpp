@@ -32,7 +32,7 @@ Image::~Image() { deferDestroy(); }
 
 void Image::create(VulkanState& vs, Type t, VkFormat fmt, VkImageUsageFlags usg,
                    const VkExtent2D& extent, VkImageAspectFlags asp, VmaAllocationCreateFlags af,
-                   VkMemoryPropertyFlags mem, VkImageCreateFlags ef) {
+                   VkMemoryPropertyFlags mem, VkImageCreateFlags ef, VkImageAspectFlags vas) {
     if (vulkanState && size.width == extent.width && size.height == extent.height) { return; }
     size = extent;
 
@@ -41,6 +41,7 @@ void Image::create(VulkanState& vs, Type t, VkFormat fmt, VkImageUsageFlags usg,
     type             = t;
     usage            = usg;
     aspect           = asp;
+    viewAspect       = vas != VK_IMAGE_ASPECT_FLAG_BITS_MAX_ENUM ? vas : aspect;
     format           = fmt;
     allocFlags       = af;
     extraCreateFlags = ef;
@@ -62,7 +63,7 @@ void Image::create(VulkanState& vs, Type t, VkFormat fmt, VkImageUsageFlags usg,
     createInfo.format        = format;
     createInfo.tiling        = VK_IMAGE_TILING_OPTIMAL;
     createInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-    createInfo.usage         = usage;
+    createInfo.usage         = usage | VK_IMAGE_USAGE_TRANSFER_DST_BIT;
     createInfo.sharingMode   = VK_SHARING_MODE_EXCLUSIVE;
     createInfo.samples       = VK_SAMPLE_COUNT_1_BIT;
     createInfo.flags         = getCreateFlags(type) | extraCreateFlags;
@@ -71,7 +72,8 @@ void Image::create(VulkanState& vs, Type t, VkFormat fmt, VkImageUsageFlags usg,
         throw std::runtime_error("failed to create image");
     }
 
-    viewHandle    = vs.createImageView(imageHandle, format, aspect, getLayerCount(), getViewType());
+    viewHandle =
+        vs.createImageView(imageHandle, format, viewAspect, getLayerCount(), getViewType());
     currentLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 }
 
@@ -87,8 +89,11 @@ void Image::resize(const glm::u32vec2& newSize, bool copyContents) {
         });
 
     // transition original image to transfer source layout
-    vulkanState->transitionImageLayout(
-        imageHandle, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL);
+    vulkanState->transitionImageLayout(imageHandle,
+                                       VK_IMAGE_LAYOUT_UNDEFINED,
+                                       VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
+                                       getLayerCount(),
+                                       aspect);
     currentLayout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
 
     // create new image
@@ -100,7 +105,8 @@ void Image::resize(const glm::u32vec2& newSize, bool copyContents) {
            {newSize.x, newSize.y},
            aspect,
            allocFlags,
-           extraCreateFlags);
+           extraCreateFlags,
+           viewAspect);
 
     // copy from old to new
     if (copyContents) {
@@ -155,7 +161,9 @@ void Image::clearAndPrepareForSampling(VkCommandBuffer commandBuffer, VkClearCol
     vulkanState->transitionImageLayout(commandBuffer,
                                        imageHandle,
                                        VK_IMAGE_LAYOUT_UNDEFINED,
-                                       VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+                                       VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+                                       getLayerCount(),
+                                       aspect);
 
     VkImageSubresourceRange range{};
     range.aspectMask     = aspect;
@@ -171,7 +179,9 @@ void Image::clearAndPrepareForSampling(VkCommandBuffer commandBuffer, VkClearCol
     vulkanState->transitionImageLayout(commandBuffer,
                                        imageHandle,
                                        VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
-                                       VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+                                       VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL,
+                                       getLayerCount(),
+                                       aspect);
 }
 
 void Image::clearDepthAndPrepareForSampling(VkClearDepthStencilValue color) {
@@ -185,7 +195,9 @@ void Image::clearDepthAndPrepareForSampling(VkCommandBuffer commandBuffer,
     vulkanState->transitionImageLayout(commandBuffer,
                                        imageHandle,
                                        VK_IMAGE_LAYOUT_UNDEFINED,
-                                       VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+                                       VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+                                       getLayerCount(),
+                                       aspect);
 
     VkImageSubresourceRange range{};
     range.aspectMask     = aspect;
@@ -199,7 +211,9 @@ void Image::clearDepthAndPrepareForSampling(VkCommandBuffer commandBuffer,
     vulkanState->transitionImageLayout(commandBuffer,
                                        imageHandle,
                                        VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
-                                       VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+                                       VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL,
+                                       getLayerCount(),
+                                       aspect);
 }
 
 VkImageViewType Image::getViewType() const {
@@ -226,7 +240,8 @@ void Image::transitionLayout(VkImageLayout newLayout, bool undefinedLayout) {
     vulkanState->transitionImageLayout(imageHandle,
                                        !undefinedLayout ? currentLayout : VK_IMAGE_LAYOUT_UNDEFINED,
                                        newLayout,
-                                       getLayerCount());
+                                       getLayerCount(),
+                                       aspect);
     currentLayout = newLayout;
 }
 
@@ -236,7 +251,8 @@ void Image::transitionLayout(VkCommandBuffer commandBuffer, VkImageLayout newLay
                                        imageHandle,
                                        !undefinedLayout ? currentLayout : VK_IMAGE_LAYOUT_UNDEFINED,
                                        newLayout,
-                                       getLayerCount());
+                                       getLayerCount(),
+                                       aspect);
     currentLayout = newLayout;
 }
 

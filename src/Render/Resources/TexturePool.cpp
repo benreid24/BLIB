@@ -14,7 +14,7 @@ void generateErrorPattern(sf::Image& img, unsigned int left, unsigned int top, u
                           unsigned int height, unsigned int numBoxes) {
     const unsigned int ErrorBoxWidth  = width / numBoxes;
     const unsigned int ErrorBoxHeight = height / numBoxes;
-    for (unsigned int x = left; x < top + width; ++x) {
+    for (unsigned int x = left; x < left + width; ++x) {
         for (unsigned int y = top; y < top + height; ++y) {
             const unsigned int xi = x / ErrorBoxWidth;
             const unsigned int yi = y / ErrorBoxHeight;
@@ -38,6 +38,8 @@ TexturePool::TexturePool(vk::VulkanState& vs)
 , reverseImageMap(Config::MaxTextureCount - Config::MaxRenderTextures) {
     errorTexture.vulkanState = &vs;
     errorTexture.parent      = this;
+    errorCubemap.vulkanState = &vs;
+    errorCubemap.parent      = this;
     for (auto& t : textures) {
         t.parent      = this;
         t.vulkanState = &vs;
@@ -53,23 +55,26 @@ TexturePool::TexturePool(vk::VulkanState& vs)
 void TexturePool::init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
                        vk::PerFrame<VkDescriptorSet>& rtDescriptorSets) {
     // create error texture
-    constexpr unsigned int ErrorSize    = 1024;
-    constexpr unsigned int ErrorBoxSize = 64;
+    constexpr unsigned int ErrorSize     = 128;
+    constexpr unsigned int ErrorBoxCount = 16;
     errorPattern.create(ErrorSize, ErrorSize);
-    generateErrorPattern(errorPattern, 0, 0, ErrorSize, ErrorSize, ErrorSize / ErrorBoxSize);
+    errorPatternCube.create(ErrorSize, ErrorSize * 6);
+    generateErrorPattern(errorPattern, 0, 0, ErrorSize, ErrorSize, ErrorBoxCount);
+    for (std::size_t i = 0; i < 6; ++i) {
+        generateErrorPattern(
+            errorPatternCube, 0, i * ErrorSize, ErrorSize, ErrorSize, ErrorBoxCount);
+    }
     errorTexture.altImg = &errorPattern;
+    errorCubemap.altImg = &errorPatternCube;
     errorTexture.createFromContentsAndQueue(
         vk::Texture::Type::Texture2D, vk::TextureFormat::SRGBA32Bit, vk::Sampler::FilteredRepeated);
+    errorCubemap.createFromContentsAndQueue(
+        vk::Texture::Type::Cubemap, vk::TextureFormat::SRGBA32Bit, vk::Sampler::FilteredRepeated);
     vulkanState.transferEngine.executeTransfers();
-    errorCubemapView = vulkanState.createImageView(errorTexture.getImage(),
-                                                   errorTexture.getFormat(),
-                                                   VK_IMAGE_ASPECT_COLOR_BIT,
-                                                   6,
-                                                   VK_IMAGE_VIEW_TYPE_CUBE);
 
     // init all textures to error pattern
     for (vk::Texture& txtr : textures) { txtr.currentView = errorTexture.currentView; }
-    for (vk::Texture& txtr : cubemaps) { txtr.currentView = errorCubemapView; }
+    for (vk::Texture& txtr : cubemaps) { txtr.currentView = errorCubemap.getView(); }
 
     // fill descriptor set
     VkDescriptorImageInfo errorInfo{};
@@ -80,7 +85,7 @@ void TexturePool::init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
 
     VkDescriptorImageInfo errorCubeInfo{};
     errorCubeInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-    errorCubeInfo.imageView   = errorCubemapView;
+    errorCubeInfo.imageView   = errorCubemap.getView();
     errorCubeInfo.sampler     = errorTexture.getSamplerHandle();
     std::vector<VkDescriptorImageInfo> imageCubeInfos(Config::MaxCubemapCount, errorCubeInfo);
 
@@ -117,9 +122,9 @@ void TexturePool::cleanup() {
         if (txtr.currentView != errorTexture.getView()) { txtr.cleanup(); }
     }
     for (vk::Texture& txtr : cubemaps) {
-        if (txtr.currentView != errorCubemapView) { txtr.cleanup(); }
+        if (txtr.currentView != errorCubemap.getView()) { txtr.cleanup(); }
     }
-    vkDestroyImageView(vulkanState.device, errorCubemapView, nullptr);
+    errorCubemap.cleanup();
     errorTexture.cleanup();
 }
 
@@ -518,7 +523,7 @@ void TexturePool::resetTexture(vk::Texture* texture) {
 
     switch (texture->getType()) {
     case vk::Texture::Type::Cubemap:
-        texture->currentView = errorCubemapView;
+        texture->currentView = errorCubemap.getView();
         break;
 
     default:

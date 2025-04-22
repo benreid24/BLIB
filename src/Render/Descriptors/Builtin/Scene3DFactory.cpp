@@ -13,10 +13,11 @@ namespace ds
 Scene3DFactory::~Scene3DFactory() {}
 
 void Scene3DFactory::init(engine::Engine&, Renderer& r) {
-    renderer = &r;
+    renderer    = &r;
+    vulkanState = &r.vulkanState();
 
     vk::DescriptorPool::SetBindingInfo bindingInfo;
-    bindingInfo.bindingCount = 7;
+    bindingInfo.bindingCount = 6;
 
     // camera info
     bindingInfo.bindings[0] = SceneDescriptorSetInstance::getCameraBufferBindingInfo(
@@ -37,25 +38,15 @@ void Scene3DFactory::init(engine::Engine&, Renderer& r) {
     bindingInfo.bindings[3].descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
     bindingInfo.bindings[3].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
 
-    // spot lights with shadows
-    bindingInfo.bindings[4].descriptorCount = 1;
-    bindingInfo.bindings[4].descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+    // spot light shadow maps
+    bindingInfo.bindings[4].descriptorCount = Config::MaxSpotShadows;
+    bindingInfo.bindings[4].descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
     bindingInfo.bindings[4].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
 
-    // spot light shadow maps
-    bindingInfo.bindings[5].descriptorCount = Config::MaxSpotShadows;
+    // point light shadow maps
+    bindingInfo.bindings[5].descriptorCount = Config::MaxPointShadows;
     bindingInfo.bindings[5].descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
     bindingInfo.bindings[5].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
-
-    // point lights with shadows
-    bindingInfo.bindings[6].descriptorCount = 1;
-    bindingInfo.bindings[6].descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-    bindingInfo.bindings[6].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
-
-    // point light shadow maps
-    bindingInfo.bindings[7].descriptorCount = Config::MaxPointShadows;
-    bindingInfo.bindings[7].descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-    bindingInfo.bindings[7].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
 
     descriptorSetLayout = vulkanState->descriptorPool.createLayout(bindingInfo);
 }

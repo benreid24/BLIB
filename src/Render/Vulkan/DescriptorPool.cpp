@@ -28,7 +28,8 @@ constexpr unsigned int MaxSets = 500;
 } // namespace
 
 DescriptorPool::SetBindingInfo::SetBindingInfo()
-: bindingCount(0) {
+: bindingCount(0)
+, bindings{} {
     for (unsigned int i = 0; i < Config::MaxDescriptorBindings; ++i) { bindings[i].binding = i; }
 }
 

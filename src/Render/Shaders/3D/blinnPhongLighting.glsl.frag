@@ -1,48 +1,7 @@
-#define MAX_POINT_LIGHTS 128
-#define MAX_SPOT_LIGHTS 128
-#define MAX_SPOT_SHADOWS 16
-#define MAX_POINT_SHADOWS 16
+#ifndef BLINNPHONGLIGHTING_INCLUDED
+#define BLINNPHONGLIGHTING_INCLUDED
 
-struct Color {
-    vec4 ambient;
-    vec4 diffuse;
-    vec4 specular;
-};
-
-struct Attenuation {
-    float constant;
-    float linear;
-    float quadratic;
-};
-
-struct Sunlight {
-    vec4 direction;
-    Color color;
-};
-
-struct PointLight {
-    vec4 position;
-    Attenuation attenuation;
-    Color color;
-};
-
-struct SpotLight {
-    vec4 position;
-    float cutoff;
-    vec4 direction;
-    float outerCutoff;
-    Attenuation attenuation;
-    Color color;
-};
-
-struct LightInfo {
-    Sunlight sun;
-    vec4 globalAmbient;
-    uint nPointLights;
-    uint nSpotLights;
-    uint nPointShadows;
-    uint nSpotShadows;
-};
+#include "./uniforms.glsl"
 
 mat3 computeSunLight(Sunlight light, vec3 normal, vec3 viewDir, float shininess) {
     vec3 lightDir = normalize(vec3(-light.direction));
@@ -124,3 +83,5 @@ mat3 computeSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir, 
     specular *= attenuation * intensity;
     return mat3(ambient, diffuse, specular);
 }
+
+#endif

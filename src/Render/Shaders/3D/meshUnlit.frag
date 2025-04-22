@@ -11,10 +11,6 @@ layout(location = 0) in FS_IN {
 
 layout(location = 0) out vec4 outColor;
 
-layout(set = 0, binding = 2) uniform rsettings {
-    float gamma;
-} settings;
-
 void main() {
     outColor = fs_in.fragColor;
 }

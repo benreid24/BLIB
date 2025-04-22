@@ -1,4 +1,5 @@
 #version 450
+#extension GL_GOOGLE_include_directive : require
 
 layout(location = 0) in vec3 inPosition;
 layout(location = 1) in vec4 inColor;
@@ -11,11 +12,8 @@ layout(location = 0) out VS_OUT {
     flat uint objectIndex;
 } vs_out;
 
-layout(set = 1, binding = 0) uniform cam {
-    mat4 projection;
-    mat4 view;
-    vec3 camPos;
-} camera;
+#define SCENE_SET_NUMBER 1
+#include "./uniforms.glsl"
 
 void main() {
     vs_out.texCoords = inPosition;
