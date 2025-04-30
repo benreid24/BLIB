@@ -84,4 +84,29 @@ mat3 computeSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir, 
     return mat3(ambient, diffuse, specular);
 }
 
+vec3 computeLighting(vec3 fragPos, vec3 normal, vec3 diffuse, vec3 specular) {
+    vec3 viewDir = normalize(camera.camPos - fragPos);
+
+    mat3 lightColors = mat3(vec3(0.0), vec3(lighting.info.globalAmbient), vec3(0.0));
+    lightColors += computeSunLight(lighting.info.sun, normal, viewDir, 1.0);
+
+    for (uint i = 0; i < lighting.info.nPointShadows; i += 1) {
+        // TODO - shadowing
+        lightColors += computePointLight(pointLights.lights[i], normal, fragPos, viewDir, 1.0);
+    }
+    for (uint i = MAX_POINT_SHADOWS; i < MAX_POINT_SHADOWS + lighting.info.nPointLights; i += 1) {
+        lightColors += computePointLight(pointLights.lights[i], normal, fragPos, viewDir, 1.0);
+    }
+
+    for (uint i = 0; i < lighting.info.nSpotShadows; i += 1) {
+        // TODO - shadowing
+        lightColors += computeSpotLight(spotLights.lights[i], normal, fragPos, viewDir, 1.0);
+    }
+    for (uint i = MAX_SPOT_SHADOWS; i < MAX_SPOT_SHADOWS + lighting.info.nSpotLights; i += 1) {
+        lightColors += computeSpotLight(spotLights.lights[i], normal, fragPos, viewDir, 1.0);
+    }
+
+    return lightColors[0] * diffuse + lightColors[1] * diffuse + lightColors[2] * specular;
+}
+
 #endif
