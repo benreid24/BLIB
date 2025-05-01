@@ -74,7 +74,6 @@ mat3 computeSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir, 
     float intensity = clamp((theta - light.outerCutoff) / epsilon, 0.0, 1.0);
 
     // combine results
-    // TODO - don't multiply material color here
     vec3 ambient = vec3(light.color.ambient);
     vec3 diffuse = vec3(light.color.diffuse) * diff;
     vec3 specular = vec3(light.color.specular) * spec;
@@ -94,7 +93,7 @@ vec3 computeLighting(vec3 fragPos, vec3 normal, vec3 diffuse, vec3 specular) {
         // TODO - shadowing
         lightColors += computePointLight(pointLights.lights[i], normal, fragPos, viewDir, 1.0);
     }
-    for (uint i = MAX_POINT_SHADOWS; i < MAX_POINT_SHADOWS + lighting.info.nPointLights; i += 1) {
+    for (uint i = lighting.info.nPointShadows; i < lighting.info.nPointShadows + lighting.info.nPointLights; i += 1) {
         lightColors += computePointLight(pointLights.lights[i], normal, fragPos, viewDir, 1.0);
     }
 
@@ -102,7 +101,7 @@ vec3 computeLighting(vec3 fragPos, vec3 normal, vec3 diffuse, vec3 specular) {
         // TODO - shadowing
         lightColors += computeSpotLight(spotLights.lights[i], normal, fragPos, viewDir, 1.0);
     }
-    for (uint i = MAX_SPOT_SHADOWS; i < MAX_SPOT_SHADOWS + lighting.info.nSpotLights; i += 1) {
+    for (uint i = lighting.info.nSpotShadows; i < lighting.info.nSpotShadows + lighting.info.nSpotLights; i += 1) {
         lightColors += computeSpotLight(spotLights.lights[i], normal, fragPos, viewDir, 1.0);
     }
 

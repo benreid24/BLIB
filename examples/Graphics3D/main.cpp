@@ -114,15 +114,26 @@ private:
         auto* cam  = o.setCamera<bl::cam::Camera3D>(glm::vec3(0.f, 3.f, 5.f), glm::vec3(0.f));
         controller = cam->setController<CameraController>();
 
+        auto woodTexture = engine.renderer().texturePool().getOrLoadTexture(
+            "Resources/Textures/wood.png", bl::rc::vk::TextureFormat::SRGBA32Bit);
+        auto woodMaterial = engine.renderer().materialPool().getOrCreateFromTexture(woodTexture);
+
         constexpr float FloorSize = 5.f;
         floor.create(*world, 6);
-        floor[0].pos = {-FloorSize, 0.f, -FloorSize};
-        floor[2].pos = {FloorSize, 0.f, FloorSize};
-        floor[1].pos = {-FloorSize, 0.f, FloorSize};
-        floor[3].pos = {-FloorSize, 0.f, -FloorSize};
-        floor[5].pos = {FloorSize, 0.f, -FloorSize};
-        floor[4].pos = {FloorSize, 0.f, FloorSize};
-        for (unsigned int i = 0; i < 6; ++i) { floor[i].color = {0.4f, 0.4f, 0.4f, 1.f}; }
+        floor[0].pos      = {-FloorSize, 0.f, -FloorSize};
+        floor[0].texCoord = {0.f, 0.f};
+        floor[2].pos      = {FloorSize, 0.f, FloorSize};
+        floor[2].texCoord = {1.f, 1.f};
+        floor[1].pos      = {-FloorSize, 0.f, FloorSize};
+        floor[1].texCoord = {0.f, 1.f};
+        floor[3].pos      = {-FloorSize, 0.f, -FloorSize};
+        floor[3].texCoord = {0.f, 0.f};
+        floor[5].pos      = {FloorSize, 0.f, -FloorSize};
+        floor[5].texCoord = {1.f, 0.f};
+        floor[4].pos      = {FloorSize, 0.f, FloorSize};
+        floor[4].texCoord = {1.f, 1.f};
+        floor.material().setMaterial(woodMaterial);
+        floor.material().setPipeline(bl::rc::Config::MaterialPipelineIds::Mesh3DMaterial);
         floor.commit();
         floor.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
@@ -148,8 +159,6 @@ private:
         auto brickMaterial = engine.renderer().materialPool().getOrCreateFromNormalAndParallax(
             brickTexture, brickNormal, brickParallax, 0.1f);
 
-        auto woodTexture = engine.renderer().texturePool().getOrLoadTexture(
-            "Resources/Textures/wood.png", bl::rc::vk::TextureFormat::SRGBA32Bit);
         auto toyBoxNormal = engine.renderer().texturePool().getOrLoadTexture(
             "Resources/Textures/toy_box_normal.png");
         auto toyBoxParallax =
@@ -220,28 +229,21 @@ private:
 
         const bl::rc::Color light1Color(sf::Color(80, 180, 255));
         light1.create(*world, 0.2f, 4, {}, bl::rc::Config::MaterialPipelineIds::Mesh3D);
-        light1.getTransform().setPosition({1.f, 1.5f, 1.f});
+        light1.getTransform().setPosition({1.f, 0.7f, 1.f});
         light1.setColor(light1Color);
         light1.addToScene(scene, bl::rc::UpdateSpeed::Static);
-        auto light1Handle                        = scene->getLighting().createPointLight();
-        light1Handle.get().color                 = light1Color;
-        light1Handle.get().attenuation.constant  = 0.5f;
-        light1Handle.get().attenuation.linear    = 0.01f;
-        light1Handle.get().attenuation.quadratic = 0.01f;
-        light1Handle.get().pos                   = light1.getTransform().getPosition();
+        auto light1Handle        = scene->getLighting().createPointLight();
+        light1Handle.get().color = light1Color;
+        light1Handle.get().pos   = light1.getTransform().getPosition();
 
         const bl::rc::Color light2Color(sf::Color::White);
         light2.create(*world, 0.2f, 4, {}, bl::rc::Config::MaterialPipelineIds::Mesh3D);
         light2.getTransform().setPosition({-0.7f, 1.f, -1.6f});
         light2.setColor(light2Color);
         light2.addToScene(scene, bl::rc::UpdateSpeed::Static);
-        auto light2Handle                        = scene->getLighting().createPointLight();
-        light2Handle.get().color                 = light2Color;
-        light2Handle.get().attenuation.constant  = 0.1f;
-        light2Handle.get().attenuation.linear    = 0.01f;
-        light2Handle.get().attenuation.quadratic = 0.01f;
-        light2Handle.get().pos                   = light2.getTransform().getPosition();
-        light2Handle.get().attenuation.linear = light2Handle.get().attenuation.quadratic = 0.15f;
+        auto light2Handle        = scene->getLighting().createPointLight();
+        light2Handle.get().color = light2Color;
+        light2Handle.get().pos   = light2.getTransform().getPosition();
 
         constexpr glm::vec3 light3PointAt = {0.f, 0.5f, .75f};
         const bl::rc::Color light3Color(sf::Color(255, 100, 50));
