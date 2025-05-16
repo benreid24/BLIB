@@ -6,6 +6,7 @@ target_sources(BLIB PUBLIC
 	GenericTargetAsset.hpp
 	RenderPassBehavior.hpp
 	SceneAsset.hpp
+	ShadowMapAsset.hpp
 	StandardTargetAsset.hpp
 	TargetSize.hpp
 )

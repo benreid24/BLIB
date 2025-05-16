@@ -155,6 +155,19 @@ void RenderPassCache::addDefaults() {
     bloomParams.addSubpassDependency(postPassRenderCompleteDep);
     bloomParams.addSubpassDependency(prePassRenderDoneDep);
     createRenderPass(Config::RenderPassIds::BloomPass, bloomParams.build());
+
+    VkAttachmentDescription shadowMapAttachment = depthAttachment;
+    shadowMapAttachment.finalLayout             = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+
+    vk::RenderPassParameters shadowMapParams;
+    shadowMapParams.addAttachment(shadowMapAttachment);
+    shadowMapParams.addSubpass(
+        vk::RenderPassParameters::SubPass()
+            .withDepthAttachment(0, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL)
+            .build());
+    shadowMapParams.addSubpassDependency(postPassRenderCompleteDep);
+    shadowMapParams.addSubpassDependency(prePassRenderDoneDep);
+    createRenderPass(Config::RenderPassIds::ShadowMapPass, shadowMapParams.build());
 }
 
 } // namespace res

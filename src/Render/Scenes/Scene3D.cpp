@@ -22,7 +22,9 @@ rg::Strategy* strategy = &defaultStrategy;
 Scene3D::Scene3D(engine::Engine& e)
 : BatchedScene(e)
 , lighting(*static_cast<ds::Scene3DInstance*>(descriptorSets.getDescriptorSet(
-      descriptorFactories.getOrCreateFactory<ds::Scene3DFactory>()))) {}
+      descriptorFactories.getOrCreateFactory<ds::Scene3DFactory>()))) {
+    descriptorSets.getDescriptorSet<ds::Scene3DInstance>()->owner = this;
+}
 
 std::unique_ptr<cam::Camera> Scene3D::createDefaultCamera() {
     auto cam = std::make_unique<cam::Camera3D>();

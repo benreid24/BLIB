@@ -2,6 +2,7 @@
 
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
+#include <BLIB/Render/Graph/Assets/ShadowMapAsset.hpp>
 #include <BLIB/Render/Graph/Providers/BloomProviders.hpp>
 #include <BLIB/Render/Graph/Providers/GenericTargetProvider.hpp>
 #include <BLIB/Render/Graph/Providers/SimpleAssetProvider.hpp>
@@ -67,6 +68,8 @@ void Renderer::initialize() {
         std::array<VkImageUsageFlags, 1>{VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT |
                                          VK_IMAGE_USAGE_SAMPLED_BIT},
         std::array<VkClearValue, 1>{VkClearValue{.color = {{0.f, 0.f, 0.f, 1.f}}}});
+    assetFactory.addProvider<rgi::SimpleAssetProvider<rgi::ShadowMapAsset>>(
+        rg::AssetTags::ShadowMaps);
 
     // create renderer instance data
     state.init();

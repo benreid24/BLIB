@@ -1,5 +1,7 @@
 #include <BLIB/Render/Graph/GraphAssetPool.hpp>
 
+#include <BLIB/Events.hpp>
+#include <BLIB/Render/Events/GraphEvents.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <stdexcept>
 
@@ -9,8 +11,10 @@ namespace rc
 {
 namespace rg
 {
-GraphAssetPool::GraphAssetPool(AssetPool& pool)
-: pool(pool) {}
+GraphAssetPool::GraphAssetPool(AssetPool& pool, RenderTarget* owner, Scene* scene)
+: owner(owner)
+, scene(scene)
+, pool(pool) {}
 
 GraphAsset* GraphAssetPool::getFinalOutput() {
     auto& set = assets[AssetTags::FinalFrameOutput];
@@ -29,6 +33,10 @@ GraphAsset* GraphAssetPool::getAssetForOutput(std::string_view tag, Task* task) 
         auto& set            = assets[tag];
         const bool createNew = !asset->isExternal() || set.empty();
         GraphAsset* ga       = createNew ? &set.emplace_back(asset) : &set.front();
+        if (createNew) {
+            bl::event::Dispatcher::dispatch<event::SceneGraphAssetCreated>(
+                {.target = owner, .scene = scene, .asset = ga});
+        }
         return ga;
     }
     return nullptr;

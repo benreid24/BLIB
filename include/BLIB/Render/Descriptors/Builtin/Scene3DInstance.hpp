@@ -1,9 +1,11 @@
 #ifndef BLIB_RENDER_DESCRIPTORS_SCENE3DINSTANCE_HPP
 #define BLIB_RENDER_DESCRIPTORS_SCENE3DINSTANCE_HPP
 
+#include <BLIB/Events.hpp>
 #include <BLIB/Render/Buffers/StaticUniformBuffer.hpp>
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
+#include <BLIB/Render/Events/GraphEvents.hpp>
 #include <BLIB/Render/Lighting/LightingDescriptor3D.hpp>
 #include <BLIB/Render/Lighting/PointLight3D.hpp>
 #include <BLIB/Render/Lighting/SpotLight3D.hpp>
@@ -25,6 +27,10 @@ namespace lgt
 {
 class Scene3DLighting;
 }
+namespace scene
+{
+class Scene3D;
+}
 
 namespace ds
 {
@@ -33,7 +39,9 @@ namespace ds
  *
  * @ingroup Renderer
  */
-class Scene3DInstance : public SceneDescriptorSetInstance {
+class Scene3DInstance
+: public SceneDescriptorSetInstance
+, public bl::event::Listener<event::SceneGraphAssetCreated> {
 public:
     /**
      * @brief Creates a new instance of the descriptor set
@@ -48,29 +56,14 @@ public:
      */
     virtual ~Scene3DInstance();
 
-    /**
-     * @brief Returns the image for the spotlight shadow map
-     *
-     * @param i The index of the shadow map image to get
-     * @return The shadow map at the given index
-     */
-    const vk::Image& getSpotlightShadowMap(unsigned int i) const;
-
-    /**
-     * @brief Returns the image for the point light shadow map
-     *
-     * @param i The index of the shadow map image to get
-     * @return The shadow map at the given index
-     */
-    const vk::Image& getPointLightShadowMap(unsigned int i) const;
-
 private:
+    scene::Scene3D* owner;
     Renderer& renderer;
     buf::StaticUniformBuffer<lgt::LightingDescriptor3D> globalLightInfo;
     buf::StaticUniformBuffer<lgt::SpotLight3D> spotlights;
     buf::StaticUniformBuffer<lgt::PointLight3D> pointLights;
-    std::array<vk::Image, Config::MaxSpotShadows> spotShadowMapImages;
-    std::array<vk::Image, Config::MaxPointShadows> pointShadowMapImages;
+    vk::Image emptySpotShadowMap;
+    vk::Image emptyPointShadowMap;
 
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                  std::uint32_t setIndex, UpdateSpeed updateFreq) const override;
@@ -81,18 +74,12 @@ private:
     virtual bool allocateObject(ecs::Entity entity, scene::Key key) override;
     virtual void handleFrameStart() override;
 
+    virtual void observe(const event::SceneGraphAssetCreated& event) override;
+    void updateShadowDescriptors(rg::GraphAsset* asset);
+
     friend class lgt::Scene3DLighting;
+    friend class scene::Scene3D;
 };
-
-//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
-
-inline const vk::Image& Scene3DInstance::getSpotlightShadowMap(unsigned int i) const {
-    return spotShadowMapImages[i];
-}
-
-inline const vk::Image& Scene3DInstance::getPointLightShadowMap(unsigned int i) const {
-    return pointShadowMapImages[i];
-}
 
 } // namespace ds
 } // namespace rc

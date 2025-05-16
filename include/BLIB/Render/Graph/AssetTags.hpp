@@ -22,6 +22,7 @@ struct AssetTags {
     static constexpr std::string_view SceneInput               = "_builtin_SceneInput";
     static constexpr std::string_view OverlayInput             = "_builtin_OverlayInput";
     static constexpr std::string_view BloomColorAttachmentPair = "_builtin_BloomColorImagePair";
+    static constexpr std::string_view ShadowMaps               = "_builtin_ShadowMaps";
 };
 
 } // namespace rg

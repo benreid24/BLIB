@@ -26,8 +26,10 @@ public:
      * @brief Creates the pool
      *
      * @param pool The parent asset pool to get assets from
+     * @param owner The render target that owns the pool
+     * @param scene The scene that the pool is for
      */
-    GraphAssetPool(AssetPool& pool);
+    GraphAssetPool(AssetPool& pool, RenderTarget* owner, Scene* scene);
 
     /**
      * @brief Fetch an existing asset from the pool to be used as an output
@@ -67,6 +69,8 @@ public:
     void reset();
 
 private:
+    RenderTarget* owner;
+    Scene* scene;
     AssetPool& pool;
     std::unordered_map<std::string_view, std::list<GraphAsset>> assets;
 };

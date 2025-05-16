@@ -58,12 +58,7 @@ RenderPassParameters::SubPass& RenderPassParameters::SubPass::withDepthAttachmen
     return *this;
 }
 
-RenderPassParameters::SubPass&& RenderPassParameters::SubPass::build() {
-    if (colorAttachments.empty()) {
-        throw std::runtime_error("SubPass must have at least one color attachment");
-    }
-    return std::move(*this);
-}
+RenderPassParameters::SubPass&& RenderPassParameters::SubPass::build() { return std::move(*this); }
 
 } // namespace vk
 } // namespace rc

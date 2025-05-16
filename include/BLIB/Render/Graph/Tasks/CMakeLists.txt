@@ -4,4 +4,5 @@ target_sources(BLIB PUBLIC
 	ForwardRenderTransparentTask.hpp
 	PostProcess3DTask.hpp
 	RenderOverlayTask.hpp
+	ShadowMapTask.hpp
 )

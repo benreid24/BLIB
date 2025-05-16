@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_VULKAN_ATTACHMENTSET_HPP
 #define BLIB_RENDER_VULKAN_ATTACHMENTSET_HPP
 
+#include <BLIB/Render/Vulkan/Image.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <algorithm>
 #include <array>
@@ -37,6 +38,13 @@ public:
     template<std::size_t N>
     AttachmentSet(std::array<VkImage, N>& images, std::array<VkImageView, N>& views,
                   const std::array<VkImageAspectFlags, N>& aspects);
+
+    /**
+     * @brief Creates an attachment set for a single image
+     *
+     * @param image The image to init with
+     */
+    AttachmentSet(Image& image);
 
     /**
      * @brief Returns a pointer to the start of the images
@@ -76,8 +84,8 @@ protected:
     VkExtent2D extent;
 
 private:
-    VkImage* imagesPointer;
-    VkImageView* viewsPointer;
+    const VkImage* imagesPointer;
+    const VkImageView* viewsPointer;
     std::array<VkImageAspectFlags, MaxAttachments> aspects;
     std::uint32_t n;
 
@@ -108,6 +116,14 @@ inline AttachmentSet::AttachmentSet()
 , imagesPointer(nullptr)
 , viewsPointer(nullptr)
 , n(0) {}
+
+inline AttachmentSet::AttachmentSet(Image& image)
+: imagesPointer(image.getImagePointer())
+, viewsPointer(image.getViewPointer())
+, n(1) {
+    aspects[0] = image.getAspect();
+    extent     = image.getSize();
+}
 
 template<std::size_t N>
 inline AttachmentSet::AttachmentSet(std::array<VkImage, N>& images,

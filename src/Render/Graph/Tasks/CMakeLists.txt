@@ -5,4 +5,5 @@ target_sources(BLIB PRIVATE
 	ForwardRenderTransparentTask.cpp
 	PostProcess3DTask.cpp
 	RenderOverlayTask.cpp
+	ShadowMapTask.cpp
 )

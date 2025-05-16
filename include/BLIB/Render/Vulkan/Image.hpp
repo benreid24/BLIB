@@ -11,6 +11,7 @@ namespace rc
 namespace vk
 {
 struct VulkanState;
+class AttachmentSet;
 
 /**
  * @brief Utility class to create and manage an image
@@ -119,6 +120,16 @@ public:
     VkImageView getView() const;
 
     /**
+     * @brief The Vulkan handle to the image of the image
+     */
+    const VkImage* getImagePointer() const;
+
+    /**
+     * @brief Vulkan handle to the view of the image
+     */
+    const VkImageView* getViewPointer() const;
+
+    /**
      * @brief Returns the size of the image
      */
     const VkExtent2D& getSize() const;
@@ -206,6 +217,10 @@ private:
 inline VkImage Image::getImage() const { return imageHandle; }
 
 inline VkImageView Image::getView() const { return viewHandle; }
+
+inline const VkImage* Image::getImagePointer() const { return &imageHandle; }
+
+inline const VkImageView* Image::getViewPointer() const { return &viewHandle; }
 
 inline const VkExtent2D& Image::getSize() const { return size; }
 

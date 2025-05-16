@@ -7,6 +7,8 @@ namespace bl
 {
 namespace rc
 {
+class Scene;
+
 namespace rg
 {
 class Asset;
