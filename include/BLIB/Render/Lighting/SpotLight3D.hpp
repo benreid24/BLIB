@@ -41,6 +41,16 @@ struct SpotLight3D {
      * @param position The position to point at
      */
     void pointAt(const glm::vec3& position) { dir = glm::normalize(position - pos); }
+
+    /**
+     * @brief Returns the radius of the light volume for this light
+     *
+     * @param threshold The threshold to consider the bounds of the light volume
+     * @return The radius of the light volume
+     */
+    float computeFalloffRadius(float threshold = 256.f / 5.f) const {
+        return attenuation.computeFalloffRadius(threshold, color.getMaxLightLevel());
+    }
 };
 
 } // namespace lgt

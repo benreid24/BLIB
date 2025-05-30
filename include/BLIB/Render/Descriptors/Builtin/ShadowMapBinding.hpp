@@ -29,16 +29,14 @@ public:
     /**
      * @brief Creates the binding
      */
-    ShadowMapBinding()
-    : Binding(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC)
-    , lighting(nullptr) {}
+    ShadowMapBinding();
 
     /**
      * @brief Sets the lighting info to populate matrices from
      *
      * @param l The scene lighting
      */
-    void setLighting(lgt::Scene3DLighting& l) { lighting = &l; }
+    void setLighting(lgt::Scene3DLighting& l);
 
 private:
     struct Payload {
@@ -49,76 +47,28 @@ private:
     buf::UniformBuffer<Payload> cameraMatrices;
     lgt::Scene3DLighting* lighting;
 
-    DescriptorSetInstance::EntityBindMode getBindMode() const override {
+    virtual DescriptorSetInstance::EntityBindMode getBindMode() const override {
         return DescriptorSetInstance::EntityBindMode::Bindless;
     }
-    DescriptorSetInstance::SpeedBucketSetting getSpeedMode() const override {
+    virtual DescriptorSetInstance::SpeedBucketSetting getSpeedMode() const override {
         return DescriptorSetInstance::SpeedBucketSetting::SpeedAgnostic;
     }
 
-    void init(vk::VulkanState& vulkanState,
-              DescriptorComponentStorageCache& storageCache) override {
-        cameraMatrices.create(vulkanState, Config::MaxSpotShadows + Config::MaxPointShadows * 6);
-        cameraMatrices.transferEveryFrame();
-    }
+    virtual void init(vk::VulkanState& vulkanState, DescriptorComponentStorageCache&) override;
+    virtual void writeSet(SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed,
+                          std::uint32_t frameIndex) override;
+    virtual bool allocateObject(ecs::Entity, scene::Key) override { return true; }
+    virtual void releaseObject(ecs::Entity, scene::Key) override {}
+    virtual void onFrameStart() override;
+    virtual void* getPayload() override { return nullptr; }
+    virtual bool staticDescriptorUpdateRequired() const override { return false; }
+    virtual bool dynamicDescriptorUpdateRequired() const override { return false; }
+    virtual std::uint32_t getDynamicOffsetForPipeline(scene::SceneRenderContext& ctx,
+                                                      VkPipelineLayout, std::uint32_t,
+                                                      UpdateSpeed) override;
 
-    void writeSet(SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed speed,
-                  std::uint32_t frameIndex) override {
-        VkDescriptorBufferInfo& bufferInfo = writer.getNewBufferInfo();
-        bufferInfo.buffer = cameraMatrices.gpuBufferHandles().getRaw(frameIndex).getBuffer();
-        bufferInfo.offset = 0;
-        bufferInfo.range  = cameraMatrices.alignedUniformSize() * 6;
-
-        VkWriteDescriptorSet& write = writer.getNewSetWrite(set);
-        write.dstBinding            = getBindingIndex();
-        write.pBufferInfo           = &bufferInfo;
-        write.descriptorType        = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC;
-    }
-
-    bool allocateObject(ecs::Entity, scene::Key) override { return true; }
-
-    void releaseObject(ecs::Entity, scene::Key) override {}
-
-    void onFrameStart() override {
-        if (!lighting) { return; }
-
-        // sunlight camera
-        // TODO - set matrices dynamically from camera (or cascaded shadow maps)
-        const lgt::SunLight3D& sun = lighting->getSun();
-        Payload& sunlightCam       = cameraMatrices[0];
-        sunlightCam.projection     = glm::ortho(-10.f, 10.f, -10.f, 10.f, 0.1f, 100.f);
-        sunlightCam.view =
-            glm::lookAt(lighting->getSunPosition(), glm::vec3(0.f), Config::UpDirection);
-
-        // spot lights
-        for (std::uint32_t i = 0; i < lighting->getSpotShadowCount(); ++i) {
-            lgt::SpotLight3D& spot = lighting->getSpotlightUnsafe(i);
-            // TODO - calculate far plane from attenuation
-            cameraMatrices[i + 1].projection =
-                glm::perspective(spot.outerCutoff * 2.f, 1.f, 0.1f, 100.f);
-            cameraMatrices[i + 1].view =
-                glm::lookAt(spot.pos, spot.pos + spot.dir, Config::UpDirection);
-        }
-
-        // point lights
-        for (unsigned int i = 0; i < lighting->getPointLightCount(); ++i) {
-            lgt::PointLight3D& point = lighting->getPointLightUnsafe(i);
-            // TODO - calculate far plane from attenuation
-            const glm::mat4 proj = glm::perspective(glm::radians(90.f), 1.f, 0.1f, 100.f);
-            for (unsigned int j = 0; j < 6; ++j) {
-                Payload& pointCam   = cameraMatrices[(i + 1) * 6 + j];
-                pointCam.projection = proj;
-                pointCam.view       = glm::lookAt(
-                    point.pos, point.pos + Config::CubemapDirections[j], Config::UpDirection);
-            }
-        }
-    }
-
-    void* getPayload() override { return nullptr; }
-
-    bool staticDescriptorUpdateRequired() const override { return false; }
-
-    bool dynamicDescriptorUpdateRequired() const override { return false; }
+    template<typename... TBindings>
+    friend class Bindings;
 };
 
 } // namespace ds

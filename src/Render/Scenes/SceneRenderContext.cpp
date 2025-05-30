@@ -19,7 +19,9 @@ SceneRenderContext::SceneRenderContext(VkCommandBuffer commandBuffer, std::uint3
 , boundSpeed(std::numeric_limits<UpdateSpeed>::max())
 , viewport(vp)
 , renderPassId(rpid)
-, isRenderTexture(isrt) {
+, isRenderTexture(isrt)
+, extraContextType(typeid(void))
+, extraContext(nullptr) {
     boundDescriptors.fill(nullptr);
 }
 

@@ -174,7 +174,7 @@ std::uint32_t UniformBuffer<T>::alignedUniformSize() const {
 }
 
 template<typename T>
-std::uint32_t UniformBuffer<T>::alignedUniformSize() const {
+std::uint32_t UniformBuffer<T>::totalAlignedSize() const {
     return alignment * count;
 }
 

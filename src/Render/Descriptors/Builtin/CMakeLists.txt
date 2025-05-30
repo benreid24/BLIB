@@ -7,6 +7,7 @@ target_sources(BLIB PRIVATE
 	Scene2DInstance.cpp
 	Scene3DFactory.cpp
 	Scene3DInstance.cpp
+	ShadowMapBinding.cpp
 	SlideshowFactory.cpp
 	SlideshowInstance.cpp
 )

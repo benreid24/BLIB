@@ -258,7 +258,7 @@ private:
     ctr::StaticVector<ShaderInfo, 5> shaders;
     ctr::StaticVector<VkDynamicState, 8> dynamicStates;
     VkVertexInputBindingDescription vertexBinding;
-    ctr::StaticVector<VkVertexInputAttributeDescription, 6> vertexAttributes;
+    ctr::StaticVector<VkVertexInputAttributeDescription, 8> vertexAttributes;
     VkPrimitiveTopology primitiveType;
     VkPipelineRasterizationStateCreateInfo rasterizer;
     VkPipelineMultisampleStateCreateInfo msaa;

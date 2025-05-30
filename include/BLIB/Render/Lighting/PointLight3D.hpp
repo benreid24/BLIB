@@ -25,6 +25,16 @@ struct alignas(16) PointLight3D {
      * @brief Initializes to sane defaults
      */
     PointLight3D() = default;
+
+    /**
+     * @brief Returns the radius of the light volume for this light
+     *
+     * @param threshold The threshold to consider the bounds of the light volume
+     * @return The radius of the light volume
+     */
+    float computeFalloffRadius(float threshold = 256.f / 5.f) const {
+        return attenuation.computeFalloffRadius(threshold, color.getMaxLightLevel());
+    }
 };
 
 } // namespace lgt

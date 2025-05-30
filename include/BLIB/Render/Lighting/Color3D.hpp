@@ -37,6 +37,21 @@ struct alignas(16) Color3D {
         specular = color;
         return *this;
     }
+
+    /**
+     * @brief Returns the maximum light level across all channels and light types
+     */
+    float getMaxLightLevel() const {
+        return std::max({ambient.r,
+                         ambient.g,
+                         ambient.b,
+                         diffuse.r,
+                         diffuse.g,
+                         diffuse.b,
+                         specular.r,
+                         specular.g,
+                         specular.b});
+    }
 };
 
 } // namespace lgt

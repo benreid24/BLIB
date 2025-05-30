@@ -13,6 +13,5 @@ layout(location = 4) in vec3 inNormal;
 
 void main() {
     ModelTransform model = object.model[gl_InstanceIndex];
-    mat4 viewProj = spot
-	gl_Position = camera.projection * camera.view * model.transform * vec4(inPosition, 1.0);
+	gl_Position = model.transform * vec4(inPosition, 1.0);
 }

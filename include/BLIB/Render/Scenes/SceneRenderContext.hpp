@@ -95,6 +95,34 @@ public:
      */
     std::uint32_t currentObserverIndex() const;
 
+    /**
+     * @brief Add extra context to the scene render context
+     *
+     * @tparam T The type of extra context to add
+     * @param ctx Pointer to the extra context. Must remain in scope during render
+     */
+    template<typename T>
+    void setExtraContext(T* ctx);
+
+    /**
+     * @brief Returns whether extra context has been set
+     */
+    bool hasExtraContext() const;
+
+    /**
+     * @brief Returns the type of extra context
+     */
+    std::type_index getExtraContextType() const;
+
+    /**
+     * @brief Returns the extra render context. Performs validation and returns nullptr if invalid
+     *
+     * @tparam T The type of extra context to retrieve
+     * @return Pointer to the extra context
+     */
+    template<typename T>
+    T* getExtraContext() const;
+
 private:
     const VkCommandBuffer commandBuffer;
     const std::uint32_t observerIndex;
@@ -106,6 +134,8 @@ private:
     const VkViewport viewport;
     const std::uint32_t renderPassId;
     const bool isRenderTexture;
+    std::type_index extraContextType;
+    void* extraContext;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -121,6 +151,22 @@ inline std::uint32_t SceneRenderContext::currentRenderPass() const { return rend
 inline bool SceneRenderContext::targetIsRenderTexture() const { return isRenderTexture; }
 
 inline std::uint32_t SceneRenderContext::currentObserverIndex() const { return observerIndex; }
+
+inline bool SceneRenderContext::hasExtraContext() const { return extraContext != nullptr; }
+
+inline std::type_index SceneRenderContext::getExtraContextType() const { return extraContextType; }
+
+template<typename T>
+void SceneRenderContext::setExtraContext(T* ctx) {
+    extraContextType = std::type_index(typeid(T));
+    extraContext     = ctx;
+}
+
+template<typename T>
+T* SceneRenderContext::getExtraContext() const {
+    if (!extraContext || extraContextType != std::type_index(typeid(T))) { return nullptr; }
+    return static_cast<T*>(extraContext);
+}
 
 } // namespace scene
 } // namespace rc

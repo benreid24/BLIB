@@ -2,6 +2,7 @@
 
 #include <BLIB/Cameras/3D/Camera3D.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene3DFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/ShadowMapFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/ShadowMapInstance.hpp>
 #include <BLIB/Render/Graph/Strategies/Scene3DForwardRenderStrategy.hpp>
 
@@ -25,6 +26,8 @@ Scene3D::Scene3D(engine::Engine& e)
 , lighting(*static_cast<ds::Scene3DInstance*>(descriptorSets.getDescriptorSet(
       descriptorFactories.getOrCreateFactory<ds::Scene3DFactory>()))) {
     descriptorSets.getDescriptorSet<ds::Scene3DInstance>()->owner = this;
+
+    descriptorSets.getDescriptorSet(descriptorFactories.getOrCreateFactory<ds::ShadowMapFactory>());
     descriptorSets.getDescriptorSet<ds::ShadowMapInstance>()
         ->getBinding<ds::ShadowMapBinding>()
         .setLighting(lighting);

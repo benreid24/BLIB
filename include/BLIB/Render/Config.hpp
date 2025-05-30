@@ -78,11 +78,9 @@ struct Config {
         static constexpr char TextFragment[]  = {18, 0};
         static constexpr char SlideshowVert[] = {19, 0};
 
-        static constexpr char ShadowVertexRegular[]      = {20, 0};
-        static constexpr char ShadowVertexSkinned[]      = {21, 0};
-        static constexpr char PointShadowVertexRegular[] = {22, 0};
-        static constexpr char PointShadowVertexSkinned[] = {23, 0};
-        static constexpr char PointShadowGeometry[]      = {24, 0};
+        static constexpr char ShadowVertex[]        = {20, 0};
+        static constexpr char PointShadowVertex[]   = {21, 0};
+        static constexpr char PointShadowGeometry[] = {22, 0};
 
         static constexpr char BloomBlurFragment[]            = {124, 0};
         static constexpr char BloomHighlightFilterFragment[] = {125, 0};
