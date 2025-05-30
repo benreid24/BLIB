@@ -95,6 +95,8 @@ void Scene3DLighting::addIndex(std::vector<std::uint32_t>& vec, std::uint32_t i)
     vec.insert(std::lower_bound(vec.begin(), vec.end(), i), i);
 }
 
+void Scene3DLighting::setSunPosition(const glm::vec3& sp) { sunPosition = sp; }
+
 } // namespace lgt
 } // namespace rc
 } // namespace bl

@@ -43,6 +43,14 @@ public:
     VkDescriptorType getDescriptorType() const { return type; }
 
     /**
+     * @brief Returns whether this descriptor binding is dynamic
+     */
+    bool isDynamic() const {
+        return type == VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC ||
+               type == VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC;
+    }
+
+    /**
      * @brief Returns the binding index of this binding
      */
     std::uint32_t getBindingIndex() const { return index; }
@@ -50,7 +58,7 @@ public:
     /**
      * @brief Should return the bind mode required by this binding
      */
-    virtual DescriptorSetInstance::BindMode getBindMode() const = 0;
+    virtual DescriptorSetInstance::EntityBindMode getBindMode() const = 0;
 
     /**
      * @brief Should return the speed mode required by this binding
@@ -113,6 +121,26 @@ public:
      * @brief Should return whether or not the static descriptor set needs to be updated
      */
     virtual bool dynamicDescriptorUpdateRequired() const = 0;
+
+    /**
+     * @brief Returns the dynamic offset to use at pipeline bind time
+     *
+     * @param ctx The current scene render context
+     * @param layout The current pipeline layout
+     * @param setIndex The index of the descriptor set in the pipeline layout
+     * @param updateFreq The current object speed queue being rendered
+     * @return The bind offset to use
+     */
+    virtual std::uint32_t getDynamicOffsetForPipeline(scene::SceneRenderContext& ctx,
+                                                      VkPipelineLayout layout,
+                                                      std::uint32_t setIndex,
+                                                      UpdateSpeed updateFreq) {
+        (void)ctx;
+        (void)layout;
+        (void)setIndex;
+        (void)updateFreq;
+        return std::numeric_limits<std::uint32_t>::max();
+    }
 
 protected:
     /**

@@ -44,13 +44,22 @@ public:
      */
     GenericDescriptorSetInstance(vk::VulkanState& vulkanState,
                                  VkDescriptorSetLayout descriptorSetLayout,
-                                 DescriptorSetInstance::BindMode bindMode,
+                                 DescriptorSetInstance::EntityBindMode bindMode,
                                  DescriptorSetInstance::SpeedBucketSetting speedMode);
 
     /**
      * @brief Destroys the descriptor set instance
      */
     virtual ~GenericDescriptorSetInstance() = default;
+
+    /**
+     * @brief Returns the binding object directly for the given binding type
+     *
+     * @tparam T The type of binding to fetch
+     * @return A reference to the binding object itself
+     */
+    template<typename T>
+    T& getBinding();
 
     /**
      * @brief Access the given binding payload
@@ -68,6 +77,8 @@ private:
     vk::DescriptorSet staticDescriptorSet;
     vk::PerFrame<vk::DescriptorSet> dynamicDescriptorSets;
     SetWriteHelper setWriter;
+    bool staticSetsInited;
+    int dynamicSetsInited;
 
     virtual void init(DescriptorComponentStorageCache& storageCache) override;
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
@@ -87,10 +98,13 @@ private:
 template<typename TBindings>
 GenericDescriptorSetInstance<TBindings>::GenericDescriptorSetInstance(
     vk::VulkanState& vulkanState, VkDescriptorSetLayout descriptorSetLayout,
-    DescriptorSetInstance::BindMode bindMode, DescriptorSetInstance::SpeedBucketSetting speedMode)
+    DescriptorSetInstance::EntityBindMode bindMode,
+    DescriptorSetInstance::SpeedBucketSetting speedMode)
 : DescriptorSetInstance(bindMode, speedMode)
 , descriptorSetLayout(descriptorSetLayout)
-, vulkanState(vulkanState) {
+, vulkanState(vulkanState)
+, staticSetsInited(false)
+, dynamicSetsInited(Config::MaxConcurrentFrames) {
     if (!isBindless()) {
         throw std::runtime_error("GenericDescriptorSet only supports bindless sets");
     }
@@ -112,14 +126,19 @@ void GenericDescriptorSetInstance<TBindings>::bindForPipeline(scene::SceneRender
                                                               UpdateSpeed updateFreq) const {
     const auto set = updateFreq == UpdateSpeed::Static ? staticDescriptorSet.getSet() :
                                                          dynamicDescriptorSets.current().getSet();
+
+    std::array<std::uint32_t, Config::MaxDescriptorBindings> dynamicOffsets;
+    const std::uint32_t dynamicCount =
+        bindings.getDynamicOffsets(ctx, layout, setIndex, updateFreq, dynamicOffsets);
+
     vkCmdBindDescriptorSets(ctx.getCommandBuffer(),
                             VK_PIPELINE_BIND_POINT_GRAPHICS,
                             layout,
                             setIndex,
                             1,
                             &set,
-                            0,
-                            nullptr);
+                            dynamicCount,
+                            dynamicOffsets.data());
 }
 
 template<typename TBindings>
@@ -149,8 +168,12 @@ void GenericDescriptorSetInstance<TBindings>::releaseObject(ecs::Entity entity, 
 template<typename TBindings>
 void GenericDescriptorSetInstance<TBindings>::handleFrameStart() {
     bindings.onFrameStart();
-    if (bindings.staticDescriptorUpdateRequired()) { updateStaticDescriptors(); }
-    if (bindings.dynamicDescriptorUpdateRequired()) {
+    if (!staticSetsInited || bindings.staticDescriptorUpdateRequired()) {
+        staticSetsInited = true;
+        updateStaticDescriptors();
+    }
+    if (dynamicSetsInited > 0 || bindings.dynamicDescriptorUpdateRequired()) {
+        --dynamicSetsInited;
         updateDynamicDescriptors(vulkanState.currentFrameIndex());
     }
 }
@@ -167,6 +190,12 @@ void GenericDescriptorSetInstance<TBindings>::updateDynamicDescriptors(std::uint
     dynamicDescriptorSets.getRaw(i).allocate(descriptorSetLayout);
     bindings.writeSet(setWriter, dynamicDescriptorSets.getRaw(i).getSet(), UpdateSpeed::Dynamic, i);
     setWriter.performWrite(vulkanState.device);
+}
+
+template<typename TBindings>
+template<typename T>
+T& GenericDescriptorSetInstance<TBindings>::getBinding() {
+    return bindings.template getBinding<T>();
 }
 
 template<typename TBindings>

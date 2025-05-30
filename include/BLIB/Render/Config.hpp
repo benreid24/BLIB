@@ -2,6 +2,7 @@
 #define BLIB_RENDER_CONFIG_HPP
 
 #include <BLIB/Logging.hpp>
+#include <array>
 #include <cstdint>
 #include <glm/glm.hpp>
 
@@ -77,6 +78,12 @@ struct Config {
         static constexpr char TextFragment[]  = {18, 0};
         static constexpr char SlideshowVert[] = {19, 0};
 
+        static constexpr char ShadowVertexRegular[]      = {20, 0};
+        static constexpr char ShadowVertexSkinned[]      = {21, 0};
+        static constexpr char PointShadowVertexRegular[] = {22, 0};
+        static constexpr char PointShadowVertexSkinned[] = {23, 0};
+        static constexpr char PointShadowGeometry[]      = {24, 0};
+
         static constexpr char BloomBlurFragment[]            = {124, 0};
         static constexpr char BloomHighlightFilterFragment[] = {125, 0};
         static constexpr char PostProcess3DFragment[]        = {126, 0};
@@ -108,6 +115,11 @@ struct Config {
         static constexpr std::uint32_t Unlit2DGeometryNoDepthWrite = 102;
         static constexpr std::uint32_t LitSkinned2DGeometry        = 103;
         static constexpr std::uint32_t UnlitSkinned2DGeometry      = 104;
+
+        static constexpr std::uint32_t ShadowMapRegular      = 150;
+        static constexpr std::uint32_t ShadowMapSkinned      = 151;
+        static constexpr std::uint32_t PointShadowMapRegular = 152;
+        static constexpr std::uint32_t PointShadowMapSkinned = 153;
 
         static constexpr std::uint32_t Text           = 200;
         static constexpr std::uint32_t SlideshowLit   = 201;
@@ -144,6 +156,15 @@ struct Config {
     };
 
     static constexpr std::uint32_t SPIRVMagicNumber = 0x07230203;
+
+    static constexpr std::array<glm::vec3, 6> CubemapDirections = {
+        glm::vec3(1.f, 0.f, 0.f),  // Right
+        glm::vec3(-1.f, 0.f, 0.f), // Left
+        glm::vec3(0.f, 1.f, 0.f),  // Up
+        glm::vec3(0.f, -1.f, 0.f), // Down
+        glm::vec3(0.f, 0.f, 1.f),  // Back
+        glm::vec3(0.f, 0.f, -1.f)  // Front
+    };
 };
 
 } // namespace rc

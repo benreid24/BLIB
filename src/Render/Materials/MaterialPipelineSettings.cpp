@@ -9,7 +9,8 @@ namespace mat
 MaterialPipelineSettings::MaterialPipelineSettings(std::uint32_t pipelineId)
 : mainPipeline(pipelineId)
 , phases(RenderPhase::All) {
-    renderPhaseOverrides[renderPhaseIndex(RenderPhase::ShadowMap)].overrideBehavior = FragmentNoop;
+    renderPhaseOverrides.fill(None);
+    renderPhaseOverrides[renderPhaseIndex(RenderPhase::Overlay)] = pipelineId;
 }
 
 MaterialPipelineSettings::MaterialPipelineSettings(vk::PipelineParameters* pipelineParams)

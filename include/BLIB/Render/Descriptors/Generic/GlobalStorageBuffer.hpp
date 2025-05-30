@@ -27,16 +27,14 @@ public:
      * @brief Creates the binding
      */
     GlobalStorageBuffer()
-    : Binding(VK_DESCRIPTOR_TYPE_STORAGE_BUFFER)
-    , staticWritten(false)
-    , dynamicWritten(Config::MaxConcurrentFrames) {}
+    : Binding(VK_DESCRIPTOR_TYPE_STORAGE_BUFFER) {}
 
     /**
      * @brief Destroys the binding
      */
     virtual ~GlobalStorageBuffer() = default;
 
-    DescriptorSetInstance::BindMode getBindMode() const override;
+    DescriptorSetInstance::EntityBindMode getBindMode() const override;
     DescriptorSetInstance::SpeedBucketSetting getSpeedMode() const override;
     void init(vk::VulkanState& vulkanState, DescriptorComponentStorageCache& storageCache) override;
     void writeSet(SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed speed,
@@ -50,15 +48,13 @@ public:
 
 private:
     TStorage storage;
-    bool staticWritten;
-    int dynamicWritten;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T, typename TStorage>
-DescriptorSetInstance::BindMode GlobalStorageBuffer<T, TStorage>::getBindMode() const {
-    return DescriptorSetInstance::BindMode::Bindless;
+DescriptorSetInstance::EntityBindMode GlobalStorageBuffer<T, TStorage>::getBindMode() const {
+    return DescriptorSetInstance::EntityBindMode::Bindless;
 }
 
 template<typename T, typename TStorage>
@@ -92,9 +88,6 @@ void GlobalStorageBuffer<T, TStorage>::writeSet(SetWriteHelper& writer, VkDescri
     setWrite.dstBinding            = getBindingIndex();
     setWrite.pBufferInfo           = &bufferInfo;
     setWrite.descriptorType        = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
-
-    if (speed == UpdateSpeed::Static) { staticWritten = true; }
-    else { --dynamicWritten; }
 }
 
 template<typename T, typename TStorage>
@@ -118,12 +111,12 @@ void* GlobalStorageBuffer<T, TStorage>::getPayload() {
 
 template<typename T, typename TStorage>
 bool GlobalStorageBuffer<T, TStorage>::staticDescriptorUpdateRequired() const {
-    return !staticWritten;
+    return false;
 }
 
 template<typename T, typename TStorage>
 bool GlobalStorageBuffer<T, TStorage>::dynamicDescriptorUpdateRequired() const {
-    return dynamicWritten > 0;
+    return false;
 }
 
 } // namespace ds

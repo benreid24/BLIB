@@ -12,6 +12,10 @@ target_sources(BLIB PUBLIC
 	Scene2DInstance.hpp
 	Scene3DFactory.hpp
 	Scene3DInstance.hpp
+	ShadowMapFactory.hpp
+	ShadowMapInstance.hpp
+	ShadowMapPayloadBinding.hpp
 	SlideshowFactory.hpp
 	SlideshowInstance.hpp
+	Transform3DPayload.hpp
 )

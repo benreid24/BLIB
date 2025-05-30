@@ -28,11 +28,14 @@ enum struct RenderPhase : std::uint8_t {
     /// Represents rendering to a shadow map
     ShadowMap = 0x1 << 1,
 
+    /// Represents rendering to a point shadow map
+    ShadowPointMap = 0x1 << 2,
+
     /// Represents rendering to UI overlay
-    Overlay = 0x1 << 2,
+    Overlay = 0x1 << 3,
 
     /// Represents post processing phases
-    PostProcess = 0x1 << 3,
+    PostProcess = 0x1 << 4,
 
     /// Helper value representing all phases
     All = 0xFF

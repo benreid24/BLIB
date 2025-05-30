@@ -1,6 +1,11 @@
 #ifndef UNIFORMS_INCLUDED
 #define UNIFORMS_INCLUDED
 
+#define MAX_POINT_LIGHTS 128
+#define MAX_SPOT_LIGHTS 128
+#define MAX_SPOT_SHADOWS 16
+#define MAX_POINT_SHADOWS 16
+
 struct Material {
     uint diffuseId;
     uint normalId;
@@ -38,11 +43,6 @@ layout(set = OBJECTS_SET_NUMBER, binding = 0) readonly buffer obj {
 #endif
 
 #ifdef SCENE_SET_NUMBER
-
-#define MAX_POINT_LIGHTS 128
-#define MAX_SPOT_LIGHTS 128
-#define MAX_SPOT_SHADOWS 16
-#define MAX_POINT_SHADOWS 16
 
 struct Color {
     vec4 ambient;
@@ -102,5 +102,18 @@ layout(std140, set = SCENE_SET_NUMBER, binding = 3) uniform block_spot_lights {
 layout(set = SCENE_SET_NUMBER, binding = 4) uniform sampler2D spotShadowMaps[MAX_SPOT_SHADOWS];
 layout(set = SCENE_SET_NUMBER, binding = 5) uniform samplerCube pointShadowMaps[MAX_POINT_SHADOWS];
 #endif
+
+#endif
+
+#ifdef LIGHT_CAM_SET_NUMBER
+
+struct LightCamera {
+    mat4 projection;
+    mat4 view;
+};
+
+layout(set = LIGHT_CAM_SET_NUMBER, binding = 0) uniform block_light_cameras {
+    LightCamera cameras[6];
+} lightCameras;
 
 #endif

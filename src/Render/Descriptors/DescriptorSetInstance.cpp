@@ -8,7 +8,8 @@ namespace rc
 {
 namespace ds
 {
-DescriptorSetInstance::DescriptorSetInstance(BindMode bindMode, SpeedBucketSetting speedSetting)
+DescriptorSetInstance::DescriptorSetInstance(EntityBindMode bindMode,
+                                             SpeedBucketSetting speedSetting)
 : bindless(bindMode == Bindless)
 , speedBind(speedSetting == RebindForNewSpeed) {}
 

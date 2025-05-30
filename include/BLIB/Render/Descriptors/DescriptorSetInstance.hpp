@@ -30,7 +30,7 @@ namespace ds
 class DescriptorSetInstance {
 public:
     /// Bind mode of the descriptor set
-    enum BindMode { Bindless, Bindful };
+    enum EntityBindMode { Bindless, Bindful };
 
     /// Whether or not the descriptor set needs to be re-bound for different update speeds
     enum SpeedBucketSetting { RebindForNewSpeed, SpeedAgnostic };
@@ -43,12 +43,12 @@ public:
     /**
      * @brief Returns whether or not this descriptor set needs to be bound per-object
      */
-    constexpr bool isBindless() const;
+    bool isBindless() const;
 
     /**
      * @brief Returns whether or not the descriptor set needs to be re-bound for new speed
      */
-    constexpr bool needsRebindForNewSpeed() const;
+    bool needsRebindForNewSpeed() const;
 
     /**
      * @brief Called by scene once after the instance is created
@@ -110,7 +110,7 @@ protected:
      * @param bindMode The bind mode of the descriptor set
      * @param speedSetting The speed re-bind setting of the descriptor set
      */
-    DescriptorSetInstance(BindMode bindMode, SpeedBucketSetting speedSetting);
+    DescriptorSetInstance(EntityBindMode bindMode, SpeedBucketSetting speedSetting);
 
 private:
     const bool bindless;
@@ -119,9 +119,9 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr bool DescriptorSetInstance::isBindless() const { return bindless; }
+inline bool DescriptorSetInstance::isBindless() const { return bindless; }
 
-inline constexpr bool DescriptorSetInstance::needsRebindForNewSpeed() const { return speedBind; }
+inline bool DescriptorSetInstance::needsRebindForNewSpeed() const { return speedBind; }
 
 } // namespace ds
 } // namespace rc

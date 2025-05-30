@@ -48,14 +48,40 @@ void MaterialPipelineCache::createBuiltins() {
                            .withRenderPhasePipelineOverride(RenderPhase::Overlay, overlayPipelineId)
                            .build());
     };
+    const auto make3D = [this](std::uint32_t materialIds,
+                               std::uint32_t pipelineId,
+                               std::uint32_t overlayPipelineId,
+                               std::uint32_t shadowMapPipelineId,
+                               std::uint32_t pointShadowMapPipelineId) {
+        createPipeline(
+            materialIds,
+            mat::MaterialPipelineSettings(pipelineId)
+                .withRenderPhasePipelineOverride(RenderPhase::Overlay, overlayPipelineId)
+                .withRenderPhasePipelineOverride(RenderPhase::ShadowMap, shadowMapPipelineId)
+                .withRenderPhasePipelineOverride(RenderPhase::ShadowPointMap,
+                                                 pointShadowMapPipelineId)
+                .build());
+    };
 
     using MId = Config::MaterialPipelineIds;
     using PId = Config::PipelineIds;
     using B   = mat::MaterialPipelineSettings::PhasePipelineOverride;
 
-    makeOverlayPair(MId::Mesh3D, PId::LitMesh3D, PId::UnlitMesh3D);
-    makeOverlayPair(MId::Mesh3DMaterial, PId::LitMesh3DMaterial, PId::UnlitMesh3DMaterial);
-    makeOverlayPair(MId::Mesh3DSkinned, PId::LitMesh3DSkinned, PId::UnlitMesh3DSkinned);
+    make3D(MId::Mesh3D,
+           PId::LitMesh3D,
+           PId::UnlitMesh3D,
+           PId::ShadowMapRegular,
+           PId::PointShadowMapRegular);
+    make3D(MId::Mesh3DMaterial,
+           PId::LitMesh3DMaterial,
+           PId::UnlitMesh3DMaterial,
+           PId::ShadowMapRegular,
+           PId::PointShadowMapRegular);
+    make3D(MId::Mesh3DSkinned,
+           PId::LitMesh3DSkinned,
+           PId::UnlitMesh3DSkinned,
+           PId::ShadowMapSkinned,
+           PId::PointShadowMapSkinned);
     makeOverlayPair(MId::Geometry2D, PId::Lit2DGeometry, PId::Unlit2DGeometry);
     makeOverlayPair(MId::Geometry2DSkinned, PId::LitSkinned2DGeometry, PId::UnlitSkinned2DGeometry);
     makeOverlayPair(MId::Slideshow2D, PId::SlideshowLit, PId::SlideshowUnlit);
@@ -64,7 +90,6 @@ void MaterialPipelineCache::createBuiltins() {
     createPipeline(MId::Skybox,
                    mat::MaterialPipelineSettings(PId::Skybox)
                        .withRenderPhasePipelineOverride(RenderPhase::Overlay, B::None)
-                       .withRenderPhasePipelineOverride(RenderPhase::ShadowMap, B::None)
                        .build());
 }
 

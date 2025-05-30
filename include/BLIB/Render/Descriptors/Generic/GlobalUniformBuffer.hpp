@@ -2,7 +2,6 @@
 #define BLIB_RENDER_DESCRIPTORS_GENERIC_GLOBALUNIFORMBUFFER_HPP
 
 #include <BLIB/Render/Buffers/UniformBuffer.hpp>
-#include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/Generic/Binding.hpp>
 
 namespace bl
@@ -26,16 +25,14 @@ public:
      * @brief Creates the binding
      */
     GlobalUniformBuffer()
-    : Binding(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER)
-    , staticWritten(false)
-    , dynamicWritten(Config::MaxConcurrentFrames) {}
+    : Binding(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER) {}
 
     /**
      * @brief Destroys the binding
      */
     virtual ~GlobalUniformBuffer() = default;
 
-    DescriptorSetInstance::BindMode getBindMode() const override;
+    DescriptorSetInstance::EntityBindMode getBindMode() const override;
     DescriptorSetInstance::SpeedBucketSetting getSpeedMode() const override;
     void init(vk::VulkanState& vulkanState, DescriptorComponentStorageCache& storageCache) override;
     void writeSet(SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed speed,
@@ -50,15 +47,13 @@ public:
 private:
     T value;
     buf::UniformBuffer<T> buffer;
-    bool staticWritten;
-    int dynamicWritten;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>
-DescriptorSetInstance::BindMode GlobalUniformBuffer<T>::getBindMode() const {
-    return DescriptorSetInstance::BindMode::Bindless;
+DescriptorSetInstance::EntityBindMode GlobalUniformBuffer<T>::getBindMode() const {
+    return DescriptorSetInstance::EntityBindMode::Bindless;
 }
 
 template<typename T>
@@ -73,8 +68,8 @@ void GlobalUniformBuffer<T>::init(vk::VulkanState& vs, DescriptorComponentStorag
 }
 
 template<typename T>
-void GlobalUniformBuffer<T>::writeSet(SetWriteHelper& writer, VkDescriptorSet set,
-                                      UpdateSpeed speed, std::uint32_t frameIndex) {
+void GlobalUniformBuffer<T>::writeSet(SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed,
+                                      std::uint32_t frameIndex) {
     VkDescriptorBufferInfo& bufferInfo = writer.getNewBufferInfo();
     bufferInfo.buffer                  = buffer.gpuBufferHandles().getRaw(frameIndex).getBuffer();
     bufferInfo.offset                  = 0;
@@ -84,9 +79,6 @@ void GlobalUniformBuffer<T>::writeSet(SetWriteHelper& writer, VkDescriptorSet se
     setWrite.dstBinding            = getBindingIndex();
     setWrite.pBufferInfo           = &bufferInfo;
     setWrite.descriptorType        = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-
-    if (speed == UpdateSpeed::Static) { staticWritten = true; }
-    else { --dynamicWritten; }
 }
 
 template<typename T>
@@ -112,12 +104,12 @@ void* GlobalUniformBuffer<T>::getPayload() {
 
 template<typename T>
 bool GlobalUniformBuffer<T>::staticDescriptorUpdateRequired() const {
-    return !staticWritten;
+    return false;
 }
 
 template<typename T>
 bool GlobalUniformBuffer<T>::dynamicDescriptorUpdateRequired() const {
-    return dynamicWritten > 0;
+    return false;
 }
 
 } // namespace ds

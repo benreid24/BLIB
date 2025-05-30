@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_DESCRIPTORS_GENERIC_BINDINGS_HPP
 #define BLIB_RENDER_DESCRIPTORS_GENERIC_BINDINGS_HPP
 
+#include <BLIB/Containers/StaticVector.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Descriptors/Generic/Binding.hpp>
 #include <tuple>
@@ -50,6 +51,15 @@ public:
     T& get();
 
     /**
+     * @brief Returns the binding object itself for a particular binding
+     *
+     * @tparam T The type of binding to get
+     * @return A reference to the binding object
+     */
+    template<typename T>
+    T& getBinding();
+
+    /**
      * @brief Returns the descriptor type for the given index
      *
      * @param index The index to get the type for
@@ -92,7 +102,7 @@ public:
     /**
      * @brief Returns the bind mode for the descriptor set with these bindings
      */
-    DescriptorSetInstance::BindMode getBindMode() const;
+    DescriptorSetInstance::EntityBindMode getBindMode() const;
 
     /**
      * @brief Returns the speed mode for the descriptor set with these bindings
@@ -109,8 +119,26 @@ public:
      */
     bool dynamicDescriptorUpdateRequired() const;
 
+    /**
+     * @brief Gets the dynamic bind offsets for the dynamic bindings in this set
+     *
+     * @param ctx The current scene render context
+     * @param layout The current pipeline layout
+     * @param setIndex The index of the descriptor set in the pipeline layout
+     * @param updateFreq The current object speed queue being rendered
+     * @param offsets The output dynamic bind offsets for the bindings
+     * @return The number of dynamic offsets
+     */
+    std::uint32_t getDynamicOffsets(
+        scene::SceneRenderContext& ctx, VkPipelineLayout layout, std::uint32_t setIndex,
+        UpdateSpeed updateFreq,
+        std::array<std::uint32_t, Config::MaxDescriptorBindings>& offsets) const;
+
 private:
     std::tuple<TBindings...> bindings;
+    ctr::StaticVector<Binding*, NBindings> dynamicBindings;
+
+    void addDynamicBindingHelper(Binding& binding);
 
     template<typename T, std::size_t I>
     T& getHelper();
@@ -125,6 +153,12 @@ template<typename... TBindings>
 template<typename T>
 T& Bindings<TBindings...>::get() {
     return getHelper<T, 0>();
+}
+
+template<typename... TBindings>
+template<typename T>
+T& Bindings<TBindings...>::getBinding() {
+    return std::get<T>(bindings);
 }
 
 template<typename... TBindings>
@@ -159,6 +193,7 @@ void Bindings<TBindings...>::init(vk::VulkanState& vulkanState,
     std::size_t index = 0;
     ((std::get<TBindings>(bindings).index = index++), ...);
     ((std::get<TBindings>(bindings).init(vulkanState, storageCache)), ...);
+    ((addDynamicBindingHelper(std::get<TBindings>(bindings))), ...);
 }
 
 template<typename... TBindings>
@@ -190,7 +225,7 @@ void Bindings<TBindings...>::releaseObject(ecs::Entity entity, scene::Key key) {
 }
 
 template<typename... TBindings>
-DescriptorSetInstance::BindMode Bindings<TBindings...>::getBindMode() const {
+DescriptorSetInstance::EntityBindMode Bindings<TBindings...>::getBindMode() const {
     const bool bindful =
         ((std::get<TBindings>(bindings).getBindMode() == DescriptorSetInstance::Bindful) || ...);
     return bindful ? DescriptorSetInstance::Bindful : DescriptorSetInstance::Bindless;
@@ -213,6 +248,24 @@ bool Bindings<TBindings...>::staticDescriptorUpdateRequired() const {
 template<typename... TBindings>
 bool Bindings<TBindings...>::dynamicDescriptorUpdateRequired() const {
     return ((std::get<TBindings>(bindings).dynamicDescriptorUpdateRequired()) || ...);
+}
+
+template<typename... TBindings>
+std::uint32_t Bindings<TBindings...>::getDynamicOffsets(
+    scene::SceneRenderContext& ctx, VkPipelineLayout layout, std::uint32_t setIndex,
+    UpdateSpeed updateFreq,
+    std::array<std::uint32_t, Config::MaxDescriptorBindings>& offsets) const {
+    std::uint32_t i = 0;
+    for (Binding* binding : dynamicBindings) {
+        offsets[i] = binding->getDynamicOffsetForPipeline(ctx, layout, setIndex, updateFreq);
+        ++i;
+    }
+    return dynamicBindings.size();
+}
+
+template<typename... TBindings>
+void Bindings<TBindings...>::addDynamicBindingHelper(Binding& binding) {
+    if (binding.isDynamic()) { dynamicBindings.emplace_back(&binding); }
 }
 
 } // namespace ds

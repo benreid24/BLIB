@@ -73,7 +73,7 @@ public:
     /**
      * @brief Returns the number of elements in the buffer
      */
-    constexpr std::uint32_t size() const;
+    std::uint32_t size() const;
 
     /**
      * @brief Frees the GPU buffers
@@ -83,12 +83,17 @@ public:
     /**
      * @brief Returns the Buffer objects of the GPU buffers
      */
-    constexpr vk::PerFrame<vk::Buffer>& gpuBufferHandles();
+    vk::PerFrame<vk::Buffer>& gpuBufferHandles();
 
     /**
      * @brief Returns the aligned size of contained uniforms
      */
-    constexpr std::uint32_t alignedUniformSize() const;
+    std::uint32_t alignedUniformSize() const;
+
+    /**
+     * @brief Returns the size of all aligned values
+     */
+    std::uint32_t totalAlignedSize() const;
 
 private:
     std::uint32_t count;
@@ -148,24 +153,29 @@ const T& UniformBuffer<T>::operator[](std::uint32_t i) const {
 }
 
 template<typename T>
-constexpr std::uint32_t UniformBuffer<T>::size() const {
+std::uint32_t UniformBuffer<T>::size() const {
     return count;
 }
 
 template<typename T>
-inline void UniformBuffer<T>::destroy() {
+void UniformBuffer<T>::destroy() {
     gpuBuffers.cleanup([](vk::Buffer& buffer) { buffer.deferDestruction(); });
     stagingBuffers.cleanup([](vk::Buffer& buffer) { buffer.deferDestruction(); });
 }
 
 template<typename T>
-inline constexpr vk::PerFrame<vk::Buffer>& UniformBuffer<T>::gpuBufferHandles() {
+vk::PerFrame<vk::Buffer>& UniformBuffer<T>::gpuBufferHandles() {
     return gpuBuffers;
 }
 
 template<typename T>
-inline constexpr std::uint32_t UniformBuffer<T>::alignedUniformSize() const {
+std::uint32_t UniformBuffer<T>::alignedUniformSize() const {
     return alignment;
+}
+
+template<typename T>
+std::uint32_t UniformBuffer<T>::alignedUniformSize() const {
+    return alignment * count;
 }
 
 template<typename T>

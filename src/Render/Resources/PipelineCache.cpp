@@ -8,9 +8,11 @@
 #include <BLIB/Render/Descriptors/Builtin/Object3DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene2DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene3DFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/ShadowMapFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/SlideshowFactory.hpp>
 #include <BLIB/Render/Primitives/SlideshowVertex.hpp>
 #include <BLIB/Render/Primitives/Vertex3D.hpp>
+#include <BLIB/Render/Primitives/Vertex3DSkinned.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -196,6 +198,60 @@ void PipelineCache::createBuiltins() {
             .withDepthStencilState(&depthStencilDepthEnabled)
             .addDescriptorSet<ds::GlobalDataFactory>()
             .addDescriptorSet<ds::Scene3DFactory>()
+            .addDescriptorSet<ds::Object3DFactory>()
+            .build());
+
+    createPipeline(
+        Config::PipelineIds::ShadowMapRegular,
+        vk::PipelineParameters()
+            .withShader(Config::ShaderIds::ShadowVertexRegular, VK_SHADER_STAGE_VERTEX_BIT)
+            .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+            .withVertexFormat(prim::Vertex3D::bindingDescription(),
+                              prim::Vertex3D::attributeDescriptions())
+            .withRasterizer(rasterizer3d)
+            .withDepthStencilState(&depthStencilDepthEnabled)
+            .addDescriptorSet<ds::ShadowMapFactory>()
+            .addDescriptorSet<ds::Object3DFactory>()
+            .build());
+
+    createPipeline(
+        Config::PipelineIds::ShadowMapSkinned,
+        vk::PipelineParameters()
+            .withShader(Config::ShaderIds::ShadowVertexSkinned, VK_SHADER_STAGE_VERTEX_BIT)
+            .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+            .withVertexFormat(prim::Vertex3DSkinned::bindingDescription(),
+                              prim::Vertex3DSkinned::attributeDescriptions())
+            .withRasterizer(rasterizer3d)
+            .withDepthStencilState(&depthStencilDepthEnabled)
+            .addDescriptorSet<ds::ShadowMapFactory>()
+            .addDescriptorSet<ds::Object3DFactory>()
+            .build());
+
+    createPipeline(
+        Config::PipelineIds::PointShadowMapRegular,
+        vk::PipelineParameters()
+            .withShader(Config::ShaderIds::PointShadowVertexRegular, VK_SHADER_STAGE_VERTEX_BIT)
+            .withShader(Config::ShaderIds::PointShadowGeometry, VK_SHADER_STAGE_GEOMETRY_BIT)
+            .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+            .withVertexFormat(prim::Vertex3D::bindingDescription(),
+                              prim::Vertex3D::attributeDescriptions())
+            .withRasterizer(rasterizer3d)
+            .withDepthStencilState(&depthStencilDepthEnabled)
+            .addDescriptorSet<ds::ShadowMapFactory>()
+            .addDescriptorSet<ds::Object3DFactory>()
+            .build());
+
+    createPipeline(
+        Config::PipelineIds::PointShadowMapSkinned,
+        vk::PipelineParameters()
+            .withShader(Config::ShaderIds::PointShadowVertexSkinned, VK_SHADER_STAGE_VERTEX_BIT)
+            .withShader(Config::ShaderIds::PointShadowGeometry, VK_SHADER_STAGE_GEOMETRY_BIT)
+            .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+            .withVertexFormat(prim::Vertex3DSkinned::bindingDescription(),
+                              prim::Vertex3DSkinned::attributeDescriptions())
+            .withRasterizer(rasterizer3d)
+            .withDepthStencilState(&depthStencilDepthEnabled)
+            .addDescriptorSet<ds::ShadowMapFactory>()
             .addDescriptorSet<ds::Object3DFactory>()
             .build());
 

@@ -47,6 +47,17 @@ VkShaderModule ShaderModuleCache::loadShader(const std::string& path) {
         case Config::ShaderIds::SkyboxFragment[0]:
             return loadShader(BUILTIN_SHADER("3D/skybox.frag.spv"));
 
+        case Config::ShaderIds::ShadowVertexRegular[0]:
+            return loadShader(BUILTIN_SHADER("3D/shadowMapRegular.vert.spv"));
+        case Config::ShaderIds::ShadowVertexSkinned[0]:
+            return loadShader(BUILTIN_SHADER("3D/shadowMapSkinned.vert.spv"));
+        case Config::ShaderIds::PointShadowVertexRegular[0]:
+            return loadShader(BUILTIN_SHADER("3D/pointShadowMapRegular.vert.spv"));
+        case Config::ShaderIds::PointShadowVertexSkinned[0]:
+            return loadShader(BUILTIN_SHADER("3D/pointShadowMapSkinned.vert.spv"));
+        case Config::ShaderIds::PointShadowGeometry[0]:
+            return loadShader(BUILTIN_SHADER("3D/pointShadow.geom.spv"));
+
         case Config::ShaderIds::Vertex2D[0]:
             return loadShader(BUILTIN_SHADER("2D/2d.vert.spv"));
         case Config::ShaderIds::Fragment2DLit[0]:

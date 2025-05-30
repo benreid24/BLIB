@@ -41,7 +41,7 @@ public:
      */
     virtual ~ObjectStorageBuffer() = default;
 
-    DescriptorSetInstance::BindMode getBindMode() const override;
+    DescriptorSetInstance::EntityBindMode getBindMode() const override;
     DescriptorSetInstance::SpeedBucketSetting getSpeedMode() const override;
     void init(vk::VulkanState& vulkanState, DescriptorComponentStorageCache& storageCache) override;
     void writeSet(SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed speed,
@@ -61,9 +61,9 @@ private:
 
 template<typename T, typename TComponent, bool Optional, typename TDynamicStorage,
          typename TStaticStorage>
-DescriptorSetInstance::BindMode
+DescriptorSetInstance::EntityBindMode
 ObjectStorageBuffer<T, TComponent, Optional, TDynamicStorage, TStaticStorage>::getBindMode() const {
-    return DescriptorSetInstance::BindMode::Bindless;
+    return DescriptorSetInstance::EntityBindMode::Bindless;
 }
 
 template<typename T, typename TComponent, bool Optional, typename TDynamicStorage,
