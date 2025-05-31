@@ -21,9 +21,7 @@ Scene3DInstance::Scene3DInstance(Renderer& renderer, VkDescriptorSetLayout layou
 
 Scene3DInstance::~Scene3DInstance() {
     cleanup();
-    globalLightInfo.destroy();
-    spotlights.destroy();
-    pointLights.destroy();
+    uniform.destroy();
 }
 
 void Scene3DInstance::bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
@@ -50,9 +48,7 @@ void Scene3DInstance::releaseObject(ecs::Entity, scene::Key) {
 void Scene3DInstance::init(DescriptorComponentStorageCache&) {
     // allocate memory
     createCameraBuffer();
-    globalLightInfo.create(vulkanState, 1);
-    spotlights.create(vulkanState, lgt::Scene3DLighting::MaxSpotLights);
-    pointLights.create(vulkanState, lgt::Scene3DLighting::MaxPointLights);
+    uniform.create(vulkanState, 1);
 
     emptySpotShadowMap.create(vulkanState,
                               vk::Image::Type::Image2D,
@@ -98,10 +94,11 @@ void Scene3DInstance::init(DescriptorComponentStorageCache&) {
 
             writeCameraDescriptor(setWriter, i, j);
 
+            // TODO - do we need padding for dynamic binding?
             VkDescriptorBufferInfo& lightInfoBufferInfo = setWriter.getNewBufferInfo();
-            lightInfoBufferInfo.buffer = globalLightInfo.gpuBufferHandle().getBuffer();
-            lightInfoBufferInfo.offset = 0;
-            lightInfoBufferInfo.range  = globalLightInfo.totalAlignedSize();
+            lightInfoBufferInfo.buffer                  = uniform.gpuBufferHandle().getBuffer();
+            lightInfoBufferInfo.offset                  = 0;
+            lightInfoBufferInfo.range                   = uniform.totalAlignedSize();
 
             VkWriteDescriptorSet& lightInfoWrite = setWriter.getNewSetWrite(set);
             lightInfoWrite.descriptorCount       = 1;
@@ -109,43 +106,13 @@ void Scene3DInstance::init(DescriptorComponentStorageCache&) {
             lightInfoWrite.dstArrayElement       = 0;
             lightInfoWrite.pBufferInfo           = &lightInfoBufferInfo;
             lightInfoWrite.descriptorType        = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-
-            VkDescriptorBufferInfo& pointLightInfo = setWriter.getNewBufferInfo();
-            pointLightInfo.buffer                  = pointLights.gpuBufferHandle().getBuffer();
-            pointLightInfo.offset                  = 0;
-            pointLightInfo.range                   = pointLights.totalAlignedSize();
-
-            VkWriteDescriptorSet& pointLightWrite = setWriter.getNewSetWrite(set);
-            pointLightWrite.descriptorCount       = 1;
-            pointLightWrite.dstBinding            = 2;
-            pointLightWrite.dstArrayElement       = 0;
-            pointLightWrite.pBufferInfo           = &pointLightInfo;
-            pointLightWrite.descriptorType        = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-
-            VkDescriptorBufferInfo& spotlightInfo = setWriter.getNewBufferInfo();
-            spotlightInfo.buffer                  = spotlights.gpuBufferHandle().getBuffer();
-            spotlightInfo.offset                  = 0;
-            spotlightInfo.range                   = spotlights.totalAlignedSize();
-
-            VkWriteDescriptorSet& spotlightWrite = setWriter.getNewSetWrite(set);
-            spotlightWrite.descriptorCount       = 1;
-            spotlightWrite.dstBinding            = 3;
-            spotlightWrite.dstArrayElement       = 0;
-            spotlightWrite.pBufferInfo           = &spotlightInfo;
-            spotlightWrite.descriptorType        = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
         }
     }
     setWriter.performWrite(vulkanState.device);
 
     updateShadowDescriptors(nullptr);
 
-    // populate lighting with defaults
-    globalLightInfo.fill(lgt::LightingDescriptor3D());
-    spotlights.fill(lgt::SpotLight3D());
-    pointLights.fill(lgt::PointLight3D());
-    globalLightInfo.transferEveryFrame();
-    spotlights.transferEveryFrame();
-    pointLights.transferEveryFrame();
+    uniform.transferEveryFrame();
 
     bl::event::Dispatcher::subscribe(this);
 }
@@ -179,7 +146,7 @@ void Scene3DInstance::updateShadowDescriptors(rg::GraphAsset* asset) {
 
                 VkWriteDescriptorSet& write = setWriter.getNewSetWrite(set);
                 write.descriptorCount       = 1;
-                write.dstBinding            = 4;
+                write.dstBinding            = 2;
                 write.dstArrayElement       = i;
                 write.pImageInfo            = &imageInfo;
                 write.descriptorType        = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
@@ -194,7 +161,7 @@ void Scene3DInstance::updateShadowDescriptors(rg::GraphAsset* asset) {
 
                 VkWriteDescriptorSet& write = setWriter.getNewSetWrite(set);
                 write.descriptorCount       = 1;
-                write.dstBinding            = 5;
+                write.dstBinding            = 3;
                 write.dstArrayElement       = i;
                 write.pImageInfo            = &imageInfo;
                 write.descriptorType        = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
@@ -215,6 +182,15 @@ bool Scene3DInstance::allocateObject(ecs::Entity, scene::Key) {
 
 void Scene3DInstance::handleFrameStart() {
     // noop
+}
+
+VkDescriptorBufferInfo Scene3DInstance::getBufferBindingInfo(std::uint32_t) const {
+    // TODO - do we need to double buffer the gpu side?
+    VkDescriptorBufferInfo info{};
+    info.buffer = uniform.gpuBufferHandle().getBuffer();
+    info.offset = 0;
+    info.range  = uniform.totalAlignedSize();
+    return info;
 }
 
 } // namespace ds

@@ -38,9 +38,10 @@ struct Config {
 
     static constexpr std::uint32_t DefaultSceneObjectCapacity = 128;
 
-    static constexpr std::uint32_t MaxSpotShadows = 16;
-
-    static constexpr std::uint32_t MaxPointShadows = 8;
+    static constexpr std::uint32_t MaxPointLights  = 128;
+    static constexpr std::uint32_t MaxSpotLights   = 128;
+    static constexpr std::uint32_t MaxPointShadows = 16;
+    static constexpr std::uint32_t MaxSpotShadows  = 16;
 
     static constexpr glm::vec3 UpDirection  = {0.f, 1.f, 0.f};
     static constexpr glm::vec3 Rotate2DAxis = {0.f, 0.f, 1.f};

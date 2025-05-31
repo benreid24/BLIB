@@ -241,7 +241,7 @@ private:
         light2.getTransform().setPosition({-0.7f, 1.f, -1.6f});
         light2.setColor(light2Color);
         light2.addToScene(scene, bl::rc::UpdateSpeed::Static);
-        auto light2Handle        = scene->getLighting().createPointLight();
+        auto light2Handle        = scene->getLighting().createPointLightWithShadow();
         light2Handle.get().color = light2Color;
         light2Handle.get().pos   = light2.getTransform().getPosition();
 
@@ -252,14 +252,15 @@ private:
         light3.getTransform().lookAt(light3PointAt);
         light3.setColor(light3Color);
         light3.addToScene(scene, bl::rc::UpdateSpeed::Static);
-        auto light3Handle                        = scene->getLighting().createSpotlight();
-        light3Handle.get().color                 = light3Color;
-        light3Handle.get().attenuation.constant  = 0.5f;
-        light3Handle.get().attenuation.linear    = 0.02f;
-        light3Handle.get().attenuation.quadratic = 0.02f;
-        light3Handle.get().pos =
-            light3.getTransform().getPosition() + light3.getTransform().getForwardDir() * 0.2f;
-        light3Handle.get().attenuation.linear = light3Handle.get().attenuation.quadratic = 0.05f;
+        auto light3Handle             = scene->getLighting().createSpotlightWithShadow();
+        light3Handle.get().getColor() = light3Color;
+        light3Handle.get().getAttenuation().constant  = 0.5f;
+        light3Handle.get().getAttenuation().linear    = 0.02f;
+        light3Handle.get().getAttenuation().quadratic = 0.02f;
+        light3Handle.get().setPosition(light3.getTransform().getPosition() +
+                                       light3.getTransform().getForwardDir() * 0.2f);
+        light3Handle.get().getAttenuation().linear = light3Handle.get().getAttenuation().quadratic =
+            0.05f;
         light3Handle.get().pointAt(light3PointAt);
 
         bl::event::Dispatcher::subscribe(controller);

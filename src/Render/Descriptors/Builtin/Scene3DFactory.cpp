@@ -17,36 +17,26 @@ void Scene3DFactory::init(engine::Engine&, Renderer& r) {
     vulkanState = &r.vulkanState();
 
     vk::DescriptorPool::SetBindingInfo bindingInfo;
-    bindingInfo.bindingCount = 6;
+    bindingInfo.bindingCount = 4;
 
     // camera info
     bindingInfo.bindings[0] = SceneDescriptorSetInstance::getCameraBufferBindingInfo(
         0, VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT);
 
-    // sunlight & global lighting
+    // sunlight & spot lights & point lights & global lighting
     bindingInfo.bindings[1].descriptorCount = 1;
     bindingInfo.bindings[1].descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
     bindingInfo.bindings[1].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
 
-    // spot lights
-    bindingInfo.bindings[2].descriptorCount = 1;
-    bindingInfo.bindings[2].descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+    // spot light shadow maps
+    bindingInfo.bindings[2].descriptorCount = Config::MaxSpotShadows;
+    bindingInfo.bindings[2].descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
     bindingInfo.bindings[2].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
 
-    // point lights
-    bindingInfo.bindings[3].descriptorCount = 1;
-    bindingInfo.bindings[3].descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-    bindingInfo.bindings[3].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
-
-    // spot light shadow maps
-    bindingInfo.bindings[4].descriptorCount = Config::MaxSpotShadows;
-    bindingInfo.bindings[4].descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-    bindingInfo.bindings[4].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
-
     // point light shadow maps
-    bindingInfo.bindings[5].descriptorCount = Config::MaxPointShadows;
-    bindingInfo.bindings[5].descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-    bindingInfo.bindings[5].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
+    bindingInfo.bindings[3].descriptorCount = Config::MaxPointShadows;
+    bindingInfo.bindings[3].descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+    bindingInfo.bindings[3].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
 
     descriptorSetLayout = vulkanState->descriptorPool.createLayout(bindingInfo);
 }

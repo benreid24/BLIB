@@ -2,7 +2,9 @@
 #define BLIB_RENDER_LIGHTING_LIGHT3D_HPP
 
 #include <BLIB/Render/Lighting/PointLight3D.hpp>
+#include <BLIB/Render/Lighting/PointLight3DShadow.hpp>
 #include <BLIB/Render/Lighting/SpotLight3D.hpp>
+#include <BLIB/Render/Lighting/SpotLight3DShadow.hpp>
 #include <BLIB/Util/VectorRef.hpp>
 
 namespace bl
@@ -77,11 +79,25 @@ private:
 using PointLightHandle = Light3D<PointLight3D>;
 
 /**
+ * @brief Handle to a point light with shadow in 3d scene
+ *
+ * @ingroup Renderer
+ */
+using PointLightShadowHandle = Light3D<PointLight3DShadow>;
+
+/**
  * @brief Handle to a spot light in 3d scene
  *
  * @ingroup Renderer
  */
 using SpotLightHandle = Light3D<SpotLight3D>;
+
+/**
+ * @brief Handle to a spot light with shadow in 3d scene
+ *
+ * @ingroup Renderer
+ */
+using SpotLightShadowHandle = Light3D<SpotLight3DShadow>;
 
 } // namespace lgt
 } // namespace rc

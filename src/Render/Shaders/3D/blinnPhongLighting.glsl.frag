@@ -83,26 +83,30 @@ mat3 computeSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir, 
     return mat3(ambient, diffuse, specular);
 }
 
-vec3 computeLighting(vec3 fragPos, vec3 normal, vec3 diffuse, vec3 specular) {
+// float computeSpotLightShadow(SpotLight light, vec4 fragPos) {
+//     //
+// }
+
+vec3 computeLighting(vec3 fragPos, vec3 normal, vec3 diffuse, vec3 specular, float shininess) {
     vec3 viewDir = normalize(camera.camPos - fragPos);
 
     mat3 lightColors = mat3(vec3(0.0), vec3(lighting.info.globalAmbient), vec3(0.0));
-    lightColors += computeSunLight(lighting.info.sun, normal, viewDir, 1.0);
+    lightColors += computeSunLight(lighting.info.sun, normal, viewDir, shininess);
 
     for (uint i = 0; i < lighting.info.nPointShadows; i += 1) {
         // TODO - shadowing
-        lightColors += computePointLight(pointLights.lights[i], normal, fragPos, viewDir, 1.0);
+        lightColors += computePointLight(lighting.pointShadows[i].light, normal, fragPos, viewDir, shininess);
     }
     for (uint i = lighting.info.nPointShadows; i < lighting.info.nPointShadows + lighting.info.nPointLights; i += 1) {
-        lightColors += computePointLight(pointLights.lights[i], normal, fragPos, viewDir, 1.0);
+        lightColors += computePointLight(lighting.pointLights[i], normal, fragPos, viewDir, shininess);
     }
 
     for (uint i = 0; i < lighting.info.nSpotShadows; i += 1) {
         // TODO - shadowing
-        lightColors += computeSpotLight(spotLights.lights[i], normal, fragPos, viewDir, 1.0);
+        lightColors += computeSpotLight(lighting.spotShadows[i].light, normal, fragPos, viewDir, shininess);
     }
     for (uint i = lighting.info.nSpotShadows; i < lighting.info.nSpotShadows + lighting.info.nSpotLights; i += 1) {
-        lightColors += computeSpotLight(spotLights.lights[i], normal, fragPos, viewDir, 1.0);
+        lightColors += computeSpotLight(lighting.spotLights[i], normal, fragPos, viewDir, shininess);
     }
 
     return lightColors[0] * diffuse + lightColors[1] * diffuse + lightColors[2] * specular;

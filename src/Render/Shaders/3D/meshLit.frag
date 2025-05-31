@@ -20,6 +20,6 @@ layout(location = 0) out vec4 outColor;
 void main() {
     vec3 normal = fs_in.TBN[2];
     vec3 diffuse = fs_in.fragColor.xyz;
-    vec3 lightColor = computeLighting(fs_in.fragPos, normal, diffuse, diffuse);
+    vec3 lightColor = computeLighting(fs_in.fragPos, normal, diffuse, diffuse, 1.0);
     outColor = fs_in.fragColor * vec4(lightColor, fs_in.fragColor.w);
 }

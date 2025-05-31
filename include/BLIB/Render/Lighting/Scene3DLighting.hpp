@@ -6,6 +6,7 @@
 #include <BLIB/Render/Lighting/Light3D.hpp>
 #include <BLIB/Render/Lighting/PointLight3D.hpp>
 #include <BLIB/Render/Lighting/SpotLight3D.hpp>
+#include <BLIB/Render/Lighting/SpotLight3DShadow.hpp>
 #include <BLIB/Render/Lighting/SunLight3D.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
 #include <BLIB/Util/Random.hpp>
@@ -23,11 +24,6 @@ namespace lgt
  */
 class Scene3DLighting {
 public:
-    static constexpr std::uint32_t MaxPointLights  = 128;
-    static constexpr std::uint32_t MaxSpotLights   = 128;
-    static constexpr std::uint32_t MaxPointShadows = 16;
-    static constexpr std::uint32_t MaxSpotShadows  = 16;
-
     /**
      * @brief Creates the lighting manager
      *
@@ -75,16 +71,7 @@ public:
      * @return A handle to the new light
      */
     template<typename... TArgs>
-    SpotLightHandle createSpotlightWithShadow(TArgs&&... args);
-
-    /**
-     * @brief Directly returns a reference to the spotlight at the given index. May be invalidated
-     *        so do not store
-     *
-     * @param i The index of the spotlight to access
-     * @return A reference to the spotlight at the given index
-     */
-    SpotLight3D& getSpotlightUnsafe(std::uint32_t i);
+    SpotLightShadowHandle createSpotlightWithShadow(TArgs&&... args);
 
     /**
      * @brief Returns the number of spotlights with shadows in the scene
@@ -114,16 +101,7 @@ public:
      * @return A handle to the new light
      */
     template<typename... TArgs>
-    PointLightHandle createPointLightWithShadow(TArgs&&... args);
-
-    /**
-     * @brief Directly returns a reference to the point light at the given index. May be invalidated
-     *        so do not store
-     *
-     * @param i The index of the point light to access
-     * @return A reference to the point light at the given index
-     */
-    PointLight3D& getPointLightUnsafe(std::uint32_t i);
+    PointLightShadowHandle createPointLightWithShadow(TArgs&&... args);
 
     /**
      * @brief Returns the number of point lights with shadows in the scene
@@ -148,26 +126,70 @@ public:
     const glm::vec3& getSunPosition() const;
 
     /**
+     * @brief Updates the view projection matrix for the sunlight camera
+     */
+    void updateSunCameraMatrix();
+
+    /**
      * @brief Called by owning scene prior to render. Do not call manually
      */
     void sync();
 
 private:
+    template<typename T>
+    struct Lights {
+        util::IdAllocator<std::size_t> idAllocator;
+        std::vector<T> lights;
+        std::vector<std::uint32_t> active;
+
+        Lights(std::size_t maxCount)
+        : idAllocator(maxCount) {
+            lights.resize(maxCount);
+            active.reserve(maxCount);
+        }
+
+        template<typename... TArgs>
+        Light3D<T> createNew(Scene3DLighting* owner, TArgs&&... args) {
+            if (!idAllocator.available()) {
+                BL_LOG_ERROR << "Exceeded max light count";
+                return {owner, lights, util::Random::get<std::size_t>(0, lights.size() - 1)};
+            }
+            const std::size_t i = idAllocator.allocate();
+            new (&lights[i]) T(std::forward<TArgs>(args)...);
+            active.emplace_back(i);
+            return {owner, lights, i};
+        }
+
+        void remove(const Light3D<T>& light) {
+            const std::size_t i = &light.get() - lights.data();
+            if (i < lights.size()) {
+                idAllocator.release(i);
+                for (auto it = active.begin(); it != active.end(); ++it) {
+                    if (*it == i) {
+                        active.erase(it);
+                        break;
+                    }
+                }
+            }
+        }
+
+        void copyToUniformBuffer(T* dst) {
+            std::uint32_t ui = 0;
+            for (std::uint32_t i : active) { dst[ui++].copyAsUniform(lights[i]); }
+        }
+    };
+
     ds::Scene3DInstance& instance;
     glm::vec3 sunPosition;
-    util::IdAllocator<std::size_t> spotIds;
-    util::IdAllocator<std::size_t> spotShadowIds;
-    std::vector<SpotLight3D> spotLights;
-    std::vector<std::uint32_t> activeSpots;
-    util::IdAllocator<std::size_t> pointIds;
-    util::IdAllocator<std::size_t> pointShadowIds;
-    std::vector<PointLight3D> pointLights;
-    std::vector<std::uint32_t> activePoints;
-    std::uint32_t spotShadowCount;
-    std::uint32_t pointShadowCount;
+    Lights<SpotLight3D> spotLights;
+    Lights<SpotLight3DShadow> spotShadows;
+    Lights<PointLight3D> pointLights;
+    Lights<PointLight3DShadow> pointShadows;
 
     void removeLight(const PointLightHandle& light);
+    void removeLight(const PointLightShadowHandle& light);
     void removeLight(const SpotLightHandle& light);
+    void removeLight(const SpotLightShadowHandle& light);
     void addIndex(std::vector<std::uint32_t>& vec, std::uint32_t i);
 
     template<typename T>
@@ -183,78 +205,39 @@ void Light3D<T>::removeFromScene() {
 
 template<typename... TArgs>
 SpotLightHandle Scene3DLighting::createSpotlight(TArgs&&... args) {
-    if (!spotIds.available()) {
-        BL_LOG_ERROR << "Exceeded max spot light count";
-        return SpotLightHandle{
-            this, spotLights, util::Random::get<std::size_t>(MaxSpotShadows, spotLights.size())};
-    }
-
-    const std::size_t i = spotIds.allocate() + MaxSpotShadows;
-    new (&spotLights[i]) SpotLight3D(std::forward<TArgs>(args)...);
-    addIndex(activeSpots, i);
-    return SpotLightHandle{this, spotLights, i};
+    return spotLights.createNew(this, std::forward<TArgs>(args)...);
 }
 
 template<typename... TArgs>
-SpotLightHandle Scene3DLighting::createSpotlightWithShadow(TArgs&&... args) {
-    if (!spotShadowIds.available()) {
-        BL_LOG_ERROR << "Exceeded max shadow spot light count";
-        return SpotLightHandle{this, spotLights, util::Random::get<std::size_t>(0, MaxSpotShadows)};
-    }
-
-    const std::size_t i = spotShadowIds.allocate();
-    new (&spotLights[i]) SpotLight3D(std::forward<TArgs>(args)...);
-    addIndex(activeSpots, i);
-    ++spotShadowCount;
-    return SpotLightHandle{this, spotLights, i};
+SpotLightShadowHandle Scene3DLighting::createSpotlightWithShadow(TArgs&&... args) {
+    return spotShadows.createNew(this, std::forward<TArgs>(args)...);
 }
 
 template<typename... TArgs>
 PointLightHandle Scene3DLighting::createPointLight(TArgs&&... args) {
-    if (!pointIds.available()) {
-        BL_LOG_ERROR << "Exceeded max point light count";
-        return PointLightHandle{
-            this, pointLights, util::Random::get<std::size_t>(MaxPointShadows, pointLights.size())};
-    }
-
-    const std::size_t i = pointIds.allocate() + MaxPointShadows;
-    new (&pointLights[i]) PointLight3D(std::forward<TArgs>(args)...);
-    addIndex(activePoints, i);
-    return PointLightHandle{this, pointLights, i};
+    return pointLights.createNew(this, std::forward<TArgs>(args)...);
 }
 
 template<typename... TArgs>
-PointLightHandle Scene3DLighting::createPointLightWithShadow(TArgs&&... args) {
-    if (!pointShadowIds.available()) {
-        BL_LOG_ERROR << "Exceeded max shadow point light count";
-        return PointLightHandle{
-            this, pointLights, util::Random::get<std::size_t>(0, MaxPointShadows)};
-    }
-
-    const std::size_t i = pointShadowIds.allocate();
-    new (&pointLights[i]) PointLight3D(std::forward<TArgs>(args)...);
-    addIndex(activePoints, i);
-    ++pointShadowCount;
-    return PointLightHandle{this, pointLights, i};
+PointLightShadowHandle Scene3DLighting::createPointLightWithShadow(TArgs&&... args) {
+    return pointShadows.createNew(this, std::forward<TArgs>(args)...);
 }
 
 inline const glm::vec3& Scene3DLighting::getSunPosition() const { return sunPosition; }
 
-inline SpotLight3D& Scene3DLighting::getSpotlightUnsafe(std::uint32_t i) {
-    return spotLights[activeSpots[i]];
+inline std::uint32_t Scene3DLighting::getSpotShadowCount() const {
+    return spotShadows.active.size();
 }
 
-inline std::uint32_t Scene3DLighting::getSpotShadowCount() const { return spotShadowCount; }
+inline std::uint32_t Scene3DLighting::getSpotLightCount() const { return spotLights.active.size(); }
 
-inline std::uint32_t Scene3DLighting::getSpotLightCount() const { return activeSpots.size(); }
-
-inline PointLight3D& Scene3DLighting::getPointLightUnsafe(std::uint32_t i) {
-    return pointLights[activePoints[i]];
+inline std::uint32_t Scene3DLighting::getPointShadowCount() const {
+    return pointShadows.active.size();
 }
 
-inline std::uint32_t Scene3DLighting::getPointShadowCount() const { return pointShadowCount; }
-
-inline std::uint32_t Scene3DLighting::getPointLightCount() const { return activePoints.size(); }
+inline std::uint32_t Scene3DLighting::getPointLightCount() const {
+    return pointLights.active.size();
+}
 
 } // namespace lgt
 } // namespace rc

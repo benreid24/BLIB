@@ -7,8 +7,6 @@
 #include <BLIB/Render/Lighting/Scene3DLighting.hpp>
 #include <array>
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/transform.hpp>
 
 namespace bl
 {
@@ -16,6 +14,8 @@ namespace rc
 {
 namespace ds
 {
+class Scene3DInstance;
+
 /**
  * @brief Binding for light camera matrices for rendering shadow maps
  *
@@ -32,20 +32,16 @@ public:
     ShadowMapBinding();
 
     /**
-     * @brief Sets the lighting info to populate matrices from
+     * @brief Sets the lighting descriptor set to use for this binding
      *
      * @param l The scene lighting
      */
-    void setLighting(lgt::Scene3DLighting& l);
+    void setLighting(Scene3DInstance* l);
 
 private:
-    struct Payload {
-        glm::mat4 projection;
-        glm::mat4 view;
-    };
+    using Payload = std::array<glm::mat4, 6>;
 
-    buf::UniformBuffer<Payload> cameraMatrices;
-    lgt::Scene3DLighting* lighting;
+    Scene3DInstance* lighting;
 
     virtual DescriptorSetInstance::EntityBindMode getBindMode() const override {
         return DescriptorSetInstance::EntityBindMode::Bindless;

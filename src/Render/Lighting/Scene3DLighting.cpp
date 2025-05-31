@@ -8,87 +8,45 @@ namespace rc
 {
 namespace lgt
 {
-namespace
-{
-constexpr std::uint32_t SpotlightCount =
-    Scene3DLighting::MaxSpotLights - Scene3DLighting::MaxSpotShadows;
-constexpr std::uint32_t PointLightCount =
-    Scene3DLighting::MaxPointLights - Scene3DLighting::MaxPointShadows;
-} // namespace
-
 Scene3DLighting::Scene3DLighting(ds::Scene3DInstance& instance)
 : instance(instance)
-, spotIds(SpotlightCount)
-, spotShadowIds(MaxPointShadows)
-, spotLights(MaxSpotLights, SpotLight3D())
-, pointIds(PointLightCount)
-, pointShadowIds(MaxPointShadows)
-, pointLights(MaxPointLights, PointLight3D())
-, spotShadowCount(0)
-, pointShadowCount(0) {
-    activeSpots.reserve(MaxSpotLights);
-    activePoints.reserve(MaxPointLights);
-}
+, spotLights(Config::MaxSpotLights)
+, spotShadows(Config::MaxSpotShadows)
+, pointLights(Config::MaxPointLights)
+, pointShadows(Config::MaxPointShadows) {}
 
 glm::vec3 Scene3DLighting::getAmbientLightColor() const {
-    return instance.globalLightInfo[0].globalAmbient;
+    return instance.getUniform().globalAmbient;
 }
 
 void Scene3DLighting::setAmbientLightColor(const glm::vec3& c) {
-    instance.globalLightInfo[0].globalAmbient = c;
+    instance.getUniform().globalAmbient = c;
 }
 
-const SunLight3D& Scene3DLighting::getSun() const { return instance.globalLightInfo[0].sun; }
+const SunLight3D& Scene3DLighting::getSun() const { return instance.getUniform().sun; }
 
-SunLight3D& Scene3DLighting::modifySun() { return instance.globalLightInfo[0].sun; }
+SunLight3D& Scene3DLighting::modifySun() { return instance.getUniform().sun; }
 
-void Scene3DLighting::removeLight(const PointLightHandle& l) {
-    const std::size_t i = &l.get() - pointLights.data();
-    if (i < MaxPointShadows) {
-        --pointShadowCount;
-        pointShadowIds.release(i);
-    }
-    else { pointIds.release(i - MaxPointShadows); }
-    for (auto it = activePoints.begin(); it != activePoints.end(); ++it) {
-        if (*it == i) {
-            activePoints.erase(it);
-            break;
-        }
-    }
-}
+void Scene3DLighting::removeLight(const PointLightHandle& l) { pointLights.remove(l); }
 
-void Scene3DLighting::removeLight(const SpotLightHandle& l) {
-    const std::size_t i = &l.get() - spotLights.data();
-    if (i < MaxSpotShadows) {
-        --spotShadowCount;
-        spotShadowIds.release(i);
-    }
-    else { spotIds.release(i - MaxPointShadows); }
-    for (auto it = activeSpots.begin(); it != activeSpots.end(); ++it) {
-        if (*it == i) {
-            activeSpots.erase(it);
-            break;
-        }
-    }
-}
+void Scene3DLighting::removeLight(const PointLightShadowHandle& l) { pointShadows.remove(l); }
+
+void Scene3DLighting::removeLight(const SpotLightHandle& l) { spotLights.remove(l); }
+
+void Scene3DLighting::removeLight(const SpotLightShadowHandle& l) { spotShadows.remove(l); }
 
 void Scene3DLighting::sync() {
     // TODO - consider allowing more lights then only copying a subset via culling
-    instance.globalLightInfo[0].nSpotShadows  = spotShadowCount;
-    instance.globalLightInfo[0].nPointShadows = pointShadowCount;
+    updateSunCameraMatrix();
+    instance.getUniform().nPointLights  = getPointLightCount();
+    instance.getUniform().nSpotLights   = getSpotLightCount();
+    instance.getUniform().nSpotShadows  = getSpotShadowCount();
+    instance.getUniform().nPointShadows = getPointShadowCount();
 
-    std::size_t di                           = 0;
-    instance.globalLightInfo[0].nPointLights = activePoints.size() - pointShadowCount;
-    for (std::size_t i : activePoints) { instance.pointLights[di++] = pointLights[i]; }
-
-    di                                      = 0;
-    instance.globalLightInfo[0].nSpotLights = activeSpots.size() - spotShadowCount;
-    for (std::size_t i : activeSpots) {
-        auto& light       = instance.spotlights[di++];
-        light             = spotLights[i];
-        light.cutoff      = std::cos(glm::radians(light.cutoff));
-        light.outerCutoff = std::cos(glm::radians(light.outerCutoff));
-    }
+    spotLights.copyToUniformBuffer(instance.getUniform().spotlights.data());
+    spotShadows.copyToUniformBuffer(instance.getUniform().spotlightsWithShadows.data());
+    pointLights.copyToUniformBuffer(instance.getUniform().pointLights.data());
+    pointShadows.copyToUniformBuffer(instance.getUniform().pointLightsWithShadows.data());
 }
 
 void Scene3DLighting::addIndex(std::vector<std::uint32_t>& vec, std::uint32_t i) {
@@ -96,6 +54,14 @@ void Scene3DLighting::addIndex(std::vector<std::uint32_t>& vec, std::uint32_t i)
 }
 
 void Scene3DLighting::setSunPosition(const glm::vec3& sp) { sunPosition = sp; }
+
+void Scene3DLighting::updateSunCameraMatrix() {
+    // TODO - set matrices dynamically from camera (or cascaded shadow maps)
+    glm::mat4 projection = glm::ortho(-10.f, 10.f, -10.f, 10.f, 0.1f, 100.f);
+    glm::mat4 view       = glm::lookAt(
+        getSunPosition(), getSunPosition() + instance.getUniform().sun.dir, Config::UpDirection);
+    instance.getUniform().sun.viewProjectionMatrix = projection * view;
+}
 
 } // namespace lgt
 } // namespace rc

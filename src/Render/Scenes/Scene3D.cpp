@@ -25,12 +25,14 @@ Scene3D::Scene3D(engine::Engine& e)
 : BatchedScene(e)
 , lighting(*static_cast<ds::Scene3DInstance*>(descriptorSets.getDescriptorSet(
       descriptorFactories.getOrCreateFactory<ds::Scene3DFactory>()))) {
-    descriptorSets.getDescriptorSet<ds::Scene3DInstance>()->owner = this;
+    ds::Scene3DInstance* lightingDescriptor =
+        descriptorSets.getDescriptorSet<ds::Scene3DInstance>();
+    lightingDescriptor->owner = this;
 
     descriptorSets.getDescriptorSet(descriptorFactories.getOrCreateFactory<ds::ShadowMapFactory>());
     descriptorSets.getDescriptorSet<ds::ShadowMapInstance>()
         ->getBinding<ds::ShadowMapBinding>()
-        .setLighting(lighting);
+        .setLighting(lightingDescriptor);
 }
 
 std::unique_ptr<cam::Camera> Scene3D::createDefaultCamera() {

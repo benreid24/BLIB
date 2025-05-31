@@ -23,10 +23,6 @@ namespace vk
 {
 struct VulkanState;
 }
-namespace lgt
-{
-class Scene3DLighting;
-}
 namespace scene
 {
 class Scene3D;
@@ -56,12 +52,23 @@ public:
      */
     virtual ~Scene3DInstance();
 
+    /**
+     * @brief Returns the buffer binding info for the given frame index
+     *
+     * @param frameIndex The index of the frame to get the buffer info for
+     * @return The buffer binding info for the given frame
+     */
+    VkDescriptorBufferInfo getBufferBindingInfo(std::uint32_t frameIndex) const;
+
+    /**
+     * @brief Returns the lighting uniform value
+     */
+    lgt::LightingDescriptor3D& getUniform() { return uniform[0]; }
+
 private:
     scene::Scene3D* owner;
     Renderer& renderer;
-    buf::StaticUniformBuffer<lgt::LightingDescriptor3D> globalLightInfo;
-    buf::StaticUniformBuffer<lgt::SpotLight3D> spotlights;
-    buf::StaticUniformBuffer<lgt::PointLight3D> pointLights;
+    buf::StaticUniformBuffer<lgt::LightingDescriptor3D> uniform;
     vk::Image emptySpotShadowMap;
     vk::Image emptyPointShadowMap;
 
@@ -77,7 +84,6 @@ private:
     virtual void observe(const event::SceneGraphAssetCreated& event) override;
     void updateShadowDescriptors(rg::GraphAsset* asset);
 
-    friend class lgt::Scene3DLighting;
     friend class scene::Scene3D;
 };
 

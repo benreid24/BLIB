@@ -23,7 +23,10 @@ struct alignas(16) Color3D {
     /**
      * @brief Initializes all colors to black (no light)
      */
-    Color3D() = default;
+    Color3D()
+    : ambient(0.f)
+    , diffuse(0.f)
+    , specular(0.f) {}
 
     /**
      * @brief Convenience method to assign all 3 colors to a single color

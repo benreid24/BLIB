@@ -59,12 +59,18 @@ struct Attenuation {
 struct Sunlight {
     vec4 direction;
     Color color;
+    mat4 viewProj;
 };
 
 struct PointLight {
     vec4 position;
     Attenuation attenuation;
     Color color;
+};
+
+struct PointLightCaster {
+    PointLight light;
+    mat4 viewProjMatrices[6];
 };
 
 struct SpotLight {
@@ -74,6 +80,11 @@ struct SpotLight {
     float outerCutoff;
     Attenuation attenuation;
     Color color;
+};
+
+struct SpotLightCaster {
+    SpotLight light;
+    mat4 viewProj;
 };
 
 struct LightInfo {
@@ -92,21 +103,20 @@ layout(set = SCENE_SET_NUMBER, binding = 0) uniform cam {
 } camera;
 layout(set = SCENE_SET_NUMBER, binding = 1) uniform block_light_info {
     LightInfo info;
+    
+    SpotLight spotLights[MAX_SPOT_LIGHTS];
+    SpotLightCaster spotShadows[MAX_SPOT_SHADOWS];
+
+    PointLight pointLights[MAX_POINT_LIGHTS];
+    PointLightCaster pointShadows[MAX_POINT_SHADOWS];
 } lighting;
-layout(set = SCENE_SET_NUMBER, binding = 2) uniform block_point_lights {
-    PointLight lights[MAX_POINT_LIGHTS];
-} pointLights;
-layout(std140, set = SCENE_SET_NUMBER, binding = 3) uniform block_spot_lights {
-    SpotLight lights[MAX_SPOT_LIGHTS];
-} spotLights;
-layout(set = SCENE_SET_NUMBER, binding = 4) uniform sampler2D spotShadowMaps[MAX_SPOT_SHADOWS];
-layout(set = SCENE_SET_NUMBER, binding = 5) uniform samplerCube pointShadowMaps[MAX_POINT_SHADOWS];
+layout(set = SCENE_SET_NUMBER, binding = 2) uniform sampler2DShadow spotShadowMaps[MAX_SPOT_SHADOWS];
+layout(set = SCENE_SET_NUMBER, binding = 3) uniform samplerCubeShadow pointShadowMaps[MAX_POINT_SHADOWS];
 #endif
 
 #endif
 
 #ifdef LIGHT_CAM_SET_NUMBER
-
 struct LightCamera {
     mat4 projection;
     mat4 view;
@@ -115,5 +125,4 @@ struct LightCamera {
 layout(set = LIGHT_CAM_SET_NUMBER, binding = 0) uniform block_light_cameras {
     LightCamera cameras[6];
 } lightCameras;
-
 #endif

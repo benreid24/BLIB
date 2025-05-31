@@ -35,6 +35,17 @@ struct alignas(16) PointLight3D {
     float computeFalloffRadius(float threshold = 256.f / 5.f) const {
         return attenuation.computeFalloffRadius(threshold, color.getMaxLightLevel());
     }
+
+    /**
+     * @brief Copies the light data from another light to this one which will be used by shaders
+     *
+     * @param other The light to copy from
+     */
+    void copyAsUniform(const PointLight3D& other) {
+        pos         = other.pos;
+        attenuation = other.attenuation;
+        color       = other.color;
+    }
 };
 
 } // namespace lgt

@@ -46,7 +46,7 @@ void main() {
     normal = normalize(fs_in.TBN * normal);
 
     vec3 diffuse = vec3(diffuseColor);
-    vec3 lightColor = computeLighting(fs_in.fragPos, normal, diffuse, specularColor);
+    vec3 lightColor = computeLighting(fs_in.fragPos, normal, diffuse, specularColor, material.shininess);
 
     outColor = fs_in.fragColor * vec4(lightColor, diffuseColor.w);
 }

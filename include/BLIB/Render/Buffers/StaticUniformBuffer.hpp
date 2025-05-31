@@ -87,6 +87,11 @@ public:
     vk::Buffer& gpuBufferHandle();
 
     /**
+     * @brief Returns the Buffer objects of the GPU buffers
+     */
+    const vk::Buffer& gpuBufferHandle() const;
+
+    /**
      * @brief Returns the aligned size of contained uniforms
      */
     std::uint32_t alignedUniformSize() const;
@@ -152,6 +157,11 @@ void StaticUniformBuffer<T>::destroy() {
 
 template<typename T>
 vk::Buffer& StaticUniformBuffer<T>::gpuBufferHandle() {
+    return gpuBuffer;
+}
+
+template<typename T>
+const vk::Buffer& StaticUniformBuffer<T>::gpuBufferHandle() const {
     return gpuBuffer;
 }
 

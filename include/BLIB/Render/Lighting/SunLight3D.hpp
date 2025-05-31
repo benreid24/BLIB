@@ -18,6 +18,7 @@ namespace lgt
 struct alignas(16) SunLight3D {
     glm::vec3 dir;
     Color3D color;
+    glm::mat4 viewProjectionMatrix;
 
     /**
      * @brief Creates the light with sane defaults
@@ -25,6 +26,13 @@ struct alignas(16) SunLight3D {
     SunLight3D()
     : dir(0.f, -1.f, 0.f)
     , color() {}
+
+    /**
+     * @brief Returns the byte offset of the camera matrix
+     */
+    static constexpr std::uint32_t getMatrixOffset() {
+        return offsetof(SunLight3D, viewProjectionMatrix);
+    }
 };
 
 } // namespace lgt
