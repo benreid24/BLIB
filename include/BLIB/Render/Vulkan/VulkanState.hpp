@@ -125,6 +125,11 @@ struct VulkanState {
     VkFormat findDepthFormat();
 
     /**
+     * @brief Finds and returns the best available depth format for shadow maps
+     */
+    VkFormat findShadowMapFormat();
+
+    /**
      * @brief Helper method to guess the aspect of an image based on its format and usage
      *
      * @param format The image format

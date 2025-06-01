@@ -88,6 +88,21 @@ void CommonSamplers::init() {
     if (VK_SUCCESS != vkCreateSampler(vulkanState.device, &create, nullptr, &filteredTiled)) {
         throw std::runtime_error("Failed to create sampler");
     }
+
+    // shadow map sampler
+    create.addressModeU     = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
+    create.addressModeV     = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
+    create.addressModeW     = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
+    create.minFilter        = VK_FILTER_LINEAR;
+    create.magFilter        = VK_FILTER_LINEAR;
+    create.anisotropyEnable = VK_FALSE;
+    create.borderColor      = VK_BORDER_COLOR_FLOAT_OPAQUE_WHITE;
+    create.compareEnable    = VK_TRUE;
+    create.compareOp        = VK_COMPARE_OP_LESS;
+    create.mipmapMode       = VK_SAMPLER_MIPMAP_MODE_LINEAR;
+    if (VK_SUCCESS != vkCreateSampler(vulkanState.device, &create, nullptr, &shadowMapSampler)) {
+        throw std::runtime_error("Failed to create shadow map sampler");
+    }
 }
 
 void CommonSamplers::cleanup() {
@@ -98,6 +113,7 @@ void CommonSamplers::cleanup() {
     vkDestroySampler(vulkanState.device, filteredClamped, nullptr);
     vkDestroySampler(vulkanState.device, filteredTiled, nullptr);
     vkDestroySampler(vulkanState.device, filteredEClamped, nullptr);
+    vkDestroySampler(vulkanState.device, shadowMapSampler, nullptr);
 }
 
 VkSampler CommonSamplers::getSampler(Sampler sampler) const {
@@ -122,6 +138,9 @@ VkSampler CommonSamplers::getSampler(Sampler sampler) const {
 
     case Sampler::FilteredEdgeClamped:
         return filteredEClamped;
+
+    case Sampler::ShadowMap:
+        return shadowMapSampler;
 
     default:
         return noFilterClamped;

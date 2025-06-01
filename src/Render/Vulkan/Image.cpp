@@ -203,7 +203,7 @@ void Image::clearDepthAndPrepareForSampling(VkCommandBuffer commandBuffer,
     range.aspectMask     = aspect;
     range.baseArrayLayer = 0;
     range.baseMipLevel   = 0;
-    range.layerCount     = 1;
+    range.layerCount     = getLayerCount();
     range.levelCount     = 1;
 
     vkCmdClearDepthStencilImage(

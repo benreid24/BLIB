@@ -157,6 +157,7 @@ void RenderPassCache::addDefaults() {
     createRenderPass(Config::RenderPassIds::BloomPass, bloomParams.build());
 
     VkAttachmentDescription shadowMapAttachment = depthAttachment;
+    shadowMapAttachment.format                  = renderer.vulkanState().findShadowMapFormat();
     shadowMapAttachment.finalLayout             = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
 
     vk::RenderPassParameters shadowMapParams;

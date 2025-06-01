@@ -19,6 +19,7 @@ namespace lgt
  */
 struct PointLight3DShadow : public PointLight3D {
     glm::mat4 viewProjectionMatrices[6];
+    alignas(16) float farPlane;
 
     /**
      * @brief Creates the light with sane defaults
@@ -29,8 +30,8 @@ struct PointLight3DShadow : public PointLight3D {
      * @brief Updates the view projection matrices for the light
      */
     void updateLightMatrices() {
-        const glm::mat4 proj =
-            glm::perspective(glm::radians(90.f), 1.f, 0.1f, computeFalloffRadius());
+        farPlane             = computeFalloffRadius();
+        const glm::mat4 proj = glm::perspective(glm::radians(90.f), 1.f, 0.1f, farPlane);
         for (unsigned int i = 0; i < 6; ++i) {
             viewProjectionMatrices[i] =
                 proj * glm::lookAt(pos, pos + Config::CubemapDirections[i], Config::UpDirection);

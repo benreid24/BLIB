@@ -3,8 +3,18 @@
 
 #include "./uniforms.glsl"
 
-mat3 computeSunLight(Sunlight light, vec3 normal, vec3 viewDir, float shininess) {
+vec3 convertShadowCoords(vec4 fragPos) {
+    vec3 projCoords = fragPos.xyz / fragPos.w;
+    return projCoords * 0.5 + 0.5;
+}
+
+mat3 computeSunLight(Sunlight light, vec3 normal, vec3 fragPos, vec3 viewDir, float shininess) {
     vec3 lightDir = normalize(vec3(-light.direction));
+
+     // shadowing
+    vec4 fragPosLightSpace = light.viewProj * vec4(fragPos, 1.0);
+    vec3 shadowCoords = convertShadowCoords(fragPosLightSpace);
+    float shadow = texture(spotShadowMaps[0], shadowCoords);
 
     // diffuse shading
     float diff = max(dot(normal, lightDir), 0.0);
@@ -15,12 +25,12 @@ mat3 computeSunLight(Sunlight light, vec3 normal, vec3 viewDir, float shininess)
 
     // combine results
     vec3 ambient = vec3(light.color.ambient);
-    vec3 diffuse = vec3(light.color.diffuse) * diff;
-    vec3 specular = vec3(light.color.specular) * spec;
+    vec3 diffuse = vec3(light.color.diffuse) * diff * shadow;
+    vec3 specular = vec3(light.color.specular) * spec * shadow;
     return mat3(ambient, diffuse, specular);
 }
 
-mat3 computePointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir, float shininess) {
+mat3 computePointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir, float shininess, float shadow) {
     vec3 posDiff = vec3(light.position) - fragPos;
     vec3 lightDir = normalize(posDiff);
 
@@ -44,12 +54,12 @@ mat3 computePointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir
     vec3 diffuse = vec3(light.color.diffuse) * diff;
     vec3 specular = vec3(light.color.specular) * spec;
     ambient *= attenuation;
-    diffuse *= attenuation;
-    specular *= attenuation;
+    diffuse *= attenuation * shadow;
+    specular *= attenuation * shadow;
     return mat3(ambient, diffuse, specular);
 }
 
-mat3 computeSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir, float shininess) {
+mat3 computeSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir, float shininess, float shadow) {
     vec3 posDiff = vec3(light.position) - fragPos;
     vec3 lightDir = normalize(posDiff);
 
@@ -78,35 +88,43 @@ mat3 computeSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir, 
     vec3 diffuse = vec3(light.color.diffuse) * diff;
     vec3 specular = vec3(light.color.specular) * spec;
     ambient *= attenuation;
-    diffuse *= attenuation * intensity;
-    specular *= attenuation * intensity;
+    diffuse *= attenuation * intensity * shadow;
+    specular *= attenuation * intensity * shadow;
     return mat3(ambient, diffuse, specular);
 }
 
-// float computeSpotLightShadow(SpotLight light, vec4 fragPos) {
-//     //
-// }
+float computeSpotLightShadow(uint lightIndex, vec3 fragPos) {
+    vec4 fragPosLightSpace = lighting.spotShadows[lightIndex].viewProj * vec4(fragPos, 1.0);
+    vec3 shadowCoords = convertShadowCoords(fragPosLightSpace);
+    return texture(spotShadowMaps[lightIndex + 1], shadowCoords);
+}
+
+float computePointLightShadow(uint lightIndex, vec3 fragPos) {
+    vec3 fragToLight = fragPos - lighting.pointShadows[lightIndex].light.position.xyz;
+    float distanceToLight = length(fragToLight) / lighting.pointShadows[lightIndex].farPlane;
+    return texture(pointShadowMaps[lightIndex], vec4(fragToLight, distanceToLight));
+}
 
 vec3 computeLighting(vec3 fragPos, vec3 normal, vec3 diffuse, vec3 specular, float shininess) {
     vec3 viewDir = normalize(camera.camPos - fragPos);
 
     mat3 lightColors = mat3(vec3(0.0), vec3(lighting.info.globalAmbient), vec3(0.0));
-    lightColors += computeSunLight(lighting.info.sun, normal, viewDir, shininess);
+    lightColors += computeSunLight(lighting.info.sun, normal, fragPos, viewDir, shininess);
 
     for (uint i = 0; i < lighting.info.nPointShadows; i += 1) {
-        // TODO - shadowing
-        lightColors += computePointLight(lighting.pointShadows[i].light, normal, fragPos, viewDir, shininess);
+        float shadow = computePointLightShadow(i, fragPos);
+        lightColors += computePointLight(lighting.pointShadows[i].light, normal, fragPos, viewDir, shininess, shadow);
     }
     for (uint i = 0; i < lighting.info.nPointLights; i += 1) {
-        lightColors += computePointLight(lighting.pointLights[i], normal, fragPos, viewDir, shininess);
+        lightColors += computePointLight(lighting.pointLights[i], normal, fragPos, viewDir, shininess, 1.0);
     }
 
     for (uint i = 0; i < lighting.info.nSpotShadows; i += 1) {
-        // TODO - shadowing
-        lightColors += computeSpotLight(lighting.spotShadows[i].light, normal, fragPos, viewDir, shininess);
+        float shadow = computeSpotLightShadow(i, fragPos);
+        lightColors += computeSpotLight(lighting.spotShadows[i].light, normal, fragPos, viewDir, shininess, shadow);
     }
     for (uint i = 0; i < lighting.info.nSpotLights; i += 1) {
-        lightColors += computeSpotLight(lighting.spotLights[i], normal, fragPos, viewDir, shininess);
+        lightColors += computeSpotLight(lighting.spotLights[i], normal, fragPos, viewDir, shininess, 1.0);
     }
 
     return lightColors[0] * diffuse + lightColors[1] * diffuse + lightColors[2] * specular;

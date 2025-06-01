@@ -32,7 +32,10 @@ enum struct Sampler {
     FilteredEdgeClamped,
 
     /// Filtering, repeated
-    FilteredRepeated
+    FilteredRepeated,
+
+    // For shadow maps
+    ShadowMap
 };
 
 } // namespace vk

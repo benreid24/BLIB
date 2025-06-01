@@ -55,6 +55,11 @@ public:
     VkSampler filteredRepeated() const;
 
     /**
+     * @brief Returns the sampler to use for reading shadow maps
+     */
+    VkSampler shadowMap() const;
+
+    /**
      * @brief Returns the sampler for the given enum value
      *
      * @param sampler The enum value to get the sampler for
@@ -71,6 +76,7 @@ private:
     VkSampler filteredEClamped;
     VkSampler filteredClamped;
     VkSampler filteredTiled;
+    VkSampler shadowMapSampler;
 
     CommonSamplers(VulkanState& vs);
     void init();
@@ -94,6 +100,8 @@ inline VkSampler CommonSamplers::filteredBorderClamped() const { return filtered
 inline VkSampler CommonSamplers::filteredRepeated() const { return filteredTiled; }
 
 inline VkSampler CommonSamplers::filteredEdgeClamped() const { return filteredEClamped; }
+
+inline VkSampler CommonSamplers::shadowMap() const { return shadowMapSampler; }
 
 } // namespace vk
 } // namespace rc

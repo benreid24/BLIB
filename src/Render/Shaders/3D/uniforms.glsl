@@ -71,6 +71,8 @@ struct PointLight {
 struct PointLightCaster {
     PointLight light;
     mat4 viewProjMatrices[6];
+    float farPlane;
+    vec3 padding;
 };
 
 struct SpotLight {

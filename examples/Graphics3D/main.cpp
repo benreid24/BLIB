@@ -235,6 +235,7 @@ private:
         auto light1Handle        = scene->getLighting().createPointLight();
         light1Handle.get().color = light1Color;
         light1Handle.get().pos   = light1.getTransform().getPosition();
+        // light1Handle.get().color.ambient *= 0.1f;
 
         const bl::rc::Color light2Color(sf::Color::White);
         light2.create(*world, 0.2f, 4, {}, bl::rc::Config::MaterialPipelineIds::Mesh3D);
