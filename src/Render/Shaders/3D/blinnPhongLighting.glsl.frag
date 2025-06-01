@@ -77,7 +77,7 @@ mat3 computeSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir, 
     vec3 ambient = vec3(light.color.ambient);
     vec3 diffuse = vec3(light.color.diffuse) * diff;
     vec3 specular = vec3(light.color.specular) * spec;
-    ambient *= attenuation * intensity;
+    ambient *= attenuation;
     diffuse *= attenuation * intensity;
     specular *= attenuation * intensity;
     return mat3(ambient, diffuse, specular);
@@ -97,7 +97,7 @@ vec3 computeLighting(vec3 fragPos, vec3 normal, vec3 diffuse, vec3 specular, flo
         // TODO - shadowing
         lightColors += computePointLight(lighting.pointShadows[i].light, normal, fragPos, viewDir, shininess);
     }
-    for (uint i = lighting.info.nPointShadows; i < lighting.info.nPointShadows + lighting.info.nPointLights; i += 1) {
+    for (uint i = 0; i < lighting.info.nPointLights; i += 1) {
         lightColors += computePointLight(lighting.pointLights[i], normal, fragPos, viewDir, shininess);
     }
 
@@ -105,7 +105,7 @@ vec3 computeLighting(vec3 fragPos, vec3 normal, vec3 diffuse, vec3 specular, flo
         // TODO - shadowing
         lightColors += computeSpotLight(lighting.spotShadows[i].light, normal, fragPos, viewDir, shininess);
     }
-    for (uint i = lighting.info.nSpotShadows; i < lighting.info.nSpotShadows + lighting.info.nSpotLights; i += 1) {
+    for (uint i = 0; i < lighting.info.nSpotLights; i += 1) {
         lightColors += computeSpotLight(lighting.spotLights[i], normal, fragPos, viewDir, shininess);
     }
 

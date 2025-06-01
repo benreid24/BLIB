@@ -24,7 +24,7 @@ struct alignas(16) SunLight3D {
      * @brief Creates the light with sane defaults
      */
     SunLight3D()
-    : dir(0.f, -1.f, 0.f)
+    : dir(glm::normalize(glm::vec3(-0.75f, -1.f, 0.25f)))
     , color() {}
 
     /**

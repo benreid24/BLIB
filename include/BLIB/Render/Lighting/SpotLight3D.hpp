@@ -26,8 +26,8 @@ public:
     SpotLight3D()
     : pos()
     , dir(0.f, -1.f, 0.f)
-    , cutoff(1.f)
-    , outerCutoff(20.f)
+    , cutoff(glm::radians(30.f))
+    , outerCutoff(glm::radians(45.f))
     , attenuation()
     , color() {}
 
