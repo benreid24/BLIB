@@ -26,7 +26,7 @@ layout(set = GLOBALS_SET_NUMBER, binding = 2) uniform rsettings {
     float gamma;
 } settings;
 layout(set = GLOBALS_SET_NUMBER, binding = 3) uniform samplerCube cubemaps[16];
-#endif
+#endif // GLOBALS_SET_NUMBER
 
 #ifdef OBJECTS_SET_NUMBER
 struct ModelTransform {
@@ -34,12 +34,12 @@ struct ModelTransform {
     mat3 normal;
 };
 
-layout(std430, set = OBJECTS_SET_NUMBER, binding = 1) readonly buffer tex {
-    uint index[];
-} material;
 layout(set = OBJECTS_SET_NUMBER, binding = 0) readonly buffer obj {
     ModelTransform model[];
 } object;
+layout(std430, set = OBJECTS_SET_NUMBER, binding = 1) readonly buffer tex {
+    uint index[];
+} material;
 #endif
 
 #ifdef SCENE_SET_NUMBER

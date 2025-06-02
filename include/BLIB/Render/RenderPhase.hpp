@@ -41,6 +41,12 @@ enum struct RenderPhase : std::uint8_t {
     All = 0xFF
 };
 
+constexpr std::initializer_list<RenderPhase> AllRenderPhases{RenderPhase::Default,
+                                                             RenderPhase::ShadowMap,
+                                                             RenderPhase::ShadowPointMap,
+                                                             RenderPhase::Overlay,
+                                                             RenderPhase::PostProcess};
+
 #ifdef BLIB_WINDOWS
 /**
  * @brief Returns the index of the given render phase

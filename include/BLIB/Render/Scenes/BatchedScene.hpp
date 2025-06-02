@@ -77,46 +77,44 @@ protected:
                                mat::MaterialPipeline* ogPipeline) override;
 
 private:
-    struct PipelineBatch {
-        PipelineBatch(mat::MaterialPipeline& pipeline)
-        : pipeline(pipeline) {
-            objects.reserve(Config::DefaultSceneObjectCapacity / 2);
-        }
+    struct RenderPhaseDescriptors {
+        void init(ds::DescriptorSetInstanceCache& descriptorCache, const vk::Pipeline* pipeline);
 
-        mat::MaterialPipeline& pipeline;
-        std::vector<SceneObject*> objects;
-    };
-
-    struct LayoutBatch {
-        LayoutBatch(ds::DescriptorSetInstanceCache& descriptorCache,
-                    const vk::PipelineLayout& layout)
-        : layout(layout)
-        , descriptorCount(layout.initDescriptorSets(descriptorCache, descriptors.data()))
-        , perObjStart(descriptorCount)
-        , bindless(true) {
-            staticBatches.reserve(8);
-            dynamicBatches.reserve(8);
-            for (std::uint8_t i = 0; i < descriptorCount; ++i) {
-                if (!descriptors[i]->isBindless()) {
-                    perObjStart = i;
-                    bindless    = false;
-                    break;
-                }
-            }
-        }
-
-        const vk::PipelineLayout& layout;
         std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets> descriptors;
         std::uint8_t descriptorCount;
         std::uint8_t perObjStart;
-        std::vector<PipelineBatch> staticBatches;
-        std::vector<PipelineBatch> dynamicBatches;
         bool bindless;
+    };
+
+    struct PipelineBatch {
+        PipelineBatch(const PipelineBatch& src);
+        PipelineBatch(ds::DescriptorSetInstanceCache& descriptorCache,
+                      mat::MaterialPipeline& pipeline);
+
+        bool addObject(ecs::Entity entity, SceneObject* sceneObject);
+        void addForRebatch(SceneObject* object);
+        void removeObject(ecs::Entity entity, SceneObject* object);
+        bool removeForRebatch(SceneObject* object);
+        void updateDescriptors(ecs::Entity entity, SceneObject* object, PipelineBatch& prevBatch);
+
+        mat::MaterialPipeline& pipeline;
+        std::array<RenderPhaseDescriptors, Config::MaxRenderPhases> perPhaseDescriptors;
+        std::vector<SceneObject*> objectsStatic;
+        std::vector<SceneObject*> objectsDynamic;
+        ctr::StaticVector<ds::DescriptorSetInstance*,
+                          Config::MaxDescriptorSets * Config::MaxRenderPhases>
+            allDescriptors;
     };
 
     struct ObjectBatch {
         ObjectBatch() { batches.reserve(8); }
-        std::vector<LayoutBatch> batches;
+        PipelineBatch& getBatch(ds::DescriptorSetInstanceCache& descriptorCache,
+                                mat::MaterialPipeline& pipeline);
+        PipelineBatch* getBatch(mat::MaterialPipeline* pipeline);
+        PipelineBatch& getBatch(const PipelineBatch& src);
+        void removeObject(ecs::Entity entity, SceneObject* object, mat::MaterialPipeline* pipeline);
+
+        std::vector<PipelineBatch> batches;
     };
 
     engine::Engine& engine;

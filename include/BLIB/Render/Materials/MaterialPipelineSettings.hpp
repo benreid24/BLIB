@@ -27,7 +27,10 @@ public:
         None,
 
         /// Uses a derivative of the main pipeline with no fragment shader
-        FragmentNoop
+        FragmentNoop,
+
+        /// Objects using this material pipeline will not be rendered
+        NotRendered
     };
 
     /**

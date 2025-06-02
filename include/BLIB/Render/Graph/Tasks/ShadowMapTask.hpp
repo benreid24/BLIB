@@ -33,6 +33,7 @@ public:
     virtual ~ShadowMapTask() = default;
 
 private:
+    Renderer* renderer;
     scene::Scene3D* scene;
     ShadowMapAsset* shadowMaps;
 

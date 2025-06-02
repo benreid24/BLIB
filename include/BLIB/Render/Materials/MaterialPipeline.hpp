@@ -35,9 +35,17 @@ public:
     ~MaterialPipeline() = default;
 
     /**
-     * @brief Returns the pipeline layout
+     * @brief Returns the pipeline layout for the main pipeline
      */
     const vk::PipelineLayout& getLayout() const;
+
+    /**
+     * @brief Returns a pointer to the pipeline for the given render phase. May be nullptr
+     *
+     * @param renderPhase The render phase to get the pipeline for
+     * @return The pipeline to use during the given render phase
+     */
+    vk::Pipeline* getPipeline(RenderPhase renderPhase) const;
 
     /**
      * @brief Returns the raw Vulkan pipeline handle to be used for the given render pass and phase
@@ -85,6 +93,10 @@ inline const MaterialPipelineSettings& MaterialPipeline::getSettings() const { r
 
 inline const vk::PipelineLayout& MaterialPipeline::getLayout() const {
     return mainPipeline->pipelineLayout();
+}
+
+inline vk::Pipeline* MaterialPipeline::getPipeline(RenderPhase renderPhase) const {
+    return pipelines[renderPhaseIndex(renderPhase)];
 }
 
 } // namespace mat

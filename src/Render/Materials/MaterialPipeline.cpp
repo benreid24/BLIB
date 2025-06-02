@@ -16,7 +16,6 @@ MaterialPipeline::MaterialPipeline(Renderer& renderer, std::uint32_t id,
     mainPipeline = resolvePipeline(settings.mainPipeline);
     for (unsigned int i = 0; i < Config::MaxRenderPhases; ++i) {
         pipelines[i] = resolvePipeline(settings.renderPhaseOverrides[i]);
-        // TODO - validate layouts compatible (overrides use same or subset)
     }
 }
 
@@ -47,6 +46,8 @@ vk::Pipeline* MaterialPipeline::resolvePipeline(MaterialPipelineSettings::Pipeli
             params.removeShader(VK_SHADER_STAGE_FRAGMENT_BIT);
             return &renderer.pipelineCache().getOrCreatePipeline(params.build());
         }
+        case MaterialPipelineSettings::NotRendered:
+            return nullptr;
         default: {
             BL_LOG_CRITICAL << "Unknown pipeline override behavior: " << info.overrideBehavior;
             throw std::runtime_error("Unknown pipeline override behavior");

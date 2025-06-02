@@ -50,7 +50,7 @@ public:
      * @param index The framebuffer index to fetch
      * @return The framebuffer of the spot shadow map at the given index
      */
-    const vk::Framebuffer& getSpotShadowFramebuffer(std::uint32_t index) const {
+    vk::Framebuffer& getSpotShadowFramebuffer(std::uint32_t index) {
         return spotShadowMaps[index].framebuffer;
     }
 
@@ -70,7 +70,7 @@ public:
      * @param index The framebuffer index to fetch
      * @return The framebuffer of the point shadow map at the given index
      */
-    const vk::Framebuffer& getPointShadowFramebuffer(std::uint32_t index) const {
+    vk::Framebuffer& getPointShadowFramebuffer(std::uint32_t index) {
         return pointShadowMaps[index].framebuffer;
     }
 

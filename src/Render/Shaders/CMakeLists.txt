@@ -20,6 +20,7 @@ compile_shaders(
     3D/skybox.frag
 
     3D/shadowMap.vert
+    3D/shadowMap.frag
     3D/pointShadowMap.vert
     3D/pointShadowMap.geom
 
