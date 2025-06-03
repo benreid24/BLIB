@@ -1,14 +1,15 @@
 target_sources(BLIB PUBLIC
-	DescriptorComponentStorage.hpp
-	DescriptorComponentStorageCache.hpp
 	DescriptorSetFactory.hpp
 	DescriptorSetFactoryCache.hpp
 	DescriptorSetInstance.hpp
 	DescriptorSetInstanceCache.hpp
+	EntityComponentShaderInput.hpp
 	GenericDescriptorSetFactory.hpp
 	GenericDescriptorSetInstance.hpp
 	SceneDescriptorSetInstance.hpp
 	SetWriteHelper.hpp
+	ShaderInput.hpp
+	ShaderInputStore.hpp
 )
 
 add_subdirectory(Builtin)

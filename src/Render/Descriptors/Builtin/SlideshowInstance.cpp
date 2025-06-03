@@ -15,7 +15,7 @@ SlideshowInstance::SlideshowInstance(engine::Engine& engine)
 : DescriptorSetInstance(Bindless, SpeedAgnostic)
 , animSystem(engine.systems().getSystem<sys::Animation2DSystem>()) {}
 
-void SlideshowInstance::init(DescriptorComponentStorageCache&) {
+void SlideshowInstance::init(ShaderInputStore&) {
     // noop
 }
 

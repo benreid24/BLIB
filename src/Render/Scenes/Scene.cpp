@@ -9,13 +9,12 @@ namespace bl
 {
 namespace rc
 {
-Scene::Scene(engine::Engine& engine,
-             const ds::DescriptorComponentStorageBase::EntityCallback& entityCb)
+Scene::Scene(engine::Engine& engine, const scene::MapKeyToEntityCb& entityCb)
 : engine(engine)
 , renderer(engine.renderer())
 , descriptorFactories(renderer.descriptorFactoryCache())
-, descriptorSets(descriptorComponents)
-, descriptorComponents(engine.ecs(), renderer.vulkanState(), entityCb)
+, descriptorSets(shaderInputStore)
+, shaderInputStore(engine, entityCb)
 , nextObserverIndex(0)
 , staticPipelines(DefaultSceneObjectCapacity, nullptr)
 , dynamicPipelines(DefaultSceneObjectCapacity, nullptr)
@@ -46,7 +45,7 @@ void Scene::handleDescriptorSync() {
     // sync descriptors
     onDescriptorSync();
     descriptorSets.handleDescriptorSync();
-    descriptorComponents.syncDescriptors();
+    shaderInputStore.syncDescriptors();
 }
 
 void Scene::syncObjects() {
@@ -78,7 +77,7 @@ void Scene::syncObjects() {
     isClearingQueues = false;
 
     // copy ECS components into descriptor buffers
-    descriptorComponents.copyFromECS();
+    shaderInputStore.copyFromECS();
 }
 
 void Scene::createAndAddObject(ecs::Entity entity, rcom::DrawableBase& object,

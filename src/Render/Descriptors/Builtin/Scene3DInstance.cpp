@@ -45,7 +45,7 @@ void Scene3DInstance::releaseObject(ecs::Entity, scene::Key) {
     // n/a
 }
 
-void Scene3DInstance::init(DescriptorComponentStorageCache&) {
+void Scene3DInstance::init(ShaderInputStore&) {
     // allocate memory
     createCameraBuffer();
     uniform.create(vulkanState, 1);

@@ -80,7 +80,7 @@ private:
     bool staticSetsInited;
     int dynamicSetsInited;
 
-    virtual void init(DescriptorComponentStorageCache& storageCache) override;
+    virtual void init(ShaderInputStore& storageCache) override;
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                  std::uint32_t setIndex, UpdateSpeed updateFreq) const override;
     virtual void bindForObject(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
@@ -115,7 +115,7 @@ GenericDescriptorSetInstance<TBindings>::GenericDescriptorSetInstance(
 }
 
 template<typename TBindings>
-void GenericDescriptorSetInstance<TBindings>::init(DescriptorComponentStorageCache& storageCache) {
+void GenericDescriptorSetInstance<TBindings>::init(ShaderInputStore& storageCache) {
     bindings.init(vulkanState, storageCache);
 }
 

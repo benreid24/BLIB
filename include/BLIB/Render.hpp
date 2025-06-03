@@ -33,8 +33,8 @@
 #include <BLIB/Render/Descriptors/Builtin/Scene3DInstance.hpp>
 #include <BLIB/Render/Descriptors/Builtin/SlideshowFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/SlideshowInstance.hpp>
-#include <BLIB/Render/Descriptors/DescriptorComponentStorage.hpp>
-#include <BLIB/Render/Descriptors/DescriptorComponentStorageCache.hpp>
+#include <BLIB/Render/Descriptors/EntityComponentShaderInput.hpp>
+#include <BLIB/Render/Descriptors/ShaderInputStore.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>

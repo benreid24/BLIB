@@ -2,7 +2,7 @@
 #define BLIB_RENDER_SCENES_SCENEOBJECTSTORAGE_HPP
 
 #include <BLIB/ECS/Entity.hpp>
-#include <BLIB/Render/Descriptors/DescriptorComponentStorage.hpp>
+#include <BLIB/Render/Descriptors/EntityComponentShaderInput.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
@@ -95,7 +95,7 @@ public:
     /**
      * @brief Returns a usable callback to map scene key to ECS id
      */
-    ds::DescriptorComponentStorageBase::EntityCallback makeEntityCallback() const;
+    MapKeyToEntityCb makeEntityCallback() const;
 
 private:
     struct Bucket {
@@ -185,8 +185,7 @@ T* SceneObjectStorage<T>::rebase(UpdateSpeed speed, T* og, T* ob) {
 }
 
 template<typename T>
-ds::DescriptorComponentStorageBase::EntityCallback SceneObjectStorage<T>::makeEntityCallback()
-    const {
+MapKeyToEntityCb SceneObjectStorage<T>::makeEntityCallback() const {
     return [this](scene::Key key) { return getObjectEntity(key); };
 }
 

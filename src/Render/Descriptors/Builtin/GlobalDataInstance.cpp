@@ -26,7 +26,7 @@ void GlobalDataInstance::releaseObject(ecs::Entity, scene::Key) {
     // noop
 }
 
-void GlobalDataInstance::init(DescriptorComponentStorageCache&) {
+void GlobalDataInstance::init(ShaderInputStore&) {
     // noop
 }
 

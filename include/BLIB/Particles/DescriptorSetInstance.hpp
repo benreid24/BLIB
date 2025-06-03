@@ -62,7 +62,7 @@ private:
     const VkDescriptorSetLayout layout;
     mutable std::unordered_map<std::uint32_t, Instance> instances;
 
-    virtual void init(rc::ds::DescriptorComponentStorageCache&) override {}
+    virtual void init(rc::ds::ShaderInputStore&) override {}
     virtual void bindForPipeline(rc::scene::SceneRenderContext&, VkPipelineLayout, std::uint32_t,
                                  rc::UpdateSpeed) const override {}
 

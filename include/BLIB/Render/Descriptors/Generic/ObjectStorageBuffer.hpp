@@ -3,7 +3,7 @@
 
 #include <BLIB/Render/Buffers/DynamicSSBO.hpp>
 #include <BLIB/Render/Buffers/StaticSSBO.hpp>
-#include <BLIB/Render/Descriptors/DescriptorComponentStorage.hpp>
+#include <BLIB/Render/Descriptors/EntityComponentShaderInput.hpp>
 #include <BLIB/Render/Descriptors/Generic/Binding.hpp>
 
 namespace bl
@@ -27,7 +27,8 @@ template<typename T, typename TComponent = T, bool Optional = false,
          typename TStaticStorage  = buf::StaticSSBO<T>>
 class ObjectStorageBuffer : public Binding {
 public:
-    using TPayload = T;
+    using TPayload     = T;
+    using TShaderInput = EntityComponentShaderInput<TComponent, T, TDynamicStorage, TStaticStorage>;
 
     /**
      * @brief Creates the binding
@@ -43,7 +44,7 @@ public:
 
     DescriptorSetInstance::EntityBindMode getBindMode() const override;
     DescriptorSetInstance::SpeedBucketSetting getSpeedMode() const override;
-    void init(vk::VulkanState& vulkanState, DescriptorComponentStorageCache& storageCache) override;
+    void init(vk::VulkanState& vulkanState, ShaderInputStore& storageCache) override;
     void writeSet(SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed speed,
                   std::uint32_t frameIndex) override;
     bool allocateObject(ecs::Entity entity, scene::Key key) override;
@@ -54,7 +55,7 @@ public:
     bool dynamicDescriptorUpdateRequired() const override;
 
 private:
-    DescriptorComponentStorage<TComponent, T, TDynamicStorage, TStaticStorage>* components;
+    TShaderInput* components;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -76,8 +77,8 @@ DescriptorSetInstance::SpeedBucketSetting ObjectStorageBuffer<
 template<typename T, typename TComponent, bool Optional, typename TDynamicStorage,
          typename TStaticStorage>
 void ObjectStorageBuffer<T, TComponent, Optional, TDynamicStorage, TStaticStorage>::init(
-    vk::VulkanState&, DescriptorComponentStorageCache& storageCache) {
-    components = storageCache.getComponentStorage<TComponent, T, TDynamicStorage, TStaticStorage>();
+    vk::VulkanState&, ShaderInputStore& storageCache) {
+    components = storageCache.getShaderInput<TShaderInput>();
 }
 
 template<typename T, typename TComponent, bool Optional, typename TDynamicStorage,

@@ -50,7 +50,7 @@ private:
         return DescriptorSetInstance::SpeedBucketSetting::SpeedAgnostic;
     }
 
-    virtual void init(vk::VulkanState& vulkanState, DescriptorComponentStorageCache&) override;
+    virtual void init(vk::VulkanState& vulkanState, ShaderInputStore&) override;
     virtual void writeSet(SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed,
                           std::uint32_t frameIndex) override;
     virtual bool allocateObject(ecs::Entity, scene::Key) override { return true; }

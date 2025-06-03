@@ -3,7 +3,7 @@
 
 #include <BLIB/ECS.hpp>
 #include <BLIB/ECS/Entity.hpp>
-#include <BLIB/Render/Descriptors/DescriptorComponentStorage.hpp>
+#include <BLIB/Render/Descriptors/EntityComponentShaderInput.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
@@ -82,7 +82,7 @@ public:
     /**
      * @brief Returns a usable callback to map scene key to ECS id
      */
-    ds::DescriptorComponentStorageBase::EntityCallback makeEntityCallback() const;
+    MapKeyToEntityCb makeEntityCallback() const;
 
 private:
     struct Mapping {
@@ -173,8 +173,7 @@ void SceneObjectECSAdaptor<T>::unlinkAll(ds::DescriptorSetInstanceCache& descrip
 }
 
 template<typename T>
-ds::DescriptorComponentStorageBase::EntityCallback SceneObjectECSAdaptor<T>::makeEntityCallback()
-    const {
+MapKeyToEntityCb SceneObjectECSAdaptor<T>::makeEntityCallback() const {
     return [this](scene::Key key) { return getObjectEntity(key); };
 }
 

@@ -3,7 +3,7 @@
 
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/Render/Config.hpp>
-#include <BLIB/Render/Descriptors/DescriptorComponentStorageCache.hpp>
+#include <BLIB/Render/Descriptors/ShaderInputStore.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
 #include <BLIB/Vulkan.hpp>
@@ -55,7 +55,7 @@ public:
      *
      * @param storageCache Descriptor component module cache
      */
-    virtual void init(DescriptorComponentStorageCache& storageCache) = 0;
+    virtual void init(ShaderInputStore& storageCache) = 0;
 
     /**
      * @brief Called once after the pipeline is bound. This should bind the descriptor set

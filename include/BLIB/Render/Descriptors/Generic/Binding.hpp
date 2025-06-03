@@ -71,8 +71,7 @@ public:
      * @param vulkanState Renderer Vulkan state
      * @storageCache Descriptor component storage cache for ECS backed data
      */
-    virtual void init(vk::VulkanState& vulkanState,
-                      DescriptorComponentStorageCache& storageCache) = 0;
+    virtual void init(vk::VulkanState& vulkanState, ShaderInputStore& storageCache) = 0;
 
     /**
      * @brief Called to write this binding to the given descriptor set

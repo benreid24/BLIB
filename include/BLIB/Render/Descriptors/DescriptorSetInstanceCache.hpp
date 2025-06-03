@@ -27,7 +27,7 @@ public:
      *
      * @param storageCache Descriptor set storage module cache
      */
-    DescriptorSetInstanceCache(DescriptorComponentStorageCache& storageCache);
+    DescriptorSetInstanceCache(ShaderInputStore& storageCache);
 
     /**
      * @brief Fetches or creates a descriptor set for the given descriptor set factory
@@ -61,6 +61,7 @@ public:
 
     /**
      * @brief Fetches the contained descriptor set by type, if present
+     *
      * @tparam T The type of descriptor set to fetch
      * @return The descriptor set of the given type, if present
      */
@@ -68,7 +69,7 @@ public:
     T* getDescriptorSet();
 
 private:
-    DescriptorComponentStorageCache& storageCache;
+    ShaderInputStore& storageCache;
     std::unordered_map<DescriptorSetFactory*, std::unique_ptr<DescriptorSetInstance>> cache;
     std::vector<ds::SceneDescriptorSetInstance*> sceneSets;
 };

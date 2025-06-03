@@ -2,6 +2,7 @@ target_sources(BLIB PRIVATE
     Configuration.cpp
     Engine.cpp
     Flags.cpp
+    HeaderHelpers.cpp
     Player.cpp
     Properties.cpp
     Property.cpp

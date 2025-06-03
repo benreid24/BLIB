@@ -113,7 +113,7 @@ private:
     virtual void bindForObject(scene::SceneRenderContext&, VkPipelineLayout, std::uint32_t,
                                scene::Key) const override {}
     virtual void releaseObject(ecs::Entity, scene::Key) override {}
-    virtual void init(DescriptorComponentStorageCache&) override {}
+    virtual void init(ShaderInputStore&) override {}
     virtual bool allocateObject(ecs::Entity, scene::Key) override { return true; }
     virtual void handleFrameStart() override {}
 };

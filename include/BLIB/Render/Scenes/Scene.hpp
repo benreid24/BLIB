@@ -4,10 +4,11 @@
 #include <BLIB/Cameras/Camera.hpp>
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
-#include <BLIB/Render/Descriptors/DescriptorComponentStorageCache.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
+#include <BLIB/Render/Descriptors/ShaderInputStore.hpp>
+#include <BLIB/Render/Scenes/Key.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>
 #include <BLIB/Render/Vulkan/PipelineInstance.hpp>
@@ -138,7 +139,7 @@ protected:
     std::recursive_mutex objectMutex;
     ds::DescriptorSetFactoryCache& descriptorFactories;
     ds::DescriptorSetInstanceCache descriptorSets;
-    ds::DescriptorComponentStorageCache descriptorComponents;
+    ds::ShaderInputStore shaderInputStore;
 
     /**
      * @brief Initializes the Scene
@@ -146,8 +147,7 @@ protected:
      * @param engine The engine instance
      * @param entityCb Callback to map scene id to ECS id
      */
-    Scene(engine::Engine& engine,
-          const ds::DescriptorComponentStorageBase::EntityCallback& entityCb);
+    Scene(engine::Engine& engine, const scene::MapKeyToEntityCb& entityCb);
 
     /**
      * @brief Called when an object is added to the scene. Derived should create the SceneObject

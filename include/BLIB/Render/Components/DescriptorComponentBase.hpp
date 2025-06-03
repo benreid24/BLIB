@@ -3,7 +3,7 @@
 
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/Logging.hpp>
-#include <BLIB/Render/Descriptors/DescriptorComponentStorage.hpp>
+#include <BLIB/Render/Descriptors/EntityComponentShaderInput.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <array>
 #include <cstdint>
@@ -65,7 +65,7 @@ public:
      * @param descriptorSet The descriptor set module to link to
      * @param sceneKeyh The key of the object in the scene
      */
-    void link(ds::DescriptorComponentStorageBase* descriptorSet, scene::Key sceneKey);
+    void link(ds::EntityComponentShaderInputBase* descriptorSet, scene::Key sceneKey);
 
     /**
      * @brief Unlinks the component from a scene object
@@ -90,7 +90,7 @@ protected:
     void markDirty();
 
 private:
-    ds::DescriptorComponentStorageBase* descriptorSet;
+    ds::EntityComponentShaderInputBase* descriptorSet;
     scene::Key sceneKey;
 };
 
@@ -106,7 +106,7 @@ DescriptorComponentBase<TCom, TFirstPayload, TPayloads...>::DescriptorComponentB
 
 template<typename TCom, typename TFirstPayload, typename... TPayloads>
 void DescriptorComponentBase<TCom, TFirstPayload, TPayloads...>::link(
-    ds::DescriptorComponentStorageBase* set, scene::Key k) {
+    ds::EntityComponentShaderInputBase* set, scene::Key k) {
 #ifdef BLIB_DEBUG
     if (descriptorSet != nullptr && descriptorSet != set) {
         BL_LOG_ERROR << "Component is used in more than one descriptor set component module";

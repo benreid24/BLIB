@@ -15,7 +15,7 @@ ShadowMapBinding::ShadowMapBinding()
 
 void ShadowMapBinding::setLighting(Scene3DInstance* l) { lighting = l; }
 
-void ShadowMapBinding::init(vk::VulkanState&, DescriptorComponentStorageCache&) {}
+void ShadowMapBinding::init(vk::VulkanState&, ShaderInputStore&) {}
 
 void ShadowMapBinding::writeSet(SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed,
                                 std::uint32_t frameIndex) {
