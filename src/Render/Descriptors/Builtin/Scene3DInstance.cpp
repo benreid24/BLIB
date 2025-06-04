@@ -45,7 +45,10 @@ void Scene3DInstance::releaseObject(ecs::Entity, scene::Key) {
     // n/a
 }
 
-void Scene3DInstance::init(ShaderInputStore&) {
+void Scene3DInstance::init(ShaderInputStore& inputStore) {
+    shadowMapCameras =
+        inputStore.getShaderInputWithId<ShadowMapCameraShaderInput>(ShadowMapCameraInputName);
+
     // allocate memory
     createCameraBuffer();
     uniform.create(vulkanState, 1);
@@ -171,7 +174,11 @@ void Scene3DInstance::updateShadowDescriptors(rg::GraphAsset* asset) {
 }
 
 void Scene3DInstance::observe(const event::SceneGraphAssetCreated& event) {
-    if (event.scene == static_cast<Scene*>(owner)) { updateShadowDescriptors(event.asset); }
+    if (event.scene == static_cast<Scene*>(owner)) {
+        rgi::ShadowMapAsset* shadowMaps =
+            dynamic_cast<rgi::ShadowMapAsset*>(&event.asset->asset.get());
+        if (shadowMaps) { updateShadowDescriptors(event.asset); }
+    }
 }
 
 bool Scene3DInstance::allocateObject(ecs::Entity, scene::Key) {
@@ -180,16 +187,21 @@ bool Scene3DInstance::allocateObject(ecs::Entity, scene::Key) {
 }
 
 void Scene3DInstance::handleFrameStart() {
-    // noop
-}
+    auto& cameras = shadowMapCameras->getBuffer();
+    auto& data    = getUniform();
 
-VkDescriptorBufferInfo Scene3DInstance::getBufferBindingInfo(std::uint32_t) const {
-    // TODO - do we need to double buffer the gpu side?
-    VkDescriptorBufferInfo info{};
-    info.buffer = uniform.gpuBufferHandle().getBuffer();
-    info.offset = 0;
-    info.range  = uniform.totalAlignedSize();
-    return info;
+    cameras[0].viewProj[0] = data.sun.viewProjectionMatrix;
+
+    for (unsigned int i = 0; i < data.nSpotShadows; ++i) {
+        cameras[i + 1].viewProj[0] = data.spotlightsWithShadows[i].getViewProjectionMatrix();
+    }
+
+    for (unsigned int i = 0; i < data.nPointShadows; ++i) {
+        auto& light        = data.pointLightsWithShadows[i];
+        auto& cam          = cameras[i + 1 + Config::MaxSpotShadows];
+        cam.posAndFarPlane = glm::vec4(light.pos, light.farPlane);
+        for (unsigned int j = 0; j < 6; ++j) { cam.viewProj[j] = light.viewProjectionMatrices[j]; }
+    }
 }
 
 } // namespace ds

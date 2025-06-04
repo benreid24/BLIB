@@ -47,13 +47,6 @@ struct PointLight3DShadow : public PointLight3D {
         PointLight3D::copyAsUniform(other);
         updateLightMatrices();
     }
-
-    /**
-     * @brief Returns the byte offset of the camera matrices
-     */
-    static constexpr std::uint32_t getMatrixOffset() {
-        return offsetof(PointLight3DShadow, viewProjectionMatrices);
-    }
 };
 
 } // namespace lgt

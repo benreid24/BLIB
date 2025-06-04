@@ -1,4 +1,5 @@
 target_sources(BLIB PUBLIC
+	BufferShaderInput.hpp
 	DescriptorSetFactory.hpp
 	DescriptorSetFactoryCache.hpp
 	DescriptorSetInstance.hpp

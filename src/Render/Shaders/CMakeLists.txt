@@ -23,6 +23,7 @@ compile_shaders(
     3D/shadowMap.frag
     3D/pointShadowMap.vert
     3D/pointShadowMap.geom
+    3D/pointShadowMap.frag
 
     2D/skinned2d.vert
     2D/skinned2d.frag

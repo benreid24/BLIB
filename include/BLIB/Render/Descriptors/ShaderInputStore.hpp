@@ -5,6 +5,7 @@
 #include <BLIB/Render/Descriptors/ShaderInput.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <memory>
+#include <string>
 #include <typeindex>
 #include <unordered_map>
 
@@ -41,7 +42,7 @@ public:
     ~ShaderInputStore();
 
     /**
-     * @brief Gets or creates the requested shader input
+     * @brief Gets or creates the requested shader input using the type as the id
      *
      * @tparam TInput The type of shader input to fetch or create
      * @tparam args Argument types to the shader input constructor
@@ -50,6 +51,18 @@ public:
      */
     template<typename TInput, typename... TArgs>
     TInput* getShaderInput(TArgs&&... args);
+
+    /**
+     * @brief Gets or creates the requested shader input using an explicit id
+     *
+     * @tparam TInput The type of shader input to fetch or create
+     * @tparam args Argument types to the shader input constructor
+     * @param id The id of the shader input to fetch or create
+     * @param args Arguments to the shader input constructor
+     * @return A pointer to the shader input to use
+     */
+    template<typename TInput, typename... TArgs>
+    TInput* getShaderInputWithId(const std::string& id, TArgs&&... args);
 
     /**
      * @brief Syncs modified descriptor values in the contained storage modules
@@ -64,7 +77,7 @@ public:
 private:
     engine::Engine& engine;
     const scene::MapKeyToEntityCb entityCb;
-    std::unordered_map<std::type_index, std::unique_ptr<ShaderInput>> cache;
+    std::unordered_map<std::string, std::unique_ptr<ShaderInput>> cache;
 
     void initInput(ShaderInput& input);
 };
@@ -73,15 +86,17 @@ private:
 
 template<typename TInput, typename... TArgs>
 TInput* ShaderInputStore::getShaderInput(TArgs&&... args) {
+    return getShaderInputWithId<TInput>(typeid(TInput).name(), std::forward<TArgs>(args)...);
+}
+
+template<typename TInput, typename... TArgs>
+TInput* ShaderInputStore::getShaderInputWithId(const std::string& id, TArgs&&... args) {
     static_assert(std::is_base_of<ShaderInput, TInput>::value,
                   "TInput must be derived from ShaderInput");
 
-    auto it = cache.find(typeid(TInput));
+    auto it = cache.find(id);
     if (it == cache.end()) {
-        it =
-            cache
-                .try_emplace(typeid(TInput), std::make_unique<TInput>(std::forward<TArgs>(args)...))
-                .first;
+        it = cache.try_emplace(id, std::make_unique<TInput>(std::forward<TArgs>(args)...)).first;
         initInput(*it->second);
     }
     return static_cast<TInput*>(it->second.get());

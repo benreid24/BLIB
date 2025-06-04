@@ -2,7 +2,7 @@
 #define BLIB_RENDER_DESCRIPTORS_SHADOWMAPBINDING_HPP
 
 #include <BLIB/Render/Buffers/UniformBuffer.hpp>
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Descriptors/Builtin/CommonShaderInputs.hpp>
 #include <BLIB/Render/Descriptors/Generic/Binding.hpp>
 #include <BLIB/Render/Lighting/Scene3DLighting.hpp>
 #include <array>
@@ -23,7 +23,7 @@ class Scene3DInstance;
  */
 class ShadowMapBinding : public Binding {
 public:
-    /// No individual payload for this binding
+    /// No externally accessible payload for this binding
     using TPayload = void;
 
     /**
@@ -31,17 +31,8 @@ public:
      */
     ShadowMapBinding();
 
-    /**
-     * @brief Sets the lighting descriptor set to use for this binding
-     *
-     * @param l The scene lighting
-     */
-    void setLighting(Scene3DInstance* l);
-
 private:
-    using Payload = std::array<glm::mat4, 6>;
-
-    Scene3DInstance* lighting;
+    ShadowMapCameraShaderInput* storage;
 
     virtual DescriptorSetInstance::EntityBindMode getBindMode() const override {
         return DescriptorSetInstance::EntityBindMode::Bindless;
@@ -50,7 +41,7 @@ private:
         return DescriptorSetInstance::SpeedBucketSetting::SpeedAgnostic;
     }
 
-    virtual void init(vk::VulkanState& vulkanState, ShaderInputStore&) override;
+    virtual void init(vk::VulkanState& vulkanState, ShaderInputStore& inputStore) override;
     virtual void writeSet(SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed,
                           std::uint32_t frameIndex) override;
     virtual bool allocateObject(ecs::Entity, scene::Key) override { return true; }

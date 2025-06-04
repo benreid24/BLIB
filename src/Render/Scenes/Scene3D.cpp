@@ -28,11 +28,6 @@ Scene3D::Scene3D(engine::Engine& e)
     ds::Scene3DInstance* lightingDescriptor =
         descriptorSets.getDescriptorSet<ds::Scene3DInstance>();
     lightingDescriptor->owner = this;
-
-    descriptorSets.getDescriptorSet(descriptorFactories.getOrCreateFactory<ds::ShadowMapFactory>());
-    descriptorSets.getDescriptorSet<ds::ShadowMapInstance>()
-        ->getBinding<ds::ShadowMapBinding>()
-        .setLighting(lightingDescriptor);
 }
 
 std::unique_ptr<cam::Camera> Scene3D::createDefaultCamera() {

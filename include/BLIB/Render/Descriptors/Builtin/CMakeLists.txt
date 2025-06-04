@@ -2,6 +2,7 @@ target_sources(BLIB PUBLIC
     ColorAttachmentFactory.hpp
 	ColorAttachmentInstance.hpp
     CommonBindings.hpp
+	CommonShaderInputs.hpp
 	GlobalDataFactory.hpp
 	GlobalDataInstance.hpp
 	Object2DFactory.hpp

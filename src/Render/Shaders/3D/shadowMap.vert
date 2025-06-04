@@ -7,12 +7,14 @@ layout(location = 2) in vec2 inTexCoords;
 layout(location = 3) in vec3 inTangent;
 layout(location = 4) in vec3 inNormal;
 
+layout(location = 0) out vec4 fragPos;
+
 #define LIGHT_CAM_SET_NUMBER 0
 #define OBJECTS_SET_NUMBER 1
 #include "./uniforms.glsl"
 
 void main() {
     ModelTransform model = object.model[gl_InstanceIndex];
-    LightCamera camera = lightCameras.cameras[0];
-	gl_Position = camera.projection * camera.view * model.transform * vec4(inPosition, 1.0);
+    fragPos = model.transform * vec4(inPosition, 1.0);
+	gl_Position = lightCameras.viewProj[0] * fragPos;
 }

@@ -8,19 +8,18 @@ layout (triangle_strip, max_vertices=18) out;
 #define OBJECTS_SET_NUMBER 1
 #include "./uniforms.glsl"
 
-layout(location = 0) out vec4 FragPos;
+layout(location = 0) out vec4 fragPos;
 
 void main()
 {
     for(int face = 0; face < 6; ++face)
     {
-        LightCamera camera = lightCameras.cameras[face];
-        mat4 viewProj = camera.projection * camera.view;
+        mat4 viewProj = lightCameras.viewProj[face];
         gl_Layer = face; // built-in variable that specifies to which face we render.
         for(int i = 0; i < 3; ++i) // for each triangle vertex
         {
-            FragPos = gl_in[i].gl_Position;
-            gl_Position = viewProj * FragPos;
+            fragPos = gl_in[i].gl_Position;
+            gl_Position = viewProj * fragPos;
             EmitVertex();
         }    
         EndPrimitive();

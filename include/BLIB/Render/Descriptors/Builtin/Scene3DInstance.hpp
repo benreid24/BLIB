@@ -4,6 +4,7 @@
 #include <BLIB/Events.hpp>
 #include <BLIB/Render/Buffers/StaticUniformBuffer.hpp>
 #include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Descriptors/Builtin/CommonShaderInputs.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
 #include <BLIB/Render/Events/GraphEvents.hpp>
 #include <BLIB/Render/Lighting/LightingDescriptor3D.hpp>
@@ -53,14 +54,6 @@ public:
     virtual ~Scene3DInstance();
 
     /**
-     * @brief Returns the buffer binding info for the given frame index
-     *
-     * @param frameIndex The index of the frame to get the buffer info for
-     * @return The buffer binding info for the given frame
-     */
-    VkDescriptorBufferInfo getBufferBindingInfo(std::uint32_t frameIndex) const;
-
-    /**
      * @brief Returns the lighting uniform value
      */
     lgt::LightingDescriptor3D& getUniform() { return uniform[0]; }
@@ -71,6 +64,7 @@ private:
     buf::StaticUniformBuffer<lgt::LightingDescriptor3D> uniform;
     vk::Image emptySpotShadowMap;
     vk::Image emptyPointShadowMap;
+    ShadowMapCameraShaderInput* shadowMapCameras;
 
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                  std::uint32_t setIndex, UpdateSpeed updateFreq) const override;

@@ -2,5 +2,5 @@
 #extension GL_GOOGLE_include_directive : require
 
 void main() {
-    // empty
+    gl_FragDepth = 0.5;
 }

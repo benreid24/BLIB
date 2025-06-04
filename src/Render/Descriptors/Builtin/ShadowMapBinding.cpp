@@ -10,19 +10,19 @@ namespace rc
 namespace ds
 {
 ShadowMapBinding::ShadowMapBinding()
-: Binding(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC)
-, lighting(nullptr) {}
+: Binding(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC) {}
 
-void ShadowMapBinding::setLighting(Scene3DInstance* l) { lighting = l; }
-
-void ShadowMapBinding::init(vk::VulkanState&, ShaderInputStore&) {}
+void ShadowMapBinding::init(vk::VulkanState&, ShaderInputStore& inputStore) {
+    storage = inputStore.getShaderInputWithId<ShadowMapCameraShaderInput>(ShadowMapCameraInputName);
+    storage->getBuffer().transferEveryFrame();
+}
 
 void ShadowMapBinding::writeSet(SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed,
-                                std::uint32_t frameIndex) {
+                                std::uint32_t) {
     VkDescriptorBufferInfo& bufferInfo = writer.getNewBufferInfo();
-    bufferInfo.buffer                  = lighting->getBufferBindingInfo(frameIndex).buffer;
+    bufferInfo.buffer                  = storage->getBuffer().gpuBufferHandle().getBuffer();
     bufferInfo.offset                  = 0;
-    bufferInfo.range                   = sizeof(Payload);
+    bufferInfo.range                   = sizeof(ShadowMapCameraPayload);
 
     VkWriteDescriptorSet& write = writer.getNewSetWrite(set);
     write.dstBinding            = getBindingIndex();
@@ -30,7 +30,9 @@ void ShadowMapBinding::writeSet(SetWriteHelper& writer, VkDescriptorSet set, Upd
     write.descriptorType        = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC;
 }
 
-void ShadowMapBinding::onFrameStart() {}
+void ShadowMapBinding::onFrameStart() {
+    // Scene3DInstance copies the light cameras into the buffer
+}
 
 std::uint32_t ShadowMapBinding::getDynamicOffsetForPipeline(scene::SceneRenderContext& ctx,
                                                             VkPipelineLayout, std::uint32_t,
@@ -49,11 +51,12 @@ std::uint32_t ShadowMapBinding::getDynamicOffsetForPipeline(scene::SceneRenderCo
     }
     switch (shadowCtx->lightType) {
     case scene::ctx::ShadowMapContext::SunLight:
-        return lgt::LightingDescriptor3D::getSunlightCameraMatrixOffset();
+        return 0;
     case scene::ctx::ShadowMapContext::SpotLight:
-        return lighting->getUniform().getMatrixOffsetForSpotLight(shadowCtx->lightIndex);
+        return storage->getBuffer().alignedUniformSize() * (shadowCtx->lightIndex + 1);
     case scene::ctx::ShadowMapContext::PointLight:
-        return lighting->getUniform().getMatrixOffsetForPointLight(shadowCtx->lightIndex);
+        return storage->getBuffer().alignedUniformSize() *
+               (shadowCtx->lightIndex + Config::MaxSpotShadows + 1);
     default:
         return 0;
     }

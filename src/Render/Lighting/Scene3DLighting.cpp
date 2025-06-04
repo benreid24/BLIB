@@ -13,7 +13,10 @@ Scene3DLighting::Scene3DLighting(ds::Scene3DInstance& instance)
 , spotLights(Config::MaxSpotLights)
 , spotShadows(Config::MaxSpotShadows)
 , pointLights(Config::MaxPointLights)
-, pointShadows(Config::MaxPointShadows) {}
+, pointShadows(Config::MaxPointShadows) {
+    instance.getUniform() = LightingDescriptor3D();
+    sunPosition           = 1000.f * instance.getUniform().sun.dir;
+}
 
 glm::vec3 Scene3DLighting::getAmbientLightColor() const {
     return instance.getUniform().globalAmbient;

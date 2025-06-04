@@ -119,12 +119,9 @@ layout(set = SCENE_SET_NUMBER, binding = 3) uniform samplerCubeShadow pointShado
 #endif
 
 #ifdef LIGHT_CAM_SET_NUMBER
-struct LightCamera {
-    mat4 projection;
-    mat4 view;
-};
-
 layout(set = LIGHT_CAM_SET_NUMBER, binding = 0) uniform block_light_cameras {
-    LightCamera cameras[6];
+    mat4 viewProj[6];
+    vec3 position;
+    float farPlane;
 } lightCameras;
 #endif

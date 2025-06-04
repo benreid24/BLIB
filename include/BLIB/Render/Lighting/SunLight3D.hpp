@@ -26,13 +26,6 @@ struct alignas(16) SunLight3D {
     SunLight3D()
     : dir(glm::normalize(glm::vec3(-0.75f, -1.f, 0.25f)))
     , color() {}
-
-    /**
-     * @brief Returns the byte offset of the camera matrix
-     */
-    static constexpr std::uint32_t getMatrixOffset() {
-        return offsetof(SunLight3D, viewProjectionMatrix);
-    }
 };
 
 } // namespace lgt

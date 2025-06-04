@@ -42,32 +42,6 @@ struct alignas(16) LightingDescriptor3D {
     , nSpotLights(0)
     , nPointShadows(0)
     , nSpotShadows(0) {}
-
-    /**
-     * @brief Returns the byte offset into the uniform to the camera matrices for the given light
-     *
-     * @param i The index of the spot light
-     * @return The byte offset for the light's camera matrices
-     */
-    std::uint32_t getMatrixOffsetForSpotLight(std::uint32_t i) const {
-        constexpr std::uint32_t BaseOffset = offsetof(LightingDescriptor3D, spotlightsWithShadows);
-        return BaseOffset + i * sizeof(SpotLight3DShadow) + SpotLight3DShadow::getMatrixOffset();
-    }
-
-    /**
-     * @brief Returns the byte offset into the uniform to the camera matrices for the given light
-     *
-     * @param i The index of the point light
-     * @return The byte offset for the light's camera matrices
-     */
-    std::uint32_t getMatrixOffsetForPointLight(std::uint32_t i) const {
-        constexpr std::uint32_t BaseOffset = offsetof(LightingDescriptor3D, pointLightsWithShadows);
-        return BaseOffset + i * sizeof(PointLight3DShadow) + PointLight3DShadow::getMatrixOffset();
-    }
-
-    static constexpr std::uint32_t getSunlightCameraMatrixOffset() {
-        return offsetof(LightingDescriptor3D, sun) + SunLight3D::getMatrixOffset();
-    }
 };
 
 } // namespace lgt

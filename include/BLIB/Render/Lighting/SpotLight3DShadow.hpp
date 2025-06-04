@@ -45,11 +45,9 @@ public:
     }
 
     /**
-     * @brief Returns the byte offset of the camera matrix
+     * @brief Returns the camera matrix for this light
      */
-    static constexpr std::uint32_t getMatrixOffset() {
-        return offsetof(SpotLight3DShadow, viewProjectionMatrix);
-    }
+    const glm::mat4& getViewProjectionMatrix() const { return viewProjectionMatrix; }
 
 private:
     glm::mat4 viewProjectionMatrix;
