@@ -113,7 +113,7 @@ void Scene3DInstance::init(ShaderInputStore& inputStore) {
     }
     setWriter.performWrite(vulkanState.device);
 
-    updateShadowDescriptors(nullptr);
+    // updateShadowDescriptors(nullptr);
 
     uniform.transferEveryFrame();
 
@@ -139,32 +139,32 @@ void Scene3DInstance::updateShadowDescriptors(rg::GraphAsset* asset) {
             const auto set = descriptorSets.getRaw(i, j);
 
             VkSampler sampler = vulkanState.samplerCache.shadowMap();
-            for (unsigned int i = 0; i < Config::MaxSpotShadows; ++i) {
+            for (unsigned int k = 0; k < Config::MaxSpotShadows; ++k) {
                 VkDescriptorImageInfo& imageInfo = setWriter.getNewImageInfo();
                 imageInfo.imageLayout            = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-                imageInfo.imageView = shadowMaps ? shadowMaps->getSpotShadowImage(i).getView() :
+                imageInfo.imageView = shadowMaps ? shadowMaps->getSpotShadowImage(k).getView() :
                                                    emptySpotShadowMap.getView();
                 imageInfo.sampler   = sampler;
 
                 VkWriteDescriptorSet& write = setWriter.getNewSetWrite(set);
                 write.descriptorCount       = 1;
                 write.dstBinding            = 2;
-                write.dstArrayElement       = i;
+                write.dstArrayElement       = k;
                 write.pImageInfo            = &imageInfo;
                 write.descriptorType        = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
             }
 
-            for (unsigned int i = 0; i < Config::MaxPointShadows; ++i) {
+            for (unsigned int k = 0; k < Config::MaxPointShadows; ++k) {
                 VkDescriptorImageInfo& imageInfo = setWriter.getNewImageInfo();
                 imageInfo.imageLayout            = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-                imageInfo.imageView = shadowMaps ? shadowMaps->getPointShadowImage(i).getView() :
+                imageInfo.imageView = shadowMaps ? shadowMaps->getPointShadowImage(k).getView() :
                                                    emptyPointShadowMap.getView();
                 imageInfo.sampler   = sampler;
 
                 VkWriteDescriptorSet& write = setWriter.getNewSetWrite(set);
                 write.descriptorCount       = 1;
                 write.dstBinding            = 3;
-                write.dstArrayElement       = i;
+                write.dstArrayElement       = k;
                 write.pImageInfo            = &imageInfo;
                 write.descriptorType        = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
             }

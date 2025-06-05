@@ -13,9 +13,10 @@ Scene3DLighting::Scene3DLighting(ds::Scene3DInstance& instance)
 , spotLights(Config::MaxSpotLights)
 , spotShadows(Config::MaxSpotShadows)
 , pointLights(Config::MaxPointLights)
-, pointShadows(Config::MaxPointShadows) {
+, pointShadows(Config::MaxPointShadows)
+, sceneCenter(0.f, 0.f, 0.f)
+, sunDistance(10.f) {
     instance.getUniform() = LightingDescriptor3D();
-    sunPosition           = 1000.f * instance.getUniform().sun.dir;
 }
 
 glm::vec3 Scene3DLighting::getAmbientLightColor() const {
@@ -56,13 +57,16 @@ void Scene3DLighting::addIndex(std::vector<std::uint32_t>& vec, std::uint32_t i)
     vec.insert(std::lower_bound(vec.begin(), vec.end(), i), i);
 }
 
-void Scene3DLighting::setSunPosition(const glm::vec3& sp) { sunPosition = sp; }
+void Scene3DLighting::setSceneCenter(const glm::vec3& c) { sceneCenter = c; }
+
+void Scene3DLighting::setSunDistance(float d) { sunDistance = d; }
 
 void Scene3DLighting::updateSunCameraMatrix() {
     // TODO - set matrices dynamically from camera (or cascaded shadow maps)
-    glm::mat4 projection = glm::ortho(-10.f, 10.f, -10.f, 10.f, 0.1f, 100.f);
-    glm::mat4 view       = glm::lookAt(
-        getSunPosition(), getSunPosition() + instance.getUniform().sun.dir, Config::UpDirection);
+    glm::mat4 projection = glm::ortho(-10.f, 10.f, -10.f, 10.f, 0.1f, sunDistance * 1.2f);
+    glm::mat4 view       = glm::lookAt(sceneCenter - instance.getUniform().sun.dir * sunDistance,
+                                 sceneCenter,
+                                 Config::UpDirection);
     instance.getUniform().sun.viewProjectionMatrix = projection * view;
 }
 

@@ -114,16 +114,28 @@ public:
     std::uint32_t getPointLightCount() const;
 
     /**
-     * @brief Set the position of the sun. Used for shadow map rendering
+     * @brief Sets the center of the scene in world coordinates. Used for sun shadows
      *
-     * @param position The position of the sun in world coordinates
+     * @param center The center of the scene in world coordinates
      */
-    void setSunPosition(const glm::vec3& position);
+    void setSceneCenter(const glm::vec3& center);
 
     /**
-     * @brief Returns the position of the sun in world coordinates
+     * @brief Returns the center of the scene in world coordinates
      */
-    const glm::vec3& getSunPosition() const;
+    const glm::vec3& getSceneCenter() const;
+
+    /**
+     * @brief Sets the distance of the sun from the scene center
+     *
+     * @param distance The distance of the sun from the scene center in world units
+     */
+    void setSunDistance(float distance);
+
+    /**
+     * @brief Returns the distance of the sun from the scene center
+     */
+    float getSunDistance() const;
 
     /**
      * @brief Updates the view projection matrix for the sunlight camera
@@ -180,7 +192,8 @@ private:
     };
 
     ds::Scene3DInstance& instance;
-    glm::vec3 sunPosition;
+    glm::vec3 sceneCenter;
+    float sunDistance;
     Lights<SpotLight3D> spotLights;
     Lights<SpotLight3DShadow> spotShadows;
     Lights<PointLight3D> pointLights;
@@ -223,7 +236,9 @@ PointLightShadowHandle Scene3DLighting::createPointLightWithShadow(TArgs&&... ar
     return pointShadows.createNew(this, std::forward<TArgs>(args)...);
 }
 
-inline const glm::vec3& Scene3DLighting::getSunPosition() const { return sunPosition; }
+inline const glm::vec3& Scene3DLighting::getSceneCenter() const { return sceneCenter; }
+
+inline float Scene3DLighting::getSunDistance() const { return sunDistance; }
 
 inline std::uint32_t Scene3DLighting::getSpotShadowCount() const {
     return spotShadows.active.size();

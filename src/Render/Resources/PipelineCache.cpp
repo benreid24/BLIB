@@ -101,6 +101,9 @@ void PipelineCache::createBuiltins() {
     VkPipelineRasterizationStateCreateInfo skyboxRasterizer = rasterizer3d;
     skyboxRasterizer.cullMode                               = VK_CULL_MODE_FRONT_BIT;
 
+    VkPipelineRasterizationStateCreateInfo rasterizerShadow = rasterizer3d;
+    rasterizerShadow.cullMode                               = VK_CULL_MODE_FRONT_BIT;
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     createPipeline(
@@ -201,31 +204,31 @@ void PipelineCache::createBuiltins() {
             .addDescriptorSet<ds::Object3DFactory>()
             .build());
 
-    createPipeline(
-        Config::PipelineIds::ShadowMapRegular,
-        vk::PipelineParameters()
-            .withShaders(Config::ShaderIds::ShadowVertex, Config::ShaderIds::ShadowFragment)
-            .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
-            .withVertexFormat(prim::Vertex3D::bindingDescription(),
-                              prim::Vertex3D::attributeDescriptions())
-            .withRasterizer(rasterizer3d)
-            .withDepthStencilState(&depthStencilDepthEnabled)
-            .addDescriptorSet<ds::ShadowMapFactory>()
-            .addDescriptorSet<ds::Object3DFactory>()
-            .build());
+    createPipeline(Config::PipelineIds::ShadowMapRegular,
+                   vk::PipelineParameters()
+                       .withShader(Config::ShaderIds::ShadowVertex, VK_SHADER_STAGE_VERTEX_BIT)
+                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                       .withVertexFormat(prim::Vertex3D::bindingDescription(),
+                                         prim::Vertex3D::attributeDescriptions())
+                       .withRasterizer(rasterizerShadow)
+                       .withSimpleColorBlendState(vk::PipelineParameters::ColorBlendBehavior::None)
+                       .withDepthStencilState(&depthStencilDepthEnabled)
+                       .addDescriptorSet<ds::ShadowMapFactory>()
+                       .addDescriptorSet<ds::Object3DFactory>()
+                       .build());
 
-    createPipeline(
-        Config::PipelineIds::ShadowMapSkinned,
-        vk::PipelineParameters()
-            .withShaders(Config::ShaderIds::ShadowVertex, Config::ShaderIds::ShadowFragment)
-            .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
-            .withVertexFormat(prim::Vertex3DSkinned::bindingDescription(),
-                              prim::Vertex3DSkinned::attributeDescriptions())
-            .withRasterizer(rasterizer3d)
-            .withDepthStencilState(&depthStencilDepthEnabled)
-            .addDescriptorSet<ds::ShadowMapFactory>()
-            .addDescriptorSet<ds::Object3DFactory>()
-            .build());
+    createPipeline(Config::PipelineIds::ShadowMapSkinned,
+                   vk::PipelineParameters()
+                       .withShader(Config::ShaderIds::ShadowVertex, VK_SHADER_STAGE_VERTEX_BIT)
+                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                       .withVertexFormat(prim::Vertex3DSkinned::bindingDescription(),
+                                         prim::Vertex3DSkinned::attributeDescriptions())
+                       .withRasterizer(rasterizerShadow)
+                       .withSimpleColorBlendState(vk::PipelineParameters::ColorBlendBehavior::None)
+                       .withDepthStencilState(&depthStencilDepthEnabled)
+                       .addDescriptorSet<ds::ShadowMapFactory>()
+                       .addDescriptorSet<ds::Object3DFactory>()
+                       .build());
 
     createPipeline(
         Config::PipelineIds::PointShadowMapRegular,
@@ -236,7 +239,8 @@ void PipelineCache::createBuiltins() {
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withVertexFormat(prim::Vertex3D::bindingDescription(),
                               prim::Vertex3D::attributeDescriptions())
-            .withRasterizer(rasterizer3d)
+            .withRasterizer(rasterizerShadow)
+            .withSimpleColorBlendState(vk::PipelineParameters::ColorBlendBehavior::None)
             .withDepthStencilState(&depthStencilDepthEnabled)
             .addDescriptorSet<ds::ShadowMapFactory>()
             .addDescriptorSet<ds::Object3DFactory>()
@@ -251,7 +255,8 @@ void PipelineCache::createBuiltins() {
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withVertexFormat(prim::Vertex3DSkinned::bindingDescription(),
                               prim::Vertex3DSkinned::attributeDescriptions())
-            .withRasterizer(rasterizer3d)
+            .withRasterizer(rasterizerShadow)
+            .withSimpleColorBlendState(vk::PipelineParameters::ColorBlendBehavior::None)
             .withDepthStencilState(&depthStencilDepthEnabled)
             .addDescriptorSet<ds::ShadowMapFactory>()
             .addDescriptorSet<ds::Object3DFactory>()

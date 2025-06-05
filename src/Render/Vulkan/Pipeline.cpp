@@ -87,8 +87,8 @@ void Pipeline::createForRenderPass(std::uint32_t rpid) {
     pipelineInfo.subpass             = 0;              // TODO - consider dynamic subpass if needed
     pipelineInfo.basePipelineHandle  = VK_NULL_HANDLE; // Optional
     pipelineInfo.basePipelineIndex   = -1;             // Optional
+    pipelineInfo.renderPass          = renderer.renderPassCache().getRenderPass(rpid).rawPass();
 
-    pipelineInfo.renderPass = renderer.renderPassCache().getRenderPass(rpid).rawPass();
     if (vkCreateGraphicsPipelines(renderer.vulkanState().device,
                                   VK_NULL_HANDLE,
                                   1,

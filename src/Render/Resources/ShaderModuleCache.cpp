@@ -49,8 +49,6 @@ VkShaderModule ShaderModuleCache::loadShader(const std::string& path) {
 
         case Config::ShaderIds::ShadowVertex[0]:
             return loadShader(BUILTIN_SHADER("3D/shadowMap.vert.spv"));
-        case Config::ShaderIds::ShadowFragment[0]:
-            return loadShader(BUILTIN_SHADER("3D/shadowMap.frag.spv"));
         case Config::ShaderIds::PointShadowVertex[0]:
             return loadShader(BUILTIN_SHADER("3D/pointShadowMap.vert.spv"));
         case Config::ShaderIds::PointShadowGeometry[0]:

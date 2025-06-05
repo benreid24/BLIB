@@ -54,6 +54,8 @@ GraphAsset* GraphAssetPool::getAssetForInput(std::string_view tag) {
 GraphAsset* GraphAssetPool::createAsset(std::string_view tag, Task* creator) {
     auto& set         = assets[tag];
     GraphAsset& asset = set.emplace_back(pool.getOrCreateAsset(tag, this));
+    bl::event::Dispatcher::dispatch<event::SceneGraphAssetCreated>(
+        {.target = owner, .scene = scene, .asset = &asset});
     return &asset;
 }
 

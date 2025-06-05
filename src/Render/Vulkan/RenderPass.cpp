@@ -11,7 +11,7 @@ RenderPass::RenderPass(VulkanState& vs, RenderPassParameters&& params)
     std::vector<VkSubpassDescription> subpasses;
     subpasses.reserve(params.subpasses.size());
     for (const auto& sp : params.subpasses) {
-        subpasses.emplace_back();
+        subpasses.emplace_back(VkSubpassDescription{});
         subpasses.back().pipelineBindPoint    = VK_PIPELINE_BIND_POINT_GRAPHICS;
         subpasses.back().colorAttachmentCount = sp.colorAttachments.size();
         subpasses.back().pColorAttachments    = sp.colorAttachments.data();

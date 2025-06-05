@@ -262,6 +262,8 @@ private:
                                        light3.getTransform().getForwardDir() * 0.2f);
         light3Handle.get().pointAt(light3PointAt);
 
+        scene->getLighting().modifySun().color = bl::rc::Color(sf::Color::White);
+
         bl::event::Dispatcher::subscribe(controller);
     }
 

@@ -31,6 +31,10 @@ class Pipeline;
  */
 class PipelineParameters {
 public:
+    /// Defines the basic color blend behaviors if no specific blend state is provided. Default is
+    /// AlphaBlend
+    enum struct ColorBlendBehavior { None, AlphaBlend, Overwrite };
+
     /**
      * @brief Creates the parameters using sane defaults
      */
@@ -193,6 +197,15 @@ public:
                                                   float blendConstant3);
 
     /**
+     * @brief Simple way to set common color blend behaviors. Ignored if color blend attachments are
+     *        manually set
+     *
+     * @param blendState The color blend state to use
+     * @return A reference to this object
+     */
+    PipelineParameters& withSimpleColorBlendState(ColorBlendBehavior blendState);
+
+    /**
      * @brief Configures depth and stencil testing for this pipeline
      *
      * @param depthStencil Pointer to the depth/stencil config. Must remain valid until created
@@ -262,6 +275,7 @@ private:
     VkPrimitiveTopology primitiveType;
     VkPipelineRasterizationStateCreateInfo rasterizer;
     VkPipelineMultisampleStateCreateInfo msaa;
+    ColorBlendBehavior colorBlendBehavior;
     ctr::StaticVector<VkPipelineColorBlendAttachmentState, 4> colorAttachmentBlendStates;
     VkPipelineColorBlendStateCreateInfo colorBlending;
     VkPipelineDepthStencilStateCreateInfo* depthStencil;

@@ -16,6 +16,7 @@ PipelineParameters::PipelineParameters()
 : primitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
 , rasterizer{}
 , msaa{}
+, colorBlendBehavior(ColorBlendBehavior::AlphaBlend)
 , colorBlending{}
 , depthStencil(nullptr)
 , localDepthStencil{} {
@@ -156,6 +157,11 @@ PipelineParameters& PipelineParameters::addPushConstantRange(std::uint32_t offse
     return *this;
 }
 
+PipelineParameters& PipelineParameters::withSimpleColorBlendState(ColorBlendBehavior blend) {
+    colorBlendBehavior = blend;
+    return *this;
+}
+
 PipelineParameters& PipelineParameters::addColorAttachmentBlendState(
     const VkPipelineColorBlendAttachmentState& ca) {
     colorAttachmentBlendStates.emplace_back(ca);
@@ -206,18 +212,28 @@ PipelineParameters&& PipelineParameters::build() {
         withVertexFormat<3>(prim::Vertex::bindingDescription(),
                             prim::Vertex::attributeDescriptions());
     }
-    if (colorAttachmentBlendStates.empty()) {
+    if (colorAttachmentBlendStates.empty() && colorBlendBehavior != ColorBlendBehavior::None) {
         colorAttachmentBlendStates.emplace_back();
         auto& ca          = colorAttachmentBlendStates.back();
         ca.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT |
                             VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
-        ca.blendEnable         = VK_TRUE;
-        ca.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
-        ca.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
-        ca.colorBlendOp        = VK_BLEND_OP_ADD;
-        ca.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
-        ca.dstAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
-        ca.alphaBlendOp        = VK_BLEND_OP_MAX;
+        ca.blendEnable = VK_TRUE;
+
+        switch (colorBlendBehavior) {
+        case ColorBlendBehavior::Overwrite:
+            ca.blendEnable = VK_FALSE;
+            break;
+
+        case ColorBlendBehavior::AlphaBlend:
+        default:
+            ca.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
+            ca.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
+            ca.colorBlendOp        = VK_BLEND_OP_ADD;
+            ca.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
+            ca.dstAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
+            ca.alphaBlendOp        = VK_BLEND_OP_MAX;
+            break;
+        }
     }
     colorBlending.pAttachments    = colorAttachmentBlendStates.data();
     colorBlending.attachmentCount = colorAttachmentBlendStates.size();

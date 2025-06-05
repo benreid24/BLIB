@@ -76,6 +76,26 @@ void RenderPassCache::addDefaults() {
     prePassRenderDoneDep.dstStageMask  = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
     prePassRenderDoneDep.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
 
+    // block shadow map render until prior read done
+    VkSubpassDependency shadowMapInputDependency{};
+    shadowMapInputDependency.srcSubpass      = VK_SUBPASS_EXTERNAL;
+    shadowMapInputDependency.dstSubpass      = 0;
+    shadowMapInputDependency.srcStageMask    = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
+    shadowMapInputDependency.dstStageMask    = VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT;
+    shadowMapInputDependency.srcAccessMask   = VK_ACCESS_SHADER_READ_BIT;
+    shadowMapInputDependency.dstAccessMask   = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
+    shadowMapInputDependency.dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
+
+    // block shadow map read until generation is done
+    VkSubpassDependency shadowMapOutputDependency{};
+    shadowMapOutputDependency.srcSubpass      = 0;
+    shadowMapOutputDependency.dstSubpass      = VK_SUBPASS_EXTERNAL;
+    shadowMapOutputDependency.srcStageMask    = VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT;
+    shadowMapOutputDependency.dstStageMask    = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
+    shadowMapOutputDependency.srcAccessMask   = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
+    shadowMapOutputDependency.dstAccessMask   = VK_ACCESS_SHADER_READ_BIT;
+    shadowMapOutputDependency.dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
+
     // do not write depth buffer until prior use is done
     VkSubpassDependency depthDependency{};
     depthDependency.srcSubpass = VK_SUBPASS_EXTERNAL;
@@ -166,8 +186,8 @@ void RenderPassCache::addDefaults() {
         vk::RenderPassParameters::SubPass()
             .withDepthAttachment(0, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL)
             .build());
-    shadowMapParams.addSubpassDependency(postPassRenderCompleteDep);
-    shadowMapParams.addSubpassDependency(prePassRenderDoneDep);
+    shadowMapParams.addSubpassDependency(shadowMapInputDependency);
+    shadowMapParams.addSubpassDependency(shadowMapOutputDependency);
     createRenderPass(Config::RenderPassIds::ShadowMapPass, shadowMapParams.build());
 }
 
