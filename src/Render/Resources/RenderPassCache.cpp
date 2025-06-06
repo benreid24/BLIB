@@ -179,6 +179,8 @@ void RenderPassCache::addDefaults() {
     VkAttachmentDescription shadowMapAttachment = depthAttachment;
     shadowMapAttachment.format                  = renderer.vulkanState().findShadowMapFormat();
     shadowMapAttachment.finalLayout             = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+    shadowMapAttachment.storeOp                 = VK_ATTACHMENT_STORE_OP_STORE;
+    shadowMapAttachment.stencilStoreOp          = VK_ATTACHMENT_STORE_OP_STORE;
 
     vk::RenderPassParameters shadowMapParams;
     shadowMapParams.addAttachment(shadowMapAttachment);

@@ -15,11 +15,13 @@ Asset::Asset(std::string_view tag)
 , mode(InputMode::Unset)
 , external(false) {}
 
-void Asset::create(engine::Engine& engine, Renderer& renderer, RenderTarget* observer) {
+bool Asset::create(engine::Engine& engine, Renderer& renderer, RenderTarget* observer) {
     if (!created) {
         created = true;
         doCreate(engine, renderer, observer);
+        return true;
     }
+    return false;
 }
 
 void Asset::prepareForInput(const ExecutionContext& ctx) {

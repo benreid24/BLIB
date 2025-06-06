@@ -14,7 +14,9 @@ mat3 computeSunLight(Sunlight light, vec3 normal, vec3 fragPos, vec3 viewDir, fl
      // shadowing
     vec4 fragPosLightSpace = light.viewProj * vec4(fragPos, 1.0);
     vec3 shadowCoords = convertShadowCoords(fragPosLightSpace);
-    float shadow = texture(spotShadowMaps[0], shadowCoords);
+    float shadow = shadowCoords.z > 1.0 ? 1.0 : texture(spotShadowMaps[0], shadowCoords);
+    // float shadowDistance = texture(spotShadowMaps[0], shadowCoords.xy).r;
+    // float shadow = shadowCoords.z <= shadowDistance ? 1.0 : 0;
 
     // diffuse shading
     float diff = max(dot(normal, lightDir), 0.0);
@@ -96,7 +98,8 @@ mat3 computeSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir, 
 float computeSpotLightShadow(uint lightIndex, vec3 fragPos) {
     vec4 fragPosLightSpace = lighting.spotShadows[lightIndex].viewProj * vec4(fragPos, 1.0);
     vec3 shadowCoords = convertShadowCoords(fragPosLightSpace);
-    return texture(spotShadowMaps[lightIndex + 1], shadowCoords);
+    return 1.0;
+    //return texture(spotShadowMaps[lightIndex + 1], shadowCoords);
 }
 
 float computePointLightShadow(uint lightIndex, vec3 fragPos) {

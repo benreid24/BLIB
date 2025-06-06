@@ -18,6 +18,7 @@ namespace rc
 {
 class Renderer;
 class RenderTarget;
+class Scene;
 
 namespace rg
 {
@@ -109,8 +110,9 @@ public:
      * @param engine The game engine instance
      * @param renderer The renderer instance
      * @param target The render target of the graph
+     * @param scene The scene the timeline belongs to
      */
-    Timeline(engine::Engine& engine, Renderer& renderer, RenderTarget* target);
+    Timeline(engine::Engine& engine, Renderer& renderer, RenderTarget* target, Scene* scene);
 
     /**
      * @brief Builds the timeline from the given final asset. Assets must have already been
@@ -140,6 +142,7 @@ private:
     engine::Engine& engine;
     Renderer& renderer;
     RenderTarget* observer;
+    Scene* scene;
     std::vector<TimelineStage> timeline;
 };
 

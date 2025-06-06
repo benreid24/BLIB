@@ -173,7 +173,7 @@ void Scene3DInstance::updateShadowDescriptors(rg::GraphAsset* asset) {
     setWriter.performWrite(vulkanState.device);
 }
 
-void Scene3DInstance::observe(const event::SceneGraphAssetCreated& event) {
+void Scene3DInstance::observe(const event::SceneGraphAssetInitialized& event) {
     if (event.scene == static_cast<Scene*>(owner)) {
         rgi::ShadowMapAsset* shadowMaps =
             dynamic_cast<rgi::ShadowMapAsset*>(&event.asset->asset.get());

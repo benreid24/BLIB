@@ -96,7 +96,7 @@ public:
     Settings& setBloomFilters(std::initializer_list<float> filters);
 
     /**
-     * @brief Sets the resoltuion to render shadow maps at
+     * @brief Sets the resolution to render shadow maps at
      *
      * @param resolution The shadow map resolution to use
      * @return A reference to this object
@@ -108,6 +108,30 @@ public:
      */
     const VkExtent2D& getShadowMapResolution() const;
 
+    /**
+     * @brief Sets the depth bias parameters for shadow maps
+     *
+     * @param constantFactor Constant bias factor
+     * @param slope Factor to apply to fragment slope
+     * @param clamp Min or max depth bias
+     */
+    Settings& setShadowMapDepthBias(float constantFactor, float slope, float clamp);
+
+    /**
+     * @brief Returns the constant factor for shadow map depth bias
+     */
+    float getShadowMapDepthBiasConstantFactor() const;
+
+    /**
+     * @brief Returns the slope factor for shadow map depth bias
+     */
+    float getShadowMapDepthBiasSlopeFactor() const;
+
+    /**
+     * @brief Returns the clamp value for shadow map depth bias
+     */
+    float getShadowMapDepthBiasClamp() const;
+
 private:
     float gamma;
     float exposure;
@@ -116,6 +140,9 @@ private:
     std::uint32_t bloomFilterSize;
     std::uint32_t bloomPasses;
     VkExtent2D shadowMapResolution;
+    float shadowMapDepthBiasConstantFactor;
+    float shadowMapDepthBiasSlopeFactor;
+    float shadowMapDepthBiasClamp;
     bool dirty;
 
     friend class Renderer;
@@ -138,6 +165,16 @@ inline const std::array<float, Settings::MaxBloomFilterSize>& Settings::getBloom
 }
 
 inline const VkExtent2D& Settings::getShadowMapResolution() const { return shadowMapResolution; }
+
+inline float Settings::getShadowMapDepthBiasConstantFactor() const {
+    return shadowMapDepthBiasConstantFactor;
+}
+
+inline float Settings::getShadowMapDepthBiasSlopeFactor() const {
+    return shadowMapDepthBiasSlopeFactor;
+}
+
+inline float Settings::getShadowMapDepthBiasClamp() const { return shadowMapDepthBiasClamp; }
 
 } // namespace rc
 } // namespace bl

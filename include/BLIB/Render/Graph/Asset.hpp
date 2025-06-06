@@ -101,7 +101,7 @@ private:
     InputMode mode;
     bool external;
 
-    void create(engine::Engine& engine, Renderer& renderer, RenderTarget* observer);
+    bool create(engine::Engine& engine, Renderer& renderer, RenderTarget* observer);
     void prepareForInput(const ExecutionContext& ctx);
     void startOutput(const ExecutionContext& ctx);
     void endOutput(const ExecutionContext& ctx);

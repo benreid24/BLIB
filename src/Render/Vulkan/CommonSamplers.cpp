@@ -98,7 +98,7 @@ void CommonSamplers::init() {
     create.anisotropyEnable = VK_FALSE;
     create.borderColor      = VK_BORDER_COLOR_FLOAT_OPAQUE_WHITE;
     create.compareEnable    = VK_TRUE;
-    create.compareOp        = VK_COMPARE_OP_LESS;
+    create.compareOp        = VK_COMPARE_OP_LESS_OR_EQUAL;
     create.mipmapMode       = VK_SAMPLER_MIPMAP_MODE_LINEAR;
     if (VK_SUCCESS != vkCreateSampler(vulkanState.device, &create, nullptr, &shadowMapSampler)) {
         throw std::runtime_error("Failed to create shadow map sampler");

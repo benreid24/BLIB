@@ -114,6 +114,12 @@ PipelineParameters& PipelineParameters::withDynamicStates(
     return *this;
 }
 
+PipelineParameters& PipelineParameters::addDynamicStates(
+    const std::initializer_list<VkDynamicState>& states) {
+    for (const VkDynamicState state : states) { dynamicStates.emplace_back(state); }
+    return *this;
+}
+
 PipelineParameters& PipelineParameters::withPrimitiveType(VkPrimitiveTopology pt) {
     primitiveType = pt;
     return *this;

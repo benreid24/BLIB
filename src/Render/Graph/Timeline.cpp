@@ -1,5 +1,7 @@
 #include <BLIB/Render/Graph/Timeline.hpp>
 
+#include <BLIB/Events.hpp>
+#include <BLIB/Render/Events/GraphEvents.hpp>
 #include <BLIB/Render/Graph/Asset.hpp>
 #include <BLIB/Render/Graph/ExecutionContext.hpp>
 #include <BLIB/Render/Graph/Task.hpp>
@@ -31,10 +33,11 @@ Timeline::TaskGroup::TaskGroup(GraphAsset* output)
 
 Timeline::TimelineStage::TimelineStage() { taskGroups.reserve(4); }
 
-Timeline::Timeline(engine::Engine& engine, Renderer& renderer, RenderTarget* target)
+Timeline::Timeline(engine::Engine& engine, Renderer& renderer, RenderTarget* target, Scene* scene)
 : engine(engine)
 , renderer(renderer)
-, observer(target) {
+, observer(target)
+, scene(scene) {
     timeline.reserve(4);
 }
 
@@ -97,13 +100,24 @@ void Timeline::build(std::vector<std::unique_ptr<Task>>& tasks, GraphAsset* fina
 
     const auto createAssets = [this](Task* task) {
         for (GraphAsset* asset : task->assets.requiredInputs) {
-            asset->asset->create(engine, renderer, observer);
+            if (asset->asset->create(engine, renderer, observer)) {
+                bl::event::Dispatcher::dispatch<event::SceneGraphAssetInitialized>(
+                    {.target = observer, .scene = scene, .asset = asset});
+            }
         }
         for (GraphAsset* asset : task->assets.optionalInputs) {
-            if (asset) { asset->asset->create(engine, renderer, observer); }
+            if (asset) {
+                if (asset->asset->create(engine, renderer, observer)) {
+                    bl::event::Dispatcher::dispatch<event::SceneGraphAssetInitialized>(
+                        {.target = observer, .scene = scene, .asset = asset});
+                }
+            }
         }
         for (GraphAsset* asset : task->assets.outputs) {
-            asset->asset->create(engine, renderer, observer);
+            if (asset->asset->create(engine, renderer, observer)) {
+                bl::event::Dispatcher::dispatch<event::SceneGraphAssetInitialized>(
+                    {.target = observer, .scene = scene, .asset = asset});
+            }
         }
     };
 

@@ -13,7 +13,10 @@ constexpr float DefaultGamma                  = 2.2f;
 constexpr std::uint32_t DefaultBloomPassCount = 2;
 constexpr float DefaultBloomThreshold         = 1.f;
 constexpr float DefaultBloomFilters[] = {0.227027f, 0.1945946f, 0.1216216f, 0.054054f, 0.016216f};
-constexpr VkExtent2D DefaultShadowMapResolution = {1024, 1024};
+constexpr VkExtent2D DefaultShadowMapResolution         = {1024, 1024};
+constexpr float DefaultShadowMapDepthBiasConstantFactor = 1.25f;
+constexpr float DefaultShadowMapDepthBiasSlopeFactor    = 1.75f;
+constexpr float DefaultShadowMapDepthBiasClamp          = 0.f;
 } // namespace
 
 Settings::Settings()
@@ -23,6 +26,9 @@ Settings::Settings()
 , bloomPasses(DefaultBloomPassCount)
 , bloomFilterSize(std::size(DefaultBloomFilters))
 , shadowMapResolution(DefaultShadowMapResolution)
+, shadowMapDepthBiasConstantFactor(DefaultShadowMapDepthBiasConstantFactor)
+, shadowMapDepthBiasSlopeFactor(DefaultShadowMapDepthBiasSlopeFactor)
+, shadowMapDepthBiasClamp(DefaultShadowMapDepthBiasClamp)
 , dirty(true) {
     for (unsigned int i = 0; i < std::size(DefaultBloomFilters); ++i) {
         bloomFilters[i] = DefaultBloomFilters[i];
@@ -65,6 +71,13 @@ Settings& Settings::setBloomPassCount(std::uint32_t pc) {
 Settings& Settings::setShadowMapResolution(const VkExtent2D& res) {
     shadowMapResolution = res;
     dirty               = true;
+    return *this;
+}
+
+Settings& Settings::setShadowMapDepthBias(float constantFactor, float slopeFactor, float clamp) {
+    shadowMapDepthBiasConstantFactor = constantFactor;
+    shadowMapDepthBiasSlopeFactor    = slopeFactor;
+    shadowMapDepthBiasClamp          = clamp;
     return *this;
 }
 

@@ -262,7 +262,13 @@ private:
                                        light3.getTransform().getForwardDir() * 0.2f);
         light3Handle.get().pointAt(light3PointAt);
 
-        scene->getLighting().modifySun().color = bl::rc::Color(sf::Color::White);
+        /*light1Handle.removeFromScene();
+        light2Handle.removeFromScene();
+        light3Handle.removeFromScene();*/
+
+        scene->getLighting().modifySun().color.specular = bl::rc::Color(sf::Color::White);
+        scene->getLighting().modifySun().color.diffuse  = bl::rc::Color(glm::vec4(0.6f));
+        scene->getLighting().modifySun().color.ambient  = bl::rc::Color(glm::vec4(0.1f));
 
         bl::event::Dispatcher::subscribe(controller);
     }

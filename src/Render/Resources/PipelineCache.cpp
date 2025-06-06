@@ -102,7 +102,8 @@ void PipelineCache::createBuiltins() {
     skyboxRasterizer.cullMode                               = VK_CULL_MODE_FRONT_BIT;
 
     VkPipelineRasterizationStateCreateInfo rasterizerShadow = rasterizer3d;
-    rasterizerShadow.cullMode                               = VK_CULL_MODE_FRONT_BIT;
+    // TODO - this breaks shadows?
+    // rasterizerShadow.cullMode = VK_CULL_MODE_FRONT_BIT;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -211,6 +212,7 @@ void PipelineCache::createBuiltins() {
                        .withVertexFormat(prim::Vertex3D::bindingDescription(),
                                          prim::Vertex3D::attributeDescriptions())
                        .withRasterizer(rasterizerShadow)
+                       .addDynamicStates({VK_DYNAMIC_STATE_DEPTH_BIAS})
                        .withSimpleColorBlendState(vk::PipelineParameters::ColorBlendBehavior::None)
                        .withDepthStencilState(&depthStencilDepthEnabled)
                        .addDescriptorSet<ds::ShadowMapFactory>()
@@ -224,6 +226,7 @@ void PipelineCache::createBuiltins() {
                        .withVertexFormat(prim::Vertex3DSkinned::bindingDescription(),
                                          prim::Vertex3DSkinned::attributeDescriptions())
                        .withRasterizer(rasterizerShadow)
+                       .addDynamicStates({VK_DYNAMIC_STATE_DEPTH_BIAS})
                        .withSimpleColorBlendState(vk::PipelineParameters::ColorBlendBehavior::None)
                        .withDepthStencilState(&depthStencilDepthEnabled)
                        .addDescriptorSet<ds::ShadowMapFactory>()
@@ -240,6 +243,7 @@ void PipelineCache::createBuiltins() {
             .withVertexFormat(prim::Vertex3D::bindingDescription(),
                               prim::Vertex3D::attributeDescriptions())
             .withRasterizer(rasterizerShadow)
+            .addDynamicStates({VK_DYNAMIC_STATE_DEPTH_BIAS})
             .withSimpleColorBlendState(vk::PipelineParameters::ColorBlendBehavior::None)
             .withDepthStencilState(&depthStencilDepthEnabled)
             .addDescriptorSet<ds::ShadowMapFactory>()
@@ -256,6 +260,7 @@ void PipelineCache::createBuiltins() {
             .withVertexFormat(prim::Vertex3DSkinned::bindingDescription(),
                               prim::Vertex3DSkinned::attributeDescriptions())
             .withRasterizer(rasterizerShadow)
+            .addDynamicStates({VK_DYNAMIC_STATE_DEPTH_BIAS})
             .withSimpleColorBlendState(vk::PipelineParameters::ColorBlendBehavior::None)
             .withDepthStencilState(&depthStencilDepthEnabled)
             .addDescriptorSet<ds::ShadowMapFactory>()

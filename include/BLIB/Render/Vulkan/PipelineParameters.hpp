@@ -76,12 +76,20 @@ public:
     PipelineParameters& removeShader(VkShaderStageFlagBits stage);
 
     /**
-     * @brief Configures which pipeline states are dynamic. Viewport and scissor are always dynamic
+     * @brief Configures which pipeline states are dynamic. Viewport/scissor must be specified here
      *
      * @param states A set of states to be made dynamic in this pipeline
      * @return PipelineParameters& A reference to this object
      */
     PipelineParameters& withDynamicStates(const std::initializer_list<VkDynamicState>& states);
+
+    /**
+     * @brief Configures which pipeline states are dynamic. Viewport/scissor are dynamic by default
+     *
+     * @param states A set of states to be made dynamic in this pipeline
+     * @return PipelineParameters& A reference to this object
+     */
+    PipelineParameters& addDynamicStates(const std::initializer_list<VkDynamicState>& states);
 
     /**
      * @brief Configures the vertex format and attributes for the vertices that will be rendered by

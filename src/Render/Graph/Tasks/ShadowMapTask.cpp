@@ -40,6 +40,12 @@ void ShadowMapTask::execute(const rg::ExecutionContext& execCtx, rg::Asset*) {
                               .maxDepth = 1.f};
     const VkClearValue clearColor{.depthStencil = {.depth = 1.f, .stencil = 0}};
 
+    const auto& s = renderer->getSettings();
+    vkCmdSetDepthBias(execCtx.commandBuffer,
+                      s.getShadowMapDepthBiasConstantFactor(),
+                      s.getShadowMapDepthBiasClamp(),
+                      s.getShadowMapDepthBiasSlopeFactor());
+
     // sun shadow map
     scene::SceneRenderContext sunCtx(execCtx.commandBuffer,
                                      execCtx.observerIndex,

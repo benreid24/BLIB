@@ -38,7 +38,7 @@ namespace ds
  */
 class Scene3DInstance
 : public SceneDescriptorSetInstance
-, public bl::event::Listener<event::SceneGraphAssetCreated> {
+, public bl::event::Listener<event::SceneGraphAssetInitialized> {
 public:
     /**
      * @brief Creates a new instance of the descriptor set
@@ -75,7 +75,7 @@ private:
     virtual bool allocateObject(ecs::Entity entity, scene::Key key) override;
     virtual void handleFrameStart() override;
 
-    virtual void observe(const event::SceneGraphAssetCreated& event) override;
+    virtual void observe(const event::SceneGraphAssetInitialized& event) override;
     void updateShadowDescriptors(rg::GraphAsset* asset);
 
     friend class scene::Scene3D;
