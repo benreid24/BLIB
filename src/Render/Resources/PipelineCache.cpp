@@ -102,8 +102,8 @@ void PipelineCache::createBuiltins() {
     skyboxRasterizer.cullMode                               = VK_CULL_MODE_FRONT_BIT;
 
     VkPipelineRasterizationStateCreateInfo rasterizerShadow = rasterizer3d;
-    // TODO - this breaks shadows?
-    // rasterizerShadow.cullMode = VK_CULL_MODE_FRONT_BIT;
+    rasterizerShadow.cullMode                               = VK_CULL_MODE_FRONT_BIT;
+    rasterizerShadow.depthBiasEnable                        = VK_TRUE;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

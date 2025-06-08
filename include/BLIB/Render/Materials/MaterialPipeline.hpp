@@ -62,8 +62,9 @@ public:
      * @param commandBuffer The command buffer to issue commands into
      * @param phase The current render phase
      * @param renderPassId The current render pass id
+     * @return True if the material should be rendered, false if it should be skipped
      */
-    void bind(VkCommandBuffer commandBuffer, RenderPhase phase, std::uint32_t renderPassId);
+    bool bind(VkCommandBuffer commandBuffer, RenderPhase phase, std::uint32_t renderPassId);
 
     /**
      * @brief Returns the id of this material pipeline

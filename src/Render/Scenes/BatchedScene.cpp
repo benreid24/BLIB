@@ -117,12 +117,14 @@ void BatchedScene::doBatchChange(const BatchChange& change, mat::MaterialPipelin
 
 void BatchedScene::renderBatch(scene::SceneRenderContext& ctx, ObjectBatch& batch) {
     for (auto& pipelineBatch : batch.batches) {
+        if (!pipelineBatch.pipeline.bind(
+                ctx.getCommandBuffer(), ctx.getRenderPhase(), ctx.currentRenderPass())) {
+            continue;
+        }
+
         vk::Pipeline* pipeline = pipelineBatch.pipeline.getPipeline(ctx.getRenderPhase());
         RenderPhaseDescriptors& descriptors =
             pipelineBatch.perPhaseDescriptors[renderPhaseIndex(ctx.getRenderPhase())];
-        if (!pipeline) { continue; }
-
-        pipeline->bind(ctx.getCommandBuffer(), ctx.currentRenderPass());
 
         UpdateSpeed speed = UpdateSpeed::Dynamic;
         for (auto* objectBatch : {&pipelineBatch.objectsDynamic, &pipelineBatch.objectsStatic}) {

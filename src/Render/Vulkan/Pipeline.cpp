@@ -32,6 +32,13 @@ Pipeline::~Pipeline() {
 void Pipeline::bind(VkCommandBuffer commandBuffer, std::uint32_t renderPassId) {
     if (!pipelines[renderPassId]) { createForRenderPass(renderPassId); }
     vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelines[renderPassId]);
+    if (createParams.rasterizer.depthBiasEnable == VK_TRUE) {
+        const auto& s = renderer.getSettings();
+        vkCmdSetDepthBias(commandBuffer,
+                          s.getShadowMapDepthBiasConstantFactor(),
+                          s.getShadowMapDepthBiasClamp(),
+                          s.getShadowMapDepthBiasSlopeFactor());
+    }
 }
 
 void Pipeline::createForRenderPass(std::uint32_t rpid) {

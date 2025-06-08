@@ -63,7 +63,8 @@ void Scene3DLighting::setSunDistance(float d) { sunDistance = d; }
 
 void Scene3DLighting::updateSunCameraMatrix() {
     // TODO - set matrices dynamically from camera (or cascaded shadow maps)
-    glm::mat4 projection = glm::ortho(-10.f, 10.f, -10.f, 10.f, 0.1f, sunDistance * 2.f);
+    const float r        = sunDistance * 0.5f;
+    glm::mat4 projection = glm::ortho(-r, r, -r, r, 0.1f, sunDistance * 2.f);
     glm::mat4 view       = glm::lookAt(sceneCenter - instance.getUniform().sun.dir * sunDistance,
                                  sceneCenter,
                                  Config::UpDirection);

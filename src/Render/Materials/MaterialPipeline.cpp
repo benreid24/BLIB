@@ -23,9 +23,12 @@ VkPipeline MaterialPipeline::getRawPipeline(RenderPhase phase, std::uint32_t ren
     return pipelines[renderPhaseIndex(phase)]->rawPipeline(renderPassId);
 }
 
-void MaterialPipeline::bind(VkCommandBuffer commandBuffer, RenderPhase phase,
+bool MaterialPipeline::bind(VkCommandBuffer commandBuffer, RenderPhase phase,
                             std::uint32_t renderPassId) {
-    pipelines[renderPhaseIndex(phase)]->bind(commandBuffer, renderPassId);
+    vk::Pipeline* p = pipelines[renderPhaseIndex(phase)];
+    if (!p) { return false; }
+    p->bind(commandBuffer, renderPassId);
+    return true;
 }
 
 vk::Pipeline* MaterialPipeline::resolvePipeline(MaterialPipelineSettings::PipelineInfo& info) {
