@@ -19,7 +19,7 @@ layout(location = 0) out VS_OUT {
 
 #define SCENE_SET_NUMBER 1
 #define OBJECTS_SET_NUMBER 2
-#include "./uniforms.glsl"
+#include "3D/uniforms.glsl"
 
 // TODO - bone info + animation
 

@@ -11,7 +11,7 @@ layout(location = 0) out vec4 outColor;
 #define GLOBALS_SET_NUMBER 0
 #define SCENE_SET_NUMBER 1
 #define OBJECTS_SET_NUMBER 2
-#include "./uniforms.glsl"
+#include "3D/uniforms.glsl"
 
 void main() {
     uint matIndex = material.index[fs_in.objectIndex];

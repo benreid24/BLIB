@@ -4,7 +4,7 @@
 layout(location = 0) in vec4 fragPos;
 
 #define LIGHT_CAM_SET_NUMBER 0
-#include "./uniforms.glsl"
+#include "3D/uniforms.glsl"
 
 void main() {
     float lightDistance = length(fragPos.xyz - lightCameras.position);

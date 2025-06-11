@@ -9,7 +9,7 @@ layout(location = 4) in vec3 inNormal;
 
 #define LIGHT_CAM_SET_NUMBER 0
 #define OBJECTS_SET_NUMBER 1
-#include "./uniforms.glsl"
+#include "3D/uniforms.glsl"
 
 void main() {
     ModelTransform model = object.model[gl_InstanceIndex];

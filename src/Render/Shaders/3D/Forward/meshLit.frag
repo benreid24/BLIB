@@ -14,8 +14,8 @@ layout(location = 0) out vec4 outColor;
 
 #define GLOBALS_SET_NUMBER 0
 #define SCENE_SET_NUMBER 1
-#include "./uniforms.glsl"
-#include "./blinnPhongLighting.glsl.frag"
+#include "3D/uniforms.glsl"
+#include "3D/blinnPhongLighting.glsl.frag"
 
 void main() {
     vec3 normal = fs_in.TBN[2];

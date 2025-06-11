@@ -28,16 +28,16 @@ VkShaderModule ShaderModuleCache::loadShader(const std::string& path) {
         case Config::ShaderIds::MeshVertex[0]:
             return loadShader(BUILTIN_SHADER("3D/mesh.vert.spv"));
         case Config::ShaderIds::MeshFragmentLit[0]:
-            return loadShader(BUILTIN_SHADER("3D/meshLit.frag.spv"));
+            return loadShader(BUILTIN_SHADER("3D/Forward/meshLit.frag.spv"));
         case Config::ShaderIds::MeshFragmentUnlit[0]:
-            return loadShader(BUILTIN_SHADER("3D/meshUnlit.frag.spv"));
+            return loadShader(BUILTIN_SHADER("3D/Forward/meshUnlit.frag.spv"));
 
         case Config::ShaderIds::MeshVertexMaterial[0]:
             return loadShader(BUILTIN_SHADER("3D/meshMaterial.vert.spv"));
         case Config::ShaderIds::MeshFragmentMaterialLit[0]:
-            return loadShader(BUILTIN_SHADER("3D/meshMaterialLit.frag.spv"));
+            return loadShader(BUILTIN_SHADER("3D/Forward/meshMaterialLit.frag.spv"));
         case Config::ShaderIds::MeshFragmentMaterialUnlit[0]:
-            return loadShader(BUILTIN_SHADER("3D/meshMaterialUnlit.frag.spv"));
+            return loadShader(BUILTIN_SHADER("3D/Forward/meshMaterialUnlit.frag.spv"));
 
         case Config::ShaderIds::MeshVertexSkinned[0]:
             return loadShader(BUILTIN_SHADER("3D/meshSkinned.vert.spv"));
@@ -48,13 +48,13 @@ VkShaderModule ShaderModuleCache::loadShader(const std::string& path) {
             return loadShader(BUILTIN_SHADER("3D/skybox.frag.spv"));
 
         case Config::ShaderIds::ShadowVertex[0]:
-            return loadShader(BUILTIN_SHADER("3D/shadowMap.vert.spv"));
+            return loadShader(BUILTIN_SHADER("3D/Shadows/shadowMap.vert.spv"));
         case Config::ShaderIds::PointShadowVertex[0]:
-            return loadShader(BUILTIN_SHADER("3D/pointShadowMap.vert.spv"));
+            return loadShader(BUILTIN_SHADER("3D/Shadows/pointShadowMap.vert.spv"));
         case Config::ShaderIds::PointShadowGeometry[0]:
-            return loadShader(BUILTIN_SHADER("3D/pointShadowMap.geom.spv"));
+            return loadShader(BUILTIN_SHADER("3D/Shadows/pointShadowMap.geom.spv"));
         case Config::ShaderIds::PointShadowFragment[0]:
-            return loadShader(BUILTIN_SHADER("3D/pointShadowMap.frag.spv"));
+            return loadShader(BUILTIN_SHADER("3D/Shadows/pointShadowMap.frag.spv"));
 
         case Config::ShaderIds::Vertex2D[0]:
             return loadShader(BUILTIN_SHADER("2D/2d.vert.spv"));

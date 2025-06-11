@@ -58,8 +58,8 @@ function(compile_shaders)
         file(MAKE_DIRECTORY ${compiled_dir})
 
         # Compute include directories (-I)
-        get_filename_component(shader_file_dir ${shader_file} DIRECTORY)
-        set(include_flags "-I${shader_dir} -I${shader_file_dir}")
+        get_filename_component(shader_file_dir "${CMAKE_CURRENT_LIST_DIR}/{shader_file}" DIRECTORY)
+        set(include_flags -I${shader_file_dir} -I${BLIB_PATH}/src/Render/Shaders)
 
         list(APPEND compiled_files "${compiled_file}")
         add_custom_command(
