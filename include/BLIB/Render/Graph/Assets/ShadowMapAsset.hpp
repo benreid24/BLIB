@@ -75,7 +75,6 @@ public:
     }
 
 private:
-    // TODO - put actual images here instead of in descriptor
     struct ShadowMap {
         vk::Image image;
         std::optional<vk::AttachmentSet> attachmentSet;

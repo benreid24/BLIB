@@ -31,7 +31,8 @@ struct ShadowMapCameraPayload {
  */
 using ShadowMapCameraShaderInput =
     BufferShaderInput<buf::StaticUniformBuffer<ShadowMapCameraPayload>,
-                      Config::MaxSpotShadows + Config::MaxPointShadows>;
+                      Config::MaxSpotShadows + Config::MaxPointShadows,
+                      buf::Alignment::UboBindOffset>;
 
 /**
  * @brief The name of the shadow map camera input

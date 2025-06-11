@@ -5,6 +5,7 @@
 #include <BLIB/Render/Descriptors/Builtin/Scene3DInstance.hpp>
 #include <BLIB/Render/Lighting/Light3D.hpp>
 #include <BLIB/Render/Lighting/PointLight3D.hpp>
+#include <BLIB/Render/Lighting/PointLight3DShadow.hpp>
 #include <BLIB/Render/Lighting/SpotLight3D.hpp>
 #include <BLIB/Render/Lighting/SpotLight3DShadow.hpp>
 #include <BLIB/Render/Lighting/SunLight3D.hpp>

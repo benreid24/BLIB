@@ -104,7 +104,7 @@ void AttachmentBufferSet<BufferCount>::create(
         images[i] = buffers[i].getImage();
         views[i]  = buffers[i].getView();
     }
-    attachments.init(images, views, aspects);
+    attachments.init(images, views, aspects, buffers[0].getLayerCount());
 }
 
 template<std::uint32_t BufferCount>

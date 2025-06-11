@@ -19,22 +19,36 @@ namespace lgt
  */
 struct PointLight3DShadow : public PointLight3D {
     glm::mat4 viewProjectionMatrices[6];
-    alignas(16) float farPlane;
+    alignas(8) float farPlane;
+    alignas(8) float nearPlane;
+
+    static constexpr std::array<glm::vec3, 6> UpDirs = {
+        Config::UpDirection,
+        Config::UpDirection,
+        {-1.f, 0.f, 0.f},
+        {0.f, 0.f, -1.f},
+        Config::UpDirection,
+        Config::UpDirection,
+    };
 
     /**
      * @brief Creates the light with sane defaults
      */
-    PointLight3DShadow() = default;
+    PointLight3DShadow()
+    : farPlane(10.f)
+    , nearPlane(0.1f) {
+        for (unsigned int i = 0; i < 6; ++i) { viewProjectionMatrices[i] = glm::mat4(1.f); }
+    }
 
     /**
      * @brief Updates the view projection matrices for the light
      */
     void updateLightMatrices() {
         farPlane             = computeFalloffRadius();
-        const glm::mat4 proj = glm::perspective(glm::radians(90.f), 1.f, 0.1f, farPlane);
+        const glm::mat4 proj = glm::perspective(glm::radians(90.f), 1.f, nearPlane, farPlane);
         for (unsigned int i = 0; i < 6; ++i) {
             viewProjectionMatrices[i] =
-                proj * glm::lookAt(pos, pos + Config::CubemapDirections[i], Config::UpDirection);
+                proj * glm::lookAt(pos, pos + Config::CubemapDirections[i], UpDirs[i]);
         }
     }
 
@@ -45,6 +59,7 @@ struct PointLight3DShadow : public PointLight3D {
      */
     void copyAsUniform(const PointLight3DShadow& other) {
         PointLight3D::copyAsUniform(other);
+        nearPlane = other.nearPlane;
         updateLightMatrices();
     }
 };

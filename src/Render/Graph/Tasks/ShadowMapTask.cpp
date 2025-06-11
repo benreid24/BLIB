@@ -40,11 +40,7 @@ void ShadowMapTask::execute(const rg::ExecutionContext& execCtx, rg::Asset*) {
                               .maxDepth = 1.f};
     const VkClearValue clearColor{.depthStencil = {.depth = 1.f, .stencil = 0}};
 
-    const auto& s = renderer->getSettings();
-    vkCmdSetDepthBias(execCtx.commandBuffer,
-                      s.getShadowMapDepthBiasConstantFactor(),
-                      s.getShadowMapDepthBiasClamp(),
-                      s.getShadowMapDepthBiasSlopeFactor());
+    lgt::Scene3DLighting& lighting = scene->getLighting();
 
     // sun shadow map
     scene::SceneRenderContext sunCtx(execCtx.commandBuffer,
@@ -67,6 +63,54 @@ void ShadowMapTask::execute(const rg::ExecutionContext& execCtx, rg::Asset*) {
         true);
     scene->renderScene(sunCtx);
     shadowMaps->getSpotShadowFramebuffer(0).finishRender(execCtx.commandBuffer);
+
+    // spot light shadows
+    for (unsigned int i = 0; i < lighting.getSpotShadowCount(); ++i) {
+        scene::SceneRenderContext spotCtx(execCtx.commandBuffer,
+                                          execCtx.observerIndex,
+                                          viewport,
+                                          RenderPhase::ShadowMap,
+                                          Config::RenderPassIds::ShadowMapPass,
+                                          false);
+        scene::ctx::ShadowMapContext spotShadowCtx{
+            .lightType = scene::ctx::ShadowMapContext::SpotLight, .lightIndex = i};
+        spotCtx.setExtraContext(&spotShadowCtx);
+
+        auto& fb = shadowMaps->getSpotShadowFramebuffer(i + 1);
+        fb.beginRender(execCtx.commandBuffer,
+                       {.offset = {0, 0}, .extent = {res.width, res.height}},
+                       &clearColor,
+                       1,
+                       true,
+                       nullptr,
+                       true);
+        scene->renderScene(spotCtx);
+        fb.finishRender(execCtx.commandBuffer);
+    }
+
+    // point light shadows
+    for (unsigned int i = 0; i < lighting.getPointShadowCount(); ++i) {
+        scene::SceneRenderContext pointCtx(execCtx.commandBuffer,
+                                           execCtx.observerIndex,
+                                           viewport,
+                                           RenderPhase::ShadowPointMap,
+                                           Config::RenderPassIds::ShadowMapPass,
+                                           false);
+        scene::ctx::ShadowMapContext pointShadowCtx{
+            .lightType = scene::ctx::ShadowMapContext::PointLight, .lightIndex = i};
+        pointCtx.setExtraContext(&pointShadowCtx);
+
+        auto& fb = shadowMaps->getPointShadowFramebuffer(i);
+        fb.beginRender(execCtx.commandBuffer,
+                       {.offset = {0, 0}, .extent = {res.width, res.height}},
+                       &clearColor,
+                       1,
+                       true,
+                       nullptr,
+                       true);
+        scene->renderScene(pointCtx);
+        fb.finishRender(execCtx.commandBuffer);
+    }
 }
 
 } // namespace rgi

@@ -38,7 +38,7 @@ void Framebuffer::create(VulkanState& vs, VkRenderPass rp, const AttachmentSet& 
     framebufferInfo.pAttachments    = frame.imageViews();
     framebufferInfo.width           = frame.renderExtent().width;
     framebufferInfo.height          = frame.renderExtent().height;
-    framebufferInfo.layers          = 1;
+    framebufferInfo.layers          = frame.getLayerCount();
     if (vkCreateFramebuffer(vulkanState->device, &framebufferInfo, nullptr, &framebuffer) !=
         VK_SUCCESS) {
         throw std::runtime_error("Failed to create framebuffer");
@@ -80,7 +80,7 @@ void Framebuffer::beginRender(VkCommandBuffer commandBuffer, const VkRect2D& reg
         VkClearRect rect;
         rect.rect           = region;
         rect.baseArrayLayer = 0;
-        rect.layerCount     = 1;
+        rect.layerCount     = target->getLayerCount();
 
         vkCmdClearAttachments(commandBuffer, target->size(), attachments, 1, &rect);
     }

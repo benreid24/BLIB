@@ -123,6 +123,13 @@ public:
     PipelineParameters& withRasterizer(const VkPipelineRasterizationStateCreateInfo& rasterizer);
 
     /**
+     * @brief Enables depth clipping by modifying the rasterizer state. Call after withRasterizer()
+     *
+     * @return A reference to this object
+     */
+    PipelineParameters& withEnableDepthClipping();
+
+    /**
      * @brief Configures MSAA for this pipeline. MSAA is disabled by default
      *
      * @param msaaParams The MSAA parameters
@@ -288,6 +295,7 @@ private:
     VkPipelineColorBlendStateCreateInfo colorBlending;
     VkPipelineDepthStencilStateCreateInfo* depthStencil;
 
+    VkPipelineRasterizationDepthClipStateCreateInfoEXT localDepthClipping;
     VkPipelineDepthStencilStateCreateInfo localDepthStencil;
 
     friend class Pipeline;

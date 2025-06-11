@@ -34,10 +34,11 @@ public:
      * @param images The array of image handles
      * @param views The array of image view handles
      * @param aspects The aspect of each attachment
+     * @param layerCount The number of layers in the underlying images
      */
     template<std::size_t N>
     AttachmentSet(std::array<VkImage, N>& images, std::array<VkImageView, N>& views,
-                  const std::array<VkImageAspectFlags, N>& aspects);
+                  const std::array<VkImageAspectFlags, N>& aspects, std::uint32_t layerCount);
 
     /**
      * @brief Creates an attachment set for a single image
@@ -80,6 +81,11 @@ public:
      */
     void setRenderExtent(const VkExtent2D& extent);
 
+    /**
+     * @brief Returns the number of layers in the underlying images
+     */
+    std::uint32_t getLayerCount() const;
+
 protected:
     VkExtent2D extent;
 
@@ -88,12 +94,13 @@ private:
     const VkImageView* viewsPointer;
     std::array<VkImageAspectFlags, MaxAttachments> aspects;
     std::uint32_t n;
+    std::uint32_t layerCount;
 
     AttachmentSet();
 
     template<std::size_t N>
     void init(std::array<VkImage, N>& images, std::array<VkImageView, N>& views,
-              const std::array<VkImageAspectFlags, N>& aspects);
+              const std::array<VkImageAspectFlags, N>& aspects, std::uint32_t layerCount);
 
     template<std::uint32_t N>
     friend class AttachmentBufferSet;
@@ -115,12 +122,14 @@ inline AttachmentSet::AttachmentSet()
 : extent{0, 0}
 , imagesPointer(nullptr)
 , viewsPointer(nullptr)
-, n(0) {}
+, n(0)
+, layerCount(1) {}
 
 inline AttachmentSet::AttachmentSet(Image& image)
 : imagesPointer(image.getImagePointer())
 , viewsPointer(image.getViewPointer())
-, n(1) {
+, n(1)
+, layerCount(image.getLayerCount()) {
     aspects[0] = image.getAspect();
     extent     = image.getSize();
 }
@@ -128,23 +137,29 @@ inline AttachmentSet::AttachmentSet(Image& image)
 template<std::size_t N>
 inline AttachmentSet::AttachmentSet(std::array<VkImage, N>& images,
                                     std::array<VkImageView, N>& views,
-                                    const std::array<VkImageAspectFlags, N>& aspects)
+                                    const std::array<VkImageAspectFlags, N>& aspects,
+                                    std::uint32_t layerCount)
 : imagesPointer(images.data())
 , viewsPointer(views.data())
-, n(N) {
+, n(N)
+, layerCount(layerCount) {
     std::copy(aspects.begin(), aspects.end(), this->aspects.begin());
 }
 
 template<std::size_t N>
 inline void AttachmentSet::init(std::array<VkImage, N>& images, std::array<VkImageView, N>& views,
-                                const std::array<VkImageAspectFlags, N>& aspects) {
+                                const std::array<VkImageAspectFlags, N>& aspects,
+                                std::uint32_t lc) {
     imagesPointer = images.data();
     viewsPointer  = views.data();
     n             = N;
+    layerCount    = lc;
     std::copy(aspects.begin(), aspects.end(), this->aspects.begin());
 }
 
 inline void AttachmentSet::setRenderExtent(const VkExtent2D& e) { extent = e; }
+
+inline std::uint32_t AttachmentSet::getLayerCount() const { return layerCount; }
 
 } // namespace vk
 } // namespace rc

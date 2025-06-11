@@ -16,7 +16,9 @@ namespace ds
  * @ingroup Renderer
  */
 using ShadowMapFactory =
-    GenericDescriptorSetFactory<priv::ShadowMapBindings, VK_SHADER_STAGE_VERTEX_BIT>;
+    GenericDescriptorSetFactory<priv::ShadowMapBindings, VK_SHADER_STAGE_VERTEX_BIT |
+                                                             VK_SHADER_STAGE_GEOMETRY_BIT |
+                                                             VK_SHADER_STAGE_FRAGMENT_BIT>;
 
 } // namespace ds
 } // namespace rc

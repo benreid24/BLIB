@@ -27,7 +27,7 @@ VkPhysicalDeviceProperties* globalDeviceProperties = nullptr;
 const std::unordered_set<std::string> RequestedValidationLayers{"VK_LAYER_KHRONOS_validation"};
 #endif
 
-constexpr std::array<const char*, 1> RequiredDeviceExtensions{VK_KHR_SWAPCHAIN_EXTENSION_NAME};
+constexpr std::array<const char*, 2> RequiredDeviceExtensions{VK_KHR_SWAPCHAIN_EXTENSION_NAME, VK_EXT_DEPTH_CLIP_ENABLE_EXTENSION_NAME};
 constexpr std::array<const char*, 1> OptionalDeviceExtensions{VK_KHR_MAINTENANCE_4_EXTENSION_NAME};
 
 #ifdef BLIB_DEBUG
@@ -121,11 +121,12 @@ int scorePhysicalDevice(VkPhysicalDevice device, const VkPhysicalDevicePropertie
                         const VkPhysicalDeviceFeatures& deviceFeatures,
                         const QueueFamilyLocator& queueFamilies, VkSurfaceKHR surface) {
     // requirements
-    if (!deviceFeatures.samplerAnisotropy) return -1;
-    if (!queueFamilies.complete()) return -1;
-    if (!deviceHasRequiredExtensions(device, deviceProperties.deviceName)) return -1;
+    if (!deviceFeatures.geometryShader) { return -1; }
+    if (!deviceFeatures.samplerAnisotropy) { return -1; }
+    if (!queueFamilies.complete()) { return -1; }
+    if (!deviceHasRequiredExtensions(device, deviceProperties.deviceName)) { return -1; }
     SwapChainSupportDetails swapChainDetails(device, surface);
-    if (swapChainDetails.formats.empty() || swapChainDetails.presentModes.empty()) return -1;
+    if (swapChainDetails.formats.empty() || swapChainDetails.presentModes.empty()) { return -1; }
 
     // preferred optional features
     int score = 0;
@@ -381,6 +382,7 @@ void VulkanState::createLogicalDevice() {
 
     // required features
     VkPhysicalDeviceFeatures deviceFeatures{};
+    deviceFeatures.geometryShader = VK_TRUE; // TODO - disable point shadows instead of requiring?
     deviceFeatures.samplerAnisotropy = VK_TRUE;
     deviceFeatures.wideLines =
         physicalDeviceProperties.limits.lineWidthRange[1] > 1.f ? VK_TRUE : VK_FALSE;

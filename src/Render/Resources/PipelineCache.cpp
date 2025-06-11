@@ -243,6 +243,7 @@ void PipelineCache::createBuiltins() {
             .withVertexFormat(prim::Vertex3D::bindingDescription(),
                               prim::Vertex3D::attributeDescriptions())
             .withRasterizer(rasterizerShadow)
+            .withEnableDepthClipping()
             .addDynamicStates({VK_DYNAMIC_STATE_DEPTH_BIAS})
             .withSimpleColorBlendState(vk::PipelineParameters::ColorBlendBehavior::None)
             .withDepthStencilState(&depthStencilDepthEnabled)
@@ -260,6 +261,7 @@ void PipelineCache::createBuiltins() {
             .withVertexFormat(prim::Vertex3DSkinned::bindingDescription(),
                               prim::Vertex3DSkinned::attributeDescriptions())
             .withRasterizer(rasterizerShadow)
+            .withEnableDepthClipping()
             .addDynamicStates({VK_DYNAMIC_STATE_DEPTH_BIAS})
             .withSimpleColorBlendState(vk::PipelineParameters::ColorBlendBehavior::None)
             .withDepthStencilState(&depthStencilDepthEnabled)

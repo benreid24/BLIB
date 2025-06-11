@@ -19,6 +19,7 @@ PipelineParameters::PipelineParameters()
 , colorBlendBehavior(ColorBlendBehavior::AlphaBlend)
 , colorBlending{}
 , depthStencil(nullptr)
+, localDepthClipping{}
 , localDepthStencil{} {
     rasterizer.sType                   = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
     rasterizer.depthClampEnable        = VK_FALSE;
@@ -63,9 +64,13 @@ PipelineParameters::PipelineParameters(const PipelineParameters& copy)
 , colorAttachmentBlendStates(copy.colorAttachmentBlendStates)
 , colorBlending(copy.colorBlending)
 , depthStencil(&localDepthStencil)
+, localDepthClipping(copy.localDepthClipping)
 , localDepthStencil(copy.depthStencil ? *copy.depthStencil : copy.localDepthStencil) {
     colorBlending.pAttachments    = colorAttachmentBlendStates.data();
     colorBlending.attachmentCount = colorAttachmentBlendStates.size();
+    if (static_cast<const void*>(&copy.localDepthClipping) == copy.rasterizer.pNext) {
+        rasterizer.pNext = &localDepthClipping;
+    }
 }
 
 PipelineParameters& PipelineParameters::withShaders(const std::string& vert,
@@ -127,7 +132,21 @@ PipelineParameters& PipelineParameters::withPrimitiveType(VkPrimitiveTopology pt
 
 PipelineParameters& PipelineParameters::withRasterizer(
     const VkPipelineRasterizationStateCreateInfo& r) {
+    if (rasterizer.pNext == static_cast<void*>(&localDepthClipping)) {
+        BL_LOG_WARN << "Possibly clobbering depth clipping state. withRasterizer() should be "
+                       "called prior to withEnableDepthClipping()";
+    }
     rasterizer = r;
+    return *this;
+}
+
+PipelineParameters& PipelineParameters::withEnableDepthClipping() {
+    localDepthClipping = {};
+    localDepthClipping.sType =
+        VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_DEPTH_CLIP_STATE_CREATE_INFO_EXT;
+    localDepthClipping.depthClipEnable = VK_TRUE;
+    rasterizer.pNext                   = &localDepthClipping;
+    /*rasterizer.depthClampEnable        = VK_TRUE;*/
     return *this;
 }
 

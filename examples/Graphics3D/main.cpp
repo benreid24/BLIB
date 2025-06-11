@@ -241,12 +241,13 @@ private:
         light2.getTransform().setPosition({-0.7f, 1.f, -1.6f});
         light2.setColor(light2Color);
         light2.addToScene(scene, bl::rc::UpdateSpeed::Static);
-        auto light2Handle        = scene->getLighting().createPointLightWithShadow();
-        light2Handle.get().color = light2Color;
-        light2Handle.get().pos   = light2.getTransform().getPosition();
+        auto light2Handle            = scene->getLighting().createPointLightWithShadow();
+        light2Handle.get().color     = light2Color;
+        light2Handle.get().pos       = light2.getTransform().getPosition();
+        light2Handle.get().nearPlane = 0.25f; // clip the sphere around the light
 
         constexpr glm::vec3 light3PointAt = {0.f, 0.5f, .75f};
-        const bl::rc::Color light3Color(sf::Color(255, 100, 50));
+        const bl::rc::Color light3Color(sf::Color(255, 150, 100));
         light3.create(*world, 0.4f, 0.12f, 4, {}, bl::rc::Config::MaterialPipelineIds::Mesh3D);
         light3.getTransform().setPosition({0.5f, 1.5f, 3.f});
         light3.getTransform().lookAt(light3PointAt);
@@ -262,13 +263,13 @@ private:
                                        light3.getTransform().getForwardDir() * 0.2f);
         light3Handle.get().pointAt(light3PointAt);
 
-        /*light1Handle.removeFromScene();
-        light2Handle.removeFromScene();
-        light3Handle.removeFromScene();*/
+        light1Handle.removeFromScene();
+        // light2Handle.removeFromScene();
+        light3Handle.removeFromScene();
 
-        scene->getLighting().modifySun().color.specular = bl::rc::Color(sf::Color::White);
-        scene->getLighting().modifySun().color.diffuse  = bl::rc::Color(glm::vec4(0.6f));
-        scene->getLighting().modifySun().color.ambient  = bl::rc::Color(glm::vec4(0.1f));
+        // scene->getLighting().modifySun().color.specular = bl::rc::Color(sf::Color::White);
+        // scene->getLighting().modifySun().color.diffuse  = bl::rc::Color(glm::vec4(0.6f));
+        // scene->getLighting().modifySun().color.ambient  = bl::rc::Color(glm::vec4(0.1f));
 
         bl::event::Dispatcher::subscribe(controller);
     }

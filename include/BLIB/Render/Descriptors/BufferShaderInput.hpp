@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_DESCRIPTORS_BUFFERSHADERINPUT_HPP
 #define BLIB_RENDER_DESCRIPTORS_BUFFERSHADERINPUT_HPP
 
+#include <BLIB/Render/Buffers/Alignment.hpp>
 #include <BLIB/Render/Descriptors/ShaderInput.hpp>
 #include <cstdint>
 
@@ -15,9 +16,11 @@ namespace ds
  *
  * @tparam TBuffer The type of buffer to create
  * @tparam DefaultCapacity Optional size to create the buffer with on init
+ * @tparam DefaultAlignment The alignment to create the buffer with by default
  * @ingroup Renderer
  */
-template<typename TBuffer, std::uint32_t DefaultCapacity>
+template<typename TBuffer, std::uint32_t DefaultCapacity,
+         buf::Alignment DefaultAlignment = buf::Alignment::Std140>
 class BufferShaderInput : public ShaderInput {
 public:
     /**
@@ -40,7 +43,7 @@ public:
      */
     void init(engine::Engine&, vk::VulkanState& vs, const scene::MapKeyToEntityCb&) override {
         vulkanState = &vs;
-        if constexpr (DefaultCapacity > 0) { buffer.create(vs, DefaultCapacity); }
+        if constexpr (DefaultCapacity > 0) { buffer.create(vs, DefaultCapacity, DefaultAlignment); }
     }
 
     /**
