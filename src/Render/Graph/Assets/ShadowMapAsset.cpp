@@ -11,7 +11,7 @@ namespace rgi
 ShadowMapAsset::ShadowMapAsset(std::string_view tag)
 : Asset(tag) {}
 
-void ShadowMapAsset::doCreate(engine::Engine& engine, Renderer& renderer, RenderTarget* observer) {
+void ShadowMapAsset::doCreate(engine::Engine&, Renderer& renderer, RenderTarget*) {
     VkRenderPass renderPass =
         renderer.renderPassCache().getRenderPass(Config::RenderPassIds::ShadowMapPass).rawPass();
 

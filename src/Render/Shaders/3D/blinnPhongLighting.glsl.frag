@@ -98,7 +98,8 @@ float computeSpotLightShadow(uint lightIndex, vec3 fragPos) {
 float computePointLightShadow(uint lightIndex, vec3 fragPos) {
     vec3 fragToLight      = fragPos - lighting.pointShadows[lightIndex].light.position.xyz;
     float distanceToLight = length(fragToLight) / lighting.pointShadows[lightIndex].farPlane;
-    return texture(pointShadowMaps[lightIndex], vec4(normalize(fragToLight), distanceToLight));
+    float bias = 0.03 * distanceToLight;
+    return texture(pointShadowMaps[lightIndex], vec4(fragToLight, distanceToLight - bias));
 }
 
 vec3 computeLighting(vec3 fragPos, vec3 normal, vec3 diffuse, vec3 specular, float shininess) {

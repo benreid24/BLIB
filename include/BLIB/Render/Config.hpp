@@ -165,6 +165,15 @@ struct Config {
         glm::vec3(0.f, 0.f, 1.f),  // Back
         glm::vec3(0.f, 0.f, -1.f)  // Front
     };
+
+    static constexpr std::array<glm::vec3, 6> CubeUpVectors = {
+        -Config::UpDirection,
+        -Config::UpDirection,
+        {-1.f, 0.f, 0.f},
+        {1.f, 0.f, 0.f},
+        -Config::UpDirection,
+        -Config::UpDirection,
+    };
 };
 
 } // namespace rc

@@ -32,15 +32,6 @@ struct PointLight3DShadow : public PointLight3D {
     glm::mat4 viewProjectionMatrices[6];
     alignas(16) Planes planes;
 
-    static constexpr std::array<glm::vec3, 6> UpDirs = {
-        Config::UpDirection,
-        Config::UpDirection,
-        {-1.f, 0.f, 0.f},
-        {0.f, 0.f, -1.f},
-        Config::UpDirection,
-        Config::UpDirection,
-    };
-
     /**
      * @brief Creates the light with sane defaults
      */
@@ -57,7 +48,8 @@ struct PointLight3DShadow : public PointLight3D {
             glm::perspective(glm::radians(90.f), 1.f, planes.nearPlane, planes.farPlane);
         for (unsigned int i = 0; i < 6; ++i) {
             viewProjectionMatrices[i] =
-                proj * glm::lookAt(pos, pos + Config::CubemapDirections[i], -UpDirs[i]);
+                proj *
+                glm::lookAt(pos, pos + Config::CubemapDirections[i], Config::CubeUpVectors[i]);
         }
     }
 
