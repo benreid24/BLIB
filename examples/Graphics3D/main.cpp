@@ -241,10 +241,10 @@ private:
         light2.getTransform().setPosition({-0.7f, 1.f, -1.6f});
         light2.setColor(light2Color);
         light2.addToScene(scene, bl::rc::UpdateSpeed::Static);
-        auto light2Handle            = scene->getLighting().createPointLightWithShadow();
-        light2Handle.get().color     = light2Color;
-        light2Handle.get().pos       = light2.getTransform().getPosition();
-        light2Handle.get().nearPlane = 0.25f; // clip the sphere around the light
+        auto light2Handle                   = scene->getLighting().createPointLightWithShadow();
+        light2Handle.get().color            = light2Color;
+        light2Handle.get().pos              = light2.getTransform().getPosition();
+        light2Handle.get().planes.nearPlane = 0.25f; // clip the sphere around the light
 
         constexpr glm::vec3 light3PointAt = {0.f, 0.5f, .75f};
         const bl::rc::Color light3Color(sf::Color(255, 150, 100));

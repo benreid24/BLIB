@@ -198,8 +198,8 @@ void Scene3DInstance::handleFrameStart() {
 
     for (unsigned int i = 0; i < data.nPointShadows; ++i) {
         auto& light        = data.pointLightsWithShadows[i];
-        auto& cam          = cameras[i + 1 + Config::MaxSpotShadows];
-        cam.posAndFarPlane = glm::vec4(light.pos, light.farPlane);
+        auto& cam          = cameras[i + Config::MaxSpotShadows];
+        cam.posAndFarPlane = glm::vec4(light.pos, light.planes.farPlane);
         for (unsigned int j = 0; j < 6; ++j) { cam.viewProj[j] = light.viewProjectionMatrices[j]; }
     }
 }

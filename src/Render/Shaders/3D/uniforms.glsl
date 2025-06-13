@@ -19,12 +19,10 @@ struct Material {
 
 #ifdef GLOBALS_SET_NUMBER
 layout(set = GLOBALS_SET_NUMBER, binding = 0) uniform sampler2D textures[4096];
-layout(set = GLOBALS_SET_NUMBER, binding = 1) uniform mat {
-    Material pool[2048];
-} materials;
-layout(set = GLOBALS_SET_NUMBER, binding = 2) uniform rsettings {
-    float gamma;
-} settings;
+layout(set = GLOBALS_SET_NUMBER, binding = 1) uniform mat { Material pool[2048]; }
+materials;
+layout(set = GLOBALS_SET_NUMBER, binding = 2) uniform rsettings { float gamma; }
+settings;
 layout(set = GLOBALS_SET_NUMBER, binding = 3) uniform samplerCube cubemaps[16];
 #endif // GLOBALS_SET_NUMBER
 
@@ -34,12 +32,10 @@ struct ModelTransform {
     mat3 normal;
 };
 
-layout(set = OBJECTS_SET_NUMBER, binding = 0) readonly buffer obj {
-    ModelTransform model[];
-} object;
-layout(std430, set = OBJECTS_SET_NUMBER, binding = 1) readonly buffer tex {
-    uint index[];
-} material;
+layout(set = OBJECTS_SET_NUMBER, binding = 0) readonly buffer obj { ModelTransform model[]; }
+object;
+layout(std430, set = OBJECTS_SET_NUMBER, binding = 1) readonly buffer tex { uint index[]; }
+material;
 #endif
 
 #ifdef SCENE_SET_NUMBER
@@ -103,18 +99,22 @@ layout(set = SCENE_SET_NUMBER, binding = 0) uniform cam {
     mat4 projection;
     mat4 view;
     vec3 camPos;
-} camera;
+}
+camera;
 layout(set = SCENE_SET_NUMBER, binding = 1) uniform block_light_info {
     LightInfo info;
-    
+
     SpotLight spotLights[MAX_SPOT_LIGHTS];
     SpotLightCaster spotShadows[MAX_SPOT_SHADOWS];
 
     PointLight pointLights[MAX_POINT_LIGHTS];
     PointLightCaster pointShadows[MAX_POINT_SHADOWS];
-} lighting;
-layout(set = SCENE_SET_NUMBER, binding = 2) uniform sampler2DShadow spotShadowMaps[MAX_SPOT_SHADOWS];
-layout(set = SCENE_SET_NUMBER, binding = 3) uniform samplerCubeShadow pointShadowMaps[MAX_POINT_SHADOWS];
+}
+lighting;
+layout(set     = SCENE_SET_NUMBER,
+       binding = 2) uniform sampler2DShadow spotShadowMaps[MAX_SPOT_SHADOWS];
+layout(set     = SCENE_SET_NUMBER,
+       binding = 3) uniform samplerCubeShadow pointShadowMaps[MAX_POINT_SHADOWS];
 #endif
 
 #endif
@@ -124,5 +124,6 @@ layout(set = LIGHT_CAM_SET_NUMBER, binding = 0) uniform block_light_cameras {
     mat4 viewProj[6];
     vec3 position;
     float farPlane;
-} lightCameras;
+}
+lightCameras;
 #endif

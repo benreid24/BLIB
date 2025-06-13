@@ -56,7 +56,7 @@ std::uint32_t ShadowMapBinding::getDynamicOffsetForPipeline(scene::SceneRenderCo
         return storage->getBuffer().alignedUniformSize() * (shadowCtx->lightIndex + 1);
     case scene::ctx::ShadowMapContext::PointLight:
         return storage->getBuffer().alignedUniformSize() *
-               (shadowCtx->lightIndex + Config::MaxSpotShadows + 1);
+               (shadowCtx->lightIndex + Config::MaxSpotShadows);
     default:
         return 0;
     }

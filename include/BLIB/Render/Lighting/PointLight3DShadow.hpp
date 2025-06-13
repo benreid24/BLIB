@@ -18,9 +18,19 @@ namespace lgt
  * @ingroup Renderer
  */
 struct PointLight3DShadow : public PointLight3D {
+    struct Planes {
+        float farPlane;
+        float nearPlane;
+
+        Planes()
+        : farPlane(10.f)
+        , nearPlane(0.1f) {}
+
+        Planes& operator=(const Planes&) = default;
+    };
+
     glm::mat4 viewProjectionMatrices[6];
-    alignas(8) float farPlane;
-    alignas(8) float nearPlane;
+    alignas(16) Planes planes;
 
     static constexpr std::array<glm::vec3, 6> UpDirs = {
         Config::UpDirection,
@@ -34,9 +44,7 @@ struct PointLight3DShadow : public PointLight3D {
     /**
      * @brief Creates the light with sane defaults
      */
-    PointLight3DShadow()
-    : farPlane(10.f)
-    , nearPlane(0.1f) {
+    PointLight3DShadow() {
         for (unsigned int i = 0; i < 6; ++i) { viewProjectionMatrices[i] = glm::mat4(1.f); }
     }
 
@@ -44,11 +52,12 @@ struct PointLight3DShadow : public PointLight3D {
      * @brief Updates the view projection matrices for the light
      */
     void updateLightMatrices() {
-        farPlane             = computeFalloffRadius();
-        const glm::mat4 proj = glm::perspective(glm::radians(90.f), 1.f, nearPlane, farPlane);
+        planes.farPlane = computeFalloffRadius();
+        const glm::mat4 proj =
+            glm::perspective(glm::radians(90.f), 1.f, planes.nearPlane, planes.farPlane);
         for (unsigned int i = 0; i < 6; ++i) {
             viewProjectionMatrices[i] =
-                proj * glm::lookAt(pos, pos + Config::CubemapDirections[i], UpDirs[i]);
+                proj * glm::lookAt(pos, pos + Config::CubemapDirections[i], -UpDirs[i]);
         }
     }
 
@@ -59,7 +68,7 @@ struct PointLight3DShadow : public PointLight3D {
      */
     void copyAsUniform(const PointLight3DShadow& other) {
         PointLight3D::copyAsUniform(other);
-        nearPlane = other.nearPlane;
+        planes = other.planes;
         updateLightMatrices();
     }
 };
