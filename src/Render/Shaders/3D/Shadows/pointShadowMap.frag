@@ -8,5 +8,5 @@ layout(location = 0) in vec4 fragPos;
 
 void main() {
     float lightDistance = length(fragPos.xyz - lightCameras.position);
-    gl_FragDepth = lightDistance / lightCameras.farPlane; // TODO - parameterize in settings (pipeline specialization??)
+    gl_FragDepth = lightDistance / lightCameras.farPlane;
 }

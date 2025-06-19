@@ -11,6 +11,7 @@ target_sources(BLIB PRIVATE
     PipelineInstance.cpp
     PipelineLayout.cpp
     PipelineParameters.cpp
+    PipelineSpecialization.cpp
     RenderPass.cpp
     RenderPassParameters.cpp
     RenderTexture.cpp
