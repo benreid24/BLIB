@@ -43,8 +43,9 @@ public:
      * @brief Binds the given pipeline
      *
      * @param pipeline The pipeline to bind
+     * @param specialization The specialization id to use in the pipeline
      */
-    void bindPipeline(mat::MaterialPipeline& pipeline);
+    void bindPipeline(mat::MaterialPipeline& pipeline, std::uint32_t specialization);
 
     /**
      * @brief Binds the given descriptors. Only issues bind commands for descriptors that changed

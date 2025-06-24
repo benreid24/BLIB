@@ -55,9 +55,11 @@ public:
      * @brief Issues commands to bind the pipeline and descriptor sets for rendering
      *
      * @param ctx The current rendering context
+     * @param specialization The pipeline specialization to use
      * @param updateFreq The frequency to pass to the descriptor set binds
      */
-    void bind(scene::SceneRenderContext& ctx, UpdateSpeed updateFreq = UpdateSpeed::Dynamic);
+    void bind(scene::SceneRenderContext& ctx, std::uint32_t specialization = 0,
+              UpdateSpeed updateFreq = UpdateSpeed::Dynamic);
 
 private:
     vk::Pipeline* pipeline;

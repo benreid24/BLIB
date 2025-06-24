@@ -86,21 +86,30 @@ private:
         bool bindless;
     };
 
+    struct SpecializationBatch {
+        const std::uint32_t specializationId;
+        std::vector<SceneObject*> objectsStatic;
+        std::vector<SceneObject*> objectsDynamic;
+
+        SpecializationBatch(std::uint32_t specializationId);
+        void addObject(SceneObject* sceneObject);
+        bool removeObject(SceneObject* sceneObject);
+    };
+
     struct PipelineBatch {
         PipelineBatch(const PipelineBatch& src);
         PipelineBatch(ds::DescriptorSetInstanceCache& descriptorCache,
                       mat::MaterialPipeline& pipeline);
 
-        bool addObject(ecs::Entity entity, SceneObject* sceneObject);
-        void addForRebatch(SceneObject* object);
-        void removeObject(ecs::Entity entity, SceneObject* object);
-        bool removeForRebatch(SceneObject* object);
+        bool addObject(ecs::Entity entity, SceneObject* sceneObject, std::uint32_t specialization);
+        void addForRebatch(SceneObject* object, std::uint32_t specialization);
+        void removeObject(ecs::Entity entity, SceneObject* object, std::uint32_t specialization);
+        bool removeForRebatch(SceneObject* object, std::uint32_t specialization);
         void updateDescriptors(ecs::Entity entity, SceneObject* object, PipelineBatch& prevBatch);
 
         mat::MaterialPipeline& pipeline;
         std::array<RenderPhaseDescriptors, Config::MaxRenderPhases> perPhaseDescriptors;
-        std::vector<SceneObject*> objectsStatic;
-        std::vector<SceneObject*> objectsDynamic;
+        ctr::StaticVector<SpecializationBatch, Config::MaxPipelineSpecializations> specBatches;
         ctr::StaticVector<ds::DescriptorSetInstance*,
                           Config::MaxDescriptorSets * Config::MaxRenderPhases>
             allDescriptors;
@@ -112,17 +121,26 @@ private:
                                 mat::MaterialPipeline& pipeline);
         PipelineBatch* getBatch(mat::MaterialPipeline* pipeline);
         PipelineBatch& getBatch(const PipelineBatch& src);
-        void removeObject(ecs::Entity entity, SceneObject* object, mat::MaterialPipeline* pipeline);
+        void removeObject(ecs::Entity entity, SceneObject* object, mat::MaterialPipeline* pipeline,
+                          std::uint32_t specialization);
 
         std::vector<PipelineBatch> batches;
+    };
+
+    struct ObjectSettingsCache {
+        std::vector<bool> transparency;
+        std::vector<std::uint32_t> specializations;
+
+        ObjectSettingsCache();
+        void ensureSize(std::uint32_t size);
     };
 
     engine::Engine& engine;
     SceneObjectStorage<SceneObject> objects;
     ObjectBatch opaqueObjects;
     ObjectBatch transparentObjects;
-    std::vector<bool> staticTransCache;
-    std::vector<bool> dynamicTransCache;
+    ObjectSettingsCache staticCache;
+    ObjectSettingsCache dynamicCache;
 
     void handleAddressChange(UpdateSpeed speed, SceneObject* oldBase);
     void releaseObject(SceneObject* object, mat::MaterialPipeline* pipeline);

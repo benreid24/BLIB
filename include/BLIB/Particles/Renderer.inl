@@ -93,9 +93,8 @@ template<typename T>
 void Renderer<T>::notifyData(T* particles, std::size_t length) {
     if (component) {
         component->getDrawParametersForEdit().instanceCount = length;
-        component->syncDrawParamsToScene();
-        link->base = particles;
-        link->len  = length;
+        link->base                                          = particles;
+        link->len                                           = length;
     }
 }
 

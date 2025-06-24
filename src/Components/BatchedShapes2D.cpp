@@ -9,10 +9,7 @@ BatchedShapes2D::BatchedShapes2D(rc::vk::VulkanState& vulkanState, std::uint32_t
     indexBuffer.create(vulkanState, vertexCapacity, indexCapacity);
 }
 
-void BatchedShapes2D::commit() {
-    drawParams = indexBuffer.getDrawParameters();
-    if (getSceneRef().object) { syncDrawParamsToScene(); }
-}
+void BatchedShapes2D::commit() { drawParams = indexBuffer.getDrawParameters(); }
 
 } // namespace com
 } // namespace bl

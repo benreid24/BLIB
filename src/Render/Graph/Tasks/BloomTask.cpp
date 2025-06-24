@@ -92,7 +92,7 @@ void BloomTask::execute(const rg::ExecutionContext& ctx, rg::Asset*) {
 
     // copy only highlights to first target
     targets[0]->beginRender(ctx.commandBuffer, true);
-    filterHighlightPipeline->bind(ctx.commandBuffer, Config::RenderPassIds::BloomPass);
+    filterHighlightPipeline->bind(ctx.commandBuffer, Config::RenderPassIds::BloomPass, 0);
     inputAttachmentDescriptor->bind(ctx.commandBuffer, layout, 0);
     vkCmdPushConstants(ctx.commandBuffer,
                        layout,
@@ -104,7 +104,7 @@ void BloomTask::execute(const rg::ExecutionContext& ctx, rg::Asset*) {
     targets[0]->finishRender(ctx.commandBuffer);
 
     // apply blur passes
-    blurPipeline->bind(ctx.commandBuffer, Config::RenderPassIds::BloomPass);
+    blurPipeline->bind(ctx.commandBuffer, Config::RenderPassIds::BloomPass, 0);
     for (unsigned int i = 0; i < renderer->getSettings().getBloomPassCount() * 2; ++i) {
         pushConstants.horizontal = i % 2;
         vkCmdPushConstants(ctx.commandBuffer,

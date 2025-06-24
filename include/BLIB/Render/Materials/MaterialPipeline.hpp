@@ -35,11 +35,6 @@ public:
     ~MaterialPipeline() = default;
 
     /**
-     * @brief Returns the pipeline layout for the main pipeline
-     */
-    const vk::PipelineLayout& getLayout() const;
-
-    /**
      * @brief Returns a pointer to the pipeline for the given render phase. May be nullptr
      *
      * @param renderPhase The render phase to get the pipeline for
@@ -52,9 +47,11 @@ public:
      *
      * @param phase The render phase to get the pipeline for
      * @param renderPassId The render pass to get the pipeline for
+     * @param specialization The specialization of the pipeline to get
      * @return The raw Vulkan pipeline handle
      */
-    VkPipeline getRawPipeline(RenderPhase phase, std::uint32_t renderPassId) const;
+    VkPipeline getRawPipeline(RenderPhase phase, std::uint32_t renderPassId,
+                              std::uint32_t specialization) const;
 
     /**
      * @brief Binds the appropriate pipeline for the given render phase and render pass id
@@ -62,9 +59,11 @@ public:
      * @param commandBuffer The command buffer to issue commands into
      * @param phase The current render phase
      * @param renderPassId The current render pass id
+     * @param specialization The specialization id to use for the pipeline bind
      * @return True if the material should be rendered, false if it should be skipped
      */
-    bool bind(VkCommandBuffer commandBuffer, RenderPhase phase, std::uint32_t renderPassId);
+    bool bind(VkCommandBuffer commandBuffer, RenderPhase phase, std::uint32_t renderPassId,
+              std::uint32_t specialization);
 
     /**
      * @brief Returns the id of this material pipeline
@@ -91,10 +90,6 @@ private:
 inline std::uint32_t MaterialPipeline::getId() const { return id; }
 
 inline const MaterialPipelineSettings& MaterialPipeline::getSettings() const { return settings; }
-
-inline const vk::PipelineLayout& MaterialPipeline::getLayout() const {
-    return mainPipeline->pipelineLayout();
-}
 
 inline vk::Pipeline* MaterialPipeline::getPipeline(RenderPhase renderPhase) const {
     return pipelines[renderPhaseIndex(renderPhase)];

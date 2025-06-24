@@ -19,15 +19,16 @@ MaterialPipeline::MaterialPipeline(Renderer& renderer, std::uint32_t id,
     }
 }
 
-VkPipeline MaterialPipeline::getRawPipeline(RenderPhase phase, std::uint32_t renderPassId) const {
-    return pipelines[renderPhaseIndex(phase)]->rawPipeline(renderPassId);
+VkPipeline MaterialPipeline::getRawPipeline(RenderPhase phase, std::uint32_t renderPassId,
+                                            std::uint32_t spec) const {
+    return pipelines[renderPhaseIndex(phase)]->rawPipeline(renderPassId, spec);
 }
 
 bool MaterialPipeline::bind(VkCommandBuffer commandBuffer, RenderPhase phase,
-                            std::uint32_t renderPassId) {
+                            std::uint32_t renderPassId, std::uint32_t spec) {
     vk::Pipeline* p = pipelines[renderPhaseIndex(phase)];
     if (!p) { return false; }
-    p->bind(commandBuffer, renderPassId);
+    p->bind(commandBuffer, renderPassId, spec);
     return true;
 }
 

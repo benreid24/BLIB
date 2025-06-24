@@ -64,6 +64,7 @@ PipelineParameters::PipelineParameters(const PipelineParameters& copy)
 , colorAttachmentBlendStates(copy.colorAttachmentBlendStates)
 , colorBlending(copy.colorBlending)
 , depthStencil(&localDepthStencil)
+, specializations(copy.specializations)
 , localDepthClipping(copy.localDepthClipping)
 , localDepthStencil(copy.depthStencil ? *copy.depthStencil : copy.localDepthStencil) {
     colorBlending.pAttachments    = colorAttachmentBlendStates.data();
@@ -146,7 +147,6 @@ PipelineParameters& PipelineParameters::withEnableDepthClipping() {
         VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_DEPTH_CLIP_STATE_CREATE_INFO_EXT;
     localDepthClipping.depthClipEnable = VK_TRUE;
     rasterizer.pNext                   = &localDepthClipping;
-    /*rasterizer.depthClampEnable        = VK_TRUE;*/
     return *this;
 }
 
@@ -213,21 +213,43 @@ PipelineParameters& PipelineParameters::withDepthStencilState(
     return *this;
 }
 
-PipelineParameters& PipelineParameters::withSimpleDepthStencil(bool depthTestingEnabled) {
-    const auto enable = depthTestingEnabled ? VK_TRUE : VK_FALSE;
-    depthStencil      = &localDepthStencil;
+PipelineParameters& PipelineParameters::withSimpleDepthStencil(bool depthTest, bool depthWrite,
+                                                               bool stencilTest,
+                                                               bool stencilWrite) {
+    depthStencil = &localDepthStencil;
 
     localDepthStencil.sType            = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
-    localDepthStencil.depthTestEnable  = enable;
-    localDepthStencil.depthWriteEnable = enable;
+    localDepthStencil.depthTestEnable  = depthTest ? VK_TRUE : VK_FALSE;
+    localDepthStencil.depthWriteEnable = depthWrite ? VK_TRUE : VK_FALSE;
     localDepthStencil.depthCompareOp   = VK_COMPARE_OP_LESS_OR_EQUAL;
     localDepthStencil.depthBoundsTestEnable = VK_FALSE;
-    localDepthStencil.minDepthBounds        = 0.0f; // Optional
-    localDepthStencil.maxDepthBounds        = 1.0f; // Optional
-    localDepthStencil.stencilTestEnable     = VK_FALSE;
-    localDepthStencil.front                 = {}; // Optional (Stencil)
-    localDepthStencil.back                  = {}; // Optional (Stencil)
+    localDepthStencil.minDepthBounds        = 0.0f;
+    localDepthStencil.maxDepthBounds        = 1.0f;
+    localDepthStencil.stencilTestEnable     = stencilTest ? VK_TRUE : VK_FALSE;
+    localDepthStencil.front                 = {};
+    localDepthStencil.front.compareOp       = VK_COMPARE_OP_ALWAYS;
+    localDepthStencil.front.compareMask     = 0xFF;
+    localDepthStencil.front.writeMask       = 0xFF;
+    localDepthStencil.front.depthFailOp     = VK_STENCIL_OP_KEEP;
+    localDepthStencil.front.passOp    = stencilWrite ? VK_STENCIL_OP_REPLACE : VK_STENCIL_OP_KEEP;
+    localDepthStencil.front.failOp    = VK_STENCIL_OP_KEEP;
+    localDepthStencil.front.reference = 1;
+    localDepthStencil.back            = localDepthStencil.front;
 
+    return *this;
+}
+
+PipelineParameters& PipelineParameters::withDeclareSpecializations(std::uint32_t c) {
+    specializations.resize(c, PipelineSpecialization());
+    return *this;
+}
+
+PipelineParameters& PipelineParameters::withSpecialization(
+    std::uint32_t id, const PipelineSpecialization& specialization) {
+    const std::uint32_t i = id - 1;
+    if (i >= specializations.size()) { throw std::runtime_error("Specialization id out of range"); }
+
+    specializations[i] = specialization;
     return *this;
 }
 

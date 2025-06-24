@@ -19,7 +19,6 @@ void Text::updateDrawParams(std::uint32_t vc) {
     containsTransparency   = true;
 
     if (getSceneRef().object) {
-        syncDrawParamsToScene();
         if (wasTrans != containsTransparency) { rebucket(); }
     }
 }

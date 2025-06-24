@@ -25,7 +25,6 @@ void BatchedSprites::updateDrawParams() {
     if (buffer.getIndexBuffer().vertexCount() > 0) {
         refreshTrans();
         drawParams = buffer.getDrawParameters();
-        if (getSceneRef().object) { syncDrawParamsToScene(); }
     }
 }
 

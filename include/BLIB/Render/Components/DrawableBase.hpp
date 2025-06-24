@@ -27,7 +27,8 @@ class Scene;
 namespace scene
 {
 class SceneSync;
-}
+struct SceneObject;
+} // namespace scene
 namespace mat
 {
 class MaterialPipeline;
@@ -77,11 +78,6 @@ struct DrawableBase {
     void removeFromScene(ecs::Registry& ecs, ecs::Entity entity);
 
     /**
-     * @brief Helper method to sync this component's draw parameters to the scene it is in
-     */
-    void syncDrawParamsToScene();
-
-    /**
      * @brief Sets whether or not the object should be rendered
      *
      * @param hide True to skip rendering, false to render
@@ -92,6 +88,11 @@ struct DrawableBase {
      * @brief Returns whether or not the entity is hidden
      */
     bool isHidden() const { return hidden; }
+
+    /**
+     * @brief Returns a pointer for the Toggler component to use
+     */
+    bool* getVisibleFlagForToggler() { return &hidden; }
 
     /**
      * @brief Returns the current scene object reference for this component
@@ -114,6 +115,18 @@ struct DrawableBase {
      * @param transparent True if there is transparency, false if opaque
      */
     void setContainsTransparency(bool transparent);
+
+    /**
+     * @brief Returns the current pipeline specialization of the object
+     */
+    std::uint32_t getPipelineSpecialization() const { return pipelineSpecialization; }
+
+    /**
+     * @brief Sets the current pipeline specialization for the object
+     *
+     * @param specialization The pipeline specialization to use
+     */
+    void setPipelineSpecialization(std::uint32_t specialization);
 
     /**
      * @brief Returns the current draw parameters for this component
@@ -143,10 +156,12 @@ private:
     com::Rendered* renderComponent;
     com::MaterialInstance* material;
     SceneObjectRef sceneRef;
+    std::uint32_t pipelineSpecialization;
     bool hidden;
 
     friend class rc::Scene;
     friend class rc::scene::SceneSync;
+    friend struct rc::scene::SceneObject;
 };
 
 } // namespace rcom

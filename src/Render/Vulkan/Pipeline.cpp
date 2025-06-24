@@ -8,30 +8,33 @@ namespace rc
 {
 namespace vk
 {
+namespace
+{
+PipelineSpecialization emptySpecialization;
+}
+
 Pipeline::Pipeline(Renderer& renderer, std::uint32_t id, PipelineParameters&& params)
 : id(id)
 , renderer(renderer)
 , createParams(params) {
-    pipelines.fill(nullptr);
-
-    // create or fetch layout
     layout = renderer.pipelineLayoutCache().getLayout(std::move(params.layoutParams));
-
-    // fill pipelines with nullptr
-    pipelines.fill(nullptr);
+    for (auto& set : pipelines) { set.fill(nullptr); }
 }
 
 Pipeline::~Pipeline() {
-    for (auto pipeline : pipelines) {
-        if (pipeline != nullptr) {
-            vkDestroyPipeline(renderer.vulkanState().device, pipeline, nullptr);
+    for (auto& set : pipelines) {
+        for (const VkPipeline pipeline : set) {
+            if (pipeline != nullptr) {
+                vkDestroyPipeline(renderer.vulkanState().device, pipeline, nullptr);
+            }
         }
     }
 }
 
-void Pipeline::bind(VkCommandBuffer commandBuffer, std::uint32_t renderPassId) {
-    if (!pipelines[renderPassId]) { createForRenderPass(renderPassId); }
-    vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelines[renderPassId]);
+void Pipeline::bind(VkCommandBuffer commandBuffer, std::uint32_t renderPassId, std::uint32_t spec) {
+    if (!pipelines[spec][renderPassId]) { createForRenderPass(renderPassId, spec); }
+    vkCmdBindPipeline(
+        commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelines[spec][renderPassId]);
     if (createParams.rasterizer.depthBiasEnable == VK_TRUE) {
         const auto& s = renderer.getSettings();
         vkCmdSetDepthBias(commandBuffer,
@@ -41,15 +44,36 @@ void Pipeline::bind(VkCommandBuffer commandBuffer, std::uint32_t renderPassId) {
     }
 }
 
-void Pipeline::createForRenderPass(std::uint32_t rpid) {
+void Pipeline::createForRenderPass(std::uint32_t rpid, std::uint32_t spec) {
+    PipelineSpecialization& specialization =
+        spec > 0 && spec <= createParams.specializations.size() ?
+            createParams.specializations[spec - 1] :
+            emptySpecialization;
+    if (spec > createParams.specializations.size()) {
+        BL_LOG_ERROR << "Pipeline being used with invalid specialization: " << spec;
+    }
+
     // Load shaders
     ctr::StaticVector<VkPipelineShaderStageCreateInfo, 5> shaderStages;
+    ctr::StaticVector<VkSpecializationInfo, 5> shaderSpecs;
     for (const auto& shader : createParams.shaders) {
-        shaderStages.push_back({});
-        shaderStages.back().sType  = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
-        shaderStages.back().stage  = shader.stage;
-        shaderStages.back().module = renderer.vulkanState().shaderCache.loadShader(shader.path);
-        shaderStages.back().pName  = shader.entrypoint.c_str();
+        auto& info  = shaderStages.emplace_back(VkPipelineShaderStageCreateInfo{});
+        info.sType  = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+        info.stage  = shader.stage;
+        info.module = renderer.vulkanState().shaderCache.loadShader(shader.path);
+        info.pName  = shader.entrypoint.c_str();
+
+        for (auto& spec : specialization.shaderSpecializations) {
+            if (spec.stage == shader.stage) {
+                auto& specInfo           = shaderSpecs.emplace_back();
+                info.pSpecializationInfo = &specInfo;
+                specInfo.dataSize        = static_cast<std::uint32_t>(spec.storage.size());
+                specInfo.pData           = spec.storage.data();
+                specInfo.mapEntryCount   = static_cast<std::uint32_t>(spec.entries.size());
+                specInfo.pMapEntries     = spec.entries.data();
+                break;
+            }
+        }
     }
 
     // Configure vertices
@@ -87,7 +111,9 @@ void Pipeline::createForRenderPass(std::uint32_t rpid) {
     pipelineInfo.pViewportState      = &viewportState;
     pipelineInfo.pRasterizationState = &createParams.rasterizer;
     pipelineInfo.pMultisampleState   = &createParams.msaa;
-    pipelineInfo.pDepthStencilState  = createParams.depthStencil;
+    pipelineInfo.pDepthStencilState  = specialization.depthStencilSpecialized ?
+                                           &specialization.depthStencil :
+                                           createParams.depthStencil;
     pipelineInfo.pColorBlendState    = &createParams.colorBlending;
     pipelineInfo.pDynamicState       = &dynamicState;
     pipelineInfo.layout              = layout->rawLayout();
@@ -101,7 +127,7 @@ void Pipeline::createForRenderPass(std::uint32_t rpid) {
                                   1,
                                   &pipelineInfo,
                                   nullptr,
-                                  &pipelines[rpid]) != VK_SUCCESS) {
+                                  &pipelines[spec][rpid]) != VK_SUCCESS) {
         throw std::runtime_error("Failed to create graphics pipeline");
     }
 }

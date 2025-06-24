@@ -51,7 +51,6 @@ void EcsComponent::makeSprite(const rc::res::TextureRef& texture) {
     vertexBuffer.queueTransfer(rc::tfr::Transferable::SyncRequirement::Immediate);
     drawParams.vertexBuffer = vertexBuffer.bufferHandle();
     drawParams.vertexCount  = vertexBuffer.vertices().size();
-    syncDrawParamsToScene();
 }
 
 } // namespace pcl

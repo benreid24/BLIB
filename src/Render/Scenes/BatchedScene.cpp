@@ -16,9 +16,7 @@ namespace scene
 BatchedScene::BatchedScene(engine::Engine& engine)
 : Scene(engine, objects.makeEntityCallback())
 , engine(engine)
-, objects()
-, staticTransCache(Config::DefaultSceneObjectCapacity, false)
-, dynamicTransCache(Config::DefaultSceneObjectCapacity, false) {}
+, objects() {}
 
 BatchedScene::~BatchedScene() { objects.unlinkAll(descriptorSets); }
 
@@ -26,19 +24,22 @@ scene::SceneObject* BatchedScene::doAdd(ecs::Entity entity, rcom::DrawableBase& 
                                         UpdateSpeed updateFreq) {
     const auto alloc            = objects.allocate(updateFreq, entity);
     const std::uint32_t sceneId = alloc.newObject->sceneKey.sceneId;
-    auto& transCache = updateFreq == UpdateSpeed::Static ? staticTransCache : dynamicTransCache;
+    auto& cache                 = updateFreq == UpdateSpeed::Static ? staticCache : dynamicCache;
 
     if (alloc.addressesChanged) {
-        transCache.resize(alloc.newCapacity);
+        cache.ensureSize(alloc.newCapacity);
         handleAddressChange(updateFreq, alloc.originalBaseAddress);
     }
 
-    transCache[sceneId] = obj.getContainsTransparency();
-    auto& batch         = obj.getContainsTransparency() ? transparentObjects : opaqueObjects;
+    cache.transparency[sceneId]    = obj.getContainsTransparency();
+    cache.specializations[sceneId] = obj.getPipelineSpecialization();
+    auto& batch = obj.getContainsTransparency() ? transparentObjects : opaqueObjects;
     mat::MaterialPipeline* pipeline = obj.getCurrentPipeline();
 
     PipelineBatch& pipelineBatch = batch.getBatch(descriptorSets, *pipeline);
-    if (!pipelineBatch.addObject(entity, alloc.newObject)) { return nullptr; }
+    if (!pipelineBatch.addObject(entity, alloc.newObject, obj.getPipelineSpecialization())) {
+        return nullptr;
+    }
 
     // add scene link
     engine.ecs().emplaceComponent<com::BatchSceneLink>(entity, alloc.newObject->sceneKey);
@@ -69,12 +70,11 @@ void BatchedScene::doObjectRemoval(scene::SceneObject* object, mat::MaterialPipe
 void BatchedScene::releaseObject(SceneObject* object, mat::MaterialPipeline* pipeline) {
     // lookup object
     const ecs::Entity entity = objects.getObjectEntity(object->sceneKey);
-    auto& transCache =
-        object->sceneKey.updateFreq == UpdateSpeed::Static ? staticTransCache : dynamicTransCache;
-    auto& batch = transCache[object->sceneKey.sceneId] ? transparentObjects : opaqueObjects;
+    auto& cache = object->sceneKey.updateFreq == UpdateSpeed::Static ? staticCache : dynamicCache;
+    auto& batch = cache.transparency[object->sceneKey.sceneId] ? transparentObjects : opaqueObjects;
 
     // remove from batch
-    batch.removeObject(entity, object, pipeline);
+    batch.removeObject(entity, object, pipeline, cache.specializations[object->sceneKey.sceneId]);
 
     // cleanup scene link
     engine.ecs().removeComponent<com::BatchSceneLink>(entity);
@@ -83,9 +83,11 @@ void BatchedScene::releaseObject(SceneObject* object, mat::MaterialPipeline* pip
 void BatchedScene::doBatchChange(const BatchChange& change, mat::MaterialPipeline* oldPipeline) {
     const ecs::Entity entity = objects.getObjectEntity(change.changed->sceneKey);
     const bool isStatic      = change.changed->sceneKey.updateFreq == UpdateSpeed::Static;
-    auto& transCache         = isStatic ? staticTransCache : dynamicTransCache;
-    const bool wasTrans      = transCache[change.changed->sceneKey.sceneId];
-    transCache[change.changed->sceneKey.sceneId] = change.newTrans;
+    auto& cache              = isStatic ? staticCache : dynamicCache;
+    const bool wasTrans      = cache.transparency[change.changed->sceneKey.sceneId];
+    cache.transparency[change.changed->sceneKey.sceneId] = change.newTrans;
+    const std::uint32_t priorSpec = cache.specializations[change.changed->sceneKey.sceneId];
+    cache.specializations[change.changed->sceneKey.sceneId] = change.newSpecialization;
 
     auto& oldObjectBatch = wasTrans ? transparentObjects : opaqueObjects;
     auto& newObjectBatch = change.newTrans ? transparentObjects : opaqueObjects;
@@ -98,60 +100,72 @@ void BatchedScene::doBatchChange(const BatchChange& change, mat::MaterialPipelin
     }
 
     // determine what changed
-    const bool transChanged    = wasTrans != change.newTrans;
-    const bool pipelineChanged = oldPipeline != change.newPipeline;
+    const bool transChanged          = wasTrans != change.newTrans;
+    const bool pipelineChanged       = oldPipeline != change.newPipeline;
+    const bool specializationChanged = priorSpec != change.newSpecialization;
 
     if (pipelineChanged) {
         PipelineBatch& newPipelineBatch =
             newObjectBatch.getBatch(descriptorSets, *change.newPipeline);
-        oldPipelineBatch->removeForRebatch(change.changed);
-        newPipelineBatch.addForRebatch(change.changed);
+        oldPipelineBatch->removeForRebatch(change.changed, priorSpec);
+        newPipelineBatch.addForRebatch(change.changed, change.newSpecialization);
         newPipelineBatch.updateDescriptors(entity, change.changed, *oldPipelineBatch);
     }
     else if (transChanged) {
         PipelineBatch& newPipelineBatch = newObjectBatch.getBatch(*oldPipelineBatch);
-        oldPipelineBatch->removeForRebatch(change.changed);
-        newPipelineBatch.addForRebatch(change.changed);
+        oldPipelineBatch->removeForRebatch(change.changed, priorSpec);
+        newPipelineBatch.addForRebatch(change.changed, change.newSpecialization);
+    }
+    else if (specializationChanged) {
+        PipelineBatch& newPipelineBatch =
+            newObjectBatch.getBatch(descriptorSets, *change.newPipeline);
+        newPipelineBatch.removeForRebatch(change.changed, priorSpec);
+        newPipelineBatch.addForRebatch(change.changed, change.newSpecialization);
     }
 }
 
 void BatchedScene::renderBatch(scene::SceneRenderContext& ctx, ObjectBatch& batch) {
     for (auto& pipelineBatch : batch.batches) {
-        if (!pipelineBatch.pipeline.bind(
-                ctx.getCommandBuffer(), ctx.getRenderPhase(), ctx.currentRenderPass())) {
-            continue;
-        }
+        for (auto& specBatch : pipelineBatch.specBatches) {
+            if (!pipelineBatch.pipeline.bind(ctx.getCommandBuffer(),
+                                             ctx.getRenderPhase(),
+                                             ctx.currentRenderPass(),
+                                             specBatch.specializationId)) {
+                continue;
+            }
 
-        vk::Pipeline* pipeline = pipelineBatch.pipeline.getPipeline(ctx.getRenderPhase());
-        RenderPhaseDescriptors& descriptors =
-            pipelineBatch.perPhaseDescriptors[renderPhaseIndex(ctx.getRenderPhase())];
+            vk::Pipeline* pipeline = pipelineBatch.pipeline.getPipeline(ctx.getRenderPhase());
+            RenderPhaseDescriptors& descriptors =
+                pipelineBatch.perPhaseDescriptors[renderPhaseIndex(ctx.getRenderPhase())];
 
-        UpdateSpeed speed = UpdateSpeed::Dynamic;
-        for (auto* objectBatch : {&pipelineBatch.objectsDynamic, &pipelineBatch.objectsStatic}) {
-            ctx.bindDescriptors(pipeline->pipelineLayout().rawLayout(),
-                                speed,
-                                descriptors.descriptors.data(),
-                                descriptors.descriptorCount);
+            UpdateSpeed speed = UpdateSpeed::Dynamic;
+            for (auto* objectBatch : {&specBatch.objectsDynamic, &specBatch.objectsStatic}) {
+                ctx.bindDescriptors(pipeline->pipelineLayout().rawLayout(),
+                                    speed,
+                                    descriptors.descriptors.data(),
+                                    descriptors.descriptorCount);
 
-            if (!descriptors.bindless) {
-                for (SceneObject* obj : *objectBatch) {
-                    if (obj->hidden) { continue; }
-                    for (std::uint8_t i = descriptors.perObjStart; i < descriptors.descriptorCount;
-                         ++i) {
-                        descriptors.descriptors[i]->bindForObject(
-                            ctx, pipeline->pipelineLayout().rawLayout(), i, obj->sceneKey);
+                if (!descriptors.bindless) {
+                    for (SceneObject* obj : *objectBatch) {
+                        if (obj->component->isHidden()) { continue; }
+                        for (std::uint8_t i = descriptors.perObjStart;
+                             i < descriptors.descriptorCount;
+                             ++i) {
+                            descriptors.descriptors[i]->bindForObject(
+                                ctx, pipeline->pipelineLayout().rawLayout(), i, obj->sceneKey);
+                        }
+                        ctx.renderObject(*obj);
                     }
-                    ctx.renderObject(*obj);
                 }
-            }
-            else {
-                for (SceneObject* obj : *objectBatch) {
-                    if (obj->hidden) { continue; }
-                    ctx.renderObject(*obj);
+                else {
+                    for (SceneObject* obj : *objectBatch) {
+                        if (obj->component->isHidden()) { continue; }
+                        ctx.renderObject(*obj);
+                    }
                 }
-            }
 
-            speed = UpdateSpeed::Static;
+                speed = UpdateSpeed::Static;
+            }
         }
     }
 }
@@ -167,10 +181,13 @@ void BatchedScene::renderOpaqueObjects(scene::SceneRenderContext& ctx) {
 void BatchedScene::handleAddressChange(UpdateSpeed speed, SceneObject* base) {
     for (ObjectBatch* ob : {&opaqueObjects, &transparentObjects}) {
         for (PipelineBatch& pb : ob->batches) {
-            auto& objectSet = speed == UpdateSpeed::Static ? pb.objectsStatic : pb.objectsDynamic;
-            for (SceneObject*& so : objectSet) {
-                so = objects.rebase(speed, so, base);
-                so->updateRefToThis();
+            for (SpecializationBatch& sb : pb.specBatches) {
+                auto& objectSet =
+                    speed == UpdateSpeed::Static ? sb.objectsStatic : sb.objectsDynamic;
+                for (SceneObject*& so : objectSet) {
+                    so = objects.rebase(speed, so, base);
+                    so->updateRefToThis();
+                }
             }
         }
     }
@@ -197,16 +214,11 @@ void BatchedScene::RenderPhaseDescriptors::init(ds::DescriptorSetInstanceCache& 
 BatchedScene::PipelineBatch::PipelineBatch(const PipelineBatch& src)
 : pipeline(src.pipeline)
 , perPhaseDescriptors(src.perPhaseDescriptors)
-, allDescriptors(src.allDescriptors) {
-    objectsStatic.reserve(Config::DefaultSceneObjectCapacity / 2);
-    objectsDynamic.reserve(Config::DefaultSceneObjectCapacity / 2);
-}
+, allDescriptors(src.allDescriptors) {}
 
 BatchedScene::PipelineBatch::PipelineBatch(ds::DescriptorSetInstanceCache& descriptorCache,
                                            mat::MaterialPipeline& pipeline)
 : pipeline(pipeline) {
-    objectsStatic.reserve(Config::DefaultSceneObjectCapacity / 2);
-    objectsDynamic.reserve(Config::DefaultSceneObjectCapacity / 2);
     for (const RenderPhase phase : AllRenderPhases) {
         auto& descriptors = perPhaseDescriptors[renderPhaseIndex(phase)];
         descriptors.init(descriptorCache, pipeline.getPipeline(phase));
@@ -223,43 +235,46 @@ BatchedScene::PipelineBatch::PipelineBatch(ds::DescriptorSetInstanceCache& descr
     }
 }
 
-bool BatchedScene::PipelineBatch::addObject(ecs::Entity entity, SceneObject* sceneObject) {
+bool BatchedScene::PipelineBatch::addObject(ecs::Entity entity, SceneObject* sceneObject,
+                                            std::uint32_t specialization) {
     for (unsigned int i = 0; i < allDescriptors.size(); ++i) {
         if (!allDescriptors[i]->allocateObject(entity, sceneObject->sceneKey)) {
             BL_LOG_ERROR << "Failed to add entity " << entity
                          << " to scene due to descriptor failure";
-            for (int j = i - 1; i >= 0; --j) {
+            for (int j = static_cast<int>(i) - 1; j >= 0; --j) {
                 allDescriptors[j]->releaseObject(entity, sceneObject->sceneKey);
             }
             return false;
         }
     }
-    addForRebatch(sceneObject);
+    addForRebatch(sceneObject, specialization);
     return true;
 }
 
-void BatchedScene::PipelineBatch::addForRebatch(SceneObject* object) {
-    auto& objects =
-        object->sceneKey.updateFreq == UpdateSpeed::Static ? objectsStatic : objectsDynamic;
-    objects.emplace_back(object);
+void BatchedScene::PipelineBatch::addForRebatch(SceneObject* object, std::uint32_t specialization) {
+    for (auto& b : specBatches) {
+        if (b.specializationId == specialization) {
+            b.addObject(object);
+            return;
+        }
+    }
+    auto& b = specBatches.emplace_back(specialization);
+    b.addObject(object);
 }
 
-void BatchedScene::PipelineBatch::removeObject(ecs::Entity entity, SceneObject* object) {
-    if (removeForRebatch(object)) {
+void BatchedScene::PipelineBatch::removeObject(ecs::Entity entity, SceneObject* object,
+                                               std::uint32_t specialization) {
+    if (removeForRebatch(object, specialization)) {
         for (ds::DescriptorSetInstance* set : allDescriptors) {
             set->releaseObject(entity, object->sceneKey);
         }
     }
 }
 
-bool BatchedScene::PipelineBatch::removeForRebatch(SceneObject* object) {
-    auto& batch =
-        object->sceneKey.updateFreq == UpdateSpeed::Static ? objectsStatic : objectsDynamic;
-    for (auto it = batch.begin(); it != batch.end(); ++it) {
-        if (*it == object) {
-            batch.erase(it);
-            return true;
-        }
+bool BatchedScene::PipelineBatch::removeForRebatch(SceneObject* object,
+                                                   std::uint32_t specialization) {
+    for (auto& sb : specBatches) {
+        if (sb.specializationId == specialization) { return sb.removeObject(object); }
     }
     return false;
 }
@@ -315,10 +330,45 @@ BatchedScene::PipelineBatch& BatchedScene::ObjectBatch::getBatch(const PipelineB
 }
 
 void BatchedScene::ObjectBatch::removeObject(ecs::Entity entity, SceneObject* object,
-                                             mat::MaterialPipeline* pipeline) {
+                                             mat::MaterialPipeline* pipeline,
+                                             std::uint32_t specialization) {
     for (PipelineBatch& pb : batches) {
-        if (&pb.pipeline == pipeline) { pb.removeObject(entity, object); }
+        if (&pb.pipeline == pipeline) { pb.removeObject(entity, object, specialization); }
     }
+}
+
+BatchedScene::ObjectSettingsCache::ObjectSettingsCache() {
+    transparency.resize(Config::DefaultSceneObjectCapacity, false);
+    specializations.resize(Config::DefaultSceneObjectCapacity, 0);
+}
+
+void BatchedScene::ObjectSettingsCache::ensureSize(std::uint32_t size) {
+    transparency.resize(size, false);
+    specializations.resize(size, 0);
+}
+
+BatchedScene::SpecializationBatch::SpecializationBatch(std::uint32_t specializationId)
+: specializationId(specializationId) {
+    objectsStatic.reserve(Config::DefaultSceneObjectCapacity / 2);
+    objectsDynamic.reserve(Config::DefaultSceneObjectCapacity / 2);
+}
+
+void BatchedScene::SpecializationBatch::addObject(SceneObject* object) {
+    auto& objects =
+        object->sceneKey.updateFreq == UpdateSpeed::Static ? objectsStatic : objectsDynamic;
+    objects.emplace_back(object);
+}
+
+bool BatchedScene::SpecializationBatch::removeObject(SceneObject* object) {
+    auto& batch =
+        object->sceneKey.updateFreq == UpdateSpeed::Static ? objectsStatic : objectsDynamic;
+    for (auto it = batch.begin(); it != batch.end(); ++it) {
+        if (*it == object) {
+            batch.erase(it);
+            return true;
+        }
+    }
+    return false;
 }
 
 } // namespace scene

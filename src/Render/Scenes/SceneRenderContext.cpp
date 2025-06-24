@@ -1,6 +1,7 @@
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>
 
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
+#include <BLIB/Render/Components/DrawableBase.hpp>
 
 namespace bl
 {
@@ -25,8 +26,8 @@ SceneRenderContext::SceneRenderContext(VkCommandBuffer commandBuffer, std::uint3
     boundDescriptors.fill(nullptr);
 }
 
-void SceneRenderContext::bindPipeline(mat::MaterialPipeline& pipeline) {
-    pipeline.bind(commandBuffer, renderPhase, renderPassId);
+void SceneRenderContext::bindPipeline(mat::MaterialPipeline& pipeline, std::uint32_t spec) {
+    pipeline.bind(commandBuffer, renderPhase, renderPassId, spec);
 }
 
 void SceneRenderContext::bindDescriptors(VkPipelineLayout layout, UpdateSpeed speed,
@@ -46,37 +47,38 @@ void SceneRenderContext::bindDescriptors(VkPipelineLayout layout, UpdateSpeed sp
 }
 
 void SceneRenderContext::renderObject(const SceneObject& object) {
-    if (prevVB != object.drawParams.vertexBuffer) {
-        prevVB = object.drawParams.vertexBuffer;
+    const auto& drawParams = object.component->getDrawParameters();
+    if (prevVB != drawParams.vertexBuffer) {
+        prevVB = drawParams.vertexBuffer;
 
-        VkBuffer vertexBuffers[] = {object.drawParams.vertexBuffer};
+        VkBuffer vertexBuffers[] = {drawParams.vertexBuffer};
         VkDeviceSize offsets[]   = {0};
         vkCmdBindVertexBuffers(commandBuffer, 0, 1, vertexBuffers, offsets);
     }
 
-    switch (object.drawParams.type) {
+    switch (drawParams.type) {
     case prim::DrawParameters::DrawType::VertexBuffer:
         vkCmdDraw(commandBuffer,
-                  object.drawParams.vertexCount,
-                  object.drawParams.instanceCount,
-                  object.drawParams.vertexOffset,
-                  object.drawParams.instanceCount == 1 ? object.sceneKey.sceneId :
-                                                         object.drawParams.firstInstance);
+                  drawParams.vertexCount,
+                  drawParams.instanceCount,
+                  drawParams.vertexOffset,
+                  drawParams.instanceCount == 1 ? object.sceneKey.sceneId :
+                                                  drawParams.firstInstance);
         break;
 
     case prim::DrawParameters::DrawType::IndexBuffer:
-        if (prevIB != object.drawParams.indexBuffer) {
-            prevIB = object.drawParams.indexBuffer;
+        if (prevIB != drawParams.indexBuffer) {
+            prevIB = drawParams.indexBuffer;
             vkCmdBindIndexBuffer(
-                commandBuffer, object.drawParams.indexBuffer, 0, buf::IndexBuffer::IndexType);
+                commandBuffer, drawParams.indexBuffer, 0, buf::IndexBuffer::IndexType);
         }
         vkCmdDrawIndexed(commandBuffer,
-                         object.drawParams.indexCount,
-                         object.drawParams.instanceCount,
-                         object.drawParams.indexOffset,
-                         object.drawParams.vertexOffset,
-                         object.drawParams.instanceCount == 1 ? object.sceneKey.sceneId :
-                                                                object.drawParams.firstInstance);
+                         drawParams.indexCount,
+                         drawParams.instanceCount,
+                         drawParams.indexOffset,
+                         drawParams.vertexOffset,
+                         drawParams.instanceCount == 1 ? object.sceneKey.sceneId :
+                                                         drawParams.firstInstance);
         break;
     }
 }

@@ -26,6 +26,8 @@ struct Config {
 
     static constexpr std::uint32_t MaxRenderPasses = 8;
 
+    static constexpr std::uint32_t MaxPipelineSpecializations = 16;
+
     static constexpr std::size_t MaxRenderPhases = 8;
 
     static constexpr std::uint32_t MaxTextureCount = 4096;

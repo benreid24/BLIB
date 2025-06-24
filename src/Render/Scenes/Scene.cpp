@@ -96,7 +96,10 @@ void Scene::removeObject(scene::SceneObject* obj) {
 void Scene::rebucketObject(rcom::DrawableBase& obj) {
     std::unique_lock lock(queueMutex);
     queuedBatchChanges.emplace_back(
-        BatchChange{obj.sceneRef.object, obj.getCurrentPipeline(), obj.containsTransparency});
+        BatchChange{.changed           = obj.sceneRef.object,
+                    .newPipeline       = obj.getCurrentPipeline(),
+                    .newTrans          = obj.containsTransparency,
+                    .newSpecialization = obj.getPipelineSpecialization()});
 }
 
 void Scene::removeQueuedObject(scene::SceneObject* obj) {
@@ -119,10 +122,7 @@ void Scene::addQueuedObject(ObjectAdd& add) {
     if (sobj) {
         object.sceneRef.object = sobj;
         object.sceneRef.scene  = this;
-
-        sobj->hidden     = object.hidden;
-        sobj->drawParams = object.drawParams;
-        sobj->refToThis  = &object.sceneRef;
+        sobj->component        = &object;
 
         auto& objectPipelines =
             sobj->sceneKey.updateFreq == UpdateSpeed::Static ? staticPipelines : dynamicPipelines;

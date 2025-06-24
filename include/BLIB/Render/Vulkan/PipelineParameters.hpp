@@ -5,6 +5,7 @@
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
 #include <BLIB/Render/Vulkan/PipelineLayout.hpp>
+#include <BLIB/Render/Vulkan/PipelineSpecialization.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <array>
 #include <cstdint>
@@ -231,10 +232,32 @@ public:
     /**
      * @brief Helper function to populate the depth stencil state based on depth testing setting
      *
-     * @param depthTestingEnabled Whether or not to enable depth testing
+     * @param depthTest Whether depth testing is enabled
+     * @param depthWrite Whether depth writing is enabled
+     * @param stencilTest Whether stencil testing is enabled
+     * @param stencilWrite Whether stencil writing is enabled
      * @return A reference to this object
      */
-    PipelineParameters& withSimpleDepthStencil(bool depthTestingEnabled);
+    PipelineParameters& withSimpleDepthStencil(bool depthTest, bool depthWrite = true,
+                                               bool stencilTest = false, bool stencilWrite = false);
+
+    /**
+     * @brief Declares the number of specializations that will be used in this pipeline
+     *
+     * @param count The number of specializations to declare
+     * @return A reference to this object
+     */
+    PipelineParameters& withDeclareSpecializations(std::uint32_t count);
+
+    /**
+     * @brief Adds a specialization to the pipeline
+     *
+     * @param specializationId The id of the specialization. Should be an index starting at 1
+     * @param specialization The specialization parameters
+     * @return A reference to this object
+     */
+    PipelineParameters& withSpecialization(std::uint32_t specializationId,
+                                           const PipelineSpecialization& specialization);
 
     /**
      * @brief Performs final validation and defaulting, then returns an rvalue reference to this
@@ -294,6 +317,7 @@ private:
     ctr::StaticVector<VkPipelineColorBlendAttachmentState, 4> colorAttachmentBlendStates;
     VkPipelineColorBlendStateCreateInfo colorBlending;
     VkPipelineDepthStencilStateCreateInfo* depthStencil;
+    std::vector<PipelineSpecialization> specializations;
 
     VkPipelineRasterizationDepthClipStateCreateInfoEXT localDepthClipping;
     VkPipelineDepthStencilStateCreateInfo localDepthStencil;

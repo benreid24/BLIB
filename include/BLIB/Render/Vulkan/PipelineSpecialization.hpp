@@ -60,7 +60,7 @@ public:
      * @param stage The stage to remove the specialization for
      * @return A reference to this object
      */
-    PipelineSpecialization& clearShaderSpecialization(VkShaderStageFlagBits stage);
+    PipelineSpecialization& removeShaderSpecialization(VkShaderStageFlagBits stage);
 
     /**
      * @brief Removes all shader specializations
@@ -83,9 +83,13 @@ public:
      *
      * @param depthTest Whether depth testing is enabled
      * @param depthWrite Whether depth writing is enabled
+     * @param stencilTest Whether stencil testing is enabled
+     * @param stencilWrite Whether stencil writing is enabled
      * @return A reference to this object
      */
-    PipelineSpecialization& withSimpleDepthStencil(bool depthTest, bool depthWrite = true);
+    PipelineSpecialization& withSimpleDepthStencil(bool depthTest, bool depthWrite = true,
+                                                   bool stencilTest  = false,
+                                                   bool stencilWrite = false);
 
     /**
      * @brief Removes the depth stencil override

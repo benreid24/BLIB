@@ -19,8 +19,9 @@ void PipelineInstance::init(Pipeline* p, ds::DescriptorSetInstanceCache& cache) 
     pipeline->pipelineLayout().initDescriptorSets(cache, descriptorSets.data());
 }
 
-void PipelineInstance::bind(scene::SceneRenderContext& ctx, UpdateSpeed updateFreq) {
-    pipeline->bind(ctx.getCommandBuffer(), ctx.currentRenderPass());
+void PipelineInstance::bind(scene::SceneRenderContext& ctx, std::uint32_t specialization,
+                            UpdateSpeed updateFreq) {
+    pipeline->bind(ctx.getCommandBuffer(), ctx.currentRenderPass(), specialization);
     for (unsigned int i = 0; i < descriptorSets.size(); ++i) {
         descriptorSets[i]->bindForPipeline(
             ctx, pipeline->pipelineLayout().rawLayout(), i, updateFreq);

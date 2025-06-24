@@ -304,7 +304,7 @@ template<typename TCom>
 void Drawable<TCom>::doFlash(float onPeriod, float offPeriod) {
     // swap off/on period because we have hidden toggle instead of visible toggle
     engine().ecs().template emplaceComponent<com::Toggler>(
-        entity(), offPeriod, onPeriod, &component().getSceneRef().object->hidden);
+        entity(), offPeriod, onPeriod, handle->getVisibleFlagForToggler());
 }
 
 template<typename TCom>
@@ -320,7 +320,6 @@ template<typename TCom>
 void Drawable<TCom>::stopFlashing() {
     if (entity() != ecs::InvalidEntity) {
         engine().ecs().template removeComponent<com::Toggler>(entity());
-        if (component().getSceneRef().object) { component().getSceneRef().object->hidden = false; }
     }
 }
 

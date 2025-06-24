@@ -132,6 +132,7 @@ protected:
         scene::SceneObject* changed;
         mat::MaterialPipeline* newPipeline;
         bool newTrans;
+        std::uint32_t newSpecialization;
     };
 
     engine::Engine& engine;
