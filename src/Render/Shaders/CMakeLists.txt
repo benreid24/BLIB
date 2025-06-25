@@ -10,8 +10,7 @@ compile_shaders(
     3D/Forward/mesh.frag
     
     3D/meshMaterial.vert
-    3D/Forward/meshMaterialLit.frag
-    3D/Forward/meshMaterialUnlit.frag
+    3D/Forward/meshMaterial.frag
 
     3D/meshSkinned.vert
 

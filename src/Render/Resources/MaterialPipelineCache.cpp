@@ -53,22 +53,8 @@ void MaterialPipelineCache::createBuiltins() {
     };
     const auto make3D = [this](std::uint32_t materialIds,
                                std::uint32_t pipelineId,
-                               std::uint32_t overlayPipelineId,
                                std::uint32_t shadowMapPipelineId,
                                std::uint32_t pointShadowMapPipelineId) {
-        createPipeline(
-            materialIds,
-            mat::MaterialPipelineSettings(pipelineId)
-                .withRenderPhasePipelineOverride(RenderPhase::Overlay, overlayPipelineId)
-                .withRenderPhasePipelineOverride(RenderPhase::ShadowMap, shadowMapPipelineId)
-                .withRenderPhasePipelineOverride(RenderPhase::ShadowPointMap,
-                                                 pointShadowMapPipelineId)
-                .build());
-    };
-    const auto make3DSpecial = [this](std::uint32_t materialIds,
-                                      std::uint32_t pipelineId,
-                                      std::uint32_t shadowMapPipelineId,
-                                      std::uint32_t pointShadowMapPipelineId) {
         createPipeline(
             materialIds,
             mat::MaterialPipelineSettings(pipelineId)
@@ -84,17 +70,13 @@ void MaterialPipelineCache::createBuiltins() {
     using PId = cfg::PipelineIds;
     using B   = mat::MaterialPipelineSettings::PhasePipelineOverride;
 
-    make3DSpecial(MId::Mesh3D, PId::Mesh3D, PId::ShadowMapRegular, PId::PointShadowMapRegular);
+    make3D(MId::Mesh3D, PId::Mesh3D, PId::ShadowMapRegular, PId::PointShadowMapRegular);
     make3D(MId::Mesh3DMaterial,
-           PId::LitMesh3DMaterial,
-           PId::UnlitMesh3DMaterial,
+           PId::Mesh3DMaterial,
            PId::ShadowMapRegular,
            PId::PointShadowMapRegular);
-    make3D(MId::Mesh3DSkinned,
-           PId::LitMesh3DSkinned,
-           PId::UnlitMesh3DSkinned,
-           PId::ShadowMapSkinned,
-           PId::PointShadowMapSkinned);
+    make3D(
+        MId::Mesh3DSkinned, PId::Mesh3DSkinned, PId::ShadowMapSkinned, PId::PointShadowMapSkinned);
     makeOverlayPair(MId::Geometry2D, PId::Lit2DGeometry, PId::Unlit2DGeometry);
     makeOverlayPair(MId::Geometry2DSkinned, PId::LitSkinned2DGeometry, PId::UnlitSkinned2DGeometry);
     makeOverlayPair(MId::Slideshow2D, PId::SlideshowLit, PId::SlideshowUnlit);

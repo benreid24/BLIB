@@ -20,33 +20,31 @@ struct ShaderIds {
     static constexpr char MeshVertex[]   = {2, 0};
     static constexpr char MeshFragment[] = {3, 0};
 
-    static constexpr char MeshVertexMaterial[]        = {5, 0};
-    static constexpr char MeshFragmentMaterialLit[]   = {6, 0};
-    static constexpr char MeshFragmentMaterialUnlit[] = {7, 0};
+    static constexpr char MeshVertexMaterial[]   = {4, 0};
+    static constexpr char MeshFragmentMaterial[] = {5, 0};
 
-    static constexpr char MeshVertexSkinned[]        = {8, 0};
-    static constexpr char MeshFragmentSkinnedLit[]   = {6, 0}; // MeshFragmentMaterialLit
-    static constexpr char MeshFragmentSkinnedUnlit[] = {7, 0}; // MeshFragmentMaterialUnlit
+    static constexpr char MeshVertexSkinned[]   = {6, 0};
+    static constexpr char MeshFragmentSkinned[] = {5, 0}; // MeshFragmentMaterial
 
-    static constexpr char SkyboxVertex[]   = {9, 0};
-    static constexpr char SkyboxFragment[] = {10, 0};
+    static constexpr char SkyboxVertex[]   = {7, 0};
+    static constexpr char SkyboxFragment[] = {8, 0};
 
-    static constexpr char Vertex2D[]        = {11, 0};
-    static constexpr char Fragment2DLit[]   = {12, 0};
-    static constexpr char Fragment2DUnlit[] = {13, 0};
+    static constexpr char Vertex2D[]        = {9, 0};
+    static constexpr char Fragment2DLit[]   = {10, 0};
+    static constexpr char Fragment2DUnlit[] = {11, 0};
 
-    static constexpr char Vertex2DSkinned[]           = {14, 0};
-    static constexpr char Fragment2DSkinnedUnlit[]    = {15, 0};
-    static constexpr char Fragment2DSkinnedLit[]      = {16, 0};
-    static constexpr char Fragment2DRotatedParticle[] = {17, 0};
+    static constexpr char Vertex2DSkinned[]           = {12, 0};
+    static constexpr char Fragment2DSkinnedUnlit[]    = {13, 0};
+    static constexpr char Fragment2DSkinnedLit[]      = {14, 0};
+    static constexpr char Fragment2DRotatedParticle[] = {15, 0};
 
-    static constexpr char TextFragment[]  = {18, 0};
-    static constexpr char SlideshowVert[] = {19, 0};
+    static constexpr char TextFragment[]  = {16, 0};
+    static constexpr char SlideshowVert[] = {17, 0};
 
-    static constexpr char ShadowVertex[]        = {20, 0};
-    static constexpr char PointShadowVertex[]   = {21, 0};
-    static constexpr char PointShadowGeometry[] = {22, 0};
-    static constexpr char PointShadowFragment[] = {23, 0};
+    static constexpr char ShadowVertex[]        = {18, 0};
+    static constexpr char PointShadowVertex[]   = {19, 0};
+    static constexpr char PointShadowGeometry[] = {20, 0};
+    static constexpr char PointShadowFragment[] = {21, 0};
 
     static constexpr char BloomBlurFragment[]            = {124, 0};
     static constexpr char BloomHighlightFilterFragment[] = {125, 0};

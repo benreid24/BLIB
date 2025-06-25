@@ -130,38 +130,10 @@ void PipelineCache::createBuiltins() {
                                            lightingDisabledSpecialization)
                        .build());
 
-    createPipeline(cfg::PipelineIds::LitMesh3DMaterial,
-                   vk::PipelineParameters()
-                       .withShaders(cfg::ShaderIds::MeshVertexMaterial,
-                                    cfg::ShaderIds::MeshFragmentMaterialLit)
-                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
-                       .withVertexFormat(prim::Vertex3D::bindingDescription(),
-                                         prim::Vertex3D::attributeDescriptions())
-                       .withRasterizer(rasterizer3d)
-                       .withDepthStencilState(&depthStencilDepthEnabled)
-                       .addDescriptorSet<ds::GlobalDataFactory>()
-                       .addDescriptorSet<ds::Scene3DFactory>()
-                       .addDescriptorSet<ds::Object3DFactory>()
-                       .build());
-
-    createPipeline(cfg::PipelineIds::UnlitMesh3DMaterial,
-                   vk::PipelineParameters()
-                       .withShaders(cfg::ShaderIds::MeshVertexMaterial,
-                                    cfg::ShaderIds::MeshFragmentMaterialUnlit)
-                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
-                       .withVertexFormat(prim::Vertex3D::bindingDescription(),
-                                         prim::Vertex3D::attributeDescriptions())
-                       .withRasterizer(rasterizer3d)
-                       .withDepthStencilState(&depthStencilDepthEnabled)
-                       .addDescriptorSet<ds::GlobalDataFactory>()
-                       .addDescriptorSet<ds::Scene3DFactory>()
-                       .addDescriptorSet<ds::Object3DFactory>()
-                       .build());
-
     createPipeline(
-        cfg::PipelineIds::LitMesh3DSkinned,
+        cfg::PipelineIds::Mesh3DMaterial,
         vk::PipelineParameters()
-            .withShaders(cfg::ShaderIds::MeshVertexSkinned, cfg::ShaderIds::MeshFragmentSkinnedLit)
+            .withShaders(cfg::ShaderIds::MeshVertexMaterial, cfg::ShaderIds::MeshFragmentMaterial)
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withVertexFormat(prim::Vertex3D::bindingDescription(),
                               prim::Vertex3D::attributeDescriptions())
@@ -170,21 +142,27 @@ void PipelineCache::createBuiltins() {
             .addDescriptorSet<ds::GlobalDataFactory>()
             .addDescriptorSet<ds::Scene3DFactory>()
             .addDescriptorSet<ds::Object3DFactory>()
+            .withDeclareSpecializations(1)
+            .withSpecialization(cfg::Specializations3D::LightingDisabled,
+                                lightingDisabledSpecialization)
             .build());
 
-    createPipeline(cfg::PipelineIds::UnlitMesh3DSkinned,
-                   vk::PipelineParameters()
-                       .withShaders(cfg::ShaderIds::MeshVertexSkinned,
-                                    cfg::ShaderIds::MeshFragmentSkinnedUnlit)
-                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
-                       .withVertexFormat(prim::Vertex3D::bindingDescription(),
-                                         prim::Vertex3D::attributeDescriptions())
-                       .withRasterizer(rasterizer3d)
-                       .withDepthStencilState(&depthStencilDepthEnabled)
-                       .addDescriptorSet<ds::GlobalDataFactory>()
-                       .addDescriptorSet<ds::Scene3DFactory>()
-                       .addDescriptorSet<ds::Object3DFactory>()
-                       .build());
+    createPipeline(
+        cfg::PipelineIds::Mesh3DSkinned,
+        vk::PipelineParameters()
+            .withShaders(cfg::ShaderIds::MeshVertexSkinned, cfg::ShaderIds::MeshFragmentSkinned)
+            .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+            .withVertexFormat(prim::Vertex3D::bindingDescription(),
+                              prim::Vertex3D::attributeDescriptions())
+            .withRasterizer(rasterizer3d)
+            .withDepthStencilState(&depthStencilDepthEnabled)
+            .addDescriptorSet<ds::GlobalDataFactory>()
+            .addDescriptorSet<ds::Scene3DFactory>()
+            .addDescriptorSet<ds::Object3DFactory>()
+            .withDeclareSpecializations(1)
+            .withSpecialization(cfg::Specializations3D::LightingDisabled,
+                                lightingDisabledSpecialization)
+            .build());
 
     createPipeline(cfg::PipelineIds::Skybox,
                    vk::PipelineParameters()
