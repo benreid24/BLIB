@@ -1,5 +1,3 @@
-#extension GL_GOOGLE_include_directive : require
-
 #ifndef CONSTANTS_INCLUDED
 #define CONSTANTS_INCLUDED
 

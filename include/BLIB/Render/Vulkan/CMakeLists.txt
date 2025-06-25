@@ -19,6 +19,7 @@ target_sources(BLIB PUBLIC
     RenderPassParameters.hpp
     RenderTexture.hpp
     Sampler.hpp
+    ShaderParameters.hpp
     SharedCommandBuffer.hpp
     SharedCommandPool.hpp
     StandardAttachmentSet.hpp

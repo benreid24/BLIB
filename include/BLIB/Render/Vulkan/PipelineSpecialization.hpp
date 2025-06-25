@@ -2,6 +2,7 @@
 #define BLIB_RENDER_VULKAN_PIPELINESPECIALIZATION_HPP
 
 #include <BLIB/Logging.hpp>
+#include <BLIB/Render/Vulkan/ShaderParameters.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <cstdint>
 #include <vector>
@@ -55,6 +56,17 @@ public:
                                                          std::uint32_t offset, T value);
 
     /**
+     * @brief Overrides a shader in the underlying pipeline. The pipeline layout must be compatible
+     *
+     * @param path The resource path of the shader to override
+     * @param stage The stage of the shader to override
+     * @param entrypoint The entrypoint inside the shader to run
+     * @return A reference to this object
+     */
+    PipelineSpecialization& withShaderOverride(const std::string& path, VkShaderStageFlagBits stage,
+                                               const std::string& entrypoint = "main");
+
+    /**
      * @brief Removes the shader specialization for the given stage
      *
      * @param stage The stage to remove the specialization for
@@ -105,6 +117,7 @@ private:
         std::vector<VkSpecializationMapEntry> entries;
     };
 
+    std::vector<ShaderParameters> shaderOverrides;
     std::vector<ShaderSpecialization> shaderSpecializations;
     bool depthStencilSpecialized;
     VkPipelineDepthStencilStateCreateInfo depthStencil;

@@ -26,6 +26,13 @@ PipelineSpecialization& PipelineSpecialization::createShaderSpecializations(
     return *this;
 }
 
+PipelineSpecialization& PipelineSpecialization::withShaderOverride(const std::string& path,
+                                                                   VkShaderStageFlagBits stage,
+                                                                   const std::string& entrypoint) {
+    shaderOverrides.emplace_back(path, stage, entrypoint);
+    return *this;
+}
+
 PipelineSpecialization& PipelineSpecialization::removeShaderSpecialization(
     VkShaderStageFlagBits stage) {
     for (auto it = shaderSpecializations.begin(); it != shaderSpecializations.end(); ++it) {

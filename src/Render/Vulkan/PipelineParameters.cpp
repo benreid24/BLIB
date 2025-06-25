@@ -246,6 +246,11 @@ PipelineParameters& PipelineParameters::withDeclareSpecializations(std::uint32_t
 
 PipelineParameters& PipelineParameters::withSpecialization(
     std::uint32_t id, const PipelineSpecialization& specialization) {
+    if (id == 0) {
+        mainSpecialization = specialization;
+        return *this;
+    }
+
     const std::uint32_t i = id - 1;
     if (i >= specializations.size()) { throw std::runtime_error("Specialization id out of range"); }
 

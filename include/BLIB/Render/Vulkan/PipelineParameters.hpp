@@ -6,6 +6,7 @@
 #include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
 #include <BLIB/Render/Vulkan/PipelineLayout.hpp>
 #include <BLIB/Render/Vulkan/PipelineSpecialization.hpp>
+#include <BLIB/Render/Vulkan/ShaderParameters.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <array>
 #include <cstdint>
@@ -252,7 +253,8 @@ public:
     /**
      * @brief Adds a specialization to the pipeline
      *
-     * @param specializationId The id of the specialization. Should be an index starting at 1
+     * @param specializationId The id of the specialization. Should be an index starting at 1. An id
+     *                         of 0 will affect the main pipeline itself
      * @param specialization The specialization parameters
      * @return A reference to this object
      */
@@ -284,18 +286,6 @@ public:
     bool operator!=(const PipelineParameters& right) const;
 
 private:
-    struct ShaderInfo {
-        std::string path;
-        VkShaderStageFlagBits stage;
-        std::string entrypoint;
-
-        ShaderInfo() = default;
-        ShaderInfo(const std::string& p, VkShaderStageFlagBits s, const std::string& e)
-        : path(p)
-        , stage(s)
-        , entrypoint(e) {}
-    };
-
     struct DescriptorSet {
         std::type_index factoryType;
         std::unique_ptr<ds::DescriptorSetFactory> factory;
@@ -306,7 +296,7 @@ private:
     };
 
     PipelineLayout::LayoutParams layoutParams;
-    ctr::StaticVector<ShaderInfo, 5> shaders;
+    ctr::StaticVector<ShaderParameters, 5> shaders;
     ctr::StaticVector<VkDynamicState, 8> dynamicStates;
     VkVertexInputBindingDescription vertexBinding;
     ctr::StaticVector<VkVertexInputAttributeDescription, 8> vertexAttributes;
@@ -317,6 +307,7 @@ private:
     ctr::StaticVector<VkPipelineColorBlendAttachmentState, 4> colorAttachmentBlendStates;
     VkPipelineColorBlendStateCreateInfo colorBlending;
     VkPipelineDepthStencilStateCreateInfo* depthStencil;
+    PipelineSpecialization mainSpecialization;
     std::vector<PipelineSpecialization> specializations;
 
     VkPipelineRasterizationDepthClipStateCreateInfoEXT localDepthClipping;

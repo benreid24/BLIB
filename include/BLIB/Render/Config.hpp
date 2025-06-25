@@ -157,6 +157,16 @@ struct Config {
         static constexpr std::uint32_t ShadowMapPass             = 4;
     };
 
+    /**
+     * @brief Built-in specializations for 3D pipelines
+     */
+    struct Specializations3D {
+        static constexpr std::uint32_t LightingEnabled  = 1;
+        static constexpr std::uint32_t LightingDisabled = 2;
+        static constexpr std::uint32_t OutlineMainPass  = 3;
+        static constexpr std::uint32_t OutlineEdgePass  = 4;
+    };
+
     static constexpr std::uint32_t SPIRVMagicNumber = 0x07230203;
 
     static constexpr std::array<glm::vec3, 6> CubemapDirections = {

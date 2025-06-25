@@ -20,14 +20,24 @@ MaterialPipeline::MaterialPipeline(Renderer& renderer, std::uint32_t id,
 }
 
 VkPipeline MaterialPipeline::getRawPipeline(RenderPhase phase, std::uint32_t renderPassId,
-                                            std::uint32_t spec) const {
-    return pipelines[renderPhaseIndex(phase)]->rawPipeline(renderPassId, spec);
+                                            std::uint32_t objectSpec) const {
+    const unsigned int i     = renderPhaseIndex(phase);
+    const std::uint32_t spec = phase == RenderPhase::Default ?
+                                   objectSpec :
+                                   settings.renderPhaseOverrides[i].specialization;
+    return pipelines[i]->rawPipeline(renderPassId, spec);
 }
 
 bool MaterialPipeline::bind(VkCommandBuffer commandBuffer, RenderPhase phase,
-                            std::uint32_t renderPassId, std::uint32_t spec) {
-    vk::Pipeline* p = pipelines[renderPhaseIndex(phase)];
+                            std::uint32_t renderPassId, std::uint32_t objectSpec) {
+    const unsigned int i = renderPhaseIndex(phase);
+    vk::Pipeline* p      = pipelines[i];
     if (!p) { return false; }
+
+    const std::uint32_t spec = phase == RenderPhase::Default ?
+                                   objectSpec :
+                                   settings.renderPhaseOverrides[i].specialization;
+
     p->bind(commandBuffer, renderPassId, spec);
     return true;
 }
@@ -43,13 +53,8 @@ vk::Pipeline* MaterialPipeline::resolvePipeline(MaterialPipelineSettings::Pipeli
     if (info.id != Config::PipelineIds::None) {
         return &renderer.pipelineCache().getPipeline(info.id);
     }
-    if (info.overrideBehavior != MaterialPipelineSettings::None) {
+    if (info.overrideBehavior != MaterialPipelineSettings::NoOverride) {
         switch (info.overrideBehavior) {
-        case MaterialPipelineSettings::FragmentNoop: {
-            vk::PipelineParameters params = mainPipeline->getCreationParameters();
-            params.removeShader(VK_SHADER_STAGE_FRAGMENT_BIT);
-            return &renderer.pipelineCache().getOrCreatePipeline(params.build());
-        }
         case MaterialPipelineSettings::NotRendered:
             return nullptr;
         default: {

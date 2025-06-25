@@ -8,11 +8,6 @@ namespace rc
 {
 namespace vk
 {
-namespace
-{
-PipelineSpecialization emptySpecialization;
-}
-
 Pipeline::Pipeline(Renderer& renderer, std::uint32_t id, PipelineParameters&& params)
 : id(id)
 , renderer(renderer)
@@ -48,20 +43,29 @@ void Pipeline::createForRenderPass(std::uint32_t rpid, std::uint32_t spec) {
     PipelineSpecialization& specialization =
         spec > 0 && spec <= createParams.specializations.size() ?
             createParams.specializations[spec - 1] :
-            emptySpecialization;
+            createParams.mainSpecialization;
     if (spec > createParams.specializations.size()) {
         BL_LOG_ERROR << "Pipeline being used with invalid specialization: " << spec;
     }
 
+    const auto findShaderSrc =
+        [&specialization](const ShaderParameters& src) -> const ShaderParameters& {
+        for (const auto& shader : specialization.shaderOverrides) {
+            if (shader.stage == src.stage) { return shader; }
+        }
+        return src;
+    };
+
     // Load shaders
     ctr::StaticVector<VkPipelineShaderStageCreateInfo, 5> shaderStages;
     ctr::StaticVector<VkSpecializationInfo, 5> shaderSpecs;
-    for (const auto& shader : createParams.shaders) {
-        auto& info  = shaderStages.emplace_back(VkPipelineShaderStageCreateInfo{});
-        info.sType  = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
-        info.stage  = shader.stage;
-        info.module = renderer.vulkanState().shaderCache.loadShader(shader.path);
-        info.pName  = shader.entrypoint.c_str();
+    for (const auto& shaderSrc : createParams.shaders) {
+        const auto& shader = findShaderSrc(shaderSrc);
+        auto& info         = shaderStages.emplace_back(VkPipelineShaderStageCreateInfo{});
+        info.sType         = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+        info.stage         = shader.stage;
+        info.module        = renderer.vulkanState().shaderCache.loadShader(shader.path);
+        info.pName         = shader.entrypoint.c_str();
 
         for (auto& spec : specialization.shaderSpecializations) {
             if (spec.stage == shader.stage) {

@@ -89,7 +89,7 @@ void MaterialPipelineCache::createBuiltins() {
     make(MId::Lines2D, PId::Lines2D);
     createPipeline(MId::Skybox,
                    mat::MaterialPipelineSettings(PId::Skybox)
-                       .withRenderPhasePipelineOverride(RenderPhase::Overlay, B::None)
+                       .withRenderPhasePipelineOverride(RenderPhase::Overlay, B::NotRendered)
                        .build());
 }
 
