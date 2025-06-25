@@ -23,6 +23,7 @@
 #include <BLIB/Render/Config/MaterialPipelineIds.hpp>
 #include <BLIB/Render/Config/PipelineIds.hpp>
 #include <BLIB/Render/Config/RenderPassIds.hpp>
+#include <BLIB/Render/Config/Specializations3D.hpp>
 #include <BLIB/Render/Descriptors/Builtin/ColorAttachmentFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/ColorAttachmentInstance.hpp>
 #include <BLIB/Render/Descriptors/Builtin/GlobalDataFactory.hpp>

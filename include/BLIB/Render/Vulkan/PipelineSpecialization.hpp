@@ -47,13 +47,15 @@ public:
      *
      * @tparam T The type of value to set
      * @param stage The shader stage to specialize
+     * @param entry The index of the specialization map entry to write
      * @param offset The byte offset to write the constant at
      * @param value The value to set
      * @return A reference to this object
      */
     template<typename T>
     PipelineSpecialization& setShaderSpecializationValue(VkShaderStageFlagBits stage,
-                                                         std::uint32_t offset, T value);
+                                                         std::uint32_t entry, std::uint32_t offset,
+                                                         T value);
 
     /**
      * @brief Overrides a shader in the underlying pipeline. The pipeline layout must be compatible
@@ -129,14 +131,21 @@ private:
 
 template<typename T>
 PipelineSpecialization& PipelineSpecialization::setShaderSpecializationValue(
-    VkShaderStageFlagBits stage, std::uint32_t offset, T value) {
+    VkShaderStageFlagBits stage, std::uint32_t entry, std::uint32_t offset, T value) {
     for (auto& spec : shaderSpecializations) {
         if (spec.stage == stage) {
-            if (offset + sizeof(T) >= spec.storage.size()) {
+            if (offset + sizeof(T) > spec.storage.size()) {
                 BL_LOG_ERROR << "Shader specialization value exceeds buffer. Ignoring";
                 return *this;
             }
+            if (entry >= spec.entries.size()) {
+                BL_LOG_ERROR << "Shader specialization entry exceeds declared map size. Ignoring";
+                return *this;
+            }
             *static_cast<T*>(static_cast<void*>(spec.storage.data() + offset)) = value;
+            spec.entries[entry].offset                                         = offset;
+            spec.entries[entry].size                                           = sizeof(T);
+            spec.entries[entry].constantID                                     = entry;
             return *this;
         }
     }

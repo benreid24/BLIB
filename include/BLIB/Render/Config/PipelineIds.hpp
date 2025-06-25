@@ -17,8 +17,7 @@ namespace cfg
 struct PipelineIds {
     static constexpr std::uint32_t None = 0;
 
-    static constexpr std::uint32_t LitMesh3D           = 1;
-    static constexpr std::uint32_t UnlitMesh3D         = 2;
+    static constexpr std::uint32_t Mesh3D              = 1;
     static constexpr std::uint32_t LitMesh3DMaterial   = 3;
     static constexpr std::uint32_t UnlitMesh3DMaterial = 4;
     static constexpr std::uint32_t LitMesh3DSkinned    = 5;

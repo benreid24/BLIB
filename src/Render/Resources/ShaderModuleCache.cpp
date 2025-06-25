@@ -28,10 +28,8 @@ VkShaderModule ShaderModuleCache::loadShader(const std::string& path) {
 
         case cfg::ShaderIds::MeshVertex[0]:
             return loadShader(BUILTIN_SHADER("3D/mesh.vert.spv"));
-        case cfg::ShaderIds::MeshFragmentLit[0]:
-            return loadShader(BUILTIN_SHADER("3D/Forward/meshLit.frag.spv"));
-        case cfg::ShaderIds::MeshFragmentUnlit[0]:
-            return loadShader(BUILTIN_SHADER("3D/Forward/meshUnlit.frag.spv"));
+        case cfg::ShaderIds::MeshFragment[0]:
+            return loadShader(BUILTIN_SHADER("3D/Forward/mesh.frag.spv"));
 
         case cfg::ShaderIds::MeshVertexMaterial[0]:
             return loadShader(BUILTIN_SHADER("3D/meshMaterial.vert.spv"));

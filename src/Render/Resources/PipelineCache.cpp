@@ -3,6 +3,7 @@
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Config/PipelineIds.hpp>
 #include <BLIB/Render/Config/ShaderIds.hpp>
+#include <BLIB/Render/Config/Specializations3D.hpp>
 #include <BLIB/Render/Descriptors/Builtin/ColorAttachmentFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/GlobalDataFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Object2DFactory.hpp>
@@ -108,22 +109,14 @@ void PipelineCache::createBuiltins() {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    createPipeline(cfg::PipelineIds::LitMesh3D,
-                   vk::PipelineParameters()
-                       .withShaders(cfg::ShaderIds::MeshVertex, cfg::ShaderIds::MeshFragmentLit)
-                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
-                       .withVertexFormat(prim::Vertex3D::bindingDescription(),
-                                         prim::Vertex3D::attributeDescriptions())
-                       .withRasterizer(rasterizer3d)
-                       .withDepthStencilState(&depthStencilDepthEnabled)
-                       .addDescriptorSet<ds::GlobalDataFactory>()
-                       .addDescriptorSet<ds::Scene3DFactory>()
-                       .addDescriptorSet<ds::Object3DFactory>()
-                       .build());
+    vk::PipelineSpecialization lightingDisabledSpecialization;
+    lightingDisabledSpecialization
+        .createShaderSpecializations(VK_SHADER_STAGE_FRAGMENT_BIT, sizeof(std::uint32_t), 1)
+        .setShaderSpecializationValue<std::uint32_t>(VK_SHADER_STAGE_FRAGMENT_BIT, 0, 0, 0);
 
-    createPipeline(cfg::PipelineIds::UnlitMesh3D,
+    createPipeline(cfg::PipelineIds::Mesh3D,
                    vk::PipelineParameters()
-                       .withShaders(cfg::ShaderIds::MeshVertex, cfg::ShaderIds::MeshFragmentUnlit)
+                       .withShaders(cfg::ShaderIds::MeshVertex, cfg::ShaderIds::MeshFragment)
                        .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                        .withVertexFormat(prim::Vertex3D::bindingDescription(),
                                          prim::Vertex3D::attributeDescriptions())
@@ -132,6 +125,9 @@ void PipelineCache::createBuiltins() {
                        .addDescriptorSet<ds::GlobalDataFactory>()
                        .addDescriptorSet<ds::Scene3DFactory>()
                        .addDescriptorSet<ds::Object3DFactory>()
+                       .withDeclareSpecializations(1)
+                       .withSpecialization(cfg::Specializations3D::LightingDisabled,
+                                           lightingDisabledSpecialization)
                        .build());
 
     createPipeline(cfg::PipelineIds::LitMesh3DMaterial,

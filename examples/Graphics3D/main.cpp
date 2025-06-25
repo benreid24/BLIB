@@ -250,10 +250,14 @@ private:
         light3.getTransform().setPosition({0.5f, 1.5f, 3.f});
         light3.getTransform().lookAt(light3PointAt);
         light3.setColor(light3Color);
+        light3.component().setPipelineSpecialization(
+            bl::rc::cfg::Specializations3D::LightingDisabled);
         light3.addToScene(scene, bl::rc::UpdateSpeed::Static);
         auto light3Handle             = scene->getLighting().createSpotlightWithShadow();
         light3Handle.get().getColor() = light3Color;
         light3Handle.get().getColor().ambient *= 0.1f;
+        light3Handle.get().getColor().specular *= 1.75f;
+        light3Handle.get().getColor().diffuse *= 1.5f;
         light3Handle.get().getAttenuation().constant  = 0.5f;
         light3Handle.get().getAttenuation().linear    = 0.1f;
         light3Handle.get().getAttenuation().quadratic = 0.05f;

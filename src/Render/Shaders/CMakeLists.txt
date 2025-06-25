@@ -7,8 +7,7 @@ compile_shaders(
 	empty.vert
 
     3D/mesh.vert
-    3D/Forward/meshLit.frag
-    3D/Forward/meshUnlit.frag
+    3D/Forward/mesh.frag
     
     3D/meshMaterial.vert
     3D/Forward/meshMaterialLit.frag

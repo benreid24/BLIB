@@ -15,11 +15,18 @@ layout(location = 0) out vec4 outColor;
 #define GLOBALS_SET_NUMBER 0
 #define SCENE_SET_NUMBER 1
 #include "3D/uniforms.glsl"
+
+#include "3D/constants.glsl"
 #include "3D/blinnPhongLighting.glsl.frag"
 
 void main() {
-    vec3 normal = fs_in.TBN[2];
-    vec3 diffuse = fs_in.fragColor.xyz;
-    vec3 lightColor = computeLighting(fs_in.fragPos, normal, diffuse, diffuse, 1.0);
-    outColor = fs_in.fragColor * vec4(lightColor, fs_in.fragColor.w);
+    if (lightingEnabled == 1) {
+        vec3 normal = fs_in.TBN[2];
+        vec3 diffuse = fs_in.fragColor.xyz;
+        vec3 lightColor = computeLighting(fs_in.fragPos, normal, diffuse, diffuse, 1.0);
+        outColor = fs_in.fragColor * vec4(lightColor, fs_in.fragColor.w);
+    }
+    else {
+        outColor = fs_in.fragColor;
+    }
 }

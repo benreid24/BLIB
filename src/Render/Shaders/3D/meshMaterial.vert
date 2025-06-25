@@ -27,12 +27,12 @@ void main() {
     vec4 inPos = vec4(inPosition, 1.0);
 
     mat4 world = model.transform;
-    if (outlinePass == 1) {
-        // TODO - use actual scale method. does this scale translation?
-        world[0] *= 1.05;
-        world[1] *= 1.05;
-        world[2] *= 1.05;
-    }
+    // if (outlinePass == 1) {
+    //     // TODO - use actual scale method. does this scale translation?
+    //     world[0] *= 1.05;
+    //     world[1] *= 1.05;
+    //     world[2] *= 1.05;
+    // }
 
 	gl_Position = camera.projection * camera.view * model.transform * inPos;
     vs_out.fragPos = vec3(model.transform * inPos);

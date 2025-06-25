@@ -13,10 +13,9 @@ namespace cfg
  * @ingroup Renderer
  */
 struct Specializations3D {
-    static constexpr std::uint32_t LightingEnabled  = 1;
-    static constexpr std::uint32_t LightingDisabled = 2;
-    static constexpr std::uint32_t OutlineMainPass  = 3;
-    static constexpr std::uint32_t OutlineEdgePass  = 4;
+    static constexpr std::uint32_t LightingDisabled = 1;
+    static constexpr std::uint32_t OutlineMainPass  = 2;
+    static constexpr std::uint32_t OutlineEdgePass  = 3;
 };
 
 } // namespace cfg

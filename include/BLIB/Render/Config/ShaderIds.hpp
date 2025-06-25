@@ -17,9 +17,8 @@ namespace cfg
 struct ShaderIds {
     static constexpr char EmptyVertex[] = {1, 0};
 
-    static constexpr char MeshVertex[]        = {2, 0};
-    static constexpr char MeshFragmentLit[]   = {3, 0};
-    static constexpr char MeshFragmentUnlit[] = {4, 0};
+    static constexpr char MeshVertex[]   = {2, 0};
+    static constexpr char MeshFragment[] = {3, 0};
 
     static constexpr char MeshVertexMaterial[]        = {5, 0};
     static constexpr char MeshFragmentMaterialLit[]   = {6, 0};

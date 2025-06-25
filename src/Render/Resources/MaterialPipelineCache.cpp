@@ -2,6 +2,7 @@
 
 #include <BLIB/Render/Config/MaterialPipelineIds.hpp>
 #include <BLIB/Render/Config/PipelineIds.hpp>
+#include <BLIB/Render/Config/Specializations3D.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -64,16 +65,26 @@ void MaterialPipelineCache::createBuiltins() {
                                                  pointShadowMapPipelineId)
                 .build());
     };
+    const auto make3DSpecial = [this](std::uint32_t materialIds,
+                                      std::uint32_t pipelineId,
+                                      std::uint32_t shadowMapPipelineId,
+                                      std::uint32_t pointShadowMapPipelineId) {
+        createPipeline(
+            materialIds,
+            mat::MaterialPipelineSettings(pipelineId)
+                .withRenderPhasePipelineOverride(
+                    RenderPhase::Overlay, pipelineId, cfg::Specializations3D::LightingDisabled)
+                .withRenderPhasePipelineOverride(RenderPhase::ShadowMap, shadowMapPipelineId)
+                .withRenderPhasePipelineOverride(RenderPhase::ShadowPointMap,
+                                                 pointShadowMapPipelineId)
+                .build());
+    };
 
     using MId = cfg::MaterialPipelineIds;
     using PId = cfg::PipelineIds;
     using B   = mat::MaterialPipelineSettings::PhasePipelineOverride;
 
-    make3D(MId::Mesh3D,
-           PId::LitMesh3D,
-           PId::UnlitMesh3D,
-           PId::ShadowMapRegular,
-           PId::PointShadowMapRegular);
+    make3DSpecial(MId::Mesh3D, PId::Mesh3D, PId::ShadowMapRegular, PId::PointShadowMapRegular);
     make3D(MId::Mesh3DMaterial,
            PId::LitMesh3DMaterial,
            PId::UnlitMesh3DMaterial,
