@@ -1,5 +1,7 @@
 #include <BLIB/Render/Resources/MaterialPipelineCache.hpp>
 
+#include <BLIB/Render/Config/MaterialPipelineIds.hpp>
+#include <BLIB/Render/Config/PipelineIds.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -63,8 +65,8 @@ void MaterialPipelineCache::createBuiltins() {
                 .build());
     };
 
-    using MId = Config::MaterialPipelineIds;
-    using PId = Config::PipelineIds;
+    using MId = cfg::MaterialPipelineIds;
+    using PId = cfg::PipelineIds;
     using B   = mat::MaterialPipelineSettings::PhasePipelineOverride;
 
     make3D(MId::Mesh3D,

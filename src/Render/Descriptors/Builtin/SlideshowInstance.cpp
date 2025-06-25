@@ -1,7 +1,6 @@
 #include <BLIB/Render/Descriptors/Builtin/SlideshowInstance.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
-#include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Systems/Animation2DSystem.hpp>
 

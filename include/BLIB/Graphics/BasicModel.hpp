@@ -5,7 +5,7 @@
 #include <BLIB/Graphics/Components/Transform3D.hpp>
 #include <BLIB/Graphics/Drawable.hpp>
 #include <BLIB/Models.hpp>
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Config/MaterialPipelineIds.hpp>
 #include <BLIB/Resources/Ref.hpp>
 
 namespace bl
@@ -35,7 +35,7 @@ public:
      * @return True if the model was able to loaded and created, false on error
      */
     bool create(engine::World& world, const std::string& file,
-                std::uint32_t materialPipelineId = rc::Config::MaterialPipelineIds::Mesh3DMaterial);
+                std::uint32_t materialPipelineId = rc::cfg::MaterialPipelineIds::Mesh3DMaterial);
 
     /**
      * @brief Creates the basic model from the given source model
@@ -46,7 +46,7 @@ public:
      * @return True if the model was able to created, false on error
      */
     bool create(engine::World& world, resource::Ref<mdl::Model> model,
-                std::uint32_t materialPipelineId = rc::Config::MaterialPipelineIds::Mesh3DMaterial);
+                std::uint32_t materialPipelineId = rc::cfg::MaterialPipelineIds::Mesh3DMaterial);
 
 private:
     using Tx = ecs::Transaction<

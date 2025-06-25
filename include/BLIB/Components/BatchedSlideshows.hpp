@@ -3,6 +3,7 @@
 
 #include <BLIB/Render/Buffers/BatchIndexBuffer.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
+#include <BLIB/Render/Config/MaterialPipelineIds.hpp>
 #include <BLIB/Render/Primitives/SlideshowVertex.hpp>
 
 namespace bl
@@ -50,7 +51,7 @@ struct BatchedSlideshows : public rc::rcom::DrawableBase {
      * @brief Returns the default material pipeline for rendering
      */
     virtual std::uint32_t getDefaultMaterialPipelineId() const override {
-        return rc::Config::MaterialPipelineIds::Slideshow2D;
+        return rc::cfg::MaterialPipelineIds::Slideshow2D;
     }
 };
 

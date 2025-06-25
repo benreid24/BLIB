@@ -1,6 +1,5 @@
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
 
-#include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 
 namespace bl
@@ -26,7 +25,7 @@ void SceneDescriptorSetInstance::updateObserverCamera(std::uint32_t observerInde
 }
 
 void SceneDescriptorSetInstance::createCameraBuffer() {
-    cameraBuffer.create(vulkanState, Config::MaxSceneObservers);
+    cameraBuffer.create(vulkanState, cfg::Limits::MaxSceneObservers);
     cameraBuffer.transferEveryFrame(tfr::Transferable::SyncRequirement::Immediate);
 }
 
@@ -65,7 +64,7 @@ VkDescriptorSetLayoutBinding SceneDescriptorSetInstance::getCameraBufferBindingI
 }
 
 void SceneDescriptorSetInstance::allocateDescriptorSets() {
-    descriptorSets.emptyInit(vulkanState, Config::MaxSceneObservers);
+    descriptorSets.emptyInit(vulkanState, cfg::Limits::MaxSceneObservers);
     allocHandle = vulkanState.descriptorPool.allocate(
         setLayout, descriptorSets.data(), descriptorSets.totalSize());
 }

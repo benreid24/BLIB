@@ -1,6 +1,6 @@
 #include <BLIB/Render/Descriptors/Builtin/Scene2DInstance.hpp>
 
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>
 #include <array>
 
@@ -49,11 +49,11 @@ void Scene2DInstance::init(ShaderInputStore&) {
 
     // create and configureWrite descriptors
     SetWriteHelper setWriter;
-    setWriter.hintWriteCount(descriptorSets.size() * Config::MaxConcurrentFrames * 4);
-    setWriter.hintBufferInfoCount(descriptorSets.size() * Config::MaxConcurrentFrames * 4);
+    setWriter.hintWriteCount(descriptorSets.size() * cfg::Limits::MaxConcurrentFrames * 4);
+    setWriter.hintBufferInfoCount(descriptorSets.size() * cfg::Limits::MaxConcurrentFrames * 4);
 
-    for (std::uint32_t i = 0; i < Config::MaxSceneObservers; ++i) {
-        for (std::uint32_t j = 0; j < Config::MaxConcurrentFrames; ++j) {
+    for (std::uint32_t i = 0; i < cfg::Limits::MaxSceneObservers; ++i) {
+        for (std::uint32_t j = 0; j < cfg::Limits::MaxConcurrentFrames; ++j) {
             const auto set = descriptorSets.getRaw(i, j);
 
             writeCameraDescriptor(setWriter, i, j);

@@ -2,6 +2,7 @@
 
 #include <BLIB/Cameras/2D/Camera2D.hpp>
 #include <BLIB/Cameras/3D/Camera3D.hpp>
+#include <BLIB/Render/Config/RenderPassIds.hpp>
 #include <BLIB/Render/Graph/Assets/FinalRenderTextureAsset.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp>
@@ -48,7 +49,7 @@ void RenderTexture::resize(const glm::u32vec2& size) {
     viewport.height       = size.y;
 
     VkRenderPass renderPass = renderer.renderPassCache()
-                                  .getRenderPass(Config::RenderPassIds::StandardAttachmentDefault)
+                                  .getRenderPass(cfg::RenderPassIds::StandardAttachmentDefault)
                                   .rawPass();
 
     depthBuffer.create(renderer.vulkanState(),

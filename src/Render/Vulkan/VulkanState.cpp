@@ -202,7 +202,7 @@ void VulkanState::beginFrame(StandardAttachmentSet*& renderFrame, VkCommandBuffe
 void VulkanState::completeFrame() {
     std::unique_lock lock(cbSubmitMutex);
     swapchain.completeFrame();
-    currentFrame = (currentFrame + 1) % Config::MaxConcurrentFrames;
+    currentFrame = (currentFrame + 1) % cfg::Limits::MaxConcurrentFrames;
 }
 
 void VulkanState::createInstance() {

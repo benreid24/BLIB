@@ -1,5 +1,6 @@
 #include <BLIB/Render/Materials/MaterialPipeline.hpp>
 
+#include <BLIB/Render/Config/PipelineIds.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -14,7 +15,7 @@ MaterialPipeline::MaterialPipeline(Renderer& renderer, std::uint32_t id,
 , id(id)
 , settings(s) {
     mainPipeline = resolvePipeline(settings.mainPipeline);
-    for (unsigned int i = 0; i < Config::MaxRenderPhases; ++i) {
+    for (unsigned int i = 0; i < cfg::Limits::MaxRenderPhases; ++i) {
         pipelines[i] = resolvePipeline(settings.renderPhaseOverrides[i]);
     }
 }
@@ -50,7 +51,7 @@ vk::Pipeline* MaterialPipeline::resolvePipeline(MaterialPipelineSettings::Pipeli
         info.id             = result->getId();
         return result;
     }
-    if (info.id != Config::PipelineIds::None) {
+    if (info.id != cfg::PipelineIds::None) {
         return &renderer.pipelineCache().getPipeline(info.id);
     }
     if (info.overrideBehavior != MaterialPipelineSettings::NoOverride) {

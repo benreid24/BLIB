@@ -3,7 +3,6 @@
 
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/Render/Components/SceneObjectRef.hpp>
-#include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Primitives/DrawParameters.hpp>
 #include <BLIB/Render/UpdateSpeed.hpp>
 #include <cstdint>

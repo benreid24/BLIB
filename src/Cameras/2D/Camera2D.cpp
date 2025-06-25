@@ -1,6 +1,6 @@
 #include <BLIB/Cameras/2D/Camera2D.hpp>
 
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Config/Constants.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>
 
@@ -105,7 +105,7 @@ void Camera2D::refreshViewMatrix(glm::mat4& view) {
     for (auto& affector : affectors) { affector->applyOnView(r); }
 
     view = glm::translate(glm::vec3(center, 0.f));
-    view = glm::rotate(view, glm::radians(r), rc::Config::Rotate2DAxis);
+    view = glm::rotate(view, glm::radians(r), rc::cfg::Constants::Rotate2DAxis);
     view = glm::translate(view, glm::vec3(-center, 0.f));
 }
 

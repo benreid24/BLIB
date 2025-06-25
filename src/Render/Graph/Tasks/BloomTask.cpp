@@ -1,5 +1,7 @@
 #include <BLIB/Render/Graph/Tasks/BloomTask.hpp>
 
+#include <BLIB/Render/Config/PipelineIds.hpp>
+#include <BLIB/Render/Config/RenderPassIds.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
@@ -39,8 +41,8 @@ void BloomTask::create(engine::Engine&, Renderer& r, Scene*) {
     renderer = &r;
 
     filterHighlightPipeline =
-        &renderer->pipelineCache().getPipeline(Config::PipelineIds::BloomHighlightFilter);
-    blurPipeline = &renderer->pipelineCache().getPipeline(Config::PipelineIds::BloomBlur);
+        &renderer->pipelineCache().getPipeline(cfg::PipelineIds::BloomHighlightFilter);
+    blurPipeline = &renderer->pipelineCache().getPipeline(cfg::PipelineIds::BloomBlur);
 
     indexBuffer.create(renderer->vulkanState(), 4, 6);
     indexBuffer.indices()  = {0, 1, 3, 1, 2, 3};
@@ -92,7 +94,7 @@ void BloomTask::execute(const rg::ExecutionContext& ctx, rg::Asset*) {
 
     // copy only highlights to first target
     targets[0]->beginRender(ctx.commandBuffer, true);
-    filterHighlightPipeline->bind(ctx.commandBuffer, Config::RenderPassIds::BloomPass, 0);
+    filterHighlightPipeline->bind(ctx.commandBuffer, cfg::RenderPassIds::BloomPass, 0);
     inputAttachmentDescriptor->bind(ctx.commandBuffer, layout, 0);
     vkCmdPushConstants(ctx.commandBuffer,
                        layout,
@@ -104,7 +106,7 @@ void BloomTask::execute(const rg::ExecutionContext& ctx, rg::Asset*) {
     targets[0]->finishRender(ctx.commandBuffer);
 
     // apply blur passes
-    blurPipeline->bind(ctx.commandBuffer, Config::RenderPassIds::BloomPass, 0);
+    blurPipeline->bind(ctx.commandBuffer, cfg::RenderPassIds::BloomPass, 0);
     for (unsigned int i = 0; i < renderer->getSettings().getBloomPassCount() * 2; ++i) {
         pushConstants.horizontal = i % 2;
         vkCmdPushConstants(ctx.commandBuffer,

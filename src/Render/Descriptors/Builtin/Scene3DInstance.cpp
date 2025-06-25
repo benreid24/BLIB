@@ -1,6 +1,6 @@
 #include <BLIB/Render/Descriptors/Builtin/Scene3DInstance.hpp>
 
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Descriptors/SetWriteHelper.hpp>
 #include <BLIB/Render/Graph/Assets/ShadowMapAsset.hpp>
 #include <BLIB/Render/Lighting/Scene3DLighting.hpp>
@@ -85,14 +85,14 @@ void Scene3DInstance::init(ShaderInputStore& inputStore) {
     allocateDescriptorSets();
 
     // create and configureWrite descriptors
-    const std::uint32_t bufferWriteCount = Config::MaxConcurrentFrames * 4;
+    const std::uint32_t bufferWriteCount = cfg::Limits::MaxConcurrentFrames * 4;
     SetWriteHelper setWriter;
     setWriter.hintWriteCount(descriptorSets.size() * bufferWriteCount);
     setWriter.hintBufferInfoCount(descriptorSets.size() * bufferWriteCount);
 
     // write descriptors
-    for (std::uint32_t i = 0; i < Config::MaxSceneObservers; ++i) {
-        for (std::uint32_t j = 0; j < Config::MaxConcurrentFrames; ++j) {
+    for (std::uint32_t i = 0; i < cfg::Limits::MaxSceneObservers; ++i) {
+        for (std::uint32_t j = 0; j < cfg::Limits::MaxConcurrentFrames; ++j) {
             const auto set = descriptorSets.getRaw(i, j);
 
             writeCameraDescriptor(setWriter, i, j);
@@ -129,17 +129,17 @@ void Scene3DInstance::updateShadowDescriptors(rg::GraphAsset* asset) {
     }
 
     const std::uint32_t imageWriteCount =
-        Config::MaxConcurrentFrames * (Config::MaxSpotShadows + Config::MaxPointShadows);
+        cfg::Limits::MaxConcurrentFrames * (cfg::Limits::MaxSpotShadows + cfg::Limits::MaxPointShadows);
     SetWriteHelper setWriter;
     setWriter.hintWriteCount(descriptorSets.size() * imageWriteCount);
     setWriter.hintImageInfoCount(descriptorSets.size() * imageWriteCount);
 
-    for (std::uint32_t i = 0; i < Config::MaxSceneObservers; ++i) {
-        for (std::uint32_t j = 0; j < Config::MaxConcurrentFrames; ++j) {
+    for (std::uint32_t i = 0; i < cfg::Limits::MaxSceneObservers; ++i) {
+        for (std::uint32_t j = 0; j < cfg::Limits::MaxConcurrentFrames; ++j) {
             const auto set = descriptorSets.getRaw(i, j);
 
             VkSampler sampler = vulkanState.samplerCache.shadowMap();
-            for (unsigned int k = 0; k < Config::MaxSpotShadows; ++k) {
+            for (unsigned int k = 0; k < cfg::Limits::MaxSpotShadows; ++k) {
                 VkDescriptorImageInfo& imageInfo = setWriter.getNewImageInfo();
                 imageInfo.imageLayout            = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
                 imageInfo.imageView = shadowMaps ? shadowMaps->getSpotShadowImage(k).getView() :
@@ -154,7 +154,7 @@ void Scene3DInstance::updateShadowDescriptors(rg::GraphAsset* asset) {
                 write.descriptorType        = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
             }
 
-            for (unsigned int k = 0; k < Config::MaxPointShadows; ++k) {
+            for (unsigned int k = 0; k < cfg::Limits::MaxPointShadows; ++k) {
                 VkDescriptorImageInfo& imageInfo = setWriter.getNewImageInfo();
                 imageInfo.imageLayout            = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
                 imageInfo.imageView = shadowMaps ? shadowMaps->getPointShadowImage(k).getView() :
@@ -198,7 +198,7 @@ void Scene3DInstance::handleFrameStart() {
 
     for (unsigned int i = 0; i < data.nPointShadows; ++i) {
         auto& light        = data.pointLightsWithShadows[i];
-        auto& cam          = cameras[i + Config::MaxSpotShadows];
+        auto& cam          = cameras[i + cfg::Limits::MaxSpotShadows];
         cam.posAndFarPlane = glm::vec4(light.pos, light.planes.farPlane);
         for (unsigned int j = 0; j < 6; ++j) { cam.viewProj[j] = light.viewProjectionMatrices[j]; }
     }

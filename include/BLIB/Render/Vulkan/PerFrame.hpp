@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_UTIL_PERFRAME_HPP
 #define BLIB_RENDER_UTIL_PERFRAME_HPP
 
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Config/Limits.hpp>
 #include <array>
 #include <cstdint>
 
@@ -176,7 +176,7 @@ public:
 
 private:
     VulkanState* vs;
-    std::array<T, Config::MaxConcurrentFrames> data;
+    std::array<T, cfg::Limits::MaxConcurrentFrames> data;
 };
 
 } // namespace vk

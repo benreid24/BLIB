@@ -2,6 +2,7 @@
 #define BLIB_RENDER_BUFFERS_DYNAMICSSBO_HPP
 
 #include <BLIB/Render/Buffers/AlignedBuffer.hpp>
+#include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Transfers/Transferable.hpp>
 #include <BLIB/Render/Vulkan/Buffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
@@ -143,7 +144,7 @@ private:
     vk::VulkanState* vulkanState;
     buf::AlignedBuffer<T> cpuBuffer;
     vk::PerFrame<vk::Buffer> gpuBuffers;
-    std::array<DirtyRange, Config::MaxConcurrentFrames> dirtyRanges;
+    std::array<DirtyRange, cfg::Limits::MaxConcurrentFrames> dirtyRanges;
     std::uint32_t dirtyThresh;
 };
 

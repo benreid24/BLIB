@@ -1,5 +1,6 @@
 #include <BLIB/Render/Lighting/Scene3DLighting.hpp>
 
+#include <BLIB/Render/Config/Constants.hpp>
 #include <algorithm>
 
 namespace bl
@@ -10,10 +11,10 @@ namespace lgt
 {
 Scene3DLighting::Scene3DLighting(ds::Scene3DInstance& instance)
 : instance(instance)
-, spotLights(Config::MaxSpotLights)
-, spotShadows(Config::MaxSpotShadows)
-, pointLights(Config::MaxPointLights)
-, pointShadows(Config::MaxPointShadows)
+, spotLights(cfg::Limits::MaxSpotLights)
+, spotShadows(cfg::Limits::MaxSpotShadows)
+, pointLights(cfg::Limits::MaxPointLights)
+, pointShadows(cfg::Limits::MaxPointShadows)
 , sceneCenter(0.f, 0.f, 0.f)
 , sunDistance(10.f) {
     instance.getUniform() = LightingDescriptor3D();
@@ -67,7 +68,7 @@ void Scene3DLighting::updateSunCameraMatrix() {
     glm::mat4 projection = glm::ortho(-r, r, -r, r, 0.1f, sunDistance * 2.f);
     glm::mat4 view       = glm::lookAt(sceneCenter - instance.getUniform().sun.dir * sunDistance,
                                  sceneCenter,
-                                 Config::UpDirection);
+                                 cfg::Constants::UpDirection);
     instance.getUniform().sun.viewProjectionMatrix = projection * view;
 }
 

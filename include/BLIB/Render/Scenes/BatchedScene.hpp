@@ -80,7 +80,7 @@ private:
     struct RenderPhaseDescriptors {
         void init(ds::DescriptorSetInstanceCache& descriptorCache, const vk::Pipeline* pipeline);
 
-        std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets> descriptors;
+        std::array<ds::DescriptorSetInstance*, cfg::Limits::MaxDescriptorSets> descriptors;
         std::uint8_t descriptorCount;
         std::uint8_t perObjStart;
         bool bindless;
@@ -108,10 +108,10 @@ private:
         void updateDescriptors(ecs::Entity entity, SceneObject* object, PipelineBatch& prevBatch);
 
         mat::MaterialPipeline& pipeline;
-        std::array<RenderPhaseDescriptors, Config::MaxRenderPhases> perPhaseDescriptors;
-        ctr::StaticVector<SpecializationBatch, Config::MaxPipelineSpecializations> specBatches;
+        std::array<RenderPhaseDescriptors, cfg::Limits::MaxRenderPhases> perPhaseDescriptors;
+        ctr::StaticVector<SpecializationBatch, cfg::Limits::MaxPipelineSpecializations> specBatches;
         ctr::StaticVector<ds::DescriptorSetInstance*,
-                          Config::MaxDescriptorSets * Config::MaxRenderPhases>
+                          cfg::Limits::MaxDescriptorSets * cfg::Limits::MaxRenderPhases>
             allDescriptors;
     };
 

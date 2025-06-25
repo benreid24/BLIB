@@ -1,5 +1,6 @@
 #include <BLIB/Render/Graph/Assets/ShadowMapAsset.hpp>
 
+#include <BLIB/Render/Config/RenderPassIds.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -13,7 +14,7 @@ ShadowMapAsset::ShadowMapAsset(std::string_view tag)
 
 void ShadowMapAsset::doCreate(engine::Engine&, Renderer& renderer, RenderTarget*) {
     VkRenderPass renderPass =
-        renderer.renderPassCache().getRenderPass(Config::RenderPassIds::ShadowMapPass).rawPass();
+        renderer.renderPassCache().getRenderPass(cfg::RenderPassIds::ShadowMapPass).rawPass();
 
     const VkFormat depthFormat = renderer.vulkanState().findShadowMapFormat();
     const VkImageAspectFlags depthAspect =

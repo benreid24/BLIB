@@ -5,7 +5,8 @@
 #include <BLIB/Engine/HeaderHelpers.hpp>
 #include <BLIB/Render/Buffers/DynamicSSBO.hpp>
 #include <BLIB/Render/Buffers/StaticSSBO.hpp>
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Config/Constants.hpp>
+#include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Descriptors/ShaderInput.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
@@ -191,19 +192,19 @@ EntityComponentShaderInputBase::dirtyStaticRange() const {
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
 EntityComponentShaderInput<TCom, TPayload, TDynamicStorage,
                            TStaticStorage>::EntityComponentShaderInput()
-: dynamicRefresh(0x1 << Config::MaxConcurrentFrames)
-, staticRefresh(0x1 << Config::MaxConcurrentFrames) {}
+: dynamicRefresh(0x1 << cfg::Limits::MaxConcurrentFrames)
+, staticRefresh(0x1 << cfg::Limits::MaxConcurrentFrames) {}
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
 void EntityComponentShaderInput<TCom, TPayload, TDynamicStorage, TStaticStorage>::init(
     engine::Engine& engine, vk::VulkanState& vulkanState, const scene::MapKeyToEntityCb& entityCb) {
     registry              = &engine::HeaderHelpers::getRegistry(engine);
     getEntityFromSceneKey = entityCb;
-    dynamicBuffer.create(vulkanState, Config::DefaultSceneObjectCapacity);
-    staticBuffer.create(vulkanState, Config::DefaultSceneObjectCapacity);
-    dynCounts.resize(Config::DefaultSceneObjectCapacity, 0);
-    statCounts.resize(Config::DefaultSceneObjectCapacity, 0);
-    dirtyComponents.reserve(Config::DefaultSceneObjectCapacity);
+    dynamicBuffer.create(vulkanState, cfg::Constants::DefaultSceneObjectCapacity);
+    staticBuffer.create(vulkanState, cfg::Constants::DefaultSceneObjectCapacity);
+    dynCounts.resize(cfg::Constants::DefaultSceneObjectCapacity, 0);
+    statCounts.resize(cfg::Constants::DefaultSceneObjectCapacity, 0);
+    dirtyComponents.reserve(cfg::Constants::DefaultSceneObjectCapacity);
 }
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
@@ -219,7 +220,7 @@ bool EntityComponentShaderInput<TCom, TPayload, TDynamicStorage, TStaticStorage>
 
     if (key.updateFreq == UpdateSpeed::Dynamic) {
         if (dynamicBuffer.ensureSize(key.sceneId + 1)) {
-            dynamicRefresh = 0x1 << Config::MaxConcurrentFrames;
+            dynamicRefresh = 0x1 << cfg::Limits::MaxConcurrentFrames;
         }
         component->link(this, key);
 
@@ -229,7 +230,7 @@ bool EntityComponentShaderInput<TCom, TPayload, TDynamicStorage, TStaticStorage>
     else {
         if (staticBuffer.ensureSize(key.sceneId + 1)) {
             statCounts.resize(key.sceneId + 1, 0);
-            staticRefresh = 0x1 << Config::MaxConcurrentFrames;
+            staticRefresh = 0x1 << cfg::Limits::MaxConcurrentFrames;
         }
         component->link(this, key);
 

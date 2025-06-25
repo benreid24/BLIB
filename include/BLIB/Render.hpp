@@ -18,7 +18,11 @@
 #include <BLIB/Render/Components/DescriptorComponentBase.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
 #include <BLIB/Render/Components/SceneObjectRef.hpp>
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Config/Constants.hpp>
+#include <BLIB/Render/Config/Limits.hpp>
+#include <BLIB/Render/Config/MaterialPipelineIds.hpp>
+#include <BLIB/Render/Config/PipelineIds.hpp>
+#include <BLIB/Render/Config/RenderPassIds.hpp>
 #include <BLIB/Render/Descriptors/Builtin/ColorAttachmentFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/ColorAttachmentInstance.hpp>
 #include <BLIB/Render/Descriptors/Builtin/GlobalDataFactory.hpp>
@@ -33,12 +37,11 @@
 #include <BLIB/Render/Descriptors/Builtin/Scene3DInstance.hpp>
 #include <BLIB/Render/Descriptors/Builtin/SlideshowFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/SlideshowInstance.hpp>
-#include <BLIB/Render/Descriptors/EntityComponentShaderInput.hpp>
-#include <BLIB/Render/Descriptors/ShaderInputStore.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
+#include <BLIB/Render/Descriptors/EntityComponentShaderInput.hpp>
 #include <BLIB/Render/Descriptors/Generic/Binding.hpp>
 #include <BLIB/Render/Descriptors/Generic/GlobalStorageBuffer.hpp>
 #include <BLIB/Render/Descriptors/Generic/GlobalUniformBuffer.hpp>
@@ -47,6 +50,7 @@
 #include <BLIB/Render/Descriptors/GenericDescriptorSetInstance.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
 #include <BLIB/Render/Descriptors/SetWriteHelper.hpp>
+#include <BLIB/Render/Descriptors/ShaderInputStore.hpp>
 #include <BLIB/Render/Events/SceneDestroyed.hpp>
 #include <BLIB/Render/Events/SceneObjectRemoved.hpp>
 #include <BLIB/Render/Graph/Asset.hpp>

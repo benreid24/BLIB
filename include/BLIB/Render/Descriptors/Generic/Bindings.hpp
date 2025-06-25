@@ -132,7 +132,7 @@ public:
     std::uint32_t getDynamicOffsets(
         scene::SceneRenderContext& ctx, VkPipelineLayout layout, std::uint32_t setIndex,
         UpdateSpeed updateFreq,
-        std::array<std::uint32_t, Config::MaxDescriptorBindings>& offsets) const;
+        std::array<std::uint32_t, cfg::Limits::MaxDescriptorBindings>& offsets) const;
 
 private:
     std::tuple<TBindings...> bindings;
@@ -253,7 +253,7 @@ template<typename... TBindings>
 std::uint32_t Bindings<TBindings...>::getDynamicOffsets(
     scene::SceneRenderContext& ctx, VkPipelineLayout layout, std::uint32_t setIndex,
     UpdateSpeed updateFreq,
-    std::array<std::uint32_t, Config::MaxDescriptorBindings>& offsets) const {
+    std::array<std::uint32_t, cfg::Limits::MaxDescriptorBindings>& offsets) const {
     std::uint32_t i = 0;
     for (Binding* binding : dynamicBindings) {
         offsets[i] = binding->getDynamicOffsetForPipeline(ctx, layout, setIndex, updateFreq);

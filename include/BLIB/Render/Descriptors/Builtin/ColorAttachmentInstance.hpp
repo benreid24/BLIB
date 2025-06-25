@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_DESCRIPTORS_BUILTIN_COLORATTACHMENTINSTANCE_HPP
 #define BLIB_RENDER_DESCRIPTORS_BUILTIN_COLORATTACHMENTINSTANCE_HPP
 
+#include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
@@ -48,9 +49,9 @@ public:
      * @param attachmentIndex The index of the color attachment to bind
      * @param sampler The sampler to use
      */
-    void initAttachments(
-        const std::array<const vk::AttachmentSet*, Config::MaxConcurrentFrames>& attachmentSets,
-        std::uint32_t attachmentIndex, VkSampler sampler);
+    void initAttachments(const std::array<const vk::AttachmentSet*,
+                                          cfg::Limits::MaxConcurrentFrames>& attachmentSets,
+                         std::uint32_t attachmentIndex, VkSampler sampler);
 
     /**
      * @brief Issues the command to bind the descriptor set, updating if the underlying images have
@@ -72,7 +73,7 @@ private:
             single = attachmentSet;
         }
 
-        void init(const std::array<const vk::AttachmentSet*, Config::MaxConcurrentFrames>&
+        void init(const std::array<const vk::AttachmentSet*, cfg::Limits::MaxConcurrentFrames>&
                       attachmentSets) {
             type     = Type::PerFrame;
             perFrame = attachmentSets;
@@ -93,7 +94,7 @@ private:
         Type type;
         union {
             const vk::AttachmentSet* single;
-            std::array<const vk::AttachmentSet*, Config::MaxConcurrentFrames> perFrame;
+            std::array<const vk::AttachmentSet*, cfg::Limits::MaxConcurrentFrames> perFrame;
         };
     };
 

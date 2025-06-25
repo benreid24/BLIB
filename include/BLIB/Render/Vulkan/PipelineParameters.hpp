@@ -2,7 +2,6 @@
 #define BLIB_RENDER_VULKAN_PIPELINEPARAMETERS_HPP
 
 #include <BLIB/Containers/StaticVector.hpp>
-#include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
 #include <BLIB/Render/Vulkan/PipelineLayout.hpp>
 #include <BLIB/Render/Vulkan/PipelineSpecialization.hpp>

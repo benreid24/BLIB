@@ -1,7 +1,6 @@
 #ifndef BLIB_RENDER_SCENES_CODESCENEOBJECT_HPP
 #define BLIB_RENDER_SCENES_CODESCENEOBJECT_HPP
 
-#include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
 #include <BLIB/Render/Vulkan/Pipeline.hpp>
 #include <array>
@@ -25,7 +24,7 @@ struct CodeSceneObject : public SceneObject {
     CodeSceneObject() = default;
 
     mat::MaterialPipeline* pipeline;
-    std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets> descriptors;
+    std::array<ds::DescriptorSetInstance*, cfg::Limits::MaxDescriptorSets> descriptors;
     std::uint8_t descriptorCount;
     std::uint8_t perObjStart;
 };

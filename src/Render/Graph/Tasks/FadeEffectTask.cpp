@@ -1,6 +1,6 @@
 #include <BLIB/Render/Graph/Tasks/FadeEffectTask.hpp>
 
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Config/PipelineIds.hpp>
 #include <BLIB/Render/Descriptors/Builtin/ColorAttachmentInstance.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Renderer.hpp>
@@ -41,7 +41,7 @@ void FadeEffectTask::create(engine::Engine&, Renderer& r, Scene* s) {
     scene    = s;
 
     // fetch pipeline and descriptor set
-    s->initPipelineInstance(Config::PipelineIds::FadeEffect, pipeline);
+    s->initPipelineInstance(cfg::PipelineIds::FadeEffect, pipeline);
     colorAttachmentSet = &s->getDescriptorSet<ds::ColorAttachmentInstance>();
 
     // create index buffer

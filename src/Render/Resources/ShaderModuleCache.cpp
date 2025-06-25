@@ -1,6 +1,7 @@
 #include <BLIB/Render/Resources/ShaderModuleCache.hpp>
 
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Config/Constants.hpp>
+#include <BLIB/Render/Config/ShaderIds.hpp>
 #include <BLIB/Resources.hpp>
 
 #define STRINGIFY_HELPER(X) #X
@@ -22,68 +23,68 @@ VkShaderModule ShaderModuleCache::loadShader(const std::string& path) {
 
     if (path[1] == '\0') {
         switch (path[0]) {
-        case Config::ShaderIds::EmptyVertex[0]:
+        case cfg::ShaderIds::EmptyVertex[0]:
             return loadShader(BUILTIN_SHADER("empty.vert.spv"));
 
-        case Config::ShaderIds::MeshVertex[0]:
+        case cfg::ShaderIds::MeshVertex[0]:
             return loadShader(BUILTIN_SHADER("3D/mesh.vert.spv"));
-        case Config::ShaderIds::MeshFragmentLit[0]:
+        case cfg::ShaderIds::MeshFragmentLit[0]:
             return loadShader(BUILTIN_SHADER("3D/Forward/meshLit.frag.spv"));
-        case Config::ShaderIds::MeshFragmentUnlit[0]:
+        case cfg::ShaderIds::MeshFragmentUnlit[0]:
             return loadShader(BUILTIN_SHADER("3D/Forward/meshUnlit.frag.spv"));
 
-        case Config::ShaderIds::MeshVertexMaterial[0]:
+        case cfg::ShaderIds::MeshVertexMaterial[0]:
             return loadShader(BUILTIN_SHADER("3D/meshMaterial.vert.spv"));
-        case Config::ShaderIds::MeshFragmentMaterialLit[0]:
+        case cfg::ShaderIds::MeshFragmentMaterialLit[0]:
             return loadShader(BUILTIN_SHADER("3D/Forward/meshMaterialLit.frag.spv"));
-        case Config::ShaderIds::MeshFragmentMaterialUnlit[0]:
+        case cfg::ShaderIds::MeshFragmentMaterialUnlit[0]:
             return loadShader(BUILTIN_SHADER("3D/Forward/meshMaterialUnlit.frag.spv"));
 
-        case Config::ShaderIds::MeshVertexSkinned[0]:
+        case cfg::ShaderIds::MeshVertexSkinned[0]:
             return loadShader(BUILTIN_SHADER("3D/meshSkinned.vert.spv"));
 
-        case Config::ShaderIds::SkyboxVertex[0]:
+        case cfg::ShaderIds::SkyboxVertex[0]:
             return loadShader(BUILTIN_SHADER("3D/skybox.vert.spv"));
-        case Config::ShaderIds::SkyboxFragment[0]:
+        case cfg::ShaderIds::SkyboxFragment[0]:
             return loadShader(BUILTIN_SHADER("3D/skybox.frag.spv"));
 
-        case Config::ShaderIds::ShadowVertex[0]:
+        case cfg::ShaderIds::ShadowVertex[0]:
             return loadShader(BUILTIN_SHADER("3D/Shadows/shadowMap.vert.spv"));
-        case Config::ShaderIds::PointShadowVertex[0]:
+        case cfg::ShaderIds::PointShadowVertex[0]:
             return loadShader(BUILTIN_SHADER("3D/Shadows/pointShadowMap.vert.spv"));
-        case Config::ShaderIds::PointShadowGeometry[0]:
+        case cfg::ShaderIds::PointShadowGeometry[0]:
             return loadShader(BUILTIN_SHADER("3D/Shadows/pointShadowMap.geom.spv"));
-        case Config::ShaderIds::PointShadowFragment[0]:
+        case cfg::ShaderIds::PointShadowFragment[0]:
             return loadShader(BUILTIN_SHADER("3D/Shadows/pointShadowMap.frag.spv"));
 
-        case Config::ShaderIds::Vertex2D[0]:
+        case cfg::ShaderIds::Vertex2D[0]:
             return loadShader(BUILTIN_SHADER("2D/2d.vert.spv"));
-        case Config::ShaderIds::Fragment2DLit[0]:
+        case cfg::ShaderIds::Fragment2DLit[0]:
             return loadShader(BUILTIN_SHADER("2D/2dlit.frag.spv"));
-        case Config::ShaderIds::Fragment2DUnlit[0]:
+        case cfg::ShaderIds::Fragment2DUnlit[0]:
             return loadShader(BUILTIN_SHADER("2D/2d.frag.spv"));
 
-        case Config::ShaderIds::Vertex2DSkinned[0]:
+        case cfg::ShaderIds::Vertex2DSkinned[0]:
             return loadShader(BUILTIN_SHADER("2D/skinned2d.vert.spv"));
-        case Config::ShaderIds::Fragment2DSkinnedLit[0]:
+        case cfg::ShaderIds::Fragment2DSkinnedLit[0]:
             return loadShader(BUILTIN_SHADER("2D/skinned2dlit.frag.spv"));
-        case Config::ShaderIds::Fragment2DSkinnedUnlit[0]:
+        case cfg::ShaderIds::Fragment2DSkinnedUnlit[0]:
             return loadShader(BUILTIN_SHADER("2D/skinned2d.frag.spv"));
-        case Config::ShaderIds::Fragment2DRotatedParticle[0]:
+        case cfg::ShaderIds::Fragment2DRotatedParticle[0]:
             return loadShader(BUILTIN_SHADER("2D/rotatedParticle.frag.spv"));
 
-        case Config::ShaderIds::TextFragment[0]:
+        case cfg::ShaderIds::TextFragment[0]:
             return loadShader(BUILTIN_SHADER("2D/text.frag.spv"));
-        case Config::ShaderIds::SlideshowVert[0]:
+        case cfg::ShaderIds::SlideshowVert[0]:
             return loadShader(BUILTIN_SHADER("2D/slideshow.vert.spv"));
 
-        case Config::ShaderIds::FadeEffectFragment[0]:
+        case cfg::ShaderIds::FadeEffectFragment[0]:
             return loadShader(BUILTIN_SHADER("PostFX/fadeEffect.frag.spv"));
-        case Config::ShaderIds::PostProcess3DFragment[0]:
+        case cfg::ShaderIds::PostProcess3DFragment[0]:
             return loadShader(BUILTIN_SHADER("PostFX/3dPostProcess.frag.spv"));
-        case Config::ShaderIds::BloomBlurFragment[0]:
+        case cfg::ShaderIds::BloomBlurFragment[0]:
             return loadShader(BUILTIN_SHADER("PostFX/bloomBlur.frag.spv"));
-        case Config::ShaderIds::BloomHighlightFilterFragment[0]:
+        case cfg::ShaderIds::BloomHighlightFilterFragment[0]:
             return loadShader(BUILTIN_SHADER("PostFX/bloomHighlightFilter.frag.spv"));
 
         default:
@@ -99,7 +100,7 @@ VkShaderModule ShaderModuleCache::loadShader(const std::string& path) {
     }
 
     const std::uint32_t* u32data = reinterpret_cast<const std::uint32_t*>(data);
-    if (u32data[0] != Config::SPIRVMagicNumber) {
+    if (u32data[0] != cfg::Constants::SPIRVMagicNumber) {
         BL_LOG_ERROR << "Shader '" << path << "' is not compiled";
         throw std::runtime_error("Shader compilation is not supported");
     }

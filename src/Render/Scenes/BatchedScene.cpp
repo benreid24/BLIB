@@ -4,6 +4,7 @@
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Events.hpp>
 #include <BLIB/Logging.hpp>
+#include <BLIB/Render/Config/Constants.hpp>
 #include <BLIB/Render/Events/SceneObjectRemoved.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
@@ -338,8 +339,8 @@ void BatchedScene::ObjectBatch::removeObject(ecs::Entity entity, SceneObject* ob
 }
 
 BatchedScene::ObjectSettingsCache::ObjectSettingsCache() {
-    transparency.resize(Config::DefaultSceneObjectCapacity, false);
-    specializations.resize(Config::DefaultSceneObjectCapacity, 0);
+    transparency.resize(cfg::Constants::DefaultSceneObjectCapacity, false);
+    specializations.resize(cfg::Constants::DefaultSceneObjectCapacity, 0);
 }
 
 void BatchedScene::ObjectSettingsCache::ensureSize(std::uint32_t size) {
@@ -349,8 +350,8 @@ void BatchedScene::ObjectSettingsCache::ensureSize(std::uint32_t size) {
 
 BatchedScene::SpecializationBatch::SpecializationBatch(std::uint32_t specializationId)
 : specializationId(specializationId) {
-    objectsStatic.reserve(Config::DefaultSceneObjectCapacity / 2);
-    objectsDynamic.reserve(Config::DefaultSceneObjectCapacity / 2);
+    objectsStatic.reserve(cfg::Constants::DefaultSceneObjectCapacity / 2);
+    objectsDynamic.reserve(cfg::Constants::DefaultSceneObjectCapacity / 2);
 }
 
 void BatchedScene::SpecializationBatch::addObject(SceneObject* object) {

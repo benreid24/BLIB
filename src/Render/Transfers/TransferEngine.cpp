@@ -34,12 +34,12 @@ void TransferEngine::Bucket::init(VkCommandPool pool) {
     alloc.sType              = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
     alloc.commandPool        = pool;
     alloc.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
-    alloc.commandBufferCount = Config::MaxConcurrentFrames;
+    alloc.commandBufferCount = cfg::Limits::MaxConcurrentFrames;
     vkCheck(vkAllocateCommandBuffers(vulkanState.device, &alloc, commandBuffer.rawData()));
 }
 
 void TransferEngine::Bucket::cleanup(VkCommandPool pool) {
-    for (unsigned int j = 0; j < Config::MaxConcurrentFrames; ++j) {
+    for (unsigned int j = 0; j < cfg::Limits::MaxConcurrentFrames; ++j) {
         for (unsigned int i = 0; i < stagingBuffers.getRaw(j).size(); ++i) {
             vmaDestroyBuffer(
                 vulkanState.vmaAllocator, stagingBuffers.getRaw(j)[i], stagingAllocs.getRaw(j)[i]);
@@ -47,7 +47,7 @@ void TransferEngine::Bucket::cleanup(VkCommandPool pool) {
     }
     fence.cleanup([this](VkFence f) { vkDestroyFence(vulkanState.device, f, nullptr); });
     vkFreeCommandBuffers(
-        vulkanState.device, pool, Config::MaxConcurrentFrames, commandBuffer.rawData());
+        vulkanState.device, pool, cfg::Limits::MaxConcurrentFrames, commandBuffer.rawData());
 }
 
 TransferEngine::TransferEngine(vk::VulkanState& vs)

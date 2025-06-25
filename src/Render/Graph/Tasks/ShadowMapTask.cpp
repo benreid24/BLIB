@@ -1,5 +1,6 @@
 #include <BLIB/Render/Graph/Tasks/ShadowMapTask.hpp>
 
+#include <BLIB/Render/Config/RenderPassIds.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Render/Scenes/ExtraContexts.hpp>
@@ -47,7 +48,7 @@ void ShadowMapTask::execute(const rg::ExecutionContext& execCtx, rg::Asset*) {
                                      execCtx.observerIndex,
                                      viewport,
                                      RenderPhase::ShadowMap,
-                                     Config::RenderPassIds::ShadowMapPass,
+                                     cfg::RenderPassIds::ShadowMapPass,
                                      false);
     scene::ctx::ShadowMapContext sunShadowCtx{.lightType  = scene::ctx::ShadowMapContext::SunLight,
                                               .lightIndex = 0};
@@ -70,7 +71,7 @@ void ShadowMapTask::execute(const rg::ExecutionContext& execCtx, rg::Asset*) {
                                           execCtx.observerIndex,
                                           viewport,
                                           RenderPhase::ShadowMap,
-                                          Config::RenderPassIds::ShadowMapPass,
+                                          cfg::RenderPassIds::ShadowMapPass,
                                           false);
         scene::ctx::ShadowMapContext spotShadowCtx{
             .lightType = scene::ctx::ShadowMapContext::SpotLight, .lightIndex = i};
@@ -94,7 +95,7 @@ void ShadowMapTask::execute(const rg::ExecutionContext& execCtx, rg::Asset*) {
                                            execCtx.observerIndex,
                                            viewport,
                                            RenderPhase::ShadowPointMap,
-                                           Config::RenderPassIds::ShadowMapPass,
+                                           cfg::RenderPassIds::ShadowMapPass,
                                            false);
         scene::ctx::ShadowMapContext pointShadowCtx{
             .lightType = scene::ctx::ShadowMapContext::PointLight, .lightIndex = i};

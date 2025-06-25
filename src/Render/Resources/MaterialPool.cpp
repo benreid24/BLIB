@@ -82,7 +82,7 @@ void MaterialPool::init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
     bufferInfo.offset = 0;
     bufferInfo.range  = gpuPool.totalAlignedSize();
 
-    std::array<VkWriteDescriptorSet, Config::MaxConcurrentFrames * 2> setWrites{};
+    std::array<VkWriteDescriptorSet, cfg::Limits::MaxConcurrentFrames * 2> setWrites{};
     unsigned int si    = 0;
     const auto visitor = [&bufferInfo, &si, &setWrites](VkDescriptorSet set) {
         auto& write           = setWrites[si++];

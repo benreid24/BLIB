@@ -1,7 +1,6 @@
 #include <BLIB/Render/Vulkan/PipelineParameters.hpp>
 
 #include <BLIB/Logging.hpp>
-#include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Primitives/Vertex.hpp>
 #include <BLIB/Util/HashCombine.hpp>
 #include <stdexcept>

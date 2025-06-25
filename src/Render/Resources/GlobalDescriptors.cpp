@@ -63,12 +63,12 @@ void GlobalDescriptors::init() {
         }
         if (!poolSize) { poolSize = &poolSizes.emplace_back(VkDescriptorPoolSize{}); }
         poolSize->type = setBindings[i].descriptorType;
-        poolSize->descriptorCount += setBindings[i].descriptorCount * Config::MaxConcurrentFrames;
+        poolSize->descriptorCount += setBindings[i].descriptorCount * cfg::Limits::MaxConcurrentFrames;
     }
 
     VkDescriptorPoolCreateInfo poolCreate{};
     poolCreate.sType         = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
-    poolCreate.maxSets       = 2 * Config::MaxConcurrentFrames;
+    poolCreate.maxSets       = 2 * cfg::Limits::MaxConcurrentFrames;
     poolCreate.poolSizeCount = poolSizes.size();
     poolCreate.pPoolSizes    = poolSizes.data();
     if (VK_SUCCESS !=
@@ -77,8 +77,8 @@ void GlobalDescriptors::init() {
     }
 
     // allocate descriptor set
-    VkDescriptorSet allocatedSets[2 * Config::MaxConcurrentFrames];
-    std::array<VkDescriptorSetLayout, 2 * Config::MaxConcurrentFrames> setLayouts;
+    VkDescriptorSet allocatedSets[2 * cfg::Limits::MaxConcurrentFrames];
+    std::array<VkDescriptorSetLayout, 2 * cfg::Limits::MaxConcurrentFrames> setLayouts;
     setLayouts.fill(descriptorSetLayout);
 
     VkDescriptorSetAllocateInfo setAlloc{};

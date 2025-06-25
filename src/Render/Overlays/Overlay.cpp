@@ -2,7 +2,7 @@
 
 #include <BLIB/Cameras/OverlayCamera.hpp>
 #include <BLIB/Engine/Engine.hpp>
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Config/Constants.hpp>
 #include <BLIB/Render/Events/SceneObjectRemoved.hpp>
 #include <BLIB/Render/Graph/Strategies/OverlayRenderStrategy.hpp>
 #include <BLIB/Render/Renderer.hpp>
@@ -25,8 +25,8 @@ Overlay::Overlay(engine::Engine& e)
 , cachedTargetSize{}
 , needRefreshAll(false) {
     ecsPool = &engine.ecs().getAllComponents<ovy::OverlayObject>();
-    roots.reserve(Config::DefaultSceneObjectCapacity / 4);
-    renderStack.reserve(Config::DefaultSceneObjectCapacity / 2);
+    roots.reserve(cfg::Constants::DefaultSceneObjectCapacity / 4);
+    renderStack.reserve(cfg::Constants::DefaultSceneObjectCapacity / 2);
     bl::event::Dispatcher::subscribe(this);
 }
 

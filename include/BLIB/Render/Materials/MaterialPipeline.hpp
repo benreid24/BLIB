@@ -80,7 +80,7 @@ private:
     std::uint32_t id;
     MaterialPipelineSettings settings;
     vk::Pipeline* mainPipeline;
-    std::array<vk::Pipeline*, Config::MaxRenderPhases> pipelines;
+    std::array<vk::Pipeline*, cfg::Limits::MaxRenderPhases> pipelines;
 
     vk::Pipeline* resolvePipeline(MaterialPipelineSettings::PipelineInfo& info);
 };

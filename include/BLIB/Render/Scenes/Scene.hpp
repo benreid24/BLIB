@@ -58,8 +58,6 @@ class Strategy;
  */
 class Scene {
 public:
-    static constexpr std::uint32_t DefaultSceneObjectCapacity = 128;
-
     /**
      * @brief Destroys the Scene
      */

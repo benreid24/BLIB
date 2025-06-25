@@ -4,7 +4,7 @@
 #include <BLIB/Components/OverlayScaler.hpp>
 #include <BLIB/ECS.hpp>
 #include <BLIB/ECS/Traits/ParentAware.hpp>
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Materials/MaterialPipeline.hpp>
 #include <BLIB/Render/Primitives/DrawParameters.hpp>
@@ -36,7 +36,7 @@ struct OverlayObject
     ecs::Entity entity;
     Overlay* overlay;
     mat::MaterialPipeline* pipeline;
-    std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets> descriptors;
+    std::array<ds::DescriptorSetInstance*, cfg::Limits::MaxDescriptorSets> descriptors;
     std::uint8_t descriptorCount;
     std::uint8_t perObjStart;
 

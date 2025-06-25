@@ -1,7 +1,8 @@
 #ifndef BLIB_RENDER_MATERIALS_MATERIALPIPELINESETTINGS_HPP
 #define BLIB_RENDER_MATERIALS_MATERIALPIPELINESETTINGS_HPP
 
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Config/Limits.hpp>
+#include <BLIB/Render/Config/PipelineIds.hpp>
 #include <BLIB/Render/RenderPhase.hpp>
 #include <BLIB/Render/Vulkan/PipelineParameters.hpp>
 
@@ -139,7 +140,7 @@ private:
         PhasePipelineOverride overrideBehavior;
 
         PipelineInfo()
-        : id(Config::PipelineIds::None)
+        : id(cfg::PipelineIds::None)
         , specialization(0)
         , pipelineParams(nullptr)
         , overrideBehavior(PhasePipelineOverride::NoOverride) {}
@@ -151,13 +152,13 @@ private:
         , overrideBehavior(PhasePipelineOverride::NoOverride) {}
 
         PipelineInfo(vk::PipelineParameters* params, std::uint32_t specialization)
-        : id(Config::PipelineIds::None)
+        : id(cfg::PipelineIds::None)
         , pipelineParams(params)
         , specialization(specialization)
         , overrideBehavior(PhasePipelineOverride::NoOverride) {}
 
         PipelineInfo(PhasePipelineOverride overrideBehavior)
-        : id(Config::PipelineIds::None)
+        : id(cfg::PipelineIds::None)
         , pipelineParams(nullptr)
         , specialization(0)
         , overrideBehavior(overrideBehavior) {}
@@ -171,7 +172,7 @@ private:
     PipelineInfo mainPipeline;
 
     RenderPhase phases;
-    std::array<PipelineInfo, Config::MaxRenderPhases> renderPhaseOverrides;
+    std::array<PipelineInfo, cfg::Limits::MaxRenderPhases> renderPhaseOverrides;
 
     friend class MaterialPipeline;
 };

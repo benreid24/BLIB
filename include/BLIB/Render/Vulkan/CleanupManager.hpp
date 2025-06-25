@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_VULKAN_CLEANUPMANAGER_HPP
 #define BLIB_RENDER_VULKAN_CLEANUPMANAGER_HPP
 
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Config/Limits.hpp>
 #include <array>
 #include <atomic>
 #include <functional>
@@ -28,21 +28,21 @@ public:
     /**
      * @brief Adds the given callback to the queue
      *
-     * @param cb The callback to invoke after Config::MaxConcurrentFrames frames have elapsed
+     * @param cb The callback to invoke after cfg::Limits::MaxConcurrentFrames frames have elapsed
      */
     void add(Callback&& cb);
 
     /**
      * @brief Adds the given callback to the queue
      *
-     * @param cb The callback to invoke after Config::MaxConcurrentFrames frames have elapsed
+     * @param cb The callback to invoke after cfg::Limits::MaxConcurrentFrames frames have elapsed
      */
     void add(const Callback& cb);
 
 private:
     std::mutex mutex;
     std::atomic_bool isClearing;
-    std::array<std::vector<Callback>, Config::MaxConcurrentFrames + 1> buckets;
+    std::array<std::vector<Callback>, cfg::Limits::MaxConcurrentFrames + 1> buckets;
     std::vector<Callback> addedDuringClear;
     unsigned int clearIndex;
 
@@ -51,7 +51,7 @@ private:
     void onFrameStart();
 
     constexpr unsigned int addIndex() const {
-        return (clearIndex + static_cast<unsigned int>(Config::MaxConcurrentFrames)) %
+        return (clearIndex + static_cast<unsigned int>(cfg::Limits::MaxConcurrentFrames)) %
                buckets.size();
     }
 

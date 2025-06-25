@@ -1,6 +1,5 @@
 target_sources(BLIB PUBLIC
     Color.hpp
-    Config.hpp
     Observer.hpp
     Renderer.hpp
     RenderPhase.hpp
@@ -11,6 +10,7 @@ target_sources(BLIB PUBLIC
 
 add_subdirectory(Buffers)
 add_subdirectory(Components)
+add_subdirectory(Config)
 add_subdirectory(Descriptors)
 add_subdirectory(Events)
 add_subdirectory(Graph)

@@ -3,6 +3,7 @@
 #include <BLIB/Cameras/2D/Camera2D.hpp>
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Logging.hpp>
+#include <BLIB/Render/Config/Constants.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -16,8 +17,8 @@ Scene::Scene(engine::Engine& engine, const scene::MapKeyToEntityCb& entityCb)
 , descriptorSets(shaderInputStore)
 , shaderInputStore(engine, entityCb)
 , nextObserverIndex(0)
-, staticPipelines(DefaultSceneObjectCapacity, nullptr)
-, dynamicPipelines(DefaultSceneObjectCapacity, nullptr)
+, staticPipelines(cfg::Constants::DefaultSceneObjectCapacity, nullptr)
+, dynamicPipelines(cfg::Constants::DefaultSceneObjectCapacity, nullptr)
 , isClearingQueues(false) {
     queuedBatchChanges.reserve(32);
     queuedAdds.reserve(32);
@@ -26,7 +27,7 @@ Scene::Scene(engine::Engine& engine, const scene::MapKeyToEntityCb& entityCb)
 
 std::uint32_t Scene::registerObserver() {
 #ifdef BLIB_DEBUG
-    if (nextObserverIndex >= Config::MaxSceneObservers) {
+    if (nextObserverIndex >= cfg::Limits::MaxSceneObservers) {
         BL_LOG_CRITICAL << "Max observer count for scene reached";
         throw std::runtime_error("Max observer count for scene reached");
     }

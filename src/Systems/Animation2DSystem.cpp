@@ -70,7 +70,7 @@ Animation2DSystem::Animation2DSystem(rc::Renderer& renderer)
 , players(nullptr)
 , slideshowFrameRangeAllocator(InitialSlideshowFrameCapacity)
 , slideshowDescriptorSets(renderer.vulkanState())
-, slideshowRefreshRequired(rc::Config::MaxConcurrentFrames)
+, slideshowRefreshRequired(rc::cfg::Limits::MaxConcurrentFrames)
 , slideshowLastFrameUpdated(255) {
     slideshowDescriptorSets.emptyInit(renderer.vulkanState());
 }
@@ -217,7 +217,7 @@ void Animation2DSystem::doSlideshowAdd(com::Animation2DPlayer& player) {
     slideshowDataRefCounts[player.animation.get()] += 1;
 
     // mark that descriptors need to be reset
-    slideshowRefreshRequired = rc::Config::MaxConcurrentFrames;
+    slideshowRefreshRequired = rc::cfg::Limits::MaxConcurrentFrames;
 }
 
 void Animation2DSystem::doSlideshowFree(const com::Animation2DPlayer& player) {

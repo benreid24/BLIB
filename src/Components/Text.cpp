@@ -1,7 +1,5 @@
 #include <BLIB/Components/Text.hpp>
 
-#include <BLIB/Render/Config.hpp>
-
 namespace bl
 {
 namespace com

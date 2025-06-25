@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_LIGHTING_POINTLIGHT3DSHADOW_HPP
 #define BLIB_RENDER_LIGHTING_POINTLIGHT3DSHADOW_HPP
 
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Config/Constants.hpp>
 #include <BLIB/Render/Lighting/PointLight3D.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>
@@ -48,8 +48,9 @@ struct PointLight3DShadow : public PointLight3D {
             glm::perspective(glm::radians(90.f), 1.f, planes.nearPlane, planes.farPlane);
         for (unsigned int i = 0; i < 6; ++i) {
             viewProjectionMatrices[i] =
-                proj *
-                glm::lookAt(pos, pos + Config::CubemapDirections[i], Config::CubeUpVectors[i]);
+                proj * glm::lookAt(pos,
+                                   pos + cfg::Constants::CubemapDirections[i],
+                                   cfg::Constants::CubeUpVectors[i]);
         }
     }
 

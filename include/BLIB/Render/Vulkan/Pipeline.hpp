@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_VULKAN_PIPELINE_HPP
 #define BLIB_RENDER_VULKAN_PIPELINE_HPP
 
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
 #include <BLIB/Render/Vulkan/PipelineLayout.hpp>
 #include <BLIB/Render/Vulkan/PipelineParameters.hpp>
@@ -84,7 +84,8 @@ private:
     std::uint32_t id;
     Renderer& renderer;
     PipelineLayout* layout;
-    std::array<std::array<VkPipeline, Config::MaxRenderPasses>, Config::MaxPipelineSpecializations>
+    std::array<std::array<VkPipeline, cfg::Limits::MaxRenderPasses>,
+               cfg::Limits::MaxPipelineSpecializations>
         pipelines;
     PipelineParameters createParams;
 

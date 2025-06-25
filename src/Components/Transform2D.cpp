@@ -1,6 +1,6 @@
 #include <BLIB/Components/Transform2D.hpp>
 
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Config/Constants.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <glm/gtx/transform.hpp>
 
@@ -107,8 +107,8 @@ glm::mat4 Transform2D::createTransformMatrix(const glm::vec2& origin, const glm:
                                              const glm::vec2& scale, float rotation) {
     glm::mat4 result = glm::translate(position);
     result           = glm::scale(result, glm::vec3(scale, 1.f));
-    result           = glm::rotate(result, glm::radians(rotation), rc::Config::Rotate2DAxis);
-    result           = glm::translate(result, glm::vec3(-origin, 0.f));
+    result = glm::rotate(result, glm::radians(rotation), rc::cfg::Constants::Rotate2DAxis);
+    result = glm::translate(result, glm::vec3(-origin, 0.f));
     return result;
 }
 

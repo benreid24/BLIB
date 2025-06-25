@@ -2,7 +2,6 @@
 #define BLIB_RENDER_DESCRIPTORS_BUILTIN_COMMONSHADERINPUTS_HPP
 
 #include <BLIB/Render/Buffers/StaticUniformBuffer.hpp>
-#include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/BufferShaderInput.hpp>
 #include <BLIB/Render/Descriptors/ShaderInput.hpp>
 #include <array>
@@ -31,7 +30,7 @@ struct ShadowMapCameraPayload {
  */
 using ShadowMapCameraShaderInput =
     BufferShaderInput<buf::StaticUniformBuffer<ShadowMapCameraPayload>,
-                      Config::MaxSpotShadows + Config::MaxPointShadows,
+                      cfg::Limits::MaxSpotShadows + cfg::Limits::MaxPointShadows,
                       buf::Alignment::UboBindOffset>;
 
 /**

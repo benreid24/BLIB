@@ -77,7 +77,7 @@ public:
     void destroy();
 
     /**
-     * @brief Defers destruction of the buffer for Config::MaxConcurrentFrames + 1 frames. Buffer
+     * @brief Defers destruction of the buffer for cfg::Limits::MaxConcurrentFrames + 1 frames. Buffer
      *        can be re-used immediately
      */
     void deferDestruction();

@@ -5,6 +5,7 @@
 #include <BLIB/Render/Vulkan/SharedCommandBuffer.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <mutex>
+#include <vector>
 
 namespace bl
 {

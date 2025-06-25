@@ -1,6 +1,6 @@
 #include <BLIB/Render/Graph/Assets/FinalRenderTextureAsset.hpp>
 
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Config/RenderPassIds.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
@@ -15,9 +15,8 @@ FinalRenderTextureAsset::FinalRenderTextureAsset(vk::Framebuffer& framebuffer,
                                                  const VkRect2D& scissor,
                                                  const VkClearValue* clearColors,
                                                  const std::uint32_t clearColorCount)
-: FramebufferAsset(rg::AssetTags::FinalFrameOutput,
-                   Config::RenderPassIds::StandardAttachmentDefault, viewport, scissor, clearColors,
-                   clearColorCount)
+: FramebufferAsset(rg::AssetTags::FinalFrameOutput, cfg::RenderPassIds::StandardAttachmentDefault,
+                   viewport, scissor, clearColors, clearColorCount)
 , framebuffer(framebuffer) {}
 
 void FinalRenderTextureAsset::doCreate(engine::Engine&, Renderer& renderer, RenderTarget*) {

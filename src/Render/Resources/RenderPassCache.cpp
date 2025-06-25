@@ -1,6 +1,7 @@
 #include <BLIB/Render/Resources/RenderPassCache.hpp>
 
 #include <BLIB/Logging.hpp>
+#include <BLIB/Render/Config/RenderPassIds.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp>
 #include <BLIB/Render/Vulkan/TextureFormat.hpp>
@@ -118,7 +119,7 @@ void RenderPassCache::addDefaults() {
     sceneParams.addSubpassDependency(postPassRenderCompleteDep);
     sceneParams.addSubpassDependency(prePassRenderDoneDep);
     sceneParams.addSubpassDependency(depthDependency);
-    createRenderPass(Config::RenderPassIds::StandardAttachmentDefault, sceneParams.build());
+    createRenderPass(cfg::RenderPassIds::StandardAttachmentDefault, sceneParams.build());
 
     // primary render pass for final swapchain compositing
     VkAttachmentDescription swapDefaultColorAttachment{};
@@ -141,7 +142,7 @@ void RenderPassCache::addDefaults() {
             .build());
     primaryParams.addSubpassDependency(prePassRenderDoneDep);
     primaryParams.addSubpassDependency(depthDependency);
-    createRenderPass(Config::RenderPassIds::SwapchainDefault, primaryParams.build());
+    createRenderPass(cfg::RenderPassIds::SwapchainDefault, primaryParams.build());
 
     // HDR rendering
     VkAttachmentDescription hdrColorAttachment{};
@@ -165,7 +166,7 @@ void RenderPassCache::addDefaults() {
     hdrParams.addSubpassDependency(postPassRenderCompleteDep);
     hdrParams.addSubpassDependency(prePassRenderDoneDep);
     hdrParams.addSubpassDependency(depthDependency);
-    createRenderPass(Config::RenderPassIds::HDRAttachmentDefault, hdrParams.build());
+    createRenderPass(cfg::RenderPassIds::HDRAttachmentDefault, hdrParams.build());
 
     vk::RenderPassParameters bloomParams;
     bloomParams.addAttachment(hdrColorAttachment);
@@ -174,7 +175,7 @@ void RenderPassCache::addDefaults() {
                                .build());
     bloomParams.addSubpassDependency(postPassRenderCompleteDep);
     bloomParams.addSubpassDependency(prePassRenderDoneDep);
-    createRenderPass(Config::RenderPassIds::BloomPass, bloomParams.build());
+    createRenderPass(cfg::RenderPassIds::BloomPass, bloomParams.build());
 
     VkAttachmentDescription shadowMapAttachment = depthAttachment;
     shadowMapAttachment.format                  = renderer.vulkanState().findShadowMapFormat();
@@ -190,7 +191,7 @@ void RenderPassCache::addDefaults() {
             .build());
     shadowMapParams.addSubpassDependency(shadowMapInputDependency);
     shadowMapParams.addSubpassDependency(shadowMapOutputDependency);
-    createRenderPass(Config::RenderPassIds::ShadowMapPass, shadowMapParams.build());
+    createRenderPass(cfg::RenderPassIds::ShadowMapPass, shadowMapParams.build());
 }
 
 } // namespace res

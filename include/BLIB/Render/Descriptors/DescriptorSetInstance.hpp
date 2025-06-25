@@ -2,7 +2,6 @@
 #define BLIB_RENDER_DESCRIPTORS_DESCRIPTORSETINSTANCE_HPP
 
 #include <BLIB/ECS/Entity.hpp>
-#include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/ShaderInputStore.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>

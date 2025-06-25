@@ -42,7 +42,7 @@ void CleanupManager::onFrameStart() {
 
     for (auto& cb : buckets[clearIndex]) { cb(); }
     const auto indexToClear = clearIndex;
-    clearIndex              = clearIndex < Config::MaxConcurrentFrames ? clearIndex + 1 : 0;
+    clearIndex              = clearIndex < cfg::Limits::MaxConcurrentFrames ? clearIndex + 1 : 0;
 
     lock.unlock();
     isClearing = false;

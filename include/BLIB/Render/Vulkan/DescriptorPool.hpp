@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_VULKAN_DESCRIPTORPOOL_HPP
 #define BLIB_RENDER_VULKAN_DESCRIPTORPOOL_HPP
 
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <array>
 #include <cstdint>
@@ -36,7 +36,7 @@ public:
     struct SetBindingInfo {
         SetBindingInfo();
 
-        std::array<VkDescriptorSetLayoutBinding, Config::MaxDescriptorBindings> bindings;
+        std::array<VkDescriptorSetLayoutBinding, cfg::Limits::MaxDescriptorBindings> bindings;
         std::uint32_t bindingCount;
     };
 

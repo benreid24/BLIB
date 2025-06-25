@@ -18,7 +18,7 @@ void Skybox::create(engine::World& world, const std::string& right, const std::s
                                                               rc::vk::Sampler::FilteredEdgeClamped);
     rc::res::MaterialRef material =
         world.engine().renderer().materialPool().getOrCreateFromTexture(cubemap);
-    cube.create(world, 1.0f, material, rc::Config::MaterialPipelineIds::Skybox);
+    cube.create(world, 1.0f, material, rc::cfg::MaterialPipelineIds::Skybox);
 }
 
 void Skybox::addToScene(rc::Scene* scene) { cube.addToScene(scene, rc::UpdateSpeed::Static); }

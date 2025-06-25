@@ -1,6 +1,7 @@
 #include <BLIB/Render/Renderer.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
+#include <BLIB/Render/Config/RenderPassIds.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Graph/Assets/ShadowMapAsset.hpp>
 #include <BLIB/Render/Graph/Providers/BloomProviders.hpp>
@@ -80,7 +81,7 @@ void Renderer::initialize() {
 
     // swapchain framebuffers
     VkRenderPass renderPass =
-        renderPasses.getRenderPass(Config::RenderPassIds::SwapchainDefault).rawPass();
+        renderPasses.getRenderPass(cfg::RenderPassIds::SwapchainDefault).rawPass();
     unsigned int i = 0;
     framebuffers.init(state.swapchain, [this, &i, renderPass](vk::Framebuffer& fb) {
         fb.create(state, renderPass, state.swapchain.swapFrameAtIndex(i));

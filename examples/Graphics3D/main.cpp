@@ -133,7 +133,7 @@ private:
         floor[4].pos      = {FloorSize, 0.f, FloorSize};
         floor[4].texCoord = {1.f, 1.f};
         floor.material().setMaterial(woodMaterial);
-        floor.material().setPipeline(bl::rc::Config::MaterialPipelineIds::Mesh3DMaterial);
+        floor.material().setPipeline(bl::rc::cfg::MaterialPipelineIds::Mesh3DMaterial);
         floor.commit();
         floor.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
@@ -166,21 +166,19 @@ private:
         auto toyBoxMaterial = engine.renderer().materialPool().getOrCreateFromNormalAndParallax(
             woodTexture, toyBoxNormal, toyBoxParallax, 0.1f);
 
-        cube1.create(
-            *world, 1.f, brickMaterial, bl::rc::Config::MaterialPipelineIds::Mesh3DMaterial);
+        cube1.create(*world, 1.f, brickMaterial, bl::rc::cfg::MaterialPipelineIds::Mesh3DMaterial);
         cube1.getTransform().setPosition({0.f, 0.501f, 0.f});
         cube1.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
-        cube2.create(
-            *world, 1.f, toyBoxMaterial, bl::rc::Config::MaterialPipelineIds::Mesh3DMaterial);
+        cube2.create(*world, 1.f, toyBoxMaterial, bl::rc::cfg::MaterialPipelineIds::Mesh3DMaterial);
         cube2.getTransform().setPosition({-2.f, 1.501f, 1.f});
         cube2.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
-        cube3.create(*world, 1.f, material, bl::rc::Config::MaterialPipelineIds::Mesh3DMaterial);
+        cube3.create(*world, 1.f, material, bl::rc::cfg::MaterialPipelineIds::Mesh3DMaterial);
         cube3.getTransform().setPosition({2.f, 1.501f, 2.f});
         cube3.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
-        cube4.create(*world, 1.f, material, bl::rc::Config::MaterialPipelineIds::Mesh3DMaterial);
+        cube4.create(*world, 1.f, material, bl::rc::cfg::MaterialPipelineIds::Mesh3DMaterial);
         cube4.getTransform().setPosition({-2.f, 4.501f, -1.f});
         cube4.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
@@ -191,11 +189,11 @@ private:
         auto material2 =
             engine.renderer().materialPool().getOrCreateFromDiffuseAndSpecular(diffuse, specular);
 
-        cube5.create(*world, 1.f, material2, bl::rc::Config::MaterialPipelineIds::Mesh3DMaterial);
+        cube5.create(*world, 1.f, material2, bl::rc::cfg::MaterialPipelineIds::Mesh3DMaterial);
         cube5.getTransform().setPosition({2.f, 1.501f, -2.f});
         cube5.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
-        cube6.create(*world, 1.f, material2, bl::rc::Config::MaterialPipelineIds::Mesh3DMaterial);
+        cube6.create(*world, 1.f, material2, bl::rc::cfg::MaterialPipelineIds::Mesh3DMaterial);
         cube6.getTransform().setPosition({-2.f, 0.75f, -2.f});
         cube6.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
@@ -211,7 +209,7 @@ private:
             0.f,
             0.5f);
 
-        cube7.create(*world, 1.f, material3, bl::rc::Config::MaterialPipelineIds::Mesh3DMaterial);
+        cube7.create(*world, 1.f, material3, bl::rc::cfg::MaterialPipelineIds::Mesh3DMaterial);
         cube7.getTransform().setPosition({2.f, 1.75f, 0.f});
         cube7.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
@@ -228,7 +226,7 @@ private:
         model2.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
         const bl::rc::Color light1Color(sf::Color(80, 180, 255));
-        light1.create(*world, 0.2f, 4, {}, bl::rc::Config::MaterialPipelineIds::Mesh3D);
+        light1.create(*world, 0.2f, 4, {}, bl::rc::cfg::MaterialPipelineIds::Mesh3D);
         light1.getTransform().setPosition({1.f, 0.7f, 1.f});
         light1.setColor(light1Color);
         light1.addToScene(scene, bl::rc::UpdateSpeed::Static);
@@ -237,7 +235,7 @@ private:
         light1Handle.get().pos   = light1.getTransform().getPosition();
 
         const bl::rc::Color light2Color(sf::Color::White);
-        light2.create(*world, 0.2f, 4, {}, bl::rc::Config::MaterialPipelineIds::Mesh3D);
+        light2.create(*world, 0.2f, 4, {}, bl::rc::cfg::MaterialPipelineIds::Mesh3D);
         light2.getTransform().setPosition({-0.7f, 1.f, -1.6f});
         light2.setColor(light2Color);
         light2.addToScene(scene, bl::rc::UpdateSpeed::Static);
@@ -248,7 +246,7 @@ private:
 
         constexpr glm::vec3 light3PointAt = {0.f, 0.5f, .75f};
         const bl::rc::Color light3Color(sf::Color(255, 150, 100));
-        light3.create(*world, 0.4f, 0.12f, 4, {}, bl::rc::Config::MaterialPipelineIds::Mesh3D);
+        light3.create(*world, 0.4f, 0.12f, 4, {}, bl::rc::cfg::MaterialPipelineIds::Mesh3D);
         light3.getTransform().setPosition({0.5f, 1.5f, 3.f});
         light3.getTransform().lookAt(light3PointAt);
         light3.setColor(light3Color);

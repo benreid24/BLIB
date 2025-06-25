@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_GRAPH_ASSETS_STANDARDATTACHMENTASSET_HPP
 #define BLIB_RENDER_GRAPH_ASSETS_STANDARDATTACHMENTASSET_HPP
 
+#include <BLIB/Render/Config/RenderPassIds.hpp>
 #include <BLIB/Render/Graph/Assets/FramebufferAsset.hpp>
 #include <BLIB/Render/Graph/Assets/RenderPassBehavior.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
@@ -127,7 +128,7 @@ private:
  *
  * @ingroup Renderer
  */
-using LDRStandardTargetAsset = StandardTargetAsset<Config::RenderPassIds::StandardAttachmentDefault,
+using LDRStandardTargetAsset = StandardTargetAsset<cfg::RenderPassIds::StandardAttachmentDefault,
                                                    vk::TextureFormat::SRGBA32Bit>;
 
 /**
@@ -136,7 +137,7 @@ using LDRStandardTargetAsset = StandardTargetAsset<Config::RenderPassIds::Standa
  * @ingroup Renderer
  */
 using HDRStandardTargetAsset =
-    StandardTargetAsset<Config::RenderPassIds::HDRAttachmentDefault, vk::TextureFormat::HDRColor>;
+    StandardTargetAsset<cfg::RenderPassIds::HDRAttachmentDefault, vk::TextureFormat::HDRColor>;
 
 } // namespace rgi
 } // namespace rc

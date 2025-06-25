@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_LIGHTING_SPOTLIGHT3DSHADOW_HPP
 #define BLIB_RENDER_LIGHTING_SPOTLIGHT3DSHADOW_HPP
 
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Config/Constants.hpp>
 #include <BLIB/Render/Lighting/SpotLight3D.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>
@@ -30,7 +30,7 @@ public:
     void updateLightMatrix() {
         glm::mat4 projection =
             glm::perspective(outerCutoff * 2.f, 1.f, 0.1f, computeFalloffRadius());
-        glm::mat4 view       = glm::lookAt(pos, pos + dir, Config::UpDirection);
+        glm::mat4 view       = glm::lookAt(pos, pos + dir, cfg::Constants::UpDirection);
         viewProjectionMatrix = projection * view;
     }
 

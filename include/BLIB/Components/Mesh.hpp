@@ -4,6 +4,7 @@
 #include <BLIB/Models/Mesh.hpp>
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
+#include <BLIB/Render/Config/MaterialPipelineIds.hpp>
 #include <BLIB/Render/Primitives/Vertex3D.hpp>
 #include <BLIB/Render/Primitives/Vertex3DSkinned.hpp>
 
@@ -80,14 +81,14 @@ struct Mesh : public rc::rcom::DrawableBase {
  *
  * @ingroup Components
  */
-using BasicMesh = Mesh<rc::prim::Vertex3D, rc::Config::MaterialPipelineIds::Mesh3DMaterial>;
+using BasicMesh = Mesh<rc::prim::Vertex3D, rc::cfg::MaterialPipelineIds::Mesh3DMaterial>;
 
 /**
  * @brief Mesh component for skinned 3d models
  *
  * @ingroup Components
  */
-using SkinnedMesh = Mesh<rc::prim::Vertex3DSkinned, rc::Config::MaterialPipelineIds::Mesh3DSkinned>;
+using SkinnedMesh = Mesh<rc::prim::Vertex3DSkinned, rc::cfg::MaterialPipelineIds::Mesh3DSkinned>;
 
 } // namespace com
 } // namespace bl

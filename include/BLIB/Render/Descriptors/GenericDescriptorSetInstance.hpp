@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_DESCRIPTORS_GENERICDESCRIPTORSETINSTANCE_HPP
 #define BLIB_RENDER_DESCRIPTORS_GENERICDESCRIPTORSETINSTANCE_HPP
 
+#include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Descriptors/Generic/Bindings.hpp>
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>
@@ -104,7 +105,7 @@ GenericDescriptorSetInstance<TBindings>::GenericDescriptorSetInstance(
 , descriptorSetLayout(descriptorSetLayout)
 , vulkanState(vulkanState)
 , staticSetsInited(false)
-, dynamicSetsInited(Config::MaxConcurrentFrames) {
+, dynamicSetsInited(cfg::Limits::MaxConcurrentFrames) {
     if (!isBindless()) {
         throw std::runtime_error("GenericDescriptorSet only supports bindless sets");
     }
@@ -127,7 +128,7 @@ void GenericDescriptorSetInstance<TBindings>::bindForPipeline(scene::SceneRender
     const auto set = updateFreq == UpdateSpeed::Static ? staticDescriptorSet.getSet() :
                                                          dynamicDescriptorSets.current().getSet();
 
-    std::array<std::uint32_t, Config::MaxDescriptorBindings> dynamicOffsets;
+    std::array<std::uint32_t, cfg::Limits::MaxDescriptorBindings> dynamicOffsets;
     const std::uint32_t dynamicCount =
         bindings.getDynamicOffsets(ctx, layout, setIndex, updateFreq, dynamicOffsets);
 

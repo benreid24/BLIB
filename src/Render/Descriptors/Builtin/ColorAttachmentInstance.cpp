@@ -1,5 +1,6 @@
 #include <BLIB/Render/Descriptors/Builtin/ColorAttachmentInstance.hpp>
 
+#include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>
 
 namespace bl
@@ -74,8 +75,8 @@ void ColorAttachmentInstance::initAttachments(const vk::AttachmentSet* set, std:
 }
 
 void ColorAttachmentInstance::initAttachments(
-    const std::array<const vk::AttachmentSet*, Config::MaxConcurrentFrames>& sets, std::uint32_t ai,
-    VkSampler smp) {
+    const std::array<const vk::AttachmentSet*, cfg::Limits::MaxConcurrentFrames>& sets,
+    std::uint32_t ai, VkSampler smp) {
     source.init(sets);
     attachmentIndex = ai;
     sampler         = smp;
@@ -83,16 +84,16 @@ void ColorAttachmentInstance::initAttachments(
 }
 
 void ColorAttachmentInstance::commonInit() {
-    std::array<VkDescriptorImageInfo, Config::MaxConcurrentFrames> imageInfos{};
-    for (unsigned int i = 0; i < Config::MaxConcurrentFrames; ++i) {
+    std::array<VkDescriptorImageInfo, cfg::Limits::MaxConcurrentFrames> imageInfos{};
+    for (unsigned int i = 0; i < cfg::Limits::MaxConcurrentFrames; ++i) {
         imageInfos[i].imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
         imageInfos[i].imageView   = source.get(i)->imageViews()[attachmentIndex];
         imageInfos[i].sampler     = sampler;
         cachedViews.getRaw(i)     = imageInfos[i].imageView;
     }
 
-    std::array<VkWriteDescriptorSet, Config::MaxConcurrentFrames> descriptorWrites{};
-    for (unsigned int i = 0; i < Config::MaxConcurrentFrames; ++i) {
+    std::array<VkWriteDescriptorSet, cfg::Limits::MaxConcurrentFrames> descriptorWrites{};
+    for (unsigned int i = 0; i < cfg::Limits::MaxConcurrentFrames; ++i) {
         descriptorWrites[i].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
         descriptorWrites[i].dstSet          = descriptorSets.getRaw(i);
         descriptorWrites[i].dstBinding      = 0;

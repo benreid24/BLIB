@@ -131,7 +131,7 @@ private:
     VkBuffer prevVB;
     VkBuffer prevIB;
     UpdateSpeed boundSpeed;
-    std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets> boundDescriptors;
+    std::array<ds::DescriptorSetInstance*, cfg::Limits::MaxDescriptorSets> boundDescriptors;
     const VkViewport viewport;
     const std::uint32_t renderPassId;
     const bool isRenderTexture;

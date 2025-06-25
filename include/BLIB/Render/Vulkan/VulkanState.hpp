@@ -2,7 +2,7 @@
 #define BLIB_RENDER_VULKAN_VULKANSTATE_HPP
 
 #include <BLIB/Engine/Window.hpp>
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Resources/ShaderModuleCache.hpp>
 #include <BLIB/Render/Transfers/TransferEngine.hpp>
 #include <BLIB/Render/Vulkan/CleanupManager.hpp>
@@ -419,7 +419,7 @@ template<typename T>
 void PerFrameVector<T>::emptyInit(VulkanState& vulkanState, std::uint32_t capacity) {
     vs  = &vulkanState;
     cap = capacity;
-    items.resize(capacity * Config::MaxConcurrentFrames);
+    items.resize(capacity * cfg::Limits::MaxConcurrentFrames);
 }
 
 template<typename T>
@@ -433,7 +433,7 @@ template<typename T>
 template<typename U>
 void PerFrameVector<T>::cleanup(const U& visitor) {
     for (std::uint32_t i = 0; i < cap; ++i) {
-        for (unsigned int j = 0; j < Config::MaxConcurrentFrames; ++j) {
+        for (unsigned int j = 0; j < cfg::Limits::MaxConcurrentFrames; ++j) {
             visitor(i, j, getRaw(i, j));
         }
     }
@@ -441,22 +441,22 @@ void PerFrameVector<T>::cleanup(const U& visitor) {
 
 template<typename T>
 T& PerFrameVector<T>::current(std::uint32_t i) {
-    return items[i * Config::MaxConcurrentFrames + vs->currentFrameIndex()];
+    return items[i * cfg::Limits::MaxConcurrentFrames + vs->currentFrameIndex()];
 }
 
 template<typename T>
 const T& PerFrameVector<T>::current(std::uint32_t i) const {
-    return items[i * Config::MaxConcurrentFrames + vs->currentFrameIndex()];
+    return items[i * cfg::Limits::MaxConcurrentFrames + vs->currentFrameIndex()];
 }
 
 template<typename T>
 T& PerFrameVector<T>::getRaw(std::uint32_t i, std::uint32_t frame) {
-    return items[i * Config::MaxConcurrentFrames + frame];
+    return items[i * cfg::Limits::MaxConcurrentFrames + frame];
 }
 
 template<typename T>
 const T& PerFrameVector<T>::getRaw(std::uint32_t i, std::uint32_t frame) const {
-    return items[i * Config::MaxConcurrentFrames + frame];
+    return items[i * cfg::Limits::MaxConcurrentFrames + frame];
 }
 
 template<typename T>

@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_GRAPH_ASSETS_BLOOMASSETS_HPP
 #define BLIB_RENDER_GRAPH_ASSETS_BLOOMASSETS_HPP
 
+#include <BLIB/Render/Config/RenderPassIds.hpp>
 #include <BLIB/Render/Graph/Assets/GenericTargetAsset.hpp>
 #include <BLIB/Render/Graph/MultiAsset.hpp>
 
@@ -16,7 +17,7 @@ namespace rgi
  * @ingroup Renderer
  */
 using BloomColorAttachmentAsset =
-    rgi::GenericTargetAsset<Config::RenderPassIds::BloomPass, 1, RenderPassBehavior::StartedByTask>;
+    rgi::GenericTargetAsset<cfg::RenderPassIds::BloomPass, 1, RenderPassBehavior::StartedByTask>;
 
 /**
  * @brief Pair of BloomColorAttachment used for the bloom pass

@@ -2,6 +2,7 @@
 #define BLIB_RENDER_SCENES_SCENEOBJECTSTORAGE_HPP
 
 #include <BLIB/ECS/Entity.hpp>
+#include <BLIB/Render/Config/Constants.hpp>
 #include <BLIB/Render/Descriptors/EntityComponentShaderInput.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
@@ -104,8 +105,8 @@ private:
         std::vector<ecs::Entity> entityMap;
 
         Bucket() {
-            objects.reserve(Config::DefaultSceneObjectCapacity);
-            entityMap.resize(Config::DefaultSceneObjectCapacity, ecs::InvalidEntity);
+            objects.reserve(cfg::Constants::DefaultSceneObjectCapacity);
+            entityMap.resize(cfg::Constants::DefaultSceneObjectCapacity, ecs::InvalidEntity);
         }
     };
 

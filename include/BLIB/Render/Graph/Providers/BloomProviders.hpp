@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_GRAPH_PROVIDERS_BLOOMPROVIDERS_HPP
 #define BLIB_RENDER_GRAPH_PROVIDERS_BLOOMPROVIDERS_HPP
 
+#include <BLIB/Render/Config/RenderPassIds.hpp>
 #include <BLIB/Render/Graph/Assets/BloomAssets.hpp>
 #include <BLIB/Render/Graph/Providers/GenericTargetProvider.hpp>
 #include <BLIB/Render/Graph/Providers/MultiAssetProvider.hpp>
@@ -17,7 +18,7 @@ namespace rgi
  * @ingroup Renderer
  */
 using BloomColorAttachmentProvider =
-    GenericTargetProvider<Config::RenderPassIds::BloomPass, 1, RenderPassBehavior::StartedByTask>;
+    GenericTargetProvider<cfg::RenderPassIds::BloomPass, 1, RenderPassBehavior::StartedByTask>;
 
 /**
  * @brief Provider for a pair of bloom color attachment assets

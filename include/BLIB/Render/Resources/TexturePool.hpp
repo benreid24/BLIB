@@ -40,7 +40,9 @@ public:
     static constexpr std::uint32_t TextureArrayBindIndex = 0;
     static constexpr std::uint32_t CubemapArrayBindIndex = 3;
     static constexpr std::uint32_t FirstRenderTextureId =
-        Config::MaxTextureCount - Config::MaxRenderTextures;
+        cfg::Limits::MaxTextureCount - cfg::Limits::MaxRenderTextures;
+    static constexpr std::uint32_t ErrorTextureId =
+        cfg::Limits::MaxTextureCount - cfg::Limits::MaxRenderTextures - 1;
 
     /**
      * @brief Creates an empty texture of the given size

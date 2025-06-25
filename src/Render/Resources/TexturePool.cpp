@@ -27,15 +27,15 @@ void generateErrorPattern(sf::Image& img, unsigned int left, unsigned int top, u
 
 TexturePool::TexturePool(vk::VulkanState& vs)
 : vulkanState(vs)
-, textures(Config::MaxTextureCount)
-, cubemaps(Config::MaxCubemapCount)
-, refCounts(Config::MaxTextureCount)
-, freeSlots(Config::MaxTextureCount - Config::MaxRenderTextures - 1)
-, freeRtSlots(Config::MaxRenderTextures)
-, cubemapRefCounts(Config::MaxCubemapCount)
-, cubemapFreeSlots(Config::MaxCubemapCount)
-, reverseFileMap(Config::MaxTextureCount - Config::MaxRenderTextures)
-, reverseImageMap(Config::MaxTextureCount - Config::MaxRenderTextures) {
+, textures(cfg::Limits::MaxTextureCount)
+, cubemaps(cfg::Limits::MaxCubemapCount)
+, refCounts(cfg::Limits::MaxTextureCount)
+, freeSlots(cfg::Limits::MaxTextureCount - cfg::Limits::MaxRenderTextures - 1)
+, freeRtSlots(cfg::Limits::MaxRenderTextures)
+, cubemapRefCounts(cfg::Limits::MaxCubemapCount)
+, cubemapFreeSlots(cfg::Limits::MaxCubemapCount)
+, reverseFileMap(cfg::Limits::MaxTextureCount - cfg::Limits::MaxRenderTextures)
+, reverseImageMap(cfg::Limits::MaxTextureCount - cfg::Limits::MaxRenderTextures) {
     errorTexture.vulkanState = &vs;
     errorTexture.parent      = this;
     errorCubemap.vulkanState = &vs;
@@ -81,15 +81,15 @@ void TexturePool::init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
     errorInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
     errorInfo.imageView   = errorTexture.getView();
     errorInfo.sampler     = errorTexture.getSamplerHandle();
-    std::vector<VkDescriptorImageInfo> imageInfos(Config::MaxTextureCount, errorInfo);
+    std::vector<VkDescriptorImageInfo> imageInfos(cfg::Limits::MaxTextureCount, errorInfo);
 
     VkDescriptorImageInfo errorCubeInfo{};
     errorCubeInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
     errorCubeInfo.imageView   = errorCubemap.getView();
     errorCubeInfo.sampler     = errorTexture.getSamplerHandle();
-    std::vector<VkDescriptorImageInfo> imageCubeInfos(Config::MaxCubemapCount, errorCubeInfo);
+    std::vector<VkDescriptorImageInfo> imageCubeInfos(cfg::Limits::MaxCubemapCount, errorCubeInfo);
 
-    std::array<VkWriteDescriptorSet, 4 * Config::MaxConcurrentFrames> setWrites{};
+    std::array<VkWriteDescriptorSet, 4 * cfg::Limits::MaxConcurrentFrames> setWrites{};
     unsigned int i     = 0;
     const auto visitor = [this, &i, &setWrites](auto& set,
                                                 std::uint32_t bindIndex,
@@ -135,7 +135,7 @@ void TexturePool::releaseUnused() {
 }
 
 void TexturePool::releaseTexture(TextureRef& ref) {
-    if (ref.id() == Config::ErrorTextureId) return;
+    if (ref.id() == ErrorTextureId) return;
 
     std::unique_lock lock(mutex);
 
@@ -486,7 +486,7 @@ TextureRef TexturePool::getBlankTexture() {
 
 VkDescriptorSetLayoutBinding TexturePool::getTextureLayoutBinding() const {
     VkDescriptorSetLayoutBinding binding{};
-    binding.descriptorCount    = Config::MaxTextureCount;
+    binding.descriptorCount    = cfg::Limits::MaxTextureCount;
     binding.binding            = TextureArrayBindIndex;
     binding.stageFlags         = VK_SHADER_STAGE_FRAGMENT_BIT;
     binding.descriptorType     = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
@@ -496,7 +496,7 @@ VkDescriptorSetLayoutBinding TexturePool::getTextureLayoutBinding() const {
 
 VkDescriptorSetLayoutBinding TexturePool::getCubemapLayoutBinding() const {
     VkDescriptorSetLayoutBinding binding{};
-    binding.descriptorCount    = Config::MaxCubemapCount;
+    binding.descriptorCount    = cfg::Limits::MaxCubemapCount;
     binding.binding            = CubemapArrayBindIndex;
     binding.stageFlags         = VK_SHADER_STAGE_FRAGMENT_BIT;
     binding.descriptorType     = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;

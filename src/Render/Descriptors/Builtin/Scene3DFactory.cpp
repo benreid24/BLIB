@@ -29,12 +29,12 @@ void Scene3DFactory::init(engine::Engine&, Renderer& r) {
     bindingInfo.bindings[1].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
 
     // spot light shadow maps
-    bindingInfo.bindings[2].descriptorCount = Config::MaxSpotShadows;
+    bindingInfo.bindings[2].descriptorCount = cfg::Limits::MaxSpotShadows;
     bindingInfo.bindings[2].descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
     bindingInfo.bindings[2].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
 
     // point light shadow maps
-    bindingInfo.bindings[3].descriptorCount = Config::MaxPointShadows;
+    bindingInfo.bindings[3].descriptorCount = cfg::Limits::MaxPointShadows;
     bindingInfo.bindings[3].descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
     bindingInfo.bindings[3].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
 

@@ -1,7 +1,6 @@
 #ifndef BLIB_RENDER_VULKAN_PERFRAMEVECTOR_HPP
 #define BLIB_RENDER_VULKAN_PERFRAMEVECTOR_HPP
 
-#include <BLIB/Render/Config.hpp>
 #include <cstdint>
 #include <vector>
 

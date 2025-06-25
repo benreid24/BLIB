@@ -1,6 +1,6 @@
 #include <BLIB/Render/Graph/Assets/FinalSwapframeAsset.hpp>
 
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Config/RenderPassIds.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
@@ -14,8 +14,8 @@ FinalSwapframeAsset::FinalSwapframeAsset(vk::PerSwapFrame<vk::Framebuffer>& fram
                                          const VkViewport& viewport, const VkRect2D& scissor,
                                          const VkClearValue* clearColors,
                                          const std::uint32_t clearColorCount)
-: FramebufferAsset(rg::AssetTags::FinalFrameOutput, Config::RenderPassIds::SwapchainDefault,
-                   viewport, scissor, clearColors, clearColorCount)
+: FramebufferAsset(rg::AssetTags::FinalFrameOutput, cfg::RenderPassIds::SwapchainDefault, viewport,
+                   scissor, clearColors, clearColorCount)
 , framebuffers(framebuffers) {}
 
 void FinalSwapframeAsset::doCreate(engine::Engine&, Renderer& renderer, RenderTarget*) {

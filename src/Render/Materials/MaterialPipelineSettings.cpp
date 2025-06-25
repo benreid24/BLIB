@@ -1,5 +1,7 @@
 #include <BLIB/Render/Materials/MaterialPipelineSettings.hpp>
 
+#include <BLIB/Render/Config/PipelineIds.hpp>
+
 namespace bl
 {
 namespace rc
@@ -57,7 +59,7 @@ MaterialPipelineSettings& MaterialPipelineSettings::withRenderPhasePipelineOverr
 MaterialPipelineSettings&& MaterialPipelineSettings::build() {
     const auto validatePipeline = [this](const PipelineInfo& info) {
         if (info.pipelineParams != nullptr) {
-            if (info.id != Config::PipelineIds::None) {
+            if (info.id != cfg::PipelineIds::None) {
                 BL_LOG_CRITICAL
                     << "Material pipeline cannot have both a pipeline id and parameters";
                 return false;
@@ -70,7 +72,7 @@ MaterialPipelineSettings&& MaterialPipelineSettings::build() {
             info.pipelineParams->build();
         }
 
-        if (info.id != Config::PipelineIds::None) {
+        if (info.id != cfg::PipelineIds::None) {
             if (info.overrideBehavior != PhasePipelineOverride::NoOverride) {
                 BL_LOG_CRITICAL << "Material pipeline cannot have both an override and id";
                 return false;
@@ -88,7 +90,7 @@ MaterialPipelineSettings&& MaterialPipelineSettings::build() {
                                    "pipeline parameters";
                 return false;
             }
-            if (info.id != Config::PipelineIds::None) {
+            if (info.id != cfg::PipelineIds::None) {
                 BL_LOG_CRITICAL
                     << "Material pipeline cannot have both an override behavior and pipeline id";
                 return false;
@@ -98,7 +100,7 @@ MaterialPipelineSettings&& MaterialPipelineSettings::build() {
         return true;
     };
 
-    if (mainPipeline.pipelineParams == nullptr && mainPipeline.id == Config::PipelineIds::None &&
+    if (mainPipeline.pipelineParams == nullptr && mainPipeline.id == cfg::PipelineIds::None &&
         mainPipeline.overrideBehavior == PhasePipelineOverride::NoOverride) {
         BL_LOG_CRITICAL << "Material pipeline is missing a valid pipeline";
         throw std::runtime_error("Invalid material pipeline settings");
@@ -121,7 +123,7 @@ MaterialPipelineSettings&& MaterialPipelineSettings::build() {
 bool MaterialPipelineSettings::operator==(const MaterialPipelineSettings& right) const {
     if (mainPipeline != right.mainPipeline) { return false; }
     if (phases != right.phases) { return false; }
-    for (unsigned int i = 0; i < Config::MaxRenderPhases; ++i) {
+    for (unsigned int i = 0; i < cfg::Limits::MaxRenderPhases; ++i) {
         if (renderPhaseOverrides[i] != right.renderPhaseOverrides[i]) { return false; }
     }
     return true;

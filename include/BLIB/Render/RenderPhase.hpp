@@ -2,6 +2,7 @@
 #define BLIB_RENDER_RENDERER_RENDERPHASE_HPP
 
 #include <cstdint>
+#include <initializer_list>
 #include <type_traits>
 
 #ifdef BLIB_WINDOWS

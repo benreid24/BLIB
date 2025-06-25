@@ -3,6 +3,7 @@
 
 #include <BLIB/Render/Buffers/BatchIndexBuffer.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
+#include <BLIB/Render/Config/MaterialPipelineIds.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
 #include <SFML/Graphics/Rect.hpp>
 
@@ -66,7 +67,7 @@ public:
      * @brief Returns the default material pipeline for rendering
      */
     virtual std::uint32_t getDefaultMaterialPipelineId() const override {
-        return rc::Config::MaterialPipelineIds::Geometry2DSkinned;
+        return rc::cfg::MaterialPipelineIds::Geometry2DSkinned;
     }
 
 private:

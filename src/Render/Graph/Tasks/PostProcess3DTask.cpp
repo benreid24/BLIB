@@ -1,6 +1,6 @@
 #include <BLIB/Render/Graph/Tasks/PostProcess3DTask.hpp>
 
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Config/PipelineIds.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Graph/Assets/BloomAssets.hpp>
 #include <BLIB/Render/Renderer.hpp>
@@ -26,7 +26,7 @@ void PostProcess3DTask::create(engine::Engine&, Renderer& r, Scene* s) {
     scene    = s;
 
     // fetch pipeline
-    pipeline = &renderer->pipelineCache().getPipeline(Config::PipelineIds::PostProcess3D);
+    pipeline = &renderer->pipelineCache().getPipeline(cfg::PipelineIds::PostProcess3D);
 
     // create index buffer
     indexBuffer.create(r.vulkanState(), 4, 6);

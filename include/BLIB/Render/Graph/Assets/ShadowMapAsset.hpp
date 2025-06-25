@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_GRAPH_SHADOWMAPASSET_HPP
 #define BLIB_RENDER_GRAPH_SHADOWMAPASSET_HPP
 
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Graph/Asset.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <array>
@@ -81,8 +81,8 @@ private:
         vk::Framebuffer framebuffer;
     };
 
-    std::array<ShadowMap, Config::MaxSpotShadows> spotShadowMaps;
-    std::array<ShadowMap, Config::MaxPointShadows> pointShadowMaps;
+    std::array<ShadowMap, cfg::Limits::MaxSpotShadows> spotShadowMaps;
+    std::array<ShadowMap, cfg::Limits::MaxPointShadows> pointShadowMaps;
 
     virtual void doCreate(engine::Engine& engine, Renderer& renderer,
                           RenderTarget* observer) override;

@@ -4,6 +4,7 @@
 #include <BLIB/Components/Animation2DPlayer.hpp>
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
+#include <BLIB/Render/Config/MaterialPipelineIds.hpp>
 
 namespace bl
 {
@@ -44,7 +45,7 @@ struct Animation2D : public rc::rcom::DrawableBase {
      * @brief Returns the default material pipeline for rendering
      */
     virtual std::uint32_t getDefaultMaterialPipelineId() const override {
-        return rc::Config::MaterialPipelineIds::Geometry2DSkinned;
+        return rc::cfg::MaterialPipelineIds::Geometry2DSkinned;
     }
 
 private:

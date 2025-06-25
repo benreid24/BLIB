@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_GRAPH_ASSETS_FRAMEBUFFERASSET_HPP
 #define BLIB_RENDER_GRAPH_ASSETS_FRAMEBUFFERASSET_HPP
 
+#include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Graph/Asset.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/RenderPass.hpp>
@@ -43,7 +44,7 @@ public:
      * @brief Helper method to get per frame attachment sets. Should only be called if the
      *        underlying attachments are per frame
      */
-    std::array<const vk::AttachmentSet*, Config::MaxConcurrentFrames> getAttachmentSets();
+    std::array<const vk::AttachmentSet*, cfg::Limits::MaxConcurrentFrames> getAttachmentSets();
 
     /**
      * @brief Returns the render pass to use to render to the swap frame

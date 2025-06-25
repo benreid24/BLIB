@@ -4,7 +4,7 @@
 #include <BLIB/Components/Mesh.hpp>
 #include <BLIB/Graphics/Components/Transform3D.hpp>
 #include <BLIB/Graphics/Drawable.hpp>
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Config/MaterialPipelineIds.hpp>
 #include <BLIB/Render/Resources/MaterialPool.hpp>
 
 namespace bl
@@ -37,7 +37,7 @@ public:
      */
     Cone(engine::World& world, float height, float radius, unsigned int pointCount,
          const bl::rc::res::MaterialRef& material = {},
-         std::uint32_t materialPipelineId         = rc::Config::MaterialPipelineIds::Mesh3D);
+         std::uint32_t materialPipelineId         = rc::cfg::MaterialPipelineIds::Mesh3D);
 
     /**
      * @brief Creates the sphere with a given size and material
@@ -51,7 +51,7 @@ public:
      */
     void create(engine::World& world, float height, float radius, unsigned int pointCount,
                 const bl::rc::res::MaterialRef& material = {},
-                std::uint32_t materialPipelineId         = rc::Config::MaterialPipelineIds::Mesh3D);
+                std::uint32_t materialPipelineId         = rc::cfg::MaterialPipelineIds::Mesh3D);
 
     /**
      * @brief Sets the color of the sphere
