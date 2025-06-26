@@ -114,21 +114,26 @@ void PipelineCache::createBuiltins() {
         .createShaderSpecializations(VK_SHADER_STAGE_FRAGMENT_BIT, sizeof(std::uint32_t), 1)
         .setShaderSpecializationValue<std::uint32_t>(VK_SHADER_STAGE_FRAGMENT_BIT, 0, 0, 0);
 
-    createPipeline(cfg::PipelineIds::Mesh3D,
-                   vk::PipelineParameters()
-                       .withShaders(cfg::ShaderIds::MeshVertex, cfg::ShaderIds::MeshFragment)
-                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
-                       .withVertexFormat(prim::Vertex3D::bindingDescription(),
-                                         prim::Vertex3D::attributeDescriptions())
-                       .withRasterizer(rasterizer3d)
-                       .withDepthStencilState(&depthStencilDepthEnabled)
-                       .addDescriptorSet<ds::GlobalDataFactory>()
-                       .addDescriptorSet<ds::Scene3DFactory>()
-                       .addDescriptorSet<ds::Object3DFactory>()
-                       .withDeclareSpecializations(1)
-                       .withSpecialization(cfg::Specializations3D::LightingDisabled,
-                                           lightingDisabledSpecialization)
-                       .build());
+    vk::PipelineSpecialization stencilWriteSpecialization;
+    stencilWriteSpecialization.withSimpleDepthStencil(true, true, false, true);
+
+    createPipeline(
+        cfg::PipelineIds::Mesh3D,
+        vk::PipelineParameters()
+            .withShaders(cfg::ShaderIds::MeshVertex, cfg::ShaderIds::MeshFragment)
+            .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+            .withVertexFormat(prim::Vertex3D::bindingDescription(),
+                              prim::Vertex3D::attributeDescriptions())
+            .withRasterizer(rasterizer3d)
+            .withDepthStencilState(&depthStencilDepthEnabled)
+            .addDescriptorSet<ds::GlobalDataFactory>()
+            .addDescriptorSet<ds::Scene3DFactory>()
+            .addDescriptorSet<ds::Object3DFactory>()
+            .withDeclareSpecializations(2)
+            .withSpecialization(cfg::Specializations3D::LightingDisabled,
+                                lightingDisabledSpecialization)
+            .withSpecialization(cfg::Specializations3D::OutlineMainPass, stencilWriteSpecialization)
+            .build());
 
     createPipeline(
         cfg::PipelineIds::Mesh3DMaterial,
@@ -142,9 +147,10 @@ void PipelineCache::createBuiltins() {
             .addDescriptorSet<ds::GlobalDataFactory>()
             .addDescriptorSet<ds::Scene3DFactory>()
             .addDescriptorSet<ds::Object3DFactory>()
-            .withDeclareSpecializations(1)
+            .withDeclareSpecializations(2)
             .withSpecialization(cfg::Specializations3D::LightingDisabled,
                                 lightingDisabledSpecialization)
+            .withSpecialization(cfg::Specializations3D::OutlineMainPass, stencilWriteSpecialization)
             .build());
 
     createPipeline(
@@ -159,9 +165,10 @@ void PipelineCache::createBuiltins() {
             .addDescriptorSet<ds::GlobalDataFactory>()
             .addDescriptorSet<ds::Scene3DFactory>()
             .addDescriptorSet<ds::Object3DFactory>()
-            .withDeclareSpecializations(1)
+            .withDeclareSpecializations(2)
             .withSpecialization(cfg::Specializations3D::LightingDisabled,
                                 lightingDisabledSpecialization)
+            .withSpecialization(cfg::Specializations3D::OutlineMainPass, stencilWriteSpecialization)
             .build());
 
     createPipeline(cfg::PipelineIds::Skybox,

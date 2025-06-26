@@ -4,5 +4,6 @@ target_sources(BLIB PUBLIC
 	MaterialPipelineIds.hpp
 	PipelineIds.hpp
 	RenderPassIds.hpp
+	RenderPhases.hpp
 	ShaderIds.hpp
 )

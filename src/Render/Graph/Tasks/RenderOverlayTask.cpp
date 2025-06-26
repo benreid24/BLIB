@@ -1,5 +1,6 @@
 #include <BLIB/Render/Graph/Tasks/RenderOverlayTask.hpp>
 
+#include <BLIB/Render/Config/RenderPhases.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
 #include <BLIB/Render/Scenes/BatchedScene.hpp>
@@ -56,7 +57,7 @@ void RenderOverlayTask::execute(const rg::ExecutionContext& ctx, rg::Asset* outp
                                        observerIndexOverride ? *observerIndexOverride :
                                                                ctx.observerIndex,
                                        fb->getViewport(),
-                                       RenderPhase::Overlay,
+                                       cfg::RenderPhases::Overlay,
                                        fb->getRenderPassId(),
                                        ctx.renderingToRenderTexture);
     scene->scene->renderScene(sceneCtx);

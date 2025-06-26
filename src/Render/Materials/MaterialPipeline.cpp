@@ -1,6 +1,7 @@
 #include <BLIB/Render/Materials/MaterialPipeline.hpp>
 
 #include <BLIB/Render/Config/PipelineIds.hpp>
+#include <BLIB/Render/Config/RenderPhases.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -22,22 +23,20 @@ MaterialPipeline::MaterialPipeline(Renderer& renderer, std::uint32_t id,
 
 VkPipeline MaterialPipeline::getRawPipeline(RenderPhase phase, std::uint32_t renderPassId,
                                             std::uint32_t objectSpec) const {
-    const unsigned int i     = renderPhaseIndex(phase);
-    const std::uint32_t spec = phase == RenderPhase::Default ?
+    const std::uint32_t spec = phase == cfg::RenderPhases::Forward ?
                                    objectSpec :
-                                   settings.renderPhaseOverrides[i].specialization;
-    return pipelines[i]->rawPipeline(renderPassId, spec);
+                                   settings.renderPhaseOverrides[phase].specialization;
+    return pipelines[phase]->rawPipeline(renderPassId, spec);
 }
 
 bool MaterialPipeline::bind(VkCommandBuffer commandBuffer, RenderPhase phase,
                             std::uint32_t renderPassId, std::uint32_t objectSpec) {
-    const unsigned int i = renderPhaseIndex(phase);
-    vk::Pipeline* p      = pipelines[i];
+    vk::Pipeline* p = pipelines[phase];
     if (!p) { return false; }
 
-    const std::uint32_t spec = phase == RenderPhase::Default ?
+    const std::uint32_t spec = phase == cfg::RenderPhases::Forward ?
                                    objectSpec :
-                                   settings.renderPhaseOverrides[i].specialization;
+                                   settings.renderPhaseOverrides[phase].specialization;
 
     p->bind(commandBuffer, renderPassId, spec);
     return true;

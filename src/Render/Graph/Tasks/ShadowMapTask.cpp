@@ -1,6 +1,7 @@
 #include <BLIB/Render/Graph/Tasks/ShadowMapTask.hpp>
 
 #include <BLIB/Render/Config/RenderPassIds.hpp>
+#include <BLIB/Render/Config/RenderPhases.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Render/Scenes/ExtraContexts.hpp>
@@ -47,7 +48,7 @@ void ShadowMapTask::execute(const rg::ExecutionContext& execCtx, rg::Asset*) {
     scene::SceneRenderContext sunCtx(execCtx.commandBuffer,
                                      execCtx.observerIndex,
                                      viewport,
-                                     RenderPhase::ShadowMap,
+                                     cfg::RenderPhases::ShadowMap,
                                      cfg::RenderPassIds::ShadowMapPass,
                                      false);
     scene::ctx::ShadowMapContext sunShadowCtx{.lightType  = scene::ctx::ShadowMapContext::SunLight,
@@ -70,7 +71,7 @@ void ShadowMapTask::execute(const rg::ExecutionContext& execCtx, rg::Asset*) {
         scene::SceneRenderContext spotCtx(execCtx.commandBuffer,
                                           execCtx.observerIndex,
                                           viewport,
-                                          RenderPhase::ShadowMap,
+                                          cfg::RenderPhases::ShadowMap,
                                           cfg::RenderPassIds::ShadowMapPass,
                                           false);
         scene::ctx::ShadowMapContext spotShadowCtx{
@@ -94,7 +95,7 @@ void ShadowMapTask::execute(const rg::ExecutionContext& execCtx, rg::Asset*) {
         scene::SceneRenderContext pointCtx(execCtx.commandBuffer,
                                            execCtx.observerIndex,
                                            viewport,
-                                           RenderPhase::ShadowPointMap,
+                                           cfg::RenderPhases::ShadowPointMap,
                                            cfg::RenderPassIds::ShadowMapPass,
                                            false);
         scene::ctx::ShadowMapContext pointShadowCtx{

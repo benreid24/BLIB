@@ -2,6 +2,7 @@
 
 #include <BLIB/Render/Config/MaterialPipelineIds.hpp>
 #include <BLIB/Render/Config/PipelineIds.hpp>
+#include <BLIB/Render/Config/RenderPhases.hpp>
 #include <BLIB/Render/Config/Specializations3D.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
@@ -46,10 +47,11 @@ void MaterialPipelineCache::createBuiltins() {
     const auto makeOverlayPair = [this](std::uint32_t materialId,
                                         std::uint32_t pipelineId,
                                         std::uint32_t overlayPipelineId) {
-        createPipeline(materialId,
-                       mat::MaterialPipelineSettings(pipelineId)
-                           .withRenderPhasePipelineOverride(RenderPhase::Overlay, overlayPipelineId)
-                           .build());
+        createPipeline(
+            materialId,
+            mat::MaterialPipelineSettings(pipelineId)
+                .withRenderPhasePipelineOverride(cfg::RenderPhases::Overlay, overlayPipelineId)
+                .build());
     };
     const auto make3D = [this](std::uint32_t materialIds,
                                std::uint32_t pipelineId,
@@ -58,10 +60,11 @@ void MaterialPipelineCache::createBuiltins() {
         createPipeline(
             materialIds,
             mat::MaterialPipelineSettings(pipelineId)
-                .withRenderPhasePipelineOverride(
-                    RenderPhase::Overlay, pipelineId, cfg::Specializations3D::LightingDisabled)
-                .withRenderPhasePipelineOverride(RenderPhase::ShadowMap, shadowMapPipelineId)
-                .withRenderPhasePipelineOverride(RenderPhase::ShadowPointMap,
+                .withRenderPhasePipelineOverride(cfg::RenderPhases::Overlay,
+                                                 pipelineId,
+                                                 cfg::Specializations3D::LightingDisabled)
+                .withRenderPhasePipelineOverride(cfg::RenderPhases::ShadowMap, shadowMapPipelineId)
+                .withRenderPhasePipelineOverride(cfg::RenderPhases::ShadowPointMap,
                                                  pointShadowMapPipelineId)
                 .build());
     };
@@ -84,7 +87,7 @@ void MaterialPipelineCache::createBuiltins() {
     make(MId::Lines2D, PId::Lines2D);
     createPipeline(MId::Skybox,
                    mat::MaterialPipelineSettings(PId::Skybox)
-                       .withRenderPhasePipelineOverride(RenderPhase::Overlay, B::NotRendered)
+                       .withRenderPhasePipelineOverride(cfg::RenderPhases::Overlay, B::NotRendered)
                        .build());
 }
 

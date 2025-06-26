@@ -2,6 +2,7 @@
 
 #include <BLIB/Render/Config/PipelineIds.hpp>
 #include <BLIB/Render/Config/RenderPassIds.hpp>
+#include <BLIB/Render/Config/RenderPhases.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
@@ -85,7 +86,7 @@ void BloomTask::execute(const rg::ExecutionContext& ctx, rg::Asset*) {
     scene::SceneRenderContext renderCtx(ctx.commandBuffer,
                                         ctx.observerIndex,
                                         targets[0]->getViewport(),
-                                        RenderPhase::PostProcess,
+                                        cfg::RenderPhases::PostProcess,
                                         targets[0]->getRenderPassId(),
                                         ctx.renderingToRenderTexture);
 

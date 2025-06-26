@@ -3,6 +3,7 @@
 #include <BLIB/Cameras/OverlayCamera.hpp>
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Render/Config/Constants.hpp>
+#include <BLIB/Render/Config/RenderPhases.hpp>
 #include <BLIB/Render/Events/SceneObjectRemoved.hpp>
 #include <BLIB/Render/Graph/Strategies/OverlayRenderStrategy.hpp>
 #include <BLIB/Render/Renderer.hpp>
@@ -78,7 +79,7 @@ void Overlay::renderOpaqueObjects(scene::SceneRenderContext& ctx) {
             vkCmdSetScissor(ctx.getCommandBuffer(), 0, 1, &obj.cachedScissor);
 
             const vk::PipelineLayout& layout =
-                obj.pipeline->getPipeline(RenderPhase::Overlay)->pipelineLayout();
+                obj.pipeline->getPipeline(cfg::RenderPhases::Overlay)->pipelineLayout();
             const VkPipelineLayout vkl = layout.rawLayout();
             const VkPipeline vkp =
                 obj.pipeline->getRawPipeline(ctx.getRenderPhase(), ctx.currentRenderPass(), spec);
@@ -113,7 +114,7 @@ scene::SceneObject* Overlay::doAdd(ecs::Entity entity, rcom::DrawableBase& objec
     obj.entity          = entity;
     obj.overlay         = this;
     obj.pipeline        = object.getCurrentPipeline();
-    obj.descriptorCount = obj.pipeline->getPipeline(RenderPhase::Overlay)
+    obj.descriptorCount = obj.pipeline->getPipeline(cfg::RenderPhases::Overlay)
                               ->pipelineLayout()
                               .initDescriptorSets(descriptorSets, obj.descriptors.data());
     obj.perObjStart     = obj.descriptorCount;
@@ -168,7 +169,7 @@ void Overlay::doBatchChange(const BatchChange& change, mat::MaterialPipeline* og
         ovy::OverlayObject& object = *static_cast<ovy::OverlayObject*>(change.changed);
         object.pipeline            = change.newPipeline;
         const ecs::Entity entity   = objects.getObjectEntity(object.sceneKey);
-        object.descriptorCount     = object.pipeline->getPipeline(RenderPhase::Overlay)
+        object.descriptorCount     = object.pipeline->getPipeline(cfg::RenderPhases::Overlay)
                                      ->pipelineLayout()
                                      .updateDescriptorSets(descriptorSets,
                                                            object.descriptors.data(),

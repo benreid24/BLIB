@@ -5,6 +5,7 @@
 #include <BLIB/Events.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Config/Constants.hpp>
+#include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Events/SceneObjectRemoved.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
@@ -137,7 +138,7 @@ void BatchedScene::renderBatch(scene::SceneRenderContext& ctx, ObjectBatch& batc
 
             vk::Pipeline* pipeline = pipelineBatch.pipeline.getPipeline(ctx.getRenderPhase());
             RenderPhaseDescriptors& descriptors =
-                pipelineBatch.perPhaseDescriptors[renderPhaseIndex(ctx.getRenderPhase())];
+                pipelineBatch.perPhaseDescriptors[ctx.getRenderPhase()];
 
             UpdateSpeed speed = UpdateSpeed::Dynamic;
             for (auto* objectBatch : {&specBatch.objectsDynamic, &specBatch.objectsStatic}) {
@@ -220,8 +221,8 @@ BatchedScene::PipelineBatch::PipelineBatch(const PipelineBatch& src)
 BatchedScene::PipelineBatch::PipelineBatch(ds::DescriptorSetInstanceCache& descriptorCache,
                                            mat::MaterialPipeline& pipeline)
 : pipeline(pipeline) {
-    for (const RenderPhase phase : AllRenderPhases) {
-        auto& descriptors = perPhaseDescriptors[renderPhaseIndex(phase)];
+    for (RenderPhase phase = 0; phase < cfg::Limits::MaxRenderPhaseId; ++phase) {
+        auto& descriptors = perPhaseDescriptors[phase];
         descriptors.init(descriptorCache, pipeline.getPipeline(phase));
         for (std::uint32_t i = 0; i < descriptors.descriptorCount; ++i) {
             bool found = false;

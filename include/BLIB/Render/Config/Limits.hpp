@@ -28,7 +28,8 @@ struct Limits {
 
     static constexpr std::uint32_t MaxPipelineSpecializations = 16;
 
-    static constexpr std::size_t MaxRenderPhases = 8;
+    static constexpr std::size_t MaxRenderPhases   = 16;
+    static constexpr std::uint8_t MaxRenderPhaseId = MaxRenderPhases - 1;
 
     static constexpr std::uint32_t MaxTextureCount = 4096;
 

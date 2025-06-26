@@ -2,6 +2,7 @@
 
 #include <BLIB/Cameras/2D/Camera2D.hpp>
 #include <BLIB/Events.hpp>
+#include <BLIB/Render/Config/RenderPhases.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene2DFactory.hpp>
 #include <BLIB/Render/Events/SceneObjectRemoved.hpp>
 #include <BLIB/Render/Renderer.hpp>
@@ -67,7 +68,7 @@ SceneObject* CodeScene::doAdd(ecs::Entity entity, rcom::DrawableBase& object,
     CodeSceneObject& obj = *objects.allocate(updateFreq, entity).newObject;
 
     obj.pipeline        = object.getCurrentPipeline();
-    obj.descriptorCount = obj.pipeline->getPipeline(RenderPhase::Default)
+    obj.descriptorCount = obj.pipeline->getPipeline(cfg::RenderPhases::Forward)
                               ->pipelineLayout()
                               .initDescriptorSets(descriptorSets, obj.descriptors.data());
     obj.perObjStart = obj.descriptorCount;
@@ -97,7 +98,7 @@ void CodeScene::doBatchChange(const BatchChange& change, mat::MaterialPipeline* 
         CodeSceneObject& object  = *static_cast<CodeSceneObject*>(change.changed);
         object.pipeline          = change.newPipeline;
         const ecs::Entity entity = objects.getObjectEntity(object.sceneKey);
-        object.descriptorCount   = object.pipeline->getPipeline(RenderPhase::Default)
+        object.descriptorCount   = object.pipeline->getPipeline(cfg::RenderPhases::Forward)
                                      ->pipelineLayout()
                                      .updateDescriptorSets(descriptorSets,
                                                            object.descriptors.data(),
@@ -128,14 +129,16 @@ void CodeScene::RenderContext::renderObject(rcom::DrawableBase& object) {
     if (!object.isHidden()) {
         renderContext.bindPipeline(*obj->pipeline, object.getPipelineSpecialization());
         renderContext.bindDescriptors(
-            obj->pipeline->getPipeline(RenderPhase::Default)->pipelineLayout().rawLayout(),
+            obj->pipeline->getPipeline(cfg::RenderPhases::Forward)->pipelineLayout().rawLayout(),
             obj->sceneKey.updateFreq,
             obj->descriptors.data(),
             obj->descriptorCount);
         for (std::uint8_t i = obj->perObjStart; i < obj->descriptorCount; ++i) {
             obj->descriptors[i]->bindForObject(
                 renderContext,
-                obj->pipeline->getPipeline(RenderPhase::Default)->pipelineLayout().rawLayout(),
+                obj->pipeline->getPipeline(cfg::RenderPhases::Forward)
+                    ->pipelineLayout()
+                    .rawLayout(),
                 i,
                 obj->sceneKey);
         }

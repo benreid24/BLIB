@@ -9,6 +9,7 @@ target_sources(BLIB PUBLIC
 	MaterialInstance.hpp
 	Mesh.hpp
 	Orientation3D.hpp
+	Outline.hpp
 	OverlayScaler.hpp
 	Physics2D.hpp
 	Shape2D.hpp

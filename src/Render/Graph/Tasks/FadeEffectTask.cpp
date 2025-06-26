@@ -1,6 +1,7 @@
 #include <BLIB/Render/Graph/Tasks/FadeEffectTask.hpp>
 
 #include <BLIB/Render/Config/PipelineIds.hpp>
+#include <BLIB/Render/Config/RenderPhases.hpp>
 #include <BLIB/Render/Descriptors/Builtin/ColorAttachmentInstance.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Renderer.hpp>
@@ -73,7 +74,7 @@ void FadeEffectTask::execute(const rg::ExecutionContext& ctx, rg::Asset* output)
     scene::SceneRenderContext renderCtx(ctx.commandBuffer,
                                         ctx.observerIndex,
                                         fb->getViewport(),
-                                        RenderPhase::PostProcess,
+                                        cfg::RenderPhases::PostProcess,
                                         fb->getRenderPassId(),
                                         ctx.renderingToRenderTexture);
 

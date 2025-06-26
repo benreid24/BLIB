@@ -1,5 +1,6 @@
 #include <BLIB/Render/Graph/Tasks/ForwardRenderOpaqueTask.hpp>
 
+#include <BLIB/Render/Config/RenderPhases.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
 #include <BLIB/Render/Scenes/BatchedScene.hpp>
@@ -40,7 +41,7 @@ void ForwardRenderOpaqueTask::execute(const rg::ExecutionContext& ctx, rg::Asset
     scene::SceneRenderContext sceneCtx(ctx.commandBuffer,
                                        ctx.observerIndex,
                                        fb->getViewport(),
-                                       RenderPhase::Default,
+                                       cfg::RenderPhases::Forward,
                                        fb->getRenderPassId(),
                                        ctx.renderingToRenderTexture);
     scene->scene->renderOpaqueObjects(sceneCtx);

@@ -1,6 +1,7 @@
 #include <BLIB/Render/Materials/MaterialPipelineSettings.hpp>
 
 #include <BLIB/Render/Config/PipelineIds.hpp>
+#include <BLIB/Render/Config/RenderPhases.hpp>
 
 namespace bl
 {
@@ -9,18 +10,15 @@ namespace rc
 namespace mat
 {
 MaterialPipelineSettings::MaterialPipelineSettings(std::uint32_t pipelineId)
-: mainPipeline(pipelineId, 0)
-, phases(RenderPhase::All) {
+: mainPipeline(pipelineId, 0) {
     renderPhaseOverrides.fill(NoOverride);
 }
 
 MaterialPipelineSettings::MaterialPipelineSettings(vk::PipelineParameters* pipelineParams)
-: mainPipeline(pipelineParams, 0)
-, phases(RenderPhase::All) {}
+: mainPipeline(pipelineParams, 0) {}
 
 MaterialPipelineSettings::MaterialPipelineSettings(const MaterialPipelineSettings& copy)
 : mainPipeline(copy.mainPipeline)
-, phases(copy.phases)
 , renderPhaseOverrides(copy.renderPhaseOverrides) {}
 
 MaterialPipelineSettings& MaterialPipelineSettings::withPipeline(std::uint32_t pid) {
@@ -33,26 +31,21 @@ MaterialPipelineSettings& MaterialPipelineSettings::withPipeline(vk::PipelinePar
     return *this;
 }
 
-MaterialPipelineSettings& MaterialPipelineSettings::withRenderPhase(RenderPhase phase) {
-    phases = phase;
-    return *this;
-}
-
 MaterialPipelineSettings& MaterialPipelineSettings::withRenderPhasePipelineOverride(
     RenderPhase phase, PhasePipelineOverride overrideBehavior) {
-    renderPhaseOverrides[renderPhaseIndex(phase)] = PipelineInfo(overrideBehavior);
+    renderPhaseOverrides[phase] = PipelineInfo(overrideBehavior);
     return *this;
 }
 
 MaterialPipelineSettings& MaterialPipelineSettings::withRenderPhasePipelineOverride(
     RenderPhase phase, std::uint32_t pipelineId, std::uint32_t specialization) {
-    renderPhaseOverrides[renderPhaseIndex(phase)] = PipelineInfo(pipelineId, specialization);
+    renderPhaseOverrides[phase] = PipelineInfo(pipelineId, specialization);
     return *this;
 }
 
 MaterialPipelineSettings& MaterialPipelineSettings::withRenderPhasePipelineOverride(
     RenderPhase phase, vk::PipelineParameters* params, std::uint32_t specialization) {
-    renderPhaseOverrides[renderPhaseIndex(phase)] = PipelineInfo(params, specialization);
+    renderPhaseOverrides[phase] = PipelineInfo(params, specialization);
     return *this;
 }
 
@@ -122,7 +115,6 @@ MaterialPipelineSettings&& MaterialPipelineSettings::build() {
 
 bool MaterialPipelineSettings::operator==(const MaterialPipelineSettings& right) const {
     if (mainPipeline != right.mainPipeline) { return false; }
-    if (phases != right.phases) { return false; }
     for (unsigned int i = 0; i < cfg::Limits::MaxRenderPhases; ++i) {
         if (renderPhaseOverrides[i] != right.renderPhaseOverrides[i]) { return false; }
     }

@@ -92,7 +92,7 @@ inline std::uint32_t MaterialPipeline::getId() const { return id; }
 inline const MaterialPipelineSettings& MaterialPipeline::getSettings() const { return settings; }
 
 inline vk::Pipeline* MaterialPipeline::getPipeline(RenderPhase renderPhase) const {
-    return pipelines[renderPhaseIndex(renderPhase)];
+    return pipelines[renderPhase];
 }
 
 } // namespace mat

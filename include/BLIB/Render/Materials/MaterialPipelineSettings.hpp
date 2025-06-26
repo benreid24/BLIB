@@ -69,14 +69,6 @@ public:
     MaterialPipelineSettings& withPipeline(vk::PipelineParameters* pipelineParams);
 
     /**
-     * @brief Sets which render phases the material should render in
-     *
-     * @param phase The phases to render in
-     * @return A reference to this object
-     */
-    MaterialPipelineSettings& withRenderPhase(RenderPhase phase);
-
-    /**
      * @brief Sets an override for the given render phase using fixed behavior. The default is to
      *        override shadow map phase with a fragment noop
      *
@@ -170,8 +162,6 @@ private:
     };
 
     PipelineInfo mainPipeline;
-
-    RenderPhase phases;
     std::array<PipelineInfo, cfg::Limits::MaxRenderPhases> renderPhaseOverrides;
 
     friend class MaterialPipeline;
