@@ -7,6 +7,7 @@ namespace gfx
 void VertexBuffer3D::create(engine::World& world, unsigned int vc) {
     Drawable::create(world);
     Transform3D::create(world.engine().ecs(), entity());
+    Outline3D::init(world.engine().ecs(), entity(), &component());
     component().create(world.engine(), vc);
 }
 

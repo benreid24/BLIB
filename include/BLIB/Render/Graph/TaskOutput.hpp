@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_GRAPH_TASKOUTPUT_HPP
 #define BLIB_RENDER_GRAPH_TASKOUTPUT_HPP
 
+#include <BLIB/Containers/StaticVector.hpp>
 #include <initializer_list>
 #include <stdexcept>
 #include <string_view>
@@ -22,6 +23,9 @@ struct TaskOutput {
     enum CreateMode {
         /// The output is created by this task or another task
         CreatedByTask,
+
+        /// The output may only be created by another task
+        CreatedByOtherTask,
 
         /// The output is external to the render graph (ie swapframe)
         CreatedExternally
@@ -69,6 +73,7 @@ struct TaskOutput {
          * @brief Creates the option descriptor
          *
          * @param tag The tag for this option
+         * @param shareMode The share mode for this option
          * @param createMode The create mode for this option
          */
         OutputOption(std::string_view tag, ShareMode shareMode, CreateMode createMode)
@@ -77,8 +82,9 @@ struct TaskOutput {
         , createMode(createMode) {}
     };
 
-    std::vector<OutputOption> options;
+    ctr::StaticVector<OutputOption, 8> options;
     Order order;
+    ctr::StaticVector<std::string_view, 4> sharedWith;
 
     /**
      * @brief Creates the task output
@@ -86,11 +92,13 @@ struct TaskOutput {
      * @param tag The tag of the output
      * @param createMode The creation mode of the output
      * @param order The order the task should output in
+     * @param sharedWith The tags of the possible tasks that this output must be shared with
      */
     TaskOutput(std::string_view tag, CreateMode createMode, ShareMode shareMode = Shared,
-               Order order = Middle)
+               Order order = Middle, std::initializer_list<std::string_view> sharedWith = {})
     : order(order) {
         options.emplace_back(tag, shareMode, createMode);
+        for (const auto& tag : sharedWith) { this->sharedWith.emplace_back(tag); }
     }
 
     /**
@@ -100,10 +108,12 @@ struct TaskOutput {
      * @param tags The different tags that may be outputted in this slot
      * @param createModes The creation modes of the output tags
      * @param order The order the task should output in
+     * @param sharedWith The tags of the possible tasks that this output must be shared with
      */
     TaskOutput(std::initializer_list<std::string_view> tags,
                std::initializer_list<CreateMode> createModes,
-               std::initializer_list<ShareMode> shareModes = {Shared}, Order order = Middle)
+               std::initializer_list<ShareMode> shareModes = {Shared}, Order order = Middle,
+               std::initializer_list<std::string_view> sharedWith = {})
     : order(order) {
         if (tags.size() != createModes.size()) {
             throw std::runtime_error("Mismatched tag and create mode count");
@@ -112,12 +122,13 @@ struct TaskOutput {
             throw std::runtime_error("Mismatched share mode and tag count");
         }
 
-        options.reserve(tags.size());
         for (unsigned int i = 0; i < tags.size(); ++i) {
             const ShareMode shareMode =
                 shareModes.size() > 1 ? *(shareModes.begin() + i) : *shareModes.begin();
             options.emplace_back(*(tags.begin() + i), shareMode, *(createModes.begin() + i));
         }
+
+        for (const auto& tag : sharedWith) { this->sharedWith.emplace_back(tag); }
     }
 };
 

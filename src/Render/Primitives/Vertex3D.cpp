@@ -132,6 +132,18 @@ std::array<VkVertexInputAttributeDescription, 5> Vertex3D::attributeDescriptions
     return attributeDescriptions;
 }
 
+std::array<VkVertexInputAttributeDescription, 1> Vertex3D::attributeDescriptionsPositionsOnly() {
+    std::array<VkVertexInputAttributeDescription, 1> attributeDescriptions{};
+
+    // pos attributes
+    attributeDescriptions[0].binding  = 0;
+    attributeDescriptions[0].location = 0;
+    attributeDescriptions[0].format   = VK_FORMAT_R32G32B32_SFLOAT;
+    attributeDescriptions[0].offset   = offsetof(Vertex3D, pos);
+
+    return attributeDescriptions;
+}
+
 } // namespace prim
 } // namespace rc
 } // namespace bl

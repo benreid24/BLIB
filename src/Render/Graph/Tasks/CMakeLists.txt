@@ -3,6 +3,7 @@ target_sources(BLIB PRIVATE
 	FadeEffectTask.cpp
 	ForwardRenderOpaqueTask.cpp
 	ForwardRenderTransparentTask.cpp
+	Outline3DTask.cpp
 	PostProcess3DTask.cpp
 	RenderOverlayTask.cpp
 	ShadowMapTask.cpp

@@ -3,6 +3,7 @@
 #include <BLIB/Render/Config/RenderPassIds.hpp>
 #include <BLIB/Render/Config/RenderPhases.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
+#include <BLIB/Render/Graph/TaskIds.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Render/Scenes/ExtraContexts.hpp>
 #include <BLIB/Render/Scenes/Scene3D.hpp>
@@ -14,7 +15,8 @@ namespace rc
 namespace rgi
 {
 ShadowMapTask::ShadowMapTask()
-: renderer(nullptr)
+: Task(rg::TaskIds::ShadowMapTask)
+, renderer(nullptr)
 , scene(nullptr)
 , shadowMaps(nullptr) {
     assetTags.requiredInputs.push_back(rg::AssetTags::SceneInput);

@@ -122,8 +122,9 @@ struct TestTask : public Task {
     bool created;
     bool graphInit;
 
-    TestTask()
-    : created(false)
+    TestTask(std::string_view id)
+    : Task(id)
+    , created(false)
     , graphInit(false) {}
 
     virtual void create(engine::Engine&, Renderer&, Scene*) override { created = true; }
@@ -157,7 +158,7 @@ struct TestTask : public Task {
 
 struct ShadowMapTask : public TestTask {
     ShadowMapTask()
-    : TestTask() {
+    : TestTask("ShadowMapTask") {
         assetTags.outputs.emplace_back(TaskOutput(ShadowMapTag, TaskOutput::CreatedByTask));
         assetTags.requiredInputs.emplace_back(AssetTags::SceneInput);
         assetTags.requiredInputs.emplace_back(ShadowLightsTag);
@@ -182,7 +183,7 @@ struct ShadowMapTask : public TestTask {
 
 struct SceneRenderTask : public TestTask {
     SceneRenderTask()
-    : TestTask() {
+    : TestTask("SceneRenderTask") {
         assetTags.outputs.emplace_back(
             TaskOutput({AssetTags::RenderedSceneOutput, AssetTags::FinalFrameOutput},
                        {TaskOutput::CreatedByTask, TaskOutput::CreatedExternally}));
@@ -222,8 +223,10 @@ struct SceneRenderTask : public TestTask {
 };
 
 struct PostFXTask : public TestTask {
-    PostFXTask()
-    : TestTask() {
+    PostFXTask(int* counter = nullptr)
+    : TestTask("PostFXTask")
+    , executedAt(-1)
+    , counter(counter) {
         assetTags.outputs.emplace_back(
             TaskOutput({AssetTags::PostFXOutput, AssetTags::FinalFrameOutput},
                        {TaskOutput::CreatedByTask, TaskOutput::CreatedExternally},
@@ -257,6 +260,10 @@ struct PostFXTask : public TestTask {
     }
 
     virtual void onExecute() override {
+        if (counter) {
+            executedAt = *counter;
+            *counter += 1;
+        }
         if (assets.requiredInputs[0]->asset->getTag() == AssetTags::RenderedSceneOutput) {
             EXPECT_TRUE(
                 dynamic_cast<SceneRenderOutput*>(&assets.requiredInputs[0]->asset.get())->rendered);
@@ -271,11 +278,14 @@ struct PostFXTask : public TestTask {
         }
         else { dynamic_cast<PostFXOutput*>(&assets.outputs[0]->asset.get())->rendered = true; }
     }
+
+    int executedAt;
+    int* counter;
 };
 
 struct PostFXBloomTask : public TestTask {
     PostFXBloomTask()
-    : TestTask() {
+    : TestTask("PostFXBloomTask") {
         assetTags.outputs.emplace_back(
             TaskOutput({AssetTags::PostFXOutput, AssetTags::FinalFrameOutput},
                        {TaskOutput::CreatedByTask, TaskOutput::CreatedExternally}));
@@ -305,7 +315,7 @@ struct PostFXBloomTask : public TestTask {
 
 struct BloomTask : public TestTask {
     BloomTask()
-    : TestTask() {
+    : TestTask("BloomTask") {
         assetTags.outputs.emplace_back(
             TaskOutput(AssetTags::BloomColorAttachmentPair, TaskOutput::CreatedByTask));
         assetTags.requiredInputs.emplace_back(TaskInput{AssetTags::RenderedSceneOutput});
@@ -328,7 +338,7 @@ struct BloomTask : public TestTask {
 
 struct ExternalSharingTask : public TestTask {
     ExternalSharingTask(TaskOutput::Order order, int& counter)
-    : TestTask()
+    : TestTask("ExternalSharingTask")
     , counter(counter)
     , executedAtCount(10000) {
         assetTags.outputs.emplace_back(TaskOutput(
@@ -346,6 +356,54 @@ struct ExternalSharingTask : public TestTask {
         ASSERT_TRUE(assets.requiredInputs[0]->asset.valid());
         ASSERT_TRUE(assets.requiredInputs[0]->asset->getTag() == AssetTags::SceneInput);
     }
+
+    virtual void onExecute() override { executedAtCount = counter++; }
+
+    int& counter;
+    int executedAtCount;
+};
+
+struct SharedTaskForExclusive : public TestTask {
+    SharedTaskForExclusive(TaskOutput::Order order, int& counter)
+    : TestTask("SharedTaskForExclusive")
+    , counter(counter)
+    , executedAtCount(10000) {
+        assetTags.outputs.emplace_back(
+            TaskOutput({AssetTags::RenderedSceneOutput, AssetTags::FinalFrameOutput},
+                       {TaskOutput::CreatedByTask, TaskOutput::CreatedExternally},
+                       {TaskOutput::Shared},
+                       order));
+    }
+
+    virtual void onGraphInit() override { graphInit = true; }
+
+    virtual void onExecute() override {
+        if (assets.outputs[0]->asset->getTag() == AssetTags::FinalFrameOutput) {
+            dynamic_cast<Swapframe*>(&assets.outputs[0]->asset.get())->rendered = true;
+        }
+        else { dynamic_cast<SceneRenderOutput*>(&assets.outputs[0]->asset.get())->rendered = true; }
+
+        executedAtCount = counter++;
+    }
+
+    int& counter;
+    int executedAtCount;
+};
+
+struct ExclusivelySharedTask : public TestTask {
+    ExclusivelySharedTask(TaskOutput::Order order, int& counter)
+    : TestTask("ExclusivelySharedTask")
+    , counter(counter)
+    , executedAtCount(10000) {
+        assetTags.outputs.emplace_back(
+            TaskOutput({AssetTags::RenderedSceneOutput, AssetTags::FinalFrameOutput},
+                       {TaskOutput::CreatedByOtherTask, TaskOutput::CreatedExternally},
+                       {TaskOutput::Shared},
+                       order,
+                       {"SharedTaskForExclusive"}));
+    }
+
+    virtual void onGraphInit() override { graphInit = true; }
 
     virtual void onExecute() override { executedAtCount = counter++; }
 
@@ -500,6 +558,54 @@ TEST(RenderGraph, TasksSharingExternalInputsAndOutputs) {
     int counter = 0;
     auto* task1 = graph.putTask<ExternalSharingTask>(TaskOutput::First, counter);
     auto* task2 = graph.putTask<ExternalSharingTask>(TaskOutput::Last, counter);
+
+    graph.execute(nullptr, 0, false);
+    graph.executeFinal(nullptr, 0, false);
+    EXPECT_TRUE(swapframe->rendered);
+    EXPECT_EQ(counter, 2);
+    EXPECT_EQ(task1->executedAtCount, 0);
+    EXPECT_EQ(task2->executedAtCount, 1);
+}
+
+TEST(RenderGraph, TaskSharedOnlyOutput) {
+    AssetFactory factory;
+    setupFactory(factory);
+
+    AssetPool pool(factory, nullptr);
+    pool.putAsset<SceneObjects>();
+    Swapframe* swapframe = pool.putAsset<Swapframe>();
+
+    engine::Engine engine(engine::Settings{});
+    RenderGraph graph(engine, engine.renderer(), pool, nullptr, nullptr);
+
+    int counter = 0;
+    auto* task2 = graph.putTask<ExclusivelySharedTask>(TaskOutput::Last, counter);
+    auto* task1 = graph.putTask<SharedTaskForExclusive>(TaskOutput::First, counter);
+    auto* task3 = graph.putTask<PostFXTask>(&counter);
+
+    graph.execute(nullptr, 0, false);
+    graph.executeFinal(nullptr, 0, false);
+    EXPECT_TRUE(swapframe->rendered);
+    EXPECT_EQ(counter, 3);
+    EXPECT_EQ(task1->executedAtCount, 0);
+    EXPECT_EQ(task2->executedAtCount, 1);
+    EXPECT_EQ(task3->executedAt, 2);
+}
+
+TEST(RenderGraph, TaskSharedOnlyOutputExternal) {
+    AssetFactory factory;
+    setupFactory(factory);
+
+    AssetPool pool(factory, nullptr);
+    pool.putAsset<SceneObjects>();
+    Swapframe* swapframe = pool.putAsset<Swapframe>();
+
+    engine::Engine engine(engine::Settings{});
+    RenderGraph graph(engine, engine.renderer(), pool, nullptr, nullptr);
+
+    int counter = 0;
+    auto* task2 = graph.putTask<ExclusivelySharedTask>(TaskOutput::Last, counter);
+    auto* task1 = graph.putTask<SharedTaskForExclusive>(TaskOutput::First, counter);
 
     graph.execute(nullptr, 0, false);
     graph.executeFinal(nullptr, 0, false);

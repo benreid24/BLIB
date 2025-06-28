@@ -122,6 +122,11 @@ public:
      */
     void initPipelineInstance(std::uint32_t pipelineId, vk::PipelineInstance& instance);
 
+    /**
+     * @brief Returns the descriptor set instance cache for the scene
+     */
+    ds::DescriptorSetInstanceCache& getDescriptorSets() { return descriptorSets; }
+
 protected:
     /**
      * @brief POD containing data for when an object needs to be re-batched

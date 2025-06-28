@@ -107,6 +107,8 @@ void PipelineCache::createBuiltins() {
     rasterizerShadow.cullMode                               = VK_CULL_MODE_FRONT_BIT;
     rasterizerShadow.depthBiasEnable                        = VK_TRUE;
 
+    VkPipelineRasterizationStateCreateInfo outlineRasterizer = skyboxRasterizer;
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     vk::PipelineSpecialization lightingDisabledSpecialization;
@@ -184,12 +186,42 @@ void PipelineCache::createBuiltins() {
                        .addDescriptorSet<ds::Object3DFactory>()
                        .build());
 
+    createPipeline(
+        cfg::PipelineIds::Outline3D,
+        vk::PipelineParameters()
+            .withShaders(cfg::ShaderIds::Outline3DVertex, cfg::ShaderIds::Outline3DFragment)
+            .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+            .withVertexFormat(prim::Vertex3D::bindingDescription(),
+                              prim::Vertex3D::attributeDescriptions())
+            .withRasterizer(outlineRasterizer)
+            .addPushConstantRange(0, sizeof(float), VK_SHADER_STAGE_VERTEX_BIT)
+            .addPushConstantRange(16, sizeof(glm::vec4), VK_SHADER_STAGE_FRAGMENT_BIT)
+            .withSimpleDepthStencil(true, true, true, false)
+            .addDescriptorSet<ds::Scene3DFactory>()
+            .addDescriptorSet<ds::Object3DFactory>()
+            .build());
+
+    createPipeline(
+        cfg::PipelineIds::Outline3DSkinned,
+        vk::PipelineParameters()
+            .withShaders(cfg::ShaderIds::Outline3DVertex, cfg::ShaderIds::Outline3DFragment)
+            .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+            .withVertexFormat(prim::Vertex3DSkinned::bindingDescription(),
+                              prim::Vertex3DSkinned::attributeDescriptions())
+            .withRasterizer(outlineRasterizer)
+            .addPushConstantRange(0, sizeof(float), VK_SHADER_STAGE_VERTEX_BIT)
+            .addPushConstantRange(16, sizeof(glm::vec4), VK_SHADER_STAGE_FRAGMENT_BIT)
+            .withSimpleDepthStencil(true, true, true, false)
+            .addDescriptorSet<ds::Scene3DFactory>()
+            .addDescriptorSet<ds::Object3DFactory>()
+            .build());
+
     createPipeline(cfg::PipelineIds::ShadowMapRegular,
                    vk::PipelineParameters()
                        .withShader(cfg::ShaderIds::ShadowVertex, VK_SHADER_STAGE_VERTEX_BIT)
                        .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                        .withVertexFormat(prim::Vertex3D::bindingDescription(),
-                                         prim::Vertex3D::attributeDescriptions())
+                                         prim::Vertex3D::attributeDescriptionsPositionsOnly())
                        .withRasterizer(rasterizerShadow)
                        .addDynamicStates({VK_DYNAMIC_STATE_DEPTH_BIAS})
                        .withSimpleColorBlendState(vk::PipelineParameters::ColorBlendBehavior::None)
@@ -198,6 +230,7 @@ void PipelineCache::createBuiltins() {
                        .addDescriptorSet<ds::Object3DFactory>()
                        .build());
 
+    // TODO - new vertex shader for skinned shadow mapping
     createPipeline(cfg::PipelineIds::ShadowMapSkinned,
                    vk::PipelineParameters()
                        .withShader(cfg::ShaderIds::ShadowVertex, VK_SHADER_STAGE_VERTEX_BIT)
@@ -220,7 +253,7 @@ void PipelineCache::createBuiltins() {
             .withShader(cfg::ShaderIds::PointShadowFragment, VK_SHADER_STAGE_FRAGMENT_BIT)
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withVertexFormat(prim::Vertex3D::bindingDescription(),
-                              prim::Vertex3D::attributeDescriptions())
+                              prim::Vertex3D::attributeDescriptionsPositionsOnly())
             .withRasterizer(rasterizerShadow)
             .withEnableDepthClipping()
             .addDynamicStates({VK_DYNAMIC_STATE_DEPTH_BIAS})
@@ -230,6 +263,7 @@ void PipelineCache::createBuiltins() {
             .addDescriptorSet<ds::Object3DFactory>()
             .build());
 
+    // TODO - new vertex shader for skinned shadow mapping
     createPipeline(
         cfg::PipelineIds::PointShadowMapSkinned,
         vk::PipelineParameters()

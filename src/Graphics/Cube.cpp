@@ -15,6 +15,7 @@ void Cube::create(engine::World& world, float size, const bl::rc::res::MaterialR
                   std::uint32_t materialPipelineId) {
     Drawable::createWithMaterial(world, materialPipelineId, material);
     Transform3D::create(world.engine().ecs(), entity());
+    Outline3D::init(world.engine().ecs(), entity(), &component());
     component().create(world.engine().renderer().vulkanState(), 24, 36);
 
     const float s = size * 0.5f;

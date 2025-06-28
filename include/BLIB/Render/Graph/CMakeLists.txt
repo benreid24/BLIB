@@ -13,6 +13,7 @@ target_sources(BLIB PUBLIC
 	Task.hpp
 	TaskAssets.hpp
 	TaskAssetTags.hpp
+	TaskIds.hpp
 	TaskInput.hpp
 	TaskOutput.hpp
 	Timeline.hpp

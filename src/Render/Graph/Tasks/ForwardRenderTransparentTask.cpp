@@ -2,6 +2,7 @@
 
 #include <BLIB/Render/Config/RenderPhases.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
+#include <BLIB/Render/Graph/TaskIds.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
 #include <BLIB/Render/Scenes/BatchedScene.hpp>
 
@@ -11,7 +12,8 @@ namespace rc
 {
 namespace rgi
 {
-ForwardRenderTransparentTask::ForwardRenderTransparentTask() {
+ForwardRenderTransparentTask::ForwardRenderTransparentTask()
+: Task(rg::TaskIds::ForwardRenderTransparentTask) {
     assetTags.outputs.emplace_back(rg::TaskOutput({rg::AssetTags::RenderedSceneOutputHDR,
                                                    rg::AssetTags::RenderedSceneOutput,
                                                    rg::AssetTags::FinalFrameOutput},
@@ -19,7 +21,8 @@ ForwardRenderTransparentTask::ForwardRenderTransparentTask() {
                                                    rg::TaskOutput::CreatedByTask,
                                                    rg::TaskOutput::CreatedExternally},
                                                   {rg::TaskOutput::Shared},
-                                                  rg::TaskOutput::Middle));
+                                                  rg::TaskOutput::Middle,
+                                                  {rg::TaskIds::ForwardRenderOpaqueTask}));
 
     assetTags.requiredInputs.emplace_back(rg::AssetTags::SceneInput);
     assetTags.optionalInputs.emplace_back(rg::AssetTags::ShadowMaps);

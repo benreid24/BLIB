@@ -2,6 +2,7 @@
 #define BLIB_GRAPHICS_VERTEXBUFFER3D_HPP
 
 #include <BLIB/Components/VertexBuffer3D.hpp>
+#include <BLIB/Graphics/Components/Outline3D.hpp>
 #include <BLIB/Graphics/Components/Textured.hpp>
 #include <BLIB/Graphics/Components/Transform3D.hpp>
 #include <BLIB/Graphics/Drawable.hpp>
@@ -17,7 +18,8 @@ namespace gfx
  */
 class VertexBuffer3D
 : public Drawable<com::VertexBuffer3D>
-, public bcom::Transform3D {
+, public bcom::Transform3D
+, public bcom::Outline3D {
 public:
     /**
      * @brief Creates an uninitialized vertex buffer

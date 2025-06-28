@@ -3,6 +3,7 @@
 #include <BLIB/Events.hpp>
 #include <BLIB/Render/Events/GraphEvents.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
+#include <BLIB/Render/Graph/Task.hpp>
 #include <stdexcept>
 
 namespace bl
@@ -42,6 +43,21 @@ GraphAsset* GraphAssetPool::getAssetForOutput(std::string_view tag, Task* task) 
     return nullptr;
 }
 
+GraphAsset* GraphAssetPool::getAssetForSharedOutput(
+    std::string_view tag, const decltype(TaskOutput::sharedWith)& sharedWith) {
+    const auto it = assets.find(tag);
+    if (it != assets.end()) {
+        for (auto& asset : it->second) {
+            for (auto* other : asset.outputtedBy) {
+                for (auto& tag : sharedWith) {
+                    if (other->getId() == tag) { return &asset; }
+                }
+            }
+        }
+    }
+    return nullptr;
+}
+
 GraphAsset* GraphAssetPool::getAssetForInput(std::string_view tag) {
     // search for existing asset before falling back onto pool
     const auto it = assets.find(tag);
@@ -51,7 +67,7 @@ GraphAsset* GraphAssetPool::getAssetForInput(std::string_view tag) {
     return getAssetForOutput(tag, nullptr);
 }
 
-GraphAsset* GraphAssetPool::createAsset(std::string_view tag, Task* creator) {
+GraphAsset* GraphAssetPool::createAsset(std::string_view tag) {
     auto& set         = assets[tag];
     GraphAsset& asset = set.emplace_back(pool.getOrCreateAsset(tag, this));
     bl::event::Dispatcher::dispatch<event::SceneGraphAssetCreated>(

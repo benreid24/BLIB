@@ -30,8 +30,10 @@ class Task {
 public:
     /**
      * @brief Initializes the task
+     *
+     * @param id The id of the task
      */
-    Task() = default;
+    Task(std::string_view id);
 
     /**
      * @brief Destroys the task
@@ -68,11 +70,18 @@ public:
      */
     virtual void update(float dt);
 
+    /**
+     * @brief Returns the id of the task
+     */
+    std::string_view getId() const { return id; }
+
 protected:
     TaskAssetTags assetTags;
     TaskAssets assets;
 
 private:
+    std::string_view id;
+
     void prepareInputs(const ExecutionContext& ctx);
 
     friend class RenderGraph;

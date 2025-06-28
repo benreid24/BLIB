@@ -18,9 +18,11 @@ public:
      * @brief Creates the outline component
      *
      * @param color The color of the outline
-     * @param scale The scale to use to create the outline
+     * @param thickness The thickness of the outline in world units
      */
-    Outline(const rc::Color& color, float scale);
+    Outline(const rc::Color& color, float thickness)
+    : color(color)
+    , thickness(thickness) {}
 
     /**
      * @brief Copies the outline
@@ -45,20 +47,20 @@ public:
     const rc::Color& getColor() const { return color; }
 
     /**
-     * @brief Returns the scale of the outline
+     * @brief Returns the thickness of the outline
      */
-    float getScale() const { return scale; }
+    float getThickness() const { return thickness; }
 
     /**
-     * @brief Sets the scale of the outline
+     * @brief Sets the thickness of the outline
      *
-     * @param s The new scale
+     * @param s The new thickness in world units
      */
-    void setScale(float s) { scale = s; }
+    void setThickness(float s) { thickness = s; }
 
 private:
     rc::Color color;
-    float scale;
+    float thickness;
 };
 
 } // namespace com

@@ -90,6 +90,19 @@ std::array<VkVertexInputAttributeDescription, 7> Vertex3DSkinned::attributeDescr
     return attributeDescriptions;
 }
 
+std::array<VkVertexInputAttributeDescription, 1>
+Vertex3DSkinned::attributeDescriptionsPositionsOnly() {
+    std::array<VkVertexInputAttributeDescription, 1> attributeDescriptions{};
+
+    // pos attributes
+    attributeDescriptions[0].binding  = 0;
+    attributeDescriptions[0].location = 0;
+    attributeDescriptions[0].format   = VK_FORMAT_R32G32B32_SFLOAT;
+    attributeDescriptions[0].offset   = offsetof(Vertex3DSkinned, pos);
+
+    return attributeDescriptions;
+}
+
 } // namespace prim
 } // namespace rc
 } // namespace bl

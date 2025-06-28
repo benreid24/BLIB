@@ -3,6 +3,7 @@
 #include <BLIB/Render/Config/PipelineIds.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Graph/Assets/BloomAssets.hpp>
+#include <BLIB/Render/Graph/TaskIds.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -12,7 +13,8 @@ namespace rc
 namespace rgi
 {
 PostProcess3DTask::PostProcess3DTask()
-: renderer(nullptr) {
+: Task(rg::TaskIds::PostProcess3DTask)
+, renderer(nullptr) {
     assetTags.outputs.emplace_back(
         rg::TaskOutput({rg::AssetTags::PostFXOutput, rg::AssetTags::FinalFrameOutput},
                        {rg::TaskOutput::CreatedByTask, rg::TaskOutput::CreatedExternally},

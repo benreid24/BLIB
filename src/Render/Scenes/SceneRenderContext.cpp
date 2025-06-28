@@ -83,6 +83,10 @@ void SceneRenderContext::renderObject(const SceneObject& object) {
     }
 }
 
+void SceneRenderContext::renderObject(const rcom::DrawableBase& object) {
+    renderObject(*object.getSceneRef().object);
+}
+
 } // namespace scene
 } // namespace rc
 } // namespace bl

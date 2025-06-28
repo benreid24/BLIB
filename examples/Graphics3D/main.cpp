@@ -218,6 +218,7 @@ private:
         model1.create(*world, model);
         model1.getTransform().setPosition({-1.f, 3.1f, 0.5f});
         model1.getTransform().setScale({0.25f, 0.25f, 0.25f});
+        model1.showOutline(sf::Color::Cyan, 0.05f);
         model1.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
         model2.create(*world, "Resources/Models/Spider/Spider.obj");

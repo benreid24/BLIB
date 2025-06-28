@@ -224,16 +224,17 @@ PipelineParameters& PipelineParameters::withSimpleDepthStencil(bool depthTest, b
     localDepthStencil.depthBoundsTestEnable = VK_FALSE;
     localDepthStencil.minDepthBounds        = 0.0f;
     localDepthStencil.maxDepthBounds        = 1.0f;
-    localDepthStencil.stencilTestEnable     = stencilTest ? VK_TRUE : VK_FALSE;
+    localDepthStencil.stencilTestEnable     = stencilTest || stencilWrite ? VK_TRUE : VK_FALSE;
     localDepthStencil.front                 = {};
-    localDepthStencil.front.compareOp       = VK_COMPARE_OP_ALWAYS;
-    localDepthStencil.front.compareMask     = 0xFF;
-    localDepthStencil.front.writeMask       = 0xFF;
-    localDepthStencil.front.depthFailOp     = VK_STENCIL_OP_KEEP;
-    localDepthStencil.front.passOp    = stencilWrite ? VK_STENCIL_OP_REPLACE : VK_STENCIL_OP_KEEP;
-    localDepthStencil.front.failOp    = VK_STENCIL_OP_KEEP;
-    localDepthStencil.front.reference = 1;
-    localDepthStencil.back            = localDepthStencil.front;
+    localDepthStencil.front.compareOp =
+        stencilTest ? VK_COMPARE_OP_NOT_EQUAL : VK_COMPARE_OP_ALWAYS;
+    localDepthStencil.front.compareMask = 0xFF;
+    localDepthStencil.front.writeMask   = 0xFF;
+    localDepthStencil.front.depthFailOp = VK_STENCIL_OP_KEEP;
+    localDepthStencil.front.passOp      = stencilWrite ? VK_STENCIL_OP_REPLACE : VK_STENCIL_OP_KEEP;
+    localDepthStencil.front.failOp      = VK_STENCIL_OP_KEEP;
+    localDepthStencil.front.reference   = 1;
+    localDepthStencil.back              = localDepthStencil.front;
 
     return *this;
 }

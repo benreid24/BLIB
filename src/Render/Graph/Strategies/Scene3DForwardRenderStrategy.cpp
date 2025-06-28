@@ -4,6 +4,7 @@
 #include <BLIB/Render/Graph/Tasks/BloomTask.hpp>
 #include <BLIB/Render/Graph/Tasks/ForwardRenderOpaqueTask.hpp>
 #include <BLIB/Render/Graph/Tasks/ForwardRenderTransparentTask.hpp>
+#include <BLIB/Render/Graph/Tasks/Outline3DTask.hpp>
 #include <BLIB/Render/Graph/Tasks/PostProcess3DTask.hpp>
 #include <BLIB/Render/Graph/Tasks/ShadowMapTask.hpp>
 
@@ -19,6 +20,7 @@ void Scene3DForwardRenderStrategy::populate(rg::RenderGraph& graph) {
     graph.putTask<rgi::PostProcess3DTask>();
     graph.putTask<rgi::BloomTask>();
     graph.putTask<rgi::ShadowMapTask>();
+    graph.putTask<rgi::Outline3DTask>();
 }
 
 } // namespace rgi

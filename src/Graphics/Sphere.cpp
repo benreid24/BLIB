@@ -79,6 +79,7 @@ void Sphere::create(engine::World& world, float size, int detailLevel,
                     const bl::rc::res::MaterialRef& material, std::uint32_t materialPipelineId) {
     Drawable::createWithMaterial(world, materialPipelineId, material);
     Transform3D::create(world.engine().ecs(), entity());
+    Outline3D::init(world.engine().ecs(), entity(), &component());
 
     std::vector<rc::prim::Vertex3D> vertices;
     std::vector<std::uint32_t> indices;

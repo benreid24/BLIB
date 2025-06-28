@@ -17,6 +17,7 @@
 #include <BLIB/Components/MaterialInstance.hpp>
 #include <BLIB/Components/Mesh.hpp>
 #include <BLIB/Components/Orientation3D.hpp>
+#include <BLIB/Components/Outline.hpp>
 #include <BLIB/Components/OverlayScaler.hpp>
 #include <BLIB/Components/Physics2D.hpp>
 #include <BLIB/Components/Shape2D.hpp>

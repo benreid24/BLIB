@@ -77,21 +77,23 @@ void RenderGraph::build() {
 
     const auto findAssetCreator =
         [this](Task* task, const TaskInput& tags, GraphAsset*& asset) -> bool {
-        for (auto tag : tags.options) {    // for all input slot options
-            for (auto& ctask : tasks) {    // for all tasks
-                if (ctask.get() != task) { // that are not the requesting task
-                    for (auto& output : ctask->assetTags.outputs) { // for each task output slot
-                        for (auto& option : output.options) {       // for each output slot option
+        for (auto tag : tags.options) {          // for all input slot options
+            for (auto& creatorTask : tasks) {    // for all tasks
+                if (creatorTask.get() != task) { // that are not the requesting task
+                    for (auto& output :
+                         creatorTask->assetTags.outputs) {    // for each task output slot
+                        for (auto& option : output.options) { // for each output slot option
                             // if the slot matches and the task is allowed to create the asset
                             if (option.tag == tag &&
                                 option.createMode == TaskOutput::CreatedByTask) {
-                                const unsigned int i = &output - ctask->assetTags.outputs.data();
-                                auto*& outputPtr     = ctask->assets.outputs[i];
+                                const unsigned int i =
+                                    &output - creatorTask->assetTags.outputs.data();
+                                auto*& outputPtr = creatorTask->assets.outputs[i];
 
                                 // create the asset if it does not exist
                                 if (!outputPtr) {
-                                    asset = assets.createAsset(tag, ctask.get());
-                                    asset->outputtedBy.emplace_back(ctask.get());
+                                    asset = assets.createAsset(tag);
+                                    asset->outputtedBy.emplace_back(creatorTask.get());
                                     outputPtr = asset;
                                     return true;
                                 }
@@ -131,26 +133,56 @@ void RenderGraph::build() {
         }
     }
 
-    // link remaining task outputs to external (or other task) assets
-    for (auto& task : tasks) {
+    auto& missingOutputs = missingInputs;
+    missingOutputs.clear();
+
+    const auto linkRemainingOutputs = [this, &missingOutputs](Task* task) -> bool {
+        bool allLinked = true;
         for (unsigned int i = 0; i < task->assets.outputs.size(); ++i) {
             if (task->assets.outputs[i]) { continue; }
 
             const auto& params = task->assetTags.outputs[i];
             for (auto& option : params.options) {
-                if (option.createMode != TaskOutput::CreatedExternally) { continue; }
+                if (option.shareMode != TaskOutput::Shared) { continue; }
 
-                GraphAsset* asset = assets.getAssetForOutput(option.tag, task.get());
+                GraphAsset* asset = nullptr;
+
+                // if the output is created by another task, try to find it
+                if (!params.sharedWith.empty()) {
+                    asset = assets.getAssetForSharedOutput(option.tag, params.sharedWith);
+                }
+
+                // otherwise search for external assets
+                else { asset = assets.getAssetForOutput(option.tag, task); }
+
                 if (asset) {
-                    asset->outputtedBy.emplace_back(task.get());
+                    asset->outputtedBy.emplace_back(task);
                     task->assets.outputs[i] = asset;
                     break;
                 }
             }
-            if (!task->assets.outputs[i]) {
-                BL_LOG_WARN << "Found dead-end for task with unlinked output";
-            }
+            if (!task->assets.outputs[i]) { allLinked = false; }
         }
+        return allLinked;
+    };
+
+    // link remaining task outputs to external (or other task) assets
+    for (auto& task : tasks) {
+        if (!linkRemainingOutputs(task.get())) { missingOutputs.emplace_back(task.get()); }
+    }
+
+    // do more passes until no more outputs can be linked
+    while (!missingOutputs.empty()) {
+        bool madeProgress = false;
+        for (auto it = missingOutputs.begin(); it != missingOutputs.end();) {
+            if (linkRemainingOutputs(*it)) {
+                it           = missingOutputs.erase(it);
+                madeProgress = true;
+            }
+            else { ++it; }
+        }
+        // if no progress was made, throw an error
+        if (!madeProgress) { throw std::runtime_error("Failed to link all task outputs"); }
     }
 
     // build timeline

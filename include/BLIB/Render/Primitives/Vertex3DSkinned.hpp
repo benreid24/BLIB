@@ -59,6 +59,13 @@ struct Vertex3DSkinned {
      * @return Descriptions for each attribute
      */
     static std::array<VkVertexInputAttributeDescription, 7> attributeDescriptions();
+
+    /**
+     * @brief Returns the attribute descriptions for only the positions
+     *
+     * @return Descriptions for only the positions
+     */
+    static std::array<VkVertexInputAttributeDescription, 1> attributeDescriptionsPositionsOnly();
 };
 
 } // namespace prim

@@ -2,6 +2,7 @@
 #define BLIB_GRAPHICS_BASICMODEL_HPP
 
 #include <BLIB/Components/Mesh.hpp>
+#include <BLIB/Graphics/Components/Outline3D.hpp>
 #include <BLIB/Graphics/Components/Transform3D.hpp>
 #include <BLIB/Graphics/Drawable.hpp>
 #include <BLIB/Models.hpp>
@@ -19,7 +20,8 @@ namespace gfx
  */
 class BasicModel
 : public Drawable<com::BasicMesh>
-, public bcom::Transform3D {
+, public bcom::Transform3D
+, public bcom::Outline3D {
 public:
     /**
      * @brief Does nothing

@@ -4,6 +4,7 @@
 #include <BLIB/Render/Config/RenderPassIds.hpp>
 #include <BLIB/Render/Config/RenderPhases.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
+#include <BLIB/Render/Graph/TaskIds.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -31,7 +32,8 @@ struct UniformPayload {
 };
 } // namespace
 
-BloomTask::BloomTask() {
+BloomTask::BloomTask()
+: Task(rg::TaskIds::BloomTask) {
     assetTags.requiredInputs.emplace_back(rg::TaskInput(rg::AssetTags::RenderedSceneOutputHDR));
     assetTags.outputs.emplace_back(rg::TaskOutput(rg::AssetTags::BloomColorAttachmentPair,
                                                   rg::TaskOutput::CreatedByTask,

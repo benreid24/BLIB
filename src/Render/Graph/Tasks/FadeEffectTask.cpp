@@ -4,6 +4,7 @@
 #include <BLIB/Render/Config/RenderPhases.hpp>
 #include <BLIB/Render/Descriptors/Builtin/ColorAttachmentInstance.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
+#include <BLIB/Render/Graph/TaskIds.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -13,7 +14,8 @@ namespace rc
 namespace rgi
 {
 FadeEffectTask::FadeEffectTask(float fadeTime, float start, float end)
-: renderer(nullptr) {
+: Task(rg::TaskIds::FadeEffectTask)
+, renderer(nullptr) {
     assetTags.outputs.emplace_back(
         rg::TaskOutput({rg::AssetTags::PostFXOutput, rg::AssetTags::FinalFrameOutput},
                        {rg::TaskOutput::CreatedByTask, rg::TaskOutput::CreatedExternally},

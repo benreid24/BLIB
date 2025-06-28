@@ -17,6 +17,10 @@ compile_shaders(
     3D/skybox.vert
     3D/skybox.frag
 
+    3D/outline.vert
+    3D/outlineSkinned.vert
+    3D/outline.frag
+
     3D/Shadows/shadowMap.vert
     3D/Shadows/pointShadowMap.vert
     3D/Shadows/pointShadowMap.geom

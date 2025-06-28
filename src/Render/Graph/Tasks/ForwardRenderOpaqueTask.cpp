@@ -2,6 +2,7 @@
 
 #include <BLIB/Render/Config/RenderPhases.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
+#include <BLIB/Render/Graph/TaskIds.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
 #include <BLIB/Render/Scenes/BatchedScene.hpp>
 
@@ -11,7 +12,8 @@ namespace rc
 {
 namespace rgi
 {
-ForwardRenderOpaqueTask::ForwardRenderOpaqueTask() {
+ForwardRenderOpaqueTask::ForwardRenderOpaqueTask()
+: Task(rg::TaskIds::ForwardRenderOpaqueTask) {
     assetTags.outputs.emplace_back(rg::TaskOutput({rg::AssetTags::RenderedSceneOutputHDR,
                                                    rg::AssetTags::RenderedSceneOutput,
                                                    rg::AssetTags::FinalFrameOutput},

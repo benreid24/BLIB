@@ -67,6 +67,13 @@ public:
     void renderObject(const SceneObject& object);
 
     /**
+     * @brief Issues the required commands to render the given scene object
+     *
+     * @param object The object to render
+     */
+    void renderObject(const rcom::DrawableBase& object);
+
+    /**
      * @brief Returns the current render phase
      */
     RenderPhase getRenderPhase() const;

@@ -60,6 +60,8 @@ PipelineSpecialization& PipelineSpecialization::withSimpleDepthStencil(bool dept
                                                                        bool depthWrite,
                                                                        bool stencilTest,
                                                                        bool stencilWrite) {
+    depthStencilSpecialized = true;
+
     depthStencil.sType                 = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
     depthStencil.depthTestEnable       = depthTest ? VK_TRUE : VK_FALSE;
     depthStencil.depthWriteEnable      = depthWrite ? VK_TRUE : VK_FALSE;
@@ -67,16 +69,16 @@ PipelineSpecialization& PipelineSpecialization::withSimpleDepthStencil(bool dept
     depthStencil.depthBoundsTestEnable = VK_FALSE;
     depthStencil.minDepthBounds        = 0.0f;
     depthStencil.maxDepthBounds        = 1.0f;
-    depthStencil.stencilTestEnable     = stencilTest ? VK_TRUE : VK_FALSE;
+    depthStencil.stencilTestEnable     = stencilTest || stencilWrite ? VK_TRUE : VK_FALSE;
     depthStencil.front                 = {};
-    depthStencil.front.compareOp       = VK_COMPARE_OP_ALWAYS;
-    depthStencil.front.compareMask     = 0xFF;
-    depthStencil.front.writeMask       = 0xFF;
-    depthStencil.front.depthFailOp     = VK_STENCIL_OP_KEEP;
-    depthStencil.front.passOp          = stencilWrite ? VK_STENCIL_OP_REPLACE : VK_STENCIL_OP_KEEP;
-    depthStencil.front.failOp          = VK_STENCIL_OP_KEEP;
-    depthStencil.front.reference       = 1;
-    depthStencil.back                  = depthStencil.front;
+    depthStencil.front.compareOp   = stencilTest ? VK_COMPARE_OP_NOT_EQUAL : VK_COMPARE_OP_ALWAYS;
+    depthStencil.front.compareMask = 0xFF;
+    depthStencil.front.writeMask   = 0xFF;
+    depthStencil.front.depthFailOp = VK_STENCIL_OP_KEEP;
+    depthStencil.front.passOp      = stencilWrite ? VK_STENCIL_OP_REPLACE : VK_STENCIL_OP_KEEP;
+    depthStencil.front.failOp      = VK_STENCIL_OP_KEEP;
+    depthStencil.front.reference   = 1;
+    depthStencil.back              = depthStencil.front;
 
     return *this;
 }

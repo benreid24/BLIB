@@ -21,6 +21,7 @@ bool BasicModel::create(engine::World& world, resource::Ref<mdl::Model> model, s
 
     Drawable::createWithMaterial(world, mpid);
     Transform3D::create(world.engine().ecs(), entity());
+    Outline3D::init(world.engine().ecs(), entity(), &component());
 
     Tx tx(world.engine().ecs());
 

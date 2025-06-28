@@ -5,6 +5,7 @@
 #include <BLIB/Render/Graph/AssetPool.hpp>
 #include <BLIB/Render/Graph/AssetRef.hpp>
 #include <BLIB/Render/Graph/GraphAsset.hpp>
+#include <BLIB/Render/Graph/TaskOutput.hpp>
 #include <list>
 #include <string_view>
 #include <unordered_map>
@@ -41,6 +42,16 @@ public:
     GraphAsset* getAssetForOutput(std::string_view tag, Task* task);
 
     /**
+     * @brief Fetch an existing asset from the pool to be used as a shared output
+     *
+     * @param tag The tag of the asset being requested
+     * @param sharedWith The tags of the tasks that this asset may be shared with
+     * @return A pointer to the contained asset, or nullptr if none
+     */
+    GraphAsset* getAssetForSharedOutput(std::string_view tag,
+                                        const decltype(TaskOutput::sharedWith)& sharedWith);
+
+    /**
      * @brief Fetch an existing asset from the pool to be used as an input. Only use for external
      *        assets. Do not call after calls to createAsset
      *
@@ -53,10 +64,9 @@ public:
      * @brief Creates a new asset with the given tag and creator
      *
      * @param tag The asset tag
-     * @param creator The Task that is creating the asset
      * @return A pointer to the new asset
      */
-    GraphAsset* createAsset(std::string_view tag, Task* creator);
+    GraphAsset* createAsset(std::string_view tag);
 
     /**
      * @brief Fetches the swap frame asset from the pool
