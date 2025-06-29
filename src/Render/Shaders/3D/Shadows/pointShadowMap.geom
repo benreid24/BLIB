@@ -6,7 +6,7 @@ layout (triangle_strip, max_vertices=18) out;
 
 #define LIGHT_CAM_SET_NUMBER 0
 #define OBJECTS_SET_NUMBER 1
-#include "3D/uniforms.glsl"
+#include "3D/Helpers/uniforms.glsl"
 
 layout(location = 0) out vec4 fragPos;
 

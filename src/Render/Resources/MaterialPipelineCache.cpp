@@ -55,12 +55,14 @@ void MaterialPipelineCache::createBuiltins() {
     };
     const auto make3D = [this](std::uint32_t materialIds,
                                std::uint32_t pipelineId,
+                               std::uint32_t deferredPipelineId,
                                std::uint32_t shadowMapPipelineId,
                                std::uint32_t pointShadowMapPipelineId,
                                std::uint32_t outlinePipelineId) {
         createPipeline(
             materialIds,
             mat::MaterialPipelineSettings(pipelineId)
+                .withRenderPhasePipelineOverride(cfg::RenderPhases::Deferred, deferredPipelineId)
                 .withRenderPhasePipelineOverride(cfg::RenderPhases::Overlay,
                                                  pipelineId,
                                                  cfg::Specializations3D::LightingDisabled)
@@ -77,16 +79,19 @@ void MaterialPipelineCache::createBuiltins() {
 
     make3D(MId::Mesh3D,
            PId::Mesh3D,
+           PId::DeferredMesh3D,
            PId::ShadowMapRegular,
            PId::PointShadowMapRegular,
            PId::Outline3D);
     make3D(MId::Mesh3DMaterial,
            PId::Mesh3DMaterial,
+           PId::DeferredMesh3DMaterial,
            PId::ShadowMapRegular,
            PId::PointShadowMapRegular,
            PId::Outline3D);
     make3D(MId::Mesh3DSkinned,
            PId::Mesh3DSkinned,
+           PId::DeferredMesh3DSkinned,
            PId::ShadowMapSkinned,
            PId::PointShadowMapSkinned,
            PId::Outline3DSkinned);

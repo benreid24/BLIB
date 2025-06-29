@@ -3,6 +3,7 @@
 #include <BLIB/Render/Config/PipelineIds.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Graph/Assets/BloomAssets.hpp>
+#include <BLIB/Render/Graph/Assets/FramebufferAsset.hpp>
 #include <BLIB/Render/Graph/TaskIds.hpp>
 #include <BLIB/Render/Renderer.hpp>
 

@@ -10,6 +10,9 @@ layout(location = 0) in FS_IN {
 } fs_in;
 
 layout(location = 0) out vec4 outColor;
+layout(location = 1) out vec4 outSpecular;
+layout(location = 2) out vec4 outPosition;
+layout(location = 3) out vec4 outNormal;
 
 #define GLOBALS_SET_NUMBER 0
 #define SCENE_SET_NUMBER 1
@@ -17,7 +20,6 @@ layout(location = 0) out vec4 outColor;
 #include "3D/Helpers/uniforms.glsl"
 
 #include "3D/Helpers/constants.glsl"
-#include "3D/Helpers/blinnPhongLighting.glsl.frag"
 #include "3D/Helpers/parallaxMap.glsl"
 
 void main() {
@@ -38,19 +40,13 @@ void main() {
         discard;
     }
 
-    if (lightingEnabled == 1) {
-        uint specularIndex = material.specularId;
-        vec3 specularColor = vec3(texture(textures[specularIndex], texCoords));
-
-        uint normalIndex = material.normalId;
-        vec3 normal = texture(textures[normalIndex], texCoords).rgb;
-        normal = normalize(normal * 2.0 - 1.0);
-        normal = normalize(fs_in.TBN * normal);
-
-        vec3 diffuse = vec3(diffuseColor);
-        vec3 lightColor = computeLighting(fs_in.fragPos, normal, diffuse, specularColor, material.shininess);
-        diffuseColor = vec4(lightColor, diffuseColor.w);
-    }
+    vec3 specular = texture(textures[material.specularId], texCoords).xyz;
+    uint normalIndex = material.normalId;
+    vec3 normal = texture(textures[normalIndex], texCoords).rgb;
+    normal = normalize(normal * 2.0 - 1.0);
 
     outColor = fs_in.fragColor * diffuseColor;
+    outSpecular = vec4(fs_in.fragColor.xyz * specular, material.shininess);
+    outPosition = vec4(fs_in.fragPos, float(lightingEnabled));
+    outNormal.xyz = normalize(fs_in.TBN * normal);
 }

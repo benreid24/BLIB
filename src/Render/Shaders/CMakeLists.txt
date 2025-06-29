@@ -7,13 +7,15 @@ compile_shaders(
 	empty.vert
 
     3D/mesh.vert
-    3D/Forward/mesh.frag
-    
     3D/meshMaterial.vert
-    3D/Forward/meshMaterial.frag
-
     3D/meshSkinned.vert
 
+    3D/Forward/mesh.frag
+    3D/Forward/meshMaterial.frag
+
+    3D/Deferred/mesh.frag
+    3D/Deferred/meshMaterial.frag
+    
     3D/skybox.vert
     3D/skybox.frag
 

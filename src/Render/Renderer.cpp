@@ -5,6 +5,7 @@
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Graph/Assets/ShadowMapAsset.hpp>
 #include <BLIB/Render/Graph/Providers/BloomProviders.hpp>
+#include <BLIB/Render/Graph/Providers/GBufferProviders.hpp>
 #include <BLIB/Render/Graph/Providers/GenericTargetProvider.hpp>
 #include <BLIB/Render/Graph/Providers/SimpleAssetProvider.hpp>
 #include <BLIB/Systems.hpp>
@@ -57,7 +58,19 @@ void Renderer::initialize() {
         engine::StateMask::Running | engine::StateMask::Menu | engine::StateMask::Editor,
         *this);
 
+    // create renderer instance data
+    state.init();
+    renderPasses.addDefaults();
+    globalDescriptors.init();
+    pipelines.createBuiltins();
+    materialPipelines.createBuiltins();
+
     // asset providers
+    constexpr VkClearColorValue Zero  = {{0.f, 0.f, 0.f, 0.f}};
+    constexpr VkClearColorValue Black = {{0.f, 0.f, 0.f, 1.f}};
+    constexpr VkClearDepthStencilValue DepthClear{.depth = 1.f, .stencil = 0};
+    const VkFormat depthFormat = vulkanState().findDepthFormat();
+    const VkFormat vecFormat   = vulkanState().findHighPrecisionFormat();
     assetFactory.addProvider<rgi::SimpleAssetProvider<rgi::LDRStandardTargetAsset>>(
         {rg::AssetTags::RenderedSceneOutput, rg::AssetTags::PostFXOutput});
     assetFactory.addProvider<rgi::SimpleAssetProvider<rgi::HDRStandardTargetAsset>>(
@@ -68,20 +81,47 @@ void Renderer::initialize() {
         std::array<VkFormat, 1>{vk::TextureFormat::HDRColor},
         std::array<VkImageUsageFlags, 1>{VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT |
                                          VK_IMAGE_USAGE_SAMPLED_BIT},
-        std::array<VkClearValue, 1>{VkClearValue{.color = {{0.f, 0.f, 0.f, 1.f}}}});
+        std::array<VkClearValue, 1>{VkClearValue{.color = Black}});
     assetFactory.addProvider<rgi::SimpleAssetProvider<rgi::ShadowMapAsset>>(
         rg::AssetTags::ShadowMaps);
-
-    // create renderer instance data
-    state.init();
-    renderPasses.addDefaults();
-    globalDescriptors.init();
-    pipelines.createBuiltins();
-    materialPipelines.createBuiltins();
+    constexpr std::array<VkImageUsageFlags, 5> GBufferUsages{
+        VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, // albedo
+        VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, // specular + shininess
+        VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT |
+            VK_IMAGE_USAGE_SAMPLED_BIT, // positions + lighting on/off
+        VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,         // normals
+        VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, // depth + stencil
+    };
+    constexpr std::array<VkClearValue, 5> GBufferClearValues{
+        VkClearValue{.color = Black},
+        VkClearValue{.color = Black},
+        VkClearValue{.color = Zero},
+        VkClearValue{.color = Zero},
+        VkClearValue{.depthStencil = DepthClear}};
+    assetFactory.addProvider<rgi::GBufferProvider>(
+        rg::AssetTags::GBuffer,
+        rgi::TargetSize(rgi::TargetSize::ObserverSize),
+        std::array<VkFormat, 5>{vk::TextureFormat::SRGBA32Bit,
+                                vk::TextureFormat::SRGBA32Bit,
+                                vecFormat,
+                                vecFormat,
+                                depthFormat},
+        GBufferUsages,
+        GBufferClearValues);
+    assetFactory.addProvider<rgi::GBufferHDRProvider>(
+        rg::AssetTags::GBufferHDR,
+        rgi::TargetSize(rgi::TargetSize::ObserverSize),
+        std::array<VkFormat, 5>{vk::TextureFormat::HDRColor,
+                                vk::TextureFormat::HDRColor,
+                                vecFormat,
+                                vecFormat,
+                                depthFormat},
+        GBufferUsages,
+        GBufferClearValues);
 
     // swapchain framebuffers
     VkRenderPass renderPass =
-        renderPasses.getRenderPass(cfg::RenderPassIds::SwapchainDefault).rawPass();
+        renderPasses.getRenderPass(cfg::RenderPassIds::SwapchainPass).rawPass();
     unsigned int i = 0;
     framebuffers.init(state.swapchain, [this, &i, renderPass](vk::Framebuffer& fb) {
         fb.create(state, renderPass, state.swapchain.swapFrameAtIndex(i));

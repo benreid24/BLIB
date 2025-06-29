@@ -1,7 +1,7 @@
 #ifndef BLINNPHONGLIGHTING_INCLUDED
 #define BLINNPHONGLIGHTING_INCLUDED
 
-#include "3D/uniforms.glsl"
+#include "3D/Helpers/uniforms.glsl"
 
 vec3 convertShadowCoords(vec4 fragPos) {
     vec3 projCoords = fragPos.xyz / fragPos.w;

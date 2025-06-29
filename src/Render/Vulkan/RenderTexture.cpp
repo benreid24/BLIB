@@ -49,7 +49,7 @@ void RenderTexture::resize(const glm::u32vec2& size) {
     viewport.height       = size.y;
 
     VkRenderPass renderPass = renderer.renderPassCache()
-                                  .getRenderPass(cfg::RenderPassIds::StandardAttachmentDefault)
+                                  .getRenderPass(cfg::RenderPassIds::StandardAttachmentPass)
                                   .rawPass();
 
     depthBuffer.create(renderer.vulkanState(),

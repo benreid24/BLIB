@@ -19,20 +19,23 @@ struct RenderPhases {
     /// The default forward render phase
     static constexpr RenderPhase Forward = 0;
 
+    /// Use when doing deferred rendering
+    static constexpr RenderPhase Deferred = 1;
+
     /// Use when rendering to a shadow map
-    static constexpr RenderPhase ShadowMap = 1;
+    static constexpr RenderPhase ShadowMap = 2;
 
     /// Use when rendering to a point shadow map
-    static constexpr RenderPhase ShadowPointMap = 2;
+    static constexpr RenderPhase ShadowPointMap = 3;
 
     /// Use when rendering to UI overlay
-    static constexpr RenderPhase Overlay = 3;
+    static constexpr RenderPhase Overlay = 4;
 
     /// Use when post processing phases
-    static constexpr RenderPhase PostProcess = 4;
+    static constexpr RenderPhase PostProcess = 5;
 
     /// Use when rendering an object outline
-    static constexpr RenderPhase Outline = 5;
+    static constexpr RenderPhase Outline = 6;
 };
 
 } // namespace cfg

@@ -15,7 +15,7 @@ FinalRenderTextureAsset::FinalRenderTextureAsset(vk::Framebuffer& framebuffer,
                                                  const VkRect2D& scissor,
                                                  const VkClearValue* clearColors,
                                                  const std::uint32_t clearColorCount)
-: FramebufferAsset(rg::AssetTags::FinalFrameOutput, cfg::RenderPassIds::StandardAttachmentDefault,
+: FramebufferAsset(rg::AssetTags::FinalFrameOutput, cfg::RenderPassIds::StandardAttachmentPass,
                    viewport, scissor, clearColors, clearColorCount)
 , framebuffer(framebuffer) {}
 

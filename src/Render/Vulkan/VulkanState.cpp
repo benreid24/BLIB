@@ -27,7 +27,8 @@ VkPhysicalDeviceProperties* globalDeviceProperties = nullptr;
 const std::unordered_set<std::string> RequestedValidationLayers{"VK_LAYER_KHRONOS_validation"};
 #endif
 
-constexpr std::array<const char*, 2> RequiredDeviceExtensions{VK_KHR_SWAPCHAIN_EXTENSION_NAME, VK_EXT_DEPTH_CLIP_ENABLE_EXTENSION_NAME};
+constexpr std::array<const char*, 2> RequiredDeviceExtensions{
+    VK_KHR_SWAPCHAIN_EXTENSION_NAME, VK_EXT_DEPTH_CLIP_ENABLE_EXTENSION_NAME};
 constexpr std::array<const char*, 1> OptionalDeviceExtensions{VK_KHR_MAINTENANCE_4_EXTENSION_NAME};
 
 #ifdef BLIB_DEBUG
@@ -517,6 +518,13 @@ VkFormat VulkanState::findShadowMapFormat() {
                                VK_IMAGE_TILING_OPTIMAL,
                                VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT &
                                    VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT);
+}
+
+VkFormat VulkanState::findHighPrecisionFormat() {
+    return findSupportedFormat(
+        {VK_FORMAT_R32G32B32A32_SFLOAT, VK_FORMAT_R16G16B16A16_SFLOAT, VK_FORMAT_R8G8B8A8_UNORM},
+        VK_IMAGE_TILING_OPTIMAL,
+        VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT & VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT);
 }
 
 void VulkanState::createBuffer(VkDeviceSize size, VkBufferUsageFlags usage,

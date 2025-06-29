@@ -3,8 +3,8 @@
 #include <BLIB/Render/Config/RenderPhases.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Graph/TaskIds.hpp>
-#include <BLIB/Render/Overlays/Overlay.hpp>
-#include <BLIB/Render/Scenes/BatchedScene.hpp>
+#include <BLIB/Render/Scenes/Scene.hpp>
+#include <BLIB/Render/Scenes/SceneRenderContext.hpp>
 
 namespace bl
 {

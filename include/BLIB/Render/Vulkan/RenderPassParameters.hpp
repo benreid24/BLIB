@@ -97,6 +97,15 @@ public:
     RenderPassParameters& addAttachment(VkAttachmentDescription attachment);
 
     /**
+     * @brief Replaces an existing attachment at the given index with a new attachment
+     *
+     * @param i The index of the attachment to replace
+     * @param attachment The new attachment descriptor to replace the existing one with
+     * @return A reference to this object
+     */
+    RenderPassParameters& replaceAttachment(std::uint32_t i, VkAttachmentDescription attachment);
+
+    /**
      * @brief Performs validation and returns a usable rvalue reference to this object
      *
      * @return RenderPassParameters&& An rvalue reference to this object

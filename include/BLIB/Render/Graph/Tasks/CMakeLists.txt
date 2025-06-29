@@ -1,4 +1,6 @@
 target_sources(BLIB PUBLIC
+	DeferredRenderTask.hpp
+	DeferredCompositeTask.hpp
 	FadeEffectTask.hpp
 	ForwardRenderOpaqueTask.hpp
 	ForwardRenderTransparentTask.hpp

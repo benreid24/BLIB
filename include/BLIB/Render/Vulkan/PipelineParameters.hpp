@@ -217,9 +217,11 @@ public:
      *        manually set
      *
      * @param blendState The color blend state to use
+     * @param attachmentCount The number of color attachments to apply this blend state to
      * @return A reference to this object
      */
-    PipelineParameters& withSimpleColorBlendState(ColorBlendBehavior blendState);
+    PipelineParameters& withSimpleColorBlendState(ColorBlendBehavior blendState,
+                                                  std::uint32_t attachmentCount = 1);
 
     /**
      * @brief Configures depth and stencil testing for this pipeline
@@ -311,6 +313,7 @@ private:
 
     VkPipelineRasterizationDepthClipStateCreateInfoEXT localDepthClipping;
     VkPipelineDepthStencilStateCreateInfo localDepthStencil;
+    std::uint32_t simpleColorBlendAttachmentCount;
 
     friend class Pipeline;
     friend struct std::hash<PipelineParameters>;

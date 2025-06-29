@@ -19,7 +19,8 @@ PipelineParameters::PipelineParameters()
 , colorBlending{}
 , depthStencil(nullptr)
 , localDepthClipping{}
-, localDepthStencil{} {
+, localDepthStencil{}
+, simpleColorBlendAttachmentCount(0) {
     rasterizer.sType                   = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
     rasterizer.depthClampEnable        = VK_FALSE;
     rasterizer.rasterizerDiscardEnable = VK_FALSE;
@@ -181,8 +182,10 @@ PipelineParameters& PipelineParameters::addPushConstantRange(std::uint32_t offse
     return *this;
 }
 
-PipelineParameters& PipelineParameters::withSimpleColorBlendState(ColorBlendBehavior blend) {
-    colorBlendBehavior = blend;
+PipelineParameters& PipelineParameters::withSimpleColorBlendState(ColorBlendBehavior blend,
+                                                                  std::uint32_t ac) {
+    colorBlendBehavior              = blend;
+    simpleColorBlendAttachmentCount = ac;
     return *this;
 }
 
@@ -265,26 +268,28 @@ PipelineParameters&& PipelineParameters::build() {
                             prim::Vertex::attributeDescriptions());
     }
     if (colorAttachmentBlendStates.empty() && colorBlendBehavior != ColorBlendBehavior::None) {
-        colorAttachmentBlendStates.emplace_back();
-        auto& ca          = colorAttachmentBlendStates.back();
-        ca.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT |
-                            VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
-        ca.blendEnable = VK_TRUE;
+        for (std::uint32_t i = 0; i < simpleColorBlendAttachmentCount; ++i) {
+            colorAttachmentBlendStates.emplace_back();
+            auto& ca          = colorAttachmentBlendStates.back();
+            ca.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT |
+                                VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
+            ca.blendEnable = VK_TRUE;
 
-        switch (colorBlendBehavior) {
-        case ColorBlendBehavior::Overwrite:
-            ca.blendEnable = VK_FALSE;
-            break;
+            switch (colorBlendBehavior) {
+            case ColorBlendBehavior::Overwrite:
+                ca.blendEnable = VK_FALSE;
+                break;
 
-        case ColorBlendBehavior::AlphaBlend:
-        default:
-            ca.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
-            ca.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
-            ca.colorBlendOp        = VK_BLEND_OP_ADD;
-            ca.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
-            ca.dstAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
-            ca.alphaBlendOp        = VK_BLEND_OP_MAX;
-            break;
+            case ColorBlendBehavior::AlphaBlend:
+            default:
+                ca.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
+                ca.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
+                ca.colorBlendOp        = VK_BLEND_OP_ADD;
+                ca.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
+                ca.dstAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
+                ca.alphaBlendOp        = VK_BLEND_OP_MAX;
+                break;
+            }
         }
     }
     colorBlending.pAttachments    = colorAttachmentBlendStates.data();

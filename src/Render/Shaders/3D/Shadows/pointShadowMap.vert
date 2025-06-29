@@ -4,7 +4,7 @@
 layout(location = 0) in vec3 inPosition;
 
 #define OBJECTS_SET_NUMBER 1
-#include "3D/uniforms.glsl"
+#include "3D/Helpers/uniforms.glsl"
 
 void main() {
     ModelTransform model = object.model[gl_InstanceIndex];

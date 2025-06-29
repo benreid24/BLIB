@@ -130,6 +130,11 @@ struct VulkanState {
     VkFormat findShadowMapFormat();
 
     /**
+     * @brief Returns the preferred high precision color format for use in GBuffer and similar
+     */
+    VkFormat findHighPrecisionFormat();
+
+    /**
      * @brief Helper method to guess the aspect of an image based on its format and usage
      *
      * @param format The image format

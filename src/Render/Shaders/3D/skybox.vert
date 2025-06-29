@@ -13,7 +13,7 @@ layout(location = 0) out VS_OUT {
 } vs_out;
 
 #define SCENE_SET_NUMBER 1
-#include "3D/uniforms.glsl"
+#include "3D/Helpers/uniforms.glsl"
 
 void main() {
     vs_out.texCoords = inPosition;

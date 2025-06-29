@@ -13,26 +13,17 @@ layout(location = 0) out VS_OUT {
     vec2 texCoords;
     flat uint objectIndex;
     mat3 TBN;
-    vec3 camNormal;
 } vs_out;
 
 #define SCENE_SET_NUMBER 1
 #define OBJECTS_SET_NUMBER 2
-#include "3D/uniforms.glsl"
+#include "3D/Helpers/uniforms.glsl"
 
-#include "3D/constants.glsl"
+#include "3D/Helpers/constants.glsl"
 
 void main() {
     ModelTransform model = object.model[gl_InstanceIndex];
     vec4 inPos = vec4(inPosition, 1.0);
-
-    mat4 world = model.transform;
-    // if (outlinePass == 1) {
-    //     // TODO - use actual scale method. does this scale translation?
-    //     world[0] *= 1.05;
-    //     world[1] *= 1.05;
-    //     world[2] *= 1.05;
-    // }
 
 	gl_Position = camera.projection * camera.view * model.transform * inPos;
     vs_out.fragPos = vec3(model.transform * inPos);

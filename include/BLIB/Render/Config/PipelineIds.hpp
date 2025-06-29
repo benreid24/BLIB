@@ -17,16 +17,20 @@ namespace cfg
 struct PipelineIds {
     static constexpr std::uint32_t None = 0;
 
-    static constexpr std::uint32_t Mesh3D           = 1;
-    static constexpr std::uint32_t Mesh3DMaterial   = 2;
-    static constexpr std::uint32_t Mesh3DSkinned    = 3;
-    static constexpr std::uint32_t Skybox           = 4;
-    static constexpr std::uint32_t Outline3D        = 5;
-    static constexpr std::uint32_t Outline3DSkinned = 6;
+    static constexpr std::uint32_t Mesh3D                 = 1;
+    static constexpr std::uint32_t Mesh3DMaterial         = 2;
+    static constexpr std::uint32_t Mesh3DSkinned          = 3;
+    static constexpr std::uint32_t DeferredMesh3D         = 4;
+    static constexpr std::uint32_t DeferredMesh3DMaterial = 5;
+    static constexpr std::uint32_t DeferredMesh3DSkinned  = 6;
+    static constexpr std::uint32_t Skybox                 = 7;
+    static constexpr std::uint32_t Outline3D              = 8;
+    static constexpr std::uint32_t Outline3DSkinned       = 9;
 
     static constexpr std::uint32_t PostProcess3D        = 50;
     static constexpr std::uint32_t BloomHighlightFilter = 51;
     static constexpr std::uint32_t BloomBlur            = 52;
+    static constexpr std::uint32_t DeferredComposite    = 53;
 
     static constexpr std::uint32_t Lit2DGeometry               = 100;
     static constexpr std::uint32_t Unlit2DGeometry             = 101;

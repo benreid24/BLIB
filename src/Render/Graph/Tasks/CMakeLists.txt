@@ -1,5 +1,7 @@
 target_sources(BLIB PRIVATE
 	BloomTask.cpp
+	DeferredRenderTask.cpp
+	DeferredCompositeTask.cpp
 	FadeEffectTask.cpp
 	ForwardRenderOpaqueTask.cpp
 	ForwardRenderTransparentTask.cpp

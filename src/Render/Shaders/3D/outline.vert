@@ -9,7 +9,7 @@ layout(location = 4) in vec3 inNormal;
 
 #define SCENE_SET_NUMBER 0
 #define OBJECTS_SET_NUMBER 1
-#include "3D/uniforms.glsl"
+#include "3D/Helpers/uniforms.glsl"
 
 layout(push_constant) uniform PushConstants {
     float thickness;

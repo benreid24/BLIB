@@ -128,8 +128,8 @@ private:
  *
  * @ingroup Renderer
  */
-using LDRStandardTargetAsset = StandardTargetAsset<cfg::RenderPassIds::StandardAttachmentDefault,
-                                                   vk::TextureFormat::SRGBA32Bit>;
+using LDRStandardTargetAsset =
+    StandardTargetAsset<cfg::RenderPassIds::StandardAttachmentPass, vk::TextureFormat::SRGBA32Bit>;
 
 /**
  * @brief Helper typedef for standard target assets using HDR color formats
@@ -137,7 +137,7 @@ using LDRStandardTargetAsset = StandardTargetAsset<cfg::RenderPassIds::StandardA
  * @ingroup Renderer
  */
 using HDRStandardTargetAsset =
-    StandardTargetAsset<cfg::RenderPassIds::HDRAttachmentDefault, vk::TextureFormat::HDRColor>;
+    StandardTargetAsset<cfg::RenderPassIds::HDRAttachmentPass, vk::TextureFormat::HDRColor>;
 
 } // namespace rgi
 } // namespace rc

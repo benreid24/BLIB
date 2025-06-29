@@ -30,6 +30,13 @@ RenderPassParameters& RenderPassParameters::addAttachment(VkAttachmentDescriptio
     return *this;
 }
 
+RenderPassParameters& RenderPassParameters::replaceAttachment(std::uint32_t i,
+                                                              VkAttachmentDescription att) {
+    if (i >= attachments.size()) { throw std::out_of_range("Attachment index out of range"); }
+    attachments[i] = att;
+    return *this;
+}
+
 RenderPassParameters&& RenderPassParameters::build() {
     if (subpasses.empty()) {
         throw std::runtime_error("RenderPass must have at least one subpass");

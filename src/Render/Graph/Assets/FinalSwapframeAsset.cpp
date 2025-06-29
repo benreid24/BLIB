@@ -14,7 +14,7 @@ FinalSwapframeAsset::FinalSwapframeAsset(vk::PerSwapFrame<vk::Framebuffer>& fram
                                          const VkViewport& viewport, const VkRect2D& scissor,
                                          const VkClearValue* clearColors,
                                          const std::uint32_t clearColorCount)
-: FramebufferAsset(rg::AssetTags::FinalFrameOutput, cfg::RenderPassIds::SwapchainDefault, viewport,
+: FramebufferAsset(rg::AssetTags::FinalFrameOutput, cfg::RenderPassIds::SwapchainPass, viewport,
                    scissor, clearColors, clearColorCount)
 , framebuffers(framebuffers) {}
 
