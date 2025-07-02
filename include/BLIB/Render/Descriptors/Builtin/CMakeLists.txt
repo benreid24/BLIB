@@ -5,6 +5,8 @@ target_sources(BLIB PUBLIC
 	CommonShaderInputs.hpp
 	GlobalDataFactory.hpp
 	GlobalDataInstance.hpp
+	InputAttachmentFactory.hpp
+	InputAttachmentInstance.hpp
 	Object2DFactory.hpp
 	Object2DInstance.hpp
 	Object3DFactory.hpp

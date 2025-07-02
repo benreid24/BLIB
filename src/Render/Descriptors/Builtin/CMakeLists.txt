@@ -3,6 +3,8 @@ target_sources(BLIB PRIVATE
 	ColorAttachmentInstance.cpp
 	GlobalDataFactory.cpp
 	GlobalDataInstance.cpp
+	InputAttachmentFactory.cpp
+	InputAttachmentInstance.cpp
 	Scene2DFactory.cpp
 	Scene2DInstance.cpp
 	Scene3DFactory.cpp

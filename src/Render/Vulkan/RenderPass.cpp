@@ -8,13 +8,16 @@ namespace vk
 {
 RenderPass::RenderPass(VulkanState& vs, RenderPassParameters&& params)
 : vulkanState(vs) {
-    std::vector<VkSubpassDescription> subpasses;
-    subpasses.reserve(params.subpasses.size());
+    ctr::StaticVector<VkSubpassDescription, RenderPassParameters::MaxSubpassCount> subpasses;
     for (const auto& sp : params.subpasses) {
         subpasses.emplace_back(VkSubpassDescription{});
-        subpasses.back().pipelineBindPoint    = VK_PIPELINE_BIND_POINT_GRAPHICS;
-        subpasses.back().colorAttachmentCount = sp.colorAttachments.size();
-        subpasses.back().pColorAttachments    = sp.colorAttachments.data();
+        subpasses.back().pipelineBindPoint       = VK_PIPELINE_BIND_POINT_GRAPHICS;
+        subpasses.back().colorAttachmentCount    = sp.colorAttachments.size();
+        subpasses.back().pColorAttachments       = sp.colorAttachments.data();
+        subpasses.back().inputAttachmentCount    = sp.inputAttachments.size();
+        subpasses.back().pInputAttachments       = sp.inputAttachments.data();
+        subpasses.back().preserveAttachmentCount = sp.preserveAttachments.size();
+        subpasses.back().pPreserveAttachments    = sp.preserveAttachments.data();
         if (sp.depthAttachment.has_value()) {
             subpasses.back().pDepthStencilAttachment = &sp.depthAttachment.value();
         }

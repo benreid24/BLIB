@@ -1,6 +1,7 @@
 #include <BLIB/Render/Vulkan/RenderPassParameters.hpp>
 
 #include <stdexcept>
+#include <string>
 #include <utility>
 
 namespace bl
@@ -9,14 +10,38 @@ namespace rc
 {
 namespace vk
 {
-RenderPassParameters::RenderPassParameters() {
-    attachments.reserve(4);
-    subpasses.reserve(4);
-    dependencies.reserve(4);
-}
+RenderPassParameters::RenderPassParameters() {}
 
 RenderPassParameters& RenderPassParameters::addSubpass(SubPass&& subpass) {
     subpasses.emplace_back(std::forward<SubPass>(subpass));
+    return *this;
+}
+
+RenderPassParameters& RenderPassParameters::useSubpassOutputsAsInputs(std::uint32_t index,
+                                                                      bool depth) {
+    if (index == 0 || index >= subpasses.size()) {
+        throw std::runtime_error("Invalid subpass index");
+    }
+
+    SubPass& prevPass  = subpasses[index - 1];
+    const auto& inputs = prevPass.colorAttachments;
+    if (inputs.empty()) {
+        throw std::runtime_error("Subpass " + std::to_string(index - 1) +
+                                 " has no color attachments to use as inputs");
+    }
+
+    const bool useDepth = depth && prevPass.depthAttachment.has_value();
+    SubPass& subpass    = subpasses[index];
+    subpass.inputAttachments.resize(inputs.size() + (useDepth ? 1 : 0));
+    for (std::size_t i = 0; i < inputs.size(); ++i) {
+        subpass.inputAttachments[i].attachment = inputs[i].attachment;
+        subpass.inputAttachments[i].layout     = inputs[i].layout;
+    }
+    if (useDepth) {
+        subpass.inputAttachments.back().attachment = prevPass.depthAttachment.value().attachment;
+        subpass.inputAttachments.back().layout     = prevPass.depthAttachment.value().layout;
+    }
+
     return *this;
 }
 
@@ -47,7 +72,15 @@ RenderPassParameters&& RenderPassParameters::build() {
     return std::move(*this);
 }
 
-RenderPassParameters::SubPass::SubPass() { colorAttachments.reserve(4); }
+RenderPassParameters::SubPass::SubPass() {}
+
+RenderPassParameters::SubPass& RenderPassParameters::SubPass::withInputAttachment(
+    std::uint32_t index, VkImageLayout layout) {
+    inputAttachments.emplace_back();
+    inputAttachments.back().attachment = index;
+    inputAttachments.back().layout     = layout;
+    return *this;
+}
 
 RenderPassParameters::SubPass& RenderPassParameters::SubPass::withAttachment(std::uint32_t i,
                                                                              VkImageLayout layout) {
@@ -62,6 +95,12 @@ RenderPassParameters::SubPass& RenderPassParameters::SubPass::withDepthAttachmen
     depthAttachment.emplace();
     depthAttachment.value().layout     = layout;
     depthAttachment.value().attachment = i;
+    return *this;
+}
+
+RenderPassParameters::SubPass& RenderPassParameters::SubPass::withPreserveAttachment(
+    std::uint32_t index) {
+    preserveAttachments.emplace_back(index);
     return *this;
 }
 
