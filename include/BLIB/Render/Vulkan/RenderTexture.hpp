@@ -5,10 +5,8 @@
 #include <BLIB/Render/Resources/TextureRef.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Vulkan/DedicatedCommandBuffers.hpp>
-#include <BLIB/Render/Vulkan/Image.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/Sampler.hpp>
-#include <BLIB/Render/Vulkan/StandardAttachmentSet.hpp>
 #include <memory>
 
 namespace bl
@@ -135,16 +133,8 @@ public:
     using RenderTarget::removeScene;
 
 private:
-    struct FramePayload {
-        Image depthBuffer;
-        StandardAttachmentSet attachmentSet;
-    };
-
     DedicatedCommandBuffers commandBuffers;
     res::TextureRef texture;
-    Image depthBuffer;
-    StandardAttachmentSet attachmentSet;
-    Framebuffer framebuffer;
 
     // called by renderer
     RenderTexture(engine::Engine& engine, Renderer& renderer, rg::AssetFactory& factory,

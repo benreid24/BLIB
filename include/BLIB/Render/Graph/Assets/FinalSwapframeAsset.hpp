@@ -4,13 +4,20 @@
 #include <BLIB/Render/Graph/Assets/FramebufferAsset.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/PerSwapFrame.hpp>
+#include <BLIB/Render/Vulkan/StandardAttachmentSet.hpp>
 
 namespace bl
 {
 namespace rc
 {
+namespace vk
+{
+class Swapchain;
+}
 namespace rgi
 {
+class DepthBuffer;
+
 /**
  * @brief Asset for the swapchain image that an observer renders to
  *
@@ -27,9 +34,8 @@ public:
      * @param clearColors Pointer to array of clear colors for attachments
      * @param clearColorCount The number of clear colors
      */
-    FinalSwapframeAsset(vk::PerSwapFrame<vk::Framebuffer>& framebuffers, const VkViewport& viewport,
-                        const VkRect2D& scissor, const VkClearValue* clearColors,
-                        const std::uint32_t clearColorCount);
+    FinalSwapframeAsset(const VkViewport& viewport, const VkRect2D& scissor,
+                        const VkClearValue* clearColors, const std::uint32_t clearColorCount);
 
     /**
      * @brief Does nothing
@@ -50,7 +56,10 @@ public:
     virtual vk::Framebuffer& getFramebuffer(std::uint32_t i) override;
 
 private:
-    vk::PerSwapFrame<vk::Framebuffer>& framebuffers;
+    vk::Swapchain* swapchain;
+    DepthBuffer* depthBufferAsset;
+    vk::PerSwapFrame<vk::StandardAttachmentSet> attachmentSets;
+    vk::PerSwapFrame<vk::Framebuffer> framebuffers;
 
     virtual void doCreate(engine::Engine& engine, Renderer& renderer,
                           RenderTarget* observer) override;

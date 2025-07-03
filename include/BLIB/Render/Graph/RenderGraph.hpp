@@ -133,24 +133,13 @@ public:
     }
 
     /**
-     * @brief Executes the graph to record render commands into the given command buffer. Does not
-     *        execute the final task
+     * @brief Executes the graph to record render commands into the given command buffer
      *
      * @param commandBuffer The command buffer to record into
      * @param observerIndex The observer's index in the current scene
      * @param renderTexture True if the final target is a render texture, false otherwise
      */
     void execute(VkCommandBuffer commandBuffer, std::uint32_t observerIndex, bool renderTexture);
-
-    /**
-     * @brief Executes the final task of the graph
-     *
-     * @param commandBuffer The command buffer to record into
-     * @param observerIndex The observer's index in the current scene
-     * @param renderTexture True if the final target is a render texture, false otherwise
-     */
-    void executeFinal(VkCommandBuffer commandBuffer, std::uint32_t observerIndex,
-                      bool renderTexture);
 
     /**
      * @brief Builds the graph timeline. Called automatically in execute()

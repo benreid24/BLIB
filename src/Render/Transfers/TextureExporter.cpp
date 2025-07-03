@@ -60,7 +60,7 @@ TextureExport* TextureExporter::exportSwapImage() {
     auto& te =
         exports.emplace_back(owner.vulkanState(),
                              *this,
-                             frame.colorImage(),
+                             frame.getImage(0),
                              VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,
                              VkExtent3D{frame.renderExtent().width, frame.renderExtent().height, 1},
                              VK_IMAGE_ASPECT_COLOR_BIT,

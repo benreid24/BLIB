@@ -24,6 +24,18 @@ Scene3DInstance::~Scene3DInstance() {
     uniform.destroy();
 }
 
+void Scene3DInstance::bind(VkCommandBuffer commandBuffer, VkPipelineLayout pipelineLayout,
+                           std::uint32_t bindIndex, std::uint32_t observerIndex) {
+    vkCmdBindDescriptorSets(commandBuffer,
+                            VK_PIPELINE_BIND_POINT_GRAPHICS,
+                            pipelineLayout,
+                            bindIndex,
+                            1,
+                            &descriptorSets.current(observerIndex),
+                            0,
+                            nullptr);
+}
+
 void Scene3DInstance::bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                       std::uint32_t setIndex, UpdateSpeed) const {
     vkCmdBindDescriptorSets(ctx.getCommandBuffer(),
@@ -129,7 +141,8 @@ void Scene3DInstance::updateShadowDescriptors(rg::GraphAsset* asset) {
     }
 
     const std::uint32_t imageWriteCount =
-        cfg::Limits::MaxConcurrentFrames * (cfg::Limits::MaxSpotShadows + cfg::Limits::MaxPointShadows);
+        cfg::Limits::MaxConcurrentFrames *
+        (cfg::Limits::MaxSpotShadows + cfg::Limits::MaxPointShadows);
     SetWriteHelper setWriter;
     setWriter.hintWriteCount(descriptorSets.size() * imageWriteCount);
     setWriter.hintImageInfoCount(descriptorSets.size() * imageWriteCount);

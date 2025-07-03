@@ -22,6 +22,9 @@ struct TextureFormat {
     /// 8-bit unsigned integer, 4 channels, sRGB
     static constexpr VkFormat SRGBA32Bit = VK_FORMAT_R8G8B8A8_SRGB;
 
+    /// 8-bit unsigned integer, 3 channels, sRGB
+    static constexpr VkFormat DefaultColorFormat = SRGBA32Bit;
+
     /// 16 bit signed float, linear
     static constexpr VkFormat HDRColor = VK_FORMAT_R16G16B16A16_SFLOAT;
 };

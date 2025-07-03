@@ -195,7 +195,8 @@ void VulkanState::cleanup() {
 
 void VulkanState::invalidateSwapChain() { swapchain.invalidate(); }
 
-void VulkanState::beginFrame(StandardAttachmentSet*& renderFrame, VkCommandBuffer& commandBuffer) {
+void VulkanState::beginFrame(Swapchain::SwapframeAttachmentSet*& renderFrame,
+                             VkCommandBuffer& commandBuffer) {
     swapchain.beginFrame(renderFrame, commandBuffer);
     cleanupManager.onFrameStart();
 }
@@ -715,6 +716,11 @@ bool VulkanState::extensionIsAvailable(const char* ext) const {
 
 const VkPhysicalDeviceProperties& VulkanState::getPhysicalDeviceProperties() {
     return *globalDeviceProperties;
+}
+
+VkImageAspectFlags VulkanState::guessImageAspect(VkFormat, VkImageUsageFlags usage) {
+    if (usage & VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT) { return VK_IMAGE_ASPECT_DEPTH_BIT; }
+    return VK_IMAGE_ASPECT_COLOR_BIT;
 }
 
 } // namespace vk

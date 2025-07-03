@@ -46,6 +46,7 @@ void Framebuffer::create(VulkanState& vs, VkRenderPass rp, const AttachmentSet& 
 }
 
 void Framebuffer::recreateIfChanged(const AttachmentSet& t) {
+    // TODO - need to check all views?
     if (*t.imageViews() != cachedAttachment) { create(*vulkanState, renderPass, t); }
 }
 

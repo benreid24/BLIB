@@ -6,6 +6,7 @@
 #include <BLIB/Render/Config/Specializations3D.hpp>
 #include <BLIB/Render/Descriptors/Builtin/ColorAttachmentFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/GlobalDataFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/InputAttachmentFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Object2DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Object3DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene2DFactory.hpp>
@@ -146,6 +147,7 @@ void PipelineCache::createBuiltins() {
                               prim::Vertex3D::attributeDescriptions())
             .withRasterizer(rasterizer3d)
             .withDepthStencilState(&depthStencilDepthEnabled)
+            .withSimpleColorBlendState(vk::PipelineParameters::ColorBlendBehavior::Overwrite, 4)
             .addDescriptorSet<ds::GlobalDataFactory>()
             .addDescriptorSet<ds::Scene3DFactory>()
             .addDescriptorSet<ds::Object3DFactory>()
@@ -183,6 +185,7 @@ void PipelineCache::createBuiltins() {
                               prim::Vertex3D::attributeDescriptions())
             .withRasterizer(rasterizer3d)
             .withDepthStencilState(&depthStencilDepthEnabled)
+            .withSimpleColorBlendState(vk::PipelineParameters::ColorBlendBehavior::Overwrite, 4)
             .addDescriptorSet<ds::GlobalDataFactory>()
             .addDescriptorSet<ds::Scene3DFactory>()
             .addDescriptorSet<ds::Object3DFactory>()
@@ -220,6 +223,7 @@ void PipelineCache::createBuiltins() {
                               prim::Vertex3D::attributeDescriptions())
             .withRasterizer(rasterizer3d)
             .withDepthStencilState(&depthStencilDepthEnabled)
+            .withSimpleColorBlendState(vk::PipelineParameters::ColorBlendBehavior::Overwrite, 4)
             .addDescriptorSet<ds::GlobalDataFactory>()
             .addDescriptorSet<ds::Scene3DFactory>()
             .addDescriptorSet<ds::Object3DFactory>()
@@ -236,9 +240,9 @@ void PipelineCache::createBuiltins() {
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withRasterizer(rasterizer)
             .withDepthStencilState(&depthStencilDepthDisabled)
-            .withSimpleColorBlendState(vk::PipelineParameters::ColorBlendBehavior::Overwrite, 4)
-            .addDescriptorSet<ds::ColorAttachmentFactory>() // TODO - correct descriptor set
-            .addDescriptorSet<ds::GlobalDataFactory>()
+            .withSimpleColorBlendState(vk::PipelineParameters::ColorBlendBehavior::Overwrite)
+            .addDescriptorSet<ds::InputAttachmentFactory<4>>()
+            .addDescriptorSet<ds::Scene3DFactory>()
             .build());
 
     createPipeline(

@@ -6,8 +6,9 @@ namespace rc
 {
 namespace vk
 {
-RenderPass::RenderPass(VulkanState& vs, RenderPassParameters&& params)
-: vulkanState(vs) {
+RenderPass::RenderPass(std::uint32_t id, VulkanState& vs, RenderPassParameters&& params)
+: id(id)
+, vulkanState(vs) {
     ctr::StaticVector<VkSubpassDescription, RenderPassParameters::MaxSubpassCount> subpasses;
     for (const auto& sp : params.subpasses) {
         subpasses.emplace_back(VkSubpassDescription{});

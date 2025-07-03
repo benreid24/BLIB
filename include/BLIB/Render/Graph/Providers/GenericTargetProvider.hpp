@@ -20,7 +20,7 @@ namespace rgi
  * @ingroup Renderer
  */
 template<std::uint32_t RenderPassId, std::uint32_t AttachmentCount,
-         RenderPassBehavior RenderPassMode>
+         RenderPassBehavior RenderPassMode, DepthAttachmentType DepthAttachment>
 class GenericTargetProvider : public rg::AssetProvider {
 public:
     /**
@@ -45,7 +45,10 @@ public:
      * @return The newly created asset
      */
     virtual rg::Asset* create(std::string_view tag) override {
-        return new GenericTargetAsset<RenderPassId, AttachmentCount, RenderPassMode>(
+        return new GenericTargetAsset<RenderPassId,
+                                      AttachmentCount,
+                                      RenderPassMode,
+                                      DepthAttachment>(
             tag, imageFormats, imageUsages, clearColors, size);
     }
 

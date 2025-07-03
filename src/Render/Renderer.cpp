@@ -3,6 +3,7 @@
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Render/Config/RenderPassIds.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
+#include <BLIB/Render/Graph/Assets/DepthBuffer.hpp>
 #include <BLIB/Render/Graph/Assets/ShadowMapAsset.hpp>
 #include <BLIB/Render/Graph/Providers/BloomProviders.hpp>
 #include <BLIB/Render/Graph/Providers/GBufferProviders.hpp>
@@ -71,6 +72,8 @@ void Renderer::initialize() {
     constexpr VkClearDepthStencilValue DepthClear{.depth = 1.f, .stencil = 0};
     const VkFormat depthFormat = vulkanState().findDepthFormat();
     const VkFormat vecFormat   = vulkanState().findHighPrecisionFormat();
+    assetFactory.addProvider<rgi::SimpleAssetProvider<rgi::DepthBuffer>>(
+        rg::AssetTags::DepthBuffer);
     assetFactory.addProvider<rgi::SimpleAssetProvider<rgi::LDRStandardTargetAsset>>(
         {rg::AssetTags::RenderedSceneOutput, rg::AssetTags::PostFXOutput});
     assetFactory.addProvider<rgi::SimpleAssetProvider<rgi::HDRStandardTargetAsset>>(
@@ -85,12 +88,16 @@ void Renderer::initialize() {
     assetFactory.addProvider<rgi::SimpleAssetProvider<rgi::ShadowMapAsset>>(
         rg::AssetTags::ShadowMaps);
     constexpr std::array<VkImageUsageFlags, 5> GBufferUsages{
-        VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, // albedo
-        VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, // specular + shininess
-        VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT |
-            VK_IMAGE_USAGE_SAMPLED_BIT, // positions + lighting on/off
-        VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,         // normals
-        VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, // depth + stencil
+        // albedo
+        VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
+        // specular + shininess
+        VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
+        // positions + lighting on/off
+        VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
+        // normals
+        VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
+        // depth + stencil
+        VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
     };
     constexpr std::array<VkClearValue, 5> GBufferClearValues{
         VkClearValue{.color = Black},
@@ -119,15 +126,6 @@ void Renderer::initialize() {
         GBufferUsages,
         GBufferClearValues);
 
-    // swapchain framebuffers
-    VkRenderPass renderPass =
-        renderPasses.getRenderPass(cfg::RenderPassIds::SwapchainPass).rawPass();
-    unsigned int i = 0;
-    framebuffers.init(state.swapchain, [this, &i, renderPass](vk::Framebuffer& fb) {
-        fb.create(state, renderPass, state.swapchain.swapFrameAtIndex(i));
-        ++i;
-    });
-
     // initialize common observer
     commonObserver.assignRegion(window.getSfWindow().getSize(), renderRegion, 1, 0, true);
     assignObserverRegions();
@@ -151,7 +149,6 @@ void Renderer::cleanup() {
     pipelineLayouts.cleanup();
     descriptorSetFactoryCache.cleanup();
     globalDescriptors.cleanup();
-    framebuffers.cleanup([](vk::Framebuffer& fb) { fb.cleanup(); });
     renderPasses.cleanup();
     state.cleanup();
     state.device = nullptr;
@@ -180,10 +177,9 @@ void Renderer::renderFrame() {
     std::unique_lock lock(renderMutex);
 
     // begin frame
-    vk::StandardAttachmentSet* currentFrame = nullptr;
-    VkCommandBuffer commandBuffer           = nullptr;
+    vk::Swapchain::SwapframeAttachmentSet* currentFrame = nullptr;
+    VkCommandBuffer commandBuffer                       = nullptr;
     state.beginFrame(currentFrame, commandBuffer);
-    framebuffers.current().recreateIfChanged(*currentFrame);
 
     // kick off transfers
     if (settings.dirty) {
@@ -231,26 +227,7 @@ void Renderer::renderFrame() {
     }
     if (commonObserver.hasScene()) { commonObserver.renderScene(commandBuffer); }
 
-    // perform render pass for final scene renders and overlays
-    framebuffers.current().beginRender(commandBuffer,
-                                       {{0, 0}, currentFrame->renderExtent()},
-                                       clearColors,
-                                       std::size(clearColors),
-                                       false);
-
-    // render scene outputs
-    for (auto& o : observers) { o->renderSceneFinal(commandBuffer); }
-    if (!virtualObservers.empty()) {
-        clearDepthBuffer();
-        for (auto& o : virtualObservers) { o->renderSceneFinal(commandBuffer); }
-    }
-    if (commonObserver.hasScene()) {
-        clearDepthBuffer();
-        commonObserver.renderSceneFinal(commandBuffer);
-    }
-
     // complete frame
-    framebuffers.current().finishRender(commandBuffer);
     state.completeFrame();
 
     // submit texture exports

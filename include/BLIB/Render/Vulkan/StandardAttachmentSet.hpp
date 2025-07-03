@@ -10,8 +10,6 @@ namespace rc
 {
 namespace vk
 {
-class Swapchain;
-class StandardAttachmentBuffers;
 
 /**
  * @brief Attachment set containing the standard attachments for render frames in the engine
@@ -28,22 +26,22 @@ public:
     /**
      * @brief Returns the handle to the image for the color attachment
      */
-    constexpr VkImage colorImage() const;
+    VkImage colorImage() const;
 
     /**
      * @brief Returns the color attachment image view
      */
-    constexpr VkImageView colorImageView() const;
+    VkImageView colorImageView() const;
 
     /**
      * @brief Returns the handle to the image for the depth attachment
      */
-    constexpr VkImage depthImage() const;
+    VkImage depthImage() const;
 
     /**
      * @brief Returns the depth attachment image view
      */
-    constexpr VkImageView depthImageView() const;
+    VkImageView depthImageView() const;
 
     /**
      * @brief Sets the attachments of this attachment set
@@ -70,19 +68,15 @@ inline StandardAttachmentSet::StandardAttachmentSet()
 : AttachmentSet(imageHandles, imageViewHandles,
                 {VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_ASPECT_DEPTH_BIT}, 1) {}
 
-inline constexpr VkImage StandardAttachmentSet::colorImage() const {
-    return imageHandles[ColorIndex];
-}
+inline VkImage StandardAttachmentSet::colorImage() const { return imageHandles[ColorIndex]; }
 
-inline constexpr VkImageView StandardAttachmentSet::colorImageView() const {
+inline VkImageView StandardAttachmentSet::colorImageView() const {
     return imageViewHandles[ColorIndex];
 }
 
-inline constexpr VkImage StandardAttachmentSet::depthImage() const {
-    return imageHandles[DepthIndex];
-}
+inline VkImage StandardAttachmentSet::depthImage() const { return imageHandles[DepthIndex]; }
 
-inline constexpr VkImageView StandardAttachmentSet::depthImageView() const {
+inline VkImageView StandardAttachmentSet::depthImageView() const {
     return imageViewHandles[DepthIndex];
 }
 

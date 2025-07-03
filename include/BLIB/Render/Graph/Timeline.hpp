@@ -124,19 +124,11 @@ public:
     void build(std::vector<std::unique_ptr<Task>>& tasks, GraphAsset* finalAsset);
 
     /**
-     * @brief Executes the timeline to record render commands into the given command buffer. Does
-     *        not execute the final stage
+     * @brief Executes the timeline to record render commands into the given command buffer
      *
      * @param ctx The graph execution context
      */
     void execute(const ExecutionContext& ctx);
-
-    /**
-     * @brief Executes the final stage of the timeline
-     *
-     * @param ctx The graph execution context
-     */
-    void executeFinal(const ExecutionContext& ctx);
 
 private:
     engine::Engine& engine;

@@ -24,8 +24,11 @@ public:
      *
      * @param vulkanState The renderer Vulkan state
      * @param layout The descriptor set layout
+     * @param attachmentCount The number of attachments that will be bound
+     * @param startIndex The index of the first attachment to bind
      */
-    InputAttachmentInstance(vk::VulkanState& vulkanState, VkDescriptorSetLayout layout);
+    InputAttachmentInstance(vk::VulkanState& vulkanState, VkDescriptorSetLayout layout,
+                            std::uint32_t attachmentCount, std::uint32_t startIndex);
 
     /**
      * @brief Destroys the descriptor set
@@ -95,6 +98,8 @@ private:
         };
     };
 
+    const std::uint32_t startIndex;
+    const std::uint32_t attachmentCount;
     vk::VulkanState& vulkanState;
     VkDescriptorSetLayout layout;
     vk::DescriptorPool::AllocationHandle dsAlloc;

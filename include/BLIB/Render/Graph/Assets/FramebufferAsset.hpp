@@ -52,13 +52,6 @@ public:
     const vk::RenderPass& getRenderPass() const { return *renderPass; }
 
     /**
-     * @brief Intended to be called by observer when it resizes
-     *
-     * @param newSize The new size of the observer render region
-     */
-    void notifyResize(glm::u32vec2 newSize);
-
-    /**
      * @brief Begins the render pass for this framebuffer asset
      *
      * @param commandBuffer The command buffer to write commands to
@@ -120,15 +113,7 @@ protected:
                      const VkRect2D& scissor, const VkClearValue* clearColors,
                      const std::uint32_t clearColorCount);
 
-    /**
-     * @brief Called when the observer render region changes size
-     *
-     * @param newSize The new size of the observer render region
-     */
-    virtual void onResize(glm::u32vec2 newSize) = 0;
-
 private:
-    glm::u32vec2 cachedSize;
     unsigned int startCount;
 };
 

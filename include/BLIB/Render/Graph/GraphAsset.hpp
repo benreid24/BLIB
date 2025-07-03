@@ -2,6 +2,7 @@
 #define BLIB_RENDER_GRAPH_GRAPHASSET_HPP
 
 #include <BLIB/Render/Graph/AssetRef.hpp>
+#include <vector>
 
 namespace bl
 {

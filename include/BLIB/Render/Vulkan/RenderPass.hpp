@@ -21,10 +21,11 @@ public:
     /**
      * @brief Construct a new Render Pass
      *
+     * @param id The id of the render pass
      * @param vulkanState The renderer Vulkan state
      * @param params The parameters to create the pass with
      */
-    RenderPass(VulkanState& vulkanState, RenderPassParameters&& params);
+    RenderPass(std::uint32_t id, VulkanState& vulkanState, RenderPassParameters&& params);
 
     /**
      * @brief Destroy the Render Pass object
@@ -34,19 +35,25 @@ public:
 
     /**
      * @brief Returns the Vulkan render pass handle
-     *
-     * @return constexpr VkRenderPass The Vulkan render pass handle
      */
-    constexpr VkRenderPass rawPass() const;
+    VkRenderPass rawPass() const;
+
+    /**
+     * @brief Returns the id of the render pass
+     */
+    std::uint32_t getId() const;
 
 private:
+    const std::uint32_t id;
     VulkanState& vulkanState;
     VkRenderPass renderPass;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-constexpr VkRenderPass RenderPass::rawPass() const { return renderPass; }
+inline VkRenderPass RenderPass::rawPass() const { return renderPass; }
+
+inline std::uint32_t RenderPass::getId() const { return id; }
 
 } // namespace vk
 } // namespace rc

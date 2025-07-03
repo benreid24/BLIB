@@ -427,7 +427,6 @@ TEST(RenderGraph, BasicSceneRender) {
     SceneRenderTask* task = graph.putTask<SceneRenderTask>();
 
     graph.execute(nullptr, 0, false);
-    graph.executeFinal(nullptr, 0, false);
     EXPECT_TRUE(swapframe->rendered);
     EXPECT_TRUE(task->graphInit);
 }
@@ -447,7 +446,6 @@ TEST(RenderGraph, SceneWithPostFX) {
     graph.putTask<PostFXTask>();
 
     graph.execute(nullptr, 0, false);
-    graph.executeFinal(nullptr, 0, false);
     EXPECT_TRUE(swapframe->rendered);
 }
 
@@ -468,7 +466,6 @@ TEST(RenderGraph, SceneWithPostFXAndShadows) {
     graph.putTask<ShadowMapTask>();
 
     graph.execute(nullptr, 0, false);
-    graph.executeFinal(nullptr, 0, false);
     EXPECT_TRUE(swapframe->rendered);
 }
 
@@ -491,7 +488,6 @@ TEST(RenderGraph, SceneWithPostFXChainAndShadows) {
     graph.putTask<ShadowMapTask>();
 
     graph.execute(nullptr, 0, false);
-    graph.executeFinal(nullptr, 0, false);
     EXPECT_TRUE(swapframe->rendered);
 }
 
@@ -512,7 +508,6 @@ TEST(RenderGraph, MultipleGraphsSharedAssets) {
     graph1.putTask<PostFXTask>();
 
     graph1.execute(nullptr, 0, false);
-    graph1.executeFinal(nullptr, 0, false);
     EXPECT_TRUE(swapframe->rendered);
 
     graph2.putTask<SceneRenderTask>();
@@ -520,7 +515,6 @@ TEST(RenderGraph, MultipleGraphsSharedAssets) {
 
     swapframe->rendered = false;
     graph2.execute(nullptr, 0, false);
-    graph2.executeFinal(nullptr, 0, false);
     EXPECT_TRUE(swapframe->rendered);
 }
 
@@ -540,7 +534,6 @@ TEST(RenderGraph, TasksSharingInputs) {
     graph.putTask<BloomTask>();
 
     graph.execute(nullptr, 0, false);
-    graph.executeFinal(nullptr, 0, false);
     EXPECT_TRUE(swapframe->rendered);
 }
 
@@ -560,7 +553,6 @@ TEST(RenderGraph, TasksSharingExternalInputsAndOutputs) {
     auto* task2 = graph.putTask<ExternalSharingTask>(TaskOutput::Last, counter);
 
     graph.execute(nullptr, 0, false);
-    graph.executeFinal(nullptr, 0, false);
     EXPECT_TRUE(swapframe->rendered);
     EXPECT_EQ(counter, 2);
     EXPECT_EQ(task1->executedAtCount, 0);
@@ -584,7 +576,6 @@ TEST(RenderGraph, TaskSharedOnlyOutput) {
     auto* task3 = graph.putTask<PostFXTask>(&counter);
 
     graph.execute(nullptr, 0, false);
-    graph.executeFinal(nullptr, 0, false);
     EXPECT_TRUE(swapframe->rendered);
     EXPECT_EQ(counter, 3);
     EXPECT_EQ(task1->executedAtCount, 0);
@@ -608,7 +599,6 @@ TEST(RenderGraph, TaskSharedOnlyOutputExternal) {
     auto* task1 = graph.putTask<SharedTaskForExclusive>(TaskOutput::First, counter);
 
     graph.execute(nullptr, 0, false);
-    graph.executeFinal(nullptr, 0, false);
     EXPECT_TRUE(swapframe->rendered);
     EXPECT_EQ(counter, 2);
     EXPECT_EQ(task1->executedAtCount, 0);

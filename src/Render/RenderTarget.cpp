@@ -4,6 +4,7 @@
 #include <BLIB/Cameras/3D/Camera3D.hpp>
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
+#include <BLIB/Render/Graph/Assets/DepthBuffer.hpp>
 #include <BLIB/Render/Graph/Assets/SceneAsset.hpp>
 #include <BLIB/Render/Graph/Tasks/RenderOverlayTask.hpp>
 #include <BLIB/Render/Renderer.hpp>
@@ -26,6 +27,8 @@ RenderTarget::RenderTarget(engine::Engine& e, Renderer& r, rg::AssetFactory& f, 
 
     clearColors[0].color        = {{0.f, 0.f, 0.f, 1.f}};
     clearColors[1].depthStencil = {1.f, 0};
+
+    graphAssets.putAsset<rgi::DepthBuffer>();
 }
 
 RenderTarget::~RenderTarget() {
@@ -219,13 +222,6 @@ void RenderTarget::renderScene(VkCommandBuffer commandBuffer) {
         }
 
         scenes.back().graph.execute(commandBuffer, scenes.back().observerIndex, isRenderTexture);
-    }
-}
-
-void RenderTarget::renderSceneFinal(VkCommandBuffer commandBuffer) {
-    if (hasScene()) {
-        scenes.back().graph.executeFinal(
-            commandBuffer, scenes.back().observerIndex, isRenderTexture);
     }
 }
 

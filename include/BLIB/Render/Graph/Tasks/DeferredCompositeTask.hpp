@@ -2,8 +2,11 @@
 #define BLIB_RENDER_GRAPH_TASKS_DEFERREDCOMPOSITETASK_HPP
 
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
+#include <BLIB/Render/Descriptors/Builtin/InputAttachmentInstance.hpp>
+#include <BLIB/Render/Descriptors/Builtin/Scene3DInstance.hpp>
 #include <BLIB/Render/Graph/Task.hpp>
 #include <BLIB/Render/Vulkan/Pipeline.hpp>
+#include <optional>
 
 namespace bl
 {
@@ -33,6 +36,8 @@ private:
     Scene* scene;
     buf::IndexBuffer indexBuffer;
     vk::Pipeline* pipeline;
+    ds::Scene3DInstance* sceneDescriptor;
+    std::optional<ds::InputAttachmentInstance> gbufferDescriptor;
 
     virtual void create(engine::Engine& engine, Renderer& renderer, Scene* scene) override;
     virtual void onGraphInit() override;

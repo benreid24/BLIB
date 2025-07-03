@@ -2,7 +2,9 @@
 #define BLIB_RENDER_GRAPH_ASSETS_FINALRENDERTEXTUREASSET_HPP
 
 #include <BLIB/Render/Graph/Assets/FramebufferAsset.hpp>
+#include <BLIB/Render/Resources/TextureRef.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
+#include <BLIB/Render/Vulkan/StandardAttachmentSet.hpp>
 
 namespace bl
 {
@@ -10,6 +12,7 @@ namespace rc
 {
 namespace rgi
 {
+class DepthBuffer;
 /**
  * @brief Asset for the framebuffer that a render texture renders to
  *
@@ -20,13 +23,13 @@ public:
     /**
      * @brief Creates a new asset
      *
-     * @param framebuffers The render texture framebuffers
+     * @param texture The render texture to render to
      * @param viewport The observer's viewport
      * @param scissor The observer's scissor
      * @param clearColors Pointer to array of clear colors for attachments
      * @param clearColorCount The number of clear colors
      */
-    FinalRenderTextureAsset(vk::Framebuffer& framebuffers, const VkViewport& viewport,
+    FinalRenderTextureAsset(res::TextureRef texture, const VkViewport& viewport,
                             const VkRect2D& scissor, const VkClearValue* clearColors,
                             const std::uint32_t clearColorCount);
 
@@ -49,7 +52,11 @@ public:
     virtual vk::Framebuffer& getFramebuffer(std::uint32_t i) override;
 
 private:
-    vk::Framebuffer& framebuffer;
+    vk::VulkanState* vs;
+    res::TextureRef texture;
+    DepthBuffer* depthBuffer;
+    vk::StandardAttachmentSet attachmentSet;
+    vk::Framebuffer framebuffer;
 
     virtual void doCreate(engine::Engine& engine, Renderer& renderer,
                           RenderTarget* observer) override;

@@ -103,6 +103,8 @@ void MaterialPipelineCache::createBuiltins() {
     createPipeline(MId::Skybox,
                    mat::MaterialPipelineSettings(PId::Skybox)
                        .withRenderPhasePipelineOverride(cfg::RenderPhases::Overlay, B::NotRendered)
+                       .withRenderPhasePipelineOverride(cfg::RenderPhases::ShadowMap, B::NotRendered)
+            .withRenderPhasePipelineOverride(cfg::RenderPhases::ShadowPointMap, B::NotRendered)
                        .build());
 }
 

@@ -1,14 +1,14 @@
 #ifndef BLIB_RENDER_GRAPH_ASSETREF_HPP
 #define BLIB_RENDER_GRAPH_ASSETREF_HPP
 
-#include <BLIB/Render/Graph/Asset.hpp>
-
 namespace bl
 {
 namespace rc
 {
 namespace rg
 {
+class Asset;
+
 /**
  * @brief Handle to an asset in an AssetPool
  *
@@ -27,20 +27,14 @@ public:
      *
      * @param asset The asset to reference
      */
-    AssetRef(Asset* asset)
-    : asset(asset) {
-        ++asset->refCount;
-    }
+    AssetRef(Asset* asset);
 
     /**
      * @brief Assigns this handle to the given copy
      *
      * @param copy The handle to copy
      */
-    AssetRef(const AssetRef& copy)
-    : asset(copy.asset) {
-        if (valid()) ++asset->refCount;
-    }
+    AssetRef(const AssetRef& copy);
 
     /**
      * @brief Assumes ownership from the given handle
@@ -55,9 +49,7 @@ public:
     /**
      * @brief Decrements the ref count on the underlying asset if any
      */
-    ~AssetRef() {
-        if (valid()) --asset->refCount;
-    }
+    ~AssetRef();
 
     /**
      * @brief Assigns this handle to the given copy
@@ -65,11 +57,7 @@ public:
      * @param copy The handle to copy
      * @return A reference to this handle
      */
-    AssetRef& operator=(const AssetRef& copy) {
-        asset = copy.asset;
-        if (valid()) ++asset->refCount;
-        return *this;
-    }
+    AssetRef& operator=(const AssetRef& copy);
 
     /**
      * @brief Assumes ownership from the given handle
@@ -86,37 +74,37 @@ public:
     /**
      * @brief Dereferences the handle
      */
-    constexpr Asset& operator*() { return *asset; }
+    Asset& operator*() { return *asset; }
 
     /**
      * @brief Dereferences the handle
      */
-    constexpr const Asset& operator*() const { return *asset; }
+    const Asset& operator*() const { return *asset; }
 
     /**
      * @brief Dereferences the handle
      */
-    constexpr Asset* operator->() { return asset; }
+    Asset* operator->() { return asset; }
 
     /**
      * @brief Dereferences the handle
      */
-    constexpr const Asset* operator->() const { return asset; }
+    const Asset* operator->() const { return asset; }
 
     /**
      * @brief Returns whether or not the handle is valid. Only valid handles should be dereferenced
      */
-    constexpr bool valid() const { return asset != nullptr; }
+    bool valid() const { return asset != nullptr; }
 
     /**
      * @brief Dereferences the handle
      */
-    constexpr Asset& get() { return *asset; }
+    Asset& get() { return *asset; }
 
     /**
      * @brief Dereferences the handle
      */
-    constexpr const Asset& get() const { return *asset; }
+    const Asset& get() const { return *asset; }
 
 private:
     Asset* asset;

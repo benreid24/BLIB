@@ -2,10 +2,10 @@
 #define BLIB_RENDER_VULKAN_SWAPCHAIN_HPP
 
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
+#include <BLIB/Render/Vulkan/GenericAttachmentSet.hpp>
 #include <BLIB/Render/Vulkan/Image.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/PerSwapFrame.hpp>
-#include <BLIB/Render/Vulkan/StandardAttachmentSet.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <SFML/Window/WindowBase.hpp>
 #include <vector>
@@ -25,6 +25,8 @@ struct VulkanState;
  */
 class Swapchain {
 public:
+    using SwapframeAttachmentSet = GenericAttachmentSet<1>;
+
     /**
      * @brief Creates a new swap chain
      *
@@ -56,7 +58,7 @@ public:
      * @param renderFrame A reference to a pointer to populate with the active chain image
      * @param commandBuffer A command buffer reference to populate with the primary CB to use
      */
-    void beginFrame(StandardAttachmentSet*& renderFrame, VkCommandBuffer& commandBuffer);
+    void beginFrame(SwapframeAttachmentSet*& renderFrame, VkCommandBuffer& commandBuffer);
 
     /**
      * @brief Finalizes the command buffer and submits it. Also triggers swap chain presentation
@@ -78,12 +80,12 @@ public:
     std::size_t length() const;
 
     /**
-     * @brief Returns the StandardAttachmentSet of the swap chain at the given index
+     * @brief Returns the attachment set of the swap chain at the given index
      *
      * @param i The index to get. UB if out of bounds
      * @return The swapchain image at the given index
      */
-    const StandardAttachmentSet& swapFrameAtIndex(unsigned int i) const;
+    const SwapframeAttachmentSet& swapFrameAtIndex(unsigned int i) const;
 
     /**
      * @brief Returns the image format of images in the swap chain
@@ -111,8 +113,7 @@ private:
     VkSwapchainKHR oldSwapchain;
     VkSurfaceKHR oldSurface;
     VkFormat imageFormat;
-    std::vector<StandardAttachmentSet> renderFrames;
-    std::vector<Image> depthBuffers;
+    std::vector<SwapframeAttachmentSet> renderFrames;
     vk::PerFrame<Frame> frameData;
     std::uint32_t currentImageIndex;
     bool outOfDate;
@@ -129,7 +130,7 @@ inline std::uint32_t Swapchain::currentIndex() const { return currentImageIndex;
 
 inline std::size_t Swapchain::length() const { return renderFrames.size(); }
 
-inline const StandardAttachmentSet& Swapchain::swapFrameAtIndex(unsigned int i) const {
+inline const GenericAttachmentSet<1>& Swapchain::swapFrameAtIndex(unsigned int i) const {
     return renderFrames[i];
 }
 

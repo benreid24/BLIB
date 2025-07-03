@@ -57,7 +57,8 @@ struct VulkanState {
      * @param renderFrame A reference to a pointer to populate with the active chain image
      * @param commandBuffer A command buffer reference to populate with the primary CB to use
      */
-    void beginFrame(StandardAttachmentSet*& renderFrame, VkCommandBuffer& commandBuffer);
+    void beginFrame(Swapchain::SwapframeAttachmentSet*& renderFrame,
+                    VkCommandBuffer& commandBuffer);
 
     /**
      * @brief Finalizes the render pass and command buffer for the current frame and submits it.

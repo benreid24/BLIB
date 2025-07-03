@@ -1,5 +1,6 @@
 #include <BLIB/Render/Observer.hpp>
 
+#include <BLIB/Render/Graph/Assets/DepthBuffer.hpp>
 #include <BLIB/Render/Graph/Assets/FinalSwapframeAsset.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
@@ -12,7 +13,7 @@ Observer::Observer(engine::Engine& e, Renderer& r, rg::AssetFactory& f, bool c, 
 , isCommon(c)
 , isVirtual(v) {
     renderingTo = graphAssets.putAsset<rgi::FinalSwapframeAsset>(
-        renderer.getSwapframeBuffers(), viewport, scissor, clearColors, std::size(clearColors));
+        viewport, scissor, clearColors, std::size(clearColors));
 }
 
 void Observer::assignRegion(const sf::Vector2u& windowSize,

@@ -3,7 +3,6 @@
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Config/RenderPassIds.hpp>
 #include <BLIB/Render/Renderer.hpp>
-#include <BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp>
 #include <BLIB/Render/Vulkan/TextureFormat.hpp>
 
 namespace bl
@@ -20,7 +19,7 @@ void RenderPassCache::cleanup() { cache.clear(); }
 vk::RenderPass& RenderPassCache::createRenderPass(std::uint32_t id,
                                                   vk::RenderPassParameters&& sceneParams) {
     const auto insertResult = cache.try_emplace(
-        id, renderer.vulkanState(), std::forward<vk::RenderPassParameters>(sceneParams));
+        id, id, renderer.vulkanState(), std::forward<vk::RenderPassParameters>(sceneParams));
     if (!insertResult.second) {
         BL_LOG_WARN << "Duplicate creation of render pass with id: " << id;
     }
@@ -39,7 +38,7 @@ vk::RenderPass& RenderPassCache::getRenderPass(std::uint32_t id) {
 void RenderPassCache::addDefaults() {
     // scene render pass for observers
     VkAttachmentDescription standardColorAttachment{};
-    standardColorAttachment.format         = vk::StandardAttachmentBuffers::DefaultColorFormat;
+    standardColorAttachment.format         = vk::TextureFormat::DefaultColorFormat;
     standardColorAttachment.samples        = VK_SAMPLE_COUNT_1_BIT;
     standardColorAttachment.loadOp         = VK_ATTACHMENT_LOAD_OP_CLEAR;
     standardColorAttachment.storeOp        = VK_ATTACHMENT_STORE_OP_STORE;
@@ -49,12 +48,12 @@ void RenderPassCache::addDefaults() {
     standardColorAttachment.finalLayout    = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
 
     VkAttachmentDescription depthAttachment{};
-    depthAttachment.format = vk::StandardAttachmentBuffers::findDepthFormat(renderer.vulkanState());
+    depthAttachment.format         = renderer.vulkanState().findDepthFormat();
     depthAttachment.samples        = VK_SAMPLE_COUNT_1_BIT;
-    depthAttachment.loadOp         = VK_ATTACHMENT_LOAD_OP_CLEAR;
-    depthAttachment.storeOp        = VK_ATTACHMENT_STORE_OP_DONT_CARE;
-    depthAttachment.stencilLoadOp  = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
-    depthAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+    depthAttachment.loadOp         = VK_ATTACHMENT_LOAD_OP_LOAD;
+    depthAttachment.storeOp        = VK_ATTACHMENT_STORE_OP_STORE;
+    depthAttachment.stencilLoadOp  = VK_ATTACHMENT_LOAD_OP_LOAD;
+    depthAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_STORE;
     depthAttachment.initialLayout  = VK_IMAGE_LAYOUT_UNDEFINED;
     depthAttachment.finalLayout    = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
 

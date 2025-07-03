@@ -20,7 +20,7 @@ PipelineParameters::PipelineParameters()
 , depthStencil(nullptr)
 , localDepthClipping{}
 , localDepthStencil{}
-, simpleColorBlendAttachmentCount(0) {
+, simpleColorBlendAttachmentCount(1) {
     rasterizer.sType                   = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
     rasterizer.depthClampEnable        = VK_FALSE;
     rasterizer.rasterizerDiscardEnable = VK_FALSE;

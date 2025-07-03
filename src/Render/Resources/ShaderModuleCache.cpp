@@ -85,6 +85,8 @@ VkShaderModule ShaderModuleCache::loadShader(const std::string& path) {
         case cfg::ShaderIds::SlideshowVert[0]:
             return loadShader(BUILTIN_SHADER("2D/slideshow.vert.spv"));
 
+        case cfg::ShaderIds::DeferredCompositeFragment[0]:
+            return loadShader(BUILTIN_SHADER("3D/Deferred/composite.frag.spv"));
         case cfg::ShaderIds::FadeEffectFragment[0]:
             return loadShader(BUILTIN_SHADER("PostFX/fadeEffect.frag.spv"));
         case cfg::ShaderIds::PostProcess3DFragment[0]:

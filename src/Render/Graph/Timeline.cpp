@@ -42,12 +42,8 @@ Timeline::Timeline(engine::Engine& engine, Renderer& renderer, RenderTarget* tar
 }
 
 void Timeline::execute(const ExecutionContext& ctx) {
-    if (timeline.size() > 1) {
-        for (auto it = timeline.begin(); it != timeline.end() - 1; ++it) { it->execute(ctx); }
-    }
+    for (auto& stage : timeline) { stage.execute(ctx); }
 }
-
-void Timeline::executeFinal(const ExecutionContext& ctx) { timeline.back().execute(ctx); }
 
 void Timeline::TimelineStage::execute(const ExecutionContext& ctx) {
     // prepare all inputs first

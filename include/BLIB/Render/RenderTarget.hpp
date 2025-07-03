@@ -10,8 +10,8 @@
 #include <BLIB/Render/Overlays/Overlay.hpp>
 #include <BLIB/Render/Resources/SceneRef.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
+#include <BLIB/Render/Vulkan/Image.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
-#include <BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <list>
@@ -154,6 +154,11 @@ public:
      */
     const VkRect2D& getScissor() const;
 
+    /**
+     * @brief Returns the asset pool used by the render graph of this render target
+     */
+    rg::AssetPool& getAssetPool();
+
 protected:
     struct SceneInstance {
         SceneRef scene;
@@ -193,7 +198,6 @@ protected:
     void resetAssets();
 
     void renderScene(VkCommandBuffer commandBuffer);
-    void renderSceneFinal(VkCommandBuffer commandBuffer);
 
     void cleanup();
     void onSceneAdd();
@@ -296,6 +300,8 @@ inline glm::u32vec2 RenderTarget::getRegionSize() const {
 }
 
 inline const VkRect2D& RenderTarget::getScissor() const { return scissor; }
+
+inline rg::AssetPool& RenderTarget::getAssetPool() { return graphAssets; }
 
 } // namespace rc
 } // namespace bl

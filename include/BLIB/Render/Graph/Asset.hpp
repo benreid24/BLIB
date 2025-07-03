@@ -1,7 +1,9 @@
 #ifndef BLIB_RENDER_GRAPH_ASSET_HPP
 #define BLIB_RENDER_GRAPH_ASSET_HPP
 
+#include <BLIB/Render/Graph/AssetRef.hpp>
 #include <BLIB/Render/Graph/ExecutionContext.hpp>
+#include <glm/glm.hpp>
 #include <string_view>
 #include <vector>
 
@@ -74,6 +76,18 @@ public:
     virtual void doEndOutput(const ExecutionContext& context) = 0;
 
     /**
+     * @brief Called when the observer render region changes size
+     *
+     * @param newSize The new size of the observer render region
+     */
+    virtual void onResize(glm::u32vec2 newSize);
+
+    /**
+     * @brief Called when the asset is reset before the graph is executed
+     */
+    virtual void onReset() {}
+
+    /**
      * @brief Returns the tag of this asset
      */
     std::string_view getTag() const { return tag; }
@@ -91,10 +105,36 @@ protected:
      */
     Asset(std::string_view tag);
 
+    /**
+     * @brief Registers a dependency on another asset. This must be called from the constructor
+     *
+     * @param depTag The tag of the dependency to register
+     */
+    void addDependency(std::string_view depTag);
+
+    /**
+     * @brief Returns the dependency asset with the given tag. Prefer the index version for
+     *        performance. Assets are ordered by the order they were added
+     *
+     * @param depTag The tag of the dependency to get
+     * @return The dependency asset with the given tag, or nullptr if not found
+     */
+    Asset* getDependency(std::string_view depTag);
+
+    /**
+     * @brief Returns the dependency asset at the given index. Does not bounds check
+     *
+     * @param index The index of the dependency to get
+     * @return The dependency asset at the given index
+     */
+    Asset* getDependency(unsigned int index);
+
 private:
     enum struct InputMode { Unset, Input, OutputStart, OutputEnd };
 
     std::string_view tag;
+    std::vector<std::string_view> depTags;
+    std::vector<AssetRef> dependencies;
     bool created;
     unsigned int refCount;
     std::vector<GraphAssetPool*> owners;
@@ -119,6 +159,28 @@ private:
     template<typename T, std::uint32_t N>
     friend class MultiAsset;
 };
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+inline AssetRef::AssetRef(Asset* asset)
+: asset(asset) {
+    if (asset) { ++asset->refCount; }
+}
+
+inline AssetRef::~AssetRef() {
+    if (valid()) --asset->refCount;
+}
+
+inline AssetRef::AssetRef(const AssetRef& copy)
+: asset(copy.asset) {
+    if (valid()) { ++asset->refCount; }
+}
+
+inline AssetRef& AssetRef::operator=(const AssetRef& copy) {
+    asset = copy.asset;
+    if (valid()) ++asset->refCount;
+    return *this;
+}
 
 } // namespace rg
 } // namespace rc

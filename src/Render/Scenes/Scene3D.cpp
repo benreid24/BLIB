@@ -4,6 +4,7 @@
 #include <BLIB/Render/Descriptors/Builtin/Scene3DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/ShadowMapFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/ShadowMapInstance.hpp>
+#include <BLIB/Render/Graph/Strategies/Scene3DDeferredRenderStrategy.hpp>
 #include <BLIB/Render/Graph/Strategies/Scene3DForwardRenderStrategy.hpp>
 
 namespace bl
@@ -17,7 +18,7 @@ namespace
 constexpr float DefaultNear = 0.1f;
 constexpr float DefaultFar  = 100.f;
 
-rgi::Scene3DForwardRenderStrategy defaultStrategy;
+rgi::Scene3DDeferredRenderStrategy defaultStrategy;
 rg::Strategy* strategy = &defaultStrategy;
 } // namespace
 

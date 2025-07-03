@@ -1,7 +1,5 @@
 #include <BLIB/Render/Resources/TexturePool.hpp>
 
-#include <BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp>
-
 namespace bl
 {
 namespace rc

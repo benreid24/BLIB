@@ -17,7 +17,6 @@ target_sources(BLIB PRIVATE
     RenderTexture.cpp
     SharedCommandBuffer.cpp
     SharedCommandPool.cpp
-    StandardAttachmentBuffers.cpp
     Swapchain.cpp
     Texture.cpp
     VulkanState.cpp

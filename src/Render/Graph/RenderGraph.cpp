@@ -35,11 +35,6 @@ void RenderGraph::execute(VkCommandBuffer commandBuffer, std::uint32_t oi, bool 
     timeline.execute(ctx);
 }
 
-void RenderGraph::executeFinal(VkCommandBuffer commandBuffer, std::uint32_t oi, bool rt) {
-    const ExecutionContext ctx(engine, renderer, commandBuffer, oi, rt, true);
-    timeline.executeFinal(ctx);
-}
-
 void RenderGraph::build() {
     needsRebuild = false;
     for (auto& task : tasks) { task->assets.init(task->assetTags); }

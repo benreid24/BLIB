@@ -125,7 +125,6 @@
 #include <BLIB/Render/Vulkan/RenderPass.hpp>
 #include <BLIB/Render/Vulkan/RenderPassParameters.hpp>
 #include <BLIB/Render/Vulkan/RenderTexture.hpp>
-#include <BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp>
 #include <BLIB/Render/Vulkan/StandardAttachmentSet.hpp>
 #include <BLIB/Render/Vulkan/Swapchain.hpp>
 #include <BLIB/Render/Vulkan/Texture.hpp>

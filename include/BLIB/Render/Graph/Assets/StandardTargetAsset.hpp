@@ -2,11 +2,13 @@
 #define BLIB_RENDER_GRAPH_ASSETS_STANDARDATTACHMENTASSET_HPP
 
 #include <BLIB/Render/Config/RenderPassIds.hpp>
+#include <BLIB/Render/Graph/AssetTags.hpp>
+#include <BLIB/Render/Graph/Assets/DepthBuffer.hpp>
 #include <BLIB/Render/Graph/Assets/FramebufferAsset.hpp>
 #include <BLIB/Render/Graph/Assets/RenderPassBehavior.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
-#include <BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp>
+#include <BLIB/Render/Vulkan/StandardAttachmentSet.hpp>
 
 namespace bl
 {
@@ -42,6 +44,8 @@ public:
         cachedScissor.offset.y  = 0;
         cachedViewport.x        = 0.f;
         cachedViewport.y        = 0.f;
+
+        addDependency(rg::AssetTags::DepthBuffer);
     }
 
     /**
@@ -52,7 +56,7 @@ public:
     /**
      * @brief Returns the current framebuffer to use
      */
-    virtual vk::Framebuffer& currentFramebuffer() override { return framebuffers.current(); }
+    virtual vk::Framebuffer& currentFramebuffer() override { return framebuffer; }
 
     /**
      * @brief Returns the framebuffer at the given frame index
@@ -60,29 +64,28 @@ public:
      * @param i The frame index of the framebuffer to return
      * @return The framebuffer at the given index
      */
-    virtual vk::Framebuffer& getFramebuffer(std::uint32_t i) override {
-        return framebuffers.getRaw(i);
-    }
-
-    /**
-     * @brief Returns the images that are rendered to
-     */
-    vk::PerFrame<vk::StandardAttachmentBuffers>& getImages() { return images; }
+    virtual vk::Framebuffer& getFramebuffer(std::uint32_t) override { return framebuffer; }
 
 private:
     Renderer* renderer;
     RenderTarget* observer;
-    vk::PerFrame<vk::StandardAttachmentBuffers> images;
-    vk::PerFrame<vk::Framebuffer> framebuffers;
+    vk::Image colorImage;
+    DepthBuffer* depthBufferAsset;
+    vk::StandardAttachmentSet attachmentSet;
+    vk::Framebuffer framebuffer;
     VkViewport cachedViewport;
     VkRect2D cachedScissor;
 
     virtual void doCreate(engine::Engine&, Renderer& r, RenderTarget* o) override {
-        renderer = &r;
-        observer = o;
-        images.emptyInit(r.vulkanState());
-        framebuffers.emptyInit(r.vulkanState());
+        renderer   = &r;
+        observer   = o;
         renderPass = &renderer->renderPassCache().getRenderPass(renderPassId);
+
+        depthBufferAsset = dynamic_cast<DepthBuffer*>(getDependency(0));
+        if (!depthBufferAsset) {
+            throw std::runtime_error("FinalSwapframeAsset requires a DepthBuffer dependency");
+        }
+
         onResize(o->getRegionSize());
     }
 
@@ -101,6 +104,7 @@ private:
     }
 
     virtual void onResize(glm::u32vec2 newSize) override {
+        attachmentSet.setRenderExtent({newSize.x, newSize.y});
         clearColors                 = observer->getClearColors();
         cachedScissor.extent.width  = newSize.x;
         cachedScissor.extent.height = newSize.y;
@@ -108,17 +112,19 @@ private:
         cachedViewport.height       = static_cast<float>(newSize.y);
 
         if (renderer) {
-            images.init(
-                renderer->vulkanState(), [this, newSize](vk::StandardAttachmentBuffers& image) {
-                    image.create(renderer->vulkanState(), {newSize.x, newSize.y}, ColorFormat);
-                });
-            unsigned int i = 0;
-            framebuffers.init(renderer->vulkanState(), [this, &i](vk::Framebuffer& fb) {
-                fb.create(renderer->vulkanState(),
-                          renderPass->rawPass(),
-                          images.getRaw(i).attachmentSet());
-                ++i;
-            });
+            depthBufferAsset->onResize(newSize);
+            colorImage.create(renderer->vulkanState(),
+                              vk::Image::Type::Image2D,
+                              ColorFormat,
+                              VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
+                              {newSize.x, newSize.y},
+                              VK_IMAGE_ASPECT_COLOR_BIT,
+                              VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT);
+            attachmentSet.setAttachments(colorImage.getImage(),
+                                         colorImage.getView(),
+                                         depthBufferAsset->getBuffer().getImage(),
+                                         depthBufferAsset->getBuffer().getView());
+            framebuffer.create(renderer->vulkanState(), renderPass->rawPass(), attachmentSet);
         }
     }
 };

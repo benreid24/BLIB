@@ -192,11 +192,6 @@ public:
     res::GlobalDescriptors& getGlobalDescriptorData();
 
     /**
-     * @brief Returns the framebuffers for the swap chain frames
-     */
-    vk::PerSwapFrame<vk::Framebuffer>& getSwapframeBuffers();
-
-    /**
      * @brief Returns the render settings which can be changed
      */
     Settings& getSettings();
@@ -213,7 +208,6 @@ private:
     Settings settings;
     sf::Rect<std::uint32_t> renderRegion;
     vk::VulkanState state;
-    vk::PerSwapFrame<vk::Framebuffer> framebuffers;
     res::GlobalDescriptors globalDescriptors;
     res::TexturePool textures;
     res::MaterialPool materials;
@@ -307,8 +301,6 @@ SceneRef RenderTarget::pushScene(TArgs&&... args) {
 }
 
 inline rg::AssetFactory& Renderer::getAssetFactory() { return assetFactory; }
-
-inline vk::PerSwapFrame<vk::Framebuffer>& Renderer::getSwapframeBuffers() { return framebuffers; }
 
 inline Settings& Renderer::getSettings() { return settings; }
 

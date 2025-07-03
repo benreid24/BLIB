@@ -5,7 +5,6 @@
 #include <BLIB/Render/Config/RenderPassIds.hpp>
 #include <BLIB/Render/Graph/Assets/FinalRenderTextureAsset.hpp>
 #include <BLIB/Render/Renderer.hpp>
-#include <BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp>
 
 namespace bl
 {
@@ -32,7 +31,7 @@ RenderTexture::RenderTexture(engine::Engine& engine, Renderer& renderer, rg::Ass
     resize(size);
 
     renderingTo = graphAssets.putAsset<rgi::FinalRenderTextureAsset>(
-        framebuffer, viewport, scissor, clearColors, std::size(clearColors));
+        texture, viewport, scissor, clearColors, std::size(clearColors));
 }
 
 RenderTexture::~RenderTexture() {
@@ -47,30 +46,11 @@ void RenderTexture::resize(const glm::u32vec2& size) {
     scissor.extent.height = size.y;
     viewport.width        = size.x;
     viewport.height       = size.y;
-
-    VkRenderPass renderPass = renderer.renderPassCache()
-                                  .getRenderPass(cfg::RenderPassIds::StandardAttachmentPass)
-                                  .rawPass();
-
-    depthBuffer.create(renderer.vulkanState(),
-                       Image::Type::Image2D,
-                       StandardAttachmentBuffers::findDepthFormat(renderer.vulkanState()),
-                       VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
-                       {size.x, size.y},
-                       VK_IMAGE_ASPECT_DEPTH_BIT,
-                       VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT);
-    attachmentSet.setRenderExtent(scissor.extent);
-    attachmentSet.setAttachments(
-        texture->getImage(), texture->getView(), depthBuffer.getImage(), depthBuffer.getView());
-
-    framebuffer.create(renderer.vulkanState(), renderPass, attachmentSet);
 }
 
 void RenderTexture::destroy() {
     if (texture) {
         clearScenes();
-        framebuffer.deferCleanup();
-        depthBuffer.deferDestroy();
         texture.release();
     }
 }
@@ -79,7 +59,6 @@ void RenderTexture::render() {
     if (texture) {
         auto commandBuffer = commandBuffers.begin();
         renderScene(commandBuffer);
-        renderSceneFinal(commandBuffer);
         commandBuffers.submit();
     }
 }

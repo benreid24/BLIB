@@ -2,7 +2,6 @@
 
 #include <BLIB/Engine/Configuration.hpp>
 #include <BLIB/Engine/Settings.hpp>
-#include <BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <Render/Vulkan/Utils/QueueFamilyLocator.hpp>
 #include <Render/Vulkan/Utils/SwapChainSupportDetails.hpp>
@@ -67,7 +66,7 @@ void Swapchain::destroy() {
     frameData.cleanup([this](Frame& frame) { frame.cleanup(vulkanState); });
 }
 
-void Swapchain::beginFrame(StandardAttachmentSet*& renderFrame, VkCommandBuffer& cb) {
+void Swapchain::beginFrame(SwapframeAttachmentSet*& renderFrame, VkCommandBuffer& cb) {
     // wait for prior frame
     vkCheck(vkWaitForFences(
         vulkanState.device, 1, &frameData.current().commandBufferFence, VK_TRUE, UINT64_MAX));
@@ -155,21 +154,19 @@ void Swapchain::completeFrame() {
 }
 
 void Swapchain::cleanup() {
-    for (StandardAttachmentSet& frame : renderFrames) {
-        vkDestroyImageView(vulkanState.device, frame.colorImageView(), nullptr);
+    for (SwapframeAttachmentSet& frame : renderFrames) {
+        vkDestroyImageView(vulkanState.device, frame.getImageView(0), nullptr);
     }
-    for (Image& depthBuffer : depthBuffers) { depthBuffer.destroy(); }
     vkDestroySwapchainKHR(vulkanState.device, swapchain, nullptr);
 }
 
 void Swapchain::deferCleanup() {
-    for (StandardAttachmentSet& frame : renderFrames) {
+    for (SwapframeAttachmentSet& frame : renderFrames) {
         vulkanState.cleanupManager.add(
-            [device = vulkanState.device, view = frame.colorImageView()]() {
+            [device = vulkanState.device, view = frame.getImageView(0)]() {
                 vkDestroyImageView(device, view, nullptr);
             });
     }
-    for (Image& depthBuffer : depthBuffers) { depthBuffer.deferDestroy(); }
     vulkanState.cleanupManager.add([device = vulkanState.device, chain = swapchain]() {
         vkDestroySwapchainKHR(device, chain, nullptr);
     });
@@ -262,26 +259,13 @@ void Swapchain::createSwapchain() {
     vkCheck(vkGetSwapchainImagesKHR(vulkanState.device, swapchain, &imageCount, images));
     imageFormat = surfaceFormat.format;
 
-    // create depth buffers
-    depthBuffers.resize(imageCount);
-    for (unsigned int i = 0; i < imageCount; ++i) {
-        depthBuffers[i].create(vulkanState,
-                               Image::Type::Image2D,
-                               StandardAttachmentBuffers::findDepthFormat(vulkanState),
-                               VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
-                               createInfo.imageExtent,
-                               VK_IMAGE_ASPECT_DEPTH_BIT,
-                               VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT);
-    }
-
     // assign attachment sets
-    renderFrames.resize(imageCount);
+    renderFrames.clear();
+    renderFrames.reserve(imageCount);
     for (unsigned int i = 0; i < imageCount; ++i) {
         renderFrames[i].setRenderExtent(createInfo.imageExtent);
-        renderFrames[i].setAttachments(images[i],
-                                       vulkanState.createImageView(images[i], imageFormat),
-                                       depthBuffers[i].getImage(),
-                                       depthBuffers[i].getView());
+        renderFrames[i].setAttachments({images[i]},
+                                       {vulkanState.createImageView(images[i], imageFormat)});
     }
 }
 

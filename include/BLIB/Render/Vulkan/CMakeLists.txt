@@ -8,6 +8,7 @@ target_sources(BLIB PUBLIC
     DescriptorPool.hpp
     DescriptorSet.hpp
     Framebuffer.hpp
+    GenericAttachmentSet.hpp
     Image.hpp
     PerFrame.hpp
     PerSwapFrame.hpp
@@ -23,7 +24,6 @@ target_sources(BLIB PUBLIC
     SharedCommandBuffer.hpp
     SharedCommandPool.hpp
     StandardAttachmentSet.hpp
-    StandardAttachmentBuffers.hpp
     Swapchain.hpp
     Texture.hpp
     TextureFormat.hpp

@@ -5,7 +5,6 @@
 #include <BLIB/Render/Descriptors/SetWriteHelper.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
 #include <BLIB/Render/Vulkan/Sampler.hpp>
-#include <BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp>
 #include <BLIB/Render/Vulkan/Texture.hpp>
 #include <BLIB/Render/Vulkan/TextureFormat.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
@@ -64,10 +63,9 @@ public:
      * @param sampler The sampler to use
      * @return A reference to the new texture
      */
-    TextureRef createRenderTexture(
-        const glm::u32vec2& size,
-        VkFormat format     = vk::StandardAttachmentBuffers::DefaultColorFormat,
-        vk::Sampler sampler = vk::Sampler::FilteredBorderClamped);
+    TextureRef createRenderTexture(const glm::u32vec2& size,
+                                   VkFormat format     = vk::TextureFormat::DefaultColorFormat,
+                                   vk::Sampler sampler = vk::Sampler::FilteredBorderClamped);
 
     /**
      * @brief Creates a new texture from the given contents and sampler

@@ -53,6 +53,17 @@ public:
     virtual ~Scene3DInstance();
 
     /**
+     * @brief Binds the descriptor set
+     *
+     * @param commandBuffer The command buffer to write the command into
+     * @param pipelineLayout The current pipeline layout
+     * @param bindIndex The set index to bind to
+     * @param observerIndex The index of the current observer to bind for
+     */
+    void bind(VkCommandBuffer commandBuffer, VkPipelineLayout pipelineLayout,
+              std::uint32_t bindIndex, std::uint32_t observerIndex);
+
+    /**
      * @brief Returns the lighting uniform value
      */
     lgt::LightingDescriptor3D& getUniform() { return uniform[0]; }
