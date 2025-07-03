@@ -74,30 +74,6 @@ void DeferredCompositeTask::execute(const rg::ExecutionContext& ctx, rg::Asset* 
     sceneDescriptor->bind(
         ctx.commandBuffer, pipeline->pipelineLayout().rawLayout(), 1, ctx.observerIndex);
     indexBuffer.bindAndDraw(ctx.commandBuffer);
-
-    VkImageSubresourceLayers layers{};
-    layers.aspectMask     = VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT;
-    layers.baseArrayLayer = 0;
-    layers.layerCount     = 1;
-    layers.mipLevel       = 0;
-
-    VkImageCopy copy{};
-    copy.srcSubresource = layers;
-    copy.srcOffset      = {0, 0, 0};
-    copy.dstSubresource = layers;
-    copy.dstOffset      = {0, 0, 0};
-    copy.extent.width   = fb->getScissor().extent.width;
-    copy.extent.height  = fb->getScissor().extent.height;
-    copy.extent.depth   = 1;
-
-    vkCmdCopyImage(
-        ctx.commandBuffer,
-        input->getAttachmentSets()[renderer->vulkanState().currentFrameIndex()]->images()[4],
-        VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL,
-        fb->getAttachmentSets()[renderer->vulkanState().currentFrameIndex()]->images()[1],
-        VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL,
-        1,
-        &copy);
 }
 
 } // namespace rgi

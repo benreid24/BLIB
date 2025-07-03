@@ -16,7 +16,7 @@ namespace rgi
  * @ingroup Renderer
  */
 using GBufferAsset =
-    GenericTargetAsset<cfg::RenderPassIds::DeferredObjectPass, 5,
+    GenericTargetAsset<cfg::RenderPassIds::DeferredObjectPass, 4,
                        RenderPassBehavior::StartedByAsset, DepthAttachmentType::SharedDepthBuffer>;
 
 /**
@@ -25,7 +25,7 @@ using GBufferAsset =
  * @ingroup Renderer
  */
 using GBufferHDRAsset =
-    GenericTargetAsset<cfg::RenderPassIds::HDRDeferredObjectPass, 5,
+    GenericTargetAsset<cfg::RenderPassIds::HDRDeferredObjectPass, 4,
                        RenderPassBehavior::StartedByAsset, DepthAttachmentType::SharedDepthBuffer>;
 
 } // namespace rgi

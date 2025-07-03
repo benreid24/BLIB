@@ -78,6 +78,11 @@ void Image::create(VulkanState& vs, Type t, VkFormat fmt, VkImageUsageFlags usg,
 }
 
 void Image::resize(const glm::u32vec2& newSize, bool copyContents) {
+    if (!vulkanState) {
+        BL_LOG_WARN << "Cannot resize image before calling create()";
+        return;
+    }
+
     // cache data needed to delete original image
     VkImage oldImage = imageHandle;
 
@@ -212,6 +217,32 @@ void Image::clearDepthAndPrepareForSampling(VkCommandBuffer commandBuffer,
                                        imageHandle,
                                        VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
                                        VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL,
+                                       getLayerCount(),
+                                       aspect);
+}
+
+void Image::clearDepthAndTransition(VkCommandBuffer commandBuffer, VkImageLayout finalLayout,
+                                    VkClearDepthStencilValue color) {
+    vulkanState->transitionImageLayout(commandBuffer,
+                                       imageHandle,
+                                       VK_IMAGE_LAYOUT_UNDEFINED,
+                                       VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+                                       getLayerCount(),
+                                       aspect);
+
+    VkImageSubresourceRange range{};
+    range.aspectMask     = aspect;
+    range.baseArrayLayer = 0;
+    range.baseMipLevel   = 0;
+    range.layerCount     = getLayerCount();
+    range.levelCount     = 1;
+
+    vkCmdClearDepthStencilImage(
+        commandBuffer, imageHandle, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, &color, 1, &range);
+    vulkanState->transitionImageLayout(commandBuffer,
+                                       imageHandle,
+                                       VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+                                       finalLayout,
                                        getLayerCount(),
                                        aspect);
 }

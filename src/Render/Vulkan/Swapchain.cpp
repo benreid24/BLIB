@@ -263,6 +263,7 @@ void Swapchain::createSwapchain() {
     renderFrames.clear();
     renderFrames.reserve(imageCount);
     for (unsigned int i = 0; i < imageCount; ++i) {
+        renderFrames.emplace_back(std::array<VkImageAspectFlags, 1>{VK_IMAGE_ASPECT_COLOR_BIT}, 1);
         renderFrames[i].setRenderExtent(createInfo.imageExtent);
         renderFrames[i].setAttachments({images[i]},
                                        {vulkanState.createImageView(images[i], imageFormat)});

@@ -100,6 +100,18 @@ public:
                                          VkClearDepthStencilValue clearColor = {1.f, 0});
 
     /**
+     * @brief Clears the depth image and transitions it to a final layout
+     *
+     * @param commandBuffer The command buffer to submit commands into
+     * @param finalLayout The final layout to transition to
+     * @param clearColor The color to clear to
+     */
+    void clearDepthAndTransition(
+        VkCommandBuffer commandBuffer,
+        VkImageLayout finalLayout           = VK_IMAGE_LAYOUT_STENCIL_ATTACHMENT_OPTIMAL,
+        VkClearDepthStencilValue clearColor = {1.f, 0});
+
+    /**
      * @brief Destroys the image
      */
     void destroy();

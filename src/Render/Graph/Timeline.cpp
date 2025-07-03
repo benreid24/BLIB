@@ -33,11 +33,13 @@ Timeline::TaskGroup::TaskGroup(GraphAsset* output)
 
 Timeline::TimelineStage::TimelineStage() { taskGroups.reserve(4); }
 
-Timeline::Timeline(engine::Engine& engine, Renderer& renderer, RenderTarget* target, Scene* scene)
+Timeline::Timeline(engine::Engine& engine, Renderer& renderer, RenderTarget* target, Scene* scene,
+                   GraphAssetPool* pool)
 : engine(engine)
 , renderer(renderer)
 , observer(target)
-, scene(scene) {
+, scene(scene)
+, pool(pool) {
     timeline.reserve(4);
 }
 
@@ -96,21 +98,21 @@ void Timeline::build(std::vector<std::unique_ptr<Task>>& tasks, GraphAsset* fina
 
     const auto createAssets = [this](Task* task) {
         for (GraphAsset* asset : task->assets.requiredInputs) {
-            if (asset->asset->create(engine, renderer, observer)) {
+            if (asset->asset->create(engine, renderer, observer, pool)) {
                 bl::event::Dispatcher::dispatch<event::SceneGraphAssetInitialized>(
                     {.target = observer, .scene = scene, .asset = asset});
             }
         }
         for (GraphAsset* asset : task->assets.optionalInputs) {
             if (asset) {
-                if (asset->asset->create(engine, renderer, observer)) {
+                if (asset->asset->create(engine, renderer, observer, pool)) {
                     bl::event::Dispatcher::dispatch<event::SceneGraphAssetInitialized>(
                         {.target = observer, .scene = scene, .asset = asset});
                 }
             }
         }
         for (GraphAsset* asset : task->assets.outputs) {
-            if (asset->asset->create(engine, renderer, observer)) {
+            if (asset->asset->create(engine, renderer, observer, pool)) {
                 bl::event::Dispatcher::dispatch<event::SceneGraphAssetInitialized>(
                     {.target = observer, .scene = scene, .asset = asset});
             }

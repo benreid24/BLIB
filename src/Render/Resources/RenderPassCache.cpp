@@ -54,7 +54,7 @@ void RenderPassCache::addDefaults() {
     depthAttachment.storeOp        = VK_ATTACHMENT_STORE_OP_STORE;
     depthAttachment.stencilLoadOp  = VK_ATTACHMENT_LOAD_OP_LOAD;
     depthAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_STORE;
-    depthAttachment.initialLayout  = VK_IMAGE_LAYOUT_UNDEFINED;
+    depthAttachment.initialLayout  = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
     depthAttachment.finalLayout    = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
 
     VkAttachmentDescription highPrecisionVecAttachment{};
@@ -190,9 +190,13 @@ void RenderPassCache::addDefaults() {
 
     VkAttachmentDescription shadowMapAttachment = depthAttachment;
     shadowMapAttachment.format                  = renderer.vulkanState().findShadowMapFormat();
+    shadowMapAttachment.initialLayout           = VK_IMAGE_LAYOUT_UNDEFINED;
     shadowMapAttachment.finalLayout             = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
     shadowMapAttachment.storeOp                 = VK_ATTACHMENT_STORE_OP_STORE;
     shadowMapAttachment.stencilStoreOp          = VK_ATTACHMENT_STORE_OP_STORE;
+    shadowMapAttachment.loadOp                  = VK_ATTACHMENT_LOAD_OP_CLEAR;
+    shadowMapAttachment.stencilLoadOp           = VK_ATTACHMENT_LOAD_OP_CLEAR;
+    shadowMapAttachment.finalLayout             = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
 
     vk::RenderPassParameters shadowMapParams;
     shadowMapParams.addAttachment(shadowMapAttachment);

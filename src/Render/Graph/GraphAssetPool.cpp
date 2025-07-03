@@ -17,6 +17,20 @@ GraphAssetPool::GraphAssetPool(AssetPool& pool, RenderTarget* owner, Scene* scen
 , scene(scene)
 , pool(pool) {}
 
+AssetRef GraphAssetPool::getAssetForAsset(std::string_view tag) {
+    auto it = assets.find(tag);
+    if (it != assets.end() && !it->second.empty()) {
+        if (it->second.size() > 1) {
+            BL_LOG_WARN << "More than one asset found for asset dependency: " << tag
+                        << ". Choosing first";
+        }
+        return it->second.front().asset;
+    }
+    if (it == assets.end()) { it = assets.try_emplace(tag).first; }
+    GraphAsset& ga = it->second.emplace_back(pool.getOrCreateAsset(tag, this));
+    return ga.asset;
+}
+
 GraphAsset* GraphAssetPool::getFinalOutput() {
     auto& set = assets[AssetTags::FinalFrameOutput];
     if (set.size() != 1) {

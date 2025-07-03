@@ -129,6 +129,19 @@ protected:
      */
     Asset* getDependency(unsigned int index);
 
+    /**
+     * @brief Returns whether the asset has had create() called
+     */
+    bool isCreated() const { return created; }
+
+    /**
+     * @brief Returns the owner that create() was called with. Only valid in doCreate
+     */
+    GraphAssetPool* getOwnerForLastCreate() const {
+        if (owners.empty()) { return nullptr; }
+        return owners.back();
+    }
+
 private:
     enum struct InputMode { Unset, Input, OutputStart, OutputEnd };
 
@@ -141,7 +154,8 @@ private:
     InputMode mode;
     bool external;
 
-    bool create(engine::Engine& engine, Renderer& renderer, RenderTarget* observer);
+    bool create(engine::Engine& engine, Renderer& renderer, RenderTarget* observer,
+                GraphAssetPool* pool);
     void prepareForInput(const ExecutionContext& ctx);
     void startOutput(const ExecutionContext& ctx);
     void endOutput(const ExecutionContext& ctx);

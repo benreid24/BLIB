@@ -128,7 +128,9 @@ constexpr std::uint32_t MultiAsset<T, N>::size() const {
 template<typename T, std::uint32_t N>
 void MultiAsset<T, N>::doCreate(engine::Engine& engine, Renderer& renderer,
                                 RenderTarget* observer) {
-    for (auto& asset : assets) { asset->create(engine, renderer, observer); }
+    for (auto& asset : assets) {
+        asset->create(engine, renderer, observer, getOwnerForLastCreate());
+    }
 }
 
 template<typename T, std::uint32_t N>

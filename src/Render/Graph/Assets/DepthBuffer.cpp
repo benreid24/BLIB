@@ -25,13 +25,15 @@ void DepthBuffer::doCreate(engine::Engine&, Renderer& r, RenderTarget* target) {
 }
 
 void DepthBuffer::onResize(glm::u32vec2 newSize) {
-    if (buffer.getSize().width != newSize.x || buffer.getSize().height != newSize.y) {
-        buffer.resize(newSize, false);
+    if (isCreated()) {
+        if (buffer.getSize().width != newSize.x || buffer.getSize().height != newSize.y) {
+            buffer.resize(newSize, false);
+        }
     }
 }
 
 void DepthBuffer::clear(VkCommandBuffer commandBuffer) {
-    buffer.clearDepthAndPrepareForSampling(commandBuffer);
+    buffer.clearDepthAndTransition(commandBuffer, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
 }
 
 void DepthBuffer::onReset() { cleared = false; }

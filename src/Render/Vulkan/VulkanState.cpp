@@ -646,6 +646,15 @@ void VulkanState::transitionImageLayout(VkCommandBuffer commandBuffer, VkImage i
         sourceStage      = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
         destinationStage = VK_PIPELINE_STAGE_TRANSFER_BIT;
     }
+    else if (newLayout == VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL &&
+             oldLayout == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL) {
+        barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
+        barrier.dstAccessMask = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_READ_BIT |
+                                VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
+        sourceStage = VK_PIPELINE_STAGE_TRANSFER_BIT;
+        destinationStage =
+            VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT | VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT;
+    }
     else { throw std::invalid_argument("Unsupported layout transition"); }
 
     vkCmdPipelineBarrier(

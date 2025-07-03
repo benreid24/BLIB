@@ -15,7 +15,7 @@ namespace rgi
  *
  * @ingroup Renderer
  */
-using GBufferProvider = GenericTargetProvider<cfg::RenderPassIds::DeferredObjectPass, 5,
+using GBufferProvider = GenericTargetProvider<cfg::RenderPassIds::DeferredObjectPass, 4,
                                               RenderPassBehavior::StartedByAsset,
                                               DepthAttachmentType::SharedDepthBuffer>;
 
@@ -24,7 +24,7 @@ using GBufferProvider = GenericTargetProvider<cfg::RenderPassIds::DeferredObject
  *
  * @ingroup Renderer
  */
-using GBufferHDRProvider = GenericTargetProvider<cfg::RenderPassIds::HDRDeferredObjectPass, 5,
+using GBufferHDRProvider = GenericTargetProvider<cfg::RenderPassIds::HDRDeferredObjectPass, 4,
                                                  RenderPassBehavior::StartedByAsset,
                                                  DepthAttachmentType::SharedDepthBuffer>;
 

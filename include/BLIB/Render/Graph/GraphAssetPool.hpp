@@ -69,6 +69,14 @@ public:
     GraphAsset* createAsset(std::string_view tag);
 
     /**
+     * @brief Gets or creates an asset to be used by another asset
+     *
+     * @param tag The tag of the asset to get or create
+     * @return A ref to the created asset. May be invalid
+     */
+    AssetRef getAssetForAsset(std::string_view tag);
+
+    /**
      * @brief Fetches the swap frame asset from the pool
      */
     GraphAsset* getFinalOutput();

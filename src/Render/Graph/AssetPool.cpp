@@ -53,7 +53,9 @@ Asset* AssetPool::getOrCreateAsset(std::string_view tag, GraphAssetPool* request
 
 void AssetPool::notifyResize(glm::u32vec2 newSize) {
     for (auto& assetList : assets) {
-        for (auto& asset : assetList.second) { asset->onResize(newSize); }
+        for (auto& asset : assetList.second) {
+            if (asset->isCreated()) { asset->onResize(newSize); }
+        }
     }
 }
 

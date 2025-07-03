@@ -69,9 +69,7 @@ void Renderer::initialize() {
     // asset providers
     constexpr VkClearColorValue Zero  = {{0.f, 0.f, 0.f, 0.f}};
     constexpr VkClearColorValue Black = {{0.f, 0.f, 0.f, 1.f}};
-    constexpr VkClearDepthStencilValue DepthClear{.depth = 1.f, .stencil = 0};
-    const VkFormat depthFormat = vulkanState().findDepthFormat();
-    const VkFormat vecFormat   = vulkanState().findHighPrecisionFormat();
+    const VkFormat vecFormat          = vulkanState().findHighPrecisionFormat();
     assetFactory.addProvider<rgi::SimpleAssetProvider<rgi::DepthBuffer>>(
         rg::AssetTags::DepthBuffer);
     assetFactory.addProvider<rgi::SimpleAssetProvider<rgi::LDRStandardTargetAsset>>(
@@ -87,7 +85,7 @@ void Renderer::initialize() {
         std::array<VkClearValue, 1>{VkClearValue{.color = Black}});
     assetFactory.addProvider<rgi::SimpleAssetProvider<rgi::ShadowMapAsset>>(
         rg::AssetTags::ShadowMaps);
-    constexpr std::array<VkImageUsageFlags, 5> GBufferUsages{
+    constexpr std::array<VkImageUsageFlags, 4> GBufferUsages{
         // albedo
         VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
         // specular + shininess
@@ -95,34 +93,23 @@ void Renderer::initialize() {
         // positions + lighting on/off
         VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
         // normals
-        VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
-        // depth + stencil
-        VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
-    };
-    constexpr std::array<VkClearValue, 5> GBufferClearValues{
-        VkClearValue{.color = Black},
-        VkClearValue{.color = Black},
-        VkClearValue{.color = Zero},
-        VkClearValue{.color = Zero},
-        VkClearValue{.depthStencil = DepthClear}};
+        VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT};
+    constexpr std::array<VkClearValue, 4> GBufferClearValues{VkClearValue{.color = Black},
+                                                             VkClearValue{.color = Black},
+                                                             VkClearValue{.color = Zero},
+                                                             VkClearValue{.color = Zero}};
     assetFactory.addProvider<rgi::GBufferProvider>(
         rg::AssetTags::GBuffer,
         rgi::TargetSize(rgi::TargetSize::ObserverSize),
-        std::array<VkFormat, 5>{vk::TextureFormat::SRGBA32Bit,
-                                vk::TextureFormat::SRGBA32Bit,
-                                vecFormat,
-                                vecFormat,
-                                depthFormat},
+        std::array<VkFormat, 4>{
+            vk::TextureFormat::SRGBA32Bit, vk::TextureFormat::SRGBA32Bit, vecFormat, vecFormat},
         GBufferUsages,
         GBufferClearValues);
     assetFactory.addProvider<rgi::GBufferHDRProvider>(
         rg::AssetTags::GBufferHDR,
         rgi::TargetSize(rgi::TargetSize::ObserverSize),
-        std::array<VkFormat, 5>{vk::TextureFormat::HDRColor,
-                                vk::TextureFormat::HDRColor,
-                                vecFormat,
-                                vecFormat,
-                                depthFormat},
+        std::array<VkFormat, 4>{
+            vk::TextureFormat::HDRColor, vk::TextureFormat::HDRColor, vecFormat, vecFormat},
         GBufferUsages,
         GBufferClearValues);
 

@@ -25,6 +25,7 @@ namespace rg
 class Task;
 class Asset;
 struct GraphAsset;
+class GraphAssetPool;
 
 /**
  * @brief Execution timeline for the render graph
@@ -111,8 +112,10 @@ public:
      * @param renderer The renderer instance
      * @param target The render target of the graph
      * @param scene The scene the timeline belongs to
+     * @param pool The asset pool of the graph that owns this timeline
      */
-    Timeline(engine::Engine& engine, Renderer& renderer, RenderTarget* target, Scene* scene);
+    Timeline(engine::Engine& engine, Renderer& renderer, RenderTarget* target, Scene* scene,
+             GraphAssetPool* pool);
 
     /**
      * @brief Builds the timeline from the given final asset. Assets must have already been
@@ -135,6 +138,7 @@ private:
     Renderer& renderer;
     RenderTarget* observer;
     Scene* scene;
+    GraphAssetPool* pool;
     std::vector<TimelineStage> timeline;
 };
 

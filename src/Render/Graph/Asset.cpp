@@ -42,13 +42,17 @@ Asset* Asset::getDependency(std::string_view depTag) {
 
 Asset* Asset::getDependency(unsigned int index) { return &dependencies[index].get(); }
 
-bool Asset::create(engine::Engine& engine, Renderer& renderer, RenderTarget* observer) {
+bool Asset::create(engine::Engine& engine, Renderer& renderer, RenderTarget* observer,
+                   GraphAssetPool* pool) {
     if (!created) {
         created = true;
         dependencies.reserve(depTags.size());
         for (const auto& depTag : depTags) {
-            Asset* dep = observer->getAssetPool().getOrCreateAsset(depTag, nullptr);
-            if (!dep) { BL_LOG_ERROR << "Failed to find dependency asset with tag: " << depTag; }
+            AssetRef dep = pool->getAssetForAsset(depTag);
+            if (!dep.valid()) {
+                BL_LOG_ERROR << "Failed to find dependency asset with tag: " << depTag;
+            }
+            dep->create(engine, renderer, observer, pool);
             dependencies.emplace_back(dep);
         }
         doCreate(engine, renderer, observer);
@@ -82,7 +86,7 @@ void Asset::endOutput(const ExecutionContext& ctx) {
 }
 
 bool Asset::isOwnedBy(GraphAssetPool* pool) {
-    return std::find(owners.begin(), owners.end(), pool) != owners.end();
+    return pool && std::find(owners.begin(), owners.end(), pool) != owners.end();
 }
 
 void Asset::addOwner(GraphAssetPool* pool) {

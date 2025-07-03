@@ -44,6 +44,8 @@ void FinalSwapframeAsset::doCreate(engine::Engine&, Renderer& renderer, RenderTa
         fb.create(renderer.vulkanState(), renderPass->rawPass(), attachmentSets.getRaw(i));
         ++i;
     });
+
+    onResize({});
 }
 
 void FinalSwapframeAsset::doPrepareForInput(const rg::ExecutionContext&) {
@@ -72,7 +74,10 @@ vk::Framebuffer& FinalSwapframeAsset::getFramebuffer(std::uint32_t i) {
 }
 
 void FinalSwapframeAsset::onResize(glm::u32vec2) {
-    attachmentSets.current().setRenderExtent(scissor.extent);
+    if (isCreated()) {
+        attachmentSets.cleanup(
+            [this](vk::StandardAttachmentSet& set) { set.setRenderExtent(scissor.extent); });
+    }
 }
 
 } // namespace rgi

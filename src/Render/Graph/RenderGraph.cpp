@@ -22,7 +22,7 @@ RenderGraph::RenderGraph(engine::Engine& engine, Renderer& renderer, AssetPool& 
 , observer(observer)
 , scene(scene)
 , assets(pool, observer, scene)
-, timeline(engine, renderer, observer, scene)
+, timeline(engine, renderer, observer, scene, &assets)
 , needsRebuild(false)
 , needsReset(true) {
     tasks.reserve(8);

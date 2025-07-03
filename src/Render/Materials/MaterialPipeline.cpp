@@ -23,9 +23,8 @@ MaterialPipeline::MaterialPipeline(Renderer& renderer, std::uint32_t id,
 
 VkPipeline MaterialPipeline::getRawPipeline(RenderPhase phase, std::uint32_t renderPassId,
                                             std::uint32_t objectSpec) const {
-    const std::uint32_t spec = phase == cfg::RenderPhases::Forward ?
-                                   objectSpec :
-                                   settings.renderPhaseOverrides[phase].specialization;
+    const std::uint32_t pipelineSpec = settings.renderPhaseOverrides[phase].specialization;
+    const std::uint32_t spec         = pipelineSpec == 0 ? objectSpec : pipelineSpec;
     return pipelines[phase]->rawPipeline(renderPassId, spec);
 }
 
@@ -34,9 +33,8 @@ bool MaterialPipeline::bind(VkCommandBuffer commandBuffer, RenderPhase phase,
     vk::Pipeline* p = pipelines[phase];
     if (!p) { return false; }
 
-    const std::uint32_t spec = phase == cfg::RenderPhases::Forward ?
-                                   objectSpec :
-                                   settings.renderPhaseOverrides[phase].specialization;
+    const std::uint32_t pipelineSpec = settings.renderPhaseOverrides[phase].specialization;
+    const std::uint32_t spec         = pipelineSpec == 0 ? objectSpec : pipelineSpec;
 
     p->bind(commandBuffer, renderPassId, spec);
     return true;
