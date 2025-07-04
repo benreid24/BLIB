@@ -7,8 +7,13 @@
 
 namespace bl
 {
+namespace engine
+{
+class Engine;
+}
 namespace rc
 {
+
 namespace rgi
 {
 /**
@@ -18,6 +23,15 @@ namespace rgi
  */
 class DepthBuffer : public rg::Asset {
 public:
+    /// How the depth buffer is sized
+    enum SizeMode {
+        /// The depth buffer is sized to the full window resolution
+        FullScreen,
+
+        /// The depth buffer is sized to the observer's render region
+        Target
+    };
+
     /**
      * @brief Creates the depth buffer asset
      */
@@ -43,7 +57,16 @@ public:
      */
     virtual void onResize(glm::u32vec2 newSize) override;
 
+    /**
+     * @brief Called by the final asset in order to properly size the depth buffer
+     *
+     * @param mode The size mode to use
+     */
+    void setSizeMode(SizeMode mode);
+
 private:
+    engine::Engine* engine;
+    SizeMode mode;
     bool cleared;
     vk::Image buffer;
 
@@ -52,6 +75,7 @@ private:
     virtual void doStartOutput(const rg::ExecutionContext&) override;
     virtual void doEndOutput(const rg::ExecutionContext&) override {}
     virtual void onReset() override;
+    glm::u32vec2 getSize(const glm::u32vec2& targetSize) const;
 };
 
 } // namespace rgi

@@ -1,5 +1,6 @@
 #include <BLIB/Render/Graph/Assets/FinalSwapframeAsset.hpp>
 
+#include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Render/Config/RenderPassIds.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Graph/Assets/DepthBuffer.hpp>
@@ -15,11 +16,13 @@ FinalSwapframeAsset::FinalSwapframeAsset(const VkViewport& viewport, const VkRec
                                          const VkClearValue* clearColors,
                                          const std::uint32_t clearColorCount)
 : FramebufferAsset(rg::AssetTags::FinalFrameOutput, cfg::RenderPassIds::SwapchainPass, viewport,
-                   scissor, clearColors, clearColorCount) {
+                   scissor, clearColors, clearColorCount)
+, engine(nullptr) {
     addDependency(rg::AssetTags::DepthBuffer);
 }
 
-void FinalSwapframeAsset::doCreate(engine::Engine&, Renderer& renderer, RenderTarget*) {
+void FinalSwapframeAsset::doCreate(engine::Engine& e, Renderer& renderer, RenderTarget*) {
+    engine     = &e;
     renderPass = &renderer.renderPassCache().getRenderPass(renderPassId);
     swapchain  = &renderer.vulkanState().swapchain;
 
@@ -28,10 +31,12 @@ void FinalSwapframeAsset::doCreate(engine::Engine&, Renderer& renderer, RenderTa
         throw std::runtime_error("FinalSwapframeAsset requires a DepthBuffer dependency");
     }
 
-    unsigned int i = 0;
+    const auto size = engine->window().getSfWindow().getSize();
+    unsigned int i  = 0;
     attachmentSets.init(
-        renderer.vulkanState().swapchain, [this, &renderer, &i](vk::StandardAttachmentSet& set) {
-            set.setRenderExtent(scissor.extent);
+        renderer.vulkanState().swapchain,
+        [this, &renderer, &i, &size](vk::StandardAttachmentSet& set) {
+            set.setRenderExtent({size.x, size.y});
             set.setAttachments(renderer.vulkanState().swapchain.swapFrameAtIndex(i).getImage(0),
                                renderer.vulkanState().swapchain.swapFrameAtIndex(i).getImageView(0),
                                depthBufferAsset->getBuffer().getImage(),
@@ -74,9 +79,11 @@ vk::Framebuffer& FinalSwapframeAsset::getFramebuffer(std::uint32_t i) {
 }
 
 void FinalSwapframeAsset::onResize(glm::u32vec2) {
-    if (isCreated()) {
-        attachmentSets.cleanup(
-            [this](vk::StandardAttachmentSet& set) { set.setRenderExtent(scissor.extent); });
+    if (engine) {
+        const auto size = engine->window().getSfWindow().getSize();
+        attachmentSets.cleanup([this, &size](vk::StandardAttachmentSet& set) {
+            set.setRenderExtent({size.x, size.y});
+        });
     }
 }
 

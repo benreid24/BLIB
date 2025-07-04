@@ -28,7 +28,7 @@ void SharedCommandPool::cleanup() {
 }
 
 SharedCommandBuffer SharedCommandPool::createBuffer(VkCommandBufferUsageFlags flags) {
-    mutex.lock();
+    std::unique_lock lock(mutex);
 
     for (auto it = allocations.begin(); it != allocations.end();) {
         if (VK_SUCCESS == vkGetFenceStatus(vs->device, it->fence)) {
@@ -61,7 +61,7 @@ SharedCommandBuffer SharedCommandPool::createBuffer(VkCommandBufferUsageFlags fl
 
     vkCheck(vkBeginCommandBuffer(commandBuffer, &beginInfo));
 
-    return {this, fence, commandBuffer};
+    return {this, std::move(lock), fence, commandBuffer};
 }
 
 void SharedCommandPool::submit(SharedCommandBuffer& buffer) {
@@ -74,8 +74,7 @@ void SharedCommandPool::submit(SharedCommandBuffer& buffer) {
     submitInfo.pCommandBuffers    = &lb;
 
     vs->submitCommandBuffer(submitInfo, buffer.fence);
-
-    mutex.unlock();
+    buffer.lock.unlock();
 }
 
 } // namespace vk

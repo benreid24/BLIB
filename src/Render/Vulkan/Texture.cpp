@@ -111,6 +111,7 @@ void Texture::update(const resource::Ref<sf::Image>& content, const glm::u32vec2
 
 void Texture::resize(const glm::u32vec2& s) {
     image.resize(s, true);
+    currentView = image.getView();
     updateDescriptors();
 }
 

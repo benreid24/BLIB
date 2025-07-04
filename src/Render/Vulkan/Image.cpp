@@ -26,7 +26,15 @@ Image::Image()
 , size{0, 0}
 , alloc(nullptr)
 , imageHandle(nullptr)
-, viewHandle(nullptr) {}
+, viewHandle(nullptr)
+, format{}
+, aspect(VK_IMAGE_ASPECT_COLOR_BIT)
+, viewAspect(VK_IMAGE_ASPECT_COLOR_BIT)
+, usage{}
+, allocFlags(0)
+, extraCreateFlags(0)
+, memoryLocation(VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT)
+, currentLayout(VK_IMAGE_LAYOUT_UNDEFINED) {}
 
 Image::~Image() { deferDestroy(); }
 
@@ -86,20 +94,15 @@ void Image::resize(const glm::u32vec2& newSize, bool copyContents) {
     // cache data needed to delete original image
     VkImage oldImage = imageHandle;
 
-    // queue deletion of original resources
-    vulkanState->cleanupManager.add(
-        [vulkanState = vulkanState, oldImage, oldAlloc = alloc, oldView = viewHandle]() {
-            vkDestroyImageView(vulkanState->device, oldView, nullptr);
-            vmaDestroyImage(vulkanState->vmaAllocator, oldImage, oldAlloc);
-        });
-
     // transition original image to transfer source layout
-    vulkanState->transitionImageLayout(imageHandle,
-                                       VK_IMAGE_LAYOUT_UNDEFINED,
-                                       VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
-                                       getLayerCount(),
-                                       aspect);
-    currentLayout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
+    if (copyContents) {
+        vulkanState->transitionImageLayout(imageHandle,
+                                           VK_IMAGE_LAYOUT_UNDEFINED,
+                                           VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
+                                           getLayerCount(),
+                                           aspect);
+        currentLayout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
+    }
 
     // create new image
     const glm::u32vec2 oldSize(size.width, size.height);
@@ -110,12 +113,22 @@ void Image::resize(const glm::u32vec2& newSize, bool copyContents) {
            {newSize.x, newSize.y},
            aspect,
            allocFlags,
+           memoryLocation,
            extraCreateFlags,
            viewAspect);
+    currentLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 
     // copy from old to new
     if (copyContents) {
         auto cb = vulkanState->sharedCommandPool.createBuffer();
+
+        vulkanState->transitionImageLayout(cb,
+                                           imageHandle,
+                                           currentLayout,
+                                           VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+                                           getLayerCount(),
+                                           aspect);
+        currentLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
 
         VkImageCopy copyInfo{};
         copyInfo.extent.width                  = std::min(oldSize.x, newSize.x);

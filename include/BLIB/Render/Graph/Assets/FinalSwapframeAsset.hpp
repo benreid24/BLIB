@@ -56,6 +56,7 @@ public:
     virtual vk::Framebuffer& getFramebuffer(std::uint32_t i) override;
 
 private:
+    engine::Engine* engine;
     vk::Swapchain* swapchain;
     DepthBuffer* depthBufferAsset;
     vk::PerSwapFrame<vk::StandardAttachmentSet> attachmentSets;

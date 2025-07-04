@@ -31,6 +31,7 @@ void FinalRenderTextureAsset::doCreate(engine::Engine&, Renderer& renderer, Rend
     if (!depthBuffer) {
         throw std::runtime_error("FinalSwapframeAsset requires a DepthBuffer dependency");
     }
+    depthBuffer->setSizeMode(DepthBuffer::Target);
 
     attachmentSet.setRenderExtent(scissor.extent);
     attachmentSet.setAttachments(texture->getImage(),
@@ -57,6 +58,7 @@ vk::Framebuffer& FinalRenderTextureAsset::currentFramebuffer() { return framebuf
 vk::Framebuffer& FinalRenderTextureAsset::getFramebuffer(std::uint32_t) { return framebuffer; }
 
 void FinalRenderTextureAsset::onResize(glm::u32vec2) {
+    depthBuffer->onResize({scissor.extent.width, scissor.extent.height});
     attachmentSet.setRenderExtent(scissor.extent);
     attachmentSet.setAttachments(texture->getImage(),
                                  texture->getView(),
