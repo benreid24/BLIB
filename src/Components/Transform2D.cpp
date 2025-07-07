@@ -122,8 +122,7 @@ const glm::mat4& Transform2D::getGlobalTransform() {
 }
 
 void Transform2D::makeDirty() {
-    markDirty();
-    incrementVersion();
+    if (markDirty()) { incrementVersion(); }
 }
 
 void Transform2D::ensureUpdated() {

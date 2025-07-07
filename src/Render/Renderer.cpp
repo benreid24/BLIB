@@ -69,6 +69,7 @@ void Renderer::initialize() {
     // asset providers
     constexpr VkClearColorValue Zero              = {{0.f, 0.f, 0.f, 0.f}};
     constexpr VkClearColorValue Black             = {{0.f, 0.f, 0.f, 1.f}};
+    constexpr VkClearColorValue Transparent       = {{0.f, 0.f, 0.f, 0.f}};
     constexpr VkClearDepthStencilValue ClearDepth = {1.f, 0};
     const VkFormat vecFormat                      = vulkanState().findHighPrecisionFormat();
     assetFactory.addProvider<rgi::SimpleAssetProvider<rgi::DepthBuffer>>(
@@ -96,7 +97,7 @@ void Renderer::initialize() {
         // normals
         VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT};
     constexpr std::array<VkClearValue, 5> GBufferClearValues{
-        VkClearValue{.color = Black},
+        VkClearValue{.color = Transparent},
         VkClearValue{.color = Black},
         VkClearValue{.color = Zero},
         VkClearValue{.color = Zero},

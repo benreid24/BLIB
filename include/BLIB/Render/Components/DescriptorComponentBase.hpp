@@ -86,19 +86,28 @@ public:
 protected:
     /**
      * @brief Call this when the component is modified
+     *
+     * @return True if the object was marked dirty, false if already dirty
      */
-    void markDirty();
+    bool markDirty();
+
+    /**
+     * @brief Returns whether the object has been marked dirty and has not been refreshed yet
+     */
+    bool isDirty() const;
 
 private:
     ds::EntityComponentShaderInputBase* descriptorSet;
     scene::Key sceneKey;
+    bool dirty;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename TCom, typename TFirstPayload, typename... TPayloads>
 DescriptorComponentBase<TCom, TFirstPayload, TPayloads...>::DescriptorComponentBase()
-: descriptorSet(nullptr) {
+: descriptorSet(nullptr)
+, dirty(false) {
     static_assert(
         std::is_base_of_v<DescriptorComponentBase<TCom, TFirstPayload, TPayloads...>, TCom>,
         "Descriptor component must inherit DescriptorComponentBase");
@@ -113,12 +122,17 @@ void DescriptorComponentBase<TCom, TFirstPayload, TPayloads...>::link(
     }
 #endif
     descriptorSet = set;
-    if (k.sceneId != scene::Key::InvalidSceneId) { sceneKey = k; }
+    if (k.sceneId != scene::Key::InvalidSceneId) {
+        sceneKey = k;
+        dirty    = false;
+        markDirty();
+    }
 }
 
 template<typename TCom, typename TFirstPayload, typename... TPayloads>
 inline void DescriptorComponentBase<TCom, TFirstPayload, TPayloads...>::unlink() {
     descriptorSet = nullptr;
+    dirty         = false;
 }
 
 template<typename TCom, typename TFirstPayload, typename... TPayloads>
@@ -126,11 +140,22 @@ template<typename TPayload>
 void DescriptorComponentBase<TCom, TFirstPayload, TPayloads...>::refresh(TPayload& payload) {
     using PayloadBase = priv::DescriptorComponentPayloadBase<TCom, TPayload>;
     static_cast<PayloadBase*>(this)->refreshDescriptor(payload);
+    dirty = false;
 }
 
 template<typename TCom, typename TFirstPayload, typename... TPayloads>
-void DescriptorComponentBase<TCom, TFirstPayload, TPayloads...>::markDirty() {
-    if (descriptorSet != nullptr) { descriptorSet->markObjectDirty(sceneKey, this); }
+bool DescriptorComponentBase<TCom, TFirstPayload, TPayloads...>::markDirty() {
+    if (!dirty && descriptorSet != nullptr) {
+        dirty = true;
+        descriptorSet->markObjectDirty(sceneKey, this);
+        return true;
+    }
+    return false;
+}
+
+template<typename TCom, typename TFirstPayload, typename... TPayloads>
+bool DescriptorComponentBase<TCom, TFirstPayload, TPayloads...>::isDirty() const {
+    return dirty;
 }
 
 } // namespace rcom

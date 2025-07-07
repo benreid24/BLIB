@@ -73,8 +73,7 @@ void Transform3D::refreshDescriptor(rc::ds::Transform3DPayload& dest) {
 }
 
 void Transform3D::makeDirty() {
-    markDirty();
-    incrementVersion();
+    if (markDirty()) { incrementVersion(); }
 }
 
 glm::mat4 Transform3D::getLocalTransform() const {

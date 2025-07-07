@@ -14,7 +14,11 @@ layout(set = 2, binding = 2) uniform rsettings {
 
 void main() {
     // scene render color
-    vec3 result = texture(inColorAttachment, texCoords).rgb;
+    vec4 color = texture(inColorAttachment, texCoords);
+    if (color.w == 0) {
+        discard;
+    }
+    vec3 result = color.rgb;
 
     // bloom
     vec3 bloom = texture(inBloomAttachment, texCoords).rgb;
