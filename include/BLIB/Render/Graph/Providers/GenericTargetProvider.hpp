@@ -23,6 +23,10 @@ template<std::uint32_t RenderPassId, std::uint32_t AttachmentCount,
          RenderPassBehavior RenderPassMode, DepthAttachmentType DepthAttachment>
 class GenericTargetProvider : public rg::AssetProvider {
 public:
+    using TAsset =
+        GenericTargetAsset<RenderPassId, AttachmentCount, RenderPassMode, DepthAttachment>;
+    static constexpr std::uint32_t TotalAttachmentCount = TAsset::TotalAttachmentCount;
+
     /**
      * @brief Creates the provider
      *
@@ -32,7 +36,7 @@ public:
     GenericTargetProvider(const TargetSize& size,
                           const std::array<VkFormat, AttachmentCount>& imageFormats,
                           const std::array<VkImageUsageFlags, AttachmentCount>& imageUsages,
-                          const std::array<VkClearValue, AttachmentCount>& clearColors)
+                          const std::array<VkClearValue, TotalAttachmentCount>& clearColors)
     : size(size)
     , imageFormats(imageFormats)
     , imageUsages(imageUsages)
@@ -45,18 +49,14 @@ public:
      * @return The newly created asset
      */
     virtual rg::Asset* create(std::string_view tag) override {
-        return new GenericTargetAsset<RenderPassId,
-                                      AttachmentCount,
-                                      RenderPassMode,
-                                      DepthAttachment>(
-            tag, imageFormats, imageUsages, clearColors, size);
+        return new TAsset(tag, imageFormats, imageUsages, clearColors, size);
     }
 
 private:
     const TargetSize size;
     std::array<VkFormat, AttachmentCount> imageFormats;
     std::array<VkImageUsageFlags, AttachmentCount> imageUsages;
-    std::array<VkClearValue, AttachmentCount> clearColors;
+    std::array<VkClearValue, TotalAttachmentCount> clearColors;
 };
 
 } // namespace rgi

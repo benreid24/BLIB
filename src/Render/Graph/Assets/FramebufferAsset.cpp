@@ -29,7 +29,7 @@ void FramebufferAsset::beginRender(VkCommandBuffer commandBuffer, bool setViewpo
                                      clearColorCount,
                                      setViewport,
                                      renderPass ? renderPass->rawPass() : nullptr,
-                                     clearOnRestart || startCount == 0);
+                                     clearOnRestart);
     ++startCount;
 }
 

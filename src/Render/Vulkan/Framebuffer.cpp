@@ -70,9 +70,9 @@ void Framebuffer::beginRender(VkCommandBuffer commandBuffer, const VkRect2D& reg
         renderPassInfo.pClearValues    = clearColors;
         vkCmdBeginRenderPass(commandBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
     }
-    else if (shouldClear) {
+    if (shouldClear) {
         VkClearAttachment attachments[AttachmentSet::MaxAttachments]{};
-        for (unsigned int i = 0; i < target->size(); ++i) {
+        for (unsigned int i = 0; i < clearColorCount; ++i) {
             attachments[i].aspectMask      = target->imageAspects()[i];
             attachments[i].colorAttachment = i;
             attachments[i].clearValue      = clearColors[i];
@@ -83,7 +83,7 @@ void Framebuffer::beginRender(VkCommandBuffer commandBuffer, const VkRect2D& reg
         rect.baseArrayLayer = 0;
         rect.layerCount     = target->getLayerCount();
 
-        vkCmdClearAttachments(commandBuffer, target->size(), attachments, 1, &rect);
+        vkCmdClearAttachments(commandBuffer, clearColorCount, attachments, 1, &rect);
     }
 
     vkCmdSetScissor(commandBuffer, 0, 1, &region);

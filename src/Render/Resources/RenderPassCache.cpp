@@ -136,11 +136,11 @@ void RenderPassCache::addDefaults() {
     VkAttachmentDescription swapDefaultColorAttachment{};
     swapDefaultColorAttachment.format         = renderer.vulkanState().swapchain.swapImageFormat();
     swapDefaultColorAttachment.samples        = VK_SAMPLE_COUNT_1_BIT;
-    swapDefaultColorAttachment.loadOp         = VK_ATTACHMENT_LOAD_OP_CLEAR;
+    swapDefaultColorAttachment.loadOp         = VK_ATTACHMENT_LOAD_OP_LOAD;
     swapDefaultColorAttachment.storeOp        = VK_ATTACHMENT_STORE_OP_STORE;
     swapDefaultColorAttachment.stencilLoadOp  = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
     swapDefaultColorAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
-    swapDefaultColorAttachment.initialLayout  = VK_IMAGE_LAYOUT_UNDEFINED;
+    swapDefaultColorAttachment.initialLayout  = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
     swapDefaultColorAttachment.finalLayout    = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
 
     vk::RenderPassParameters primaryParams;

@@ -19,6 +19,7 @@ FinalSwapframeAsset::FinalSwapframeAsset(const VkViewport& viewport, const VkRec
                    scissor, clearColors, clearColorCount)
 , engine(nullptr) {
     addDependency(rg::AssetTags::DepthBuffer);
+    setShouldClearOnRestart(true);
 }
 
 void FinalSwapframeAsset::doCreate(engine::Engine& e, Renderer& renderer, RenderTarget*) {
@@ -66,6 +67,7 @@ void FinalSwapframeAsset::doStartOutput(const rg::ExecutionContext& ctx) {
         depthBufferAsset->getBuffer().getView());
     framebuffers.current().recreateIfChanged(attachmentSets.current());
     beginRender(ctx.commandBuffer, true);
+    setShouldClearOnRestart(false);
 }
 
 void FinalSwapframeAsset::doEndOutput(const rg::ExecutionContext& ctx) {
@@ -86,6 +88,8 @@ void FinalSwapframeAsset::onResize(glm::u32vec2) {
         });
     }
 }
+
+void FinalSwapframeAsset::onReset() { setShouldClearOnRestart(true); }
 
 } // namespace rgi
 } // namespace rc

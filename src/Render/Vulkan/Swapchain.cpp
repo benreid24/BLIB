@@ -259,7 +259,8 @@ void Swapchain::createSwapchain() {
     vkCheck(vkGetSwapchainImagesKHR(vulkanState.device, swapchain, &imageCount, images));
     imageFormat = surfaceFormat.format;
 
-    // assign attachment sets
+    // assign attachment sets & transition images
+    auto cb = vulkanState.sharedCommandPool.createBuffer();
     renderFrames.clear();
     renderFrames.reserve(imageCount);
     for (unsigned int i = 0; i < imageCount; ++i) {
@@ -267,7 +268,14 @@ void Swapchain::createSwapchain() {
         renderFrames[i].setRenderExtent(createInfo.imageExtent);
         renderFrames[i].setAttachments({images[i]},
                                        {vulkanState.createImageView(images[i], imageFormat)});
+        vulkanState.transitionImageLayout(cb,
+                                          images[i],
+                                          VK_IMAGE_LAYOUT_UNDEFINED,
+                                          VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,
+                                          1,
+                                          VK_IMAGE_ASPECT_COLOR_BIT);
     }
+    cb.submit();
 }
 
 } // namespace vk

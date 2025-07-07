@@ -62,10 +62,10 @@ public:
     GenericTargetAsset(std::string_view tag,
                        const std::array<VkFormat, AttachmentCount>& imageFormats,
                        const std::array<VkImageUsageFlags, AttachmentCount>& imageUsages,
-                       const std::array<VkClearValue, AttachmentCount>& clearColors,
+                       const std::array<VkClearValue, TotalAttachmentCount>& clearColors,
                        const TargetSize& size)
     : FramebufferAsset(tag, RenderPassId, cachedViewport, cachedScissor, clearColors.data(),
-                       AttachmentCount)
+                       TotalAttachmentCount)
     , size(size)
     , renderer(nullptr)
     , attachmentFormats(imageFormats)
@@ -114,8 +114,8 @@ private:
     const TargetSize size;
     Renderer* renderer;
     RenderTarget* observer;
-    const std::array<VkFormat, AttachmentCount>& attachmentFormats;
-    const std::array<VkImageUsageFlags, AttachmentCount>& attachmentUsages;
+    const std::array<VkFormat, AttachmentCount> attachmentFormats;
+    const std::array<VkImageUsageFlags, AttachmentCount> attachmentUsages;
     vk::AttachmentBufferSet<AttachmentCount> images;
     DepthBuffer* depthBufferAsset;
     vk::GenericAttachmentSet<TotalAttachmentCount> attachmentSet;

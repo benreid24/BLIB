@@ -68,6 +68,7 @@ private:
     virtual void doStartOutput(const rg::ExecutionContext& context) override;
     virtual void doEndOutput(const rg::ExecutionContext& context) override;
     virtual void onResize(glm::u32vec2 newSize) override;
+    virtual void onReset() override;
 };
 
 } // namespace rgi
