@@ -62,7 +62,10 @@ void MaterialPipelineCache::createBuiltins() {
         createPipeline(
             materialIds,
             mat::MaterialPipelineSettings(pipelineId)
-                .withRenderPhasePipelineOverride(cfg::RenderPhases::Deferred, deferredPipelineId)
+                .withRenderPhasePipelineOverride(
+                    cfg::RenderPhases::Deferred,
+                    deferredPipelineId,
+                    mat::MaterialPipelineSettings::ObjectSpecialization)
                 .withRenderPhasePipelineOverride(cfg::RenderPhases::Overlay,
                                                  pipelineId,
                                                  cfg::Specializations3D::LightingDisabled)
@@ -100,12 +103,13 @@ void MaterialPipelineCache::createBuiltins() {
     makeOverlayPair(MId::Slideshow2D, PId::SlideshowLit, PId::SlideshowUnlit);
     make(MId::Text, PId::Text);
     make(MId::Lines2D, PId::Lines2D);
-    createPipeline(MId::Skybox,
-                   mat::MaterialPipelineSettings(PId::Skybox)
-                       .withRenderPhasePipelineOverride(cfg::RenderPhases::Overlay, B::NotRendered)
-                       .withRenderPhasePipelineOverride(cfg::RenderPhases::ShadowMap, B::NotRendered)
+    createPipeline(
+        MId::Skybox,
+        mat::MaterialPipelineSettings(PId::Skybox)
+            .withRenderPhasePipelineOverride(cfg::RenderPhases::Overlay, B::NotRendered)
+            .withRenderPhasePipelineOverride(cfg::RenderPhases::ShadowMap, B::NotRendered)
             .withRenderPhasePipelineOverride(cfg::RenderPhases::ShadowPointMap, B::NotRendered)
-                       .build());
+            .build());
 }
 
 } // namespace res

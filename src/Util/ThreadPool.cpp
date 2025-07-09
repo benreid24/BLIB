@@ -7,6 +7,26 @@ namespace bl
 {
 namespace util
 {
+namespace
+{
+class TaskWrapper {
+public:
+    TaskWrapper(ThreadPool::Task&& task)
+    : task(std::move(task)) {}
+
+    void operator()() {
+        try {
+            task();
+        } catch (const std::exception& e) {
+            BL_LOG_ERROR << "Exception in thread pool task: " << e.what();
+        } catch (...) { BL_LOG_ERROR << "Unknown exception in thread pool task"; }
+    }
+
+private:
+    ThreadPool::Task task;
+};
+} // namespace
+
 ThreadPool::ThreadPool()
 : shuttingDown(false)
 , inFlightCount(0) {}
@@ -66,7 +86,7 @@ std::future<void> ThreadPool::queueTask(Task&& task) {
     std::unique_lock lock(taskMutex);
     if (shuttingDown.load()) { return {}; } // in case of race
 
-    auto& t = tasks.emplace(std::forward<Task>(task));
+    auto& t = tasks.emplace(TaskWrapper(std::forward<Task>(task)));
     auto f  = t.get_future();
     lock.unlock();
     taskQueuedCv.notify_one();
