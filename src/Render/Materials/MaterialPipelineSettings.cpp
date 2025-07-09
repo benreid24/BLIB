@@ -12,6 +12,7 @@ namespace mat
 MaterialPipelineSettings::MaterialPipelineSettings(std::uint32_t pipelineId)
 : mainPipeline(pipelineId, 0) {
     renderPhaseOverrides.fill(NoOverride);
+    mainPipeline.specialization = ObjectSpecialization;
 }
 
 MaterialPipelineSettings::MaterialPipelineSettings(vk::PipelineParameters* pipelineParams)

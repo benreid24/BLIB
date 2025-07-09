@@ -5,6 +5,7 @@
 #include <BLIB/Render/Config/PipelineIds.hpp>
 #include <BLIB/Render/RenderPhase.hpp>
 #include <BLIB/Render/Vulkan/PipelineParameters.hpp>
+#include <limits>
 
 namespace bl
 {
@@ -30,6 +31,9 @@ public:
         /// Objects using this material pipeline will not be rendered
         NotRendered
     };
+
+    /// Special value that indicates to use the specialization of the object being rendered
+    static constexpr std::uint32_t ObjectSpecialization = std::numeric_limits<std::uint32_t>::max();
 
     /**
      * @brief Creates default settings and uses the given pipeline

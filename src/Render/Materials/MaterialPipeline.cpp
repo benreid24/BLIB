@@ -34,7 +34,8 @@ bool MaterialPipeline::bind(VkCommandBuffer commandBuffer, RenderPhase phase,
     if (!p) { return false; }
 
     const std::uint32_t pipelineSpec = settings.renderPhaseOverrides[phase].specialization;
-    const std::uint32_t spec         = pipelineSpec == 0 ? objectSpec : pipelineSpec;
+    const std::uint32_t spec =
+        pipelineSpec == MaterialPipelineSettings::ObjectSpecialization ? objectSpec : pipelineSpec;
 
     p->bind(commandBuffer, renderPassId, spec);
     return true;
