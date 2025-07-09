@@ -8,7 +8,9 @@ namespace vk
 {
 PipelineSpecialization::PipelineSpecialization()
 : depthStencilSpecialized(false)
-, depthStencil{} {}
+, depthStencil{}
+, attachmentBlendingSpecialized(false)
+, attachmentBlending() {}
 
 PipelineSpecialization& PipelineSpecialization::createShaderSpecializations(
     VkShaderStageFlags stage, std::uint32_t dataSize, std::uint32_t specializationCount) {

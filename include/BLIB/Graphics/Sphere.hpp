@@ -54,6 +54,18 @@ public:
                 std::uint32_t materialPipelineId         = rc::cfg::MaterialPipelineIds::Mesh3D);
 
     /**
+     * @brief Populates the given vectors with vertices and indices to make a sphere
+     *
+     * @param radius The radius of the sphere
+     * @param detailLevel How detailed to make the sphere. Triangle count = detail * 20
+     * @param outVertices The output vertices container
+     * @param outIndices The output indices container
+     */
+    static void makeSphere(float radius, int detailLevel,
+                           std::vector<rc::prim::Vertex3D>& outVertices,
+                           std::vector<std::uint32_t>& outIndices);
+
+    /**
      * @brief Sets the color of the sphere
      *
      * @param color The color to assign to all the vertices

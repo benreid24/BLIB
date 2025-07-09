@@ -35,7 +35,9 @@ public:
 private:
     Renderer* renderer;
     Scene* scene;
-    buf::IndexBuffer indexBuffer;
+    buf::IndexBuffer3D sunRectBuffer;
+    buf::IndexBuffer3D sphereBuffer;
+    gfx::Sphere sphere;
     vk::Pipeline* pipeline;
     ds::Scene3DInstance* sceneDescriptor;
     std::optional<ds::InputAttachmentInstance> gbufferDescriptor;

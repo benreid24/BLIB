@@ -109,7 +109,8 @@ void PipelineCache::createBuiltins() {
     rasterizerShadow.cullMode                               = VK_CULL_MODE_FRONT_BIT;
     rasterizerShadow.depthBiasEnable                        = VK_TRUE;
 
-    VkPipelineRasterizationStateCreateInfo outlineRasterizer     = skyboxRasterizer;
+    VkPipelineRasterizationStateCreateInfo outlineRasterizer = skyboxRasterizer;
+
     VkPipelineRasterizationStateCreateInfo lightVolumeRasterizer = skyboxRasterizer;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -248,6 +249,8 @@ void PipelineCache::createBuiltins() {
             .withShaders(cfg::ShaderIds::DeferredLightVolumeVertex,
                          cfg::ShaderIds::DeferredLightVolumeFragment)
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+            .withVertexFormat(prim::Vertex3D::bindingDescription(),
+                              prim::Vertex3D::attributeDescriptionsPositionsOnly())
             .withRasterizer(lightVolumeRasterizer)
             .withDepthStencilState(&depthStencilDepthDisabled)
             .withBlendConfig(vk::BlendParameters().withSimpleColorBlendState(

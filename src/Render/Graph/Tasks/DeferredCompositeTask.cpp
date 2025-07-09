@@ -2,6 +2,7 @@
 
 #include <BLIB/Render/Config/PipelineIds.hpp>
 #include <BLIB/Render/Config/RenderPhases.hpp>
+#include <BLIB/Render/Config/SpecializationsLightVolumes.hpp>
 #include <BLIB/Render/Descriptors/Builtin/InputAttachmentFactory.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Graph/Assets/BloomAssets.hpp>
@@ -36,16 +37,21 @@ void DeferredCompositeTask::create(engine::Engine&, Renderer& r, Scene* s) {
     // fetch pipeline
     pipeline = &renderer->pipelineCache().getPipeline(cfg::PipelineIds::DeferredLightVolume);
 
-    // create index buffer
-    indexBuffer.create(r.vulkanState(), 4, 6);
-    indexBuffer.indices()  = {0, 1, 3, 1, 2, 3};
-    indexBuffer.vertices() = {prim::Vertex({-1.f, -1.f, 1.0f}, {0.f, 0.f}),
-                              prim::Vertex({1.f, -1.f, 1.0f}, {1.f, 0.f}),
-                              prim::Vertex({1.f, 1.f, 1.0f}, {1.f, 1.f}),
-                              prim::Vertex({-1.f, 1.f, 1.0f}, {0.f, 1.f})};
-    indexBuffer.queueTransfer(tfr::Transferable::SyncRequirement::Immediate);
+    // create index buffer for the sun
+    sunRectBuffer.create(r.vulkanState(), 4, 6);
+    sunRectBuffer.indices()  = {0, 1, 3, 1, 2, 3};
+    sunRectBuffer.vertices() = {prim::Vertex3D({-1.f, -1.f, 1.0f}, {0.f, 0.f}),
+                                prim::Vertex3D({1.f, -1.f, 1.0f}, {1.f, 0.f}),
+                                prim::Vertex3D({1.f, 1.f, 1.0f}, {1.f, 1.f}),
+                                prim::Vertex3D({-1.f, 1.f, 1.0f}, {0.f, 1.f})};
+    sunRectBuffer.queueTransfer(tfr::Transferable::SyncRequirement::Immediate);
 
-    // TODO - create unit sphere
+    // make unit sphere index buffer
+    std::vector<prim::Vertex3D> sphereVertices;
+    std::vector<std::uint32_t> sphereIndices;
+    gfx::Sphere::makeSphere(1.f, 3, sphereVertices, sphereIndices);
+    sphereBuffer.create(r.vulkanState(), std::move(sphereVertices), std::move(sphereIndices));
+    sphereBuffer.queueTransfer(tfr::Transferable::SyncRequirement::Immediate);
 }
 
 void DeferredCompositeTask::onGraphInit() {
@@ -65,19 +71,75 @@ void DeferredCompositeTask::onGraphInit() {
 }
 
 void DeferredCompositeTask::execute(const rg::ExecutionContext& ctx, rg::Asset* output) {
+    const auto layout    = pipeline->pipelineLayout().rawLayout();
+    const auto& lighting = sceneDescriptor->getUniform();
     FramebufferAsset* input =
         dynamic_cast<FramebufferAsset*>(&assets.requiredInputs[0]->asset.get());
     if (!input) { throw std::runtime_error("Got bad input"); }
     FramebufferAsset* fb = dynamic_cast<FramebufferAsset*>(output);
     if (!fb) { throw std::runtime_error("Got bad output"); }
 
+    // bind sun pipeline & all descriptors
     pipeline->bind(ctx.commandBuffer, fb->getRenderPassId(), 0);
-    gbufferDescriptor->bind(ctx.commandBuffer, pipeline->pipelineLayout().rawLayout(), 0);
-    sceneDescriptor->bind(
-        ctx.commandBuffer, pipeline->pipelineLayout().rawLayout(), 1, ctx.observerIndex);
-    indexBuffer.bindAndDraw(ctx.commandBuffer);
+    gbufferDescriptor->bind(ctx.commandBuffer, layout, 0);
+    sceneDescriptor->bind(ctx.commandBuffer, layout, 1, ctx.observerIndex);
 
-    // TODO - issue draw commands for other lights
+    // render sun
+    sunRectBuffer.bindAndDraw(ctx.commandBuffer);
+
+    // bind unit sphere buffers once
+    const auto draw = sphereBuffer.getDrawParameters();
+    sphereBuffer.bind(ctx.commandBuffer);
+
+    // spot lights with shadows
+    if (lighting.nSpotShadows > 0) {
+        pipeline->bind(ctx.commandBuffer,
+                       fb->getRenderPassId(),
+                       cfg::SpecializationsLightVolumes::SpotlightShadow);
+        vkCmdDrawIndexed(ctx.commandBuffer,
+                         draw.indexCount,
+                         lighting.nSpotShadows,
+                         draw.indexOffset,
+                         draw.vertexOffset,
+                         0);
+    }
+
+    // spot lights
+    if (lighting.nSpotLights > 0) {
+        pipeline->bind(
+            ctx.commandBuffer, fb->getRenderPassId(), cfg::SpecializationsLightVolumes::Spotlight);
+        vkCmdDrawIndexed(ctx.commandBuffer,
+                         draw.indexCount,
+                         lighting.nSpotLights,
+                         draw.indexOffset,
+                         draw.vertexOffset,
+                         0);
+    }
+
+    // point lights with shadows
+    if (lighting.nPointShadows > 0) {
+        pipeline->bind(ctx.commandBuffer,
+                       fb->getRenderPassId(),
+                       cfg::SpecializationsLightVolumes::PointlightShadow);
+        vkCmdDrawIndexed(ctx.commandBuffer,
+                         draw.indexCount,
+                         lighting.nPointShadows,
+                         draw.indexOffset,
+                         draw.vertexOffset,
+                         0);
+    }
+
+    // point lights
+    if (lighting.nPointLights > 0) {
+        pipeline->bind(
+            ctx.commandBuffer, fb->getRenderPassId(), cfg::SpecializationsLightVolumes::Pointlight);
+        vkCmdDrawIndexed(ctx.commandBuffer,
+                         draw.indexCount,
+                         lighting.nPointLights,
+                         draw.indexOffset,
+                         draw.vertexOffset,
+                         0);
+    }
 }
 
 } // namespace rgi

@@ -133,7 +133,7 @@ public:
      * @param threshold The threshold to consider the bounds of the light volume
      * @return The radius of the light volume
      */
-    float computeFalloffRadius(float threshold = 256.f / 5.f) const {
+    float computeFalloffRadius(float threshold = 5.f / 256.f) const {
         return attenuation.computeFalloffRadius(threshold, color.getMaxLightLevel());
     }
 

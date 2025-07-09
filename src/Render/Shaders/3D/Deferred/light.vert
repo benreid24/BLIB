@@ -2,13 +2,8 @@
 #extension GL_GOOGLE_include_directive : require
 
 layout(location = 0) in vec3 inPosition;
-layout(location = 1) in vec4 inColor;
-layout(location = 2) in vec2 inTexCoords;
-layout(location = 3) in vec3 inTangent;
-layout(location = 4) in vec3 inNormal;
 
 layout(location = 0) out VS_OUT {
-    vec2 texCoords;
     flat uint lightIndex;
 } vs_out;
 
@@ -42,7 +37,7 @@ void main() {
         position = position * radius + lightPos;
     }
 
-    gl_Position = camera.projection * camera.view * vec4(position, 1.0);
+    mat4 viewProj = lightType != LIGHT_TYPE_SUN ? camera.projection * camera.view : mat4(1.f);
+    gl_Position = viewProj * vec4(position, 1.0);
     vs_out.lightIndex = gl_InstanceIndex;
-    vs_out.texCoords = (gl_Position.xy + vec2(1.0)) * 0.5; // TODO - is this right?
 }

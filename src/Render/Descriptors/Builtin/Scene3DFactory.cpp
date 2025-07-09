@@ -26,7 +26,7 @@ void Scene3DFactory::init(engine::Engine&, Renderer& r) {
     // sunlight & spot lights & point lights & global lighting
     bindingInfo.bindings[1].descriptorCount = 1;
     bindingInfo.bindings[1].descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-    bindingInfo.bindings[1].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
+    bindingInfo.bindings[1].stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
 
     // spot light shadow maps
     bindingInfo.bindings[2].descriptorCount = cfg::Limits::MaxSpotShadows;

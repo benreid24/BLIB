@@ -2,7 +2,6 @@
 #extension GL_GOOGLE_include_directive : require
 
 layout(location = 0) in FS_IN {
-    vec2 texCoords;
     flat uint lightIndex;
 } fs_in;
 layout(location = 0) out vec4 outColor;
@@ -18,12 +17,13 @@ layout(set = 0, binding = 3) uniform sampler2D normals;
 #include "3D/Deferred/lightConstants.glsl"
 
 void main() {
-    vec4 fragColor = texture(albedo, fs_in.texCoords);
-    vec4 specularAndShiny = texture(specular, fs_in.texCoords);
-    vec4 posAndLighting = texture(positions, fs_in.texCoords);
+    vec2 uv = gl_FragCoord.xy / vec2(textureSize(albedo, 0));
+    vec4 fragColor = texture(albedo, uv);
+    vec4 specularAndShiny = texture(specular, uv);
+    vec4 posAndLighting = texture(positions, uv);
     vec3 position = posAndLighting.xyz;
     bool lightingEnabled = posAndLighting.w != 0;
-    vec3 normal = texture(normals, fs_in.texCoords).xyz;
+    vec3 normal = texture(normals, uv).xyz;
     vec3 viewDir = normalize(camera.camPos - position);
     vec3 specular = specularAndShiny.xyz;
     float shininess = specularAndShiny.w;

@@ -73,7 +73,7 @@ void Pipeline::createForRenderPass(std::uint32_t rpid, std::uint32_t spec) {
         info.pName         = shader.entrypoint.c_str();
 
         for (auto& spec : specialization.shaderSpecializations) {
-            if (spec.stage == shader.stage) {
+            if ((spec.stage & shader.stage) != 0) {
                 auto& specInfo           = shaderSpecs.emplace_back();
                 info.pSpecializationInfo = &specInfo;
                 specInfo.dataSize        = static_cast<std::uint32_t>(spec.storage.size());

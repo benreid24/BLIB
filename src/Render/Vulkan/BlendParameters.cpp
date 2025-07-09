@@ -8,7 +8,8 @@ namespace vk
 {
 BlendParameters::BlendParameters()
 : colorBlendBehavior(ColorBlendBehavior::AlphaBlend)
-, simpleColorBlendAttachmentCount(1) {
+, simpleColorBlendAttachmentCount(1)
+, colorBlending{} {
     colorBlending.sType             = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
     colorBlending.logicOpEnable     = VK_FALSE;
     colorBlending.logicOp           = VK_LOGIC_OP_COPY; // Optional
@@ -18,7 +19,10 @@ BlendParameters::BlendParameters()
     colorBlending.blendConstants[3] = 0.0f;             // Optional
 }
 
-BlendParameters::BlendParameters(const BlendParameters& copy) { *this = copy; }
+BlendParameters::BlendParameters(const BlendParameters& copy)
+: BlendParameters() {
+    *this = copy;
+}
 
 BlendParameters& BlendParameters::operator=(const BlendParameters& copy) {
     colorBlendBehavior              = copy.colorBlendBehavior;
