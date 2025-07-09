@@ -30,7 +30,7 @@ struct PipelineIds {
     static constexpr std::uint32_t PostProcess3D        = 50;
     static constexpr std::uint32_t BloomHighlightFilter = 51;
     static constexpr std::uint32_t BloomBlur            = 52;
-    static constexpr std::uint32_t DeferredComposite    = 53;
+    static constexpr std::uint32_t DeferredLightVolume  = 53;
 
     static constexpr std::uint32_t Lit2DGeometry               = 100;
     static constexpr std::uint32_t Unlit2DGeometry             = 101;

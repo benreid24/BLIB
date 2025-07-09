@@ -44,6 +44,22 @@ public:
     ~StaticVector();
 
     /**
+     * @brief Copies from another vector
+     *
+     * @param copy The vector to copy from
+     * @return A reference to this object
+     */
+    StaticVector& operator=(const StaticVector& copy);
+
+    /**
+     * @brief Moves from another vector
+     *
+     * @param copy The vector to move from
+     * @return A reference to this object
+     */
+    StaticVector& operator=(StaticVector&& copy);
+
+    /**
      * @brief Append a value to the end of the vector
      *
      * @param value The value to append
@@ -197,6 +213,22 @@ StaticVector<T, N>::StaticVector(StaticVector&& copy)
 template<typename T, std::size_t N>
 StaticVector<T, N>::~StaticVector() {
     clear();
+}
+
+template<typename T, std::size_t N>
+StaticVector<T, N>& StaticVector<T, N>::operator=(const StaticVector<T, N>& copy) {
+    clear();
+    used = copy.used;
+    for (std::size_t i = 0; i < used; ++i) { storage[i].emplace(copy.storage[i].get()); }
+    return *this;
+}
+
+template<typename T, std::size_t N>
+StaticVector<T, N>& StaticVector<T, N>::operator=(StaticVector<T, N>&& copy) {
+    clear();
+    used = copy.used;
+    for (std::size_t i = 0; i < used; ++i) { storage[i].emplace(copy.storage[i].getRValue()); }
+    return *this;
 }
 
 template<typename T, std::size_t N>

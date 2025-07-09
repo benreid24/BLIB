@@ -1,4 +1,5 @@
 target_sources(BLIB PRIVATE
+    BlendParameters.cpp
     Buffer.cpp
     CleanupManager.cpp
     CommonSamplers.cpp

@@ -17,7 +17,7 @@ namespace vk
  */
 struct ShaderParameters {
     std::string path;
-    VkShaderStageFlagBits stage;
+    VkShaderStageFlags stage;
     std::string entrypoint;
 
     /**
@@ -32,7 +32,7 @@ struct ShaderParameters {
      * @param stage The stage of the shader module
      * @param entrypoint The main method in the shader
      */
-    ShaderParameters(const std::string& path, VkShaderStageFlagBits stage,
+    ShaderParameters(const std::string& path, VkShaderStageFlags stage,
                      const std::string& entrypoint)
     : path(path)
     , stage(stage)

@@ -3,6 +3,7 @@
 
 #include <BLIB/Containers/StaticVector.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
+#include <BLIB/Render/Vulkan/BlendParameters.hpp>
 #include <BLIB/Render/Vulkan/PipelineLayout.hpp>
 #include <BLIB/Render/Vulkan/PipelineSpecialization.hpp>
 #include <BLIB/Render/Vulkan/ShaderParameters.hpp>
@@ -187,41 +188,12 @@ public:
         VkShaderStageFlags shaderStages = VK_SHADER_STAGE_ALL_GRAPHICS);
 
     /**
-     * @brief Adds an alpha blending config for a color attachment for this pipeline. Blend configs
-     *        are ordered by the order that this method is called in. Defaults to a single blend
-     *        config with standard alpha blending if not overridden.
+     * @brief Configures the attachment blending of the pipeline
      *
-     * @param blendState The blend config to add
-     * @return PipelineParameters& A reference to this object
-     */
-    PipelineParameters& addColorAttachmentBlendState(
-        const VkPipelineColorBlendAttachmentState& blendState);
-
-    /**
-     * @brief Overrides the blend configuration for all color attachments for this pipeline.
-     *        Defaults to disabled
-     *
-     * @param operation The blend operation to use
-     * @param blendConstant0 The R blend constant
-     * @param blendConstant1 The G blend constant
-     * @param blendConstant2 The B blend constant
-     * @param blendConstant3 The A blend constant
-     * @return PipelineParameters& A reference to this object
-     */
-    PipelineParameters& withColorBlendStateConfig(VkLogicOp operation, float blendConstant0,
-                                                  float blendConstant1, float blendConstant2,
-                                                  float blendConstant3);
-
-    /**
-     * @brief Simple way to set common color blend behaviors. Ignored if color blend attachments are
-     *        manually set
-     *
-     * @param blendState The color blend state to use
-     * @param attachmentCount The number of color attachments to apply this blend state to
+     * @param blendConfig The attachment blend states
      * @return A reference to this object
      */
-    PipelineParameters& withSimpleColorBlendState(ColorBlendBehavior blendState,
-                                                  std::uint32_t attachmentCount = 1);
+    PipelineParameters& withBlendConfig(const BlendParameters& blendConfig);
 
     /**
      * @brief Configures depth and stencil testing for this pipeline
@@ -304,16 +276,13 @@ private:
     VkPrimitiveTopology primitiveType;
     VkPipelineRasterizationStateCreateInfo rasterizer;
     VkPipelineMultisampleStateCreateInfo msaa;
-    ColorBlendBehavior colorBlendBehavior;
-    ctr::StaticVector<VkPipelineColorBlendAttachmentState, 4> colorAttachmentBlendStates;
-    VkPipelineColorBlendStateCreateInfo colorBlending;
+    BlendParameters colorBlending;
     VkPipelineDepthStencilStateCreateInfo* depthStencil;
     PipelineSpecialization mainSpecialization;
     std::vector<PipelineSpecialization> specializations;
 
     VkPipelineRasterizationDepthClipStateCreateInfoEXT localDepthClipping;
     VkPipelineDepthStencilStateCreateInfo localDepthStencil;
-    std::uint32_t simpleColorBlendAttachmentCount;
 
     friend class Pipeline;
     friend struct std::hash<PipelineParameters>;

@@ -54,6 +54,7 @@ struct Attenuation {
     float constant;
     float linear;
     float quadratic;
+    float radius;
 };
 
 struct Sunlight {
@@ -113,10 +114,8 @@ layout(set = SCENE_SET_NUMBER, binding = 1) uniform block_light_info {
     PointLight pointLights[MAX_POINT_LIGHTS];
     PointLightCaster pointShadows[MAX_POINT_SHADOWS];
 } lighting;
-layout(set     = SCENE_SET_NUMBER,
-       binding = 2) uniform sampler2DShadow spotShadowMaps[MAX_SPOT_SHADOWS];
-layout(set     = SCENE_SET_NUMBER,
-       binding = 3) uniform samplerCubeShadow pointShadowMaps[MAX_POINT_SHADOWS];
+layout(set = SCENE_SET_NUMBER, binding = 2) uniform sampler2DShadow spotShadowMaps[MAX_SPOT_SHADOWS];
+layout(set = SCENE_SET_NUMBER, binding = 3) uniform samplerCubeShadow pointShadowMaps[MAX_POINT_SHADOWS];
 #endif
 
 #endif

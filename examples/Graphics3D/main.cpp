@@ -262,6 +262,7 @@ private:
         light3Handle.get().getAttenuation().constant  = 0.5f;
         light3Handle.get().getAttenuation().linear    = 0.1f;
         light3Handle.get().getAttenuation().quadratic = 0.05f;
+        light3Handle.get().getAttenuation().updateRadius();
         light3Handle.get().setPosition(light3.getTransform().getPosition() +
                                        light3.getTransform().getForwardDir() * 0.2f);
         light3Handle.get().pointAt(light3PointAt);

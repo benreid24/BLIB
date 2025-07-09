@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_GRAPH_TASKS_DEFERREDCOMPOSITETASK_HPP
 #define BLIB_RENDER_GRAPH_TASKS_DEFERREDCOMPOSITETASK_HPP
 
+#include <BLIB/Graphics/Sphere.hpp>
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
 #include <BLIB/Render/Descriptors/Builtin/InputAttachmentInstance.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene3DInstance.hpp>

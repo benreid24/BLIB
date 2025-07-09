@@ -15,12 +15,10 @@ PipelineParameters::PipelineParameters()
 : primitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
 , rasterizer{}
 , msaa{}
-, colorBlendBehavior(ColorBlendBehavior::AlphaBlend)
 , colorBlending{}
 , depthStencil(nullptr)
 , localDepthClipping{}
-, localDepthStencil{}
-, simpleColorBlendAttachmentCount(1) {
+, localDepthStencil{} {
     rasterizer.sType                   = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
     rasterizer.depthClampEnable        = VK_FALSE;
     rasterizer.rasterizerDiscardEnable = VK_FALSE;
@@ -41,14 +39,6 @@ PipelineParameters::PipelineParameters()
     msaa.alphaToCoverageEnable = VK_FALSE; // Optional
     msaa.alphaToOneEnable      = VK_FALSE; // Optional
 
-    colorBlending.sType             = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
-    colorBlending.logicOpEnable     = VK_FALSE;
-    colorBlending.logicOp           = VK_LOGIC_OP_COPY; // Optional
-    colorBlending.blendConstants[0] = 0.0f;             // Optional
-    colorBlending.blendConstants[1] = 0.0f;             // Optional
-    colorBlending.blendConstants[2] = 0.0f;             // Optional
-    colorBlending.blendConstants[3] = 0.0f;             // Optional
-
     withDynamicStates({VK_DYNAMIC_STATE_SCISSOR, VK_DYNAMIC_STATE_VIEWPORT});
 }
 
@@ -61,14 +51,11 @@ PipelineParameters::PipelineParameters(const PipelineParameters& copy)
 , primitiveType(copy.primitiveType)
 , rasterizer(copy.rasterizer)
 , msaa(copy.msaa)
-, colorAttachmentBlendStates(copy.colorAttachmentBlendStates)
 , colorBlending(copy.colorBlending)
 , depthStencil(&localDepthStencil)
 , specializations(copy.specializations)
 , localDepthClipping(copy.localDepthClipping)
 , localDepthStencil(copy.depthStencil ? *copy.depthStencil : copy.localDepthStencil) {
-    colorBlending.pAttachments    = colorAttachmentBlendStates.data();
-    colorBlending.attachmentCount = colorAttachmentBlendStates.size();
     if (static_cast<const void*>(&copy.localDepthClipping) == copy.rasterizer.pNext) {
         rasterizer.pNext = &localDepthClipping;
     }
@@ -182,30 +169,8 @@ PipelineParameters& PipelineParameters::addPushConstantRange(std::uint32_t offse
     return *this;
 }
 
-PipelineParameters& PipelineParameters::withSimpleColorBlendState(ColorBlendBehavior blend,
-                                                                  std::uint32_t ac) {
-    colorBlendBehavior              = blend;
-    simpleColorBlendAttachmentCount = ac;
-    return *this;
-}
-
-PipelineParameters& PipelineParameters::addColorAttachmentBlendState(
-    const VkPipelineColorBlendAttachmentState& ca) {
-    colorAttachmentBlendStates.emplace_back(ca);
-    return *this;
-}
-
-PipelineParameters& PipelineParameters::withColorBlendStateConfig(VkLogicOp operation,
-                                                                  float blendConstant0,
-                                                                  float blendConstant1,
-                                                                  float blendConstant2,
-                                                                  float blendConstant3) {
-    colorBlending.logicOpEnable     = VK_TRUE;
-    colorBlending.logicOp           = operation;
-    colorBlending.blendConstants[0] = blendConstant0;
-    colorBlending.blendConstants[1] = blendConstant1;
-    colorBlending.blendConstants[2] = blendConstant2;
-    colorBlending.blendConstants[3] = blendConstant3;
+PipelineParameters& PipelineParameters::withBlendConfig(const BlendParameters& blendConfig) {
+    colorBlending = blendConfig;
     return *this;
 }
 
@@ -267,33 +232,6 @@ PipelineParameters&& PipelineParameters::build() {
         withVertexFormat<3>(prim::Vertex::bindingDescription(),
                             prim::Vertex::attributeDescriptions());
     }
-    if (colorAttachmentBlendStates.empty() && colorBlendBehavior != ColorBlendBehavior::None) {
-        for (std::uint32_t i = 0; i < simpleColorBlendAttachmentCount; ++i) {
-            colorAttachmentBlendStates.emplace_back();
-            auto& ca          = colorAttachmentBlendStates.back();
-            ca.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT |
-                                VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
-            ca.blendEnable = VK_TRUE;
-
-            switch (colorBlendBehavior) {
-            case ColorBlendBehavior::Overwrite:
-                ca.blendEnable = VK_FALSE;
-                break;
-
-            case ColorBlendBehavior::AlphaBlend:
-            default:
-                ca.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
-                ca.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
-                ca.colorBlendOp        = VK_BLEND_OP_ADD;
-                ca.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
-                ca.dstAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
-                ca.alphaBlendOp        = VK_BLEND_OP_MAX;
-                break;
-            }
-        }
-    }
-    colorBlending.pAttachments    = colorAttachmentBlendStates.data();
-    colorBlending.attachmentCount = colorAttachmentBlendStates.size();
 
     return std::move(*this);
 }
@@ -346,52 +284,7 @@ bool PipelineParameters::operator==(const PipelineParameters& right) const {
     if (msaa.alphaToCoverageEnable != right.msaa.alphaToCoverageEnable) { return false; }
     if (msaa.alphaToOneEnable != right.msaa.alphaToOneEnable) { return false; }
 
-    if (colorAttachmentBlendStates.size() != right.colorAttachmentBlendStates.size()) {
-        return false;
-    }
-    for (unsigned int i = 0; i < colorAttachmentBlendStates.size(); ++i) {
-        if (colorAttachmentBlendStates[i].blendEnable !=
-            right.colorAttachmentBlendStates[i].blendEnable) {
-            return false;
-        }
-        if (colorAttachmentBlendStates[i].srcColorBlendFactor !=
-            right.colorAttachmentBlendStates[i].srcColorBlendFactor) {
-            return false;
-        }
-        if (colorAttachmentBlendStates[i].dstColorBlendFactor !=
-            right.colorAttachmentBlendStates[i].dstColorBlendFactor) {
-            return false;
-        }
-        if (colorAttachmentBlendStates[i].colorBlendOp !=
-            right.colorAttachmentBlendStates[i].colorBlendOp) {
-            return false;
-        }
-        if (colorAttachmentBlendStates[i].srcAlphaBlendFactor !=
-            right.colorAttachmentBlendStates[i].srcAlphaBlendFactor) {
-            return false;
-        }
-        if (colorAttachmentBlendStates[i].dstAlphaBlendFactor !=
-            right.colorAttachmentBlendStates[i].dstAlphaBlendFactor) {
-            return false;
-        }
-        if (colorAttachmentBlendStates[i].alphaBlendOp !=
-            right.colorAttachmentBlendStates[i].alphaBlendOp) {
-            return false;
-        }
-        if (colorAttachmentBlendStates[i].colorWriteMask !=
-            right.colorAttachmentBlendStates[i].colorWriteMask) {
-            return false;
-        }
-    }
-
-    if (colorBlending.flags != right.colorBlending.flags) { return false; }
-    if (colorBlending.logicOpEnable != right.colorBlending.logicOpEnable) { return false; }
-    if (colorBlending.logicOp != right.colorBlending.logicOp) { return false; }
-    for (unsigned int i = 0; i < 4; ++i) {
-        if (colorBlending.blendConstants[i] != right.colorBlending.blendConstants[i]) {
-            return false;
-        }
-    }
+    if (colorBlending != right.colorBlending) { return false; }
 
     if (depthStencil) {
         if (depthStencil != right.depthStencil) { return false; }

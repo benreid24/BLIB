@@ -64,6 +64,11 @@ VkShaderModule ShaderModuleCache::loadShader(const std::string& path) {
         case cfg::ShaderIds::PointShadowFragment[0]:
             return loadShader(BUILTIN_SHADER("3D/Shadows/pointShadowMap.frag.spv"));
 
+        case cfg::ShaderIds::DeferredLightVolumeVertex[0]:
+            return loadShader(BUILTIN_SHADER("3D/Deferred/light.vert.spv"));
+        case cfg::ShaderIds::DeferredLightVolumeFragment[0]:
+            return loadShader(BUILTIN_SHADER("3D/Deferred/light.frag.spv"));
+
         case cfg::ShaderIds::Vertex2D[0]:
             return loadShader(BUILTIN_SHADER("2D/2d.vert.spv"));
         case cfg::ShaderIds::Fragment2DLit[0]:
@@ -85,8 +90,6 @@ VkShaderModule ShaderModuleCache::loadShader(const std::string& path) {
         case cfg::ShaderIds::SlideshowVert[0]:
             return loadShader(BUILTIN_SHADER("2D/slideshow.vert.spv"));
 
-        case cfg::ShaderIds::DeferredCompositeFragment[0]:
-            return loadShader(BUILTIN_SHADER("3D/Deferred/composite.frag.spv"));
         case cfg::ShaderIds::FadeEffectFragment[0]:
             return loadShader(BUILTIN_SHADER("PostFX/fadeEffect.frag.spv"));
         case cfg::ShaderIds::PostProcess3DFragment[0]:

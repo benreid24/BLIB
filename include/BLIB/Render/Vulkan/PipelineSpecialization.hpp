@@ -2,6 +2,7 @@
 #define BLIB_RENDER_VULKAN_PIPELINESPECIALIZATION_HPP
 
 #include <BLIB/Logging.hpp>
+#include <BLIB/Render/Vulkan/BlendParameters.hpp>
 #include <BLIB/Render/Vulkan/ShaderParameters.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <cstdint>
@@ -14,6 +15,7 @@ namespace rc
 namespace vk
 {
 class Pipeline;
+class PipelineParameters;
 
 /**
  * @brief Parameters for pipeline specializations. Pipeline specializations are basic permutations
@@ -38,7 +40,7 @@ public:
      *
      * @return A reference to this object
      */
-    PipelineSpecialization& createShaderSpecializations(VkShaderStageFlagBits stage,
+    PipelineSpecialization& createShaderSpecializations(VkShaderStageFlags stage,
                                                         std::uint32_t dataSize,
                                                         std::uint32_t specializationCount);
 
@@ -53,7 +55,7 @@ public:
      * @return A reference to this object
      */
     template<typename T>
-    PipelineSpecialization& setShaderSpecializationValue(VkShaderStageFlagBits stage,
+    PipelineSpecialization& setShaderSpecializationValue(VkShaderStageFlags stage,
                                                          std::uint32_t entry, std::uint32_t offset,
                                                          T value);
 
@@ -65,7 +67,7 @@ public:
      * @param entrypoint The entrypoint inside the shader to run
      * @return A reference to this object
      */
-    PipelineSpecialization& withShaderOverride(const std::string& path, VkShaderStageFlagBits stage,
+    PipelineSpecialization& withShaderOverride(const std::string& path, VkShaderStageFlags stage,
                                                const std::string& entrypoint = "main");
 
     /**
@@ -74,7 +76,7 @@ public:
      * @param stage The stage to remove the specialization for
      * @return A reference to this object
      */
-    PipelineSpecialization& removeShaderSpecialization(VkShaderStageFlagBits stage);
+    PipelineSpecialization& removeShaderSpecialization(VkShaderStageFlags stage);
 
     /**
      * @brief Removes all shader specializations
@@ -112,9 +114,22 @@ public:
      */
     PipelineSpecialization& clearDepthStencil();
 
+    /**
+     * @brief Overrides the attachment blending
+     *
+     * @param blendConfig The attachment blend states
+     * @return A reference to this object
+     */
+    PipelineSpecialization& withBlendConfig(const BlendParameters& blendConfig);
+
+    /**
+     * @brief Removes any override for attachment blending
+     */
+    PipelineSpecialization& clearBlendConfig();
+
 private:
     struct ShaderSpecialization {
-        VkShaderStageFlagBits stage;
+        VkShaderStageFlags stage;
         std::vector<char> storage;
         std::vector<VkSpecializationMapEntry> entries;
     };
@@ -123,15 +138,18 @@ private:
     std::vector<ShaderSpecialization> shaderSpecializations;
     bool depthStencilSpecialized;
     VkPipelineDepthStencilStateCreateInfo depthStencil;
+    bool attachmentBlendingSpecialized;
+    BlendParameters attachmentBlending;
 
     friend class Pipeline;
+    friend class PipelineParameters;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>
 PipelineSpecialization& PipelineSpecialization::setShaderSpecializationValue(
-    VkShaderStageFlagBits stage, std::uint32_t entry, std::uint32_t offset, T value) {
+    VkShaderStageFlags stage, std::uint32_t entry, std::uint32_t offset, T value) {
     for (auto& spec : shaderSpecializations) {
         if (spec.stage == stage) {
             if (offset + sizeof(T) > spec.storage.size()) {

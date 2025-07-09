@@ -11,7 +11,7 @@ PipelineSpecialization::PipelineSpecialization()
 , depthStencil{} {}
 
 PipelineSpecialization& PipelineSpecialization::createShaderSpecializations(
-    VkShaderStageFlagBits stage, std::uint32_t dataSize, std::uint32_t specializationCount) {
+    VkShaderStageFlags stage, std::uint32_t dataSize, std::uint32_t specializationCount) {
     for (const auto& spec : shaderSpecializations) {
         if (spec.stage == stage) {
             BL_LOG_ERROR << "Shader specialization for stage already exists";
@@ -27,14 +27,14 @@ PipelineSpecialization& PipelineSpecialization::createShaderSpecializations(
 }
 
 PipelineSpecialization& PipelineSpecialization::withShaderOverride(const std::string& path,
-                                                                   VkShaderStageFlagBits stage,
+                                                                   VkShaderStageFlags stage,
                                                                    const std::string& entrypoint) {
     shaderOverrides.emplace_back(path, stage, entrypoint);
     return *this;
 }
 
 PipelineSpecialization& PipelineSpecialization::removeShaderSpecialization(
-    VkShaderStageFlagBits stage) {
+    VkShaderStageFlags stage) {
     for (auto it = shaderSpecializations.begin(); it != shaderSpecializations.end(); ++it) {
         if (it->stage == stage) {
             shaderSpecializations.erase(it);
@@ -85,6 +85,18 @@ PipelineSpecialization& PipelineSpecialization::withSimpleDepthStencil(bool dept
 
 PipelineSpecialization& PipelineSpecialization::clearDepthStencil() {
     depthStencilSpecialized = false;
+    return *this;
+}
+
+PipelineSpecialization& PipelineSpecialization::withBlendConfig(
+    const BlendParameters& blendConfig) {
+    attachmentBlendingSpecialized = true;
+    attachmentBlending            = blendConfig;
+    return *this;
+}
+
+PipelineSpecialization& PipelineSpecialization::clearBlendConfig() {
+    attachmentBlendingSpecialized = false;
     return *this;
 }
 

@@ -6,4 +6,6 @@ target_sources(BLIB PUBLIC
 	RenderPassIds.hpp
 	RenderPhases.hpp
 	ShaderIds.hpp
+	SpecializationsLightVolumes.hpp
+	Specializations3D.hpp
 )

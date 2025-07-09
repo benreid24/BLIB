@@ -34,7 +34,7 @@ void DeferredCompositeTask::create(engine::Engine&, Renderer& r, Scene* s) {
     scene    = s;
 
     // fetch pipeline
-    pipeline = &renderer->pipelineCache().getPipeline(cfg::PipelineIds::DeferredComposite);
+    pipeline = &renderer->pipelineCache().getPipeline(cfg::PipelineIds::DeferredLightVolume);
 
     // create index buffer
     indexBuffer.create(r.vulkanState(), 4, 6);
@@ -44,6 +44,8 @@ void DeferredCompositeTask::create(engine::Engine&, Renderer& r, Scene* s) {
                               prim::Vertex({1.f, 1.f, 1.0f}, {1.f, 1.f}),
                               prim::Vertex({-1.f, 1.f, 1.0f}, {0.f, 1.f})};
     indexBuffer.queueTransfer(tfr::Transferable::SyncRequirement::Immediate);
+
+    // TODO - create unit sphere
 }
 
 void DeferredCompositeTask::onGraphInit() {
@@ -74,6 +76,8 @@ void DeferredCompositeTask::execute(const rg::ExecutionContext& ctx, rg::Asset* 
     sceneDescriptor->bind(
         ctx.commandBuffer, pipeline->pipelineLayout().rawLayout(), 1, ctx.observerIndex);
     indexBuffer.bindAndDraw(ctx.commandBuffer);
+
+    // TODO - issue draw commands for other lights
 }
 
 } // namespace rgi

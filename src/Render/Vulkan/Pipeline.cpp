@@ -48,6 +48,11 @@ void Pipeline::createForRenderPass(std::uint32_t rpid, std::uint32_t spec) {
         BL_LOG_ERROR << "Pipeline being used with invalid specialization: " << spec;
     }
 
+    BlendParameters& colorBlending = specialization.attachmentBlendingSpecialized ?
+                                         specialization.attachmentBlending :
+                                         createParams.colorBlending;
+    colorBlending.build();
+
     const auto findShaderSrc =
         [&specialization](const ShaderParameters& src) -> const ShaderParameters& {
         for (const auto& shader : specialization.shaderOverrides) {
@@ -63,7 +68,7 @@ void Pipeline::createForRenderPass(std::uint32_t rpid, std::uint32_t spec) {
         const auto& shader = findShaderSrc(shaderSrc);
         auto& info         = shaderStages.emplace_back(VkPipelineShaderStageCreateInfo{});
         info.sType         = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
-        info.stage         = shader.stage;
+        info.stage         = static_cast<VkShaderStageFlagBits>(shader.stage);
         info.module        = renderer.vulkanState().shaderCache.loadShader(shader.path);
         info.pName         = shader.entrypoint.c_str();
 
@@ -118,7 +123,7 @@ void Pipeline::createForRenderPass(std::uint32_t rpid, std::uint32_t spec) {
     pipelineInfo.pDepthStencilState  = specialization.depthStencilSpecialized ?
                                            &specialization.depthStencil :
                                            createParams.depthStencil;
-    pipelineInfo.pColorBlendState    = &createParams.colorBlending;
+    pipelineInfo.pColorBlendState    = &colorBlending.colorBlending;
     pipelineInfo.pDynamicState       = &dynamicState;
     pipelineInfo.layout              = layout->rawLayout();
     pipelineInfo.subpass             = 0;              // TODO - consider dynamic subpass if needed

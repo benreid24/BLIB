@@ -1,6 +1,7 @@
 target_sources(BLIB PUBLIC
     AttachmentBufferSet.hpp
     AttachmentSet.hpp
+    BlendParameters.hpp
     Buffer.hpp
     CleanupManager.hpp
     CommonSamplers.hpp

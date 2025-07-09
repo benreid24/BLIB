@@ -36,24 +36,26 @@ struct ShaderIds {
     static constexpr char Outline3DVertexSkinned[] = {12, 0};
     static constexpr char Outline3DFragment[]      = {13, 0};
 
-    static constexpr char Vertex2D[]        = {14, 0};
-    static constexpr char Fragment2DLit[]   = {15, 0};
-    static constexpr char Fragment2DUnlit[] = {16, 0};
+    static constexpr char DeferredLightVolumeVertex[]   = {14, 0};
+    static constexpr char DeferredLightVolumeFragment[] = {15, 0};
 
-    static constexpr char Vertex2DSkinned[]           = {17, 0};
-    static constexpr char Fragment2DSkinnedUnlit[]    = {18, 0};
-    static constexpr char Fragment2DSkinnedLit[]      = {19, 0};
-    static constexpr char Fragment2DRotatedParticle[] = {20, 0};
+    static constexpr char Vertex2D[]        = {16, 0};
+    static constexpr char Fragment2DLit[]   = {17, 0};
+    static constexpr char Fragment2DUnlit[] = {18, 0};
 
-    static constexpr char TextFragment[]  = {21, 0};
-    static constexpr char SlideshowVert[] = {22, 0};
+    static constexpr char Vertex2DSkinned[]           = {19, 0};
+    static constexpr char Fragment2DSkinnedUnlit[]    = {20, 0};
+    static constexpr char Fragment2DSkinnedLit[]      = {21, 0};
+    static constexpr char Fragment2DRotatedParticle[] = {22, 0};
 
-    static constexpr char ShadowVertex[]        = {23, 0};
-    static constexpr char PointShadowVertex[]   = {24, 0};
-    static constexpr char PointShadowGeometry[] = {25, 0};
-    static constexpr char PointShadowFragment[] = {26, 0};
+    static constexpr char TextFragment[]  = {23, 0};
+    static constexpr char SlideshowVert[] = {24, 0};
 
-    static constexpr char DeferredCompositeFragment[]    = {123, 0};
+    static constexpr char ShadowVertex[]        = {25, 0};
+    static constexpr char PointShadowVertex[]   = {26, 0};
+    static constexpr char PointShadowGeometry[] = {27, 0};
+    static constexpr char PointShadowFragment[] = {28, 0};
+
     static constexpr char BloomBlurFragment[]            = {124, 0};
     static constexpr char BloomHighlightFilterFragment[] = {125, 0};
     static constexpr char PostProcess3DFragment[]        = {126, 0};
