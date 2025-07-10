@@ -19,6 +19,7 @@ namespace rc
 Renderer::Renderer(engine::Engine& engine, engine::EngineWindow& window)
 : engine(engine)
 , window(window)
+, settings(*this)
 , state(window)
 , globalDescriptors(*this, textures, materials)
 , textures(state)

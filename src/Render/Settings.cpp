@@ -1,5 +1,7 @@
 #include <BLIB/Render/Settings.hpp>
 
+#include <BLIB/Events.hpp>
+#include <BLIB/Render/Events/SettingsChanged.hpp>
 #include <algorithm>
 #include <stdexcept>
 
@@ -17,10 +19,15 @@ constexpr VkExtent2D DefaultShadowMapResolution         = {1024, 1024};
 constexpr float DefaultShadowMapDepthBiasConstantFactor = 1.25f;
 constexpr float DefaultShadowMapDepthBiasSlopeFactor    = 1.75f;
 constexpr float DefaultShadowMapDepthBiasClamp          = 0.f;
+constexpr Settings::AntiAliasing DefaultAntiAliasing    = Settings::AntiAliasing::None;
+
+using Changed = event::SettingsChanged;
+using Setting = Changed::Setting;
 } // namespace
 
-Settings::Settings()
-: gamma(DefaultGamma)
+Settings::Settings(Renderer& owner)
+: owner(owner)
+, gamma(DefaultGamma)
 , exposure(1.f)
 , bloomThreshold(DefaultBloomThreshold)
 , bloomPasses(DefaultBloomPassCount)
@@ -29,6 +36,7 @@ Settings::Settings()
 , shadowMapDepthBiasConstantFactor(DefaultShadowMapDepthBiasConstantFactor)
 , shadowMapDepthBiasSlopeFactor(DefaultShadowMapDepthBiasSlopeFactor)
 , shadowMapDepthBiasClamp(DefaultShadowMapDepthBiasClamp)
+, antiAliasing(DefaultAntiAliasing)
 , dirty(true) {
     for (unsigned int i = 0; i < std::size(DefaultBloomFilters); ++i) {
         bloomFilters[i] = DefaultBloomFilters[i];
@@ -38,18 +46,21 @@ Settings::Settings()
 Settings& Settings::setGamma(float g) {
     gamma = g;
     dirty = true;
+    bl::event::Dispatcher::dispatch<Changed>({owner, *this, Setting::Gamma});
     return *this;
 }
 
 Settings& Settings::setExposureFactor(float e) {
     exposure = e;
     dirty    = true;
+    bl::event::Dispatcher::dispatch<Changed>({owner, *this, Setting::ExposureFactor});
     return *this;
 }
 
 Settings& Settings::setBloomHighlightThreshold(float h) {
     bloomThreshold = h;
     dirty          = true;
+    bl::event::Dispatcher::dispatch<Changed>({owner, *this, Setting::BloomHighlightThreshold});
     return *this;
 }
 
@@ -59,18 +70,21 @@ Settings& Settings::setBloomFilters(std::initializer_list<float> filters) {
     }
     std::copy(filters.begin(), filters.end(), bloomFilters.begin());
     dirty = true;
+    bl::event::Dispatcher::dispatch<Changed>({owner, *this, Setting::BloomFilters});
     return *this;
 }
 
 Settings& Settings::setBloomPassCount(std::uint32_t pc) {
     bloomPasses = pc;
     dirty       = true;
+    bl::event::Dispatcher::dispatch<Changed>({owner, *this, Setting::BloomPassCount});
     return *this;
 }
 
 Settings& Settings::setShadowMapResolution(const VkExtent2D& res) {
     shadowMapResolution = res;
     dirty               = true;
+    bl::event::Dispatcher::dispatch<Changed>({owner, *this, Setting::ShadowMapResolution});
     return *this;
 }
 
@@ -78,6 +92,14 @@ Settings& Settings::setShadowMapDepthBias(float constantFactor, float slopeFacto
     shadowMapDepthBiasConstantFactor = constantFactor;
     shadowMapDepthBiasSlopeFactor    = slopeFactor;
     shadowMapDepthBiasClamp          = clamp;
+    bl::event::Dispatcher::dispatch<Changed>({owner, *this, Setting::ShadowMapDepthBias});
+    return *this;
+}
+
+Settings& Settings::setAntiAliasing(AntiAliasing aa) {
+    antiAliasing = aa;
+    dirty        = true;
+    bl::event::Dispatcher::dispatch<Changed>({owner, *this, Setting::AntiAliasing});
     return *this;
 }
 

@@ -1,8 +1,10 @@
 #ifndef BLIB_RENDER_VULKAN_PIPELINE_HPP
 #define BLIB_RENDER_VULKAN_PIPELINE_HPP
 
+#include <BLIB/Events.hpp>
 #include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
+#include <BLIB/Render/Events/SettingsChanged.hpp>
 #include <BLIB/Render/Vulkan/PipelineLayout.hpp>
 #include <BLIB/Render/Vulkan/PipelineParameters.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
@@ -27,7 +29,7 @@ namespace vk
  *
  * @ingroup Renderer
  */
-class Pipeline {
+class Pipeline : public bl::event::Listener<event::SettingsChanged> {
 public:
     /**
      * @brief Construct a new Pipeline
@@ -90,6 +92,8 @@ private:
     PipelineParameters createParams;
 
     void createForRenderPass(std::uint32_t rpid, std::uint32_t spec);
+
+    virtual void observe(const event::SettingsChanged& event) override;
 
     friend class PipelineCache;
 };

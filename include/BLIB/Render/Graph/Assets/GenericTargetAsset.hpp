@@ -108,7 +108,7 @@ public:
     /**
      * @brief Returns the images that are rendered to
      */
-    vk::PerFrame<vk::AttachmentBufferSet<AttachmentCount>>& getImages() { return images; }
+    vk::AttachmentBufferSet<AttachmentCount>& getImages() { return images; }
 
 private:
     const TargetSize size;

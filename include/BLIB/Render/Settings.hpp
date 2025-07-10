@@ -20,10 +20,15 @@ class Settings {
 public:
     static constexpr std::uint32_t MaxBloomFilterSize = 20;
 
+    /// The anti-aliasing modes supported by the renderer
+    enum struct AntiAliasing { None, MSAA2x, MSAA4x, MSAA8x, MSAA16x, MSAA32x, MSAA64x };
+
     /**
      * @brief Initializes the settings to sane defaults
+     *
+     * @param owner The renderer that owns these settings
      */
-    Settings();
+    Settings(Renderer& owner);
 
     /**
      * @brief Returns the gamma value to use for rendering
@@ -132,7 +137,21 @@ public:
      */
     float getShadowMapDepthBiasClamp() const;
 
+    /**
+     * @brief Returns the anti-aliasing mode used by the renderer
+     */
+    AntiAliasing getAntiAliasing() const;
+
+    /**
+     * @brief Sets the anti-aliasing mode used by the renderer
+     *
+     * @param aa The anti-aliasing mode to use
+     * @return A reference to this object
+     */
+    Settings& setAntiAliasing(AntiAliasing aa);
+
 private:
+    Renderer& owner;
     float gamma;
     float exposure;
     float bloomThreshold;
@@ -143,6 +162,7 @@ private:
     float shadowMapDepthBiasConstantFactor;
     float shadowMapDepthBiasSlopeFactor;
     float shadowMapDepthBiasClamp;
+    AntiAliasing antiAliasing;
     bool dirty;
 
     friend class Renderer;
@@ -175,6 +195,8 @@ inline float Settings::getShadowMapDepthBiasSlopeFactor() const {
 }
 
 inline float Settings::getShadowMapDepthBiasClamp() const { return shadowMapDepthBiasClamp; }
+
+inline Settings::AntiAliasing Settings::getAntiAliasing() const { return antiAliasing; }
 
 } // namespace rc
 } // namespace bl

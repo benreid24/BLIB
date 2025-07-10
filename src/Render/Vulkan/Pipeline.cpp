@@ -14,6 +14,7 @@ Pipeline::Pipeline(Renderer& renderer, std::uint32_t id, PipelineParameters&& pa
 , createParams(params) {
     layout = renderer.pipelineLayoutCache().getLayout(std::move(params.layoutParams));
     for (auto& set : pipelines) { set.fill(nullptr); }
+    bl::event::Dispatcher::subscribe(this);
 }
 
 Pipeline::~Pipeline() {
@@ -48,10 +49,43 @@ void Pipeline::createForRenderPass(std::uint32_t rpid, std::uint32_t spec) {
         BL_LOG_ERROR << "Pipeline being used with invalid specialization: " << spec;
     }
 
+    // configure color blending
     BlendParameters& colorBlending = specialization.attachmentBlendingSpecialized ?
                                          specialization.attachmentBlending :
                                          createParams.colorBlending;
     colorBlending.build();
+
+    // configure msaa
+    if (createParams.msaaBehavior == PipelineParameters::MSAABehavior::UseSettings) {
+        using AA = Settings::AntiAliasing;
+        switch (renderer.getSettings().getAntiAliasing()) {
+        case AA::None:
+            createParams.msaa.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;
+            break;
+        case AA::MSAA2x:
+            createParams.msaa.rasterizationSamples = VK_SAMPLE_COUNT_2_BIT;
+            break;
+        case AA::MSAA4x:
+            createParams.msaa.rasterizationSamples = VK_SAMPLE_COUNT_4_BIT;
+            break;
+        case AA::MSAA8x:
+            createParams.msaa.rasterizationSamples = VK_SAMPLE_COUNT_8_BIT;
+            break;
+        case AA::MSAA16x:
+            createParams.msaa.rasterizationSamples = VK_SAMPLE_COUNT_16_BIT;
+            break;
+        case AA::MSAA32x:
+            createParams.msaa.rasterizationSamples = VK_SAMPLE_COUNT_32_BIT;
+            break;
+        case AA::MSAA64x:
+            createParams.msaa.rasterizationSamples = VK_SAMPLE_COUNT_64_BIT;
+            break;
+        default:
+            BL_LOG_ERROR << "Invalid MSAA setting: " << renderer.getSettings().getAntiAliasing();
+            createParams.msaa.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;
+            break;
+        }
+    }
 
     const auto findShaderSrc =
         [&specialization](const ShaderParameters& src) -> const ShaderParameters& {
@@ -138,6 +172,24 @@ void Pipeline::createForRenderPass(std::uint32_t rpid, std::uint32_t spec) {
                                   nullptr,
                                   &pipelines[spec][rpid]) != VK_SUCCESS) {
         throw std::runtime_error("Failed to create graphics pipeline");
+    }
+}
+
+void Pipeline::observe(const event::SettingsChanged& event) {
+    if (event.setting == event::SettingsChanged::Setting::AntiAliasing &&
+        createParams.msaaBehavior == PipelineParameters::MSAABehavior::UseSettings) {
+        for (std::uint32_t rpid = 0; rpid < pipelines.size(); ++rpid) {
+            for (std::uint32_t spec = 0; spec < pipelines[rpid].size(); ++spec) {
+                if (pipelines[spec][rpid]) {
+                    renderer.vulkanState().cleanupManager.add(
+                        [device   = renderer.vulkanState().device,
+                         pipeline = pipelines[spec][rpid]]() {
+                            vkDestroyPipeline(device, pipeline, nullptr);
+                        });
+                    createForRenderPass(rpid, spec);
+                }
+            }
+        }
     }
 }
 

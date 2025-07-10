@@ -33,9 +33,14 @@ class Pipeline;
  */
 class PipelineParameters {
 public:
-    /// Defines the basic color blend behaviors if no specific blend state is provided. Default is
-    /// AlphaBlend
-    enum struct ColorBlendBehavior { None, AlphaBlend, Overwrite };
+    /// Controls the MSAA behavior of the pipeline
+    enum struct MSAABehavior {
+        /// MSAA is disabled always for this pipeline
+        Disabled,
+
+        /// MSAA is enabled or disabled based on the renderer settings
+        UseSettings
+    };
 
     /**
      * @brief Creates the parameters using sane defaults
@@ -134,10 +139,19 @@ public:
     /**
      * @brief Configures MSAA for this pipeline. MSAA is disabled by default
      *
-     * @param msaaParams The MSAA parameters
+     * @param behavior The MSAA behavior to use
      * @return PipelineParameters& A reference to this object
      */
-    PipelineParameters& withMSAA(const VkPipelineMultisampleStateCreateInfo& msaaParams);
+    PipelineParameters& withMSAABehavior(MSAABehavior behavior);
+
+    /**
+     * @brief Configures sample shading for this pipeline. Sample shading is disabled by default
+     *
+     * @param enabled Whether sample shading is enabled
+     * @param minSampleShading The ratio of samples that must be shaded
+     * @return A reference to this object
+     */
+    PipelineParameters& withSampleShading(bool enabled, float minSampleShading = 0.0f);
 
     /**
      * @brief Adds a descriptor set factory to the pipeline. The factory is allocated here and then
@@ -275,9 +289,10 @@ private:
     ctr::StaticVector<VkVertexInputAttributeDescription, 8> vertexAttributes;
     VkPrimitiveTopology primitiveType;
     VkPipelineRasterizationStateCreateInfo rasterizer;
-    VkPipelineMultisampleStateCreateInfo msaa;
     BlendParameters colorBlending;
     VkPipelineDepthStencilStateCreateInfo* depthStencil;
+    VkPipelineMultisampleStateCreateInfo msaa;
+    MSAABehavior msaaBehavior;
     PipelineSpecialization mainSpecialization;
     std::vector<PipelineSpecialization> specializations;
 

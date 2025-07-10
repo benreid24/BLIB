@@ -14,9 +14,10 @@ namespace vk
 PipelineParameters::PipelineParameters()
 : primitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
 , rasterizer{}
-, msaa{}
 , colorBlending{}
 , depthStencil(nullptr)
+, msaa{}
+, msaaBehavior(MSAABehavior::Disabled)
 , localDepthClipping{}
 , localDepthStencil{} {
     rasterizer.sType                   = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
@@ -27,17 +28,17 @@ PipelineParameters::PipelineParameters()
     rasterizer.cullMode                = VK_CULL_MODE_NONE;
     rasterizer.frontFace               = VK_FRONT_FACE_COUNTER_CLOCKWISE;
     rasterizer.depthBiasEnable         = VK_FALSE;
-    rasterizer.depthBiasConstantFactor = 0.0f; // Optional
-    rasterizer.depthBiasClamp          = 0.0f; // Optional
-    rasterizer.depthBiasSlopeFactor    = 0.0f; // Optional
+    rasterizer.depthBiasConstantFactor = 0.0f;
+    rasterizer.depthBiasClamp          = 0.0f;
+    rasterizer.depthBiasSlopeFactor    = 0.0f;
 
     msaa.sType                 = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
     msaa.sampleShadingEnable   = VK_FALSE;
     msaa.rasterizationSamples  = VK_SAMPLE_COUNT_1_BIT;
-    msaa.minSampleShading      = 1.0f;     // Optional
-    msaa.pSampleMask           = nullptr;  // Optional
-    msaa.alphaToCoverageEnable = VK_FALSE; // Optional
-    msaa.alphaToOneEnable      = VK_FALSE; // Optional
+    msaa.minSampleShading      = 0.0f;
+    msaa.pSampleMask           = nullptr;
+    msaa.alphaToCoverageEnable = VK_FALSE;
+    msaa.alphaToOneEnable      = VK_FALSE;
 
     withDynamicStates({VK_DYNAMIC_STATE_SCISSOR, VK_DYNAMIC_STATE_VIEWPORT});
 }
@@ -137,8 +138,14 @@ PipelineParameters& PipelineParameters::withEnableDepthClipping() {
     return *this;
 }
 
-PipelineParameters& PipelineParameters::withMSAA(const VkPipelineMultisampleStateCreateInfo& m) {
-    msaa = m;
+PipelineParameters& PipelineParameters::withMSAABehavior(MSAABehavior b) {
+    msaaBehavior = b;
+    return *this;
+}
+
+PipelineParameters& PipelineParameters::withSampleShading(bool enabled, float minSampleShading) {
+    msaa.sampleShadingEnable = enabled ? VK_TRUE : VK_FALSE;
+    msaa.minSampleShading    = minSampleShading;
     return *this;
 }
 
