@@ -103,5 +103,9 @@ Settings& Settings::setAntiAliasing(AntiAliasing aa) {
     return *this;
 }
 
+VkSampleCountFlagBits Settings::getMSAASampleCount() const {
+    return static_cast<VkSampleCountFlagBits>(antiAliasing);
+}
+
 } // namespace rc
 } // namespace bl

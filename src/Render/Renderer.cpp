@@ -9,6 +9,7 @@
 #include <BLIB/Render/Graph/Providers/GBufferProviders.hpp>
 #include <BLIB/Render/Graph/Providers/GenericTargetProvider.hpp>
 #include <BLIB/Render/Graph/Providers/SimpleAssetProvider.hpp>
+#include <BLIB/Render/Graph/Providers/StandardTargetProvider.hpp>
 #include <BLIB/Systems.hpp>
 #include <cmath>
 
@@ -75,10 +76,20 @@ void Renderer::initialize() {
     const VkFormat vecFormat                      = vulkanState().findHighPrecisionFormat();
     assetFactory.addProvider<rgi::SimpleAssetProvider<rgi::DepthBuffer>>(
         rg::AssetTags::DepthBuffer);
-    assetFactory.addProvider<rgi::SimpleAssetProvider<rgi::LDRStandardTargetAsset>>(
-        {rg::AssetTags::RenderedSceneOutput, rg::AssetTags::PostFXOutput});
-    assetFactory.addProvider<rgi::SimpleAssetProvider<rgi::HDRStandardTargetAsset>>(
-        rg::AssetTags::RenderedSceneOutputHDR);
+    assetFactory.addProvider<rgi::StandardTargetProvider>(
+        {rg::AssetTags::RenderedSceneOutput, rg::AssetTags::PostFXOutput},
+        rgi::TargetSize(rgi::TargetSize::ObserverSize),
+        std::array<VkFormat, 1>{vk::TextureFormat::SRGBA32Bit},
+        std::array<VkImageUsageFlags, 1>{VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT |
+                                         VK_IMAGE_USAGE_SAMPLED_BIT},
+        std::array<VkClearValue, 1>{VkClearValue{.color = Black}});
+    assetFactory.addProvider<rgi::StandardTargetProvider>(
+        rg::AssetTags::RenderedSceneOutputHDR,
+        rgi::TargetSize(rgi::TargetSize::ObserverSize),
+        std::array<VkFormat, 1>{vk::TextureFormat::SRGBA32Bit},
+        std::array<VkImageUsageFlags, 1>{VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT |
+                                         VK_IMAGE_USAGE_SAMPLED_BIT},
+        std::array<VkClearValue, 1>{VkClearValue{.color = Black}});
     assetFactory.addProvider<rgi::BloomColorAttachmentPairProvider>(
         rg::AssetTags::BloomColorAttachmentPair,
         rgi::TargetSize(rgi::TargetSize::ObserverSize),

@@ -21,7 +21,15 @@ public:
     static constexpr std::uint32_t MaxBloomFilterSize = 20;
 
     /// The anti-aliasing modes supported by the renderer
-    enum struct AntiAliasing { None, MSAA2x, MSAA4x, MSAA8x, MSAA16x, MSAA32x, MSAA64x };
+    enum struct AntiAliasing {
+        None    = VK_SAMPLE_COUNT_1_BIT,
+        MSAA2x  = VK_SAMPLE_COUNT_2_BIT,
+        MSAA4x  = VK_SAMPLE_COUNT_4_BIT,
+        MSAA8x  = VK_SAMPLE_COUNT_8_BIT,
+        MSAA16x = VK_SAMPLE_COUNT_16_BIT,
+        MSAA32x = VK_SAMPLE_COUNT_32_BIT,
+        MSAA64x = VK_SAMPLE_COUNT_64_BIT
+    };
 
     /**
      * @brief Initializes the settings to sane defaults
@@ -149,6 +157,11 @@ public:
      * @return A reference to this object
      */
     Settings& setAntiAliasing(AntiAliasing aa);
+
+    /**
+     * @brief Returns the sample count used for MSAA
+     */
+    VkSampleCountFlagBits getMSAASampleCount() const;
 
 private:
     Renderer& owner;

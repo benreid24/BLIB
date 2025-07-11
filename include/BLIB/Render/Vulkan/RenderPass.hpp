@@ -1,6 +1,8 @@
 #ifndef BLIB_RENDER_VULKAN_RENDERPASS_HPP
 #define BLIB_RENDER_VULKAN_RENDERPASS_HPP
 
+#include <BLIB/Events.hpp>
+#include <BLIB/Render/Events/SettingsChanged.hpp>
 #include <BLIB/Render/Vulkan/RenderPassParameters.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 
@@ -8,6 +10,7 @@ namespace bl
 {
 namespace rc
 {
+class Renderer;
 namespace vk
 {
 /**
@@ -16,7 +19,7 @@ namespace vk
  *
  * @ingroup Renderer
  */
-class RenderPass {
+class RenderPass : public bl::event::Listener<event::SettingsChanged> {
 public:
     /**
      * @brief Construct a new Render Pass
@@ -25,7 +28,7 @@ public:
      * @param vulkanState The renderer Vulkan state
      * @param params The parameters to create the pass with
      */
-    RenderPass(std::uint32_t id, VulkanState& vulkanState, RenderPassParameters&& params);
+    RenderPass(std::uint32_t id, Renderer& renderer, RenderPassParameters&& params);
 
     /**
      * @brief Destroy the Render Pass object
@@ -43,10 +46,19 @@ public:
      */
     std::uint32_t getId() const;
 
+    /**
+     * @brief Returns the parameters the pass was created with
+     */
+    const RenderPassParameters& getCreateParams() const { return createParams; }
+
 private:
     const std::uint32_t id;
-    VulkanState& vulkanState;
+    Renderer& renderer;
+    RenderPassParameters createParams;
     VkRenderPass renderPass;
+
+    virtual void observe(const event::SettingsChanged& e) override;
+    void doCreate();
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

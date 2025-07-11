@@ -1,5 +1,6 @@
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 
+#include <BLIB/Render/Vulkan/RenderPass.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 
 namespace bl
@@ -19,7 +20,7 @@ Framebuffer::~Framebuffer() {
     if (renderPass) { deferCleanup(); }
 }
 
-void Framebuffer::create(VulkanState& vs, VkRenderPass rp, const AttachmentSet& frame) {
+void Framebuffer::create(VulkanState& vs, RenderPass* rp, const AttachmentSet& frame) {
     vulkanState = &vs;
 
     // cleanup and block if recreating
@@ -33,7 +34,7 @@ void Framebuffer::create(VulkanState& vs, VkRenderPass rp, const AttachmentSet& 
     // create framebuffer
     VkFramebufferCreateInfo framebufferInfo{};
     framebufferInfo.sType           = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
-    framebufferInfo.renderPass      = renderPass;
+    framebufferInfo.renderPass      = renderPass->rawPass();
     framebufferInfo.attachmentCount = frame.size();
     framebufferInfo.pAttachments    = frame.imageViews();
     framebufferInfo.width           = frame.renderExtent().width;
@@ -63,7 +64,7 @@ void Framebuffer::beginRender(VkCommandBuffer commandBuffer, const VkRect2D& reg
         // begin render pass
         VkRenderPassBeginInfo renderPassInfo{};
         renderPassInfo.sType           = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-        renderPassInfo.renderPass      = rpo != nullptr ? rpo : renderPass;
+        renderPassInfo.renderPass      = rpo != nullptr ? rpo : renderPass->rawPass();
         renderPassInfo.framebuffer     = framebuffer;
         renderPassInfo.renderArea      = region;
         renderPassInfo.clearValueCount = clearColorCount;

@@ -20,12 +20,13 @@ namespace rgi
  * @ingroup Renderer
  */
 template<std::uint32_t RenderPassId, std::uint32_t AttachmentCount,
-         RenderPassBehavior RenderPassMode, DepthAttachmentType DepthAttachment>
+         RenderPassBehavior RenderPassMode, DepthAttachmentType DepthAttachment,
+         MSAABehavior MSAA = MSAABehavior::Disabled>
 class GenericTargetProvider : public rg::AssetProvider {
 public:
     using TAsset =
-        GenericTargetAsset<RenderPassId, AttachmentCount, RenderPassMode, DepthAttachment>;
-    static constexpr std::uint32_t TotalAttachmentCount = TAsset::TotalAttachmentCount;
+        GenericTargetAsset<RenderPassId, AttachmentCount, RenderPassMode, DepthAttachment, MSAA>;
+    static constexpr std::uint32_t RenderedAttachmentCount = TAsset::RenderedAttachmentCount;
 
     /**
      * @brief Creates the provider
@@ -36,7 +37,7 @@ public:
     GenericTargetProvider(const TargetSize& size,
                           const std::array<VkFormat, AttachmentCount>& imageFormats,
                           const std::array<VkImageUsageFlags, AttachmentCount>& imageUsages,
-                          const std::array<VkClearValue, TotalAttachmentCount>& clearColors)
+                          const std::array<VkClearValue, RenderedAttachmentCount>& clearColors)
     : size(size)
     , imageFormats(imageFormats)
     , imageUsages(imageUsages)
@@ -56,7 +57,7 @@ private:
     const TargetSize size;
     std::array<VkFormat, AttachmentCount> imageFormats;
     std::array<VkImageUsageFlags, AttachmentCount> imageUsages;
-    std::array<VkClearValue, TotalAttachmentCount> clearColors;
+    std::array<VkClearValue, RenderedAttachmentCount> clearColors;
 };
 
 } // namespace rgi

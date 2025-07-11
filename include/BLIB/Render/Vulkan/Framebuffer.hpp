@@ -13,6 +13,7 @@ namespace vk
 {
 struct VulkanState;
 class Swapchain;
+class RenderPass;
 
 /**
  * @brief Utility struct that wraps a Vulkan framebuffer.
@@ -40,7 +41,7 @@ public:
      * @param renderPass The render pass that will be used with the frame buffer
      * @param target The frame to render to
      */
-    void create(VulkanState& vulkanState, VkRenderPass renderPass, const vk::AttachmentSet& target);
+    void create(VulkanState& vulkanState, RenderPass* renderPass, const vk::AttachmentSet& target);
 
     /**
      * @brief Recreates the framebuffer if the underlying target has changed
@@ -90,7 +91,7 @@ public:
 
 private:
     VulkanState* vulkanState;
-    VkRenderPass renderPass;
+    RenderPass* renderPass;
     const vk::AttachmentSet* target;
     VkFramebuffer framebuffer;
     VkImageView cachedAttachment;

@@ -47,13 +47,15 @@ public:
      * @param allocFlags Memory allocation flags to use
      * @param extraCreateFlags Extra image creation flags to use
      * @param viewAspect The aspect to use for view creation
+     * @param samples The sample count to use for the image
      */
     void create(VulkanState& vulkanState, Type type, VkFormat format, VkImageUsageFlags usage,
                 const VkExtent2D& extent, VkImageAspectFlags aspect,
                 VmaAllocationCreateFlags allocFlags  = 0,
                 VkMemoryPropertyFlags memoryLocation = VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
                 VkImageCreateFlags extraCreateFlags  = 0,
-                VkImageAspectFlags viewAspect        = VK_IMAGE_ASPECT_FLAG_BITS_MAX_ENUM);
+                VkImageAspectFlags viewAspect        = VK_IMAGE_ASPECT_FLAG_BITS_MAX_ENUM,
+                VkSampleCountFlagBits samples        = VK_SAMPLE_COUNT_1_BIT);
 
     /**
      * @brief Resizes the image to the new size, optionally copying over the old contents
@@ -206,6 +208,11 @@ public:
      */
     VkMemoryPropertyFlags getMemoryLocation() const;
 
+    /**
+     * @brief Returns whether the image has been created or not
+     */
+    bool isCreated() const;
+
 private:
     Type type;
     VulkanState* vulkanState;
@@ -245,6 +252,8 @@ inline VkImageUsageFlags Image::getUsage() const { return usage; }
 inline VkImageLayout Image::getCurrentLayout() const { return currentLayout; }
 
 inline VkMemoryPropertyFlags Image::getMemoryLocation() const { return memoryLocation; }
+
+inline bool Image::isCreated() const { return vulkanState != nullptr; }
 
 } // namespace vk
 } // namespace rc

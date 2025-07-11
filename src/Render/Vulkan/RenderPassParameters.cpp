@@ -10,7 +10,8 @@ namespace rc
 {
 namespace vk
 {
-RenderPassParameters::RenderPassParameters() {}
+RenderPassParameters::RenderPassParameters()
+: msaaBehavior(MSAABehavior::Disabled) {}
 
 RenderPassParameters& RenderPassParameters::addSubpass(SubPass&& subpass) {
     subpasses.emplace_back(std::forward<SubPass>(subpass));
@@ -62,6 +63,16 @@ RenderPassParameters& RenderPassParameters::replaceAttachment(std::uint32_t i,
     return *this;
 }
 
+RenderPassParameters& RenderPassParameters::withMSAABehavior(MSAABehavior behavior) {
+    msaaBehavior = behavior;
+    return *this;
+}
+
+RenderPassParameters& RenderPassParameters::withResolveAttachments(bool resolve) {
+    resolveAttachments = resolve;
+    return *this;
+}
+
 RenderPassParameters&& RenderPassParameters::build() {
     if (subpasses.empty()) {
         throw std::runtime_error("RenderPass must have at least one subpass");
@@ -69,6 +80,24 @@ RenderPassParameters&& RenderPassParameters::build() {
     if (attachments.empty()) {
         throw std::runtime_error("RenderPass must have at least one attachment");
     }
+
+    // regardless of msaa state we can populate the resolve attachments and append them to the
+    // attachment list
+    if (resolveAttachments) {
+        if (subpasses.size() > 1) {
+            throw std::runtime_error("Resolve attachments can only be used with a single subpass");
+        }
+        auto& pass              = subpasses[0];
+        pass.resolveAttachments = pass.colorAttachments;
+        for (auto& resolve : pass.resolveAttachments) { resolve.attachment += attachments.size(); }
+        for (const auto& color : pass.colorAttachments) {
+            const auto& src        = attachments[color.attachment];
+            auto& resolved         = attachments.emplace_back(src);
+            resolved.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+            resolved.samples       = VK_SAMPLE_COUNT_1_BIT;
+        }
+    }
+
     return std::move(*this);
 }
 

@@ -20,13 +20,7 @@ DepthBuffer::DepthBuffer()
 void DepthBuffer::doCreate(engine::Engine& e, Renderer& r, RenderTarget* target) {
     engine          = &e;
     const auto size = getSize(target->getRegionSize());
-    buffer.create(r.vulkanState(),
-                  vk::Image::Type::Image2D,
-                  r.vulkanState().findDepthFormat(),
-                  VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
-                  {size.x, size.y},
-                  VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT,
-                  VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT);
+    createAttachment(size);
 }
 
 void DepthBuffer::onResize(glm::u32vec2 targetSize) {
@@ -64,6 +58,28 @@ void DepthBuffer::doStartOutput(const rg::ExecutionContext& ctx) {
         cleared = true;
         clear(ctx.commandBuffer);
     }
+}
+
+void DepthBuffer::observe(const event::SettingsChanged& event) {
+    if (event.setting == event::SettingsChanged::Setting::AntiAliasing) {
+        createAttachment({buffer.getSize().width, buffer.getSize().height});
+    }
+}
+
+void DepthBuffer::createAttachment(const glm::u32vec2& size) {
+    auto& r = engine->renderer();
+
+    buffer.create(r.vulkanState(),
+                  vk::Image::Type::Image2D,
+                  r.vulkanState().findDepthFormat(),
+                  VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
+                  {size.x, size.y},
+                  VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT,
+                  VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT,
+                  VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
+                  0,
+                  VK_IMAGE_ASPECT_FLAG_BITS_MAX_ENUM,
+                  r.getSettings().getMSAASampleCount());
 }
 
 } // namespace rgi

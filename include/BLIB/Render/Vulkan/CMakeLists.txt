@@ -1,5 +1,5 @@
 target_sources(BLIB PUBLIC
-    AttachmentBufferSet.hpp
+    AttachmentImageSet.hpp
     AttachmentSet.hpp
     BlendParameters.hpp
     Buffer.hpp

@@ -1,6 +1,8 @@
 #ifndef BLIB_RENDER_GRAPH_ASSETS_DEPTHBUFFER_HPP
 #define BLIB_RENDER_GRAPH_ASSETS_DEPTHBUFFER_HPP
 
+#include <BLIB/Events.hpp>
+#include <BLIB/Render/Events/SettingsChanged.hpp>
 #include <BLIB/Render/Graph/Asset.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Vulkan/Image.hpp>
@@ -21,7 +23,9 @@ namespace rgi
  *
  * @ingroup Renderer
  */
-class DepthBuffer : public rg::Asset {
+class DepthBuffer
+: public rg::Asset
+, public bl::event::Listener<event::SettingsChanged> {
 public:
     /// How the depth buffer is sized
     enum SizeMode {
@@ -76,6 +80,9 @@ private:
     virtual void doEndOutput(const rg::ExecutionContext&) override {}
     virtual void onReset() override;
     glm::u32vec2 getSize(const glm::u32vec2& targetSize) const;
+
+    virtual void observe(const event::SettingsChanged& event) override;
+    void createAttachment(const glm::u32vec2& size);
 };
 
 } // namespace rgi

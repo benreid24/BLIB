@@ -119,18 +119,19 @@ void RenderPassCache::addDefaults() {
     depthDependency.dstAccessMask   = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
     depthDependency.dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
 
-    vk::RenderPassParameters sceneParams;
-    sceneParams.addAttachment(standardColorAttachment);
-    sceneParams.addAttachment(depthAttachment);
-    sceneParams.addSubpass(
+    vk::RenderPassParameters standardParams;
+    standardParams.addAttachment(standardColorAttachment);
+    standardParams.addAttachment(depthAttachment);
+    standardParams.addSubpass(
         vk::RenderPassParameters::SubPass()
             .withAttachment(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL)
             .withDepthAttachment(1, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL)
             .build());
-    sceneParams.addSubpassDependency(postPassRenderCompleteDep);
-    sceneParams.addSubpassDependency(prePassRenderDoneDep);
-    sceneParams.addSubpassDependency(depthDependency);
-    createRenderPass(cfg::RenderPassIds::StandardAttachmentPass, sceneParams.build());
+    standardParams.addSubpassDependency(postPassRenderCompleteDep);
+    standardParams.addSubpassDependency(prePassRenderDoneDep);
+    standardParams.addSubpassDependency(depthDependency);
+    standardParams.withMSAABehavior(vk::RenderPassParameters::MSAABehavior::UseSettings);
+    createRenderPass(cfg::RenderPassIds::StandardAttachmentPass, standardParams.build());
 
     // primary render pass for final swapchain compositing
     VkAttachmentDescription swapDefaultColorAttachment{};

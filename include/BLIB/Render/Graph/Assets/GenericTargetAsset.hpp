@@ -1,13 +1,17 @@
 #ifndef BLIB_RENDER_GRAPH_ASSETS_GENERICTARGETASSET_HPP
 #define BLIB_RENDER_GRAPH_ASSETS_GENERICTARGETASSET_HPP
 
+#include <BLIB/Events.hpp>
+#include <BLIB/Render/Events/SettingsChanged.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Graph/Assets/DepthAttachmentType.hpp>
 #include <BLIB/Render/Graph/Assets/DepthBuffer.hpp>
 #include <BLIB/Render/Graph/Assets/FramebufferAsset.hpp>
+#include <BLIB/Render/Graph/Assets/MSAABehavior.hpp>
 #include <BLIB/Render/Graph/Assets/RenderPassBehavior.hpp>
 #include <BLIB/Render/Graph/Assets/TargetSize.hpp>
-#include <BLIB/Render/Vulkan/AttachmentBufferSet.hpp>
+#include <BLIB/Render/Settings.hpp>
+#include <BLIB/Render/Vulkan/AttachmentImageSet.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/GenericAttachmentSet.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
@@ -26,27 +30,58 @@ namespace rgi
  * @brief Generic asset for a templated set of attachments
  *
  * @tparam RenderPassId The id of the render pass to use
- * @tparam AttachmentCount The number of attachments to create
+ * @tparam AttachmentCount The number of attachments to create, excluding depth & resolve
  * @tparam RenderPassMode Whether this asset is responsible for render pass start/stop
  * @ingroup Renderer
  */
 template<std::uint32_t RenderPassId, std::uint32_t AttachmentCount,
-         RenderPassBehavior RenderPassMode, DepthAttachmentType DepthAttachment>
-class GenericTargetAsset : public FramebufferAsset {
+         RenderPassBehavior RenderPassMode, DepthAttachmentType DepthAttachment,
+         MSAABehavior MSAA = MSAABehavior::Disabled>
+class GenericTargetAsset
+: public FramebufferAsset
+, public bl::event::Listener<event::SettingsChanged> {
 public:
+    static constexpr bool UsesMSAA = (MSAA & MSAABehavior::UseSettings) != 0;
+
+    static constexpr std::uint32_t DepthAttachmentCount =
+        DepthAttachment != DepthAttachmentType::None ? 1 : 0;
+
+    static constexpr ResolveAttachmentCount =
+        (MSAA & MSAABehavior::ResolveAttachments) != 0 ? AttachmentCount : 0;
+
+    static constexpr std::uint32_t OwnedAttachmntCount = AttachmentCount + ResolveAttachmentCount;
+
+    static constexpr RenderedAttachmentCount = AttachmentCount + DepthAttachmentCount;
+
     static constexpr std::uint32_t TotalAttachmentCount =
-        AttachmentCount + (DepthAttachment != DepthAttachmentType::None ? 1 : 0);
+        AttachmentCount + DepthAttachmentCount + ResolveAttachmentCount;
 
 private:
-    template<std::size_t... Is>
     static std::array<VkImageAspectFlags, TotalAttachmentCount> makeAspectArray(
         const std::array<VkFormat, AttachmentCount>& imageFormats,
-        const std::array<VkImageUsageFlags, AttachmentCount>& imageUsages,
-        std::index_sequence<Is...>) {
-        return {vk::VulkanState::guessImageAspect(
-            Is < AttachmentCount ? imageFormats[Is] : VK_FORMAT_D24_UNORM_S8_UINT,
-            Is < AttachmentCount ? imageUsages[Is] :
-                                   VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT)...};
+        const std::array<VkImageUsageFlags, AttachmentCount>& imageUsages) {
+        std::array<VkImageAspectFlags, TotalAttachmentCount> result{};
+
+        unsigned int i = 0;
+        while (i < AttachmentCount) {
+            result[i] = vk::VulkanState::guessImageAspect(imageFormats[i], imageUsages[i]);
+            ++i;
+        }
+        if constexpr (DepthAttachmentCount > 0) {
+            result[i] = VK_IMAGE_ASPECT_DEPTH_BIT;
+            ++i;
+        }
+
+        if constexpr (ResolveAttachmentCount > 0) {
+            unsigned int j = 0;
+            while (j < ResolveAttachmentCount) {
+                result[i] = vk::VulkanState::guessImageAspect(imageFormats[i], imageUsages[i]);
+                ++i;
+                ++j;
+            }
+        }
+
+        return result;
     }
 
 public:
@@ -62,17 +97,17 @@ public:
     GenericTargetAsset(std::string_view tag,
                        const std::array<VkFormat, AttachmentCount>& imageFormats,
                        const std::array<VkImageUsageFlags, AttachmentCount>& imageUsages,
-                       const std::array<VkClearValue, TotalAttachmentCount>& clearColors,
+                       const std::array<VkClearValue, RenderedAttachmentCount>& clearColors,
                        const TargetSize& size)
     : FramebufferAsset(tag, RenderPassId, cachedViewport, cachedScissor, clearColors.data(),
-                       TotalAttachmentCount)
+                       RenderedAttachmentCount)
     , size(size)
     , renderer(nullptr)
     , attachmentFormats(imageFormats)
     , attachmentUsages(imageUsages)
-    , attachmentSet(makeAspectArray(imageFormats, imageUsages,
-                                    std::make_index_sequence<TotalAttachmentCount>{}),
-                    1)
+    , depthBufferAsset(nullptr)
+    , depthBufferView(VK_NULL_HANDLE)
+    , attachmentSet(makeAspectArray(imageFormats, imageUsages), 1)
     , cachedViewport{}
     , cachedScissor{} {
         cachedViewport.minDepth = 0.f;
@@ -105,19 +140,15 @@ public:
      */
     virtual vk::Framebuffer& getFramebuffer(std::uint32_t) override { return framebuffer; }
 
-    /**
-     * @brief Returns the images that are rendered to
-     */
-    vk::AttachmentBufferSet<AttachmentCount>& getImages() { return images; }
-
 private:
     const TargetSize size;
     Renderer* renderer;
     RenderTarget* observer;
     const std::array<VkFormat, AttachmentCount> attachmentFormats;
     const std::array<VkImageUsageFlags, AttachmentCount> attachmentUsages;
-    vk::AttachmentBufferSet<AttachmentCount> images;
+    vk::AttachmentImageSet<OwnedAttachmntCount> images;
     DepthBuffer* depthBufferAsset;
+    VkImageView depthBufferView;
     vk::GenericAttachmentSet<TotalAttachmentCount> attachmentSet;
     vk::Framebuffer framebuffer;
     VkViewport cachedViewport;
@@ -135,12 +166,19 @@ private:
         }
         else { depthBufferAsset = nullptr; }
         onResize(o->getRegionSize());
+        bl::event::Dispatcher::subscribe(this);
     }
 
     virtual void doPrepareForInput(const rg::ExecutionContext&) override {}
 
     virtual void doStartOutput(const rg::ExecutionContext& context) override {
         if constexpr (RenderPassMode == RenderPassBehavior::StartedByAsset) {
+            if (depthBufferAsset && depthBufferAsset->getBuffer().getView() != depthBufferView) {
+                depthBufferView = depthBufferAsset->getBuffer().getView();
+                attachmentSet.setAttachment(AttachmentCount,
+                                            depthBufferAsset->getBuffer().getImage(),
+                                            depthBufferAsset->getBuffer().getView());
+            }
             beginRender(context.commandBuffer, true);
         }
     }
@@ -180,20 +218,51 @@ private:
             break;
         }
 
+        createAttachments();
+    }
+
+    void createAttachments() {
         if (renderer) {
+            const bool createResolve =
+                ResolveAttachmentCount > 0 &&
+                renderer->getSettings().getAntiAliasing() != Settings::AntiAliasing::None;
+            const VkSampleCountFlagBits sampleCount =
+                UsesMSAA ? renderer->getSettings().getMSAASampleCount() : VK_SAMPLE_COUNT_1_BIT;
+            const std::uint32_t oi = createResolve ? AttachmentCount + DepthAttachmentCount : 0;
+            const std::uint32_t createCount =
+                createResolve ? TotalAttachmentCount : AttachmentCount + ResolveAttachmentCount;
+
             images.create(renderer->vulkanState(),
+                          createCount,
                           {cachedScissor.extent.width, cachedScissor.extent.height},
                           attachmentFormats,
-                          attachmentUsages);
+                          attachmentUsages,
+                          oi,
+                          sampleCount);
             attachmentSet.setRenderExtent(cachedScissor.extent);
+
+            std::uint32_t ac = AttachmentCount;
             attachmentSet.copy(images.attachmentSet(), AttachmentCount);
             if constexpr (DepthAttachment == DepthAttachmentType::SharedDepthBuffer) {
                 depthBufferAsset->onResize(newSize);
                 attachmentSet.setAttachment(AttachmentCount,
                                             depthBufferAsset->getBuffer().getImage(),
                                             depthBufferAsset->getBuffer().getView());
+                depthBufferView = depthBufferAsset->getBuffer().getView();
+                ++ac;
             }
+            if (createResolve) {
+                attachmentSet.copy(images.attachmentSet(), ResolveAttachmentCount, oi);
+                ac += ResolveAttachmentCount;
+            }
+            attachmentSet.setAttachmentCount(ac);
             framebuffer.create(renderer->vulkanState(), renderPass->rawPass(), attachmentSet);
+        }
+    }
+
+    virtual void observe(const event::SettingsChanged& event) override {
+        if (event.setting == event::SettingsChanged::Setting::AntiAliasing && UsesMSAA) {
+            createAttachments();
         }
     }
 };

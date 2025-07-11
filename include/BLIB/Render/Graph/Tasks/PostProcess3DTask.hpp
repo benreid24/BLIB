@@ -4,7 +4,7 @@
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
 #include <BLIB/Render/Descriptors/Builtin/ColorAttachmentInstance.hpp>
 #include <BLIB/Render/Graph/Task.hpp>
-#include <BLIB/Render/Vulkan/AttachmentBufferSet.hpp>
+#include <BLIB/Render/Vulkan/AttachmentImageSet.hpp>
 #include <BLIB/Render/Vulkan/Pipeline.hpp>
 #include <optional>
 
@@ -38,7 +38,7 @@ private:
     vk::Pipeline* pipeline;
     std::optional<ds::ColorAttachmentInstance> colorAttachmentSet;
     std::optional<ds::ColorAttachmentInstance> bloomAttachmentSet;
-    std::optional<vk::AttachmentBufferSet<1>> dummyBloomBuffer;
+    std::optional<vk::AttachmentImageSet<1>> dummyBloomBuffer;
 
     virtual void create(engine::Engine& engine, Renderer& renderer, Scene* scene) override;
     virtual void onGraphInit() override;

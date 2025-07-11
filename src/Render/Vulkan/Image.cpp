@@ -40,7 +40,8 @@ Image::~Image() { deferDestroy(); }
 
 void Image::create(VulkanState& vs, Type t, VkFormat fmt, VkImageUsageFlags usg,
                    const VkExtent2D& extent, VkImageAspectFlags asp, VmaAllocationCreateFlags af,
-                   VkMemoryPropertyFlags mem, VkImageCreateFlags ef, VkImageAspectFlags vas) {
+                   VkMemoryPropertyFlags mem, VkImageCreateFlags ef, VkImageAspectFlags vas,
+                   VkSampleCountFlagBits samples) {
     if (vulkanState && size.width == extent.width && size.height == extent.height) { return; }
     size = extent;
 
@@ -73,7 +74,7 @@ void Image::create(VulkanState& vs, Type t, VkFormat fmt, VkImageUsageFlags usg,
     createInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
     createInfo.usage         = usage | VK_IMAGE_USAGE_TRANSFER_DST_BIT;
     createInfo.sharingMode   = VK_SHARING_MODE_EXCLUSIVE;
-    createInfo.samples       = VK_SAMPLE_COUNT_1_BIT;
+    createInfo.samples       = samples;
     createInfo.flags         = getCreateFlags(type) | extraCreateFlags;
     if (vmaCreateImage(vs.vmaAllocator, &createInfo, &allocInfo, &imageHandle, &alloc, nullptr) !=
         VK_SUCCESS) {
@@ -153,9 +154,11 @@ void Image::resize(const glm::u32vec2& newSize, bool copyContents) {
 }
 
 void Image::destroy() {
-    vkDestroyImageView(vulkanState->device, viewHandle, nullptr);
-    vmaDestroyImage(vulkanState->vmaAllocator, imageHandle, alloc);
-    vulkanState = nullptr;
+    if (vulkanState) {
+        vkDestroyImageView(vulkanState->device, viewHandle, nullptr);
+        vmaDestroyImage(vulkanState->vmaAllocator, imageHandle, alloc);
+        vulkanState = nullptr;
+    }
 }
 
 void Image::deferDestroy() {

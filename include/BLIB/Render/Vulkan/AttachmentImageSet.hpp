@@ -16,34 +16,39 @@ namespace vk
 /**
  * @brief Generic set of N attachment buffers that can be used for framebuffer backing
  *
- * @tparam BufferCount The number of buffers to create
+ * @tparam MaxBufferCount The number of buffers to create
  * @ingroup Renderer
  */
-template<std::uint32_t BufferCount>
-class AttachmentBufferSet {
+template<std::uint32_t MaxBufferCount>
+class AttachmentImageSet {
 public:
     /**
      * @brief Creates an empty render buffer with no resources
      */
-    AttachmentBufferSet()
+    AttachmentImageSet()
     : owner(nullptr) {}
 
     /**
      * @brief Frees resources if not already destroyed
      */
-    ~AttachmentBufferSet() = default;
+    ~AttachmentImageSet() = default;
 
     /**
      * @brief Frees prior images, if any, and creates new attachment buffers
      *
      * @param vulkaState Renderer vulkan state
+     * @param count The number of buffers to create
      * @param size The size of the color and depth attachments to create
      * @param bufferFormats The formats to create the attachments with
      * @param usages How the attachments will be used
+     * @param sampleCount The sample count to use for the non-resolve attachments
+     * @param firstResolveAttachment The index of the first resolve attachment in the set
      */
-    void create(VulkanState& vulkaState, const VkExtent2D& size,
-                const std::array<VkFormat, BufferCount>& bufferFormats,
-                const std::array<VkImageUsageFlags, BufferCount>& usages);
+    void create(VulkanState& vulkaState, unsigned int count, const VkExtent2D& size,
+                const std::array<VkFormat, MaxBufferCount>& bufferFormats,
+                const std::array<VkImageUsageFlags, MaxBufferCount>& usages,
+                VkSampleCountFlagBits sampleCount    = VK_SAMPLE_COUNT_1_BIT,
+                std::uint32_t firstResolveAttachment = 0);
 
     /**
      * @brief Access the attachment buffer at the given index
@@ -75,45 +80,59 @@ public:
 
 private:
     VulkanState* owner;
-    std::array<VkImage, BufferCount> images;
-    std::array<VkImageView, BufferCount> views;
+    std::array<VkImage, MaxBufferCount> images;
+    std::array<VkImageView, MaxBufferCount> views;
     AttachmentSet attachments;
-    std::array<Image, BufferCount> buffers;
+    std::array<Image, MaxBufferCount> buffers;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<std::uint32_t BufferCount>
-void AttachmentBufferSet<BufferCount>::create(
-    VulkanState& vulkaState, const VkExtent2D& size,
+void AttachmentImageSet<BufferCount>::create(
+    VulkanState& vulkanState, unsigned int count, const VkExtent2D& size,
     const std::array<VkFormat, BufferCount>& bufferFormats,
-    const std::array<VkImageUsageFlags, BufferCount>& usages) {
-    owner = &vulkaState;
+    const std::array<VkImageUsageFlags, BufferCount>& usages, VkSampleCountFlagBits samples,
+    std::uint32_t oi) {
+    owner = &vulkanState;
     attachments.setRenderExtent(size);
 
     std::array<VkImageAspectFlags, BufferCount> aspects;
     for (std::uint32_t i = 0; i < BufferCount; ++i) {
-        aspects[i] = VulkanState::guessImageAspect(bufferFormats[i], usages[i]);
-        buffers[i].create(vulkaState,
-                          Image::Type::Image2D,
-                          bufferFormats[i],
-                          usages[i],
-                          size,
-                          aspects[i],
-                          VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT);
-        images[i] = buffers[i].getImage();
-        views[i]  = buffers[i].getView();
+        if (i < count) {
+            const VkSampleCountFlagBits sc = i < oi ? samples : VK_SAMPLE_COUNT_1_BIT;
+            aspects[i] = VulkanState::guessImageAspect(bufferFormats[i], usages[i]);
+            buffers[i].create(vulkanState,
+                              Image::Type::Image2D,
+                              bufferFormats[i],
+                              usages[i],
+                              size,
+                              aspects[i],
+                              VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT,
+                              VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
+                              0,
+                              VK_IMAGE_ASPECT_FLAG_BITS_MAX_ENUM,
+                              sc);
+            images[i] = buffers[i].getImage();
+            views[i]  = buffers[i].getView();
+        }
+        else {
+            images[i] = nullptr;
+            views[i]  = nullptr;
+            if (buffers[i].isCreated()) { buffers[i].deferDestroy(); }
+        }
     }
-    attachments.init(images, views, aspects, buffers[0].getLayerCount());
+    attachments.init(images, views, aspects, buffers[0].getLayerCount(), count);
+    attachments.setOutputIndex(oi);
 }
 
 template<std::uint32_t BufferCount>
-Image& AttachmentBufferSet<BufferCount>::getBuffer(std::uint32_t i) {
+Image& AttachmentImageSet<BufferCount>::getBuffer(std::uint32_t i) {
     return buffers[i];
 }
 
 template<std::uint32_t BufferCount>
-void AttachmentBufferSet<BufferCount>::destroy() {
+void AttachmentImageSet<BufferCount>::destroy() {
     if (owner != nullptr) {
         owner = nullptr;
         for (auto& b : buffers) { b.destroy(); }
@@ -121,7 +140,7 @@ void AttachmentBufferSet<BufferCount>::destroy() {
 }
 
 template<std::uint32_t BufferCount>
-void AttachmentBufferSet<BufferCount>::deferDestroy() {
+void AttachmentImageSet<BufferCount>::deferDestroy() {
     if (owner != nullptr) {
         owner = nullptr;
         for (auto& b : buffers) { b.deferDestroy(); }
@@ -129,12 +148,12 @@ void AttachmentBufferSet<BufferCount>::deferDestroy() {
 }
 
 template<std::uint32_t BufferCount>
-const AttachmentSet& AttachmentBufferSet<BufferCount>::attachmentSet() const {
+const AttachmentSet& AttachmentImageSet<BufferCount>::attachmentSet() const {
     return attachments;
 }
 
 template<std::uint32_t BufferCount>
-const VkExtent2D& AttachmentBufferSet<BufferCount>::bufferSize() const {
+const VkExtent2D& AttachmentImageSet<BufferCount>::bufferSize() const {
     return attachments.renderExtent();
 }
 
