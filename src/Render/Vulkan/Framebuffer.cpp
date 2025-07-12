@@ -20,7 +20,7 @@ Framebuffer::~Framebuffer() {
     if (renderPass) { deferCleanup(); }
 }
 
-void Framebuffer::create(VulkanState& vs, RenderPass* rp, const AttachmentSet& frame) {
+void Framebuffer::create(VulkanState& vs, const RenderPass* rp, const AttachmentSet& frame) {
     vulkanState = &vs;
 
     // cleanup and block if recreating
@@ -29,16 +29,16 @@ void Framebuffer::create(VulkanState& vs, RenderPass* rp, const AttachmentSet& f
     // copy create params
     renderPass       = rp;
     target           = &frame;
-    cachedAttachment = *frame.imageViews();
+    cachedAttachment = frame.getImageViews()[0];
 
     // create framebuffer
     VkFramebufferCreateInfo framebufferInfo{};
     framebufferInfo.sType           = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
     framebufferInfo.renderPass      = renderPass->rawPass();
-    framebufferInfo.attachmentCount = frame.size();
-    framebufferInfo.pAttachments    = frame.imageViews();
-    framebufferInfo.width           = frame.renderExtent().width;
-    framebufferInfo.height          = frame.renderExtent().height;
+    framebufferInfo.attachmentCount = frame.getAttachmentCount();
+    framebufferInfo.pAttachments    = frame.getImageViews();
+    framebufferInfo.width           = frame.getRenderExtent().width;
+    framebufferInfo.height          = frame.getRenderExtent().height;
     framebufferInfo.layers          = frame.getLayerCount();
     if (vkCreateFramebuffer(vulkanState->device, &framebufferInfo, nullptr, &framebuffer) !=
         VK_SUCCESS) {
@@ -48,7 +48,7 @@ void Framebuffer::create(VulkanState& vs, RenderPass* rp, const AttachmentSet& f
 
 void Framebuffer::recreateIfChanged(const AttachmentSet& t) {
     // TODO - need to check all views?
-    if (*t.imageViews() != cachedAttachment) { create(*vulkanState, renderPass, t); }
+    if (t.getImageViews()[0] != cachedAttachment) { create(*vulkanState, renderPass, t); }
 }
 
 void Framebuffer::beginRender(VkCommandBuffer commandBuffer, const VkRect2D& region,
@@ -74,7 +74,7 @@ void Framebuffer::beginRender(VkCommandBuffer commandBuffer, const VkRect2D& reg
     if (shouldClear) {
         VkClearAttachment attachments[AttachmentSet::MaxAttachments]{};
         for (unsigned int i = 0; i < clearColorCount; ++i) {
-            attachments[i].aspectMask      = target->imageAspects()[i];
+            attachments[i].aspectMask      = target->getImageAspects()[i];
             attachments[i].colorAttachment = i;
             attachments[i].clearValue      = clearColors[i];
         }

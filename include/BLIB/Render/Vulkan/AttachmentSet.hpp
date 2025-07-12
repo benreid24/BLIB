@@ -14,33 +14,35 @@ namespace rc
 {
 namespace vk
 {
-template<std::uint32_t N>
 class AttachmentImageSet;
 
 /**
- * @brief Base class representing an attachment set that can be rendered to. Derived classes can
- *        provide additional functionality
+ * @brief Basic class containing a set of attachments for rendering
  *
  * @ingroup Renderer
  */
 class AttachmentSet {
 public:
-    static constexpr std::uint32_t MaxAttachments = 8;
+    static constexpr std::uint32_t MaxAttachments = 16;
+
+    /**
+     * @brief Creates an empty attachment set
+     */
+    AttachmentSet();
 
     /**
      * @brief Creates the attachment set from the images and views
      *
-     * @tparam N The number of attachments
+     * @param attachmentCount The number of attachments in the set
      * @param images The array of image handles
      * @param views The array of image view handles
      * @param aspects The aspect of each attachment
+     * @param extent The size of the renderable area
+     * @param firstIndex The index of the first attachment in the set
      * @param layerCount The number of layers in the underlying images
-     * @param count The number of attachments in the set
      */
-    template<std::size_t N>
-    AttachmentSet(std::array<VkImage, N>& images, std::array<VkImageView, N>& views,
-                  const std::array<VkImageAspectFlags, N>& aspects, std::uint32_t layerCount,
-                  std::uint32_t count = N);
+    AttachmentSet(std::uint32_t attachmentCount, VkImage* images, VkImageView* views,
+                  VkImageAspectFlags* aspects, VkExtent2D extent, std::uint32_t layerCount = 1);
 
     /**
      * @brief Creates an attachment set for a single image
@@ -50,24 +52,117 @@ public:
     AttachmentSet(Image& image);
 
     /**
+     * @brief Updates the attachment set with the given images and views
+     *
+     * @param attachmentCount The number of attachments in the set
+     * @param images The array of image handles
+     * @param views The array of image view handles
+     * @param aspects The aspect of each attachment
+     * @param extent The size of the renderable area
+     * @param layerCount The number of layers in the underlying images
+     */
+    void init(std::uint32_t attachmentCount, VkImage* images, VkImageView* views,
+              VkImageAspectFlags* aspects, VkExtent2D extent, std::uint32_t layerCount = 1);
+
+    /**
+     * @brief Creates an attachment set for a single image
+     *
+     * @param image The image to init with
+     */
+    void init(Image& image);
+
+    /**
+     * @brief Initializes the attachment set with the given images
+     *
+     * @param images The attachment image set to initialize with
+     */
+    void init(AttachmentImageSet& images);
+
+    /**
+     * @brief Sets a single attachment
+     *
+     * @param index The index of the attachment to set
+     * @param image The image of the attachment
+     * @param view The image view of the attachment
+     */
+    void setAttachment(std::uint32_t index, VkImage image, VkImageView view);
+
+    /**
+     * @brief Set the aspect of the attachment at the given index
+     *
+     * @param index The index of the attachment to set the aspect of
+     * @param aspect The aspect to set for the attachment
+     */
+    void setAttachmentAspect(std::uint32_t index, VkImageAspectFlags aspect);
+
+    /**
+     * @brief Sets the attachment at the given index to the given image
+     *
+     * @param index The index of the attachment to set
+     * @param image The image to set the attachment to
+     */
+    void setAttachment(std::uint32_t index, Image& image);
+
+    /**
+     * @brief Sets the attachments of this attachment set
+     *
+     * @param index The index to start writing
+     * @param images The images to set the attachments to
+     */
+    void setAttachments(std::uint32_t index, AttachmentImageSet& images);
+
+    /**
+     * @brief Copies the attachments from the given attachment set
+     *
+     * @param other The attachment set to copy from
+     * @param count The number of attachments to copy
+     * @param baseIndex The start index to copy into
+     */
+    void copy(const AttachmentSet& other, std::uint32_t count, std::uint32_t baseIndex = 0);
+
+    /**
      * @brief Returns a pointer to the start of the images
      */
-    const VkImage* images() const;
+    const VkImage* getImages() const;
+
+    /**
+     * @brief Returns the handle to the image at the given index
+     *
+     * @param i The index of the image to get
+     * @return The image at the given index
+     */
+    VkImage getImage(std::uint32_t i) const;
 
     /**
      * @brief Returns a pointer to the start of the image views
      */
-    const VkImageView* imageViews() const;
+    const VkImageView* getImageViews() const;
+
+    /**
+     * @brief Returns the handle to the image view at the given index
+     *
+     * @param i The index of the image view to get
+     * @return The image view at the given index
+     */
+    VkImageView getImageView(std::uint32_t i) const;
 
     /**
      * @brief Returns a pointer to the start of the image aspects
      */
-    const VkImageAspectFlags* imageAspects() const;
+    const VkImageAspectFlags* getImageAspects() const;
+
+    /**
+     * @brief Returns the aspect of the attachment at the given index
+     *
+     * @param i The index of the attachment to get the aspect of
+     * @return The aspect of the attachment at the given index
+     */
+    VkImageAspectFlags getImageAspect(std::uint32_t i) const;
 
     /**
      * @brief Returns the number of attachments in the set
      */
-    std::uint32_t size() const;
+    std::uint32_t getAttachmentCount() const;
 
     /**
      * @brief Sets the number of attachments in the set
@@ -81,7 +176,7 @@ public:
      *
      * @return The size of the renderable area
      */
-    const VkExtent2D& renderExtent() const;
+    const VkExtent2D& getRenderExtent() const;
 
     /**
      * @brief Sets the render extent of this attachment set
@@ -107,22 +202,14 @@ public:
      */
     void setOutputIndex(std::uint32_t index);
 
-protected:
-    VkExtent2D extent;
-
 private:
-    const VkImage* imagesPointer;
-    const VkImageView* viewsPointer;
+    VkExtent2D extent;
+    std::array<VkImage, MaxAttachments> images;
+    std::array<VkImageView, MaxAttachments> views;
     std::array<VkImageAspectFlags, MaxAttachments> aspects;
     std::uint32_t n;
     std::uint32_t layerCount;
     std::uint32_t outputIndex;
-
-    AttachmentSet();
-
-    template<std::size_t N>
-    void init(std::array<VkImage, N>& images, std::array<VkImageView, N>& views,
-              const std::array<VkImageAspectFlags, N>& aspects, std::uint32_t layerCount);
 
     template<std::uint32_t N>
     friend class AttachmentImageSet;
@@ -130,64 +217,25 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline const VkImage* AttachmentSet::images() const { return imagesPointer; }
+inline const VkImage* AttachmentSet::getImages() const { return images.data(); }
 
-inline const VkImageView* AttachmentSet::imageViews() const { return viewsPointer; }
+inline VkImage AttachmentSet::getImage(std::uint32_t i) const { return images[i]; }
 
-inline const VkImageAspectFlags* AttachmentSet::imageAspects() const { return aspects.data(); }
+inline const VkImageView* AttachmentSet::getImageViews() const { return views.data(); }
 
-inline std::uint32_t AttachmentSet::size() const { return n; }
+inline VkImageView AttachmentSet::getImageView(std::uint32_t i) const { return views[i]; }
 
-inline void AttachmentSet::setAttachmentCount(std::uint32_t count) { n = count; }
+inline const VkImageAspectFlags* AttachmentSet::getImageAspects() const { return aspects.data(); }
 
-inline const VkExtent2D& AttachmentSet::renderExtent() const { return extent; }
+inline VkImageAspectFlags AttachmentSet::getImageAspect(std::uint32_t i) const {
+    return aspects[i];
+}
+
+inline std::uint32_t AttachmentSet::getAttachmentCount() const { return n; }
+
+inline const VkExtent2D& AttachmentSet::getRenderExtent() const { return extent; }
 
 inline std::uint32_t AttachmentSet::getOutputIndex() const { return outputIndex; }
-
-inline void AttachmentSet::setOutputIndex(std::uint32_t index) { outputIndex = index; }
-
-inline AttachmentSet::AttachmentSet()
-: extent{0, 0}
-, imagesPointer(nullptr)
-, viewsPointer(nullptr)
-, n(0)
-, layerCount(1)
-, outputIndex(0) {}
-
-inline AttachmentSet::AttachmentSet(Image& image)
-: imagesPointer(image.getImagePointer())
-, viewsPointer(image.getViewPointer())
-, n(1)
-, layerCount(image.getLayerCount())
-, outputIndex(0) {
-    aspects[0] = image.getAspect();
-    extent     = image.getSize();
-}
-
-template<std::size_t N>
-inline AttachmentSet::AttachmentSet(std::array<VkImage, N>& images,
-                                    std::array<VkImageView, N>& views,
-                                    const std::array<VkImageAspectFlags, N>& aspects,
-                                    std::uint32_t layerCount, std::uint32_t count)
-: imagesPointer(images.data())
-, viewsPointer(views.data())
-, n(count)
-, layerCount(layerCount) {
-    std::copy(aspects.begin(), aspects.end(), this->aspects.begin());
-}
-
-template<std::size_t N>
-inline void AttachmentSet::init(std::array<VkImage, N>& images, std::array<VkImageView, N>& views,
-                                const std::array<VkImageAspectFlags, N>& aspects,
-                                std::uint32_t lc) {
-    imagesPointer = images.data();
-    viewsPointer  = views.data();
-    n             = N;
-    layerCount    = lc;
-    std::copy(aspects.begin(), aspects.end(), this->aspects.begin());
-}
-
-inline void AttachmentSet::setRenderExtent(const VkExtent2D& e) { extent = e; }
 
 inline std::uint32_t AttachmentSet::getLayerCount() const { return layerCount; }
 

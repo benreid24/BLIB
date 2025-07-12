@@ -6,7 +6,6 @@
 #include <BLIB/Render/Primitives/DrawParameters.hpp>
 #include <BLIB/Render/RenderPhase.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
-#include <BLIB/Render/Vulkan/StandardAttachmentSet.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <array>
 #include <glm/glm.hpp>

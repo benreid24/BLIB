@@ -180,8 +180,8 @@ void Renderer::renderFrame() {
     std::unique_lock lock(renderMutex);
 
     // begin frame
-    vk::Swapchain::SwapframeAttachmentSet* currentFrame = nullptr;
-    VkCommandBuffer commandBuffer                       = nullptr;
+    vk::AttachmentSet* currentFrame = nullptr;
+    VkCommandBuffer commandBuffer   = nullptr;
     state.beginFrame(currentFrame, commandBuffer);
 
     // kick off transfers

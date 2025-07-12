@@ -3,8 +3,8 @@
 
 #include <BLIB/Render/Graph/Assets/FramebufferAsset.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
+#include <BLIB/Render/Vulkan/AttachmentSet.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
-#include <BLIB/Render/Vulkan/StandardAttachmentSet.hpp>
 
 namespace bl
 {
@@ -55,7 +55,7 @@ private:
     vk::VulkanState* vs;
     res::TextureRef texture;
     DepthBuffer* depthBuffer;
-    vk::StandardAttachmentSet attachmentSet;
+    vk::AttachmentSet attachmentSet;
     vk::Framebuffer framebuffer;
 
     virtual void doCreate(engine::Engine& engine, Renderer& renderer,

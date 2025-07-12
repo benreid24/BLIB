@@ -49,8 +49,6 @@ public:
     static constexpr ResolveAttachmentCount =
         (MSAA & MSAABehavior::ResolveAttachments) != 0 ? AttachmentCount : 0;
 
-    static constexpr std::uint32_t OwnedAttachmntCount = AttachmentCount + ResolveAttachmentCount;
-
     static constexpr RenderedAttachmentCount = AttachmentCount + DepthAttachmentCount;
 
     static constexpr std::uint32_t TotalAttachmentCount =
@@ -146,10 +144,11 @@ private:
     RenderTarget* observer;
     const std::array<VkFormat, AttachmentCount> attachmentFormats;
     const std::array<VkImageUsageFlags, AttachmentCount> attachmentUsages;
-    vk::AttachmentImageSet<OwnedAttachmntCount> images;
+    vk::AttachmentImageSet images;
+    vk::AttachmentImageSet resolveImages;
     DepthBuffer* depthBufferAsset;
     VkImageView depthBufferView;
-    vk::GenericAttachmentSet<TotalAttachmentCount> attachmentSet;
+    vk::AttachmentSet attachmentSet;
     vk::Framebuffer framebuffer;
     VkViewport cachedViewport;
     VkRect2D cachedScissor;
@@ -228,31 +227,35 @@ private:
                 renderer->getSettings().getAntiAliasing() != Settings::AntiAliasing::None;
             const VkSampleCountFlagBits sampleCount =
                 UsesMSAA ? renderer->getSettings().getMSAASampleCount() : VK_SAMPLE_COUNT_1_BIT;
-            const std::uint32_t oi = createResolve ? AttachmentCount + DepthAttachmentCount : 0;
-            const std::uint32_t createCount =
-                createResolve ? TotalAttachmentCount : AttachmentCount + ResolveAttachmentCount;
 
             images.create(renderer->vulkanState(),
-                          createCount,
+                          AttachmentCount,
                           {cachedScissor.extent.width, cachedScissor.extent.height},
                           attachmentFormats,
                           attachmentUsages,
-                          oi,
                           sampleCount);
             attachmentSet.setRenderExtent(cachedScissor.extent);
+
+            if (createResolve) {
+                resolveImages.create(renderer->vulkanState(),
+                                     AttachmentCount,
+                                     {cachedScissor.extent.width, cachedScissor.extent.height},
+                                     attachmentFormats,
+                                     attachmentUsages,
+                                     sampleCount);
+            }
+            else if (UsesMSAA) { resolveImages.deferDestroy(); }
 
             std::uint32_t ac = AttachmentCount;
             attachmentSet.copy(images.attachmentSet(), AttachmentCount);
             if constexpr (DepthAttachment == DepthAttachmentType::SharedDepthBuffer) {
                 depthBufferAsset->onResize(newSize);
-                attachmentSet.setAttachment(AttachmentCount,
-                                            depthBufferAsset->getBuffer().getImage(),
-                                            depthBufferAsset->getBuffer().getView());
+                attachmentSet.setAttachment(AttachmentCount, depthBufferAsset->getBuffer());
                 depthBufferView = depthBufferAsset->getBuffer().getView();
                 ++ac;
             }
             if (createResolve) {
-                attachmentSet.copy(images.attachmentSet(), ResolveAttachmentCount, oi);
+                attachmentSet.setAttachments(ac, resolveImages);
                 ac += ResolveAttachmentCount;
             }
             attachmentSet.setAttachmentCount(ac);

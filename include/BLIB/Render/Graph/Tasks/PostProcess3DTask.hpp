@@ -38,7 +38,7 @@ private:
     vk::Pipeline* pipeline;
     std::optional<ds::ColorAttachmentInstance> colorAttachmentSet;
     std::optional<ds::ColorAttachmentInstance> bloomAttachmentSet;
-    std::optional<vk::AttachmentImageSet<1>> dummyBloomBuffer;
+    std::optional<vk::AttachmentImageSet> dummyBloomBuffer;
 
     virtual void create(engine::Engine& engine, Renderer& renderer, Scene* scene) override;
     virtual void onGraphInit() override;

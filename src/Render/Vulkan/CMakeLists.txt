@@ -1,4 +1,6 @@
 target_sources(BLIB PRIVATE
+    AttachmentImageSet.cpp
+    AttachmentSet.cpp
     BlendParameters.cpp
     Buffer.cpp
     CleanupManager.cpp

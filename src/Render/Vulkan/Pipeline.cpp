@@ -49,46 +49,35 @@ void Pipeline::createForRenderPass(std::uint32_t rpid, std::uint32_t spec) {
         BL_LOG_ERROR << "Pipeline being used with invalid specialization: " << spec;
     }
 
+    RenderPass& renderPass = renderer.renderPassCache().getRenderPass(rpid);
+
     // configure color blending
     BlendParameters& colorBlending = specialization.attachmentBlendingSpecialized ?
                                          specialization.attachmentBlending :
                                          createParams.colorBlending;
     colorBlending.build();
 
-    // configure msaa
-    if (createParams.msaaBehavior == PipelineParameters::MSAABehavior::UseSettings) {
-        using AA = Settings::AntiAliasing;
-        switch (renderer.getSettings().getAntiAliasing()) {
-        case AA::None:
-            createParams.msaa.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;
-            break;
-        case AA::MSAA2x:
-            createParams.msaa.rasterizationSamples = VK_SAMPLE_COUNT_2_BIT;
-            break;
-        case AA::MSAA4x:
-            createParams.msaa.rasterizationSamples = VK_SAMPLE_COUNT_4_BIT;
-            break;
-        case AA::MSAA8x:
-            createParams.msaa.rasterizationSamples = VK_SAMPLE_COUNT_8_BIT;
-            break;
-        case AA::MSAA16x:
-            createParams.msaa.rasterizationSamples = VK_SAMPLE_COUNT_16_BIT;
-            break;
-        case AA::MSAA32x:
-            createParams.msaa.rasterizationSamples = VK_SAMPLE_COUNT_32_BIT;
-            break;
-        case AA::MSAA64x:
-            createParams.msaa.rasterizationSamples = VK_SAMPLE_COUNT_64_BIT;
-            break;
-        default:
-            BL_LOG_ERROR << "Invalid MSAA setting: " << renderer.getSettings().getAntiAliasing();
-            createParams.msaa.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;
-            break;
-        }
-    }
+    // sample shading
+    const VkBool32 sampleShadingSetting = createParams.msaa.sampleShadingEnable;
+    const bool useSampleShading =
+        createParams.msaa.sampleShadingEnable == VK_TRUE &&
+        renderer.getSettings().getMSAASampleCount() > VK_SAMPLE_COUNT_1_BIT &&
+        renderer.vulkanState().physicalDeviceFeatures.sampleRateShading == VK_TRUE;
 
-    const auto findShaderSrc =
-        [&specialization](const ShaderParameters& src) -> const ShaderParameters& {
+    // configure msaa
+    if (renderPass.getCreateParams().getMSAABehavior() ==
+        RenderPassParameters::MSAABehavior::UseSettings) {
+        createParams.msaa.rasterizationSamples = renderer.getSettings().getMSAASampleCount();
+    }
+    else { createParams.msaa.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT; }
+
+    const auto findShaderSrc = [this, &specialization, useSampleShading](
+                                   const ShaderParameters& src) -> const ShaderParameters& {
+        if (useSampleShading) {
+            for (const auto& sampleShader : createParams.sampleShaders) {
+                if (sampleShader.stage == src.stage) { return sampleShader; }
+            }
+        }
         for (const auto& shader : specialization.shaderOverrides) {
             if (shader.stage == src.stage) { return shader; }
         }
@@ -163,7 +152,7 @@ void Pipeline::createForRenderPass(std::uint32_t rpid, std::uint32_t spec) {
     pipelineInfo.subpass             = 0;              // TODO - consider dynamic subpass if needed
     pipelineInfo.basePipelineHandle  = VK_NULL_HANDLE; // Optional
     pipelineInfo.basePipelineIndex   = -1;             // Optional
-    pipelineInfo.renderPass          = renderer.renderPassCache().getRenderPass(rpid).rawPass();
+    pipelineInfo.renderPass          = renderPass.rawPass();
 
     if (vkCreateGraphicsPipelines(renderer.vulkanState().device,
                                   VK_NULL_HANDLE,
@@ -176,17 +165,20 @@ void Pipeline::createForRenderPass(std::uint32_t rpid, std::uint32_t spec) {
 }
 
 void Pipeline::observe(const event::SettingsChanged& event) {
-    if (event.setting == event::SettingsChanged::Setting::AntiAliasing &&
-        createParams.msaaBehavior == PipelineParameters::MSAABehavior::UseSettings) {
+    if (event.setting == event::SettingsChanged::Setting::AntiAliasing) {
         for (std::uint32_t rpid = 0; rpid < pipelines.size(); ++rpid) {
-            for (std::uint32_t spec = 0; spec < pipelines[rpid].size(); ++spec) {
-                if (pipelines[spec][rpid]) {
-                    renderer.vulkanState().cleanupManager.add(
-                        [device   = renderer.vulkanState().device,
-                         pipeline = pipelines[spec][rpid]]() {
-                            vkDestroyPipeline(device, pipeline, nullptr);
-                        });
-                    createForRenderPass(rpid, spec);
+            RenderPass& renderPass = renderer.renderPassCache().getRenderPass(rpid);
+            if (renderPass.getCreateParams().getMSAABehavior() ==
+                RenderPassParameters::MSAABehavior::UseSettings) {
+                for (std::uint32_t spec = 0; spec < pipelines[rpid].size(); ++spec) {
+                    if (pipelines[spec][rpid]) {
+                        renderer.vulkanState().cleanupManager.add(
+                            [device   = renderer.vulkanState().device,
+                             pipeline = pipelines[spec][rpid]]() {
+                                vkDestroyPipeline(device, pipeline, nullptr);
+                            });
+                        createForRenderPass(rpid, spec);
+                    }
                 }
             }
         }

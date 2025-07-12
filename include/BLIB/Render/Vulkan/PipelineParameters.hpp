@@ -33,15 +33,6 @@ class Pipeline;
  */
 class PipelineParameters {
 public:
-    /// Controls the MSAA behavior of the pipeline
-    enum struct MSAABehavior {
-        /// MSAA is disabled always for this pipeline
-        Disabled,
-
-        /// MSAA is enabled or disabled based on the renderer settings
-        UseSettings
-    };
-
     /**
      * @brief Creates the parameters using sane defaults
      */
@@ -73,6 +64,17 @@ public:
      */
     PipelineParameters& withShader(const std::string& path, VkShaderStageFlagBits stage,
                                    const std::string& entrypoint = "main");
+
+    /**
+     * @brief Adds a single shader to this pipeline that is only used if sample shading is enabled
+     *
+     * @param path The resource path of the shader to add during sample shading
+     * @param stage The stage of the shader to add
+     * @param entrypoint The entrypoint inside the shader to run
+     * @return PipelineParameters& A reference to this object
+     */
+    PipelineParameters& withSampleShader(const std::string& path, VkShaderStageFlagBits stage,
+                                         const std::string& entrypoint = "main");
 
     /**
      * @brief Clears the given shader stage and replaces it with a noop
@@ -135,14 +137,6 @@ public:
      * @return A reference to this object
      */
     PipelineParameters& withEnableDepthClipping();
-
-    /**
-     * @brief Configures MSAA for this pipeline. MSAA is disabled by default
-     *
-     * @param behavior The MSAA behavior to use
-     * @return PipelineParameters& A reference to this object
-     */
-    PipelineParameters& withMSAABehavior(MSAABehavior behavior);
 
     /**
      * @brief Configures sample shading for this pipeline. Sample shading is disabled by default
@@ -284,6 +278,7 @@ private:
 
     PipelineLayout::LayoutParams layoutParams;
     ctr::StaticVector<ShaderParameters, 5> shaders;
+    ctr::StaticVector<ShaderParameters, 5> sampleShaders;
     ctr::StaticVector<VkDynamicState, 8> dynamicStates;
     VkVertexInputBindingDescription vertexBinding;
     ctr::StaticVector<VkVertexInputAttributeDescription, 8> vertexAttributes;
@@ -292,7 +287,6 @@ private:
     BlendParameters colorBlending;
     VkPipelineDepthStencilStateCreateInfo* depthStencil;
     VkPipelineMultisampleStateCreateInfo msaa;
-    MSAABehavior msaaBehavior;
     PipelineSpecialization mainSpecialization;
     std::vector<PipelineSpecialization> specializations;
 

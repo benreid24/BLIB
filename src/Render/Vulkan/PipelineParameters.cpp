@@ -17,7 +17,6 @@ PipelineParameters::PipelineParameters()
 , colorBlending{}
 , depthStencil(nullptr)
 , msaa{}
-, msaaBehavior(MSAABehavior::Disabled)
 , localDepthClipping{}
 , localDepthStencil{} {
     rasterizer.sType                   = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
@@ -91,6 +90,20 @@ PipelineParameters& PipelineParameters::withShader(const std::string& path,
     return *this;
 }
 
+PipelineParameters& PipelineParameters::withSampleShader(const std::string& path,
+                                                         VkShaderStageFlagBits stage,
+                                                         const std::string& entrypoint) {
+    for (auto& shader : sampleShaders) {
+        if (shader.stage == stage) {
+            shader.path       = path;
+            shader.entrypoint = entrypoint;
+            return *this;
+        }
+    }
+    sampleShaders.emplace_back(path, stage, entrypoint);
+    return *this;
+}
+
 PipelineParameters& PipelineParameters::removeShader(VkShaderStageFlagBits stage) {
     for (unsigned int i = 0; i < shaders.size(); ++i) {
         if (shaders[i].stage == stage) {
@@ -135,11 +148,6 @@ PipelineParameters& PipelineParameters::withEnableDepthClipping() {
         VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_DEPTH_CLIP_STATE_CREATE_INFO_EXT;
     localDepthClipping.depthClipEnable = VK_TRUE;
     rasterizer.pNext                   = &localDepthClipping;
-    return *this;
-}
-
-PipelineParameters& PipelineParameters::withMSAABehavior(MSAABehavior b) {
-    msaaBehavior = b;
     return *this;
 }
 

@@ -1,8 +1,8 @@
 #ifndef BLIB_RENDER_VULKAN_SWAPCHAIN_HPP
 #define BLIB_RENDER_VULKAN_SWAPCHAIN_HPP
 
+#include <BLIB/Render/Vulkan/AttachmentSet.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
-#include <BLIB/Render/Vulkan/GenericAttachmentSet.hpp>
 #include <BLIB/Render/Vulkan/Image.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/PerSwapFrame.hpp>
@@ -25,8 +25,6 @@ struct VulkanState;
  */
 class Swapchain {
 public:
-    using SwapframeAttachmentSet = GenericAttachmentSet<1>;
-
     /**
      * @brief Creates a new swap chain
      *
@@ -58,7 +56,7 @@ public:
      * @param renderFrame A reference to a pointer to populate with the active chain image
      * @param commandBuffer A command buffer reference to populate with the primary CB to use
      */
-    void beginFrame(SwapframeAttachmentSet*& renderFrame, VkCommandBuffer& commandBuffer);
+    void beginFrame(AttachmentSet*& renderFrame, VkCommandBuffer& commandBuffer);
 
     /**
      * @brief Finalizes the command buffer and submits it. Also triggers swap chain presentation
@@ -85,7 +83,7 @@ public:
      * @param i The index to get. UB if out of bounds
      * @return The swapchain image at the given index
      */
-    const SwapframeAttachmentSet& swapFrameAtIndex(unsigned int i) const;
+    const AttachmentSet& swapFrameAtIndex(unsigned int i) const;
 
     /**
      * @brief Returns the image format of images in the swap chain
@@ -113,7 +111,7 @@ private:
     VkSwapchainKHR oldSwapchain;
     VkSurfaceKHR oldSurface;
     VkFormat imageFormat;
-    std::vector<SwapframeAttachmentSet> renderFrames;
+    std::vector<AttachmentSet> renderFrames;
     vk::PerFrame<Frame> frameData;
     std::uint32_t currentImageIndex;
     bool outOfDate;
@@ -130,7 +128,7 @@ inline std::uint32_t Swapchain::currentIndex() const { return currentImageIndex;
 
 inline std::size_t Swapchain::length() const { return renderFrames.size(); }
 
-inline const GenericAttachmentSet<1>& Swapchain::swapFrameAtIndex(unsigned int i) const {
+inline const AttachmentSet& Swapchain::swapFrameAtIndex(unsigned int i) const {
     return renderFrames[i];
 }
 
@@ -155,6 +153,12 @@ void PerSwapFrame<T>::init(Swapchain& c, const TCb& visitor) {
 template<typename T>
 template<typename TCb>
 void PerSwapFrame<T>::cleanup(const TCb& visitor) {
+    for (T& d : data) { visitor(d); }
+}
+
+template<typename T>
+template<typename TCb>
+void PerSwapFrame<T>::visit(const TCb& visitor) {
     for (T& d : data) { visitor(d); }
 }
 

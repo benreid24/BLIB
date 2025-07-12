@@ -66,7 +66,7 @@ void Swapchain::destroy() {
     frameData.cleanup([this](Frame& frame) { frame.cleanup(vulkanState); });
 }
 
-void Swapchain::beginFrame(SwapframeAttachmentSet*& renderFrame, VkCommandBuffer& cb) {
+void Swapchain::beginFrame(AttachmentSet*& renderFrame, VkCommandBuffer& cb) {
     // wait for prior frame
     vkCheck(vkWaitForFences(
         vulkanState.device, 1, &frameData.current().commandBufferFence, VK_TRUE, UINT64_MAX));
@@ -154,14 +154,14 @@ void Swapchain::completeFrame() {
 }
 
 void Swapchain::cleanup() {
-    for (SwapframeAttachmentSet& frame : renderFrames) {
+    for (AttachmentSet& frame : renderFrames) {
         vkDestroyImageView(vulkanState.device, frame.getImageView(0), nullptr);
     }
     vkDestroySwapchainKHR(vulkanState.device, swapchain, nullptr);
 }
 
 void Swapchain::deferCleanup() {
-    for (SwapframeAttachmentSet& frame : renderFrames) {
+    for (AttachmentSet& frame : renderFrames) {
         vulkanState.cleanupManager.add(
             [device = vulkanState.device, view = frame.getImageView(0)]() {
                 vkDestroyImageView(device, view, nullptr);

@@ -40,6 +40,15 @@ public:
     void init(Swapchain& swapchain, const TCb& visitor);
 
     /**
+     * @brief Runs a visitor per-object
+     *
+     * @tparam TCb Visitor signature
+     * @param visitor The visitor. Must have signature void(T&)
+     */
+    template<typename TCb>
+    void visit(const TCb& visitor);
+
+    /**
      * @brief Runs a cleanup visitor per-object
      *
      * @tparam TCb Visitor signature

@@ -2,6 +2,7 @@
 #define BLIB_RENDER_VULKAN_RENDERPASSPARAMETERS_HPP
 
 #include <BLIB/Containers/StaticVector.hpp>
+#include <BLIB/Render/Graph/Assets/MSAABehavior.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <cstdint>
 #include <optional>
@@ -27,13 +28,7 @@ public:
     static constexpr std::uint32_t MaxDependencyCount = 8;
 
     /// Controls the MSAA behavior of the render pass
-    enum struct MSAABehavior {
-        /// MSAA is disabled always for this render pass
-        Disabled,
-
-        /// MSAA is enabled or disabled based on the renderer settings
-        UseSettings
-    };
+    using MSAABehavior = bl::rc::rgi::MSAABehavior;
 
     /**
      * @brief Helper parameter class that represents a subpass within a render pass

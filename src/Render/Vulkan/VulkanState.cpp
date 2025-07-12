@@ -195,8 +195,7 @@ void VulkanState::cleanup() {
 
 void VulkanState::invalidateSwapChain() { swapchain.invalidate(); }
 
-void VulkanState::beginFrame(Swapchain::SwapframeAttachmentSet*& renderFrame,
-                             VkCommandBuffer& commandBuffer) {
+void VulkanState::beginFrame(AttachmentSet*& renderFrame, VkCommandBuffer& commandBuffer) {
     swapchain.beginFrame(renderFrame, commandBuffer);
     cleanupManager.onFrameStart();
 }
@@ -353,6 +352,7 @@ void VulkanState::pickPhysicalDevice() {
         throw std::runtime_error("Failed to find a suitable GPU");
     }
 
+    vkGetPhysicalDeviceFeatures(physicalDevice, &physicalDeviceFeatures);
     vkGetPhysicalDeviceProperties(physicalDevice, &physicalDeviceProperties);
 
     std::uint32_t extensionCount = 0;
@@ -388,9 +388,7 @@ void VulkanState::createLogicalDevice() {
     deviceFeatures.samplerAnisotropy = VK_TRUE;
     deviceFeatures.wideLines =
         physicalDeviceProperties.limits.lineWidthRange[1] > 1.f ? VK_TRUE : VK_FALSE;
-#ifdef BLIB_DEBUG
-    deviceFeatures.robustBufferAccess = VK_TRUE;
-#endif
+    deviceFeatures.sampleRateShading = physicalDeviceFeatures.sampleRateShading;
 
     VkDeviceCreateInfo createInfo{};
     createInfo.sType                   = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
