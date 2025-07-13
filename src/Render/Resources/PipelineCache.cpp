@@ -239,6 +239,7 @@ void PipelineCache::createBuiltins() {
             .withSpecialization(cfg::Specializations3D::OutlineMainPass, stencilWriteSpecialization)
             .build());
 
+    const std::uint32_t sampleCount = renderer.getSettings().getMSAASampleCountAsInt();
     constexpr VkShaderStageFlags vertexAndFragment =
         VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
     const vk::BlendParameters blendAdd = vk::BlendParameters().withSimpleColorBlendState(
@@ -259,31 +260,65 @@ void PipelineCache::createBuiltins() {
             .withSpecialization(
                 cfg::SpecializationsLightVolumes::SpotlightShadow,
                 vk::PipelineSpecialization()
-                    .createShaderSpecializations(vertexAndFragment, sizeof(std::uint32_t), 1)
+                    .createShaderSpecializations(vertexAndFragment, sizeof(std::uint32_t) * 2, 2)
                     .setShaderSpecializationValue<std::uint32_t>(
                         vertexAndFragment, 0, 0, cfg::SpecializationsLightVolumes::SpotlightShadow)
+                    .setShaderSpecializationValue<std::uint32_t>(
+                        vertexAndFragment, 1, sizeof(std::uint32_t), sampleCount)
                     .withBlendConfig(blendAdd))
             .withSpecialization(
                 cfg::SpecializationsLightVolumes::Spotlight,
                 vk::PipelineSpecialization()
-                    .createShaderSpecializations(vertexAndFragment, sizeof(std::uint32_t), 1)
+                    .createShaderSpecializations(vertexAndFragment, sizeof(std::uint32_t) * 2, 2)
                     .setShaderSpecializationValue<std::uint32_t>(
                         vertexAndFragment, 0, 0, cfg::SpecializationsLightVolumes::Spotlight)
+                    .setShaderSpecializationValue<std::uint32_t>(
+                        vertexAndFragment, 1, sizeof(std::uint32_t), sampleCount)
                     .withBlendConfig(blendAdd))
             .withSpecialization(
                 cfg::SpecializationsLightVolumes::PointlightShadow,
                 vk::PipelineSpecialization()
-                    .createShaderSpecializations(vertexAndFragment, sizeof(std::uint32_t), 1)
+                    .createShaderSpecializations(vertexAndFragment, sizeof(std::uint32_t) * 2, 2)
                     .setShaderSpecializationValue<std::uint32_t>(
                         vertexAndFragment, 0, 0, cfg::SpecializationsLightVolumes::PointlightShadow)
+                    .setShaderSpecializationValue<std::uint32_t>(
+                        vertexAndFragment, 1, sizeof(std::uint32_t), sampleCount)
                     .withBlendConfig(blendAdd))
             .withSpecialization(
                 cfg::SpecializationsLightVolumes::Pointlight,
                 vk::PipelineSpecialization()
-                    .createShaderSpecializations(vertexAndFragment, sizeof(std::uint32_t), 1)
+                    .createShaderSpecializations(vertexAndFragment, sizeof(std::uint32_t) * 2, 2)
                     .setShaderSpecializationValue<std::uint32_t>(
                         vertexAndFragment, 0, 0, cfg::SpecializationsLightVolumes::Pointlight)
+                    .setShaderSpecializationValue<std::uint32_t>(
+                        vertexAndFragment, 1, sizeof(std::uint32_t), sampleCount)
                     .withBlendConfig(blendAdd))
+            .withSpecialization(
+                0,
+                vk::PipelineSpecialization()
+                    .createShaderSpecializations(vertexAndFragment, sizeof(std::uint32_t) * 2, 2)
+                    .setShaderSpecializationValue<std::uint32_t>(
+                        vertexAndFragment, 0, 0, cfg::SpecializationsLightVolumes::Sunlight)
+                    .setShaderSpecializationValue<std::uint32_t>(
+                        vertexAndFragment, 1, sizeof(std::uint32_t), sampleCount))
+            .withDynamicModifier([](Renderer& renderer,
+                                    vk::PipelineParameters& params,
+                                    const event::SettingsChanged& changeEvent) -> bool {
+                if (changeEvent.setting == event::SettingsChanged::AntiAliasing) {
+                    const std::uint32_t sampleCount =
+                        renderer.getSettings().getMSAASampleCountAsInt();
+                    params.visitSpecializations(
+                        [sampleCount](vk::PipelineSpecialization& specialization) {
+                            specialization.setShaderSpecializationValue<std::uint32_t>(
+                                VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT,
+                                1,
+                                sizeof(std::uint32_t),
+                                sampleCount);
+                        });
+                    return true;
+                }
+                return false;
+            })
             .addDescriptorSet<ds::InputAttachmentFactory<4>>()
             .addDescriptorSet<ds::Scene3DFactory>()
             .build());

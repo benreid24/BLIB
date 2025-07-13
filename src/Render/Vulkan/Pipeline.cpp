@@ -61,7 +61,7 @@ void Pipeline::createForRenderPass(std::uint32_t rpid, std::uint32_t spec) {
     const VkBool32 sampleShadingSetting = createParams.msaa.sampleShadingEnable;
     const bool useSampleShading =
         createParams.msaa.sampleShadingEnable == VK_TRUE &&
-        renderer.getSettings().getMSAASampleCount() > VK_SAMPLE_COUNT_1_BIT &&
+        renderer.getSettings().getMSAASampleCountAsInt() > 1 &&
         renderer.vulkanState().physicalDeviceFeatures.sampleRateShading == VK_TRUE;
 
     // configure msaa
@@ -165,11 +165,12 @@ void Pipeline::createForRenderPass(std::uint32_t rpid, std::uint32_t spec) {
 }
 
 void Pipeline::observe(const event::SettingsChanged& event) {
-    if (event.setting == event::SettingsChanged::Setting::AntiAliasing) {
+    const bool changed = createParams.handleChange(renderer, event);
+    if (changed || event.setting == event::SettingsChanged::Setting::AntiAliasing) {
         for (std::uint32_t rpid = 0; rpid < pipelines.size(); ++rpid) {
             RenderPass& renderPass = renderer.renderPassCache().getRenderPass(rpid);
-            if (renderPass.getCreateParams().getMSAABehavior() ==
-                RenderPassParameters::MSAABehavior::UseSettings) {
+            if (changed || renderPass.getCreateParams().getMSAABehavior() ==
+                               RenderPassParameters::MSAABehavior::UseSettings) {
                 for (std::uint32_t spec = 0; spec < pipelines[rpid].size(); ++spec) {
                     if (pipelines[spec][rpid]) {
                         renderer.vulkanState().cleanupManager.add(

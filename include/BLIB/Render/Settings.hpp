@@ -163,6 +163,11 @@ public:
      */
     VkSampleCountFlagBits getMSAASampleCount() const;
 
+    /**
+     * @brief Return the sample count used for MSAA as an unsigned int
+     */
+    unsigned int getMSAASampleCountAsInt() const;
+
 private:
     Renderer& owner;
     float gamma;

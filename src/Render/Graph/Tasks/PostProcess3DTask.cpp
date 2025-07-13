@@ -64,12 +64,10 @@ void PostProcess3DTask::onGraphInit() {
             bloomBlur.get(0).getAttachmentSets(), 0, sampler);
     }
     else {
+        VkFormat formats[]         = {vk::TextureFormat::HDRColor};
+        VkImageUsageFlags usages[] = {VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT};
         dummyBloomBuffer.emplace();
-        dummyBloomBuffer.value().create(
-            renderer->vulkanState(),
-            {32, 32},
-            {vk::TextureFormat::HDRColor},
-            {VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT});
+        dummyBloomBuffer.value().create(renderer->vulkanState(), 1, {32, 32}, formats, usages);
         dummyBloomBuffer.value().getBuffer(0).clearAndPrepareForSampling();
         bloomAttachmentSet.value().initAttachments(
             &dummyBloomBuffer.value().attachmentSet(), 0, sampler);

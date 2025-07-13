@@ -34,11 +34,12 @@ void FinalRenderTextureAsset::doCreate(engine::Engine&, Renderer& renderer, Rend
     depthBuffer->setSizeMode(DepthBuffer::Target);
 
     attachmentSet.setRenderExtent(scissor.extent);
-    attachmentSet.setAttachments(texture->getImage(),
-                                 texture->getView(),
-                                 depthBuffer->getBuffer().getImage(),
-                                 depthBuffer->getBuffer().getView());
-    framebuffer.create(renderer.vulkanState(), renderPass->rawPass(), attachmentSet);
+    attachmentSet.setAttachmentCount(2);
+    attachmentSet.setAttachment(0, texture->getImage(), texture->getView());
+    attachmentSet.setAttachment(1, depthBuffer->getBuffer());
+    attachmentSet.setAttachmentAspect(0, VK_IMAGE_ASPECT_COLOR_BIT);
+    attachmentSet.setAttachmentAspect(1, VK_IMAGE_ASPECT_DEPTH_BIT);
+    framebuffer.create(renderer.vulkanState(), renderPass, attachmentSet);
 }
 
 void FinalRenderTextureAsset::doPrepareForInput(const rg::ExecutionContext&) {
@@ -60,11 +61,9 @@ vk::Framebuffer& FinalRenderTextureAsset::getFramebuffer(std::uint32_t) { return
 void FinalRenderTextureAsset::onResize(glm::u32vec2) {
     depthBuffer->onResize({scissor.extent.width, scissor.extent.height});
     attachmentSet.setRenderExtent(scissor.extent);
-    attachmentSet.setAttachments(texture->getImage(),
-                                 texture->getView(),
-                                 depthBuffer->getBuffer().getImage(),
-                                 depthBuffer->getBuffer().getView());
-    framebuffer.create(*vs, renderPass->rawPass(), attachmentSet);
+    attachmentSet.setAttachment(0, texture->getImage(), texture->getView());
+    attachmentSet.setAttachment(1, depthBuffer->getBuffer());
+    framebuffer.create(*vs, renderPass, attachmentSet);
 }
 
 } // namespace rgi

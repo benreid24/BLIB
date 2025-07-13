@@ -30,8 +30,8 @@ void ColorAttachmentInstance::bind(VkCommandBuffer commandBuffer, VkPipelineLayo
     VkImageView& cachedView              = cachedViews.getRaw(vulkanState.currentFrameIndex());
 
     // update descriptor on change
-    if (cachedView != attachments.imageViews()[attachmentIndex]) {
-        cachedView = attachments.imageViews()[attachmentIndex];
+    if (cachedView != attachments.getImageView(attachmentIndex)) {
+        cachedView = attachments.getImageView(attachmentIndex);
 
         VkDescriptorImageInfo imageInfo{};
         imageInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
@@ -87,7 +87,7 @@ void ColorAttachmentInstance::commonInit() {
     std::array<VkDescriptorImageInfo, cfg::Limits::MaxConcurrentFrames> imageInfos{};
     for (unsigned int i = 0; i < cfg::Limits::MaxConcurrentFrames; ++i) {
         imageInfos[i].imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-        imageInfos[i].imageView   = source.get(i)->imageViews()[attachmentIndex];
+        imageInfos[i].imageView   = source.get(i)->getImageView(attachmentIndex);
         imageInfos[i].sampler     = sampler;
         cachedViews.getRaw(i)     = imageInfos[i].imageView;
     }

@@ -82,14 +82,16 @@ void Renderer::initialize() {
         std::array<VkFormat, 1>{vk::TextureFormat::SRGBA32Bit},
         std::array<VkImageUsageFlags, 1>{VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT |
                                          VK_IMAGE_USAGE_SAMPLED_BIT},
-        std::array<VkClearValue, 1>{VkClearValue{.color = Black}});
+        std::array<VkClearValue, 2>{VkClearValue{.color = Black},
+                                    VkClearValue{.depthStencil = ClearDepth}});
     assetFactory.addProvider<rgi::StandardTargetProvider>(
         rg::AssetTags::RenderedSceneOutputHDR,
         rgi::TargetSize(rgi::TargetSize::ObserverSize),
         std::array<VkFormat, 1>{vk::TextureFormat::SRGBA32Bit},
         std::array<VkImageUsageFlags, 1>{VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT |
                                          VK_IMAGE_USAGE_SAMPLED_BIT},
-        std::array<VkClearValue, 1>{VkClearValue{.color = Black}});
+        std::array<VkClearValue, 2>{VkClearValue{.color = Black},
+                                    VkClearValue{.depthStencil = ClearDepth}});
     assetFactory.addProvider<rgi::BloomColorAttachmentPairProvider>(
         rg::AssetTags::BloomColorAttachmentPair,
         rgi::TargetSize(rgi::TargetSize::ObserverSize),

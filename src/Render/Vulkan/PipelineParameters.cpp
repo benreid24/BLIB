@@ -251,6 +251,15 @@ PipelineParameters&& PipelineParameters::build() {
     return std::move(*this);
 }
 
+bool PipelineParameters::handleChange(Renderer& renderer,
+                                      const event::SettingsChanged& changeEvent) {
+    bool changed = false;
+    for (auto& modifier : dynamicModifiers) {
+        if (modifier(renderer, *this, changeEvent)) { changed = true; }
+    }
+    return changed;
+}
+
 bool PipelineParameters::operator==(const PipelineParameters& right) const {
     if (layoutParams != right.layoutParams) { return false; }
     if (shaders.size() != right.shaders.size()) { return false; }

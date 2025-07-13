@@ -86,11 +86,13 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-Image& AttachmentImageSet::getBuffer(std::uint32_t i) { return buffers[i]; }
+inline Image& AttachmentImageSet::getBuffer(std::uint32_t i) { return buffers[i]; }
 
-const AttachmentSet& AttachmentImageSet::attachmentSet() const { return attachments; }
+inline const AttachmentSet& AttachmentImageSet::attachmentSet() const { return attachments; }
 
-const VkExtent2D& AttachmentImageSet::bufferSize() const { return attachments.renderExtent(); }
+inline const VkExtent2D& AttachmentImageSet::bufferSize() const {
+    return attachments.getRenderExtent();
+}
 
 } // namespace vk
 } // namespace rc

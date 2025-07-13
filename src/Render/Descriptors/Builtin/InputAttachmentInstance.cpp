@@ -40,8 +40,8 @@ void InputAttachmentInstance::bind(VkCommandBuffer commandBuffer, VkPipelineLayo
 
     bool changed = false;
     for (unsigned int i = 0; i < attachmentCount; ++i) {
-        if (cached[i] != attachments->imageViews()[i + startIndex]) {
-            cached[i] = attachments->imageViews()[i + startIndex];
+        if (cached[i] != attachments->getImageView(i + startIndex)) {
+            cached[i] = attachments->getImageView(i + startIndex);
             changed   = true;
             break;
         }
@@ -52,7 +52,7 @@ void InputAttachmentInstance::bind(VkCommandBuffer commandBuffer, VkPipelineLayo
         std::array<VkDescriptorImageInfo, 8> imageInfo{};
         for (unsigned int i = 0; i < attachmentCount; ++i) {
             imageInfo[i].imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-            imageInfo[i].imageView   = attachments->imageViews()[i + startIndex];
+            imageInfo[i].imageView   = attachments->getImageView(i + startIndex);
             imageInfo[i].sampler     = sampler;
         }
 
@@ -87,7 +87,7 @@ void InputAttachmentInstance::bindForPipeline(scene::SceneRenderContext& ctx,
 }
 
 void InputAttachmentInstance::initAttachments(const vk::AttachmentSet* set, VkSampler smp) {
-    if (set->size() <= startIndex + attachmentCount) {
+    if (set->getAttachmentCount() <= startIndex + attachmentCount) {
         BL_LOG_ERROR << "Input attachment set has insufficient attachments";
         return;
     }
@@ -99,7 +99,7 @@ void InputAttachmentInstance::initAttachments(const vk::AttachmentSet* set, VkSa
 void InputAttachmentInstance::initAttachments(
     const std::array<const vk::AttachmentSet*, cfg::Limits::MaxConcurrentFrames>& sets,
     VkSampler smp) {
-    if (sets[0]->size() <= startIndex + attachmentCount) {
+    if (sets[0]->getAttachmentCount() <= startIndex + attachmentCount) {
         BL_LOG_ERROR << "Input attachment set has insufficient attachments";
         return;
     }
@@ -114,7 +114,7 @@ void InputAttachmentInstance::commonInit() {
         for (unsigned int j = 0; j < attachmentCount; ++j) {
             const unsigned int k      = j * cfg::Limits::MaxConcurrentFrames + i;
             imageInfos[k].imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-            imageInfos[k].imageView   = source.get(i)->imageViews()[j + startIndex];
+            imageInfos[k].imageView   = source.get(i)->getImageView(j + startIndex);
             imageInfos[k].sampler     = sampler;
             cachedViews.getRaw(i)[j]  = imageInfos[i].imageView;
         }

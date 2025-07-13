@@ -18,8 +18,8 @@ void RenderPassCache::cleanup() { cache.clear(); }
 
 vk::RenderPass& RenderPassCache::createRenderPass(std::uint32_t id,
                                                   vk::RenderPassParameters&& sceneParams) {
-    const auto insertResult = cache.try_emplace(
-        id, id, renderer.vulkanState(), std::forward<vk::RenderPassParameters>(sceneParams));
+    const auto insertResult =
+        cache.try_emplace(id, id, renderer, std::forward<vk::RenderPassParameters>(sceneParams));
     if (!insertResult.second) {
         BL_LOG_WARN << "Duplicate creation of render pass with id: " << id;
     }

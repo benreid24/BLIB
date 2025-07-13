@@ -1,5 +1,6 @@
-#include "AttachmentSet.hpp"
 #include <BLIB/Render/Vulkan/AttachmentSet.hpp>
+
+#include <BLIB/Render/Vulkan/AttachmentImageSet.hpp>
 
 namespace bl
 {
@@ -34,7 +35,7 @@ void AttachmentSet::init(std::uint32_t attachmentCount, VkImage* imagesIn, VkIma
     for (std::uint32_t i = 0; i < attachmentCount; ++i) {
         images[i]  = imagesIn[i];
         views[i]   = viewsIn[i];
-        aspects[i] = aspects[i];
+        aspects[i] = aspectsIn[i];
     }
 }
 
@@ -66,7 +67,7 @@ void AttachmentSet::setAttachment(std::uint32_t index, Image& image) {
 }
 
 void AttachmentSet::setAttachments(std::uint32_t index, AttachmentImageSet& imagesIn) {
-    copy(imagesIn.attachmentSet(), imagesIn.getAttachmentCount(), index);
+    copy(imagesIn.attachmentSet(), imagesIn.attachmentSet().getAttachmentCount(), index);
 }
 
 void AttachmentSet::copy(const AttachmentSet& other, std::uint32_t count, std::uint32_t baseIndex) {

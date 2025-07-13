@@ -263,11 +263,10 @@ void Swapchain::createSwapchain() {
     auto cb = vulkanState.sharedCommandPool.createBuffer();
     renderFrames.clear();
     renderFrames.reserve(imageCount);
+    std::array<VkImageAspectFlags, 1> aspects{VK_IMAGE_ASPECT_COLOR_BIT};
     for (unsigned int i = 0; i < imageCount; ++i) {
-        renderFrames.emplace_back(std::array<VkImageAspectFlags, 1>{VK_IMAGE_ASPECT_COLOR_BIT}, 1);
-        renderFrames[i].setRenderExtent(createInfo.imageExtent);
-        renderFrames[i].setAttachments({images[i]},
-                                       {vulkanState.createImageView(images[i], imageFormat)});
+        VkImageView view = vulkanState.createImageView(images[i], imageFormat);
+        renderFrames.emplace_back(1, &images[i], &view, aspects.data(), createInfo.imageExtent);
         vulkanState.transitionImageLayout(cb,
                                           images[i],
                                           VK_IMAGE_LAYOUT_UNDEFINED,

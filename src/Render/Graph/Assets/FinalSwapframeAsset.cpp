@@ -117,6 +117,29 @@ void FinalSwapframeAsset::updateAllAttachments() {
     attachmentSets.visit([this, &i](vk::AttachmentSet&) { updateAttachments(i++); });
 }
 
+void FinalSwapframeAsset::observe(const event::SettingsChanged& changeEvent) {
+    if (changeEvent.setting == event::SettingsChanged::AntiAliasing) {
+        const bool useMsaa =
+            engine->renderer().getSettings().getAntiAliasing() != Settings::AntiAliasing::None;
+
+        if (useMsaa) {
+            sampledImage.create(engine->renderer().vulkanState(),
+                                vk::Image::Type::Image2D,
+                                engine->renderer().vulkanState().swapchain.swapImageFormat(),
+                                VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
+                                attachmentSets.current().getRenderExtent(),
+                                VK_IMAGE_ASPECT_COLOR_BIT,
+                                VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT,
+                                VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
+                                0,
+                                VK_IMAGE_ASPECT_FLAG_BITS_MAX_ENUM,
+                                engine->renderer().getSettings().getMSAASampleCount());
+        }
+        else { sampledImage.deferDestroy(); }
+        updateAllAttachments();
+    }
+}
+
 } // namespace rgi
 } // namespace rc
 } // namespace bl

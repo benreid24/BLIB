@@ -13,7 +13,6 @@
 #include <BLIB/Render/Settings.hpp>
 #include <BLIB/Render/Vulkan/AttachmentImageSet.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
-#include <BLIB/Render/Vulkan/GenericAttachmentSet.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <utility>
 
@@ -41,15 +40,15 @@ class GenericTargetAsset
 : public FramebufferAsset
 , public bl::event::Listener<event::SettingsChanged> {
 public:
-    static constexpr bool UsesMSAA = (MSAA & MSAABehavior::UseSettings) != 0;
+    static constexpr bool UsesMSAA = MSAA & MSAABehavior::UseSettings;
 
     static constexpr std::uint32_t DepthAttachmentCount =
         DepthAttachment != DepthAttachmentType::None ? 1 : 0;
 
-    static constexpr ResolveAttachmentCount =
-        (MSAA & MSAABehavior::ResolveAttachments) != 0 ? AttachmentCount : 0;
+    static constexpr std::uint32_t ResolveAttachmentCount =
+        (MSAA & MSAABehavior::ResolveAttachments) ? AttachmentCount : 0;
 
-    static constexpr RenderedAttachmentCount = AttachmentCount + DepthAttachmentCount;
+    static constexpr std::uint32_t RenderedAttachmentCount = AttachmentCount + DepthAttachmentCount;
 
     static constexpr std::uint32_t TotalAttachmentCount =
         AttachmentCount + DepthAttachmentCount + ResolveAttachmentCount;
@@ -105,7 +104,6 @@ public:
     , attachmentUsages(imageUsages)
     , depthBufferAsset(nullptr)
     , depthBufferView(VK_NULL_HANDLE)
-    , attachmentSet(makeAspectArray(imageFormats, imageUsages), 1)
     , cachedViewport{}
     , cachedScissor{} {
         cachedViewport.minDepth = 0.f;
@@ -115,8 +113,21 @@ public:
         cachedViewport.x        = 0.f;
         cachedViewport.y        = 0.f;
 
+        for (std::uint32_t i = 0; i < AttachmentCount; ++i) {
+            attachmentSet.setAttachmentAspect(
+                i, vk::VulkanState::guessImageAspect(imageFormats[i], imageUsages[i]));
+        }
         if constexpr (DepthAttachment == DepthAttachmentType::SharedDepthBuffer) {
             addDependency(rg::AssetTags::DepthBuffer);
+            attachmentSet.setAttachmentAspect(
+                AttachmentCount, VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT);
+        }
+        if constexpr (ResolveAttachmentCount > 0) {
+            for (std::uint32_t i = 0; i < AttachmentCount; ++i) {
+                attachmentSet.setAttachmentAspect(
+                    i + AttachmentCount + DepthAttachmentCount,
+                    vk::VulkanState::guessImageAspect(imageFormats[i], imageUsages[i]));
+            }
         }
     }
 
@@ -231,8 +242,8 @@ private:
             images.create(renderer->vulkanState(),
                           AttachmentCount,
                           {cachedScissor.extent.width, cachedScissor.extent.height},
-                          attachmentFormats,
-                          attachmentUsages,
+                          attachmentFormats.data(),
+                          attachmentUsages.data(),
                           sampleCount);
             attachmentSet.setRenderExtent(cachedScissor.extent);
 
@@ -240,8 +251,8 @@ private:
                 resolveImages.create(renderer->vulkanState(),
                                      AttachmentCount,
                                      {cachedScissor.extent.width, cachedScissor.extent.height},
-                                     attachmentFormats,
-                                     attachmentUsages,
+                                     attachmentFormats.data(),
+                                     attachmentUsages.data(),
                                      sampleCount);
             }
             else if (UsesMSAA) { resolveImages.deferDestroy(); }
@@ -249,7 +260,8 @@ private:
             std::uint32_t ac = AttachmentCount;
             attachmentSet.copy(images.attachmentSet(), AttachmentCount);
             if constexpr (DepthAttachment == DepthAttachmentType::SharedDepthBuffer) {
-                depthBufferAsset->onResize(newSize);
+                depthBufferAsset->onResize(
+                    {cachedScissor.extent.width, cachedScissor.extent.height});
                 attachmentSet.setAttachment(AttachmentCount, depthBufferAsset->getBuffer());
                 depthBufferView = depthBufferAsset->getBuffer().getView();
                 ++ac;
@@ -259,7 +271,7 @@ private:
                 ac += ResolveAttachmentCount;
             }
             attachmentSet.setAttachmentCount(ac);
-            framebuffer.create(renderer->vulkanState(), renderPass->rawPass(), attachmentSet);
+            framebuffer.create(renderer->vulkanState(), renderPass, attachmentSet);
         }
     }
 

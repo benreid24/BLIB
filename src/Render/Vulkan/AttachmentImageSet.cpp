@@ -11,7 +11,8 @@ AttachmentImageSet::AttachmentImageSet()
 
 void AttachmentImageSet::create(VulkanState& vulkanState, unsigned int count,
                                 const VkExtent2D& size, const VkFormat* bufferFormats,
-                                const VkImageUsageFlags* usages, VkSampleCountFlagBits samples) {
+                                const VkImageUsageFlags* usages, VkSampleCountFlagBits samples,
+                                std::uint32_t firstResolveAttachment) {
     owner = &vulkanState;
     attachments.setRenderExtent(size);
 
@@ -33,8 +34,9 @@ void AttachmentImageSet::create(VulkanState& vulkanState, unsigned int count,
         views[i]  = buffers[i].getView();
     }
 
-    attachments.init(images, views, aspects, buffers[0].getLayerCount(), count);
-    attachments.setOutputIndex(oi);
+    attachments.init(
+        count, images.data(), views.data(), aspects.data(), size, buffers[0].getLayerCount());
+    attachments.setOutputIndex(firstResolveAttachment);
 }
 
 void AttachmentImageSet::destroy() {

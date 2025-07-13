@@ -210,9 +210,6 @@ private:
     std::uint32_t n;
     std::uint32_t layerCount;
     std::uint32_t outputIndex;
-
-    template<std::uint32_t N>
-    friend class AttachmentImageSet;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

@@ -8,5 +8,6 @@
 #define LIGHT_TYPE_POINT 4
 
 layout(constant_id = 0) const uint lightType = LIGHT_TYPE_SUN;
+layout(constant_id = 1) const uint sampleCount = 1;
 
 #endif

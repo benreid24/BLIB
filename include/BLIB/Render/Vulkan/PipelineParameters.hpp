@@ -3,6 +3,7 @@
 
 #include <BLIB/Containers/StaticVector.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
+#include <BLIB/Render/Events/SettingsChanged.hpp>
 #include <BLIB/Render/Vulkan/BlendParameters.hpp>
 #include <BLIB/Render/Vulkan/PipelineLayout.hpp>
 #include <BLIB/Render/Vulkan/PipelineSpecialization.hpp>
@@ -14,6 +15,7 @@
 #include <initializer_list>
 #include <memory>
 #include <string>
+#include <type_traits>
 #include <typeindex>
 #include <vector>
 
@@ -33,6 +35,13 @@ class Pipeline;
  */
 class PipelineParameters {
 public:
+    /**
+     * @brief Signature of a function to modify the pipeline parameters dynamically on settings
+     *        events. Should return true if the settings were modified
+     */
+    using DynamicModifier =
+        std::function<bool(Renderer&, PipelineParameters&, const event::SettingsChanged&)>;
+
     /**
      * @brief Creates the parameters using sane defaults
      */
@@ -243,6 +252,26 @@ public:
                                            const PipelineSpecialization& specialization);
 
     /**
+     * @brief Adds a modifier hook that will be called on settings changed events
+     *
+     * @param TModifier The type of the modifier function to call on settings changed events
+     * @param modifier The modifier function to call on settings changed events
+     * @return A reference to this object
+     */
+    template<typename TModifier>
+    PipelineParameters& withDynamicModifier(TModifier&& modifier);
+
+    /**
+     * @brief Helper function that allows dynamic modifiers to change all specializations
+     *
+     * @tparam TVisitor The type of the visitor to call for each specialization
+     * @param visitor The visitor to call for each specialization. Signature should be:
+     *                void(PipelineSpecialization&)
+     */
+    template<typename TVisitor>
+    void visitSpecializations(TVisitor&& visitor);
+
+    /**
      * @brief Performs final validation and defaulting, then returns an rvalue reference to this
      *        object to be used for pipeline creation
      *
@@ -289,9 +318,12 @@ private:
     VkPipelineMultisampleStateCreateInfo msaa;
     PipelineSpecialization mainSpecialization;
     std::vector<PipelineSpecialization> specializations;
+    std::vector<DynamicModifier> dynamicModifiers;
 
     VkPipelineRasterizationDepthClipStateCreateInfoEXT localDepthClipping;
     VkPipelineDepthStencilStateCreateInfo localDepthStencil;
+
+    bool handleChange(Renderer& renderer, const event::SettingsChanged& changeEvent);
 
     friend class Pipeline;
     friend struct std::hash<PipelineParameters>;
@@ -319,6 +351,20 @@ template<typename TFactory, typename... TArgs>
 PipelineParameters& PipelineParameters::replaceDescriptorSet(unsigned int i, TArgs&&... args) {
     layoutParams.replaceDescriptorSet<TFactory>(i, std::forward<TArgs>(args)...);
     return *this;
+}
+
+template<typename TModifier>
+PipelineParameters& PipelineParameters::withDynamicModifier(TModifier&& modifier) {
+    dynamicModifiers.emplace_back(std::forward<TModifier>(modifier));
+    return *this;
+}
+
+template<typename TVisitor>
+void PipelineParameters::visitSpecializations(TVisitor&& visitor) {
+    static_assert(std::is_invocable_v<TVisitor, PipelineSpecialization&>,
+                  "Visitor must be invocable with PipelineSpecialization&");
+    visitor(mainSpecialization);
+    for (PipelineSpecialization& spec : specializations) { visitor(spec); }
 }
 
 } // namespace vk

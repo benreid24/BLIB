@@ -42,4 +42,16 @@ inline constexpr bl::rc::rgi::MSAABehavior operator|(bl::rc::rgi::MSAABehavior a
     return static_cast<bl::rc::rgi::MSAABehavior>(static_cast<T>(a) | static_cast<T>(b));
 }
 
+/**
+ * @brief Helper to check if a MSAABehavior flag is set
+ *
+ * @param a The MSAABehavior flag to check
+ * @param b The MSAABehavior flag to check against
+ * @return True if the flag is set, false otherwise
+ */
+inline constexpr bool operator&(bl::rc::rgi::MSAABehavior a, bl::rc::rgi::MSAABehavior b) {
+    using T = std::underlying_type<bl::rc::rgi::MSAABehavior>::type;
+    return (static_cast<T>(a) & static_cast<T>(b)) != 0;
+}
+
 #endif

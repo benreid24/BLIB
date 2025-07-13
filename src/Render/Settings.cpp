@@ -107,5 +107,26 @@ VkSampleCountFlagBits Settings::getMSAASampleCount() const {
     return static_cast<VkSampleCountFlagBits>(antiAliasing);
 }
 
+unsigned int Settings::getMSAASampleCountAsInt() const {
+    switch (antiAliasing) {
+    case AntiAliasing::MSAA2x:
+        return 2;
+    case AntiAliasing::MSAA4x:
+        return 4;
+    case AntiAliasing::MSAA8x:
+        return 8;
+    case AntiAliasing::MSAA16x:
+        return 16;
+    case AntiAliasing::MSAA32x:
+        return 32;
+    case AntiAliasing::MSAA64x:
+        return 64;
+
+    default:
+    case AntiAliasing::None:
+        return 1;
+    }
+}
+
 } // namespace rc
 } // namespace bl

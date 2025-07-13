@@ -13,8 +13,8 @@ ShadowMapAsset::ShadowMapAsset(std::string_view tag)
 : Asset(tag) {}
 
 void ShadowMapAsset::doCreate(engine::Engine&, Renderer& renderer, RenderTarget*) {
-    VkRenderPass renderPass =
-        renderer.renderPassCache().getRenderPass(cfg::RenderPassIds::ShadowMapPass).rawPass();
+    vk::RenderPass& renderPass =
+        renderer.renderPassCache().getRenderPass(cfg::RenderPassIds::ShadowMapPass);
 
     const VkFormat depthFormat = renderer.vulkanState().findShadowMapFormat();
     const VkImageAspectFlags depthAspect =
@@ -37,7 +37,7 @@ void ShadowMapAsset::doCreate(engine::Engine&, Renderer& renderer, RenderTarget*
                          VK_IMAGE_ASPECT_DEPTH_BIT);
         map.image.clearDepthAndPrepareForSampling(commandBuffer);
         map.attachmentSet.emplace(map.image);
-        map.framebuffer.create(renderer.vulkanState(), renderPass, map.attachmentSet.value());
+        map.framebuffer.create(renderer.vulkanState(), &renderPass, map.attachmentSet.value());
     }
     for (auto& map : pointShadowMaps) {
         map.image.create(renderer.vulkanState(),
@@ -52,7 +52,7 @@ void ShadowMapAsset::doCreate(engine::Engine&, Renderer& renderer, RenderTarget*
                          VK_IMAGE_ASPECT_DEPTH_BIT);
         map.image.clearDepthAndPrepareForSampling(commandBuffer);
         map.attachmentSet.emplace(map.image);
-        map.framebuffer.create(renderer.vulkanState(), renderPass, map.attachmentSet.value());
+        map.framebuffer.create(renderer.vulkanState(), &renderPass, map.attachmentSet.value());
     }
     commandBuffer.submit();
 }

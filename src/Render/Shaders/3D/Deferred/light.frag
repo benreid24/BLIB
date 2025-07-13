@@ -6,82 +6,37 @@ layout(location = 0) in FS_IN {
 } fs_in;
 layout(location = 0) out vec4 outColor;
 
-layout(set = 0, binding = 0) uniform sampler2D albedo;
-layout(set = 0, binding = 1) uniform sampler2D specular;
-layout(set = 0, binding = 2) uniform sampler2D positions;
-layout(set = 0, binding = 3) uniform sampler2D normals;
+layout(set = 0, binding = 0) uniform sampler2DMS albedo;
+layout(set = 0, binding = 1) uniform sampler2DMS specular;
+layout(set = 0, binding = 2) uniform sampler2DMS positions;
+layout(set = 0, binding = 3) uniform sampler2DMS normals;
 
 #define SCENE_SET_NUMBER 1
 #include "3D/Helpers/uniforms.glsl"
 #include "3D/Helpers/blinnPhongLighting.glsl.frag"
 #include "3D/Deferred/lightConstants.glsl"
+#include "3D/Deferred/lightCommon.glsl"
 
 void main() {
-    vec2 uv = gl_FragCoord.xy / vec2(textureSize(albedo, 0));
-    vec4 fragColor = texture(albedo, uv);
-    vec4 specularAndShiny = texture(specular, uv);
-    vec4 posAndLighting = texture(positions, uv);
-    vec3 position = posAndLighting.xyz;
-    bool lightingEnabled = posAndLighting.w != 0;
-    vec3 normal = texture(normals, uv).xyz;
-    vec3 viewDir = normalize(camera.camPos - position);
-    vec3 specular = specularAndShiny.xyz;
-    float shininess = specularAndShiny.w;
+    vec4 colorSum = vec4(0.0);
+    for (int si = 0; si < sampleCount; ++si) {
+        ivec2 uv = ivec2(gl_FragCoord.xy);
+        vec4 fragColor = texelFetch(albedo, uv, si);
+        vec4 specularAndShiny = texelFetch(specular, uv, si);
+        vec4 posAndLighting = texelFetch(positions, uv, si);
+        vec3 position = posAndLighting.xyz;
+        bool lightingEnabled = posAndLighting.w != 0;
+        vec3 normal = texelFetch(normals, uv, si).xyz;
+        vec3 viewDir = normalize(camera.camPos - position);
+        vec3 specular = specularAndShiny.xyz;
+        float shininess = specularAndShiny.w;
 
-    if (lightingEnabled) {
-        mat3 lightColors = mat3(0);
-        float shadow = 1.0;
-        switch (lightType) {
-        case LIGHT_TYPE_SUN:
-            lightColors = computeSunLight(lighting.info.sun, normal, position, viewDir, shininess);
-            break;
-        case LIGHT_TYPE_SPOT_SHADOW:
-            shadow = computeSpotLightShadow(fs_in.lightIndex, position);
-            lightColors = computeSpotLight(
-                lighting.spotShadows[fs_in.lightIndex].light,
-                normal,
-                position,
-                viewDir,
-                shininess,
-                shadow
-            );
-            break;
-        case LIGHT_TYPE_SPOT:
-            lightColors = computeSpotLight(
-                lighting.spotLights[fs_in.lightIndex],
-                normal,
-                position,
-                viewDir,
-                shininess,
-                1.0
-            );
-            break;
-        case LIGHT_TYPE_POINT_SHADOW:
-            shadow = computePointLightShadow(fs_in.lightIndex, position);
-            lightColors = computePointLight(
-                lighting.pointShadows[fs_in.lightIndex].light,
-                normal,
-                position,
-                viewDir,
-                shininess,
-                shadow
-            );
-            break;
-        case LIGHT_TYPE_POINT:
-            lightColors = computePointLight(
-                lighting.pointLights[fs_in.lightIndex],
-                normal,
-                position,
-                viewDir,
-                shininess,
-                1.0
-            );
-            break;
+        if (lightingEnabled) {
+            colorSum += computeLightColor(fs_in.lightIndex, fragColor, specular, position, normal, viewDir, shininess);
         }
-        vec3 litColor = synthesizeLightColor(lightColors, fragColor.xyz, specular);
-        outColor = vec4(litColor, fragColor.w);
+        else {
+            colorSum += fragColor;
+        }
     }
-    else {
-        outColor = fragColor;
-    }
+    outColor = colorSum / float(sampleCount);
 }
