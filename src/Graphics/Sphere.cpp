@@ -98,12 +98,9 @@ void Sphere::create(engine::World& world, float size, int detailLevel,
 
 void Sphere::makeSphere(float radius, int detailLevel, std::vector<rc::prim::Vertex3D>& vertices,
                         std::vector<std::uint32_t>& indices) {
-    glm::vec3 a              = SourceVertices[SourceIndices[0]];
-    glm::vec3 b              = SourceVertices[SourceIndices[1]];
-    glm::vec3 c              = SourceVertices[SourceIndices[2]];
-    glm::vec3 normal         = glm::normalize(glm::cross(b - a, c - a));
-    glm::vec3 centerToNormal = glm::normalize((a + b + c) / 3.0f);
-    float dotResult          = glm::dot(centerToNormal, normal);
+    glm::vec3 a = SourceVertices[SourceIndices[0]];
+    glm::vec3 b = SourceVertices[SourceIndices[1]];
+    glm::vec3 c = SourceVertices[SourceIndices[2]];
 
     std::vector<std::uint32_t> splitIndices;
     std::unordered_map<std::uint32_t, std::uint32_t> midpointMap;

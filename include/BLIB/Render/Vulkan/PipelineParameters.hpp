@@ -86,6 +86,18 @@ public:
                                          const std::string& entrypoint = "main");
 
     /**
+     * @brief Adds a single shader to this pipeline that is only used if msaa is enabled, msaa
+     *        resolve is not being done by the hardware, and sample shading is not enabled
+     *
+     * @param path The resource path of the shader to add during multi-sampled rendering
+     * @param stage The stage of the shader to add
+     * @param entrypoint The entrypoint inside the shader to run
+     * @return PipelineParameters& A reference to this object
+     */
+    PipelineParameters& withResolveShader(const std::string& path, VkShaderStageFlagBits stage,
+                                          const std::string& entrypoint = "main");
+
+    /**
      * @brief Clears the given shader stage and replaces it with a noop
      *
      * @param stage The stage of the shader to remove
@@ -307,6 +319,7 @@ private:
 
     PipelineLayout::LayoutParams layoutParams;
     ctr::StaticVector<ShaderParameters, 5> shaders;
+    ctr::StaticVector<ShaderParameters, 5> resolveShaders;
     ctr::StaticVector<ShaderParameters, 5> sampleShaders;
     ctr::StaticVector<VkDynamicState, 8> dynamicStates;
     VkVertexInputBindingDescription vertexBinding;

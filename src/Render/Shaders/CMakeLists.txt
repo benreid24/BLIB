@@ -17,6 +17,8 @@ compile_shaders(
     3D/Deferred/meshMaterial.frag
     3D/Deferred/light.vert
     3D/Deferred/light.frag
+    3D/Deferred/lightResolved.frag
+    3D/Deferred/lightSampled.frag
     
     3D/skybox.vert
     3D/skybox.frag

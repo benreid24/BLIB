@@ -59,23 +59,39 @@ void Pipeline::createForRenderPass(std::uint32_t rpid, std::uint32_t spec) {
 
     // sample shading
     const VkBool32 sampleShadingSetting = createParams.msaa.sampleShadingEnable;
-    const bool useSampleShading =
-        createParams.msaa.sampleShadingEnable == VK_TRUE &&
-        renderer.getSettings().getMSAASampleCountAsInt() > 1 &&
+    const bool sampledShadingAvailable =
         renderer.vulkanState().physicalDeviceFeatures.sampleRateShading == VK_TRUE;
+    const bool wantsSampledShading = createParams.msaa.sampleShadingEnable == VK_TRUE &&
+                                     renderer.getSettings().getMSAASampleCountAsInt() > 1;
+    const bool useSampleShading           = wantsSampledShading && sampledShadingAvailable;
+    createParams.msaa.sampleShadingEnable = useSampleShading ? VK_TRUE : VK_FALSE;
+    if (wantsSampledShading && !sampledShadingAvailable) {
+        BL_LOG_WARN << "Sample shading requested but not available on this device";
+        createParams.msaa.sampleShadingEnable = VK_FALSE;
+    }
 
     // configure msaa
-    if (renderPass.getCreateParams().getMSAABehavior() ==
+    const RenderPassParameters::MSAABehavior msaaBehavior =
+        renderPass.getCreateParams().getMSAABehavior();
+    const bool useResolveShaders =
+        !(msaaBehavior & RenderPassParameters::MSAABehavior::ResolveAttachments) &&
+        renderer.getSettings().getMSAASampleCountAsInt() > 1 && !useSampleShading;
+    if (renderPass.getCreateParams().getMSAABehavior() &
         RenderPassParameters::MSAABehavior::UseSettings) {
         createParams.msaa.rasterizationSamples = renderer.getSettings().getMSAASampleCount();
     }
     else { createParams.msaa.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT; }
 
-    const auto findShaderSrc = [this, &specialization, useSampleShading](
+    const auto findShaderSrc = [this, &specialization, useSampleShading, useResolveShaders](
                                    const ShaderParameters& src) -> const ShaderParameters& {
         if (useSampleShading) {
             for (const auto& sampleShader : createParams.sampleShaders) {
                 if (sampleShader.stage == src.stage) { return sampleShader; }
+            }
+        }
+        if (useResolveShaders) {
+            for (const auto& resolveShader : createParams.resolveShaders) {
+                if (resolveShader.stage == src.stage) { return resolveShader; }
             }
         }
         for (const auto& shader : specialization.shaderOverrides) {
@@ -162,6 +178,9 @@ void Pipeline::createForRenderPass(std::uint32_t rpid, std::uint32_t spec) {
                                   &pipelines[spec][rpid]) != VK_SUCCESS) {
         throw std::runtime_error("Failed to create graphics pipeline");
     }
+
+    // reset sample shading setting
+    createParams.msaa.sampleShadingEnable = sampleShadingSetting;
 }
 
 void Pipeline::observe(const event::SettingsChanged& event) {
@@ -169,8 +188,8 @@ void Pipeline::observe(const event::SettingsChanged& event) {
     if (changed || event.setting == event::SettingsChanged::Setting::AntiAliasing) {
         for (std::uint32_t rpid = 0; rpid < pipelines.size(); ++rpid) {
             RenderPass& renderPass = renderer.renderPassCache().getRenderPass(rpid);
-            if (changed || renderPass.getCreateParams().getMSAABehavior() ==
-                               RenderPassParameters::MSAABehavior::UseSettings) {
+            if (changed || (renderPass.getCreateParams().getMSAABehavior() &
+                            RenderPassParameters::MSAABehavior::UseSettings)) {
                 for (std::uint32_t spec = 0; spec < pipelines[rpid].size(); ++spec) {
                     if (pipelines[spec][rpid]) {
                         renderer.vulkanState().cleanupManager.add(

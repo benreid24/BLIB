@@ -24,8 +24,8 @@ class RenderPass;
 class RenderPassParameters {
 public:
     static constexpr std::uint32_t MaxSubpassCount    = 4;
-    static constexpr std::uint32_t MaxAttachmentCount = 8;
-    static constexpr std::uint32_t MaxDependencyCount = 8;
+    static constexpr std::uint32_t MaxAttachmentCount = 16;
+    static constexpr std::uint32_t MaxDependencyCount = 16;
 
     /// Controls the MSAA behavior of the render pass
     using MSAABehavior = bl::rc::rgi::MSAABehavior;

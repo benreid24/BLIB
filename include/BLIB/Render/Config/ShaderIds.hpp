@@ -36,25 +36,27 @@ struct ShaderIds {
     static constexpr char Outline3DVertexSkinned[] = {12, 0};
     static constexpr char Outline3DFragment[]      = {13, 0};
 
-    static constexpr char DeferredLightVolumeVertex[]   = {14, 0};
-    static constexpr char DeferredLightVolumeFragment[] = {15, 0};
+    static constexpr char DeferredLightVolumeVertex[]           = {14, 0};
+    static constexpr char DeferredLightVolumeFragment[]         = {15, 0};
+    static constexpr char DeferredLightVolumeResolvedFragment[] = {16, 0};
+    static constexpr char DeferredLightVolumeSampledFragment[]  = {17, 0};
 
-    static constexpr char Vertex2D[]        = {16, 0};
-    static constexpr char Fragment2DLit[]   = {17, 0};
-    static constexpr char Fragment2DUnlit[] = {18, 0};
+    static constexpr char Vertex2D[]        = {18, 0};
+    static constexpr char Fragment2DLit[]   = {19, 0};
+    static constexpr char Fragment2DUnlit[] = {20, 0};
 
-    static constexpr char Vertex2DSkinned[]           = {19, 0};
-    static constexpr char Fragment2DSkinnedUnlit[]    = {20, 0};
-    static constexpr char Fragment2DSkinnedLit[]      = {21, 0};
-    static constexpr char Fragment2DRotatedParticle[] = {22, 0};
+    static constexpr char Vertex2DSkinned[]           = {21, 0};
+    static constexpr char Fragment2DSkinnedUnlit[]    = {22, 0};
+    static constexpr char Fragment2DSkinnedLit[]      = {23, 0};
+    static constexpr char Fragment2DRotatedParticle[] = {24, 0};
 
-    static constexpr char TextFragment[]  = {23, 0};
-    static constexpr char SlideshowVert[] = {24, 0};
+    static constexpr char TextFragment[]  = {25, 0};
+    static constexpr char SlideshowVert[] = {26, 0};
 
-    static constexpr char ShadowVertex[]        = {25, 0};
-    static constexpr char PointShadowVertex[]   = {26, 0};
-    static constexpr char PointShadowGeometry[] = {27, 0};
-    static constexpr char PointShadowFragment[] = {28, 0};
+    static constexpr char ShadowVertex[]        = {27, 0};
+    static constexpr char PointShadowVertex[]   = {28, 0};
+    static constexpr char PointShadowGeometry[] = {29, 0};
+    static constexpr char PointShadowFragment[] = {30, 0};
 
     static constexpr char BloomBlurFragment[]            = {124, 0};
     static constexpr char BloomHighlightFilterFragment[] = {125, 0};

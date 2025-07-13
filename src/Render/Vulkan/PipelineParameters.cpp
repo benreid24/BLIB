@@ -104,6 +104,20 @@ PipelineParameters& PipelineParameters::withSampleShader(const std::string& path
     return *this;
 }
 
+PipelineParameters& PipelineParameters::withResolveShader(const std::string& path,
+                                                          VkShaderStageFlagBits stage,
+                                                          const std::string& entrypoint) {
+    for (auto& shader : resolveShaders) {
+        if (shader.stage == stage) {
+            shader.path       = path;
+            shader.entrypoint = entrypoint;
+            return *this;
+        }
+    }
+    resolveShaders.emplace_back(path, stage, entrypoint);
+    return *this;
+}
+
 PipelineParameters& PipelineParameters::removeShader(VkShaderStageFlagBits stage) {
     for (unsigned int i = 0; i < shaders.size(); ++i) {
         if (shaders[i].stage == stage) {

@@ -11,7 +11,8 @@ namespace rc
 namespace vk
 {
 RenderPassParameters::RenderPassParameters()
-: msaaBehavior(MSAABehavior::Disabled) {}
+: msaaBehavior(MSAABehavior::Disabled)
+, resolveAttachments(false) {}
 
 RenderPassParameters& RenderPassParameters::addSubpass(SubPass&& subpass) {
     subpasses.emplace_back(std::forward<SubPass>(subpass));
