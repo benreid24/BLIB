@@ -41,13 +41,14 @@ void FinalSwapframeAsset::doCreate(engine::Engine& e, Renderer& renderer, Render
                             ++i;
                         });
 
+    onResize({});
+
     i = 0;
     framebuffers.init(renderer.vulkanState().swapchain, [this, &renderer, &i](vk::Framebuffer& fb) {
         fb.create(renderer.vulkanState(), renderPass, attachmentSets.getRaw(i));
         ++i;
     });
 
-    onResize({});
     bl::event::Dispatcher::subscribe(this);
 }
 
@@ -78,9 +79,7 @@ void FinalSwapframeAsset::onResize(glm::u32vec2) {
         const auto size = engine->window().getSfWindow().getSize();
         attachmentSets.visit(
             [this, &size](vk::AttachmentSet& set) { set.setRenderExtent({size.x, size.y}); });
-        if (engine->renderer().getSettings().getAntiAliasing() != Settings::AntiAliasing::None) {
-            sampledImage.resize({size.x, size.y}, false);
-        }
+        ensureSampledImage();
         depthBufferAsset->ensureValid({size.x, size.y},
                                       engine->renderer().getSettings().getMSAASampleCount());
         updateAllAttachments();
@@ -103,9 +102,11 @@ void FinalSwapframeAsset::updateAttachments(std::uint32_t i) {
                                                                  VK_IMAGE_ASPECT_DEPTH_BIT,
                                                        VK_IMAGE_ASPECT_DEPTH_BIT};
 
+    ensureSampledImage();
     set.setAttachment(swapIndex,
                       chain.swapFrameAtIndex(i).getImage(0),
                       chain.swapFrameAtIndex(i).getImageView(0));
+    set.setAttachmentAspect(swapIndex, VK_IMAGE_ASPECT_COLOR_BIT);
     set.setAttachment(depthIndex, depthBufferAsset->getBuffer());
     if (useMsaa) { set.setAttachment(0, sampledImage); }
     set.setAttachmentCount(attachmentCount);
@@ -123,23 +124,43 @@ void FinalSwapframeAsset::observe(const event::SettingsChanged& changeEvent) {
         const bool useMsaa =
             engine->renderer().getSettings().getAntiAliasing() != Settings::AntiAliasing::None;
 
-        if (useMsaa) {
+        ensureSampledImage();
+        updateAllAttachments();
+    }
+}
+
+void FinalSwapframeAsset::ensureSampledImage() {
+    const bool useMsaa =
+        engine->renderer().getSettings().getAntiAliasing() != Settings::AntiAliasing::None;
+
+    if (useMsaa) {
+        const auto size = engine->window().getSfWindow().getSize();
+        bool transition = false;
+        if (!sampledImage.isCreated() ||
+            sampledImage.getSampleCount() !=
+                engine->renderer().getSettings().getMSAASampleCount()) {
             sampledImage.create(engine->renderer().vulkanState(),
                                 vk::Image::Type::Image2D,
                                 engine->renderer().vulkanState().swapchain.swapImageFormat(),
                                 VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
-                                attachmentSets.current().getRenderExtent(),
+                                {size.x, size.y},
                                 VK_IMAGE_ASPECT_COLOR_BIT,
                                 VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT,
                                 VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
                                 0,
                                 VK_IMAGE_ASPECT_FLAG_BITS_MAX_ENUM,
                                 engine->renderer().getSettings().getMSAASampleCount());
-            sampledImage.transitionLayout(VK_IMAGE_LAYOUT_PRESENT_SRC_KHR);
+            transition = true;
         }
-        else { sampledImage.deferDestroy(); }
-        updateAllAttachments();
+        else if (sampledImage.getSize().width != size.x ||
+                 sampledImage.getSize().height != size.y) {
+            sampledImage.resize({size.x, size.y}, false);
+            transition = true;
+        }
+
+        if (transition) { sampledImage.transitionLayout(VK_IMAGE_LAYOUT_PRESENT_SRC_KHR); }
     }
+    else { sampledImage.deferDestroy(); }
 }
 
 } // namespace rgi

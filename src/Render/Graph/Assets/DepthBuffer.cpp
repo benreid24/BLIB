@@ -84,7 +84,7 @@ void DepthBuffer::createAttachment(const glm::u32vec2& size) {
 
 void DepthBuffer::ensureValid(const glm::u32vec2& size, VkSampleCountFlagBits samples) {
     if (engine) {
-        if (buffer.getSize().width != size.x || buffer.getSize().height != size.y ||
+        if (buffer.getSize().width < size.x || buffer.getSize().height < size.y ||
             buffer.getSampleCount() != samples) {
             createAttachment(size);
         }

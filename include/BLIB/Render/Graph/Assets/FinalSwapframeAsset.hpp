@@ -79,6 +79,7 @@ private:
 
     void updateAllAttachments();
     void updateAttachments(std::uint32_t swapFrameIndex);
+    void ensureSampledImage();
 };
 
 } // namespace rgi
