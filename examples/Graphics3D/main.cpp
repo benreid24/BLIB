@@ -118,6 +118,9 @@ private:
             "Resources/Textures/wood.png", bl::rc::vk::TextureFormat::SRGBA32Bit);
         auto woodMaterial = engine.renderer().materialPool().getOrCreateFromTexture(woodTexture);
 
+        // set msaa
+        engine.renderer().getSettings().setAntiAliasing(bl::rc::Settings::AntiAliasing::MSAA4x);
+
         constexpr float FloorSize = 5.f;
         floor.create(*world, 6);
         floor[0].pos      = {-FloorSize, 0.f, -FloorSize};

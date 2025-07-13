@@ -17,7 +17,7 @@ DepthBuffer::DepthBuffer()
 , mode(FullScreen)
 , cleared(false) {}
 
-void DepthBuffer::doCreate(engine::Engine& e, Renderer& r, RenderTarget* target) {
+void DepthBuffer::doCreate(engine::Engine& e, Renderer&, RenderTarget* target) {
     engine          = &e;
     const auto size = getSize(target->getRegionSize());
     createAttachment(size);
@@ -80,6 +80,15 @@ void DepthBuffer::createAttachment(const glm::u32vec2& size) {
                   0,
                   VK_IMAGE_ASPECT_FLAG_BITS_MAX_ENUM,
                   r.getSettings().getMSAASampleCount());
+}
+
+void DepthBuffer::ensureValid(const glm::u32vec2& size, VkSampleCountFlagBits samples) {
+    if (engine) {
+        if (buffer.getSize().width != size.x || buffer.getSize().height != size.y ||
+            buffer.getSampleCount() != samples) {
+            createAttachment(size);
+        }
+    }
 }
 
 } // namespace rgi

@@ -30,6 +30,7 @@ Image::Image()
 , format{}
 , aspect(VK_IMAGE_ASPECT_COLOR_BIT)
 , viewAspect(VK_IMAGE_ASPECT_COLOR_BIT)
+, samples(VK_SAMPLE_COUNT_1_BIT)
 , usage{}
 , allocFlags(0)
 , extraCreateFlags(0)
@@ -41,8 +42,11 @@ Image::~Image() { deferDestroy(); }
 void Image::create(VulkanState& vs, Type t, VkFormat fmt, VkImageUsageFlags usg,
                    const VkExtent2D& extent, VkImageAspectFlags asp, VmaAllocationCreateFlags af,
                    VkMemoryPropertyFlags mem, VkImageCreateFlags ef, VkImageAspectFlags vas,
-                   VkSampleCountFlagBits samples) {
-    if (vulkanState && size.width == extent.width && size.height == extent.height) { return; }
+                   VkSampleCountFlagBits smps) {
+    if (vulkanState && size.width == extent.width && size.height == extent.height &&
+        samples == smps) {
+        return;
+    }
     size = extent;
 
     deferDestroy();
@@ -55,6 +59,7 @@ void Image::create(VulkanState& vs, Type t, VkFormat fmt, VkImageUsageFlags usg,
     allocFlags       = af;
     extraCreateFlags = ef;
     memoryLocation   = mem;
+    samples          = smps;
 
     VmaAllocationCreateInfo allocInfo{};
     allocInfo.requiredFlags = memoryLocation;
@@ -116,7 +121,8 @@ void Image::resize(const glm::u32vec2& newSize, bool copyContents) {
            allocFlags,
            memoryLocation,
            extraCreateFlags,
-           viewAspect);
+           viewAspect,
+           samples);
     currentLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 
     // copy from old to new

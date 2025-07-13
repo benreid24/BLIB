@@ -39,6 +39,14 @@ public:
      */
     vk::RenderPass& getRenderPass(std::uint32_t renderPassId);
 
+    /**
+     * @brief Fetches the render pass with the given id if it exists
+     *
+     * @param renderPassId The id of the render pass to fetch
+     * @return RenderPass& The render pass with the given id or nullptr if it does not exist
+     */
+    vk::RenderPass* getRenderPassMaybe(std::uint32_t renderPassId);
+
 private:
     Renderer& renderer;
     std::unordered_map<std::uint32_t, vk::RenderPass> cache;

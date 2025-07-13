@@ -22,7 +22,7 @@ RenderPass::~RenderPass() {
 
 void RenderPass::observe(const event::SettingsChanged& e) {
     if (e.setting == event::SettingsChanged::Setting::AntiAliasing &&
-        createParams.getMSAABehavior() == RenderPassParameters::MSAABehavior::UseSettings) {
+        (createParams.getMSAABehavior() & RenderPassParameters::MSAABehavior::UseSettings)) {
         renderer.vulkanState().cleanupManager.add(
             [device = renderer.vulkanState().device, rp = renderPass]() {
                 vkDestroyRenderPass(device, rp, nullptr);
@@ -33,8 +33,11 @@ void RenderPass::observe(const event::SettingsChanged& e) {
 
 void RenderPass::doCreate() {
     const bool msaaEnabled =
-        createParams.msaaBehavior == RenderPassParameters::MSAABehavior::UseSettings &&
+        (createParams.msaaBehavior & RenderPassParameters::MSAABehavior::UseSettings) &&
         renderer.getSettings().getAntiAliasing() != Settings::AntiAliasing::None;
+    const bool resolveAttachments =
+        (createParams.msaaBehavior & RenderPassParameters::MSAABehavior::ResolveAttachments) &&
+        msaaEnabled;
 
     ctr::StaticVector<VkSubpassDescription, RenderPassParameters::MaxSubpassCount> subpasses;
     for (const auto& sp : createParams.subpasses) {
@@ -49,32 +52,47 @@ void RenderPass::doCreate() {
         if (sp.depthAttachment.has_value()) {
             subpasses.back().pDepthStencilAttachment = &sp.depthAttachment.value();
         }
-        if (msaaEnabled && createParams.resolveAttachments) {
+        if (msaaEnabled && resolveAttachments) {
             subpasses.back().pResolveAttachments = sp.resolveAttachments.data();
         }
     }
 
     // set sample count on color attachments based on MSAA behavior
-    if (createParams.msaaBehavior == RenderPassParameters::MSAABehavior::UseSettings) {
+    if (createParams.msaaBehavior & RenderPassParameters::MSAABehavior::UseSettings) {
         for (const auto& color : createParams.subpasses[0].colorAttachments) {
             auto& attachment   = createParams.attachments[color.attachment];
             attachment.samples = renderer.getSettings().getMSAASampleCount();
         }
     }
 
+    // create local attachment list so we can reorder it
+    auto attachments = createParams.attachments;
+
+    // attachments is always full length, need to remove resolve attachments if msaa is disabled
+    if ((createParams.msaaBehavior & RenderPassParameters::MSAABehavior::ResolveAttachments) &&
+        !msaaEnabled) {
+        for (unsigned int i = 0; i < createParams.subpasses[0].resolveAttachments.size(); ++i) {
+            attachments.erase(createParams.subpasses[0].colorAttachments.size());
+        }
+    }
+
+    // update depth index if it exists
+    if (createParams.subpasses[0].depthAttachment.has_value()) {
+        auto& di = createParams.subpasses[0].depthAttachment.value().attachment;
+        di       = msaaEnabled ? attachments.size() - 1 :
+                                 createParams.subpasses[0].colorAttachments.size();
+        attachments[di].samples =
+            msaaEnabled ? renderer.getSettings().getMSAASampleCount() : VK_SAMPLE_COUNT_1_BIT;
+    }
+
     VkRenderPassCreateInfo renderPassInfo{};
     renderPassInfo.sType           = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
-    renderPassInfo.attachmentCount = createParams.attachments.size();
-    renderPassInfo.pAttachments    = createParams.attachments.data();
+    renderPassInfo.attachmentCount = attachments.size();
+    renderPassInfo.pAttachments    = attachments.data();
     renderPassInfo.subpassCount    = subpasses.size();
     renderPassInfo.pSubpasses      = subpasses.data();
     renderPassInfo.dependencyCount = createParams.dependencies.size();
     renderPassInfo.pDependencies   = createParams.dependencies.data();
-
-    // attachments is always full length, need to reduce if msaa is disabled
-    if (createParams.resolveAttachments && !msaaEnabled) {
-        renderPassInfo.attachmentCount -= createParams.subpasses[0].resolveAttachments.size();
-    }
 
     if (vkCreateRenderPass(renderer.vulkanState().device, &renderPassInfo, nullptr, &renderPass) !=
         VK_SUCCESS) {

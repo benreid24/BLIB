@@ -17,6 +17,7 @@ PipelineParameters::PipelineParameters()
 , colorBlending{}
 , depthStencil(nullptr)
 , msaa{}
+, doesOwnResolve(false)
 , localDepthClipping{}
 , localDepthStencil{} {
     rasterizer.sType                   = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
@@ -45,6 +46,8 @@ PipelineParameters::PipelineParameters()
 PipelineParameters::PipelineParameters(const PipelineParameters& copy)
 : layoutParams(copy.layoutParams)
 , shaders(copy.shaders)
+, resolveShaders(copy.resolveShaders)
+, sampleShaders(copy.sampleShaders)
 , dynamicStates(copy.dynamicStates)
 , vertexBinding(copy.vertexBinding)
 , vertexAttributes(copy.vertexAttributes)
@@ -54,6 +57,8 @@ PipelineParameters::PipelineParameters(const PipelineParameters& copy)
 , colorBlending(copy.colorBlending)
 , depthStencil(&localDepthStencil)
 , specializations(copy.specializations)
+, dynamicModifiers(copy.dynamicModifiers)
+, doesOwnResolve(copy.doesOwnResolve)
 , localDepthClipping(copy.localDepthClipping)
 , localDepthStencil(copy.depthStencil ? *copy.depthStencil : copy.localDepthStencil) {
     if (static_cast<const void*>(&copy.localDepthClipping) == copy.rasterizer.pNext) {
@@ -168,6 +173,11 @@ PipelineParameters& PipelineParameters::withEnableDepthClipping() {
 PipelineParameters& PipelineParameters::withSampleShading(bool enabled, float minSampleShading) {
     msaa.sampleShadingEnable = enabled ? VK_TRUE : VK_FALSE;
     msaa.minSampleShading    = minSampleShading;
+    return *this;
+}
+
+PipelineParameters& PipelineParameters::withDoesOwnResolve(bool r) {
+    doesOwnResolve = r;
     return *this;
 }
 

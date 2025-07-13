@@ -38,10 +38,11 @@ void InputAttachmentInstance::bind(VkCommandBuffer commandBuffer, VkPipelineLayo
         return;
     }
 
-    bool changed = false;
+    bool changed           = false;
+    const std::uint32_t bi = startIndex + attachments->getOutputIndex();
     for (unsigned int i = 0; i < attachmentCount; ++i) {
-        if (cached[i] != attachments->getImageView(i + startIndex)) {
-            cached[i] = attachments->getImageView(i + startIndex);
+        if (cached[i] != attachments->getImageView(i + bi)) {
+            cached[i] = attachments->getImageView(i + bi);
             changed   = true;
             break;
         }
@@ -52,7 +53,7 @@ void InputAttachmentInstance::bind(VkCommandBuffer commandBuffer, VkPipelineLayo
         std::array<VkDescriptorImageInfo, 8> imageInfo{};
         for (unsigned int i = 0; i < attachmentCount; ++i) {
             imageInfo[i].imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-            imageInfo[i].imageView   = attachments->getImageView(i + startIndex);
+            imageInfo[i].imageView   = attachments->getImageView(i + bi);
             imageInfo[i].sampler     = sampler;
         }
 
@@ -109,12 +110,13 @@ void InputAttachmentInstance::initAttachments(
 }
 
 void InputAttachmentInstance::commonInit() {
+    const std::uint32_t bi = startIndex + source.get(0)->getOutputIndex();
     std::array<VkDescriptorImageInfo, cfg::Limits::MaxConcurrentFrames * 8> imageInfos{};
     for (unsigned int i = 0; i < cfg::Limits::MaxConcurrentFrames; ++i) {
         for (unsigned int j = 0; j < attachmentCount; ++j) {
             const unsigned int k      = j * cfg::Limits::MaxConcurrentFrames + i;
             imageInfos[k].imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-            imageInfos[k].imageView   = source.get(i)->getImageView(j + startIndex);
+            imageInfos[k].imageView   = source.get(i)->getImageView(j + bi);
             imageInfos[k].sampler     = sampler;
             cachedViews.getRaw(i)[j]  = imageInfos[i].imageView;
         }

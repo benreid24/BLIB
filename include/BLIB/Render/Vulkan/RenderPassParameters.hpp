@@ -155,15 +155,6 @@ public:
     RenderPassParameters& withMSAABehavior(MSAABehavior behavior);
 
     /**
-     * @brief Sets whether color attachments are resolved. Has no effect if MSAA is disabled or
-     *        if msaa behavior is disabled
-     *
-     * @param resolve True to resolve color attachments, false to not resolve
-     * @return A reference to this object
-     */
-    RenderPassParameters& withResolveAttachments(bool resolve);
-
-    /**
      * @brief Performs validation and returns a usable rvalue reference to this object
      *
      * @return RenderPassParameters&& An rvalue reference to this object
@@ -175,17 +166,11 @@ public:
      */
     MSAABehavior getMSAABehavior() const { return msaaBehavior; }
 
-    /**
-     * @brief Returns whether color attachments are resolved or not when msaa is enabled
-     */
-    bool getResolveAttachments() const { return resolveAttachments; }
-
 private:
     ctr::StaticVector<VkAttachmentDescription, MaxAttachmentCount> attachments;
     ctr::StaticVector<SubPass, MaxSubpassCount> subpasses;
     ctr::StaticVector<VkSubpassDependency, MaxDependencyCount> dependencies;
     MSAABehavior msaaBehavior;
-    bool resolveAttachments;
 
     friend class RenderPass;
 };

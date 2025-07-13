@@ -54,19 +54,19 @@ public:
     void clear(VkCommandBuffer commandBuffer);
 
     /**
-     * @brief Call on resize before using new views. Will be called possibly out of order by the
-     *        asset pool
-     *
-     * @param newSize The new size
-     */
-    virtual void onResize(glm::u32vec2 newSize) override;
-
-    /**
      * @brief Called by the final asset in order to properly size the depth buffer
      *
      * @param mode The size mode to use
      */
     void setSizeMode(SizeMode mode);
+
+    /**
+     * @brief Recreates the depth buffer with the given size and sample count if it does not match
+     *
+     * @param size The dimensions of the depth buffer
+     * @param sampleCount The sample count to use for the depth buffer
+     */
+    void ensureValid(const glm::u32vec2& size, VkSampleCountFlagBits sampleCount);
 
 private:
     engine::Engine* engine;
@@ -78,6 +78,7 @@ private:
     virtual void doPrepareForInput(const rg::ExecutionContext&) override {}
     virtual void doStartOutput(const rg::ExecutionContext&) override;
     virtual void doEndOutput(const rg::ExecutionContext&) override {}
+    virtual void onResize(glm::u32vec2 newSize) override;
     virtual void onReset() override;
     glm::u32vec2 getSize(const glm::u32vec2& targetSize) const;
 

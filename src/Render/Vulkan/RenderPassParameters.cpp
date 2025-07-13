@@ -11,8 +11,7 @@ namespace rc
 namespace vk
 {
 RenderPassParameters::RenderPassParameters()
-: msaaBehavior(MSAABehavior::Disabled)
-, resolveAttachments(false) {}
+: msaaBehavior(MSAABehavior::Disabled) {}
 
 RenderPassParameters& RenderPassParameters::addSubpass(SubPass&& subpass) {
     subpasses.emplace_back(std::forward<SubPass>(subpass));
@@ -69,11 +68,6 @@ RenderPassParameters& RenderPassParameters::withMSAABehavior(MSAABehavior behavi
     return *this;
 }
 
-RenderPassParameters& RenderPassParameters::withResolveAttachments(bool resolve) {
-    resolveAttachments = resolve;
-    return *this;
-}
-
 RenderPassParameters&& RenderPassParameters::build() {
     if (subpasses.empty()) {
         throw std::runtime_error("RenderPass must have at least one subpass");
@@ -84,18 +78,29 @@ RenderPassParameters&& RenderPassParameters::build() {
 
     // regardless of msaa state we can populate the resolve attachments and append them to the
     // attachment list
-    if (resolveAttachments) {
+    if (msaaBehavior & MSAABehavior::ResolveAttachments) {
         if (subpasses.size() > 1) {
             throw std::runtime_error("Resolve attachments can only be used with a single subpass");
         }
         auto& pass              = subpasses[0];
         pass.resolveAttachments = pass.colorAttachments;
-        for (auto& resolve : pass.resolveAttachments) { resolve.attachment += attachments.size(); }
+        for (auto& resolve : pass.resolveAttachments) {
+            resolve.attachment += pass.colorAttachments.size();
+        }
         for (const auto& color : pass.colorAttachments) {
             const auto& src        = attachments[color.attachment];
             auto& resolved         = attachments.emplace_back(src);
             resolved.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+            resolved.loadOp        = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
             resolved.samples       = VK_SAMPLE_COUNT_1_BIT;
+        }
+
+        // move the depth attachment to the end of the list if it exists
+        if (pass.depthAttachment.has_value()) {
+            const auto depth = attachments[pass.depthAttachment.value().attachment];
+            attachments.erase(pass.depthAttachment.value().attachment);
+            attachments.emplace_back(depth);
+            pass.depthAttachment.value().attachment = attachments.size() - 1;
         }
     }
 

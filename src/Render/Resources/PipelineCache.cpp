@@ -253,6 +253,7 @@ void PipelineCache::createBuiltins() {
                                VK_SHADER_STAGE_FRAGMENT_BIT)
             .withSampleShader(cfg::ShaderIds::DeferredLightVolumeSampledFragment,
                               VK_SHADER_STAGE_FRAGMENT_BIT)
+            .withDoesOwnResolve(true)
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withVertexFormat(prim::Vertex3D::bindingDescription(),
                               prim::Vertex3D::attributeDescriptionsPositionsOnly())

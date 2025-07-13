@@ -249,26 +249,30 @@ private:
 
             if (createResolve) {
                 resolveImages.create(renderer->vulkanState(),
-                                     AttachmentCount,
+                                     ResolveAttachmentCount,
                                      {cachedScissor.extent.width, cachedScissor.extent.height},
                                      attachmentFormats.data(),
                                      attachmentUsages.data(),
-                                     sampleCount);
+                                     VK_SAMPLE_COUNT_1_BIT);
+                attachmentSet.setOutputIndex(ResolveAttachmentCount);
             }
-            else if (UsesMSAA) { resolveImages.deferDestroy(); }
+            else if (UsesMSAA) {
+                resolveImages.deferDestroy();
+                attachmentSet.setOutputIndex(0);
+            }
 
             std::uint32_t ac = AttachmentCount;
             attachmentSet.copy(images.attachmentSet(), AttachmentCount);
-            if constexpr (DepthAttachment == DepthAttachmentType::SharedDepthBuffer) {
-                depthBufferAsset->onResize(
-                    {cachedScissor.extent.width, cachedScissor.extent.height});
-                attachmentSet.setAttachment(AttachmentCount, depthBufferAsset->getBuffer());
-                depthBufferView = depthBufferAsset->getBuffer().getView();
-                ++ac;
-            }
             if (createResolve) {
                 attachmentSet.setAttachments(ac, resolveImages);
                 ac += ResolveAttachmentCount;
+            }
+            if constexpr (DepthAttachment == DepthAttachmentType::SharedDepthBuffer) {
+                depthBufferAsset->ensureValid(
+                    {cachedScissor.extent.width, cachedScissor.extent.height}, sampleCount);
+                attachmentSet.setAttachment(ac, depthBufferAsset->getBuffer());
+                depthBufferView = depthBufferAsset->getBuffer().getView();
+                ++ac;
             }
             attachmentSet.setAttachmentCount(ac);
             framebuffer.create(renderer->vulkanState(), renderPass, attachmentSet);

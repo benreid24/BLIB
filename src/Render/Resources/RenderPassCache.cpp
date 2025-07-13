@@ -35,6 +35,12 @@ vk::RenderPass& RenderPassCache::getRenderPass(std::uint32_t id) {
     return it->second;
 }
 
+vk::RenderPass* RenderPassCache::getRenderPassMaybe(std::uint32_t id) {
+    auto it = cache.find(id);
+    if (it == cache.end()) { return nullptr; }
+    return &it->second;
+}
+
 void RenderPassCache::addDefaults() {
     using MSAA = vk::RenderPassParameters::MSAABehavior;
 

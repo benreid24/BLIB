@@ -213,6 +213,11 @@ public:
      */
     bool isCreated() const;
 
+    /**
+     * @brief Returns the number of samples in the image
+     */
+    VkSampleCountFlagBits getSampleCount() const;
+
 private:
     Type type;
     VulkanState* vulkanState;
@@ -225,6 +230,7 @@ private:
     VkImageAspectFlags aspect;
     VkImageAspectFlags viewAspect;
     VkImageUsageFlags usage;
+    VkSampleCountFlagBits samples;
     VmaAllocationCreateFlags allocFlags;
     VkImageCreateFlags extraCreateFlags;
     VkMemoryPropertyFlags memoryLocation;
@@ -254,6 +260,8 @@ inline VkImageLayout Image::getCurrentLayout() const { return currentLayout; }
 inline VkMemoryPropertyFlags Image::getMemoryLocation() const { return memoryLocation; }
 
 inline bool Image::isCreated() const { return vulkanState != nullptr; }
+
+inline VkSampleCountFlagBits Image::getSampleCount() const { return samples; }
 
 } // namespace vk
 } // namespace rc

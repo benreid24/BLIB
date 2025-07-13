@@ -169,6 +169,15 @@ public:
     PipelineParameters& withSampleShading(bool enabled, float minSampleShading = 0.0f);
 
     /**
+     * @brief Controls whether the pipeline resolves its own input attachments. If true then the
+     *        resolve shaders will be used if MSAA is active and sample shading is not enabled
+     *
+     * @param resolves True to use own resolve shaders, false to use hardware resolve
+     * @return A reference to this object
+     */
+    PipelineParameters& withDoesOwnResolve(bool resolves);
+
+    /**
      * @brief Adds a descriptor set factory to the pipeline. The factory is allocated here and then
      *        deduped on actual pipeline creation. Descriptor set indices are determined by the
      *        order they are added in
@@ -332,6 +341,7 @@ private:
     PipelineSpecialization mainSpecialization;
     std::vector<PipelineSpecialization> specializations;
     std::vector<DynamicModifier> dynamicModifiers;
+    bool doesOwnResolve;
 
     VkPipelineRasterizationDepthClipStateCreateInfoEXT localDepthClipping;
     VkPipelineDepthStencilStateCreateInfo localDepthStencil;

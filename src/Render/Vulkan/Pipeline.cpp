@@ -74,7 +74,8 @@ void Pipeline::createForRenderPass(std::uint32_t rpid, std::uint32_t spec) {
     const RenderPassParameters::MSAABehavior msaaBehavior =
         renderPass.getCreateParams().getMSAABehavior();
     const bool useResolveShaders =
-        !(msaaBehavior & RenderPassParameters::MSAABehavior::ResolveAttachments) &&
+        (!(msaaBehavior & RenderPassParameters::MSAABehavior::ResolveAttachments) ||
+         createParams.doesOwnResolve) &&
         renderer.getSettings().getMSAASampleCountAsInt() > 1 && !useSampleShading;
     if (renderPass.getCreateParams().getMSAABehavior() &
         RenderPassParameters::MSAABehavior::UseSettings) {
@@ -187,8 +188,10 @@ void Pipeline::observe(const event::SettingsChanged& event) {
     const bool changed = createParams.handleChange(renderer, event);
     if (changed || event.setting == event::SettingsChanged::Setting::AntiAliasing) {
         for (std::uint32_t rpid = 0; rpid < pipelines.size(); ++rpid) {
-            RenderPass& renderPass = renderer.renderPassCache().getRenderPass(rpid);
-            if (changed || (renderPass.getCreateParams().getMSAABehavior() &
+            RenderPass* renderPass = renderer.renderPassCache().getRenderPassMaybe(rpid);
+            if (!renderPass) { continue; }
+
+            if (changed || (renderPass->getCreateParams().getMSAABehavior() &
                             RenderPassParameters::MSAABehavior::UseSettings)) {
                 for (std::uint32_t spec = 0; spec < pipelines[rpid].size(); ++spec) {
                     if (pipelines[spec][rpid]) {

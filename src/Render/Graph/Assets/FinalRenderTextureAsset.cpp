@@ -59,7 +59,7 @@ vk::Framebuffer& FinalRenderTextureAsset::currentFramebuffer() { return framebuf
 vk::Framebuffer& FinalRenderTextureAsset::getFramebuffer(std::uint32_t) { return framebuffer; }
 
 void FinalRenderTextureAsset::onResize(glm::u32vec2) {
-    depthBuffer->onResize({scissor.extent.width, scissor.extent.height});
+    depthBuffer->ensureValid({scissor.extent.width, scissor.extent.height}, VK_SAMPLE_COUNT_1_BIT);
     attachmentSet.setRenderExtent(scissor.extent);
     attachmentSet.setAttachment(0, texture->getImage(), texture->getView());
     attachmentSet.setAttachment(1, depthBuffer->getBuffer());

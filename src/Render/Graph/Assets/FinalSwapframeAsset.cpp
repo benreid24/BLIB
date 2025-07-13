@@ -38,9 +38,6 @@ void FinalSwapframeAsset::doCreate(engine::Engine& e, Renderer& renderer, Render
                         [this, &i, &size](vk::AttachmentSet& set) {
                             set.setRenderExtent({size.x, size.y});
                             updateAttachments(i);
-                            set.setAttachmentAspect(0, VK_IMAGE_ASPECT_COLOR_BIT);
-                            set.setAttachmentAspect(1, VK_IMAGE_ASPECT_DEPTH_BIT);
-                            set.setAttachmentAspect(2, VK_IMAGE_ASPECT_COLOR_BIT);
                             ++i;
                         });
 
@@ -51,6 +48,7 @@ void FinalSwapframeAsset::doCreate(engine::Engine& e, Renderer& renderer, Render
     });
 
     onResize({});
+    bl::event::Dispatcher::subscribe(this);
 }
 
 void FinalSwapframeAsset::doPrepareForInput(const rg::ExecutionContext&) {
@@ -83,7 +81,8 @@ void FinalSwapframeAsset::onResize(glm::u32vec2) {
         if (engine->renderer().getSettings().getAntiAliasing() != Settings::AntiAliasing::None) {
             sampledImage.resize({size.x, size.y}, false);
         }
-        depthBufferAsset->onResize({size.x, size.y});
+        depthBufferAsset->ensureValid({size.x, size.y},
+                                      engine->renderer().getSettings().getMSAASampleCount());
         updateAllAttachments();
     }
 }
@@ -95,21 +94,23 @@ void FinalSwapframeAsset::updateAttachments(std::uint32_t i) {
         engine->renderer().getSettings().getAntiAliasing() != Settings::AntiAliasing::None;
     auto& set                          = attachmentSets.getRaw(i);
     auto& chain                        = engine->renderer().vulkanState().swapchain;
-    const unsigned int swapIndex       = useMsaa ? 2 : 0;
+    const unsigned int swapIndex       = useMsaa ? 1 : 0;
+    const unsigned int depthIndex      = useMsaa ? 2 : 1;
     const unsigned int attachmentCount = useMsaa ? 3 : 2;
 
-    std::array<VkImage, 3> images{};
-    std::array<VkImageView, 3> views{};
-    const std::array<VkImageAspectFlags, 3> aspects = {
-        VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_ASPECT_DEPTH_BIT, VK_IMAGE_ASPECT_COLOR_BIT};
+    const std::array<VkImageAspectFlags, 3> aspects = {VK_IMAGE_ASPECT_COLOR_BIT,
+                                                       useMsaa ? VK_IMAGE_ASPECT_COLOR_BIT :
+                                                                 VK_IMAGE_ASPECT_DEPTH_BIT,
+                                                       VK_IMAGE_ASPECT_DEPTH_BIT};
 
     set.setAttachment(swapIndex,
                       chain.swapFrameAtIndex(i).getImage(0),
                       chain.swapFrameAtIndex(i).getImageView(0));
-    set.setAttachment(1, depthBufferAsset->getBuffer());
+    set.setAttachment(depthIndex, depthBufferAsset->getBuffer());
     if (useMsaa) { set.setAttachment(0, sampledImage); }
     set.setAttachmentCount(attachmentCount);
     set.setRenderExtent(chain.swapFrameAtIndex(i).getRenderExtent());
+    set.setOutputIndex(useMsaa ? 0 : swapIndex);
 }
 
 void FinalSwapframeAsset::updateAllAttachments() {
@@ -134,6 +135,7 @@ void FinalSwapframeAsset::observe(const event::SettingsChanged& changeEvent) {
                                 0,
                                 VK_IMAGE_ASPECT_FLAG_BITS_MAX_ENUM,
                                 engine->renderer().getSettings().getMSAASampleCount());
+            sampledImage.transitionLayout(VK_IMAGE_LAYOUT_PRESENT_SRC_KHR);
         }
         else { sampledImage.deferDestroy(); }
         updateAllAttachments();
