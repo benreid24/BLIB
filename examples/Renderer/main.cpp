@@ -119,6 +119,9 @@ public:
             v.texCoord = texture->convertCoord(v.texCoord);
         }
         mesh->gpuBuffer.indices() = Indices;
+        bl::rc::prim::Vertex3D::computeTBN(mesh->gpuBuffer.vertices().data(),
+                                           mesh->gpuBuffer.indices().data(),
+                                           mesh->gpuBuffer.indices().size());
         mesh->gpuBuffer.queueTransfer(bl::rc::tfr::Transferable::SyncRequirement::Immediate);
         mesh->addToScene(engine.ecs(), meshEntity, scene, bl::rc::UpdateSpeed::Static);
 

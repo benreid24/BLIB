@@ -90,7 +90,7 @@ void Renderer::initialize() {
         std::array<VkFormat, 1>{vk::TextureFormat::SRGBA32Bit},
         std::array<VkImageUsageFlags, 1>{VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT |
                                          VK_IMAGE_USAGE_SAMPLED_BIT},
-        std::array<VkClearValue, 2>{VkClearValue{.color = Black},
+        std::array<VkClearValue, 2>{VkClearValue{.color = Transparent},
                                     VkClearValue{.depthStencil = ClearDepth}});
     assetFactory.addProvider<rgi::BloomColorAttachmentPairProvider>(
         rg::AssetTags::BloomColorAttachmentPair,
