@@ -22,15 +22,15 @@ VkImageUsageFlags getExtraUsage(Texture::Type type) {
     }
 }
 
-Image::Type mapType(Texture::Type type) {
+ImageOptions::Type mapType(Texture::Type type) {
     switch (type) {
     case Texture::Type::RenderTexture:
-        return Image::Type::Image2D;
+        return ImageOptions::Type::Image2D;
 
     case Texture::Type::Cubemap:
     case Texture::Type::Texture2D:
     default:
-        return static_cast<Image::Type>(type);
+        return static_cast<ImageOptions::Type>(type);
     }
 }
 
@@ -80,12 +80,12 @@ void Texture::create(Type t, const glm::u32vec2& s, VkFormat fmt, Sampler smplr)
     sampler = smplr;
 
     image.create(*vulkanState,
-                 mapType(type),
-                 fmt,
-                 VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT |
-                     VK_IMAGE_USAGE_TRANSFER_SRC_BIT | getExtraUsage(type),
-                 {s.x, s.y},
-                 VK_IMAGE_ASPECT_COLOR_BIT);
+                 {.type   = mapType(type),
+                  .format = fmt,
+                  .usage  = VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT |
+                           VK_IMAGE_USAGE_TRANSFER_SRC_BIT | getExtraUsage(type),
+                  .extent = {s.x, s.y},
+                  .aspect = VK_IMAGE_ASPECT_COLOR_BIT});
     image.transitionLayout(VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
     currentView = image.getView();
 

@@ -97,10 +97,10 @@ void FinalSwapframeAsset::updateAttachments(std::uint32_t i) {
     const unsigned int depthIndex      = useMsaa ? 2 : 1;
     const unsigned int attachmentCount = useMsaa ? 3 : 2;
 
-    const std::array<VkImageAspectFlags, 3> aspects = {VK_IMAGE_ASPECT_COLOR_BIT,
-                                                       useMsaa ? VK_IMAGE_ASPECT_COLOR_BIT :
-                                                                 VK_IMAGE_ASPECT_DEPTH_BIT,
-                                                       VK_IMAGE_ASPECT_DEPTH_BIT};
+    const VkImageAspectFlagBits aspects[3] = {VK_IMAGE_ASPECT_COLOR_BIT,
+                                              useMsaa ? VK_IMAGE_ASPECT_COLOR_BIT :
+                                                        VK_IMAGE_ASPECT_DEPTH_BIT,
+                                              VK_IMAGE_ASPECT_DEPTH_BIT};
 
     ensureSampledImage();
     set.setAttachment(swapIndex,
@@ -121,9 +121,6 @@ void FinalSwapframeAsset::updateAllAttachments() {
 
 void FinalSwapframeAsset::observe(const event::SettingsChanged& changeEvent) {
     if (changeEvent.setting == event::SettingsChanged::AntiAliasing) {
-        const bool useMsaa =
-            engine->renderer().getSettings().getAntiAliasing() != Settings::AntiAliasing::None;
-
         ensureSampledImage();
         updateAllAttachments();
     }
@@ -139,17 +136,15 @@ void FinalSwapframeAsset::ensureSampledImage() {
         if (!sampledImage.isCreated() ||
             sampledImage.getSampleCount() !=
                 engine->renderer().getSettings().getMSAASampleCount()) {
-            sampledImage.create(engine->renderer().vulkanState(),
-                                vk::Image::Type::Image2D,
-                                engine->renderer().vulkanState().swapchain.swapImageFormat(),
-                                VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
-                                {size.x, size.y},
-                                VK_IMAGE_ASPECT_COLOR_BIT,
-                                VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT,
-                                VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
-                                0,
-                                VK_IMAGE_ASPECT_FLAG_BITS_MAX_ENUM,
-                                engine->renderer().getSettings().getMSAASampleCount());
+            sampledImage.create(
+                engine->renderer().vulkanState(),
+                {.type       = vk::ImageOptions::Type::Image2D,
+                 .format     = engine->renderer().vulkanState().swapchain.swapImageFormat(),
+                 .usage      = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
+                 .extent     = {size.x, size.y},
+                 .aspect     = VK_IMAGE_ASPECT_COLOR_BIT,
+                 .allocFlags = VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT,
+                 .samples    = engine->renderer().getSettings().getMSAASampleCount()});
             transition = true;
         }
         else if (sampledImage.getSize().width != size.x ||

@@ -20,16 +20,13 @@ void AttachmentImageSet::create(VulkanState& vulkanState, unsigned int count,
     for (std::uint32_t i = 0; i < count; ++i) {
         aspects[i] = VulkanState::guessImageAspect(bufferFormats[i], usages[i]);
         buffers[i].create(vulkanState,
-                          Image::Type::Image2D,
-                          bufferFormats[i],
-                          usages[i],
-                          size,
-                          aspects[i],
-                          VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT,
-                          VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
-                          0,
-                          VK_IMAGE_ASPECT_FLAG_BITS_MAX_ENUM,
-                          samples);
+                          {.type       = ImageOptions::Type::Image2D,
+                           .format     = bufferFormats[i],
+                           .usage      = usages[i],
+                           .extent     = size,
+                           .aspect     = aspects[i],
+                           .allocFlags = VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT,
+                           .samples    = samples});
         images[i] = buffers[i].getImage();
         views[i]  = buffers[i].getView();
     }

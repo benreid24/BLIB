@@ -70,16 +70,13 @@ void DepthBuffer::createAttachment(const glm::u32vec2& size) {
     auto& r = engine->renderer();
 
     buffer.create(r.vulkanState(),
-                  vk::Image::Type::Image2D,
-                  r.vulkanState().findDepthFormat(),
-                  VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
-                  {size.x, size.y},
-                  VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT,
-                  VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT,
-                  VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
-                  0,
-                  VK_IMAGE_ASPECT_FLAG_BITS_MAX_ENUM,
-                  r.getSettings().getMSAASampleCount());
+                  {.type       = vk::ImageOptions::Type::Image2D,
+                   .format     = r.vulkanState().findDepthFormat(),
+                   .usage      = VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
+                   .extent     = {size.x, size.y},
+                   .aspect     = VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT,
+                   .allocFlags = VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT,
+                   .samples    = r.getSettings().getMSAASampleCount()});
 }
 
 void DepthBuffer::ensureValid(const glm::u32vec2& size, VkSampleCountFlagBits samples) {

@@ -10,84 +10,73 @@ namespace vk
 {
 namespace
 {
-VkImageCreateFlags getCreateFlags(Image::Type type) {
+VkImageCreateFlags getCreateFlags(ImageOptions::Type type) {
     switch (type) {
-    case Image::Type::Cubemap:
+    case ImageOptions::Type::Cubemap:
         return VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT;
-    case Image::Type::Image2D:
+    case ImageOptions::Type::Image2D:
     default:
         return 0;
     }
+}
+bool compareOptions(const ImageOptions& a, const ImageOptions& b) {
+    return a.type == b.type && a.format == b.format && a.usage == b.usage &&
+           a.extent.width == b.extent.width && a.extent.height == b.extent.height &&
+           a.samples == b.samples && a.aspect == b.aspect && a.allocFlags == b.allocFlags &&
+           a.memoryLocation == b.memoryLocation && a.extraCreateFlags == b.extraCreateFlags &&
+           a.viewAspect == b.viewAspect;
 }
 } // namespace
 
 Image::Image()
 : vulkanState(nullptr)
-, size{0, 0}
 , alloc(nullptr)
 , imageHandle(nullptr)
 , viewHandle(nullptr)
-, format{}
-, aspect(VK_IMAGE_ASPECT_COLOR_BIT)
-, viewAspect(VK_IMAGE_ASPECT_COLOR_BIT)
-, samples(VK_SAMPLE_COUNT_1_BIT)
-, usage{}
-, allocFlags(0)
-, extraCreateFlags(0)
-, memoryLocation(VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT)
 , currentLayout(VK_IMAGE_LAYOUT_UNDEFINED) {}
 
 Image::~Image() { deferDestroy(); }
 
-void Image::create(VulkanState& vs, Type t, VkFormat fmt, VkImageUsageFlags usg,
-                   const VkExtent2D& extent, VkImageAspectFlags asp, VmaAllocationCreateFlags af,
-                   VkMemoryPropertyFlags mem, VkImageCreateFlags ef, VkImageAspectFlags vas,
-                   VkSampleCountFlagBits smps) {
-    if (vulkanState && size.width == extent.width && size.height == extent.height &&
-        samples == smps) {
-        return;
-    }
-    size = extent;
+void Image::create(VulkanState& vs, const ImageOptions& options) {
+    if (vulkanState && compareOptions(createOptions, options)) { return; }
 
     deferDestroy();
-    vulkanState      = &vs;
-    type             = t;
-    usage            = usg;
-    aspect           = asp;
-    viewAspect       = vas != VK_IMAGE_ASPECT_FLAG_BITS_MAX_ENUM ? vas : aspect;
-    format           = fmt;
-    allocFlags       = af;
-    extraCreateFlags = ef;
-    memoryLocation   = mem;
-    samples          = smps;
+    vulkanState   = &vs;
+    createOptions = options;
+    if (createOptions.viewAspect == VK_IMAGE_ASPECT_FLAG_BITS_MAX_ENUM) {
+        createOptions.viewAspect = createOptions.aspect;
+    }
 
     VmaAllocationCreateInfo allocInfo{};
-    allocInfo.requiredFlags = memoryLocation;
+    allocInfo.requiredFlags = createOptions.memoryLocation;
     allocInfo.usage         = VMA_MEMORY_USAGE_AUTO;
-    allocInfo.flags         = allocFlags;
+    allocInfo.flags         = createOptions.allocFlags;
 
     VkImageCreateInfo createInfo{};
     createInfo.sType         = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
     createInfo.imageType     = VK_IMAGE_TYPE_2D;
-    createInfo.extent.width  = size.width;
-    createInfo.extent.height = size.height;
+    createInfo.extent.width  = createOptions.extent.width;
+    createInfo.extent.height = createOptions.extent.height;
     createInfo.extent.depth  = 1;
     createInfo.mipLevels     = 1;
     createInfo.arrayLayers   = getLayerCount();
-    createInfo.format        = format;
+    createInfo.format        = createOptions.format;
     createInfo.tiling        = VK_IMAGE_TILING_OPTIMAL;
     createInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-    createInfo.usage         = usage | VK_IMAGE_USAGE_TRANSFER_DST_BIT;
+    createInfo.usage         = createOptions.usage | VK_IMAGE_USAGE_TRANSFER_DST_BIT;
     createInfo.sharingMode   = VK_SHARING_MODE_EXCLUSIVE;
-    createInfo.samples       = samples;
-    createInfo.flags         = getCreateFlags(type) | extraCreateFlags;
+    createInfo.samples       = createOptions.samples;
+    createInfo.flags         = getCreateFlags(createOptions.type) | createOptions.extraCreateFlags;
     if (vmaCreateImage(vs.vmaAllocator, &createInfo, &allocInfo, &imageHandle, &alloc, nullptr) !=
         VK_SUCCESS) {
         throw std::runtime_error("failed to create image");
     }
 
-    viewHandle =
-        vs.createImageView(imageHandle, format, viewAspect, getLayerCount(), getViewType());
+    viewHandle    = vs.createImageView(imageHandle,
+                                    createOptions.format,
+                                    createOptions.viewAspect,
+                                    getLayerCount(),
+                                    getViewType());
     currentLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 }
 
@@ -106,23 +95,13 @@ void Image::resize(const glm::u32vec2& newSize, bool copyContents) {
                                            VK_IMAGE_LAYOUT_UNDEFINED,
                                            VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
                                            getLayerCount(),
-                                           aspect);
+                                           createOptions.aspect);
         currentLayout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
     }
 
     // create new image
-    const glm::u32vec2 oldSize(size.width, size.height);
-    create(*vulkanState,
-           type,
-           format,
-           usage,
-           {newSize.x, newSize.y},
-           aspect,
-           allocFlags,
-           memoryLocation,
-           extraCreateFlags,
-           viewAspect,
-           samples);
+    const glm::u32vec2 oldSize(createOptions.extent.width, createOptions.extent.height);
+    create(*vulkanState, createOptions);
     currentLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 
     // copy from old to new
@@ -134,14 +113,14 @@ void Image::resize(const glm::u32vec2& newSize, bool copyContents) {
                                            currentLayout,
                                            VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
                                            getLayerCount(),
-                                           aspect);
+                                           createOptions.aspect);
         currentLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
 
         VkImageCopy copyInfo{};
         copyInfo.extent.width                  = std::min(oldSize.x, newSize.x);
         copyInfo.extent.height                 = std::min(oldSize.y, oldSize.y);
         copyInfo.extent.depth                  = 1;
-        copyInfo.srcSubresource.aspectMask     = aspect;
+        copyInfo.srcSubresource.aspectMask     = createOptions.aspect;
         copyInfo.srcSubresource.mipLevel       = 0;
         copyInfo.srcSubresource.baseArrayLayer = 0;
         copyInfo.srcSubresource.layerCount     = getLayerCount();
@@ -190,10 +169,10 @@ void Image::clearAndPrepareForSampling(VkCommandBuffer commandBuffer, VkClearCol
                                        VK_IMAGE_LAYOUT_UNDEFINED,
                                        VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
                                        getLayerCount(),
-                                       aspect);
+                                       createOptions.aspect);
 
     VkImageSubresourceRange range{};
-    range.aspectMask     = aspect;
+    range.aspectMask     = createOptions.aspect;
     range.baseArrayLayer = 0;
     range.baseMipLevel   = 0;
     range.layerCount     = 1;
@@ -208,7 +187,7 @@ void Image::clearAndPrepareForSampling(VkCommandBuffer commandBuffer, VkClearCol
                                        VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
                                        VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL,
                                        getLayerCount(),
-                                       aspect);
+                                       createOptions.aspect);
 }
 
 void Image::clearDepthAndPrepareForSampling(VkClearDepthStencilValue color) {
@@ -224,10 +203,10 @@ void Image::clearDepthAndPrepareForSampling(VkCommandBuffer commandBuffer,
                                        VK_IMAGE_LAYOUT_UNDEFINED,
                                        VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
                                        getLayerCount(),
-                                       aspect);
+                                       createOptions.aspect);
 
     VkImageSubresourceRange range{};
-    range.aspectMask     = aspect;
+    range.aspectMask     = createOptions.aspect;
     range.baseArrayLayer = 0;
     range.baseMipLevel   = 0;
     range.layerCount     = getLayerCount();
@@ -240,7 +219,7 @@ void Image::clearDepthAndPrepareForSampling(VkCommandBuffer commandBuffer,
                                        VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
                                        VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL,
                                        getLayerCount(),
-                                       aspect);
+                                       createOptions.aspect);
 }
 
 void Image::clearDepthAndTransition(VkCommandBuffer commandBuffer, VkImageLayout finalLayout,
@@ -250,10 +229,10 @@ void Image::clearDepthAndTransition(VkCommandBuffer commandBuffer, VkImageLayout
                                        VK_IMAGE_LAYOUT_UNDEFINED,
                                        VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
                                        getLayerCount(),
-                                       aspect);
+                                       createOptions.aspect);
 
     VkImageSubresourceRange range{};
-    range.aspectMask     = aspect;
+    range.aspectMask     = createOptions.aspect;
     range.baseArrayLayer = 0;
     range.baseMipLevel   = 0;
     range.layerCount     = getLayerCount();
@@ -266,24 +245,24 @@ void Image::clearDepthAndTransition(VkCommandBuffer commandBuffer, VkImageLayout
                                        VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
                                        finalLayout,
                                        getLayerCount(),
-                                       aspect);
+                                       createOptions.aspect);
 }
 
 VkImageViewType Image::getViewType() const {
-    switch (type) {
-    case Type::Cubemap:
+    switch (createOptions.type) {
+    case ImageOptions::Type::Cubemap:
         return VK_IMAGE_VIEW_TYPE_CUBE;
-    case Type::Image2D:
+    case ImageOptions::Type::Image2D:
     default:
         return VK_IMAGE_VIEW_TYPE_2D;
     }
 }
 
 std::uint32_t Image::getLayerCount() const {
-    switch (type) {
-    case Type::Cubemap:
+    switch (createOptions.type) {
+    case ImageOptions::Type::Cubemap:
         return 6;
-    case Type::Image2D:
+    case ImageOptions::Type::Image2D:
     default:
         return 1;
     }
@@ -294,7 +273,7 @@ void Image::transitionLayout(VkImageLayout newLayout, bool undefinedLayout) {
                                        !undefinedLayout ? currentLayout : VK_IMAGE_LAYOUT_UNDEFINED,
                                        newLayout,
                                        getLayerCount(),
-                                       aspect);
+                                       createOptions.aspect);
     currentLayout = newLayout;
 }
 
@@ -305,7 +284,7 @@ void Image::transitionLayout(VkCommandBuffer commandBuffer, VkImageLayout newLay
                                        !undefinedLayout ? currentLayout : VK_IMAGE_LAYOUT_UNDEFINED,
                                        newLayout,
                                        getLayerCount(),
-                                       aspect);
+                                       createOptions.aspect);
     currentLayout = newLayout;
 }
 

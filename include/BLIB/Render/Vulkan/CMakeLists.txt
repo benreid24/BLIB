@@ -10,6 +10,7 @@ target_sources(BLIB PUBLIC
     DescriptorSet.hpp
     Framebuffer.hpp
     Image.hpp
+    ImageOptions.hpp
     PerFrame.hpp
     PerSwapFrame.hpp
     Pipeline.hpp

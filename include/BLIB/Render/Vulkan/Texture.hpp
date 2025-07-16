@@ -27,8 +27,8 @@ public:
      * @brief The type of texture that this is
      */
     enum struct Type {
-        Texture2D = Image::Type::Image2D,
-        Cubemap   = Image::Type::Cubemap,
+        Texture2D = ImageOptions::Type::Image2D,
+        Cubemap   = ImageOptions::Type::Cubemap,
         RenderTexture
     };
 

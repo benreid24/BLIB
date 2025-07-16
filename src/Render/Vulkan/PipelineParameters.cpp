@@ -85,7 +85,7 @@ PipelineParameters& PipelineParameters::withShader(const std::string& path,
                                                    VkShaderStageFlagBits stage,
                                                    const std::string& entrypoint) {
     for (auto& shader : shaders) {
-        if (shader.stage == stage) {
+        if (shader.stage == static_cast<VkShaderStageFlags>(stage)) {
             shader.path       = path;
             shader.entrypoint = entrypoint;
             return *this;
@@ -99,7 +99,7 @@ PipelineParameters& PipelineParameters::withSampleShader(const std::string& path
                                                          VkShaderStageFlagBits stage,
                                                          const std::string& entrypoint) {
     for (auto& shader : sampleShaders) {
-        if (shader.stage == stage) {
+        if (shader.stage == static_cast<VkShaderStageFlags>(stage)) {
             shader.path       = path;
             shader.entrypoint = entrypoint;
             return *this;
@@ -113,7 +113,7 @@ PipelineParameters& PipelineParameters::withResolveShader(const std::string& pat
                                                           VkShaderStageFlagBits stage,
                                                           const std::string& entrypoint) {
     for (auto& shader : resolveShaders) {
-        if (shader.stage == stage) {
+        if (shader.stage == static_cast<VkShaderStageFlags>(stage)) {
             shader.path       = path;
             shader.entrypoint = entrypoint;
             return *this;
@@ -125,7 +125,7 @@ PipelineParameters& PipelineParameters::withResolveShader(const std::string& pat
 
 PipelineParameters& PipelineParameters::removeShader(VkShaderStageFlagBits stage) {
     for (unsigned int i = 0; i < shaders.size(); ++i) {
-        if (shaders[i].stage == stage) {
+        if (shaders[i].stage == static_cast<VkShaderStageFlags>(stage)) {
             shaders.erase(i);
             return *this;
         }

@@ -65,28 +65,22 @@ void Scene3DInstance::init(ShaderInputStore& inputStore) {
     createCameraBuffer();
     uniform.create(vulkanState, 1);
 
-    emptySpotShadowMap.create(vulkanState,
-                              vk::Image::Type::Image2D,
-                              vulkanState.findDepthFormat(),
-                              VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT |
-                                  VK_IMAGE_USAGE_SAMPLED_BIT,
-                              renderer.getSettings().getShadowMapResolution(),
-                              VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT,
-                              0,
-                              VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
-                              0,
-                              VK_IMAGE_ASPECT_DEPTH_BIT);
-    emptyPointShadowMap.create(vulkanState,
-                               vk::Image::Type::Cubemap,
-                               vulkanState.findDepthFormat(),
-                               VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT |
-                                   VK_IMAGE_USAGE_SAMPLED_BIT,
-                               renderer.getSettings().getShadowMapResolution(),
-                               VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT,
-                               0,
-                               VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
-                               0,
-                               VK_IMAGE_ASPECT_DEPTH_BIT);
+    emptySpotShadowMap.create(
+        vulkanState,
+        {.type       = vk::ImageOptions::Type::Image2D,
+         .format     = vulkanState.findDepthFormat(),
+         .usage      = VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
+         .extent     = renderer.getSettings().getShadowMapResolution(),
+         .aspect     = VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT,
+         .viewAspect = VK_IMAGE_ASPECT_DEPTH_BIT});
+    emptyPointShadowMap.create(
+        vulkanState,
+        {.type       = vk::ImageOptions::Type::Cubemap,
+         .format     = vulkanState.findDepthFormat(),
+         .usage      = VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
+         .extent     = renderer.getSettings().getShadowMapResolution(),
+         .aspect     = VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT,
+         .viewAspect = VK_IMAGE_ASPECT_DEPTH_BIT});
 
     auto commandBuffer = vulkanState.sharedCommandPool.createBuffer();
     emptySpotShadowMap.clearDepthAndPrepareForSampling(commandBuffer);
