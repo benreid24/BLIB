@@ -587,15 +587,24 @@ VkResult VulkanState::submitCommandBuffer(const VkSubmitInfo& submitInfo, VkFenc
 
 void VulkanState::transitionImageLayout(VkImage image, VkImageLayout oldLayout,
                                         VkImageLayout newLayout, std::uint32_t layerCount,
-                                        VkImageAspectFlags aspect) {
+                                        VkImageAspectFlags aspect, std::uint32_t baseMipLevel,
+                                        std::uint32_t mipLevelCount) {
     auto commandBuffer = sharedCommandPool.createBuffer();
-    transitionImageLayout(commandBuffer, image, oldLayout, newLayout, layerCount, aspect);
+    transitionImageLayout(commandBuffer,
+                          image,
+                          oldLayout,
+                          newLayout,
+                          layerCount,
+                          aspect,
+                          baseMipLevel,
+                          mipLevelCount);
     commandBuffer.submit();
 }
 
 void VulkanState::transitionImageLayout(VkCommandBuffer commandBuffer, VkImage image,
                                         VkImageLayout oldLayout, VkImageLayout newLayout,
-                                        std::uint32_t layerCount, VkImageAspectFlags aspect) {
+                                        std::uint32_t layerCount, VkImageAspectFlags aspect,
+                                        std::uint32_t baseMipLevel, std::uint32_t mipLevelCount) {
     VkImageMemoryBarrier barrier{};
     barrier.sType               = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
     barrier.oldLayout           = oldLayout;
@@ -605,8 +614,8 @@ void VulkanState::transitionImageLayout(VkCommandBuffer commandBuffer, VkImage i
 
     barrier.image                           = image;
     barrier.subresourceRange.aspectMask     = aspect;
-    barrier.subresourceRange.baseMipLevel   = 0;
-    barrier.subresourceRange.levelCount     = 1;
+    barrier.subresourceRange.baseMipLevel   = baseMipLevel;
+    barrier.subresourceRange.levelCount     = mipLevelCount;
     barrier.subresourceRange.baseArrayLayer = 0;
     barrier.subresourceRange.layerCount     = layerCount;
 
@@ -691,15 +700,16 @@ void VulkanState::copyBufferToImage(VkBuffer buffer, VkImage image, std::uint32_
 
 VkImageView VulkanState::createImageView(VkImage image, VkFormat format,
                                          VkImageAspectFlags aspectFlags, std::uint32_t layerCount,
-                                         VkImageViewType viewType) {
+                                         VkImageViewType viewType, std::uint32_t mipLevels,
+                                         std::uint32_t baseMipLevel) {
     VkImageViewCreateInfo viewInfo{};
     viewInfo.sType                           = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
     viewInfo.image                           = image;
     viewInfo.viewType                        = viewType;
     viewInfo.format                          = format;
     viewInfo.subresourceRange.aspectMask     = aspectFlags;
-    viewInfo.subresourceRange.baseMipLevel   = 0;
-    viewInfo.subresourceRange.levelCount     = 1;
+    viewInfo.subresourceRange.baseMipLevel   = baseMipLevel;
+    viewInfo.subresourceRange.levelCount     = mipLevels;
     viewInfo.subresourceRange.baseArrayLayer = 0;
     viewInfo.subresourceRange.layerCount     = layerCount;
 

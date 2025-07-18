@@ -68,7 +68,8 @@ void PostProcess3DTask::onGraphInit() {
         VkImageUsageFlags usages[] = {VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT};
         dummyBloomBuffer.emplace();
         dummyBloomBuffer.value().create(renderer->vulkanState(), 1, {32, 32}, formats, usages);
-        dummyBloomBuffer.value().getBuffer(0).clearAndPrepareForSampling();
+        dummyBloomBuffer.value().getBuffer(0).clearAndTransition(
+            VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, {});
         bloomAttachmentSet.value().initAttachments(
             &dummyBloomBuffer.value().attachmentSet(), 0, sampler);
     }

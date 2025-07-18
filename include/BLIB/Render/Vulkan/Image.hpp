@@ -22,6 +22,24 @@ class AttachmentSet;
 class Image {
 public:
     /**
+     * @brief Computes the number of mip levels that should be generated for an image
+     *
+     * @param width The width of the image in pixels
+     * @param height The height of the image in pixels
+     * @return The number of mip levels to generate
+     */
+    static std::uint32_t computeMipLevelsForGeneration(std::uint32_t width, std::uint32_t height);
+
+    /**
+     * @brief Determines the number of mip levels present in an existing image
+     *
+     * @param width The width of the pre-generated mip image in pixels
+     * @param height The height of the pre-generated mip image in pixels
+     * @return The number of mip levels present in the image
+     */
+    static std::uint32_t determineMipLevelsFromExisting(std::uint32_t width, std::uint32_t height);
+
+    /**
      * @brief Creates an uninitialized image
      */
     Image();
@@ -48,40 +66,12 @@ public:
     void resize(const glm::u32vec2& newSize, bool copyContents);
 
     /**
-     * @brief Clears the color image and transitions it to
-     *        VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
+     * @brief Clears the depth image and transitions it to a final layout
      *
+     * @param finalLayout The final layout to transition to
      * @param clearColor The color to clear to
      */
-    void clearAndPrepareForSampling(VkClearColorValue clearColor = {{0.f, 0.f, 0.f, 1.f}});
-
-    /**
-     * @brief Clears the color image and transitions it to
-     *        VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
-     *
-     * @param commandBuffer The command buffer to issue commands into
-     * @param clearColor The color to clear to
-     */
-    void clearAndPrepareForSampling(VkCommandBuffer commandBuffer,
-                                    VkClearColorValue clearColor = {{0.f, 0.f, 0.f, 1.f}});
-
-    /**
-     * @brief Clears the depth image and transitions it to
-     *        VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
-     *
-     * @param clearColor The color to clear to
-     */
-    void clearDepthAndPrepareForSampling(VkClearDepthStencilValue clearColor = {1.f, 0});
-
-    /**
-     * @brief Clears the depth image and transitions it to
-     *        VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
-     *
-     * @param commandBuffer The command buffer to submit commands into
-     * @param clearColor The color to clear to
-     */
-    void clearDepthAndPrepareForSampling(VkCommandBuffer commandBuffer,
-                                         VkClearDepthStencilValue clearColor = {1.f, 0});
+    void clearAndTransition(VkImageLayout finalLayout, VkClearValue clearColor);
 
     /**
      * @brief Clears the depth image and transitions it to a final layout
@@ -90,10 +80,8 @@ public:
      * @param finalLayout The final layout to transition to
      * @param clearColor The color to clear to
      */
-    void clearDepthAndTransition(
-        VkCommandBuffer commandBuffer,
-        VkImageLayout finalLayout           = VK_IMAGE_LAYOUT_STENCIL_ATTACHMENT_OPTIMAL,
-        VkClearDepthStencilValue clearColor = {1.f, 0});
+    void clearAndTransition(VkCommandBuffer commandBuffer, VkImageLayout finalLayout,
+                            VkClearValue clearColor);
 
     /**
      * @brief Destroys the image

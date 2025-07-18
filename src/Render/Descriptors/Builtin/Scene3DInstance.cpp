@@ -83,8 +83,10 @@ void Scene3DInstance::init(ShaderInputStore& inputStore) {
          .viewAspect = VK_IMAGE_ASPECT_DEPTH_BIT});
 
     auto commandBuffer = vulkanState.sharedCommandPool.createBuffer();
-    emptySpotShadowMap.clearDepthAndPrepareForSampling(commandBuffer);
-    emptyPointShadowMap.clearDepthAndPrepareForSampling(commandBuffer);
+    emptySpotShadowMap.clearAndTransition(
+        commandBuffer, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, {.depthStencil = {1.f, 0}});
+    emptyPointShadowMap.clearAndTransition(
+        commandBuffer, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, {.depthStencil = {1.f, 0}});
     commandBuffer.submit();
 
     // allocate descriptors

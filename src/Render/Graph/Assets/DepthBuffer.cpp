@@ -35,7 +35,9 @@ void DepthBuffer::onResize(glm::u32vec2 targetSize) {
 void DepthBuffer::setSizeMode(SizeMode m) { mode = m; }
 
 void DepthBuffer::clear(VkCommandBuffer commandBuffer) {
-    buffer.clearDepthAndTransition(commandBuffer, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
+    buffer.clearAndTransition(commandBuffer,
+                              VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL,
+                              {.depthStencil = {1.f, 0}});
 }
 
 void DepthBuffer::onReset() { cleared = false; }

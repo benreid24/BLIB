@@ -33,7 +33,8 @@ void ShadowMapAsset::doCreate(engine::Engine&, Renderer& renderer, RenderTarget*
              .extent     = renderer.getSettings().getShadowMapResolution(),
              .aspect     = depthAspect,
              .viewAspect = VK_IMAGE_ASPECT_DEPTH_BIT});
-        map.image.clearDepthAndPrepareForSampling(commandBuffer);
+        map.image.clearAndTransition(
+            commandBuffer, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, {.depthStencil = {1.f, 0}});
         map.attachmentSet.emplace(map.image);
         map.framebuffer.create(renderer.vulkanState(), &renderPass, map.attachmentSet.value());
     }
@@ -46,7 +47,8 @@ void ShadowMapAsset::doCreate(engine::Engine&, Renderer& renderer, RenderTarget*
              .extent     = renderer.getSettings().getShadowMapResolution(),
              .aspect     = depthAspect,
              .viewAspect = VK_IMAGE_ASPECT_DEPTH_BIT});
-        map.image.clearDepthAndPrepareForSampling(commandBuffer);
+        map.image.clearAndTransition(
+            commandBuffer, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, {.depthStencil = {1.f, 0}});
         map.attachmentSet.emplace(map.image);
         map.framebuffer.create(renderer.vulkanState(), &renderPass, map.attachmentSet.value());
     }

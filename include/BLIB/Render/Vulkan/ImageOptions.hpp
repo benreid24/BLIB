@@ -31,6 +31,7 @@ struct ImageOptions {
     VkImageCreateFlags extraCreateFlags  = 0;
     VkImageAspectFlags viewAspect        = VK_IMAGE_ASPECT_FLAG_BITS_MAX_ENUM;
     VkSampleCountFlagBits samples        = VK_SAMPLE_COUNT_1_BIT;
+    std::uint32_t mipLevels              = 1;
 };
 
 } // namespace vk

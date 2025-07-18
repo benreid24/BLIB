@@ -173,10 +173,13 @@ struct VulkanState {
      * @param newLayout The layout to convert to
      * @param layerCount The number of layers to transition
      * @param aspect The image aspect
+     * @param baseMipLevel The base mip level to use for the transition
+     * @param mipLevelCount The number of mip levels to transition
      */
     void transitionImageLayout(VkImage image, VkImageLayout oldLayout, VkImageLayout newLayout,
-                               std::uint32_t layerCount  = 1,
-                               VkImageAspectFlags aspect = VK_IMAGE_ASPECT_COLOR_BIT);
+                               std::uint32_t layerCount   = 1,
+                               VkImageAspectFlags aspect  = VK_IMAGE_ASPECT_COLOR_BIT,
+                               std::uint32_t baseMipLevel = 0, std::uint32_t mipLevelCount = 1);
 
     /**
      * @brief Converts an image from one layout to another and uses an existing command buffer
@@ -187,11 +190,14 @@ struct VulkanState {
      * @param newLayout The layout to convert to
      * @param layerCount The number of layers to transition
      * @param aspect The image aspect
+     * @param baseMipLevel The base mip level to use for the transition
+     * @param mipLevelCount The number of mip levels to transition
      */
     void transitionImageLayout(VkCommandBuffer commandbuffer, VkImage image,
                                VkImageLayout oldLayout, VkImageLayout newLayout,
-                               std::uint32_t layerCount  = 1,
-                               VkImageAspectFlags aspect = VK_IMAGE_ASPECT_COLOR_BIT);
+                               std::uint32_t layerCount   = 1,
+                               VkImageAspectFlags aspect  = VK_IMAGE_ASPECT_COLOR_BIT,
+                               std::uint32_t baseMipLevel = 0, std::uint32_t mipLevelCount = 1);
 
     /**
      * @brief Helper function to copy a raw buffer's contents into an image
@@ -212,12 +218,15 @@ struct VulkanState {
      * @param aspectFlags Flags to use when creating the view
      * @param layerCount The number of layers in the image
      * @param viewType The type of image view to create
+     * @param mipLevelCount The number of mip levels in the image
+     * @param baseMipLevel The base mip level to use for the view
      * @return VkImageView The created image view
      */
     VkImageView createImageView(VkImage image, VkFormat format,
                                 VkImageAspectFlags aspectFlags = VK_IMAGE_ASPECT_COLOR_BIT,
                                 std::uint32_t layerCount       = 1,
-                                VkImageViewType viewType       = VK_IMAGE_VIEW_TYPE_2D);
+                                VkImageViewType viewType       = VK_IMAGE_VIEW_TYPE_2D,
+                                std::uint32_t mipLevelCount = 1, std::uint32_t baseMipLevel = 0);
 
     /**
      * @brief Returns the current frame index. Used by PerFrame to return correct data

@@ -1,6 +1,7 @@
 #include <BLIB/Render/Vulkan/Image.hpp>
 
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <cmath>
 
 namespace bl
 {
@@ -27,6 +28,15 @@ bool compareOptions(const ImageOptions& a, const ImageOptions& b) {
            a.viewAspect == b.viewAspect;
 }
 } // namespace
+
+std::uint32_t Image::computeMipLevelsForGeneration(std::uint32_t width, std::uint32_t height) {
+    return static_cast<std::uint32_t>(std::floor(std::log2(std::max(width, height)))) + 1;
+}
+
+std::uint32_t Image::determineMipLevelsFromExisting(std::uint32_t width, std::uint32_t height) {
+    const std::uint32_t originalWidth = width * 2 / 3;
+    return computeMipLevelsForGeneration(originalWidth, height);
+}
 
 Image::Image()
 : vulkanState(nullptr)
@@ -58,7 +68,7 @@ void Image::create(VulkanState& vs, const ImageOptions& options) {
     createInfo.extent.width  = createOptions.extent.width;
     createInfo.extent.height = createOptions.extent.height;
     createInfo.extent.depth  = 1;
-    createInfo.mipLevels     = 1;
+    createInfo.mipLevels     = createOptions.mipLevels;
     createInfo.arrayLayers   = getLayerCount();
     createInfo.format        = createOptions.format;
     createInfo.tiling        = VK_IMAGE_TILING_OPTIMAL;
@@ -76,7 +86,9 @@ void Image::create(VulkanState& vs, const ImageOptions& options) {
                                     createOptions.format,
                                     createOptions.viewAspect,
                                     getLayerCount(),
-                                    getViewType());
+                                    getViewType(),
+                                    createOptions.mipLevels,
+                                    0);
     currentLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 }
 
@@ -115,6 +127,11 @@ void Image::resize(const glm::u32vec2& newSize, bool copyContents) {
                                            getLayerCount(),
                                            createOptions.aspect);
         currentLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
+
+        if (createOptions.mipLevels > 1) {
+            BL_LOG_WARN << "Copying mip image contents on resize is not "
+                           "supported. Only the first level will be copied";
+        }
 
         VkImageCopy copyInfo{};
         copyInfo.extent.width                  = std::min(oldSize.x, newSize.x);
@@ -157,95 +174,54 @@ void Image::deferDestroy() {
     }
 }
 
-void Image::clearAndPrepareForSampling(VkClearColorValue color) {
+void Image::clearAndTransition(VkImageLayout finalLayout, VkClearValue color) {
     auto commandBuffer = vulkanState->sharedCommandPool.createBuffer();
-    clearAndPrepareForSampling(commandBuffer, color);
+    clearAndTransition(commandBuffer, finalLayout, color);
     commandBuffer.submit();
 }
 
-void Image::clearAndPrepareForSampling(VkCommandBuffer commandBuffer, VkClearColorValue color) {
+void Image::clearAndTransition(VkCommandBuffer commandBuffer, VkImageLayout finalLayout,
+                               VkClearValue color) {
     vulkanState->transitionImageLayout(commandBuffer,
                                        imageHandle,
                                        VK_IMAGE_LAYOUT_UNDEFINED,
                                        VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
                                        getLayerCount(),
-                                       createOptions.aspect);
-
-    VkImageSubresourceRange range{};
-    range.aspectMask     = createOptions.aspect;
-    range.baseArrayLayer = 0;
-    range.baseMipLevel   = 0;
-    range.layerCount     = 1;
-    range.levelCount     = 1;
-
-    vkCmdClearColorImage(
-        commandBuffer, imageHandle, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, &color, 1, &range);
-    vkCmdClearDepthStencilImage(
-        commandBuffer, imageHandle, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, nullptr, 1, &range);
-    vulkanState->transitionImageLayout(commandBuffer,
-                                       imageHandle,
-                                       VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
-                                       VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL,
-                                       getLayerCount(),
-                                       createOptions.aspect);
-}
-
-void Image::clearDepthAndPrepareForSampling(VkClearDepthStencilValue color) {
-    auto commandBuffer = vulkanState->sharedCommandPool.createBuffer();
-    clearDepthAndPrepareForSampling(commandBuffer, color);
-    commandBuffer.submit();
-}
-
-void Image::clearDepthAndPrepareForSampling(VkCommandBuffer commandBuffer,
-                                            VkClearDepthStencilValue color) {
-    vulkanState->transitionImageLayout(commandBuffer,
-                                       imageHandle,
-                                       VK_IMAGE_LAYOUT_UNDEFINED,
-                                       VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
-                                       getLayerCount(),
-                                       createOptions.aspect);
+                                       createOptions.aspect,
+                                       0,
+                                       createOptions.mipLevels);
 
     VkImageSubresourceRange range{};
     range.aspectMask     = createOptions.aspect;
     range.baseArrayLayer = 0;
     range.baseMipLevel   = 0;
     range.layerCount     = getLayerCount();
-    range.levelCount     = 1;
+    range.levelCount     = createOptions.mipLevels;
 
-    vkCmdClearDepthStencilImage(
-        commandBuffer, imageHandle, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, &color, 1, &range);
-    vulkanState->transitionImageLayout(commandBuffer,
-                                       imageHandle,
-                                       VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
-                                       VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL,
-                                       getLayerCount(),
-                                       createOptions.aspect);
-}
-
-void Image::clearDepthAndTransition(VkCommandBuffer commandBuffer, VkImageLayout finalLayout,
-                                    VkClearDepthStencilValue color) {
-    vulkanState->transitionImageLayout(commandBuffer,
-                                       imageHandle,
-                                       VK_IMAGE_LAYOUT_UNDEFINED,
-                                       VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
-                                       getLayerCount(),
-                                       createOptions.aspect);
-
-    VkImageSubresourceRange range{};
-    range.aspectMask     = createOptions.aspect;
-    range.baseArrayLayer = 0;
-    range.baseMipLevel   = 0;
-    range.layerCount     = getLayerCount();
-    range.levelCount     = 1;
-
-    vkCmdClearDepthStencilImage(
-        commandBuffer, imageHandle, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, &color, 1, &range);
+    if (createOptions.aspect & VK_IMAGE_ASPECT_DEPTH_BIT) {
+        vkCmdClearDepthStencilImage(commandBuffer,
+                                    imageHandle,
+                                    VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+                                    &color.depthStencil,
+                                    1,
+                                    &range);
+    }
+    else {
+        vkCmdClearColorImage(commandBuffer,
+                             imageHandle,
+                             VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+                             &color.color,
+                             1,
+                             &range);
+    }
     vulkanState->transitionImageLayout(commandBuffer,
                                        imageHandle,
                                        VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
                                        finalLayout,
                                        getLayerCount(),
-                                       createOptions.aspect);
+                                       createOptions.aspect,
+                                       0,
+                                       createOptions.mipLevels);
 }
 
 VkImageViewType Image::getViewType() const {
