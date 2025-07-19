@@ -166,11 +166,17 @@ public:
      */
     MSAABehavior getMSAABehavior() const { return msaaBehavior; }
 
+    /**
+     * @brief Returns whether the render pass clears attachments on start
+     */
+    bool isClearedOnStart() const { return isCleared; }
+
 private:
     ctr::StaticVector<VkAttachmentDescription, MaxAttachmentCount> attachments;
     ctr::StaticVector<SubPass, MaxSubpassCount> subpasses;
     ctr::StaticVector<VkSubpassDependency, MaxDependencyCount> dependencies;
     MSAABehavior msaaBehavior;
+    bool isCleared;
 
     friend class RenderPass;
 };

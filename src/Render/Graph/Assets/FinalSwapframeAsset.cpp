@@ -111,7 +111,7 @@ void FinalSwapframeAsset::updateAttachments(std::uint32_t i) {
     if (useMsaa) { set.setAttachment(0, sampledImage); }
     set.setAttachmentCount(attachmentCount);
     set.setRenderExtent(chain.swapFrameAtIndex(i).getRenderExtent());
-    set.setOutputIndex(useMsaa ? 0 : swapIndex);
+    set.setOutputIndex(swapIndex);
 }
 
 void FinalSwapframeAsset::updateAllAttachments() {

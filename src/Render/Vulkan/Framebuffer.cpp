@@ -60,6 +60,7 @@ void Framebuffer::beginRender(VkCommandBuffer commandBuffer, const VkRect2D& reg
     }
 #endif
 
+    bool cleared = false;
     if (renderStartCount == 0) {
         // begin render pass
         VkRenderPassBeginInfo renderPassInfo{};
@@ -70,13 +71,31 @@ void Framebuffer::beginRender(VkCommandBuffer commandBuffer, const VkRect2D& reg
         renderPassInfo.clearValueCount = clearColorCount;
         renderPassInfo.pClearValues    = clearColors;
         vkCmdBeginRenderPass(commandBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+        cleared = renderPass->getCreateParams().isClearedOnStart();
     }
-    if (shouldClear) {
+    if (shouldClear && !cleared) {
+        // if we have resolve attachments we need to avoid clearing them
+        std::uint32_t colorCount = clearColorCount;
+        if (target->getOutputIndex() > 0) {
+            colorCount = std::min(colorCount, target->getOutputIndex());
+        }
+
+        // if we have a depth attachment we will handle it outside of the loop
+        const bool hasDepth =
+            target->getImageAspect(target->getAttachmentCount() - 1) & VK_IMAGE_ASPECT_DEPTH_BIT;
+        const std::uint32_t attachmentCount = hasDepth ? colorCount + 1 : colorCount;
+
         VkClearAttachment attachments[AttachmentSet::MaxAttachments]{};
-        for (unsigned int i = 0; i < clearColorCount; ++i) {
+        for (unsigned int i = 0; i < colorCount; ++i) {
             attachments[i].aspectMask      = target->getImageAspects()[i];
             attachments[i].colorAttachment = i;
             attachments[i].clearValue      = clearColors[i];
+        }
+        if (hasDepth) {
+            attachments[colorCount].aspectMask =
+                target->getImageAspect(target->getAttachmentCount() - 1);
+            attachments[colorCount].colorAttachment = VK_ATTACHMENT_UNUSED;
+            attachments[colorCount].clearValue      = clearColors[clearColorCount - 1];
         }
 
         VkClearRect rect;
@@ -84,7 +103,7 @@ void Framebuffer::beginRender(VkCommandBuffer commandBuffer, const VkRect2D& reg
         rect.baseArrayLayer = 0;
         rect.layerCount     = target->getLayerCount();
 
-        vkCmdClearAttachments(commandBuffer, clearColorCount, attachments, 1, &rect);
+        vkCmdClearAttachments(commandBuffer, attachmentCount, attachments, 1, &rect);
     }
 
     vkCmdSetScissor(commandBuffer, 0, 1, &region);

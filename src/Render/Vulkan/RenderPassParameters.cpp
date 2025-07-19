@@ -11,7 +11,8 @@ namespace rc
 namespace vk
 {
 RenderPassParameters::RenderPassParameters()
-: msaaBehavior(MSAABehavior::Disabled) {}
+: msaaBehavior(MSAABehavior::Disabled)
+, isCleared(false) {}
 
 RenderPassParameters& RenderPassParameters::addSubpass(SubPass&& subpass) {
     subpasses.emplace_back(std::forward<SubPass>(subpass));
@@ -74,6 +75,14 @@ RenderPassParameters&& RenderPassParameters::build() {
     }
     if (attachments.empty()) {
         throw std::runtime_error("RenderPass must have at least one attachment");
+    }
+
+    isCleared = true;
+    for (const auto& attachment : attachments) {
+        if (attachment.loadOp != VK_ATTACHMENT_LOAD_OP_CLEAR) {
+            isCleared = false;
+            break;
+        }
     }
 
     // regardless of msaa state we can populate the resolve attachments and append them to the
