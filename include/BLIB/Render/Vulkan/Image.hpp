@@ -3,6 +3,7 @@
 
 #include <BLIB/Render/Vulkan/ImageOptions.hpp>
 #include <BLIB/Vulkan.hpp>
+#include <SFML/Graphics/Image.hpp>
 #include <glm/glm.hpp>
 
 namespace bl
@@ -38,6 +39,14 @@ public:
      * @return The number of mip levels present in the image
      */
     static std::uint32_t determineMipLevelsFromExisting(std::uint32_t width, std::uint32_t height);
+
+    /**
+     * @brief Creates a new image with mipmaps generated from the given image
+     *
+     * @param image The image to generate mipmaps for
+     * @return An image with mipmaps generated from the given image
+     */
+    static sf::Image genMipMapsOnCpu(const sf::Image& image);
 
     /**
      * @brief Creates an uninitialized image
@@ -82,6 +91,27 @@ public:
      */
     void clearAndTransition(VkCommandBuffer commandBuffer, VkImageLayout finalLayout,
                             VkClearValue clearColor);
+
+    /**
+     * @brief Returns whether the selected device can generate mipmaps on the GPU
+     */
+    bool canGenMipMapsOnGpu() const;
+
+    /**
+     * @brief Generates mipmaps for this image on the GPU
+     *
+     * @param finalLayout The final layout to transition to after mipmap generation
+     */
+    void genMipMapsOnGpu(VkImageLayout finalLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+
+    /**
+     * @brief Generates mipmaps for this image on the GPU
+     *
+     * @param commandBuffer The command buffer to issue commands into
+     * @param finalLayout The final layout to transition to after mipmap generation
+     */
+    void genMipMapsOnGpu(VkCommandBuffer commandBuffer,
+                         VkImageLayout finalLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
 
     /**
      * @brief Destroys the image

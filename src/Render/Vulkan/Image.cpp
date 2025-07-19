@@ -266,6 +266,204 @@ void Image::transitionLayout(VkCommandBuffer commandBuffer, VkImageLayout newLay
 
 void Image::notifyNewLayout(VkImageLayout nl) { currentLayout = nl; }
 
+bool Image::canGenMipMapsOnGpu() const {
+    const VkFormatProperties props = vulkanState->getFormatProperties(createOptions.format);
+    return (props.optimalTilingFeatures & VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT) &&
+           (props.optimalTilingFeatures & VK_FORMAT_FEATURE_BLIT_SRC_BIT) &&
+           (props.optimalTilingFeatures & VK_FORMAT_FEATURE_BLIT_DST_BIT);
+}
+
+void Image::genMipMapsOnGpu(VkImageLayout finalLayout) {
+    auto commandBuffer = vulkanState->sharedCommandPool.createBuffer();
+    genMipMapsOnGpu(commandBuffer, finalLayout);
+    commandBuffer.submit();
+}
+
+void Image::genMipMapsOnGpu(VkCommandBuffer commandBuffer, VkImageLayout finalLayout) {
+    if (!canGenMipMapsOnGpu()) {
+        BL_LOG_WARN << "Cannot generate mipmaps on GPU for image with format: "
+                    << createOptions.format;
+        return;
+    }
+    if (createOptions.type != ImageOptions::Type::Image2D) {
+        BL_LOG_ERROR << "Cannot generate mipmaps for image type: " << createOptions.type;
+        return;
+    }
+
+    vulkanState->transitionImageLayout(commandBuffer,
+                                       imageHandle,
+                                       currentLayout,
+                                       VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
+                                       1,
+                                       createOptions.aspect,
+                                       0,
+                                       1);
+
+    VkImageMemoryBarrier barrier{};
+    barrier.sType                           = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
+    barrier.image                           = imageHandle;
+    barrier.srcQueueFamilyIndex             = VK_QUEUE_FAMILY_IGNORED;
+    barrier.dstQueueFamilyIndex             = VK_QUEUE_FAMILY_IGNORED;
+    barrier.subresourceRange.aspectMask     = VK_IMAGE_ASPECT_COLOR_BIT;
+    barrier.subresourceRange.baseArrayLayer = 0;
+    barrier.subresourceRange.layerCount     = 1;
+    barrier.subresourceRange.levelCount     = 1;
+
+    std::int32_t mipWidth  = createOptions.extent.width;
+    std::int32_t mipHeight = createOptions.extent.height;
+
+    for (std::uint32_t i = 1; i < createOptions.mipLevels; ++i) {
+        // transition prior level to transfer source
+        barrier.subresourceRange.baseMipLevel = i - 1;
+        if (i > 1) { // we already transitioned the first level
+            barrier.oldLayout     = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
+            barrier.newLayout     = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
+            barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
+            barrier.dstAccessMask = VK_ACCESS_TRANSFER_READ_BIT;
+
+            vkCmdPipelineBarrier(commandBuffer,
+                                 VK_PIPELINE_STAGE_TRANSFER_BIT,
+                                 VK_PIPELINE_STAGE_TRANSFER_BIT,
+                                 0,
+                                 0,
+                                 nullptr,
+                                 0,
+                                 nullptr,
+                                 1,
+                                 &barrier);
+        }
+
+        // copy prior level to current level and downsample
+        VkImageBlit blit{};
+        blit.srcOffsets[0]                 = {0, 0, 0};
+        blit.srcOffsets[1]                 = {mipWidth, mipHeight, 1};
+        blit.srcSubresource.aspectMask     = createOptions.aspect;
+        blit.srcSubresource.mipLevel       = i - 1;
+        blit.srcSubresource.baseArrayLayer = 0;
+        blit.srcSubresource.layerCount     = 1;
+        blit.dstOffsets[0]                 = {0, 0, 0};
+        blit.dstOffsets[1]                 = {
+            mipWidth > 1 ? mipWidth / 2 : 1, mipHeight > 1 ? mipHeight / 2 : 1, 1};
+        blit.dstSubresource.aspectMask     = createOptions.aspect;
+        blit.dstSubresource.mipLevel       = i;
+        blit.dstSubresource.baseArrayLayer = 0;
+        blit.dstSubresource.layerCount     = 1;
+
+        vkCmdBlitImage(commandBuffer,
+                       imageHandle,
+                       VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
+                       imageHandle,
+                       VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+                       1,
+                       &blit,
+                       VK_FILTER_LINEAR);
+
+        // transition source level to final layout
+        barrier.oldLayout     = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
+        barrier.newLayout     = finalLayout;
+        barrier.srcAccessMask = VK_ACCESS_TRANSFER_READ_BIT;
+        barrier.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
+
+        vkCmdPipelineBarrier(commandBuffer,
+                             VK_PIPELINE_STAGE_TRANSFER_BIT,
+                             VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT,
+                             0,
+                             0,
+                             nullptr,
+                             0,
+                             nullptr,
+                             1,
+                             &barrier);
+
+        if (mipWidth > 1) { mipWidth /= 2; }
+        if (mipHeight > 1) { mipHeight /= 2; }
+    }
+
+    // transition last level to final layout
+    barrier.subresourceRange.baseMipLevel = createOptions.mipLevels - 1;
+    barrier.oldLayout                     = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
+    barrier.newLayout                     = finalLayout;
+    barrier.srcAccessMask                 = VK_ACCESS_TRANSFER_READ_BIT;
+    barrier.dstAccessMask                 = VK_ACCESS_SHADER_READ_BIT;
+
+    vkCmdPipelineBarrier(commandBuffer,
+                         VK_PIPELINE_STAGE_TRANSFER_BIT,
+                         VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT,
+                         0,
+                         0,
+                         nullptr,
+                         0,
+                         nullptr,
+                         1,
+                         &barrier);
+
+    currentLayout = finalLayout;
+}
+
+sf::Image Image::genMipMapsOnCpu(const sf::Image& image) {
+    const std::uint32_t mipLevels =
+        computeMipLevelsForGeneration(image.getSize().x, image.getSize().y);
+
+    std::uint32_t sourceX   = 0;
+    std::uint32_t sourceY   = 0;
+    std::uint32_t mipWidth  = image.getSize().x / 2;
+    std::uint32_t mipHeight = image.getSize().y / 2;
+    std::uint32_t mipX      = image.getSize().x;
+    std::uint32_t mipY      = 0;
+
+    std::uint32_t totalMipHeight = 0;
+    for (std::uint32_t i = 1; i < mipLevels; ++i) {
+        totalMipHeight += mipHeight;
+        if (mipHeight > 1) { mipHeight /= 2; }
+    }
+    mipHeight = image.getSize().y / 2;
+
+    sf::Image result;
+    result.create(image.getSize().x + mipWidth,
+                  std::max(image.getSize().y, totalMipHeight),
+                  sf::Color::Transparent);
+    result.copy(image, 0, 0, sf::IntRect(0, 0, image.getSize().x, image.getSize().y));
+
+    for (std::uint32_t i = 1; i < mipLevels; ++i) {
+        for (std::uint32_t x = 0; x < mipWidth; ++x) {
+            for (std::uint32_t y = 0; y < mipHeight; ++y) {
+                std::uint32_t rSum = 0;
+                std::uint32_t gSum = 0;
+                std::uint32_t bSum = 0;
+                std::uint32_t aSum = 0;
+                std::uint32_t read = 0;
+
+                const auto addColor = [&rSum, &gSum, &bSum, &aSum, &read, &result](
+                                          std::uint32_t rx, std::uint32_t ry) {
+                    if (rx < result.getSize().x && ry < result.getSize().y) {
+                        ++read;
+                        const sf::Color c = result.getPixel(rx, ry);
+                        rSum += static_cast<std::uint32_t>(c.r);
+                        gSum += static_cast<std::uint32_t>(c.g);
+                        bSum += static_cast<std::uint32_t>(c.b);
+                        aSum += static_cast<std::uint32_t>(c.a);
+                    }
+                };
+
+                addColor(sourceX + x * 2, sourceY + y * 2);
+                addColor(sourceX + x * 2 + 1, sourceY + y * 2);
+                addColor(sourceX + x * 2, sourceY + y * 2 + 1);
+                addColor(sourceX + x * 2 + 1, sourceY + y * 2 + 1);
+
+                const sf::Color avg(rSum / read, gSum / read, bSum / read, aSum / read);
+                result.setPixel(mipX + x, mipY + y, avg);
+            }
+        }
+        sourceX = mipX;
+        sourceY = mipY;
+        mipY += mipHeight;
+        if (mipWidth > 1) { mipWidth /= 2; }
+        if (mipHeight > 1) { mipHeight /= 2; }
+    }
+
+    return result;
+}
+
 } // namespace vk
 } // namespace rc
 } // namespace bl
