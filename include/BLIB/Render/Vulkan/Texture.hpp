@@ -4,6 +4,7 @@
 #include <BLIB/Render/Transfers/Transferable.hpp>
 #include <BLIB/Render/Vulkan/Image.hpp>
 #include <BLIB/Render/Vulkan/Sampler.hpp>
+#include <BLIB/Render/Vulkan/TextureOptions.hpp>
 #include <BLIB/Resources.hpp>
 #include <SFML/Graphics/Image.hpp>
 
@@ -155,7 +156,7 @@ private:
     // base data
     res::TexturePool* parent;
     Type type;
-    Sampler sampler;
+    TextureOptions createOptions;
     Image image;
     VkImageView currentView;
     bool hasTransparency;
@@ -167,8 +168,8 @@ private:
     glm::u32vec2 destPos;
     sf::IntRect source;
 
-    void create(Type type, const glm::u32vec2& size, VkFormat format, Sampler sampler);
-    void createFromContentsAndQueue(Type type, VkFormat format, Sampler sampler);
+    void create(Type type, const glm::u32vec2& size, const TextureOptions& options);
+    void createFromContentsAndQueue(Type type, const TextureOptions& options);
     virtual void executeTransfer(VkCommandBuffer commandBuffer,
                                  tfr::TransferContext& transferEngine) override;
     void cleanup();
@@ -195,7 +196,7 @@ inline glm::vec2 Texture::size() const { return glm::vec2(rawSize()); }
 
 inline bool Texture::containsTransparency() const { return hasTransparency; }
 
-inline Sampler Texture::getSampler() const { return sampler; }
+inline Sampler Texture::getSampler() const { return createOptions.sampler; }
 
 inline VkImageLayout Texture::getCurrentImageLayout() const { return image.getCurrentLayout(); }
 

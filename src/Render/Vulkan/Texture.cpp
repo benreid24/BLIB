@@ -38,7 +38,7 @@ ImageOptions::Type mapType(Texture::Type type) {
 
 Texture::Texture()
 : parent(nullptr)
-, sampler(Sampler::FilteredRepeated)
+, createOptions()
 , hasTransparency(false)
 , altImg(nullptr)
 , destPos(0, 0)
@@ -54,7 +54,7 @@ glm::vec2 Texture::normalizeAndConvertCoord(const glm::vec2& src) const {
 }
 
 void Texture::setSampler(Sampler s) {
-    sampler = s;
+    createOptions.sampler = s;
     updateDescriptors();
 }
 
@@ -66,26 +66,29 @@ void Texture::ensureSize(const glm::u32vec2& s) {
 
 void Texture::updateDescriptors() { parent->updateTexture(this); }
 
-void Texture::createFromContentsAndQueue(Type type, VkFormat format, Sampler sampler) {
+void Texture::createFromContentsAndQueue(Type type, const TextureOptions& options) {
     const sf::Image& src = altImg ? *altImg : *transferImg;
     glm::vec2 createSize = {src.getSize().x, src.getSize().y};
     if (type == Type::Cubemap) { createSize.y /= 6; }
-    create(type, createSize, format, sampler);
+    create(type, createSize, options);
     updateTrans(src);
     queueTransfer(SyncRequirement::Immediate);
 }
 
-void Texture::create(Type t, const glm::u32vec2& s, VkFormat fmt, Sampler smplr) {
-    type    = t;
-    sampler = smplr;
+void Texture::create(Type t, const glm::u32vec2& s, const TextureOptions& options) {
+    type          = t;
+    createOptions = options;
 
     image.create(*vulkanState,
                  {.type   = mapType(type),
-                  .format = fmt,
+                  .format = createOptions.format,
                   .usage  = VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT |
                            VK_IMAGE_USAGE_TRANSFER_SRC_BIT | getExtraUsage(type),
-                  .extent = {s.x, s.y},
-                  .aspect = VK_IMAGE_ASPECT_COLOR_BIT});
+                  .extent    = {s.x, s.y},
+                  .aspect    = VK_IMAGE_ASPECT_COLOR_BIT,
+                  .mipLevels = createOptions.genMipmaps ?
+                                   Image::computeMipLevelsForGeneration(s.x, s.y) :
+                                   1});
     image.transitionLayout(VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
     currentView = image.getView();
 
@@ -126,13 +129,24 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
         barrier.image                           = image.getImage();
         barrier.subresourceRange.aspectMask     = VK_IMAGE_ASPECT_COLOR_BIT;
         barrier.subresourceRange.baseMipLevel   = 0;
-        barrier.subresourceRange.levelCount     = 1;
+        barrier.subresourceRange.levelCount     = image.getLevelCount();
         barrier.subresourceRange.baseArrayLayer = 0;
         barrier.subresourceRange.layerCount     = image.getLayerCount();
         barrier.srcAccessMask                   = VK_ACCESS_TRANSFER_WRITE_BIT;
         barrier.dstAccessMask                   = VK_ACCESS_SHADER_READ_BIT;
         engine.registerImageBarrier(barrier);
         image.notifyNewLayout(VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+    };
+
+    const auto copyImageToStaging = [](const sf::Image& src, void* dst, const sf::IntRect& region) {
+        for (int x = region.left; x < region.left + region.width; ++x) {
+            for (int y = region.top; y < region.top + region.height; ++y) {
+                const std::ptrdiff_t offset = (x + y * src.getSize().x) * sizeof(sf::Color);
+                std::uint8_t* d             = static_cast<std::uint8_t*>(dst) + offset;
+                const std::uint8_t* s       = src.getPixelsPtr() + offset;
+                std::memcpy(d, s, sizeof(sf::Color));
+            }
+        }
     };
 
     // copy image contents if required
@@ -154,23 +168,15 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
         VkBuffer stagingBuffer;
         void* data;
         engine.createTemporaryStagingBuffer(stageSize, stagingBuffer, &data);
-        if (!fullImage) {
-            for (int x = source.left; x < source.left + source.width; ++x) {
-                for (int y = source.top; y < source.top + source.height; ++y) {
-                    const std::ptrdiff_t offset = (x + y * source.width) * 4;
-                    std::uint8_t* d             = static_cast<std::uint8_t*>(data) + offset;
-                    const std::uint8_t* s       = src.getPixelsPtr() + offset;
-                    std::memcpy(d, s, 4);
-                }
-            }
-        }
+        if (!fullImage) { copyImageToStaging(src, data, source); }
         else { std::memcpy(data, src.getPixelsPtr(), stageSize); }
 
         // transition to transfer dst prior to copy
         image.transitionLayout(cb, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, true);
 
+        // TODO - support loading existing mip maps
         // issue copy command
-        VkDeviceSize layerSize = image.getSize().width * image.getSize().height * 4;
+        VkDeviceSize layerSize = image.getSize().width * image.getSize().height * sizeof(sf::Color);
         VkBufferImageCopy copyInfos[6]{};
         for (unsigned int face = 0; face < image.getLayerCount(); ++face) {
             auto& copyInfo                           = copyInfos[face];
@@ -194,8 +200,77 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
                                image.getLayerCount(),
                                copyInfos);
 
-        // insert pipeline barrier
-        transitionLayout();
+        bool needsTransferToShaderSrcLayout = true;
+
+        // generate mip maps if requested
+        if (createOptions.genMipmaps) {
+            if (image.canGenMipMapsOnGpu()) {
+                image.genMipMapsOnGpu(cb, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+                needsTransferToShaderSrcLayout = false;
+            }
+            else if (image.getLevelCount() > 1) {
+                const std::uint32_t mipLevels = image.getLevelCount();
+                std::vector<VkBufferImageCopy> copyInfos;
+                copyInfos.resize(mipLevels - 1, VkBufferImageCopy{});
+
+                // pre-pass to determine total size
+                std::size_t totalSize = 0;
+                sf::IntRect bounds =
+                    Image::getMipLevelBounds({src.getSize().x, src.getSize().y}, 1);
+                for (unsigned int i = 1; i < mipLevels; ++i) {
+                    totalSize += bounds.width * bounds.height * sizeof(sf::Color);
+                    bounds = Image::getNextMipLevelBounds(bounds, i);
+                }
+
+                // get one combined staging buffer
+                VkBuffer mipStaging;
+                void* stagingDst = nullptr;
+                engine.createTemporaryStagingBuffer(totalSize, mipStaging, &stagingDst);
+
+                // gen on cpu
+                sf::Image mipSrc = Image::genMipMapsOnCpu(src);
+
+                // copy mip levels
+                std::uint32_t baseOffset = 0;
+                bounds = Image::getMipLevelBounds({src.getSize().x, src.getSize().y}, 1);
+                for (unsigned int i = 1; i < mipLevels; ++i) {
+                    // copy from staging to mip image
+                    auto& copy              = copyInfos[i - 1];
+                    copy.bufferOffset       = baseOffset;
+                    copy.bufferImageHeight  = 0;
+                    copy.bufferRowLength    = 0;
+                    copy.imageExtent.width  = bounds.width;
+                    copy.imageExtent.height = bounds.height;
+                    copy.imageExtent.depth  = 1;
+                    copy.imageOffset.x = copy.imageOffset.y = copy.imageOffset.z = 0;
+                    copy.imageSubresource.aspectMask     = VK_IMAGE_ASPECT_COLOR_BIT;
+                    copy.imageSubresource.mipLevel       = i;
+                    copy.imageSubresource.baseArrayLayer = 0;
+                    copy.imageSubresource.layerCount     = 1;
+
+                    // copy from cpu to staging
+                    const std::uint32_t copySize = bounds.width * bounds.height * sizeof(sf::Color);
+                    const std::uint32_t srcOffset =
+                        (bounds.top * mipSrc.getSize().x + bounds.left) * sizeof(sf::Color);
+                    void* copyDst = static_cast<char*>(stagingDst) + baseOffset;
+                    std::memcpy(copyDst, mipSrc.getPixelsPtr() + srcOffset, copySize);
+
+                    baseOffset += copySize;
+                    bounds = Image::getNextMipLevelBounds(bounds, i);
+                }
+
+                // issue copy commands
+                vkCmdCopyBufferToImage(cb,
+                                       mipStaging,
+                                       image.getImage(),
+                                       VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+                                       copyInfos.size(),
+                                       copyInfos.data());
+            }
+        }
+
+        // insert pipeline barrier if required
+        if (needsTransferToShaderSrcLayout) { transitionLayout(); }
 
         // cleanup
         transferImg.release();
@@ -249,7 +324,8 @@ void Texture::updateTrans(const sf::Image& content) {
 }
 
 VkSampler Texture::getSamplerHandle() const {
-    return vulkanState->samplerCache.getSampler(sampler);
+    // TODO - need mip-aware samplers
+    return vulkanState->samplerCache.getSampler(createOptions.sampler);
 }
 
 } // namespace vk

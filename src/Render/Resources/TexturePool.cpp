@@ -65,9 +65,11 @@ void TexturePool::init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
     errorTexture.altImg = &errorPattern;
     errorCubemap.altImg = &errorPatternCube;
     errorTexture.createFromContentsAndQueue(
-        vk::Texture::Type::Texture2D, vk::TextureFormat::SRGBA32Bit, vk::Sampler::FilteredRepeated);
+        vk::Texture::Type::Texture2D,
+        {.format = vk::TextureFormat::SRGBA32Bit, .sampler = vk::Sampler::FilteredRepeated});
     errorCubemap.createFromContentsAndQueue(
-        vk::Texture::Type::Cubemap, vk::TextureFormat::SRGBA32Bit, vk::Sampler::FilteredRepeated);
+        vk::Texture::Type::Cubemap,
+        {.format = vk::TextureFormat::SRGBA32Bit, .sampler = vk::Sampler::FilteredRepeated});
     vulkanState.transferEngine.executeTransfers();
 
     // init all textures to error pattern
@@ -222,23 +224,22 @@ TextureRef TexturePool::allocateCubemap() {
     return TextureRef{*this, cubemaps[i], i};
 }
 
-TextureRef TexturePool::createTexture(const sf::Image& src, VkFormat format, vk::Sampler sampler) {
+TextureRef TexturePool::createTexture(const sf::Image& src, const vk::TextureOptions& options) {
     std::unique_lock lock(mutex);
 
     TextureRef txtr = allocateTexture();
     txtr->altImg    = &src;
-    txtr->createFromContentsAndQueue(vk::Texture::Type::Texture2D, format, sampler);
+    txtr->createFromContentsAndQueue(vk::Texture::Type::Texture2D, options);
     updateTexture(txtr.get());
 
     return txtr;
 }
 
-TextureRef TexturePool::createTexture(const glm::u32vec2& size, VkFormat format,
-                                      vk::Sampler sampler) {
+TextureRef TexturePool::createTexture(const glm::u32vec2& size, const vk::TextureOptions& options) {
     std::unique_lock lock(mutex);
 
     TextureRef txtr = allocateTexture();
-    txtr->create(vk::Texture::Type::Texture2D, size, format, sampler);
+    txtr->create(vk::Texture::Type::Texture2D, size, options);
     updateTexture(txtr.get());
 
     return txtr;
@@ -261,14 +262,14 @@ TextureRef TexturePool::createRenderTexture(const glm::u32vec2& size, VkFormat f
 
     // init texture
     TextureRef txtr{*this, textures[i], i};
-    txtr->create(vk::Texture::Type::RenderTexture, size, format, sampler);
+    txtr->create(vk::Texture::Type::RenderTexture, size, {.format = format, .sampler = sampler});
     updateTexture(txtr.get());
 
     return txtr;
 }
 
-TextureRef TexturePool::getOrLoadTexture(const std::string& path, VkFormat format,
-                                         vk::Sampler sampler) {
+TextureRef TexturePool::getOrLoadTexture(const std::string& path,
+                                         const vk::TextureOptions& options) {
     std::unique_lock lock(mutex);
 
     auto it = fileMap.find(path);
@@ -282,14 +283,13 @@ TextureRef TexturePool::getOrLoadTexture(const std::string& path, VkFormat forma
     prepareTextureUpdate(txtr.get(), path);
     it                        = fileMap.try_emplace(path, txtr.id()).first;
     reverseFileMap[txtr.id()] = &it->first;
-    txtr->createFromContentsAndQueue(vk::Texture::Type::Texture2D, format, sampler);
+    txtr->createFromContentsAndQueue(vk::Texture::Type::Texture2D, options);
     updateTexture(txtr.get());
 
     return txtr;
 }
 
-TextureRef TexturePool::getOrLoadTexture(const sf::Image& src, VkFormat format,
-                                         vk::Sampler sampler) {
+TextureRef TexturePool::getOrLoadTexture(const sf::Image& src, const vk::TextureOptions& options) {
     std::unique_lock lock(mutex);
 
     auto it = imageMap.find(&src);
@@ -303,20 +303,20 @@ TextureRef TexturePool::getOrLoadTexture(const sf::Image& src, VkFormat format,
     prepareTextureUpdate(txtr.get(), src);
     it                         = imageMap.try_emplace(&src, txtr.id()).first;
     reverseImageMap[txtr.id()] = &src;
-    txtr->createFromContentsAndQueue(vk::Texture::Type::Texture2D, format, sampler);
+    txtr->createFromContentsAndQueue(vk::Texture::Type::Texture2D, options);
     updateTexture(txtr.get());
 
     return txtr;
 }
 
 TextureRef TexturePool::getOrCreateTexture(const mdl::Texture& texture, TextureRef fallback,
-                                           VkFormat format, vk::Sampler sampler) {
-    if (texture.isEmbedded()) { return getOrLoadTexture(texture.getEmbedded(), format, sampler); }
+                                           const vk::TextureOptions& options) {
+    if (texture.isEmbedded()) { return getOrLoadTexture(texture.getEmbedded(), options); }
     if (texture.getFilePath().empty() ||
         !resource::ResourceManager<sf::Image>::load(texture.getFilePath())) {
         return fallback;
     }
-    return getOrLoadTexture(texture.getFilePath(), format, sampler);
+    return getOrLoadTexture(texture.getFilePath(), options);
 }
 
 TextureRef TexturePool::createCubemap(const std::string& right, const std::string& left,
@@ -370,7 +370,8 @@ TextureRef TexturePool::createCubemap(resource::Ref<sf::Image> right, resource::
         }
     }
 
-    cm->createFromContentsAndQueue(vk::Texture::Type::Cubemap, format, sampler);
+    cm->createFromContentsAndQueue(vk::Texture::Type::Cubemap,
+                                   {.format = format, .sampler = sampler});
     updateTexture(cm.get());
 
     return cm;
@@ -383,7 +384,8 @@ TextureRef TexturePool::createCubemap(resource::Ref<sf::Image> packed, VkFormat 
     TextureRef cm = allocateCubemap();
     if (packed && packed->getSize().x > 0) { cm->transferImg = packed; }
     else { cm->altImg = &errorPattern; }
-    cm->createFromContentsAndQueue(vk::Texture::Type::Cubemap, format, sampler);
+    cm->createFromContentsAndQueue(vk::Texture::Type::Cubemap,
+                                   {.format = format, .sampler = sampler});
     updateTexture(cm.get());
 
     return cm;
@@ -404,7 +406,8 @@ TextureRef TexturePool::getOrCreateCubemap(const std::string& packed, VkFormat f
     prepareTextureUpdate(cm.get(), packed);
     auto fit                       = cubemapFileMap.try_emplace(packed, cm.id()).first;
     cubeMapReverseFileMap[cm.id()] = &fit->first;
-    cm->createFromContentsAndQueue(vk::Texture::Type::Cubemap, format, sampler);
+    cm->createFromContentsAndQueue(vk::Texture::Type::Cubemap,
+                                   {.format = format, .sampler = sampler});
     updateTexture(cm.get());
 
     return cm;
@@ -417,7 +420,8 @@ TextureRef TexturePool::createCubemap(const sf::Image& packed, VkFormat format,
     TextureRef cm  = allocateCubemap();
     cm->localImage = packed;
     cm->altImg     = &cm->localImage;
-    cm->createFromContentsAndQueue(vk::Texture::Type::Cubemap, format, sampler);
+    cm->createFromContentsAndQueue(vk::Texture::Type::Cubemap,
+                                   {.format = format, .sampler = sampler});
     updateTexture(cm.get());
 
     return cm;

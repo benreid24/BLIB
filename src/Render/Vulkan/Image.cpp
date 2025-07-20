@@ -464,6 +464,19 @@ sf::Image Image::genMipMapsOnCpu(const sf::Image& image) {
     return result;
 }
 
+sf::IntRect Image::getMipLevelBounds(const glm::u32vec2& size, std::uint32_t level) {
+    sf::IntRect bounds(0, 0, size.x, size.y);
+    while (level > 0) { bounds = getNextMipLevelBounds(bounds, level--); }
+    return bounds;
+}
+
+sf::IntRect Image::getNextMipLevelBounds(const sf::IntRect& bounds, std::uint32_t level) {
+    if (level == 0) {
+        return {bounds.left + bounds.width, bounds.top, bounds.width / 2, bounds.height / 2};
+    }
+    return {bounds.left, bounds.top + bounds.height, bounds.width / 2, bounds.height / 2};
+}
+
 } // namespace vk
 } // namespace rc
 } // namespace bl

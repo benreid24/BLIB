@@ -32,7 +32,8 @@ public:
     static std::uint32_t computeMipLevelsForGeneration(std::uint32_t width, std::uint32_t height);
 
     /**
-     * @brief Determines the number of mip levels present in an existing image
+     * @brief Determines the number of mip levels present in an existing image. Must have been
+     *        generated using this algorithm otherwise the result may be incorrect
      *
      * @param width The width of the pre-generated mip image in pixels
      * @param height The height of the pre-generated mip image in pixels
@@ -47,6 +48,25 @@ public:
      * @return An image with mipmaps generated from the given image
      */
     static sf::Image genMipMapsOnCpu(const sf::Image& image);
+
+    /**
+     * @brief Computes and returns the bounding box of the requested mip level
+     *
+     * @param size The size of the first mip level
+     * @param mipLevel The index of the mip level to fetch
+     * @return The bounding box of the requested mip level
+     */
+    static sf::IntRect getMipLevelBounds(const glm::u32vec2& size, std::uint32_t mipLevel);
+
+    /**
+     * @brief Iterative method to compute the bounds of the next mip level down from the current
+     *
+     * @param currentLevel The bounds of the current mip level
+     * @param currentIndex The index of the current mip level
+     * @return The bounds of the next mip level
+     */
+    static sf::IntRect getNextMipLevelBounds(const sf::IntRect& currentLevel,
+                                             std::uint32_t currentIndex);
 
     /**
      * @brief Creates an uninitialized image
@@ -174,6 +194,11 @@ public:
     std::uint32_t getLayerCount() const;
 
     /**
+     * @brief Returns the number of mip levels in the image
+     */
+    std::uint32_t getLevelCount() const;
+
+    /**
      * @brief Returns the current layout of the image
      */
     VkImageLayout getCurrentLayout() const;
@@ -254,6 +279,8 @@ inline VkMemoryPropertyFlags Image::getMemoryLocation() const {
 inline bool Image::isCreated() const { return vulkanState != nullptr; }
 
 inline VkSampleCountFlagBits Image::getSampleCount() const { return createOptions.samples; }
+
+inline std::uint32_t Image::getLevelCount() const { return createOptions.mipLevels; }
 
 } // namespace vk
 } // namespace rc

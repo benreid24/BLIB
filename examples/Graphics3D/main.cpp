@@ -115,7 +115,7 @@ private:
         controller = cam->setController<CameraController>();
 
         auto woodTexture = engine.renderer().texturePool().getOrLoadTexture(
-            "Resources/Textures/wood.png", bl::rc::vk::TextureFormat::SRGBA32Bit);
+            "Resources/Textures/wood.png", {.format = bl::rc::vk::TextureFormat::SRGBA32Bit});
         auto woodMaterial = engine.renderer().materialPool().getOrCreateFromTexture(woodTexture);
 
         // set msaa
@@ -150,11 +150,11 @@ private:
         skybox.addToScene(scene);
 
         auto containerTexture = engine.renderer().texturePool().getOrLoadTexture(
-            "Resources/Textures/container.jpg", bl::rc::vk::TextureFormat::SRGBA32Bit);
+            "Resources/Textures/container.jpg", {.format = bl::rc::vk::TextureFormat::SRGBA32Bit});
         auto material = engine.renderer().materialPool().getOrCreateFromTexture(containerTexture);
 
         auto brickTexture = engine.renderer().texturePool().getOrLoadTexture(
-            "Resources/Textures/bricks2.jpg", bl::rc::vk::TextureFormat::SRGBA32Bit);
+            "Resources/Textures/bricks2.jpg", {.format = bl::rc::vk::TextureFormat::SRGBA32Bit});
         auto brickNormal = engine.renderer().texturePool().getOrLoadTexture(
             "Resources/Textures/bricks2_normal.jpg");
         auto brickParallax =
@@ -186,7 +186,7 @@ private:
         cube4.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
         auto diffuse = engine.renderer().texturePool().getOrLoadTexture(
-            "Resources/Textures/container2.png", bl::rc::vk::TextureFormat::SRGBA32Bit);
+            "Resources/Textures/container2.png", {.format = bl::rc::vk::TextureFormat::SRGBA32Bit});
         auto specular = engine.renderer().texturePool().getOrLoadTexture(
             "Resources/Textures/container2_specular.png");
         auto material2 =
@@ -201,7 +201,7 @@ private:
         cube6.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
         auto diffuse3 = engine.renderer().texturePool().getOrLoadTexture(
-            "Resources/Textures/brickwall.jpg", bl::rc::vk::TextureFormat::SRGBA32Bit);
+            "Resources/Textures/brickwall.jpg", {.format = bl::rc::vk::TextureFormat::SRGBA32Bit});
         auto normal3 = engine.renderer().texturePool().getOrLoadTexture(
             "Resources/Textures/brickwall_normal.jpg");
         auto material3 = engine.renderer().materialPool().create(

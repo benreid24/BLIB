@@ -27,5 +27,6 @@ target_sources(BLIB PUBLIC
     Swapchain.hpp
     Texture.hpp
     TextureFormat.hpp
+    TextureOptions.hpp
     VulkanState.hpp
 )
