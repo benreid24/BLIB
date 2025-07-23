@@ -59,7 +59,7 @@ void DeferredCompositeTask::onGraphInit() {
         dynamic_cast<FramebufferAsset*>(&assets.requiredInputs[0]->asset.get());
     if (!input) { throw std::runtime_error("Got bad input"); }
 
-    const auto sampler   = renderer->vulkanState().samplerCache.noFilterEdgeClamped();
+    const auto sampler   = renderer->samplerCache().noFilterEdgeClamped();
     const auto setLayout = renderer->descriptorFactoryCache()
                                .getOrCreateFactory<ds::InputAttachmentFactory<4>>()
                                ->getDescriptorLayout();

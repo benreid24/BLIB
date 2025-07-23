@@ -146,7 +146,6 @@ VulkanState::VulkanState(engine::EngineWindow& window)
 , swapchain(*this, window.getSfWindow())
 , transferEngine(*this)
 , descriptorPool(*this)
-, samplerCache(*this)
 , currentFrame(0) {}
 
 VulkanState::~VulkanState() {
@@ -169,7 +168,6 @@ void VulkanState::init() {
     swapchain.create();
     transferEngine.init();
     descriptorPool.init();
-    samplerCache.init();
     shaderCache.init(device);
 
     globalDeviceProperties = &physicalDeviceProperties;
@@ -177,7 +175,6 @@ void VulkanState::init() {
 
 void VulkanState::cleanup() {
     cleanupManager.flush();
-    samplerCache.cleanup();
     descriptorPool.cleanup();
     transferEngine.cleanup();
     shaderCache.cleanup();

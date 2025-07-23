@@ -23,8 +23,9 @@ Renderer::Renderer(engine::Engine& engine, engine::EngineWindow& window)
 , settings(*this)
 , state(window)
 , globalDescriptors(*this, textures, materials)
-, textures(state)
+, textures(*this, state)
 , materials(*this)
+, samplers(state)
 , descriptorSetFactoryCache(engine, *this)
 , renderPasses(*this)
 , pipelineLayouts(*this)
@@ -63,6 +64,7 @@ void Renderer::initialize() {
 
     // create renderer instance data
     state.init();
+    samplers.init();
     renderPasses.addDefaults();
     globalDescriptors.init();
     pipelines.createBuiltins();
@@ -143,6 +145,7 @@ void Renderer::cleanup() {
     vkCheck(vkDeviceWaitIdle(state.device));
 
     bl::event::Dispatcher::unsubscribe(&sceneSync);
+    // TODO - need to flush cleanup manager here?
     imageExporter.cleanup();
     resource::ResourceManager<sf::VulkanFont>::freeAndDestroyAll();
     renderTextures.clear();
@@ -155,6 +158,7 @@ void Renderer::cleanup() {
     descriptorSetFactoryCache.cleanup();
     globalDescriptors.cleanup();
     renderPasses.cleanup();
+    samplers.cleanup();
     state.cleanup();
     state.device = nullptr;
 }
@@ -309,7 +313,7 @@ void Renderer::setClearColor(const Color& color) {
 }
 
 vk::RenderTexture::Handle Renderer::createRenderTexture(const glm::u32vec2& size,
-                                                        vk::Sampler sampler) {
+                                                        vk::SamplerOptions::Type sampler) {
     std::unique_lock lock(renderMutex);
 
     renderTextures.emplace_back(new vk::RenderTexture(engine, *this, assetFactory, size, sampler));

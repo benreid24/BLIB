@@ -4,7 +4,6 @@ target_sources(BLIB PRIVATE
     BlendParameters.cpp
     Buffer.cpp
     CleanupManager.cpp
-    CommonSamplers.cpp
     DedicatedCommandBuffers.cpp
     DescriptorPool.cpp
     DescriptorSet.cpp
@@ -18,6 +17,7 @@ target_sources(BLIB PRIVATE
     RenderPass.cpp
     RenderPassParameters.cpp
     RenderTexture.cpp
+    Sampler.cpp
     SharedCommandBuffer.cpp
     SharedCommandPool.cpp
     Swapchain.cpp

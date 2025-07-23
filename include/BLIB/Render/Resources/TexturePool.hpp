@@ -61,9 +61,9 @@ public:
      * @param sampler The sampler to use
      * @return A reference to the new texture
      */
-    TextureRef createRenderTexture(const glm::u32vec2& size,
-                                   VkFormat format     = vk::TextureFormat::DefaultColorFormat,
-                                   vk::Sampler sampler = vk::Sampler::FilteredBorderClamped);
+    TextureRef createRenderTexture(
+        const glm::u32vec2& size, VkFormat format = vk::TextureFormat::DefaultColorFormat,
+        vk::SamplerOptions::Type sampler = vk::SamplerOptions::Type::FilteredBorderClamped);
 
     /**
      * @brief Creates a new texture from the given contents and sampler
@@ -121,11 +121,11 @@ public:
      * @param sampler The sampler to use
      * @return A ref to the new cubemap texture
      */
-    TextureRef createCubemap(const std::string& right, const std::string& left,
-                             const std::string& top, const std::string& bottom,
-                             const std::string& back, const std::string& front,
-                             VkFormat format     = vk::TextureFormat::SRGBA32Bit,
-                             vk::Sampler sampler = vk::Sampler::FilteredEdgeClamped);
+    TextureRef createCubemap(
+        const std::string& right, const std::string& left, const std::string& top,
+        const std::string& bottom, const std::string& back, const std::string& front,
+        VkFormat format                  = vk::TextureFormat::SRGBA32Bit,
+        vk::SamplerOptions::Type sampler = vk::SamplerOptions::Type::FilteredEdgeClamped);
 
     /**
      * @brief Creates a cubemap texture from the given faces
@@ -140,11 +140,11 @@ public:
      * @param sampler The sampler to use
      * @return A ref to the new cubemap texture
      */
-    TextureRef createCubemap(resource::Ref<sf::Image> right, resource::Ref<sf::Image> left,
-                             resource::Ref<sf::Image> top, resource::Ref<sf::Image> bottom,
-                             resource::Ref<sf::Image> back, resource::Ref<sf::Image> front,
-                             VkFormat format     = vk::TextureFormat::SRGBA32Bit,
-                             vk::Sampler sampler = vk::Sampler::FilteredEdgeClamped);
+    TextureRef createCubemap(
+        resource::Ref<sf::Image> right, resource::Ref<sf::Image> left, resource::Ref<sf::Image> top,
+        resource::Ref<sf::Image> bottom, resource::Ref<sf::Image> back,
+        resource::Ref<sf::Image> front, VkFormat format = vk::TextureFormat::SRGBA32Bit,
+        vk::SamplerOptions::Type sampler = vk::SamplerOptions::Type::FilteredEdgeClamped);
 
     /**
      * @brief Creates a cubemap texture from the given packed texture. Should be packed according to
@@ -155,9 +155,9 @@ public:
      * @param sampler The sampler to use
      * @return A ref to the new cubemap texture
      */
-    TextureRef createCubemap(resource::Ref<sf::Image> packed,
-                             VkFormat format     = vk::TextureFormat::SRGBA32Bit,
-                             vk::Sampler sampler = vk::Sampler::FilteredEdgeClamped);
+    TextureRef createCubemap(
+        resource::Ref<sf::Image> packed, VkFormat format = vk::TextureFormat::SRGBA32Bit,
+        vk::SamplerOptions::Type sampler = vk::SamplerOptions::Type::FilteredEdgeClamped);
 
     /**
      * @brief Creates a cubemap texture from the given packed texture. Should be packed according to
@@ -168,9 +168,9 @@ public:
      * @param sampler The sampler to use
      * @return A ref to the new cubemap texture
      */
-    TextureRef getOrCreateCubemap(const std::string& packed,
-                                  VkFormat format     = vk::TextureFormat::SRGBA32Bit,
-                                  vk::Sampler sampler = vk::Sampler::FilteredEdgeClamped);
+    TextureRef getOrCreateCubemap(
+        const std::string& packed, VkFormat format = vk::TextureFormat::SRGBA32Bit,
+        vk::SamplerOptions::Type sampler = vk::SamplerOptions::Type::FilteredEdgeClamped);
 
     /**
      * @brief Creates a cubemap texture from the given packed texture. Should be packed according to
@@ -181,9 +181,9 @@ public:
      * @param sampler The sampler to use
      * @return A ref to the new cubemap texture
      */
-    TextureRef createCubemap(const sf::Image& packed,
-                             VkFormat format     = vk::TextureFormat::SRGBA32Bit,
-                             vk::Sampler sampler = vk::Sampler::FilteredEdgeClamped);
+    TextureRef createCubemap(
+        const sf::Image& packed, VkFormat format = vk::TextureFormat::SRGBA32Bit,
+        vk::SamplerOptions::Type sampler = vk::SamplerOptions::Type::FilteredEdgeClamped);
 
     /**
      * @brief Frees all textures that no longer have any valid refs pointing to them
@@ -215,6 +215,7 @@ public:
 private:
     // functional data
     std::mutex mutex;
+    Renderer& renderer;
     vk::VulkanState& vulkanState;
 
     // core data
@@ -245,7 +246,7 @@ private:
     std::vector<vk::Texture*> toRelease;
     vk::PerFrame<std::vector<vk::Texture*>> queuedUpdates;
 
-    TexturePool(vk::VulkanState& vulkanState);
+    TexturePool(Renderer& renderer, vk::VulkanState& vulkanState);
     void init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
               vk::PerFrame<VkDescriptorSet>& rtDescriptorSets);
     void cleanup();

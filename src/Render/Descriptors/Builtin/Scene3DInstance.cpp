@@ -147,7 +147,7 @@ void Scene3DInstance::updateShadowDescriptors(rg::GraphAsset* asset) {
         for (std::uint32_t j = 0; j < cfg::Limits::MaxConcurrentFrames; ++j) {
             const auto set = descriptorSets.getRaw(i, j);
 
-            VkSampler sampler = vulkanState.samplerCache.shadowMap();
+            VkSampler sampler = renderer.samplerCache().shadowMap();
             for (unsigned int k = 0; k < cfg::Limits::MaxSpotShadows; ++k) {
                 VkDescriptorImageInfo& imageInfo = setWriter.getNewImageInfo();
                 imageInfo.imageLayout            = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;

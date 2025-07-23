@@ -4,6 +4,7 @@
 #include <BLIB/Render/Transfers/Transferable.hpp>
 #include <BLIB/Render/Vulkan/Image.hpp>
 #include <BLIB/Render/Vulkan/Sampler.hpp>
+#include <BLIB/Render/Vulkan/SamplerOptions.hpp>
 #include <BLIB/Render/Vulkan/TextureOptions.hpp>
 #include <BLIB/Resources.hpp>
 #include <SFML/Graphics/Image.hpp>
@@ -35,7 +36,6 @@ public:
 
     /**
      * @brief Creates an empty Texture
-     *
      */
     Texture();
 
@@ -105,17 +105,12 @@ public:
      *
      * @param sampler The new sampler to use
      */
-    void setSampler(Sampler sampler);
+    void setSampler(SamplerOptions::Type sampler);
 
     /**
      * @brief Returns the sampler used for this texture
      */
-    Sampler getSampler() const;
-
-    /**
-     * @brief Returns the Vulkan handle for the sampler for this texture
-     */
-    VkSampler getSamplerHandle() const;
+    SamplerOptions::Type getSampler() const;
 
     /**
      * @brief Returns the Vulkan image handle
@@ -196,7 +191,7 @@ inline glm::vec2 Texture::size() const { return glm::vec2(rawSize()); }
 
 inline bool Texture::containsTransparency() const { return hasTransparency; }
 
-inline Sampler Texture::getSampler() const { return createOptions.sampler; }
+inline SamplerOptions::Type Texture::getSampler() const { return createOptions.sampler; }
 
 inline VkImageLayout Texture::getCurrentImageLayout() const { return image.getCurrentLayout(); }
 

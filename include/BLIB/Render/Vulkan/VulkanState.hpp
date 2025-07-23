@@ -6,7 +6,6 @@
 #include <BLIB/Render/Resources/ShaderModuleCache.hpp>
 #include <BLIB/Render/Transfers/TransferEngine.hpp>
 #include <BLIB/Render/Vulkan/CleanupManager.hpp>
-#include <BLIB/Render/Vulkan/CommonSamplers.hpp>
 #include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
@@ -283,7 +282,6 @@ struct VulkanState {
     res::ShaderModuleCache shaderCache;
     tfr::TransferEngine transferEngine;
     DescriptorPool descriptorPool;
-    CommonSamplers samplerCache;
     CleanupManager cleanupManager;
 
     std::mutex cbSubmitMutex;

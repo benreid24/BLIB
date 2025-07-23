@@ -7,15 +7,15 @@ namespace gfx
 void Skybox::create(engine::World& world, const std::string& right, const std::string& left,
                     const std::string& top, const std::string& bottom, const std::string& back,
                     const std::string& front) {
-    rc::res::TextureRef cubemap =
-        world.engine().renderer().texturePool().createCubemap(right,
-                                                              left,
-                                                              top,
-                                                              bottom,
-                                                              back,
-                                                              front,
-                                                              rc::vk::TextureFormat::SRGBA32Bit,
-                                                              rc::vk::Sampler::FilteredEdgeClamped);
+    rc::res::TextureRef cubemap = world.engine().renderer().texturePool().createCubemap(
+        right,
+        left,
+        top,
+        bottom,
+        back,
+        front,
+        rc::vk::TextureFormat::SRGBA32Bit,
+        rc::vk::SamplerOptions::Type::FilteredEdgeClamped);
     rc::res::MaterialRef material =
         world.engine().renderer().materialPool().getOrCreateFromTexture(cubemap);
     cube.create(world, 1.0f, material, rc::cfg::MaterialPipelineIds::Skybox);

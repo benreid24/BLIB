@@ -1,5 +1,7 @@
 #include <BLIB/Render/Resources/TexturePool.hpp>
 
+#include <BLIB/Render/Renderer.hpp>
+
 namespace bl
 {
 namespace rc
@@ -23,8 +25,9 @@ void generateErrorPattern(sf::Image& img, unsigned int left, unsigned int top, u
 }
 } // namespace
 
-TexturePool::TexturePool(vk::VulkanState& vs)
-: vulkanState(vs)
+TexturePool::TexturePool(Renderer& r, vk::VulkanState& vs)
+: renderer(r)
+, vulkanState(vs)
 , textures(cfg::Limits::MaxTextureCount)
 , cubemaps(cfg::Limits::MaxCubemapCount)
 , refCounts(cfg::Limits::MaxTextureCount)
@@ -66,10 +69,12 @@ void TexturePool::init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
     errorCubemap.altImg = &errorPatternCube;
     errorTexture.createFromContentsAndQueue(
         vk::Texture::Type::Texture2D,
-        {.format = vk::TextureFormat::SRGBA32Bit, .sampler = vk::Sampler::FilteredRepeated});
+        {.format  = vk::TextureFormat::SRGBA32Bit,
+         .sampler = vk::SamplerOptions::Type::FilteredRepeated});
     errorCubemap.createFromContentsAndQueue(
         vk::Texture::Type::Cubemap,
-        {.format = vk::TextureFormat::SRGBA32Bit, .sampler = vk::Sampler::FilteredRepeated});
+        {.format  = vk::TextureFormat::SRGBA32Bit,
+         .sampler = vk::SamplerOptions::Type::FilteredRepeated});
     vulkanState.transferEngine.executeTransfers();
 
     // init all textures to error pattern
@@ -80,13 +85,13 @@ void TexturePool::init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
     VkDescriptorImageInfo errorInfo{};
     errorInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
     errorInfo.imageView   = errorTexture.getView();
-    errorInfo.sampler     = errorTexture.getSamplerHandle();
+    errorInfo.sampler     = renderer.samplerCache().getSampler({.type = errorTexture.getSampler()});
     std::vector<VkDescriptorImageInfo> imageInfos(cfg::Limits::MaxTextureCount, errorInfo);
 
     VkDescriptorImageInfo errorCubeInfo{};
     errorCubeInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
     errorCubeInfo.imageView   = errorCubemap.getView();
-    errorCubeInfo.sampler     = errorTexture.getSamplerHandle();
+    errorCubeInfo.sampler     = errorInfo.sampler;
     std::vector<VkDescriptorImageInfo> imageCubeInfos(cfg::Limits::MaxCubemapCount, errorCubeInfo);
 
     std::array<VkWriteDescriptorSet, 4 * cfg::Limits::MaxConcurrentFrames> setWrites{};
@@ -246,7 +251,7 @@ TextureRef TexturePool::createTexture(const glm::u32vec2& size, const vk::Textur
 }
 
 TextureRef TexturePool::createRenderTexture(const glm::u32vec2& size, VkFormat format,
-                                            vk::Sampler sampler) {
+                                            vk::SamplerOptions::Type sampler) {
     std::unique_lock lock(mutex);
 
     // allocate id
@@ -322,7 +327,7 @@ TextureRef TexturePool::getOrCreateTexture(const mdl::Texture& texture, TextureR
 TextureRef TexturePool::createCubemap(const std::string& right, const std::string& left,
                                       const std::string& top, const std::string& bottom,
                                       const std::string& back, const std::string& front,
-                                      VkFormat format, vk::Sampler sampler) {
+                                      VkFormat format, vk::SamplerOptions::Type sampler) {
     auto load = resource::ResourceManager<sf::Image>::load;
     return createCubemap(
         load(right), load(left), load(top), load(bottom), load(back), load(front), format, sampler);
@@ -331,7 +336,7 @@ TextureRef TexturePool::createCubemap(const std::string& right, const std::strin
 TextureRef TexturePool::createCubemap(resource::Ref<sf::Image> right, resource::Ref<sf::Image> left,
                                       resource::Ref<sf::Image> top, resource::Ref<sf::Image> bottom,
                                       resource::Ref<sf::Image> back, resource::Ref<sf::Image> front,
-                                      VkFormat format, vk::Sampler sampler) {
+                                      VkFormat format, vk::SamplerOptions::Type sampler) {
     // validate faces
     std::array<sf::Image*, 6> faces = {
         right.get(), left.get(), top.get(), bottom.get(), front.get(), back.get()};
@@ -378,7 +383,7 @@ TextureRef TexturePool::createCubemap(resource::Ref<sf::Image> right, resource::
 }
 
 TextureRef TexturePool::createCubemap(resource::Ref<sf::Image> packed, VkFormat format,
-                                      vk::Sampler sampler) {
+                                      vk::SamplerOptions::Type sampler) {
     std::unique_lock lock(mutex);
 
     TextureRef cm = allocateCubemap();
@@ -392,7 +397,7 @@ TextureRef TexturePool::createCubemap(resource::Ref<sf::Image> packed, VkFormat 
 }
 
 TextureRef TexturePool::getOrCreateCubemap(const std::string& packed, VkFormat format,
-                                           vk::Sampler sampler) {
+                                           vk::SamplerOptions::Type sampler) {
     std::unique_lock lock(mutex);
 
     auto it = cubemapFileMap.find(packed);
@@ -414,7 +419,7 @@ TextureRef TexturePool::getOrCreateCubemap(const std::string& packed, VkFormat f
 }
 
 TextureRef TexturePool::createCubemap(const sf::Image& packed, VkFormat format,
-                                      vk::Sampler sampler) {
+                                      vk::SamplerOptions::Type sampler) {
     std::unique_lock lock(mutex);
 
     TextureRef cm  = allocateCubemap();
@@ -447,7 +452,8 @@ void TexturePool::onFrameStart(ds::SetWriteHelper& setWriter, VkDescriptorSet cu
             auto& regularInfo       = setWriter.getNewImageInfo();
             regularInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
             regularInfo.imageView   = view;
-            regularInfo.sampler     = texture->getSamplerHandle();
+            regularInfo.sampler =
+                renderer.samplerCache().getSampler({.type = texture->getSampler()});
 
             auto& regularWrite           = setWriter.getNewSetWrite(currentSet);
             regularWrite.sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
@@ -462,7 +468,9 @@ void TexturePool::onFrameStart(ds::SetWriteHelper& setWriter, VkDescriptorSet cu
             auto& rtInfo       = setWriter.getNewImageInfo();
             rtInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
             rtInfo.imageView   = isRT ? errorTexture.getView() : view;
-            rtInfo.sampler = isRT ? errorTexture.getSamplerHandle() : texture->getSamplerHandle();
+            rtInfo.sampler =
+                isRT ? renderer.samplerCache().getSampler({.type = errorTexture.getSampler()}) :
+                       regularInfo.sampler;
 
             auto& rtWrite           = setWriter.getNewSetWrite(currentRtSet);
             rtWrite.sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;

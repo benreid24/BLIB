@@ -62,7 +62,7 @@ void BloomTask::onGraphInit() {
     output = dynamic_cast<BloomColorAttachmentPairAsset*>(&assets.outputs[0]->asset.get());
     if (!output) { throw std::runtime_error("Got bad output"); }
 
-    const auto sampler   = renderer->vulkanState().samplerCache.noFilterEdgeClamped();
+    const auto sampler   = renderer->samplerCache().noFilterEdgeClamped();
     const auto setLayout = renderer->descriptorFactoryCache()
                                .getFactoryThatMakes<ds::ColorAttachmentInstance>()
                                ->getDescriptorLayout();

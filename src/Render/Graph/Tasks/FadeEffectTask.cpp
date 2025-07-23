@@ -64,7 +64,7 @@ void FadeEffectTask::onGraphInit() {
 
     auto& set = scene->getDescriptorSet<ds::ColorAttachmentInstance>();
     set.initAttachments(
-        input->getAttachmentSets(), 0, renderer->vulkanState().samplerCache.noFilterEdgeClamped());
+        input->getAttachmentSets(), 0, renderer->samplerCache().noFilterEdgeClamped());
 }
 
 void FadeEffectTask::execute(const rg::ExecutionContext& ctx, rg::Asset* output) {

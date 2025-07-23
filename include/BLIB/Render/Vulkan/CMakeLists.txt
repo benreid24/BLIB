@@ -4,7 +4,6 @@ target_sources(BLIB PUBLIC
     BlendParameters.hpp
     Buffer.hpp
     CleanupManager.hpp
-    CommonSamplers.hpp
     DedicatedCommandBuffers.hpp
     DescriptorPool.hpp
     DescriptorSet.hpp
@@ -21,6 +20,7 @@ target_sources(BLIB PUBLIC
     RenderPassParameters.hpp
     RenderTexture.hpp
     Sampler.hpp
+    SamplerOptions.hpp
     ShaderParameters.hpp
     SharedCommandBuffer.hpp
     SharedCommandPool.hpp

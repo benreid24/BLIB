@@ -53,7 +53,7 @@ glm::vec2 Texture::normalizeAndConvertCoord(const glm::vec2& src) const {
     return convertCoord(src / size());
 }
 
-void Texture::setSampler(Sampler s) {
+void Texture::setSampler(SamplerOptions::Type s) {
     createOptions.sampler = s;
     updateDescriptors();
 }
@@ -321,11 +321,6 @@ void Texture::updateTrans(const sf::Image& content) {
     }
 
     hasTransparency = false;
-}
-
-VkSampler Texture::getSamplerHandle() const {
-    // TODO - need mip-aware samplers
-    return vulkanState->samplerCache.getSampler(createOptions.sampler);
 }
 
 } // namespace vk

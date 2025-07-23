@@ -191,7 +191,7 @@ void Animation2DSystem::doSlideshowAdd(com::Animation2DPlayer& player) {
     rc::res::TextureRef texture = renderer.texturePool().getOrLoadTexture(
         player.animation->resolvedSpritesheet(),
         {.format  = rc::vk::TextureFormat::SRGBA32Bit,
-         .sampler = rc::vk::Sampler::NoFilterEdgeClamped}); // TODO - parameterize?
+         .sampler = rc::vk::SamplerOptions::Type::NoFilterEdgeClamped}); // TODO - parameterize?
     player.texture = texture;
     slideshowTextureSSBO.ensureSize(index + 1);
     slideshowTextureSSBO[index] = texture.id();

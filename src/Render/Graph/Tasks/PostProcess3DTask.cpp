@@ -47,7 +47,7 @@ void PostProcess3DTask::onGraphInit() {
     if (!input) { throw std::runtime_error("Got bad input"); }
 
     // init scene input descriptor set
-    const auto sampler   = renderer->vulkanState().samplerCache.noFilterEdgeClamped();
+    const auto sampler   = renderer->samplerCache().noFilterEdgeClamped();
     const auto setLayout = renderer->descriptorFactoryCache()
                                .getFactoryThatMakes<ds::ColorAttachmentInstance>()
                                ->getDescriptorLayout();

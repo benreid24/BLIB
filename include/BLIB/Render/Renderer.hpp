@@ -12,6 +12,7 @@
 #include <BLIB/Render/Resources/PipelineCache.hpp>
 #include <BLIB/Render/Resources/PipelineLayoutCache.hpp>
 #include <BLIB/Render/Resources/RenderPassCache.hpp>
+#include <BLIB/Render/Resources/SamplerCache.hpp>
 #include <BLIB/Render/Resources/ScenePool.hpp>
 #include <BLIB/Render/Resources/TexturePool.hpp>
 #include <BLIB/Render/Scenes/SceneSync.hpp>
@@ -117,7 +118,8 @@ public:
      * @return A handle to the render texture
      */
     vk::RenderTexture::Handle createRenderTexture(
-        const glm::u32vec2& size, vk::Sampler sampler = vk::Sampler::FilteredBorderClamped);
+        const glm::u32vec2& size,
+        vk::SamplerOptions::Type sampler = vk::SamplerOptions::Type::FilteredBorderClamped);
 
     /**
      * @brief Returns the Vulkan state of the renderer
@@ -138,6 +140,11 @@ public:
      * @brief Returns the material pool of this renderer
      */
     res::MaterialPool& materialPool();
+
+    /**
+     * @brief Returns the sampler cache
+     */
+    res::SamplerCache& samplerCache();
 
     /**
      * @brief Returns the render pass cache of this renderer
@@ -211,6 +218,7 @@ private:
     res::GlobalDescriptors globalDescriptors;
     res::TexturePool textures;
     res::MaterialPool materials;
+    res::SamplerCache samplers;
     ds::DescriptorSetFactoryCache descriptorSetFactoryCache;
     res::RenderPassCache renderPasses;
     res::PipelineLayoutCache pipelineLayouts;
@@ -260,6 +268,8 @@ inline const vk::VulkanState& Renderer::vulkanState() const { return state; }
 inline res::TexturePool& Renderer::texturePool() { return textures; }
 
 inline res::MaterialPool& Renderer::materialPool() { return materials; }
+
+inline res::SamplerCache& Renderer::samplerCache() { return samplers; }
 
 inline res::RenderPassCache& Renderer::renderPassCache() { return renderPasses; }
 

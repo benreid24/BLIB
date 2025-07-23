@@ -1,41 +1,84 @@
 #ifndef BLIB_RENDER_VULKAN_SAMPLER_HPP
 #define BLIB_RENDER_VULKAN_SAMPLER_HPP
 
+#include <BLIB/Vulkan.hpp>
+
 namespace bl
 {
 namespace rc
 {
 namespace vk
 {
+struct VulkanState;
+
 /**
- * @brief Enum representing the different types of samplers available
+ * @brief Thin wrapper for managed VkSampler objects
  *
  * @ingroup Renderer
  */
-enum struct Sampler {
-    /// No filtering, clamped to border
-    NoFilterBorderClamped,
+class Sampler {
+public:
+    /**
+     * @brief Creates an empty sampler object
+     */
+    Sampler();
 
-    /// No filtering, clamped to edge
-    NoFilterEdgeClamped,
+    /**
+     * @brief Creates the sampler from the underlying Vulkan primitives
+     *
+     * @param device The Vulkan logical device
+     * @param sampler The sampler handle
+     * @param owner Whether this object owns the sampler. Pass false if it is shared
+     */
+    Sampler(VulkanState& vulkanState, VkSampler sampler, bool owner = true);
 
-    /// Minification filtering, clamped to border
-    MinFilterBorderClamped,
+    /**
+     * @brief Assumes ownership of the underlying sampler from the other object
+     *
+     * @param sampler The sampler handle to take from. Is invalidated if was owner
+     */
+    Sampler(Sampler&& sampler);
 
-    /// Magnification filtering, clamped to border
-    MagFilterBorderClamped,
+    /**
+     * @brief Releases the held sampler if present and owned
+     */
+    ~Sampler();
 
-    /// Filtering, clamped to border
-    FilteredBorderClamped,
+    /**
+     * @brief Assumes ownership of the underlying sampler from the other object
+     *
+     * @param sampler The sampler handle to take from. Is invalidated if was owner
+     * @return A reference to this object
+     */
+    Sampler& operator=(Sampler&& sampler);
 
-    /// Filtering, clamped to edge
-    FilteredEdgeClamped,
+    /**
+     * @brief Returns the underlying sampler
+     */
+    operator VkSampler() const { return sampler; }
 
-    /// Filtering, repeated
-    FilteredRepeated,
+    /**
+     * @brief Returns the underlying sampler
+     */
+    VkSampler getSampler() const { return sampler; }
 
-    // For shadow maps
-    ShadowMap
+    /**
+     * @brief Releases the underlying sampler if present and owned
+     */
+    void release();
+
+    /**
+     * @brief Defers the call to release for several frames to ensure the sampler is no longer used
+     */
+    void deferRelease();
+
+private:
+    VulkanState* vulkanState;
+    VkSampler sampler;
+    bool owner;
+
+    Sampler(const Sampler&)            = delete;
+    Sampler& operator=(const Sampler&) = delete;
 };
 
 } // namespace vk

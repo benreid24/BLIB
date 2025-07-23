@@ -105,16 +105,16 @@ void MaterialPool::checkLazyInit() {
         defaultsInitialized = true;
 
         normalImage.create(2, 2, sf::Color(128, 128, 255));
-        defaultNormalMap =
-            renderer.texturePool().createTexture(normalImage,
-                                                 {.format  = vk::TextureFormat::LinearRGBA32Bit,
-                                                  .sampler = vk::Sampler::FilteredRepeated});
+        defaultNormalMap = renderer.texturePool().createTexture(
+            normalImage,
+            {.format  = vk::TextureFormat::LinearRGBA32Bit,
+             .sampler = vk::SamplerOptions::Type::FilteredRepeated});
 
         parallaxImage.create(2, 2, sf::Color::Black);
-        defaultParallaxMap =
-            renderer.texturePool().createTexture(parallaxImage,
-                                                 {.format  = vk::TextureFormat::LinearRGBA32Bit,
-                                                  .sampler = vk::Sampler::FilteredRepeated});
+        defaultParallaxMap = renderer.texturePool().createTexture(
+            parallaxImage,
+            {.format  = vk::TextureFormat::LinearRGBA32Bit,
+             .sampler = vk::SamplerOptions::Type::FilteredRepeated});
     }
 }
 
@@ -150,19 +150,23 @@ MaterialRef MaterialPool::getOrCreateFromModelMaterial(const mdl::Material& src)
     auto diffuse = renderer.texturePool().getOrCreateTexture(
         src.diffuse,
         {},
-        {.format = vk::TextureFormat::SRGBA32Bit, .sampler = vk::Sampler::FilteredRepeated});
+        {.format  = vk::TextureFormat::SRGBA32Bit,
+         .sampler = vk::SamplerOptions::Type::FilteredRepeated});
     auto specular = renderer.texturePool().getOrCreateTexture(
         src.specular,
         diffuse,
-        {.format = vk::TextureFormat::LinearRGBA32Bit, .sampler = vk::Sampler::FilteredRepeated});
+        {.format  = vk::TextureFormat::LinearRGBA32Bit,
+         .sampler = vk::SamplerOptions::Type::FilteredRepeated});
     auto normal = renderer.texturePool().getOrCreateTexture(
         src.normal,
         defaultNormalMap,
-        {.format = vk::TextureFormat::LinearRGBA32Bit, .sampler = vk::Sampler::FilteredRepeated});
+        {.format  = vk::TextureFormat::LinearRGBA32Bit,
+         .sampler = vk::SamplerOptions::Type::FilteredRepeated});
     auto parallax = renderer.texturePool().getOrCreateTexture(
         src.parallax,
         defaultParallaxMap,
-        {.format = vk::TextureFormat::LinearRGBA32Bit, .sampler = vk::Sampler::FilteredRepeated});
+        {.format  = vk::TextureFormat::LinearRGBA32Bit,
+         .sampler = vk::SamplerOptions::Type::FilteredRepeated});
 
     const auto newId = freeIds.allocate();
     materials[newId] =

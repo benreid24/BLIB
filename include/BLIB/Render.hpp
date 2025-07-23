@@ -112,7 +112,7 @@
 #include <BLIB/Render/Vulkan/AttachmentSet.hpp>
 #include <BLIB/Render/Vulkan/Buffer.hpp>
 #include <BLIB/Render/Vulkan/CleanupManager.hpp>
-#include <BLIB/Render/Vulkan/CommonSamplers.hpp>
+#include <BLIB/Render/Resources/SamplerCache.hpp>
 #include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/Image.hpp>

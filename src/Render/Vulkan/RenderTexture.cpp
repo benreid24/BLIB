@@ -13,7 +13,7 @@ namespace rc
 namespace vk
 {
 RenderTexture::RenderTexture(engine::Engine& engine, Renderer& renderer, rg::AssetFactory& factory,
-                             const glm::u32vec2& size, Sampler sampler)
+                             const glm::u32vec2& size, SamplerOptions::Type sampler)
 : RenderTarget(engine, renderer, factory, true) {
     commandBuffers.create(renderer.vulkanState());
 

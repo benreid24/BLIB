@@ -6,7 +6,7 @@
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Vulkan/DedicatedCommandBuffers.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
-#include <BLIB/Render/Vulkan/Sampler.hpp>
+#include <BLIB/Render/Vulkan/SamplerOptions.hpp>
 #include <memory>
 
 namespace bl
@@ -138,7 +138,8 @@ private:
 
     // called by renderer
     RenderTexture(engine::Engine& engine, Renderer& renderer, rg::AssetFactory& factory,
-                  const glm::u32vec2& size, Sampler sampler = Sampler::FilteredBorderClamped);
+                  const glm::u32vec2& size,
+                  SamplerOptions::Type sampler = SamplerOptions::Type::FilteredBorderClamped);
     void render();
 
     friend class bl::rc::Renderer;
