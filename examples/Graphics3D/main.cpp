@@ -115,7 +115,8 @@ private:
         controller = cam->setController<CameraController>();
 
         auto woodTexture = engine.renderer().texturePool().getOrLoadTexture(
-            "Resources/Textures/wood.png", {.format = bl::rc::vk::TextureFormat::SRGBA32Bit});
+            "Resources/Textures/wood.png",
+            {.format = bl::rc::vk::TextureFormat::SRGBA32Bit, .genMipmaps = true});
         auto woodMaterial = engine.renderer().materialPool().getOrCreateFromTexture(woodTexture);
 
         // set msaa
@@ -154,18 +155,19 @@ private:
         auto material = engine.renderer().materialPool().getOrCreateFromTexture(containerTexture);
 
         auto brickTexture = engine.renderer().texturePool().getOrLoadTexture(
-            "Resources/Textures/bricks2.jpg", {.format = bl::rc::vk::TextureFormat::SRGBA32Bit});
+            "Resources/Textures/bricks2.jpg",
+            {.format = bl::rc::vk::TextureFormat::SRGBA32Bit, .genMipmaps = true});
         auto brickNormal = engine.renderer().texturePool().getOrLoadTexture(
-            "Resources/Textures/bricks2_normal.jpg");
-        auto brickParallax =
-            engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/bricks2_disp.jpg");
+            "Resources/Textures/bricks2_normal.jpg", {.genMipmaps = true});
+        auto brickParallax = engine.renderer().texturePool().getOrLoadTexture(
+            "Resources/Textures/bricks2_disp.jpg", {.genMipmaps = true});
         auto brickMaterial = engine.renderer().materialPool().getOrCreateFromNormalAndParallax(
             brickTexture, brickNormal, brickParallax, 0.1f);
 
         auto toyBoxNormal = engine.renderer().texturePool().getOrLoadTexture(
-            "Resources/Textures/toy_box_normal.png");
-        auto toyBoxParallax =
-            engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/toy_box_disp.png");
+            "Resources/Textures/toy_box_normal.png", {.genMipmaps = true});
+        auto toyBoxParallax = engine.renderer().texturePool().getOrLoadTexture(
+            "Resources/Textures/toy_box_disp.png", {.genMipmaps = true});
         auto toyBoxMaterial = engine.renderer().materialPool().getOrCreateFromNormalAndParallax(
             woodTexture, toyBoxNormal, toyBoxParallax, 0.1f);
 
@@ -186,9 +188,10 @@ private:
         cube4.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
         auto diffuse = engine.renderer().texturePool().getOrLoadTexture(
-            "Resources/Textures/container2.png", {.format = bl::rc::vk::TextureFormat::SRGBA32Bit});
+            "Resources/Textures/container2.png",
+            {.format = bl::rc::vk::TextureFormat::SRGBA32Bit, .genMipmaps = true});
         auto specular = engine.renderer().texturePool().getOrLoadTexture(
-            "Resources/Textures/container2_specular.png");
+            "Resources/Textures/container2_specular.png", {.genMipmaps = true});
         auto material2 =
             engine.renderer().materialPool().getOrCreateFromDiffuseAndSpecular(diffuse, specular);
 
@@ -201,9 +204,10 @@ private:
         cube6.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
         auto diffuse3 = engine.renderer().texturePool().getOrLoadTexture(
-            "Resources/Textures/brickwall.jpg", {.format = bl::rc::vk::TextureFormat::SRGBA32Bit});
+            "Resources/Textures/brickwall.jpg",
+            {.format = bl::rc::vk::TextureFormat::SRGBA32Bit, .genMipmaps = true});
         auto normal3 = engine.renderer().texturePool().getOrLoadTexture(
-            "Resources/Textures/brickwall_normal.jpg");
+            "Resources/Textures/brickwall_normal.jpg", {.genMipmaps = true});
         auto material3 = engine.renderer().materialPool().create(
             diffuse3,
             diffuse3,

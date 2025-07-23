@@ -290,6 +290,7 @@ void Image::genMipMapsOnGpu(VkCommandBuffer commandBuffer, VkImageLayout finalLa
         return;
     }
 
+    // transition first level to transfer source
     vulkanState->transitionImageLayout(commandBuffer,
                                        imageHandle,
                                        currentLayout,
@@ -298,6 +299,16 @@ void Image::genMipMapsOnGpu(VkCommandBuffer commandBuffer, VkImageLayout finalLa
                                        createOptions.aspect,
                                        0,
                                        1);
+
+    // transfer remaining levels to transfer dest
+    vulkanState->transitionImageLayout(commandBuffer,
+                                       imageHandle,
+                                       VK_IMAGE_LAYOUT_UNDEFINED,
+                                       VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+                                       1,
+                                       createOptions.aspect,
+                                       1,
+                                       createOptions.mipLevels - 1);
 
     VkImageMemoryBarrier barrier{};
     barrier.sType                           = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
@@ -381,7 +392,7 @@ void Image::genMipMapsOnGpu(VkCommandBuffer commandBuffer, VkImageLayout finalLa
 
     // transition last level to final layout
     barrier.subresourceRange.baseMipLevel = createOptions.mipLevels - 1;
-    barrier.oldLayout                     = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
+    barrier.oldLayout                     = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
     barrier.newLayout                     = finalLayout;
     barrier.srcAccessMask                 = VK_ACCESS_TRANSFER_READ_BIT;
     barrier.dstAccessMask                 = VK_ACCESS_SHADER_READ_BIT;
