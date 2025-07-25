@@ -10,6 +10,7 @@ target_sources(BLIB PUBLIC
 	RenderPassBehavior.hpp
 	SceneAsset.hpp
 	ShadowMapAsset.hpp
+	SSAOAsset.hpp
 	StandardTargetAsset.hpp
 	TargetSize.hpp
 )

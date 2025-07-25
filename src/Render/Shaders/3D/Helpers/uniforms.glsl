@@ -116,6 +116,7 @@ layout(set = SCENE_SET_NUMBER, binding = 1) uniform block_light_info {
 } lighting;
 layout(set = SCENE_SET_NUMBER, binding = 2) uniform sampler2DShadow spotShadowMaps[MAX_SPOT_SHADOWS];
 layout(set = SCENE_SET_NUMBER, binding = 3) uniform samplerCubeShadow pointShadowMaps[MAX_POINT_SHADOWS];
+layout(set = SCENE_SET_NUMBER, binding = 4) uniform sampler2D ssaoBuffer;
 #endif
 
 #endif

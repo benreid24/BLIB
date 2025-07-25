@@ -17,7 +17,7 @@ void Scene3DFactory::init(engine::Engine&, Renderer& r) {
     vulkanState = &r.vulkanState();
 
     vk::DescriptorPool::SetBindingInfo bindingInfo;
-    bindingInfo.bindingCount = 4;
+    bindingInfo.bindingCount = 5;
 
     // camera info
     bindingInfo.bindings[0] = SceneDescriptorSetInstance::getCameraBufferBindingInfo(
@@ -37,6 +37,11 @@ void Scene3DFactory::init(engine::Engine&, Renderer& r) {
     bindingInfo.bindings[3].descriptorCount = cfg::Limits::MaxPointShadows;
     bindingInfo.bindings[3].descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
     bindingInfo.bindings[3].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
+
+    // ssao buffer
+    bindingInfo.bindings[4].descriptorCount = 1;
+    bindingInfo.bindings[4].descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+    bindingInfo.bindings[4].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
 
     descriptorSetLayout = vulkanState->descriptorPool.createLayout(bindingInfo);
 }

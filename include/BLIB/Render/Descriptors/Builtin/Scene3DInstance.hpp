@@ -6,6 +6,7 @@
 #include <BLIB/Render/Descriptors/Builtin/CommonShaderInputs.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
 #include <BLIB/Render/Events/GraphEvents.hpp>
+#include <BLIB/Render/Graph/Assets/SSAOAsset.hpp>
 #include <BLIB/Render/Lighting/LightingDescriptor3D.hpp>
 #include <BLIB/Render/Lighting/PointLight3D.hpp>
 #include <BLIB/Render/Lighting/SpotLight3D.hpp>
@@ -27,6 +28,10 @@ namespace scene
 {
 class Scene3D;
 }
+namespace rgi
+{
+class ShadowMapAsset;
+} // namespace rgi
 
 namespace ds
 {
@@ -74,7 +79,10 @@ private:
     buf::StaticUniformBuffer<lgt::LightingDescriptor3D> uniform;
     vk::Image emptySpotShadowMap;
     vk::Image emptyPointShadowMap;
+    vk::Image emptySSAOImage;
     ShadowMapCameraShaderInput* shadowMapCameras;
+    rgi::ShadowMapAsset* shadowMaps;
+    rgi::SSAOAsset* ssaoBuffer;
 
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                  std::uint32_t setIndex, UpdateSpeed updateFreq) const override;
@@ -86,7 +94,7 @@ private:
     virtual void handleFrameStart() override;
 
     virtual void observe(const event::SceneGraphAssetInitialized& event) override;
-    void updateShadowDescriptors(rg::GraphAsset* asset);
+    void updateImageDescriptors();
 
     friend class scene::Scene3D;
 };

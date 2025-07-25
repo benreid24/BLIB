@@ -102,11 +102,11 @@ float computePointLightShadow(uint lightIndex, vec3 fragPos) {
     return texture(pointShadowMaps[lightIndex], vec4(fragToLight, distanceToLight - bias));
 }
 
-vec3 synthesizeLightColor(mat3 lightMatrix, vec3 diffuse, vec3 specular) {
-    return lightMatrix[0] * diffuse + lightMatrix[1] * diffuse + lightMatrix[2] * specular;
+vec3 synthesizeLightColor(mat3 lightMatrix, vec3 diffuse, vec3 specular, float ssao) {
+    return lightMatrix[0] * diffuse * ssao + lightMatrix[1] * diffuse + lightMatrix[2] * specular;
 }
 
-vec3 computeLighting(vec3 fragPos, vec3 normal, vec3 diffuse, vec3 specular, float shininess) {
+vec3 computeLighting(vec3 fragPos, vec3 normal, vec3 diffuse, vec3 specular, float shininess, float ssao) {
     vec3 viewDir = normalize(camera.camPos - fragPos);
 
     mat3 lightColors = mat3(vec3(0.0), vec3(lighting.info.globalAmbient), vec3(0.0));
@@ -132,7 +132,7 @@ vec3 computeLighting(vec3 fragPos, vec3 normal, vec3 diffuse, vec3 specular, flo
             computeSpotLight(lighting.spotLights[i], normal, fragPos, viewDir, shininess, 1.0);
     }
 
-    return synthesizeLightColor(lightColors, diffuse, specular);
+    return synthesizeLightColor(lightColors, diffuse, specular, ssao);
 }
 
 #endif

@@ -19,9 +19,10 @@ struct RenderPassIds {
     static constexpr std::uint32_t SwapchainPass          = 1;
     static constexpr std::uint32_t HDRAttachmentPass      = 2;
     static constexpr std::uint32_t BloomPass              = 3;
-    static constexpr std::uint32_t ShadowMapPass          = 4;
-    static constexpr std::uint32_t DeferredObjectPass     = 5;
-    static constexpr std::uint32_t HDRDeferredObjectPass  = 6;
+    static constexpr std::uint32_t SSAOPass               = 4;
+    static constexpr std::uint32_t ShadowMapPass          = 5;
+    static constexpr std::uint32_t DeferredObjectPass     = 6;
+    static constexpr std::uint32_t HDRDeferredObjectPass  = 7;
 };
 
 } // namespace cfg

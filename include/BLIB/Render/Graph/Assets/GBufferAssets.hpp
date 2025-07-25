@@ -17,7 +17,8 @@ namespace rgi
  */
 using GBufferAsset =
     GenericTargetAsset<cfg::RenderPassIds::DeferredObjectPass, 4,
-                       RenderPassBehavior::StartedByAsset, DepthAttachmentType::SharedDepthBuffer>;
+                       RenderPassBehavior::StartedByAsset, DepthAttachmentType::SharedDepthBuffer,
+                       MSAABehavior::UseSettings>;
 
 /**
  * @brief GBuffer asset for HDR deferred rendering
@@ -26,7 +27,8 @@ using GBufferAsset =
  */
 using GBufferHDRAsset =
     GenericTargetAsset<cfg::RenderPassIds::HDRDeferredObjectPass, 4,
-                       RenderPassBehavior::StartedByAsset, DepthAttachmentType::SharedDepthBuffer>;
+                       RenderPassBehavior::StartedByAsset, DepthAttachmentType::SharedDepthBuffer,
+                       MSAABehavior::UseSettings>;
 
 } // namespace rgi
 } // namespace rc

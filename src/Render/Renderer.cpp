@@ -8,6 +8,7 @@
 #include <BLIB/Render/Graph/Providers/BloomProviders.hpp>
 #include <BLIB/Render/Graph/Providers/GBufferProviders.hpp>
 #include <BLIB/Render/Graph/Providers/GenericTargetProvider.hpp>
+#include <BLIB/Render/Graph/Providers/SSAOProvider.hpp>
 #include <BLIB/Render/Graph/Providers/SimpleAssetProvider.hpp>
 #include <BLIB/Render/Graph/Providers/StandardTargetProvider.hpp>
 #include <BLIB/Systems.hpp>
@@ -132,6 +133,13 @@ void Renderer::initialize() {
             vk::TextureFormat::HDRColor, vk::TextureFormat::HDRColor, vecFormat, vecFormat},
         GBufferUsages,
         GBufferClearValues);
+    assetFactory.addProvider<rgi::SSAOProvider>(
+        rg::AssetTags::SSAOBuffer,
+        rgi::TargetSize(rgi::TargetSize::ObserverSize),
+        std::array<VkFormat, 1>{vk::TextureFormat::SingleChannelUnorm8},
+        std::array<VkImageUsageFlags, 1>{VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT |
+                                         VK_IMAGE_USAGE_SAMPLED_BIT},
+        std::array<VkClearValue, 1>{VkClearValue{.color = {1.f, 1.f, 1.f, 1.f}}});
 
     // initialize common observer
     commonObserver.assignRegion(window.getSfWindow().getSize(), renderRegion, 1, 0, true);

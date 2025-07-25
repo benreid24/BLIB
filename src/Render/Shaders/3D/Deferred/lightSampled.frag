@@ -29,9 +29,19 @@ void main() {
     vec3 viewDir = normalize(camera.camPos - position);
     vec3 specular = specularAndShiny.xyz;
     float shininess = specularAndShiny.w;
+    float ssao = texture(ssaoBuffer, uv).r;
 
     if (lightingEnabled) {
-        outColor = computeLightColor(fs_in.lightIndex, fragColor, specular, position, normal, viewDir, shininess);
+        outColor = computeLightColor(
+            fs_in.lightIndex,
+            fragColor,
+            specular,
+            position,
+            normal,
+            viewDir,
+            shininess,
+            ssao
+        );
     }
     else {
         outColor = fragColor;

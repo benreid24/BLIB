@@ -17,7 +17,9 @@ namespace ds
 {
 Scene3DInstance::Scene3DInstance(Renderer& renderer, VkDescriptorSetLayout layout)
 : SceneDescriptorSetInstance(renderer.vulkanState(), layout)
-, renderer(renderer) {}
+, renderer(renderer)
+, shadowMaps(nullptr)
+, ssaoBuffer(nullptr) {}
 
 Scene3DInstance::~Scene3DInstance() {
     cleanup();
@@ -81,12 +83,20 @@ void Scene3DInstance::init(ShaderInputStore& inputStore) {
          .extent     = renderer.getSettings().getShadowMapResolution(),
          .aspect     = VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT,
          .viewAspect = VK_IMAGE_ASPECT_DEPTH_BIT});
+    emptySSAOImage.create(vulkanState,
+                          {.type   = vk::ImageOptions::Type::Image2D,
+                           .format = vk::TextureFormat::SingleChannelUnorm8,
+                           .usage  = VK_IMAGE_USAGE_SAMPLED_BIT,
+                           .extent = {4, 4},
+                           .aspect = VK_IMAGE_ASPECT_COLOR_BIT});
 
     auto commandBuffer = vulkanState.sharedCommandPool.createBuffer();
     emptySpotShadowMap.clearAndTransition(
         commandBuffer, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, {.depthStencil = {1.f, 0}});
     emptyPointShadowMap.clearAndTransition(
         commandBuffer, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, {.depthStencil = {1.f, 0}});
+    emptySSAOImage.clearAndTransition(
+        commandBuffer, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, {.color = {1.f, 1.f, 1.f, 1.f}});
     commandBuffer.submit();
 
     // allocate descriptors
@@ -120,25 +130,17 @@ void Scene3DInstance::init(ShaderInputStore& inputStore) {
         }
     }
     setWriter.performWrite(vulkanState.device);
-
-    // updateShadowDescriptors(nullptr);
-
     uniform.transferEveryFrame();
+
+    updateImageDescriptors();
 
     bl::event::Dispatcher::subscribe(this);
 }
 
-void Scene3DInstance::updateShadowDescriptors(rg::GraphAsset* asset) {
-    rgi::ShadowMapAsset* shadowMaps =
-        asset ? dynamic_cast<rgi::ShadowMapAsset*>(&asset->asset.get()) : nullptr;
-    if (!shadowMaps && asset) {
-        BL_LOG_WARN << "Shadow descriptors requires ShadowMapAsset";
-        return;
-    }
-
+void Scene3DInstance::updateImageDescriptors() {
     const std::uint32_t imageWriteCount =
         cfg::Limits::MaxConcurrentFrames *
-        (cfg::Limits::MaxSpotShadows + cfg::Limits::MaxPointShadows);
+        (cfg::Limits::MaxSpotShadows + cfg::Limits::MaxPointShadows + 1); // +1 for ssao buffer
     SetWriteHelper setWriter;
     setWriter.hintWriteCount(descriptorSets.size() * imageWriteCount);
     setWriter.hintImageInfoCount(descriptorSets.size() * imageWriteCount);
@@ -177,6 +179,20 @@ void Scene3DInstance::updateShadowDescriptors(rg::GraphAsset* asset) {
                 write.pImageInfo            = &imageInfo;
                 write.descriptorType        = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
             }
+
+            // ssao buffer
+            VkDescriptorImageInfo& ssaoInfo = setWriter.getNewImageInfo();
+            ssaoInfo.imageLayout            = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+            ssaoInfo.imageView = ssaoBuffer ? ssaoBuffer->getAttachmentSets()[0]->getImageView(0) :
+                                              emptySSAOImage.getView();
+            ssaoInfo.sampler   = renderer.samplerCache().noFilterEdgeClamped();
+
+            VkWriteDescriptorSet& ssaoWrite = setWriter.getNewSetWrite(set);
+            ssaoWrite.descriptorCount       = 1;
+            ssaoWrite.dstBinding            = 4;
+            ssaoWrite.dstArrayElement       = 0;
+            ssaoWrite.pImageInfo            = &ssaoInfo;
+            ssaoWrite.descriptorType        = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
         }
     }
     setWriter.performWrite(vulkanState.device);
@@ -184,9 +200,18 @@ void Scene3DInstance::updateShadowDescriptors(rg::GraphAsset* asset) {
 
 void Scene3DInstance::observe(const event::SceneGraphAssetInitialized& event) {
     if (event.scene == static_cast<Scene*>(owner)) {
-        rgi::ShadowMapAsset* shadowMaps =
-            dynamic_cast<rgi::ShadowMapAsset*>(&event.asset->asset.get());
-        if (shadowMaps) { updateShadowDescriptors(event.asset); }
+        rgi::ShadowMapAsset* sm = dynamic_cast<rgi::ShadowMapAsset*>(&event.asset->asset.get());
+        if (sm) {
+            shadowMaps = sm;
+            updateImageDescriptors();
+        }
+        else {
+            rgi::SSAOAsset* ssao = dynamic_cast<rgi::SSAOAsset*>(&event.asset->asset.get());
+            if (ssao) {
+                ssaoBuffer = ssao;
+                updateImageDescriptors();
+            }
+        }
     }
 }
 

@@ -6,7 +6,7 @@
 
 vec4 computeLightColor(
     uint lightIndex, vec4 fragColor, vec3 specular, vec3 position,
-    vec3 normal, vec3 viewDir, float shininess
+    vec3 normal, vec3 viewDir, float shininess, float ssao
 ) {
     mat3 lightColors = mat3(0);
     float shadow = 1.0;
@@ -57,7 +57,7 @@ vec4 computeLightColor(
         );
         break;
     }
-    vec3 litColor = synthesizeLightColor(lightColors, fragColor.xyz, specular);
+    vec3 litColor = synthesizeLightColor(lightColors, fragColor.xyz, specular, ssao);
     return vec4(litColor, fragColor.w);
 }
 

@@ -48,7 +48,8 @@ void main() {
         normal = normalize(fs_in.TBN * normal);
 
         vec3 diffuse = vec3(diffuseColor);
-        vec3 lightColor = computeLighting(fs_in.fragPos, normal, diffuse, specularColor, material.shininess);
+        float ssao = texture(ssaoBuffer, gl_FragCoord.xy / textureSize(ssaoBuffer, 0)).r;
+        vec3 lightColor = computeLighting(fs_in.fragPos, normal, diffuse, specularColor, material.shininess, ssao);
         diffuseColor = vec4(lightColor, diffuseColor.w);
     }
 

@@ -27,6 +27,9 @@ struct TextureFormat {
 
     /// 16 bit signed float, linear
     static constexpr VkFormat HDRColor = VK_FORMAT_R16G16B16A16_SFLOAT;
+
+    // 8-bit unsigned integer, 1 channel, linear
+    static constexpr VkFormat SingleChannelUnorm8 = VK_FORMAT_R8_UNORM;
 };
 
 } // namespace vk

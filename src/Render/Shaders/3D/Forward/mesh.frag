@@ -23,7 +23,8 @@ void main() {
     if (lightingEnabled == 1) {
         vec3 normal = fs_in.TBN[2];
         vec3 diffuse = fs_in.fragColor.xyz;
-        vec3 lightColor = computeLighting(fs_in.fragPos, normal, diffuse, diffuse, 1.0);
+        float ssao = texture(ssaoBuffer, gl_FragCoord.xy / textureSize(ssaoBuffer, 0)).r;
+        vec3 lightColor = computeLighting(fs_in.fragPos, normal, diffuse, diffuse, 1.0, ssao);
         outColor = fs_in.fragColor * vec4(lightColor, 1.0);
     }
     else {

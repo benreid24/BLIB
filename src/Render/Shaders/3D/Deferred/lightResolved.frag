@@ -18,6 +18,7 @@ layout(set = 0, binding = 3) uniform sampler2DMS normals;
 #include "3D/Deferred/lightCommon.glsl"
 
 void main() {
+    float ssao = texture(ssaoBuffer, gl_FragCoord.xy / textureSize(ssaoBuffer, 0)).r;
     vec4 colorSum = vec4(0.0);
     for (int si = 0; si < sampleCount; ++si) {
         ivec2 uv = ivec2(gl_FragCoord.xy);
@@ -32,7 +33,16 @@ void main() {
         float shininess = specularAndShiny.w;
 
         if (lightingEnabled) {
-            colorSum += computeLightColor(fs_in.lightIndex, fragColor, specular, position, normal, viewDir, shininess);
+            colorSum += computeLightColor(
+                fs_in.lightIndex,
+                fragColor,
+                specular,
+                position,
+                normal,
+                viewDir,
+                shininess,
+                ssao
+            );
         }
         else {
             colorSum += fragColor;
