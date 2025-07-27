@@ -88,7 +88,7 @@ void InputAttachmentInstance::bindForPipeline(scene::SceneRenderContext& ctx,
 }
 
 void InputAttachmentInstance::initAttachments(const vk::AttachmentSet* set, VkSampler smp) {
-    if (set->getAttachmentCount() <= startIndex + attachmentCount) {
+    if (set->getAttachmentCount() < startIndex + attachmentCount) {
         BL_LOG_ERROR << "Input attachment set has insufficient attachments";
         return;
     }
@@ -100,7 +100,7 @@ void InputAttachmentInstance::initAttachments(const vk::AttachmentSet* set, VkSa
 void InputAttachmentInstance::initAttachments(
     const std::array<const vk::AttachmentSet*, cfg::Limits::MaxConcurrentFrames>& sets,
     VkSampler smp) {
-    if (sets[0]->getAttachmentCount() <= startIndex + attachmentCount) {
+    if (sets[0]->getAttachmentCount() < startIndex + attachmentCount) {
         BL_LOG_ERROR << "Input attachment set has insufficient attachments";
         return;
     }
