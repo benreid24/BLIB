@@ -35,6 +35,8 @@ using ShadowMapCameraShaderInput =
 
 /**
  * @brief The name of the shadow map camera input
+ *
+ * @ingroup Renderer
  */
 constexpr const char* ShadowMapCameraInputName = "__builtin__shadow_map_binding";
 

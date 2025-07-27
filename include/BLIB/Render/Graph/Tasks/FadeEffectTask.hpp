@@ -2,7 +2,6 @@
 #define BLIB_RENDER_GRAPH_TASKS_FADEEFFECTTASK_HPP
 
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
-#include <BLIB/Render/Descriptors/Builtin/ColorAttachmentInstance.hpp>
 #include <BLIB/Render/Graph/Assets/FramebufferAsset.hpp>
 #include <BLIB/Render/Graph/Task.hpp>
 #include <BLIB/Render/Vulkan/DescriptorPool.hpp>
@@ -76,7 +75,6 @@ private:
     Scene* scene;
     buf::IndexBuffer indexBuffer;
     vk::PipelineInstance pipeline;
-    ds::ColorAttachmentInstance* colorAttachmentSet;
     float fadeEnd;
     float fadeSpeed;
     float factor;

@@ -32,6 +32,11 @@ compile_shaders(
     3D/Shadows/pointShadowMap.geom
     3D/Shadows/pointShadowMap.frag
 
+    3D/SSAO/blur.frag
+    3D/SSAO/gen.frag
+    3D/SSAO/genResolve.frag
+    3D/SSAO/genSampled.frag
+
     2D/skinned2d.vert
     2D/skinned2d.frag
     2D/skinned2dlit.frag

@@ -2,7 +2,7 @@
 
 #include <BLIB/Render/Config/PipelineIds.hpp>
 #include <BLIB/Render/Config/RenderPhases.hpp>
-#include <BLIB/Render/Descriptors/Builtin/ColorAttachmentInstance.hpp>
+#include <BLIB/Render/Descriptors/Builtin/InputAttachmentInstance.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Graph/TaskIds.hpp>
 #include <BLIB/Render/Renderer.hpp>
@@ -45,7 +45,6 @@ void FadeEffectTask::create(engine::Engine&, Renderer& r, Scene* s) {
 
     // fetch pipeline and descriptor set
     s->initPipelineInstance(cfg::PipelineIds::FadeEffect, pipeline);
-    colorAttachmentSet = &s->getDescriptorSet<ds::ColorAttachmentInstance>();
 
     // create index buffer
     indexBuffer.create(r.vulkanState(), 4, 6);
@@ -62,9 +61,8 @@ void FadeEffectTask::onGraphInit() {
         dynamic_cast<FramebufferAsset*>(&assets.requiredInputs[0]->asset.get());
     if (!input) { throw std::runtime_error("Got bad input"); }
 
-    auto& set = scene->getDescriptorSet<ds::ColorAttachmentInstance>();
-    set.initAttachments(
-        input->getAttachmentSets(), 0, renderer->samplerCache().noFilterEdgeClamped());
+    auto& set = scene->getDescriptorSet<ds::InputAttachmentInstance>();
+    set.initAttachments(input->getAttachmentSets(), renderer->samplerCache().noFilterEdgeClamped());
 }
 
 void FadeEffectTask::execute(const rg::ExecutionContext& ctx, rg::Asset* output) {

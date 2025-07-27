@@ -73,6 +73,15 @@ VkShaderModule ShaderModuleCache::loadShader(const std::string& path) {
         case cfg::ShaderIds::DeferredLightVolumeSampledFragment[0]:
             return loadShader(BUILTIN_SHADER("3D/Deferred/lightSampled.frag.spv"));
 
+        case cfg::ShaderIds::SSAOBlurFragment[0]:
+            return loadShader(BUILTIN_SHADER("3D/SSAO/blur.frag.spv"));
+        case cfg::ShaderIds::SSAOGenFragment[0]:
+            return loadShader(BUILTIN_SHADER("3D/SSAO/gen.frag.spv"));
+        case cfg::ShaderIds::SSAOGenResolveFragment[0]:
+            return loadShader(BUILTIN_SHADER("3D/SSAO/genResolve.frag.spv"));
+        case cfg::ShaderIds::SSAOGenSampledFragment[0]:
+            return loadShader(BUILTIN_SHADER("3D/SSAO/genSampled.frag.spv"));
+
         case cfg::ShaderIds::Vertex2D[0]:
             return loadShader(BUILTIN_SHADER("2D/2d.vert.spv"));
         case cfg::ShaderIds::Fragment2DLit[0]:

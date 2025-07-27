@@ -4,6 +4,7 @@
 #include <BLIB/Render/Events/GraphEvents.hpp>
 #include <BLIB/Render/Graph/Asset.hpp>
 #include <BLIB/Render/Graph/ExecutionContext.hpp>
+#include <BLIB/Render/Graph/GraphAssetPool.hpp>
 #include <BLIB/Render/Graph/Task.hpp>
 #include <limits>
 #include <queue>
@@ -96,26 +97,26 @@ void Timeline::build(std::vector<std::unique_ptr<Task>>& tasks, GraphAsset* fina
         return false;
     };
 
-    const auto createAssets = [this](Task* task) {
-        for (GraphAsset* asset : task->assets.requiredInputs) {
-            if (asset->asset->create(engine, renderer, observer, pool)) {
-                bl::event::Dispatcher::dispatch<event::SceneGraphAssetInitialized>(
-                    {.target = observer, .scene = scene, .asset = asset});
-            }
+    const auto createAsset = [this](GraphAsset* asset) {
+        if (asset->asset->create(engine, renderer, observer, pool)) {
+            bl::event::Dispatcher::dispatch<event::SceneGraphAssetInitialized>(
+                {.target = observer, .scene = scene, .asset = asset});
         }
+    };
+
+    const auto createAssets = [this, &createAsset](Task* task) {
+        for (GraphAsset* asset : task->assets.requiredInputs) { createAsset(asset); }
         for (GraphAsset* asset : task->assets.optionalInputs) {
-            if (asset) {
-                if (asset->asset->create(engine, renderer, observer, pool)) {
-                    bl::event::Dispatcher::dispatch<event::SceneGraphAssetInitialized>(
-                        {.target = observer, .scene = scene, .asset = asset});
-                }
-            }
+            if (asset) { createAsset(asset); }
         }
-        for (GraphAsset* asset : task->assets.outputs) {
-            if (asset->asset->create(engine, renderer, observer, pool)) {
-                bl::event::Dispatcher::dispatch<event::SceneGraphAssetInitialized>(
-                    {.target = observer, .scene = scene, .asset = asset});
-            }
+        for (GraphAsset* asset : task->assets.outputs) { createAsset(asset); }
+
+        // find & create sidecar assets here bc we know the task will get executed at this point
+        unsigned int i = 0;
+        for (std::string_view sidecar : task->assetTags.sidecarAssets) {
+            GraphAsset* sc                  = pool->createAsset(sidecar);
+            task->assets.sidecarAssets[i++] = sc;
+            createAsset(sc);
         }
     };
 

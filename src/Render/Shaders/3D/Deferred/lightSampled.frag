@@ -7,11 +7,7 @@ layout(location = 0) in FS_IN {
 } fs_in;
 layout(location = 0) out vec4 outColor;
 
-layout(set = 0, binding = 0) uniform sampler2DMS albedo;
-layout(set = 0, binding = 1) uniform sampler2DMS specular;
-layout(set = 0, binding = 2) uniform sampler2DMS positions;
-layout(set = 0, binding = 3) uniform sampler2DMS normals;
-
+#define GBUFFER_MSAA_SET_NUMBER 0
 #define SCENE_SET_NUMBER 1
 #include "3D/Helpers/uniforms.glsl"
 #include "3D/Helpers/blinnPhongLighting.glsl.frag"

@@ -119,12 +119,36 @@ layout(set = SCENE_SET_NUMBER, binding = 3) uniform samplerCubeShadow pointShado
 layout(set = SCENE_SET_NUMBER, binding = 4) uniform sampler2D ssaoBuffer;
 #endif
 
-#endif
-
 #ifdef LIGHT_CAM_SET_NUMBER
 layout(set = LIGHT_CAM_SET_NUMBER, binding = 0) uniform block_light_cameras {
     mat4 viewProj[6];
     vec3 position;
     float farPlane;
 } lightCameras;
+#endif
+
+#ifdef GBUFFER_SET_NUMBER
+layout(set = GBUFFER_SET_NUMBER, binding = 0) uniform sampler2D albedo;
+layout(set = GBUFFER_SET_NUMBER, binding = 1) uniform sampler2D specular;
+layout(set = GBUFFER_SET_NUMBER, binding = 2) uniform sampler2D positions;
+layout(set = GBUFFER_SET_NUMBER, binding = 3) uniform sampler2D normals;
+#endif
+
+#ifdef GBUFFER_MSAA_SET_NUMBER
+layout(set = GBUFFER_MSAA_SET_NUMBER, binding = 0) uniform sampler2DMS albedo;
+layout(set = GBUFFER_MSAA_SET_NUMBER, binding = 1) uniform sampler2DMS specular;
+layout(set = GBUFFER_MSAA_SET_NUMBER, binding = 2) uniform sampler2DMS positions;
+layout(set = GBUFFER_MSAA_SET_NUMBER, binding = 3) uniform sampler2DMS normals;
+#endif
+
+#ifdef SSAO_SET_NUMBER
+layout(set = SSAO_SET_NUMBER, binding = 0) uniform ssao_block {
+    vec4 randomRotations[4][4];
+    vec4 samples[128];
+    uint sampleCount;
+    float radius;
+    float bias;
+} ssaoParams;
+#endif
+
 #endif

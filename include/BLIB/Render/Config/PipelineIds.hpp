@@ -31,6 +31,8 @@ struct PipelineIds {
     static constexpr std::uint32_t BloomHighlightFilter = 51;
     static constexpr std::uint32_t BloomBlur            = 52;
     static constexpr std::uint32_t DeferredLightVolume  = 53;
+    static constexpr std::uint32_t SSAOGen              = 54;
+    static constexpr std::uint32_t SSAOBlur             = 55;
 
     static constexpr std::uint32_t Lit2DGeometry               = 100;
     static constexpr std::uint32_t Unlit2DGeometry             = 101;

@@ -3,6 +3,7 @@
 #include <BLIB/Render/Config/PipelineIds.hpp>
 #include <BLIB/Render/Config/RenderPassIds.hpp>
 #include <BLIB/Render/Config/RenderPhases.hpp>
+#include <BLIB/Render/Descriptors/Builtin/InputAttachmentFactory.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Graph/TaskIds.hpp>
 #include <BLIB/Render/Renderer.hpp>
@@ -64,22 +65,22 @@ void BloomTask::onGraphInit() {
 
     const auto sampler   = renderer->samplerCache().noFilterEdgeClamped();
     const auto setLayout = renderer->descriptorFactoryCache()
-                               .getFactoryThatMakes<ds::ColorAttachmentInstance>()
+                               .getFactory<ds::InputAttachmentFactory<1>>()
                                ->getDescriptorLayout();
 
-    inputAttachmentDescriptor.emplace(renderer->vulkanState(), setLayout);
-    inputAttachmentDescriptor.value().initAttachments(input->getAttachmentSets(), 0, sampler);
+    inputAttachmentDescriptor.emplace(renderer->vulkanState(), setLayout, 1, 0);
+    inputAttachmentDescriptor.value().initAttachments(input->getAttachmentSets(), sampler);
 
-    output1Descriptor.emplace(renderer->vulkanState(), setLayout);
-    output1Descriptor.value().initAttachments(output->get(0).getAttachmentSets(), 0, sampler);
+    output1Descriptor.emplace(renderer->vulkanState(), setLayout, 1, 0);
+    output1Descriptor.value().initAttachments(output->get(0).getAttachmentSets(), sampler);
 
-    output2Descriptor.emplace(renderer->vulkanState(), setLayout);
-    output2Descriptor.value().initAttachments(output->get(1).getAttachmentSets(), 0, sampler);
+    output2Descriptor.emplace(renderer->vulkanState(), setLayout, 1, 0);
+    output2Descriptor.value().initAttachments(output->get(1).getAttachmentSets(), sampler);
 }
 
 void BloomTask::execute(const rg::ExecutionContext& ctx, rg::Asset*) {
     BloomColorAttachmentAsset* targets[2]       = {&output->get(0), &output->get(1)};
-    ds::ColorAttachmentInstance* attachments[2] = {
+    ds::InputAttachmentInstance* attachments[2] = {
         &output1Descriptor.value(),
         &output2Descriptor.value(),
     };

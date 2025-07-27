@@ -1,6 +1,4 @@
 target_sources(BLIB PRIVATE
-	ColorAttachmentFactory.cpp
-	ColorAttachmentInstance.cpp
 	GlobalDataFactory.cpp
 	GlobalDataInstance.cpp
 	InputAttachmentInstance.cpp

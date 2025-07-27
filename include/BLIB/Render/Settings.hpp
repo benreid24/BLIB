@@ -31,6 +31,9 @@ public:
         MSAA64x = VK_SAMPLE_COUNT_64_BIT
     };
 
+    /// Presets for SSAO
+    enum struct SSAO { None, Low, Medium, High, Ultra };
+
     /**
      * @brief Initializes the settings to sane defaults
      *
@@ -168,6 +171,38 @@ public:
      */
     unsigned int getMSAASampleCountAsInt() const;
 
+    /**
+     * @brief Modifies the SSAO setting
+     *
+     * @param ssao The new SSAO setting
+     * @return A reference to this object
+     */
+    Settings& setSSAO(SSAO ssao);
+
+    /**
+     * @brief Sets some parameters of the SSAO algorithm
+     *
+     * @param radius The radius to sample for occlusion detection, in world space
+     * @param bias A depth bias to add to the sampled geometry, in world space
+     * @return A reference to this object
+     */
+    Settings& setSSAOParams(float radius, float bias);
+
+    /**
+     * @brief Returns the current SSAO setting
+     */
+    SSAO getSSAO() const;
+
+    /**
+     * @brief Returns the radius used by the SSAO algorithm in world units
+     */
+    float getSSAORadius() const;
+
+    /**
+     * @brief Returns the depth bias used by the SSAO algorithm in world units
+     */
+    float getSSAOBias() const;
+
 private:
     Renderer& owner;
     float gamma;
@@ -181,6 +216,9 @@ private:
     float shadowMapDepthBiasSlopeFactor;
     float shadowMapDepthBiasClamp;
     AntiAliasing antiAliasing;
+    SSAO ssao;
+    float ssaoRadius;
+    float ssaoBias;
     bool dirty;
 
     friend class Renderer;
@@ -215,6 +253,12 @@ inline float Settings::getShadowMapDepthBiasSlopeFactor() const {
 inline float Settings::getShadowMapDepthBiasClamp() const { return shadowMapDepthBiasClamp; }
 
 inline Settings::AntiAliasing Settings::getAntiAliasing() const { return antiAliasing; }
+
+inline Settings::SSAO Settings::getSSAO() const { return ssao; }
+
+inline float Settings::getSSAORadius() const { return ssaoRadius; }
+
+inline float Settings::getSSAOBias() const { return ssaoBias; }
 
 } // namespace rc
 } // namespace bl

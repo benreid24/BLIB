@@ -24,8 +24,6 @@
 #include <BLIB/Render/Config/PipelineIds.hpp>
 #include <BLIB/Render/Config/RenderPassIds.hpp>
 #include <BLIB/Render/Config/Specializations3D.hpp>
-#include <BLIB/Render/Descriptors/Builtin/ColorAttachmentFactory.hpp>
-#include <BLIB/Render/Descriptors/Builtin/ColorAttachmentInstance.hpp>
 #include <BLIB/Render/Descriptors/Builtin/GlobalDataFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/GlobalDataInstance.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Object2DFactory.hpp>
@@ -92,6 +90,7 @@
 #include <BLIB/Render/Resources/PipelineCache.hpp>
 #include <BLIB/Render/Resources/PipelineLayoutCache.hpp>
 #include <BLIB/Render/Resources/RenderPassCache.hpp>
+#include <BLIB/Render/Resources/SamplerCache.hpp>
 #include <BLIB/Render/Resources/ScenePool.hpp>
 #include <BLIB/Render/Resources/ShaderModuleCache.hpp>
 #include <BLIB/Render/Resources/TexturePool.hpp>
@@ -112,7 +111,6 @@
 #include <BLIB/Render/Vulkan/AttachmentSet.hpp>
 #include <BLIB/Render/Vulkan/Buffer.hpp>
 #include <BLIB/Render/Vulkan/CleanupManager.hpp>
-#include <BLIB/Render/Resources/SamplerCache.hpp>
 #include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/Image.hpp>

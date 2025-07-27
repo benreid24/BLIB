@@ -18,7 +18,9 @@ struct SettingsChanged {
         BloomFilters,
         ShadowMapResolution,
         ShadowMapDepthBias,
-        AntiAliasing
+        AntiAliasing,
+        SSAO,
+        SSAOParams
     };
 
     /// The renderer instance

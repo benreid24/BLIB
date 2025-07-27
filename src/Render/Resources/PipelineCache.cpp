@@ -5,11 +5,11 @@
 #include <BLIB/Render/Config/ShaderIds.hpp>
 #include <BLIB/Render/Config/Specializations3D.hpp>
 #include <BLIB/Render/Config/SpecializationsLightVolumes.hpp>
-#include <BLIB/Render/Descriptors/Builtin/ColorAttachmentFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/GlobalDataFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/InputAttachmentFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Object2DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Object3DFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/SSAOFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene2DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene3DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/ShadowMapFactory.hpp>
@@ -329,6 +329,63 @@ void PipelineCache::createBuiltins() {
             .addDescriptorSet<ds::Scene3DFactory>()
             .build());
 
+    createPipeline(
+        cfg::PipelineIds::SSAOGen,
+        vk::PipelineParameters()
+            .withShaders(cfg::ShaderIds::EmptyVertex, cfg::ShaderIds::SSAOGenFragment)
+            .withResolveShader(cfg::ShaderIds::SSAOGenResolveFragment, VK_SHADER_STAGE_FRAGMENT_BIT)
+            .withSampleShader(cfg::ShaderIds::SSAOGenSampledFragment, VK_SHADER_STAGE_FRAGMENT_BIT)
+            .withDoesOwnResolve(true)
+            .withSampleShading(true, 1.f)
+            .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+            .withVertexFormat(prim::Vertex3D::bindingDescription(),
+                              prim::Vertex3D::attributeDescriptionsPositionsOnly())
+            .withRasterizer(rasterizer)
+            .withDepthStencilState(&depthStencilDepthDisabled)
+            .withBlendConfig(vk::BlendParameters().withSimpleColorBlendState(
+                vk::BlendParameters::ColorBlendBehavior::Overwrite))
+            .withSpecialization(
+                0,
+                vk::PipelineSpecialization()
+                    .createShaderSpecializations(vertexAndFragment, sizeof(std::int32_t), 1)
+                    .setShaderSpecializationValue<std::int32_t>(
+                        vertexAndFragment, 0, 0, sampleCount))
+            .withDynamicModifier([](Renderer& renderer,
+                                    vk::PipelineParameters& params,
+                                    const event::SettingsChanged& changeEvent) -> bool {
+                if (changeEvent.setting == event::SettingsChanged::AntiAliasing) {
+                    const std::uint32_t sampleCount =
+                        renderer.getSettings().getMSAASampleCountAsInt();
+                    params.visitSpecializations(
+                        [sampleCount](vk::PipelineSpecialization& specialization) {
+                            specialization.setShaderSpecializationValue<std::int32_t>(
+                                VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT,
+                                0,
+                                0,
+                                sampleCount);
+                        });
+                    return true;
+                }
+                return false;
+            })
+            .addDescriptorSet<ds::InputAttachmentFactory<4>>()
+            .addDescriptorSet<ds::Scene3DFactory>()
+            .addDescriptorSet<ds::SSAOFactory>()
+            .build());
+
+    createPipeline(cfg::PipelineIds::SSAOBlur,
+                   vk::PipelineParameters()
+                       .withShaders(cfg::ShaderIds::EmptyVertex, cfg::ShaderIds::SSAOBlurFragment)
+                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                       .withVertexFormat(prim::Vertex3D::bindingDescription(),
+                                         prim::Vertex3D::attributeDescriptionsPositionsOnly())
+                       .withRasterizer(rasterizer)
+                       .withDepthStencilState(&depthStencilDepthDisabled)
+                       .withBlendConfig(vk::BlendParameters().withSimpleColorBlendState(
+                           vk::BlendParameters::ColorBlendBehavior::Overwrite))
+                       .addDescriptorSet<ds::InputAttachmentFactory<1>>()
+                       .build());
+
     createPipeline(cfg::PipelineIds::Skybox,
                    vk::PipelineParameters()
                        .withShaders(cfg::ShaderIds::SkyboxVertex, cfg::ShaderIds::SkyboxFragment)
@@ -569,7 +626,7 @@ void PipelineCache::createBuiltins() {
                        .withBlendConfig(vk::BlendParameters().withSimpleColorBlendState(
                            vk::BlendParameters::ColorBlendBehavior::Overwrite))
                        .withDepthStencilState(&depthStencilDepthDisabled)
-                       .addDescriptorSet<ds::ColorAttachmentFactory>()
+                       .addDescriptorSet<ds::InputAttachmentFactory<1>>()
                        .addPushConstantRange(0, sizeof(float), VK_SHADER_STAGE_FRAGMENT_BIT)
                        .build());
 
@@ -582,8 +639,8 @@ void PipelineCache::createBuiltins() {
             .withBlendConfig(vk::BlendParameters().withSimpleColorBlendState(
                 vk::BlendParameters::ColorBlendBehavior::Overwrite))
             .withDepthStencilState(&depthStencilDepthDisabled)
-            .addDescriptorSet<ds::ColorAttachmentFactory>()
-            .addDescriptorSet<ds::ColorAttachmentFactory>()
+            .addDescriptorSet<ds::InputAttachmentFactory<1>>()
+            .addDescriptorSet<ds::InputAttachmentFactory<1>>()
             .addDescriptorSet<ds::GlobalDataFactory>()
             .build());
 
@@ -598,7 +655,7 @@ void PipelineCache::createBuiltins() {
             .withBlendConfig(vk::BlendParameters().withSimpleColorBlendState(
                 vk::BlendParameters::ColorBlendBehavior::Overwrite))
             .withDepthStencilState(&depthStencilDepthDisabled)
-            .addDescriptorSet<ds::ColorAttachmentFactory>()
+            .addDescriptorSet<ds::InputAttachmentFactory<1>>()
             .addPushConstantRange(0, BloomPcSize, VK_SHADER_STAGE_FRAGMENT_BIT)
             .build());
     createPipeline(cfg::PipelineIds::BloomBlur,
@@ -607,7 +664,7 @@ void PipelineCache::createBuiltins() {
                        .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                        .withRasterizer(rasterizer)
                        .withDepthStencilState(&depthStencilDepthDisabled)
-                       .addDescriptorSet<ds::ColorAttachmentFactory>()
+                       .addDescriptorSet<ds::InputAttachmentFactory<1>>()
                        .addPushConstantRange(0, BloomPcSize, VK_SHADER_STAGE_FRAGMENT_BIT)
                        .build());
 }

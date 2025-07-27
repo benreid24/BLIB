@@ -103,6 +103,20 @@ Settings& Settings::setAntiAliasing(AntiAliasing aa) {
     return *this;
 }
 
+Settings& Settings::setSSAO(SSAO ao) {
+    ssao  = ao;
+    dirty = true;
+    bl::event::Dispatcher::dispatch<Changed>({owner, *this, Setting::SSAO});
+    return *this;
+}
+
+Settings& Settings::setSSAOParams(float radius, float bias) {
+    ssaoRadius = radius;
+    ssaoBias   = bias;
+    bl::event::Dispatcher::dispatch<Changed>({owner, *this, Setting::SSAOParams});
+    return *this;
+}
+
 VkSampleCountFlagBits Settings::getMSAASampleCount() const {
     return static_cast<VkSampleCountFlagBits>(antiAliasing);
 }

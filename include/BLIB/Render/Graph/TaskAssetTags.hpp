@@ -26,6 +26,9 @@ struct TaskAssetTags {
 
     /// List of optional inputs
     std::vector<TaskInput> optionalInputs;
+
+    /// Assets that are required during execution of the task that aren't inputs or outputs
+    std::vector<std::string_view> sidecarAssets;
 };
 
 } // namespace rg

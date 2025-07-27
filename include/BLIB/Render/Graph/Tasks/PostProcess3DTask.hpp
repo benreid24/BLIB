@@ -2,7 +2,7 @@
 #define BLIB_RENDER_GRAPH_TASKS_POSTPROCESS3D_HPP
 
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
-#include <BLIB/Render/Descriptors/Builtin/ColorAttachmentInstance.hpp>
+#include <BLIB/Render/Descriptors/Builtin/InputAttachmentInstance.hpp>
 #include <BLIB/Render/Graph/Task.hpp>
 #include <BLIB/Render/Vulkan/AttachmentImageSet.hpp>
 #include <BLIB/Render/Vulkan/Pipeline.hpp>
@@ -36,8 +36,8 @@ private:
     Scene* scene;
     buf::IndexBuffer indexBuffer;
     vk::Pipeline* pipeline;
-    std::optional<ds::ColorAttachmentInstance> colorAttachmentSet;
-    std::optional<ds::ColorAttachmentInstance> bloomAttachmentSet;
+    std::optional<ds::InputAttachmentInstance> colorAttachmentSet;
+    std::optional<ds::InputAttachmentInstance> bloomAttachmentSet;
     std::optional<vk::AttachmentImageSet> dummyBloomBuffer;
 
     virtual void create(engine::Engine& engine, Renderer& renderer, Scene* scene) override;

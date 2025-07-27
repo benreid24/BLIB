@@ -8,4 +8,5 @@ target_sources(BLIB PUBLIC
 	PostProcess3DTask.hpp
 	RenderOverlayTask.hpp
 	ShadowMapTask.hpp
+	SSAOTask.hpp
 )

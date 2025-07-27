@@ -1,6 +1,7 @@
 #include <BLIB/Render/Graph/Tasks/PostProcess3DTask.hpp>
 
 #include <BLIB/Render/Config/PipelineIds.hpp>
+#include <BLIB/Render/Descriptors/Builtin/InputAttachmentFactory.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Graph/Assets/BloomAssets.hpp>
 #include <BLIB/Render/Graph/Assets/FramebufferAsset.hpp>
@@ -49,19 +50,18 @@ void PostProcess3DTask::onGraphInit() {
     // init scene input descriptor set
     const auto sampler   = renderer->samplerCache().noFilterEdgeClamped();
     const auto setLayout = renderer->descriptorFactoryCache()
-                               .getFactoryThatMakes<ds::ColorAttachmentInstance>()
+                               .getFactory<ds::InputAttachmentFactory<1>>()
                                ->getDescriptorLayout();
 
-    colorAttachmentSet.emplace(renderer->vulkanState(), setLayout);
-    colorAttachmentSet.value().initAttachments(input->getAttachmentSets(), 0, sampler);
+    colorAttachmentSet.emplace(renderer->vulkanState(), setLayout, 1, 0);
+    colorAttachmentSet.value().initAttachments(input->getAttachmentSets(), sampler);
 
     // init bloom blur descriptor set
-    bloomAttachmentSet.emplace(renderer->vulkanState(), setLayout);
+    bloomAttachmentSet.emplace(renderer->vulkanState(), setLayout, 1, 0);
     if (assets.optionalInputs[0]) {
         auto& bloomBlur =
             dynamic_cast<BloomColorAttachmentPairAsset&>(assets.optionalInputs[0]->asset.get());
-        bloomAttachmentSet.value().initAttachments(
-            bloomBlur.get(0).getAttachmentSets(), 0, sampler);
+        bloomAttachmentSet.value().initAttachments(bloomBlur.get(0).getAttachmentSets(), sampler);
     }
     else {
         VkFormat formats[]         = {vk::TextureFormat::HDRColor};
@@ -70,8 +70,8 @@ void PostProcess3DTask::onGraphInit() {
         dummyBloomBuffer.value().create(renderer->vulkanState(), 1, {32, 32}, formats, usages);
         dummyBloomBuffer.value().getBuffer(0).clearAndTransition(
             VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, {});
-        bloomAttachmentSet.value().initAttachments(
-            &dummyBloomBuffer.value().attachmentSet(), 0, sampler);
+        bloomAttachmentSet.value().initAttachments(&dummyBloomBuffer.value().attachmentSet(),
+                                                   sampler);
     }
 }
 

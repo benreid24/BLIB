@@ -41,22 +41,27 @@ struct ShaderIds {
     static constexpr char DeferredLightVolumeResolvedFragment[] = {16, 0};
     static constexpr char DeferredLightVolumeSampledFragment[]  = {17, 0};
 
-    static constexpr char Vertex2D[]        = {18, 0};
-    static constexpr char Fragment2DLit[]   = {19, 0};
-    static constexpr char Fragment2DUnlit[] = {20, 0};
+    static constexpr char SSAOBlurFragment[]       = {18, 0};
+    static constexpr char SSAOGenFragment[]        = {19, 0};
+    static constexpr char SSAOGenResolveFragment[] = {20, 0};
+    static constexpr char SSAOGenSampledFragment[] = {21, 0};
 
-    static constexpr char Vertex2DSkinned[]           = {21, 0};
-    static constexpr char Fragment2DSkinnedUnlit[]    = {22, 0};
-    static constexpr char Fragment2DSkinnedLit[]      = {23, 0};
-    static constexpr char Fragment2DRotatedParticle[] = {24, 0};
+    static constexpr char Vertex2D[]        = {22, 0};
+    static constexpr char Fragment2DLit[]   = {23, 0};
+    static constexpr char Fragment2DUnlit[] = {24, 0};
 
-    static constexpr char TextFragment[]  = {25, 0};
-    static constexpr char SlideshowVert[] = {26, 0};
+    static constexpr char Vertex2DSkinned[]           = {25, 0};
+    static constexpr char Fragment2DSkinnedUnlit[]    = {26, 0};
+    static constexpr char Fragment2DSkinnedLit[]      = {27, 0};
+    static constexpr char Fragment2DRotatedParticle[] = {28, 0};
 
-    static constexpr char ShadowVertex[]        = {27, 0};
-    static constexpr char PointShadowVertex[]   = {28, 0};
-    static constexpr char PointShadowGeometry[] = {29, 0};
-    static constexpr char PointShadowFragment[] = {30, 0};
+    static constexpr char TextFragment[]  = {29, 0};
+    static constexpr char SlideshowVert[] = {30, 0};
+
+    static constexpr char ShadowVertex[]        = {31, 0};
+    static constexpr char PointShadowVertex[]   = {32, 0};
+    static constexpr char PointShadowGeometry[] = {33, 0};
+    static constexpr char PointShadowFragment[] = {34, 0};
 
     static constexpr char BloomBlurFragment[]            = {124, 0};
     static constexpr char BloomHighlightFilterFragment[] = {125, 0};

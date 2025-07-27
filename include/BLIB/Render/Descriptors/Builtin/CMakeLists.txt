@@ -1,6 +1,4 @@
 target_sources(BLIB PUBLIC
-    ColorAttachmentFactory.hpp
-	ColorAttachmentInstance.hpp
     CommonBindings.hpp
 	CommonShaderInputs.hpp
 	GlobalDataFactory.hpp
@@ -20,5 +18,7 @@ target_sources(BLIB PUBLIC
 	ShadowMapBinding.hpp
 	SlideshowFactory.hpp
 	SlideshowInstance.hpp
+	SSAOFactory.hpp
+	SSAOInstance.hpp
 	Transform3DPayload.hpp
 )
