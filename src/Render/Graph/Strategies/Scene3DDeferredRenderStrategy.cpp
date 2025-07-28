@@ -7,6 +7,7 @@
 #include <BLIB/Render/Graph/Tasks/ForwardRenderTransparentTask.hpp>
 #include <BLIB/Render/Graph/Tasks/Outline3DTask.hpp>
 #include <BLIB/Render/Graph/Tasks/PostProcess3DTask.hpp>
+#include <BLIB/Render/Graph/Tasks/SSAOTask.hpp>
 #include <BLIB/Render/Graph/Tasks/ShadowMapTask.hpp>
 
 namespace bl
@@ -23,6 +24,7 @@ void Scene3DDeferredRenderStrategy::populate(rg::RenderGraph& graph) {
     graph.putTask<rgi::BloomTask>();
     graph.putTask<rgi::ShadowMapTask>();
     graph.putTask<rgi::Outline3DTask>();
+    graph.putTask<rgi::SSAOTask>();
 }
 
 } // namespace rgi

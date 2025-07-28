@@ -61,10 +61,49 @@ public:
     void bind(scene::SceneRenderContext& ctx, std::uint32_t specialization = 0,
               UpdateSpeed updateFreq = UpdateSpeed::Dynamic);
 
+    /**
+     * @brief Returns the descriptor set with the given type. Performs a linear search
+     *
+     * @tparam T The type of the descriptor set to get
+     * @return A pointer to the descriptor set. Nullptr if not found
+     */
+    template<typename T>
+    T* getDescriptorSet();
+
+    /**
+     * @brief Returns the descriptor set with the given type with an index hint
+     *
+     * @tparam T The type of the descriptor set to get
+     * @param indexHint The index to check first for the given set
+     * @return A pointer to the descriptor set. Nullptr if not found
+     */
+    template<typename T>
+    T* getDescriptorSet(std::uint32_t indexHint);
+
 private:
     vk::Pipeline* pipeline;
     ctr::StaticVector<ds::DescriptorSetInstance*, 4> descriptorSets;
 };
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+template<typename T>
+T* PipelineInstance::getDescriptorSet(std::uint32_t indexHint) {
+    if (indexHint < descriptorSets.size()) {
+        T* set = dynamic_cast<T*>(descriptorSets[indexHint]);
+        if (set) { return set; }
+    }
+    return getDescriptorSet<T>();
+}
+
+template<typename T>
+T* PipelineInstance::getDescriptorSet() {
+    for (ds::DescriptorSetInstance* set : descriptorSets) {
+        T* s = dynamic_cast<T*>(set);
+        if (s) { return s; }
+    }
+    return nullptr;
+}
 
 } // namespace vk
 } // namespace rc

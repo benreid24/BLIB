@@ -25,7 +25,7 @@ void main() {
     vec3 viewDir = normalize(camera.camPos - position);
     vec3 specular = specularAndShiny.xyz;
     float shininess = specularAndShiny.w;
-    float ssao = texture(ssaoBuffer, uv).r;
+    float ssao = texture(ssaoBuffer, gl_FragCoord.xy / textureSize(ssaoBuffer, 0)).r;
 
     if (lightingEnabled) {
         outColor = computeLightColor(

@@ -184,9 +184,10 @@ public:
      *
      * @param radius The radius to sample for occlusion detection, in world space
      * @param bias A depth bias to add to the sampled geometry, in world space
+     * @param exponent The exponent to raise the SSAO factor to
      * @return A reference to this object
      */
-    Settings& setSSAOParams(float radius, float bias);
+    Settings& setSSAOParams(float radius, float bias, float exponent);
 
     /**
      * @brief Returns the current SSAO setting
@@ -202,6 +203,11 @@ public:
      * @brief Returns the depth bias used by the SSAO algorithm in world units
      */
     float getSSAOBias() const;
+
+    /**
+     * @brief Returns the exponent that the SSAO factor is raised to
+     */
+    float getSSAOExponent() const;
 
 private:
     Renderer& owner;
@@ -219,6 +225,7 @@ private:
     SSAO ssao;
     float ssaoRadius;
     float ssaoBias;
+    float ssaoExponent;
     bool dirty;
 
     friend class Renderer;
@@ -259,6 +266,8 @@ inline Settings::SSAO Settings::getSSAO() const { return ssao; }
 inline float Settings::getSSAORadius() const { return ssaoRadius; }
 
 inline float Settings::getSSAOBias() const { return ssaoBias; }
+
+inline float Settings::getSSAOExponent() const { return ssaoExponent; }
 
 } // namespace rc
 } // namespace bl

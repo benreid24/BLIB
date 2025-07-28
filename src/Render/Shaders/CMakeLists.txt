@@ -5,6 +5,7 @@ compile_shaders(
     
     SHADERS
 	empty.vert
+    fullscreen.vert
 
     3D/mesh.vert
     3D/meshMaterial.vert

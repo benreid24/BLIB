@@ -25,6 +25,8 @@ VkShaderModule ShaderModuleCache::loadShader(const std::string& path) {
         switch (path[0]) {
         case cfg::ShaderIds::EmptyVertex[0]:
             return loadShader(BUILTIN_SHADER("empty.vert.spv"));
+        case cfg::ShaderIds::FullscreenVertex[0]:
+            return loadShader(BUILTIN_SHADER("fullscreen.vert.spv"));
 
         case cfg::ShaderIds::MeshVertex[0]:
             return loadShader(BUILTIN_SHADER("3D/mesh.vert.spv"));

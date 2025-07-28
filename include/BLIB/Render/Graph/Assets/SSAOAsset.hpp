@@ -16,7 +16,7 @@ namespace rgi
  * @ingroup Renderer
  */
 using SSAOAsset =
-    GenericTargetAsset<cfg::RenderPassIds::SSAOPass, 1, RenderPassBehavior::StartedByAsset,
+    GenericTargetAsset<cfg::RenderPassIds::SSAOPass, 1, RenderPassBehavior::StartedByTask,
                        DepthAttachmentType::None, MSAABehavior::Disabled>;
 
 } // namespace rgi

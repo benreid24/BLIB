@@ -199,6 +199,17 @@ void RenderPassCache::addDefaults() {
     bloomParams.addSubpassDependency(prePassRenderDoneDep);
     createRenderPass(cfg::RenderPassIds::BloomPass, bloomParams.build());
 
+    VkAttachmentDescription ssaoAttachment = hdrColorAttachment;
+    ssaoAttachment.format                  = vk::TextureFormat::SingleChannelUnorm8;
+    vk::RenderPassParameters ssaoParams;
+    ssaoParams.addAttachment(ssaoAttachment);
+    ssaoParams.addSubpass(vk::RenderPassParameters::SubPass()
+                              .withAttachment(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL)
+                              .build());
+    ssaoParams.addSubpassDependency(postPassRenderCompleteDep);
+    ssaoParams.addSubpassDependency(prePassRenderDoneDep);
+    createRenderPass(cfg::RenderPassIds::SSAOPass, ssaoParams.build());
+
     VkAttachmentDescription shadowMapAttachment = depthAttachment;
     shadowMapAttachment.format                  = renderer.vulkanState().findShadowMapFormat();
     shadowMapAttachment.initialLayout           = VK_IMAGE_LAYOUT_UNDEFINED;

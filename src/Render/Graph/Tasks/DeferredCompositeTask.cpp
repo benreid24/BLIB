@@ -28,6 +28,7 @@ DeferredCompositeTask::DeferredCompositeTask()
                                                   rg::TaskOutput::First));
     assetTags.requiredInputs.emplace_back(
         rg::TaskInput({rg::AssetTags::GBufferHDR, rg::AssetTags::GBuffer}));
+    assetTags.optionalInputs.emplace_back(rg::TaskInput(rg::AssetTags::SSAOBuffer));
 }
 
 void DeferredCompositeTask::create(engine::Engine&, Renderer& r, Scene* s) {
@@ -73,9 +74,6 @@ void DeferredCompositeTask::onGraphInit() {
 void DeferredCompositeTask::execute(const rg::ExecutionContext& ctx, rg::Asset* output) {
     const auto layout    = pipeline->pipelineLayout().rawLayout();
     const auto& lighting = sceneDescriptor->getUniform();
-    FramebufferAsset* input =
-        dynamic_cast<FramebufferAsset*>(&assets.requiredInputs[0]->asset.get());
-    if (!input) { throw std::runtime_error("Got bad input"); }
     FramebufferAsset* fb = dynamic_cast<FramebufferAsset*>(output);
     if (!fb) { throw std::runtime_error("Got bad output"); }
 

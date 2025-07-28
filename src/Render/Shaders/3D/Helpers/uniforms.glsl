@@ -148,6 +148,7 @@ layout(set = SSAO_SET_NUMBER, binding = 0) uniform ssao_block {
     uint sampleCount;
     float radius;
     float bias;
+    float exponent;
 } ssaoParams;
 #endif
 

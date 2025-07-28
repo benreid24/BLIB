@@ -23,6 +23,7 @@ struct SSAOShaderPayload {
     std::uint32_t sampleCount;
     float radius;
     float bias;
+    float exponent;
 };
 
 /**

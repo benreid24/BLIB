@@ -20,6 +20,10 @@ constexpr float DefaultShadowMapDepthBiasConstantFactor = 1.25f;
 constexpr float DefaultShadowMapDepthBiasSlopeFactor    = 1.75f;
 constexpr float DefaultShadowMapDepthBiasClamp          = 0.f;
 constexpr Settings::AntiAliasing DefaultAntiAliasing    = Settings::AntiAliasing::None;
+constexpr Settings::SSAO DefaultSSAO                    = Settings::SSAO::None;
+constexpr float DefaultSSAORadius                       = 1.5f;
+constexpr float DefaultSSAOBias                         = 0.025f;
+constexpr float DefaultSSAOExponent                     = 5.f;
 
 using Changed = event::SettingsChanged;
 using Setting = Changed::Setting;
@@ -37,6 +41,10 @@ Settings::Settings(Renderer& owner)
 , shadowMapDepthBiasSlopeFactor(DefaultShadowMapDepthBiasSlopeFactor)
 , shadowMapDepthBiasClamp(DefaultShadowMapDepthBiasClamp)
 , antiAliasing(DefaultAntiAliasing)
+, ssao(DefaultSSAO)
+, ssaoRadius(DefaultSSAORadius)
+, ssaoBias(DefaultSSAOBias)
+, ssaoExponent(DefaultSSAOExponent)
 , dirty(true) {
     for (unsigned int i = 0; i < std::size(DefaultBloomFilters); ++i) {
         bloomFilters[i] = DefaultBloomFilters[i];
@@ -110,9 +118,10 @@ Settings& Settings::setSSAO(SSAO ao) {
     return *this;
 }
 
-Settings& Settings::setSSAOParams(float radius, float bias) {
-    ssaoRadius = radius;
-    ssaoBias   = bias;
+Settings& Settings::setSSAOParams(float radius, float bias, float exp) {
+    ssaoRadius   = radius;
+    ssaoBias     = bias;
+    ssaoExponent = exp;
     bl::event::Dispatcher::dispatch<Changed>({owner, *this, Setting::SSAOParams});
     return *this;
 }

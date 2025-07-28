@@ -119,8 +119,9 @@ private:
             {.format = bl::rc::vk::TextureFormat::SRGBA32Bit, .genMipmaps = true});
         auto woodMaterial = engine.renderer().materialPool().getOrCreateFromTexture(woodTexture);
 
-        // set msaa
+        // set renderer settings
         engine.renderer().getSettings().setAntiAliasing(bl::rc::Settings::AntiAliasing::MSAA4x);
+        engine.renderer().getSettings().setSSAO(bl::rc::Settings::SSAO::Ultra);
 
         constexpr float FloorSize = 5.f;
         floor.create(*world, 6);

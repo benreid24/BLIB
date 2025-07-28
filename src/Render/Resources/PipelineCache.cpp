@@ -332,7 +332,7 @@ void PipelineCache::createBuiltins() {
     createPipeline(
         cfg::PipelineIds::SSAOGen,
         vk::PipelineParameters()
-            .withShaders(cfg::ShaderIds::EmptyVertex, cfg::ShaderIds::SSAOGenFragment)
+            .withShaders(cfg::ShaderIds::FullscreenVertex, cfg::ShaderIds::SSAOGenFragment)
             .withResolveShader(cfg::ShaderIds::SSAOGenResolveFragment, VK_SHADER_STAGE_FRAGMENT_BIT)
             .withSampleShader(cfg::ShaderIds::SSAOGenSampledFragment, VK_SHADER_STAGE_FRAGMENT_BIT)
             .withDoesOwnResolve(true)
@@ -373,18 +373,19 @@ void PipelineCache::createBuiltins() {
             .addDescriptorSet<ds::SSAOFactory>()
             .build());
 
-    createPipeline(cfg::PipelineIds::SSAOBlur,
-                   vk::PipelineParameters()
-                       .withShaders(cfg::ShaderIds::EmptyVertex, cfg::ShaderIds::SSAOBlurFragment)
-                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
-                       .withVertexFormat(prim::Vertex3D::bindingDescription(),
-                                         prim::Vertex3D::attributeDescriptionsPositionsOnly())
-                       .withRasterizer(rasterizer)
-                       .withDepthStencilState(&depthStencilDepthDisabled)
-                       .withBlendConfig(vk::BlendParameters().withSimpleColorBlendState(
-                           vk::BlendParameters::ColorBlendBehavior::Overwrite))
-                       .addDescriptorSet<ds::InputAttachmentFactory<1>>()
-                       .build());
+    createPipeline(
+        cfg::PipelineIds::SSAOBlur,
+        vk::PipelineParameters()
+            .withShaders(cfg::ShaderIds::FullscreenVertex, cfg::ShaderIds::SSAOBlurFragment)
+            .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+            .withVertexFormat(prim::Vertex3D::bindingDescription(),
+                              prim::Vertex3D::attributeDescriptionsPositionsOnly())
+            .withRasterizer(rasterizer)
+            .withDepthStencilState(&depthStencilDepthDisabled)
+            .withBlendConfig(vk::BlendParameters().withSimpleColorBlendState(
+                vk::BlendParameters::ColorBlendBehavior::Overwrite))
+            .addDescriptorSet<ds::InputAttachmentFactory<1>>()
+            .build());
 
     createPipeline(cfg::PipelineIds::Skybox,
                    vk::PipelineParameters()
