@@ -19,6 +19,7 @@ target_sources(BLIB PUBLIC
     Resources.hpp
     Scripts.hpp
     Serialization.hpp
+    Signals.hpp
     Systems.hpp
     Tilemap.hpp
     Util.hpp
@@ -43,6 +44,7 @@ add_subdirectory(Particles)
 add_subdirectory(Render)
 add_subdirectory(Scripts)
 add_subdirectory(Serialization)
+add_subdirectory(Signals)
 add_subdirectory(Systems)
 add_subdirectory(Tilemap)
 add_subdirectory(Util)
