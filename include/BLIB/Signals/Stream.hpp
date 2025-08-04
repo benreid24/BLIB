@@ -12,10 +12,20 @@ namespace bl
 /// Contains all the classes and functionality for signals
 namespace sig
 {
+namespace priv
+{
+class StreamBase {
+public:
+    virtual ~StreamBase() = default;
+};
+} // namespace priv
+
 template<typename T>
 class Stream {
 public:
     Stream(std::size_t capacityHint = 16);
+
+    virtual ~Stream() = default;
 
     void subscribe(Handler<T>* handler);
 
@@ -97,7 +107,7 @@ void Stream<T>::syncDeferred() {
 }
 
 template<typename T>
-bool Stream<T>::doAdd(Handler<T>* handler, Handler<T>* replacement) {
+bool Stream<T>::doAdd(Handler<T>* handler) {
     if (allHandlers.emplace(handler).second) { listeners.emplace_back(handler); }
 }
 
