@@ -4,6 +4,7 @@
 #include <BLIB/Containers/FastEraseVector.hpp>
 #include <BLIB/Signals/Stream.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
+#include <atomic>
 #include <mutex>
 #include <typeindex>
 #include <unordered_map>
@@ -15,7 +16,8 @@ namespace sig
 namespace priv
 {
 class EmitterBase;
-}
+class ListenerBase;
+} // namespace priv
 
 class Channel : private util::NonCopyable {
 public:
@@ -30,11 +32,13 @@ public:
     template<typename TSignal>
     Stream<TSignal>* getStream();
 
+    void syncDeferred();
+
 private:
     std::mutex mutex;
+    std::atomic_bool needDeferSync;
     std::unordered_map<std::type_index, priv::StreamBase*> streams;
     ctr::FastEraseVector<priv::EmitterBase*> emitters;
-    // TODO - track subscribed listeners
 
     friend class priv::EmitterBase;
 };
@@ -43,6 +47,7 @@ private:
 
 template<typename TSignal>
 Stream<TSignal>* Channel::getStream() {
+    needDeferSync = true;
     const std::type_index key(typeid(TSignal));
     auto it = streams.find(key);
     if (it == streams.end()) { it = streams.try_emplace(key, new Stream<TSignal>()).first; }

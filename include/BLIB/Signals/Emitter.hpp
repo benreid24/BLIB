@@ -1,8 +1,9 @@
-#ifndef BLIB_SIGNALS_DISPATCHER_HPP
-#define BLIB_SIGNALS_DISPATCHER_HPP
+#ifndef BLIB_SIGNALS_EMITTER_HPP
+#define BLIB_SIGNALS_EMITTER_HPP
 
 #include <BLIB/Logging.hpp>
 #include <BLIB/Signals/Channel.hpp>
+#include <BLIB/Signals/Priv/EmitterBase.hpp>
 #include <BLIB/Signals/Stream.hpp>
 #include <tuple>
 
@@ -10,69 +11,6 @@ namespace bl
 {
 namespace sig
 {
-/// Implementation detail namespace for the Signals module
-namespace priv
-{
-class EmitterBase {
-public:
-    virtual void disconnect() = 0;
-
-protected:
-    Channel* connectedTo;
-
-    void registerWithChannel() {
-        if (connectedTo) {
-            std::unique_lock lock(connectedTo->mutex);
-            registerWithChannelUnlocked();
-        }
-    }
-
-    void registerWithChannelUnlocked() {
-        if (connectedTo) { connectedTo->emitters.emplace_back(this); }
-    }
-
-    void replaceRegistration(EmitterBase* oldEmitter) {
-        if (connectedTo) {
-            std::unique_lock lock(connectedTo->mutex);
-
-            for (auto it = connectedTo->emitters.begin(); it != connectedTo->emitters.end(); ++it) {
-                if (*it == oldEmitter) {
-                    *it = this;
-                    return;
-                }
-            }
-
-            // register if not found
-            registerWithChannelUnlocked();
-        }
-    };
-
-    void unregisterFromChannel() {
-        if (connectedTo) {
-            std::unique_lock lock(connectedTo->mutex);
-            unregisterFromChannelUnlocked();
-        }
-    }
-
-    void unregisterFromChannelUnlocked() {
-        if (connectedTo) {
-            for (auto it = connectedTo->emitters.begin(); it != connectedTo->emitters.end(); ++it) {
-                if (*it == this) {
-                    connectedTo->emitters.erase(it);
-                    return;
-                }
-            }
-        }
-    }
-
-    std::unique_lock<std::mutex>&& makeLock() {
-        return std::unique_lock<std::mutex>(connectedTo->mutex);
-    }
-
-    friend class Channel;
-};
-} // namespace priv
-
 template<typename... TSignals>
 class Emitter : public priv::EmitterBase {
 public:
@@ -93,35 +31,43 @@ public:
     virtual void disconnect() override;
 
     template<typename T>
-    void signal(const T& signal);
+    void emit(const T& signal);
 
     template<typename T>
-    void signalSynchronized(const T& signal);
+    void emitSynchronized(const T& signal);
+
+    bool isConnected() const;
 
 private:
+    bool connected;
     std::tuple<Stream<TSignals>*...> streams;
+
+    void registerWithStreams();
+    void replaceStreamRegistrations(Emitter* other);
+    void removeStreamRegistrations();
+    std::array<priv::StreamBase*, sizeof...(TSignals)> getStreams();
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename... TSignals>
 Emitter<TSignals...>::Emitter()
-: connectedTo(nullptr)
+: connected(false)
 , streams{} {}
 
 template<typename... TSignals>
 Emitter<TSignals...>::Emitter(const Emitter& other)
-: connectedTo(other.connectedTo)
+: connected(other.connected)
 , streams(other.streams) {
-    registerWithChannel();
+    registerWithStreams();
 }
 
 template<typename... TSignals>
 Emitter<TSignals...>::Emitter(Emitter&& other)
-: connectedTo(other.connectedTo)
-, streams(others.streams) {
-    replaceRegistration(&other);
-    other.connectedTo = nullptr;
+: connected(other.connected)
+, streams(other.streams) {
+    replaceStreamRegistrations(&other);
+    other.connected = false;
 }
 
 template<typename... TSignals>
@@ -131,18 +77,18 @@ Emitter<TSignals...>::~Emitter() {
 
 template<typename... TSignals>
 Emitter<TSignals...>& Emitter<TSignals...>::operator=(const Emitter& other) {
-    connectedTo = other.connectedTo;
-    streams     = other.streams;
-    registerWithChannel();
+    connected = other.connected;
+    streams   = other.streams;
+    registerWithStreams();
     return *this;
 }
 
 template<typename... TSignals>
 Emitter<TSignals...>& Emitter<TSignals...>::operator=(Emitter&& other) {
-    connectedTo = other.connectedTo;
-    streams     = other.streams;
-    replaceRegistration(&other);
-    other.connectedTo = nullptr;
+    connected = other.connected;
+    streams   = other.streams;
+    replaceStreamRegistrations(&other);
+    other.connected = false;
     return *this;
 }
 
@@ -150,27 +96,62 @@ template<typename... TSignals>
 void Emitter<TSignals...>::connect(Channel& channel) {
     disconnect();
 
-    std::unique_lock lock(makeLock());
-    connectedTo = &channel;
+    connected = true;
     std::apply([&channel](Stream<TSignals>*... s) { ((s = channel.getStream<TSignals>()), ...); },
                streams);
-    registerWithChannelUnlocked();
+    registerWithStreams();
 }
 
 template<typename... TSignals>
 void Emitter<TSignals...>::disconnect() {
-    if (connectedTo) {
-        std::unique_lock lock(makeLock());
-        unregisterFromChannelUnlocked();
-        connectedTo = nullptr;
+    if (connected) {
+        removeStreamRegistrations();
+        connected = false;
         std::apply([](Stream<TSignals>*... s) { ((s = nullptr), ...); }, streams);
     }
 }
 
 template<typename... TSignals>
+bool Emitter<TSignals...>::isConnected() const {
+    return connected;
+}
+
+template<typename... TSignals>
+void Emitter<TSignals...>::registerWithStreams() {
+    if (connected) {
+        auto streamArray = getStreams();
+        registerWithStreams(streamArray.data(), streamArray.size());
+    }
+}
+
+template<typename... TSignals>
+void Emitter<TSignals...>::replaceStreamRegistrations(Emitter* other) {
+    if (connected) {
+        auto streamArray = getStreams();
+        replaceStreamRegistrations(streamArray.data(), streamArray.size(), other);
+    }
+}
+
+template<typename... TSignals>
+void Emitter<TSignals...>::removeStreamRegistrations() {
+    if (connected) {
+        auto streamArray = getStreams();
+        removeStreamRegistrations(streamArray.data(), streamArray.size());
+    }
+}
+
+template<typename... TSignals>
+std::array<priv::StreamBase*, sizeof...(TSignals)> Emitter<TSignals...>::getStreams() {
+    std::array<priv::StreamBase*, sizeof...(TSignals)> result{};
+    unsigned int i = 0;
+    std::apply([&result, &i](Stream<TSignals>*... s) { ((result[i++] = s), ...); }, streams);
+    return result;
+}
+
+template<typename... TSignals>
 template<typename T>
-void Emitter<TSignals...>::signal(const T& signal) {
-    if (connectedTo) {
+void Emitter<TSignals...>::emit(const T& signal) {
+    if (connected) {
         if constexpr (std::disjunction_v<std::is_same<T, TSignals>...>) {
             auto& stream = std::get<Stream<T>*>(streams);
             stream->signal(signal);
@@ -185,8 +166,8 @@ void Emitter<TSignals...>::signal(const T& signal) {
 
 template<typename... TSignals>
 template<typename T>
-void Emitter<TSignals...>::signalSynchronized(const T& signal) {
-    if (connectedTo) {
+void Emitter<TSignals...>::emitSynchronized(const T& signal) {
+    if (connected) {
         if constexpr (std::disjunction_v<std::is_same<T, TSignals>...>) {
             auto& stream = std::get<Stream<T>*>(streams);
             stream->signalSynchronized(signal);

@@ -1,17 +1,34 @@
 #ifndef BLIB_SIGNALS_HANDLER_HPP
 #define BLIB_SIGNALS_HANDLER_HPP
 
+#include <BLIB/Util/NonCopyable.hpp>
+
 namespace bl
 {
 namespace sig
 {
 template<typename T>
-class Handler {
+class Stream;
+
+template<typename T>
+class Handler : private util::NonCopyable {
 public:
-    virtual ~Handler() = default;
+    Handler()
+    : subscribedTo(nullptr) {}
+
+    virtual ~Handler();
 
     virtual void process(const T& signal) = 0;
+
+protected:
+    Stream<T>* subscribedTo;
+
+    void unsubscribe();
+    void unsubscribeDeferred();
+
+    friend class Stream<T>;
 };
+
 } // namespace sig
 } // namespace bl
 

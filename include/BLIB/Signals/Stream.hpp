@@ -3,6 +3,7 @@
 
 #include <BLIB/Containers/FastEraseVector.hpp>
 #include <BLIB/Signals/Handler.hpp>
+#include <BLIB/Signals/Priv/StreamBase.hpp>
 #include <mutex>
 #include <unordered_set>
 #include <vector>
@@ -12,20 +13,12 @@ namespace bl
 /// Contains all the classes and functionality for signals
 namespace sig
 {
-namespace priv
-{
-class StreamBase {
-public:
-    virtual ~StreamBase() = default;
-};
-} // namespace priv
-
 template<typename T>
-class Stream {
+class Stream : public priv::StreamBase {
 public:
     Stream(std::size_t capacityHint = 16);
 
-    virtual ~Stream() = default;
+    virtual ~Stream();
 
     void subscribe(Handler<T>* handler);
 
@@ -39,7 +32,7 @@ public:
 
     void signalSynchronized(const T& signal);
 
-    void syncDeferred();
+    virtual void syncDeferred() override;
 
 private:
     ctr::FastEraseVector<Handler<T>*> listeners;
@@ -48,6 +41,7 @@ private:
     std::unordered_set<Handler<T>*> allHandlers;
     std::mutex mutex;
     std::mutex deferMutex;
+    std::atomic_bool needDeferSync;
 
     bool doAdd(Handler<T>* handler);
     void doRemove(Handler<T>* handler);
@@ -56,8 +50,14 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>
-Stream<T>::Stream(std::size_t capacityHint) {
+Stream<T>::Stream(std::size_t capacityHint)
+: needDeferSync(false) {
     listeners.reserve(capacityHint);
+}
+
+template<typename T>
+Stream<T>::~Stream() {
+    for (Handler<T>* handler : listeners) { handler->subscribedTo = nullptr; }
 }
 
 template<typename T>
@@ -97,9 +97,12 @@ void Stream<T>::signalSynchronized(const T& signal) {
 
 template<typename T>
 void Stream<T>::syncDeferred() {
+    if (!needDeferSync) return;
+
     std::unique_lock mainLock(mutex);
     std::unique_lock deferLock(deferMutex);
 
+    needDeferSync = false;
     for (Handler<T>* handler : toAdd) { doAdd(handler); }
     for (Handler<T>* handler : toRemove) { doRemove(handler); }
     toAdd.clear();
@@ -108,11 +111,13 @@ void Stream<T>::syncDeferred() {
 
 template<typename T>
 bool Stream<T>::doAdd(Handler<T>* handler) {
+    handler->subscribedTo = this;
     if (allHandlers.emplace(handler).second) { listeners.emplace_back(handler); }
 }
 
 template<typename T>
 void Stream<T>::doRemove(Handler<T>* handler) {
+    handler->subscribedTo = nullptr;
     if (allHandlers.erase(handler) > 0) {
         for (auto it = listeners.begin(); it != listeners.end(); ++it) {
             if (*it == handler) {
@@ -120,6 +125,27 @@ void Stream<T>::doRemove(Handler<T>* handler) {
                 return;
             }
         }
+    }
+}
+
+template<typename T>
+Handler<T>::~Handler() {
+    unsubscribe();
+}
+
+template<typename T>
+void Handler<T>::unsubscribe() {
+    if (subscribedTo) {
+        subscribedTo->unsubscribe(this);
+        subscribedTo = nullptr;
+    }
+}
+
+template<typename T>
+void Handler<T>::unsubscribeDeferred() {
+    if (subscribedTo) {
+        subscribedTo->unsubscribeDeferred(this);
+        subscribedTo = nullptr;
     }
 }
 
