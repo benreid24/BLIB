@@ -26,6 +26,8 @@ protected:
     void unsubscribe();
     void unsubscribeDeferred();
 
+    template<typename...>
+    friend class Listener;
     friend class Stream<T>;
 };
 

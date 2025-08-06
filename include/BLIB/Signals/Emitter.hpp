@@ -5,6 +5,7 @@
 #include <BLIB/Signals/Channel.hpp>
 #include <BLIB/Signals/Priv/EmitterBase.hpp>
 #include <BLIB/Signals/Stream.hpp>
+#include <array>
 #include <tuple>
 
 namespace bl
@@ -46,6 +47,7 @@ private:
     void replaceStreamRegistrations(Emitter* other);
     void removeStreamRegistrations();
     std::array<priv::StreamBase*, sizeof...(TSignals)> getStreams();
+    virtual void disconnectForStreamDesctruction() override;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -97,7 +99,7 @@ void Emitter<TSignals...>::connect(Channel& channel) {
     disconnect();
 
     connected = true;
-    std::apply([&channel](Stream<TSignals>*... s) { ((s = channel.getStream<TSignals>()), ...); },
+    std::apply([&channel](Stream<TSignals>*&... s) { ((s = channel.getStream<TSignals>()), ...); },
                streams);
     registerWithStreams();
 }
@@ -106,8 +108,7 @@ template<typename... TSignals>
 void Emitter<TSignals...>::disconnect() {
     if (connected) {
         removeStreamRegistrations();
-        connected = false;
-        std::apply([](Stream<TSignals>*... s) { ((s = nullptr), ...); }, streams);
+        disconnectForStreamDesctruction();
     }
 }
 
@@ -120,7 +121,7 @@ template<typename... TSignals>
 void Emitter<TSignals...>::registerWithStreams() {
     if (connected) {
         auto streamArray = getStreams();
-        registerWithStreams(streamArray.data(), streamArray.size());
+        EmitterBase::registerWithStreams(streamArray.data(), streamArray.size());
     }
 }
 
@@ -128,7 +129,7 @@ template<typename... TSignals>
 void Emitter<TSignals...>::replaceStreamRegistrations(Emitter* other) {
     if (connected) {
         auto streamArray = getStreams();
-        replaceStreamRegistrations(streamArray.data(), streamArray.size(), other);
+        EmitterBase::replaceStreamRegistrations(streamArray.data(), streamArray.size(), other);
     }
 }
 
@@ -136,7 +137,7 @@ template<typename... TSignals>
 void Emitter<TSignals...>::removeStreamRegistrations() {
     if (connected) {
         auto streamArray = getStreams();
-        removeStreamRegistrations(streamArray.data(), streamArray.size());
+        EmitterBase::removeStreamRegistrations(streamArray.data(), streamArray.size());
     }
 }
 
@@ -146,6 +147,12 @@ std::array<priv::StreamBase*, sizeof...(TSignals)> Emitter<TSignals...>::getStre
     unsigned int i = 0;
     std::apply([&result, &i](Stream<TSignals>*... s) { ((result[i++] = s), ...); }, streams);
     return result;
+}
+
+template<typename... TSignals>
+void Emitter<TSignals...>::disconnectForStreamDesctruction() {
+    connected = false;
+    std::apply([](Stream<TSignals>*&... s) { ((s = nullptr), ...); }, streams);
 }
 
 template<typename... TSignals>

@@ -20,6 +20,11 @@ protected:
     void registerWithStreams(StreamBase** streams, std::size_t n);
     void replaceStreamRegistrations(StreamBase** streams, std::size_t n, EmitterBase* old);
     void removeStreamRegistrations(StreamBase** streams, std::size_t n);
+
+private:
+    virtual void disconnectForStreamDesctruction() = 0;
+
+    friend class StreamBase;
 };
 
 } // namespace priv

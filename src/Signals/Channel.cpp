@@ -8,21 +8,17 @@ namespace sig
 {
 Channel::Channel()
 : needDeferSync(false)
-, streams()
-, emitters() {}
+, streams() {}
 
 Channel::Channel(Channel&& channel)
-: streams(std::move(channel.streams))
-, emitters(std::move(channel.emitters)) {}
+: streams(std::move(channel.streams)) {}
 
 Channel::~Channel() {
-    for (auto& emitter : emitters) { emitter->disconnect(); }
     for (auto& stream : streams) { delete stream.second; }
 }
 
 Channel& Channel::operator=(Channel&& channel) {
-    streams  = std::move(channel.streams);
-    emitters = std::move(channel.emitters);
+    streams = std::move(channel.streams);
     return *this;
 }
 

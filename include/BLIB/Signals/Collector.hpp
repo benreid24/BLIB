@@ -28,9 +28,9 @@ public:
 
     void subscribeDeferred(Channel& channel);
 
-    using Handler::unsubscribe;
+    using Handler<TSignal>::unsubscribe;
 
-    using Handler::unsubscribeDeferred;
+    using Handler<TSignal>::unsubscribeDeferred;
 
     bool isSubscribed() const;
 

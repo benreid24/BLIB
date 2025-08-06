@@ -13,9 +13,7 @@ namespace sig
 class Channel;
 
 template<typename... TSignals>
-class Listener
-: private util::NonCopyable
-, protected Handler<TSignals>... {
+class Listener : public Handler<TSignals>... {
 public:
     Listener();
 
@@ -49,8 +47,7 @@ Listener<TSignals...>::~Listener() {
 template<typename... TSignals>
 void Listener<TSignals...>::subscribe(Channel& channel) {
     if (subscribed) {
-        BL_LOG_WARN << "Listener already subscribed to a channel, unsubscribing first";
-        unsubscribe();
+        BL_LOG_WARN << "Listener already subscribed to a channel, replacing subscription";
     }
 
     subscribed = true;
@@ -60,8 +57,7 @@ void Listener<TSignals...>::subscribe(Channel& channel) {
 template<typename... TSignals>
 void Listener<TSignals...>::subscribeDeferred(Channel& channel) {
     if (subscribed) {
-        BL_LOG_WARN << "Listener already subscribed to a channel, unsubscribing first";
-        unsubscribe();
+        BL_LOG_WARN << "Listener already subscribed to a channel, replacing subscription";
     }
 
     subscribed = true;
@@ -72,7 +68,7 @@ template<typename... TSignals>
 void Listener<TSignals...>::unsubscribe() {
     if (subscribed) {
         subscribed = false;
-        (static_cast<Handler<TSignals>*>(this)->unsubscribe()), ...);
+        (static_cast<Handler<TSignals>*>(this)->unsubscribe(), ...);
     }
 }
 
@@ -80,7 +76,7 @@ template<typename... TSignals>
 void Listener<TSignals...>::unsubscribeDeferred() {
     if (subscribed) {
         subscribed = false;
-       (static_cast<Handler<TSignals>*>(this)->unsubscribeDeferred()), ...);
+        (static_cast<Handler<TSignals>*>(this)->unsubscribeDeferred(), ...);
     }
 }
 

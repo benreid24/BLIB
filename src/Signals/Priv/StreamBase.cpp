@@ -9,7 +9,7 @@ namespace sig
 namespace priv
 {
 StreamBase::~StreamBase() {
-    for (EmitterBase* emitter : emitters) { emitter->disconnect(); }
+    for (EmitterBase* emitter : emitters) { emitter->disconnectForStreamDesctruction(); }
 }
 
 } // namespace priv

@@ -43,7 +43,7 @@ private:
     std::mutex deferMutex;
     std::atomic_bool needDeferSync;
 
-    bool doAdd(Handler<T>* handler);
+    void doAdd(Handler<T>* handler);
     void doRemove(Handler<T>* handler);
 };
 
@@ -57,19 +57,24 @@ Stream<T>::Stream(std::size_t capacityHint)
 
 template<typename T>
 Stream<T>::~Stream() {
-    for (Handler<T>* handler : listeners) { handler->subscribedTo = nullptr; }
+    for (Handler<T>* handler : allHandlers) { handler->subscribedTo = nullptr; }
 }
 
 template<typename T>
 void Stream<T>::subscribe(Handler<T>* handler) {
+    if (handler->subscribedTo && handler->subscribedTo != this) { handler->unsubscribeDeferred(); }
+
     std::unique_lock lock(mutex);
     doAdd(handler);
 }
 
 template<typename T>
 void Stream<T>::subscribeDeferred(Handler<T>* handler) {
+    if (handler->subscribedTo && handler->subscribedTo != this) { handler->unsubscribeDeferred(); }
+
     std::unique_lock lock(deferMutex);
     toAdd.emplace_back(handler);
+    needDeferSync = true;
 }
 
 template<typename T>
@@ -82,6 +87,7 @@ template<typename T>
 void Stream<T>::unsubscribeDeferred(Handler<T>* handler) {
     std::unique_lock lock(deferMutex);
     toRemove.emplace_back(handler);
+    needDeferSync = true;
 }
 
 template<typename T>
@@ -110,7 +116,7 @@ void Stream<T>::syncDeferred() {
 }
 
 template<typename T>
-bool Stream<T>::doAdd(Handler<T>* handler) {
+void Stream<T>::doAdd(Handler<T>* handler) {
     handler->subscribedTo = this;
     if (allHandlers.emplace(handler).second) { listeners.emplace_back(handler); }
 }

@@ -38,7 +38,6 @@ private:
     std::mutex mutex;
     std::atomic_bool needDeferSync;
     std::unordered_map<std::type_index, priv::StreamBase*> streams;
-    ctr::FastEraseVector<priv::EmitterBase*> emitters;
 
     friend class priv::EmitterBase;
 };
