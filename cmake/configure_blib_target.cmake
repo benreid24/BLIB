@@ -24,6 +24,7 @@ function(configure_blib_target target_name)
             set(openal_path "${BLIB_PATH}/lib/SFML/extlibs/bin/x64/openal32.dll")
             add_custom_command(
                 TARGET ${target_name}
+                POST_BUILD
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different
                     ${openal_path} ${target_output_dir}
                 COMMENT "Copying ${openal_path} to ${target_output_dir}"
