@@ -58,6 +58,42 @@ private:
     IntListener& toSubscribe;
     Channel& channel;
 };
+
+class IntListenerWithBadSubscribe : public Listener<int> {
+public:
+    IntListenerWithBadSubscribe(Channel& channel, IntListener& toSubscribe)
+    : calledWith(-1)
+    , toSubscribe(toSubscribe)
+    , channel(channel) {}
+
+    virtual ~IntListenerWithBadSubscribe() = default;
+
+    virtual void process(const int& signal) override {
+        calledWith = signal;
+        toSubscribe.subscribe(channel);
+    }
+
+    int calledWith;
+
+private:
+    IntListener& toSubscribe;
+    Channel& channel;
+};
+
+class IntListenerWithBadUnsubscribe : public Listener<int> {
+public:
+    IntListenerWithBadUnsubscribe()
+    : calledWith(-1) {}
+
+    virtual ~IntListenerWithBadUnsubscribe() = default;
+
+    virtual void process(const int& signal) override {
+        calledWith = signal;
+        unsubscribe();
+    }
+
+    int calledWith;
+};
 } // namespace
 
 TEST(Channel, DispatchSingleType) {
@@ -236,21 +272,69 @@ TEST(Channel, SyncDeferredNested) {
     EXPECT_FALSE(deferredListener.isSubscribed());
     emitter.emit(42);
     EXPECT_EQ(listener.calledWith, 42);
-    EXPECT_TRUE(deferredListener.isSubscribed());
+    EXPECT_FALSE(deferredListener.isSubscribed());
 
     emitter.emit(69);
     EXPECT_EQ(listener.calledWith, 69);
 
     channel.syncDeferred();
+    EXPECT_TRUE(deferredListener.isSubscribed());
     EXPECT_CALL(deferredListener, process(100)).Times(1);
     emitter.emit(100);
     EXPECT_EQ(listener.calledWith, 100);
 }
 
-TEST(Channel, ScopeCleanup) {
+TEST(Channel, AutoDeferBadSubscribe) {
+    Channel channel;
+    IntEmitter emitter;
+    IntListener deferredListener;
+    IntListenerWithBadSubscribe listener(channel, deferredListener);
+
+    emitter.connect(channel);
+    listener.subscribe(channel);
+
+    EXPECT_FALSE(deferredListener.isSubscribed());
+    emitter.emit(42);
+    EXPECT_EQ(listener.calledWith, 42);
+    EXPECT_FALSE(deferredListener.isSubscribed());
+
+    emitter.emit(69);
+    EXPECT_EQ(listener.calledWith, 69);
+
+    channel.syncDeferred();
+    EXPECT_TRUE(deferredListener.isSubscribed());
+    EXPECT_CALL(deferredListener, process(100)).Times(1);
+    emitter.emit(100);
+    EXPECT_EQ(listener.calledWith, 100);
+}
+
+TEST(Channel, AutoDeferBadUnsubscribe) {
+    Channel channel;
+    IntEmitter emitter;
+    IntListenerWithBadUnsubscribe listener;
+
+    emitter.connect(channel);
+    listener.subscribe(channel);
+
+    EXPECT_TRUE(listener.isSubscribed());
+    emitter.emit(42);
+    EXPECT_EQ(listener.calledWith, 42);
+    EXPECT_FALSE(listener.isSubscribed());
+
+    emitter.emit(69);
+    EXPECT_EQ(listener.calledWith, 69);
+
+    channel.syncDeferred();
+    emitter.emit(100);
+    EXPECT_EQ(listener.calledWith, 69);
+}
+
+TEST(Channel, ScopeCleanupEmitterListener) {
     Channel channel;
     IntEmitter outerEmitter;
+    IntListener outerListener;
     outerEmitter.connect(channel);
+    outerListener.subscribe(channel);
 
     {
         IntEmitter emitter;
@@ -259,10 +343,40 @@ TEST(Channel, ScopeCleanup) {
         listener.subscribe(channel);
         EXPECT_CALL(listener, process(42)).Times(1);
         EXPECT_CALL(listener, process(100)).Times(1);
+        EXPECT_CALL(outerListener, process(42)).Times(1);
+        EXPECT_CALL(outerListener, process(100)).Times(1);
         emitter.emit(42);
         outerEmitter.emit(100);
     }
 
+    EXPECT_TRUE(outerEmitter.isConnected());
+    EXPECT_TRUE(outerListener.isSubscribed());
+    EXPECT_CALL(outerListener, process(200)).Times(1);
+    outerEmitter.emit(200);
+}
+
+TEST(Channel, ScopeCleanupChannel) {
+    IntEmitter outerEmitter;
+    IntListener outerListener;
+
+    {
+        Channel channel;
+        IntEmitter emitter;
+        IntListener listener;
+        emitter.connect(channel);
+        listener.subscribe(channel);
+        outerEmitter.connect(channel);
+        outerListener.subscribe(channel);
+        EXPECT_CALL(listener, process(42)).Times(1);
+        EXPECT_CALL(listener, process(100)).Times(1);
+        EXPECT_CALL(outerListener, process(42)).Times(1);
+        EXPECT_CALL(outerListener, process(100)).Times(1);
+        emitter.emit(42);
+        outerEmitter.emit(100);
+    }
+
+    EXPECT_FALSE(outerEmitter.isConnected());
+    EXPECT_FALSE(outerListener.isSubscribed());
     outerEmitter.emit(200);
 }
 

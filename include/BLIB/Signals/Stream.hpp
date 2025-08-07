@@ -2,6 +2,7 @@
 #define BLIB_SIGNALS_STREAM_HPP
 
 #include <BLIB/Containers/FastEraseVector.hpp>
+#include <BLIB/Logging.hpp>
 #include <BLIB/Signals/Handler.hpp>
 #include <BLIB/Signals/Priv/StreamBase.hpp>
 #include <mutex>
@@ -13,25 +14,74 @@ namespace bl
 /// Contains all the classes and functionality for signals
 namespace sig
 {
+/**
+ * @brief Stream of signals of a single type. Owned by Channel. Use Channel to send and subscribe to
+ *        signals
+ *
+ * @tparam T The type of signal to stream
+ * @ingroup Signals
+ */
 template<typename T>
 class Stream : public priv::StreamBase {
 public:
+    /**
+     * @brief Creates a new stream
+     *
+     * @param capacityHint The expected number of listeners
+     */
     Stream(std::size_t capacityHint = 16);
 
+    /**
+     * @brief Destroys the stream and unsubscribes all listeners and emitters
+     */
     virtual ~Stream();
 
+    /**
+     * @brief Subscribes the given handler to the stream
+     *
+     * @param handler The handler to subscribe
+     */
     void subscribe(Handler<T>* handler);
 
+    /**
+     * @brief Defers subscription of the given handler to the stream
+     *
+     * @param handler The handler to subscribe
+     */
     void subscribeDeferred(Handler<T>* handler);
 
+    /**
+     * @brief Unsubscribes the given handler to the stream
+     *
+     * @param handler The handler to unsubscribe
+     */
     void unsubscribe(Handler<T>* handler);
 
+    /**
+     * @brief Defers unsubscription the given handler to the stream
+     *
+     * @param handler The handler to unsubscribe
+     */
     void unsubscribeDeferred(Handler<T>* handler);
 
+    /**
+     * @brief Sends the given signal to all subscribed handlers
+     *
+     * @param signal The signal to send
+     */
     void signal(const T& signal);
 
+    /**
+     * @brief Sends the given signal to all subscribed handlers. Use this if other threads may be
+     *        calling subscribe or unsubscribe
+     *
+     * @param signal The signal to send
+     */
     void signalSynchronized(const T& signal);
 
+    /**
+     * @brief Performs any deferred subscriptions or unsubscriptions. Called by the engine
+     */
     virtual void syncDeferred() override;
 
 private:
@@ -42,6 +92,7 @@ private:
     std::mutex mutex;
     std::mutex deferMutex;
     std::atomic_bool needDeferSync;
+    std::atomic_bool emitting;
 
     void doAdd(Handler<T>* handler);
     void doRemove(Handler<T>* handler);
@@ -51,7 +102,8 @@ private:
 
 template<typename T>
 Stream<T>::Stream(std::size_t capacityHint)
-: needDeferSync(false) {
+: needDeferSync(false)
+, emitting(false) {
     listeners.reserve(capacityHint);
 }
 
@@ -65,7 +117,14 @@ void Stream<T>::subscribe(Handler<T>* handler) {
     if (handler->subscribedTo && handler->subscribedTo != this) { handler->unsubscribeDeferred(); }
 
     std::unique_lock lock(mutex);
-    doAdd(handler);
+    if (!emitting) { doAdd(handler); }
+    else {
+        BL_LOG_WARN << "Use subscribeDeferred when subscribing from a signal handler. Deferring "
+                       "subscription";
+        std::unique_lock deferLock(deferMutex);
+        toAdd.emplace_back(handler);
+        needDeferSync = true;
+    }
 }
 
 template<typename T>
@@ -80,7 +139,16 @@ void Stream<T>::subscribeDeferred(Handler<T>* handler) {
 template<typename T>
 void Stream<T>::unsubscribe(Handler<T>* handler) {
     std::unique_lock lock(mutex);
-    doRemove(handler);
+
+    if (!emitting) { doRemove(handler); }
+    else {
+        BL_LOG_WARN
+            << "Use unsubscribeDeferred when unsubscribing from a signal handler. Deferring "
+               "unsubscribe";
+        std::unique_lock deferLock(deferMutex);
+        toRemove.emplace_back(handler);
+        needDeferSync = true;
+    }
 }
 
 template<typename T>
@@ -92,13 +160,17 @@ void Stream<T>::unsubscribeDeferred(Handler<T>* handler) {
 
 template<typename T>
 void Stream<T>::signal(const T& signal) {
+    emitting = true;
     for (Handler<T>* handler : listeners) { handler->process(signal); }
+    emitting = false;
 }
 
 template<typename T>
 void Stream<T>::signalSynchronized(const T& signal) {
     std::unique_lock lock(mutex);
+    emitting = true;
     for (Handler<T>* handler : listeners) { handler->process(signal); }
+    emitting = false;
 }
 
 template<typename T>

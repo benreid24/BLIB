@@ -10,28 +10,78 @@ namespace bl
 {
 namespace sig
 {
+/**
+ * @brief Signal collector that collects signals of a single type and allows for draining them later
+ *
+ * @tparam TSignal The type of signal to collect
+ * @ingroup Signals
+ */
 template<typename TSignal>
 class Collector : public Handler<TSignal> {
 public:
+    /**
+     * @brief Creates a new collector with an optional capacity hint for the internal capacity
+     *
+     * @param capacityHint The expected number of signals to collect
+     */
     Collector(std::size_t capacityHint = 0);
 
+    /**
+     * @brief Calls a given callback for each collected signal and then clears the queue
+     *
+     * @tparam TCb The type of callback. Should be void(const TSignal&)
+     * @param cb The callback to invoke for each collected signal
+     */
     template<typename TCb>
     void drain(TCb&& cb);
 
+    /**
+     * @brief Calls a given callback for each collected signal and then clears the queue. Use this
+     *        if it is expected that other threads may send more signals while draining
+     *
+     * @tparam TCb The type of callback. Should be void(const TSignal&)
+     * @param cb The callback to invoke for each collected signal
+     */
     template<typename TCb>
     void drainSync(TCb&& cb);
 
+    /**
+     * @brief Like drainSync but performs a move of the signal queue to minimize lock time
+     *
+     * @tparam TCb The type of callback. Should be void(const TSignal&)
+     * @param cb The callback to invoke for each collected signal
+     */
     template<typename TCb>
     void drainSyncFast(TCb&& cb);
 
+    /**
+     * @brief Subscribes the collector to the given channel
+     *
+     * @param channel The channel to subscribe to
+     */
     void subscribe(Channel& channel);
 
+    /**
+     * @brief Defers subscription to the given channel. Use this if calling from a signal handler
+     *
+     * @param channel The channel to subscribe to
+     */
     void subscribeDeferred(Channel& channel);
 
+    /**
+     * @brief Unsubscribes the collector from the connected channel
+     */
     using Handler<TSignal>::unsubscribe;
 
+    /**
+     * @brief Unsubscribes the collector from the connected channel but defers the unsubscribe until
+     *        the start of the next frame. Use this if calling from a signal handler
+     */
     using Handler<TSignal>::unsubscribeDeferred;
 
+    /**
+     * @brief Returns whether the collector is currently subscribed to a channel
+     */
     bool isSubscribed() const;
 
 private:

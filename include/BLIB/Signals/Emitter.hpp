@@ -12,31 +12,93 @@ namespace bl
 {
 namespace sig
 {
+/**
+ * @brief Signal emitter that connects to a channel and allows the sending of signals
+ *
+ * @tparam ...TSignals The types of signals that this emitter can send
+ * @ingroup Signals
+ */
 template<typename... TSignals>
 class Emitter : public priv::EmitterBase {
 public:
+    /**
+     * @brief Creates a new emitter
+     */
     Emitter();
 
+    /**
+     * @brief Creates a new emitter and connects to the same channel as another emitter. Both
+     *        emitters will be connected to the channel
+     *
+     * @param other The emitter to copy the channel connection from
+     */
     Emitter(const Emitter& other);
 
+    /**
+     * @brief Creates a new emitter and adopts the channel connection of another emitter
+     *
+     * @param other The emitter to adopt the channel connection from
+     */
     Emitter(Emitter&& other);
 
+    /**
+     * @brief Destroys the emitter and disconnects from the channel if connected
+     */
     ~Emitter();
 
+    /**
+     * @brief Creates a new emitter and connects to the same channel as another emitter. Both
+     *        emitters will be connected to the channel
+     *
+     * @param other The emitter to copy the channel connection from
+     * @return A reference to this emitter
+     */
     Emitter& operator=(const Emitter& other);
 
+    /**
+     * @brief Creates a new emitter and adopts the channel connection of another emitter
+     *
+     * @param other The emitter to adopt the channel connection from
+     * @return A reference to this emitter
+     */
     Emitter& operator=(Emitter&& other);
 
+    /**
+     * @brief Connects the emitter to the given channel and disconnects from any previous. This must
+     *        be called before any signals can be sent
+     *
+     * @param channel The channel to connect to
+     */
     void connect(Channel& channel);
 
+    /**
+     * @brief Disconnects the emitter from the channel it was connected to
+     */
     virtual void disconnect() override;
 
+    /**
+     * @brief Emits a signal of the given type to the connected channel. T must be one of TSignals
+     *
+     * @tparam T The type of signal to emit
+     * @param signal The signal to emit
+     */
     template<typename T>
     void emit(const T& signal);
 
+    /**
+     * @brief Emits a signal of the given type to the connected channel. T must be one of TSignals.
+     *        Locks the underlying stream before emit. Use this if multiple threads may be
+     *        subscribing or unsubscribing to the stream while others emit signals
+     *
+     * @tparam T The type of signal to emit
+     * @param signal The signal to emit
+     */
     template<typename T>
     void emitSynchronized(const T& signal);
 
+    /**
+     * @brief Returns whether the emitter is connected to a channel
+     */
     bool isConnected() const;
 
 private:
