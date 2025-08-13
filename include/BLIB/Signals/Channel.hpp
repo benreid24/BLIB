@@ -2,6 +2,7 @@
 #define BLIB_SIGNALS_CHANNEL_HPP
 
 #include <BLIB/Containers/FastEraseVector.hpp>
+#include <BLIB/Logging.hpp>
 #include <BLIB/Signals/Stream.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <atomic>
@@ -67,10 +68,52 @@ public:
      */
     void syncDeferred();
 
+    /**
+     * @brief Clears all handlers and emitters from this channel and all children
+     */
+    void shutdown();
+
+    /**
+     * @brief Returns whether the channel is shutdown. Shutdown channels cannot be subscribed or
+     *        connected to
+     */
+    bool isShutdown() const;
+
+    /**
+     * @brief Sets the parent channel. Parenting channels only affects shutdown operations
+     *
+     * @param channel The parent channel
+     */
+    void setParent(Channel& channel);
+
+    /**
+     * @brief Adds a child channel. Parenting channels only affects shutdown operations
+     *
+     * @param channel The child channel to add
+     */
+    void addChild(Channel& channel);
+
+    /**
+     * @brief Returns whether the channel has a parent channel
+     */
+    bool hasParent() const;
+
+    /**
+     * @brief Returns the parent channel if there is one. Undefined behavior if there is no parent
+     */
+    Channel& getParent() const;
+
 private:
     std::mutex mutex;
     std::atomic_bool needDeferSync;
     std::unordered_map<std::type_index, priv::StreamBase*> streams;
+
+    Channel* parent;
+    std::vector<Channel*> children;
+    std::atomic_bool closed;
+
+    void reparent(Channel* original);
+    void shutdownFromParent();
 
     friend class priv::EmitterBase;
 };
@@ -81,9 +124,27 @@ template<typename TSignal>
 Stream<TSignal>* Channel::getStream() {
     needDeferSync = true;
     const std::type_index key(typeid(TSignal));
+    std::unique_lock lock(mutex);
+    if (closed) {
+        BL_LOG_ERROR << "Cannot get stream for signal type " << key.name()
+                     << " from a shutdown channel";
+        return nullptr;
+    }
     auto it = streams.find(key);
     if (it == streams.end()) { it = streams.try_emplace(key, new Stream<TSignal>()).first; }
     return static_cast<Stream<TSignal>*>(it->second);
+}
+
+inline bool Channel::isShutdown() const { return closed.load(std::memory_order_acquire); }
+
+inline bool Channel::hasParent() const { return parent != nullptr; }
+
+inline Channel& Channel::getParent() const {
+    if (!hasParent()) {
+        BL_LOG_ERROR << "Channel has no parent";
+        throw std::runtime_error("Channel has no parent");
+    }
+    return *parent;
 }
 
 } // namespace sig

@@ -13,12 +13,13 @@
 #include <BLIB/Engine/Window.hpp>
 #include <BLIB/Engine/Worker.hpp>
 #include <BLIB/Engine/World.hpp>
-#include <BLIB/Events/Dispatcher.hpp>
 #include <BLIB/Input.hpp>
 #include <BLIB/Particles/ParticleSystem.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Resources.hpp>
 #include <BLIB/Scripts/Manager.hpp>
+#include <BLIB/Signals/Channel.hpp>
+#include <BLIB/Signals/Emitter.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <BLIB/Util/ThreadPool.hpp>
 #include <array>
@@ -259,6 +260,13 @@ public:
     template<typename TWorld = World>
     ctr::Ref<World, TWorld> getWorld(unsigned int index);
 
+    /**
+     * @brief Returns the signal channel for engine and window events. Also accessible via pointer
+     *        from the table using the engine instance as the key, and is also registered with the
+     *        key SignalChannelKey from BLIB/Engine/Events.hpp
+     */
+    sig::Channel& getSignalChannel();
+
 private:
     Worker worker;
     Settings engineSettings;
@@ -279,6 +287,12 @@ private:
     input::InputSystem input;
     util::ThreadPool workers;
     util::ThreadPool backgroundWorkers;
+
+    sig::Channel signalChannel;
+    sig::Emitter<event::Paused, event::PlayerAdded, event::PlayerRemoved, event::Resumed,
+                 event::Shutdown, event::Startup, event::StateChange, event::WindowResized,
+                 event::WorldCreated, event::WorldDestroyed, sf::Event>
+        eventEmitter;
 
     std::optional<std::thread> renderingThread;
     std::mutex renderingMutex;
@@ -382,6 +396,8 @@ ctr::Ref<World, TWorld> Engine::getWorld(unsigned int index) {
     static_assert(std::is_base_of_v<World, TWorld>, "TWorld must derive from World");
     return ctr::Ref<World, TWorld>(worlds[index]);
 }
+
+inline sig::Channel& Engine::getSignalChannel() { return signalChannel; }
 
 template<typename TWorld, typename... TArgs>
 ctr::Ref<World, TWorld> Player::enterWorld(TArgs&&... args) {

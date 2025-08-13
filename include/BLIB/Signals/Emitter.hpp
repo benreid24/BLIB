@@ -160,6 +160,11 @@ template<typename... TSignals>
 void Emitter<TSignals...>::connect(Channel& channel) {
     disconnect();
 
+    if (channel.isShutdown()) {
+        BL_LOG_ERROR << "Cannot connect to a shutdown channel";
+        return;
+    }
+
     connected = true;
     std::apply([&channel](Stream<TSignals>*&... s) { ((s = channel.getStream<TSignals>()), ...); },
                streams);

@@ -6,6 +6,7 @@
 #include <BLIB/Particles/ParticleSystem.hpp>
 #include <BLIB/Resources/GarbageCollector.hpp>
 #include <BLIB/Resources/State.hpp>
+#include <BLIB/Signals/Table.hpp>
 #include <BLIB/Systems.hpp>
 #include <BLIB/Systems/MarkedForDeath.hpp>
 #include <SFML/Window.hpp>
@@ -33,6 +34,11 @@ Engine::Engine(const Settings& settings)
     systems().registerSystem<sys::MarkedForDeath>(FrameStage::Update0, StateMask::All);
     systems().registerSystem<sys::Physics2D>(FrameStage::Physics, StateMask::Running);
 
+    eventEmitter.connect(signalChannel);
+    sig::Table::registerChannel(SignalChannelKey, signalChannel);
+    sig::Table::registerChannel(this, signalChannel);
+
+    // TODO - refactor input
     bl::event::Dispatcher::subscribe(&input);
 }
 

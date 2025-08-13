@@ -83,6 +83,11 @@ void Listener<TSignals...>::subscribe(Channel& channel) {
         BL_LOG_WARN << "Listener already subscribed to a channel, replacing subscription";
     }
 
+    if (channel.isShutdown()) {
+        BL_LOG_ERROR << "Cannot subscribe to a shutdown channel";
+        return;
+    }
+
     (channel.getStream<TSignals>()->subscribe(static_cast<Handler<TSignals>*>(this)), ...);
 };
 
@@ -90,6 +95,11 @@ template<typename... TSignals>
 void Listener<TSignals...>::subscribeDeferred(Channel& channel) {
     if (isSubscribed()) {
         BL_LOG_WARN << "Listener already subscribed to a channel, replacing subscription";
+    }
+
+    if (channel.isShutdown()) {
+        BL_LOG_ERROR << "Cannot subscribe to a shutdown channel";
+        return;
     }
 
     (channel.getStream<TSignals>()->subscribeDeferred(static_cast<Handler<TSignals>*>(this)), ...);

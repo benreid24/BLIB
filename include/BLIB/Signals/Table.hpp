@@ -82,6 +82,11 @@ public:
      * @param key The key of the channel to remove
      */
     static void removeChannel(void* key);
+
+    /**
+     * @brief Returns a reference to the global channel
+     */
+    static Channel& getGlobalChannel();
 };
 
 } // namespace sig

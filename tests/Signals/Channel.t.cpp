@@ -380,6 +380,60 @@ TEST(Channel, ScopeCleanupChannel) {
     outerEmitter.emit(200);
 }
 
+TEST(Channel, Shutdown) {
+    Channel channel;
+    IntEmitter emitter;
+    IntListener listener;
+
+    emitter.connect(channel);
+    listener.subscribe(channel);
+
+    EXPECT_CALL(listener, process(42)).Times(1);
+    emitter.emit(42);
+
+    IntListener deferredListener;
+    deferredListener.subscribeDeferred(channel);
+    channel.shutdown();
+    channel.syncDeferred();
+    EXPECT_TRUE(channel.isShutdown());
+    EXPECT_FALSE(emitter.isConnected());
+    EXPECT_FALSE(listener.isSubscribed());
+    EXPECT_FALSE(deferredListener.isSubscribed());
+
+    // Should not crash or throw
+    emitter.emit(100);
+    listener.unsubscribe();
+
+    listener.subscribe(channel);
+    EXPECT_FALSE(listener.isSubscribed());
+
+    emitter.connect(channel);
+    EXPECT_FALSE(emitter.isConnected());
+}
+
+TEST(Channel, Parenting) {
+    Channel shutdownParent;
+    Channel parent;
+    Channel failedParent;
+    Channel child;
+
+    EXPECT_FALSE(child.isShutdown());
+
+    shutdownParent.shutdown();
+    child.setParent(shutdownParent);
+    EXPECT_FALSE(child.hasParent());
+
+    child.setParent(parent);
+    EXPECT_TRUE(child.hasParent());
+    EXPECT_EQ(&child.getParent(), &parent);
+
+    child.setParent(failedParent);
+    EXPECT_EQ(&child.getParent(), &parent);
+
+    parent.shutdown();
+    EXPECT_TRUE(child.isShutdown());
+}
+
 } // namespace unittest
 } // namespace sig
 } // namespace bl
