@@ -16,6 +16,7 @@ Registry::Registry()
     componentPools.reserve(ComponentMask::MaxComponentTypeCount);
     views.reserve(32);
     deletionState.toRemove.reserve(32);
+    emitter.connect(signalChannel);
 }
 
 Entity Registry::createEntity(unsigned int worldIndex, Flags flags) {

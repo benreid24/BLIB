@@ -9,9 +9,7 @@ namespace rc
 namespace res
 {
 ScenePool::ScenePool(engine::Engine& e)
-: engine(e) {
-    emitter.connect(engine.renderer().getSignalChannel());
-}
+: engine(e) {}
 
 void ScenePool::cleanup() {
     std::unique_lock lock(mutex);

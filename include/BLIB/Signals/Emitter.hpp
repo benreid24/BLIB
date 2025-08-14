@@ -235,7 +235,7 @@ void Emitter<TSignals...>::emit(const T& signal) {
                           "Signal type not found in Emitter's signal types");
         }
     }
-    else { BL_LOG_WARN << "Emitter signaled without a channel connection"; }
+    else { BL_LOG_DEBUG << "Emitter signaled without a channel connection"; }
 }
 
 template<typename... TSignals>
@@ -251,7 +251,7 @@ void Emitter<TSignals...>::emitSynchronized(const T& signal) {
                           "Signal type not found in Emitter's signal types");
         }
     }
-    else { BL_LOG_WARN << "Emitter signaled without a channel connection"; }
+    else { BL_LOG_DEBUG << "Emitter signaled without a channel connection"; }
 }
 
 } // namespace sig

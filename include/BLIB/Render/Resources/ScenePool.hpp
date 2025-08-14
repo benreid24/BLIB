@@ -25,6 +25,8 @@ class Engine;
 }
 namespace rc
 {
+class Renderer;
+
 namespace res
 {
 
@@ -80,6 +82,7 @@ private:
 
     friend class bl::rc::SceneRef;
     friend class sys::SceneObjectRemovalSystem;
+    friend class Renderer;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

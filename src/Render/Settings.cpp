@@ -48,7 +48,6 @@ Settings::Settings(Renderer& owner)
     for (unsigned int i = 0; i < std::size(DefaultBloomFilters); ++i) {
         bloomFilters[i] = DefaultBloomFilters[i];
     }
-    emitter.connect(owner.getSignalChannel());
 }
 
 Settings& Settings::setGamma(float g) {

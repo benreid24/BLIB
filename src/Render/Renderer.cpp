@@ -40,6 +40,8 @@ Renderer::Renderer(engine::Engine& engine, engine::EngineWindow& window)
     renderTextures.reserve(16);
     clearColors[0].color        = {{0.f, 0.f, 0.f, 1.f}};
     clearColors[1].depthStencil = {1.f, 0};
+    settings.emitter.connect(signalChannel);
+    scenes.emitter.connect(signalChannel);
 }
 
 Renderer::~Renderer() {
