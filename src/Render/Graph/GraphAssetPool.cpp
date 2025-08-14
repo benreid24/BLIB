@@ -1,9 +1,8 @@
 #include <BLIB/Render/Graph/GraphAssetPool.hpp>
 
-#include <BLIB/Events.hpp>
-#include <BLIB/Render/Events/GraphEvents.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Graph/Task.hpp>
+#include <BLIB/Render/Renderer.hpp>
 #include <stdexcept>
 
 namespace bl
@@ -12,10 +11,13 @@ namespace rc
 {
 namespace rg
 {
-GraphAssetPool::GraphAssetPool(AssetPool& pool, RenderTarget* owner, Scene* scene)
+GraphAssetPool::GraphAssetPool(Renderer& renderer, AssetPool& pool, RenderTarget* owner,
+                               Scene* scene)
 : owner(owner)
 , scene(scene)
-, pool(pool) {}
+, pool(pool) {
+    emitter.connect(renderer.getSignalChannel());
+}
 
 AssetRef GraphAssetPool::getAssetForAsset(std::string_view tag) {
     auto it = assets.find(tag);
@@ -49,7 +51,7 @@ GraphAsset* GraphAssetPool::getAssetForOutput(std::string_view tag, Task* task) 
         const bool createNew = !asset->isExternal() || set.empty();
         GraphAsset* ga       = createNew ? &set.emplace_back(asset) : &set.front();
         if (createNew) {
-            bl::event::Dispatcher::dispatch<event::SceneGraphAssetCreated>(
+            emitter.emit<event::SceneGraphAssetCreated>(
                 {.target = owner, .scene = scene, .asset = ga});
         }
         return ga;
@@ -84,8 +86,7 @@ GraphAsset* GraphAssetPool::getAssetForInput(std::string_view tag) {
 GraphAsset* GraphAssetPool::createAsset(std::string_view tag) {
     auto& set         = assets[tag];
     GraphAsset& asset = set.emplace_back(pool.getOrCreateAsset(tag, this));
-    bl::event::Dispatcher::dispatch<event::SceneGraphAssetCreated>(
-        {.target = owner, .scene = scene, .asset = &asset});
+    emitter.emit<event::SceneGraphAssetCreated>({.target = owner, .scene = scene, .asset = &asset});
     return &asset;
 }
 

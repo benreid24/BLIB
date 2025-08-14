@@ -1,8 +1,10 @@
 #ifndef BLIB_RENDER_GRAPH_TIMELINE_HPP
 #define BLIB_RENDER_GRAPH_TIMELINE_HPP
 
+#include <BLIB/Render/Events/GraphEvents.hpp>
 #include <BLIB/Render/Graph/ExecutionContext.hpp>
 #include <BLIB/Render/Graph/TaskOutput.hpp>
+#include <BLIB/Signals/Emitter.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <cstdint>
 #include <memory>
@@ -140,6 +142,7 @@ private:
     Scene* scene;
     GraphAssetPool* pool;
     std::vector<TimelineStage> timeline;
+    sig::Emitter<event::SceneGraphAssetInitialized> emitter;
 };
 
 } // namespace rg

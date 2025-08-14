@@ -44,7 +44,7 @@ struct RenderConfigMap<Particle> {
 } // namespace pcl
 } // namespace bl
 
-class InputHandler : public bl::event::Listener<sf::Event> {
+class InputHandler : public bl::sig::Listener<sf::Event> {
 public:
     InputHandler()
     : eng(nullptr)
@@ -59,7 +59,7 @@ public:
         globals   = &manager.getRenderer().getGlobals();
     }
 
-    virtual void observe(const sf::Event& event) override {
+    virtual void process(const sf::Event& event) override {
         if (event.type == sf::Event::MouseButtonPressed) {
             const glm::vec2 pos(event.mouseButton.x, event.mouseButton.y);
 
@@ -119,12 +119,12 @@ public:
         simpleManager.addAffector<SimpleWrapAffector>();
 
         spawner.init(engine, *world, simpleManager, scene);
-        bl::event::Dispatcher::subscribe(&spawner);
+        spawner.subscribe(engine.getSignalChannel());
         simpleManager.addToScene(scene);
     }
 
     virtual void deactivate(bl::engine::Engine& engine) override {
-        bl::event::Dispatcher::unsubscribe(&spawner);
+        spawner.unsubscribe();
         engine.particleSystem().removeUniqueSystem<Particle>();
         engine.getPlayer().leaveWorld();
     }

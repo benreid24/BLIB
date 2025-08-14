@@ -1,7 +1,5 @@
 #include <BLIB/Graphics/Components/OverlayScalable.hpp>
 
-#include <BLIB/Events.hpp>
-#include <BLIB/Graphics/Components/OverlayScalable.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
 #include <BLIB/Systems/OverlayScalerSystem.hpp>
 

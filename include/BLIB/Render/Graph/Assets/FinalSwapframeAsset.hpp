@@ -1,13 +1,13 @@
 #ifndef BLIB_RENDER_GRAPH_ASSETS_FINALSWAPFRAMEASSET_HPP
 #define BLIB_RENDER_GRAPH_ASSETS_FINALSWAPFRAMEASSET_HPP
 
-#include <BLIB/Events.hpp>
 #include <BLIB/Render/Events/SettingsChanged.hpp>
 #include <BLIB/Render/Graph/Assets/FramebufferAsset.hpp>
 #include <BLIB/Render/Vulkan/AttachmentSet.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/Image.hpp>
 #include <BLIB/Render/Vulkan/PerSwapFrame.hpp>
+#include <BLIB/Signals/Listener.hpp>
 
 namespace bl
 {
@@ -28,7 +28,7 @@ class DepthBuffer;
  */
 class FinalSwapframeAsset
 : public FramebufferAsset
-, public bl::event::Listener<event::SettingsChanged> {
+, public sig::Listener<event::SettingsChanged> {
 public:
     /**
      * @brief Creates a new asset
@@ -75,7 +75,7 @@ private:
     virtual void doEndOutput(const rg::ExecutionContext& context) override;
     virtual void onResize(glm::u32vec2 newSize) override;
     virtual void onReset() override;
-    virtual void observe(const event::SettingsChanged& event) override;
+    virtual void process(const event::SettingsChanged& event) override;
 
     void updateAllAttachments();
     void updateAttachments(std::uint32_t swapFrameIndex);

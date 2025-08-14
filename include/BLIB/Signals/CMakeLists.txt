@@ -4,6 +4,7 @@ target_sources(BLIB PUBLIC
     Emitter.hpp
     Handler.hpp
     Listener.hpp
+    Router.hpp
     Stream.hpp
     Table.hpp
 )

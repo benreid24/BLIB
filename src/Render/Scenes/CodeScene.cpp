@@ -1,7 +1,7 @@
 #include <BLIB/Render/Scenes/CodeScene.hpp>
 
 #include <BLIB/Cameras/2D/Camera2D.hpp>
-#include <BLIB/Events.hpp>
+#include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Render/Config/RenderPhases.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene2DFactory.hpp>
 #include <BLIB/Render/Events/SceneObjectRemoved.hpp>
@@ -41,7 +41,9 @@ CodeScene::CodeScene(engine::Engine& engine, RenderCallback&& renderCallback)
 : Scene(engine, objects.makeEntityCallback())
 , renderCallback(renderCallback)
 , lighting(static_cast<ds::Scene2DInstance*>(descriptorSets.getDescriptorSet(
-      descriptorFactories.getOrCreateFactory<ds::Scene2DFactory>()))) {}
+      descriptorFactories.getOrCreateFactory<ds::Scene2DFactory>()))) {
+    emitter.connect(engine.renderer().getSignalChannel());
+}
 
 CodeScene::~CodeScene() { objects.unlinkAll(descriptorSets); }
 
@@ -60,7 +62,7 @@ void CodeScene::doObjectRemoval(SceneObject* object, mat::MaterialPipeline*) {
         obj->descriptors[i]->releaseObject(entity, object->sceneKey);
     }
     objects.release(obj->sceneKey);
-    bl::event::Dispatcher::dispatch<rc::event::SceneObjectRemoved>({this, entity});
+    emitter.emit<rc::event::SceneObjectRemoved>({this, entity});
 }
 
 SceneObject* CodeScene::doAdd(ecs::Entity entity, rcom::DrawableBase& object,

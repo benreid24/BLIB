@@ -146,13 +146,13 @@ void Renderer::initialize() {
     assignObserverRegions();
 
     // begin ECS sync
-    bl::event::Dispatcher::subscribe(&sceneSync);
+    sceneSync.subscribe(signalChannel);
 }
 
 void Renderer::cleanup() {
     vkCheck(vkDeviceWaitIdle(state.device));
 
-    bl::event::Dispatcher::unsubscribe(&sceneSync);
+    sceneSync.unsubscribe();
     // TODO - need to flush cleanup manager here?
     imageExporter.cleanup();
     resource::ResourceManager<sf::VulkanFont>::freeAndDestroyAll();

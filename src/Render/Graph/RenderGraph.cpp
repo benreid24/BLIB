@@ -21,7 +21,7 @@ RenderGraph::RenderGraph(engine::Engine& engine, Renderer& renderer, AssetPool& 
 , renderer(renderer)
 , observer(observer)
 , scene(scene)
-, assets(pool, observer, scene)
+, assets(renderer, pool, observer, scene)
 , timeline(engine, renderer, observer, scene, &assets)
 , needsRebuild(false)
 , needsReset(true) {

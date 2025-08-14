@@ -2,10 +2,12 @@
 #define BLIB_RENDER_SCENES_CODESCENE_HPP
 
 #include <BLIB/Render/Components/DrawableBase.hpp>
+#include <BLIB/Render/Events/SceneObjectRemoved.hpp>
 #include <BLIB/Render/Lighting/Scene2DLighting.hpp>
 #include <BLIB/Render/Scenes/CodeSceneObject.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Scenes/SceneObjectStorage.hpp>
+#include <BLIB/Signals/Emitter.hpp>
 #include <functional>
 
 namespace bl
@@ -100,6 +102,7 @@ private:
     const RenderCallback renderCallback;
     SceneObjectStorage<CodeSceneObject> objects;
     lgt::Scene2DLighting lighting;
+    sig::Emitter<event::SceneObjectRemoved> emitter;
 
     virtual void renderOpaqueObjects(scene::SceneRenderContext& context) override;
     virtual void renderTransparentObjects(scene::SceneRenderContext& context) override;

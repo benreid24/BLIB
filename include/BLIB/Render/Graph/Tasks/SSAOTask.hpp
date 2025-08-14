@@ -1,7 +1,6 @@
 #ifndef BLIB_RENDER_GRAPH_TASKS_SSAOTASK_HPP
 #define BLIB_RENDER_GRAPH_TASKS_SSAOTASK_HPP
 
-#include <BLIB/Events.hpp>
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
 #include <BLIB/Render/Descriptors/Builtin/InputAttachmentInstance.hpp>
 #include <BLIB/Render/Events/SettingsChanged.hpp>
@@ -9,6 +8,7 @@
 #include <BLIB/Render/Graph/Task.hpp>
 #include <BLIB/Render/Vulkan/Pipeline.hpp>
 #include <BLIB/Render/Vulkan/PipelineInstance.hpp>
+#include <BLIB/Signals/Listener.hpp>
 
 namespace bl
 {
@@ -28,7 +28,7 @@ namespace rgi
  */
 class SSAOTask
 : public rg::Task
-, public bl::event::Listener<event::SettingsChanged> {
+, public sig::Listener<event::SettingsChanged> {
 public:
     /**
      * @brief Creates the task
@@ -53,7 +53,7 @@ private:
     virtual void onGraphInit() override;
     virtual void execute(const rg::ExecutionContext& ctx, rg::Asset* output) override;
 
-    virtual void observe(const event::SettingsChanged& e) override;
+    virtual void process(const event::SettingsChanged& e) override;
     void genParams();
 };
 

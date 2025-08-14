@@ -5,9 +5,9 @@
 #include <BLIB/Components/Rendered.hpp>
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/ECS/Events.hpp>
-#include <BLIB/Events.hpp>
 #include <BLIB/Render/Graph/Task.hpp>
 #include <BLIB/Render/Vulkan/PipelineInstance.hpp>
+#include <BLIB/Signals/Listener.hpp>
 #include <vector>
 
 namespace bl
@@ -22,7 +22,7 @@ namespace rgi
 {
 class Outline3DTask
 : public rg::Task
-, public bl::event::Listener<
+, public sig::Listener<
       ecs::event::ComponentAdded<com::Outline>, ecs::event::ComponentAdded<com::Rendered>,
       ecs::event::ComponentRemoved<com::Outline>, ecs::event::ComponentRemoved<com::Rendered>> {
 public:
@@ -61,10 +61,10 @@ private:
     virtual void update(float dt) override;
 
     // Events
-    virtual void observe(const ecs::event::ComponentAdded<com::Outline>& event) override;
-    virtual void observe(const ecs::event::ComponentAdded<com::Rendered>& event) override;
-    virtual void observe(const ecs::event::ComponentRemoved<com::Outline>& event) override;
-    virtual void observe(const ecs::event::ComponentRemoved<com::Rendered>& event) override;
+    virtual void process(const ecs::event::ComponentAdded<com::Outline>& event) override;
+    virtual void process(const ecs::event::ComponentAdded<com::Rendered>& event) override;
+    virtual void process(const ecs::event::ComponentRemoved<com::Outline>& event) override;
+    virtual void process(const ecs::event::ComponentRemoved<com::Rendered>& event) override;
 };
 
 } // namespace rgi

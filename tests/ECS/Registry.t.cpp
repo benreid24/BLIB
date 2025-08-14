@@ -1,4 +1,5 @@
 #include <BLIB/ECS.hpp>
+#include <BLIB/Signals/Listener.hpp>
 #include <BLIB/Util/Random.hpp>
 #include <gtest/gtest.h>
 
@@ -608,20 +609,20 @@ TEST(ECS, DestroyInWorld) {
 
 namespace
 {
-struct RemoveEventCounter : public bl::event::Listener<event::ComponentRemoved<int>> {
+struct RemoveEventCounter : public sig::Listener<event::ComponentRemoved<int>> {
     unsigned int count;
 
     RemoveEventCounter()
     : count(0) {}
 
-    virtual void observe(const event::ComponentRemoved<int>&) { ++count; }
+    virtual void process(const event::ComponentRemoved<int>&) { ++count; }
 };
 } // namespace
 
 TEST(ECS, ComponentRemovedEvents) {
     Registry testRegistry;
     RemoveEventCounter counter;
-    bl::event::Dispatcher::subscribe(&counter);
+    counter.subscribe(testRegistry.getSignalChannel());
 
     Entity entity = testRegistry.createEntity(0);
     testRegistry.addComponent<int>(entity, 5);

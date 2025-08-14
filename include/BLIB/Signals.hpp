@@ -10,6 +10,7 @@
 #include <BLIB/Signals/Collector.hpp>
 #include <BLIB/Signals/Emitter.hpp>
 #include <BLIB/Signals/Listener.hpp>
+#include <BLIB/Signals/Router.hpp>
 #include <BLIB/Signals/Stream.hpp>
 #include <BLIB/Signals/Table.hpp>
 

@@ -13,7 +13,7 @@ void MouseDriver::setAllowButtonActivate(bool allow) { clickActivates = allow; }
 
 void MouseDriver::setMouseActivateButton(sf::Mouse::Button butt) { activateButton = butt; }
 
-void MouseDriver::observe(const sf::Event& event) {
+void MouseDriver::process(const sf::Event& event) {
     if (event.type == sf::Event::MouseMoved) {
         menu.processEvent(Event(Event::LocationEvent(
             {static_cast<float>(event.mouseMove.x), static_cast<float>(event.mouseMove.y)})));

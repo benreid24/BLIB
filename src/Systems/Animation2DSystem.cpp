@@ -78,7 +78,7 @@ Animation2DSystem::Animation2DSystem(rc::Renderer& renderer)
 Animation2DSystem::~Animation2DSystem() {}
 
 void Animation2DSystem::earlyCleanup() {
-    event::Dispatcher::unsubscribe(this);
+    unsubscribe();
     slideshowDescriptorSets.cleanup([](rc::vk::DescriptorSet& ds) { ds.release(); });
     slideshowFramesSSBO.destroy();
     slideshowFrameOffsetSSBO.destroy();
@@ -108,7 +108,7 @@ void Animation2DSystem::init(engine::Engine& engine) {
     slideshowTextureSSBO.create(renderer.vulkanState(), 32);
     slideshowPlayerCurrentFrameSSBO.create(renderer.vulkanState(), 32);
 
-    event::Dispatcher::subscribe(this);
+    subscribe(engine.ecs().getSignalChannel());
 }
 
 void Animation2DSystem::update(std::mutex&, float dt, float, float, float) {
@@ -138,7 +138,7 @@ void Animation2DSystem::ensureSlideshowDescriptorsUpdated() {
     }
 }
 
-void Animation2DSystem::observe(const ecs::event::ComponentAdded<com::Animation2DPlayer>& event) {
+void Animation2DSystem::process(const ecs::event::ComponentAdded<com::Animation2DPlayer>& event) {
     if (event.component.animation->frameCount() == 0) {
         auto& component     = const_cast<com::Animation2DPlayer&>(event.component);
         component.animation = getErrorPlaceholder();
@@ -153,12 +153,12 @@ void Animation2DSystem::observe(const ecs::event::ComponentAdded<com::Animation2
     else { doNonSlideshowCreate(event.component); }
 }
 
-void Animation2DSystem::observe(const ecs::event::ComponentRemoved<com::Animation2DPlayer>& event) {
+void Animation2DSystem::process(const ecs::event::ComponentRemoved<com::Animation2DPlayer>& event) {
     if (event.component.forSlideshow) { doSlideshowFree(event.component); }
     else { tryFreeVertexData(event.component); }
 }
 
-void Animation2DSystem::observe(const ecs::event::ComponentRemoved<com::Animation2D>& event) {
+void Animation2DSystem::process(const ecs::event::ComponentRemoved<com::Animation2D>& event) {
     doNonSlideshowRemove(event.component);
 }
 

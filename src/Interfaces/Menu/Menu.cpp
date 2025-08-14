@@ -41,7 +41,7 @@ void Menu::create(engine::World& w, engine::Player& o, const Selector::Ptr& sel)
     world->engine().ecs().setEntityParentDestructionBehavior(
         background.entity(), ecs::ParentDestructionBehavior::OrphanedByParent);
     selector->doCreate(*world, background.entity());
-    event::Dispatcher::subscribe(this);
+    subscribe(w.engine().renderer().getSignalChannel());
 }
 
 void Menu::addToOverlay(ecs::Entity parent) {
@@ -371,7 +371,7 @@ void Menu::setMoveFailSound(audio::AudioSystem::Handle s) { failSound = s; }
 
 void Menu::setSelectSound(audio::AudioSystem::Handle s) { selectSound = s; }
 
-void Menu::observe(const rc::event::SceneDestroyed& event) {
+void Menu::process(const rc::event::SceneDestroyed& event) {
     if (event.scene == static_cast<rc::Scene*>(scene)) { removeFromScene(); }
 }
 

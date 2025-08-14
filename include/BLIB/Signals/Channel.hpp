@@ -64,7 +64,7 @@ public:
     Stream<TSignal>* getStream();
 
     /**
-     * @brief Performs any deferred subscriptions or unsubscriptions. Called by the engine
+     * @brief Performs any deferred subscriptions or unsubscriptions for self and children
      */
     void syncDeferred();
 

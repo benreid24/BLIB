@@ -6,7 +6,6 @@ target_sources(BLIB PUBLIC
     Components.hpp
     ECS.hpp
     Engine.hpp
-    Events.hpp
     Game.hpp
     Graphics.hpp
     Input.hpp
@@ -32,7 +31,6 @@ add_subdirectory(Containers)
 add_subdirectory(Components)
 add_subdirectory(ECS)
 add_subdirectory(Engine)
-add_subdirectory(Events)
 add_subdirectory(Graphics)
 add_subdirectory(Input)
 add_subdirectory(Interfaces)

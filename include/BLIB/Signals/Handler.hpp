@@ -46,6 +46,8 @@ protected:
 
     template<typename...>
     friend class Listener;
+    template<typename...>
+    friend class Router;
     friend class Stream<T>;
 };
 

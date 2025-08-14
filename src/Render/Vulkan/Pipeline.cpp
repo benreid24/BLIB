@@ -14,7 +14,7 @@ Pipeline::Pipeline(Renderer& renderer, std::uint32_t id, PipelineParameters&& pa
 , createParams(params) {
     layout = renderer.pipelineLayoutCache().getLayout(std::move(params.layoutParams));
     for (auto& set : pipelines) { set.fill(nullptr); }
-    bl::event::Dispatcher::subscribe(this);
+    subscribe(renderer.getSignalChannel());
 }
 
 Pipeline::~Pipeline() {
@@ -184,7 +184,7 @@ void Pipeline::createForRenderPass(std::uint32_t rpid, std::uint32_t spec) {
     createParams.msaa.sampleShadingEnable = sampleShadingSetting;
 }
 
-void Pipeline::observe(const event::SettingsChanged& event) {
+void Pipeline::process(const event::SettingsChanged& event) {
     const bool changed = createParams.handleChange(renderer, event);
     if (changed || event.setting == event::SettingsChanged::Setting::AntiAliasing) {
         for (std::uint32_t rpid = 0; rpid < pipelines.size(); ++rpid) {

@@ -5,7 +5,9 @@
 #include <BLIB/ECS/Events.hpp>
 #include <BLIB/Engine/Events/Worlds.hpp>
 #include <BLIB/Engine/System.hpp>
-#include <BLIB/Events/Listener.hpp>
+#include <BLIB/Signals/Channel.hpp>
+#include <BLIB/Signals/Emitter.hpp>
+#include <BLIB/Signals/Router.hpp>
 #include <box2d/box2d.h>
 #include <glm/glm.hpp>
 #include <optional>
@@ -23,10 +25,7 @@ namespace sys
  *
  * @ingroup Systems
  */
-class Physics2D
-: public engine::System
-, public event::Listener<ecs::event::ComponentRemoved<com::Physics2D>, engine::event::WorldCreated,
-                         engine::event::WorldDestroyed> {
+class Physics2D : public engine::System {
 public:
     /**
      * @brief Event that is fired when an entity collision begins
@@ -143,15 +142,28 @@ public:
      */
     static ecs::Entity getEntityFromShape(b2ShapeId shapeId);
 
+    /**
+     * @brief Returns the channel that physics events are published on
+     */
+    sig::Channel& getSignalChannel() { return channel; }
+
 private:
     engine::Engine* engine;
     std::vector<engine::World2D*> worlds;
 
+    sig::Channel channel;
+    sig::Emitter<EntityCollisionBeginEvent, EntityCollisionEndEvent, EntityCollisionHitEvent,
+                 SensorEntered, SensorExited>
+        emitter;
+    sig::Router<ecs::event::ComponentRemoved<com::Physics2D>> ecsRouter;
+    sig::Router<engine::event::WorldCreated, engine::event::WorldDestroyed> engineRouter;
+
     virtual void init(engine::Engine&) override;
     virtual void update(std::mutex&, float dt, float, float, float) override;
-    virtual void observe(const ecs::event::ComponentRemoved<com::Physics2D>& event) override;
-    virtual void observe(const engine::event::WorldCreated& event) override;
-    virtual void observe(const engine::event::WorldDestroyed& event) override;
+
+    void handleComponentRemove(const ecs::event::ComponentRemoved<com::Physics2D>& event);
+    void handleWorldCreate(const engine::event::WorldCreated& event);
+    void handleWorldDestroy(const engine::event::WorldDestroyed& event);
 
     std::optional<b2BodyId> createBody(
         b2BodyDef& bodyDef, b2ShapeDef& shapeDef,

@@ -2,11 +2,9 @@
 
 #include <BLIB/Components/BatchSceneLink.hpp>
 #include <BLIB/Engine/Engine.hpp>
-#include <BLIB/Events.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Config/Constants.hpp>
 #include <BLIB/Render/Config/Limits.hpp>
-#include <BLIB/Render/Events/SceneObjectRemoved.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -18,7 +16,9 @@ namespace scene
 BatchedScene::BatchedScene(engine::Engine& engine)
 : Scene(engine, objects.makeEntityCallback())
 , engine(engine)
-, objects() {}
+, objects() {
+    emitter.connect(engine.renderer().getSignalChannel());
+}
 
 BatchedScene::~BatchedScene() { objects.unlinkAll(descriptorSets); }
 
@@ -66,7 +66,7 @@ void BatchedScene::doObjectRemoval(scene::SceneObject* object, mat::MaterialPipe
     releaseObject(object, pipeline);
 
     // fire event
-    bl::event::Dispatcher::dispatch<rc::event::SceneObjectRemoved>({this, entity});
+    emitter.emit<rc::event::SceneObjectRemoved>({this, entity});
 }
 
 void BatchedScene::releaseObject(SceneObject* object, mat::MaterialPipeline* pipeline) {

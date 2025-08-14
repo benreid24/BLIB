@@ -9,7 +9,8 @@
 #include <BLIB/ECS/Tags.hpp>
 #include <BLIB/ECS/Transaction.hpp>
 #include <BLIB/ECS/View.hpp>
-#include <BLIB/Events/Dispatcher.hpp>
+#include <BLIB/Signals/Channel.hpp>
+#include <BLIB/Signals/Emitter.hpp>
 #include <BLIB/Util/IdAllocatorUnbounded.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <cstdlib>
@@ -516,6 +517,11 @@ public:
      */
     void flushDeletions();
 
+    /**
+     * @brief Returns the channel that ECS events are emitted on
+     */
+    sig::Channel& getSignalChannel();
+
 private:
     // entity id management
     mutable std::recursive_mutex entityLock;
@@ -539,6 +545,12 @@ private:
     std::mutex viewMutex;
     std::vector<std::unique_ptr<priv::ViewBase>> views;
 
+    // signals
+    sig::Channel signalChannel;
+    sig::Emitter<event::EntityCreated, event::EntityDependencyAdded, event::EntityDependencyRemoved,
+                 event::EntityDestroyed, event::EntityParentRemoved, event::EntityParentSet>
+        emitter;
+
     // deletion traversal & queue
     struct {
         std::recursive_mutex mutex;
@@ -561,7 +573,7 @@ private:
     void populateViewWithLock(View<TRequire, TOptional, TExclude>& view);
 
     template<typename T>
-    void finishComponentAdd(Entity ent, unsigned int cindex, T* component);
+    void finishComponentAdd(Entity ent, unsigned int cindex);
 
     void removeEntityParentLocked(Entity child, bool fromDestroy);
 
@@ -607,7 +619,7 @@ T* Registry::addComponent(
     }
     auto& pool = getPool<T>();
     T* nc      = pool.add(entity, value, tx);
-    finishComponentAdd<T>(entity, pool.ComponentIndex, nc);
+    finishComponentAdd<T>(entity, pool.ComponentIndex);
     return nc;
 }
 
@@ -630,7 +642,7 @@ T* Registry::addComponent(
 
     auto& pool = getPool<T>();
     T* nc      = pool.add(entity, value, tx);
-    finishComponentAdd<T>(entity, pool.ComponentIndex, nc);
+    finishComponentAdd<T>(entity, pool.ComponentIndex);
     return nc;
 }
 
@@ -653,13 +665,12 @@ T* Registry::emplaceComponentWithTx(
     }
     auto& pool = getPool<T>();
     T* nc      = pool.emplace(entity, tx, std::forward<TArgs>(args)...);
-    finishComponentAdd<T>(entity, pool.ComponentIndex, nc);
+    finishComponentAdd<T>(entity, pool.ComponentIndex);
     return nc;
 }
 
 template<typename T>
-void Registry::finishComponentAdd(Entity ent, unsigned int cIndex, T* component) {
-    bl::event::Dispatcher::dispatch<event::ComponentAdded<T>>({ent, *component});
+void Registry::finishComponentAdd(Entity ent, unsigned int cIndex) {
     ComponentMask::SimpleMask& mask        = entityMasks[ent.getIndex()];
     const ComponentMask::SimpleMask ogMask = mask;
     ComponentMask::add(mask, cIndex);
@@ -797,7 +808,9 @@ ComponentPool<T>& Registry::getPool() {
             std::exit(1);
         }
 #endif
-        it = poolMap.try_emplace(tid, new ComponentPool<T>(*this, poolMap.size())).first;
+        auto* np = new ComponentPool<T>(*this, poolMap.size());
+        np->emitter.connect(signalChannel);
+        it = poolMap.try_emplace(tid, np).first;
         componentPools.emplace_back(it->second.get());
     }
 
@@ -847,6 +860,8 @@ inline ParentDestructionBehavior Registry::getEntityParentDestructionBehavior(En
     return i < parentDestructionBehaviors.size() ? parentDestructionBehaviors[i] :
                                                    ParentDestructionBehavior::DestroyedWithParent;
 }
+
+inline sig::Channel& Registry::getSignalChannel() { return signalChannel; }
 
 } // namespace ecs
 } // namespace bl

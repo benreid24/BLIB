@@ -68,7 +68,7 @@ void SSAOTask::create(engine::Engine&, Renderer& r, Scene* scene) {
                         ->getBindingPayload<ds::SSAOShaderPayload>();
     genParams();
 
-    bl::event::Dispatcher::subscribe(this);
+    subscribe(r.getSignalChannel());
 }
 
 void SSAOTask::onGraphInit() {
@@ -119,7 +119,7 @@ void SSAOTask::execute(const rg::ExecutionContext& ctx, rg::Asset*) {
     blurSurface->finishRender(ctx.commandBuffer);
 }
 
-void SSAOTask::observe(const event::SettingsChanged& e) {
+void SSAOTask::process(const event::SettingsChanged& e) {
     if (e.setting == event::SettingsChanged::SSAO) { genParams(); }
     else if (e.setting == event::SettingsChanged::SSAOParams) {
         shaderParams->bias     = renderer->getSettings().getSSAOBias();

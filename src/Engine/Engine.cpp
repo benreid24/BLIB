@@ -38,8 +38,8 @@ Engine::Engine(const Settings& settings)
     sig::Table::registerChannel(SignalChannelKey, signalChannel);
     sig::Table::registerChannel(this, signalChannel);
 
-    // TODO - refactor input
-    bl::event::Dispatcher::subscribe(&input);
+    entityRegistry.getSignalChannel().setParent(signalChannel);
+    input.subscribe(signalChannel);
 }
 
 Engine::~Engine() {
@@ -53,7 +53,7 @@ Engine::~Engine() {
 
     backgroundWorkers.shutdown();
     workers.shutdown();
-    bl::event::Dispatcher::clearAllListeners();
+    signalChannel.shutdown();
     if (renderingSystem.vulkanState().device) {
         vkCheck(vkDeviceWaitIdle(renderingSystem.vulkanState().device));
     }
@@ -182,7 +182,7 @@ bool Engine::loop() {
     workers.start();
     backgroundWorkers.start(2);
     states.top()->activate(*this);
-    bl::event::Dispatcher::dispatch<event::Startup>({states.top()});
+    eventEmitter.emit<event::Startup>({states.top()});
 
     while (true) {
         // Clear flags from last loop
@@ -191,22 +191,20 @@ bool Engine::loop() {
         if (renderWindow.isOpen()) {
             sf::Event event;
             while (renderWindow.pollEvent(event)) {
-                bl::event::Dispatcher::dispatch<sf::Event>(event);
+                eventEmitter.emit<sf::Event>(event);
 
                 switch (event.type) {
                 case sf::Event::Closed:
-                    bl::event::Dispatcher::dispatch<event::Shutdown>(
-                        {event::Shutdown::WindowClosed});
+                    eventEmitter.emit<event::Shutdown>({event::Shutdown::WindowClosed});
                     return true;
 
                 case sf::Event::LostFocus:
-                    bl::event::Dispatcher::dispatch<event::Paused>({});
+                    eventEmitter.emit<event::Paused>({});
                     if (!awaitFocus()) {
-                        bl::event::Dispatcher::dispatch<event::Shutdown>(
-                            {event::Shutdown::WindowClosed});
+                        eventEmitter.emit<event::Shutdown>({event::Shutdown::WindowClosed});
                         return true;
                     }
-                    bl::event::Dispatcher::dispatch<event::Resumed>({});
+                    eventEmitter.emit<event::Resumed>({});
                     updateOuterTimer.restart();
                     loopTimer.restart();
                     break;
@@ -245,7 +243,7 @@ bool Engine::loop() {
                               updateTimestep / timeScale,
                               lag,
                               lag / timeScale);
-            bl::event::Dispatcher::syncListeners();
+            signalChannel.syncDeferred();
 
             // check if we should end early
             if (engineFlags.stateChangeReady()) {
@@ -289,7 +287,7 @@ bool Engine::loop() {
         // Free world slots
         for (auto& world : worlds) {
             if (world && world.refCount() == 1) {
-                bl::event::Dispatcher::dispatch<event::WorldDestroyed>({*world});
+                eventEmitter.emit<event::WorldDestroyed>({*world});
                 world.release();
             }
         }
@@ -300,7 +298,7 @@ bool Engine::loop() {
             stateChanged = true;
 
             if (engineFlags.active(Flags::Terminate)) {
-                bl::event::Dispatcher::dispatch<event::Shutdown>({event::Shutdown::Terminated});
+                eventEmitter.emit<event::Shutdown>({event::Shutdown::Terminated});
                 return true;
             }
             else if (engineFlags.active(Flags::PopState)) {
@@ -310,8 +308,7 @@ bool Engine::loop() {
                 states.pop();
                 if (states.empty()) { // exit if no states left
                     BL_LOG_INFO << "Final state popped, exiting";
-                    bl::event::Dispatcher::dispatch<event::Shutdown>(
-                        {event::Shutdown::FinalStatePopped});
+                    eventEmitter.emit<event::Shutdown>({event::Shutdown::FinalStatePopped});
                     return true;
                 }
                 BL_LOG_INFO << "New engine state (popped): " << states.top()->name();
@@ -486,7 +483,7 @@ void Engine::handleResize(const sf::Event::SizeEvent& resize, bool ss) {
         params.syncToConfig();
     }
 
-    bl::event::Dispatcher::dispatch<event::WindowResized>({renderWindow});
+    eventEmitter.emit<event::WindowResized>({renderWindow});
 }
 
 void Engine::setTimeScale(float s) { timeScale = s; }
@@ -499,7 +496,7 @@ void Engine::postStateChange(State::Ptr& prev) {
     engineFlags.clear();
     newState.reset();
     states.top()->activate(*this);
-    bl::event::Dispatcher::dispatch<event::StateChange>({states.top(), prev});
+    eventEmitter.emit<event::StateChange>({states.top(), prev});
     if (renderingSystem.vulkanState().device) { renderingSystem.texturePool().releaseUnused(); }
 }
 
@@ -511,14 +508,14 @@ Player& Engine::addPlayer() {
     auto& observer = renderingSystem.addObserver();
     auto& actor    = input.addActor();
     auto& player   = players.emplace_back(new Player(*this, &observer, &actor));
-    bl::event::Dispatcher::dispatch<event::PlayerAdded>({*player});
+    eventEmitter.emit<event::PlayerAdded>({*player});
     return *player;
 }
 
 void Engine::removePlayer(int i) {
     const unsigned int j = i >= 0 ? i : players.size() - 1;
     auto it              = players.begin() + j;
-    bl::event::Dispatcher::dispatch<event::PlayerRemoved>({**it});
+    eventEmitter.emit<event::PlayerRemoved>({**it});
     renderingSystem.removeObserver(j);
     input.removeActor(j);
     players.erase(it);

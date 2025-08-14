@@ -1,5 +1,4 @@
 #include <BLIB/Engine.hpp>
-#include <BLIB/Events.hpp>
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Render.hpp>
 #include <BLIB/Resources.hpp>
@@ -65,13 +64,13 @@ public:
         menu.configureBackground(sf::Color::Black, sf::Color::White, 3.f, {15.f, 15.f, 15.f, 15.f});
 
         menu.addToOverlay();
-        bl::event::Dispatcher::subscribe(&keyboardEventGenerator);
-        bl::event::Dispatcher::subscribe(&mouseEventGenerator);
+        keyboardEventGenerator.subscribe(engine.getSignalChannel());
+        mouseEventGenerator.subscribe(engine.getSignalChannel());
     }
 
     virtual void deactivate(bl::engine::Engine& engine) override {
-        bl::event::Dispatcher::unsubscribe(&keyboardEventGenerator);
-        bl::event::Dispatcher::unsubscribe(&mouseEventGenerator);
+        keyboardEventGenerator.unsubscribe();
+        mouseEventGenerator.unsubscribe();
         engine.getPlayer().leaveWorld();
     }
 

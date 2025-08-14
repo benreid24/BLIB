@@ -1,7 +1,6 @@
 #include <BLIB/Render/Settings.hpp>
 
-#include <BLIB/Events.hpp>
-#include <BLIB/Render/Events/SettingsChanged.hpp>
+#include <BLIB/Render/Renderer.hpp>
 #include <algorithm>
 #include <stdexcept>
 
@@ -49,26 +48,27 @@ Settings::Settings(Renderer& owner)
     for (unsigned int i = 0; i < std::size(DefaultBloomFilters); ++i) {
         bloomFilters[i] = DefaultBloomFilters[i];
     }
+    emitter.connect(owner.getSignalChannel());
 }
 
 Settings& Settings::setGamma(float g) {
     gamma = g;
     dirty = true;
-    bl::event::Dispatcher::dispatch<Changed>({owner, *this, Setting::Gamma});
+    emitter.emit<Changed>({owner, *this, Setting::Gamma});
     return *this;
 }
 
 Settings& Settings::setExposureFactor(float e) {
     exposure = e;
     dirty    = true;
-    bl::event::Dispatcher::dispatch<Changed>({owner, *this, Setting::ExposureFactor});
+    emitter.emit<Changed>({owner, *this, Setting::ExposureFactor});
     return *this;
 }
 
 Settings& Settings::setBloomHighlightThreshold(float h) {
     bloomThreshold = h;
     dirty          = true;
-    bl::event::Dispatcher::dispatch<Changed>({owner, *this, Setting::BloomHighlightThreshold});
+    emitter.emit<Changed>({owner, *this, Setting::BloomHighlightThreshold});
     return *this;
 }
 
@@ -78,21 +78,21 @@ Settings& Settings::setBloomFilters(std::initializer_list<float> filters) {
     }
     std::copy(filters.begin(), filters.end(), bloomFilters.begin());
     dirty = true;
-    bl::event::Dispatcher::dispatch<Changed>({owner, *this, Setting::BloomFilters});
+    emitter.emit<Changed>({owner, *this, Setting::BloomFilters});
     return *this;
 }
 
 Settings& Settings::setBloomPassCount(std::uint32_t pc) {
     bloomPasses = pc;
     dirty       = true;
-    bl::event::Dispatcher::dispatch<Changed>({owner, *this, Setting::BloomPassCount});
+    emitter.emit<Changed>({owner, *this, Setting::BloomPassCount});
     return *this;
 }
 
 Settings& Settings::setShadowMapResolution(const VkExtent2D& res) {
     shadowMapResolution = res;
     dirty               = true;
-    bl::event::Dispatcher::dispatch<Changed>({owner, *this, Setting::ShadowMapResolution});
+    emitter.emit<Changed>({owner, *this, Setting::ShadowMapResolution});
     return *this;
 }
 
@@ -100,21 +100,21 @@ Settings& Settings::setShadowMapDepthBias(float constantFactor, float slopeFacto
     shadowMapDepthBiasConstantFactor = constantFactor;
     shadowMapDepthBiasSlopeFactor    = slopeFactor;
     shadowMapDepthBiasClamp          = clamp;
-    bl::event::Dispatcher::dispatch<Changed>({owner, *this, Setting::ShadowMapDepthBias});
+    emitter.emit<Changed>({owner, *this, Setting::ShadowMapDepthBias});
     return *this;
 }
 
 Settings& Settings::setAntiAliasing(AntiAliasing aa) {
     antiAliasing = aa;
     dirty        = true;
-    bl::event::Dispatcher::dispatch<Changed>({owner, *this, Setting::AntiAliasing});
+    emitter.emit<Changed>({owner, *this, Setting::AntiAliasing});
     return *this;
 }
 
 Settings& Settings::setSSAO(SSAO ao) {
     ssao  = ao;
     dirty = true;
-    bl::event::Dispatcher::dispatch<Changed>({owner, *this, Setting::SSAO});
+    emitter.emit<Changed>({owner, *this, Setting::SSAO});
     return *this;
 }
 
@@ -122,7 +122,7 @@ Settings& Settings::setSSAOParams(float radius, float bias, float exp) {
     ssaoRadius   = radius;
     ssaoBias     = bias;
     ssaoExponent = exp;
-    bl::event::Dispatcher::dispatch<Changed>({owner, *this, Setting::SSAOParams});
+    emitter.emit<Changed>({owner, *this, Setting::SSAOParams});
     return *this;
 }
 

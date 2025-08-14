@@ -11,7 +11,7 @@
 
 class CameraController
 : public bl::cam::CameraController3D
-, public bl::event::Listener<sf::Event> {
+, public bl::sig::Listener<sf::Event> {
 public:
     static constexpr float DistancePercentPerTick = 0.05f;
     static constexpr float YawPerPixel            = bl::math::Pi / 1920.f;
@@ -35,7 +35,7 @@ public:
         camera().getOrientationForChange().lookAt(glm::vec3(0.f), camera().getPosition());
     }
 
-    virtual void observe(const sf::Event& event) override {
+    virtual void process(const sf::Event& event) override {
         switch (event.type) {
         case sf::Event::MouseWheelScrolled:
             distance *= 1.f - event.mouseWheelScroll.delta * DistancePercentPerTick;
@@ -283,11 +283,11 @@ private:
         scene->getLighting().modifySun().color.diffuse  = bl::rc::Color(glm::vec4(0.6f));
         scene->getLighting().modifySun().color.ambient  = bl::rc::Color(glm::vec4(0.1f));
 
-        bl::event::Dispatcher::subscribe(controller);
+        controller->subscribe(engine.getSignalChannel());
     }
 
     virtual void deactivate(bl::engine::Engine& engine) override {
-        bl::event::Dispatcher::unsubscribe(controller);
+        controller->unsubscribe();
         engine.getPlayer().leaveWorld();
     }
 

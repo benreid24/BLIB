@@ -1,7 +1,6 @@
 #include <BLIB/Cameras.hpp>
 #include <BLIB/Components.hpp>
 #include <BLIB/Engine.hpp>
-#include <BLIB/Events.hpp>
 #include <BLIB/Graphics.hpp>
 #include <BLIB/Interfaces/GUI.hpp>
 #include <BLIB/Render.hpp>

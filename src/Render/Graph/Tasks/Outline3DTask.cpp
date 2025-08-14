@@ -50,7 +50,7 @@ void Outline3DTask::create(engine::Engine& engine, Renderer& renderer, Scene* s)
         },
         tx);
 
-    bl::event::Dispatcher::subscribe(this);
+    subscribe(engine.ecs().getSignalChannel());
 }
 
 void Outline3DTask::onGraphInit() {
@@ -121,25 +121,25 @@ void Outline3DTask::update(float) {
     // noop
 }
 
-void Outline3DTask::observe(const ecs::event::ComponentAdded<com::Outline>& event) {
+void Outline3DTask::process(const ecs::event::ComponentAdded<com::Outline>& event) {
     com::Rendered* rendered = registry->getComponent<com::Rendered>(event.entity);
     if (rendered && rendered->getScene() == scene) {
         addObject(event.entity, rendered, &event.component);
     }
 }
 
-void Outline3DTask::observe(const ecs::event::ComponentAdded<com::Rendered>& event) {
+void Outline3DTask::process(const ecs::event::ComponentAdded<com::Rendered>& event) {
     if (event.component.getScene() == scene) {
         com::Outline* outline = registry->getComponent<com::Outline>(event.entity);
         if (outline) { addObject(event.entity, &event.component, outline); }
     }
 }
 
-void Outline3DTask::observe(const ecs::event::ComponentRemoved<com::Outline>& event) {
+void Outline3DTask::process(const ecs::event::ComponentRemoved<com::Outline>& event) {
     removeObject(event.entity);
 }
 
-void Outline3DTask::observe(const ecs::event::ComponentRemoved<com::Rendered>& event) {
+void Outline3DTask::process(const ecs::event::ComponentRemoved<com::Rendered>& event) {
     removeObject(event.entity);
 }
 

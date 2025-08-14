@@ -6,8 +6,8 @@
 #include <BLIB/ECS/Traits/ChildAware.hpp>
 #include <BLIB/ECS/Traits/ParentAware.hpp>
 #include <BLIB/ECS/Transaction.hpp>
-#include <BLIB/Events.hpp>
 #include <BLIB/Logging.hpp>
+#include <BLIB/Signals/Emitter.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <BLIB/Util/ReadWriteLock.hpp>
 #include <cstdlib>
@@ -139,6 +139,7 @@ private:
     std::vector<T*> entityToComponent;
     std::vector<typename TStorage::iterator> entityToIter;
     std::vector<Entity> queuedRemovals;
+    sig::Emitter<event::ComponentAdded<T>, event::ComponentRemoved<T>> emitter;
 
     ComponentPool(Registry& owner, std::uint16_t index);
     virtual ~ComponentPool();
@@ -255,6 +256,8 @@ void ComponentPool<T>::postAdd(Entity ent, typename TStorage::iterator it) {
 
     entityToComponent[entIndex] = &it->component;
     entityToIter[entIndex]      = it;
+
+    emitter.emit<event::ComponentAdded<T>>({ent, it->component});
 }
 
 template<typename T>
@@ -308,7 +311,7 @@ void ComponentPool<T>::fireRemoveEventOnly(Entity ent) {
     if (com == nullptr) return;
 
     // send event
-    bl::event::Dispatcher::dispatch<event::ComponentRemoved<T>>({ent, *com});
+    emitter.emit<event::ComponentRemoved<T>>({ent, *com});
 }
 
 template<typename T>
@@ -326,7 +329,7 @@ void* ComponentPool<T>::doRemoveLocked(Entity ent, bool fireEvent) {
     if (com == nullptr) return nullptr;
 
     // send event
-    if (fireEvent) { bl::event::Dispatcher::dispatch<event::ComponentRemoved<T>>({ent, *com}); }
+    if (fireEvent) { emitter.emit<event::ComponentRemoved<T>>({ent, *com}); }
 
     // perform removal
     storage.erase(entityToIter[entIndex]);
@@ -346,7 +349,7 @@ void* ComponentPool<T>::queueRemove(Entity entity) {
     if (com != nullptr) {
         queuedRemovals.emplace_back(entity);
         lock.unlock();
-        bl::event::Dispatcher::dispatch<event::ComponentRemoved<T>>({entity, *com});
+        emitter.emit<event::ComponentRemoved<T>>({entity, *com});
     }
 
     return com;
@@ -367,7 +370,7 @@ void ComponentPool<T>::clear() {
 
     // send events
     for (Entry& entry : storage) {
-        bl::event::Dispatcher::dispatch<event::ComponentRemoved<T>>({entry.owner, entry.component});
+        emitter.emit<event::ComponentRemoved<T>>({entry.owner, entry.component});
     }
 
     // clear storage

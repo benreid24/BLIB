@@ -28,7 +28,8 @@ Overlay::Overlay(engine::Engine& e)
     ecsPool = &engine.ecs().getAllComponents<ovy::OverlayObject>();
     roots.reserve(cfg::Constants::DefaultSceneObjectCapacity / 4);
     renderStack.reserve(cfg::Constants::DefaultSceneObjectCapacity / 2);
-    bl::event::Dispatcher::subscribe(this);
+    emitter.connect(engine.renderer().getSignalChannel());
+    subscribe(e.renderer().getSignalChannel());
 }
 
 Overlay::~Overlay() {
@@ -161,7 +162,7 @@ void Overlay::doObjectRemoval(scene::SceneObject* object, mat::MaterialPipeline*
     }
     objects.release(obj->sceneKey);
     engine.ecs().removeComponent<ovy::OverlayObject>(obj->entity);
-    bl::event::Dispatcher::dispatch<rc::event::SceneObjectRemoved>({this, obj->entity});
+    emitter.emit<rc::event::SceneObjectRemoved>({this, obj->entity});
 }
 
 void Overlay::doBatchChange(const BatchChange& change, mat::MaterialPipeline* ogPipeline) {
@@ -191,7 +192,7 @@ void Overlay::refreshAll() {
     for (auto o : roots) { scaler.refreshObjectAndChildren(*o); }
 }
 
-void Overlay::observe(const ecs::event::EntityParentSet& event) {
+void Overlay::process(const ecs::event::EntityParentSet& event) {
     ovy::OverlayObject* obj = ecsPool->get(event.child);
     if (!obj || obj->overlay != this) { return; }
 
@@ -205,7 +206,7 @@ void Overlay::observe(const ecs::event::EntityParentSet& event) {
     }
 }
 
-void Overlay::observe(const ecs::event::EntityParentRemoved& event) {
+void Overlay::process(const ecs::event::EntityParentRemoved& event) {
     if (event.orphanIsBeingDestroyed) { return; }
     ovy::OverlayObject* obj = ecsPool->get(event.orphan);
     if (!obj || obj->overlay != this) { return; }
@@ -216,7 +217,7 @@ void Overlay::observe(const ecs::event::EntityParentRemoved& event) {
     needRefreshAll = true;
 }
 
-void Overlay::observe(const ecs::event::ComponentRemoved<ovy::OverlayObject>& event) {
+void Overlay::process(const ecs::event::ComponentRemoved<ovy::OverlayObject>& event) {
     if (event.component.overlay == this) {
         ovy::OverlayObject* obj = const_cast<ovy::OverlayObject*>(&event.component);
         const auto it           = std::find(roots.begin(), roots.end(), obj);

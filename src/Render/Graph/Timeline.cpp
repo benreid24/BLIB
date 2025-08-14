@@ -1,11 +1,10 @@
 #include <BLIB/Render/Graph/Timeline.hpp>
 
-#include <BLIB/Events.hpp>
-#include <BLIB/Render/Events/GraphEvents.hpp>
 #include <BLIB/Render/Graph/Asset.hpp>
 #include <BLIB/Render/Graph/ExecutionContext.hpp>
 #include <BLIB/Render/Graph/GraphAssetPool.hpp>
 #include <BLIB/Render/Graph/Task.hpp>
+#include <BLIB/Render/Renderer.hpp>
 #include <limits>
 #include <queue>
 #include <unordered_map>
@@ -42,6 +41,7 @@ Timeline::Timeline(engine::Engine& engine, Renderer& renderer, RenderTarget* tar
 , scene(scene)
 , pool(pool) {
     timeline.reserve(4);
+    emitter.connect(renderer.getSignalChannel());
 }
 
 void Timeline::execute(const ExecutionContext& ctx) {
@@ -99,7 +99,7 @@ void Timeline::build(std::vector<std::unique_ptr<Task>>& tasks, GraphAsset* fina
 
     const auto createAsset = [this](GraphAsset* asset) {
         if (asset->asset->create(engine, renderer, observer, pool)) {
-            bl::event::Dispatcher::dispatch<event::SceneGraphAssetInitialized>(
+            emitter.emit<event::SceneGraphAssetInitialized>(
                 {.target = observer, .scene = scene, .asset = asset});
         }
     };

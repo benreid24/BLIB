@@ -39,6 +39,7 @@ void Channel::syncDeferred() {
         std::unique_lock lock(mutex);
         for (auto& stream : streams) { stream.second->syncDeferred(); }
     }
+    for (Channel* child : children) { child->syncDeferred(); }
 }
 
 void Channel::setParent(Channel& p) {

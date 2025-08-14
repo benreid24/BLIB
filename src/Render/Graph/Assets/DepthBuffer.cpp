@@ -17,10 +17,11 @@ DepthBuffer::DepthBuffer()
 , mode(FullScreen)
 , cleared(false) {}
 
-void DepthBuffer::doCreate(engine::Engine& e, Renderer&, RenderTarget* target) {
+void DepthBuffer::doCreate(engine::Engine& e, Renderer& r, RenderTarget* target) {
     engine          = &e;
     const auto size = getSize(target->getRegionSize());
     createAttachment(size);
+    subscribe(r.getSignalChannel());
 }
 
 void DepthBuffer::onResize(glm::u32vec2 targetSize) {
@@ -62,9 +63,11 @@ void DepthBuffer::doStartOutput(const rg::ExecutionContext& ctx) {
     }
 }
 
-void DepthBuffer::observe(const event::SettingsChanged& event) {
+void DepthBuffer::process(const event::SettingsChanged& event) {
     if (event.setting == event::SettingsChanged::Setting::AntiAliasing) {
-        createAttachment({buffer.getSize().width, buffer.getSize().height});
+        if (buffer.getSampleCount() != event.settings.getMSAASampleCount()) {
+            createAttachment({buffer.getSize().width, buffer.getSize().height});
+        }
     }
 }
 

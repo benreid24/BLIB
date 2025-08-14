@@ -1,7 +1,6 @@
 #ifndef BLIB_RENDER_GRAPH_ASSETS_GENERICTARGETASSET_HPP
 #define BLIB_RENDER_GRAPH_ASSETS_GENERICTARGETASSET_HPP
 
-#include <BLIB/Events.hpp>
 #include <BLIB/Render/Events/SettingsChanged.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Graph/Assets/DepthAttachmentType.hpp>
@@ -14,6 +13,7 @@
 #include <BLIB/Render/Vulkan/AttachmentImageSet.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
+#include <BLIB/Signals/Listener.hpp>
 #include <utility>
 
 // if getting circular include errors start here
@@ -38,7 +38,7 @@ template<std::uint32_t RenderPassId, std::uint32_t AttachmentCount,
          MSAABehavior MSAA = MSAABehavior::Disabled>
 class GenericTargetAsset
 : public FramebufferAsset
-, public bl::event::Listener<event::SettingsChanged> {
+, public sig::Listener<event::SettingsChanged> {
 public:
     static constexpr bool UsesMSAA = MSAA & MSAABehavior::UseSettings;
 
@@ -176,7 +176,7 @@ private:
         }
         else { depthBufferAsset = nullptr; }
         onResize(o->getRegionSize());
-        bl::event::Dispatcher::subscribe(this);
+        subscribe(r.getSignalChannel());
     }
 
     virtual void doPrepareForInput(const rg::ExecutionContext&) override {}
@@ -279,7 +279,7 @@ private:
         }
     }
 
-    virtual void observe(const event::SettingsChanged& event) override {
+    virtual void process(const event::SettingsChanged& event) override {
         if (event.setting == event::SettingsChanged::Setting::AntiAliasing && UsesMSAA) {
             createAttachments();
         }

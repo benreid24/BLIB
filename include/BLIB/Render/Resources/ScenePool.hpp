@@ -2,8 +2,10 @@
 #define BLIB_RENDER_RESOURCES_SCENEPOOL_HPP
 
 #include <BLIB/Containers/ObjectWrapper.hpp>
+#include <BLIB/Render/Events/SceneDestroyed.hpp>
 #include <BLIB/Render/Resources/SceneRef.hpp>
 #include <BLIB/Render/Scenes/BatchedScene.hpp>
+#include <BLIB/Signals/Emitter.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
 #include <atomic>
 #include <cstdint>
@@ -72,6 +74,7 @@ private:
     engine::Engine& engine;
     std::list<Entry> scenes;
     std::mutex mutex;
+    sig::Emitter<rc::event::SceneDestroyed> emitter;
 
     void release(Entry* entry);
 

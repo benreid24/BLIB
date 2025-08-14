@@ -1,8 +1,10 @@
 #ifndef BLIB_RENDER_RENDERER_BATCHEDSCENE_HPP
 #define BLIB_RENDER_RENDERER_BATCHEDSCENE_HPP
 
+#include <BLIB/Render/Events/SceneObjectRemoved.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Scenes/SceneObjectStorage.hpp>
+#include <BLIB/Signals/Emitter.hpp>
 
 namespace bl
 {
@@ -141,6 +143,7 @@ private:
     ObjectBatch transparentObjects;
     ObjectSettingsCache staticCache;
     ObjectSettingsCache dynamicCache;
+    sig::Emitter<event::SceneObjectRemoved> emitter;
 
     void handleAddressChange(UpdateSpeed speed, SceneObject* oldBase);
     void releaseObject(SceneObject* object, mat::MaterialPipeline* pipeline);

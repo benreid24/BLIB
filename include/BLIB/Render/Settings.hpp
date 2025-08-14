@@ -1,6 +1,8 @@
 #ifndef BLIB_RENDER_SETTINGS_HPP
 #define BLIB_RENDER_SETTINGS_HPP
 
+#include <BLIB/Render/Events/SettingsChanged.hpp>
+#include <BLIB/Signals/Emitter.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <array>
 #include <initializer_list>
@@ -226,6 +228,8 @@ private:
     float ssaoRadius;
     float ssaoBias;
     float ssaoExponent;
+
+    sig::Emitter<event::SettingsChanged> emitter;
     bool dirty;
 
     friend class Renderer;

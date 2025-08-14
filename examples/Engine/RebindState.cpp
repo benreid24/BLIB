@@ -24,10 +24,11 @@ void RebindState::activate(bl::engine::Engine& engine) {
     }
 
     if (ctrl == Control::Movement) {
-        configurator.start(engine.inputSystem().getActor().getJoystickMovementControl(ctrl));
+        configurator.start(engine,
+                           engine.inputSystem().getActor().getJoystickMovementControl(ctrl));
     }
     else {
-        configurator.start(engine.inputSystem().getActor().getKBMTriggerControl(ctrl));
+        configurator.start(engine, engine.inputSystem().getActor().getKBMTriggerControl(ctrl));
         text.getSection().setString("Press the desired control (keyboard/mouse only)");
     }
 

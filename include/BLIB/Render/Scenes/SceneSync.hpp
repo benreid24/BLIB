@@ -3,9 +3,10 @@
 
 #include <BLIB/Components/Rendered.hpp>
 #include <BLIB/ECS/Events.hpp>
-#include <BLIB/Events.hpp>
 #include <BLIB/Render/Events/SceneDestroyed.hpp>
 #include <BLIB/Render/Events/SceneObjectRemoved.hpp>
+#include <BLIB/Signals/Channel.hpp>
+#include <BLIB/Signals/Router.hpp>
 
 namespace bl
 {
@@ -26,10 +27,7 @@ namespace scene
  *
  * @ingroup Renderer
  */
-class SceneSync
-: public bl::event::Listener<ecs::event::ComponentAdded<com::Rendered>,
-                             ecs::event::ComponentRemoved<com::Rendered>,
-                             rc::event::SceneObjectRemoved, rc::event::SceneDestroyed> {
+class SceneSync {
 public:
     /**
      * @brief Destroys the sync object
@@ -38,12 +36,19 @@ public:
 
 private:
     ecs::Registry& registry;
+    sig::Router<ecs::event::ComponentAdded<com::Rendered>,
+                ecs::event::ComponentRemoved<com::Rendered>>
+        ecsRouter;
+    sig::Router<rc::event::SceneObjectRemoved, rc::event::SceneDestroyed> renderRouter;
 
     SceneSync(ecs::Registry& registry);
-    virtual void observe(const ecs::event::ComponentAdded<com::Rendered>& event) override;
-    virtual void observe(const ecs::event::ComponentRemoved<com::Rendered>& event) override;
-    virtual void observe(const rc::event::SceneObjectRemoved& event) override;
-    virtual void observe(const rc::event::SceneDestroyed& event) override;
+    void handleComponentAdd(const ecs::event::ComponentAdded<com::Rendered>& event);
+    void handleComponentRemove(const ecs::event::ComponentRemoved<com::Rendered>& event);
+    void handleSceneRemove(const rc::event::SceneObjectRemoved& event);
+    void handleSceneDestroy(const rc::event::SceneDestroyed& event);
+
+    void subscribe(sig::Channel& renderChannel);
+    void unsubscribe();
 
     friend class ::bl::rc::Renderer;
 };

@@ -1,7 +1,6 @@
 #ifndef BLIB_RENDER_DESCRIPTORS_SCENE3DINSTANCE_HPP
 #define BLIB_RENDER_DESCRIPTORS_SCENE3DINSTANCE_HPP
 
-#include <BLIB/Events.hpp>
 #include <BLIB/Render/Buffers/StaticUniformBuffer.hpp>
 #include <BLIB/Render/Descriptors/Builtin/CommonShaderInputs.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
@@ -12,6 +11,7 @@
 #include <BLIB/Render/Lighting/SpotLight3D.hpp>
 #include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
+#include <BLIB/Signals/Listener.hpp>
 #include <array>
 #include <glm/glm.hpp>
 
@@ -42,7 +42,7 @@ namespace ds
  */
 class Scene3DInstance
 : public SceneDescriptorSetInstance
-, public bl::event::Listener<event::SceneGraphAssetInitialized> {
+, public sig::Listener<event::SceneGraphAssetInitialized> {
 public:
     /**
      * @brief Creates a new instance of the descriptor set
@@ -93,7 +93,7 @@ private:
     virtual bool allocateObject(ecs::Entity entity, scene::Key key) override;
     virtual void handleFrameStart() override;
 
-    virtual void observe(const event::SceneGraphAssetInitialized& event) override;
+    virtual void process(const event::SceneGraphAssetInitialized& event) override;
     void updateImageDescriptors();
 
     friend class scene::Scene3D;

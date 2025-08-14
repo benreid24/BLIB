@@ -20,6 +20,7 @@
 #include <BLIB/Render/Transfers/TextureExporter.hpp>
 #include <BLIB/Render/Vulkan/RenderTexture.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Signals/Channel.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <future>
 
@@ -208,6 +209,11 @@ public:
      */
     const Settings& getSettings() const;
 
+    /**
+     * @brief Returns the channel for renderer events
+     */
+    sig::Channel& getSignalChannel();
+
 private:
     std::mutex renderMutex;
     engine::Engine& engine;
@@ -234,6 +240,7 @@ private:
     std::vector<std::unique_ptr<vk::RenderTexture>> renderTextures;
     rg::AssetFactory assetFactory;
     scene::SceneSync sceneSync;
+    sig::Channel signalChannel;
 
     Renderer(engine::Engine& engine, engine::EngineWindow& window);
     ~Renderer();
@@ -315,6 +322,8 @@ inline rg::AssetFactory& Renderer::getAssetFactory() { return assetFactory; }
 inline Settings& Renderer::getSettings() { return settings; }
 
 inline const Settings& Renderer::getSettings() const { return settings; }
+
+inline sig::Channel& Renderer::getSignalChannel() { return signalChannel; }
 
 } // namespace rc
 } // namespace bl

@@ -1,5 +1,6 @@
 #include <BLIB/Input/Configurator.hpp>
 
+#include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Logging.hpp>
 
 namespace bl
@@ -17,17 +18,17 @@ Configurator::Configurator()
 , trigger(nullptr)
 , axis(sf::Joystick::Axis::X) {}
 
-void Configurator::start(Trigger& t) {
+void Configurator::start(engine::Engine& engine, Trigger& t) {
     if (!finished()) {
         BL_LOG_ERROR << "Cannot start configurator, already running";
         return;
     }
     state   = WaitingTrigger;
     trigger = &t;
-    bl::event::Dispatcher::subscribe(this, true);
+    subscribeDeferred(engine.getSignalChannel());
 }
 
-void Configurator::start(Joystick& js) {
+void Configurator::start(engine::Engine& engine, Joystick& js) {
     if (!finished()) {
         BL_LOG_ERROR << "Cannot start configurator, already running";
         return;
@@ -35,18 +36,18 @@ void Configurator::start(Joystick& js) {
     state    = WaitingHorAxis;
     joystick = &js;
     jsState  = JoystickState::WaitingPositive;
-    bl::event::Dispatcher::subscribe(this, true);
+    subscribeDeferred(engine.getSignalChannel());
 }
 
 bool Configurator::finished() const { return state == Finished; }
 
 Configurator::State Configurator::getState() const { return state; }
 
-void Configurator::observe(const sf::Event& event) {
+void Configurator::process(const sf::Event& event) {
     switch (state) {
     case WaitingTrigger:
         if (trigger->configureFromEvent(event)) {
-            bl::event::Dispatcher::unsubscribe(this, true);
+            unsubscribeDeferred();
             state = Finished;
         }
         break;
@@ -73,13 +74,11 @@ void Configurator::observe(const sf::Event& event) {
                         }
                         else {
                             joystick->verticalAxis = axis;
-                            bl::event::Dispatcher::unsubscribe(this, true);
+                            unsubscribeDeferred();
                             state = Finished;
                         }
                     }
-                    else {
-                        jsState = JoystickState::WaitingPositive;
-                    }
+                    else { jsState = JoystickState::WaitingPositive; }
                 }
             }
             break;

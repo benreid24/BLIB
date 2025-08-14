@@ -1,10 +1,10 @@
 #ifndef BLIB_RENDER_VULKAN_RENDERPASS_HPP
 #define BLIB_RENDER_VULKAN_RENDERPASS_HPP
 
-#include <BLIB/Events.hpp>
 #include <BLIB/Render/Events/SettingsChanged.hpp>
 #include <BLIB/Render/Vulkan/RenderPassParameters.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Signals/Listener.hpp>
 
 namespace bl
 {
@@ -19,7 +19,7 @@ namespace vk
  *
  * @ingroup Renderer
  */
-class RenderPass : public bl::event::Listener<event::SettingsChanged> {
+class RenderPass : public sig::Listener<event::SettingsChanged> {
 public:
     /**
      * @brief Construct a new Render Pass
@@ -57,7 +57,7 @@ private:
     RenderPassParameters createParams;
     VkRenderPass renderPass;
 
-    virtual void observe(const event::SettingsChanged& e) override;
+    virtual void process(const event::SettingsChanged& e) override;
     void doCreate();
 };
 

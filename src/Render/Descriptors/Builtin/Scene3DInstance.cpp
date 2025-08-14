@@ -134,7 +134,7 @@ void Scene3DInstance::init(ShaderInputStore& inputStore) {
 
     updateImageDescriptors();
 
-    bl::event::Dispatcher::subscribe(this);
+    subscribe(renderer.getSignalChannel());
 }
 
 void Scene3DInstance::updateImageDescriptors() {
@@ -198,7 +198,7 @@ void Scene3DInstance::updateImageDescriptors() {
     setWriter.performWrite(vulkanState.device);
 }
 
-void Scene3DInstance::observe(const event::SceneGraphAssetInitialized& event) {
+void Scene3DInstance::process(const event::SceneGraphAssetInitialized& event) {
     if (event.scene == static_cast<Scene*>(owner)) {
         rgi::ShadowMapAsset* sm = dynamic_cast<rgi::ShadowMapAsset*>(&event.asset->asset.get());
         if (sm) {

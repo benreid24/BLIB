@@ -58,7 +58,7 @@ void InputSystem::update() {
     for (auto& ap : actors) { ap->update(); }
 }
 
-void InputSystem::observe(const sf::Event& event) {
+void InputSystem::process(const sf::Event& event) {
     if (event.type == sf::Event::MouseMoved) {
         mouseVector =
             math::normalized(sf::Vector2f(event.mouseMove.x, event.mouseMove.y) -

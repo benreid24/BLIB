@@ -49,7 +49,7 @@ void FinalSwapframeAsset::doCreate(engine::Engine& e, Renderer& renderer, Render
         ++i;
     });
 
-    bl::event::Dispatcher::subscribe(this);
+    subscribe(renderer.getSignalChannel());
 }
 
 void FinalSwapframeAsset::doPrepareForInput(const rg::ExecutionContext&) {
@@ -119,7 +119,7 @@ void FinalSwapframeAsset::updateAllAttachments() {
     attachmentSets.visit([this, &i](vk::AttachmentSet&) { updateAttachments(i++); });
 }
 
-void FinalSwapframeAsset::observe(const event::SettingsChanged& changeEvent) {
+void FinalSwapframeAsset::process(const event::SettingsChanged& changeEvent) {
     if (changeEvent.setting == event::SettingsChanged::AntiAliasing) {
         ensureSampledImage();
         updateAllAttachments();

@@ -51,10 +51,7 @@ void configureInput(bl::engine::Engine& engine) {
 class EngineExample : public bl::game::Game {
     EventListener listener;
 
-    bool performEarlyStartup(int, char**) override {
-        bl::event::Dispatcher::subscribe(&listener);
-        return true;
-    }
+    bool performEarlyStartup(int, char**) override { return true; }
 
     bl::engine::Settings createStartupParameters() override {
         return bl::engine::Settings().withWindowParameters(
@@ -67,12 +64,13 @@ class EngineExample : public bl::game::Game {
 
     bool completeStartup(bl::engine::Engine& engine) override {
         configureInput(engine);
+        listener.subscribe(engine.getSignalChannel());
         return true;
     }
 
     bl::engine::State::Ptr createInitialEngineState() override { return MainState::create(); }
 
-    void startShutdown() override { bl::event::Dispatcher::unsubscribe(&listener); }
+    void startShutdown() override { listener.unsubscribe(); }
 
     void completeShutdown() override {
         // noop

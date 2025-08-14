@@ -32,7 +32,7 @@ void exportTexture(bl::rc::tfr::TextureExport* te, std::string_view outfile,
 
 class DemoState
 : public bl::engine::State
-, bl::event::Listener<sf::Event> {
+, bl::sig::Listener<sf::Event> {
 public:
     DemoState()
     : State(bl::engine::StateMask::All)
@@ -184,11 +184,11 @@ public:
         renderTextureNestedSprite.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
         // subscribe to window events
-        bl::event::Dispatcher::subscribe(this);
+        subscribe(engine.getSignalChannel());
     }
 
     virtual void deactivate(bl::engine::Engine& engine) override {
-        bl::event::Dispatcher::unsubscribe(this);
+        unsubscribe();
         texture.release();
         engine.renderer().texturePool().releaseUnused();
         engine.getPlayer().leaveWorld();
@@ -218,7 +218,7 @@ private:
     bl::gfx::Sprite renderTextureNestedSprite;
     std::atomic_bool exportInProgress;
 
-    virtual void observe(const sf::Event& event) override {
+    virtual void process(const sf::Event& event) override {
         if (event.type == sf::Event::KeyPressed) {
             switch (event.key.code) {
             case sf::Keyboard::Z:

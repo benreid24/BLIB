@@ -2,13 +2,15 @@
 #define BLIB_RENDER_OVERLAYS_OVERLAY_HPP
 
 #include <BLIB/ECS/Entity.hpp>
-#include <BLIB/Events.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
+#include <BLIB/Render/Events/SceneObjectRemoved.hpp>
 #include <BLIB/Render/Overlays/OverlayObject.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Scenes/SceneObjectECSAdaptor.hpp>
+#include <BLIB/Signals/Emitter.hpp>
+#include <BLIB/Signals/Listener.hpp>
 #include <BLIB/Systems/OverlayScalerSystem.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
 #include <limits>
@@ -35,8 +37,8 @@ class Observer;
  */
 class Overlay
 : public Scene
-, public bl::event::Listener<ecs::event::EntityParentSet, ecs::event::EntityParentRemoved,
-                             ecs::event::ComponentRemoved<ovy::OverlayObject>> {
+, public sig::Listener<ecs::event::EntityParentSet, ecs::event::EntityParentRemoved,
+                       ecs::event::ComponentRemoved<ovy::OverlayObject>> {
 public:
     static constexpr std::uint32_t NoParent = std::numeric_limits<std::uint32_t>::max();
 
@@ -125,6 +127,7 @@ private:
     sys::OverlayScalerSystem& scaler;
     std::vector<ovy::OverlayObject*> roots;
     bool needRefreshAll;
+    sig::Emitter<event::SceneObjectRemoved> emitter;
 
     std::vector<ovy::OverlayObject*> renderStack;
     VkViewport cachedParentViewport;
@@ -133,9 +136,9 @@ private:
     void refreshAll();
     void sortRoots();
 
-    virtual void observe(const ecs::event::EntityParentSet& event) override;
-    virtual void observe(const ecs::event::EntityParentRemoved& event) override;
-    virtual void observe(const ecs::event::ComponentRemoved<ovy::OverlayObject>& event) override;
+    virtual void process(const ecs::event::EntityParentSet& event) override;
+    virtual void process(const ecs::event::EntityParentRemoved& event) override;
+    virtual void process(const ecs::event::ComponentRemoved<ovy::OverlayObject>& event) override;
 
     template<typename T>
     friend class sys::DrawableSystem;

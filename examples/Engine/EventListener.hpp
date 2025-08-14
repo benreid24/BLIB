@@ -1,9 +1,9 @@
 #ifndef EVENTLISTENER_HPP
 #define EVENTLISTENER_HPP
 
-#include <BLIB/Events.hpp>
 #include <BLIB/Input.hpp>
 #include <BLIB/Logging.hpp>
+#include <BLIB/Signals.hpp>
 #include <SFML/Window.hpp>
 
 namespace sf
@@ -15,11 +15,11 @@ inline std::ostream& operator<<(std::ostream& os, const Joystick::Identification
 }
 } // namespace sf
 
-class EventListener : public bl::event::Listener<sf::Event> {
+class EventListener : public bl::sig::Listener<sf::Event> {
 public:
     virtual ~EventListener() = default;
 
-    virtual void observe(const sf::Event& event) override {
+    virtual void process(const sf::Event& event) override {
         switch (event.type) {
         case sf::Event::JoystickButtonPressed:
             BL_LOG_INFO << "Joystick button: " << event.joystickButton.button << " from "

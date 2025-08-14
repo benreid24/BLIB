@@ -368,7 +368,7 @@ T& Engine::addPlayer(TArgs&&... args) {
     auto& actor    = input.addActor();
     T* np          = new T(*this, &observer, &actor, args...);
     auto& player   = players.emplace_back(np);
-    bl::event::Dispatcher::dispatch<event::PlayerAdded>({*player});
+    eventEmitter.emit<event::PlayerAdded>({*player});
     return *np;
 }
 
@@ -383,7 +383,7 @@ ctr::Ref<World, TWorld> Engine::createWorld(TArgs&&... args) {
         if (!worlds[i].isValid()) {
             worlds[i]  = ref;
             ref->index = i;
-            bl::event::Dispatcher::dispatch<event::WorldCreated>({*ref});
+            eventEmitter.emit<event::WorldCreated>({*ref});
             return ref;
         }
     }

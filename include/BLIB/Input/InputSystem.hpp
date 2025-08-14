@@ -1,8 +1,8 @@
 #ifndef BLIB_INPUT_INPUTSYSTEM_HPP
 #define BLIB_INPUT_INPUTSYSTEM_HPP
 
-#include <BLIB/Events.hpp>
 #include <BLIB/Input/Actor.hpp>
+#include <BLIB/Signals/Listener.hpp>
 #include <memory>
 
 namespace bl
@@ -20,7 +20,7 @@ namespace input
  * @ingroup Input
  *
  */
-class InputSystem : public event::Listener<sf::Event> {
+class InputSystem : public sig::Listener<sf::Event> {
 public:
     /**
      * @brief Construct a new Input System
@@ -106,7 +106,7 @@ private:
     std::vector<std::unique_ptr<Actor>> actors;
     sf::Vector2f mouseVector;
 
-    virtual void observe(const sf::Event& event) override;
+    virtual void process(const sf::Event& event) override;
 
     Actor& addActor();
     void removeActor(unsigned int i);

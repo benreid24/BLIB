@@ -13,14 +13,14 @@ RenderPass::RenderPass(std::uint32_t id, Renderer& r, RenderPassParameters&& par
 , renderer(r)
 , createParams(std::move(params)) {
     doCreate();
-    bl::event::Dispatcher::subscribe(this);
+    subscribe(renderer.getSignalChannel());
 }
 
 RenderPass::~RenderPass() {
     vkDestroyRenderPass(renderer.vulkanState().device, renderPass, nullptr);
 }
 
-void RenderPass::observe(const event::SettingsChanged& e) {
+void RenderPass::process(const event::SettingsChanged& e) {
     if (e.setting == event::SettingsChanged::Setting::AntiAliasing &&
         (createParams.getMSAABehavior() & RenderPassParameters::MSAABehavior::UseSettings)) {
         renderer.vulkanState().cleanupManager.add(

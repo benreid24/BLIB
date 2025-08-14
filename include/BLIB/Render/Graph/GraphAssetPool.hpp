@@ -1,11 +1,13 @@
 #ifndef BLIB_RENDER_GRAPH_GRAPHASSETPOOL_HPP
 #define BLIB_RENDER_GRAPH_GRAPHASSETPOOL_HPP
 
+#include <BLIB/Render/Events/GraphEvents.hpp>
 #include <BLIB/Render/Graph/Asset.hpp>
 #include <BLIB/Render/Graph/AssetPool.hpp>
 #include <BLIB/Render/Graph/AssetRef.hpp>
 #include <BLIB/Render/Graph/GraphAsset.hpp>
 #include <BLIB/Render/Graph/TaskOutput.hpp>
+#include <BLIB/Signals/Emitter.hpp>
 #include <list>
 #include <string_view>
 #include <unordered_map>
@@ -14,6 +16,8 @@ namespace bl
 {
 namespace rc
 {
+class Renderer;
+
 namespace rg
 {
 /**
@@ -26,11 +30,12 @@ public:
     /**
      * @brief Creates the pool
      *
+     * @param renderer The renderer that owns this pool
      * @param pool The parent asset pool to get assets from
      * @param owner The render target that owns the pool
      * @param scene The scene that the pool is for
      */
-    GraphAssetPool(AssetPool& pool, RenderTarget* owner, Scene* scene);
+    GraphAssetPool(Renderer& renderer, AssetPool& pool, RenderTarget* owner, Scene* scene);
 
     /**
      * @brief Fetch an existing asset from the pool to be used as an output
@@ -91,6 +96,7 @@ private:
     Scene* scene;
     AssetPool& pool;
     std::unordered_map<std::string_view, std::list<GraphAsset>> assets;
+    sig::Emitter<event::SceneGraphAssetCreated> emitter;
 };
 
 } // namespace rg

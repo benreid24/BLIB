@@ -1,9 +1,9 @@
 #ifndef BLIB_MENU_DRIVERS_MOUSEDRIVER_HPP
 #define BLIB_MENU_DRIVERS_MOUSEDRIVER_HPP
 
-#include <BLIB/Events.hpp>
 #include <BLIB/Interfaces/Menu/Item.hpp>
 #include <BLIB/Interfaces/Menu/Menu.hpp>
+#include <BLIB/Signals/Listener.hpp>
 #include <SFML/Window.hpp>
 
 namespace bl
@@ -16,7 +16,7 @@ namespace menu
  * @ingroup Menu
  *
  */
-class MouseDriver : public bl::event::Listener<sf::Event> {
+class MouseDriver : public bl::sig::Listener<sf::Event> {
 public:
     /**
      * @brief Create a new mouse generator that services the given menu
@@ -51,7 +51,7 @@ public:
      *
      * @param event The window event to process
      */
-    virtual void observe(const sf::Event& event) override;
+    virtual void process(const sf::Event& event) override;
 
 private:
     Menu& menu;

@@ -1,6 +1,6 @@
 #include <BLIB/Engine.hpp>
-#include <BLIB/Events.hpp>
 #include <BLIB/Logging.hpp>
+#include <BLIB/Signals.hpp>
 #include <any>
 #include <gtest/gtest.h>
 #include <vector>
@@ -138,14 +138,13 @@ TEST(Engine, FixedTimestep) {
 
 namespace
 {
-struct EventReceiver
-: public bl::event::Listener<event::Startup, event::StateChange, event::Shutdown> {
+struct EventReceiver : public sig::Listener<event::Startup, event::StateChange, event::Shutdown> {
     EventReceiver(std::vector<std::any>& recv)
     : recv(recv) {}
 
-    virtual void observe(const event::Startup& event) override { recv.push_back({event}); }
-    virtual void observe(const event::StateChange& event) override { recv.push_back({event}); }
-    virtual void observe(const event::Shutdown& event) override { recv.push_back({event}); }
+    virtual void process(const event::Startup& event) override { recv.push_back({event}); }
+    virtual void process(const event::StateChange& event) override { recv.push_back({event}); }
+    virtual void process(const event::Shutdown& event) override { recv.push_back({event}); }
 
 private:
     std::vector<std::any>& recv;
@@ -157,7 +156,7 @@ TEST(Engine, EventsStartShutdownStateChanges) {
     Engine engine(Settings{});
     std::vector<std::any> events;
     EventReceiver listener(events);
-    bl::event::Dispatcher::subscribe(&listener);
+    listener.subscribe(engine.getSignalChannel());
 
     FlagTestState* second = new FlagTestState(Flags::PopState);
     State::Ptr secondPtr(second);
@@ -170,15 +169,13 @@ TEST(Engine, EventsStartShutdownStateChanges) {
     EXPECT_EQ(events[1].type(), typeid(event::StateChange));
     EXPECT_EQ(events[2].type(), typeid(event::Shutdown));
     EXPECT_EQ(std::any_cast<event::Shutdown>(events[2]).cause, event::Shutdown::FinalStatePopped);
-
-    bl::event::Dispatcher::clearAllListeners();
 }
 
 TEST(Engine, TerminateEvent) {
     Engine engine(Settings{});
     std::vector<std::any> events;
     EventReceiver listener(events);
-    bl::event::Dispatcher::subscribe(&listener);
+    listener.subscribe(engine.getSignalChannel());
 
     FlagTestState* first = new FlagTestState(Flags::Terminate);
     State::Ptr firstPtr(first);
@@ -188,8 +185,6 @@ TEST(Engine, TerminateEvent) {
     EXPECT_EQ(events[0].type(), typeid(event::Startup));
     EXPECT_EQ(events[1].type(), typeid(event::Shutdown));
     EXPECT_EQ(std::any_cast<event::Shutdown>(events[1]).cause, event::Shutdown::Terminated);
-
-    bl::event::Dispatcher::clearAllListeners();
 }
 
 namespace
