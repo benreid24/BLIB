@@ -114,7 +114,7 @@ void Timeline::build(std::vector<std::unique_ptr<Task>>& tasks, GraphAsset* fina
         // find & create sidecar assets here bc we know the task will get executed at this point
         unsigned int i = 0;
         for (std::string_view sidecar : task->assetTags.sidecarAssets) {
-            GraphAsset* sc                  = pool->createAsset(sidecar);
+            GraphAsset* sc                  = pool->createAsset(sidecar, "");
             task->assets.sidecarAssets[i++] = sc;
             createAsset(sc);
         }

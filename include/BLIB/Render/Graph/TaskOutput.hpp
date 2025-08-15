@@ -85,6 +85,13 @@ struct TaskOutput {
     ctr::StaticVector<OutputOption, 8> options;
     Order order;
     ctr::StaticVector<std::string_view, 4> sharedWith;
+    std::string_view purpose;
+
+    /**
+     * @brief Creates an empty task output
+     */
+    TaskOutput()
+    : order(Middle) {}
 
     /**
      * @brief Creates the task output
@@ -129,6 +136,55 @@ struct TaskOutput {
         }
 
         for (const auto& tag : sharedWith) { this->sharedWith.emplace_back(tag); }
+    }
+
+    /**
+     * @brief Adds an option for this output slot. Options are prioritized in the order they are
+     *        added, including those passed in the constructor
+     *
+     * @param tag The tag of the output option
+     * @param shareMode The share mode of the output option
+     * @param createMode The create mode of the output option
+     * @return A reference to this object
+     */
+    TaskOutput& addOption(std::string_view tag, ShareMode shareMode, CreateMode createMode) {
+        options.emplace_back(tag, shareMode, createMode);
+        return *this;
+    }
+
+    /**
+     * @brief Sets the purpose of this output. purpose is used to disambiguate assets that have the
+     *        same tags and is generally used by descriptor sets
+     *
+     * @param p The purpose of this output
+     * @return A reference to this object
+     */
+    TaskOutput& withPurpose(std::string_view p) {
+        purpose = p;
+        return *this;
+    }
+
+    /**
+     * @brief Sets the order priority of this output. Order is relative to the other outputs being
+     *        generated in a given timeline slice
+     *
+     * @param o The order priority of this output
+     * @return A reference to this object
+     */
+    TaskOutput& withOrder(Order o) {
+        order = o;
+        return *this;
+    }
+
+    /**
+     * @brief Adds a task id that this output may be shared with
+     *
+     * @param task The id of the task that this output may be shared with
+     * @return A reference to this object
+     */
+    TaskOutput& withSharedWith(std::string_view task) {
+        sharedWith.emplace_back(task);
+        return *this;
     }
 };
 

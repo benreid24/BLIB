@@ -42,44 +42,50 @@ public:
      *
      * @param tag The asset tag to fetch
      * @param task The task that will be outputting to the asset
+     * @param purpose The purpose of the asset, used to disambiguate assets with the same tag
      * @return A pointer to the contained asset, or nullptr if none
      */
-    GraphAsset* getAssetForOutput(std::string_view tag, Task* task);
+    GraphAsset* getAssetForOutput(std::string_view tag, Task* task, std::string_view purpose);
 
     /**
      * @brief Fetch an existing asset from the pool to be used as a shared output
      *
      * @param tag The tag of the asset being requested
      * @param sharedWith The tags of the tasks that this asset may be shared with
+     * @param purpose The purpose of the asset, used to disambiguate assets with the same tag
      * @return A pointer to the contained asset, or nullptr if none
      */
     GraphAsset* getAssetForSharedOutput(std::string_view tag,
-                                        const decltype(TaskOutput::sharedWith)& sharedWith);
+                                        const decltype(TaskOutput::sharedWith)& sharedWith,
+                                        std::string_view purpose);
 
     /**
      * @brief Fetch an existing asset from the pool to be used as an input. Only use for external
      *        assets. Do not call after calls to createAsset
      *
      * @param tag The asset tag to fetch
+     * @param purpose The purpose of the asset, used to disambiguate assets with the same tag
      * @return A pointer to the contained asset, or nullptr if none
      */
-    GraphAsset* getAssetForInput(std::string_view tag);
+    GraphAsset* getAssetForInput(std::string_view tag, std::string_view purpose);
 
     /**
      * @brief Creates a new asset with the given tag and creator
      *
      * @param tag The asset tag
+     * @param purpose The purpose of the asset, used to disambiguate assets with the same tag
      * @return A pointer to the new asset
      */
-    GraphAsset* createAsset(std::string_view tag);
+    GraphAsset* createAsset(std::string_view tag, std::string_view purpose);
 
     /**
      * @brief Gets or creates an asset to be used by another asset
      *
      * @param tag The tag of the asset to get or create
+     * @param purpose The purpose of the asset, used to disambiguate assets with the same tag
      * @return A ref to the created asset. May be invalid
      */
-    AssetRef getAssetForAsset(std::string_view tag);
+    AssetRef getAssetForAsset(std::string_view tag, std::string_view purpose);
 
     /**
      * @brief Fetches the swap frame asset from the pool

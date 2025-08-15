@@ -52,7 +52,7 @@ void RenderGraph::build() {
     const auto tryLinkConcreteInput =
         [this, &addInputTask](Task* task, const TaskInput& tags, GraphAsset*& input) {
             for (auto tag : tags.options) {
-                input = assets.getAssetForInput(tag);
+                input = assets.getAssetForInput(tag, "");
                 if (input) return;
             }
             addInputTask(task);
@@ -87,7 +87,7 @@ void RenderGraph::build() {
 
                                 // create the asset if it does not exist
                                 if (!outputPtr) {
-                                    asset = assets.createAsset(tag);
+                                    asset = assets.createAsset(tag, output.purpose);
                                     asset->outputtedBy.emplace_back(creatorTask.get());
                                     outputPtr = asset;
                                     return true;
@@ -144,11 +144,12 @@ void RenderGraph::build() {
 
                 // if the output is created by another task, try to find it
                 if (!params.sharedWith.empty()) {
-                    asset = assets.getAssetForSharedOutput(option.tag, params.sharedWith);
+                    asset = assets.getAssetForSharedOutput(
+                        option.tag, params.sharedWith, params.purpose);
                 }
 
                 // otherwise search for external assets
-                else { asset = assets.getAssetForOutput(option.tag, task); }
+                else { asset = assets.getAssetForOutput(option.tag, task, params.purpose); }
 
                 if (asset) {
                     asset->outputtedBy.emplace_back(task);

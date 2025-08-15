@@ -48,7 +48,7 @@ bool Asset::create(engine::Engine& engine, Renderer& renderer, RenderTarget* obs
         created = true;
         dependencies.reserve(depTags.size());
         for (const auto& depTag : depTags) {
-            AssetRef dep = pool->getAssetForAsset(depTag);
+            AssetRef dep = pool->getAssetForAsset(depTag, "");
             if (!dep.valid()) {
                 BL_LOG_ERROR << "Failed to find dependency asset with tag: " << depTag;
             }

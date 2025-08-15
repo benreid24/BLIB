@@ -5,6 +5,7 @@
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Graph/Assets/GBufferAssets.hpp>
 #include <BLIB/Render/Graph/Assets/SSAOAsset.hpp>
+#include <BLIB/Render/Graph/Purpose.hpp>
 #include <BLIB/Render/Graph/TaskIds.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Util/Random.hpp>
@@ -39,8 +40,10 @@ float lerp(float a, float b, float f) { return a + f * (b - a); }
 SSAOTask::SSAOTask()
 : Task(rg::TaskIds::SSAOTask)
 , renderer(nullptr) {
-    assetTags.outputs.emplace_back(rg::TaskOutput(
-        rg::AssetTags::SSAOBuffer, {rg::TaskOutput::CreatedByTask}, {rg::TaskOutput::Exclusive}));
+    assetTags.outputs.emplace_back(rg::TaskOutput(rg::AssetTags::SSAOBuffer,
+                                                  {rg::TaskOutput::CreatedByTask},
+                                                  {rg::TaskOutput::Exclusive})
+                                       .withPurpose(Purpose::SSAOBuffer));
     assetTags.requiredInputs.emplace_back(
         rg::TaskInput({rg::AssetTags::GBuffer, rg::AssetTags::GBufferHDR}));
     assetTags.sidecarAssets.emplace_back(rg::AssetTags::SSAOBuffer);

@@ -3,6 +3,7 @@
 #include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Descriptors/SetWriteHelper.hpp>
 #include <BLIB/Render/Graph/Assets/ShadowMapAsset.hpp>
+#include <BLIB/Render/Graph/Purpose.hpp>
 #include <BLIB/Render/Lighting/Scene3DLighting.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Render/Scenes/Scene3D.hpp>
@@ -206,10 +207,12 @@ void Scene3DInstance::process(const event::SceneGraphAssetInitialized& event) {
             updateImageDescriptors();
         }
         else {
-            rgi::SSAOAsset* ssao = dynamic_cast<rgi::SSAOAsset*>(&event.asset->asset.get());
-            if (ssao) {
-                ssaoBuffer = ssao;
-                updateImageDescriptors();
+            if (event.asset->purpose == rgi::Purpose::SSAOBuffer) {
+                rgi::SSAOAsset* ssao = dynamic_cast<rgi::SSAOAsset*>(&event.asset->asset.get());
+                if (ssao) {
+                    ssaoBuffer = ssao;
+                    updateImageDescriptors();
+                }
             }
         }
     }

@@ -2,6 +2,7 @@
 #define BLIB_RENDER_GRAPH_GRAPHASSET_HPP
 
 #include <BLIB/Render/Graph/AssetRef.hpp>
+#include <string_view>
 #include <vector>
 
 namespace bl
@@ -21,6 +22,7 @@ struct GraphAsset {
     AssetRef asset;
     std::vector<Task*> outputtedBy;
     unsigned int firstAvailableStep;
+    std::string_view purpose;
 
     /**
      * @brief Creates a new graph asset
