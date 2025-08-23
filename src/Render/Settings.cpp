@@ -11,6 +11,9 @@ namespace rc
 namespace
 {
 constexpr float DefaultGamma                  = 2.2f;
+constexpr bool DefaultHDREnabled              = true;
+constexpr float DefaultExposureFactor         = 1.f;
+constexpr bool DefaultBloomEnabled            = true;
 constexpr std::uint32_t DefaultBloomPassCount = 2;
 constexpr float DefaultBloomThreshold         = 1.f;
 constexpr float DefaultBloomFilters[] = {0.227027f, 0.1945946f, 0.1216216f, 0.054054f, 0.016216f};
@@ -31,7 +34,9 @@ using Setting = Changed::Setting;
 Settings::Settings(Renderer& owner)
 : owner(owner)
 , gamma(DefaultGamma)
-, exposure(1.f)
+, hdrEnabled(DefaultHDREnabled)
+, exposure(DefaultExposureFactor)
+, bloomEnabled(DefaultBloomEnabled)
 , bloomThreshold(DefaultBloomThreshold)
 , bloomPasses(DefaultBloomPassCount)
 , bloomFilterSize(std::size(DefaultBloomFilters))
@@ -61,6 +66,27 @@ Settings& Settings::setExposureFactor(float e) {
     exposure = e;
     dirty    = true;
     emitter.emit<Changed>({owner, *this, Setting::ExposureFactor});
+    return *this;
+}
+
+Settings& Settings::setHDREnabled(bool e) {
+    if (hdrEnabled != e) {
+        hdrEnabled = e;
+        owner.vulkanState().textureFormatManager.setFormat(
+            vk::SemanticTextureFormat::Color,
+            hdrEnabled ? vk::CommonTextureFormats::HDRColor : vk::CommonTextureFormats::SRGBA32Bit);
+        dirty = true;
+        emitter.emit<Changed>({owner, *this, Setting::HDR});
+    }
+    return *this;
+}
+
+Settings& Settings::setBloomEnabled(bool e) {
+    if (bloomEnabled != e) {
+        bloomEnabled = e;
+        dirty        = true;
+        emitter.emit<Changed>({owner, *this, Setting::BloomEnabled});
+    }
     return *this;
 }
 

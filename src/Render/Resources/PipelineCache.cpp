@@ -643,6 +643,32 @@ void PipelineCache::createBuiltins() {
             .addDescriptorSet<ds::InputAttachmentFactory<1>>()
             .addDescriptorSet<ds::InputAttachmentFactory<1>>()
             .addDescriptorSet<ds::GlobalDataFactory>()
+            .withSpecialization(0,
+                                vk::PipelineSpecialization()
+                                    .createShaderSpecializations(
+                                        VK_SHADER_STAGE_FRAGMENT_BIT, sizeof(std::uint32_t) * 2, 2)
+                                    .setShaderSpecializationValue<std::uint32_t>(
+                                        VK_SHADER_STAGE_FRAGMENT_BIT, 0, 0, 1)
+                                    .setShaderSpecializationValue<std::uint32_t>(
+                                        VK_SHADER_STAGE_FRAGMENT_BIT, 1, sizeof(std::uint32_t), 1))
+            .withDynamicModifier([](Renderer& renderer,
+                                    vk::PipelineParameters& params,
+                                    const event::SettingsChanged& changeEvent) -> bool {
+                if (changeEvent.setting == event::SettingsChanged::HDR ||
+                    changeEvent.setting == event::SettingsChanged::BloomEnabled) {
+                    const std::uint32_t hdr   = renderer.getSettings().getHDREnabled() ? 1 : 0;
+                    const std::uint32_t bloom = renderer.getSettings().getBloomEnabled() ? 1 : 0;
+                    params.visitSpecializations(
+                        [hdr, bloom](vk::PipelineSpecialization& specialization) {
+                            specialization.setShaderSpecializationValue<std::uint32_t>(
+                                VK_SHADER_STAGE_FRAGMENT_BIT, 0, 0, hdr);
+                            specialization.setShaderSpecializationValue<std::uint32_t>(
+                                VK_SHADER_STAGE_FRAGMENT_BIT, 1, sizeof(std::uint32_t), bloom);
+                        });
+                    return true;
+                }
+                return false;
+            })
             .build());
 
     constexpr std::uint32_t BloomPcSize =

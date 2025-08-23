@@ -12,7 +12,9 @@ namespace event
 struct SettingsChanged {
     enum Setting {
         Gamma,
+        HDR,
         ExposureFactor,
+        BloomEnabled,
         BloomHighlightThreshold,
         BloomPassCount,
         BloomFilters,

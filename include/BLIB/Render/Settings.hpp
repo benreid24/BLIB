@@ -70,6 +70,32 @@ public:
     Settings& setExposureFactor(float e);
 
     /**
+     * @brief Returns whether HDR rendering is enabled
+     */
+    bool getHDREnabled() const;
+
+    /**
+     * @brief Sets whether HDR rendering is enabled
+     *
+     * @param enable True to enable HDR rendering and tone mapping, false to disable
+     * @return A reference to this object
+     */
+    Settings& setHDREnabled(bool enable);
+
+    /**
+     * @brief Returns whether bloom is enabled
+     */
+    bool getBloomEnabled() const;
+
+    /**
+     * @brief Sets whether bloom is enabled
+     *
+     * @param enable True to enable bloom, false to disable
+     * @return A reference to this object
+     */
+    Settings& setBloomEnabled(bool enable);
+
+    /**
      * @brief Returns the light level that bloom will be applied to
      */
     float getBloomHighlightThreshold() const;
@@ -214,7 +240,9 @@ public:
 private:
     Renderer& owner;
     float gamma;
+    bool hdrEnabled;
     float exposure;
+    bool bloomEnabled;
     float bloomThreshold;
     std::array<float, MaxBloomFilterSize> bloomFilters;
     std::uint32_t bloomFilterSize;
@@ -240,6 +268,10 @@ private:
 inline float Settings::getGamma() const { return gamma; }
 
 inline float Settings::getExposureFactor() const { return exposure; }
+
+inline bool Settings::getHDREnabled() const { return hdrEnabled; }
+
+inline bool Settings::getBloomEnabled() const { return bloomEnabled; }
 
 inline float Settings::getBloomHighlightThreshold() const { return bloomThreshold; }
 
