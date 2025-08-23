@@ -1,9 +1,12 @@
 #ifndef BLIB_RENDER_VULKAN_RENDERPASS_HPP
 #define BLIB_RENDER_VULKAN_RENDERPASS_HPP
 
+#include <BLIB/Render/Events/RenderPassInvalidated.hpp>
 #include <BLIB/Render/Events/SettingsChanged.hpp>
+#include <BLIB/Render/Events/TextureFormatChanged.hpp>
 #include <BLIB/Render/Vulkan/RenderPassParameters.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Signals/Emitter.hpp>
 #include <BLIB/Signals/Listener.hpp>
 
 namespace bl
@@ -19,7 +22,7 @@ namespace vk
  *
  * @ingroup Renderer
  */
-class RenderPass : public sig::Listener<event::SettingsChanged> {
+class RenderPass : public sig::Listener<event::SettingsChanged, event::TextureFormatChanged> {
 public:
     /**
      * @brief Construct a new Render Pass
@@ -56,8 +59,11 @@ private:
     Renderer& renderer;
     RenderPassParameters createParams;
     VkRenderPass renderPass;
+    sig::Emitter<event::RenderPassInvalidated> emitter;
 
     virtual void process(const event::SettingsChanged& e) override;
+    virtual void process(const event::TextureFormatChanged& e) override;
+    void recreate();
     void doCreate();
 };
 

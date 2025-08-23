@@ -744,6 +744,23 @@ VkImageAspectFlags VulkanState::guessImageAspect(VkFormat, VkImageUsageFlags usa
     return VK_IMAGE_ASPECT_COLOR_BIT;
 }
 
+VkImageAspectFlags VulkanState::guessImageAspect(SemanticTextureFormat format) {
+    switch (format) {
+    case SemanticTextureFormat::Color:
+    case SemanticTextureFormat::LinearRGBA32Bit:
+    case SemanticTextureFormat::SingleChannelUnorm8:
+    case SemanticTextureFormat::SRGBA32Bit:
+        return VK_IMAGE_ASPECT_COLOR_BIT;
+    case SemanticTextureFormat::Depth:
+        return VK_IMAGE_ASPECT_DEPTH_BIT;
+    case SemanticTextureFormat::DepthStencil:
+        return VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT;
+
+    default:
+        return VK_IMAGE_ASPECT_COLOR_BIT;
+    }
+}
+
 } // namespace vk
 } // namespace rc
 } // namespace bl

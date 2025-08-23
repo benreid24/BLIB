@@ -3,6 +3,7 @@ target_sources(BLIB PUBLIC
     AttachmentSet.hpp
     BlendParameters.hpp
     Buffer.hpp
+    CommonTextureFormats.hpp
     CleanupManager.hpp
     DedicatedCommandBuffers.hpp
     DescriptorPool.hpp
@@ -21,12 +22,13 @@ target_sources(BLIB PUBLIC
     RenderTexture.hpp
     Sampler.hpp
     SamplerOptions.hpp
+    SemanticTextureFormat.hpp
     ShaderParameters.hpp
     SharedCommandBuffer.hpp
     SharedCommandPool.hpp
     Swapchain.hpp
     Texture.hpp
-    TextureFormat.hpp
+    TextureFormatManager.hpp
     TextureOptions.hpp
     VulkanState.hpp
 )

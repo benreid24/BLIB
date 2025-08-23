@@ -10,8 +10,10 @@
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/PerFrameVector.hpp>
+#include <BLIB/Render/Vulkan/SemanticTextureFormat.hpp>
 #include <BLIB/Render/Vulkan/SharedCommandPool.hpp>
 #include <BLIB/Render/Vulkan/Swapchain.hpp>
+#include <BLIB/Render/Vulkan/TextureFormatManager.hpp>
 #include <BLIB/Render/Vulkan/VkCheck.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <array>
@@ -141,6 +143,14 @@ struct VulkanState {
      * @return The probable image aspect
      */
     static VkImageAspectFlags guessImageAspect(VkFormat format, VkImageUsageFlags usage);
+
+    /**
+     * @brief Guesses the aspect of an image based on its semantic format
+     *
+     * @param format The semantic format of the image
+     * @return The aspect of the image
+     */
+    static VkImageAspectFlags guessImageAspect(SemanticTextureFormat format);
 
     /**
      * @brief Helper function to create an image
@@ -283,6 +293,7 @@ struct VulkanState {
     tfr::TransferEngine transferEngine;
     DescriptorPool descriptorPool;
     CleanupManager cleanupManager;
+    TextureFormatManager textureFormatManager;
 
     std::mutex cbSubmitMutex;
     std::mutex bufferAllocMutex;

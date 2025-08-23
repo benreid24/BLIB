@@ -1,6 +1,8 @@
 target_sources(BLIB PUBLIC
 	GraphEvents.hpp
+	RenderPassInvalidated.hpp
 	SceneDestroyed.hpp
 	SceneObjectRemoved.hpp
 	SettingsChanged.hpp
+	TextureFormatChanged.hpp
 )

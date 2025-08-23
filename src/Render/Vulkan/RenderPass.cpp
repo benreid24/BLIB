@@ -14,6 +14,7 @@ RenderPass::RenderPass(std::uint32_t id, Renderer& r, RenderPassParameters&& par
 , createParams(std::move(params)) {
     doCreate();
     subscribe(renderer.getSignalChannel());
+    emitter.connect(renderer.getSignalChannel());
 }
 
 RenderPass::~RenderPass() {
@@ -23,12 +24,27 @@ RenderPass::~RenderPass() {
 void RenderPass::process(const event::SettingsChanged& e) {
     if (e.setting == event::SettingsChanged::Setting::AntiAliasing &&
         (createParams.getMSAABehavior() & RenderPassParameters::MSAABehavior::UseSettings)) {
-        renderer.vulkanState().cleanupManager.add(
-            [device = renderer.vulkanState().device, rp = renderPass]() {
-                vkDestroyRenderPass(device, rp, nullptr);
-            });
-        doCreate();
+        recreate();
     }
+}
+
+void RenderPass::process(const event::TextureFormatChanged& e) {
+    bool needsUpdate = false;
+    for (std::uint32_t i = 0; i < createParams.attachments.size(); ++i) {
+        if (createParams.semanticFormats[i] == e.semanticFormat) {
+            recreate();
+            break;
+        }
+    }
+}
+
+void RenderPass::recreate() {
+    renderer.vulkanState().cleanupManager.add(
+        [device = renderer.vulkanState().device, rp = renderPass]() {
+            vkDestroyRenderPass(device, rp, nullptr);
+        });
+    doCreate();
+    emitter.emit<event::RenderPassInvalidated>({*this});
 }
 
 void RenderPass::doCreate() {
@@ -66,13 +82,15 @@ void RenderPass::doCreate() {
     }
 
     // create local attachment list so we can reorder it
-    auto attachments = createParams.attachments;
+    auto semanticFormats = createParams.semanticFormats;
+    auto attachments     = createParams.attachments;
 
     // attachments is always full length, need to remove resolve attachments if msaa is disabled
     if ((createParams.msaaBehavior & RenderPassParameters::MSAABehavior::ResolveAttachments) &&
         !msaaEnabled) {
         for (unsigned int i = 0; i < createParams.subpasses[0].resolveAttachments.size(); ++i) {
             attachments.erase(createParams.subpasses[0].colorAttachments.size());
+            semanticFormats.erase(createParams.subpasses[0].colorAttachments.size());
         }
     }
 
@@ -83,6 +101,14 @@ void RenderPass::doCreate() {
                                  createParams.subpasses[0].colorAttachments.size();
         attachments[di].samples =
             msaaEnabled ? renderer.getSettings().getMSAASampleCount() : VK_SAMPLE_COUNT_1_BIT;
+    }
+
+    // update formats based on semantic formats
+    for (unsigned int i = 0; i < attachments.size(); ++i) {
+        if (createParams.semanticFormats[i] != SemanticTextureFormat::NonSematic) {
+            attachments[i].format =
+                renderer.vulkanState().textureFormatManager.getFormat(semanticFormats[i]);
+        }
     }
 
     VkRenderPassCreateInfo renderPassInfo{};

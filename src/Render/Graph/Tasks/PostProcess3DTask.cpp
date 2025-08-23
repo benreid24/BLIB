@@ -21,7 +21,7 @@ PostProcess3DTask::PostProcess3DTask()
         rg::TaskOutput({rg::AssetTags::PostFXOutput, rg::AssetTags::FinalFrameOutput},
                        {rg::TaskOutput::CreatedByTask, rg::TaskOutput::CreatedExternally},
                        {rg::TaskOutput::Exclusive, rg::TaskOutput::Shared}));
-    assetTags.requiredInputs.emplace_back(rg::TaskInput(rg::AssetTags::RenderedSceneOutputHDR));
+    assetTags.requiredInputs.emplace_back(rg::TaskInput(rg::AssetTags::RenderedSceneOutput));
     assetTags.optionalInputs.emplace_back(rg::AssetTags::BloomColorAttachmentPair);
 }
 
@@ -64,7 +64,7 @@ void PostProcess3DTask::onGraphInit() {
         bloomAttachmentSet.value().initAttachments(bloomBlur.get(0).getAttachmentSets(), sampler);
     }
     else {
-        VkFormat formats[]         = {vk::TextureFormat::HDRColor};
+        vk::SemanticTextureFormat formats[] = {vk::SemanticTextureFormat::SFloatR16G16B16A16};
         VkImageUsageFlags usages[] = {VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT};
         dummyBloomBuffer.emplace();
         dummyBloomBuffer.value().create(renderer->vulkanState(), 1, {32, 32}, formats, usages);

@@ -35,7 +35,7 @@ struct UniformPayload {
 
 BloomTask::BloomTask()
 : Task(rg::TaskIds::BloomTask) {
-    assetTags.requiredInputs.emplace_back(rg::TaskInput(rg::AssetTags::RenderedSceneOutputHDR));
+    assetTags.requiredInputs.emplace_back(rg::TaskInput(rg::AssetTags::RenderedSceneOutput));
     assetTags.outputs.emplace_back(rg::TaskOutput(rg::AssetTags::BloomColorAttachmentPair,
                                                   rg::TaskOutput::CreatedByTask,
                                                   rg::TaskOutput::Exclusive));

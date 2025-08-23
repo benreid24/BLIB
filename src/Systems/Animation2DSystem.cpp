@@ -190,7 +190,7 @@ void Animation2DSystem::doSlideshowAdd(com::Animation2DPlayer& player) {
     // fetch texture to convert texCoords and set texture id
     rc::res::TextureRef texture = renderer.texturePool().getOrLoadTexture(
         player.animation->resolvedSpritesheet(),
-        {.format  = rc::vk::TextureFormat::SRGBA32Bit,
+        {.format  = rc::vk::CommonTextureFormats::SRGBA32Bit,
          .sampler = rc::vk::SamplerOptions::Type::NoFilterEdgeClamped}); // TODO - parameterize?
     player.texture = texture;
     slideshowTextureSSBO.ensureSize(index + 1);

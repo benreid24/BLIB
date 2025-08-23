@@ -15,12 +15,8 @@ namespace rgi
 ForwardRenderTransparentTask::ForwardRenderTransparentTask()
 : Task(rg::TaskIds::ForwardRenderTransparentTask) {
     assetTags.outputs.emplace_back(
-        rg::TaskOutput({rg::AssetTags::RenderedSceneOutputHDR,
-                        rg::AssetTags::RenderedSceneOutput,
-                        rg::AssetTags::FinalFrameOutput},
-                       {rg::TaskOutput::CreatedByTask,
-                        rg::TaskOutput::CreatedByTask,
-                        rg::TaskOutput::CreatedExternally},
+        rg::TaskOutput({rg::AssetTags::RenderedSceneOutput, rg::AssetTags::FinalFrameOutput},
+                       {rg::TaskOutput::CreatedByTask, rg::TaskOutput::CreatedExternally},
                        {rg::TaskOutput::Shared},
                        rg::TaskOutput::Middle,
                        {rg::TaskIds::ForwardRenderOpaqueTask, rg::TaskIds::DeferredCompositeTask}));

@@ -16,7 +16,7 @@ namespace lgt
  *
  * @ingroup Renderer
  */
-class alignas(16) Color3D {
+class Color3D {
 public:
     /**
      * @brief Initializes the light to white with default factors
@@ -36,11 +36,9 @@ public:
                      float specularFactor = cfg::Constants::DefaultSpecularLightFactor,
                      float diffuseFactor  = cfg::Constants::DefaultDiffuseLightFactor,
                      float ambientFactor  = cfg::Constants::DefaultAmbientLightFactor) {
-        this->brightness     = brightness;
-        this->specularFactor = specularFactor;
-        ambient              = color * ambientFactor * brightness;
-        diffuse              = color * diffuseFactor * brightness;
-        specular             = color * specularFactor * brightness;
+        ambient  = glm::vec4(color * ambientFactor * brightness, brightness);
+        diffuse  = glm::vec4(color * diffuseFactor * brightness, specularFactor);
+        specular = color * specularFactor * brightness;
     }
 
     /**
@@ -49,7 +47,7 @@ public:
      * @param color The base color of the light
      */
     void setColor(const glm::vec3& color) {
-        setLighting(color, brightness, specularFactor, getDiffuseFactor(), getAmbientFactor());
+        setLighting(color, ambient.w, diffuse.w, getDiffuseFactor(), getAmbientFactor());
     }
 
     /**
@@ -58,7 +56,7 @@ public:
      * @param brightness The factor to multiply the colors by
      */
     void setBrightness(float brightness) {
-        setLighting(getColor(), brightness, specularFactor, getDiffuseFactor(), getAmbientFactor());
+        setLighting(getColor(), brightness, diffuse.w, getDiffuseFactor(), getAmbientFactor());
     }
 
     /**
@@ -67,7 +65,7 @@ public:
      * @param factor The factor to multiply the specular color by
      */
     void setSpecularFactor(float factor) {
-        setLighting(getColor(), brightness, factor, getDiffuseFactor(), getAmbientFactor());
+        setLighting(getColor(), ambient.w, factor, getDiffuseFactor(), getAmbientFactor());
     }
 
     /**
@@ -76,7 +74,7 @@ public:
      * @param factor The factor to multiply the diffuse color by
      */
     void setDiffuseFactor(float factor) {
-        setLighting(getColor(), brightness, specularFactor, factor, getAmbientFactor());
+        setLighting(getColor(), ambient.w, diffuse.w, factor, getAmbientFactor());
     }
 
     /**
@@ -85,18 +83,18 @@ public:
      * @param factor The factor to multiply the ambient color by
      */
     void setAmbientFactor(float factor) {
-        setLighting(getColor(), brightness, specularFactor, getDiffuseFactor(), factor);
+        setLighting(getColor(), ambient.w, diffuse.w, getDiffuseFactor(), factor);
     }
 
     /**
      * @brief Returns the brightness factor of the light
      */
-    float getBrightness() const { return brightness; }
+    float getBrightness() const { return ambient.w; }
 
     /**
      * @brief Returns the base color of the light before brightness is applied
      */
-    glm::vec3 getColor() const { return specular / brightness / specularFactor; }
+    glm::vec3 getColor() const { return specular / ambient.w / diffuse.w; }
 
     /**
      * @brief Returns the adjusted specular color of the light
@@ -106,7 +104,7 @@ public:
     /**
      * @brief Returns the specular factor of the light
      */
-    float getSpecularFactor() const { return specularFactor; }
+    float getSpecularFactor() const { return diffuse.w; }
 
     /**
      * @brief Returns the adjusted diffuse color of the light
@@ -116,7 +114,7 @@ public:
     /**
      * @brief Returns the diffuse factor of the light
      */
-    float getDiffuseFactor() const { return diffuse.r / (getColor().r * brightness); }
+    float getDiffuseFactor() const { return diffuse.r / (getColor().r * ambient.w); }
 
     /**
      * @brief Returns the adjusted ambient color of the light
@@ -126,7 +124,7 @@ public:
     /**
      * @brief Returns the ambient factor of the light
      */
-    float getAmbientFactor() const { return ambient.r / (getColor().r * brightness); }
+    float getAmbientFactor() const { return ambient.r / (getColor().r * ambient.w); }
 
     /**
      * @brief Returns the maximum light level across all channels and light types
@@ -144,10 +142,8 @@ public:
     }
 
 private:
-    glm::vec3 ambient;
-    float brightness;
-    glm::vec3 diffuse;
-    float specularFactor;
+    glm::vec4 ambient; // w = brightness
+    glm::vec4 diffuse; // w = specularFactor
     alignas(16) glm::vec3 specular;
 };
 

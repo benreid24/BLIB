@@ -1,8 +1,9 @@
 #ifndef BLIB_RENDER_VULKAN_IMAGEOPTIONS_HPP
 #define BLIB_RENDER_VULKAN_IMAGEOPTIONS_HPP
 
-#include <BLIB/Render/Vulkan/TextureFormat.hpp>
+#include <BLIB/Render/Vulkan/CommonTextureFormats.hpp>
 #include <BLIB/Vulkan.hpp>
+#include <cstdint>
 
 namespace bl
 {
@@ -22,7 +23,7 @@ struct ImageOptions {
     enum struct Type { Image2D, Cubemap };
 
     Type type                            = Type::Image2D;
-    VkFormat format                      = TextureFormat::DefaultColorFormat;
+    VkFormat format                      = CommonTextureFormats::SRGBA32Bit;
     VkImageUsageFlags usage              = 0;
     VkExtent2D extent                    = {0, 0};
     VkImageAspectFlags aspect            = VK_IMAGE_ASPECT_COLOR_BIT;

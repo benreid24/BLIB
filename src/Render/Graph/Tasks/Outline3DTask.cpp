@@ -17,15 +17,12 @@ Outline3DTask::Outline3DTask()
 : Task(rg::TaskIds::Outline3DTask)
 , registry(nullptr)
 , scene(nullptr) {
-    assetTags.outputs.emplace_back(rg::TaskOutput({rg::AssetTags::RenderedSceneOutputHDR,
-                                                   rg::AssetTags::RenderedSceneOutput,
-                                                   rg::AssetTags::FinalFrameOutput},
-                                                  {rg::TaskOutput::CreatedByOtherTask,
-                                                   rg::TaskOutput::CreatedByOtherTask,
-                                                   rg::TaskOutput::CreatedExternally},
-                                                  {rg::TaskOutput::Shared},
-                                                  rg::TaskOutput::Last,
-                                                  {rg::TaskIds::ForwardRenderTransparentTask}));
+    assetTags.outputs.emplace_back(
+        rg::TaskOutput({rg::AssetTags::RenderedSceneOutput, rg::AssetTags::FinalFrameOutput},
+                       {rg::TaskOutput::CreatedByOtherTask, rg::TaskOutput::CreatedExternally},
+                       {rg::TaskOutput::Shared},
+                       rg::TaskOutput::Last,
+                       {rg::TaskIds::ForwardRenderTransparentTask}));
 }
 
 void Outline3DTask::create(engine::Engine& engine, Renderer& renderer, Scene* s) {

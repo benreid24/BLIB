@@ -53,6 +53,7 @@ RenderPassParameters& RenderPassParameters::addSubpassDependency(VkSubpassDepend
 }
 
 RenderPassParameters& RenderPassParameters::addAttachment(VkAttachmentDescription att) {
+    semanticFormats.emplace_back(SemanticTextureFormat::NonSematic);
     attachments.emplace_back(att);
     return *this;
 }
@@ -60,7 +61,15 @@ RenderPassParameters& RenderPassParameters::addAttachment(VkAttachmentDescriptio
 RenderPassParameters& RenderPassParameters::replaceAttachment(std::uint32_t i,
                                                               VkAttachmentDescription att) {
     if (i >= attachments.size()) { throw std::out_of_range("Attachment index out of range"); }
-    attachments[i] = att;
+    attachments[i]     = att;
+    semanticFormats[i] = SemanticTextureFormat::NonSematic;
+    return *this;
+}
+
+RenderPassParameters& RenderPassParameters::withSemanticAttachmentFormat(
+    std::uint32_t i, SemanticTextureFormat semanticFormat) {
+    if (i >= attachments.size()) { throw std::out_of_range("Attachment index out of range"); }
+    semanticFormats[i] = semanticFormat;
     return *this;
 }
 
@@ -96,7 +105,9 @@ RenderPassParameters&& RenderPassParameters::build() {
         for (auto& resolve : pass.resolveAttachments) {
             resolve.attachment += pass.colorAttachments.size();
         }
+        unsigned int i = 0;
         for (const auto& color : pass.colorAttachments) {
+            semanticFormats.emplace_back(semanticFormats[i++]);
             const auto& src        = attachments[color.attachment];
             auto& resolved         = attachments.emplace_back(src);
             resolved.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
@@ -106,9 +117,12 @@ RenderPassParameters&& RenderPassParameters::build() {
 
         // move the depth attachment to the end of the list if it exists
         if (pass.depthAttachment.has_value()) {
-            const auto depth = attachments[pass.depthAttachment.value().attachment];
+            const auto semantic = semanticFormats[pass.depthAttachment.value().attachment];
+            const auto depth    = attachments[pass.depthAttachment.value().attachment];
             attachments.erase(pass.depthAttachment.value().attachment);
             attachments.emplace_back(depth);
+            semanticFormats.erase(pass.depthAttachment.value().attachment);
+            semanticFormats.emplace_back(semantic);
             pass.depthAttachment.value().attachment = attachments.size() - 1;
         }
     }

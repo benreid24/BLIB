@@ -5,7 +5,7 @@ target_sources(BLIB PUBLIC
 	FinalRenderTextureAsset.hpp
 	FinalSwapframeAsset.hpp
 	FramebufferAsset.hpp
-	GBufferAssets.hpp
+	GBufferAsset.hpp
 	GenericTargetAsset.hpp
 	RenderPassBehavior.hpp
 	SceneAsset.hpp

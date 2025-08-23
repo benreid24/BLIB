@@ -4,9 +4,9 @@
 #include <BLIB/Models/Texture.hpp>
 #include <BLIB/Render/Descriptors/SetWriteHelper.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
+#include <BLIB/Render/Vulkan/CommonTextureFormats.hpp>
 #include <BLIB/Render/Vulkan/Sampler.hpp>
 #include <BLIB/Render/Vulkan/Texture.hpp>
-#include <BLIB/Render/Vulkan/TextureFormat.hpp>
 #include <BLIB/Render/Vulkan/TextureOptions.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
@@ -62,7 +62,7 @@ public:
      * @return A reference to the new texture
      */
     TextureRef createRenderTexture(
-        const glm::u32vec2& size, VkFormat format = vk::TextureFormat::DefaultColorFormat,
+        const glm::u32vec2& size, VkFormat format = vk::CommonTextureFormats::SRGBA32Bit,
         vk::SamplerOptions::Type sampler = vk::SamplerOptions::Type::FilteredBorderClamped);
 
     /**
@@ -124,7 +124,7 @@ public:
     TextureRef createCubemap(
         const std::string& right, const std::string& left, const std::string& top,
         const std::string& bottom, const std::string& back, const std::string& front,
-        VkFormat format                  = vk::TextureFormat::SRGBA32Bit,
+        VkFormat format                  = vk::CommonTextureFormats::SRGBA32Bit,
         vk::SamplerOptions::Type sampler = vk::SamplerOptions::Type::FilteredEdgeClamped);
 
     /**
@@ -143,7 +143,7 @@ public:
     TextureRef createCubemap(
         resource::Ref<sf::Image> right, resource::Ref<sf::Image> left, resource::Ref<sf::Image> top,
         resource::Ref<sf::Image> bottom, resource::Ref<sf::Image> back,
-        resource::Ref<sf::Image> front, VkFormat format = vk::TextureFormat::SRGBA32Bit,
+        resource::Ref<sf::Image> front, VkFormat format = vk::CommonTextureFormats::SRGBA32Bit,
         vk::SamplerOptions::Type sampler = vk::SamplerOptions::Type::FilteredEdgeClamped);
 
     /**
@@ -156,7 +156,7 @@ public:
      * @return A ref to the new cubemap texture
      */
     TextureRef createCubemap(
-        resource::Ref<sf::Image> packed, VkFormat format = vk::TextureFormat::SRGBA32Bit,
+        resource::Ref<sf::Image> packed, VkFormat format = vk::CommonTextureFormats::SRGBA32Bit,
         vk::SamplerOptions::Type sampler = vk::SamplerOptions::Type::FilteredEdgeClamped);
 
     /**
@@ -169,7 +169,7 @@ public:
      * @return A ref to the new cubemap texture
      */
     TextureRef getOrCreateCubemap(
-        const std::string& packed, VkFormat format = vk::TextureFormat::SRGBA32Bit,
+        const std::string& packed, VkFormat format = vk::CommonTextureFormats::SRGBA32Bit,
         vk::SamplerOptions::Type sampler = vk::SamplerOptions::Type::FilteredEdgeClamped);
 
     /**
@@ -182,7 +182,7 @@ public:
      * @return A ref to the new cubemap texture
      */
     TextureRef createCubemap(
-        const sf::Image& packed, VkFormat format = vk::TextureFormat::SRGBA32Bit,
+        const sf::Image& packed, VkFormat format = vk::CommonTextureFormats::SRGBA32Bit,
         vk::SamplerOptions::Type sampler = vk::SamplerOptions::Type::FilteredEdgeClamped);
 
     /**

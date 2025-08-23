@@ -34,10 +34,11 @@ public:
      * @param imageFormats The formats of the attachments
      * @param imageUsages How the attachments will be used
      */
-    GenericTargetProvider(const TargetSize& size,
-                          const std::array<VkFormat, AttachmentCount>& imageFormats,
-                          const std::array<VkImageUsageFlags, AttachmentCount>& imageUsages,
-                          const std::array<VkClearValue, RenderedAttachmentCount>& clearColors)
+    GenericTargetProvider(
+        const TargetSize& size,
+        const std::array<vk::SemanticTextureFormat, AttachmentCount>& imageFormats,
+        const std::array<VkImageUsageFlags, AttachmentCount>& imageUsages,
+        const std::array<VkClearValue, RenderedAttachmentCount>& clearColors)
     : size(size)
     , imageFormats(imageFormats)
     , imageUsages(imageUsages)
@@ -55,7 +56,7 @@ public:
 
 private:
     const TargetSize size;
-    std::array<VkFormat, AttachmentCount> imageFormats;
+    std::array<vk::SemanticTextureFormat, AttachmentCount> imageFormats;
     std::array<VkImageUsageFlags, AttachmentCount> imageUsages;
     std::array<VkClearValue, RenderedAttachmentCount> clearColors;
 };

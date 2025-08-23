@@ -14,11 +14,10 @@ namespace rgi
 {
 DeferredRenderTask::DeferredRenderTask()
 : Task(rg::TaskIds::DeferredRenderTask) {
-    assetTags.outputs.emplace_back(
-        rg::TaskOutput({rg::AssetTags::GBufferHDR, rg::AssetTags::GBuffer},
-                       {rg::TaskOutput::CreatedByTask, rg::TaskOutput::CreatedByTask},
-                       {rg::TaskOutput::Shared},
-                       rg::TaskOutput::First));
+    assetTags.outputs.emplace_back(rg::TaskOutput(rg::AssetTags::GBuffer,
+                                                  rg::TaskOutput::CreatedByTask,
+                                                  {rg::TaskOutput::Shared},
+                                                  rg::TaskOutput::First));
 
     assetTags.requiredInputs.emplace_back(rg::AssetTags::SceneInput);
 }

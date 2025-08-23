@@ -193,17 +193,24 @@ void Pipeline::process(const event::SettingsChanged& event) {
 
             if (changed || (renderPass->getCreateParams().getMSAABehavior() &
                             RenderPassParameters::MSAABehavior::UseSettings)) {
-                for (std::uint32_t spec = 0; spec < pipelines[rpid].size(); ++spec) {
-                    if (pipelines[spec][rpid]) {
-                        renderer.vulkanState().cleanupManager.add(
-                            [device   = renderer.vulkanState().device,
-                             pipeline = pipelines[spec][rpid]]() {
-                                vkDestroyPipeline(device, pipeline, nullptr);
-                            });
-                        createForRenderPass(rpid, spec);
-                    }
-                }
+                recreateForRenderPass(rpid);
             }
+        }
+    }
+}
+
+void Pipeline::process(const event::RenderPassInvalidated& event) {
+    recreateForRenderPass(event.renderPass.getId());
+}
+
+void Pipeline::recreateForRenderPass(std::uint32_t rpid) {
+    for (std::uint32_t spec = 0; spec < pipelines[rpid].size(); ++spec) {
+        if (pipelines[spec][rpid]) {
+            renderer.vulkanState().cleanupManager.add(
+                [device = renderer.vulkanState().device, pipeline = pipelines[spec][rpid]]() {
+                    vkDestroyPipeline(device, pipeline, nullptr);
+                });
+            createForRenderPass(rpid, spec);
         }
     }
 }

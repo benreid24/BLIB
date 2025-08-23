@@ -16,9 +16,7 @@ namespace rg
  */
 struct AssetTags {
     static constexpr std::string_view GBuffer                  = "_builtin_GBuffer";
-    static constexpr std::string_view GBufferHDR               = "_builtin_GBufferHDR";
     static constexpr std::string_view RenderedSceneOutput      = "_builtin_RenderedSceneOutput";
-    static constexpr std::string_view RenderedSceneOutputHDR   = "_builtin_RenderedSceneOutputHDR";
     static constexpr std::string_view PostFXOutput             = "_builtin_PostFXOutput";
     static constexpr std::string_view FinalFrameOutput         = "_builtin_FinalFrameOutput";
     static constexpr std::string_view SceneInput               = "_builtin_SceneInput";

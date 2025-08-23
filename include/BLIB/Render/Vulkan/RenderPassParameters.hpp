@@ -3,6 +3,7 @@
 
 #include <BLIB/Containers/StaticVector.hpp>
 #include <BLIB/Render/Graph/Assets/MSAABehavior.hpp>
+#include <BLIB/Render/Vulkan/SemanticTextureFormat.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <cstdint>
 #include <optional>
@@ -146,6 +147,17 @@ public:
     RenderPassParameters& replaceAttachment(std::uint32_t i, VkAttachmentDescription attachment);
 
     /**
+     * @brief Sets a semantic format override for the given attachment. This makes the format of
+     *        that attachment dynamic based on the renderer settings
+     *
+     * @param i The index of the attachment to set the semantic format for
+     * @param semanticFormat The semantic format to use
+     * @return A reference to this object
+     */
+    RenderPassParameters& withSemanticAttachmentFormat(std::uint32_t i,
+                                                       SemanticTextureFormat semanticFormat);
+
+    /**
      * @brief Sets the MSAA behavior of this render pass. Controls the sample count of color
      *        and depth attachments
      *
@@ -172,6 +184,7 @@ public:
     bool isClearedOnStart() const { return isCleared; }
 
 private:
+    ctr::StaticVector<SemanticTextureFormat, MaxAttachmentCount> semanticFormats;
     ctr::StaticVector<VkAttachmentDescription, MaxAttachmentCount> attachments;
     ctr::StaticVector<SubPass, MaxSubpassCount> subpasses;
     ctr::StaticVector<VkSubpassDependency, MaxDependencyCount> dependencies;

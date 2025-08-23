@@ -3,6 +3,7 @@
 
 #include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
+#include <BLIB/Render/Events/RenderPassInvalidated.hpp>
 #include <BLIB/Render/Events/SettingsChanged.hpp>
 #include <BLIB/Render/Vulkan/PipelineLayout.hpp>
 #include <BLIB/Render/Vulkan/PipelineParameters.hpp>
@@ -29,7 +30,7 @@ namespace vk
  *
  * @ingroup Renderer
  */
-class Pipeline : public sig::Listener<event::SettingsChanged> {
+class Pipeline : public sig::Listener<event::SettingsChanged, event::RenderPassInvalidated> {
 public:
     /**
      * @brief Construct a new Pipeline
@@ -91,9 +92,11 @@ private:
         pipelines;
     PipelineParameters createParams;
 
+    void recreateForRenderPass(std::uint32_t rpid);
     void createForRenderPass(std::uint32_t rpid, std::uint32_t spec);
 
     virtual void process(const event::SettingsChanged& event) override;
+    virtual void process(const event::RenderPassInvalidated& event) override;
 
     friend class PipelineCache;
 };

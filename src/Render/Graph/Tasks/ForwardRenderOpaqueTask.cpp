@@ -14,14 +14,11 @@ namespace rgi
 {
 ForwardRenderOpaqueTask::ForwardRenderOpaqueTask()
 : Task(rg::TaskIds::ForwardRenderOpaqueTask) {
-    assetTags.outputs.emplace_back(rg::TaskOutput({rg::AssetTags::RenderedSceneOutputHDR,
-                                                   rg::AssetTags::RenderedSceneOutput,
-                                                   rg::AssetTags::FinalFrameOutput},
-                                                  {rg::TaskOutput::CreatedByTask,
-                                                   rg::TaskOutput::CreatedByTask,
-                                                   rg::TaskOutput::CreatedExternally},
-                                                  {rg::TaskOutput::Shared},
-                                                  rg::TaskOutput::First));
+    assetTags.outputs.emplace_back(
+        rg::TaskOutput({rg::AssetTags::RenderedSceneOutput, rg::AssetTags::FinalFrameOutput},
+                       {rg::TaskOutput::CreatedByTask, rg::TaskOutput::CreatedExternally},
+                       {rg::TaskOutput::Shared},
+                       rg::TaskOutput::First));
 
     assetTags.requiredInputs.emplace_back(rg::AssetTags::SceneInput);
     assetTags.optionalInputs.emplace_back(rg::AssetTags::ShadowMaps);

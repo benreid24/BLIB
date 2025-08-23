@@ -69,11 +69,11 @@ void TexturePool::init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
     errorCubemap.altImg = &errorPatternCube;
     errorTexture.createFromContentsAndQueue(
         vk::Texture::Type::Texture2D,
-        {.format  = vk::TextureFormat::SRGBA32Bit,
+        {.format  = vk::CommonTextureFormats::SRGBA32Bit,
          .sampler = vk::SamplerOptions::Type::FilteredRepeated});
     errorCubemap.createFromContentsAndQueue(
         vk::Texture::Type::Cubemap,
-        {.format  = vk::TextureFormat::SRGBA32Bit,
+        {.format  = vk::CommonTextureFormats::SRGBA32Bit,
          .sampler = vk::SamplerOptions::Type::FilteredRepeated});
     vulkanState.transferEngine.executeTransfers();
 

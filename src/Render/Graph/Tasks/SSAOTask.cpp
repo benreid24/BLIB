@@ -3,7 +3,7 @@
 #include <BLIB/Render/Config/RenderPhases.hpp>
 #include <BLIB/Render/Descriptors/Builtin/SSAOInstance.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
-#include <BLIB/Render/Graph/Assets/GBufferAssets.hpp>
+#include <BLIB/Render/Graph/Assets/GBufferAsset.hpp>
 #include <BLIB/Render/Graph/Assets/SSAOAsset.hpp>
 #include <BLIB/Render/Graph/Purpose.hpp>
 #include <BLIB/Render/Graph/TaskIds.hpp>
@@ -44,8 +44,7 @@ SSAOTask::SSAOTask()
                                                   {rg::TaskOutput::CreatedByTask},
                                                   {rg::TaskOutput::Exclusive})
                                        .withPurpose(Purpose::SSAOBuffer));
-    assetTags.requiredInputs.emplace_back(
-        rg::TaskInput({rg::AssetTags::GBuffer, rg::AssetTags::GBufferHDR}));
+    assetTags.requiredInputs.emplace_back(rg::TaskInput(rg::AssetTags::GBuffer));
     assetTags.sidecarAssets.emplace_back(rg::AssetTags::SSAOBuffer);
 }
 

@@ -3,7 +3,6 @@
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Config/RenderPassIds.hpp>
 #include <BLIB/Render/Renderer.hpp>
-#include <BLIB/Render/Vulkan/TextureFormat.hpp>
 
 namespace bl
 {
@@ -46,7 +45,7 @@ void RenderPassCache::addDefaults() {
 
     // scene render pass for observers
     VkAttachmentDescription standardColorAttachment{};
-    standardColorAttachment.format         = vk::TextureFormat::DefaultColorFormat;
+    standardColorAttachment.format         = vk::CommonTextureFormats::SRGBA32Bit;
     standardColorAttachment.samples        = VK_SAMPLE_COUNT_1_BIT;
     standardColorAttachment.loadOp         = VK_ATTACHMENT_LOAD_OP_CLEAR;
     standardColorAttachment.storeOp        = VK_ATTACHMENT_STORE_OP_STORE;
@@ -139,6 +138,8 @@ void RenderPassCache::addDefaults() {
     standardParams.addSubpassDependency(prePassRenderDoneDep);
     standardParams.addSubpassDependency(depthDependency);
     standardParams.withMSAABehavior(MSAA::UseSettings | MSAA::ResolveAttachments);
+    standardParams.withSemanticAttachmentFormat(0, vk::SemanticTextureFormat::Color);
+    standardParams.withSemanticAttachmentFormat(1, vk::SemanticTextureFormat::DepthStencil);
     createRenderPass(cfg::RenderPassIds::StandardAttachmentPass, standardParams.build());
 
     // primary render pass for final swapchain compositing
@@ -165,42 +166,19 @@ void RenderPassCache::addDefaults() {
     swapchainParams.withMSAABehavior(MSAA::UseSettings | MSAA::ResolveAttachments);
     createRenderPass(cfg::RenderPassIds::SwapchainPass, swapchainParams.build());
 
-    // HDR rendering
-    VkAttachmentDescription hdrColorAttachment{};
-    hdrColorAttachment.format         = vk::TextureFormat::HDRColor;
-    hdrColorAttachment.samples        = VK_SAMPLE_COUNT_1_BIT;
-    hdrColorAttachment.loadOp         = VK_ATTACHMENT_LOAD_OP_CLEAR;
-    hdrColorAttachment.storeOp        = VK_ATTACHMENT_STORE_OP_STORE;
-    hdrColorAttachment.stencilLoadOp  = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
-    hdrColorAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
-    hdrColorAttachment.initialLayout  = VK_IMAGE_LAYOUT_UNDEFINED;
-    hdrColorAttachment.finalLayout    = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-
-    vk::RenderPassParameters hdrParams;
-    hdrParams.addAttachment(hdrColorAttachment);
-    hdrParams.addAttachment(depthAttachment);
-    hdrParams.addSubpass(
-        vk::RenderPassParameters::SubPass()
-            .withAttachment(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL)
-            .withDepthAttachment(1, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL)
-            .build());
-    hdrParams.addSubpassDependency(postPassRenderCompleteDep);
-    hdrParams.addSubpassDependency(prePassRenderDoneDep);
-    hdrParams.addSubpassDependency(depthDependency);
-    hdrParams.withMSAABehavior(MSAA::UseSettings | MSAA::ResolveAttachments);
-    createRenderPass(cfg::RenderPassIds::HDRAttachmentPass, hdrParams.build());
-
     vk::RenderPassParameters bloomParams;
-    bloomParams.addAttachment(hdrColorAttachment);
+    bloomParams.addAttachment(standardColorAttachment);
     bloomParams.addSubpass(vk::RenderPassParameters::SubPass()
                                .withAttachment(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL)
                                .build());
     bloomParams.addSubpassDependency(postPassRenderCompleteDep);
     bloomParams.addSubpassDependency(prePassRenderDoneDep);
+    bloomParams.withSemanticAttachmentFormat(
+        0, vk::SemanticTextureFormat::SFloatR16G16B16A16); // always HDR
     createRenderPass(cfg::RenderPassIds::BloomPass, bloomParams.build());
 
-    VkAttachmentDescription ssaoAttachment = hdrColorAttachment;
-    ssaoAttachment.format                  = vk::TextureFormat::SingleChannelUnorm8;
+    VkAttachmentDescription ssaoAttachment = standardColorAttachment;
+    ssaoAttachment.format                  = vk::CommonTextureFormats::SingleChannelUnorm8;
     vk::RenderPassParameters ssaoParams;
     ssaoParams.addAttachment(ssaoAttachment);
     ssaoParams.addSubpass(vk::RenderPassParameters::SubPass()
@@ -249,12 +227,13 @@ void RenderPassCache::addDefaults() {
     deferredObjectParams.addSubpassDependency(shadowMapInputDependency);
     deferredObjectParams.addSubpassDependency(shadowMapOutputDependency);
     deferredObjectParams.withMSAABehavior(MSAA::UseSettings);
-    vk::RenderPassParameters deferredHDRObjectParams = deferredObjectParams;
+    deferredObjectParams.withSemanticAttachmentFormat(0, vk::SemanticTextureFormat::Color);
+    deferredObjectParams.withSemanticAttachmentFormat(1, vk::SemanticTextureFormat::Color);
+    deferredObjectParams.withSemanticAttachmentFormat(
+        2, vk::SemanticTextureFormat::HighPrecisionColor);
+    deferredObjectParams.withSemanticAttachmentFormat(
+        3, vk::SemanticTextureFormat::HighPrecisionColor);
     createRenderPass(cfg::RenderPassIds::DeferredObjectPass, deferredObjectParams.build());
-
-    deferredHDRObjectParams.replaceAttachment(0, hdrColorAttachment);
-    deferredHDRObjectParams.replaceAttachment(1, hdrColorAttachment);
-    createRenderPass(cfg::RenderPassIds::HDRDeferredObjectPass, deferredHDRObjectParams.build());
 }
 
 } // namespace res

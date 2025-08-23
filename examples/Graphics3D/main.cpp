@@ -116,7 +116,7 @@ private:
 
         auto woodTexture = engine.renderer().texturePool().getOrLoadTexture(
             "Resources/Textures/wood.png",
-            {.format = bl::rc::vk::TextureFormat::SRGBA32Bit, .genMipmaps = true});
+            {.format = bl::rc::vk::CommonTextureFormats::SRGBA32Bit, .genMipmaps = true});
         auto woodMaterial = engine.renderer().materialPool().getOrCreateFromTexture(woodTexture);
 
         // set renderer settings
@@ -152,12 +152,13 @@ private:
         skybox.addToScene(scene);
 
         auto containerTexture = engine.renderer().texturePool().getOrLoadTexture(
-            "Resources/Textures/container.jpg", {.format = bl::rc::vk::TextureFormat::SRGBA32Bit});
+            "Resources/Textures/container.jpg",
+            {.format = bl::rc::vk::CommonTextureFormats::SRGBA32Bit});
         auto material = engine.renderer().materialPool().getOrCreateFromTexture(containerTexture);
 
         auto brickTexture = engine.renderer().texturePool().getOrLoadTexture(
             "Resources/Textures/bricks2.jpg",
-            {.format = bl::rc::vk::TextureFormat::SRGBA32Bit, .genMipmaps = true});
+            {.format = bl::rc::vk::CommonTextureFormats::SRGBA32Bit, .genMipmaps = true});
         auto brickNormal = engine.renderer().texturePool().getOrLoadTexture(
             "Resources/Textures/bricks2_normal.jpg", {.genMipmaps = true});
         auto brickParallax = engine.renderer().texturePool().getOrLoadTexture(
@@ -190,7 +191,7 @@ private:
 
         auto diffuse = engine.renderer().texturePool().getOrLoadTexture(
             "Resources/Textures/container2.png",
-            {.format = bl::rc::vk::TextureFormat::SRGBA32Bit, .genMipmaps = true});
+            {.format = bl::rc::vk::CommonTextureFormats::SRGBA32Bit, .genMipmaps = true});
         auto specular = engine.renderer().texturePool().getOrLoadTexture(
             "Resources/Textures/container2_specular.png", {.genMipmaps = true});
         auto material2 =
@@ -206,7 +207,7 @@ private:
 
         auto diffuse3 = engine.renderer().texturePool().getOrLoadTexture(
             "Resources/Textures/brickwall.jpg",
-            {.format = bl::rc::vk::TextureFormat::SRGBA32Bit, .genMipmaps = true});
+            {.format = bl::rc::vk::CommonTextureFormats::SRGBA32Bit, .genMipmaps = true});
         auto normal3 = engine.renderer().texturePool().getOrLoadTexture(
             "Resources/Textures/brickwall_normal.jpg", {.genMipmaps = true});
         auto material3 = engine.renderer().materialPool().create(

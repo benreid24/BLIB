@@ -15,14 +15,11 @@ namespace rgi
 RenderOverlayTask::RenderOverlayTask(unsigned int* observerIndexOverride)
 : Task(rg::TaskIds::RenderOverlayTask)
 , observerIndexOverride(observerIndexOverride) {
-    assetTags.outputs.emplace_back(rg::TaskOutput({rg::AssetTags::RenderedSceneOutputHDR,
-                                                   rg::AssetTags::RenderedSceneOutput,
-                                                   rg::AssetTags::FinalFrameOutput},
-                                                  {rg::TaskOutput::CreatedByTask,
-                                                   rg::TaskOutput::CreatedByTask,
-                                                   rg::TaskOutput::CreatedExternally},
-                                                  {rg::TaskOutput::Shared},
-                                                  rg::TaskOutput::Last));
+    assetTags.outputs.emplace_back(
+        rg::TaskOutput({rg::AssetTags::RenderedSceneOutput, rg::AssetTags::FinalFrameOutput},
+                       {rg::TaskOutput::CreatedByTask, rg::TaskOutput::CreatedExternally},
+                       {rg::TaskOutput::Shared},
+                       rg::TaskOutput::Last));
 
     assetTags.requiredInputs.emplace_back(
         rg::TaskInput({rg::AssetTags::OverlayInput, rg::AssetTags::SceneInput}));

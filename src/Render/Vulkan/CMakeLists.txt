@@ -22,6 +22,7 @@ target_sources(BLIB PRIVATE
     SharedCommandPool.cpp
     Swapchain.cpp
     Texture.cpp
+    TextureFormatManager.cpp
     VulkanState.cpp
 )
 

@@ -27,7 +27,8 @@ RenderTexture::RenderTexture(engine::Engine& engine, Renderer& renderer, rg::Ass
     viewport.width        = size.x;
     viewport.height       = size.y;
 
-    texture = renderer.texturePool().createRenderTexture(size, TextureFormat::SRGBA32Bit, sampler);
+    texture =
+        renderer.texturePool().createRenderTexture(size, CommonTextureFormats::SRGBA32Bit, sampler);
     resize(size);
 
     renderingTo = graphAssets.putAsset<rgi::FinalRenderTextureAsset>(

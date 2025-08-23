@@ -86,7 +86,7 @@ void Scene3DInstance::init(ShaderInputStore& inputStore) {
          .viewAspect = VK_IMAGE_ASPECT_DEPTH_BIT});
     emptySSAOImage.create(vulkanState,
                           {.type   = vk::ImageOptions::Type::Image2D,
-                           .format = vk::TextureFormat::SingleChannelUnorm8,
+                           .format = vk::CommonTextureFormats::SingleChannelUnorm8,
                            .usage  = VK_IMAGE_USAGE_SAMPLED_BIT,
                            .extent = {4, 4},
                            .aspect = VK_IMAGE_ASPECT_COLOR_BIT});

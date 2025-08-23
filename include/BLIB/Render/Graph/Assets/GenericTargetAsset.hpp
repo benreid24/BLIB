@@ -2,6 +2,7 @@
 #define BLIB_RENDER_GRAPH_ASSETS_GENERICTARGETASSET_HPP
 
 #include <BLIB/Render/Events/SettingsChanged.hpp>
+#include <BLIB/Render/Events/TextureFormatChanged.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Graph/Assets/DepthAttachmentType.hpp>
 #include <BLIB/Render/Graph/Assets/DepthBuffer.hpp>
@@ -38,7 +39,7 @@ template<std::uint32_t RenderPassId, std::uint32_t AttachmentCount,
          MSAABehavior MSAA = MSAABehavior::Disabled>
 class GenericTargetAsset
 : public FramebufferAsset
-, public sig::Listener<event::SettingsChanged> {
+, public sig::Listener<event::SettingsChanged, event::TextureFormatChanged> {
 public:
     static constexpr bool UsesMSAA = MSAA & MSAABehavior::UseSettings;
 
@@ -53,34 +54,6 @@ public:
     static constexpr std::uint32_t TotalAttachmentCount =
         AttachmentCount + DepthAttachmentCount + ResolveAttachmentCount;
 
-private:
-    static std::array<VkImageAspectFlags, TotalAttachmentCount> makeAspectArray(
-        const std::array<VkFormat, AttachmentCount>& imageFormats,
-        const std::array<VkImageUsageFlags, AttachmentCount>& imageUsages) {
-        std::array<VkImageAspectFlags, TotalAttachmentCount> result{};
-
-        unsigned int i = 0;
-        while (i < AttachmentCount) {
-            result[i] = vk::VulkanState::guessImageAspect(imageFormats[i], imageUsages[i]);
-            ++i;
-        }
-        if constexpr (DepthAttachmentCount > 0) {
-            result[i] = VK_IMAGE_ASPECT_DEPTH_BIT;
-            ++i;
-        }
-
-        if constexpr (ResolveAttachmentCount > 0) {
-            unsigned int j = 0;
-            while (j < ResolveAttachmentCount) {
-                result[i] = vk::VulkanState::guessImageAspect(imageFormats[i], imageUsages[i]);
-                ++i;
-                ++j;
-            }
-        }
-
-        return result;
-    }
-
 public:
     /**
      * @brief Creates a new asset but does not allocate the attachments
@@ -92,7 +65,7 @@ public:
      * @param size The sizing behavior of the target
      */
     GenericTargetAsset(std::string_view tag,
-                       const std::array<VkFormat, AttachmentCount>& imageFormats,
+                       const std::array<vk::SemanticTextureFormat, AttachmentCount>& imageFormats,
                        const std::array<VkImageUsageFlags, AttachmentCount>& imageUsages,
                        const std::array<VkClearValue, RenderedAttachmentCount>& clearColors,
                        const TargetSize& size)
@@ -114,8 +87,8 @@ public:
         cachedViewport.y        = 0.f;
 
         for (std::uint32_t i = 0; i < AttachmentCount; ++i) {
-            attachmentSet.setAttachmentAspect(
-                i, vk::VulkanState::guessImageAspect(imageFormats[i], imageUsages[i]));
+            attachmentSet.setAttachmentAspect(i,
+                                              vk::VulkanState::guessImageAspect(imageFormats[i]));
         }
         if constexpr (DepthAttachment == DepthAttachmentType::SharedDepthBuffer) {
             addDependency(rg::AssetTags::DepthBuffer);
@@ -126,7 +99,7 @@ public:
             for (std::uint32_t i = 0; i < AttachmentCount; ++i) {
                 attachmentSet.setAttachmentAspect(
                     i + AttachmentCount + DepthAttachmentCount,
-                    vk::VulkanState::guessImageAspect(imageFormats[i], imageUsages[i]));
+                    vk::VulkanState::guessImageAspect(imageFormats[i]));
             }
         }
     }
@@ -153,7 +126,7 @@ private:
     const TargetSize size;
     Renderer* renderer;
     RenderTarget* observer;
-    const std::array<VkFormat, AttachmentCount> attachmentFormats;
+    const std::array<vk::SemanticTextureFormat, AttachmentCount> attachmentFormats;
     const std::array<VkImageUsageFlags, AttachmentCount> attachmentUsages;
     vk::AttachmentImageSet images;
     vk::AttachmentImageSet resolveImages;
@@ -283,6 +256,21 @@ private:
         if (event.setting == event::SettingsChanged::Setting::AntiAliasing && UsesMSAA) {
             createAttachments();
         }
+    }
+
+    virtual void process(const event::TextureFormatChanged& event) override {
+        bool needsUpdate = false;
+        for (std::uint32_t i = 0; i < AttachmentCount; ++i) {
+            if (attachmentFormats[i] == event.semanticFormat) {
+                needsUpdate = true;
+                break;
+            }
+        }
+        if (depthBufferAsset && (event.semanticFormat == vk::SemanticTextureFormat::Depth ||
+                                 event.semanticFormat == vk::SemanticTextureFormat::DepthStencil)) {
+            needsUpdate = true;
+        }
+        if (needsUpdate) { createAttachments(); }
     }
 };
 

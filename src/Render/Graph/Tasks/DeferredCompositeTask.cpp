@@ -18,16 +18,12 @@ namespace rgi
 DeferredCompositeTask::DeferredCompositeTask()
 : Task(rg::TaskIds::DeferredCompositeTask)
 , renderer(nullptr) {
-    assetTags.outputs.emplace_back(rg::TaskOutput({rg::AssetTags::RenderedSceneOutputHDR,
-                                                   rg::AssetTags::RenderedSceneOutput,
-                                                   rg::AssetTags::FinalFrameOutput},
-                                                  {rg::TaskOutput::CreatedByTask,
-                                                   rg::TaskOutput::CreatedByTask,
-                                                   rg::TaskOutput::CreatedExternally},
-                                                  {rg::TaskOutput::Shared},
-                                                  rg::TaskOutput::First));
-    assetTags.requiredInputs.emplace_back(
-        rg::TaskInput({rg::AssetTags::GBufferHDR, rg::AssetTags::GBuffer}));
+    assetTags.outputs.emplace_back(
+        rg::TaskOutput({rg::AssetTags::RenderedSceneOutput, rg::AssetTags::FinalFrameOutput},
+                       {rg::TaskOutput::CreatedByTask, rg::TaskOutput::CreatedExternally},
+                       {rg::TaskOutput::Shared},
+                       rg::TaskOutput::First));
+    assetTags.requiredInputs.emplace_back(rg::TaskInput(rg::AssetTags::GBuffer));
     assetTags.optionalInputs.emplace_back(rg::TaskInput(rg::AssetTags::SSAOBuffer));
 }
 
