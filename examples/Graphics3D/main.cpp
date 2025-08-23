@@ -239,17 +239,17 @@ private:
         light1.getTransform().setPosition({1.f, 0.7f, 1.f});
         light1.setColor(light1Color);
         light1.addToScene(scene, bl::rc::UpdateSpeed::Static);
-        auto light1Handle        = scene->getLighting().createPointLight();
-        light1Handle.get().color = light1Color;
-        light1Handle.get().pos   = light1.getTransform().getPosition();
+        auto light1Handle = scene->getLighting().createPointLight();
+        light1Handle.get().color.setLighting(light1Color);
+        light1Handle.get().pos = light1.getTransform().getPosition();
 
         const bl::rc::Color light2Color(sf::Color::White);
         light2.create(*world, 0.2f, 4, {}, bl::rc::cfg::MaterialPipelineIds::Mesh3D);
         light2.getTransform().setPosition({-0.7f, 1.f, -1.6f});
         light2.setColor(light2Color);
         light2.addToScene(scene, bl::rc::UpdateSpeed::Static);
-        auto light2Handle                   = scene->getLighting().createPointLightWithShadow();
-        light2Handle.get().color            = light2Color;
+        auto light2Handle = scene->getLighting().createPointLightWithShadow();
+        light2Handle.get().color.setLighting(light2Color);
         light2Handle.get().pos              = light2.getTransform().getPosition();
         light2Handle.get().planes.nearPlane = 0.25f; // clip the sphere around the light
 
@@ -262,11 +262,8 @@ private:
         light3.component().setPipelineSpecialization(
             bl::rc::cfg::Specializations3D::LightingDisabled);
         light3.addToScene(scene, bl::rc::UpdateSpeed::Static);
-        auto light3Handle             = scene->getLighting().createSpotlightWithShadow();
-        light3Handle.get().getColor() = light3Color;
-        light3Handle.get().getColor().ambient *= 0.1f;
-        light3Handle.get().getColor().specular *= 1.75f;
-        light3Handle.get().getColor().diffuse *= 1.5f;
+        auto light3Handle = scene->getLighting().createSpotlightWithShadow();
+        light3Handle.get().getColor().setLighting(light3Color.toVec3());
         light3Handle.get().getAttenuation().constant  = 0.5f;
         light3Handle.get().getAttenuation().linear    = 0.1f;
         light3Handle.get().getAttenuation().quadratic = 0.05f;
@@ -279,9 +276,7 @@ private:
         //  light2Handle.removeFromScene();
         // light3Handle.removeFromScene();
 
-        scene->getLighting().modifySun().color.specular = bl::rc::Color(sf::Color::White);
-        scene->getLighting().modifySun().color.diffuse  = bl::rc::Color(glm::vec4(0.6f));
-        scene->getLighting().modifySun().color.ambient  = bl::rc::Color(glm::vec4(0.1f));
+        scene->getLighting().modifySun().color.setLighting(glm::vec3(1.f), 1.f);
 
         controller->subscribe(engine.getSignalChannel());
     }

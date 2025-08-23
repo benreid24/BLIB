@@ -42,6 +42,10 @@ struct Constants {
         -UpDirection,
         -UpDirection,
     };
+
+    static constexpr float DefaultSpecularLightFactor = 1.f;
+    static constexpr float DefaultDiffuseLightFactor  = 0.3f;
+    static constexpr float DefaultAmbientLightFactor  = 0.1f;
 };
 
 } // namespace cfg

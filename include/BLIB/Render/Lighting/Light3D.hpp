@@ -63,6 +63,11 @@ public:
 private:
     Scene3DLighting* owner;
     util::VectorRef<T> light;
+    glm::vec3 color;
+    float brightness;
+    float specularFactor;
+    float diffuseFactor;
+    float ambientFactor;
 
     Light3D(Scene3DLighting* owner, std::vector<T>& v, std::size_t i)
     : owner(owner)

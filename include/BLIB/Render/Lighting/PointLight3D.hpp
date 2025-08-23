@@ -46,6 +46,11 @@ struct alignas(16) PointLight3D {
         attenuation = other.attenuation;
         color       = other.color;
     }
+
+    /**
+     * @brief Returns the color of the light. Used to match the ineterface of SpotLight3D
+     */
+    Color3D& getColor() { return color; }
 };
 
 } // namespace lgt
