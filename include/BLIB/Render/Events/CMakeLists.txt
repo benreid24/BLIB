@@ -4,5 +4,6 @@ target_sources(BLIB PUBLIC
 	SceneDestroyed.hpp
 	SceneObjectRemoved.hpp
 	SettingsChanged.hpp
+	ShadowMapsInvalidated.hpp
 	TextureFormatChanged.hpp
 )

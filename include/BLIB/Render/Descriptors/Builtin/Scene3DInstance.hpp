@@ -5,6 +5,7 @@
 #include <BLIB/Render/Descriptors/Builtin/CommonShaderInputs.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
 #include <BLIB/Render/Events/GraphEvents.hpp>
+#include <BLIB/Render/Events/ShadowMapsInvalidated.hpp>
 #include <BLIB/Render/Graph/Assets/SSAOAsset.hpp>
 #include <BLIB/Render/Lighting/LightingDescriptor3D.hpp>
 #include <BLIB/Render/Lighting/PointLight3D.hpp>
@@ -42,7 +43,7 @@ namespace ds
  */
 class Scene3DInstance
 : public SceneDescriptorSetInstance
-, public sig::Listener<event::SceneGraphAssetInitialized> {
+, public sig::Listener<event::SceneGraphAssetInitialized, event::ShadowMapsInvalidated> {
 public:
     /**
      * @brief Creates a new instance of the descriptor set
@@ -94,6 +95,7 @@ private:
     virtual void handleFrameStart() override;
 
     virtual void process(const event::SceneGraphAssetInitialized& event) override;
+    virtual void process(const event::ShadowMapsInvalidated& event) override;
     void updateImageDescriptors();
 
     friend class scene::Scene3D;

@@ -218,6 +218,10 @@ void Scene3DInstance::process(const event::SceneGraphAssetInitialized& event) {
     }
 }
 
+void Scene3DInstance::process(const event::ShadowMapsInvalidated& e) {
+    if (shadowMaps == e.asset) { updateImageDescriptors(); }
+}
+
 bool Scene3DInstance::allocateObject(ecs::Entity, scene::Key) {
     // n/a
     return true;

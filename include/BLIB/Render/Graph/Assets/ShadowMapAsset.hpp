@@ -2,8 +2,12 @@
 #define BLIB_RENDER_GRAPH_SHADOWMAPASSET_HPP
 
 #include <BLIB/Render/Config/Limits.hpp>
+#include <BLIB/Render/Events/SettingsChanged.hpp>
+#include <BLIB/Render/Events/ShadowMapsInvalidated.hpp>
 #include <BLIB/Render/Graph/Asset.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
+#include <BLIB/Signals/Emitter.hpp>
+#include <BLIB/Signals/Listener.hpp>
 #include <array>
 #include <optional>
 
@@ -20,7 +24,9 @@ namespace rgi
  *
  * @ingroup Renderer
  */
-class ShadowMapAsset : public rg::Asset {
+class ShadowMapAsset
+: public rg::Asset
+, public sig::Listener<event::SettingsChanged> {
 public:
     /**
      * @brief Creates the shadow map asset
@@ -81,14 +87,18 @@ private:
         vk::Framebuffer framebuffer;
     };
 
+    Renderer* renderer;
     std::array<ShadowMap, cfg::Limits::MaxSpotShadows> spotShadowMaps;
     std::array<ShadowMap, cfg::Limits::MaxPointShadows> pointShadowMaps;
+    sig::Emitter<event::ShadowMapsInvalidated> emitter;
 
     virtual void doCreate(engine::Engine& engine, Renderer& renderer,
                           RenderTarget* observer) override;
     virtual void doPrepareForInput(const rg::ExecutionContext& context) override;
     virtual void doStartOutput(const rg::ExecutionContext& context) override;
     virtual void doEndOutput(const rg::ExecutionContext& context) override;
+    virtual void process(const event::SettingsChanged& e) override;
+    void createImages();
 };
 
 } // namespace rgi
