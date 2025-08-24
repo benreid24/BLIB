@@ -7,7 +7,7 @@ namespace bl
 {
 namespace rc
 {
-namespace ds
+namespace dsi
 {
 /**
  * @brief Descriptor set payload for 3d transforms
@@ -51,7 +51,7 @@ struct Transform3DPayload {
     void computeNormal() { normal = glm::transpose(glm::inverse(glm::mat3(transform))); }
 };
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl
 

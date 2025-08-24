@@ -16,21 +16,22 @@ namespace rc
 {
 class Renderer;
 
-namespace ds
+/// Built-in descriptor sets
+namespace dsi
 {
 namespace priv
 {
-using Transform2DBinding = ObjectStorageBuffer<glm::mat4, com::Transform2D>;
-using Transform3DBinding = ObjectStorageBuffer<Transform3DPayload, com::Transform3D>;
+using Transform2DBinding = ds::ObjectStorageBuffer<glm::mat4, com::Transform2D>;
+using Transform3DBinding = ds::ObjectStorageBuffer<Transform3DPayload, com::Transform3D>;
 using TextureBinding =
-    ObjectStorageBuffer<std::uint32_t, com::MaterialInstance, true, buf::StaticSSBO<std::uint32_t>,
-                        buf::StaticSSBO<std::uint32_t>>;
+    ds::ObjectStorageBuffer<std::uint32_t, com::MaterialInstance, true,
+                            buf::StaticSSBO<std::uint32_t>, buf::StaticSSBO<std::uint32_t>>;
 using MaterialBinding =
-    ObjectStorageBuffer<mat::MaterialId, com::MaterialInstance, true,
-                        buf::StaticSSBO<mat::MaterialId>, buf::StaticSSBO<mat::MaterialId>>;
+    ds::ObjectStorageBuffer<mat::MaterialId, com::MaterialInstance, true,
+                            buf::StaticSSBO<mat::MaterialId>, buf::StaticSSBO<mat::MaterialId>>;
 
 } // namespace priv
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl
 

@@ -8,7 +8,7 @@ namespace bl
 {
 namespace rc
 {
-namespace ds
+namespace dsi
 {
 Scene3DFactory::~Scene3DFactory() {}
 
@@ -20,7 +20,7 @@ void Scene3DFactory::init(engine::Engine&, Renderer& r) {
     bindingInfo.bindingCount = 5;
 
     // camera info
-    bindingInfo.bindings[0] = SceneDescriptorSetInstance::getCameraBufferBindingInfo(
+    bindingInfo.bindings[0] = ds::SceneDescriptorSetInstance::getCameraBufferBindingInfo(
         0, VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT);
 
     // sunlight & spot lights & point lights & global lighting
@@ -46,12 +46,12 @@ void Scene3DFactory::init(engine::Engine&, Renderer& r) {
     descriptorSetLayout = vulkanState->descriptorPool.createLayout(bindingInfo);
 }
 
-std::unique_ptr<DescriptorSetInstance> Scene3DFactory::createDescriptorSet() const {
+std::unique_ptr<ds::DescriptorSetInstance> Scene3DFactory::createDescriptorSet() const {
     return std::make_unique<Scene3DInstance>(*renderer, descriptorSetLayout);
 }
 
 std::type_index Scene3DFactory::creates() const { return typeid(Scene3DInstance); }
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl

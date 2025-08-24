@@ -58,10 +58,10 @@ void DeferredCompositeTask::onGraphInit() {
 
     const auto sampler   = renderer->samplerCache().noFilterEdgeClamped();
     const auto setLayout = renderer->descriptorFactoryCache()
-                               .getOrCreateFactory<ds::InputAttachmentFactory<4>>()
+                               .getOrCreateFactory<dsi::InputAttachmentFactory<4>>()
                                ->getDescriptorLayout();
 
-    sceneDescriptor = &scene->getDescriptorSet<ds::Scene3DInstance>();
+    sceneDescriptor = &scene->getDescriptorSet<dsi::Scene3DInstance>();
 
     gbufferDescriptor.emplace(renderer->vulkanState(), setLayout, 4, 0);
     gbufferDescriptor.value().initAttachments(input->getAttachmentSets(), sampler);

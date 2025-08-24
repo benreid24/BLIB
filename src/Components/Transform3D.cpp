@@ -68,7 +68,7 @@ glm::vec3 Transform3D::getRightDir() const { return rotation * glm::vec3(1.f, 0.
 
 glm::vec3 Transform3D::getUpDir() const { return rotation * glm::vec3(0.f, 1.f, 0.f); }
 
-void Transform3D::refreshDescriptor(rc::ds::Transform3DPayload& dest) {
+void Transform3D::refreshDescriptor(rc::dsi::Transform3DPayload& dest) {
     dest = getGlobalTransform();
 }
 

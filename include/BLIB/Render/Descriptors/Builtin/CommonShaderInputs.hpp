@@ -11,7 +11,7 @@ namespace bl
 {
 namespace rc
 {
-namespace ds
+namespace dsi
 {
 /**
  * @brief Uniform payload for shadow map rendering cameras
@@ -29,9 +29,9 @@ struct ShadowMapCameraPayload {
  * @ingroup Renderer
  */
 using ShadowMapCameraShaderInput =
-    BufferShaderInput<buf::StaticUniformBuffer<ShadowMapCameraPayload>,
-                      cfg::Limits::MaxSpotShadows + cfg::Limits::MaxPointShadows,
-                      buf::Alignment::UboBindOffset>;
+    ds::BufferShaderInput<buf::StaticUniformBuffer<ShadowMapCameraPayload>,
+                          cfg::Limits::MaxSpotShadows + cfg::Limits::MaxPointShadows,
+                          buf::Alignment::UboBindOffset>;
 
 /**
  * @brief The name of the shadow map camera input
@@ -40,7 +40,7 @@ using ShadowMapCameraShaderInput =
  */
 constexpr const char* ShadowMapCameraInputName = "__builtin__shadow_map_binding";
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl
 

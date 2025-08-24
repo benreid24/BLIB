@@ -9,7 +9,7 @@ namespace rc
 {
 namespace lgt
 {
-Scene3DLighting::Scene3DLighting(ds::Scene3DInstance& instance)
+Scene3DLighting::Scene3DLighting(dsi::Scene3DInstance& instance)
 : instance(instance)
 , spotLights(cfg::Limits::MaxSpotLights)
 , spotShadows(cfg::Limits::MaxSpotShadows)

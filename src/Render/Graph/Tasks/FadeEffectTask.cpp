@@ -61,7 +61,7 @@ void FadeEffectTask::onGraphInit() {
         dynamic_cast<FramebufferAsset*>(&assets.requiredInputs[0]->asset.get());
     if (!input) { throw std::runtime_error("Got bad input"); }
 
-    auto& set = scene->getDescriptorSet<ds::InputAttachmentInstance>();
+    auto& set = scene->getDescriptorSet<dsi::InputAttachmentInstance>();
     set.initAttachments(input->getAttachmentSets(), renderer->samplerCache().noFilterEdgeClamped());
 }
 

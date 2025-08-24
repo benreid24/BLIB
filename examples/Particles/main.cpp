@@ -32,7 +32,7 @@ struct RenderConfigMap<Particle> {
 
     using GlobalShaderPayload = ShaderPayload;
     using DescriptorSets =
-        bl::pcl::RenderConfigDescriptorList<bl::rc::ds::Scene2DFactory,
+        bl::pcl::RenderConfigDescriptorList<bl::rc::dsi::Scene2DFactory,
                                             // This descriptor set can be used most of the time
                                             bl::pcl::DescriptorSetFactory<Particle, GpuParticle>>;
 

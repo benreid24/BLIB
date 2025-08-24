@@ -50,7 +50,7 @@ void PostProcess3DTask::onGraphInit() {
     // init scene input descriptor set
     const auto sampler   = renderer->samplerCache().noFilterEdgeClamped();
     const auto setLayout = renderer->descriptorFactoryCache()
-                               .getFactory<ds::InputAttachmentFactory<1>>()
+                               .getFactory<dsi::InputAttachmentFactory<1>>()
                                ->getDescriptorLayout();
 
     colorAttachmentSet.emplace(renderer->vulkanState(), setLayout, 1, 0);

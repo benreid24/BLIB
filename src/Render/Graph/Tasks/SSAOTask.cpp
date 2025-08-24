@@ -1,6 +1,7 @@
 #include <BLIB/Render/Graph/Tasks/SSAOTask.hpp>
 
 #include <BLIB/Render/Config/RenderPhases.hpp>
+#include <BLIB/Render/Descriptors/Builtin/InputAttachmentInstance.hpp>>
 #include <BLIB/Render/Descriptors/Builtin/SSAOInstance.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Graph/Assets/GBufferAsset.hpp>
@@ -66,8 +67,8 @@ void SSAOTask::create(engine::Engine&, Renderer& r, Scene* scene) {
                                  prim::Vertex3D({-1.f, 1.f, 1.0f}, {0.f, 1.f})};
     fullscreenRect.queueTransfer(tfr::Transferable::SyncRequirement::Immediate);
 
-    shaderParams = &genPipeline.getDescriptorSet<ds::SSAOInstance>(2)
-                        ->getBindingPayload<ds::SSAOShaderPayload>();
+    shaderParams = &genPipeline.getDescriptorSet<dsi::SSAOInstance>(2)
+                        ->getBindingPayload<dsi::SSAOShaderPayload>();
     genParams();
 
     subscribe(r.getSignalChannel());
@@ -83,12 +84,12 @@ void SSAOTask::onGraphInit() {
     }
 
     VkSampler sampler = renderer->samplerCache().noFilterEdgeClamped();
-    ds::InputAttachmentInstance* gbufInputSet =
-        genPipeline.getDescriptorSet<ds::InputAttachmentInstance>(0);
+    dsi::InputAttachmentInstance* gbufInputSet =
+        genPipeline.getDescriptorSet<dsi::InputAttachmentInstance>(0);
     gbufInputSet->initAttachments(gbuf->getAttachmentSets(), sampler);
 
-    ds::InputAttachmentInstance* blurInputSet =
-        blurPipeline.getDescriptorSet<ds::InputAttachmentInstance>(0);
+    dsi::InputAttachmentInstance* blurInputSet =
+        blurPipeline.getDescriptorSet<dsi::InputAttachmentInstance>(0);
     blurInputSet->initAttachments(genSurface->getAttachmentSets(), sampler);
 }
 

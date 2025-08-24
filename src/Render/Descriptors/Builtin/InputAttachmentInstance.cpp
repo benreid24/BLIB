@@ -7,7 +7,7 @@ namespace bl
 {
 namespace rc
 {
-namespace ds
+namespace dsi
 {
 InputAttachmentInstance::InputAttachmentInstance(vk::VulkanState& vulkanState,
                                                  VkDescriptorSetLayout layout,
@@ -143,6 +143,6 @@ void InputAttachmentInstance::commonInit() {
                            nullptr);
 }
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl

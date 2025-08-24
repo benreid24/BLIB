@@ -14,7 +14,7 @@ namespace bl
 {
 namespace rc
 {
-namespace ds
+namespace dsi
 {
 Scene3DInstance::Scene3DInstance(Renderer& renderer, VkDescriptorSetLayout layout)
 : SceneDescriptorSetInstance(renderer.vulkanState(), layout)
@@ -60,7 +60,7 @@ void Scene3DInstance::releaseObject(ecs::Entity, scene::Key) {
     // n/a
 }
 
-void Scene3DInstance::init(ShaderInputStore& inputStore) {
+void Scene3DInstance::init(ds::ShaderInputStore& inputStore) {
     shadowMapCameras =
         inputStore.getShaderInputWithId<ShadowMapCameraShaderInput>(ShadowMapCameraInputName);
 
@@ -105,7 +105,7 @@ void Scene3DInstance::init(ShaderInputStore& inputStore) {
 
     // create and configureWrite descriptors
     const std::uint32_t bufferWriteCount = cfg::Limits::MaxConcurrentFrames * 4;
-    SetWriteHelper setWriter;
+    ds::SetWriteHelper setWriter;
     setWriter.hintWriteCount(descriptorSets.size() * bufferWriteCount);
     setWriter.hintBufferInfoCount(descriptorSets.size() * bufferWriteCount);
 
@@ -142,7 +142,7 @@ void Scene3DInstance::updateImageDescriptors() {
     const std::uint32_t imageWriteCount =
         cfg::Limits::MaxConcurrentFrames *
         (cfg::Limits::MaxSpotShadows + cfg::Limits::MaxPointShadows + 1); // +1 for ssao buffer
-    SetWriteHelper setWriter;
+    ds::SetWriteHelper setWriter;
     setWriter.hintWriteCount(descriptorSets.size() * imageWriteCount);
     setWriter.hintImageInfoCount(descriptorSets.size() * imageWriteCount);
 
@@ -245,6 +245,6 @@ void Scene3DInstance::handleFrameStart() {
     }
 }
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl

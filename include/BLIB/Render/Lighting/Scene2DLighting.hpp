@@ -27,14 +27,14 @@ namespace lgt
  */
 class Scene2DLighting {
 public:
-    static constexpr std::uint32_t MaxLightCount = ds::Scene2DInstance::MaxLightCount;
+    static constexpr std::uint32_t MaxLightCount = dsi::Scene2DInstance::MaxLightCount;
 
     /**
      * @brief Creates the lighting manager
      *
      * @param descriptorSet The descriptor set containing the light buffers
      */
-    Scene2DLighting(ds::Scene2DInstance* descriptorSet);
+    Scene2DLighting(dsi::Scene2DInstance* descriptorSet);
 
     /**
      * @brief Sets the ambient light color. Default is white (full light)
@@ -80,7 +80,7 @@ public:
     Light2D getLight(std::uint32_t id) { return Light2D(*this, id); }
 
 private:
-    ds::Scene2DInstance::Lighting& lighting;
+    dsi::Scene2DInstance::Lighting& lighting;
     util::IdAllocator<std::uint32_t> indexAllocator;
     std::array<std::uint32_t, MaxLightCount> allocations;
 

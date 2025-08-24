@@ -17,14 +17,14 @@ class Animation2DSystem;
 
 namespace rc
 {
-namespace ds
+namespace dsi
 {
 /**
  * @brief Provides slideshow data for animations to render
  *
  * @ingroup Renderer
  */
-class SlideshowInstance : public DescriptorSetInstance {
+class SlideshowInstance : public ds::DescriptorSetInstance {
 public:
     /**
      * @brief Create a new set instance
@@ -41,7 +41,7 @@ public:
 private:
     sys::Animation2DSystem& animSystem;
 
-    virtual void init(ShaderInputStore& storageCache) override;
+    virtual void init(ds::ShaderInputStore& storageCache) override;
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                  std::uint32_t setIndex, UpdateSpeed updateFreq) const override;
     virtual void bindForObject(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
@@ -51,7 +51,7 @@ private:
     virtual void handleFrameStart() override;
 };
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl
 

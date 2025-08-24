@@ -38,9 +38,9 @@ private:
     vk::Pipeline* filterHighlightPipeline;
     vk::Pipeline* blurPipeline;
     buf::IndexBuffer indexBuffer;
-    std::optional<ds::InputAttachmentInstance> inputAttachmentDescriptor;
-    std::optional<ds::InputAttachmentInstance> output1Descriptor;
-    std::optional<ds::InputAttachmentInstance> output2Descriptor;
+    std::optional<dsi::InputAttachmentInstance> inputAttachmentDescriptor;
+    std::optional<dsi::InputAttachmentInstance> output1Descriptor;
+    std::optional<dsi::InputAttachmentInstance> output2Descriptor;
 
     virtual void create(engine::Engine& engine, Renderer& renderer, Scene* scene) override;
     virtual void onGraphInit() override;

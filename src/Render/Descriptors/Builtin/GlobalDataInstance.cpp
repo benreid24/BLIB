@@ -6,7 +6,7 @@ namespace bl
 {
 namespace rc
 {
-namespace ds
+namespace dsi
 {
 GlobalDataInstance::GlobalDataInstance(res::GlobalDescriptors& globals)
 : DescriptorSetInstance(Bindless, SpeedAgnostic)
@@ -26,7 +26,7 @@ void GlobalDataInstance::releaseObject(ecs::Entity, scene::Key) {
     // noop
 }
 
-void GlobalDataInstance::init(ShaderInputStore&) {
+void GlobalDataInstance::init(ds::ShaderInputStore&) {
     // noop
 }
 
@@ -39,6 +39,6 @@ void GlobalDataInstance::handleFrameStart() {
     // noop
 }
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl

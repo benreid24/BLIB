@@ -8,16 +8,16 @@ namespace bl
 {
 namespace rc
 {
-namespace ds
+namespace dsi
 {
 /**
  * @brief The factory for the SSAO descriptor set
  *
  * @ingroup Renderer
  */
-using SSAOFactory = GenericDescriptorSetFactory<SSAOBindings, VK_SHADER_STAGE_FRAGMENT_BIT>;
+using SSAOFactory = ds::GenericDescriptorSetFactory<SSAOBindings, VK_SHADER_STAGE_FRAGMENT_BIT>;
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl
 

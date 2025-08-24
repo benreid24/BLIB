@@ -40,8 +40,8 @@ VkViewport makeViewport(const VkRect2D& s) {
 CodeScene::CodeScene(engine::Engine& engine, RenderCallback&& renderCallback)
 : Scene(engine, objects.makeEntityCallback())
 , renderCallback(renderCallback)
-, lighting(static_cast<ds::Scene2DInstance*>(descriptorSets.getDescriptorSet(
-      descriptorFactories.getOrCreateFactory<ds::Scene2DFactory>()))) {
+, lighting(static_cast<dsi::Scene2DInstance*>(descriptorSets.getDescriptorSet(
+      descriptorFactories.getOrCreateFactory<dsi::Scene2DFactory>()))) {
     emitter.connect(engine.renderer().getSignalChannel());
 }
 

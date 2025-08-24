@@ -10,14 +10,14 @@ namespace bl
 {
 namespace rc
 {
-namespace ds
+namespace dsi
 {
 /**
  * @brief Descriptor set instance that provides bindings for an entire attachment set
  *
  * @ingroup Renderer
  */
-class InputAttachmentInstance : public DescriptorSetInstance {
+class InputAttachmentInstance : public ds::DescriptorSetInstance {
 public:
     /**
      * @brief Creates the descriptor set instance
@@ -115,12 +115,12 @@ private:
     virtual void bindForObject(scene::SceneRenderContext&, VkPipelineLayout, std::uint32_t,
                                scene::Key) const override {}
     virtual void releaseObject(ecs::Entity, scene::Key) override {}
-    virtual void init(ShaderInputStore&) override {}
+    virtual void init(ds::ShaderInputStore&) override {}
     virtual bool allocateObject(ecs::Entity, scene::Key) override { return true; }
     virtual void handleFrameStart() override {}
 };
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl
 

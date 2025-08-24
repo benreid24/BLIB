@@ -30,7 +30,7 @@ public:
      *
      * @param instance The descriptor set instance for the scene
      */
-    Scene3DLighting(ds::Scene3DInstance& instance);
+    Scene3DLighting(dsi::Scene3DInstance& instance);
 
     /**
      * @brief Returns the global ambient light color
@@ -192,7 +192,7 @@ private:
         }
     };
 
-    ds::Scene3DInstance& instance;
+    dsi::Scene3DInstance& instance;
     glm::vec3 sceneCenter;
     float sunDistance;
     Lights<SpotLight3D> spotLights;

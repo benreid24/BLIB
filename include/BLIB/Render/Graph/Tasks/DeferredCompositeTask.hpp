@@ -39,8 +39,8 @@ private:
     buf::IndexBuffer3D sphereBuffer;
     gfx::Sphere sphere;
     vk::Pipeline* pipeline;
-    ds::Scene3DInstance* sceneDescriptor;
-    std::optional<ds::InputAttachmentInstance> gbufferDescriptor;
+    dsi::Scene3DInstance* sceneDescriptor;
+    std::optional<dsi::InputAttachmentInstance> gbufferDescriptor;
 
     virtual void create(engine::Engine& engine, Renderer& renderer, Scene* scene) override;
     virtual void onGraphInit() override;

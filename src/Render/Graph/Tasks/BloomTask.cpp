@@ -65,7 +65,7 @@ void BloomTask::onGraphInit() {
 
     const auto sampler   = renderer->samplerCache().noFilterEdgeClamped();
     const auto setLayout = renderer->descriptorFactoryCache()
-                               .getFactory<ds::InputAttachmentFactory<1>>()
+                               .getFactory<dsi::InputAttachmentFactory<1>>()
                                ->getDescriptorLayout();
 
     inputAttachmentDescriptor.emplace(renderer->vulkanState(), setLayout, 1, 0);
@@ -79,8 +79,8 @@ void BloomTask::onGraphInit() {
 }
 
 void BloomTask::execute(const rg::ExecutionContext& ctx, rg::Asset*) {
-    BloomColorAttachmentAsset* targets[2]       = {&output->get(0), &output->get(1)};
-    ds::InputAttachmentInstance* attachments[2] = {
+    BloomColorAttachmentAsset* targets[2]        = {&output->get(0), &output->get(1)};
+    dsi::InputAttachmentInstance* attachments[2] = {
         &output1Descriptor.value(),
         &output2Descriptor.value(),
     };

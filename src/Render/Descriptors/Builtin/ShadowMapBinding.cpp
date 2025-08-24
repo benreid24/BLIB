@@ -7,17 +7,17 @@ namespace bl
 {
 namespace rc
 {
-namespace ds
+namespace dsi
 {
 ShadowMapBinding::ShadowMapBinding()
 : Binding(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC) {}
 
-void ShadowMapBinding::init(vk::VulkanState&, ShaderInputStore& inputStore) {
+void ShadowMapBinding::init(vk::VulkanState&, ds::ShaderInputStore& inputStore) {
     storage = inputStore.getShaderInputWithId<ShadowMapCameraShaderInput>(ShadowMapCameraInputName);
     storage->getBuffer().transferEveryFrame();
 }
 
-void ShadowMapBinding::writeSet(SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed,
+void ShadowMapBinding::writeSet(ds::SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed,
                                 std::uint32_t) {
     VkDescriptorBufferInfo& bufferInfo = writer.getNewBufferInfo();
     bufferInfo.buffer                  = storage->getBuffer().gpuBufferHandle().getBuffer();
@@ -62,6 +62,6 @@ std::uint32_t ShadowMapBinding::getDynamicOffsetForPipeline(scene::SceneRenderCo
     }
 }
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl

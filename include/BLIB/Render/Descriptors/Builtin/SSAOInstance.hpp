@@ -10,7 +10,7 @@ namespace bl
 {
 namespace rc
 {
-namespace ds
+namespace dsi
 {
 /**
  * @brief Uniform payload for the SSAO algorithm
@@ -31,16 +31,16 @@ struct SSAOShaderPayload {
  *
  * @ingroup Renderer
  */
-using SSAOBindings = Bindings<GlobalUniformBuffer<SSAOShaderPayload>>;
+using SSAOBindings = ds::Bindings<ds::GlobalUniformBuffer<SSAOShaderPayload>>;
 
 /**
  * @brief The descriptor set containing the SSAO parameters
  *
  * @ingroup Renderer
  */
-using SSAOInstance = GenericDescriptorSetInstance<SSAOBindings>;
+using SSAOInstance = ds::GenericDescriptorSetInstance<SSAOBindings>;
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl
 

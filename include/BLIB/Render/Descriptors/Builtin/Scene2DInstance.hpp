@@ -24,14 +24,14 @@ namespace vk
 struct VulkanState;
 }
 
-namespace ds
+namespace dsi
 {
 /**
  * @brief Descriptor set instance for 2d scene data
  *
  * @ingroup Renderer
  */
-class Scene2DInstance : public SceneDescriptorSetInstance {
+class Scene2DInstance : public ds::SceneDescriptorSetInstance {
 public:
     static constexpr std::uint32_t MaxLightCount = 500;
 
@@ -67,7 +67,7 @@ private:
     virtual void bindForObject(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                std::uint32_t setIndex, scene::Key objectKey) const override;
     virtual void releaseObject(ecs::Entity entity, scene::Key objectKey) override;
-    virtual void init(ShaderInputStore& storageCache) override;
+    virtual void init(ds::ShaderInputStore& storageCache) override;
     virtual bool allocateObject(ecs::Entity entity, scene::Key key) override;
     virtual void handleFrameStart() override;
 
@@ -75,7 +75,7 @@ private:
     friend class lgt::Light2D;
 };
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl
 

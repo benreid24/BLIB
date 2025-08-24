@@ -8,7 +8,7 @@ namespace bl
 {
 namespace rc
 {
-namespace ds
+namespace dsi
 {
 Scene2DInstance::Scene2DInstance(vk::VulkanState& vulkanState, VkDescriptorSetLayout layout)
 : SceneDescriptorSetInstance(vulkanState, layout) {}
@@ -39,7 +39,7 @@ void Scene2DInstance::releaseObject(ecs::Entity, scene::Key) {
     // n/a
 }
 
-void Scene2DInstance::init(ShaderInputStore&) {
+void Scene2DInstance::init(ds::ShaderInputStore&) {
     // allocate memory
     createCameraBuffer();
     lighting.create(vulkanState, 1);
@@ -48,7 +48,7 @@ void Scene2DInstance::init(ShaderInputStore&) {
     allocateDescriptorSets();
 
     // create and configureWrite descriptors
-    SetWriteHelper setWriter;
+    ds::SetWriteHelper setWriter;
     setWriter.hintWriteCount(descriptorSets.size() * cfg::Limits::MaxConcurrentFrames * 4);
     setWriter.hintBufferInfoCount(descriptorSets.size() * cfg::Limits::MaxConcurrentFrames * 4);
 
@@ -90,6 +90,6 @@ void Scene2DInstance::handleFrameStart() {
     // noop
 }
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl

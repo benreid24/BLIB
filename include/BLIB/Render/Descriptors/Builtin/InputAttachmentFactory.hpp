@@ -10,7 +10,7 @@ namespace bl
 {
 namespace rc
 {
-namespace ds
+namespace dsi
 {
 /**
  * @brief Descriptor set factory that provides a single binding for an attachment set
@@ -20,7 +20,7 @@ namespace ds
  * @ingroup Renderer
  */
 template<std::uint32_t AttachmentCount, std::uint32_t StartIndex = 0>
-class InputAttachmentFactory : public DescriptorSetFactory {
+class InputAttachmentFactory : public ds::DescriptorSetFactory {
 public:
     /**
      * @brief Creates the factory
@@ -52,7 +52,7 @@ private:
         descriptorSetLayout      = renderer.vulkanState().descriptorPool.createLayout(bindingInfo);
     }
 
-    virtual std::unique_ptr<DescriptorSetInstance> createDescriptorSet() const override {
+    virtual std::unique_ptr<ds::DescriptorSetInstance> createDescriptorSet() const override {
         return std::make_unique<InputAttachmentInstance>(
             *vs, descriptorSetLayout, AttachmentCount, StartIndex);
     }
@@ -60,7 +60,7 @@ private:
     virtual std::type_index creates() const override { return typeid(InputAttachmentInstance); }
 };
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl
 

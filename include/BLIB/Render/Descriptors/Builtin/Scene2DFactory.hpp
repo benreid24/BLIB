@@ -12,7 +12,7 @@ namespace vk
 struct VulkanState;
 }
 
-namespace ds
+namespace dsi
 {
 /**
  * @brief Placeholder factory for scene descriptor sets. Factory itself only provides the descriptor
@@ -20,7 +20,7 @@ namespace ds
  *
  * @ingroup Renderer
  */
-class Scene2DFactory : public DescriptorSetFactory {
+class Scene2DFactory : public ds::DescriptorSetFactory {
 public:
     /**
      * @brief Destroys the factory
@@ -31,11 +31,11 @@ private:
     vk::VulkanState* vulkanState;
 
     virtual void init(engine::Engine&, Renderer& renderer) override;
-    virtual std::unique_ptr<DescriptorSetInstance> createDescriptorSet() const override;
+    virtual std::unique_ptr<ds::DescriptorSetInstance> createDescriptorSet() const override;
     virtual std::type_index creates() const override;
 };
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl
 

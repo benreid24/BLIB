@@ -8,7 +8,7 @@ namespace bl
 {
 namespace rc
 {
-namespace ds
+namespace dsi
 {
 /**
  * @brief Descriptor set instance that contains renderer global data such as texture and material
@@ -16,7 +16,7 @@ namespace ds
  *
  * @ingroup Renderer
  */
-class GlobalDataInstance : public DescriptorSetInstance {
+class GlobalDataInstance : public ds::DescriptorSetInstance {
 public:
     /**
      * @brief Creates the descriptor set instance
@@ -38,12 +38,12 @@ private:
     virtual void bindForObject(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                std::uint32_t setIndex, scene::Key objectKey) const override;
     virtual void releaseObject(ecs::Entity entity, scene::Key objectKey) override;
-    virtual void init(ShaderInputStore& storageCache) override;
+    virtual void init(ds::ShaderInputStore& storageCache) override;
     virtual bool allocateObject(ecs::Entity entity, scene::Key key) override;
     virtual void handleFrameStart() override;
 };
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl
 

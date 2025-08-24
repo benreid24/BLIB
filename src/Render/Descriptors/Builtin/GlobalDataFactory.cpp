@@ -7,19 +7,19 @@ namespace bl
 {
 namespace rc
 {
-namespace ds
+namespace dsi
 {
-void ds::GlobalDataFactory::init(engine::Engine&, Renderer& renderer) {
+void GlobalDataFactory::init(engine::Engine&, Renderer& renderer) {
     globalData          = &renderer.getGlobalDescriptorData();
     descriptorSetLayout = renderer.getGlobalDescriptorData().getDescriptorLayout();
 }
 
-std::unique_ptr<DescriptorSetInstance> GlobalDataFactory::createDescriptorSet() const {
+std::unique_ptr<ds::DescriptorSetInstance> GlobalDataFactory::createDescriptorSet() const {
     return std::make_unique<GlobalDataInstance>(*globalData);
 }
 
 std::type_index GlobalDataFactory::creates() const { return typeid(GlobalDataInstance); }
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl

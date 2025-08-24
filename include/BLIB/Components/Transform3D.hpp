@@ -17,7 +17,7 @@ namespace com
  * @ingroup Components
  */
 class Transform3D
-: public rc::rcom::DescriptorComponentBase<Transform3D, rc::ds::Transform3DPayload>
+: public rc::rcom::DescriptorComponentBase<Transform3D, rc::dsi::Transform3DPayload>
 , public ecs::trait::ParentAwareVersioned<Transform3D> {
 public:
     /**
@@ -118,7 +118,7 @@ public:
      *
      * @param dest The payload to populate
      */
-    virtual void refreshDescriptor(rc::ds::Transform3DPayload& dest) override;
+    virtual void refreshDescriptor(rc::dsi::Transform3DPayload& dest) override;
 
     /**
      * @brief Returns the local transform matrix of this transform

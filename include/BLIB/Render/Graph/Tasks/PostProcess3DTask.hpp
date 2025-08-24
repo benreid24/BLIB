@@ -36,8 +36,8 @@ private:
     Scene* scene;
     buf::IndexBuffer indexBuffer;
     vk::Pipeline* pipeline;
-    std::optional<ds::InputAttachmentInstance> colorAttachmentSet;
-    std::optional<ds::InputAttachmentInstance> bloomAttachmentSet;
+    std::optional<dsi::InputAttachmentInstance> colorAttachmentSet;
+    std::optional<dsi::InputAttachmentInstance> bloomAttachmentSet;
     std::optional<vk::AttachmentImageSet> dummyBloomBuffer;
 
     virtual void create(engine::Engine& engine, Renderer& renderer, Scene* scene) override;

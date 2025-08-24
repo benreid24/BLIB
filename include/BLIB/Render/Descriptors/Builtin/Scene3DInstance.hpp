@@ -34,7 +34,7 @@ namespace rgi
 class ShadowMapAsset;
 } // namespace rgi
 
-namespace ds
+namespace dsi
 {
 /**
  * @brief Descriptor set instance for common scene data
@@ -42,7 +42,7 @@ namespace ds
  * @ingroup Renderer
  */
 class Scene3DInstance
-: public SceneDescriptorSetInstance
+: public ds::SceneDescriptorSetInstance
 , public sig::Listener<event::SceneGraphAssetInitialized, event::ShadowMapsInvalidated> {
 public:
     /**
@@ -90,7 +90,7 @@ private:
     virtual void bindForObject(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                std::uint32_t setIndex, scene::Key objectKey) const override;
     virtual void releaseObject(ecs::Entity entity, scene::Key objectKey) override;
-    virtual void init(ShaderInputStore& storageCache) override;
+    virtual void init(ds::ShaderInputStore& storageCache) override;
     virtual bool allocateObject(ecs::Entity entity, scene::Key key) override;
     virtual void handleFrameStart() override;
 
@@ -101,7 +101,7 @@ private:
     friend class scene::Scene3D;
 };
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl
 

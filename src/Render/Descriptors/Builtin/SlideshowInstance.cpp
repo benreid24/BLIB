@@ -8,13 +8,13 @@ namespace bl
 {
 namespace rc
 {
-namespace ds
+namespace dsi
 {
 SlideshowInstance::SlideshowInstance(engine::Engine& engine)
 : DescriptorSetInstance(Bindless, SpeedAgnostic)
 , animSystem(engine.systems().getSystem<sys::Animation2DSystem>()) {}
 
-void SlideshowInstance::init(ShaderInputStore&) {
+void SlideshowInstance::init(ds::ShaderInputStore&) {
     // noop
 }
 
@@ -41,6 +41,6 @@ void SlideshowInstance::handleFrameStart() {
     // noop
 }
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl

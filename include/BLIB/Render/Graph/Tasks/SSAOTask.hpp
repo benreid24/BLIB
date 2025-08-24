@@ -2,7 +2,6 @@
 #define BLIB_RENDER_GRAPH_TASKS_SSAOTASK_HPP
 
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
-#include <BLIB/Render/Descriptors/Builtin/InputAttachmentInstance.hpp>
 #include <BLIB/Render/Events/SettingsChanged.hpp>
 #include <BLIB/Render/Graph/Assets/SSAOAsset.hpp>
 #include <BLIB/Render/Graph/Task.hpp>
@@ -14,7 +13,7 @@ namespace bl
 {
 namespace rc
 {
-namespace ds
+namespace dsi
 {
 struct SSAOShaderPayload;
 }
@@ -42,7 +41,7 @@ public:
 
 private:
     Renderer* renderer;
-    ds::SSAOShaderPayload* shaderParams;
+    dsi::SSAOShaderPayload* shaderParams;
     buf::IndexBuffer3D fullscreenRect;
     vk::PipelineInstance genPipeline;
     vk::PipelineInstance blurPipeline;

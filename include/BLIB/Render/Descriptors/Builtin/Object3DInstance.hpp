@@ -7,11 +7,11 @@ namespace bl
 {
 namespace rc
 {
-namespace ds
+namespace dsi
 {
 namespace priv
 {
-using Object3DBindings = Bindings<Transform3DBinding, MaterialBinding>;
+using Object3DBindings = ds::Bindings<Transform3DBinding, MaterialBinding>;
 }
 
 /**
@@ -20,9 +20,9 @@ using Object3DBindings = Bindings<Transform3DBinding, MaterialBinding>;
  *
  * @ingroup Renderer
  */
-using Object3DInstance = GenericDescriptorSetInstance<priv::Object3DBindings>;
+using Object3DInstance = ds::GenericDescriptorSetInstance<priv::Object3DBindings>;
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl
 

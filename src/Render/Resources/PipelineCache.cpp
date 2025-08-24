@@ -132,9 +132,9 @@ void PipelineCache::createBuiltins() {
                               prim::Vertex3D::attributeDescriptions())
             .withRasterizer(rasterizer3d)
             .withDepthStencilState(&depthStencilDepthEnabled)
-            .addDescriptorSet<ds::GlobalDataFactory>()
-            .addDescriptorSet<ds::Scene3DFactory>()
-            .addDescriptorSet<ds::Object3DFactory>()
+            .addDescriptorSet<dsi::GlobalDataFactory>()
+            .addDescriptorSet<dsi::Scene3DFactory>()
+            .addDescriptorSet<dsi::Object3DFactory>()
             .withDeclareSpecializations(2)
             .withSpecialization(cfg::Specializations3D::LightingDisabled,
                                 lightingDisabledSpecialization)
@@ -152,9 +152,9 @@ void PipelineCache::createBuiltins() {
             .withDepthStencilState(&depthStencilDepthEnabled)
             .withBlendConfig(vk::BlendParameters().withSimpleColorBlendState(
                 vk::BlendParameters::ColorBlendBehavior::Overwrite, 4))
-            .addDescriptorSet<ds::GlobalDataFactory>()
-            .addDescriptorSet<ds::Scene3DFactory>()
-            .addDescriptorSet<ds::Object3DFactory>()
+            .addDescriptorSet<dsi::GlobalDataFactory>()
+            .addDescriptorSet<dsi::Scene3DFactory>()
+            .addDescriptorSet<dsi::Object3DFactory>()
             .withDeclareSpecializations(2)
             .withSpecialization(cfg::Specializations3D::LightingDisabled,
                                 lightingDisabledSpecialization)
@@ -170,9 +170,9 @@ void PipelineCache::createBuiltins() {
                               prim::Vertex3D::attributeDescriptions())
             .withRasterizer(rasterizer3d)
             .withDepthStencilState(&depthStencilDepthEnabled)
-            .addDescriptorSet<ds::GlobalDataFactory>()
-            .addDescriptorSet<ds::Scene3DFactory>()
-            .addDescriptorSet<ds::Object3DFactory>()
+            .addDescriptorSet<dsi::GlobalDataFactory>()
+            .addDescriptorSet<dsi::Scene3DFactory>()
+            .addDescriptorSet<dsi::Object3DFactory>()
             .withDeclareSpecializations(2)
             .withSpecialization(cfg::Specializations3D::LightingDisabled,
                                 lightingDisabledSpecialization)
@@ -191,9 +191,9 @@ void PipelineCache::createBuiltins() {
             .withDepthStencilState(&depthStencilDepthEnabled)
             .withBlendConfig(vk::BlendParameters().withSimpleColorBlendState(
                 vk::BlendParameters::ColorBlendBehavior::Overwrite, 4))
-            .addDescriptorSet<ds::GlobalDataFactory>()
-            .addDescriptorSet<ds::Scene3DFactory>()
-            .addDescriptorSet<ds::Object3DFactory>()
+            .addDescriptorSet<dsi::GlobalDataFactory>()
+            .addDescriptorSet<dsi::Scene3DFactory>()
+            .addDescriptorSet<dsi::Object3DFactory>()
             .withDeclareSpecializations(2)
             .withSpecialization(cfg::Specializations3D::LightingDisabled,
                                 lightingDisabledSpecialization)
@@ -209,9 +209,9 @@ void PipelineCache::createBuiltins() {
                               prim::Vertex3D::attributeDescriptions())
             .withRasterizer(rasterizer3d)
             .withDepthStencilState(&depthStencilDepthEnabled)
-            .addDescriptorSet<ds::GlobalDataFactory>()
-            .addDescriptorSet<ds::Scene3DFactory>()
-            .addDescriptorSet<ds::Object3DFactory>()
+            .addDescriptorSet<dsi::GlobalDataFactory>()
+            .addDescriptorSet<dsi::Scene3DFactory>()
+            .addDescriptorSet<dsi::Object3DFactory>()
             .withDeclareSpecializations(2)
             .withSpecialization(cfg::Specializations3D::LightingDisabled,
                                 lightingDisabledSpecialization)
@@ -230,9 +230,9 @@ void PipelineCache::createBuiltins() {
             .withDepthStencilState(&depthStencilDepthEnabled)
             .withBlendConfig(vk::BlendParameters().withSimpleColorBlendState(
                 vk::BlendParameters::ColorBlendBehavior::Overwrite, 4))
-            .addDescriptorSet<ds::GlobalDataFactory>()
-            .addDescriptorSet<ds::Scene3DFactory>()
-            .addDescriptorSet<ds::Object3DFactory>()
+            .addDescriptorSet<dsi::GlobalDataFactory>()
+            .addDescriptorSet<dsi::Scene3DFactory>()
+            .addDescriptorSet<dsi::Object3DFactory>()
             .withDeclareSpecializations(2)
             .withSpecialization(cfg::Specializations3D::LightingDisabled,
                                 lightingDisabledSpecialization)
@@ -325,8 +325,8 @@ void PipelineCache::createBuiltins() {
                 }
                 return false;
             })
-            .addDescriptorSet<ds::InputAttachmentFactory<4>>()
-            .addDescriptorSet<ds::Scene3DFactory>()
+            .addDescriptorSet<dsi::InputAttachmentFactory<4>>()
+            .addDescriptorSet<dsi::Scene3DFactory>()
             .build());
 
     createPipeline(
@@ -368,9 +368,9 @@ void PipelineCache::createBuiltins() {
                 }
                 return false;
             })
-            .addDescriptorSet<ds::InputAttachmentFactory<4>>()
-            .addDescriptorSet<ds::Scene3DFactory>()
-            .addDescriptorSet<ds::SSAOFactory>()
+            .addDescriptorSet<dsi::InputAttachmentFactory<4>>()
+            .addDescriptorSet<dsi::Scene3DFactory>()
+            .addDescriptorSet<dsi::SSAOFactory>()
             .build());
 
     createPipeline(
@@ -384,7 +384,7 @@ void PipelineCache::createBuiltins() {
             .withDepthStencilState(&depthStencilDepthDisabled)
             .withBlendConfig(vk::BlendParameters().withSimpleColorBlendState(
                 vk::BlendParameters::ColorBlendBehavior::Overwrite))
-            .addDescriptorSet<ds::InputAttachmentFactory<1>>()
+            .addDescriptorSet<dsi::InputAttachmentFactory<1>>()
             .build());
 
     createPipeline(cfg::PipelineIds::Skybox,
@@ -397,9 +397,9 @@ void PipelineCache::createBuiltins() {
                        .withBlendConfig(vk::BlendParameters().withSimpleColorBlendState(
                            vk::BlendParameters::ColorBlendBehavior::Overwrite))
                        .withDepthStencilState(&depthStencilDepthEnabled)
-                       .addDescriptorSet<ds::GlobalDataFactory>()
-                       .addDescriptorSet<ds::Scene3DFactory>()
-                       .addDescriptorSet<ds::Object3DFactory>()
+                       .addDescriptorSet<dsi::GlobalDataFactory>()
+                       .addDescriptorSet<dsi::Scene3DFactory>()
+                       .addDescriptorSet<dsi::Object3DFactory>()
                        .build());
 
     createPipeline(
@@ -415,8 +415,8 @@ void PipelineCache::createBuiltins() {
             .addPushConstantRange(0, sizeof(float), VK_SHADER_STAGE_VERTEX_BIT)
             .addPushConstantRange(16, sizeof(glm::vec4), VK_SHADER_STAGE_FRAGMENT_BIT)
             .withSimpleDepthStencil(true, true, true, false)
-            .addDescriptorSet<ds::Scene3DFactory>()
-            .addDescriptorSet<ds::Object3DFactory>()
+            .addDescriptorSet<dsi::Scene3DFactory>()
+            .addDescriptorSet<dsi::Object3DFactory>()
             .build());
 
     createPipeline(
@@ -432,8 +432,8 @@ void PipelineCache::createBuiltins() {
             .addPushConstantRange(0, sizeof(float), VK_SHADER_STAGE_VERTEX_BIT)
             .addPushConstantRange(16, sizeof(glm::vec4), VK_SHADER_STAGE_FRAGMENT_BIT)
             .withSimpleDepthStencil(true, true, true, false)
-            .addDescriptorSet<ds::Scene3DFactory>()
-            .addDescriptorSet<ds::Object3DFactory>()
+            .addDescriptorSet<dsi::Scene3DFactory>()
+            .addDescriptorSet<dsi::Object3DFactory>()
             .build());
 
     createPipeline(cfg::PipelineIds::ShadowMapRegular,
@@ -447,8 +447,8 @@ void PipelineCache::createBuiltins() {
                        .withBlendConfig(vk::BlendParameters().withSimpleColorBlendState(
                            vk::BlendParameters::ColorBlendBehavior::None))
                        .withDepthStencilState(&depthStencilDepthEnabled)
-                       .addDescriptorSet<ds::ShadowMapFactory>()
-                       .addDescriptorSet<ds::Object3DFactory>()
+                       .addDescriptorSet<dsi::ShadowMapFactory>()
+                       .addDescriptorSet<dsi::Object3DFactory>()
                        .build());
 
     // TODO - new vertex shader for skinned shadow mapping
@@ -463,8 +463,8 @@ void PipelineCache::createBuiltins() {
                        .withBlendConfig(vk::BlendParameters().withSimpleColorBlendState(
                            vk::BlendParameters::ColorBlendBehavior::None))
                        .withDepthStencilState(&depthStencilDepthEnabled)
-                       .addDescriptorSet<ds::ShadowMapFactory>()
-                       .addDescriptorSet<ds::Object3DFactory>()
+                       .addDescriptorSet<dsi::ShadowMapFactory>()
+                       .addDescriptorSet<dsi::Object3DFactory>()
                        .build());
 
     createPipeline(
@@ -482,8 +482,8 @@ void PipelineCache::createBuiltins() {
             .withBlendConfig(vk::BlendParameters().withSimpleColorBlendState(
                 vk::BlendParameters::ColorBlendBehavior::None))
             .withDepthStencilState(&depthStencilDepthEnabled)
-            .addDescriptorSet<ds::ShadowMapFactory>()
-            .addDescriptorSet<ds::Object3DFactory>()
+            .addDescriptorSet<dsi::ShadowMapFactory>()
+            .addDescriptorSet<dsi::Object3DFactory>()
             .build());
 
     // TODO - new vertex shader for skinned shadow mapping
@@ -502,8 +502,8 @@ void PipelineCache::createBuiltins() {
             .withBlendConfig(vk::BlendParameters().withSimpleColorBlendState(
                 vk::BlendParameters::ColorBlendBehavior::None))
             .withDepthStencilState(&depthStencilDepthEnabled)
-            .addDescriptorSet<ds::ShadowMapFactory>()
-            .addDescriptorSet<ds::Object3DFactory>()
+            .addDescriptorSet<dsi::ShadowMapFactory>()
+            .addDescriptorSet<dsi::Object3DFactory>()
             .build());
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -515,9 +515,9 @@ void PipelineCache::createBuiltins() {
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withRasterizer(rasterizer)
             .withDepthStencilState(&depthStencilDepthEnabled)
-            .addDescriptorSet<ds::GlobalDataFactory>()
-            .addDescriptorSet<ds::Scene2DFactory>()
-            .addDescriptorSet<ds::Object2DFactory>()
+            .addDescriptorSet<dsi::GlobalDataFactory>()
+            .addDescriptorSet<dsi::Scene2DFactory>()
+            .addDescriptorSet<dsi::Object2DFactory>()
             .build());
 
     createPipeline(
@@ -527,9 +527,9 @@ void PipelineCache::createBuiltins() {
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withRasterizer(rasterizer)
             .withDepthStencilState(&depthStencilDepthEnabled)
-            .addDescriptorSet<ds::GlobalDataFactory>()
-            .addDescriptorSet<ds::Scene2DFactory>()
-            .addDescriptorSet<ds::Object2DFactory>()
+            .addDescriptorSet<dsi::GlobalDataFactory>()
+            .addDescriptorSet<dsi::Scene2DFactory>()
+            .addDescriptorSet<dsi::Object2DFactory>()
             .build());
 
     createPipeline(cfg::PipelineIds::Lit2DGeometry,
@@ -538,9 +538,9 @@ void PipelineCache::createBuiltins() {
                        .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                        .withRasterizer(rasterizer)
                        .withDepthStencilState(&depthStencilDepthEnabled)
-                       .addDescriptorSet<ds::GlobalDataFactory>()
-                       .addDescriptorSet<ds::Scene2DFactory>()
-                       .addDescriptorSet<ds::Object2DFactory>()
+                       .addDescriptorSet<dsi::GlobalDataFactory>()
+                       .addDescriptorSet<dsi::Scene2DFactory>()
+                       .addDescriptorSet<dsi::Object2DFactory>()
                        .build());
 
     createPipeline(cfg::PipelineIds::Unlit2DGeometry,
@@ -549,9 +549,9 @@ void PipelineCache::createBuiltins() {
                        .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                        .withRasterizer(rasterizer)
                        .withDepthStencilState(&depthStencilDepthEnabled)
-                       .addDescriptorSet<ds::GlobalDataFactory>()
-                       .addDescriptorSet<ds::Scene2DFactory>()
-                       .addDescriptorSet<ds::Object2DFactory>()
+                       .addDescriptorSet<dsi::GlobalDataFactory>()
+                       .addDescriptorSet<dsi::Scene2DFactory>()
+                       .addDescriptorSet<dsi::Object2DFactory>()
                        .build());
 
     createPipeline(cfg::PipelineIds::Lines2D,
@@ -560,9 +560,9 @@ void PipelineCache::createBuiltins() {
                        .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_LINE_LIST)
                        .withRasterizer(rasterizer)
                        .withDepthStencilState(&depthStencilDepthEnabled)
-                       .addDescriptorSet<ds::GlobalDataFactory>()
-                       .addDescriptorSet<ds::Scene2DFactory>()
-                       .addDescriptorSet<ds::Object2DFactory>()
+                       .addDescriptorSet<dsi::GlobalDataFactory>()
+                       .addDescriptorSet<dsi::Scene2DFactory>()
+                       .addDescriptorSet<dsi::Object2DFactory>()
                        .build());
 
     createPipeline(cfg::PipelineIds::Unlit2DGeometryNoDepthWrite,
@@ -571,9 +571,9 @@ void PipelineCache::createBuiltins() {
                        .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                        .withRasterizer(rasterizer)
                        .withDepthStencilState(&depthStencilDepthWriteDisabled)
-                       .addDescriptorSet<ds::GlobalDataFactory>()
-                       .addDescriptorSet<ds::Scene2DFactory>()
-                       .addDescriptorSet<ds::Object2DFactory>()
+                       .addDescriptorSet<dsi::GlobalDataFactory>()
+                       .addDescriptorSet<dsi::Scene2DFactory>()
+                       .addDescriptorSet<dsi::Object2DFactory>()
                        .build());
 
     createPipeline(cfg::PipelineIds::Text,
@@ -582,9 +582,9 @@ void PipelineCache::createBuiltins() {
                        .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                        .withRasterizer(rasterizer)
                        .withDepthStencilState(&depthStencilDepthEnabled)
-                       .addDescriptorSet<ds::GlobalDataFactory>()
-                       .addDescriptorSet<ds::Scene2DFactory>()
-                       .addDescriptorSet<ds::Object2DFactory>()
+                       .addDescriptorSet<dsi::GlobalDataFactory>()
+                       .addDescriptorSet<dsi::Scene2DFactory>()
+                       .addDescriptorSet<dsi::Object2DFactory>()
                        .build());
 
     createPipeline(
@@ -596,10 +596,10 @@ void PipelineCache::createBuiltins() {
             .withVertexFormat(prim::SlideshowVertex::bindingDescription(),
                               prim::SlideshowVertex::attributeDescriptions())
             .withDepthStencilState(&depthStencilDepthEnabled)
-            .addDescriptorSet<ds::GlobalDataFactory>()
-            .addDescriptorSet<ds::Scene2DFactory>()
-            .addDescriptorSet<ds::Object2DFactory>()
-            .addDescriptorSet<ds::SlideshowFactory>()
+            .addDescriptorSet<dsi::GlobalDataFactory>()
+            .addDescriptorSet<dsi::Scene2DFactory>()
+            .addDescriptorSet<dsi::Object2DFactory>()
+            .addDescriptorSet<dsi::SlideshowFactory>()
             .build());
 
     createPipeline(
@@ -611,10 +611,10 @@ void PipelineCache::createBuiltins() {
             .withVertexFormat(prim::SlideshowVertex::bindingDescription(),
                               prim::SlideshowVertex::attributeDescriptions())
             .withDepthStencilState(&depthStencilDepthEnabled)
-            .addDescriptorSet<ds::GlobalDataFactory>()
-            .addDescriptorSet<ds::Scene2DFactory>()
-            .addDescriptorSet<ds::Object2DFactory>()
-            .addDescriptorSet<ds::SlideshowFactory>()
+            .addDescriptorSet<dsi::GlobalDataFactory>()
+            .addDescriptorSet<dsi::Scene2DFactory>()
+            .addDescriptorSet<dsi::Object2DFactory>()
+            .addDescriptorSet<dsi::SlideshowFactory>()
             .build());
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -627,7 +627,7 @@ void PipelineCache::createBuiltins() {
                        .withBlendConfig(vk::BlendParameters().withSimpleColorBlendState(
                            vk::BlendParameters::ColorBlendBehavior::Overwrite))
                        .withDepthStencilState(&depthStencilDepthDisabled)
-                       .addDescriptorSet<ds::InputAttachmentFactory<1>>()
+                       .addDescriptorSet<dsi::InputAttachmentFactory<1>>()
                        .addPushConstantRange(0, sizeof(float), VK_SHADER_STAGE_FRAGMENT_BIT)
                        .build());
 
@@ -640,9 +640,9 @@ void PipelineCache::createBuiltins() {
             .withBlendConfig(vk::BlendParameters().withSimpleColorBlendState(
                 vk::BlendParameters::ColorBlendBehavior::Overwrite))
             .withDepthStencilState(&depthStencilDepthDisabled)
-            .addDescriptorSet<ds::InputAttachmentFactory<1>>()
-            .addDescriptorSet<ds::InputAttachmentFactory<1>>()
-            .addDescriptorSet<ds::GlobalDataFactory>()
+            .addDescriptorSet<dsi::InputAttachmentFactory<1>>()
+            .addDescriptorSet<dsi::InputAttachmentFactory<1>>()
+            .addDescriptorSet<dsi::GlobalDataFactory>()
             .withSpecialization(0,
                                 vk::PipelineSpecialization()
                                     .createShaderSpecializations(
@@ -682,7 +682,7 @@ void PipelineCache::createBuiltins() {
             .withBlendConfig(vk::BlendParameters().withSimpleColorBlendState(
                 vk::BlendParameters::ColorBlendBehavior::Overwrite))
             .withDepthStencilState(&depthStencilDepthDisabled)
-            .addDescriptorSet<ds::InputAttachmentFactory<1>>()
+            .addDescriptorSet<dsi::InputAttachmentFactory<1>>()
             .addPushConstantRange(0, BloomPcSize, VK_SHADER_STAGE_FRAGMENT_BIT)
             .build());
     createPipeline(cfg::PipelineIds::BloomBlur,
@@ -691,7 +691,7 @@ void PipelineCache::createBuiltins() {
                        .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                        .withRasterizer(rasterizer)
                        .withDepthStencilState(&depthStencilDepthDisabled)
-                       .addDescriptorSet<ds::InputAttachmentFactory<1>>()
+                       .addDescriptorSet<dsi::InputAttachmentFactory<1>>()
                        .addPushConstantRange(0, BloomPcSize, VK_SHADER_STAGE_FRAGMENT_BIT)
                        .build());
 }

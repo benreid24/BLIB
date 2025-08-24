@@ -12,7 +12,7 @@ namespace bl
 {
 namespace rc
 {
-namespace ds
+namespace dsi
 {
 class Scene3DInstance;
 
@@ -21,7 +21,7 @@ class Scene3DInstance;
  *
  * @ingroup Renderer
  */
-class ShadowMapBinding : public Binding {
+class ShadowMapBinding : public ds::Binding {
 public:
     /// No externally accessible payload for this binding
     using TPayload = void;
@@ -34,15 +34,15 @@ public:
 private:
     ShadowMapCameraShaderInput* storage;
 
-    virtual DescriptorSetInstance::EntityBindMode getBindMode() const override {
-        return DescriptorSetInstance::EntityBindMode::Bindless;
+    virtual ds::DescriptorSetInstance::EntityBindMode getBindMode() const override {
+        return ds::DescriptorSetInstance::EntityBindMode::Bindless;
     }
-    virtual DescriptorSetInstance::SpeedBucketSetting getSpeedMode() const override {
-        return DescriptorSetInstance::SpeedBucketSetting::SpeedAgnostic;
+    virtual ds::DescriptorSetInstance::SpeedBucketSetting getSpeedMode() const override {
+        return ds::DescriptorSetInstance::SpeedBucketSetting::SpeedAgnostic;
     }
 
-    virtual void init(vk::VulkanState& vulkanState, ShaderInputStore& inputStore) override;
-    virtual void writeSet(SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed,
+    virtual void init(vk::VulkanState& vulkanState, ds::ShaderInputStore& inputStore) override;
+    virtual void writeSet(ds::SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed,
                           std::uint32_t frameIndex) override;
     virtual bool allocateObject(ecs::Entity, scene::Key) override { return true; }
     virtual void releaseObject(ecs::Entity, scene::Key) override {}
@@ -55,10 +55,10 @@ private:
                                                       UpdateSpeed) override;
 
     template<typename... TBindings>
-    friend class Bindings;
+    friend class ds::Bindings;
 };
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl
 

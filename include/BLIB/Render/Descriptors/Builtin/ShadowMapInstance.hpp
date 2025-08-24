@@ -10,11 +10,11 @@ namespace bl
 {
 namespace rc
 {
-namespace ds
+namespace dsi
 {
 namespace priv
 {
-using ShadowMapBindings = Bindings<ShadowMapBinding>;
+using ShadowMapBindings = ds::Bindings<ShadowMapBinding>;
 }
 
 /**
@@ -22,9 +22,9 @@ using ShadowMapBindings = Bindings<ShadowMapBinding>;
  *
  * @ingroup Renderer
  */
-using ShadowMapInstance = GenericDescriptorSetInstance<priv::ShadowMapBindings>;
+using ShadowMapInstance = ds::GenericDescriptorSetInstance<priv::ShadowMapBindings>;
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl
 

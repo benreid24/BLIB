@@ -97,7 +97,7 @@ void Animation2DSystem::bindSlideshowSet(VkCommandBuffer commandBuffer, VkPipeli
 
 void Animation2DSystem::init(engine::Engine& engine) {
     descriptorLayout = renderer.descriptorFactoryCache()
-                           .getOrCreateFactory<rc::ds::SlideshowFactory>()
+                           .getOrCreateFactory<rc::dsi::SlideshowFactory>()
                            ->getDescriptorLayout();
 
     players    = &engine.ecs().getAllComponents<com::Animation2DPlayer>();

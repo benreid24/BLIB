@@ -7,14 +7,14 @@ namespace bl
 {
 namespace rc
 {
-namespace ds
+namespace dsi
 {
 /**
  * @brief Descriptor set factory for slideshow descriptor sets
  *
  * @ingroup Renderer
  */
-class SlideshowFactory : public DescriptorSetFactory {
+class SlideshowFactory : public ds::DescriptorSetFactory {
 public:
     /**
      * @brief Destroys the factory
@@ -25,11 +25,11 @@ private:
     engine::Engine* engine;
 
     virtual void init(engine::Engine& engine, Renderer& renderer) override;
-    virtual std::unique_ptr<DescriptorSetInstance> createDescriptorSet() const override;
+    virtual std::unique_ptr<ds::DescriptorSetInstance> createDescriptorSet() const override;
     virtual std::type_index creates() const override;
 };
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl
 

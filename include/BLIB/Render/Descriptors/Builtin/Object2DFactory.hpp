@@ -8,7 +8,7 @@ namespace bl
 {
 namespace rc
 {
-namespace ds
+namespace dsi
 {
 /**
  * @brief Descriptor set factory used by 2d objects rendered using default built-in pipelines
@@ -16,10 +16,10 @@ namespace ds
  * @ingroup Renderer
  */
 using Object2DFactory =
-    GenericDescriptorSetFactory<priv::Object2DBindings, VK_SHADER_STAGE_VERTEX_BIT,
-                                VK_SHADER_STAGE_VERTEX_BIT>;
+    ds::GenericDescriptorSetFactory<priv::Object2DBindings, VK_SHADER_STAGE_VERTEX_BIT,
+                                    VK_SHADER_STAGE_VERTEX_BIT>;
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl
 

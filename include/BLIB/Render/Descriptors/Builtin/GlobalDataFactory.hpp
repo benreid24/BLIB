@@ -12,14 +12,14 @@ namespace res
 class GlobalDescriptors;
 }
 
-namespace ds
+namespace dsi
 {
 /**
  * @brief Descriptor set factory to use when a pipeline needs the bindless texture atlas
  *
  * @ingroup Renderer
  */
-class GlobalDataFactory : public DescriptorSetFactory {
+class GlobalDataFactory : public ds::DescriptorSetFactory {
 public:
     /**
      * @brief Creates the factory
@@ -35,11 +35,11 @@ private:
     res::GlobalDescriptors* globalData;
 
     virtual void init(engine::Engine& engine, Renderer& renderer) override;
-    virtual std::unique_ptr<DescriptorSetInstance> createDescriptorSet() const override;
+    virtual std::unique_ptr<ds::DescriptorSetInstance> createDescriptorSet() const override;
     virtual std::type_index creates() const override;
 };
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl
 

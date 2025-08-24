@@ -2,8 +2,6 @@
 
 #include <BLIB/Cameras/3D/Camera3D.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene3DFactory.hpp>
-#include <BLIB/Render/Descriptors/Builtin/ShadowMapFactory.hpp>
-#include <BLIB/Render/Descriptors/Builtin/ShadowMapInstance.hpp>
 #include <BLIB/Render/Graph/Strategies/Scene3DDeferredRenderStrategy.hpp>
 #include <BLIB/Render/Graph/Strategies/Scene3DForwardRenderStrategy.hpp>
 
@@ -24,10 +22,10 @@ rg::Strategy* strategy = &defaultStrategy;
 
 Scene3D::Scene3D(engine::Engine& e)
 : BatchedScene(e)
-, lighting(*static_cast<ds::Scene3DInstance*>(descriptorSets.getDescriptorSet(
-      descriptorFactories.getOrCreateFactory<ds::Scene3DFactory>()))) {
-    ds::Scene3DInstance* lightingDescriptor =
-        descriptorSets.getDescriptorSet<ds::Scene3DInstance>();
+, lighting(*static_cast<dsi::Scene3DInstance*>(descriptorSets.getDescriptorSet(
+      descriptorFactories.getOrCreateFactory<dsi::Scene3DFactory>()))) {
+    dsi::Scene3DInstance* lightingDescriptor =
+        descriptorSets.getDescriptorSet<dsi::Scene3DInstance>();
     lightingDescriptor->owner = this;
 }
 
