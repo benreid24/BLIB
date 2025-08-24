@@ -35,7 +35,7 @@ constexpr std::uint32_t NoMidpoint = std::numeric_limits<std::uint32_t>::max();
 
 std::size_t midpointKey(std::uint32_t i1, std::uint32_t i2, int lod) {
     if (i1 > i2) { std::swap(i1, i2); }
-    return SourceIndices.size() * lod * i1 + i2;
+    return SourceIndices.size() * lod * 3 * i1 + i2;
 }
 
 std::uint32_t findPoint(const std::vector<rc::prim::Vertex3D>& vertices,
