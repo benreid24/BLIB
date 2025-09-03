@@ -2,7 +2,9 @@
 #define BLIB_RENDER_VULKAN_PIPELINEINSTANCE_HPP
 
 #include <BLIB/Containers/StaticVector.hpp>
+#include <BLIB/Render/Vulkan/ComputePipeline.hpp>
 #include <BLIB/Render/Vulkan/Pipeline.hpp>
+#include <variant>
 
 namespace bl
 {
@@ -42,14 +44,27 @@ public:
     void init(Pipeline* pipeline, ds::DescriptorSetInstanceCache& cache);
 
     /**
-     * @brief Returns the pipeline of this instance. Must be initialized prior to calling
+     * @brief Initializes the pipeline instance
+     *
+     * @param pipeline The pipeline to instantiate
+     * @param cache The cache to get descriptor sets from
      */
-    vk::Pipeline& getPipeline() { return *pipeline; }
+    void init(ComputePipeline* pipeline, ds::DescriptorSetInstanceCache& cache);
+
+    /**
+     * @brief Returns a pointer to the graphics pipeline of this instance. May be nullptr
+     */
+    Pipeline* getGraphicsPipeline();
+
+    /**
+     * @brief Returns a pointer to the compute pipeline of this instance. May be nullptr
+     */
+    ComputePipeline* getComputePipeline();
 
     /**
      * @brief Returns the pipeline of this instance. Must be initialized prior to calling
      */
-    const vk::Pipeline& getPipeline() const { return *pipeline; }
+    const PipelineLayout& getPipelineLayout() const;
 
     /**
      * @brief Issues commands to bind the pipeline and descriptor sets for rendering
@@ -81,7 +96,11 @@ public:
     T* getDescriptorSet(std::uint32_t indexHint);
 
 private:
-    vk::Pipeline* pipeline;
+    enum State { Uninitialized, Graphics, Compute } state;
+    union {
+        Pipeline* gfxPipeline;
+        ComputePipeline* computePipeline;
+    };
     ctr::StaticVector<ds::DescriptorSetInstance*, 4> descriptorSets;
 };
 
@@ -104,6 +123,10 @@ T* PipelineInstance::getDescriptorSet() {
     }
     return nullptr;
 }
+
+inline Pipeline* PipelineInstance::getGraphicsPipeline() { return gfxPipeline; }
+
+inline ComputePipeline* PipelineInstance::getComputePipeline() { return computePipeline; }
 
 } // namespace vk
 } // namespace rc

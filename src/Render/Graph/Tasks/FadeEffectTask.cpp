@@ -80,7 +80,7 @@ void FadeEffectTask::execute(const rg::ExecutionContext& ctx, rg::Asset* output)
 
     pipeline.bind(renderCtx);
     vkCmdPushConstants(ctx.commandBuffer,
-                       pipeline.getPipeline().pipelineLayout().rawLayout(),
+                       pipeline.getPipelineLayout().rawLayout(),
                        VK_SHADER_STAGE_FRAGMENT_BIT,
                        0,
                        sizeof(float),

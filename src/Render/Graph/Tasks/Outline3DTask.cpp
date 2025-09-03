@@ -81,8 +81,8 @@ void Outline3DTask::execute(const rg::ExecutionContext& ctx, rg::Asset* output) 
                            &obj.outline->getColor());
     };
 
-    VkPipelineLayout standardLayout = standardPipeline.getPipeline().pipelineLayout().rawLayout();
-    VkPipelineLayout skinnedLayout  = skinnedPipeline.getPipeline().pipelineLayout().rawLayout();
+    VkPipelineLayout standardLayout = standardPipeline.getPipelineLayout().rawLayout();
+    VkPipelineLayout skinnedLayout  = skinnedPipeline.getPipelineLayout().rawLayout();
 
     if (!outlinedObjectsDynamic.empty()) {
         standardPipeline.bind(sceneCtx, 0, UpdateSpeed::Dynamic);
@@ -143,12 +143,12 @@ void Outline3DTask::process(const ecs::event::ComponentRemoved<com::Rendered>& e
 void Outline3DTask::addObject(ecs::Entity entity, com::Rendered* drawable, com::Outline* outline) {
     vk::Pipeline* pipeline =
         drawable->getComponent()->getCurrentPipeline()->getPipeline(cfg::RenderPhases::Outline);
-    if (pipeline == &standardPipeline.getPipeline()) {
+    if (pipeline == standardPipeline.getGraphicsPipeline()) {
         auto& list = drawable->getUpdateSpeed() == UpdateSpeed::Dynamic ? outlinedObjectsDynamic :
                                                                           outlinedObjectsStatic;
         list.emplace_back(Outlined{.drawable = drawable, .outline = outline});
     }
-    else if (pipeline == &skinnedPipeline.getPipeline()) {
+    else if (pipeline == skinnedPipeline.getGraphicsPipeline()) {
         auto& list = drawable->getUpdateSpeed() == UpdateSpeed::Dynamic ?
                          outlinedSkinnedObjectsDynamic :
                          outlinedSkinnedObjectsStatic;

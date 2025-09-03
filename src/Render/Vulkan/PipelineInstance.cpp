@@ -10,21 +10,52 @@ namespace rc
 namespace vk
 {
 PipelineInstance::PipelineInstance()
-: pipeline(nullptr) {}
+: state(Uninitialized)
+, gfxPipeline(nullptr) {}
 
 void PipelineInstance::init(Pipeline* p, ds::DescriptorSetInstanceCache& cache) {
-    pipeline = p;
+    gfxPipeline = p;
 
-    descriptorSets.resize(pipeline->pipelineLayout().getDescriptorSetCount());
-    pipeline->pipelineLayout().initDescriptorSets(cache, descriptorSets.data());
+    descriptorSets.resize(p->pipelineLayout().getDescriptorSetCount());
+    p->pipelineLayout().initDescriptorSets(cache, descriptorSets.data());
+}
+
+void PipelineInstance::init(ComputePipeline* p, ds::DescriptorSetInstanceCache& cache) {
+    computePipeline = p;
+
+    descriptorSets.resize(p->pipelineLayout().getDescriptorSetCount());
+    p->pipelineLayout().initDescriptorSets(cache, descriptorSets.data());
 }
 
 void PipelineInstance::bind(scene::SceneRenderContext& ctx, std::uint32_t specialization,
                             UpdateSpeed updateFreq) {
-    pipeline->bind(ctx.getCommandBuffer(), ctx.currentRenderPass(), specialization);
+    switch (state) {
+    case Uninitialized:
+        BL_LOG_ERROR << "Attempted to bind uninitialized pipeline instance";
+        break;
+    case Graphics:
+        gfxPipeline->bind(ctx.getCommandBuffer(), ctx.currentRenderPass(), specialization);
+        break;
+    case Compute:
+        computePipeline->bind(ctx.getCommandBuffer());
+        break;
+    }
+
+    VkPipelineLayout layout = getPipelineLayout().rawLayout();
     for (unsigned int i = 0; i < descriptorSets.size(); ++i) {
-        descriptorSets[i]->bindForPipeline(
-            ctx, pipeline->pipelineLayout().rawLayout(), i, updateFreq);
+        descriptorSets[i]->bindForPipeline(ctx, layout, i, updateFreq);
+    }
+}
+
+const PipelineLayout& PipelineInstance::getPipelineLayout() const {
+    switch (state) {
+    case Graphics:
+        return gfxPipeline->pipelineLayout();
+    case Compute:
+        return computePipeline->pipelineLayout();
+    case Uninitialized:
+    default:
+        throw std::runtime_error("Attempted to get layout of uninitialized pipeline instance");
     }
 }
 
