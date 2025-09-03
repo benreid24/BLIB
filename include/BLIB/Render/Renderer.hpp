@@ -6,6 +6,7 @@
 #include <BLIB/Render/Graph/AssetFactory.hpp>
 #include <BLIB/Render/Graph/Strategy.hpp>
 #include <BLIB/Render/Observer.hpp>
+#include <BLIB/Render/Resources/ComputePipelineCache.hpp>
 #include <BLIB/Render/Resources/GlobalDescriptors.hpp>
 #include <BLIB/Render/Resources/MaterialPipelineCache.hpp>
 #include <BLIB/Render/Resources/MaterialPool.hpp>
@@ -158,6 +159,11 @@ public:
     res::PipelineCache& pipelineCache();
 
     /**
+     * @brief Returns the compute pipeline cache of this renderer
+     */
+    res::ComputePipelineCache& computePipelineCache();
+
+    /**
      * @brief Returns the material pipeline cache of this renderer
      */
     res::MaterialPipelineCache& materialPipelineCache();
@@ -229,6 +235,7 @@ private:
     res::RenderPassCache renderPasses;
     res::PipelineLayoutCache pipelineLayouts;
     res::PipelineCache pipelines;
+    res::ComputePipelineCache computePipelines;
     res::MaterialPipelineCache materialPipelines;
     res::ScenePool scenes;
     tfr::TextureExporter imageExporter;
@@ -281,6 +288,8 @@ inline res::SamplerCache& Renderer::samplerCache() { return samplers; }
 inline res::RenderPassCache& Renderer::renderPassCache() { return renderPasses; }
 
 inline res::PipelineCache& Renderer::pipelineCache() { return pipelines; }
+
+inline res::ComputePipelineCache& Renderer::computePipelineCache() { return computePipelines; }
 
 inline res::MaterialPipelineCache& Renderer::materialPipelineCache() { return materialPipelines; }
 

@@ -31,6 +31,7 @@ Renderer::Renderer(engine::Engine& engine, engine::EngineWindow& window)
 , renderPasses(*this)
 , pipelineLayouts(*this)
 , pipelines(*this)
+, computePipelines(*this)
 , materialPipelines(*this)
 , scenes(engine)
 , imageExporter(*this)
@@ -73,6 +74,7 @@ void Renderer::initialize() {
     renderPasses.addDefaults();
     globalDescriptors.init();
     pipelines.createBuiltins();
+    computePipelines.createBuiltins();
     materialPipelines.createBuiltins();
 
     // asset providers
@@ -152,6 +154,7 @@ void Renderer::cleanup() {
     virtualObservers.clear();
     commonObserver.cleanup();
     scenes.cleanup();
+    computePipelines.cleanup();
     pipelines.cleanup();
     pipelineLayouts.cleanup();
     descriptorSetFactoryCache.cleanup();

@@ -4,6 +4,8 @@ target_sources(BLIB PRIVATE
     BlendParameters.cpp
     Buffer.cpp
     CleanupManager.cpp
+    ComputePipeline.cpp
+    ComputePipelineParameters.cpp
     DedicatedCommandBuffers.cpp
     DescriptorPool.cpp
     DescriptorSet.cpp

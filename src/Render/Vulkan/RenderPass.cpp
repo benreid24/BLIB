@@ -29,7 +29,6 @@ void RenderPass::process(const event::SettingsChanged& e) {
 }
 
 void RenderPass::process(const event::TextureFormatChanged& e) {
-    bool needsUpdate = false;
     for (std::uint32_t i = 0; i < createParams.attachments.size(); ++i) {
         if (createParams.semanticFormats[i] == e.semanticFormat) {
             recreate();

@@ -1,4 +1,5 @@
 target_sources(BLIB PRIVATE
+    ComputePipelineCache.cpp
     GlobalDescriptors.cpp
     MaterialPipelineCache.cpp
     MaterialPool.cpp

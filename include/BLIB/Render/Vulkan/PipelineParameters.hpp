@@ -212,9 +212,7 @@ public:
     PipelineParameters& removeDescriptorSet(unsigned int i);
 
     /**
-     * @brief Adds a push constant range config to this pipeline. All pipelines are configured to
-     *        accept PushConstants at the beginning of the range. This may be called to allow custom
-     *        push constants to be used in addition to the defaults.
+     * @brief Adds a push constant range config to this pipeline
      *
      * @param offset The offset to place the push constant at
      * @param size The size of the push constant
@@ -317,15 +315,6 @@ public:
     bool operator!=(const PipelineParameters& right) const;
 
 private:
-    struct DescriptorSet {
-        std::type_index factoryType;
-        std::unique_ptr<ds::DescriptorSetFactory> factory;
-
-        DescriptorSet(std::type_index tid, std::unique_ptr<ds::DescriptorSetFactory>&& factory)
-        : factoryType(tid)
-        , factory(std::forward<std::unique_ptr<ds::DescriptorSetFactory>>(factory)) {}
-    };
-
     PipelineLayout::LayoutParams layoutParams;
     ctr::StaticVector<ShaderParameters, 5> shaders;
     ctr::StaticVector<ShaderParameters, 5> resolveShaders;

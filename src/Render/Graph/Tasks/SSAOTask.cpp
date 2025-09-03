@@ -1,7 +1,7 @@
 #include <BLIB/Render/Graph/Tasks/SSAOTask.hpp>
 
 #include <BLIB/Render/Config/RenderPhases.hpp>
-#include <BLIB/Render/Descriptors/Builtin/InputAttachmentInstance.hpp>>
+#include <BLIB/Render/Descriptors/Builtin/InputAttachmentInstance.hpp>
 #include <BLIB/Render/Descriptors/Builtin/SSAOInstance.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Graph/Assets/GBufferAsset.hpp>

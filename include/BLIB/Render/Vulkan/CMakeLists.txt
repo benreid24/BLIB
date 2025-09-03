@@ -4,6 +4,8 @@ target_sources(BLIB PUBLIC
     BlendParameters.hpp
     Buffer.hpp
     CommonTextureFormats.hpp
+    ComputePipeline.hpp
+    ComputePipelineParameters.hpp
     CleanupManager.hpp
     DedicatedCommandBuffers.hpp
     DescriptorPool.hpp
