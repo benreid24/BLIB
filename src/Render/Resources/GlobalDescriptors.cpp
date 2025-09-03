@@ -4,6 +4,7 @@
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Render/Resources/MaterialPool.hpp>
 #include <BLIB/Render/Resources/TexturePool.hpp>
+#include <BLIB/Render/Settings.hpp>
 
 namespace bl
 {
@@ -63,7 +64,8 @@ void GlobalDescriptors::init() {
         }
         if (!poolSize) { poolSize = &poolSizes.emplace_back(VkDescriptorPoolSize{}); }
         poolSize->type = setBindings[i].descriptorType;
-        poolSize->descriptorCount += setBindings[i].descriptorCount * cfg::Limits::MaxConcurrentFrames;
+        poolSize->descriptorCount +=
+            setBindings[i].descriptorCount * cfg::Limits::MaxConcurrentFrames;
     }
 
     VkDescriptorPoolCreateInfo poolCreate{};

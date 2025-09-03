@@ -1,4 +1,5 @@
 #version 450
+#extension GL_GOOGLE_include_directive : require
 
 layout(location = 0) in vec2 texCoords;
 
@@ -10,10 +11,8 @@ layout(constant_id = 1) const uint bloomEnabled = 1;
 layout(set = 0, binding = 0) uniform sampler2D inColorAttachment;
 layout(set = 1, binding = 0) uniform sampler2D inBloomAttachment;
 
-layout(set = 2, binding = 2) uniform rsettings {
-    float gamma;
-    float exposure;
-} settings;
+#define GLOBALS_SET_NUMBER 2
+#include "3D/Helpers/uniforms.glsl"
 
 void main() {
     // scene render color

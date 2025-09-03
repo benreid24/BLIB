@@ -18,14 +18,25 @@ struct Material {
 };
 
 #ifdef GLOBALS_SET_NUMBER
+struct HdrSettings {
+    float baseExposure;
+    float minExposure;
+    float maxExposure;
+    float convergeRate;
+};
+
 layout(set = GLOBALS_SET_NUMBER, binding = 0) uniform sampler2D textures[4096];
 layout(set = GLOBALS_SET_NUMBER, binding = 1) uniform mat {
     Material pool[2048];
 } materials;
-layout(set = GLOBALS_SET_NUMBER, binding = 2) uniform rsettings {
+layout(set = GLOBALS_SET_NUMBER, binding = 2) uniform samplerCube cubemaps[16];
+layout(set = GLOBALS_SET_NUMBER, binding = 3) uniform rsettings {
     float gamma;
+    HdrSettings hdrSettings;
 } settings;
-layout(set = GLOBALS_SET_NUMBER, binding = 3) uniform samplerCube cubemaps[16];
+layout(set = GLOBALS_SET_NUMBER, binding = 4) uniform drsettings {
+    float currentHdrExposure;
+} dynamicSettings;
 #endif // GLOBALS_SET_NUMBER
 
 #ifdef OBJECTS_SET_NUMBER

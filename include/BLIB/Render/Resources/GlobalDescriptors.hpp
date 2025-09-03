@@ -3,7 +3,6 @@
 
 #include <BLIB/Render/Buffers/StaticUniformBuffer.hpp>
 #include <BLIB/Render/Descriptors/SetWriteHelper.hpp>
-#include <BLIB/Render/Settings.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <vector>
@@ -13,6 +12,7 @@ namespace bl
 namespace rc
 {
 class Renderer;
+class Settings;
 
 namespace res
 {

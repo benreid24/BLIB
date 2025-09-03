@@ -36,6 +36,21 @@ public:
     /// Presets for SSAO
     enum struct SSAO { None, Low, Medium, High, Ultra };
 
+    /// Settings that control HDR tone mapping auto exposure
+    struct AutoHdrSettings {
+        /// The starting exposure value
+        float targetBrightness;
+
+        /// The minimum exposure value
+        float minExposure;
+
+        /// The maximum exposure value
+        float maxExposure;
+
+        /// The normalized rate at which exposure converges to the target
+        float convergeRate;
+    };
+
     /**
      * @brief Initializes the settings to sane defaults
      *
