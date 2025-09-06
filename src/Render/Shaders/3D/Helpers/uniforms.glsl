@@ -30,11 +30,15 @@ layout(set = GLOBALS_SET_NUMBER, binding = 1) uniform mat {
     Material pool[2048];
 } materials;
 layout(set = GLOBALS_SET_NUMBER, binding = 2) uniform samplerCube cubemaps[16];
-layout(set = GLOBALS_SET_NUMBER, binding = 3) uniform rsettings {
-    float gamma;
+layout(set = GLOBALS_SET_NUMBER, binding = 3) uniform framedata {
+    float dt;
+    float realDt;
+} frameData;
+layout(set = GLOBALS_SET_NUMBER, binding = 4) uniform rsettings {
     HdrSettings hdrSettings;
+    float gamma;
 } settings;
-layout(set = GLOBALS_SET_NUMBER, binding = 4) uniform drsettings {
+layout(set = GLOBALS_SET_NUMBER, binding = 5) uniform drsettings {
     float currentHdrExposure;
 } dynamicSettings;
 #endif // GLOBALS_SET_NUMBER
@@ -51,7 +55,7 @@ layout(set = OBJECTS_SET_NUMBER, binding = 0) readonly buffer obj {
 layout(std430, set = OBJECTS_SET_NUMBER, binding = 1) readonly buffer tex {
     uint index[];
 } material;
-#endif
+#endif // OBJECTS_SET_NUMBER
 
 #ifdef SCENE_SET_NUMBER
 
@@ -128,7 +132,7 @@ layout(set = SCENE_SET_NUMBER, binding = 1) uniform block_light_info {
 layout(set = SCENE_SET_NUMBER, binding = 2) uniform sampler2DShadow spotShadowMaps[MAX_SPOT_SHADOWS];
 layout(set = SCENE_SET_NUMBER, binding = 3) uniform samplerCubeShadow pointShadowMaps[MAX_POINT_SHADOWS];
 layout(set = SCENE_SET_NUMBER, binding = 4) uniform sampler2D ssaoBuffer;
-#endif
+#endif // SCENE_SET_NUMBER
 
 #ifdef LIGHT_CAM_SET_NUMBER
 layout(set = LIGHT_CAM_SET_NUMBER, binding = 0) uniform block_light_cameras {
@@ -136,21 +140,21 @@ layout(set = LIGHT_CAM_SET_NUMBER, binding = 0) uniform block_light_cameras {
     vec3 position;
     float farPlane;
 } lightCameras;
-#endif
+#endif // LIGHT_CAM_SET_NUMBER
 
 #ifdef GBUFFER_SET_NUMBER
 layout(set = GBUFFER_SET_NUMBER, binding = 0) uniform sampler2D albedo;
 layout(set = GBUFFER_SET_NUMBER, binding = 1) uniform sampler2D specular;
 layout(set = GBUFFER_SET_NUMBER, binding = 2) uniform sampler2D positions;
 layout(set = GBUFFER_SET_NUMBER, binding = 3) uniform sampler2D normals;
-#endif
+#endif // GBUFFER_SET_NUMBER
 
 #ifdef GBUFFER_MSAA_SET_NUMBER
 layout(set = GBUFFER_MSAA_SET_NUMBER, binding = 0) uniform sampler2DMS albedo;
 layout(set = GBUFFER_MSAA_SET_NUMBER, binding = 1) uniform sampler2DMS specular;
 layout(set = GBUFFER_MSAA_SET_NUMBER, binding = 2) uniform sampler2DMS positions;
 layout(set = GBUFFER_MSAA_SET_NUMBER, binding = 3) uniform sampler2DMS normals;
-#endif
+#endif // GBUFFER_MSAA_SET_NUMBER
 
 #ifdef SSAO_SET_NUMBER
 layout(set = SSAO_SET_NUMBER, binding = 0) uniform ssao_block {
@@ -161,6 +165,6 @@ layout(set = SSAO_SET_NUMBER, binding = 0) uniform ssao_block {
     float bias;
     float exponent;
 } ssaoParams;
-#endif
+#endif // SSAO_SET_NUMBER
 
 #endif

@@ -14,6 +14,8 @@ struct SettingsChanged {
         Gamma,
         HDR,
         ExposureFactor,
+        AutoHDR,
+        AutoHDRParams,
         BloomEnabled,
         BloomHighlightThreshold,
         BloomPassCount,

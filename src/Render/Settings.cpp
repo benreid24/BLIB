@@ -13,6 +13,8 @@ namespace
 constexpr float DefaultGamma                  = 2.2f;
 constexpr bool DefaultHDREnabled              = true;
 constexpr float DefaultExposureFactor         = 1.f;
+constexpr bool DefaultAutoHDREnabled          = false;
+constexpr Settings::AutoHdrSettings DefaultAutoHDRSettings = {1.f, 0.1f, 5.f, 0.05f};
 constexpr bool DefaultBloomEnabled            = true;
 constexpr std::uint32_t DefaultBloomPassCount = 2;
 constexpr float DefaultBloomThreshold         = 1.f;
@@ -36,6 +38,8 @@ Settings::Settings(Renderer& owner)
 , gamma(DefaultGamma)
 , hdrEnabled(DefaultHDREnabled)
 , exposure(DefaultExposureFactor)
+, autoHdrEnabled(DefaultAutoHDREnabled)
+, autoHdrSettings(DefaultAutoHDRSettings)
 , bloomEnabled(DefaultBloomEnabled)
 , bloomThreshold(DefaultBloomThreshold)
 , bloomPasses(DefaultBloomPassCount)
@@ -77,6 +81,21 @@ Settings& Settings::setHDREnabled(bool e) {
             hdrEnabled ? vk::CommonTextureFormats::HDRColor : vk::CommonTextureFormats::SRGBA32Bit);
         dirty = true;
         emitter.emit<Changed>({owner, *this, Setting::HDR});
+    }
+    return *this;
+}
+
+Settings& Settings::setAutoHDRSettings(const AutoHdrSettings& settings) {
+    autoHdrSettings = settings;
+    emitter.emit<Changed>({owner, *this, Setting::AutoHDRParams});
+    return *this;
+}
+
+Settings& Settings::setAutoHDREnabled(bool e) {
+    if (autoHdrEnabled != e) {
+        autoHdrEnabled = e;
+        dirty          = true;
+        emitter.emit<Changed>({owner, *this, Setting::AutoHDR});
     }
     return *this;
 }

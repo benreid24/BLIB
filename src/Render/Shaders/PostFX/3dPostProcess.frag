@@ -30,7 +30,7 @@ void main() {
 
     // hdr tone map
     if (hdrEnabled == 1) {
-        result = vec3(1.0) - exp(-result * settings.exposure);
+        result = vec3(1.0) - exp(-result * dynamicSettings.currentHdrExposure);
     }
 
     // gamma correction

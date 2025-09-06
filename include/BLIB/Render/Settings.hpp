@@ -98,6 +98,32 @@ public:
     Settings& setHDREnabled(bool enable);
 
     /**
+     * @brief Sets the Auto HDR settings. Only used if both HDR and auto-hdr are enabled
+     * 
+     * @param settings The AutoHdrSettings object containing the desired HDR configuration
+     * @return A reference to this object
+     */
+    Settings& setAutoHDRSettings(const AutoHdrSettings& settings);
+
+    /**
+     * @brief Returns the auto HDR settings of the renderer
+     */
+    const AutoHdrSettings& getAutoHDRSettings() const;
+
+    /**
+     * @brief Sets whether auto-hdr exposure is enabled
+     * 
+     * @param enable True to enable automatic exposure adjustment, false to disable
+     * @return A reference to this object
+     */
+    Settings& setAutoHDREnabled(bool enable);
+
+    /**
+     * @brief Returns whether auto-hdr exposure adjustment is enabled
+     */
+    bool getAutoHDREnabled() const;
+
+    /**
      * @brief Returns whether bloom is enabled
      */
     bool getBloomEnabled() const;
@@ -257,6 +283,8 @@ private:
     float gamma;
     bool hdrEnabled;
     float exposure;
+    bool autoHdrEnabled;
+    AutoHdrSettings autoHdrSettings;
     bool bloomEnabled;
     float bloomThreshold;
     std::array<float, MaxBloomFilterSize> bloomFilters;
@@ -285,6 +313,12 @@ inline float Settings::getGamma() const { return gamma; }
 inline float Settings::getExposureFactor() const { return exposure; }
 
 inline bool Settings::getHDREnabled() const { return hdrEnabled; }
+
+inline const Settings::AutoHdrSettings& Settings::getAutoHDRSettings() const {
+    return autoHdrSettings;
+}
+
+inline bool Settings::getAutoHDREnabled() const { return autoHdrEnabled; }
 
 inline bool Settings::getBloomEnabled() const { return bloomEnabled; }
 

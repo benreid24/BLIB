@@ -16,7 +16,8 @@ GlobalDescriptors::GlobalDescriptors(Renderer& renderer, TexturePool& texturePoo
                                      MaterialPool& materialPool)
 : renderer(renderer)
 , texturePool(texturePool)
-, materialPool(materialPool) {}
+, materialPool(materialPool)
+, dynamicWriteCount(0) {}
 
 void GlobalDescriptors::bindDescriptors(VkCommandBuffer cb, VkPipelineLayout pipelineLayout,
                                         std::uint32_t setIndex, bool forRt) {
@@ -28,17 +29,33 @@ void GlobalDescriptors::bindDescriptors(VkCommandBuffer cb, VkPipelineLayout pip
 void GlobalDescriptors::init() {
     auto& vulkanState = renderer.vulkanState();
 
-    VkDescriptorSetLayoutBinding setBindings[4] = {texturePool.getTextureLayoutBinding(),
+    VkDescriptorSetLayoutBinding setBindings[6] = {texturePool.getTextureLayoutBinding(),
                                                    materialPool.getLayoutBinding(),
+                                                   texturePool.getCubemapLayoutBinding(),
                                                    {},
-                                                   texturePool.getCubemapLayoutBinding()};
+                                                   {},
+                                                   {}};
 
-    VkDescriptorSetLayoutBinding& settingsBinding = setBindings[2];
+    VkDescriptorSetLayoutBinding& frameDataBinding = setBindings[3];
+    frameDataBinding.descriptorCount               = 1;
+    frameDataBinding.binding                       = 3;
+    frameDataBinding.stageFlags                    = VK_SHADER_STAGE_ALL;
+    frameDataBinding.descriptorType                = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+    frameDataBinding.pImmutableSamplers            = 0;
+
+    VkDescriptorSetLayoutBinding& settingsBinding = setBindings[4];
     settingsBinding.descriptorCount               = 1;
-    settingsBinding.binding                       = 2;
+    settingsBinding.binding                       = 4;
     settingsBinding.stageFlags                    = VK_SHADER_STAGE_ALL;
     settingsBinding.descriptorType                = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
     settingsBinding.pImmutableSamplers            = 0;
+
+    VkDescriptorSetLayoutBinding& dynamicSettingsBinding = setBindings[5];
+    dynamicSettingsBinding.descriptorCount               = 1;
+    dynamicSettingsBinding.binding                       = 5;
+    dynamicSettingsBinding.stageFlags                    = VK_SHADER_STAGE_ALL;
+    dynamicSettingsBinding.descriptorType                = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+    dynamicSettingsBinding.pImmutableSamplers            = 0;
 
     // create descriptor layout
     constexpr std::size_t NBindings = std::size(setBindings);
@@ -65,7 +82,7 @@ void GlobalDescriptors::init() {
         if (!poolSize) { poolSize = &poolSizes.emplace_back(VkDescriptorPoolSize{}); }
         poolSize->type = setBindings[i].descriptorType;
         poolSize->descriptorCount +=
-            setBindings[i].descriptorCount * cfg::Limits::MaxConcurrentFrames;
+            setBindings[i].descriptorCount * cfg::Limits::MaxConcurrentFrames * 2;
     }
 
     VkDescriptorPoolCreateInfo poolCreate{};
@@ -102,31 +119,69 @@ void GlobalDescriptors::init() {
     materialPool.init(descriptorSets, rtDescriptorSets);
 
     // write descriptor set with settings uniform
+    frameDataBuffer.create(vulkanState, 1);
     settingsBuffer.create(vulkanState, 2, buf::Alignment::UboBindOffset);
+    dynamicSettingsBuffer.create(vulkanState, 1);
     ds::SetWriteHelper writer;
-    const auto writeGlobalsSet = [this, &writer](VkDescriptorSet set, bool forRt) {
-        auto& bufferInfo  = writer.getNewBufferInfo();
-        bufferInfo.buffer = settingsBuffer.gpuBufferHandle().getBuffer();
-        bufferInfo.offset = forRt ? settingsBuffer.alignedUniformSize() : 0;
-        bufferInfo.range  = settingsBuffer.alignedUniformSize();
+    const auto writeGlobalsSet = [this, &writer](VkDescriptorSet set, std::uint32_t i, bool forRt) {
+        // frame data
+        auto& frameDataBufferInfo  = writer.getNewBufferInfo();
+        frameDataBufferInfo.buffer = frameDataBuffer.gpuBufferHandles().getRaw(i).getBuffer();
+        frameDataBufferInfo.offset = 0;
+        frameDataBufferInfo.range  = frameDataBuffer.alignedUniformSize();
 
-        auto& write           = writer.getNewSetWrite(set);
-        write.descriptorCount = 1;
-        write.dstBinding      = 2;
-        write.dstArrayElement = 0;
-        write.pBufferInfo     = &bufferInfo;
-        write.descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+        auto& frameDataWrite           = writer.getNewSetWrite(set);
+        frameDataWrite.descriptorCount = 1;
+        frameDataWrite.dstBinding      = 3;
+        frameDataWrite.dstArrayElement = 0;
+        frameDataWrite.pBufferInfo     = &frameDataBufferInfo;
+        frameDataWrite.descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+
+        // settings
+        auto& settingsBufferInfo  = writer.getNewBufferInfo();
+        settingsBufferInfo.buffer = settingsBuffer.gpuBufferHandle().getBuffer();
+        settingsBufferInfo.offset = forRt ? settingsBuffer.alignedUniformSize() : 0;
+        settingsBufferInfo.range  = settingsBuffer.alignedUniformSize();
+
+        auto& settingsWrite           = writer.getNewSetWrite(set);
+        settingsWrite.descriptorCount = 1;
+        settingsWrite.dstBinding      = 4;
+        settingsWrite.dstArrayElement = 0;
+        settingsWrite.pBufferInfo     = &settingsBufferInfo;
+        settingsWrite.descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+
+        // dynamic settings
+        auto& dynamicSettingsBufferInfo = writer.getNewBufferInfo();
+        dynamicSettingsBufferInfo.buffer =
+            dynamicSettingsBuffer.gpuBufferHandles().getRaw(i).getBuffer();
+        dynamicSettingsBufferInfo.offset = 0;
+        dynamicSettingsBufferInfo.range  = dynamicSettingsBuffer.alignedUniformSize();
+
+        auto& dynamicSettingsWrite           = writer.getNewSetWrite(set);
+        dynamicSettingsWrite.descriptorCount = 1;
+        dynamicSettingsWrite.dstBinding      = 5;
+        dynamicSettingsWrite.dstArrayElement = 0;
+        dynamicSettingsWrite.pBufferInfo     = &dynamicSettingsBufferInfo;
+        dynamicSettingsWrite.descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
     };
-    descriptorSets.visit([&writeGlobalsSet](VkDescriptorSet set) { writeGlobalsSet(set, false); });
-    rtDescriptorSets.visit([&writeGlobalsSet](VkDescriptorSet set) { writeGlobalsSet(set, true); });
+    i = 0;
+    descriptorSets.visit(
+        [&writeGlobalsSet, &i](VkDescriptorSet set) { writeGlobalsSet(set, i++, false); });
+    i = 0;
+    rtDescriptorSets.visit(
+        [&writeGlobalsSet, &i](VkDescriptorSet set) { writeGlobalsSet(set, i++, true); });
     writer.performWrite(vulkanState.device);
     updateSettings(renderer.getSettings());
+
+    frameDataBuffer.transferEveryFrame();
 }
 
 void GlobalDescriptors::cleanup() {
     texturePool.cleanup();
     materialPool.cleanup();
+    frameDataBuffer.destroy();
     settingsBuffer.destroy();
+    dynamicSettingsBuffer.destroy();
 
     vkDestroyDescriptorPool(renderer.vulkanState().device, descriptorPool, nullptr);
     vkDestroyDescriptorSetLayout(renderer.vulkanState().device, descriptorSetLayout, nullptr);
@@ -137,12 +192,21 @@ void GlobalDescriptors::onFrameStart() {
         descriptorWriter, descriptorSets.current(), rtDescriptorSets.current());
     materialPool.onFrameStart();
     descriptorWriter.performWrite(renderer.vulkanState().device);
+
+    if (dynamicWriteCount > 0) {
+        --dynamicWriteCount;
+        dynamicSettingsBuffer.queueTransfer();
+    }
 }
 
 void GlobalDescriptors::updateSettings(const Settings& settings) {
+    // reset current hdr exposure level
+    dynamicSettingsBuffer[0].currentHdrExposure = settings.getExposureFactor();
+    dynamicWriteCount                           = cfg::Limits::MaxConcurrentFrames;
+
     // populate global settings
-    settingsBuffer[0].gamma    = settings.getGamma();
-    settingsBuffer[0].exposure = settings.getExposureFactor();
+    settingsBuffer[0].gamma       = settings.getGamma();
+    settingsBuffer[0].hdrSettings = settings.getAutoHDRSettings();
 
     // handle render texture specific settings
     settingsBuffer[1]       = settingsBuffer[0];

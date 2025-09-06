@@ -14,6 +14,7 @@ PipelineInstance::PipelineInstance()
 , gfxPipeline(nullptr) {}
 
 void PipelineInstance::init(Pipeline* p, ds::DescriptorSetInstanceCache& cache) {
+    state       = Graphics;
     gfxPipeline = p;
 
     descriptorSets.resize(p->pipelineLayout().getDescriptorSetCount());
@@ -21,6 +22,7 @@ void PipelineInstance::init(Pipeline* p, ds::DescriptorSetInstanceCache& cache) 
 }
 
 void PipelineInstance::init(ComputePipeline* p, ds::DescriptorSetInstanceCache& cache) {
+    state           = Compute;
     computePipeline = p;
 
     descriptorSets.resize(p->pipelineLayout().getDescriptorSetCount());

@@ -30,7 +30,9 @@ constexpr unsigned int MaxSets = 500;
 DescriptorPool::SetBindingInfo::SetBindingInfo()
 : bindingCount(0)
 , bindings{} {
-    for (unsigned int i = 0; i < cfg::Limits::MaxDescriptorBindings; ++i) { bindings[i].binding = i; }
+    for (unsigned int i = 0; i < cfg::Limits::MaxDescriptorBindings; ++i) {
+        bindings[i].binding = i;
+    }
 }
 
 DescriptorPool::DescriptorPool(VulkanState& vs)
@@ -77,7 +79,13 @@ DescriptorPool::AllocationHandle DescriptorPool::allocate(VkDescriptorSetLayout 
 
     // test if requires dedicated pool
     if (!dedicated) {
-        // TODO - check sets and binding counts
+        for (std::uint32_t i = 0; i < allocInfo.bindingCount; ++i) {
+            const auto& binding = allocInfo.bindings[i];
+            if (binding.descriptorCount * setCount > PoolSizes[binding.descriptorType]) {
+                dedicated = true;
+                break;
+            }
+        }
     }
 
     // create allocation record
@@ -158,10 +166,10 @@ DescriptorPool::Subpool::Subpool(VulkanState& vs, const SetBindingInfo& allocInf
     auto bindings = allocInfo.bindings;
     for (auto& binding : bindings) { binding.descriptorCount *= setCount; }
 
-    std::array<VkDescriptorPoolSize, cfg::Limits::MaxDescriptorSets> poolSizes;
+    std::array<VkDescriptorPoolSize, cfg::Limits::MaxDescriptorBindings> poolSizes;
     for (unsigned int i = 0; i < allocInfo.bindingCount; ++i) {
         poolSizes[i].type            = allocInfo.bindings[i].descriptorType;
-        poolSizes[i].descriptorCount = allocInfo.bindings[i].descriptorCount;
+        poolSizes[i].descriptorCount = allocInfo.bindings[i].descriptorCount * setCount;
     }
 
     VkDescriptorPoolCreateInfo poolInfo{};

@@ -3,7 +3,9 @@
 
 #include <BLIB/Render/Buffers/StaticUniformBuffer.hpp>
 #include <BLIB/Render/Descriptors/SetWriteHelper.hpp>
+#include <BLIB/Render/Buffers/UniformBuffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
+#include <BLIB/Render/Settings.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <vector>
 
@@ -12,7 +14,6 @@ namespace bl
 namespace rc
 {
 class Renderer;
-class Settings;
 
 namespace res
 {
@@ -68,14 +69,26 @@ public:
 
 private:
     struct SettingsUniform {
+        Settings::AutoHdrSettings hdrSettings;
         float gamma;
-        float exposure;
+    };
+
+    struct FrameDataUniform {
+        float dt;
+        float realDt;
+    };
+
+    struct DynamicSettingsUniform {
+        float currentHdrExposure;
     };
 
     Renderer& renderer;
     TexturePool& texturePool;
     MaterialPool& materialPool;
     buf::StaticUniformBuffer<SettingsUniform> settingsBuffer;
+    buf::UniformBuffer<FrameDataUniform> frameDataBuffer;
+    buf::UniformBuffer<DynamicSettingsUniform> dynamicSettingsBuffer;
+    std::uint32_t dynamicWriteCount;
 
     VkDescriptorPool descriptorPool;
     VkDescriptorSetLayout descriptorSetLayout;

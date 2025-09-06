@@ -38,7 +38,7 @@ class GlobalDescriptors;
 class TexturePool {
 public:
     static constexpr std::uint32_t TextureArrayBindIndex = 0;
-    static constexpr std::uint32_t CubemapArrayBindIndex = 3;
+    static constexpr std::uint32_t CubemapArrayBindIndex = 2;
     static constexpr std::uint32_t FirstRenderTextureId =
         cfg::Limits::MaxTextureCount - cfg::Limits::MaxRenderTextures;
     static constexpr std::uint32_t ErrorTextureId =
