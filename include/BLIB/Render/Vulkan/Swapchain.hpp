@@ -8,6 +8,7 @@
 #include <BLIB/Render/Vulkan/PerSwapFrame.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <SFML/Window/WindowBase.hpp>
+#include <array>
 #include <vector>
 
 namespace bl
@@ -94,7 +95,6 @@ public:
 
 private:
     struct Frame {
-        VkSemaphore imageAvailableSemaphore;
         VkSemaphore renderFinishedSemaphore;
         VkFence commandBufferFence;
         VkCommandPool commandPool;
@@ -102,6 +102,16 @@ private:
 
         void init(VulkanState& vulkanState);
         void cleanup(VulkanState& vulkanState);
+    };
+
+    struct Swapframes {
+        std::array<VkSemaphore, 8> imageAvailableSemaphore;
+        std::uint32_t currentIndex;
+
+        void init(VulkanState& vulkanState);
+        void cleanup(VulkanState& vulkanState);
+        VkSemaphore getNext();
+        VkSemaphore current();
     };
 
     VulkanState& vulkanState;
@@ -112,7 +122,8 @@ private:
     VkSurfaceKHR oldSurface;
     VkFormat imageFormat;
     std::vector<AttachmentSet> renderFrames;
-    vk::PerFrame<Frame> frameData;
+    vk::PerSwapFrame<Frame> frameData;
+    Swapframes imageSemaphores;
     std::uint32_t currentImageIndex;
     bool outOfDate;
 

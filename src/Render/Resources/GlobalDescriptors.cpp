@@ -195,6 +195,7 @@ void GlobalDescriptors::onFrameStart() {
 
     if (dynamicWriteCount > 0) {
         --dynamicWriteCount;
+        dynamicSettingsBuffer[0].currentHdrExposure = renderer.getSettings().getExposureFactor();
         dynamicSettingsBuffer.queueTransfer();
     }
 }

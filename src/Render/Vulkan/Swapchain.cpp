@@ -15,10 +15,6 @@ namespace vk
 void Swapchain::Frame::init(VulkanState& vulkanState) {
     VkSemaphoreCreateInfo semaphoreInfo{};
     semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
-    if (vkCreateSemaphore(vulkanState.device, &semaphoreInfo, nullptr, &imageAvailableSemaphore) !=
-        VK_SUCCESS) {
-        throw std::runtime_error("Failed to create semaphore");
-    }
     if (vkCreateSemaphore(vulkanState.device, &semaphoreInfo, nullptr, &renderFinishedSemaphore) !=
         VK_SUCCESS) {
         throw std::runtime_error("Failed to create semaphore");
@@ -46,11 +42,35 @@ void Swapchain::Frame::init(VulkanState& vulkanState) {
 }
 
 void Swapchain::Frame::cleanup(VulkanState& vulkanState) {
-    vkDestroySemaphore(vulkanState.device, imageAvailableSemaphore, nullptr);
     vkDestroySemaphore(vulkanState.device, renderFinishedSemaphore, nullptr);
     vkDestroyFence(vulkanState.device, commandBufferFence, nullptr);
     vkDestroyCommandPool(vulkanState.device, commandPool, nullptr);
 }
+
+void Swapchain::Swapframes::init(VulkanState& vulkanState) {
+    currentIndex = 0;
+
+    VkSemaphoreCreateInfo semaphoreInfo{};
+    semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
+    for (VkSemaphore& sem : imageAvailableSemaphore) {
+        if (vkCreateSemaphore(vulkanState.device, &semaphoreInfo, nullptr, &sem) != VK_SUCCESS) {
+            throw std::runtime_error("Failed to create semaphore");
+        }
+    }
+}
+
+void Swapchain::Swapframes::cleanup(VulkanState& vulkanState) {
+    for (VkSemaphore sem : imageAvailableSemaphore) {
+        vkDestroySemaphore(vulkanState.device, sem, nullptr);
+    }
+}
+
+VkSemaphore Swapchain::Swapframes::getNext() {
+    currentIndex = (currentIndex + 1) % imageAvailableSemaphore.size();
+    return imageAvailableSemaphore[currentIndex];
+}
+
+VkSemaphore Swapchain::Swapframes::current() { return imageAvailableSemaphore[currentIndex]; }
 
 Swapchain::Swapchain(VulkanState& state, sf::WindowBase& w)
 : vulkanState(state)
@@ -64,6 +84,7 @@ Swapchain::Swapchain(VulkanState& state, sf::WindowBase& w)
 void Swapchain::destroy() {
     cleanup();
     frameData.cleanup([this](Frame& frame) { frame.cleanup(vulkanState); });
+    imageSemaphores.cleanup(vulkanState);
 }
 
 void Swapchain::beginFrame(AttachmentSet*& renderFrame, VkCommandBuffer& cb) {
@@ -81,7 +102,7 @@ void Swapchain::beginFrame(AttachmentSet*& renderFrame, VkCommandBuffer& cb) {
         acquireResult = vkAcquireNextImageKHR(vulkanState.device,
                                               swapchain,
                                               UINT64_MAX,
-                                              frameData.current().imageAvailableSemaphore,
+                                              imageSemaphores.getNext(),
                                               VK_NULL_HANDLE,
                                               &currentImageIndex);
         if (acquireResult == VK_ERROR_OUT_OF_DATE_KHR) { recreate(); }
@@ -90,8 +111,9 @@ void Swapchain::beginFrame(AttachmentSet*& renderFrame, VkCommandBuffer& cb) {
         throw std::runtime_error("Failed to acquire swapchain image");
     }
 
-    // reset prior command buffer
+    // reset prior command buffer & fence
     vkCheck(vkResetCommandBuffer(frameData.current().commandBuffer, 0));
+    vkCheck(vkResetFences(vulkanState.device, 1, &frameData.current().commandBufferFence));
 
     // begin command buffer
     VkCommandBufferBeginInfo beginInfo{};
@@ -111,7 +133,7 @@ void Swapchain::completeFrame() {
     vkCheck(vkEndCommandBuffer(frameData.current().commandBuffer));
 
     // submit to queue
-    VkSemaphore waitSemaphores[]      = {frameData.current().imageAvailableSemaphore};
+    VkSemaphore waitSemaphores[]      = {imageSemaphores.current()};
     VkSemaphore signalSemaphores[]    = {frameData.current().renderFinishedSemaphore};
     VkPipelineStageFlags waitStages[] = {VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT};
 
@@ -173,8 +195,9 @@ void Swapchain::deferCleanup() {
 }
 
 void Swapchain::create() {
-    frameData.init(vulkanState, [this](Frame& frame) { frame.init(vulkanState); });
     createSwapchain();
+    frameData.init(*this, [this](Frame& frame) { frame.init(vulkanState); });
+    imageSemaphores.init(vulkanState);
     outOfDate = false;
 }
 
