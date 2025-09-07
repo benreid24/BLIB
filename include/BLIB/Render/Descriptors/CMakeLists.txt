@@ -1,10 +1,8 @@
 target_sources(BLIB PUBLIC
-	BufferShaderInput.hpp
 	DescriptorSetFactory.hpp
 	DescriptorSetFactoryCache.hpp
 	DescriptorSetInstance.hpp
 	DescriptorSetInstanceCache.hpp
-	EntityComponentShaderInput.hpp
 	GenericDescriptorSetFactory.hpp
 	GenericDescriptorSetInstance.hpp
 	SceneDescriptorSetInstance.hpp
@@ -15,3 +13,4 @@ target_sources(BLIB PUBLIC
 
 add_subdirectory(Builtin)
 add_subdirectory(Generic)
+add_subdirectory(ShaderInputs)

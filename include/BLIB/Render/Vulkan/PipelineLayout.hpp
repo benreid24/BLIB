@@ -183,6 +183,16 @@ public:
      */
     std::uint32_t getDescriptorSetCount() const { return descriptorSets.size(); }
 
+    /**
+     * @brief Returns the descriptor set factory at the given index
+     *
+     * @param i The index of the descriptor set factory to get
+     * @return A pointer to the descriptor set factory
+     */
+    ds::DescriptorSetFactory* getDescriptorSetFactory(std::uint32_t i) const {
+        return descriptorSets[i];
+    }
+
 private:
     Renderer& renderer;
     VkPipelineLayout layout;

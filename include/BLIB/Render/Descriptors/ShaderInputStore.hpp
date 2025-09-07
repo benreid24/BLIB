@@ -1,8 +1,8 @@
 #ifndef BLIB_RENDER_DESCRIPTORS_SHADERINPUTSTORE_HPP
 #define BLIB_RENDER_DESCRIPTORS_SHADERINPUTSTORE_HPP
 
-#include <BLIB/Render/Descriptors/EntityComponentShaderInput.hpp>
 #include <BLIB/Render/Descriptors/ShaderInput.hpp>
+#include <BLIB/Render/Descriptors/ShaderInputs/EntityComponentShaderInput.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <memory>
 #include <string>
@@ -18,6 +18,8 @@ class Engine;
 
 namespace rc
 {
+class RenderTarget;
+
 namespace ds
 {
 /**
@@ -32,9 +34,10 @@ public:
      * @brief Creates a new shader input store
      *
      * @param engine The game engine instance
+     * @param owner The scene that owns the input store
      * @param entityCb Callback to map scene id to ECS id
      */
-    ShaderInputStore(engine::Engine& engine, const scene::MapKeyToEntityCb& entityCb);
+    ShaderInputStore(engine::Engine& engine, Scene& owner, const scene::MapKeyToEntityCb& entityCb);
 
     /**
      * @brief Release resources
@@ -76,6 +79,7 @@ public:
 
 private:
     engine::Engine& engine;
+    Scene& owner;
     const scene::MapKeyToEntityCb entityCb;
     std::unordered_map<std::string, std::unique_ptr<ShaderInput>> cache;
 

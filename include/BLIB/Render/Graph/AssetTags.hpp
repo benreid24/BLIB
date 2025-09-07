@@ -25,6 +25,7 @@ struct AssetTags {
     static constexpr std::string_view ShadowMaps               = "_builtin_ShadowMaps";
     static constexpr std::string_view DepthBuffer              = "_builtin_DepthBuffer";
     static constexpr std::string_view SSAOBuffer               = "_builtin_SSAOBuffer";
+    static constexpr std::string_view AutoExposureWorkBuffer   = "_builtin_AutoExposureWorkBuffer";
 };
 
 } // namespace rg

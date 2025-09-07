@@ -19,7 +19,7 @@ struct Material {
 
 #ifdef GLOBALS_SET_NUMBER
 struct HdrSettings {
-    float baseExposure;
+    float targetBrightness;
     float minExposure;
     float maxExposure;
     float convergeRate;
@@ -38,9 +38,15 @@ layout(set = GLOBALS_SET_NUMBER, binding = 4) uniform rsettings {
     HdrSettings hdrSettings;
     float gamma;
 } settings;
-layout(set = GLOBALS_SET_NUMBER, binding = 5) uniform drsettings {
+#ifndef GLOBALS_WRITABLE_SETTINGS
+layout(set = GLOBALS_SET_NUMBER, binding = 5) readonly buffer drsettings {
     float currentHdrExposure;
 } dynamicSettings;
+#else
+layout(set = GLOBALS_SET_NUMBER, binding = 5) buffer drsettings {
+    float currentHdrExposure;
+};
+#endif
 #endif // GLOBALS_SET_NUMBER
 
 #ifdef OBJECTS_SET_NUMBER

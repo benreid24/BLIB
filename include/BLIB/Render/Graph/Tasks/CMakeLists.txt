@@ -1,4 +1,5 @@
 target_sources(BLIB PUBLIC
+    AutoExposureAccumulateTask.hpp
 	DeferredRenderTask.hpp
 	DeferredCompositeTask.hpp
 	FadeEffectTask.hpp

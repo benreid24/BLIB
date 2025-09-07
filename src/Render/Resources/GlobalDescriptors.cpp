@@ -16,8 +16,7 @@ GlobalDescriptors::GlobalDescriptors(Renderer& renderer, TexturePool& texturePoo
                                      MaterialPool& materialPool)
 : renderer(renderer)
 , texturePool(texturePool)
-, materialPool(materialPool)
-, dynamicWriteCount(0) {}
+, materialPool(materialPool) {}
 
 void GlobalDescriptors::bindDescriptors(VkCommandBuffer cb, VkPipelineLayout pipelineLayout,
                                         std::uint32_t setIndex, bool forRt) {
@@ -54,7 +53,7 @@ void GlobalDescriptors::init() {
     dynamicSettingsBinding.descriptorCount               = 1;
     dynamicSettingsBinding.binding                       = 5;
     dynamicSettingsBinding.stageFlags                    = VK_SHADER_STAGE_ALL;
-    dynamicSettingsBinding.descriptorType                = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+    dynamicSettingsBinding.descriptorType                = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
     dynamicSettingsBinding.pImmutableSamplers            = 0;
 
     // create descriptor layout
@@ -121,7 +120,7 @@ void GlobalDescriptors::init() {
     // write descriptor set with settings uniform
     frameDataBuffer.create(vulkanState, 1);
     settingsBuffer.create(vulkanState, 2, buf::Alignment::UboBindOffset);
-    dynamicSettingsBuffer.create(vulkanState, 1);
+    dynamicSettingsBuffer.create(vulkanState, 1, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT);
     ds::SetWriteHelper writer;
     const auto writeGlobalsSet = [this, &writer](VkDescriptorSet set, std::uint32_t i, bool forRt) {
         // frame data
@@ -151,11 +150,10 @@ void GlobalDescriptors::init() {
         settingsWrite.descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
 
         // dynamic settings
-        auto& dynamicSettingsBufferInfo = writer.getNewBufferInfo();
-        dynamicSettingsBufferInfo.buffer =
-            dynamicSettingsBuffer.gpuBufferHandles().getRaw(i).getBuffer();
+        auto& dynamicSettingsBufferInfo  = writer.getNewBufferInfo();
+        dynamicSettingsBufferInfo.buffer = dynamicSettingsBuffer.gpuBufferHandle().getBuffer();
         dynamicSettingsBufferInfo.offset = 0;
-        dynamicSettingsBufferInfo.range  = dynamicSettingsBuffer.alignedUniformSize();
+        dynamicSettingsBufferInfo.range  = dynamicSettingsBuffer.getTotalRange();
 
         auto& dynamicSettingsWrite           = writer.getNewSetWrite(set);
         dynamicSettingsWrite.descriptorCount = 1;
@@ -192,18 +190,12 @@ void GlobalDescriptors::onFrameStart() {
         descriptorWriter, descriptorSets.current(), rtDescriptorSets.current());
     materialPool.onFrameStart();
     descriptorWriter.performWrite(renderer.vulkanState().device);
-
-    if (dynamicWriteCount > 0) {
-        --dynamicWriteCount;
-        dynamicSettingsBuffer[0].currentHdrExposure = renderer.getSettings().getExposureFactor();
-        dynamicSettingsBuffer.queueTransfer();
-    }
 }
 
 void GlobalDescriptors::updateSettings(const Settings& settings) {
     // reset current hdr exposure level
     dynamicSettingsBuffer[0].currentHdrExposure = settings.getExposureFactor();
-    dynamicWriteCount                           = cfg::Limits::MaxConcurrentFrames;
+    dynamicSettingsBuffer.queueTransfer();
 
     // populate global settings
     settingsBuffer[0].gamma       = settings.getGamma();

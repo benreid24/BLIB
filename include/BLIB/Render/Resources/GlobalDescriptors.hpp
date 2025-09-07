@@ -1,11 +1,12 @@
 #ifndef BLIB_RENDER_RESOURCES_GLOBALDESCRIPTORS_HPP
 #define BLIB_RENDER_RESOURCES_GLOBALDESCRIPTORS_HPP
 
+#include <BLIB/Render/Buffers/StaticSSBO.hpp>
 #include <BLIB/Render/Buffers/StaticUniformBuffer.hpp>
-#include <BLIB/Render/Descriptors/SetWriteHelper.hpp>
 #include <BLIB/Render/Buffers/UniformBuffer.hpp>
-#include <BLIB/Render/Vulkan/PerFrame.hpp>
+#include <BLIB/Render/Descriptors/SetWriteHelper.hpp>
 #include <BLIB/Render/Settings.hpp>
+#include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <vector>
 
@@ -87,8 +88,7 @@ private:
     MaterialPool& materialPool;
     buf::StaticUniformBuffer<SettingsUniform> settingsBuffer;
     buf::UniformBuffer<FrameDataUniform> frameDataBuffer;
-    buf::UniformBuffer<DynamicSettingsUniform> dynamicSettingsBuffer;
-    std::uint32_t dynamicWriteCount;
+    buf::StaticSSBO<DynamicSettingsUniform> dynamicSettingsBuffer;
 
     VkDescriptorPool descriptorPool;
     VkDescriptorSetLayout descriptorSetLayout;

@@ -1,0 +1,21 @@
+#version 460
+#extension GL_GOOGLE_include_directive : require
+
+layout(local_size_x = 1, local_size_y = 1, local_size_z = 1) in;
+
+#include "3D/AutoExposure/uniforms.glsl"
+
+void main() {
+    ivec2 targetSize = textureSize(renderedScene, 0);
+    float totalPixels = targetSize.x * targetSize.y;
+    float avgLum = totalLuminosity / totalPixels;
+    float targetExposure = -log(1.0 - settings.hdrSettings.targetBrightness) / avgLum;
+    float diff = targetExposure - currentHdrExposure;
+    float newExposure = currentHdrExposure + diff * settings.hdrSettings.convergeRate * frameData.dt;
+    currentHdrExposure = max(min(newExposure, settings.hdrSettings.minExposure), settings.hdrSettings.maxExposure);
+
+    // target = 1 - exp(-actual * newFactor)
+    // exp(-actual * newFactor) = 1 - target
+    // -actual * newFactor = log(1 - target)
+    // newFactor = -log(1 - target) / actual
+}

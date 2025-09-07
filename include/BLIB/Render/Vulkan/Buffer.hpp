@@ -77,8 +77,8 @@ public:
     void destroy();
 
     /**
-     * @brief Defers destruction of the buffer for cfg::Limits::MaxConcurrentFrames + 1 frames. Buffer
-     *        can be re-used immediately
+     * @brief Defers destruction of the buffer for cfg::Limits::MaxConcurrentFrames + 1 frames.
+     * Buffer can be re-used immediately
      */
     void deferDestruction();
 
@@ -112,6 +112,19 @@ public:
      * @brief Returns the size of the buffer in bytes
      */
     VkDeviceSize getSize() const;
+
+    /**
+     * @brief Records a pipeline barrier into the specified Vulkan command buffer
+     *
+     * @param commandBuffer The Vulkan command buffer where the barrier will be recorded
+     * @param srcStages The source pipeline stage mask indicating where the barrier starts
+     * @param srcAccess The types of memory access before the barrier
+     * @param dstStages The destination pipeline stage mask indicating where the barrier ends
+     * @param dstAccess The types of memory access after the barrier
+     */
+    void recordBarrier(VkCommandBuffer commandBuffer, VkPipelineStageFlags srcStages,
+                       VkAccessFlags srcAccess, VkPipelineStageFlags dstStages,
+                       VkAccessFlags dstAccess);
 
     /**
      * @brief Records a pipeline barrier to prevent writes from occurring before fragment shader

@@ -1,6 +1,8 @@
 #include <BLIB/Render/Graph/Strategies/Scene3DDeferredRenderStrategy.hpp>
 
 #include <BLIB/Render/Graph/RenderGraph.hpp>
+#include <BLIB/Render/Graph/Tasks/AutoExposureAccumulateTask.hpp>
+#include <BLIB/Render/Graph/Tasks/AutoExposureAdjustTask.hpp>
 #include <BLIB/Render/Graph/Tasks/BloomTask.hpp>
 #include <BLIB/Render/Graph/Tasks/DeferredCompositeTask.hpp>
 #include <BLIB/Render/Graph/Tasks/DeferredRenderTask.hpp>
@@ -25,6 +27,8 @@ void Scene3DDeferredRenderStrategy::populate(rg::RenderGraph& graph) {
     graph.putTask<rgi::ShadowMapTask>();
     graph.putTask<rgi::Outline3DTask>();
     graph.putTask<rgi::SSAOTask>();
+    graph.putTask<rgi::AutoExposureAccumulateTask>();
+    graph.putTask<rgi::AutoExposureAdjustTask>();
 }
 
 } // namespace rgi

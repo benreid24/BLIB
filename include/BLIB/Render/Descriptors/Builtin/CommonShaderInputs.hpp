@@ -2,8 +2,8 @@
 #define BLIB_RENDER_DESCRIPTORS_BUILTIN_COMMONSHADERINPUTS_HPP
 
 #include <BLIB/Render/Buffers/StaticUniformBuffer.hpp>
-#include <BLIB/Render/Descriptors/BufferShaderInput.hpp>
 #include <BLIB/Render/Descriptors/ShaderInput.hpp>
+#include <BLIB/Render/Descriptors/ShaderInputs/BufferShaderInput.hpp>
 #include <array>
 #include <glm/glm.hpp>
 

@@ -62,6 +62,12 @@ public:
      */
     virtual std::type_index creates() const = 0;
 
+    /**
+     * @brief Returns whether the factory can automatically create instances of its descriptor set.
+     *        Some descriptor sets, such as input attachments, must be manually created
+     */
+    virtual bool isAutoConstructable() const { return true; }
+
 protected:
     VkDescriptorSetLayout descriptorSetLayout;
 };

@@ -1,4 +1,6 @@
 target_sources(BLIB PRIVATE
+	AutoExposureAccumulateTask.cpp
+	AutoExposureAdjustTask.cpp
 	BloomTask.cpp
 	DeferredRenderTask.cpp
 	DeferredCompositeTask.cpp

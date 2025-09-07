@@ -32,6 +32,14 @@ public:
      */
     virtual ~InputAttachmentFactory() = default;
 
+    /**
+     * @brief Creates a descriptor set instance
+     */
+    virtual std::unique_ptr<ds::DescriptorSetInstance> createDescriptorSet() const override {
+        return std::make_unique<InputAttachmentInstance>(
+            *vs, descriptorSetLayout, AttachmentCount, StartIndex);
+    }
+
 private:
     vk::VulkanState* vs;
 
@@ -52,12 +60,9 @@ private:
         descriptorSetLayout      = renderer.vulkanState().descriptorPool.createLayout(bindingInfo);
     }
 
-    virtual std::unique_ptr<ds::DescriptorSetInstance> createDescriptorSet() const override {
-        return std::make_unique<InputAttachmentInstance>(
-            *vs, descriptorSetLayout, AttachmentCount, StartIndex);
-    }
-
     virtual std::type_index creates() const override { return typeid(InputAttachmentInstance); }
+
+    virtual bool isAutoConstructable() const override { return false; }
 };
 
 } // namespace dsi

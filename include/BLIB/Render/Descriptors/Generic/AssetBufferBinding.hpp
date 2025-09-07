@@ -1,0 +1,80 @@
+#ifndef BLIB_RENDER_DESCRIPTORS_GENERIC_ASSETBUFFERBINDING_HPP
+#define BLIB_RENDER_DESCRIPTORS_GENERIC_ASSETBUFFERBINDING_HPP
+
+#include <BLIB/Render/Descriptors/Generic/Binding.hpp>
+#include <BLIB/Render/Descriptors/ShaderInputs/AssetBufferShaderInput.hpp>
+#include <BLIB/Render/Graph/Assets/GenericBufferAsset.hpp>
+
+namespace bl
+{
+namespace rc
+{
+namespace ds
+{
+template<typename TAsset, VkDescriptorType DescriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER>
+class AssetBufferBinding : public Binding {
+public:
+    /// No externally accessible payload for this binding
+    using TPayload = void;
+
+    /**
+     * @brief Creates the binding
+     */
+    AssetBufferBinding()
+    : Binding(DescriptorType) {}
+
+private:
+    using TShaderInput = AssetBufferShaderInput<TAsset>;
+    TShaderInput* input;
+
+    virtual DescriptorSetInstance::EntityBindMode getBindMode() const override {
+        return DescriptorSetInstance::EntityBindMode::Bindless;
+    }
+    virtual DescriptorSetInstance::SpeedBucketSetting getSpeedMode() const override {
+        return DescriptorSetInstance::SpeedBucketSetting::SpeedAgnostic;
+    }
+
+    virtual void init(vk::VulkanState&, ShaderInputStore& inputStore) override {
+        input = inputStore.getShaderInput<TShaderInput>();
+    }
+
+    virtual void writeSet(SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed,
+                          std::uint32_t) override {
+        if (input) {
+            VkDescriptorBufferInfo& info = writer.getNewBufferInfo();
+            info.buffer                  = input->getBuffer().getBuffer();
+            info.offset                  = 0;
+            info.range                   = input->getBuffer().getSize();
+
+            VkWriteDescriptorSet& write = writer.getNewSetWrite(set);
+            write.descriptorType        = DescriptorType;
+            write.dstBinding            = getBindingIndex();
+            write.pBufferInfo           = &info;
+        }
+    }
+
+    virtual bool allocateObject(ecs::Entity, scene::Key) override { return true; }
+
+    virtual void releaseObject(ecs::Entity, scene::Key) override {}
+
+    virtual void onFrameStart() override {}
+
+    virtual void* getPayload() override { return nullptr; }
+
+    virtual bool staticDescriptorUpdateRequired() const override {
+        return input->staticDescriptorUpdateRequired();
+    }
+
+    virtual bool dynamicDescriptorUpdateRequired() const override {
+        return input->dynamicDescriptorUpdateRequired();
+    }
+
+    template<typename... TBindings>
+    friend class Bindings;
+};
+
+} // namespace ds
+} // namespace rc
+} // namespace bl
+
+#endif

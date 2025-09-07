@@ -97,8 +97,10 @@ public:
      *
      * @param engine The game engine instance
      * @param vulkanState The renderer Vulkan state
+     * @param Unused
+     * @param Unused
      */
-    virtual void init(engine::Engine& engine, vk::VulkanState& vulkanState,
+    virtual void init(engine::Engine& engine, vk::VulkanState& vulkanState, Scene&,
                       const scene::MapKeyToEntityCb& entityMapCb) override;
 
     /**
@@ -197,7 +199,8 @@ EntityComponentShaderInput<TCom, TPayload, TDynamicStorage,
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
 void EntityComponentShaderInput<TCom, TPayload, TDynamicStorage, TStaticStorage>::init(
-    engine::Engine& engine, vk::VulkanState& vulkanState, const scene::MapKeyToEntityCb& entityCb) {
+    engine::Engine& engine, vk::VulkanState& vulkanState, Scene&,
+    const scene::MapKeyToEntityCb& entityCb) {
     registry              = &engine::HeaderHelpers::getRegistry(engine);
     getEntityFromSceneKey = entityCb;
     dynamicBuffer.create(vulkanState, cfg::Constants::DefaultSceneObjectCapacity);

@@ -39,8 +39,9 @@ public:
      *
      * @param vulkanState Renderer Vulkan state
      * @param size Number of elements to create
+     * @param usage Extra usage flags to use when creating the GPU buffer
      */
-    void create(vk::VulkanState& vulkanState, std::uint32_t size);
+    void create(vk::VulkanState& vulkanState, std::uint32_t size, VkBufferUsageFlags usage = 0);
 
     /**
      * @brief Fills the buffer with the given value
@@ -143,7 +144,7 @@ StaticSSBO<T>::StaticSSBO(vk::VulkanState& vulkanState, std::uint32_t size) {
 }
 
 template<typename T>
-void StaticSSBO<T>::create(vk::VulkanState& vs, std::uint32_t size) {
+void StaticSSBO<T>::create(vk::VulkanState& vs, std::uint32_t size, VkBufferUsageFlags usage) {
     vulkanState       = &vs;
     copyStart         = 0;
     copyCount         = size;
@@ -154,7 +155,7 @@ void StaticSSBO<T>::create(vk::VulkanState& vs, std::uint32_t size) {
                      cpuBuffer.alignedSize(),
                      VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
                      VK_BUFFER_USAGE_STORAGE_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT |
-                         VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
+                         VK_BUFFER_USAGE_TRANSFER_SRC_BIT | usage,
                      0);
 }
 

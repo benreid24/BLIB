@@ -2,9 +2,14 @@
 #define BLIB_RENDER_VULKAN_PIPELINEINSTANCE_HPP
 
 #include <BLIB/Containers/StaticVector.hpp>
+#include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
+#include <BLIB/Render/Graph/ExecutionContext.hpp>
+#include <BLIB/Render/RenderPhase.hpp>
 #include <BLIB/Render/Vulkan/ComputePipeline.hpp>
 #include <BLIB/Render/Vulkan/Pipeline.hpp>
+#include <memory>
 #include <variant>
+#include <vector>
 
 namespace bl
 {
@@ -77,6 +82,21 @@ public:
               UpdateSpeed updateFreq = UpdateSpeed::Dynamic);
 
     /**
+     * @brief Issues commands to bind the pipeline and descriptor sets for rendering. Creates a
+     *        scene context from the parameters
+     *
+     * @param ctx The current render graph execution context
+     * @param renderPhase The current render phase
+     * @param renderPassId The current render pass id
+     * @param viewport The current viewport
+     * @param specialization The pipeline specialization to use
+     * @param updateFreq The frequency to pass to the descriptor set binds
+     */
+    void bind(const rg::ExecutionContext& ctx, RenderPhase renderPhase,
+              std::uint32_t renderPassId = 0, const VkViewport& viewport = {},
+              std::uint32_t specialization = 0, UpdateSpeed updateFreq = UpdateSpeed::Dynamic);
+
+    /**
      * @brief Returns the descriptor set with the given type. Performs a linear search
      *
      * @tparam T The type of the descriptor set to get
@@ -102,6 +122,9 @@ private:
         ComputePipeline* computePipeline;
     };
     ctr::StaticVector<ds::DescriptorSetInstance*, 4> descriptorSets;
+    std::vector<std::unique_ptr<ds::DescriptorSetInstance>> ownedSets;
+
+    void initDescriptors(ds::DescriptorSetInstanceCache& cache, const PipelineLayout& layout);
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

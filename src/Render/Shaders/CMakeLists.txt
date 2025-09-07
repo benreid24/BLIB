@@ -38,6 +38,9 @@ compile_shaders(
     3D/SSAO/genResolve.frag
     3D/SSAO/genSampled.frag
 
+    3D/AutoExposure/accumulate.comp
+    3D/AutoExposure/adjust.comp
+
     2D/skinned2d.vert
     2D/skinned2d.frag
     2D/skinned2dlit.frag

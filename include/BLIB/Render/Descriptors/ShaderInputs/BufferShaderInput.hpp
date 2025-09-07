@@ -40,8 +40,10 @@ public:
      * @param Unused
      * @param vs The Renderer Vulkan state
      * @param Unused
+     * @param Unused
      */
-    void init(engine::Engine&, vk::VulkanState& vs, const scene::MapKeyToEntityCb&) override {
+    void init(engine::Engine&, vk::VulkanState& vs, Scene&,
+              const scene::MapKeyToEntityCb&) override {
         vulkanState = &vs;
         if constexpr (DefaultCapacity > 0) { buffer.create(vs, DefaultCapacity, DefaultAlignment); }
     }

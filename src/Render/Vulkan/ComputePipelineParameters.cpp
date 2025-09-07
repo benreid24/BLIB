@@ -40,6 +40,8 @@ ComputePipelineParameters& ComputePipelineParameters::addPushConstantRange(std::
     return *this;
 }
 
+ComputePipelineParameters&& ComputePipelineParameters::build() { return std::move(*this); }
+
 } // namespace vk
 } // namespace rc
 } // namespace bl

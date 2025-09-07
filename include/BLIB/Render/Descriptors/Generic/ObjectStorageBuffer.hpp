@@ -3,7 +3,7 @@
 
 #include <BLIB/Render/Buffers/DynamicSSBO.hpp>
 #include <BLIB/Render/Buffers/StaticSSBO.hpp>
-#include <BLIB/Render/Descriptors/EntityComponentShaderInput.hpp>
+#include <BLIB/Render/Descriptors/ShaderInputs/EntityComponentShaderInput.hpp>
 #include <BLIB/Render/Descriptors/Generic/Binding.hpp>
 
 namespace bl

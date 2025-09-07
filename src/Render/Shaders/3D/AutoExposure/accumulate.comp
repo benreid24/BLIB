@@ -1,0 +1,46 @@
+#version 460
+#extension GL_GOOGLE_include_directive : require
+#extension GL_EXT_shader_atomic_float : require
+
+#define LOCAL_SIZE 32
+
+layout(local_size_x = LOCAL_SIZE, local_size_y = LOCAL_SIZE, local_size_z = 1) in;
+
+#define ACCUMULATE
+#include "3D/AutoExposure/uniforms.glsl"
+
+shared float tileSum[LOCAL_SIZE * LOCAL_SIZE];
+
+void main() {
+    uint localIndex = gl_LocalInvocationIndex;
+    if (localIndex == 0) {
+        totalLuminosity = 0.0;
+    }
+    barrier();
+
+    ivec2 imgSize = textureSize(renderedScene, 0);
+    ivec2 globalID = ivec2(gl_GlobalInvocationID.xy);
+
+    if (globalID.x >= imgSize.x || globalID.y >= imgSize.y) {
+        return;
+    }
+
+    vec3 color = texelFetch(renderedScene, globalID, 0).rgb; // pre-tonemap
+    float lum = dot(color, vec3(0.2126, 0.7152, 0.0722));
+    // lum = log(max(lum, 1e-4)); // TODO - do we need this?
+    tileSum[localIndex] = lum;
+    barrier();
+
+    uint stride = gl_WorkGroupSize.x * gl_WorkGroupSize.y / 2;
+    while (stride > 0) {
+        if (localIndex < stride) {
+            tileSum[localIndex] += tileSum[localIndex + stride];
+        }
+        stride /= 2;
+        barrier();
+    }
+
+    if (localIndex == 0) {
+        atomicAdd(totalLuminosity, tileSum[0] );
+    }
+}

@@ -184,6 +184,20 @@ void Buffer::insertPipelineBarrierBeforeChange() {
     cb.submit();
 }
 
+void Buffer::recordBarrier(VkCommandBuffer commandBuffer, VkPipelineStageFlags srcStages,
+                           VkAccessFlags srcAccess, VkPipelineStageFlags dstStages,
+                           VkAccessFlags dstAccess) {
+    VkBufferMemoryBarrier barrier{};
+    barrier.sType         = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
+    barrier.srcAccessMask = srcAccess;
+    barrier.dstAccessMask = dstAccess;
+    barrier.buffer        = buffer;
+    barrier.offset        = 0;
+    barrier.size          = size;
+    vkCmdPipelineBarrier(
+        commandBuffer, srcStages, dstStages, 0, 0, nullptr, 1, &barrier, 0, nullptr);
+}
+
 } // namespace vk
 } // namespace rc
 } // namespace bl

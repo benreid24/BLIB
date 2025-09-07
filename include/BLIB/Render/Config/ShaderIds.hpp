@@ -64,6 +64,9 @@ struct ShaderIds {
     static constexpr char PointShadowGeometry[] = {34, 0};
     static constexpr char PointShadowFragment[] = {35, 0};
 
+    static constexpr char AutoExposureAccumulate[] = {100, 0};
+    static constexpr char AutoExposureAdjust[]     = {101, 0};
+
     static constexpr char BloomBlurFragment[]            = {124, 0};
     static constexpr char BloomHighlightFilterFragment[] = {125, 0};
     static constexpr char PostProcess3DFragment[]        = {126, 0};

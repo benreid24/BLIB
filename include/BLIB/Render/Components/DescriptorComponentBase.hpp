@@ -3,7 +3,7 @@
 
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/Logging.hpp>
-#include <BLIB/Render/Descriptors/EntityComponentShaderInput.hpp>
+#include <BLIB/Render/Descriptors/ShaderInputs/EntityComponentShaderInput.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <array>
 #include <cstdint>

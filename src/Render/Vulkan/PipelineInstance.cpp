@@ -16,17 +16,30 @@ PipelineInstance::PipelineInstance()
 void PipelineInstance::init(Pipeline* p, ds::DescriptorSetInstanceCache& cache) {
     state       = Graphics;
     gfxPipeline = p;
-
-    descriptorSets.resize(p->pipelineLayout().getDescriptorSetCount());
-    p->pipelineLayout().initDescriptorSets(cache, descriptorSets.data());
+    initDescriptors(cache, p->pipelineLayout());
 }
 
 void PipelineInstance::init(ComputePipeline* p, ds::DescriptorSetInstanceCache& cache) {
     state           = Compute;
     computePipeline = p;
+    initDescriptors(cache, p->pipelineLayout());
+}
 
-    descriptorSets.resize(p->pipelineLayout().getDescriptorSetCount());
-    p->pipelineLayout().initDescriptorSets(cache, descriptorSets.data());
+void PipelineInstance::initDescriptors(ds::DescriptorSetInstanceCache& cache,
+                                       const PipelineLayout& layout) {
+    ownedSets.clear();
+    descriptorSets.resize(layout.getDescriptorSetCount());
+    layout.initDescriptorSets(cache, descriptorSets.data());
+
+    for (unsigned int i = 0; i < descriptorSets.size(); ++i) {
+        if (!descriptorSets[i]) {
+            if (layout.getDescriptorSetFactory(i)->isAutoConstructable()) {
+                ownedSets.emplace_back(layout.getDescriptorSetFactory(i)->createDescriptorSet());
+                descriptorSets[i] = ownedSets.back().get();
+            }
+            else { BL_LOG_ERROR << "Missing descriptor set " << i << " in pipeline instance"; }
+        }
+    }
 }
 
 void PipelineInstance::bind(scene::SceneRenderContext& ctx, std::uint32_t specialization,
@@ -47,6 +60,18 @@ void PipelineInstance::bind(scene::SceneRenderContext& ctx, std::uint32_t specia
     for (unsigned int i = 0; i < descriptorSets.size(); ++i) {
         descriptorSets[i]->bindForPipeline(ctx, layout, i, updateFreq);
     }
+}
+
+void PipelineInstance::bind(const rg::ExecutionContext& ctx, RenderPhase renderPhase,
+                            std::uint32_t renderPassId, const VkViewport& viewport,
+                            std::uint32_t specialization, UpdateSpeed updateFreq) {
+    scene::SceneRenderContext sceneCtx(ctx.commandBuffer,
+                                       ctx.observerIndex,
+                                       viewport,
+                                       renderPhase,
+                                       renderPassId,
+                                       ctx.renderingToRenderTexture);
+    bind(sceneCtx, specialization, updateFreq);
 }
 
 const PipelineLayout& PipelineInstance::getPipelineLayout() const {

@@ -40,7 +40,7 @@
 #include <BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
-#include <BLIB/Render/Descriptors/EntityComponentShaderInput.hpp>
+#include <BLIB/Render/Descriptors/ShaderInputs/EntityComponentShaderInput.hpp>
 #include <BLIB/Render/Descriptors/Generic/Binding.hpp>
 #include <BLIB/Render/Descriptors/Generic/GlobalStorageBuffer.hpp>
 #include <BLIB/Render/Descriptors/Generic/GlobalUniformBuffer.hpp>

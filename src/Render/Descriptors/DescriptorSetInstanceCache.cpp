@@ -12,6 +12,8 @@ DescriptorSetInstanceCache::DescriptorSetInstanceCache(ShaderInputStore& storage
 }
 
 DescriptorSetInstance* DescriptorSetInstanceCache::getDescriptorSet(DescriptorSetFactory* factory) {
+    if (!factory->isAutoConstructable()) { return nullptr; }
+
     auto it = cache.find(factory);
     if (it != cache.end()) { return it->second.get(); }
     it = cache.try_emplace(factory, factory->createDescriptorSet()).first;

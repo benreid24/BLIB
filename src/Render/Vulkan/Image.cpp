@@ -264,6 +264,30 @@ void Image::transitionLayout(VkCommandBuffer commandBuffer, VkImageLayout newLay
     currentLayout = newLayout;
 }
 
+void Image::recordBarrier(VkCommandBuffer commandBuffer, VkPipelineStageFlags srcStages,
+                          VkAccessFlags srcAccess, VkPipelineStageFlags dstStages,
+                          VkAccessFlags dstAccess, VkImageLayout newLayout) {
+    newLayout = (newLayout == VK_IMAGE_LAYOUT_UNDEFINED) ? currentLayout : newLayout;
+
+    VkImageMemoryBarrier barrier{};
+    barrier.sType                           = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
+    barrier.oldLayout                       = currentLayout;
+    barrier.newLayout                       = newLayout;
+    barrier.srcQueueFamilyIndex             = VK_QUEUE_FAMILY_IGNORED;
+    barrier.dstQueueFamilyIndex             = VK_QUEUE_FAMILY_IGNORED;
+    barrier.image                           = imageHandle;
+    barrier.subresourceRange.aspectMask     = getAspect();
+    barrier.subresourceRange.baseMipLevel   = 0;
+    barrier.subresourceRange.levelCount     = createOptions.mipLevels;
+    barrier.subresourceRange.baseArrayLayer = 0;
+    barrier.subresourceRange.layerCount     = getLayerCount();
+    barrier.srcAccessMask                   = srcAccess;
+    barrier.dstAccessMask                   = dstAccess;
+    vkCmdPipelineBarrier(
+        commandBuffer, srcStages, dstStages, 0, 0, nullptr, 0, nullptr, 1, &barrier);
+    currentLayout = newLayout;
+}
+
 void Image::notifyNewLayout(VkImageLayout nl) { currentLayout = nl; }
 
 bool Image::canGenMipMapsOnGpu() const {

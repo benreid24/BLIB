@@ -22,6 +22,9 @@ struct TaskIds {
     static constexpr std::string_view Outline3DTask         = "__builtin_Outline3DTask";
     static constexpr std::string_view FadeEffectTask        = "__builtin_FadeEffectTask";
     static constexpr std::string_view RenderOverlayTask     = "__builtin_RenderOverlayTask";
+    static constexpr std::string_view AutoExposureAccumulateTask =
+        "__builtin_AutoExposureAccumulateTask";
+    static constexpr std::string_view AutoExposureAdjustTask = "__builtin_AutoExposureAdjustTask";
 };
 
 } // namespace rg

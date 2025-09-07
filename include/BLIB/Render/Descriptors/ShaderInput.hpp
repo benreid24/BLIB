@@ -12,6 +12,8 @@ class Engine;
 
 namespace rc
 {
+class Scene;
+
 namespace vk
 {
 struct VulkanState;
@@ -37,9 +39,10 @@ public:
      *
      * @param engine The game engine instance
      * @param vulkanState The renderer Vulkan state
+     * @param owner The render target that owns the input
      * @param entityMapCb Callback to map scene keys to ECS entities
      */
-    virtual void init(engine::Engine& engine, vk::VulkanState& vulkanState,
+    virtual void init(engine::Engine& engine, vk::VulkanState& vulkanState, Scene& owner,
                       const scene::MapKeyToEntityCb& entityMapCb) = 0;
 
     /**

@@ -74,6 +74,16 @@ void RenderPassCache::addDefaults() {
     highPrecisionVecAttachment.initialLayout  = VK_IMAGE_LAYOUT_UNDEFINED;
     highPrecisionVecAttachment.finalLayout    = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
 
+    // block compute shader reads until pass is done
+    VkSubpassDependency blockComputeReads{};
+    blockComputeReads.srcSubpass      = 0;
+    blockComputeReads.dstSubpass      = VK_SUBPASS_EXTERNAL;
+    blockComputeReads.srcStageMask    = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+    blockComputeReads.dstStageMask    = VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT;
+    blockComputeReads.srcAccessMask   = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+    blockComputeReads.dstAccessMask   = VK_ACCESS_SHADER_READ_BIT;
+    blockComputeReads.dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
+
     // block fragment shader reads until pass is done
     VkSubpassDependency postPassRenderCompleteDep{};
     postPassRenderCompleteDep.srcSubpass      = 0;
@@ -136,6 +146,7 @@ void RenderPassCache::addDefaults() {
             .build());
     standardParams.addSubpassDependency(postPassRenderCompleteDep);
     standardParams.addSubpassDependency(prePassRenderDoneDep);
+    standardParams.addSubpassDependency(blockComputeReads);
     standardParams.addSubpassDependency(depthDependency);
     standardParams.withMSAABehavior(MSAA::UseSettings | MSAA::ResolveAttachments);
     standardParams.withSemanticAttachmentFormat(0, vk::SemanticTextureFormat::Color);

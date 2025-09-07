@@ -1,4 +1,5 @@
 target_sources(BLIB PUBLIC
+	ComputePipelineIds.hpp
 	Constants.hpp
 	Limits.hpp
 	MaterialPipelineIds.hpp

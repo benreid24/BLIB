@@ -8,8 +8,10 @@ namespace rc
 {
 namespace ds
 {
-ShaderInputStore::ShaderInputStore(engine::Engine& engine, const scene::MapKeyToEntityCb& entityCb)
+ShaderInputStore::ShaderInputStore(engine::Engine& engine, Scene& owner,
+                                   const scene::MapKeyToEntityCb& entityCb)
 : engine(engine)
+, owner(owner)
 , entityCb(entityCb) {}
 
 ShaderInputStore::~ShaderInputStore() {
@@ -25,7 +27,7 @@ void ShaderInputStore::copyFromECS() {
 }
 
 void ShaderInputStore::initInput(ShaderInput& input) {
-    input.init(engine, engine.renderer().vulkanState(), entityCb);
+    input.init(engine, engine.renderer().vulkanState(), owner, entityCb);
 }
 
 } // namespace ds

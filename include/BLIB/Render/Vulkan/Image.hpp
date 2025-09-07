@@ -243,6 +243,21 @@ public:
      */
     VkSampleCountFlagBits getSampleCount() const;
 
+    /**
+     * @brief Records a pipeline barrier into the specified Vulkan command buffer
+     *
+     * @param commandBuffer The Vulkan command buffer where the barrier will be recorded
+     * @param srcStages The source pipeline stage mask indicating where the barrier starts
+     * @param srcAccess The types of memory access before the barrier
+     * @param dstStages The destination pipeline stage mask indicating where the barrier ends
+     * @param dstAccess The types of memory access after the barrier
+     * @param newLayout Optional new layout to transition to. Undefined to keep current layout
+     */
+    void recordBarrier(VkCommandBuffer commandBuffer, VkPipelineStageFlags srcStages,
+                       VkAccessFlags srcAccess, VkPipelineStageFlags dstStages,
+                       VkAccessFlags dstAccess,
+                       VkImageLayout newLayout = VK_IMAGE_LAYOUT_UNDEFINED);
+
 private:
     VulkanState* vulkanState;
     VmaAllocation alloc;

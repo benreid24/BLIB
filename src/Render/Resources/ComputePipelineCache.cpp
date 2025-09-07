@@ -1,5 +1,10 @@
 #include <BLIB/Render/Resources/ComputePipelineCache.hpp>
 
+#include <BLIB/Render/Config/ComputePipelineIds.hpp>
+#include <BLIB/Render/Config/ShaderIds.hpp>
+#include <BLIB/Render/Descriptors/Builtin/AutoExposureWorkBuffer.hpp>
+#include <BLIB/Render/Descriptors/Builtin/GlobalDataFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/InputAttachmentFactory.hpp>
 #include <stdexcept>
 
 namespace bl
@@ -39,7 +44,21 @@ bool ComputePipelineCache::pipelineExists(std::uint32_t pipelineId) const {
 }
 
 void ComputePipelineCache::createBuiltins() {
-    // TODO - create built-in compute pipelines here
+    createPipeline(cfg::ComputePipelineIds::AutoExposureAccumulate,
+                   vk::ComputePipelineParameters()
+                       .withShader(cfg::ShaderIds::AutoExposureAccumulate)
+                       .addDescriptorSet<dsi::GlobalDataFactory>()
+                       .addDescriptorSet<dsi::InputAttachmentFactory<1>>()
+                       .addDescriptorSet<dsi::AutoExposureBufferFactory>()
+                       .build());
+
+    createPipeline(cfg::ComputePipelineIds::AutoExposureAdjust,
+                   vk::ComputePipelineParameters()
+                       .withShader(cfg::ShaderIds::AutoExposureAdjust)
+                       .addDescriptorSet<dsi::GlobalDataFactory>()
+                       .addDescriptorSet<dsi::InputAttachmentFactory<1>>()
+                       .addDescriptorSet<dsi::AutoExposureBufferFactory>()
+                       .build());
 }
 
 } // namespace res

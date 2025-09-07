@@ -105,6 +105,11 @@ VkShaderModule ShaderModuleCache::loadShader(const std::string& path) {
         case cfg::ShaderIds::SlideshowVert[0]:
             return loadShader(BUILTIN_SHADER("2D/slideshow.vert.spv"));
 
+        case cfg::ShaderIds::AutoExposureAccumulate[0]:
+            return loadShader(BUILTIN_SHADER("3D/AutoExposure/accumulate.comp.spv"));
+        case cfg::ShaderIds::AutoExposureAdjust[0]:
+            return loadShader(BUILTIN_SHADER("3D/AutoExposure/adjust.comp.spv"));
+
         case cfg::ShaderIds::FadeEffectFragment[0]:
             return loadShader(BUILTIN_SHADER("PostFX/fadeEffect.frag.spv"));
         case cfg::ShaderIds::PostProcess3DFragment[0]:

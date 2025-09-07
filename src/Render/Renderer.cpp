@@ -3,6 +3,7 @@
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Render/Config/RenderPassIds.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
+#include <BLIB/Render/Graph/Assets/AutoExposureWorkBuffer.hpp>
 #include <BLIB/Render/Graph/Assets/DepthBuffer.hpp>
 #include <BLIB/Render/Graph/Assets/ShadowMapAsset.hpp>
 #include <BLIB/Render/Graph/Providers/BloomProviders.hpp>
@@ -101,6 +102,8 @@ void Renderer::initialize() {
         std::array<VkClearValue, 1>{VkClearValue{.color = Black}});
     assetFactory.addProvider<rgi::SimpleAssetProvider<rgi::ShadowMapAsset>>(
         rg::AssetTags::ShadowMaps);
+    assetFactory.addProvider<rgi::SimpleAssetProvider<rgi::AutoExposureWorkBuffer>>(
+        rg::AssetTags::AutoExposureWorkBuffer);
     constexpr std::array<VkImageUsageFlags, 4> GBufferUsages{
         // albedo
         VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,

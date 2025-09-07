@@ -150,6 +150,11 @@ public:
      */
     ComputePipelineParameters& addPushConstantRange(std::uint32_t offset, std::uint32_t size);
 
+    /**
+     * @brief Validates the parameters and returns a movable of this object
+     */
+    ComputePipelineParameters&& build();
+
 private:
     ShaderParameters shader;
     PipelineLayout::LayoutParams layoutParams;
