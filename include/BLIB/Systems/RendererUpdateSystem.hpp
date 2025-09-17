@@ -36,7 +36,8 @@ private:
     rc::Renderer& renderer;
 
     virtual void init(engine::Engine& engine) override;
-    virtual void update(std::mutex& stageMutex, float dt, float, float, float) override;
+    virtual void update(std::mutex& stageMutex, float dt, float realDt, float residual,
+                        float realResidual) override;
 };
 
 } // namespace sys

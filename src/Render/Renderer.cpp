@@ -175,10 +175,11 @@ void Renderer::processResize(const sf::Rect<std::uint32_t>& region) {
     commonObserver.assignRegion(window.getSfWindow().getSize(), renderRegion, 1, 0, true);
 }
 
-void Renderer::update(float dt) {
+void Renderer::update(float dt, float realDt, float residual, float realResidual) {
     for (auto& rt : renderTextures) { rt->update(dt); }
     commonObserver.update(dt);
     for (auto& o : observers) { o->update(dt); }
+    globalDescriptors.notifyUpdateTick(dt, realDt, residual, realResidual);
 }
 
 void Renderer::syncSceneObjects() {

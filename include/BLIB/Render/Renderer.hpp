@@ -259,7 +259,7 @@ private:
     void destroyRenderTexture(vk::RenderTexture* rt);
 
     // render stages
-    void update(float dt);
+    void update(float dt, float realDt, float residual, float realResidual);
     void syncSceneObjects();
     void renderFrame();
 

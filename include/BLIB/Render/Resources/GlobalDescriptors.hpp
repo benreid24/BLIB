@@ -62,6 +62,16 @@ public:
     void onFrameStart();
 
     /**
+     * @brief Called when an engine frame tick occurs
+     *
+     * @param dt The simulated dt
+     * @param realDt The real elapsed dt
+     * @param residual The simulated unaccounted for time
+     * @param realResidual The real unaccounted for time
+     */
+    void notifyUpdateTick(float dt, float realDt, float residual, float realResidual);
+
+    /**
      * @brief Updates the render settings payload on the GPU for the shaders
      *
      * @param settings The new renderer settings
@@ -77,6 +87,8 @@ private:
     struct FrameDataUniform {
         float dt;
         float realDt;
+        float residual;
+        float realResidual;
     };
 
     struct DynamicSettingsUniform {
@@ -89,6 +101,7 @@ private:
     buf::StaticUniformBuffer<SettingsUniform> settingsBuffer;
     buf::UniformBuffer<FrameDataUniform> frameDataBuffer;
     buf::StaticSSBO<DynamicSettingsUniform> dynamicSettingsBuffer;
+    FrameDataUniform accumulatedTimings;
 
     VkDescriptorPool descriptorPool;
     VkDescriptorSetLayout descriptorSetLayout;

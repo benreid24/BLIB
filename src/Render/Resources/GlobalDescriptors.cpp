@@ -16,7 +16,8 @@ GlobalDescriptors::GlobalDescriptors(Renderer& renderer, TexturePool& texturePoo
                                      MaterialPool& materialPool)
 : renderer(renderer)
 , texturePool(texturePool)
-, materialPool(materialPool) {}
+, materialPool(materialPool)
+, accumulatedTimings{} {}
 
 void GlobalDescriptors::bindDescriptors(VkCommandBuffer cb, VkPipelineLayout pipelineLayout,
                                         std::uint32_t setIndex, bool forRt) {
@@ -190,6 +191,16 @@ void GlobalDescriptors::onFrameStart() {
         descriptorWriter, descriptorSets.current(), rtDescriptorSets.current());
     materialPool.onFrameStart();
     descriptorWriter.performWrite(renderer.vulkanState().device);
+    frameDataBuffer[0] = accumulatedTimings;
+    accumulatedTimings = {};
+}
+
+void GlobalDescriptors::notifyUpdateTick(float dt, float realDt, float residual,
+                                         float realResidual) {
+    accumulatedTimings.dt += dt;
+    accumulatedTimings.realDt += realDt;
+    accumulatedTimings.residual     = residual;
+    accumulatedTimings.realResidual = realResidual;
 }
 
 void GlobalDescriptors::updateSettings(const Settings& settings) {

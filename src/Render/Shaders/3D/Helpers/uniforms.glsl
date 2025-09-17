@@ -33,6 +33,8 @@ layout(set = GLOBALS_SET_NUMBER, binding = 2) uniform samplerCube cubemaps[16];
 layout(set = GLOBALS_SET_NUMBER, binding = 3) uniform framedata {
     float dt;
     float realDt;
+    float residual;
+    float realResidual;
 } frameData;
 layout(set = GLOBALS_SET_NUMBER, binding = 4) uniform rsettings {
     HdrSettings hdrSettings;
