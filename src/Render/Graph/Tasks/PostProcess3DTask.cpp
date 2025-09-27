@@ -23,6 +23,7 @@ PostProcess3DTask::PostProcess3DTask()
                        {rg::TaskOutput::Exclusive, rg::TaskOutput::Shared}));
     assetTags.requiredInputs.emplace_back(rg::TaskInput(rg::AssetTags::RenderedSceneOutput));
     assetTags.optionalInputs.emplace_back(rg::AssetTags::BloomColorAttachmentPair);
+    assetTags.optionalInputs.emplace_back(rg::AssetTags::AutoExposureOutput);
 }
 
 void PostProcess3DTask::create(engine::Engine&, Renderer& r, Scene* s) {

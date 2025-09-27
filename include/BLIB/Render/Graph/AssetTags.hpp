@@ -26,6 +26,7 @@ struct AssetTags {
     static constexpr std::string_view DepthBuffer              = "_builtin_DepthBuffer";
     static constexpr std::string_view SSAOBuffer               = "_builtin_SSAOBuffer";
     static constexpr std::string_view AutoExposureWorkBuffer   = "_builtin_AutoExposureWorkBuffer";
+    static constexpr std::string_view AutoExposureOutput       = "_builtin_AutoExposureOutput";
     static constexpr std::string_view ConsumedNextFrame        = "_builtin_ConsumedNextFrame";
 };
 

@@ -17,9 +17,11 @@ namespace dsi
  *
  * @tparam AttachmentCount The number of attachments that will be bound
  * @tparam StartIndex The index of the first attachment to bind
+ * @tparam ShaderStages The shader stages that will access the attachments
  * @ingroup Renderer
  */
-template<std::uint32_t AttachmentCount, std::uint32_t StartIndex = 0>
+template<std::uint32_t AttachmentCount, std::uint32_t StartIndex = 0,
+         VkShaderStageFlags ShaderStages = VK_SHADER_STAGE_FRAGMENT_BIT>
 class InputAttachmentFactory : public ds::DescriptorSetFactory {
 public:
     /**
@@ -53,7 +55,7 @@ private:
             bindingInfo.bindings[i].descriptorCount    = 1;
             bindingInfo.bindings[i].descriptorType     = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
             bindingInfo.bindings[i].pImmutableSamplers = nullptr;
-            bindingInfo.bindings[i].stageFlags         = VK_SHADER_STAGE_FRAGMENT_BIT;
+            bindingInfo.bindings[i].stageFlags         = ShaderStages;
         }
 
         bindingInfo.bindingCount = AttachmentCount;
@@ -62,7 +64,7 @@ private:
 
     virtual std::type_index creates() const override { return typeid(InputAttachmentInstance); }
 
-    virtual bool isAutoConstructable() const override { return false; }
+    virtual bool isAutoConstructable() const override { return true; }
 };
 
 } // namespace dsi

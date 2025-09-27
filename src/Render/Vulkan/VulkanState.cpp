@@ -27,8 +27,10 @@ VkPhysicalDeviceProperties* globalDeviceProperties = nullptr;
 const std::unordered_set<std::string> RequestedValidationLayers{"VK_LAYER_KHRONOS_validation"};
 #endif
 
-constexpr std::array<const char*, 2> RequiredDeviceExtensions{
-    VK_KHR_SWAPCHAIN_EXTENSION_NAME, VK_EXT_DEPTH_CLIP_ENABLE_EXTENSION_NAME};
+constexpr std::array<const char*, 3> RequiredDeviceExtensions{
+    VK_KHR_SWAPCHAIN_EXTENSION_NAME,
+    VK_EXT_DEPTH_CLIP_ENABLE_EXTENSION_NAME,
+    VK_EXT_SHADER_ATOMIC_FLOAT_EXTENSION_NAME};
 constexpr std::array<const char*, 1> OptionalDeviceExtensions{VK_KHR_MAINTENANCE_4_EXTENSION_NAME};
 
 #ifdef BLIB_DEBUG
@@ -118,6 +120,19 @@ int scoreDeviceForOptionalExtensions(VkPhysicalDevice device, const char* name) 
     return score;
 }
 
+bool deviceSupportsAtomicAdd(VkPhysicalDevice device) {
+    VkPhysicalDeviceShaderAtomicFloatFeaturesEXT atomicFloatFeatures{};
+    atomicFloatFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_FEATURES_EXT;
+
+    VkPhysicalDeviceFeatures2 features;
+    features.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2;
+    features.pNext = &atomicFloatFeatures;
+
+    vkGetPhysicalDeviceFeatures2(device, &features);
+
+    return atomicFloatFeatures.shaderBufferFloat32AtomicAdd == VK_TRUE;
+}
+
 int scorePhysicalDevice(VkPhysicalDevice device, const VkPhysicalDeviceProperties& deviceProperties,
                         const VkPhysicalDeviceFeatures& deviceFeatures,
                         const QueueFamilyLocator& queueFamilies, VkSurfaceKHR surface) {
@@ -126,6 +141,7 @@ int scorePhysicalDevice(VkPhysicalDevice device, const VkPhysicalDevicePropertie
     if (!deviceFeatures.samplerAnisotropy) { return -1; }
     if (!queueFamilies.complete()) { return -1; }
     if (!deviceHasRequiredExtensions(device, deviceProperties.deviceName)) { return -1; }
+    if (!deviceSupportsAtomicAdd(device)) { return -1; }
     SwapChainSupportDetails swapChainDetails(device, surface);
     if (swapChainDetails.formats.empty() || swapChainDetails.presentModes.empty()) { return -1; }
 
@@ -387,6 +403,11 @@ void VulkanState::createLogicalDevice() {
         physicalDeviceProperties.limits.lineWidthRange[1] > 1.f ? VK_TRUE : VK_FALSE;
     deviceFeatures.sampleRateShading = physicalDeviceFeatures.sampleRateShading;
 
+    // extension features
+    VkPhysicalDeviceShaderAtomicFloatFeaturesEXT atomicFloatFeatures{};
+    atomicFloatFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_FEATURES_EXT;
+    atomicFloatFeatures.shaderBufferFloat32AtomicAdd = VK_TRUE;
+
     VkDeviceCreateInfo createInfo{};
     createInfo.sType                   = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
     createInfo.pQueueCreateInfos       = queueCreateInfos.data();
@@ -395,6 +416,7 @@ void VulkanState::createLogicalDevice() {
     createInfo.enabledExtensionCount   = RequiredDeviceExtensions.size();
     createInfo.ppEnabledExtensionNames = RequiredDeviceExtensions.data();
     createInfo.enabledLayerCount       = 0; // never used
+    createInfo.pNext                   = &atomicFloatFeatures;
 
     if (vkCreateDevice(physicalDevice, &createInfo, nullptr, &device) != VK_SUCCESS) {
         throw std::runtime_error("Failed to create logical device");

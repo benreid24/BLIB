@@ -11,6 +11,13 @@ namespace rc
 {
 namespace ds
 {
+/**
+ * @brief Binding for generic buffer bindings provided by buffers that live in the render graph
+ *
+ * @tparam TAsset The type of graph asset to provide access to. Must derive from GenericBufferAsset
+ * @tparam DescriptorType The descriptor type to use for this binding
+ * @ingroup Renderer
+ */
 template<typename TAsset, VkDescriptorType DescriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER>
 class AssetBufferBinding : public Binding {
 public:

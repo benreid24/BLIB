@@ -104,7 +104,7 @@ protected:
     virtual void process(const event::SceneGraphAssetInitialized& e) override {
         if (e.scene == owner) {
             TAsset* a = dynamic_cast<TAsset*>(&e.asset->asset.get());
-            if (a) {
+            if (a && asset != a) {
                 asset       = a;
                 dirtyFrames = cfg::Limits::MaxConcurrentFrames;
             }

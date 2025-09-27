@@ -50,6 +50,7 @@ void AutoExposureAccumulateTask::execute(const rg::ExecutionContext& ctx, rg::As
     if (!fb) { throw std::runtime_error("Got bad output"); }
 
     // attachment sync handled by render pass
+    // asset handles buffer barrier for read -> write
 
     const std::uint32_t w       = fb->getAttachmentSets()[0]->getRenderExtent().width;
     const std::uint32_t h       = fb->getAttachmentSets()[0]->getRenderExtent().height;
@@ -59,7 +60,7 @@ void AutoExposureAccumulateTask::execute(const rg::ExecutionContext& ctx, rg::As
     pipeline.bind(ctx, cfg::RenderPhases::PostProcess);
     pipeline.getComputePipeline()->exec(ctx.commandBuffer, xGroups, yGroups);
 
-    // TODO - pipeline barrier
+    // asset handles buffer barrier for write -> read
 }
 
 void AutoExposureAccumulateTask::update(float) {}

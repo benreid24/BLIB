@@ -161,7 +161,7 @@ void GlobalDescriptors::init() {
         dynamicSettingsWrite.dstBinding      = 5;
         dynamicSettingsWrite.dstArrayElement = 0;
         dynamicSettingsWrite.pBufferInfo     = &dynamicSettingsBufferInfo;
-        dynamicSettingsWrite.descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+        dynamicSettingsWrite.descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
     };
     i = 0;
     descriptorSets.visit(

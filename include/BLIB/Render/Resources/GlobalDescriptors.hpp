@@ -28,6 +28,10 @@ class MaterialPool;
  */
 class GlobalDescriptors {
 public:
+    struct DynamicSettingsUniform {
+        float currentHdrExposure;
+    };
+
     GlobalDescriptors(Renderer& renderer, TexturePool& texturePool, MaterialPool& materialPool);
 
     /**
@@ -78,6 +82,13 @@ public:
      */
     void updateSettings(const Settings& settings);
 
+    /**
+     * @brief Returns the ssbo for the dynamic settings
+     */
+    buf::StaticSSBO<DynamicSettingsUniform>& getDynamicSettingsBuffer() {
+        return dynamicSettingsBuffer;
+    }
+
 private:
     struct SettingsUniform {
         Settings::AutoHdrSettings hdrSettings;
@@ -89,10 +100,6 @@ private:
         float realDt;
         float residual;
         float realResidual;
-    };
-
-    struct DynamicSettingsUniform {
-        float currentHdrExposure;
     };
 
     Renderer& renderer;

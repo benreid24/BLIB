@@ -40,7 +40,7 @@ using AutoExposureBufferInstance = ds::GenericDescriptorSetInstance<AutoExposure
  */
 using AutoExposureBufferFactory =
     ds::GenericDescriptorSetFactory<AutoExposureBufferBindings,
-                                    VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT>;
+                                    VK_SHADER_STAGE_COMPUTE_BIT>;
 
 } // namespace dsi
 } // namespace rc

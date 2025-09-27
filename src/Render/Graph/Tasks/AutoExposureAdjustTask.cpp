@@ -22,9 +22,9 @@ AutoExposureAdjustTask::AutoExposureAdjustTask()
 , renderer(nullptr)
 , scene(nullptr) {
     assetTags.requiredInputs.emplace_back(rg::TaskInput(rg::AssetTags::AutoExposureWorkBuffer));
-    assetTags.outputs.emplace_back(rg::TaskOutput({rg::AssetTags::ConsumedNextFrame},
+    assetTags.outputs.emplace_back(rg::TaskOutput({rg::AssetTags::AutoExposureOutput},
                                                   {rg::TaskOutput::CreatedByTask},
-                                                  {rg::TaskOutput::Shared}));
+                                                  {rg::TaskOutput::Exclusive}));
 }
 
 void AutoExposureAdjustTask::create(engine::Engine&, Renderer& r, Scene* s) {
@@ -33,11 +33,6 @@ void AutoExposureAdjustTask::create(engine::Engine&, Renderer& r, Scene* s) {
 }
 
 void AutoExposureAdjustTask::onGraphInit() {
-    const auto sampler = renderer->samplerCache().noFilterEdgeClamped();
-    FramebufferAsset* input =
-        dynamic_cast<FramebufferAsset*>(&assets.requiredInputs[0]->asset.get());
-    if (!input) { throw std::runtime_error("Got bad input"); }
-
     vk::ComputePipeline* adjust =
         &renderer->computePipelineCache().getPipeline(cfg::ComputePipelineIds::AutoExposureAdjust);
     pipeline.init(adjust, scene->getDescriptorSets());
@@ -46,12 +41,18 @@ void AutoExposureAdjustTask::onGraphInit() {
 void AutoExposureAdjustTask::execute(const rg::ExecutionContext& ctx, rg::Asset* output) {
     // buffer barrier handled by accumulate task
 
-    // TODO - barrier to ensure not overwrite exposure until postfx done
-
     pipeline.bind(ctx, cfg::RenderPhases::PostProcess);
     pipeline.getComputePipeline()->exec(ctx.commandBuffer, 1);
 
-    // TODO - pipeline barrier
+    // asset inserts barrier for read -> write next frame
+
+    // block postfx read until done write
+    renderer->getGlobalDescriptorData().getDynamicSettingsBuffer().gpuBufferHandle().recordBarrier(
+        ctx.commandBuffer,
+        VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT,
+        VK_ACCESS_SHADER_WRITE_BIT,
+        VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT,
+        VK_ACCESS_SHADER_READ_BIT);
 }
 
 void AutoExposureAdjustTask::update(float) {}

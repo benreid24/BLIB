@@ -44,11 +44,13 @@ bool ComputePipelineCache::pipelineExists(std::uint32_t pipelineId) const {
 }
 
 void ComputePipelineCache::createBuiltins() {
+    using RenderedSceneSet = dsi::InputAttachmentFactory<1, 0, VK_SHADER_STAGE_COMPUTE_BIT>;
+
     createPipeline(cfg::ComputePipelineIds::AutoExposureAccumulate,
                    vk::ComputePipelineParameters()
                        .withShader(cfg::ShaderIds::AutoExposureAccumulate)
                        .addDescriptorSet<dsi::GlobalDataFactory>()
-                       .addDescriptorSet<dsi::InputAttachmentFactory<1>>()
+                       .addDescriptorSet<RenderedSceneSet>()
                        .addDescriptorSet<dsi::AutoExposureBufferFactory>()
                        .build());
 
@@ -56,7 +58,7 @@ void ComputePipelineCache::createBuiltins() {
                    vk::ComputePipelineParameters()
                        .withShader(cfg::ShaderIds::AutoExposureAdjust)
                        .addDescriptorSet<dsi::GlobalDataFactory>()
-                       .addDescriptorSet<dsi::InputAttachmentFactory<1>>()
+                       .addDescriptorSet<RenderedSceneSet>()
                        .addDescriptorSet<dsi::AutoExposureBufferFactory>()
                        .build());
 }

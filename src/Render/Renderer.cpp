@@ -144,6 +144,8 @@ void Renderer::initialize() {
         std::array<VkClearValue, 1>{VkClearValue{.color = {1.f, 1.f, 1.f, 1.f}}});
     assetFactory.addProvider<rgi::SimpleAssetProvider<rgi::TaggedEmptyAsset>>(
         rg::AssetTags::ConsumedNextFrame, true);
+    assetFactory.addProvider<rgi::SimpleAssetProvider<rgi::TaggedEmptyAsset>>(
+        rg::AssetTags::AutoExposureOutput, false);
 
     // initialize common observer
     commonObserver.assignRegion(window.getSfWindow().getSize(), renderRegion, 1, 0, true);

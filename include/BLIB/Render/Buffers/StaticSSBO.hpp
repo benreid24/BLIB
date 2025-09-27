@@ -78,7 +78,7 @@ public:
     /**
      * @brief Returns the number of elements in the buffer
      */
-    constexpr std::uint32_t size() const;
+    std::uint32_t size() const;
 
     /**
      * @brief Frees the GPU buffers
@@ -88,7 +88,7 @@ public:
     /**
      * @brief Returns the Buffer objects of the GPU buffers
      */
-    constexpr vk::Buffer& gpuBufferHandle();
+    vk::Buffer& gpuBufferHandle();
 
     /**
      * @brief Queues the given range of elements to be copied to the GPU buffer
@@ -115,7 +115,7 @@ public:
     /**
      * @brief Returns the size of the SSBO on the device
      */
-    constexpr VkDeviceSize getTotalRange() const;
+    VkDeviceSize getTotalRange() const;
 
     /**
      * @brief Helper method to return the raw buffer handle for the given frame index
@@ -175,18 +175,18 @@ const T& StaticSSBO<T>::operator[](std::uint32_t i) const {
 }
 
 template<typename T>
-constexpr std::uint32_t StaticSSBO<T>::size() const {
+std::uint32_t StaticSSBO<T>::size() const {
     return cpuBuffer.size();
 }
 
 template<typename T>
-inline void StaticSSBO<T>::destroy() {
+void StaticSSBO<T>::destroy() {
     cpuBuffer.clear();
     gpuBuffer.destroy();
 }
 
 template<typename T>
-inline constexpr vk::Buffer& StaticSSBO<T>::gpuBufferHandle() {
+vk::Buffer& StaticSSBO<T>::gpuBufferHandle() {
     return gpuBuffer;
 }
 
@@ -263,7 +263,7 @@ void StaticSSBO<T>::transferAll() {
 }
 
 template<typename T>
-constexpr VkDeviceSize StaticSSBO<T>::getTotalRange() const {
+VkDeviceSize StaticSSBO<T>::getTotalRange() const {
     return gpuBuffer.getSize();
 }
 
