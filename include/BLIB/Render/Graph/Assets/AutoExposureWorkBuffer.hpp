@@ -21,7 +21,7 @@ public:
      * @brief Creates the work buffer asset
      */
     AutoExposureWorkBuffer()
-    : GenericBufferAsset(rg::AssetTags::AutoExposureWorkBuffer) {}
+    : GenericBufferAsset(rg::AssetTags::AutoExposureWorkBuffer, false) {}
 
     /**
      * @brief Destroys the asset

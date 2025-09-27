@@ -6,11 +6,11 @@ namespace rc
 {
 namespace rgi
 {
-FramebufferAsset::FramebufferAsset(std::string_view tag, std::uint32_t renderPassId,
+FramebufferAsset::FramebufferAsset(std::string_view tag, bool terminal, std::uint32_t renderPassId,
                                    const VkViewport& viewport, const VkRect2D& scissor,
                                    const VkClearValue* clearColors,
                                    const std::uint32_t clearColorCount)
-: Asset(tag)
+: Asset(tag, terminal)
 , renderPassId(renderPassId)
 , viewport(viewport)
 , scissor(scissor)

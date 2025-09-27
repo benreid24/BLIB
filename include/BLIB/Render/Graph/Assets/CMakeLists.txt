@@ -14,5 +14,6 @@ target_sources(BLIB PUBLIC
 	ShadowMapAsset.hpp
 	SSAOAsset.hpp
 	StandardTargetAsset.hpp
+	TaggedEmptyAsset.hpp
 	TargetSize.hpp
 )

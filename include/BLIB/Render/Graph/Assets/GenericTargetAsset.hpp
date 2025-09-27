@@ -59,18 +59,19 @@ public:
      * @brief Creates a new asset but does not allocate the attachments
      *
      * @param tag The tag the asset is being created for
+     * @param terminal Whether the asset is terminal
      * @param imageFormats The formats of the attachments
      * @param imageUsages How the attachments will be used
      * @param clearColors Pointer to array of clear colors for attachments
      * @param size The sizing behavior of the target
      */
-    GenericTargetAsset(std::string_view tag,
+    GenericTargetAsset(std::string_view tag, bool terminal,
                        const std::array<vk::SemanticTextureFormat, AttachmentCount>& imageFormats,
                        const std::array<VkImageUsageFlags, AttachmentCount>& imageUsages,
                        const std::array<VkClearValue, RenderedAttachmentCount>& clearColors,
                        const TargetSize& size)
-    : FramebufferAsset(tag, RenderPassId, cachedViewport, cachedScissor, clearColors.data(),
-                       RenderedAttachmentCount)
+    : FramebufferAsset(tag, terminal, RenderPassId, cachedViewport, cachedScissor,
+                       clearColors.data(), RenderedAttachmentCount)
     , size(size)
     , renderer(nullptr)
     , attachmentFormats(imageFormats)

@@ -27,10 +27,11 @@ public:
      *
      * @tparam TProvider The provider type to use to create the assets
      * @param tag The tag of this asset
+     * @param terminal Whether or not this asset is terminal
      * @param provider The provider to use to create the assets
      */
     template<typename TProvider>
-    MultiAsset(std::string_view tag, TProvider& provider);
+    MultiAsset(std::string_view tag, bool terminal, TProvider& provider);
 
     /**
      * @brief Destroys the assets
@@ -88,8 +89,8 @@ private:
 
 template<typename T, std::uint32_t N>
 template<typename TProvider>
-MultiAsset<T, N>::MultiAsset(std::string_view tag, TProvider& provider)
-: Asset(tag) {
+MultiAsset<T, N>::MultiAsset(std::string_view tag, bool terminal, TProvider& provider)
+: Asset(tag, terminal) {
     for (auto& a : assets) {
         Asset* newAsset = provider.create(tag);
         T* singleAsset  = dynamic_cast<T*>(newAsset);

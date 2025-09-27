@@ -102,6 +102,7 @@ protected:
      * @brief Creates the asset
      *
      * @param tag The asset tag
+     * @param terminal Whether the asset is terminal
      * @param renderPassId The render pass the framebuffer uses
      * @param viewport The viewport of the framebuffer
      * @param scissor The scissor of the framebuffer
@@ -109,9 +110,9 @@ protected:
      * @param clearColorCount The number of clear colors
      * @param clearOnRestart Whether to clear attachments when restarting the render pass
      */
-    FramebufferAsset(std::string_view tag, std::uint32_t renderPassId, const VkViewport& viewport,
-                     const VkRect2D& scissor, const VkClearValue* clearColors,
-                     const std::uint32_t clearColorCount);
+    FramebufferAsset(std::string_view tag, bool terminal, std::uint32_t renderPassId,
+                     const VkViewport& viewport, const VkRect2D& scissor,
+                     const VkClearValue* clearColors, const std::uint32_t clearColorCount);
 
 private:
     unsigned int startCount;

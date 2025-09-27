@@ -12,7 +12,7 @@ namespace rc
 namespace rgi
 {
 DepthBuffer::DepthBuffer()
-: Asset(rg::AssetTags::DepthBuffer)
+: Asset(rg::AssetTags::DepthBuffer, false)
 , engine(nullptr)
 , mode(FullScreen)
 , cleared(false) {}

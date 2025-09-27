@@ -24,12 +24,20 @@ class SimpleAssetProvider : public rg::AssetProvider {
 public:
     /**
      * @brief Creates the provider
+     *
+     * @param terminal Whether the created assets should be terminal
      */
-    SimpleAssetProvider() = default;
+    SimpleAssetProvider(bool terminal)
+    : terminal(terminal) {}
 
 private:
+    bool terminal;
+
     virtual rg::Asset* create(std::string_view tag) override {
         if constexpr (std::is_constructible_v<TAsset, std::string_view>) { return new TAsset(tag); }
+        else if constexpr (std::is_constructible_v<TAsset, std::string_view, bool>) {
+            return new TAsset(tag, terminal);
+        }
         else { return new TAsset(); }
     }
 };

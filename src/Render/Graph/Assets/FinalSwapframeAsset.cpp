@@ -15,8 +15,8 @@ namespace rgi
 FinalSwapframeAsset::FinalSwapframeAsset(const VkViewport& viewport, const VkRect2D& scissor,
                                          const VkClearValue* clearColors,
                                          const std::uint32_t clearColorCount)
-: FramebufferAsset(rg::AssetTags::FinalFrameOutput, cfg::RenderPassIds::SwapchainPass, viewport,
-                   scissor, clearColors, clearColorCount)
+: FramebufferAsset(rg::AssetTags::FinalFrameOutput, true, cfg::RenderPassIds::SwapchainPass,
+                   viewport, scissor, clearColors, clearColorCount)
 , engine(nullptr) {
     addDependency(rg::AssetTags::DepthBuffer);
     setShouldClearOnRestart(true);

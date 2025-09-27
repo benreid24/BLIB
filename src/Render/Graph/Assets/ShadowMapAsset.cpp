@@ -10,7 +10,7 @@ namespace rc
 namespace rgi
 {
 ShadowMapAsset::ShadowMapAsset(std::string_view tag)
-: Asset(tag)
+: Asset(tag, false)
 , renderer(nullptr) {}
 
 void ShadowMapAsset::doCreate(engine::Engine&, Renderer& r, RenderTarget*) {

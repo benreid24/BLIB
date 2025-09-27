@@ -11,8 +11,9 @@ namespace rc
 {
 namespace rg
 {
-Asset::Asset(std::string_view tag)
+Asset::Asset(std::string_view tag, bool terminal)
 : tag(tag)
+, terminal(terminal)
 , created(false)
 , refCount(0)
 , mode(InputMode::Unset)

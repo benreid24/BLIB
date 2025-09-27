@@ -97,13 +97,19 @@ public:
      */
     bool isExternal() const { return external; }
 
+    /**
+     * @brief Returns whether this asset is terminal or if it is intended to be consumed in frame
+     */
+    bool isTerminal() const { return terminal; }
+
 protected:
     /**
      * @brief Initializes the asset
      *
      * @param tag The tag of the asset
+     * @param terminal Whether the asset is terminal
      */
-    Asset(std::string_view tag);
+    Asset(std::string_view tag, bool terminal);
 
     /**
      * @brief Registers a dependency on another asset. This must be called from the constructor
@@ -153,6 +159,7 @@ private:
     std::vector<GraphAssetPool*> owners;
     InputMode mode;
     bool external;
+    bool terminal;
 
     bool create(engine::Engine& engine, Renderer& renderer, RenderTarget* observer,
                 GraphAssetPool* pool);

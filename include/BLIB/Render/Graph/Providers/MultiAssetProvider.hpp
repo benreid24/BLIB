@@ -24,10 +24,11 @@ public:
      * @brief Creates the multi asset provider
      *
      * @tparam ...TArgs Argument types to the underlying provider's constructor
+     * @param terminal Whether the created assets should be terminal
      * @param ...args Arguments to the underlying provider's constructor
      */
     template<typename... TArgs>
-    MultiAssetProvider(TArgs&&... args);
+    MultiAssetProvider(bool terminal, TArgs&&... args);
 
     /**
      * @brief Creates a new multi asset
@@ -39,18 +40,20 @@ public:
 
 private:
     TProvider provider;
+    bool terminal;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename TProvider, typename TAsset, std::uint32_t N>
 template<typename... TArgs>
-MultiAssetProvider<TProvider, TAsset, N>::MultiAssetProvider(TArgs&&... args)
-: provider(std::forward<TArgs>(args)...) {}
+MultiAssetProvider<TProvider, TAsset, N>::MultiAssetProvider(bool terminal, TArgs&&... args)
+: provider(std::forward<TArgs>(args)...)
+, terminal(terminal) {}
 
 template<typename TProvider, typename TAsset, std::uint32_t N>
 rg::Asset* MultiAssetProvider<TProvider, TAsset, N>::create(std::string_view tag) {
-    return new rg::MultiAsset<TAsset, N>(tag, provider);
+    return new rg::MultiAsset<TAsset, N>(tag, terminal, provider);
 }
 
 } // namespace rgi

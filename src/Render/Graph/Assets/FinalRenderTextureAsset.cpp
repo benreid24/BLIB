@@ -17,8 +17,9 @@ FinalRenderTextureAsset::FinalRenderTextureAsset(res::TextureRef texture,
                                                  const VkRect2D& scissor,
                                                  const VkClearValue* clearColors,
                                                  const std::uint32_t clearColorCount)
-: FramebufferAsset(rg::AssetTags::FinalFrameOutput, cfg::RenderPassIds::StandardAttachmentPass,
-                   viewport, scissor, clearColors, clearColorCount)
+: FramebufferAsset(rg::AssetTags::FinalFrameOutput, true,
+                   cfg::RenderPassIds::StandardAttachmentPass, viewport, scissor, clearColors,
+                   clearColorCount)
 , vs(nullptr)
 , texture(texture) {
     addDependency(rg::AssetTags::DepthBuffer);

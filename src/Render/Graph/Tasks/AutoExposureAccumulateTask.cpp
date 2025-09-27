@@ -22,7 +22,9 @@ AutoExposureAccumulateTask::AutoExposureAccumulateTask()
 , renderer(nullptr)
 , scene(nullptr) {
     assetTags.requiredInputs.emplace_back(rg::TaskInput(rg::AssetTags::RenderedSceneOutput));
-    // TODO - side effect output & refactor graph construction
+    assetTags.outputs.emplace_back(rg::TaskOutput({rg::AssetTags::AutoExposureWorkBuffer},
+                                                  {rg::TaskOutput::CreatedByTask},
+                                                  {rg::TaskOutput::Exclusive}));
 }
 
 void AutoExposureAccumulateTask::create(engine::Engine&, Renderer& r, Scene* s) {

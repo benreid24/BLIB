@@ -35,11 +35,12 @@ public:
      * @param imageUsages How the attachments will be used
      */
     GenericTargetProvider(
-        const TargetSize& size,
+        bool terminal, const TargetSize& size,
         const std::array<vk::SemanticTextureFormat, AttachmentCount>& imageFormats,
         const std::array<VkImageUsageFlags, AttachmentCount>& imageUsages,
         const std::array<VkClearValue, RenderedAttachmentCount>& clearColors)
-    : size(size)
+    : terminal(terminal)
+    , size(size)
     , imageFormats(imageFormats)
     , imageUsages(imageUsages)
     , clearColors(clearColors) {}
@@ -51,10 +52,11 @@ public:
      * @return The newly created asset
      */
     virtual rg::Asset* create(std::string_view tag) override {
-        return new TAsset(tag, imageFormats, imageUsages, clearColors, size);
+        return new TAsset(tag, terminal, imageFormats, imageUsages, clearColors, size);
     }
 
 private:
+    bool terminal;
     const TargetSize size;
     std::array<vk::SemanticTextureFormat, AttachmentCount> imageFormats;
     std::array<VkImageUsageFlags, AttachmentCount> imageUsages;

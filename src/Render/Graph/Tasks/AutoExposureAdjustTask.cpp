@@ -21,8 +21,10 @@ AutoExposureAdjustTask::AutoExposureAdjustTask()
 : Task(rg::TaskIds::AutoExposureAdjustTask)
 , renderer(nullptr)
 , scene(nullptr) {
-    assetTags.requiredInputs.emplace_back(rg::TaskInput(rg::AssetTags::RenderedSceneOutput));
-    // TODO - side effect output & refactor graph construction
+    assetTags.requiredInputs.emplace_back(rg::TaskInput(rg::AssetTags::AutoExposureWorkBuffer));
+    assetTags.outputs.emplace_back(rg::TaskOutput({rg::AssetTags::ConsumedNextFrame},
+                                                  {rg::TaskOutput::CreatedByTask},
+                                                  {rg::TaskOutput::Shared}));
 }
 
 void AutoExposureAdjustTask::create(engine::Engine&, Renderer& r, Scene* s) {

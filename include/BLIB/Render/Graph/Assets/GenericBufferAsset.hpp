@@ -22,9 +22,10 @@ public:
      * @brief Creates the work buffer asset
      *
      * @param tag The tag of the asset
+     * @param terminal Indicates if this is a terminal asset
      */
-    GenericBufferAsset(std::string_view tag)
-    : Asset(tag) {}
+    GenericBufferAsset(std::string_view tag, bool terminal)
+    : Asset(tag, terminal) {}
 
     /**
      * @brief Destroys the asset
