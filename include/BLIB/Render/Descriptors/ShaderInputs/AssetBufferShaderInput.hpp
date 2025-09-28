@@ -57,7 +57,21 @@ public:
     virtual void init(engine::Engine& engine, vk::VulkanState&, Scene& owner,
                       const scene::MapKeyToEntityCb&) override {
         this->owner = &owner;
-        subscribe(engine.renderer().getSignalChannel());
+
+        /*
+        TODO - replace this hack
+        DETAILS: Descriptor sets are per-scene, but some descriptor sets conceptually exist as per
+                 observer. SceneDescriptorSetInstance is an example of this. We should insert a new
+                 base class ObserverAwareDescriptorSetInstance that sits below
+                 SceneDescriptorSetInstance and provides a mechnanism for per-observer data
+                 (templated?). Could even just replace SceneDescriptorSetInstance with this.
+        */
+
+        // handle the case where the descriptor set is created after the asset is initialized
+        auto& assets = engine.renderer().getObserver().getAssetPool();
+        asset        = assets.getAsset<TAsset>();
+        if (asset) { dirtyFrames = cfg::Limits::MaxConcurrentFrames; }
+        else { subscribe(engine.renderer().getSignalChannel()); }
     }
 
     /**

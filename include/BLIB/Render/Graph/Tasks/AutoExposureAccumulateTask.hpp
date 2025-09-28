@@ -10,6 +10,8 @@ namespace rc
 {
 namespace rgi
 {
+class FramebufferAsset;
+
 /**
  * @brief Task that kicks off the auto exposure accumulation compute pipeline
  *
@@ -30,6 +32,7 @@ public:
 private:
     Renderer* renderer;
     Scene* scene;
+    FramebufferAsset* input;
     vk::PipelineInstance pipeline;
 
     virtual void create(engine::Engine& engine, Renderer& renderer, Scene* scene) override;

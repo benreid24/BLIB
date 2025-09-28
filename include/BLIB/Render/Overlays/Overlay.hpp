@@ -2,9 +2,6 @@
 #define BLIB_RENDER_OVERLAYS_OVERLAY_HPP
 
 #include <BLIB/ECS/Entity.hpp>
-#include <BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp>
-#include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
-#include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
 #include <BLIB/Render/Events/SceneObjectRemoved.hpp>
 #include <BLIB/Render/Overlays/OverlayObject.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>

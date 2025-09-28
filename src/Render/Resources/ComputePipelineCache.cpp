@@ -23,9 +23,7 @@ vk::ComputePipeline& ComputePipelineCache::createPipeline(std::uint32_t pipeline
     if (cache.find(pipelineId) != cache.end()) {
         throw std::runtime_error("Attempted to create compute pipeline with duplicate id");
     }
-    const auto it =
-        cache.emplace(pipelineId, vk::ComputePipeline(renderer, pipelineId, std::move(params)))
-            .first;
+    const auto it = cache.try_emplace(pipelineId, renderer, pipelineId, std::move(params)).first;
     return it->second;
 }
 

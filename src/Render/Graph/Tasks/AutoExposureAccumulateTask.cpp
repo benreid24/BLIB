@@ -34,8 +34,7 @@ void AutoExposureAccumulateTask::create(engine::Engine&, Renderer& r, Scene* s) 
 
 void AutoExposureAccumulateTask::onGraphInit() {
     const auto sampler = renderer->samplerCache().noFilterEdgeClamped();
-    FramebufferAsset* input =
-        dynamic_cast<FramebufferAsset*>(&assets.requiredInputs[0]->asset.get());
+    input              = dynamic_cast<FramebufferAsset*>(&assets.requiredInputs[0]->asset.get());
     if (!input) { throw std::runtime_error("Got bad input"); }
 
     vk::ComputePipeline* accum = &renderer->computePipelineCache().getPipeline(
@@ -46,14 +45,11 @@ void AutoExposureAccumulateTask::onGraphInit() {
 }
 
 void AutoExposureAccumulateTask::execute(const rg::ExecutionContext& ctx, rg::Asset* output) {
-    FramebufferAsset* fb = dynamic_cast<FramebufferAsset*>(output);
-    if (!fb) { throw std::runtime_error("Got bad output"); }
-
     // attachment sync handled by render pass
     // asset handles buffer barrier for read -> write
 
-    const std::uint32_t w       = fb->getAttachmentSets()[0]->getRenderExtent().width;
-    const std::uint32_t h       = fb->getAttachmentSets()[0]->getRenderExtent().height;
+    const std::uint32_t w       = input->getAttachmentSets()[0]->getRenderExtent().width;
+    const std::uint32_t h       = input->getAttachmentSets()[0]->getRenderExtent().height;
     const std::uint32_t xGroups = w / WorkGroupSize + (w % WorkGroupSize != 0 ? 1 : 0);
     const std::uint32_t yGroups = h / WorkGroupSize + (h % WorkGroupSize != 0 ? 1 : 0);
 
