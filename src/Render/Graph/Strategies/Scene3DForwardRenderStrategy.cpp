@@ -8,7 +8,9 @@
 #include <BLIB/Render/Graph/Tasks/ForwardRenderTransparentTask.hpp>
 #include <BLIB/Render/Graph/Tasks/Outline3DTask.hpp>
 #include <BLIB/Render/Graph/Tasks/PostProcess3DTask.hpp>
+#include <BLIB/Render/Graph/Tasks/SSAOTask.hpp>
 #include <BLIB/Render/Graph/Tasks/ShadowMapTask.hpp>
+#include <BLIB/Render/Renderer.hpp>
 
 namespace bl
 {
@@ -16,15 +18,40 @@ namespace rc
 {
 namespace rgi
 {
+Scene3DForwardRenderStrategy::Scene3DForwardRenderStrategy()
+: renderer(nullptr) {}
+
 void Scene3DForwardRenderStrategy::populate(rg::RenderGraph& graph) {
     graph.putTask<ForwardRenderOpaqueTask>();
     graph.putTask<ForwardRenderTransparentTask>();
     graph.putTask<rgi::PostProcess3DTask>();
-    graph.putTask<rgi::BloomTask>();
     graph.putTask<rgi::ShadowMapTask>();
     graph.putTask<rgi::Outline3DTask>();
-    graph.putTask<rgi::AutoExposureAccumulateTask>();
-    graph.putTask<rgi::AutoExposureAdjustTask>();
+    if (renderer->getSettings().getBloomEnabled()) { graph.putTask<rgi::BloomTask>(); }
+    if (renderer->getSettings().getSSAO() != Settings::SSAO::None) {
+        graph.putTask<rgi::SSAOTask>();
+    }
+    if (renderer->getSettings().getAutoHDREnabled()) {
+        graph.putTask<rgi::AutoExposureAccumulateTask>();
+        graph.putTask<rgi::AutoExposureAdjustTask>();
+    }
+}
+
+void Scene3DForwardRenderStrategy::init(Renderer& renderer) {
+    this->renderer = &renderer;
+    subscribe(renderer.getSignalChannel());
+}
+
+void Scene3DForwardRenderStrategy::process(const event::SettingsChanged& signal) {
+    switch (signal.setting) {
+    case event::SettingsChanged::Setting::BloomEnabled:
+    case event::SettingsChanged::Setting::SSAO:
+    case event::SettingsChanged::Setting::AutoHDR:
+        invalidateGraphs();
+        break;
+    default:
+        break;
+    }
 }
 
 } // namespace rgi

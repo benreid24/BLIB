@@ -13,6 +13,9 @@
 #include <BLIB/Render/Graph/Providers/SSAOProvider.hpp>
 #include <BLIB/Render/Graph/Providers/SimpleAssetProvider.hpp>
 #include <BLIB/Render/Graph/Providers/StandardTargetProvider.hpp>
+#include <BLIB/Render/Overlays/Overlay.hpp>
+#include <BLIB/Render/Scenes/Scene2D.hpp>
+#include <BLIB/Render/Scenes/Scene3D.hpp>
 #include <BLIB/Systems.hpp>
 #include <cmath>
 
@@ -153,13 +156,18 @@ void Renderer::initialize() {
 
     // begin ECS sync
     sceneSync.subscribe(signalChannel);
+
+    // set up render strategies for scene types
+    scene3DDeferredStrategy.init(*this);
+    Overlay::useRenderStrategy(&overlayStrategy);
+    scene::Scene2D::useRenderStrategy(&scene2DStrategy);
+    scene::Scene3D::useRenderStrategy(&scene3DDeferredStrategy);
 }
 
 void Renderer::cleanup() {
     vkCheck(vkDeviceWaitIdle(state.device));
 
     sceneSync.unsubscribe();
-    // TODO - need to flush cleanup manager here?
     imageExporter.cleanup();
     resource::ResourceManager<sf::VulkanFont>::freeAndDestroyAll();
     renderTextures.clear();

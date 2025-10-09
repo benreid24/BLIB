@@ -154,7 +154,7 @@ public:
     /**
      * @brief Returns whether or not the graph needs to be repopulated from scratch
      */
-    bool needsRepopulation() const { return needsReset; }
+    bool needsRepopulation() const;
 
     /**
      * @brief Clears all tasks from the graph and marks it for re-population
@@ -183,6 +183,8 @@ private:
     GraphAssetPool assets;
     std::vector<std::unique_ptr<Task>> tasks;
     Timeline timeline;
+    Strategy* strategy;
+    unsigned int strategyVersion;
     bool needsRebuild;
     bool needsReset;
 };

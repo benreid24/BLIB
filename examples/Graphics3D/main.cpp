@@ -106,6 +106,8 @@ private:
     virtual const char* name() const override { return "DemoState"; }
 
     virtual void activate(bl::engine::Engine& engine) override {
+        engine.renderer().getSettings().setAutoHDREnabled(true);
+
         // create scene and camera
         auto world =
             engine.getPlayer().enterWorld<bl::engine::BasicWorld<bl::rc::scene::Scene3D>>();

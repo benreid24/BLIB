@@ -20,7 +20,6 @@ void main() {
     if (isInRange) {
         vec3 color = texelFetch(renderedScene, globalID, 0).rgb; // pre-tonemap
         float lum = dot(color, vec3(0.2126, 0.7152, 0.0722));
-        // lum = log(max(lum, 1e/-4)); / TODO - do we need this?
         tileSum[localIndex] = lum;
     }
     else {

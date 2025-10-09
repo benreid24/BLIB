@@ -5,7 +5,6 @@
 #include <BLIB/Render/Config/Constants.hpp>
 #include <BLIB/Render/Config/RenderPhases.hpp>
 #include <BLIB/Render/Events/SceneObjectRemoved.hpp>
-#include <BLIB/Render/Graph/Strategies/OverlayRenderStrategy.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -14,8 +13,7 @@ namespace rc
 {
 namespace
 {
-rgi::OverlayRenderStrategy defaultStrategy;
-rg::Strategy* strategy = &defaultStrategy;
+rg::Strategy* strategy = nullptr;
 } // namespace
 
 Overlay::Overlay(engine::Engine& e)

@@ -23,6 +23,8 @@ RenderGraph::RenderGraph(engine::Engine& engine, Renderer& renderer, AssetPool& 
 , scene(scene)
 , assets(renderer, pool, observer, scene)
 , timeline(engine, renderer, observer, scene, &assets)
+, strategy(nullptr)
+, strategyVersion(0)
 , needsRebuild(false)
 , needsReset(true) {
     tasks.reserve(8);
@@ -196,12 +198,21 @@ void RenderGraph::populate(Scene& scene) {
     needsReset = false;
     tasks.clear();
     scene.getRenderStrategy()->populate(*this);
+    strategy        = scene.getRenderStrategy();
+    strategyVersion = strategy->getVersion();
     build();
 }
 
 void RenderGraph::update(float dt) {
     for (auto& task : tasks) { task->update(dt); }
 }
+
+bool RenderGraph::needsRepopulation() const {
+    return needsReset || (scene && strategy &&
+                          (scene->getRenderStrategy() != strategy ||
+                           scene->getRenderStrategy()->getVersion() != strategy->getVersion()));
+}
+
 } // namespace rg
 } // namespace rc
 } // namespace bl

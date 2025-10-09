@@ -4,6 +4,10 @@
 #include <BLIB/Render/Color.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp>
 #include <BLIB/Render/Graph/AssetFactory.hpp>
+#include <BLIB/Render/Graph/Strategies/OverlayRenderStrategy.hpp>
+#include <BLIB/Render/Graph/Strategies/Scene2DRenderStrategy.hpp>
+#include <BLIB/Render/Graph/Strategies/Scene3DDeferredRenderStrategy.hpp>
+#include <BLIB/Render/Graph/Strategies/Scene3DForwardRenderStrategy.hpp>
 #include <BLIB/Render/Graph/Strategy.hpp>
 #include <BLIB/Render/Observer.hpp>
 #include <BLIB/Render/Resources/ComputePipelineCache.hpp>
@@ -220,6 +224,26 @@ public:
      */
     sig::Channel& getSignalChannel();
 
+    /**
+     * @brief Returns the default overlay render strategy
+     */
+    rgi::OverlayRenderStrategy& getDefaultOverlayRenderStrategy();
+
+    /**
+     * @brief Returns the default 2D render strategy
+     */
+    rgi::Scene2DRenderStrategy& getDefaultScene2DRenderStrategy();
+
+    /**
+     * @brief Returns the default 3D forward render strategy
+     */
+    rgi::Scene3DForwardRenderStrategy& getDefaultScene3DForwardRenderStrategy();
+
+    /**
+     * @brief Returns the default 3D deferred render strategy
+     */
+    rgi::Scene3DDeferredRenderStrategy& getDefaultScene3DDeferredRenderStrategy();
+
 private:
     std::mutex renderMutex;
     engine::Engine& engine;
@@ -248,6 +272,11 @@ private:
     rg::AssetFactory assetFactory;
     scene::SceneSync sceneSync;
     sig::Channel signalChannel;
+
+    rgi::OverlayRenderStrategy overlayStrategy;
+    rgi::Scene2DRenderStrategy scene2DStrategy;
+    rgi::Scene3DForwardRenderStrategy scene3DForwardStrategy;
+    rgi::Scene3DDeferredRenderStrategy scene3DDeferredStrategy;
 
     Renderer(engine::Engine& engine, engine::EngineWindow& window);
     ~Renderer();
@@ -333,6 +362,22 @@ inline Settings& Renderer::getSettings() { return settings; }
 inline const Settings& Renderer::getSettings() const { return settings; }
 
 inline sig::Channel& Renderer::getSignalChannel() { return signalChannel; }
+
+inline rgi::OverlayRenderStrategy& Renderer::getDefaultOverlayRenderStrategy() {
+    return overlayStrategy;
+}
+
+inline rgi::Scene2DRenderStrategy& Renderer::getDefaultScene2DRenderStrategy() {
+    return scene2DStrategy;
+}
+
+inline rgi::Scene3DForwardRenderStrategy& Renderer::getDefaultScene3DForwardRenderStrategy() {
+    return scene3DForwardStrategy;
+}
+
+inline rgi::Scene3DDeferredRenderStrategy& Renderer::getDefaultScene3DDeferredRenderStrategy() {
+    return scene3DDeferredStrategy;
+}
 
 } // namespace rc
 } // namespace bl

@@ -2,8 +2,6 @@
 
 #include <BLIB/Cameras/3D/Camera3D.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene3DFactory.hpp>
-#include <BLIB/Render/Graph/Strategies/Scene3DDeferredRenderStrategy.hpp>
-#include <BLIB/Render/Graph/Strategies/Scene3DForwardRenderStrategy.hpp>
 
 namespace bl
 {
@@ -16,8 +14,7 @@ namespace
 constexpr float DefaultNear = 0.1f;
 constexpr float DefaultFar  = 100.f;
 
-rgi::Scene3DDeferredRenderStrategy defaultStrategy;
-rg::Strategy* strategy = &defaultStrategy;
+rg::Strategy* strategy = nullptr;
 } // namespace
 
 Scene3D::Scene3D(engine::Engine& e)

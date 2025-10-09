@@ -2,7 +2,6 @@
 
 #include <BLIB/Cameras/2D/Camera2D.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene2DFactory.hpp>
-#include <BLIB/Render/Graph/Strategies/Scene2DRenderStrategy.hpp>
 
 namespace bl
 {
@@ -15,8 +14,7 @@ namespace
 constexpr float DefaultNear = 0.f;
 constexpr float DefaultFar  = 1000.f;
 
-rgi::Scene2DRenderStrategy defaultStrategy;
-rg::Strategy* strategy = &defaultStrategy;
+rg::Strategy* strategy = nullptr;
 } // namespace
 
 Scene2D::Scene2D(engine::Engine& e)
