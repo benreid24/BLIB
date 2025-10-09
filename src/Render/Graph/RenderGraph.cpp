@@ -208,9 +208,8 @@ void RenderGraph::update(float dt) {
 }
 
 bool RenderGraph::needsRepopulation() const {
-    return needsReset || (scene && strategy &&
-                          (scene->getRenderStrategy() != strategy ||
-                           scene->getRenderStrategy()->getVersion() != strategy->getVersion()));
+    return needsReset || (scene && scene->getRenderStrategy() != strategy) ||
+           (strategy && strategyVersion != strategy->getVersion());
 }
 
 } // namespace rg

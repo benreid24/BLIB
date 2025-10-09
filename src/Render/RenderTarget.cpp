@@ -130,28 +130,33 @@ void RenderTarget::onSceneChange() {
 
 void RenderTarget::handleDescriptorSync() {
     if (hasScene()) {
-        if (!scenes.back().camera) {
-            if (!dynamic_cast<Overlay*>(scenes.back().scene.get())) {
+        auto& currentScene = scenes.back();
+
+        if (!currentScene.camera) {
+            if (!dynamic_cast<Overlay*>(currentScene.scene.get())) {
                 BL_LOG_WARN
                     << "Scene being rendered before having a camera set. Creating default camera";
             }
-            scenes.back().camera = scenes.back().scene->createDefaultCamera();
-            scenes.back().scene->setDefaultNearAndFarPlanes(*scenes.back().camera);
+            currentScene.camera = currentScene.scene->createDefaultCamera();
+            currentScene.scene->setDefaultNearAndFarPlanes(*currentScene.camera);
         }
 
-        scenes.back().scene->updateObserverCamera(
-            scenes.back().observerIndex,
-            {scenes.back().camera->getProjectionMatrix(viewport),
-             scenes.back().camera->getViewMatrix(),
-             scenes.back().camera->getObserverPosition()});
-        scenes.back().scene->handleDescriptorSync();
-        if (scenes.back().overlay) {
-            scenes.back().overlay->updateObserverCamera(
-                scenes.back().overlayIndex,
-                {overlayCamera.getProjectionMatrix(viewport),
-                 overlayCamera.getViewMatrix(),
-                 glm::vec3()});
-            scenes.back().overlay->handleDescriptorSync();
+        if (currentScene.graph.needsRepopulation()) {
+            currentScene.graph.populate(*currentScene.scene);
+        }
+
+        currentScene.scene->updateObserverCamera(
+            currentScene.observerIndex,
+            {currentScene.camera->getProjectionMatrix(viewport),
+             currentScene.camera->getViewMatrix(),
+             currentScene.camera->getObserverPosition()});
+        currentScene.scene->handleDescriptorSync();
+        if (currentScene.overlay) {
+            currentScene.overlay->updateObserverCamera(currentScene.overlayIndex,
+                                                       {overlayCamera.getProjectionMatrix(viewport),
+                                                        overlayCamera.getViewMatrix(),
+                                                        glm::vec3()});
+            currentScene.overlay->handleDescriptorSync();
         }
     }
 }
@@ -211,17 +216,14 @@ void RenderTarget::setCamera(std::unique_ptr<cam::Camera>&& cam) {
 
 void RenderTarget::renderScene(VkCommandBuffer commandBuffer) {
     if (hasScene()) {
+        auto& currentScene = scenes.back();
 #ifdef BLIB_DEBUG
-        if (!scenes.back().camera) {
+        if (!currentScene.camera) {
             BL_LOG_ERROR << "Scene pushed to RenderTarget without calling setCamera()";
         }
 #endif
 
-        if (scenes.back().graph.needsRepopulation()) {
-            scenes.back().graph.populate(*scenes.back().scene);
-        }
-
-        scenes.back().graph.execute(commandBuffer, scenes.back().observerIndex, isRenderTexture);
+        currentScene.graph.execute(commandBuffer, currentScene.observerIndex, isRenderTexture);
     }
 }
 
