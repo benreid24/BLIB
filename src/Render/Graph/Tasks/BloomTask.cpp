@@ -99,7 +99,7 @@ void BloomTask::execute(const rg::ExecutionContext& ctx, rg::Asset*) {
     // copy only highlights to first target
     targets[0]->beginRender(ctx.commandBuffer, true);
     filterHighlightPipeline->bind(ctx.commandBuffer, cfg::RenderPassIds::BloomPass, 0);
-    inputAttachmentDescriptor->bind(ctx.commandBuffer, layout, 0);
+    inputAttachmentDescriptor->bind(ctx.commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, 0);
     vkCmdPushConstants(ctx.commandBuffer,
                        layout,
                        VK_SHADER_STAGE_FRAGMENT_BIT,
@@ -122,7 +122,8 @@ void BloomTask::execute(const rg::ExecutionContext& ctx, rg::Asset*) {
 
         const std::uint32_t nextTarget = (currentTarget + 1) % 2;
         targets[currentTarget]->beginRender(ctx.commandBuffer, false);
-        attachments[nextTarget]->bind(ctx.commandBuffer, layout, 0);
+        attachments[nextTarget]->bind(
+            ctx.commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, 0);
         indexBuffer.bindAndDraw(ctx.commandBuffer);
         targets[currentTarget]->finishRender(ctx.commandBuffer);
         currentTarget = nextTarget;

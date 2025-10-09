@@ -10,14 +10,14 @@ namespace rc
 {
 namespace
 {
-constexpr float DefaultGamma                  = 2.2f;
-constexpr bool DefaultHDREnabled              = true;
-constexpr float DefaultExposureFactor         = 1.f;
-constexpr bool DefaultAutoHDREnabled          = false;
-constexpr Settings::AutoHdrSettings DefaultAutoHDRSettings = {1.f, 0.1f, 5.f, 0.05f};
-constexpr bool DefaultBloomEnabled            = true;
-constexpr std::uint32_t DefaultBloomPassCount = 2;
-constexpr float DefaultBloomThreshold         = 1.f;
+constexpr float DefaultGamma                               = 2.2f;
+constexpr bool DefaultHDREnabled                           = true;
+constexpr float DefaultExposureFactor                      = 1.f;
+constexpr bool DefaultAutoHDREnabled                       = false;
+constexpr Settings::AutoHdrSettings DefaultAutoHDRSettings = {0.3f, 0.1f, 5.f, 2.f};
+constexpr bool DefaultBloomEnabled                         = true;
+constexpr std::uint32_t DefaultBloomPassCount              = 2;
+constexpr float DefaultBloomThreshold                      = 1.f;
 constexpr float DefaultBloomFilters[] = {0.227027f, 0.1945946f, 0.1216216f, 0.054054f, 0.016216f};
 constexpr VkExtent2D DefaultShadowMapResolution         = {1024, 1024};
 constexpr float DefaultShadowMapDepthBiasConstantFactor = 1.25f;

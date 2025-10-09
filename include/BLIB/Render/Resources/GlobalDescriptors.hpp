@@ -43,12 +43,14 @@ public:
      * @brief Helper method to bind the descriptor set
      *
      * @param commandBuffer Command buffer to issue bind command into
+     * @param pipelineBindPoint The bind point of the active pipeline
      * @param pipelineLayout The layout of the active pipeline
      * @param setIndex The index to bind to
      * @param forRenderTexture True to omit RT images, false to bind all
      */
-    void bindDescriptors(VkCommandBuffer commandBuffer, VkPipelineLayout pipelineLayout,
-                         std::uint32_t setIndex, bool forRenderTexture);
+    void bindDescriptors(VkCommandBuffer commandBuffer, VkPipelineBindPoint pipelineBindPoint,
+                         VkPipelineLayout pipelineLayout, std::uint32_t setIndex,
+                         bool forRenderTexture);
 
     /**
      * @brief Creates the global descriptor sets and initializes the texture and material pools

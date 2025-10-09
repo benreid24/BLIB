@@ -81,10 +81,19 @@ void PostProcess3DTask::execute(const rg::ExecutionContext& ctx, rg::Asset* outp
     if (!fb) { throw std::runtime_error("Got bad output"); }
 
     pipeline->bind(ctx.commandBuffer, fb->getRenderPassId(), 0);
-    colorAttachmentSet->bind(ctx.commandBuffer, pipeline->pipelineLayout().rawLayout(), 0);
-    bloomAttachmentSet->bind(ctx.commandBuffer, pipeline->pipelineLayout().rawLayout(), 1);
-    renderer->getGlobalDescriptorData().bindDescriptors(
-        ctx.commandBuffer, pipeline->pipelineLayout().rawLayout(), 2, ctx.renderingToRenderTexture);
+    colorAttachmentSet->bind(ctx.commandBuffer,
+                             VK_PIPELINE_BIND_POINT_GRAPHICS,
+                             pipeline->pipelineLayout().rawLayout(),
+                             0);
+    bloomAttachmentSet->bind(ctx.commandBuffer,
+                             VK_PIPELINE_BIND_POINT_GRAPHICS,
+                             pipeline->pipelineLayout().rawLayout(),
+                             1);
+    renderer->getGlobalDescriptorData().bindDescriptors(ctx.commandBuffer,
+                                                        VK_PIPELINE_BIND_POINT_GRAPHICS,
+                                                        pipeline->pipelineLayout().rawLayout(),
+                                                        2,
+                                                        ctx.renderingToRenderTexture);
     indexBuffer.bindAndDraw(ctx.commandBuffer);
 }
 

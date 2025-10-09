@@ -21,7 +21,7 @@ Scene2DInstance::~Scene2DInstance() {
 void Scene2DInstance::bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                       std::uint32_t setIndex, UpdateSpeed) const {
     vkCmdBindDescriptorSets(ctx.getCommandBuffer(),
-                            VK_PIPELINE_BIND_POINT_GRAPHICS,
+                            ctx.getPipelineBindPoint(),
                             layout,
                             setIndex,
                             1,

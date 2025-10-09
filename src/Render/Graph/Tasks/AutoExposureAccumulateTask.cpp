@@ -53,7 +53,7 @@ void AutoExposureAccumulateTask::execute(const rg::ExecutionContext& ctx, rg::As
     const std::uint32_t xGroups = w / WorkGroupSize + (w % WorkGroupSize != 0 ? 1 : 0);
     const std::uint32_t yGroups = h / WorkGroupSize + (h % WorkGroupSize != 0 ? 1 : 0);
 
-    pipeline.bind(ctx, cfg::RenderPhases::PostProcess);
+    pipeline.bind(ctx, cfg::RenderPhases::Compute);
     pipeline.getComputePipeline()->exec(ctx.commandBuffer, xGroups, yGroups);
 
     // asset handles buffer barrier for write -> read

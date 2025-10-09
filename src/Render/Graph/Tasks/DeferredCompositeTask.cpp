@@ -75,8 +75,9 @@ void DeferredCompositeTask::execute(const rg::ExecutionContext& ctx, rg::Asset* 
 
     // bind sun pipeline & all descriptors
     pipeline->bind(ctx.commandBuffer, fb->getRenderPassId(), 0);
-    gbufferDescriptor->bind(ctx.commandBuffer, layout, 0);
-    sceneDescriptor->bind(ctx.commandBuffer, layout, 1, ctx.observerIndex);
+    gbufferDescriptor->bind(ctx.commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, 0);
+    sceneDescriptor->bind(
+        ctx.commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, 1, ctx.observerIndex);
 
     // render sun
     sunRectBuffer.bindAndDraw(ctx.commandBuffer);

@@ -62,12 +62,14 @@ public:
      * @brief Binds the descriptor set
      *
      * @param commandBuffer The command buffer to write the command into
+     * @param pipelineBindPoint The bind point of the active pipeline
      * @param pipelineLayout The current pipeline layout
      * @param bindIndex The set index to bind to
      * @param observerIndex The index of the current observer to bind for
      */
-    void bind(VkCommandBuffer commandBuffer, VkPipelineLayout pipelineLayout,
-              std::uint32_t bindIndex, std::uint32_t observerIndex);
+    void bind(VkCommandBuffer commandBuffer, VkPipelineBindPoint pipelineBindPoint,
+              VkPipelineLayout pipelineLayout, std::uint32_t bindIndex,
+              std::uint32_t observerIndex);
 
     /**
      * @brief Returns the lighting uniform value

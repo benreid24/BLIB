@@ -28,8 +28,8 @@ InputAttachmentInstance::~InputAttachmentInstance() {
     vulkanState.descriptorPool.release(dsAlloc, descriptorSets.rawData());
 }
 
-void InputAttachmentInstance::bind(VkCommandBuffer commandBuffer, VkPipelineLayout layout,
-                                   std::uint32_t setIndex) const {
+void InputAttachmentInstance::bind(VkCommandBuffer commandBuffer, VkPipelineBindPoint bindPoint,
+                                   VkPipelineLayout layout, std::uint32_t setIndex) const {
     const vk::AttachmentSet* attachments = source.get(vulkanState.currentFrameIndex());
     auto& cached                         = cachedViews.getRaw(vulkanState.currentFrameIndex());
 
@@ -71,20 +71,14 @@ void InputAttachmentInstance::bind(VkCommandBuffer commandBuffer, VkPipelineLayo
         vkUpdateDescriptorSets(vulkanState.device, attachmentCount, write.data(), 0, nullptr);
     }
 
-    vkCmdBindDescriptorSets(commandBuffer,
-                            VK_PIPELINE_BIND_POINT_GRAPHICS,
-                            layout,
-                            setIndex,
-                            1,
-                            &descriptorSets.current(),
-                            0,
-                            nullptr);
+    vkCmdBindDescriptorSets(
+        commandBuffer, bindPoint, layout, setIndex, 1, &descriptorSets.current(), 0, nullptr);
 }
 
 void InputAttachmentInstance::bindForPipeline(scene::SceneRenderContext& ctx,
                                               VkPipelineLayout layout, std::uint32_t setIndex,
                                               UpdateSpeed) const {
-    bind(ctx.getCommandBuffer(), layout, setIndex);
+    bind(ctx.getCommandBuffer(), ctx.getPipelineBindPoint(), layout, setIndex);
 }
 
 void InputAttachmentInstance::initAttachments(const vk::AttachmentSet* set, VkSampler smp) {

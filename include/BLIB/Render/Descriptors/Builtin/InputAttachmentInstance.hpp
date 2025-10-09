@@ -58,10 +58,12 @@ public:
      *        changed
      *
      * @param commandBuffer The command buffer to write commands into
+     * @param pipelineBindPoint The bind point of the active pipeline
      * @param layout The layout of the current pipeline
      * @param setIndex The index to bind the set at
      */
-    void bind(VkCommandBuffer commandBuffer, VkPipelineLayout layout, std::uint32_t setIndex) const;
+    void bind(VkCommandBuffer commandBuffer, VkPipelineBindPoint pipelineBindPoint,
+              VkPipelineLayout layout, std::uint32_t setIndex) const;
 
 private:
     class Source {

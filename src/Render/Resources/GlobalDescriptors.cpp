@@ -19,11 +19,11 @@ GlobalDescriptors::GlobalDescriptors(Renderer& renderer, TexturePool& texturePoo
 , materialPool(materialPool)
 , accumulatedTimings{} {}
 
-void GlobalDescriptors::bindDescriptors(VkCommandBuffer cb, VkPipelineLayout pipelineLayout,
-                                        std::uint32_t setIndex, bool forRt) {
+void GlobalDescriptors::bindDescriptors(VkCommandBuffer cb, VkPipelineBindPoint bindPoint,
+                                        VkPipelineLayout pipelineLayout, std::uint32_t setIndex,
+                                        bool forRt) {
     const VkDescriptorSet ds = forRt ? rtDescriptorSets.current() : descriptorSets.current();
-    vkCmdBindDescriptorSets(
-        cb, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout, setIndex, 1, &ds, 0, nullptr);
+    vkCmdBindDescriptorSets(cb, bindPoint, pipelineLayout, setIndex, 1, &ds, 0, nullptr);
 }
 
 void GlobalDescriptors::init() {

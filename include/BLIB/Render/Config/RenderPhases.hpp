@@ -36,6 +36,9 @@ struct RenderPhases {
 
     /// Use when rendering an object outline
     static constexpr RenderPhase Outline = 6;
+
+    /// Use when doing compute work
+    static constexpr RenderPhase Compute = 7;
 };
 
 } // namespace cfg

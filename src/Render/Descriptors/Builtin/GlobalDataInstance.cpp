@@ -14,7 +14,11 @@ GlobalDataInstance::GlobalDataInstance(res::GlobalDescriptors& globals)
 
 void GlobalDataInstance::bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                          std::uint32_t setIndex, UpdateSpeed) const {
-    globals.bindDescriptors(ctx.getCommandBuffer(), layout, setIndex, ctx.targetIsRenderTexture());
+    globals.bindDescriptors(ctx.getCommandBuffer(),
+                            ctx.getPipelineBindPoint(),
+                            layout,
+                            setIndex,
+                            ctx.targetIsRenderTexture());
 }
 
 void GlobalDataInstance::bindForObject(scene::SceneRenderContext&, VkPipelineLayout, std::uint32_t,

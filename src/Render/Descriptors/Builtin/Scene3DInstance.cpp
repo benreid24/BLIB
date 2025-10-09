@@ -27,10 +27,11 @@ Scene3DInstance::~Scene3DInstance() {
     uniform.destroy();
 }
 
-void Scene3DInstance::bind(VkCommandBuffer commandBuffer, VkPipelineLayout pipelineLayout,
-                           std::uint32_t bindIndex, std::uint32_t observerIndex) {
+void Scene3DInstance::bind(VkCommandBuffer commandBuffer, VkPipelineBindPoint bindPoint,
+                           VkPipelineLayout pipelineLayout, std::uint32_t bindIndex,
+                           std::uint32_t observerIndex) {
     vkCmdBindDescriptorSets(commandBuffer,
-                            VK_PIPELINE_BIND_POINT_GRAPHICS,
+                            bindPoint,
                             pipelineLayout,
                             bindIndex,
                             1,
@@ -42,7 +43,7 @@ void Scene3DInstance::bind(VkCommandBuffer commandBuffer, VkPipelineLayout pipel
 void Scene3DInstance::bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                       std::uint32_t setIndex, UpdateSpeed) const {
     vkCmdBindDescriptorSets(ctx.getCommandBuffer(),
-                            VK_PIPELINE_BIND_POINT_GRAPHICS,
+                            ctx.getPipelineBindPoint(),
                             layout,
                             setIndex,
                             1,

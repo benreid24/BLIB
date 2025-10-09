@@ -13,30 +13,37 @@ shared float tileSum[LOCAL_SIZE * LOCAL_SIZE];
 
 void main() {
     uint localIndex = gl_LocalInvocationIndex;
-    if (localIndex == 0) {
-        totalLuminosity = 0.0;
-    }
-    barrier();
-
     ivec2 imgSize = textureSize(renderedScene, 0);
     ivec2 globalID = ivec2(gl_GlobalInvocationID.xy);
+    bool isInRange = globalID.x < imgSize.x && globalID.y < imgSize.y;
 
-    if (globalID.x >= imgSize.x || globalID.y >= imgSize.y) {
-        return;
+    if (isInRange) {
+        vec3 color = texelFetch(renderedScene, globalID, 0).rgb; // pre-tonemap
+        float lum = dot(color, vec3(0.2126, 0.7152, 0.0722));
+        // lum = log(max(lum, 1e/-4)); / TODO - do we need this?
+        tileSum[localIndex] = lum;
     }
-
-    vec3 color = texelFetch(renderedScene, globalID, 0).rgb; // pre-tonemap
-    float lum = dot(color, vec3(0.2126, 0.7152, 0.0722));
-    // lum = log(max(lum, 1e-4)); // TODO - do we need this?
-    tileSum[localIndex] = lum;
+    else {
+        tileSum[localIndex] = 0.0;
+    }
+    memoryBarrierShared();
     barrier();
 
     uint stride = gl_WorkGroupSize.x * gl_WorkGroupSize.y / 2;
     while (stride > 0) {
         if (localIndex < stride) {
-            tileSum[localIndex] += tileSum[localIndex + stride];
+            float current = tileSum[localIndex];
+            if (isinf(current) || isnan(current)) {
+                current = 0.0;
+            }
+            float toAdd = tileSum[localIndex + stride];
+             if (isinf(toAdd) || isnan(toAdd)) {
+                toAdd = 0.0;
+            }
+            tileSum[localIndex] = current + toAdd;
         }
         stride /= 2;
+        memoryBarrierShared();
         barrier();
     }
 

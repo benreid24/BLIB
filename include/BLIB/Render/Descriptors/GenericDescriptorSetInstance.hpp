@@ -133,7 +133,7 @@ void GenericDescriptorSetInstance<TBindings>::bindForPipeline(scene::SceneRender
         bindings.getDynamicOffsets(ctx, layout, setIndex, updateFreq, dynamicOffsets);
 
     vkCmdBindDescriptorSets(ctx.getCommandBuffer(),
-                            VK_PIPELINE_BIND_POINT_GRAPHICS,
+                            ctx.getPipelineBindPoint(),
                             layout,
                             setIndex,
                             1,

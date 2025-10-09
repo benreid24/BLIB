@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_RENDERER_SCENERENDERCONTEXT_HPP
 #define BLIB_RENDER_RENDERER_SCENERENDERCONTEXT_HPP
 
+#include <BLIB/Render/Config/RenderPhases.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Materials/MaterialPipeline.hpp>
 #include <BLIB/Render/Primitives/DrawParameters.hpp>
@@ -78,6 +79,11 @@ public:
     RenderPhase getRenderPhase() const;
 
     /**
+     * @brief Returns the pipeline bind point to use for descriptor binding
+     */
+    VkPipelineBindPoint getPipelineBindPoint() const;
+
+    /**
      * @brief Returns the command buffer to use for rendering
      */
     VkCommandBuffer getCommandBuffer() const;
@@ -152,6 +158,11 @@ inline VkCommandBuffer SceneRenderContext::getCommandBuffer() const { return com
 inline const VkViewport& SceneRenderContext::parentViewport() const { return viewport; }
 
 inline RenderPhase SceneRenderContext::getRenderPhase() const { return renderPhase; }
+
+inline VkPipelineBindPoint SceneRenderContext::getPipelineBindPoint() const {
+    return renderPhase == cfg::RenderPhases::Compute ? VK_PIPELINE_BIND_POINT_COMPUTE :
+                                                       VK_PIPELINE_BIND_POINT_GRAPHICS;
+}
 
 inline std::uint32_t SceneRenderContext::currentRenderPass() const { return renderPassId; }
 
