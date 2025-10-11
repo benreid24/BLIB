@@ -4,7 +4,6 @@ target_sources(BLIB PRIVATE
 	DescriptorSetInstanceCache.cpp
 	SceneDescriptorSetInstance.cpp
 	SetWriteHelper.cpp
-	ShaderInputStore.cpp
 )
 
 add_subdirectory(Builtin)

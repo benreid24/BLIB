@@ -40,7 +40,6 @@
 #include <BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
-#include <BLIB/Render/Descriptors/ShaderInputs/EntityComponentShaderInput.hpp>
 #include <BLIB/Render/Descriptors/Generic/Binding.hpp>
 #include <BLIB/Render/Descriptors/Generic/GlobalStorageBuffer.hpp>
 #include <BLIB/Render/Descriptors/Generic/GlobalUniformBuffer.hpp>
@@ -49,7 +48,6 @@
 #include <BLIB/Render/Descriptors/GenericDescriptorSetInstance.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
 #include <BLIB/Render/Descriptors/SetWriteHelper.hpp>
-#include <BLIB/Render/Descriptors/ShaderInputStore.hpp>
 #include <BLIB/Render/Events/SceneDestroyed.hpp>
 #include <BLIB/Render/Events/SceneObjectRemoved.hpp>
 #include <BLIB/Render/Graph/Asset.hpp>
@@ -104,6 +102,8 @@
 #include <BLIB/Render/Scenes/SceneObject.hpp>
 #include <BLIB/Render/Scenes/SceneObjectStorage.hpp>
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>
+#include <BLIB/Render/ShaderResources/EntityComponentShaderResource.hpp>
+#include <BLIB/Render/ShaderResources/ShaderResourceStore.hpp>
 #include <BLIB/Render/Transfers/TransferContext.hpp>
 #include <BLIB/Render/Transfers/TransferEngine.hpp>
 #include <BLIB/Render/Transfers/Transferable.hpp>

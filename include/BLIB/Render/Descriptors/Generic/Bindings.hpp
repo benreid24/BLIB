@@ -39,7 +39,7 @@ public:
      * @param engine Renderer Vulkan state
      * @storageCache Descriptor component storage cache for ECS backed data
      */
-    void init(vk::VulkanState& vulkanState, ShaderInputStore& storageCache);
+    void init(vk::VulkanState& vulkanState, sr::ShaderResourceStore& storageCache);
 
     /**
      * @brief Fetches the payload of the given type from one of the contained bindings
@@ -188,7 +188,8 @@ VkDescriptorType Bindings<TBindings...>::getTypeHelper(std::uint32_t index) cons
 }
 
 template<typename... TBindings>
-void Bindings<TBindings...>::init(vk::VulkanState& vulkanState, ShaderInputStore& storageCache) {
+void Bindings<TBindings...>::init(vk::VulkanState& vulkanState,
+                                  sr::ShaderResourceStore& storageCache) {
     std::size_t index = 0;
     ((std::get<TBindings>(bindings).index = index++), ...);
     ((std::get<TBindings>(bindings).init(vulkanState, storageCache)), ...);

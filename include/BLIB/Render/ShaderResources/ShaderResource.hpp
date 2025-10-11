@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_DESCRIPTORS_SHADERINPUT_HPP
-#define BLIB_RENDER_DESCRIPTORS_SHADERINPUT_HPP
+#ifndef BLIB_RENDER_SHADERASSETS_SHADERASSET_HPP
+#define BLIB_RENDER_SHADERASSETS_SHADERASSET_HPP
 
 #include <BLIB/Render/Scenes/Key.hpp>
 
@@ -19,20 +19,21 @@ namespace vk
 struct VulkanState;
 }
 
-namespace ds
+/// Module containing shader resources like images and buffers
+namespace sr
 {
 /**
  * @brief Base class for shader inputs. Shader inputs are the images and buffers that descriptors
- *        point to. Descriptor sets share shader inputs for common data via the ShaderInputStore
+ *        point to. Descriptor sets share shader inputs for common data via the ShaderResourceStore
  *
  * @ingroup Renderer
  */
-class ShaderInput {
+class ShaderResource {
 public:
     /**
      * @brief Destroys the shader input
      */
-    virtual ~ShaderInput() = default;
+    virtual ~ShaderResource() = default;
 
     /**
      * @brief Derived classes should allocate resources here
@@ -71,7 +72,7 @@ public:
     virtual bool staticDescriptorUpdateRequired() const = 0;
 };
 
-} // namespace ds
+} // namespace sr
 } // namespace rc
 } // namespace bl
 

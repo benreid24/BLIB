@@ -1,9 +1,8 @@
-#ifndef BLIB_RENDER_DESCRIPTORS_SHADERINPUTSTORE_HPP
-#define BLIB_RENDER_DESCRIPTORS_SHADERINPUTSTORE_HPP
+#ifndef BLIB_RENDER_SHADERRESOURCES_SHADERRESOURCESTORE_HPP
+#define BLIB_RENDER_SHADERRESOURCES_SHADERRESOURCESTORE_HPP
 
-#include <BLIB/Render/Descriptors/ShaderInput.hpp>
-#include <BLIB/Render/Descriptors/ShaderInputs/EntityComponentShaderInput.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
+#include <BLIB/Render/ShaderResources/ShaderResource.hpp>
 #include <memory>
 #include <string>
 #include <typeindex>
@@ -20,7 +19,7 @@ namespace rc
 {
 class RenderTarget;
 
-namespace ds
+namespace sr
 {
 /**
  * @brief Cache for shader inputs for descriptor sets. Shader inputs are instantiated
@@ -28,7 +27,7 @@ namespace ds
  *
  * @ingroup Renderer
  */
-class ShaderInputStore {
+class ShaderResourceStore {
 public:
     /**
      * @brief Creates a new shader input store
@@ -37,12 +36,13 @@ public:
      * @param owner The scene that owns the input store
      * @param entityCb Callback to map scene id to ECS id
      */
-    ShaderInputStore(engine::Engine& engine, Scene& owner, const scene::MapKeyToEntityCb& entityCb);
+    ShaderResourceStore(engine::Engine& engine, Scene& owner,
+                        const scene::MapKeyToEntityCb& entityCb);
 
     /**
      * @brief Release resources
      */
-    ~ShaderInputStore();
+    ~ShaderResourceStore();
 
     /**
      * @brief Gets or creates the requested shader input using the type as the id
@@ -81,22 +81,22 @@ private:
     engine::Engine& engine;
     Scene& owner;
     const scene::MapKeyToEntityCb entityCb;
-    std::unordered_map<std::string, std::unique_ptr<ShaderInput>> cache;
+    std::unordered_map<std::string, std::unique_ptr<ShaderResource>> cache;
 
-    void initInput(ShaderInput& input);
+    void initInput(ShaderResource& input);
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename TInput, typename... TArgs>
-TInput* ShaderInputStore::getShaderInput(TArgs&&... args) {
+TInput* ShaderResourceStore::getShaderInput(TArgs&&... args) {
     return getShaderInputWithId<TInput>(typeid(TInput).name(), std::forward<TArgs>(args)...);
 }
 
 template<typename TInput, typename... TArgs>
-TInput* ShaderInputStore::getShaderInputWithId(const std::string& id, TArgs&&... args) {
-    static_assert(std::is_base_of<ShaderInput, TInput>::value,
-                  "TInput must be derived from ShaderInput");
+TInput* ShaderResourceStore::getShaderInputWithId(const std::string& id, TArgs&&... args) {
+    static_assert(std::is_base_of<ShaderResource, TInput>::value,
+                  "TInput must be derived from ShaderResource");
 
     auto it = cache.find(id);
     if (it == cache.end()) {
@@ -106,7 +106,7 @@ TInput* ShaderInputStore::getShaderInputWithId(const std::string& id, TArgs&&...
     return static_cast<TInput*>(it->second.get());
 }
 
-} // namespace ds
+} // namespace sr
 } // namespace rc
 } // namespace bl
 

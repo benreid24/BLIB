@@ -7,10 +7,7 @@ target_sources(BLIB PUBLIC
 	GenericDescriptorSetInstance.hpp
 	SceneDescriptorSetInstance.hpp
 	SetWriteHelper.hpp
-	ShaderInput.hpp
-	ShaderInputStore.hpp
 )
 
 add_subdirectory(Builtin)
 add_subdirectory(Generic)
-add_subdirectory(ShaderInputs)

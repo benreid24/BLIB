@@ -30,7 +30,7 @@ void GlobalDataInstance::releaseObject(ecs::Entity, scene::Key) {
     // noop
 }
 
-void GlobalDataInstance::init(ds::ShaderInputStore&) {
+void GlobalDataInstance::init(sr::ShaderResourceStore&) {
     // noop
 }
 

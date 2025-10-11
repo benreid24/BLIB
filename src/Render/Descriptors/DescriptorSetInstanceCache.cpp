@@ -6,7 +6,7 @@ namespace rc
 {
 namespace ds
 {
-DescriptorSetInstanceCache::DescriptorSetInstanceCache(ShaderInputStore& storageCache)
+DescriptorSetInstanceCache::DescriptorSetInstanceCache(sr::ShaderResourceStore& storageCache)
 : storageCache(storageCache) {
     sceneSets.reserve(4);
 }

@@ -2,10 +2,10 @@
 #define BLIB_RENDER_DESCRIPTORS_SHADERINPUTS_ASSETBUFFERSHADERINPUT_HPP
 
 #include <BLIB/Render/Config/Limits.hpp>
-#include <BLIB/Render/Descriptors/ShaderInput.hpp>
 #include <BLIB/Render/Events/GraphEvents.hpp>
 #include <BLIB/Render/Graph/Assets/GenericBufferAsset.hpp>
 #include <BLIB/Render/Graph/GraphAsset.hpp>
+#include <BLIB/Render/ShaderResources/ShaderResource.hpp>
 #include <BLIB/Signals/Listener.hpp>
 #include <cstdint>
 #include <stdexcept>
@@ -18,7 +18,7 @@ namespace bl
 {
 namespace rc
 {
-namespace ds
+namespace sr
 {
 /**
  * @brief Shader input that provides access to generic buffer assets from the render graph
@@ -27,8 +27,8 @@ namespace ds
  * @ingroup Renderer
  */
 template<typename TAsset>
-class AssetBufferShaderInput
-: public ShaderInput
+class AssetBufferShaderResource
+: public ShaderResource
 , public sig::Listener<event::SceneGraphAssetInitialized> {
     static_assert(std::is_base_of_v<rgi::GenericBufferAsset, TAsset>,
                   "TAsset must derive from GenericBufferAsset");
@@ -37,14 +37,14 @@ public:
     /**
      * @brief Initializes the asset buffer shader input
      */
-    AssetBufferShaderInput()
+    AssetBufferShaderResource()
     : asset(nullptr)
     , dirtyFrames(0) {}
 
     /**
      * @brief Destroys the shader input
      */
-    virtual ~AssetBufferShaderInput() = default;
+    virtual ~AssetBufferShaderResource() = default;
 
     /**
      * @brief Subscribes to the renderer event channel
@@ -126,7 +126,7 @@ protected:
     }
 };
 
-} // namespace ds
+} // namespace sr
 } // namespace rc
 } // namespace bl
 

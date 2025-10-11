@@ -3,6 +3,7 @@
 
 #include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
+#include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 
@@ -117,7 +118,7 @@ private:
     virtual void bindForObject(scene::SceneRenderContext&, VkPipelineLayout, std::uint32_t,
                                scene::Key) const override {}
     virtual void releaseObject(ecs::Entity, scene::Key) override {}
-    virtual void init(ds::ShaderInputStore&) override {}
+    virtual void init(sr::ShaderResourceStore&) override {}
     virtual bool allocateObject(ecs::Entity, scene::Key) override { return true; }
     virtual void handleFrameStart() override {}
 };

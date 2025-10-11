@@ -3,8 +3,8 @@
 
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/Logging.hpp>
-#include <BLIB/Render/Descriptors/ShaderInputs/EntityComponentShaderInput.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
+#include <BLIB/Render/ShaderResources/EntityComponentShaderResource.hpp>
 #include <array>
 #include <cstdint>
 #include <type_traits>
@@ -65,7 +65,7 @@ public:
      * @param descriptorSet The descriptor set module to link to
      * @param sceneKeyh The key of the object in the scene
      */
-    void link(ds::EntityComponentShaderInputBase* descriptorSet, scene::Key sceneKey);
+    void link(sr::EntityComponentShaderResourceBase* descriptorSet, scene::Key sceneKey);
 
     /**
      * @brief Unlinks the component from a scene object
@@ -97,7 +97,7 @@ protected:
     bool isDirty() const;
 
 private:
-    ds::EntityComponentShaderInputBase* descriptorSet;
+    sr::EntityComponentShaderResourceBase* descriptorSet;
     scene::Key sceneKey;
     bool dirty;
 };
@@ -115,7 +115,7 @@ DescriptorComponentBase<TCom, TFirstPayload, TPayloads...>::DescriptorComponentB
 
 template<typename TCom, typename TFirstPayload, typename... TPayloads>
 void DescriptorComponentBase<TCom, TFirstPayload, TPayloads...>::link(
-    ds::EntityComponentShaderInputBase* set, scene::Key k) {
+    sr::EntityComponentShaderResourceBase* set, scene::Key k) {
 #ifdef BLIB_DEBUG
     if (descriptorSet != nullptr && descriptorSet != set) {
         BL_LOG_ERROR << "Component is used in more than one descriptor set component module";

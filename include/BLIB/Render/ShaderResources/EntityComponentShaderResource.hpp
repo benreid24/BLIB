@@ -7,8 +7,8 @@
 #include <BLIB/Render/Buffers/StaticSSBO.hpp>
 #include <BLIB/Render/Config/Constants.hpp>
 #include <BLIB/Render/Config/Limits.hpp>
-#include <BLIB/Render/Descriptors/ShaderInput.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
+#include <BLIB/Render/ShaderResources/ShaderResource.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <BLIB/Vulkan.hpp>
@@ -19,14 +19,14 @@ namespace bl
 {
 namespace rc
 {
-namespace ds
+namespace sr
 {
 /**
  * @brief Base class for shader inputs derived from ECS components
  *
  * @ingroup Renderer
  */
-class EntityComponentShaderInputBase : public ShaderInput {
+class EntityComponentShaderResourceBase : public ShaderResource {
 public:
     /**
      * @brief Represents a range of dirty elements
@@ -43,7 +43,7 @@ public:
     /**
      * @brief Does nothing
      */
-    virtual ~EntityComponentShaderInputBase() = default;
+    virtual ~EntityComponentShaderResourceBase() = default;
 
     /**
      * @brief Marks the given object's descriptors dirty for this frame
@@ -80,17 +80,17 @@ protected:
  */
 template<typename TCom, typename TPayload, typename TDynamicStorage = buf::DynamicSSBO<TPayload>,
          typename TStaticStorage = buf::StaticSSBO<TPayload>>
-class EntityComponentShaderInput : public EntityComponentShaderInputBase {
+class EntityComponentShaderResource : public EntityComponentShaderResourceBase {
 public:
     /**
      * @brief Creates a new component backed shader input
      */
-    EntityComponentShaderInput();
+    EntityComponentShaderResource();
 
     /**
      * @brief Frees resources
      */
-    virtual ~EntityComponentShaderInput() = default;
+    virtual ~EntityComponentShaderResource() = default;
 
     /**
      * @brief Creates storage buffers
@@ -168,7 +168,7 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline void EntityComponentShaderInputBase::markObjectDirty(scene::Key key, void* component) {
+inline void EntityComponentShaderResourceBase::markObjectDirty(scene::Key key, void* component) {
     auto& range = key.updateFreq == UpdateSpeed::Dynamic ? dirtyDynamic : dirtyStatic;
     if (range.start > range.end) {
         range.start = key.sceneId;
@@ -181,24 +181,24 @@ inline void EntityComponentShaderInputBase::markObjectDirty(scene::Key key, void
     dirtyComponents.emplace_back(component);
 }
 
-inline const EntityComponentShaderInputBase::DirtyRange&
-EntityComponentShaderInputBase::dirtyDynamicRange() const {
+inline const EntityComponentShaderResourceBase::DirtyRange&
+EntityComponentShaderResourceBase::dirtyDynamicRange() const {
     return dirtyDynamic;
 }
 
-inline const EntityComponentShaderInputBase::DirtyRange&
-EntityComponentShaderInputBase::dirtyStaticRange() const {
+inline const EntityComponentShaderResourceBase::DirtyRange&
+EntityComponentShaderResourceBase::dirtyStaticRange() const {
     return dirtyStatic;
 }
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
-EntityComponentShaderInput<TCom, TPayload, TDynamicStorage,
-                           TStaticStorage>::EntityComponentShaderInput()
+EntityComponentShaderResource<TCom, TPayload, TDynamicStorage,
+                              TStaticStorage>::EntityComponentShaderResource()
 : dynamicRefresh(0x1 << cfg::Limits::MaxConcurrentFrames)
 , staticRefresh(0x1 << cfg::Limits::MaxConcurrentFrames) {}
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
-void EntityComponentShaderInput<TCom, TPayload, TDynamicStorage, TStaticStorage>::init(
+void EntityComponentShaderResource<TCom, TPayload, TDynamicStorage, TStaticStorage>::init(
     engine::Engine& engine, vk::VulkanState& vulkanState, Scene&,
     const scene::MapKeyToEntityCb& entityCb) {
     registry              = &engine::HeaderHelpers::getRegistry(engine);
@@ -211,12 +211,12 @@ void EntityComponentShaderInput<TCom, TPayload, TDynamicStorage, TStaticStorage>
 }
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
-void EntityComponentShaderInput<TCom, TPayload, TDynamicStorage, TStaticStorage>::cleanup() {
+void EntityComponentShaderResource<TCom, TPayload, TDynamicStorage, TStaticStorage>::cleanup() {
     // handled by destructors
 }
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
-bool EntityComponentShaderInput<TCom, TPayload, TDynamicStorage, TStaticStorage>::allocateObject(
+bool EntityComponentShaderResource<TCom, TPayload, TDynamicStorage, TStaticStorage>::allocateObject(
     ecs::Entity entity, scene::Key key) {
     TCom* component = registry->getComponent<TCom>(entity);
     if (!component) { return false; }
@@ -245,7 +245,7 @@ bool EntityComponentShaderInput<TCom, TPayload, TDynamicStorage, TStaticStorage>
 }
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
-void EntityComponentShaderInput<TCom, TPayload, TDynamicStorage, TStaticStorage>::releaseObject(
+void EntityComponentShaderResource<TCom, TPayload, TDynamicStorage, TStaticStorage>::releaseObject(
     ecs::Entity entity, scene::Key key) {
     auto& refCounts = key.updateFreq == UpdateSpeed::Dynamic ? dynCounts : statCounts;
     if (key.sceneId >= refCounts.size()) { return; }
@@ -263,7 +263,8 @@ void EntityComponentShaderInput<TCom, TPayload, TDynamicStorage, TStaticStorage>
 }
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
-void EntityComponentShaderInput<TCom, TPayload, TDynamicStorage, TStaticStorage>::performGpuSync() {
+void EntityComponentShaderResource<TCom, TPayload, TDynamicStorage,
+                                   TStaticStorage>::performGpuSync() {
     if (dirtyStatic.end >= dirtyStatic.start) {
         staticBuffer.transferRange(dirtyStatic.start, dirtyStatic.end - dirtyStatic.start + 1);
         dirtyStatic = DirtyRange();
@@ -278,7 +279,8 @@ void EntityComponentShaderInput<TCom, TPayload, TDynamicStorage, TStaticStorage>
 }
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
-void EntityComponentShaderInput<TCom, TPayload, TDynamicStorage, TStaticStorage>::copyFromSource() {
+void EntityComponentShaderResource<TCom, TPayload, TDynamicStorage,
+                                   TStaticStorage>::copyFromSource() {
     for (void* c : dirtyComponents) {
         TCom* com         = static_cast<TCom*>(c);
         auto& payload     = (com->getSceneKey().updateFreq == UpdateSpeed::Dynamic) ?
@@ -292,29 +294,29 @@ void EntityComponentShaderInput<TCom, TPayload, TDynamicStorage, TStaticStorage>
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
 TDynamicStorage&
-EntityComponentShaderInput<TCom, TPayload, TDynamicStorage, TStaticStorage>::getDynamicBuffer() {
+EntityComponentShaderResource<TCom, TPayload, TDynamicStorage, TStaticStorage>::getDynamicBuffer() {
     return dynamicBuffer;
 }
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
 TStaticStorage&
-EntityComponentShaderInput<TCom, TPayload, TDynamicStorage, TStaticStorage>::getStaticBuffer() {
+EntityComponentShaderResource<TCom, TPayload, TDynamicStorage, TStaticStorage>::getStaticBuffer() {
     return staticBuffer;
 }
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
-bool EntityComponentShaderInput<TCom, TPayload, TDynamicStorage,
-                                TStaticStorage>::dynamicDescriptorUpdateRequired() const {
+bool EntityComponentShaderResource<TCom, TPayload, TDynamicStorage,
+                                   TStaticStorage>::dynamicDescriptorUpdateRequired() const {
     return dynamicRefresh != 0;
 }
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
-bool EntityComponentShaderInput<TCom, TPayload, TDynamicStorage,
-                                TStaticStorage>::staticDescriptorUpdateRequired() const {
+bool EntityComponentShaderResource<TCom, TPayload, TDynamicStorage,
+                                   TStaticStorage>::staticDescriptorUpdateRequired() const {
     return staticRefresh != 0;
 }
 
-} // namespace ds
+} // namespace sr
 } // namespace rc
 } // namespace bl
 

@@ -5,6 +5,7 @@
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Descriptors/SetWriteHelper.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
+#include <BLIB/Render/ShaderResources/ShaderResourceStore.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <BLIB/Vulkan.hpp>
 
@@ -71,7 +72,7 @@ public:
      * @param vulkanState Renderer Vulkan state
      * @storageCache Descriptor component storage cache for ECS backed data
      */
-    virtual void init(vk::VulkanState& vulkanState, ShaderInputStore& storageCache) = 0;
+    virtual void init(vk::VulkanState& vulkanState, sr::ShaderResourceStore& storageCache) = 0;
 
     /**
      * @brief Called to write this binding to the given descriptor set

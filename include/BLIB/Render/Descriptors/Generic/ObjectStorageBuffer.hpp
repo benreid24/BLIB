@@ -3,8 +3,8 @@
 
 #include <BLIB/Render/Buffers/DynamicSSBO.hpp>
 #include <BLIB/Render/Buffers/StaticSSBO.hpp>
-#include <BLIB/Render/Descriptors/ShaderInputs/EntityComponentShaderInput.hpp>
 #include <BLIB/Render/Descriptors/Generic/Binding.hpp>
+#include <BLIB/Render/ShaderResources/EntityComponentShaderResource.hpp>
 
 namespace bl
 {
@@ -27,8 +27,9 @@ template<typename T, typename TComponent = T, bool Optional = false,
          typename TStaticStorage  = buf::StaticSSBO<T>>
 class ObjectStorageBuffer : public Binding {
 public:
-    using TPayload     = T;
-    using TShaderInput = EntityComponentShaderInput<TComponent, T, TDynamicStorage, TStaticStorage>;
+    using TPayload = T;
+    using TShaderInput =
+        sr::EntityComponentShaderResource<TComponent, T, TDynamicStorage, TStaticStorage>;
 
     /**
      * @brief Creates the binding
@@ -44,7 +45,7 @@ public:
 
     DescriptorSetInstance::EntityBindMode getBindMode() const override;
     DescriptorSetInstance::SpeedBucketSetting getSpeedMode() const override;
-    void init(vk::VulkanState& vulkanState, ShaderInputStore& storageCache) override;
+    void init(vk::VulkanState& vulkanState, sr::ShaderResourceStore& storageCache) override;
     void writeSet(SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed speed,
                   std::uint32_t frameIndex) override;
     bool allocateObject(ecs::Entity entity, scene::Key key) override;
@@ -77,7 +78,7 @@ DescriptorSetInstance::SpeedBucketSetting ObjectStorageBuffer<
 template<typename T, typename TComponent, bool Optional, typename TDynamicStorage,
          typename TStaticStorage>
 void ObjectStorageBuffer<T, TComponent, Optional, TDynamicStorage, TStaticStorage>::init(
-    vk::VulkanState&, ShaderInputStore& storageCache) {
+    vk::VulkanState&, sr::ShaderResourceStore& storageCache) {
     components = storageCache.getShaderInput<TShaderInput>();
 }
 

@@ -4,6 +4,7 @@
 #include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
+#include <BLIB/Render/ShaderResources/ShaderResourceStore.hpp>
 #include <memory>
 #include <typeindex>
 #include <unordered_map>
@@ -27,7 +28,7 @@ public:
      *
      * @param storageCache Descriptor set storage module cache
      */
-    DescriptorSetInstanceCache(ShaderInputStore& storageCache);
+    DescriptorSetInstanceCache(sr::ShaderResourceStore& storageCache);
 
     /**
      * @brief Fetches or creates a descriptor set for the given descriptor set factory
@@ -69,7 +70,7 @@ public:
     T* getDescriptorSet();
 
 private:
-    ShaderInputStore& storageCache;
+    sr::ShaderResourceStore& storageCache;
     std::unordered_map<DescriptorSetFactory*, std::unique_ptr<DescriptorSetInstance>> cache;
     std::vector<ds::SceneDescriptorSetInstance*> sceneSets;
 };

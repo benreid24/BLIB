@@ -2,9 +2,9 @@
 #define BLIB_RENDER_DESCRIPTORS_DESCRIPTORSETINSTANCE_HPP
 
 #include <BLIB/ECS/Entity.hpp>
-#include <BLIB/Render/Descriptors/ShaderInputStore.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
+#include <BLIB/Render/ShaderResources/ShaderResourceStore.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <cstdint>
 
@@ -54,7 +54,7 @@ public:
      *
      * @param storageCache Descriptor component module cache
      */
-    virtual void init(ShaderInputStore& storageCache) = 0;
+    virtual void init(sr::ShaderResourceStore& storageCache) = 0;
 
     /**
      * @brief Called once after the pipeline is bound. This should bind the descriptor set

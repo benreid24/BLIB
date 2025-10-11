@@ -12,7 +12,7 @@ namespace dsi
 ShadowMapBinding::ShadowMapBinding()
 : Binding(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC) {}
 
-void ShadowMapBinding::init(vk::VulkanState&, ds::ShaderInputStore& inputStore) {
+void ShadowMapBinding::init(vk::VulkanState&, sr::ShaderResourceStore& inputStore) {
     storage = inputStore.getShaderInputWithId<ShadowMapCameraShaderInput>(ShadowMapCameraInputName);
     storage->getBuffer().transferEveryFrame();
 }

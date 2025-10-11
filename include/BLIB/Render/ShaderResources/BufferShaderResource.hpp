@@ -2,14 +2,14 @@
 #define BLIB_RENDER_DESCRIPTORS_BUFFERSHADERINPUT_HPP
 
 #include <BLIB/Render/Buffers/Alignment.hpp>
-#include <BLIB/Render/Descriptors/ShaderInput.hpp>
+#include <BLIB/Render/ShaderResources/ShaderResource.hpp>
 #include <cstdint>
 
 namespace bl
 {
 namespace rc
 {
-namespace ds
+namespace sr
 {
 /**
  * @brief Lightweight shader input wrapping a buffer that can be used for uniforms or SSBOs
@@ -21,18 +21,18 @@ namespace ds
  */
 template<typename TBuffer, std::uint32_t DefaultCapacity,
          buf::Alignment DefaultAlignment = buf::Alignment::Std140>
-class BufferShaderInput : public ShaderInput {
+class BufferShaderResource : public ShaderResource {
 public:
     /**
      * @brief Initializes the buffer shader input
      */
-    BufferShaderInput()
+    BufferShaderResource()
     : vulkanState(nullptr) {}
 
     /**
      * @brief Destroys the buffer
      */
-    virtual ~BufferShaderInput() = default;
+    virtual ~BufferShaderResource() = default;
 
     /**
      * @brief Creates the buffer if DefaultCapacity is non-zero
@@ -84,7 +84,7 @@ protected:
     TBuffer buffer;
 };
 
-} // namespace ds
+} // namespace sr
 } // namespace rc
 } // namespace bl
 

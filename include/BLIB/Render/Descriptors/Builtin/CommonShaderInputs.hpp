@@ -2,8 +2,8 @@
 #define BLIB_RENDER_DESCRIPTORS_BUILTIN_COMMONSHADERINPUTS_HPP
 
 #include <BLIB/Render/Buffers/StaticUniformBuffer.hpp>
-#include <BLIB/Render/Descriptors/ShaderInput.hpp>
-#include <BLIB/Render/Descriptors/ShaderInputs/BufferShaderInput.hpp>
+#include <BLIB/Render/ShaderResources/BufferShaderResource.hpp>
+#include <BLIB/Render/ShaderResources/ShaderResource.hpp>
 #include <array>
 #include <glm/glm.hpp>
 
@@ -29,9 +29,9 @@ struct ShadowMapCameraPayload {
  * @ingroup Renderer
  */
 using ShadowMapCameraShaderInput =
-    ds::BufferShaderInput<buf::StaticUniformBuffer<ShadowMapCameraPayload>,
-                          cfg::Limits::MaxSpotShadows + cfg::Limits::MaxPointShadows,
-                          buf::Alignment::UboBindOffset>;
+    sr::BufferShaderResource<buf::StaticUniformBuffer<ShadowMapCameraPayload>,
+                             cfg::Limits::MaxSpotShadows + cfg::Limits::MaxPointShadows,
+                             buf::Alignment::UboBindOffset>;
 
 /**
  * @brief The name of the shadow map camera input

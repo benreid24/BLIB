@@ -135,7 +135,7 @@ public:
     void startFrame();
 
     /**
-     * @brief Temporary helper for a temporary hack in AssetBufferShaderInput
+     * @brief Temporary helper for a temporary hack in AssetBufferShaderResource
      *
      * @tparam T The type of asset to get
      * @return A pointer to a matching asset or nullptr if none exist

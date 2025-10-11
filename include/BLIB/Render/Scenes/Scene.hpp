@@ -7,10 +7,10 @@
 #include <BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
-#include <BLIB/Render/Descriptors/ShaderInputStore.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>
+#include <BLIB/Render/ShaderResources/ShaderResourceStore.hpp>
 #include <BLIB/Render/Vulkan/PipelineInstance.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
 #include <BLIB/Vulkan.hpp>
@@ -143,7 +143,7 @@ protected:
     std::recursive_mutex objectMutex;
     ds::DescriptorSetFactoryCache& descriptorFactories;
     ds::DescriptorSetInstanceCache descriptorSets;
-    ds::ShaderInputStore shaderInputStore;
+    sr::ShaderResourceStore shaderInputStore;
 
     /**
      * @brief Initializes the Scene

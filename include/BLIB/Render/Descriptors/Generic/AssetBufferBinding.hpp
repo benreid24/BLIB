@@ -2,8 +2,8 @@
 #define BLIB_RENDER_DESCRIPTORS_GENERIC_ASSETBUFFERBINDING_HPP
 
 #include <BLIB/Render/Descriptors/Generic/Binding.hpp>
-#include <BLIB/Render/Descriptors/ShaderInputs/AssetBufferShaderInput.hpp>
 #include <BLIB/Render/Graph/Assets/GenericBufferAsset.hpp>
+#include <BLIB/Render/ShaderResources/AssetBufferShaderResource.hpp>
 
 namespace bl
 {
@@ -31,7 +31,7 @@ public:
     : Binding(DescriptorType) {}
 
 private:
-    using TShaderInput = AssetBufferShaderInput<TAsset>;
+    using TShaderInput = sr::AssetBufferShaderResource<TAsset>;
     TShaderInput* input;
 
     virtual DescriptorSetInstance::EntityBindMode getBindMode() const override {
@@ -41,7 +41,7 @@ private:
         return DescriptorSetInstance::SpeedBucketSetting::SpeedAgnostic;
     }
 
-    virtual void init(vk::VulkanState&, ShaderInputStore& inputStore) override {
+    virtual void init(vk::VulkanState&, sr::ShaderResourceStore& inputStore) override {
         input = inputStore.getShaderInput<TShaderInput>();
     }
 
