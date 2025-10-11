@@ -39,12 +39,8 @@ public:
      * @brief Derived classes should allocate resources here
      *
      * @param engine The game engine instance
-     * @param vulkanState The renderer Vulkan state
-     * @param owner The render target that owns the input
-     * @param entityMapCb Callback to map scene keys to ECS entities
      */
-    virtual void init(engine::Engine& engine, vk::VulkanState& vulkanState, Scene& owner,
-                      const scene::MapKeyToEntityCb& entityMapCb) = 0;
+    virtual void init(engine::Engine& engine) = 0;
 
     /**
      * @brief Derived classes should release resources here
@@ -54,7 +50,7 @@ public:
     /**
      * @brief Derived classes should copy local buffers to the GPU here
      */
-    virtual void performGpuSync() = 0;
+    virtual void performTransfer() = 0;
 
     /**
      * @brief Derived classes should copy source data in to local buffers here

@@ -40,7 +40,7 @@ private:
     virtual void releaseObject(ecs::Entity entity, scene::Key objectKey) override;
     virtual void init(sr::ShaderResourceStore& storageCache) override;
     virtual bool allocateObject(ecs::Entity entity, scene::Key key) override;
-    virtual void handleFrameStart() override;
+    virtual void updateDescriptors() override;
 };
 
 } // namespace dsi

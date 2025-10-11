@@ -192,7 +192,7 @@ protected:
 
     RenderTarget(engine::Engine& engine, Renderer& renderer, rg::AssetFactory& factory,
                  bool isRenderTexture);
-    void handleDescriptorSync();
+    void updateDescriptorsAndQueueTransfers();
     void syncSceneObjects();
     void update(float dt);
     void resetAssets();

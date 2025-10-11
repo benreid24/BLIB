@@ -220,10 +220,10 @@ void Renderer::renderFrame() {
         settings.dirty = false;
     }
     globalDescriptors.onFrameStart();
-    for (auto& rt : renderTextures) { rt->handleDescriptorSync(); }
-    if (commonObserver.hasScene()) { commonObserver.handleDescriptorSync(); }
+    for (auto& rt : renderTextures) { rt->updateDescriptorsAndQueueTransfers(); }
+    if (commonObserver.hasScene()) { commonObserver.updateDescriptorsAndQueueTransfers(); }
     else {
-        for (auto& o : observers) { o->handleDescriptorSync(); }
+        for (auto& o : observers) { o->updateDescriptorsAndQueueTransfers(); }
     }
     state.transferEngine.executeTransfers();
 

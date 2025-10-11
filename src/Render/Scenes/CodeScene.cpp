@@ -38,7 +38,7 @@ VkViewport makeViewport(const VkRect2D& s) {
 } // namespace
 
 CodeScene::CodeScene(engine::Engine& engine, RenderCallback&& renderCallback)
-: Scene(engine, objects.makeEntityCallback())
+: Scene(engine)
 , renderCallback(renderCallback)
 , lighting(static_cast<dsi::Scene2DInstance*>(descriptorSets.getDescriptorSet(
       descriptorFactories.getOrCreateFactory<dsi::Scene2DFactory>()))) {

@@ -39,7 +39,7 @@ bool GlobalDataInstance::allocateObject(ecs::Entity, scene::Key) {
     return true;
 }
 
-void GlobalDataInstance::handleFrameStart() {
+void GlobalDataInstance::updateDescriptors() {
     // noop
 }
 

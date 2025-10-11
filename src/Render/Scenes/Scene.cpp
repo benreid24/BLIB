@@ -10,12 +10,12 @@ namespace bl
 {
 namespace rc
 {
-Scene::Scene(engine::Engine& engine, const scene::MapKeyToEntityCb& entityCb)
+Scene::Scene(engine::Engine& engine)
 : engine(engine)
 , renderer(engine.renderer())
 , descriptorFactories(renderer.descriptorFactoryCache())
 , descriptorSets(shaderInputStore)
-, shaderInputStore(engine, *this, entityCb)
+, shaderInputStore(engine)
 , nextObserverIndex(0)
 , staticPipelines(cfg::Constants::DefaultSceneObjectCapacity, nullptr)
 , dynamicPipelines(cfg::Constants::DefaultSceneObjectCapacity, nullptr)
@@ -40,13 +40,13 @@ void Scene::updateObserverCamera(std::uint32_t observerIndex,
     descriptorSets.updateObserverCamera(observerIndex, info);
 }
 
-void Scene::handleDescriptorSync() {
+void Scene::updateDescriptorsAndQueueTransfers() {
     std::unique_lock lock(objectMutex);
 
     // sync descriptors
     onDescriptorSync();
-    descriptorSets.handleDescriptorSync();
-    shaderInputStore.syncDescriptors();
+    descriptorSets.updateDescriptors();
+    shaderInputStore.performTransfers();
 }
 
 void Scene::syncObjects() {
@@ -78,7 +78,7 @@ void Scene::syncObjects() {
     isClearingQueues = false;
 
     // copy ECS components into descriptor buffers
-    shaderInputStore.copyFromECS();
+    shaderInputStore.updateFromSources();
 }
 
 void Scene::createAndAddObject(ecs::Entity entity, rcom::DrawableBase& object,

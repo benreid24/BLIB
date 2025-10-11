@@ -128,7 +128,7 @@ void RenderTarget::onSceneChange() {
     }
 }
 
-void RenderTarget::handleDescriptorSync() {
+void RenderTarget::updateDescriptorsAndQueueTransfers() {
     if (hasScene()) {
         auto& currentScene = scenes.back();
 
@@ -150,13 +150,13 @@ void RenderTarget::handleDescriptorSync() {
             {currentScene.camera->getProjectionMatrix(viewport),
              currentScene.camera->getViewMatrix(),
              currentScene.camera->getObserverPosition()});
-        currentScene.scene->handleDescriptorSync();
+        currentScene.scene->updateDescriptorsAndQueueTransfers();
         if (currentScene.overlay) {
             currentScene.overlay->updateObserverCamera(currentScene.overlayIndex,
                                                        {overlayCamera.getProjectionMatrix(viewport),
                                                         overlayCamera.getViewMatrix(),
                                                         glm::vec3()});
-            currentScene.overlay->handleDescriptorSync();
+            currentScene.overlay->updateDescriptorsAndQueueTransfers();
         }
     }
 }

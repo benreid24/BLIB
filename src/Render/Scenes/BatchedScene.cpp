@@ -14,7 +14,7 @@ namespace rc
 namespace scene
 {
 BatchedScene::BatchedScene(engine::Engine& engine)
-: Scene(engine, objects.makeEntityCallback())
+: Scene(engine)
 , engine(engine)
 , objects() {
     emitter.connect(engine.renderer().getSignalChannel());

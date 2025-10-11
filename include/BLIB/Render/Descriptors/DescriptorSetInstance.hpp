@@ -96,11 +96,10 @@ public:
     virtual void releaseObject(ecs::Entity entity, scene::Key key) = 0;
 
     /**
-     * @brief Called once each frame before the TransferEngine is kicked off. Use this to
-     *        appropriately handle sending descriptor data to the GPU
+     * @brief Called once each frame. Use to update modifed descriptors
      *
      */
-    virtual void handleFrameStart() = 0;
+    virtual void updateDescriptors() = 0;
 
 protected:
     /**

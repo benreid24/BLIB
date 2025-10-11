@@ -49,7 +49,7 @@ void DescriptorSetInstance<T, GpuT>::releaseObject(ecs::Entity, rc::scene::Key k
 }
 
 template<typename T, typename GpuT>
-void DescriptorSetInstance<T, GpuT>::handleFrameStart() {
+void DescriptorSetInstance<T, GpuT>::updateDescriptors() {
     for (auto& pair : instances) { pair.second.copyData(); }
 }
 

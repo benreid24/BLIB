@@ -1,6 +1,8 @@
 #ifndef BLIB_RENDER_ENGINEHELPERS_HPP
 #define BLIB_RENDER_ENGINEHELPERS_HPP
 
+#include <BLIB/Signals/Channel.hpp>
+
 namespace bl
 {
 namespace ecs
@@ -52,6 +54,22 @@ struct HeaderHelpers {
      * @return The ECS registry of the engine
      */
     static ecs::Registry& getRegistry(engine::Engine& engine);
+
+    /**
+     * @brief Returns the signal channel for the engine
+     *
+     * @param engine The main engine instance
+     * @return The signal channel of the engine
+     */
+    static sig::Channel& getEngineSignalChannel(engine::Engine& engine);
+
+    /**
+     * @brief Returns the signal channel for the renderer
+     *
+     * @param engine The main engine instance
+     * @return The signal channel of the renderer
+     */
+    static sig::Channel& getRendererSignalChannel(engine::Engine& engine);
 };
 
 } // namespace engine

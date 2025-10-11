@@ -17,7 +17,7 @@ rg::Strategy* strategy = nullptr;
 } // namespace
 
 Overlay::Overlay(engine::Engine& e)
-: Scene(e, objects.makeEntityCallback())
+: Scene(e)
 , objects(e.ecs())
 , scaler(engine.systems().getSystem<sys::OverlayScalerSystem>())
 , cachedParentViewport{}

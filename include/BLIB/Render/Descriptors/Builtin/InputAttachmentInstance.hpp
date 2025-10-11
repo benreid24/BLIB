@@ -120,7 +120,7 @@ private:
     virtual void releaseObject(ecs::Entity, scene::Key) override {}
     virtual void init(sr::ShaderResourceStore&) override {}
     virtual bool allocateObject(ecs::Entity, scene::Key) override { return true; }
-    virtual void handleFrameStart() override {}
+    virtual void updateDescriptors() override {}
 };
 
 } // namespace dsi

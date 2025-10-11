@@ -70,7 +70,7 @@ private:
                                std::uint32_t setIndex, rc::scene::Key objectKey) const override;
     virtual bool allocateObject(ecs::Entity entity, rc::scene::Key key) override;
     virtual void releaseObject(ecs::Entity, rc::scene::Key key) override;
-    virtual void handleFrameStart() override;
+    virtual void updateDescriptors() override;
 };
 
 } // namespace pcl

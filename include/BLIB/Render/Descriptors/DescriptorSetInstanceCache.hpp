@@ -58,7 +58,7 @@ public:
     /**
      * @brief Called once prior to TransferEngine kicking off
      */
-    void handleDescriptorSync();
+    void updateDescriptors();
 
     /**
      * @brief Fetches the contained descriptor set by type, if present

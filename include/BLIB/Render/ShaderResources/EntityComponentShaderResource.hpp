@@ -96,12 +96,8 @@ public:
      * @brief Creates storage buffers
      *
      * @param engine The game engine instance
-     * @param vulkanState The renderer Vulkan state
-     * @param Unused
-     * @param Unused
      */
-    virtual void init(engine::Engine& engine, vk::VulkanState& vulkanState, Scene&,
-                      const scene::MapKeyToEntityCb& entityMapCb) override;
+    virtual void init(engine::Engine& engine) override;
 
     /**
      * @brief Releases resources
@@ -128,7 +124,7 @@ public:
     /**
      * @brief Flushes underlying buffers for changed components
      */
-    virtual void performGpuSync() override;
+    virtual void performTransfer() override;
 
     /**
      * @brief Performs the copy from ECS components to renderer buffers
@@ -157,7 +153,6 @@ public:
 
 private:
     ecs::Registry* registry;
-    scene::MapKeyToEntityCb getEntityFromSceneKey;
     TDynamicStorage dynamicBuffer;
     TStaticStorage staticBuffer;
     std::vector<std::uint8_t> dynCounts;
@@ -199,12 +194,12 @@ EntityComponentShaderResource<TCom, TPayload, TDynamicStorage,
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
 void EntityComponentShaderResource<TCom, TPayload, TDynamicStorage, TStaticStorage>::init(
-    engine::Engine& engine, vk::VulkanState& vulkanState, Scene&,
-    const scene::MapKeyToEntityCb& entityCb) {
-    registry              = &engine::HeaderHelpers::getRegistry(engine);
-    getEntityFromSceneKey = entityCb;
-    dynamicBuffer.create(vulkanState, cfg::Constants::DefaultSceneObjectCapacity);
-    staticBuffer.create(vulkanState, cfg::Constants::DefaultSceneObjectCapacity);
+    engine::Engine& engine) {
+    registry = &engine::HeaderHelpers::getRegistry(engine);
+    dynamicBuffer.create(engine::HeaderHelpers::getVulkanState(engine),
+                         cfg::Constants::DefaultSceneObjectCapacity);
+    staticBuffer.create(engine::HeaderHelpers::getVulkanState(engine),
+                        cfg::Constants::DefaultSceneObjectCapacity);
     dynCounts.resize(cfg::Constants::DefaultSceneObjectCapacity, 0);
     statCounts.resize(cfg::Constants::DefaultSceneObjectCapacity, 0);
     dirtyComponents.reserve(cfg::Constants::DefaultSceneObjectCapacity);
@@ -264,7 +259,7 @@ void EntityComponentShaderResource<TCom, TPayload, TDynamicStorage, TStaticStora
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
 void EntityComponentShaderResource<TCom, TPayload, TDynamicStorage,
-                                   TStaticStorage>::performGpuSync() {
+                                   TStaticStorage>::performTransfer() {
     if (dirtyStatic.end >= dirtyStatic.start) {
         staticBuffer.transferRange(dirtyStatic.start, dirtyStatic.end - dirtyStatic.start + 1);
         dirtyStatic = DirtyRange();

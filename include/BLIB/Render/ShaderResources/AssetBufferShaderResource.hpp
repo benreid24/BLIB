@@ -1,18 +1,17 @@
 #ifndef BLIB_RENDER_DESCRIPTORS_SHADERINPUTS_ASSETBUFFERSHADERINPUT_HPP
 #define BLIB_RENDER_DESCRIPTORS_SHADERINPUTS_ASSETBUFFERSHADERINPUT_HPP
 
+#include <BLIB/Engine/HeaderHelpers.hpp>
 #include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Events/GraphEvents.hpp>
 #include <BLIB/Render/Graph/Assets/GenericBufferAsset.hpp>
 #include <BLIB/Render/Graph/GraphAsset.hpp>
+#include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Render/ShaderResources/ShaderResource.hpp>
 #include <BLIB/Signals/Listener.hpp>
 #include <cstdint>
 #include <stdexcept>
 #include <type_traits>
-
-// watch for circular includes
-#include <BLIB/Engine/Engine.hpp>
 
 namespace bl
 {
@@ -50,14 +49,8 @@ public:
      * @brief Subscribes to the renderer event channel
      *
      * @param engine The engine instance
-     * @param Unused
-     * @param owner The render target that owns the input
-     * @param Unused
      */
-    virtual void init(engine::Engine& engine, vk::VulkanState&, Scene& owner,
-                      const scene::MapKeyToEntityCb&) override {
-        this->owner = &owner;
-
+    virtual void init(engine::Engine& engine) override {
         /*
         TODO - replace this hack
         DETAILS: Descriptor sets are per-scene, but some descriptor sets conceptually exist as per
@@ -68,10 +61,10 @@ public:
         */
 
         // handle the case where the descriptor set is created after the asset is initialized
-        auto& assets = engine.renderer().getObserver().getAssetPool();
+        auto& assets = engine::HeaderHelpers::getRenderer(engine).getObserver().getAssetPool();
         asset        = assets.getAsset<TAsset>();
         if (asset) { dirtyFrames = cfg::Limits::MaxConcurrentFrames; }
-        else { subscribe(engine.renderer().getSignalChannel()); }
+        else { subscribe(engine::HeaderHelpers::getEngineSignalChannel(engine)); }
     }
 
     /**
@@ -83,7 +76,7 @@ public:
      * @brief Does nothing, derived classes or owners are responsible for transferring updated
      *        contents of the buffer
      */
-    virtual void performGpuSync() override { --dirtyFrames; }
+    virtual void performTransfer() override { --dirtyFrames; }
 
     /**
      * @brief Does nothing. Derived classes may copy source data into the buffer here
@@ -112,16 +105,13 @@ public:
 
 protected:
     rgi::GenericBufferAsset* asset;
-    Scene* owner;
     std::uint32_t dirtyFrames;
 
     virtual void process(const event::SceneGraphAssetInitialized& e) override {
-        if (e.scene == owner) {
-            TAsset* a = dynamic_cast<TAsset*>(&e.asset->asset.get());
-            if (a && asset != a) {
-                asset       = a;
-                dirtyFrames = cfg::Limits::MaxConcurrentFrames;
-            }
+        TAsset* a = dynamic_cast<TAsset*>(&e.asset->asset.get());
+        if (a && asset != a) {
+            asset       = a;
+            dirtyFrames = cfg::Limits::MaxConcurrentFrames;
         }
     }
 };

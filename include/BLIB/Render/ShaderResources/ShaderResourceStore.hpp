@@ -33,11 +33,8 @@ public:
      * @brief Creates a new shader input store
      *
      * @param engine The game engine instance
-     * @param owner The scene that owns the input store
-     * @param entityCb Callback to map scene id to ECS id
      */
-    ShaderResourceStore(engine::Engine& engine, Scene& owner,
-                        const scene::MapKeyToEntityCb& entityCb);
+    ShaderResourceStore(engine::Engine& engine);
 
     /**
      * @brief Release resources
@@ -70,17 +67,15 @@ public:
     /**
      * @brief Syncs modified descriptor values in the contained storage modules
      */
-    void syncDescriptors();
+    void performTransfers();
 
     /**
      * @brief Copies descriptor data from source (such asECS components) into local buffers
      */
-    void copyFromECS();
+    void updateFromSources();
 
 private:
     engine::Engine& engine;
-    Scene& owner;
-    const scene::MapKeyToEntityCb entityCb;
     std::unordered_map<std::string, std::unique_ptr<ShaderResource>> cache;
 
     void initInput(ShaderResource& input);

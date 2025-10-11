@@ -37,7 +37,7 @@ void SlideshowInstance::releaseObject(ecs::Entity, scene::Key) {
     // noop
 }
 
-void SlideshowInstance::handleFrameStart() {
+void SlideshowInstance::updateDescriptors() {
     // noop
 }
 

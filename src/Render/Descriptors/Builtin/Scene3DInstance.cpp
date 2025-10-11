@@ -228,7 +228,7 @@ bool Scene3DInstance::allocateObject(ecs::Entity, scene::Key) {
     return true;
 }
 
-void Scene3DInstance::handleFrameStart() {
+void Scene3DInstance::updateDescriptors() {
     auto& cameras = shadowMapCameras->getBuffer();
     auto& data    = getUniform();
 

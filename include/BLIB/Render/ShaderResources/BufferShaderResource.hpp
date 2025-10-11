@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_DESCRIPTORS_BUFFERSHADERINPUT_HPP
 #define BLIB_RENDER_DESCRIPTORS_BUFFERSHADERINPUT_HPP
 
+#include <BLIB/Engine/HeaderHelpers.hpp>
 #include <BLIB/Render/Buffers/Alignment.hpp>
 #include <BLIB/Render/ShaderResources/ShaderResource.hpp>
 #include <cstdint>
@@ -37,15 +38,13 @@ public:
     /**
      * @brief Creates the buffer if DefaultCapacity is non-zero
      *
-     * @param Unused
-     * @param vs The Renderer Vulkan state
-     * @param Unused
-     * @param Unused
+     * @param engine The gam engine instance
      */
-    void init(engine::Engine&, vk::VulkanState& vs, Scene&,
-              const scene::MapKeyToEntityCb&) override {
-        vulkanState = &vs;
-        if constexpr (DefaultCapacity > 0) { buffer.create(vs, DefaultCapacity, DefaultAlignment); }
+    void init(engine::Engine& engine) override {
+        vulkanState = &engine::HeaderHelpers::getVulkanState(engine);
+        if constexpr (DefaultCapacity > 0) {
+            buffer.create(*vulkanState, DefaultCapacity, DefaultAlignment);
+        }
     }
 
     /**
@@ -57,7 +56,7 @@ public:
      * @brief Does nothing, derived classes or owners are responsible for transferring updated
      *        contents of the buffer
      */
-    void performGpuSync() override {}
+    void performTransfer() override {}
 
     /**
      * @brief Does nothing. Derived classes may copy source data into the buffer here

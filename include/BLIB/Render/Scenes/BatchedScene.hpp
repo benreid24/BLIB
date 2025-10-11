@@ -70,7 +70,8 @@ protected:
                                  mat::MaterialPipeline* pipeline) override;
 
     /**
-     * @brief Called by Scene in handleDescriptorSync for objects that need to be re-batched
+     * @brief Called by Scene in updateDescriptorsAndQueueTransfers for objects that need to be
+     * re-batched
      *
      * @param change Details of the change
      * @param ogPipeline The original pipeline of the object being changed

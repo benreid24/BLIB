@@ -27,8 +27,8 @@ void DescriptorSetInstanceCache::unlinkSceneObject(ecs::Entity ent, scene::Key k
     for (auto& pair : cache) { pair.second->releaseObject(ent, key); }
 }
 
-void DescriptorSetInstanceCache::handleDescriptorSync() {
-    for (auto& pair : cache) { pair.second->handleFrameStart(); }
+void DescriptorSetInstanceCache::updateDescriptors() {
+    for (auto& pair : cache) { pair.second->updateDescriptors(); }
 }
 
 void DescriptorSetInstanceCache::updateObserverCamera(

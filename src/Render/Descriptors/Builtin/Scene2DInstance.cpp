@@ -86,7 +86,7 @@ bool Scene2DInstance::allocateObject(ecs::Entity, scene::Key) {
     return true;
 }
 
-void Scene2DInstance::handleFrameStart() {
+void Scene2DInstance::updateDescriptors() {
     // noop
 }
 

@@ -149,9 +149,8 @@ protected:
      * @brief Initializes the Scene
      *
      * @param engine The engine instance
-     * @param entityCb Callback to map scene id to ECS id
      */
-    Scene(engine::Engine& engine, const scene::MapKeyToEntityCb& entityCb);
+    Scene(engine::Engine& engine);
 
     /**
      * @brief Called when an object is added to the scene. Derived should create the SceneObject
@@ -173,7 +172,8 @@ protected:
     void removeObject(scene::SceneObject* object);
 
     /**
-     * @brief Called by Scene in handleDescriptorSync for objects that need to be re-batched
+     * @brief Called by Scene in updateDescriptorsAndQueueTransfers for objects that need to be
+     * re-batched
      *
      * @param change Details of the change
      * @param ogPipeline The original pipeline of the object being changed
@@ -226,7 +226,7 @@ private:
     void rebucketObject(rcom::DrawableBase& object);
 
     // called by Observer
-    void handleDescriptorSync();
+    void updateDescriptorsAndQueueTransfers();
     void syncObjects();
     std::uint32_t registerObserver();
     void updateObserverCamera(std::uint32_t observerIndex,
