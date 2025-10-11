@@ -45,19 +45,19 @@ void RenderGraph::build() {
     std::vector<Task*> missingInputs;
     missingInputs.reserve(tasks.size());
 
-    const auto addInputTask = [&missingInputs](Task* task) {
+    const auto addTaskMissingInput = [&missingInputs](Task* task) {
         if (std::find(missingInputs.rbegin(), missingInputs.rend(), task) == missingInputs.rend()) {
             missingInputs.emplace_back(task);
         }
     };
 
     const auto tryLinkConcreteInput =
-        [this, &addInputTask](Task* task, const TaskInput& tags, GraphAsset*& input) {
+        [this, &addTaskMissingInput](Task* task, const TaskInput& tags, GraphAsset*& input) {
             for (auto tag : tags.options) {
                 input = assets.getAssetForInput(tag, "");
                 if (input) return;
             }
-            addInputTask(task);
+            addTaskMissingInput(task);
         };
 
     // first link all inputs for external assets, mark tasks missing inputs

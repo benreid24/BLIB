@@ -1,6 +1,7 @@
 #include <BLIB/Render/Resources/GlobalDescriptors.hpp>
 
 #include <BLIB/Containers/StaticVector.hpp>
+#include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Render/Resources/MaterialPool.hpp>
 #include <BLIB/Render/Resources/TexturePool.hpp>
@@ -12,9 +13,10 @@ namespace rc
 {
 namespace res
 {
-GlobalDescriptors::GlobalDescriptors(Renderer& renderer, TexturePool& texturePool,
-                                     MaterialPool& materialPool)
-: renderer(renderer)
+GlobalDescriptors::GlobalDescriptors(engine::Engine& engine, Renderer& renderer,
+                                     TexturePool& texturePool, MaterialPool& materialPool)
+: engine(engine)
+, renderer(renderer)
 , texturePool(texturePool)
 , materialPool(materialPool)
 , accumulatedTimings{} {}
@@ -191,6 +193,9 @@ void GlobalDescriptors::onFrameStart() {
         descriptorWriter, descriptorSets.current(), rtDescriptorSets.current());
     materialPool.onFrameStart();
     descriptorWriter.performWrite(renderer.vulkanState().device);
+    accumulatedTimings.realFrameDt = frameTimer.restart().asSeconds();
+    accumulatedTimings.frameDt     = accumulatedTimings.realFrameDt * engine.getTimeScale();
+    frameTimer.restart();
     frameDataBuffer[0] = accumulatedTimings;
     accumulatedTimings = {};
 }

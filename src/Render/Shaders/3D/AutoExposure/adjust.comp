@@ -11,7 +11,7 @@ void main() {
     float avgLum = max(totalLuminosity / totalPixels, 1e-4);
     float targetExposure = -log(max(1.0 - settings.hdrSettings.targetBrightness, 1e-4)) / avgLum;
     float diff = targetExposure - currentHdrExposure;
-    float newExposure = currentHdrExposure + diff * settings.hdrSettings.convergeRate * frameData.dt;
+    float newExposure = currentHdrExposure + diff * settings.hdrSettings.convergeRate * frameData.frameDt;
     currentHdrExposure = clamp(newExposure, settings.hdrSettings.minExposure, settings.hdrSettings.maxExposure);
 
     // target = 1 - exp(-actual * newFactor)

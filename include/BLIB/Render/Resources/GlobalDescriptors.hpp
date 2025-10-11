@@ -8,10 +8,15 @@
 #include <BLIB/Render/Settings.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Vulkan.hpp>
+#include <SFML/System/Clock.hpp>
 #include <vector>
 
 namespace bl
 {
+namespace engine
+{
+class Engine;
+}
 namespace rc
 {
 class Renderer;
@@ -32,7 +37,16 @@ public:
         float currentHdrExposure;
     };
 
-    GlobalDescriptors(Renderer& renderer, TexturePool& texturePool, MaterialPool& materialPool);
+    /**
+     * @brief Creates the renderer global descriptors
+     *
+     * @param engine The game engine instance
+     * @param renderer The renderer instance
+     * @param texturePool The texture pool
+     * @param materialPool The material pool
+     */
+    GlobalDescriptors(engine::Engine& engine, Renderer& renderer, TexturePool& texturePool,
+                      MaterialPool& materialPool);
 
     /**
      * @brief Returns the layout of the descriptor set containing the textures
@@ -102,8 +116,11 @@ private:
         float realDt;
         float residual;
         float realResidual;
+        float frameDt;
+        float realFrameDt;
     };
 
+    engine::Engine& engine;
     Renderer& renderer;
     TexturePool& texturePool;
     MaterialPool& materialPool;
@@ -111,6 +128,7 @@ private:
     buf::UniformBuffer<FrameDataUniform> frameDataBuffer;
     buf::StaticSSBO<DynamicSettingsUniform> dynamicSettingsBuffer;
     FrameDataUniform accumulatedTimings;
+    sf::Clock frameTimer;
 
     VkDescriptorPool descriptorPool;
     VkDescriptorSetLayout descriptorSetLayout;

@@ -128,7 +128,7 @@ void Timeline::build(std::vector<std::unique_ptr<Task>>& tasks, GraphAsset* fina
         if (taskIsFirst(task.get())) { tasksToVisit.emplace_back(task.get(), 0); }
     }
     if (finalAsset->firstAvailableStep != UnsetStep) {
-        throw std::runtime_error("RenderGraph does not output final asset");
+        throw std::runtime_error("RenderGraph does not contain expected final asset");
     }
 
     // traverse up graph from starting tasks and assign step indices to assets

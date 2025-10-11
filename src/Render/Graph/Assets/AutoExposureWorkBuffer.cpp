@@ -44,7 +44,7 @@ void AutoExposureWorkBuffer::doStartOutput(const rg::ExecutionContext& ctx) {
                          VK_PIPELINE_STAGE_TRANSFER_BIT,
                          VK_ACCESS_MEMORY_WRITE_BIT,
                          VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT,
-                         VK_ACCESS_MEMORY_WRITE_BIT);
+                         VK_ACCESS_SHADER_WRITE_BIT);
 }
 
 } // namespace rgi

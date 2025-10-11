@@ -35,6 +35,8 @@ layout(set = GLOBALS_SET_NUMBER, binding = 3) uniform framedata {
     float realDt;
     float residual;
     float realResidual;
+    float frameDt;
+    float realFrameDt;
 } frameData;
 layout(set = GLOBALS_SET_NUMBER, binding = 4) uniform rsettings {
     HdrSettings hdrSettings;
