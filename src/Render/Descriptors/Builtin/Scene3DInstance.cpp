@@ -61,9 +61,12 @@ void Scene3DInstance::releaseObject(ecs::Entity, scene::Key) {
     // n/a
 }
 
-void Scene3DInstance::init(sr::ShaderResourceStore& inputStore) {
-    shadowMapCameras =
-        inputStore.getShaderInputWithId<ShadowMapCameraShaderInput>(ShadowMapCameraInputName);
+void Scene3DInstance::init(sr::ShaderResourceStore& globalShaderResources,
+                           sr::ShaderResourceStore& sceneShaderResources,
+                           sr::ShaderResourceStore& observerShaderResources) {
+    // TODO - use observer store
+    shadowMapCameras = sceneShaderResources.getShaderInputWithId<ShadowMapCameraShaderInput>(
+        ShadowMapCameraInputName);
 
     // allocate memory
     createCameraBuffer();

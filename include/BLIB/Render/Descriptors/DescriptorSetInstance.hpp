@@ -52,9 +52,13 @@ public:
     /**
      * @brief Called by scene once after the instance is created
      *
-     * @param storageCache Descriptor component module cache
+     * @param globalShaderResources Shader resource store for global level resources
+     * @param sceneShaderResources Shader resource store for scene level resources
+     * @param observerShaderResources Shader resource store for observer level resources
      */
-    virtual void init(sr::ShaderResourceStore& storageCache) = 0;
+    virtual void init(sr::ShaderResourceStore& globalShaderResources,
+                      sr::ShaderResourceStore& sceneShaderResources,
+                      sr::ShaderResourceStore& observerShaderResources) = 0;
 
     /**
      * @brief Called once after the pipeline is bound. This should bind the descriptor set

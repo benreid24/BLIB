@@ -39,7 +39,11 @@ void Scene2DInstance::releaseObject(ecs::Entity, scene::Key) {
     // n/a
 }
 
-void Scene2DInstance::init(sr::ShaderResourceStore&) {
+void Scene2DInstance::init(sr::ShaderResourceStore& globalShaderResources,
+                           sr::ShaderResourceStore& sceneShaderResources,
+                           sr::ShaderResourceStore& observerShaderResources) {
+    // TODO - get buffers from resource stores
+
     // allocate memory
     createCameraBuffer();
     lighting.create(vulkanState, 1);

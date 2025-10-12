@@ -6,8 +6,12 @@ namespace rc
 {
 namespace ds
 {
-DescriptorSetInstanceCache::DescriptorSetInstanceCache(sr::ShaderResourceStore& storageCache)
-: storageCache(storageCache) {
+DescriptorSetInstanceCache::DescriptorSetInstanceCache(
+    sr::ShaderResourceStore& globalShaderResources,
+    sr::ShaderResourceStore& observerShaderResources, sr::ShaderResourceStore& sceneShaderResources)
+: globalShaderResources(globalShaderResources)
+, observerShaderResources(observerShaderResources)
+, sceneShaderResources(sceneShaderResources) {
     sceneSets.reserve(4);
 }
 
@@ -17,7 +21,7 @@ DescriptorSetInstance* DescriptorSetInstanceCache::getDescriptorSet(DescriptorSe
     auto it = cache.find(factory);
     if (it != cache.end()) { return it->second.get(); }
     it = cache.try_emplace(factory, factory->createDescriptorSet()).first;
-    it->second->init(storageCache);
+    it->second->init(globalShaderResources, sceneShaderResources, observerShaderResources);
     SceneDescriptorSetInstance* scene = dynamic_cast<SceneDescriptorSetInstance*>(it->second.get());
     if (scene) { sceneSets.push_back(scene); }
     return it->second.get();

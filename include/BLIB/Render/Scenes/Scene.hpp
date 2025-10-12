@@ -127,6 +127,11 @@ public:
      */
     ds::DescriptorSetInstanceCache& getDescriptorSets() { return descriptorSets; }
 
+    /**
+     * @brief Returns the shader resource store for this scene
+     */
+    sr::ShaderResourceStore& getShaderResources() { return shaderInputStore; }
+
 protected:
     /**
      * @brief POD containing data for when an object needs to be re-batched

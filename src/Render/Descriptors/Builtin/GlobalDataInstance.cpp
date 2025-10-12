@@ -30,8 +30,10 @@ void GlobalDataInstance::releaseObject(ecs::Entity, scene::Key) {
     // noop
 }
 
-void GlobalDataInstance::init(sr::ShaderResourceStore&) {
-    // noop
+void GlobalDataInstance::init(sr::ShaderResourceStore& globalShaderResources,
+                              sr::ShaderResourceStore& sceneShaderResources,
+                              sr::ShaderResourceStore& observerShaderResources) {
+    // TODO - get buffer from globalShaderResources
 }
 
 bool GlobalDataInstance::allocateObject(ecs::Entity, scene::Key) {

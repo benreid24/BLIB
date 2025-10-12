@@ -159,6 +159,11 @@ public:
      */
     rg::AssetPool& getAssetPool();
 
+    /**
+     * @brief Returns the resource pool for shader resources used by this render target
+     */
+    sr::ShaderResourceStore& getShaderResources();
+
 protected:
     struct SceneInstance {
         SceneRef scene;
@@ -182,6 +187,7 @@ protected:
     engine::Engine& engine;
     Renderer& renderer;
     rg::AssetPool graphAssets;
+    sr::ShaderResourceStore shaderResources;
     bool resourcesFreed;
     VkViewport viewport;
     VkRect2D scissor;
@@ -302,6 +308,8 @@ inline glm::u32vec2 RenderTarget::getRegionSize() const {
 inline const VkRect2D& RenderTarget::getScissor() const { return scissor; }
 
 inline rg::AssetPool& RenderTarget::getAssetPool() { return graphAssets; }
+
+inline sr::ShaderResourceStore& RenderTarget::getShaderResources() { return shaderResources; }
 
 } // namespace rc
 } // namespace bl

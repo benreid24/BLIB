@@ -41,8 +41,11 @@ private:
         return DescriptorSetInstance::SpeedBucketSetting::SpeedAgnostic;
     }
 
-    virtual void init(vk::VulkanState&, sr::ShaderResourceStore& inputStore) override {
-        input = inputStore.getShaderInput<TShaderInput>();
+    virtual void init(vk::VulkanState&, sr::ShaderResourceStore& globalShaderResources,
+                      sr::ShaderResourceStore& sceneShaderResources,
+                      sr::ShaderResourceStore& observerShaderResources) override {
+        // TODO - this binding can probably just be removed entirely
+        input = sceneShaderResources.getShaderInput<TShaderInput>();
     }
 
     virtual void writeSet(SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed,
