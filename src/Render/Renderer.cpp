@@ -42,6 +42,7 @@ Renderer::Renderer(engine::Engine& engine, engine::EngineWindow& window)
 , imageExporter(*this)
 , splitscreenDirection(SplitscreenDirection::TopAndBottom)
 , commonObserver(engine, *this, assetFactory, true, false)
+, globalShaderResources(engine)
 , sceneSync(engine.ecs()) {
     renderTextures.reserve(16);
     clearColors[0].color        = {{0.f, 0.f, 0.f, 1.f}};

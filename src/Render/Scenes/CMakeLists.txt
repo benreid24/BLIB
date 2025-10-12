@@ -7,4 +7,5 @@ target_sources(BLIB PRIVATE
     SceneSync.cpp
     Scene2D.cpp
     Scene3D.cpp
+    TargetTable.cpp
 )

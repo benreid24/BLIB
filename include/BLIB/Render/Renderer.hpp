@@ -205,6 +205,11 @@ public:
     rg::AssetFactory& getAssetFactory();
 
     /**
+     * @brief Returns the resource store for global shader resources
+     */
+    sr::ShaderResourceStore& getGlobalShaderResources();
+
+    /**
      * @brief Returns the global descriptor data instance
      */
     res::GlobalDescriptors& getGlobalDescriptorData();
@@ -270,6 +275,7 @@ private:
     VkClearValue clearColors[2];
     std::vector<std::unique_ptr<vk::RenderTexture>> renderTextures;
     rg::AssetFactory assetFactory;
+    sr::ShaderResourceStore globalShaderResources;
     scene::SceneSync sceneSync;
     sig::Channel signalChannel;
 
@@ -356,6 +362,10 @@ SceneRef RenderTarget::pushScene(TArgs&&... args) {
 }
 
 inline rg::AssetFactory& Renderer::getAssetFactory() { return assetFactory; }
+
+inline sr::ShaderResourceStore& Renderer::getGlobalShaderResources() {
+    return globalShaderResources;
+}
 
 inline Settings& Renderer::getSettings() { return settings; }
 

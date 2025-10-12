@@ -11,4 +11,5 @@ target_sources(BLIB PUBLIC
     SceneSync.hpp
     Scene2D.hpp
     Scene3D.hpp
+    TargetTable.hpp
 )

@@ -15,6 +15,16 @@ namespace bl
 {
 namespace rc
 {
+RenderTarget::SceneInstance::SceneInstance(engine::Engine& e, Renderer& r, RenderTarget* owner,
+                                           rg::AssetPool& pool, SceneRef s)
+: scene(s)
+, overlay(nullptr)
+, graph(e, r, pool, owner, s.get())
+, descriptorCache(r.getGlobalShaderResources(), owner->getShaderResources(),
+                  s->getShaderResources())
+, observerIndex(0)
+, overlayIndex(0) {}
+
 RenderTarget::RenderTarget(engine::Engine& e, Renderer& r, rg::AssetFactory& f, bool rt)
 : isRenderTexture(rt)
 , engine(e)
@@ -229,6 +239,13 @@ void RenderTarget::renderScene(VkCommandBuffer commandBuffer) {
 }
 
 void RenderTarget::resetAssets() { graphAssets.startFrame(); }
+
+ds::DescriptorSetInstanceCache* RenderTarget::getDescriptorSetCache(Scene* scene) {
+    for (auto& s : scenes) {
+        if (s.scene.get() == scene) { return &s.descriptorCache; }
+    }
+    return nullptr;
+}
 
 } // namespace rc
 } // namespace bl

@@ -5,6 +5,7 @@ target_sources(BLIB PUBLIC
 	DescriptorSetInstanceCache.hpp
 	GenericDescriptorSetFactory.hpp
 	GenericDescriptorSetInstance.hpp
+	InstanceTable.hpp
 	SceneDescriptorSetInstance.hpp
 	SetWriteHelper.hpp
 )

@@ -164,23 +164,27 @@ public:
      */
     sr::ShaderResourceStore& getShaderResources();
 
+    /**
+     * @brief Returns the descriptor set cache for the given scene
+     *
+     * @param scene The scene to get the cache for
+     * @return A pointer to the cache, or nullptr if the scene is not present
+     */
+    ds::DescriptorSetInstanceCache* getDescriptorSetCache(Scene* scene);
+
 protected:
     struct SceneInstance {
         SceneRef scene;
         SceneRef overlayRef;
         Overlay* overlay;
         rg::RenderGraph graph;
+        ds::DescriptorSetInstanceCache descriptorCache;
         std::uint32_t observerIndex;
         std::uint32_t overlayIndex;
         std::unique_ptr<cam::Camera> camera;
 
         SceneInstance(engine::Engine& e, Renderer& r, RenderTarget* owner, rg::AssetPool& pool,
-                      SceneRef s)
-        : scene(s)
-        , overlay(nullptr)
-        , graph(e, r, pool, owner, s.get())
-        , observerIndex(0)
-        , overlayIndex(0) {}
+                      SceneRef s);
     };
 
     const bool isRenderTexture;
