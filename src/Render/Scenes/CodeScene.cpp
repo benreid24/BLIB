@@ -5,7 +5,9 @@
 #include <BLIB/Render/Config/RenderPhases.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene2DFactory.hpp>
 #include <BLIB/Render/Events/SceneObjectRemoved.hpp>
+#include <BLIB/Render/Lighting/Scene2DLighting.hpp>
 #include <BLIB/Render/Renderer.hpp>
+#include <BLIB/Render/ShaderResources/ShaderResourceStore.hpp>
 
 namespace bl
 {
@@ -40,12 +42,15 @@ VkViewport makeViewport(const VkRect2D& s) {
 CodeScene::CodeScene(engine::Engine& engine, RenderCallback&& renderCallback)
 : Scene(engine)
 , renderCallback(renderCallback)
-, lighting(static_cast<dsi::Scene2DInstance*>(descriptorSets.getDescriptorSet(
-      descriptorFactories.getOrCreateFactory<dsi::Scene2DFactory>()))) {
+, lighting(shaderInputStore.getShaderInputWithKey(sri::Scene2DLightingKey)->getBuffer()[0]) {
     emitter.connect(engine.renderer().getSignalChannel());
 }
 
-CodeScene::~CodeScene() { objects.unlinkAll(descriptorSets); }
+CodeScene::~CodeScene() {
+    for (unsigned int i = 0; i < targetTable.nextId(); ++i) {
+        objects.unlinkAll(*targetTable.getTarget(i)->getDescriptorSetCache(this));
+    }
+}
 
 void CodeScene::renderOpaqueObjects(scene::SceneRenderContext& context) {
     RenderContext ctx(context);
@@ -58,9 +63,7 @@ void CodeScene::doObjectRemoval(SceneObject* object, mat::MaterialPipeline*) {
     CodeSceneObject* obj     = static_cast<CodeSceneObject*>(object);
     const ecs::Entity entity = objects.getObjectEntity(obj->sceneKey);
 
-    for (unsigned int i = 0; i < obj->descriptorCount; ++i) {
-        obj->descriptors[i]->releaseObject(entity, object->sceneKey);
-    }
+    obj->descriptors.releaseObject(obj->entity, obj->sceneKey);
     objects.release(obj->sceneKey);
     emitter.emit<rc::event::SceneObjectRemoved>({this, entity});
 }
@@ -69,17 +72,11 @@ SceneObject* CodeScene::doAdd(ecs::Entity entity, rcom::DrawableBase& object,
                               UpdateSpeed updateFreq) {
     CodeSceneObject& obj = *objects.allocate(updateFreq, entity).newObject;
 
-    obj.pipeline        = object.getCurrentPipeline();
-    obj.descriptorCount = obj.pipeline->getPipeline(cfg::RenderPhases::Forward)
-                              ->pipelineLayout()
-                              .initDescriptorSets(descriptorSets, obj.descriptors.data());
-    obj.perObjStart = obj.descriptorCount;
-    for (unsigned int i = 0; i < obj.descriptorCount; ++i) {
-        obj.descriptors[i]->allocateObject(entity, obj.sceneKey);
-        if (!obj.descriptors[i]->isBindless()) {
-            obj.perObjStart = std::min(obj.perObjStart, static_cast<std::uint8_t>(i));
-        }
-    }
+    obj.pipeline = object.getCurrentPipeline();
+    obj.descriptors.init(this,
+                         obj.pipeline->getPipeline(cfg::RenderPhases::Forward)->pipelineLayout());
+    obj.descriptors.addObservers(targetTable);
+    obj.descriptors.allocateObject(entity, obj.sceneKey);
 
     return &obj;
 }
@@ -100,21 +97,10 @@ void CodeScene::doBatchChange(const BatchChange& change, mat::MaterialPipeline* 
         CodeSceneObject& object  = *static_cast<CodeSceneObject*>(change.changed);
         object.pipeline          = change.newPipeline;
         const ecs::Entity entity = objects.getObjectEntity(object.sceneKey);
-        object.descriptorCount   = object.pipeline->getPipeline(cfg::RenderPhases::Forward)
-                                     ->pipelineLayout()
-                                     .updateDescriptorSets(descriptorSets,
-                                                           object.descriptors.data(),
-                                                           object.descriptorCount,
-                                                           entity,
-                                                           object.sceneKey.sceneId,
-                                                           object.sceneKey.updateFreq);
-        object.perObjStart = object.descriptorCount;
-        for (unsigned int i = 0; i < object.descriptorCount; ++i) {
-            if (!object.descriptors[i]->isBindless()) {
-                object.perObjStart = i;
-                break;
-            }
-        }
+        object.descriptors.reinit(
+            object.pipeline->getPipeline(cfg::RenderPhases::Forward)->pipelineLayout(),
+            targetTable,
+            object);
     }
 }
 
@@ -133,10 +119,12 @@ void CodeScene::RenderContext::renderObject(rcom::DrawableBase& object) {
         renderContext.bindDescriptors(
             obj->pipeline->getPipeline(cfg::RenderPhases::Forward)->pipelineLayout().rawLayout(),
             obj->sceneKey.updateFreq,
-            obj->descriptors.data(),
-            obj->descriptorCount);
-        for (std::uint8_t i = obj->perObjStart; i < obj->descriptorCount; ++i) {
-            obj->descriptors[i]->bindForObject(
+            obj->descriptors.get(renderContext.currentObserverIndex()).data(),
+            obj->descriptors.getDescriptorSetCount());
+        for (std::uint8_t i = obj->descriptors.getPerObjectStart();
+             i < obj->descriptors.getDescriptorSetCount();
+             ++i) {
+            obj->descriptors.get(renderContext.currentObserverIndex())[i]->bindForObject(
                 renderContext,
                 obj->pipeline->getPipeline(cfg::RenderPhases::Forward)
                     ->pipelineLayout()
@@ -174,6 +162,13 @@ void CodeScene::RenderContext::resetScissor() {
 
 void CodeScene::RenderContext::resetViewportAndScissor() {
     setViewport(renderContext.parentViewport(), true);
+}
+
+void CodeScene::doRegisterObserver(RenderTarget* target, std::uint32_t observerIndex) {
+    objects.forEach([&](CodeSceneObject& obj) {
+        obj.descriptors.addObserver(observerIndex, *target);
+        obj.descriptors.allocateObject(observerIndex, obj.entity, obj.sceneKey);
+    });
 }
 
 } // namespace scene

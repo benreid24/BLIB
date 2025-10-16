@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_RENDERER_BATCHEDSCENE_HPP
 #define BLIB_RENDER_RENDERER_BATCHEDSCENE_HPP
 
+#include <BLIB/Render/Descriptors/InstanceTable.hpp>
 #include <BLIB/Render/Events/SceneObjectRemoved.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Scenes/SceneObjectStorage.hpp>
@@ -79,16 +80,15 @@ protected:
     virtual void doBatchChange(const BatchChange& change,
                                mat::MaterialPipeline* ogPipeline) override;
 
+    /**
+     * @brief Called when a new observer is going to render the scene
+     *
+     * @param target The render target that will observe the scene
+     * @param observerIndex The index of the observer in the renderer
+     */
+    virtual void doRegisterObserver(RenderTarget* target, std::uint32_t observerIndex) override;
+
 private:
-    struct RenderPhaseDescriptors {
-        void init(ds::DescriptorSetInstanceCache& descriptorCache, const vk::Pipeline* pipeline);
-
-        std::array<ds::DescriptorSetInstance*, cfg::Limits::MaxDescriptorSets> descriptors;
-        std::uint8_t descriptorCount;
-        std::uint8_t perObjStart;
-        bool bindless;
-    };
-
     struct SpecializationBatch {
         const std::uint32_t specializationId;
         std::vector<SceneObject*> objectsStatic;
@@ -101,17 +101,19 @@ private:
 
     struct PipelineBatch {
         PipelineBatch(const PipelineBatch& src);
-        PipelineBatch(ds::DescriptorSetInstanceCache& descriptorCache,
-                      mat::MaterialPipeline& pipeline);
+        PipelineBatch(Scene* scene, mat::MaterialPipeline& pipeline);
 
+        void initObserversMaybe(TargetTable& targets);
+        void registerObserver(unsigned int index, RenderTarget& observer);
         bool addObject(ecs::Entity entity, SceneObject* sceneObject, std::uint32_t specialization);
         void addForRebatch(SceneObject* object, std::uint32_t specialization);
         void removeObject(ecs::Entity entity, SceneObject* object, std::uint32_t specialization);
         bool removeForRebatch(SceneObject* object, std::uint32_t specialization);
         void updateDescriptors(ecs::Entity entity, SceneObject* object, PipelineBatch& prevBatch);
 
+        bool needsObserverInit;
         mat::MaterialPipeline& pipeline;
-        std::array<RenderPhaseDescriptors, cfg::Limits::MaxRenderPhases> perPhaseDescriptors;
+        std::array<ds::InstanceTable, cfg::Limits::MaxRenderPhases> perPhaseDescriptors;
         ctr::StaticVector<SpecializationBatch, cfg::Limits::MaxPipelineSpecializations> specBatches;
         ctr::StaticVector<ds::DescriptorSetInstance*,
                           cfg::Limits::MaxDescriptorSets * cfg::Limits::MaxRenderPhases>
@@ -120,8 +122,8 @@ private:
 
     struct ObjectBatch {
         ObjectBatch() { batches.reserve(8); }
-        PipelineBatch& getBatch(ds::DescriptorSetInstanceCache& descriptorCache,
-                                mat::MaterialPipeline& pipeline);
+        void registerObserver(unsigned int index, RenderTarget& observer);
+        PipelineBatch& getOrCreateBatch(Scene* scene, mat::MaterialPipeline& pipeline);
         PipelineBatch* getBatch(mat::MaterialPipeline* pipeline);
         PipelineBatch& getBatch(const PipelineBatch& src);
         void removeObject(ecs::Entity entity, SceneObject* object, mat::MaterialPipeline* pipeline,

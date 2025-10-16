@@ -26,15 +26,15 @@ PostProcess3DTask::PostProcess3DTask()
     assetTags.optionalInputs.emplace_back(rg::AssetTags::AutoExposureOutput);
 }
 
-void PostProcess3DTask::create(engine::Engine&, Renderer& r, Scene* s) {
-    renderer = &r;
-    scene    = s;
+void PostProcess3DTask::create(const rg::InitContext& ctx) {
+    renderer = &ctx.renderer;
+    scene    = ctx.scene;
 
     // fetch pipeline
     pipeline = &renderer->pipelineCache().getPipeline(cfg::PipelineIds::PostProcess3D);
 
     // create index buffer
-    indexBuffer.create(r.vulkanState(), 4, 6);
+    indexBuffer.create(ctx.vulkanState, 4, 6);
     indexBuffer.indices()  = {0, 1, 3, 1, 2, 3};
     indexBuffer.vertices() = {prim::Vertex({-1.f, -1.f, 1.0f}, {0.f, 0.f}),
                               prim::Vertex({1.f, -1.f, 1.0f}, {1.f, 0.f}),

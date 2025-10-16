@@ -27,9 +27,10 @@ AutoExposureAccumulateTask::AutoExposureAccumulateTask()
                                                   {rg::TaskOutput::Exclusive}));
 }
 
-void AutoExposureAccumulateTask::create(engine::Engine&, Renderer& r, Scene* s) {
-    renderer = &r;
-    scene    = s;
+void AutoExposureAccumulateTask::create(const rg::InitContext& ctx) {
+    renderer = &ctx.renderer;
+    target   = &ctx.target;
+    scene    = ctx.scene;
 }
 
 void AutoExposureAccumulateTask::onGraphInit() {
@@ -39,12 +40,12 @@ void AutoExposureAccumulateTask::onGraphInit() {
 
     vk::ComputePipeline* accum = &renderer->computePipelineCache().getPipeline(
         cfg::ComputePipelineIds::AutoExposureAccumulate);
-    pipeline.init(accum, scene->getDescriptorSets());
+    pipeline.init(accum, *target->getDescriptorSetCache(scene));
     pipeline.getDescriptorSet<dsi::InputAttachmentInstance>(0)->initAttachments(
         input->getAttachmentSets(), sampler);
 }
 
-void AutoExposureAccumulateTask::execute(const rg::ExecutionContext& ctx, rg::Asset* output) {
+void AutoExposureAccumulateTask::execute(const rg::ExecutionContext& ctx, rg::Asset*) {
     // attachment sync handled by render pass
     // asset handles buffer barrier for read -> write
 

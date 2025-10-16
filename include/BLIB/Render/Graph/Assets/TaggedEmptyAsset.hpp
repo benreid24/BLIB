@@ -31,7 +31,7 @@ public:
     ~TaggedEmptyAsset() = default;
 
 private:
-    void doCreate(engine::Engine&, Renderer&, RenderTarget*) override {}
+    void doCreate(const rg::InitContext&) override {}
     void doPrepareForInput(const rg::ExecutionContext&) override {}
     void doStartOutput(const rg::ExecutionContext&) override {}
     void doEndOutput(const rg::ExecutionContext&) override {}

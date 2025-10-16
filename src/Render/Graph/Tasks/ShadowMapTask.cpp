@@ -23,9 +23,9 @@ ShadowMapTask::ShadowMapTask()
     assetTags.outputs.emplace_back(rg::AssetTags::ShadowMaps, rg::TaskOutput::CreatedByTask);
 }
 
-void ShadowMapTask::create(engine::Engine&, Renderer& r, Scene* s) {
-    renderer = &r;
-    scene    = dynamic_cast<scene::Scene3D*>(s);
+void ShadowMapTask::create(const rg::InitContext& ctx) {
+    renderer = &ctx.renderer;
+    scene    = dynamic_cast<scene::Scene3D*>(ctx.scene);
     if (!scene) { throw std::runtime_error("ShadowMapTask can only be used with Scene3D"); }
 }
 

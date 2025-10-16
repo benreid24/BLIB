@@ -8,8 +8,8 @@ namespace rc
 {
 namespace rgi
 {
-void AutoExposureWorkBuffer::doCreate(engine::Engine&, Renderer& renderer, RenderTarget*) {
-    if (!buffer.create(renderer.vulkanState(),
+void AutoExposureWorkBuffer::doCreate(const rg::InitContext& ctx) {
+    if (!buffer.create(ctx.vulkanState,
                        sizeof(float) * 4,
                        VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
                        VK_BUFFER_USAGE_STORAGE_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT,

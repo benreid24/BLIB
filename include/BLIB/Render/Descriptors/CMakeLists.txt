@@ -6,7 +6,6 @@ target_sources(BLIB PUBLIC
 	GenericDescriptorSetFactory.hpp
 	GenericDescriptorSetInstance.hpp
 	InstanceTable.hpp
-	SceneDescriptorSetInstance.hpp
 	SetWriteHelper.hpp
 )
 

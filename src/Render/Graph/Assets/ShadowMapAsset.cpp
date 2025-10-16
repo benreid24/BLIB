@@ -13,11 +13,11 @@ ShadowMapAsset::ShadowMapAsset(std::string_view tag)
 : Asset(tag, false)
 , renderer(nullptr) {}
 
-void ShadowMapAsset::doCreate(engine::Engine&, Renderer& r, RenderTarget*) {
-    renderer = &r;
+void ShadowMapAsset::doCreate(const rg::InitContext& ctx) {
+    renderer = &ctx.renderer;
     createImages();
-    subscribe(r.getSignalChannel());
-    emitter.connect(r.getSignalChannel());
+    subscribe(ctx.renderer.getSignalChannel());
+    emitter.connect(ctx.renderer.getSignalChannel());
 }
 
 void ShadowMapAsset::doPrepareForInput(const rg::ExecutionContext&) {

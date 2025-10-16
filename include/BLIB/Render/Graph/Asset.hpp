@@ -3,6 +3,7 @@
 
 #include <BLIB/Render/Graph/AssetRef.hpp>
 #include <BLIB/Render/Graph/ExecutionContext.hpp>
+#include <BLIB/Render/Graph/InitContext.hpp>
 #include <glm/glm.hpp>
 #include <string_view>
 #include <vector>
@@ -45,11 +46,9 @@ public:
     /**
      * @brief Called once after the asset is added to a pool for the first time
      *
-     * @param engine The engine instance
-     * @param renderer The renderer instance
-     * @param observer The observer that the asset belongs to
+     * @param ctx The initialization context
      */
-    virtual void doCreate(engine::Engine& engine, Renderer& renderer, RenderTarget* observer) = 0;
+    virtual void doCreate(const InitContext& ctx) = 0;
 
     /**
      * @brief Prepares the asset for being an input. Child classes should insert pipeline barriers
@@ -161,8 +160,7 @@ private:
     bool external;
     bool terminal;
 
-    bool create(engine::Engine& engine, Renderer& renderer, RenderTarget* observer,
-                GraphAssetPool* pool);
+    bool create(const InitContext& ctx, GraphAssetPool* pool);
     void prepareForInput(const ExecutionContext& ctx);
     void startOutput(const ExecutionContext& ctx);
     void endOutput(const ExecutionContext& ctx);

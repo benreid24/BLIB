@@ -25,7 +25,7 @@ RenderOverlayTask::RenderOverlayTask(unsigned int* observerIndexOverride)
         rg::TaskInput({rg::AssetTags::OverlayInput, rg::AssetTags::SceneInput}));
 }
 
-void RenderOverlayTask::create(engine::Engine&, Renderer&, Scene*) {
+void RenderOverlayTask::create(const rg::InitContext&) {
     // noop
 }
 

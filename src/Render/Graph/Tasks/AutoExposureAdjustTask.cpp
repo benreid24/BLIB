@@ -27,18 +27,19 @@ AutoExposureAdjustTask::AutoExposureAdjustTask()
                                                   {rg::TaskOutput::Exclusive}));
 }
 
-void AutoExposureAdjustTask::create(engine::Engine&, Renderer& r, Scene* s) {
-    renderer = &r;
-    scene    = s;
+void AutoExposureAdjustTask::create(const rg::InitContext& ctx) {
+    renderer = &ctx.renderer;
+    target   = &ctx.target;
+    scene    = ctx.scene;
 }
 
 void AutoExposureAdjustTask::onGraphInit() {
     vk::ComputePipeline* adjust =
         &renderer->computePipelineCache().getPipeline(cfg::ComputePipelineIds::AutoExposureAdjust);
-    pipeline.init(adjust, scene->getDescriptorSets());
+    pipeline.init(adjust, *target->getDescriptorSetCache(scene));
 }
 
-void AutoExposureAdjustTask::execute(const rg::ExecutionContext& ctx, rg::Asset* output) {
+void AutoExposureAdjustTask::execute(const rg::ExecutionContext& ctx, rg::Asset*) {
     // buffer barrier handled by accumulate task
 
     pipeline.bind(ctx, cfg::RenderPhases::PostProcess);

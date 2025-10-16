@@ -11,9 +11,7 @@ DescriptorSetInstanceCache::DescriptorSetInstanceCache(
     sr::ShaderResourceStore& observerShaderResources, sr::ShaderResourceStore& sceneShaderResources)
 : globalShaderResources(globalShaderResources)
 , observerShaderResources(observerShaderResources)
-, sceneShaderResources(sceneShaderResources) {
-    sceneSets.reserve(4);
-}
+, sceneShaderResources(sceneShaderResources) {}
 
 DescriptorSetInstance* DescriptorSetInstanceCache::getDescriptorSet(DescriptorSetFactory* factory) {
     if (!factory->isAutoConstructable()) { return nullptr; }
@@ -22,8 +20,7 @@ DescriptorSetInstance* DescriptorSetInstanceCache::getDescriptorSet(DescriptorSe
     if (it != cache.end()) { return it->second.get(); }
     it = cache.try_emplace(factory, factory->createDescriptorSet()).first;
     it->second->init(globalShaderResources, sceneShaderResources, observerShaderResources);
-    SceneDescriptorSetInstance* scene = dynamic_cast<SceneDescriptorSetInstance*>(it->second.get());
-    if (scene) { sceneSets.push_back(scene); }
+
     return it->second.get();
 }
 
@@ -33,11 +30,6 @@ void DescriptorSetInstanceCache::unlinkSceneObject(ecs::Entity ent, scene::Key k
 
 void DescriptorSetInstanceCache::updateDescriptors() {
     for (auto& pair : cache) { pair.second->updateDescriptors(); }
-}
-
-void DescriptorSetInstanceCache::updateObserverCamera(
-    std::uint32_t observerIndex, const SceneDescriptorSetInstance::ObserverInfo& info) {
-    for (auto* set : sceneSets) { set->updateObserverCamera(observerIndex, info); }
 }
 
 } // namespace ds

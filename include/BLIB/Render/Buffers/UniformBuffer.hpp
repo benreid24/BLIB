@@ -44,10 +44,10 @@ public:
      *
      * @param vulkanState Renderer Vulkan state
      * @param size Number of elements to create
-     * @param extraUsage Additional usage flags to use when creating the GPU buffer
+     * @param alignment The alignment to use for each element
      */
     void create(vk::VulkanState& vulkanState, std::uint32_t size,
-                VkBufferUsageFlags extraUsage = 0);
+                Alignment alignment = Alignment::Std140);
 
     /**
      * @brief Fills the buffer with the given value
@@ -115,17 +115,16 @@ UniformBuffer<T>::UniformBuffer(vk::VulkanState& vulkanState, std::uint32_t size
 }
 
 template<typename T>
-void UniformBuffer<T>::create(vk::VulkanState& vs, std::uint32_t size, VkBufferUsageFlags usage) {
+void UniformBuffer<T>::create(vk::VulkanState& vs, std::uint32_t size, Alignment align) {
     vulkanState = &vs;
     count       = size;
-    alignment   = computeAlignment(sizeof(T), Alignment::UboBindOffset);
+    alignment   = computeAlignment(sizeof(T), align);
 
-    gpuBuffers.init(vs, [this, &vs, size, usage](vk::Buffer& buffer) {
+    gpuBuffers.init(vs, [this, &vs, size](vk::Buffer& buffer) {
         buffer.create(vs,
                       size * alignment,
                       VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
-                      VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT |
-                          static_cast<VkBufferUsageFlagBits>(usage),
+                      VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT,
                       0);
     });
     stagingBuffers.init(vs, [this, &vs, size](vk::Buffer& buffer) {

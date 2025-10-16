@@ -78,8 +78,7 @@ public:
 private:
     std::array<std::unique_ptr<T>, N> assets;
 
-    virtual void doCreate(engine::Engine& engine, Renderer& renderer,
-                          RenderTarget* observer) override;
+    virtual void doCreate(const rg::InitContext& ctx) override;
     virtual void doPrepareForInput(const ExecutionContext& context) override;
     virtual void doStartOutput(const rg::ExecutionContext& context) override;
     virtual void doEndOutput(const rg::ExecutionContext& context) override;
@@ -127,11 +126,8 @@ constexpr std::uint32_t MultiAsset<T, N>::size() const {
 }
 
 template<typename T, std::uint32_t N>
-void MultiAsset<T, N>::doCreate(engine::Engine& engine, Renderer& renderer,
-                                RenderTarget* observer) {
-    for (auto& asset : assets) {
-        asset->create(engine, renderer, observer, getOwnerForLastCreate());
-    }
+void MultiAsset<T, N>::doCreate(const rg::InitContext& ctx) {
+    for (auto& asset : assets) { asset->create(ctx, getOwnerForLastCreate()); }
 }
 
 template<typename T, std::uint32_t N>

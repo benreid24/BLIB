@@ -172,11 +172,38 @@ public:
      */
     ds::DescriptorSetInstanceCache* getDescriptorSetCache(Scene* scene);
 
+    /**
+     * @brief Provides direct access to the descriptor set of the given type. Creates it if not
+     *        already created. May be slow, cache the result
+     *
+     * @tparam T The descriptor set type to fetch or create
+     * @param scene The scene to get the descriptor set for
+     * @return The descriptor set of the given type
+     */
+    template<typename T>
+    T* getDescriptorSet(Scene* scene);
+
+    /**
+     * @brief Initializes the pipeline instance for the given pipeline id
+     *
+     * @param scene The scene to get the descriptor sets from
+     * @param pipelineId The id of the pipeline to fetch and create the instance for
+     * @param instance The instance to populate with pipeline and descriptor sets
+     */
+    void initPipelineInstance(Scene* scene, std::uint32_t pipelineId,
+                              vk::PipelineInstance& instance);
+
+    /**
+     * @brief Returns the current viewport of the render target
+     */
+    const VkViewport& getViewport() const { return viewport; }
+
 protected:
     struct SceneInstance {
         SceneRef scene;
         SceneRef overlayRef;
         Overlay* overlay;
+        std::optional<ds::DescriptorSetInstanceCache> overlayDescriptorCache;
         rg::RenderGraph graph;
         ds::DescriptorSetInstanceCache descriptorCache;
         std::uint32_t observerIndex;
@@ -191,6 +218,7 @@ protected:
     engine::Engine& engine;
     Renderer& renderer;
     rg::AssetPool graphAssets;
+    ds::DescriptorSetFactoryCache& descriptorFactories;
     sr::ShaderResourceStore shaderResources;
     bool resourcesFreed;
     VkViewport viewport;
@@ -314,6 +342,24 @@ inline const VkRect2D& RenderTarget::getScissor() const { return scissor; }
 inline rg::AssetPool& RenderTarget::getAssetPool() { return graphAssets; }
 
 inline sr::ShaderResourceStore& RenderTarget::getShaderResources() { return shaderResources; }
+
+template<typename T>
+T* RenderTarget::getDescriptorSet(Scene* scene) {
+    auto* descriptorSets = getDescriptorSetCache(scene);
+    if (!descriptorSets) {
+        BL_LOG_ERROR
+            << "Failed to get descriptor set cache for scene. RenderTarget does not render it";
+        return nullptr;
+    }
+
+    T* set = descriptorSets->getDescriptorSet<T>();
+    if (set) { return set; }
+
+    ds::DescriptorSetFactory* factory = descriptorFactories.getFactoryThatMakes<T>();
+    if (!factory) { throw std::runtime_error("Failed to find descriptor set"); }
+
+    return static_cast<T*>(descriptorSets->getDescriptorSet(factory));
+}
 
 } // namespace rc
 } // namespace bl

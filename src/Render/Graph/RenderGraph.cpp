@@ -212,6 +212,11 @@ bool RenderGraph::needsRepopulation() const {
            (strategy && strategyVersion != strategy->getVersion());
 }
 
+void RenderGraph::createTask(Task* task) {
+    const rg::InitContext ctx{engine, renderer, renderer.vulkanState(), *observer, scene};
+    task->create(ctx);
+}
+
 } // namespace rg
 } // namespace rc
 } // namespace bl

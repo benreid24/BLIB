@@ -10,7 +10,7 @@ SceneAsset::SceneAsset(Scene* s, std::string_view tag)
 : Asset(tag, false)
 , scene(s) {}
 
-void SceneAsset::doCreate(engine::Engine&, Renderer&, RenderTarget*) {
+void SceneAsset::doCreate(const rg::InitContext&) {
     // noop
 }
 

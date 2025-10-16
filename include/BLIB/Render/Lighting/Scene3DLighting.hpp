@@ -2,8 +2,8 @@
 #define BLIB_RENDER_LIGHTING_SCENE3DLIGHTING_HPP
 
 #include <BLIB/Logging.hpp>
-#include <BLIB/Render/Descriptors/Builtin/Scene3DInstance.hpp>
 #include <BLIB/Render/Lighting/Light3D.hpp>
+#include <BLIB/Render/Lighting/LightingDescriptor3D.hpp>
 #include <BLIB/Render/Lighting/PointLight3D.hpp>
 #include <BLIB/Render/Lighting/PointLight3DShadow.hpp>
 #include <BLIB/Render/Lighting/SpotLight3D.hpp>
@@ -28,9 +28,9 @@ public:
     /**
      * @brief Creates the lighting manager
      *
-     * @param instance The descriptor set instance for the scene
+     * @param uniform The lighting uniform to update with light data
      */
-    Scene3DLighting(dsi::Scene3DInstance& instance);
+    Scene3DLighting(LightingDescriptor3D& uniform);
 
     /**
      * @brief Returns the global ambient light color
@@ -192,7 +192,7 @@ private:
         }
     };
 
-    dsi::Scene3DInstance& instance;
+    LightingDescriptor3D& uniform;
     glm::vec3 sceneCenter;
     float sunDistance;
     Lights<SpotLight3D> spotLights;

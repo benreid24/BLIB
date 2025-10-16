@@ -13,11 +13,7 @@ namespace rc
 Scene::Scene(engine::Engine& engine)
 : engine(engine)
 , renderer(engine.renderer())
-, descriptorFactories(renderer.descriptorFactoryCache())
-// TODO - move descriptors into observer scene stack + refactor
-, descriptorSets(shaderInputStore, shaderInputStore, shaderInputStore)
 , shaderInputStore(engine)
-, nextObserverIndex(0)
 , staticPipelines(cfg::Constants::DefaultSceneObjectCapacity, nullptr)
 , dynamicPipelines(cfg::Constants::DefaultSceneObjectCapacity, nullptr)
 , isClearingQueues(false) {
@@ -26,19 +22,16 @@ Scene::Scene(engine::Engine& engine)
     queuedRemovals.reserve(32);
 }
 
-std::uint32_t Scene::registerObserver() {
+std::uint32_t Scene::registerObserver(RenderTarget* target) {
+    const std::uint32_t index = targetTable.addTarget(target);
 #ifdef BLIB_DEBUG
-    if (nextObserverIndex >= cfg::Limits::MaxSceneObservers) {
+    if (index >= cfg::Limits::MaxSceneObservers) {
         BL_LOG_CRITICAL << "Max observer count for scene reached";
         throw std::runtime_error("Max observer count for scene reached");
     }
 #endif
-    return nextObserverIndex++;
-}
-
-void Scene::updateObserverCamera(std::uint32_t observerIndex,
-                                 const ds::SceneDescriptorSetInstance::ObserverInfo& info) {
-    descriptorSets.updateObserverCamera(observerIndex, info);
+    doRegisterObserver(target, index);
+    return index;
 }
 
 void Scene::updateDescriptorsAndQueueTransfers() {
@@ -46,7 +39,6 @@ void Scene::updateDescriptorsAndQueueTransfers() {
 
     // sync descriptors
     onDescriptorSync();
-    descriptorSets.updateDescriptors();
     shaderInputStore.performTransfers();
 }
 
@@ -122,6 +114,7 @@ void Scene::addQueuedObject(ObjectAdd& add) {
     rcom::DrawableBase& object = *add.object;
     scene::SceneObject* sobj   = doAdd(add.entity, object, add.updateFreq);
     if (sobj) {
+        sobj->entity           = add.entity;
         object.sceneRef.object = sobj;
         object.sceneRef.scene  = this;
         sobj->component        = &object;
@@ -136,14 +129,15 @@ void Scene::addQueuedObject(ObjectAdd& add) {
     else { BL_LOG_ERROR << "Failed to add " << add.entity << " to scene " << this; }
 }
 
-void Scene::initPipelineInstance(std::uint32_t pid, vk::PipelineInstance& instance) {
-    vk::Pipeline* pipeline = &renderer.pipelineCache().getPipeline(pid);
-    instance.init(pipeline, descriptorSets);
-}
-
 void Scene::renderScene(scene::SceneRenderContext& ctx) {
     renderOpaqueObjects(ctx);
     renderTransparentObjects(ctx);
+}
+
+ds::DescriptorSetInstanceCache* Scene::getDescriptorSetCache(RenderTarget* target) {
+    ds::DescriptorSetInstanceCache* cache = target->getDescriptorSetCache(this);
+    if (!cache) { BL_LOG_ERROR << "Failed to get descriptor set cache for scene from target"; }
+    return cache;
 }
 
 } // namespace rc

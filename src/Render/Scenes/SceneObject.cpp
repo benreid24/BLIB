@@ -9,7 +9,8 @@ namespace rc
 namespace scene
 {
 SceneObject::SceneObject()
-: component(nullptr) {}
+: entity(ecs::InvalidEntity)
+, component(nullptr) {}
 
 void SceneObject::updateRefToThis() {
     if (component) { component->sceneRef.object = this; }

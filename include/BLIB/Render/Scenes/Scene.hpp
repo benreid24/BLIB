@@ -6,10 +6,10 @@
 #include <BLIB/Render/Components/DrawableBase.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
-#include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>
+#include <BLIB/Render/Scenes/TargetTable.hpp>
 #include <BLIB/Render/ShaderResources/ShaderResourceStore.hpp>
 #include <BLIB/Render/Vulkan/PipelineInstance.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
@@ -90,16 +90,6 @@ public:
     virtual rg::Strategy* getRenderStrategy() = 0;
 
     /**
-     * @brief Provides direct access to the descriptor set of the given type. Creates it if not
-     *        already created. May be slow, cache the result
-     *
-     * @tparam T The descriptor set type to fetch or create
-     * @return The descriptor set of the given type
-     */
-    template<typename T>
-    T& getDescriptorSet();
-
-    /**
      * @brief Creates a default camera for the scene
      *
      * @return The default camera to use
@@ -113,19 +103,6 @@ public:
      * @param camera The camera to initialize
      */
     virtual void setDefaultNearAndFarPlanes(cam::Camera& camera) const = 0;
-
-    /**
-     * @brief Initializes the pipeline instance for the given pipeline id
-     *
-     * @param pipelineId The id of the pipeline to fetch and create the instance for
-     * @param instance The instance to populate with pipeline and descriptor sets
-     */
-    void initPipelineInstance(std::uint32_t pipelineId, vk::PipelineInstance& instance);
-
-    /**
-     * @brief Returns the descriptor set instance cache for the scene
-     */
-    ds::DescriptorSetInstanceCache& getDescriptorSets() { return descriptorSets; }
 
     /**
      * @brief Returns the shader resource store for this scene
@@ -146,8 +123,7 @@ protected:
     engine::Engine& engine;
     Renderer& renderer;
     std::recursive_mutex objectMutex;
-    ds::DescriptorSetFactoryCache& descriptorFactories;
-    ds::DescriptorSetInstanceCache descriptorSets;
+    scene::TargetTable targetTable;
     sr::ShaderResourceStore shaderInputStore;
 
     /**
@@ -194,6 +170,14 @@ protected:
     virtual void doObjectRemoval(scene::SceneObject* object, mat::MaterialPipeline* pipeline) = 0;
 
     /**
+     * @brief Called when a new observer is going to render the scene
+     *
+     * @param target The render target that will observe the scene
+     * @param observerIndex The index of the observer in the renderer
+     */
+    virtual void doRegisterObserver(RenderTarget* target, std::uint32_t observerIndex) = 0;
+
+    /**
      * @brief Called at the beginning of the frame when descriptors are being updated
      */
     virtual void onDescriptorSync() {}
@@ -211,7 +195,6 @@ private:
         , updateFreq(updateFreq) {}
     };
 
-    std::uint32_t nextObserverIndex;
     std::vector<mat::MaterialPipeline*> staticPipelines;
     std::vector<mat::MaterialPipeline*> dynamicPipelines;
 
@@ -233,9 +216,9 @@ private:
     // called by Observer
     void updateDescriptorsAndQueueTransfers();
     void syncObjects();
-    std::uint32_t registerObserver();
-    void updateObserverCamera(std::uint32_t observerIndex,
-                              const ds::SceneDescriptorSetInstance::ObserverInfo& info);
+    std::uint32_t registerObserver(RenderTarget* target);
+
+    ds::DescriptorSetInstanceCache* getDescriptorSetCache(RenderTarget* target);
 
     friend class scene::SceneSync;
     friend class RenderTarget;
@@ -243,17 +226,6 @@ private:
     friend class vk::RenderTexture;
     friend struct rcom::DrawableBase;
 };
-
-template<typename T>
-T& Scene::getDescriptorSet() {
-    T* set = descriptorSets.getDescriptorSet<T>();
-    if (set) { return *set; }
-
-    ds::DescriptorSetFactory* factory = descriptorFactories.getFactoryThatMakes<T>();
-    if (!factory) { throw std::runtime_error("Failed to find descriptor set"); }
-
-    return static_cast<T&>(*descriptorSets.getDescriptorSet(factory));
-}
 
 } // namespace rc
 } // namespace bl

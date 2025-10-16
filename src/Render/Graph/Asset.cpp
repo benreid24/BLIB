@@ -43,8 +43,7 @@ Asset* Asset::getDependency(std::string_view depTag) {
 
 Asset* Asset::getDependency(unsigned int index) { return &dependencies[index].get(); }
 
-bool Asset::create(engine::Engine& engine, Renderer& renderer, RenderTarget* observer,
-                   GraphAssetPool* pool) {
+bool Asset::create(const InitContext& ctx, GraphAssetPool* pool) {
     if (!created) {
         created = true;
         dependencies.reserve(depTags.size());
@@ -53,10 +52,10 @@ bool Asset::create(engine::Engine& engine, Renderer& renderer, RenderTarget* obs
             if (!dep.valid()) {
                 BL_LOG_ERROR << "Failed to find dependency asset with tag: " << depTag;
             }
-            dep->create(engine, renderer, observer, pool);
+            dep->create(ctx, pool);
             dependencies.emplace_back(dep);
         }
-        doCreate(engine, renderer, observer);
+        doCreate(ctx);
         return true;
     }
     return false;

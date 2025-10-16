@@ -72,6 +72,7 @@ public:
 
 private:
     Renderer* renderer;
+    RenderTarget* target;
     Scene* scene;
     buf::IndexBuffer indexBuffer;
     vk::PipelineInstance pipeline;
@@ -79,7 +80,7 @@ private:
     float fadeSpeed;
     float factor;
 
-    virtual void create(engine::Engine& engine, Renderer& renderer, Scene* scene) override;
+    virtual void create(const rg::InitContext& ctx) override;
     virtual void onGraphInit() override;
     virtual void execute(const rg::ExecutionContext& ctx, rg::Asset* output) override;
 };

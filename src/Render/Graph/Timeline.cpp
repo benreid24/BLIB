@@ -97,8 +97,10 @@ void Timeline::build(std::vector<std::unique_ptr<Task>>& tasks, GraphAsset* fina
         return false;
     };
 
-    const auto createAsset = [this](GraphAsset* asset) {
-        if (asset->asset->create(engine, renderer, observer, pool)) {
+    const InitContext initCtx(engine, renderer, renderer.vulkanState(), *observer, scene);
+
+    const auto createAsset = [this, &initCtx](GraphAsset* asset) {
+        if (asset->asset->create(initCtx, pool)) {
             emitter.emit<event::SceneGraphAssetInitialized>(
                 {.target = observer, .scene = scene, .asset = asset});
         }

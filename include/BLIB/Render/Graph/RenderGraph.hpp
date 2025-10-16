@@ -55,7 +55,7 @@ public:
         T* task = new T(std::forward<TArgs>(args)...);
         tasks.emplace_back(task);
         needsRebuild = true;
-        static_cast<Task*>(task)->create(engine, renderer, scene);
+        createTask(static_cast<Task*>(task));
         return task;
     }
 
@@ -187,6 +187,8 @@ private:
     unsigned int strategyVersion;
     bool needsRebuild;
     bool needsReset;
+
+    void createTask(Task* task);
 };
 
 } // namespace rg

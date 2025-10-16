@@ -1,10 +1,13 @@
 #ifndef BLIB_RENDER_SHADERRESOURCES_SHADERRESOURCESTORE_HPP
 #define BLIB_RENDER_SHADERRESOURCES_SHADERRESOURCESTORE_HPP
 
+#include <BLIB/Logging.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
+#include <BLIB/Render/ShaderResources/Key.hpp>
 #include <BLIB/Render/ShaderResources/ShaderResource.hpp>
 #include <memory>
 #include <string>
+#include <type_traits>
 #include <typeindex>
 #include <unordered_map>
 
@@ -65,12 +68,24 @@ public:
     TInput* getShaderInputWithId(const std::string& id, TArgs&&... args);
 
     /**
+     * @brief Gets or creates the requested shader input using a scene key
+     *
+     * @tparam TInput The type of shader input to fetch or create
+     * @tparam ...TArgs The argument types to the shader input constructor
+     * @param key The key of the shader input to fetch or create
+     * @param ...args The arguments to the shader input constructor
+     * @return  A pointer to the shader input to use
+     */
+    template<typename TInput, typename... TArgs>
+    TInput* getShaderInputWithKey(const Key<TInput>& key, TArgs&&... args);
+
+    /**
      * @brief Syncs modified descriptor values in the contained storage modules
      */
     void performTransfers();
 
     /**
-     * @brief Copies descriptor data from source (such asECS components) into local buffers
+     * @brief Copies descriptor data from source (such as ECS components) into local buffers
      */
     void updateFromSources();
 
@@ -95,10 +110,23 @@ TInput* ShaderResourceStore::getShaderInputWithId(const std::string& id, TArgs&&
 
     auto it = cache.find(id);
     if (it == cache.end()) {
-        it = cache.try_emplace(id, std::make_unique<TInput>(std::forward<TArgs>(args)...)).first;
-        initInput(*it->second);
+        if constexpr (std::is_constructible_v<TInput, TArgs...>) {
+            it =
+                cache.try_emplace(id, std::make_unique<TInput>(std::forward<TArgs>(args)...)).first;
+            initInput(*it->second);
+        }
+        else {
+            BL_LOG_ERROR << "Failed to create shader input with id '" << id
+                         << "': no matching constructor";
+            return nullptr;
+        }
     }
     return static_cast<TInput*>(it->second.get());
+}
+
+template<typename TInput, typename... TArgs>
+TInput* ShaderResourceStore::getShaderInputWithKey(const Key<TInput>& key, TArgs&&... args) {
+    return getShaderInputWithId<TInput>(std::string(key.id), std::forward<TArgs>(args)...);
 }
 
 } // namespace sr

@@ -31,7 +31,9 @@ Overlay::Overlay(engine::Engine& e)
 }
 
 Overlay::~Overlay() {
-    objects.unlinkAll(descriptorSets);
+    for (unsigned int i = 0; i < targetTable.nextId(); ++i) {
+        objects.unlinkAll(*targetTable.getTarget(i)->getDescriptorSetCache(this));
+    }
 
     // reset viewports to prevent read into invalid memory
     std::copy(roots.begin(), roots.end(), std::inserter(renderStack, renderStack.begin()));
@@ -87,15 +89,20 @@ void Overlay::renderOpaqueObjects(scene::SceneRenderContext& ctx) {
                 currentPipelineLayout = vkl;
                 currentPipeline       = vkp;
                 ctx.bindPipeline(*obj.pipeline, spec);
-                ctx.bindDescriptors(
-                    vkl, obj.sceneKey.updateFreq, obj.descriptors.data(), obj.descriptorCount);
+                ctx.bindDescriptors(vkl,
+                                    obj.sceneKey.updateFreq,
+                                    obj.descriptors.get(ctx.currentObserverIndex()).data(),
+                                    obj.descriptors.getDescriptorSetCount());
             }
             else if (currentPipeline != vkp) {
                 currentPipeline = vkp;
                 ctx.bindPipeline(*obj.pipeline, spec);
             }
-            for (std::uint8_t i = obj.perObjStart; i < obj.descriptorCount; ++i) {
-                obj.descriptors[i]->bindForObject(ctx, vkl, i, obj.sceneKey);
+            for (std::uint8_t i = obj.descriptors.getPerObjectStart();
+                 i < obj.descriptors.getDescriptorSetCount();
+                 ++i) {
+                obj.descriptors.get(ctx.currentObserverIndex())[i]->bindForObject(
+                    ctx, vkl, i, obj.sceneKey);
             }
             ctx.renderObject(obj);
         }
@@ -110,20 +117,14 @@ scene::SceneObject* Overlay::doAdd(ecs::Entity entity, rcom::DrawableBase& objec
                                    UpdateSpeed updateFreq) {
     ovy::OverlayObject& obj = *objects.allocate(updateFreq, entity);
 
-    obj.entity          = entity;
-    obj.overlay         = this;
-    obj.pipeline        = object.getCurrentPipeline();
-    obj.descriptorCount = obj.pipeline->getPipeline(cfg::RenderPhases::Overlay)
-                              ->pipelineLayout()
-                              .initDescriptorSets(descriptorSets, obj.descriptors.data());
-    obj.perObjStart     = obj.descriptorCount;
+    obj.entity   = entity;
+    obj.overlay  = this;
+    obj.pipeline = object.getCurrentPipeline();
+    obj.descriptors.init(this,
+                         obj.pipeline->getPipeline(cfg::RenderPhases::Overlay)->pipelineLayout());
+    obj.descriptors.addObservers(targetTable);
+    obj.descriptors.allocateObject(entity, obj.sceneKey);
     obj.overlayViewport = &cachedParentViewport;
-    for (unsigned int i = 0; i < obj.descriptorCount; ++i) {
-        obj.descriptors[i]->allocateObject(entity, obj.sceneKey);
-        if (!obj.descriptors[i]->isBindless()) {
-            obj.perObjStart = std::min(obj.perObjStart, static_cast<std::uint8_t>(i));
-        }
-    }
 
     if (!engine.ecs().entityHasParent(entity)) {
         roots.emplace_back(&obj);
@@ -155,9 +156,7 @@ void Overlay::doObjectRemoval(scene::SceneObject* object, mat::MaterialPipeline*
         sortRoots();
     }
 
-    for (unsigned int i = 0; i < obj->descriptorCount; ++i) {
-        obj->descriptors[i]->releaseObject(obj->entity, object->sceneKey);
-    }
+    obj->descriptors.releaseObject(obj->entity, obj->sceneKey);
     objects.release(obj->sceneKey);
     engine.ecs().removeComponent<ovy::OverlayObject>(obj->entity);
     emitter.emit<rc::event::SceneObjectRemoved>({this, obj->entity});
@@ -168,21 +167,10 @@ void Overlay::doBatchChange(const BatchChange& change, mat::MaterialPipeline* og
         ovy::OverlayObject& object = *static_cast<ovy::OverlayObject*>(change.changed);
         object.pipeline            = change.newPipeline;
         const ecs::Entity entity   = objects.getObjectEntity(object.sceneKey);
-        object.descriptorCount     = object.pipeline->getPipeline(cfg::RenderPhases::Overlay)
-                                     ->pipelineLayout()
-                                     .updateDescriptorSets(descriptorSets,
-                                                           object.descriptors.data(),
-                                                           object.descriptorCount,
-                                                           entity,
-                                                           object.sceneKey.sceneId,
-                                                           object.sceneKey.updateFreq);
-        object.perObjStart = object.descriptorCount;
-        for (unsigned int i = 0; i < object.descriptorCount; ++i) {
-            if (!object.descriptors[i]->isBindless()) {
-                object.perObjStart = i;
-                break;
-            }
-        }
+        object.descriptors.reinit(
+            object.pipeline->getPipeline(cfg::RenderPhases::Overlay)->pipelineLayout(),
+            targetTable,
+            object);
     }
 }
 
@@ -240,6 +228,21 @@ void Overlay::sortRoots() {
 void Overlay::useRenderStrategy(rg::Strategy* ns) { strategy = ns; }
 
 rg::Strategy* Overlay::getRenderStrategy() { return strategy; }
+
+void Overlay::doRegisterObserver(RenderTarget* target, std::uint32_t observerIndex) {
+    std::copy(roots.begin(), roots.end(), std::inserter(renderStack, renderStack.begin()));
+    while (!renderStack.empty()) {
+        ovy::OverlayObject& obj = *renderStack.back();
+        renderStack.pop_back();
+
+        obj.descriptors.addObserver(observerIndex, *target);
+        obj.descriptors.allocateObject(observerIndex, obj.entity, obj.sceneKey);
+
+        std::copy(obj.getChildren().rbegin(),
+                  obj.getChildren().rend(),
+                  std::inserter(renderStack, renderStack.end()));
+    }
+}
 
 } // namespace rc
 } // namespace bl

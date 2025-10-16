@@ -138,9 +138,9 @@ private:
     VkViewport cachedViewport;
     VkRect2D cachedScissor;
 
-    virtual void doCreate(engine::Engine&, Renderer& r, RenderTarget* o) override {
-        renderer   = &r;
-        observer   = o;
+    virtual void doCreate(const rg::InitContext& ctx) override {
+        renderer   = &ctx.renderer;
+        observer   = &ctx.target;
         renderPass = &renderer->renderPassCache().getRenderPass(renderPassId);
         if constexpr (DepthAttachment == DepthAttachmentType::SharedDepthBuffer) {
             depthBufferAsset = dynamic_cast<DepthBuffer*>(getDependency(0));
@@ -149,8 +149,8 @@ private:
             }
         }
         else { depthBufferAsset = nullptr; }
-        onResize(o->getRegionSize());
-        subscribe(r.getSignalChannel());
+        onResize(ctx.target.getRegionSize());
+        subscribe(ctx.renderer.getSignalChannel());
     }
 
     virtual void doPrepareForInput(const rg::ExecutionContext&) override {}

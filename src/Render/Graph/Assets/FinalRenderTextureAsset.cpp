@@ -25,9 +25,9 @@ FinalRenderTextureAsset::FinalRenderTextureAsset(res::TextureRef texture,
     addDependency(rg::AssetTags::DepthBuffer);
 }
 
-void FinalRenderTextureAsset::doCreate(engine::Engine&, Renderer& renderer, RenderTarget*) {
-    vs          = &renderer.vulkanState();
-    renderPass  = &renderer.renderPassCache().getRenderPass(renderPassId);
+void FinalRenderTextureAsset::doCreate(const rg::InitContext& ctx) {
+    vs          = &ctx.vulkanState;
+    renderPass  = &ctx.renderer.renderPassCache().getRenderPass(renderPassId);
     depthBuffer = dynamic_cast<DepthBuffer*>(getDependency(0));
     if (!depthBuffer) {
         throw std::runtime_error("FinalSwapframeAsset requires a DepthBuffer dependency");
@@ -40,7 +40,7 @@ void FinalRenderTextureAsset::doCreate(engine::Engine&, Renderer& renderer, Rend
     attachmentSet.setAttachment(1, depthBuffer->getBuffer());
     attachmentSet.setAttachmentAspect(0, VK_IMAGE_ASPECT_COLOR_BIT);
     attachmentSet.setAttachmentAspect(1, VK_IMAGE_ASPECT_DEPTH_BIT);
-    framebuffer.create(renderer.vulkanState(), renderPass, attachmentSet);
+    framebuffer.create(ctx.vulkanState, renderPass, attachmentSet);
 }
 
 void FinalRenderTextureAsset::doPrepareForInput(const rg::ExecutionContext&) {

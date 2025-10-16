@@ -17,11 +17,11 @@ DepthBuffer::DepthBuffer()
 , mode(FullScreen)
 , cleared(false) {}
 
-void DepthBuffer::doCreate(engine::Engine& e, Renderer& r, RenderTarget* target) {
-    engine          = &e;
-    const auto size = getSize(target->getRegionSize());
+void DepthBuffer::doCreate(const rg::InitContext& ctx) {
+    engine          = &ctx.engine;
+    const auto size = getSize(ctx.target.getRegionSize());
     createAttachment(size);
-    subscribe(r.getSignalChannel());
+    subscribe(ctx.renderer.getSignalChannel());
 }
 
 void DepthBuffer::onResize(glm::u32vec2 targetSize) {

@@ -25,7 +25,7 @@ ForwardRenderTransparentTask::ForwardRenderTransparentTask()
     assetTags.optionalInputs.emplace_back(rg::AssetTags::ShadowMaps);
 }
 
-void ForwardRenderTransparentTask::create(engine::Engine&, Renderer&, Scene*) {
+void ForwardRenderTransparentTask::create(const rg::InitContext&) {
     // noop
 }
 

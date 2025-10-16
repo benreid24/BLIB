@@ -2,7 +2,9 @@
 #define BLIB_RENDER_DESCRIPTORS_SCENE2DINSTANCE_HPP
 
 #include <BLIB/Render/Buffers/StaticUniformBuffer.hpp>
-#include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
+#include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
+#include <BLIB/Render/Lighting/Scene2DLighting.hpp>
+#include <BLIB/Render/ShaderResources/CameraBufferShaderResource.hpp>
 #include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/PerFrameVector.hpp>
@@ -31,10 +33,8 @@ namespace dsi
  *
  * @ingroup Renderer
  */
-class Scene2DInstance : public ds::SceneDescriptorSetInstance {
+class Scene2DInstance : public ds::DescriptorSetInstance {
 public:
-    static constexpr std::uint32_t MaxLightCount = 500;
-
     /**
      * @brief Creates a new instance of the descriptor set
      *
@@ -49,18 +49,12 @@ public:
     virtual ~Scene2DInstance();
 
 private:
-    struct alignas(16) Light {
-        glm::vec4 color;
-        glm::vec2 position;
-    };
-
-    struct alignas(16) Lighting {
-        std::uint32_t lightCount;
-        glm::vec3 ambient;
-        alignas(16) Light lights[MaxLightCount];
-    };
-
-    buf::StaticUniformBuffer<Lighting> lighting;
+    vk::VulkanState& vulkanState;
+    const VkDescriptorSetLayout setLayout;
+    vk::DescriptorPool::AllocationHandle allocHandle;
+    vk::PerFrame<VkDescriptorSet> descriptorSets;
+    sri::CameraBufferShaderResource* cameraBuffer;
+    sri::LightingBuffer2D* lightingBuffer;
 
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                  std::uint32_t setIndex, UpdateSpeed updateFreq) const override;

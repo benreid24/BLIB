@@ -41,8 +41,8 @@ BloomTask::BloomTask()
                                                   rg::TaskOutput::Exclusive));
 }
 
-void BloomTask::create(engine::Engine&, Renderer& r, Scene*) {
-    renderer = &r;
+void BloomTask::create(const rg::InitContext& ctx) {
+    renderer = &ctx.renderer;
 
     filterHighlightPipeline =
         &renderer->pipelineCache().getPipeline(cfg::PipelineIds::BloomHighlightFilter);

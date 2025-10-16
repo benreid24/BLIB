@@ -221,6 +221,8 @@ void Renderer::renderFrame() {
         settings.dirty = false;
     }
     globalDescriptors.onFrameStart();
+    globalShaderResources.updateFromSources();
+    globalShaderResources.performTransfers();
     for (auto& rt : renderTextures) { rt->updateDescriptorsAndQueueTransfers(); }
     if (commonObserver.hasScene()) { commonObserver.updateDescriptorsAndQueueTransfers(); }
     else {

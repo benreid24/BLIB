@@ -25,20 +25,21 @@ Outline3DTask::Outline3DTask()
                        {rg::TaskIds::ForwardRenderTransparentTask}));
 }
 
-void Outline3DTask::create(engine::Engine& engine, Renderer& renderer, Scene* s) {
-    registry = &engine.ecs();
-    scene    = s;
+void Outline3DTask::create(const rg::InitContext& ctx) {
+    registry = &ctx.engine.ecs();
+    scene    = ctx.scene;
 
-    vk::Pipeline* standard = &renderer.pipelineCache().getPipeline(cfg::PipelineIds::Outline3D);
+    auto& descriptorSets   = *ctx.target.getDescriptorSetCache(scene);
+    vk::Pipeline* standard = &ctx.renderer.pipelineCache().getPipeline(cfg::PipelineIds::Outline3D);
     vk::Pipeline* skinned =
-        &renderer.pipelineCache().getPipeline(cfg::PipelineIds::Outline3DSkinned);
-    standardPipeline.init(standard, scene->getDescriptorSets());
-    skinnedPipeline.init(skinned, scene->getDescriptorSets());
+        &ctx.renderer.pipelineCache().getPipeline(cfg::PipelineIds::Outline3DSkinned);
+    standardPipeline.init(standard, descriptorSets);
+    skinnedPipeline.init(skinned, descriptorSets);
 
     // load outlines that were added before this call
     ecs::Transaction<ecs::tx::EntityUnlocked, ecs::tx::ComponentRead<com::Rendered, com::Outline>>
-        tx(engine.ecs());
-    engine.ecs().getAllComponents<com::Outline>().forEach(
+        tx(ctx.engine.ecs());
+    ctx.engine.ecs().getAllComponents<com::Outline>().forEach(
         [this, &tx](ecs::Entity entity, com::Outline& outline) {
             com::Rendered* rendered = registry->getComponent<com::Rendered>(entity, tx);
             if (rendered && rendered->getScene() == scene) {
@@ -47,7 +48,7 @@ void Outline3DTask::create(engine::Engine& engine, Renderer& renderer, Scene* s)
         },
         tx);
 
-    subscribe(engine.ecs().getSignalChannel());
+    subscribe(ctx.engine.ecs().getSignalChannel());
 }
 
 void Outline3DTask::onGraphInit() {

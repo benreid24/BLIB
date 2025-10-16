@@ -46,7 +46,6 @@
 #include <BLIB/Render/Descriptors/Generic/ObjectStorageBuffer.hpp>
 #include <BLIB/Render/Descriptors/GenericDescriptorSetFactory.hpp>
 #include <BLIB/Render/Descriptors/GenericDescriptorSetInstance.hpp>
-#include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
 #include <BLIB/Render/Descriptors/SetWriteHelper.hpp>
 #include <BLIB/Render/Events/SceneDestroyed.hpp>
 #include <BLIB/Render/Events/SceneObjectRemoved.hpp>

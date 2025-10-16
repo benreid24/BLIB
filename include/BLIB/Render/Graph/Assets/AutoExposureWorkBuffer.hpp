@@ -29,7 +29,7 @@ public:
     virtual ~AutoExposureWorkBuffer() = default;
 
 private:
-    virtual void doCreate(engine::Engine&, Renderer&, RenderTarget*) override;
+    virtual void doCreate(const rg::InitContext& ctx) override;
     virtual void doPrepareForInput(const rg::ExecutionContext&) override;
     virtual void doStartOutput(const rg::ExecutionContext&) override;
     virtual void doEndOutput(const rg::ExecutionContext&) override {}

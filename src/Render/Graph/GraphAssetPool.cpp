@@ -108,6 +108,7 @@ GraphAsset* GraphAssetPool::getAssetForInput(std::string_view tag, std::string_v
 GraphAsset* GraphAssetPool::createAsset(std::string_view tag, std::string_view purpose) {
     auto& set         = assets[tag];
     GraphAsset& asset = set.emplace_back(pool.getOrCreateAsset(tag, this));
+    setPurpose(asset, purpose);
     emitter.emit<event::SceneGraphAssetCreated>({.target = owner, .scene = scene, .asset = &asset});
     return &asset;
 }

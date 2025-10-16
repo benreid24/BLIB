@@ -27,15 +27,16 @@ DeferredCompositeTask::DeferredCompositeTask()
     assetTags.optionalInputs.emplace_back(rg::TaskInput(rg::AssetTags::SSAOBuffer));
 }
 
-void DeferredCompositeTask::create(engine::Engine&, Renderer& r, Scene* s) {
-    renderer = &r;
-    scene    = s;
+void DeferredCompositeTask::create(const rg::InitContext& ctx) {
+    renderer = &ctx.renderer;
+    target   = &ctx.target;
+    scene    = ctx.scene;
 
     // fetch pipeline
     pipeline = &renderer->pipelineCache().getPipeline(cfg::PipelineIds::DeferredLightVolume);
 
     // create index buffer for the sun
-    sunRectBuffer.create(r.vulkanState(), 4, 6);
+    sunRectBuffer.create(ctx.vulkanState, 4, 6);
     sunRectBuffer.indices()  = {0, 1, 3, 1, 2, 3};
     sunRectBuffer.vertices() = {prim::Vertex3D({-1.f, -1.f, 1.0f}, {0.f, 0.f}),
                                 prim::Vertex3D({1.f, -1.f, 1.0f}, {1.f, 0.f}),
@@ -47,7 +48,7 @@ void DeferredCompositeTask::create(engine::Engine&, Renderer& r, Scene* s) {
     std::vector<prim::Vertex3D> sphereVertices;
     std::vector<std::uint32_t> sphereIndices;
     gfx::Sphere::makeSphere(1.f, 3, sphereVertices, sphereIndices);
-    sphereBuffer.create(r.vulkanState(), std::move(sphereVertices), std::move(sphereIndices));
+    sphereBuffer.create(ctx.vulkanState, std::move(sphereVertices), std::move(sphereIndices));
     sphereBuffer.queueTransfer(tfr::Transferable::SyncRequirement::Immediate);
 }
 
@@ -61,7 +62,8 @@ void DeferredCompositeTask::onGraphInit() {
                                .getOrCreateFactory<dsi::InputAttachmentFactory<4>>()
                                ->getDescriptorLayout();
 
-    sceneDescriptor = &scene->getDescriptorSet<dsi::Scene3DInstance>();
+    lightingBuffer  = scene->getShaderResources().getShaderInputWithKey(sri::Scene3DLightingKey);
+    sceneDescriptor = target->getDescriptorSet<dsi::Scene3DInstance>(scene);
 
     gbufferDescriptor.emplace(renderer->vulkanState(), setLayout, 4, 0);
     gbufferDescriptor.value().initAttachments(input->getAttachmentSets(), sampler);
@@ -69,15 +71,14 @@ void DeferredCompositeTask::onGraphInit() {
 
 void DeferredCompositeTask::execute(const rg::ExecutionContext& ctx, rg::Asset* output) {
     const auto layout    = pipeline->pipelineLayout().rawLayout();
-    const auto& lighting = sceneDescriptor->getUniform();
+    const auto& lighting = lightingBuffer->getBuffer()[0];
     FramebufferAsset* fb = dynamic_cast<FramebufferAsset*>(output);
     if (!fb) { throw std::runtime_error("Got bad output"); }
 
     // bind sun pipeline & all descriptors
     pipeline->bind(ctx.commandBuffer, fb->getRenderPassId(), 0);
     gbufferDescriptor->bind(ctx.commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, 0);
-    sceneDescriptor->bind(
-        ctx.commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, 1, ctx.observerIndex);
+    sceneDescriptor->bind(ctx.commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, 1);
 
     // render sun
     sunRectBuffer.bindAndDraw(ctx.commandBuffer);

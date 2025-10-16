@@ -39,15 +39,16 @@ void FadeEffectTask::fade(float fadeTime, float fadeStart, float factorEnd) {
     fadeSpeed = (fadeEnd - factor) / fadeTime;
 }
 
-void FadeEffectTask::create(engine::Engine&, Renderer& r, Scene* s) {
-    renderer = &r;
-    scene    = s;
+void FadeEffectTask::create(const rg::InitContext& ctx) {
+    renderer = &ctx.renderer;
+    target   = &ctx.target;
+    scene    = ctx.scene;
 
     // fetch pipeline and descriptor set
-    s->initPipelineInstance(cfg::PipelineIds::FadeEffect, pipeline);
+    ctx.target.initPipelineInstance(scene, cfg::PipelineIds::FadeEffect, pipeline);
 
     // create index buffer
-    indexBuffer.create(r.vulkanState(), 4, 6);
+    indexBuffer.create(ctx.vulkanState, 4, 6);
     indexBuffer.indices()  = {0, 1, 3, 1, 2, 3};
     indexBuffer.vertices() = {prim::Vertex({-1.f, -1.f, 1.0f}, {0.f, 0.f}),
                               prim::Vertex({1.f, -1.f, 1.0f}, {1.f, 0.f}),
@@ -61,7 +62,7 @@ void FadeEffectTask::onGraphInit() {
         dynamic_cast<FramebufferAsset*>(&assets.requiredInputs[0]->asset.get());
     if (!input) { throw std::runtime_error("Got bad input"); }
 
-    auto& set = scene->getDescriptorSet<dsi::InputAttachmentInstance>();
+    auto& set = *target->getDescriptorSet<dsi::InputAttachmentInstance>(scene);
     set.initAttachments(input->getAttachmentSets(), renderer->samplerCache().noFilterEdgeClamped());
 }
 

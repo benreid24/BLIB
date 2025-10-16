@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_RENDERER_SCENEOBJECT_HPP
 #define BLIB_RENDER_RENDERER_SCENEOBJECT_HPP
 
+#include <BLIB/ECS/Entity.hpp>
 #include <BLIB/Render/Primitives/DrawParameters.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 
@@ -37,6 +38,7 @@ struct SceneObject {
      */
     void updateRefToThis();
 
+    ecs::Entity entity;
     Key sceneKey;
     rcom::DrawableBase* component;
 };

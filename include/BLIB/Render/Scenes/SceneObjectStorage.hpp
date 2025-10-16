@@ -3,10 +3,10 @@
 
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/Render/Config/Constants.hpp>
-#include <BLIB/Render/ShaderResources/EntityComponentShaderResource.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
+#include <BLIB/Render/ShaderResources/EntityComponentShaderResource.hpp>
 #include <queue>
 #include <type_traits>
 #include <vector>
@@ -82,6 +82,15 @@ public:
      * @param descriptors The descriptor sets to unbind
      */
     void unlinkAll(ds::DescriptorSetInstanceCache& descriptors);
+
+    /**
+     * @brief Invokes the provided callback for each element in the collection
+     *
+     * @tparam TCallback The type of the callback function or callable object
+     * @param callback A callable object to be invoked for each element
+     */
+    template<typename TCallback>
+    void forEach(TCallback&& callback);
 
     /**
      * @brief Gets a new pointer from an old pointer. Call after a pool grows
@@ -188,6 +197,18 @@ T* SceneObjectStorage<T>::rebase(UpdateSpeed speed, T* og, T* ob) {
 template<typename T>
 MapKeyToEntityCb SceneObjectStorage<T>::makeEntityCallback() const {
     return [this](scene::Key key) { return getObjectEntity(key); };
+}
+
+template<typename T>
+template<typename TCallback>
+void SceneObjectStorage<T>::forEach(TCallback&& callback) {
+    UpdateSpeed speed = UpdateSpeed::Static;
+    for (Bucket* bucket : {&staticBucket, &dynamicBucket}) {
+        for (unsigned int i = 0; i < bucket->objects.size(); ++i) {
+            if (bucket->entityMap[i] != ecs::InvalidEntity) { callback(bucket->objects[i]); }
+        }
+        speed = UpdateSpeed::Dynamic;
+    }
 }
 
 } // namespace scene

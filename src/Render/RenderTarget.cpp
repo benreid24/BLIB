@@ -9,6 +9,7 @@
 #include <BLIB/Render/Graph/Tasks/RenderOverlayTask.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Render/Scenes/Scene2D.hpp>
+#include <BLIB/Render/ShaderResources/CameraBufferShaderResource.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace bl
@@ -30,6 +31,7 @@ RenderTarget::RenderTarget(engine::Engine& e, Renderer& r, rg::AssetFactory& f, 
 , engine(e)
 , renderer(r)
 , graphAssets(f, this)
+, descriptorFactories(renderer.descriptorFactoryCache())
 , shaderResources(e)
 , resourcesFreed(false)
 , renderingTo(nullptr) {
@@ -40,6 +42,7 @@ RenderTarget::RenderTarget(engine::Engine& e, Renderer& r, rg::AssetFactory& f, 
     clearColors[1].depthStencil = {1.f, 0};
 
     graphAssets.putAsset<rgi::DepthBuffer>();
+    shaderResources.getShaderInputWithKey(sri::CameraBufferKey, *this);
 }
 
 RenderTarget::~RenderTarget() {
@@ -74,7 +77,10 @@ Overlay* RenderTarget::createSceneOverlay() {
 
     scenes.back().overlayRef   = renderer.scenePool().allocateScene<Overlay>();
     scenes.back().overlay      = static_cast<Overlay*>(scenes.back().overlayRef.get());
-    scenes.back().overlayIndex = scenes.back().overlay->registerObserver();
+    scenes.back().overlayIndex = scenes.back().overlay->registerObserver(this);
+    scenes.back().overlayDescriptorCache.emplace(renderer.getGlobalShaderResources(),
+                                                 getShaderResources(),
+                                                 scenes.back().overlay->getShaderResources());
     graphAssets.replaceAsset<rgi::SceneAsset>(scenes.back().overlay, rg::AssetTags::OverlayInput);
     scenes.back().graph.removeTasks<rgi::RenderOverlayTask>();
     scenes.back().graph.putTask<rgi::RenderOverlayTask>(&scenes.back().overlayIndex);
@@ -126,7 +132,7 @@ void RenderTarget::removeScene(Scene* scene) {
 void RenderTarget::clearScenes() { scenes.clear(); }
 
 void RenderTarget::onSceneAdd() {
-    scenes.back().observerIndex = scenes.back().scene->registerObserver();
+    scenes.back().observerIndex = scenes.back().scene->registerObserver(this);
     onSceneChange();
 }
 
@@ -154,21 +160,13 @@ void RenderTarget::updateDescriptorsAndQueueTransfers() {
 
         if (currentScene.graph.needsRepopulation()) {
             currentScene.graph.populate(*currentScene.scene);
+            if (currentScene.overlay) {
+                currentScene.graph.putTask<rgi::RenderOverlayTask>(&currentScene.overlayIndex);
+            }
         }
 
-        currentScene.scene->updateObserverCamera(
-            currentScene.observerIndex,
-            {currentScene.camera->getProjectionMatrix(viewport),
-             currentScene.camera->getViewMatrix(),
-             currentScene.camera->getObserverPosition()});
         currentScene.scene->updateDescriptorsAndQueueTransfers();
-        if (currentScene.overlay) {
-            currentScene.overlay->updateObserverCamera(currentScene.overlayIndex,
-                                                       {overlayCamera.getProjectionMatrix(viewport),
-                                                        overlayCamera.getViewMatrix(),
-                                                        glm::vec3()});
-            currentScene.overlay->updateDescriptorsAndQueueTransfers();
-        }
+        if (currentScene.overlay) { currentScene.overlay->updateDescriptorsAndQueueTransfers(); }
     }
 }
 
@@ -243,8 +241,27 @@ void RenderTarget::resetAssets() { graphAssets.startFrame(); }
 ds::DescriptorSetInstanceCache* RenderTarget::getDescriptorSetCache(Scene* scene) {
     for (auto& s : scenes) {
         if (s.scene.get() == scene) { return &s.descriptorCache; }
+        if (s.overlay && s.overlay == scene && s.overlayDescriptorCache.has_value()) {
+            return &s.overlayDescriptorCache.value();
+        }
     }
     return nullptr;
+}
+
+void RenderTarget::initPipelineInstance(Scene* scene, std::uint32_t pid,
+                                        vk::PipelineInstance& instance) {
+    vk::Pipeline* pipeline                         = &renderer.pipelineCache().getPipeline(pid);
+    ds::DescriptorSetInstanceCache* descriptorSets = getDescriptorSetCache(scene);
+    if (!pipeline) {
+        BL_LOG_ERROR << "Failed to get pipeline with id: " << pid;
+        return;
+    }
+    if (!descriptorSets) {
+        BL_LOG_ERROR
+            << "Failed to get descriptor set cache for scene. RenderTarget does not render it";
+        return;
+    }
+    instance.init(pipeline, *descriptorSets);
 }
 
 } // namespace rc

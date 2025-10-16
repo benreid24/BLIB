@@ -1,8 +1,11 @@
 #ifndef BLIB_RENDER_DESCRIPTORS_INSTANCETABLE_HPP
 #define BLIB_RENDER_DESCRIPTORS_INSTANCETABLE_HPP
 
+#include <BLIB/Containers/StaticVector.hpp>
 #include <BLIB/ECS/Entity.hpp>
+#include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
+#include <array>
 #include <vector>
 
 namespace bl
@@ -11,6 +14,16 @@ namespace rc
 {
 class RenderTarget;
 class Scene;
+
+namespace vk
+{
+class PipelineLayout;
+}
+namespace scene
+{
+class TargetTable;
+struct SceneObject;
+} // namespace scene
 
 namespace ds
 {
@@ -25,21 +38,34 @@ class DescriptorSetFactory;
  */
 class InstanceTable {
 public:
+    using LayoutSets = std::array<DescriptorSetInstance*, cfg::Limits::MaxDescriptorSets>;
+
     /**
      * @brief Creates an empty instance table
      */
     InstanceTable();
 
     /**
-     * @brief Initializes the table with the factory to use to allocate sets
+     * @brief Initializes the table with the layout to create sets with
      *
      * @param scene The scene that owns this table
-     * @param factory The factory to use to allocate sets
+     * @param layout The pipeline layout to get the set factories from
      */
-    void init(Scene* scene, DescriptorSetFactory* factory);
+    void init(Scene* scene, const vk::PipelineLayout& layout);
 
     /**
-     * @brief Allocates a new descriptor set instance for an observer. It is up to the caller to
+     * @brief Reinitializes the table of descriptor sets for the new layout for the object that uses
+     *        this table. Intended for use when the table is for a single object
+     *
+     * @param newLayout The new pipeline layout
+     * @param observers The table of observers that use this instance table
+     * @param object The object that uses this instance table
+     */
+    void reinit(const vk::PipelineLayout& newLayout, scene::TargetTable& observers,
+                const scene::SceneObject& object);
+
+    /**
+     * @brief Allocates new descriptor set instances for an observer. It is up to the caller to
      *        ensure that all prior added objects get added for the new observer
      *
      * @param index The scene index of the observer
@@ -48,12 +74,19 @@ public:
     void addObserver(unsigned int index, RenderTarget& observer);
 
     /**
+     * @brief Adds all observers of a scene
+     *
+     * @param observers The table of observers to add
+     */
+    void addObservers(const scene::TargetTable& observers);
+
+    /**
      * @brief Returns the descriptor set instance for the given observer index
      *
      * @param index The observer scene index
-     * @return The descriptor set instance for the observer
+     * @return The descriptor set instances for the observer
      */
-    DescriptorSetInstance* get(unsigned int index) const { return sets[index]; }
+    LayoutSets& get(unsigned int index) { return sets[index]; }
 
     /**
      * @brief Allocates a new object in all set instances
@@ -82,10 +115,30 @@ public:
      */
     void releaseObject(ecs::Entity entity, scene::Key key);
 
+    /**
+     * @brief Returns whether the sets for this layout are bindless
+     */
+    bool isBindless() const { return bindless; }
+
+    /**
+     * @brief Returns the index of the first per-object descriptor set
+     */
+    unsigned int getPerObjectStart() const { return perObjStart; }
+
+    /**
+     * @brief Returns the number of descriptor sets in the layout
+     */
+    unsigned int getDescriptorSetCount() const { return factories.size(); }
+
 private:
-    DescriptorSetFactory* factory;
+    ctr::StaticVector<DescriptorSetFactory*, cfg::Limits::MaxDescriptorSets> factories;
     Scene* scene;
-    std::vector<DescriptorSetInstance*> sets;
+    std::vector<LayoutSets> sets;
+    bool checkedBindless;
+    bool bindless;
+    unsigned int perObjStart;
+
+    void checkBindless();
 };
 
 } // namespace ds

@@ -42,7 +42,7 @@ private:
     std::optional<dsi::InputAttachmentInstance> output1Descriptor;
     std::optional<dsi::InputAttachmentInstance> output2Descriptor;
 
-    virtual void create(engine::Engine& engine, Renderer& renderer, Scene* scene) override;
+    virtual void create(const rg::InitContext& ctx) override;
     virtual void onGraphInit() override;
     virtual void execute(const rg::ExecutionContext& ctx, rg::Asset*) override;
     virtual void update(float dt) override;

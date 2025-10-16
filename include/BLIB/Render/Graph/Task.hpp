@@ -3,6 +3,7 @@
 
 #include <BLIB/Render/Graph/ExecutionContext.hpp>
 #include <BLIB/Render/Graph/GraphAsset.hpp>
+#include <BLIB/Render/Graph/InitContext.hpp>
 #include <BLIB/Render/Graph/TaskAssetTags.hpp>
 #include <BLIB/Render/Graph/TaskAssets.hpp>
 #include <limits>
@@ -43,11 +44,9 @@ public:
     /**
      * @brief Called once after the task is created within a RenderGraph
      *
-     * @param engine The engine instance
-     * @param renderer The renderer instance
-     * @param scene The scene the graph is rendering to
+     * @param ctx The initialization context
      */
-    virtual void create(engine::Engine& engine, Renderer& renderer, Scene* scene) = 0;
+    virtual void create(const rg::InitContext& ctx) = 0;
 
     /**
      * @brief Called after assets are assigned and created. Called when graph is rebuilt

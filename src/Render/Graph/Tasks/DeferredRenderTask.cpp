@@ -22,7 +22,7 @@ DeferredRenderTask::DeferredRenderTask()
     assetTags.requiredInputs.emplace_back(rg::AssetTags::SceneInput);
 }
 
-void DeferredRenderTask::create(engine::Engine&, Renderer&, Scene*) {
+void DeferredRenderTask::create(const rg::InitContext&) {
     // noop
 }
 

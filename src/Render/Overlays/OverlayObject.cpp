@@ -8,11 +8,8 @@ namespace ovy
 {
 OverlayObject::OverlayObject()
 : SceneObject()
-, entity(ecs::InvalidEntity)
 , overlay(nullptr)
 , pipeline(nullptr)
-, descriptorCount(0)
-, perObjStart(0)
 , overlayViewport(nullptr)
 , cachedScissor{} {}
 

@@ -119,6 +119,14 @@ protected:
      */
     virtual void setDefaultNearAndFarPlanes(cam::Camera&) const override {}
 
+    /**
+     * @brief Called when a new observer is going to render the scene
+     *
+     * @param target The render target that will observe the scene
+     * @param observerIndex The index of the observer in the renderer
+     */
+    virtual void doRegisterObserver(RenderTarget* target, std::uint32_t observerIndex) override;
+
 private:
     ecs::ComponentPool<ovy::OverlayObject>* ecsPool;
     scene::SceneObjectECSAdaptor<ovy::OverlayObject> objects;

@@ -3,7 +3,6 @@
 
 #include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
-#include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
 #include <BLIB/Render/ShaderResources/ShaderResourceStore.hpp>
 #include <memory>
 #include <typeindex>
@@ -43,15 +42,6 @@ public:
     DescriptorSetInstance* getDescriptorSet(DescriptorSetFactory* factory);
 
     /**
-     * @brief Updates the camera value for the given observer in each contained scene descriptor set
-     *
-     * @param observerIndex Index of the observer to update
-     * @param info The camera info for the observer
-     */
-    void updateObserverCamera(std::uint32_t observerIndex,
-                              const SceneDescriptorSetInstance::ObserverInfo& info);
-
-    /**
      * @brief Goes through all descriptor set instances and calls removeObject for the given object
      *
      * @param entity The ECS id of the object to unlink
@@ -78,7 +68,6 @@ private:
     sr::ShaderResourceStore& observerShaderResources;
     sr::ShaderResourceStore& sceneShaderResources;
     std::unordered_map<DescriptorSetFactory*, std::unique_ptr<DescriptorSetInstance>> cache;
-    std::vector<ds::SceneDescriptorSetInstance*> sceneSets;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

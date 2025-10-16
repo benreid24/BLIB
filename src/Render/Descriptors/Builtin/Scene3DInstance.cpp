@@ -17,25 +17,24 @@ namespace rc
 namespace dsi
 {
 Scene3DInstance::Scene3DInstance(Renderer& renderer, VkDescriptorSetLayout layout)
-: SceneDescriptorSetInstance(renderer.vulkanState(), layout)
+: DescriptorSetInstance(Bindless, SpeedAgnostic)
 , renderer(renderer)
+, setLayout(layout)
 , shadowMaps(nullptr)
 , ssaoBuffer(nullptr) {}
 
 Scene3DInstance::~Scene3DInstance() {
-    cleanup();
-    uniform.destroy();
+    renderer.vulkanState().descriptorPool.release(allocHandle, descriptorSets.rawData());
 }
 
 void Scene3DInstance::bind(VkCommandBuffer commandBuffer, VkPipelineBindPoint bindPoint,
-                           VkPipelineLayout pipelineLayout, std::uint32_t bindIndex,
-                           std::uint32_t observerIndex) {
+                           VkPipelineLayout pipelineLayout, std::uint32_t bindIndex) {
     vkCmdBindDescriptorSets(commandBuffer,
                             bindPoint,
                             pipelineLayout,
                             bindIndex,
                             1,
-                            &descriptorSets.current(observerIndex),
+                            &descriptorSets.current(),
                             0,
                             nullptr);
 }
@@ -47,7 +46,7 @@ void Scene3DInstance::bindForPipeline(scene::SceneRenderContext& ctx, VkPipeline
                             layout,
                             setIndex,
                             1,
-                            &descriptorSets.current(ctx.currentObserverIndex()),
+                            &descriptorSets.current(),
                             0,
                             nullptr);
 }
@@ -61,41 +60,37 @@ void Scene3DInstance::releaseObject(ecs::Entity, scene::Key) {
     // n/a
 }
 
-void Scene3DInstance::init(sr::ShaderResourceStore& globalShaderResources,
-                           sr::ShaderResourceStore& sceneShaderResources,
+void Scene3DInstance::init(sr::ShaderResourceStore&, sr::ShaderResourceStore& sceneShaderResources,
                            sr::ShaderResourceStore& observerShaderResources) {
-    // TODO - use observer store
+    cameraBuffer     = observerShaderResources.getShaderInputWithKey(sri::CameraBufferKey);
+    lightBuffer      = sceneShaderResources.getShaderInputWithKey(sri::Scene3DLightingKey);
     shadowMapCameras = sceneShaderResources.getShaderInputWithId<ShadowMapCameraShaderInput>(
         ShadowMapCameraInputName);
 
-    // allocate memory
-    createCameraBuffer();
-    uniform.create(vulkanState, 1);
-
     emptySpotShadowMap.create(
-        vulkanState,
+        renderer.vulkanState(),
         {.type       = vk::ImageOptions::Type::Image2D,
-         .format     = vulkanState.findDepthFormat(),
+         .format     = renderer.vulkanState().findDepthFormat(),
          .usage      = VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
          .extent     = renderer.getSettings().getShadowMapResolution(),
          .aspect     = VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT,
          .viewAspect = VK_IMAGE_ASPECT_DEPTH_BIT});
     emptyPointShadowMap.create(
-        vulkanState,
+        renderer.vulkanState(),
         {.type       = vk::ImageOptions::Type::Cubemap,
-         .format     = vulkanState.findDepthFormat(),
+         .format     = renderer.vulkanState().findDepthFormat(),
          .usage      = VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
          .extent     = renderer.getSettings().getShadowMapResolution(),
          .aspect     = VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT,
          .viewAspect = VK_IMAGE_ASPECT_DEPTH_BIT});
-    emptySSAOImage.create(vulkanState,
+    emptySSAOImage.create(renderer.vulkanState(),
                           {.type   = vk::ImageOptions::Type::Image2D,
                            .format = vk::CommonTextureFormats::SingleChannelUnorm8,
                            .usage  = VK_IMAGE_USAGE_SAMPLED_BIT,
                            .extent = {4, 4},
                            .aspect = VK_IMAGE_ASPECT_COLOR_BIT});
 
-    auto commandBuffer = vulkanState.sharedCommandPool.createBuffer();
+    auto commandBuffer = renderer.vulkanState().sharedCommandPool.createBuffer();
     emptySpotShadowMap.clearAndTransition(
         commandBuffer, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, {.depthStencil = {1.f, 0}});
     emptyPointShadowMap.clearAndTransition(
@@ -105,37 +100,48 @@ void Scene3DInstance::init(sr::ShaderResourceStore& globalShaderResources,
     commandBuffer.submit();
 
     // allocate descriptors
-    allocateDescriptorSets();
+    descriptorSets.emptyInit(renderer.vulkanState());
+    allocHandle = renderer.vulkanState().descriptorPool.allocate(
+        setLayout, descriptorSets.rawData(), descriptorSets.size());
 
     // create and configureWrite descriptors
-    const std::uint32_t bufferWriteCount = cfg::Limits::MaxConcurrentFrames * 4;
+    const std::uint32_t bufferWriteCount = cfg::Limits::MaxConcurrentFrames * 2;
     ds::SetWriteHelper setWriter;
-    setWriter.hintWriteCount(descriptorSets.size() * bufferWriteCount);
-    setWriter.hintBufferInfoCount(descriptorSets.size() * bufferWriteCount);
+    setWriter.hintWriteCount(bufferWriteCount);
+    setWriter.hintBufferInfoCount(bufferWriteCount);
 
     // write descriptors
-    for (std::uint32_t i = 0; i < cfg::Limits::MaxSceneObservers; ++i) {
-        for (std::uint32_t j = 0; j < cfg::Limits::MaxConcurrentFrames; ++j) {
-            const auto set = descriptorSets.getRaw(i, j);
+    for (std::uint32_t j = 0; j < cfg::Limits::MaxConcurrentFrames; ++j) {
+        const auto set = descriptorSets.getRaw(j);
 
-            writeCameraDescriptor(setWriter, i, j);
+        VkDescriptorBufferInfo& cameraBufferInfo = setWriter.getNewBufferInfo();
+        cameraBufferInfo.buffer =
+            cameraBuffer->getBuffer().gpuBufferHandles().getRaw(j).getBuffer();
+        cameraBufferInfo.offset = 0;
+        cameraBufferInfo.range  = cameraBuffer->getBuffer().totalAlignedSize();
 
-            // TODO - do we need padding for dynamic binding?
-            VkDescriptorBufferInfo& lightInfoBufferInfo = setWriter.getNewBufferInfo();
-            lightInfoBufferInfo.buffer                  = uniform.gpuBufferHandle().getBuffer();
-            lightInfoBufferInfo.offset                  = 0;
-            lightInfoBufferInfo.range                   = uniform.totalAlignedSize();
+        VkWriteDescriptorSet& cameraWrite = setWriter.getNewSetWrite(set);
+        cameraWrite.descriptorCount       = 1;
+        cameraWrite.dstBinding            = 0;
+        cameraWrite.dstArrayElement       = 0;
+        cameraWrite.pBufferInfo           = &cameraBufferInfo;
+        cameraWrite.descriptorType        = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
 
-            VkWriteDescriptorSet& lightInfoWrite = setWriter.getNewSetWrite(set);
-            lightInfoWrite.descriptorCount       = 1;
-            lightInfoWrite.dstBinding            = 1;
-            lightInfoWrite.dstArrayElement       = 0;
-            lightInfoWrite.pBufferInfo           = &lightInfoBufferInfo;
-            lightInfoWrite.descriptorType        = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-        }
+        VkDescriptorBufferInfo& lightInfoBufferInfo = setWriter.getNewBufferInfo();
+        lightInfoBufferInfo.buffer = lightBuffer->getBuffer().gpuBufferHandle().getBuffer();
+        lightInfoBufferInfo.offset = 0;
+        lightInfoBufferInfo.range  = lightBuffer->getBuffer().totalAlignedSize();
+
+        VkWriteDescriptorSet& lightInfoWrite = setWriter.getNewSetWrite(set);
+        lightInfoWrite.descriptorCount       = 1;
+        lightInfoWrite.dstBinding            = 1;
+        lightInfoWrite.dstArrayElement       = 0;
+        lightInfoWrite.pBufferInfo           = &lightInfoBufferInfo;
+        lightInfoWrite.descriptorType        = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
     }
-    setWriter.performWrite(vulkanState.device);
-    uniform.transferEveryFrame();
+
+    setWriter.performWrite(renderer.vulkanState().device);
+    lightBuffer->getBuffer().transferEveryFrame();
 
     updateImageDescriptors();
 
@@ -147,76 +153,73 @@ void Scene3DInstance::updateImageDescriptors() {
         cfg::Limits::MaxConcurrentFrames *
         (cfg::Limits::MaxSpotShadows + cfg::Limits::MaxPointShadows + 1); // +1 for ssao buffer
     ds::SetWriteHelper setWriter;
-    setWriter.hintWriteCount(descriptorSets.size() * imageWriteCount);
-    setWriter.hintImageInfoCount(descriptorSets.size() * imageWriteCount);
+    setWriter.hintWriteCount(imageWriteCount);
+    setWriter.hintImageInfoCount(imageWriteCount);
 
-    for (std::uint32_t i = 0; i < cfg::Limits::MaxSceneObservers; ++i) {
-        for (std::uint32_t j = 0; j < cfg::Limits::MaxConcurrentFrames; ++j) {
-            const auto set = descriptorSets.getRaw(i, j);
+    for (std::uint32_t j = 0; j < cfg::Limits::MaxConcurrentFrames; ++j) {
+        const auto set = descriptorSets.getRaw(j);
 
-            VkSampler sampler = renderer.samplerCache().shadowMap();
-            for (unsigned int k = 0; k < cfg::Limits::MaxSpotShadows; ++k) {
-                VkDescriptorImageInfo& imageInfo = setWriter.getNewImageInfo();
-                imageInfo.imageLayout            = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-                imageInfo.imageView = shadowMaps ? shadowMaps->getSpotShadowImage(k).getView() :
-                                                   emptySpotShadowMap.getView();
-                imageInfo.sampler   = sampler;
+        VkSampler sampler = renderer.samplerCache().shadowMap();
+        for (unsigned int k = 0; k < cfg::Limits::MaxSpotShadows; ++k) {
+            VkDescriptorImageInfo& imageInfo = setWriter.getNewImageInfo();
+            imageInfo.imageLayout            = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+            imageInfo.imageView = shadowMaps ? shadowMaps->getSpotShadowImage(k).getView() :
+                                               emptySpotShadowMap.getView();
+            imageInfo.sampler   = sampler;
 
-                VkWriteDescriptorSet& write = setWriter.getNewSetWrite(set);
-                write.descriptorCount       = 1;
-                write.dstBinding            = 2;
-                write.dstArrayElement       = k;
-                write.pImageInfo            = &imageInfo;
-                write.descriptorType        = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-            }
-
-            for (unsigned int k = 0; k < cfg::Limits::MaxPointShadows; ++k) {
-                VkDescriptorImageInfo& imageInfo = setWriter.getNewImageInfo();
-                imageInfo.imageLayout            = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-                imageInfo.imageView = shadowMaps ? shadowMaps->getPointShadowImage(k).getView() :
-                                                   emptyPointShadowMap.getView();
-                imageInfo.sampler   = sampler;
-
-                VkWriteDescriptorSet& write = setWriter.getNewSetWrite(set);
-                write.descriptorCount       = 1;
-                write.dstBinding            = 3;
-                write.dstArrayElement       = k;
-                write.pImageInfo            = &imageInfo;
-                write.descriptorType        = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-            }
-
-            // ssao buffer
-            VkDescriptorImageInfo& ssaoInfo = setWriter.getNewImageInfo();
-            ssaoInfo.imageLayout            = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-            ssaoInfo.imageView = ssaoBuffer ? ssaoBuffer->getAttachmentSets()[0]->getImageView(0) :
-                                              emptySSAOImage.getView();
-            ssaoInfo.sampler   = renderer.samplerCache().noFilterEdgeClamped();
-
-            VkWriteDescriptorSet& ssaoWrite = setWriter.getNewSetWrite(set);
-            ssaoWrite.descriptorCount       = 1;
-            ssaoWrite.dstBinding            = 4;
-            ssaoWrite.dstArrayElement       = 0;
-            ssaoWrite.pImageInfo            = &ssaoInfo;
-            ssaoWrite.descriptorType        = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+            VkWriteDescriptorSet& write = setWriter.getNewSetWrite(set);
+            write.descriptorCount       = 1;
+            write.dstBinding            = 2;
+            write.dstArrayElement       = k;
+            write.pImageInfo            = &imageInfo;
+            write.descriptorType        = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
         }
+
+        for (unsigned int k = 0; k < cfg::Limits::MaxPointShadows; ++k) {
+            VkDescriptorImageInfo& imageInfo = setWriter.getNewImageInfo();
+            imageInfo.imageLayout            = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+            imageInfo.imageView = shadowMaps ? shadowMaps->getPointShadowImage(k).getView() :
+                                               emptyPointShadowMap.getView();
+            imageInfo.sampler   = sampler;
+
+            VkWriteDescriptorSet& write = setWriter.getNewSetWrite(set);
+            write.descriptorCount       = 1;
+            write.dstBinding            = 3;
+            write.dstArrayElement       = k;
+            write.pImageInfo            = &imageInfo;
+            write.descriptorType        = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+        }
+
+        // ssao buffer
+        VkDescriptorImageInfo& ssaoInfo = setWriter.getNewImageInfo();
+        ssaoInfo.imageLayout            = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+        ssaoInfo.imageView = ssaoBuffer ? ssaoBuffer->getAttachmentSets()[0]->getImageView(0) :
+                                          emptySSAOImage.getView();
+        ssaoInfo.sampler   = renderer.samplerCache().noFilterEdgeClamped();
+
+        VkWriteDescriptorSet& ssaoWrite = setWriter.getNewSetWrite(set);
+        ssaoWrite.descriptorCount       = 1;
+        ssaoWrite.dstBinding            = 4;
+        ssaoWrite.dstArrayElement       = 0;
+        ssaoWrite.pImageInfo            = &ssaoInfo;
+        ssaoWrite.descriptorType        = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
     }
-    setWriter.performWrite(vulkanState.device);
+    setWriter.performWrite(renderer.vulkanState().device);
 }
 
 void Scene3DInstance::process(const event::SceneGraphAssetInitialized& event) {
-    if (event.scene == static_cast<Scene*>(owner)) {
-        rgi::ShadowMapAsset* sm = dynamic_cast<rgi::ShadowMapAsset*>(&event.asset->asset.get());
-        if (sm) {
-            shadowMaps = sm;
-            updateImageDescriptors();
-        }
-        else {
-            if (event.asset->purpose == rgi::Purpose::SSAOBuffer) {
-                rgi::SSAOAsset* ssao = dynamic_cast<rgi::SSAOAsset*>(&event.asset->asset.get());
-                if (ssao) {
-                    ssaoBuffer = ssao;
-                    updateImageDescriptors();
-                }
+    // TODO - replace this with fetch of shader resource in init from scene + observer stores
+    rgi::ShadowMapAsset* sm = dynamic_cast<rgi::ShadowMapAsset*>(&event.asset->asset.get());
+    if (sm) {
+        shadowMaps = sm;
+        updateImageDescriptors();
+    }
+    else {
+        if (event.asset->purpose == rgi::Purpose::SSAOBuffer) {
+            rgi::SSAOAsset* ssao = dynamic_cast<rgi::SSAOAsset*>(&event.asset->asset.get());
+            if (ssao) {
+                ssaoBuffer = ssao;
+                updateImageDescriptors();
             }
         }
     }
@@ -233,7 +236,7 @@ bool Scene3DInstance::allocateObject(ecs::Entity, scene::Key) {
 
 void Scene3DInstance::updateDescriptors() {
     auto& cameras = shadowMapCameras->getBuffer();
-    auto& data    = getUniform();
+    auto& data    = lightBuffer->getBuffer()[0];
 
     cameras[0].viewProj[0] = data.sun.viewProjectionMatrix;
 

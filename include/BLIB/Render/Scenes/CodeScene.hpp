@@ -113,6 +113,7 @@ private:
     virtual void doBatchChange(const BatchChange& change,
                                mat::MaterialPipeline* ogPipeline) override;
     virtual void doObjectRemoval(SceneObject* object, mat::MaterialPipeline* pipeline) override;
+    virtual void doRegisterObserver(RenderTarget* target, std::uint32_t observerIndex) override;
 };
 
 } // namespace scene

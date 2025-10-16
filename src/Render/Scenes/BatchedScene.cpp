@@ -20,7 +20,11 @@ BatchedScene::BatchedScene(engine::Engine& engine)
     emitter.connect(engine.renderer().getSignalChannel());
 }
 
-BatchedScene::~BatchedScene() { objects.unlinkAll(descriptorSets); }
+BatchedScene::~BatchedScene() {
+    for (unsigned int i = 0; i < targetTable.nextId(); ++i) {
+        objects.unlinkAll(*targetTable.getTarget(i)->getDescriptorSetCache(this));
+    }
+}
 
 scene::SceneObject* BatchedScene::doAdd(ecs::Entity entity, rcom::DrawableBase& obj,
                                         UpdateSpeed updateFreq) {
@@ -38,10 +42,11 @@ scene::SceneObject* BatchedScene::doAdd(ecs::Entity entity, rcom::DrawableBase& 
     auto& batch = obj.getContainsTransparency() ? transparentObjects : opaqueObjects;
     mat::MaterialPipeline* pipeline = obj.getCurrentPipeline();
 
-    PipelineBatch& pipelineBatch = batch.getBatch(descriptorSets, *pipeline);
+    PipelineBatch& pipelineBatch = batch.getOrCreateBatch(this, *pipeline);
     if (!pipelineBatch.addObject(entity, alloc.newObject, obj.getPipelineSpecialization())) {
         return nullptr;
     }
+    pipelineBatch.initObserversMaybe(targetTable);
 
     // add scene link
     engine.ecs().emplaceComponent<com::BatchSceneLink>(entity, alloc.newObject->sceneKey);
@@ -51,7 +56,7 @@ scene::SceneObject* BatchedScene::doAdd(ecs::Entity entity, rcom::DrawableBase& 
 
 void BatchedScene::doObjectRemoval(scene::SceneObject* object, mat::MaterialPipeline* pipeline) {
     // lookup object
-    const ecs::Entity entity  = objects.getObjectEntity(object->sceneKey);
+    ecs::Entity entity        = object->entity;
     com::BatchSceneLink* link = engine.ecs().getComponent<com::BatchSceneLink>(entity);
 
     // remove children
@@ -108,10 +113,11 @@ void BatchedScene::doBatchChange(const BatchChange& change, mat::MaterialPipelin
 
     if (pipelineChanged) {
         PipelineBatch& newPipelineBatch =
-            newObjectBatch.getBatch(descriptorSets, *change.newPipeline);
+            newObjectBatch.getOrCreateBatch(this, *change.newPipeline);
         oldPipelineBatch->removeForRebatch(change.changed, priorSpec);
         newPipelineBatch.addForRebatch(change.changed, change.newSpecialization);
         newPipelineBatch.updateDescriptors(entity, change.changed, *oldPipelineBatch);
+        newPipelineBatch.initObserversMaybe(targetTable);
     }
     else if (transChanged) {
         PipelineBatch& newPipelineBatch = newObjectBatch.getBatch(*oldPipelineBatch);
@@ -120,9 +126,10 @@ void BatchedScene::doBatchChange(const BatchChange& change, mat::MaterialPipelin
     }
     else if (specializationChanged) {
         PipelineBatch& newPipelineBatch =
-            newObjectBatch.getBatch(descriptorSets, *change.newPipeline);
+            newObjectBatch.getOrCreateBatch(this, *change.newPipeline);
         newPipelineBatch.removeForRebatch(change.changed, priorSpec);
         newPipelineBatch.addForRebatch(change.changed, change.newSpecialization);
+        newPipelineBatch.initObserversMaybe(targetTable);
     }
 }
 
@@ -137,23 +144,23 @@ void BatchedScene::renderBatch(scene::SceneRenderContext& ctx, ObjectBatch& batc
             }
 
             vk::Pipeline* pipeline = pipelineBatch.pipeline.getPipeline(ctx.getRenderPhase());
-            RenderPhaseDescriptors& descriptors =
+            ds::InstanceTable& descriptors =
                 pipelineBatch.perPhaseDescriptors[ctx.getRenderPhase()];
 
             UpdateSpeed speed = UpdateSpeed::Dynamic;
             for (auto* objectBatch : {&specBatch.objectsDynamic, &specBatch.objectsStatic}) {
                 ctx.bindDescriptors(pipeline->pipelineLayout().rawLayout(),
                                     speed,
-                                    descriptors.descriptors.data(),
-                                    descriptors.descriptorCount);
+                                    descriptors.get(ctx.currentObserverIndex()).data(),
+                                    descriptors.getDescriptorSetCount());
 
-                if (!descriptors.bindless) {
+                if (!descriptors.isBindless()) {
                     for (SceneObject* obj : *objectBatch) {
                         if (obj->component->isHidden()) { continue; }
-                        for (std::uint8_t i = descriptors.perObjStart;
-                             i < descriptors.descriptorCount;
+                        for (std::uint8_t i = descriptors.getPerObjectStart();
+                             i < descriptors.getDescriptorSetCount();
                              ++i) {
-                            descriptors.descriptors[i]->bindForObject(
+                            descriptors.get(ctx.currentObserverIndex())[i]->bindForObject(
                                 ctx, pipeline->pipelineLayout().rawLayout(), i, obj->sceneKey);
                         }
                         ctx.renderObject(*obj);
@@ -195,45 +202,76 @@ void BatchedScene::handleAddressChange(UpdateSpeed speed, SceneObject* base) {
     }
 }
 
-void BatchedScene::RenderPhaseDescriptors::init(ds::DescriptorSetInstanceCache& descriptorCache,
-                                                const vk::Pipeline* pipeline) {
-    bindless        = true;
-    descriptorCount = 0;
-    perObjStart     = 4;
-    if (pipeline) {
-        descriptorCount =
-            pipeline->pipelineLayout().initDescriptorSets(descriptorCache, descriptors.data());
-        for (std::uint8_t i = 0; i < descriptorCount; ++i) {
-            if (!descriptors[i]->isBindless()) {
-                bindless    = false;
-                perObjStart = i;
-                break;
+void BatchedScene::doRegisterObserver(RenderTarget* target, std::uint32_t observerIndex) {
+    for (ObjectBatch* ob : {&opaqueObjects, &transparentObjects}) {
+        for (PipelineBatch& pb : ob->batches) { pb.registerObserver(observerIndex, *target); }
+    }
+}
+
+BatchedScene::PipelineBatch::PipelineBatch(const PipelineBatch& src)
+: needsObserverInit(src.needsObserverInit)
+, pipeline(src.pipeline)
+, perPhaseDescriptors(src.perPhaseDescriptors)
+, allDescriptors(src.allDescriptors) {}
+
+BatchedScene::PipelineBatch::PipelineBatch(Scene* scene, mat::MaterialPipeline& pipeline)
+: pipeline(pipeline)
+, needsObserverInit(true) {
+    for (RenderPhase phase = 0; phase < cfg::Limits::MaxRenderPhaseId; ++phase) {
+        vk::Pipeline* phasePipeline = pipeline.getPipeline(phase);
+        if (phasePipeline) {
+            auto& descriptors = perPhaseDescriptors[phase];
+            descriptors.init(scene, phasePipeline->pipelineLayout());
+        }
+    }
+}
+
+void BatchedScene::PipelineBatch::registerObserver(unsigned int index, RenderTarget& observer) {
+    const unsigned int startIndex = allDescriptors.size();
+    const auto addInstanceMaybe   = [this, startIndex](ds::DescriptorSetInstance* instance) {
+        for (unsigned int i = startIndex; i < allDescriptors.size(); ++i) {
+            if (allDescriptors[i] == instance) { return; }
+        }
+        allDescriptors.emplace_back(instance);
+    };
+
+    // create descriptor sets (happens in addObserver) for all new layouts
+    for (RenderPhase phase = 0; phase < cfg::Limits::MaxRenderPhaseId; ++phase) {
+        vk::Pipeline* phasePipeline = pipeline.getPipeline(phase);
+        if (phasePipeline) {
+            perPhaseDescriptors[phase].addObserver(index, observer);
+            auto& descriptors = perPhaseDescriptors[phase];
+            for (unsigned int i = 0; i < descriptors.getDescriptorSetCount(); ++i) {
+                addInstanceMaybe(descriptors.get(index)[i]);
+            }
+        }
+    }
+
+    // call allocateObject on all new sets for all existing objects
+    for (SpecializationBatch& specBatch : specBatches) {
+        for (unsigned int i = startIndex; i < allDescriptors.size(); ++i) {
+            for (SceneObject* obj : specBatch.objectsStatic) {
+                if (!allDescriptors[i]->allocateObject(obj->entity, obj->sceneKey)) {
+                    BL_LOG_ERROR << "Failed to add entity to scene descriptors for new observer: "
+                                 << obj->entity;
+                }
+            }
+            for (SceneObject* obj : specBatch.objectsDynamic) {
+                if (!allDescriptors[i]->allocateObject(obj->entity, obj->sceneKey)) {
+                    BL_LOG_ERROR << "Failed to add entity to scene descriptors for new observer: "
+                                 << obj->entity;
+                }
             }
         }
     }
 }
 
-BatchedScene::PipelineBatch::PipelineBatch(const PipelineBatch& src)
-: pipeline(src.pipeline)
-, perPhaseDescriptors(src.perPhaseDescriptors)
-, allDescriptors(src.allDescriptors) {}
-
-BatchedScene::PipelineBatch::PipelineBatch(ds::DescriptorSetInstanceCache& descriptorCache,
-                                           mat::MaterialPipeline& pipeline)
-: pipeline(pipeline) {
-    for (RenderPhase phase = 0; phase < cfg::Limits::MaxRenderPhaseId; ++phase) {
-        auto& descriptors = perPhaseDescriptors[phase];
-        descriptors.init(descriptorCache, pipeline.getPipeline(phase));
-        for (std::uint32_t i = 0; i < descriptors.descriptorCount; ++i) {
-            bool found = false;
-            for (ds::DescriptorSetInstance* set : allDescriptors) {
-                if (descriptors.descriptors[i] == set) {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) { allDescriptors.emplace_back(descriptors.descriptors[i]); }
+void BatchedScene::PipelineBatch::initObserversMaybe(TargetTable& targets) {
+    if (needsObserverInit) {
+        for (unsigned int i = 0; i < targets.nextId(); ++i) {
+            registerObserver(i, *targets.getTarget(i));
         }
+        needsObserverInit = false;
     }
 }
 
@@ -307,12 +345,12 @@ void BatchedScene::PipelineBatch::updateDescriptors(ecs::Entity entity, SceneObj
     }
 }
 
-BatchedScene::PipelineBatch& BatchedScene::ObjectBatch::getBatch(
-    ds::DescriptorSetInstanceCache& descriptorCache, mat::MaterialPipeline& pipeline) {
+BatchedScene::PipelineBatch& BatchedScene::ObjectBatch::getOrCreateBatch(
+    Scene* scene, mat::MaterialPipeline& pipeline) {
     for (PipelineBatch& pb : batches) {
         if (&pb.pipeline == &pipeline) { return pb; }
     }
-    batches.emplace_back(descriptorCache, pipeline);
+    batches.emplace_back(scene, pipeline);
     return batches.back();
 }
 

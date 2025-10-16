@@ -49,17 +49,17 @@ SSAOTask::SSAOTask()
     assetTags.sidecarAssets.emplace_back(rg::AssetTags::SSAOBuffer);
 }
 
-void SSAOTask::create(engine::Engine&, Renderer& r, Scene* scene) {
-    renderer = &r;
+void SSAOTask::create(const rg::InitContext& ctx) {
+    renderer = &ctx.renderer;
 
-    vk::Pipeline& gen  = r.pipelineCache().getPipeline(cfg::PipelineIds::SSAOGen);
-    vk::Pipeline& blur = r.pipelineCache().getPipeline(cfg::PipelineIds::SSAOBlur);
-    ds::DescriptorSetInstanceCache& sets = scene->getDescriptorSets();
+    vk::Pipeline& gen  = ctx.renderer.pipelineCache().getPipeline(cfg::PipelineIds::SSAOGen);
+    vk::Pipeline& blur = ctx.renderer.pipelineCache().getPipeline(cfg::PipelineIds::SSAOBlur);
+    ds::DescriptorSetInstanceCache& sets = *ctx.target.getDescriptorSetCache(ctx.scene);
 
     genPipeline.init(&gen, sets);
     blurPipeline.init(&blur, sets);
 
-    fullscreenRect.create(r.vulkanState(), 4, 6);
+    fullscreenRect.create(ctx.vulkanState, 4, 6);
     fullscreenRect.indices()  = {0, 1, 3, 1, 2, 3};
     fullscreenRect.vertices() = {prim::Vertex3D({-1.f, -1.f, 1.0f}, {0.f, 0.f}),
                                  prim::Vertex3D({1.f, -1.f, 1.0f}, {1.f, 0.f}),
@@ -71,7 +71,7 @@ void SSAOTask::create(engine::Engine&, Renderer& r, Scene* scene) {
                         ->getBindingPayload<dsi::SSAOShaderPayload>();
     genParams();
 
-    subscribe(r.getSignalChannel());
+    subscribe(ctx.renderer.getSignalChannel());
 }
 
 void SSAOTask::onGraphInit() {

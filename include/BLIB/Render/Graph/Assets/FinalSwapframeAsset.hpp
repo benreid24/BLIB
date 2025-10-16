@@ -68,8 +68,7 @@ private:
     vk::PerSwapFrame<vk::Framebuffer> framebuffers;
     vk::Image sampledImage;
 
-    virtual void doCreate(engine::Engine& engine, Renderer& renderer,
-                          RenderTarget* observer) override;
+    virtual void doCreate(const rg::InitContext& ctx) override;
     virtual void doPrepareForInput(const rg::ExecutionContext& context) override;
     virtual void doStartOutput(const rg::ExecutionContext& context) override;
     virtual void doEndOutput(const rg::ExecutionContext& context) override;

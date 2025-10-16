@@ -22,10 +22,10 @@ FinalSwapframeAsset::FinalSwapframeAsset(const VkViewport& viewport, const VkRec
     setShouldClearOnRestart(true);
 }
 
-void FinalSwapframeAsset::doCreate(engine::Engine& e, Renderer& renderer, RenderTarget*) {
-    engine     = &e;
-    renderPass = &renderer.renderPassCache().getRenderPass(renderPassId);
-    swapchain  = &renderer.vulkanState().swapchain;
+void FinalSwapframeAsset::doCreate(const rg::InitContext& ctx) {
+    engine     = &ctx.engine;
+    renderPass = &ctx.renderer.renderPassCache().getRenderPass(renderPassId);
+    swapchain  = &ctx.vulkanState.swapchain;
 
     depthBufferAsset = dynamic_cast<DepthBuffer*>(getDependency(0));
     if (!depthBufferAsset) {
@@ -34,22 +34,21 @@ void FinalSwapframeAsset::doCreate(engine::Engine& e, Renderer& renderer, Render
 
     const auto size = engine->window().getSfWindow().getSize();
     unsigned int i  = 0;
-    attachmentSets.init(renderer.vulkanState().swapchain,
-                        [this, &i, &size](vk::AttachmentSet& set) {
-                            set.setRenderExtent({size.x, size.y});
-                            updateAttachments(i);
-                            ++i;
-                        });
+    attachmentSets.init(*swapchain, [this, &i, &size](vk::AttachmentSet& set) {
+        set.setRenderExtent({size.x, size.y});
+        updateAttachments(i);
+        ++i;
+    });
 
     onResize({});
 
     i = 0;
-    framebuffers.init(renderer.vulkanState().swapchain, [this, &renderer, &i](vk::Framebuffer& fb) {
-        fb.create(renderer.vulkanState(), renderPass, attachmentSets.getRaw(i));
+    framebuffers.init(*swapchain, [this, &ctx, &i](vk::Framebuffer& fb) {
+        fb.create(ctx.vulkanState, renderPass, attachmentSets.getRaw(i));
         ++i;
     });
 
-    subscribe(renderer.getSignalChannel());
+    subscribe(ctx.renderer.getSignalChannel());
 }
 
 void FinalSwapframeAsset::doPrepareForInput(const rg::ExecutionContext&) {

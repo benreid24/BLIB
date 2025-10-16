@@ -3,13 +3,14 @@
 
 #include <BLIB/Render/Buffers/StaticUniformBuffer.hpp>
 #include <BLIB/Render/Descriptors/Builtin/CommonShaderInputs.hpp>
-#include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
+#include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Events/GraphEvents.hpp>
 #include <BLIB/Render/Events/ShadowMapsInvalidated.hpp>
 #include <BLIB/Render/Graph/Assets/SSAOAsset.hpp>
 #include <BLIB/Render/Lighting/LightingDescriptor3D.hpp>
 #include <BLIB/Render/Lighting/PointLight3D.hpp>
 #include <BLIB/Render/Lighting/SpotLight3D.hpp>
+#include <BLIB/Render/ShaderResources/CameraBufferShaderResource.hpp>
 #include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Signals/Listener.hpp>
@@ -25,10 +26,6 @@ namespace vk
 {
 struct VulkanState;
 }
-namespace scene
-{
-class Scene3D;
-}
 namespace rgi
 {
 class ShadowMapAsset;
@@ -42,7 +39,7 @@ namespace dsi
  * @ingroup Renderer
  */
 class Scene3DInstance
-: public ds::SceneDescriptorSetInstance
+: public ds::DescriptorSetInstance
 , public sig::Listener<event::SceneGraphAssetInitialized, event::ShadowMapsInvalidated> {
 public:
     /**
@@ -65,21 +62,17 @@ public:
      * @param pipelineBindPoint The bind point of the active pipeline
      * @param pipelineLayout The current pipeline layout
      * @param bindIndex The set index to bind to
-     * @param observerIndex The index of the current observer to bind for
      */
     void bind(VkCommandBuffer commandBuffer, VkPipelineBindPoint pipelineBindPoint,
-              VkPipelineLayout pipelineLayout, std::uint32_t bindIndex,
-              std::uint32_t observerIndex);
-
-    /**
-     * @brief Returns the lighting uniform value
-     */
-    lgt::LightingDescriptor3D& getUniform() { return uniform[0]; }
+              VkPipelineLayout pipelineLayout, std::uint32_t bindIndex);
 
 private:
-    scene::Scene3D* owner;
     Renderer& renderer;
-    buf::StaticUniformBuffer<lgt::LightingDescriptor3D> uniform;
+    const VkDescriptorSetLayout setLayout;
+    vk::DescriptorPool::AllocationHandle allocHandle;
+    vk::PerFrame<VkDescriptorSet> descriptorSets;
+    sri::CameraBufferShaderResource* cameraBuffer;
+    sri::LightingBuffer3D* lightBuffer;
     vk::Image emptySpotShadowMap;
     vk::Image emptyPointShadowMap;
     vk::Image emptySSAOImage;
@@ -101,8 +94,6 @@ private:
     virtual void process(const event::SceneGraphAssetInitialized& event) override;
     virtual void process(const event::ShadowMapsInvalidated& event) override;
     void updateImageDescriptors();
-
-    friend class scene::Scene3D;
 };
 
 } // namespace dsi

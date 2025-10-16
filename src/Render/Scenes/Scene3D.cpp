@@ -19,12 +19,7 @@ rg::Strategy* strategy = nullptr;
 
 Scene3D::Scene3D(engine::Engine& e)
 : BatchedScene(e)
-, lighting(*static_cast<dsi::Scene3DInstance*>(descriptorSets.getDescriptorSet(
-      descriptorFactories.getOrCreateFactory<dsi::Scene3DFactory>()))) {
-    dsi::Scene3DInstance* lightingDescriptor =
-        descriptorSets.getDescriptorSet<dsi::Scene3DInstance>();
-    lightingDescriptor->owner = this;
-}
+, lighting(shaderInputStore.getShaderInputWithKey(sri::Scene3DLightingKey)->getBuffer()[0]) {}
 
 std::unique_ptr<cam::Camera> Scene3D::createDefaultCamera() {
     auto cam = std::make_unique<cam::Camera3D>();

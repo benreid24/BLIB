@@ -40,7 +40,7 @@ private:
     std::optional<dsi::InputAttachmentInstance> bloomAttachmentSet;
     std::optional<vk::AttachmentImageSet> dummyBloomBuffer;
 
-    virtual void create(engine::Engine& engine, Renderer& renderer, Scene* scene) override;
+    virtual void create(const rg::InitContext& ctx) override;
     virtual void onGraphInit() override;
     virtual void execute(const rg::ExecutionContext& ctx, rg::Asset* output) override;
     virtual void update(float dt) override;
