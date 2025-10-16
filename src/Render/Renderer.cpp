@@ -152,6 +152,7 @@ void Renderer::initialize() {
         rg::AssetTags::AutoExposureOutput, false);
 
     // initialize common observer
+    commonObserver.init();
     commonObserver.assignRegion(window.getSfWindow().getSize(), renderRegion, 1, 0, true);
     assignObserverRegions();
 
@@ -280,9 +281,13 @@ Observer& Renderer::addObserver() {
     }
 #endif
 
-    observers.emplace_back(new Observer(engine, *this, assetFactory, false, false));
-    if (state.device) { assignObserverRegions(); }
-    return *observers.back();
+    auto& observer =
+        *observers.emplace_back(new Observer(engine, *this, assetFactory, false, false));
+    if (state.device) {
+        observer.init();
+        assignObserverRegions();
+    }
+    return observer;
 }
 
 void Renderer::removeObserver(unsigned int i) {
@@ -302,9 +307,11 @@ unsigned int Renderer::observerCount() const { return observers.size(); }
 Observer& Renderer::addVirtualObserver(const VkRect2D& region) {
     std::unique_lock lock(renderMutex);
 
-    virtualObservers.emplace_back(new Observer(engine, *this, assetFactory, false, true));
-    virtualObservers.back()->assignRegion(region);
-    return *observers.back();
+    auto& vobs =
+        *virtualObservers.emplace_back(new Observer(engine, *this, assetFactory, false, true));
+    vobs.init();
+    vobs.assignRegion(region);
+    return vobs;
 }
 
 void Renderer::destroyVirtualObserver(const Observer& o) {
@@ -344,6 +351,7 @@ vk::RenderTexture::Handle Renderer::createRenderTexture(const glm::u32vec2& size
     std::unique_lock lock(renderMutex);
 
     renderTextures.emplace_back(new vk::RenderTexture(engine, *this, assetFactory, size, sampler));
+    renderTextures.back()->init();
     return vk::RenderTexture::Handle(this, renderTextures.back().get());
 }
 

@@ -25,6 +25,8 @@ namespace bl
 {
 namespace rc
 {
+class Renderer;
+
 class RenderTarget : private util::NonCopyable {
 public:
     /**
@@ -237,6 +239,7 @@ protected:
 
     void renderScene(VkCommandBuffer commandBuffer);
 
+    void init();
     void cleanup();
     void onSceneAdd();
     void onSceneChange();
@@ -283,6 +286,8 @@ protected:
      * @brief Removes all scenes from the render target
      */
     void clearScenes();
+
+    friend class Renderer;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

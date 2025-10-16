@@ -40,7 +40,9 @@ RenderTarget::RenderTarget(engine::Engine& e, Renderer& r, rg::AssetFactory& f, 
 
     clearColors[0].color        = {{0.f, 0.f, 0.f, 1.f}};
     clearColors[1].depthStencil = {1.f, 0};
+}
 
+void RenderTarget::init() {
     graphAssets.putAsset<rgi::DepthBuffer>();
     shaderResources.getShaderInputWithKey(sri::CameraBufferKey, *this);
 }
