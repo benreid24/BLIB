@@ -16,6 +16,7 @@ Scene::Scene(engine::Engine& engine)
 , shaderInputStore(engine)
 , staticPipelines(cfg::Constants::DefaultSceneObjectCapacity, nullptr)
 , dynamicPipelines(cfg::Constants::DefaultSceneObjectCapacity, nullptr)
+, syncedResourcesThisFrame(false)
 , isClearingQueues(false) {
     queuedBatchChanges.reserve(32);
     queuedAdds.reserve(32);
@@ -39,12 +40,15 @@ void Scene::unregisterObserver(std::uint32_t index) {
     if (index < targetTable.nextId()) { doUnregisterObserver(target, index); }
 }
 
-void Scene::updateDescriptorsAndQueueTransfers() {
-    std::unique_lock lock(objectMutex);
+void Scene::syncShaderResources() {
+    if (!syncedResourcesThisFrame) {
+        syncedResourcesThisFrame = true;
 
-    // sync descriptors
-    onDescriptorSync();
-    shaderInputStore.performTransfers();
+        std::unique_lock lock(objectMutex);
+        onShaderResourceSync();
+        shaderInputStore.updateFromSources();
+        shaderInputStore.performTransfers();
+    }
 }
 
 void Scene::syncObjects() {

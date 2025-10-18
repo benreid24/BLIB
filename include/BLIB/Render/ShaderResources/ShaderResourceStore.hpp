@@ -54,7 +54,7 @@ public:
      * @return A pointer to the shader input to use
      */
     template<typename TInput, typename... TArgs>
-    TInput* getShaderInput(TArgs&&... args);
+    TInput* getShaderResource(TArgs&&... args);
 
     /**
      * @brief Gets or creates the requested shader input using an explicit id
@@ -66,7 +66,7 @@ public:
      * @return A pointer to the shader input to use
      */
     template<typename TInput, typename... TArgs>
-    TInput* getShaderInputWithId(const std::string& id, TArgs&&... args);
+    TInput* getShaderResourceWithId(const std::string& id, TArgs&&... args);
 
     /**
      * @brief Gets or creates the requested shader input using a scene key
@@ -78,7 +78,7 @@ public:
      * @return  A pointer to the shader input to use
      */
     template<typename TInput, typename... TArgs>
-    TInput* getShaderInputWithKey(const Key<TInput>& key, TArgs&&... args);
+    TInput* getShaderResourceWithKey(const Key<TInput>& key, TArgs&&... args);
 
     /**
      * @brief Syncs modified descriptor values in the contained storage modules
@@ -105,12 +105,12 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename TInput, typename... TArgs>
-TInput* ShaderResourceStore::getShaderInput(TArgs&&... args) {
-    return getShaderInputWithId<TInput>(typeid(TInput).name(), std::forward<TArgs>(args)...);
+TInput* ShaderResourceStore::getShaderResource(TArgs&&... args) {
+    return getShaderResourceWithId<TInput>(typeid(TInput).name(), std::forward<TArgs>(args)...);
 }
 
 template<typename TInput, typename... TArgs>
-TInput* ShaderResourceStore::getShaderInputWithId(const std::string& id, TArgs&&... args) {
+TInput* ShaderResourceStore::getShaderResourceWithId(const std::string& id, TArgs&&... args) {
     static_assert(std::is_base_of<ShaderResource, TInput>::value,
                   "TInput must be derived from ShaderResource");
 
@@ -131,8 +131,8 @@ TInput* ShaderResourceStore::getShaderInputWithId(const std::string& id, TArgs&&
 }
 
 template<typename TInput, typename... TArgs>
-TInput* ShaderResourceStore::getShaderInputWithKey(const Key<TInput>& key, TArgs&&... args) {
-    return getShaderInputWithId<TInput>(std::string(key.id), std::forward<TArgs>(args)...);
+TInput* ShaderResourceStore::getShaderResourceWithKey(const Key<TInput>& key, TArgs&&... args) {
+    return getShaderResourceWithId<TInput>(std::string(key.id), std::forward<TArgs>(args)...);
 }
 
 } // namespace sr

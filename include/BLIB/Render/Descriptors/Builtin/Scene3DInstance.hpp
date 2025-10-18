@@ -2,7 +2,6 @@
 #define BLIB_RENDER_DESCRIPTORS_SCENE3DINSTANCE_HPP
 
 #include <BLIB/Render/Buffers/StaticUniformBuffer.hpp>
-#include <BLIB/Render/Descriptors/Builtin/CommonShaderInputs.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Events/GraphEvents.hpp>
 #include <BLIB/Render/Events/ShadowMapsInvalidated.hpp>
@@ -11,6 +10,7 @@
 #include <BLIB/Render/Lighting/PointLight3D.hpp>
 #include <BLIB/Render/Lighting/SpotLight3D.hpp>
 #include <BLIB/Render/ShaderResources/CameraBufferShaderResource.hpp>
+#include <BLIB/Render/ShaderResources/ShadowMapCameraShaderResource.hpp>
 #include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Signals/Listener.hpp>
@@ -76,7 +76,7 @@ private:
     vk::Image emptySpotShadowMap;
     vk::Image emptyPointShadowMap;
     vk::Image emptySSAOImage;
-    ShadowMapCameraShaderInput* shadowMapCameras;
+    sri::ShadowMapCameraShaderResource* shadowMapCameras;
     rgi::ShadowMapAsset* shadowMaps;
     rgi::SSAOAsset* ssaoBuffer;
 

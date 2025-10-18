@@ -84,7 +84,7 @@ void ObjectStorageBuffer<T, TComponent, Optional, TDynamicStorage, TStaticStorag
     sr::ShaderResourceStore&) {
     // TODO - parameterize which store to use
     // TODO - parameterize id
-    components = sceneShaderResources.getShaderInput<TShaderInput>();
+    components = sceneShaderResources.getShaderResource<TShaderInput>();
 }
 
 template<typename T, typename TComponent, bool Optional, typename TDynamicStorage,

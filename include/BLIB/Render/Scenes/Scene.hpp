@@ -188,7 +188,7 @@ protected:
     /**
      * @brief Called at the beginning of the frame when descriptors are being updated
      */
-    virtual void onDescriptorSync() {}
+    virtual void onShaderResourceSync() {}
 
 private:
     struct ObjectAdd {
@@ -205,6 +205,7 @@ private:
 
     std::vector<mat::MaterialPipeline*> staticPipelines;
     std::vector<mat::MaterialPipeline*> dynamicPipelines;
+    bool syncedResourcesThisFrame;
 
     std::recursive_mutex queueMutex;
     bool isClearingQueues;
@@ -222,7 +223,7 @@ private:
     void rebucketObject(rcom::DrawableBase& object);
 
     // called by Observer
-    void updateDescriptorsAndQueueTransfers();
+    void syncShaderResources();
     void syncObjects();
     std::uint32_t registerObserver(RenderTarget* target);
     void unregisterObserver(std::uint32_t observerIndex);

@@ -44,8 +44,8 @@ void Scene2DInstance::releaseObject(ecs::Entity, scene::Key) {
 void Scene2DInstance::init(sr::ShaderResourceStore& globalShaderResources,
                            sr::ShaderResourceStore& sceneShaderResources,
                            sr::ShaderResourceStore& observerShaderResources) {
-    cameraBuffer   = observerShaderResources.getShaderInputWithKey(sri::CameraBufferKey);
-    lightingBuffer = sceneShaderResources.getShaderInputWithKey(sri::Scene2DLightingKey);
+    cameraBuffer   = observerShaderResources.getShaderResourceWithKey(sri::CameraBufferKey);
+    lightingBuffer = sceneShaderResources.getShaderResourceWithKey(sri::Scene2DLightingKey);
 
     // allocate descriptors
     descriptorSets.emptyInit(vulkanState);

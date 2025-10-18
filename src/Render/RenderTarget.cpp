@@ -49,7 +49,7 @@ RenderTarget::RenderTarget(engine::Engine& e, Renderer& r, rg::AssetFactory& f, 
 
 void RenderTarget::init() {
     graphAssets.putAsset<rgi::DepthBuffer>();
-    shaderResources.getShaderInputWithKey(sri::CameraBufferKey, *this);
+    shaderResources.getShaderResourceWithKey(sri::CameraBufferKey, *this);
 }
 
 RenderTarget::~RenderTarget() {
@@ -174,8 +174,14 @@ void RenderTarget::updateDescriptorsAndQueueTransfers() {
             }
         }
 
-        currentScene.scene->updateDescriptorsAndQueueTransfers();
-        if (currentScene.overlay) { currentScene.overlay->updateDescriptorsAndQueueTransfers(); }
+        shaderResources.updateFromSources();
+        shaderResources.performTransfers();
+        currentScene.descriptorCache.updateDescriptors();
+        currentScene.scene->syncShaderResources();
+        if (currentScene.overlay) {
+            currentScene.overlay->syncShaderResources();
+            currentScene.overlayDescriptorCache.value().updateDescriptors();
+        }
     }
 }
 

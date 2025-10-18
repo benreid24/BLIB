@@ -1,9 +1,9 @@
-#ifndef BLIB_RENDER_DESCRIPTORS_BUILTIN_COMMONSHADERINPUTS_HPP
-#define BLIB_RENDER_DESCRIPTORS_BUILTIN_COMMONSHADERINPUTS_HPP
+#ifndef BLIB_RENDER_SHADERRESOURCES_SHADOWMAPCAMERASHADERRESOURCE_HPP
+#define BLIB_RENDER_SHADERRESOURCES_SHADOWMAPCAMERASHADERRESOURCE_HPP
 
 #include <BLIB/Render/Buffers/StaticUniformBuffer.hpp>
 #include <BLIB/Render/ShaderResources/BufferShaderResource.hpp>
-#include <BLIB/Render/ShaderResources/ShaderResource.hpp>
+#include <BLIB/Render/ShaderResources/Key.hpp>
 #include <array>
 #include <glm/glm.hpp>
 
@@ -11,7 +11,7 @@ namespace bl
 {
 namespace rc
 {
-namespace dsi
+namespace sri
 {
 /**
  * @brief Uniform payload for shadow map rendering cameras
@@ -28,19 +28,20 @@ struct ShadowMapCameraPayload {
  *
  * @ingroup Renderer
  */
-using ShadowMapCameraShaderInput =
+using ShadowMapCameraShaderResource =
     sr::BufferShaderResource<buf::StaticUniformBuffer<ShadowMapCameraPayload>,
                              cfg::Limits::MaxSpotShadows + cfg::Limits::MaxPointShadows,
                              buf::Alignment::UboBindOffset>;
 
 /**
- * @brief The name of the shadow map camera input
+ * @brief The name of the shadow map camera shader resource
  *
  * @ingroup Renderer
  */
-constexpr const char* ShadowMapCameraInputName = "__builtin__shadow_map_binding";
+constexpr sr::Key<ShadowMapCameraShaderResource> ShadowMapCameraShaderResourceKey{
+    "__builtin__shadow_map_camera_shader_resource"};
 
-} // namespace dsi
+} // namespace sri
 } // namespace rc
 } // namespace bl
 

@@ -2,9 +2,9 @@
 #define BLIB_RENDER_DESCRIPTORS_SHADOWMAPBINDING_HPP
 
 #include <BLIB/Render/Buffers/UniformBuffer.hpp>
-#include <BLIB/Render/Descriptors/Builtin/CommonShaderInputs.hpp>
 #include <BLIB/Render/Descriptors/Generic/Binding.hpp>
 #include <BLIB/Render/Lighting/Scene3DLighting.hpp>
+#include <BLIB/Render/ShaderResources/ShadowMapCameraShaderResource.hpp>
 #include <array>
 #include <glm/glm.hpp>
 
@@ -32,7 +32,7 @@ public:
     ShadowMapBinding();
 
 private:
-    ShadowMapCameraShaderInput* storage;
+    sri::ShadowMapCameraShaderResource* storage;
 
     virtual ds::DescriptorSetInstance::EntityBindMode getBindMode() const override {
         return ds::DescriptorSetInstance::EntityBindMode::Bindless;

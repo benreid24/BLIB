@@ -19,7 +19,7 @@ rg::Strategy* strategy = nullptr;
 
 Scene3D::Scene3D(engine::Engine& e)
 : BatchedScene(e)
-, lighting(shaderInputStore.getShaderInputWithKey(sri::Scene3DLightingKey)->getBuffer()[0]) {}
+, lighting(shaderInputStore.getShaderResourceWithKey(sri::Scene3DLightingKey)->getBuffer()[0]) {}
 
 std::unique_ptr<cam::Camera> Scene3D::createDefaultCamera() {
     auto cam = std::make_unique<cam::Camera3D>();
@@ -31,7 +31,7 @@ void Scene3D::setDefaultNearAndFarPlanes(cam::Camera& cam) const {
     cam.setNearAndFarPlanes(DefaultNear, -DefaultFar);
 }
 
-void Scene3D::onDescriptorSync() { lighting.sync(); }
+void Scene3D::onShaderResourceSync() { lighting.sync(); }
 
 void Scene3D::useRenderStrategy(rg::Strategy* ns) { strategy = ns; }
 

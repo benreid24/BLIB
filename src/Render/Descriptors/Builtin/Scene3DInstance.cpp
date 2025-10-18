@@ -62,10 +62,10 @@ void Scene3DInstance::releaseObject(ecs::Entity, scene::Key) {
 
 void Scene3DInstance::init(sr::ShaderResourceStore&, sr::ShaderResourceStore& sceneShaderResources,
                            sr::ShaderResourceStore& observerShaderResources) {
-    cameraBuffer     = observerShaderResources.getShaderInputWithKey(sri::CameraBufferKey);
-    lightBuffer      = sceneShaderResources.getShaderInputWithKey(sri::Scene3DLightingKey);
-    shadowMapCameras = sceneShaderResources.getShaderInputWithId<ShadowMapCameraShaderInput>(
-        ShadowMapCameraInputName);
+    cameraBuffer = observerShaderResources.getShaderResourceWithKey(sri::CameraBufferKey);
+    lightBuffer  = sceneShaderResources.getShaderResourceWithKey(sri::Scene3DLightingKey);
+    shadowMapCameras =
+        sceneShaderResources.getShaderResourceWithKey(sri::ShadowMapCameraShaderResourceKey);
 
     emptySpotShadowMap.create(
         renderer.vulkanState(),

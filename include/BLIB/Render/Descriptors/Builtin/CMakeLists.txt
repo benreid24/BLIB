@@ -1,7 +1,5 @@
 target_sources(BLIB PUBLIC
-	
     CommonBindings.hpp
-	CommonShaderInputs.hpp
 	GlobalDataFactory.hpp
 	GlobalDataInstance.hpp
 	InputAttachmentFactory.hpp

@@ -62,7 +62,7 @@ void DeferredCompositeTask::onGraphInit() {
                                .getOrCreateFactory<dsi::InputAttachmentFactory<4>>()
                                ->getDescriptorLayout();
 
-    lightingBuffer  = scene->getShaderResources().getShaderInputWithKey(sri::Scene3DLightingKey);
+    lightingBuffer  = scene->getShaderResources().getShaderResourceWithKey(sri::Scene3DLightingKey);
     sceneDescriptor = target->getDescriptorSet<dsi::Scene3DInstance>(scene);
 
     gbufferDescriptor.emplace(renderer->vulkanState(), setLayout, 4, 0);

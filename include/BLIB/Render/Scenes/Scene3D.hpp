@@ -63,7 +63,7 @@ protected:
     /**
      * @brief Syncs the lighting descriptor set
      */
-    virtual void onDescriptorSync() override;
+    virtual void onShaderResourceSync() override;
 
 private:
     lgt::Scene3DLighting lighting;

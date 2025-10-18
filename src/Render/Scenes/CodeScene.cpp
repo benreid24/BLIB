@@ -42,7 +42,7 @@ VkViewport makeViewport(const VkRect2D& s) {
 CodeScene::CodeScene(engine::Engine& engine, RenderCallback&& renderCallback)
 : Scene(engine)
 , renderCallback(renderCallback)
-, lighting(shaderInputStore.getShaderInputWithKey(sri::Scene2DLightingKey)->getBuffer()[0]) {
+, lighting(shaderInputStore.getShaderResourceWithKey(sri::Scene2DLightingKey)->getBuffer()[0]) {
     emitter.connect(engine.renderer().getSignalChannel());
 }
 

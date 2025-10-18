@@ -15,8 +15,7 @@ ShadowMapBinding::ShadowMapBinding()
 void ShadowMapBinding::init(vk::VulkanState&, sr::ShaderResourceStore&,
                             sr::ShaderResourceStore& sceneShaderResources,
                             sr::ShaderResourceStore&) {
-    storage = sceneShaderResources.getShaderInputWithId<ShadowMapCameraShaderInput>(
-        ShadowMapCameraInputName);
+    storage = sceneShaderResources.getShaderResourceWithKey(sri::ShadowMapCameraShaderResourceKey);
     storage->getBuffer().transferEveryFrame();
 }
 
@@ -25,7 +24,7 @@ void ShadowMapBinding::writeSet(ds::SetWriteHelper& writer, VkDescriptorSet set,
     VkDescriptorBufferInfo& bufferInfo = writer.getNewBufferInfo();
     bufferInfo.buffer                  = storage->getBuffer().gpuBufferHandle().getBuffer();
     bufferInfo.offset                  = 0;
-    bufferInfo.range                   = sizeof(ShadowMapCameraPayload);
+    bufferInfo.range                   = sizeof(sri::ShadowMapCameraPayload);
 
     VkWriteDescriptorSet& write = writer.getNewSetWrite(set);
     write.dstBinding            = getBindingIndex();

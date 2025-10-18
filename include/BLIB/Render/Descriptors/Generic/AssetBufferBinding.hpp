@@ -45,7 +45,7 @@ private:
                       sr::ShaderResourceStore& sceneShaderResources,
                       sr::ShaderResourceStore& observerShaderResources) override {
         // TODO - this binding can probably just be removed entirely
-        input = sceneShaderResources.getShaderInput<TShaderInput>();
+        input = sceneShaderResources.getShaderResource<TShaderInput>();
     }
 
     virtual void writeSet(SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed,
