@@ -37,13 +37,9 @@ public:
      * @brief Called once by the descriptor set instance during creation
      *
      * @param engine Renderer Vulkan state
-     * @param globalShaderResources Shader resource store for global level resources
-     * @param sceneShaderResources Shader resource store for scene level resources
-     * @param observerShaderResources Shader resource store for observer level resources
+     * @param ctx The init context
      */
-    void init(vk::VulkanState& vulkanState, sr::ShaderResourceStore& globalShaderResources,
-              sr::ShaderResourceStore& sceneShaderResources,
-              sr::ShaderResourceStore& observerShaderResources);
+    void init(vk::VulkanState& vulkanState, InitContext& ctx);
 
     /**
      * @brief Returns the descriptor type for the given index
@@ -144,15 +140,10 @@ VkDescriptorType Bindings<TBindings...>::getTypeHelper(std::uint32_t index) cons
 }
 
 template<typename... TBindings>
-void Bindings<TBindings...>::init(vk::VulkanState& vulkanState,
-                                  sr::ShaderResourceStore& globalShaderResources,
-                                  sr::ShaderResourceStore& sceneShaderResources,
-                                  sr::ShaderResourceStore& observerShaderResources) {
+void Bindings<TBindings...>::init(vk::VulkanState& vulkanState, InitContext& ctx) {
     std::size_t index = 0;
     ((std::get<TBindings>(bindings).index = index++), ...);
-    ((std::get<TBindings>(bindings).init(
-         vulkanState, globalShaderResources, sceneShaderResources, observerShaderResources)),
-     ...);
+    ((std::get<TBindings>(bindings).init(vulkanState, ctx)), ...);
     ((addDynamicBindingHelper(std::get<TBindings>(bindings))), ...);
 }
 

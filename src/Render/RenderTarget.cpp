@@ -21,8 +21,13 @@ RenderTarget::SceneInstance::SceneInstance(engine::Engine& e, Renderer& r, Rende
 : scene(s)
 , overlay(nullptr)
 , graph(e, r, pool, owner, s.get())
-, descriptorCache(r.getGlobalShaderResources(), owner->getShaderResources(),
-                  s->getShaderResources())
+, descriptorCache(ds::InitContext{e,
+                                  r,
+                                  *owner,
+                                  *s.get(),
+                                  r.getGlobalShaderResources(),
+                                  owner->getShaderResources(),
+                                  s->getShaderResources()})
 , observerIndex(0)
 , overlayIndex(0) {}
 
@@ -87,9 +92,14 @@ Overlay* RenderTarget::createSceneOverlay() {
     scenes.back().overlayRef   = renderer.scenePool().allocateScene<Overlay>();
     scenes.back().overlay      = static_cast<Overlay*>(scenes.back().overlayRef.get());
     scenes.back().overlayIndex = scenes.back().overlay->registerObserver(this);
-    scenes.back().overlayDescriptorCache.emplace(renderer.getGlobalShaderResources(),
-                                                 getShaderResources(),
-                                                 scenes.back().overlay->getShaderResources());
+    scenes.back().overlayDescriptorCache.emplace(
+        ds::InitContext{engine,
+                        engine.renderer(),
+                        *this,
+                        *scenes.back().overlay,
+                        renderer.getGlobalShaderResources(),
+                        getShaderResources(),
+                        scenes.back().overlay->getShaderResources()});
     graphAssets.replaceAsset<rgi::SceneAsset>(scenes.back().overlay, rg::AssetTags::OverlayInput);
     scenes.back().graph.removeTasks<rgi::RenderOverlayTask>();
     scenes.back().graph.putTask<rgi::RenderOverlayTask>(&scenes.back().overlayIndex);

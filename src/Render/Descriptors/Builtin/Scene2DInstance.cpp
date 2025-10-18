@@ -2,6 +2,7 @@
 
 #include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Descriptors/SetWriteHelper.hpp>
+#include <BLIB/Render/Overlays/Overlay.hpp>
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>
 #include <array>
 
@@ -41,11 +42,17 @@ void Scene2DInstance::releaseObject(ecs::Entity, scene::Key) {
     // n/a
 }
 
-void Scene2DInstance::init(sr::ShaderResourceStore& globalShaderResources,
-                           sr::ShaderResourceStore& sceneShaderResources,
-                           sr::ShaderResourceStore& observerShaderResources) {
-    cameraBuffer   = observerShaderResources.getShaderResourceWithKey(sri::CameraBufferKey);
-    lightingBuffer = sceneShaderResources.getShaderResourceWithKey(sri::Scene2DLightingKey);
+void Scene2DInstance::init(ds::InitContext& ctx) {
+    lightingBuffer = ctx.sceneShaderResources.getShaderResourceWithKey(sri::Scene2DLightingKey);
+
+    Overlay* overlay = dynamic_cast<Overlay*>(&ctx.scene);
+    if (!overlay) {
+        cameraBuffer = ctx.observerShaderResources.getShaderResourceWithKey(sri::CameraBufferKey);
+    }
+    else {
+        cameraBuffer = ctx.sceneShaderResources.getShaderResourceWithKey(
+            sri::CameraBufferKey, ctx.owner, *overlay);
+    }
 
     // allocate descriptors
     descriptorSets.emptyInit(vulkanState);

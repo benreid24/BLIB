@@ -41,9 +41,7 @@ public:
 private:
     sys::Animation2DSystem& animSystem;
 
-    virtual void init(sr::ShaderResourceStore& globalShaderResources,
-                      sr::ShaderResourceStore& sceneShaderResources,
-                      sr::ShaderResourceStore& observerShaderResources) override;
+    virtual void init(ds::InitContext& ctx) override;
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                  std::uint32_t setIndex, UpdateSpeed updateFreq) const override;
     virtual void bindForObject(scene::SceneRenderContext& ctx, VkPipelineLayout layout,

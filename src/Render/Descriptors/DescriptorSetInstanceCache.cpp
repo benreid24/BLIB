@@ -6,12 +6,8 @@ namespace rc
 {
 namespace ds
 {
-DescriptorSetInstanceCache::DescriptorSetInstanceCache(
-    sr::ShaderResourceStore& globalShaderResources,
-    sr::ShaderResourceStore& observerShaderResources, sr::ShaderResourceStore& sceneShaderResources)
-: globalShaderResources(globalShaderResources)
-, observerShaderResources(observerShaderResources)
-, sceneShaderResources(sceneShaderResources) {}
+DescriptorSetInstanceCache::DescriptorSetInstanceCache(const InitContext& ctx)
+: ctx(ctx) {}
 
 DescriptorSetInstance* DescriptorSetInstanceCache::getDescriptorSet(DescriptorSetFactory* factory) {
     if (!factory->isAutoConstructable()) { return nullptr; }
@@ -19,7 +15,7 @@ DescriptorSetInstance* DescriptorSetInstanceCache::getDescriptorSet(DescriptorSe
     auto it = cache.find(factory);
     if (it != cache.end()) { return it->second.get(); }
     it = cache.try_emplace(factory, factory->createDescriptorSet()).first;
-    it->second->init(globalShaderResources, sceneShaderResources, observerShaderResources);
+    it->second->init(ctx);
 
     return it->second.get();
 }

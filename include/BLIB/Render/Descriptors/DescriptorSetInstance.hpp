@@ -2,6 +2,7 @@
 #define BLIB_RENDER_DESCRIPTORS_DESCRIPTORSETINSTANCE_HPP
 
 #include <BLIB/ECS/Entity.hpp>
+#include <BLIB/Render/Descriptors/InitContext.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
 #include <BLIB/Render/ShaderResources/ShaderResourceStore.hpp>
@@ -50,15 +51,11 @@ public:
     bool needsRebindForNewSpeed() const;
 
     /**
-     * @brief Called by scene once after the instance is created
+     * @brief Called once after the instance is created
      *
-     * @param globalShaderResources Shader resource store for global level resources
-     * @param sceneShaderResources Shader resource store for scene level resources
-     * @param observerShaderResources Shader resource store for observer level resources
+     * @param ctx The init context to use
      */
-    virtual void init(sr::ShaderResourceStore& globalShaderResources,
-                      sr::ShaderResourceStore& sceneShaderResources,
-                      sr::ShaderResourceStore& observerShaderResources) = 0;
+    virtual void init(InitContext& ctx) = 0;
 
     /**
      * @brief Called once after the pipeline is bound. This should bind the descriptor set

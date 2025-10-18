@@ -67,13 +67,9 @@ public:
      * @brief Called once after the descriptor set is created
      *
      * @param vulkanState Renderer Vulkan state
-     * @param globalShaderResources Shader resource store for global level resources
-     * @param sceneShaderResources Shader resource store for scene level resources
-     * @param observerShaderResources Shader resource store for observer level resources
+     * @param ctx The init context
      */
-    virtual void init(vk::VulkanState& vulkanState, sr::ShaderResourceStore& globalShaderResources,
-                      sr::ShaderResourceStore& sceneShaderResources,
-                      sr::ShaderResourceStore& observerShaderResources) = 0;
+    virtual void init(vk::VulkanState& vulkanState, InitContext& ctx) = 0;
 
     /**
      * @brief Called to write this binding to the given descriptor set

@@ -12,6 +12,7 @@ namespace bl
 namespace rc
 {
 class RenderTarget;
+class Overlay;
 
 /// Namespace containing implementations of specific shader resources
 namespace sri
@@ -43,6 +44,14 @@ public:
     CameraBufferShaderResource(RenderTarget& owner);
 
     /**
+     * @brief Creates the shader resource for an overlay camera
+     *
+     * @param owner The render target that owns this resource
+     * @param overlay An overlay that this resource is for
+     */
+    CameraBufferShaderResource(RenderTarget& owner, Overlay& overlay);
+
+    /**
      * @brief Creates the GPU buffer
      *
      * @param engine The game engine instance
@@ -56,6 +65,7 @@ public:
 
 private:
     RenderTarget& owner;
+    bool isOverlay;
 };
 
 /**

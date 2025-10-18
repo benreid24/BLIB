@@ -42,9 +42,7 @@ public:
 
     DescriptorSetInstance::EntityBindMode getBindMode() const override;
     DescriptorSetInstance::SpeedBucketSetting getSpeedMode() const override;
-    void init(vk::VulkanState& vulkanState, sr::ShaderResourceStore& globalShaderResources,
-              sr::ShaderResourceStore& sceneShaderResources,
-              sr::ShaderResourceStore& observerShaderResources) override;
+    void init(vk::VulkanState& vulkanState, InitContext& ctx) override;
     void writeSet(SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed speed,
                   std::uint32_t frameIndex) override;
     bool allocateObject(ecs::Entity entity, scene::Key key) override;
@@ -76,9 +74,8 @@ ObjectBufferBinding<TShaderResource, ResourceKey, DescriptorType, Optional>::get
 template<typename TShaderResource, sr::Key<TShaderResource> ResourceKey,
          VkDescriptorType DescriptorType, bool Optional>
 void ObjectBufferBinding<TShaderResource, ResourceKey, DescriptorType, Optional>::init(
-    vk::VulkanState&, sr::ShaderResourceStore&, sr::ShaderResourceStore& sceneShaderResources,
-    sr::ShaderResourceStore&) {
-    components = sceneShaderResources.getShaderResourceWithKey(ResourceKey);
+    vk::VulkanState&, InitContext& ctx) {
+    components = ctx.sceneShaderResources.getShaderResourceWithKey(ResourceKey);
 }
 
 template<typename TShaderResource, sr::Key<TShaderResource> ResourceKey,

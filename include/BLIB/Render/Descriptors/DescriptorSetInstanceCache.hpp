@@ -25,13 +25,9 @@ public:
     /**
      * @brief Creates the descriptor set cache
      *
-     * @param globalShaderResources Shader resource store for global level resources
-     * @param observerShaderResources Shader resource store for observer level resources
-     * @param sceneShaderResources Shader resource store for scene level resources
+     * @param ctx Context containing all data required to create and initialize descriptor sets
      */
-    DescriptorSetInstanceCache(sr::ShaderResourceStore& globalShaderResources,
-                               sr::ShaderResourceStore& observerShaderResources,
-                               sr::ShaderResourceStore& sceneShaderResources);
+    DescriptorSetInstanceCache(const InitContext& ctx);
 
     /**
      * @brief Fetches or creates a descriptor set for the given descriptor set factory
@@ -64,9 +60,7 @@ public:
     T* getDescriptorSet();
 
 private:
-    sr::ShaderResourceStore& globalShaderResources;
-    sr::ShaderResourceStore& observerShaderResources;
-    sr::ShaderResourceStore& sceneShaderResources;
+    InitContext ctx;
     std::unordered_map<DescriptorSetFactory*, std::unique_ptr<DescriptorSetInstance>> cache;
 };
 

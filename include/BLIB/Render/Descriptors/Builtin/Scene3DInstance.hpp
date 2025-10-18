@@ -85,9 +85,7 @@ private:
     virtual void bindForObject(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                std::uint32_t setIndex, scene::Key objectKey) const override;
     virtual void releaseObject(ecs::Entity entity, scene::Key objectKey) override;
-    virtual void init(sr::ShaderResourceStore& globalShaderResources,
-                      sr::ShaderResourceStore& sceneShaderResources,
-                      sr::ShaderResourceStore& observerShaderResources) override;
+    virtual void init(ds::InitContext& ctx) override;
     virtual bool allocateObject(ecs::Entity entity, scene::Key key) override;
     virtual void updateDescriptors() override;
 

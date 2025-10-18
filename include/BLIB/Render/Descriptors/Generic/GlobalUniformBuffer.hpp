@@ -32,9 +32,7 @@ public:
 
     DescriptorSetInstance::EntityBindMode getBindMode() const override;
     DescriptorSetInstance::SpeedBucketSetting getSpeedMode() const override;
-    void init(vk::VulkanState& vulkanState, sr::ShaderResourceStore& globalShaderResources,
-              sr::ShaderResourceStore& sceneShaderResources,
-              sr::ShaderResourceStore& observerShaderResources) override;
+    void init(vk::VulkanState& vulkanState, InitContext& ctx) override;
     void writeSet(SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed speed,
                   std::uint32_t frameIndex) override;
     bool allocateObject(ecs::Entity entity, scene::Key key) override;
@@ -61,10 +59,7 @@ DescriptorSetInstance::SpeedBucketSetting GlobalUniformBuffer<T>::getSpeedMode()
 }
 
 template<typename T>
-void GlobalUniformBuffer<T>::init(vk::VulkanState& vs,
-                                  sr::ShaderResourceStore& globalShaderResources,
-                                  sr::ShaderResourceStore& sceneShaderResources,
-                                  sr::ShaderResourceStore& observerShaderResources) {
+void GlobalUniformBuffer<T>::init(vk::VulkanState& vs, InitContext& ctx) {
     // TODO - get buffer from store
     // TODO - parameterize which store to use
     buffer.create(vs, 1);

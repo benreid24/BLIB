@@ -89,50 +89,50 @@ public:
         sprite.addToScene(scene2d, bl::rc::UpdateSpeed::Static);
 
         // create 3d scene for observer 2
-        // bl::rc::Observer& p2 = engine.addPlayer().getRenderObserver();
-        // auto p2World =
-        //    engine.getPlayer(1).enterWorld<bl::engine::BasicWorld<bl::rc::scene::Scene3D>>();
-        // bl::rc::SceneRef scene          = p2World->scene();
-        // bl::rc::scene::Scene3D* scene3d = static_cast<bl::rc::scene::Scene3D*>(scene.get());
-        // scene3d->getLighting().setAmbientLightColor({1.f, 1.f, 1.f});
+        bl::rc::Observer& p2 = engine.addPlayer().getRenderObserver();
+        auto p2World =
+            engine.getPlayer(1).enterWorld<bl::engine::BasicWorld<bl::rc::scene::Scene3D>>();
+        bl::rc::SceneRef scene          = p2World->scene();
+        bl::rc::scene::Scene3D* scene3d = static_cast<bl::rc::scene::Scene3D*>(scene.get());
+        scene3d->getLighting().setAmbientLightColor({1.f, 1.f, 1.f});
 
         //// create camera for observer 2
-        // p2.setClearColor({0.f, 1.f, 0.f, 1.f});
-        // bl::cam::Camera3D* player2Cam = p2.setCamera<bl::cam::Camera3D>(
-        //     glm::vec3{0.f, 0.5f, 2.f}, glm::vec3{0.f, 0.f, 0.f}, 75.f);
-        // player2Cam->setController<bl::cam::c3d::OrbiterController>(
-        //     glm::vec3{0.f, 0.f, 0.f}, 4.f, glm::vec3{0.3f, 1.f, 0.1f}, 2.f, 4.f);
-        // player2Cam->addAffector<bl::cam::c3d::CameraShake>(0.1f, 7.f);
+        p2.setClearColor({0.f, 1.f, 0.f, 1.f});
+        bl::cam::Camera3D* player2Cam = p2.setCamera<bl::cam::Camera3D>(
+            glm::vec3{0.f, 0.5f, 2.f}, glm::vec3{0.f, 0.f, 0.f}, 75.f);
+        player2Cam->setController<bl::cam::c3d::OrbiterController>(
+            glm::vec3{0.f, 0.f, 0.f}, 4.f, glm::vec3{0.3f, 1.f, 0.1f}, 2.f, 4.f);
+        player2Cam->addAffector<bl::cam::c3d::CameraShake>(0.1f, 7.f);
 
         //// create object in scene
-        // meshEntity = p2World->createEntity();
-        // engine.ecs().emplaceComponent<bl::com::Transform3D>(meshEntity);
-        // bl::com::BasicMesh* mesh = engine.ecs().emplaceComponent<bl::com::BasicMesh>(meshEntity);
-        // bl::com::MaterialInstance* meshMaterial =
-        //     engine.ecs().emplaceComponent<bl::com::MaterialInstance>(
-        //         meshEntity, engine.renderer(), *mesh);
-        // meshMaterial->setMaterial(engine.renderer().materialPool().getOrCreateFromTexture(texture));
-        // mesh->init(meshMaterial);
-        // mesh->create(engine.renderer().vulkanState(), Vertices.size(), Indices.size());
-        // mesh->gpuBuffer.vertices() = Vertices;
-        // for (auto& v : mesh->gpuBuffer.vertices()) {
-        //     v.texCoord = texture->convertCoord(v.texCoord);
-        // }
-        // mesh->gpuBuffer.indices() = Indices;
-        // bl::rc::prim::Vertex3D::computeTBN(mesh->gpuBuffer.vertices().data(),
-        //                                    mesh->gpuBuffer.indices().data(),
-        //                                    mesh->gpuBuffer.indices().size());
-        // mesh->gpuBuffer.queueTransfer(bl::rc::tfr::Transferable::SyncRequirement::Immediate);
-        // mesh->addToScene(engine.ecs(), meshEntity, scene, bl::rc::UpdateSpeed::Static);
+        meshEntity = p2World->createEntity();
+        engine.ecs().emplaceComponent<bl::com::Transform3D>(meshEntity);
+        bl::com::BasicMesh* mesh = engine.ecs().emplaceComponent<bl::com::BasicMesh>(meshEntity);
+        bl::com::MaterialInstance* meshMaterial =
+            engine.ecs().emplaceComponent<bl::com::MaterialInstance>(
+                meshEntity, engine.renderer(), *mesh);
+        meshMaterial->setMaterial(engine.renderer().materialPool().getOrCreateFromTexture(texture));
+        mesh->init(meshMaterial);
+        mesh->create(engine.renderer().vulkanState(), Vertices.size(), Indices.size());
+        mesh->gpuBuffer.vertices() = Vertices;
+        for (auto& v : mesh->gpuBuffer.vertices()) {
+            v.texCoord = texture->convertCoord(v.texCoord);
+        }
+        mesh->gpuBuffer.indices() = Indices;
+        bl::rc::prim::Vertex3D::computeTBN(mesh->gpuBuffer.vertices().data(),
+                                           mesh->gpuBuffer.indices().data(),
+                                           mesh->gpuBuffer.indices().size());
+        mesh->gpuBuffer.queueTransfer(bl::rc::tfr::Transferable::SyncRequirement::Immediate);
+        mesh->addToScene(engine.ecs(), meshEntity, scene, bl::rc::UpdateSpeed::Static);
 
         //// create overlay and add sprite for observer 2
-        // bl::rc::Overlay* overlay = p2.getOrCreateSceneOverlay();
-        // messageBox.create(*p2World, messageBoxTxtr);
-        // messageBox.getTransform().setOrigin(messageBox.getTexture()->size() * 0.5f);
-        // messageBox.getOverlayScaler().scaleToHeightPercent(0.3f);
-        // messageBox.getOverlayScaler().positionInParentSpace({0.5f, 0.85f});
-        // messageBox.setScissorToSelf();
-        // messageBox.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+        bl::rc::Overlay* overlay = p2.getOrCreateSceneOverlay();
+        messageBox.create(*p2World, messageBoxTxtr);
+        messageBox.getTransform().setOrigin(messageBox.getTexture()->size() * 0.5f);
+        messageBox.getOverlayScaler().scaleToHeightPercent(0.3f);
+        messageBox.getOverlayScaler().positionInParentSpace({0.5f, 0.85f});
+        messageBox.setScissorToSelf();
+        messageBox.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
         //// add text to overlay
         // text.create(*p2World, *font, "Text can now be", 64);

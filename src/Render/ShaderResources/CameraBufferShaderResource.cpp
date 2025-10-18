@@ -1,5 +1,6 @@
 #include <BLIB/Render/ShaderResources/CameraBufferShaderResource.hpp>
 
+#include <BLIB/Cameras/OverlayCamera.hpp>
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Render/RenderTarget.hpp>
 
@@ -9,8 +10,18 @@ namespace rc
 {
 namespace sri
 {
+namespace
+{
+cam::OverlayCamera overlayCamera;
+}
+
 CameraBufferShaderResource::CameraBufferShaderResource(RenderTarget& owner)
-: owner(owner) {}
+: owner(owner)
+, isOverlay(false) {}
+
+CameraBufferShaderResource::CameraBufferShaderResource(RenderTarget& owner, Overlay&)
+: owner(owner)
+, isOverlay(true) {}
 
 void CameraBufferShaderResource::init(engine::Engine& engine) {
     BufferShaderResource::init(engine);
@@ -18,7 +29,7 @@ void CameraBufferShaderResource::init(engine::Engine& engine) {
 }
 
 void CameraBufferShaderResource::copyFromSource() {
-    cam::Camera* camera = owner.getCurrentCamera();
+    cam::Camera* camera = isOverlay ? &overlayCamera : owner.getCurrentCamera();
     if (camera) {
         auto& dst          = getBuffer()[0];
         dst.view           = camera->getViewMatrix();
