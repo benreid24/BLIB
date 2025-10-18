@@ -1,4 +1,5 @@
 #version 450
+#extension GL_GOOGLE_include_directive : require
 
 layout(location = 0) in vec4 fragColor;
 layout(location = 1) in vec2 texCoords;
@@ -8,15 +9,14 @@ layout(location = 4) in flat float rotation;
 
 layout(location = 0) out vec4 outColor;
 
+#define GLOBALS_SET_NUMBER 0
+#include <uniforms.glsl>
+
 struct Light {
     vec4 color; // w component is radius
     vec2 position;
 };
 
-layout(set = 0, binding = 0) uniform sampler2D textures[4096];
-layout(set = 0, binding = 2) uniform rsettings {
-    float gamma;
-} settings;
 layout(std140, set = 1, binding = 1) uniform lb {
     uint count;
     vec3 ambient;

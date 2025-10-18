@@ -27,8 +27,11 @@ RenderTexture::RenderTexture(engine::Engine& engine, Renderer& renderer, rg::Ass
     viewport.width        = size.x;
     viewport.height       = size.y;
 
-    texture =
-        renderer.texturePool().createRenderTexture(size, CommonTextureFormats::SRGBA32Bit, sampler);
+    // TODO - should recreate on settings change
+    texture = renderer.texturePool().createRenderTexture(
+        size,
+        renderer.vulkanState().textureFormatManager.getFormat(vk::SemanticTextureFormat::Color),
+        sampler);
     resize(size);
 
     renderingTo = graphAssets.putAsset<rgi::FinalRenderTextureAsset>(

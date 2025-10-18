@@ -48,7 +48,10 @@ Image::Image()
 Image::~Image() { deferDestroy(); }
 
 void Image::create(VulkanState& vs, const ImageOptions& options) {
-    if (vulkanState && compareOptions(createOptions, options)) { return; }
+    if (vulkanState && compareOptions(createOptions, options)) {
+        //
+        return;
+    }
 
     deferDestroy();
     vulkanState   = &vs;
@@ -113,11 +116,14 @@ void Image::resize(const glm::u32vec2& newSize, bool copyContents) {
 
     // create new image
     const glm::u32vec2 oldSize(createOptions.extent.width, createOptions.extent.height);
-    create(*vulkanState, createOptions);
+    ImageOptions newOptions  = createOptions;
+    newOptions.extent.width  = newSize.x;
+    newOptions.extent.height = newSize.y;
+    create(*vulkanState, newOptions);
     currentLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 
     // copy from old to new
-    if (copyContents) {
+    if (copyContents && oldImage != imageHandle) {
         auto cb = vulkanState->sharedCommandPool.createBuffer();
 
         vulkanState->transitionImageLayout(cb,

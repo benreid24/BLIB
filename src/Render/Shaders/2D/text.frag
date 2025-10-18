@@ -7,10 +7,9 @@ layout(location = 3) in vec2 fragPos;
 
 layout(location = 0) out vec4 outColor;
 
-layout(set = 0, binding = 0) uniform sampler2D textures[4096];
-layout(set = 0, binding = 2) uniform rsettings {
-    float gamma;
-} settings;
+#define GLOBALS_SET_NUMBER 0
+#include <uniforms.glsl>
+
 layout(std430, set = 2, binding = 1) readonly buffer tex {
     uint index[];
 } skin;
