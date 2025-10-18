@@ -26,6 +26,11 @@ RenderTarget::SceneInstance::SceneInstance(engine::Engine& e, Renderer& r, Rende
 , observerIndex(0)
 , overlayIndex(0) {}
 
+RenderTarget::SceneInstance::~SceneInstance() {
+    if (scene) { scene->unregisterObserver(observerIndex); }
+    if (overlay) { overlay->unregisterObserver(observerIndex); }
+}
+
 RenderTarget::RenderTarget(engine::Engine& e, Renderer& r, rg::AssetFactory& f, bool rt)
 : isRenderTexture(rt)
 , engine(e)
@@ -54,6 +59,8 @@ RenderTarget::~RenderTarget() {
 void RenderTarget::cleanup() {
     if (!resourcesFreed) {
         clearScenes();
+        graphAssets.cleanup();
+        shaderResources.cleanup();
         resourcesFreed = true;
     }
 }

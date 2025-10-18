@@ -88,6 +88,14 @@ protected:
      */
     virtual void doRegisterObserver(RenderTarget* target, std::uint32_t observerIndex) override;
 
+    /**
+     * @brief Called when an observer is no longer rendering the scene
+     *
+     * @param target The observer that is stopping rendering
+     * @param observerIndex The index of the observer stopping rendering
+     */
+    virtual void doUnregisterObserver(RenderTarget* target, std::uint32_t observerIndex) override;
+
 private:
     struct SpecializationBatch {
         const std::uint32_t specializationId;
@@ -105,6 +113,7 @@ private:
 
         void initObserversMaybe(TargetTable& targets);
         void registerObserver(unsigned int index, RenderTarget& observer);
+        void unregisterObserver(unsigned int index, RenderTarget& observer);
         bool addObject(ecs::Entity entity, SceneObject* sceneObject, std::uint32_t specialization);
         void addForRebatch(SceneObject* object, std::uint32_t specialization);
         void removeObject(ecs::Entity entity, SceneObject* object, std::uint32_t specialization);

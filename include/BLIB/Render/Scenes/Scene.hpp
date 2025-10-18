@@ -178,6 +178,14 @@ protected:
     virtual void doRegisterObserver(RenderTarget* target, std::uint32_t observerIndex) = 0;
 
     /**
+     * @brief Called when an observer is no longer rendering the scene
+     *
+     * @param target The observer that is stopping rendering
+     * @param observerIndex The index of the observer stopping rendering
+     */
+    virtual void doUnregisterObserver(RenderTarget* target, std::uint32_t observerIndex) = 0;
+
+    /**
      * @brief Called at the beginning of the frame when descriptors are being updated
      */
     virtual void onDescriptorSync() {}
@@ -217,6 +225,7 @@ private:
     void updateDescriptorsAndQueueTransfers();
     void syncObjects();
     std::uint32_t registerObserver(RenderTarget* target);
+    void unregisterObserver(std::uint32_t observerIndex);
 
     ds::DescriptorSetInstanceCache* getDescriptorSetCache(RenderTarget* target);
 

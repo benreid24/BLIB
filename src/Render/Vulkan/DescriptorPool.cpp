@@ -13,7 +13,7 @@ namespace
 {
 constexpr std::array<unsigned int, DescriptorPool::BindingTypeCount> PoolSizes = {
     20,  // VK_DESCRIPTOR_TYPE_SAMPLER
-    50,  // VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER
+    200,  // VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER
     20,  // VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE
     20,  // VK_DESCRIPTOR_TYPE_STORAGE_IMAGE
     20,  // VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER
@@ -22,9 +22,24 @@ constexpr std::array<unsigned int, DescriptorPool::BindingTypeCount> PoolSizes =
     200, // VK_DESCRIPTOR_TYPE_STORAGE_BUFFER
     100, // VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC
     50,  // VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC
-    50   // VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT
+    10   // VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT
 };
 constexpr unsigned int MaxSets = 500;
+
+bool canDefaultPoolAllocate(unsigned int setCount,
+                            const DescriptorPool::SetBindingInfo& allocInfo) {
+    if (setCount > MaxSets) { return false; }
+
+    auto available = PoolSizes;
+
+    for (std::uint32_t i = 0; i < allocInfo.bindingCount; ++i) {
+        const auto& binding             = allocInfo.bindings[i];
+        const unsigned int bindingCount = binding.descriptorCount * setCount;
+        if (bindingCount > available[binding.descriptorType]) { return false; }
+        available[binding.descriptorType] -= bindingCount;
+    }
+    return true;
+}
 } // namespace
 
 DescriptorPool::SetBindingInfo::SetBindingInfo()
@@ -79,12 +94,9 @@ DescriptorPool::AllocationHandle DescriptorPool::allocate(VkDescriptorSetLayout 
 
     // test if requires dedicated pool
     if (!dedicated) {
-        for (std::uint32_t i = 0; i < allocInfo.bindingCount; ++i) {
-            const auto& binding = allocInfo.bindings[i];
-            if (binding.descriptorCount * setCount > PoolSizes[binding.descriptorType]) {
-                dedicated = true;
-                break;
-            }
+        if (!canDefaultPoolAllocate(setCount, allocInfo)) {
+            BL_LOG_WARN << "Descriptor set allocation requires dedicated pool due to size";
+            dedicated = true;
         }
     }
 
@@ -191,13 +203,13 @@ bool DescriptorPool::Subpool::canAllocate(const SetBindingInfo& allocInfo,
                                           std::size_t setCount) const {
     if (freeSets < setCount) { return false; }
 
-    for (std::size_t i = 0; i < setCount; ++i) {
-        for (std::size_t j = 0; j < allocInfo.bindingCount; ++j) {
-            const auto& binding = allocInfo.bindings[j];
-            if (available[binding.descriptorType] < binding.descriptorCount * setCount) {
-                return false;
-            }
-        }
+    auto availLocal = available;
+
+    for (std::size_t j = 0; j < allocInfo.bindingCount; ++j) {
+        const auto& binding             = allocInfo.bindings[j];
+        const unsigned int bindingCount = binding.descriptorCount * setCount;
+        if (availLocal[binding.descriptorType] < bindingCount) { return false; }
+        availLocal[binding.descriptorType] -= bindingCount;
     }
 
     return true;

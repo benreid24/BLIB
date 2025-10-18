@@ -34,6 +34,11 @@ std::uint32_t Scene::registerObserver(RenderTarget* target) {
     return index;
 }
 
+void Scene::unregisterObserver(std::uint32_t index) {
+    RenderTarget* target = targetTable.removeTarget(index);
+    if (index < targetTable.nextId()) { doUnregisterObserver(target, index); }
+}
+
 void Scene::updateDescriptorsAndQueueTransfers() {
     std::unique_lock lock(objectMutex);
 

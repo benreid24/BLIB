@@ -31,10 +31,6 @@ Overlay::Overlay(engine::Engine& e)
 }
 
 Overlay::~Overlay() {
-    for (unsigned int i = 0; i < targetTable.nextId(); ++i) {
-        objects.unlinkAll(*targetTable.getTarget(i)->getDescriptorSetCache(this));
-    }
-
     // reset viewports to prevent read into invalid memory
     std::copy(roots.begin(), roots.end(), std::inserter(renderStack, renderStack.begin()));
     while (!renderStack.empty()) {
@@ -166,7 +162,7 @@ void Overlay::doBatchChange(const BatchChange& change, mat::MaterialPipeline* og
     if (ogPipeline != change.newPipeline) {
         ovy::OverlayObject& object = *static_cast<ovy::OverlayObject*>(change.changed);
         object.pipeline            = change.newPipeline;
-        const ecs::Entity entity   = objects.getObjectEntity(object.sceneKey);
+        const ecs::Entity entity   = object.entity;
         object.descriptors.reinit(
             object.pipeline->getPipeline(cfg::RenderPhases::Overlay)->pipelineLayout(),
             targetTable,
@@ -237,6 +233,20 @@ void Overlay::doRegisterObserver(RenderTarget* target, std::uint32_t observerInd
 
         obj.descriptors.addObserver(observerIndex, *target);
         obj.descriptors.allocateObject(observerIndex, obj.entity, obj.sceneKey);
+
+        std::copy(obj.getChildren().rbegin(),
+                  obj.getChildren().rend(),
+                  std::inserter(renderStack, renderStack.end()));
+    }
+}
+
+void Overlay::doUnregisterObserver(RenderTarget* target, std::uint32_t observerIndex) {
+    std::copy(roots.begin(), roots.end(), std::inserter(renderStack, renderStack.begin()));
+    while (!renderStack.empty()) {
+        ovy::OverlayObject& obj = *renderStack.back();
+        renderStack.pop_back();
+
+        obj.descriptors.removeObserver(observerIndex);
 
         std::copy(obj.getChildren().rbegin(),
                   obj.getChildren().rend(),

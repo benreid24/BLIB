@@ -214,6 +214,7 @@ protected:
 
         SceneInstance(engine::Engine& e, Renderer& r, RenderTarget* owner, rg::AssetPool& pool,
                       SceneRef s);
+        ~SceneInstance();
     };
 
     const bool isRenderTexture;

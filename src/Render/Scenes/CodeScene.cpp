@@ -47,9 +47,7 @@ CodeScene::CodeScene(engine::Engine& engine, RenderCallback&& renderCallback)
 }
 
 CodeScene::~CodeScene() {
-    for (unsigned int i = 0; i < targetTable.nextId(); ++i) {
-        objects.unlinkAll(*targetTable.getTarget(i)->getDescriptorSetCache(this));
-    }
+    // noop
 }
 
 void CodeScene::renderOpaqueObjects(scene::SceneRenderContext& context) {
@@ -61,7 +59,7 @@ void CodeScene::renderTransparentObjects(scene::SceneRenderContext&) {}
 
 void CodeScene::doObjectRemoval(SceneObject* object, mat::MaterialPipeline*) {
     CodeSceneObject* obj     = static_cast<CodeSceneObject*>(object);
-    const ecs::Entity entity = objects.getObjectEntity(obj->sceneKey);
+    const ecs::Entity entity = obj->entity;
 
     obj->descriptors.releaseObject(obj->entity, obj->sceneKey);
     objects.release(obj->sceneKey);
@@ -96,7 +94,7 @@ void CodeScene::doBatchChange(const BatchChange& change, mat::MaterialPipeline* 
     if (ogPipeline != change.newPipeline) {
         CodeSceneObject& object  = *static_cast<CodeSceneObject*>(change.changed);
         object.pipeline          = change.newPipeline;
-        const ecs::Entity entity = objects.getObjectEntity(object.sceneKey);
+        const ecs::Entity entity = object.entity;
         object.descriptors.reinit(
             object.pipeline->getPipeline(cfg::RenderPhases::Forward)->pipelineLayout(),
             targetTable,
@@ -169,6 +167,10 @@ void CodeScene::doRegisterObserver(RenderTarget* target, std::uint32_t observerI
         obj.descriptors.addObserver(observerIndex, *target);
         obj.descriptors.allocateObject(observerIndex, obj.entity, obj.sceneKey);
     });
+}
+
+void CodeScene::doUnregisterObserver(RenderTarget*, std::uint32_t observerIndex) {
+    objects.forEach([&](CodeSceneObject& obj) { obj.descriptors.removeObserver(observerIndex); });
 }
 
 } // namespace scene

@@ -11,8 +11,11 @@ namespace sr
 ShaderResourceStore::ShaderResourceStore(engine::Engine& engine)
 : engine(engine) {}
 
-ShaderResourceStore::~ShaderResourceStore() {
+ShaderResourceStore::~ShaderResourceStore() { cleanup(); }
+
+void ShaderResourceStore::cleanup() {
     for (auto& pair : cache) { pair.second->cleanup(); }
+    cache.clear();
 }
 
 void ShaderResourceStore::performTransfers() {

@@ -127,6 +127,14 @@ protected:
      */
     virtual void doRegisterObserver(RenderTarget* target, std::uint32_t observerIndex) override;
 
+    /**
+     * @brief Called when an observer is no longer rendering the scene
+     *
+     * @param target The observer that is stopping rendering
+     * @param observerIndex The index of the observer stopping rendering
+     */
+    virtual void doUnregisterObserver(RenderTarget* target, std::uint32_t observerIndex) override;
+
 private:
     ecs::ComponentPool<ovy::OverlayObject>* ecsPool;
     scene::SceneObjectECSAdaptor<ovy::OverlayObject> objects;

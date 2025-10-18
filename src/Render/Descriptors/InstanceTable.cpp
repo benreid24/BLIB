@@ -77,7 +77,8 @@ void InstanceTable::reinit(const vk::PipelineLayout& layout, scene::TargetTable&
 
 void InstanceTable::addObservers(const scene::TargetTable& observers) {
     for (unsigned int i = 0; i < observers.nextId(); ++i) {
-        addObserver(i, *observers.getTarget(i));
+        RenderTarget* t = observers.getTarget(i);
+        if (t) { addObserver(i, *t); }
     }
 }
 
@@ -88,6 +89,10 @@ void InstanceTable::addObserver(unsigned int index, RenderTarget& target) {
         instances[i] = target.getDescriptorSetCache(scene)->getDescriptorSet(factories[i]);
     }
     checkBindless();
+}
+
+void InstanceTable::removeObserver(unsigned int index) {
+    if (index < sets.size()) { sets[index].fill(nullptr); }
 }
 
 void InstanceTable::checkBindless() {

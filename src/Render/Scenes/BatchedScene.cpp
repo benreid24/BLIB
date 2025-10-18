@@ -21,9 +21,7 @@ BatchedScene::BatchedScene(engine::Engine& engine)
 }
 
 BatchedScene::~BatchedScene() {
-    for (unsigned int i = 0; i < targetTable.nextId(); ++i) {
-        objects.unlinkAll(*targetTable.getTarget(i)->getDescriptorSetCache(this));
-    }
+    // noop
 }
 
 scene::SceneObject* BatchedScene::doAdd(ecs::Entity entity, rcom::DrawableBase& obj,
@@ -76,7 +74,7 @@ void BatchedScene::doObjectRemoval(scene::SceneObject* object, mat::MaterialPipe
 
 void BatchedScene::releaseObject(SceneObject* object, mat::MaterialPipeline* pipeline) {
     // lookup object
-    const ecs::Entity entity = objects.getObjectEntity(object->sceneKey);
+    const ecs::Entity entity = object->entity;
     auto& cache = object->sceneKey.updateFreq == UpdateSpeed::Static ? staticCache : dynamicCache;
     auto& batch = cache.transparency[object->sceneKey.sceneId] ? transparentObjects : opaqueObjects;
 
@@ -88,7 +86,7 @@ void BatchedScene::releaseObject(SceneObject* object, mat::MaterialPipeline* pip
 }
 
 void BatchedScene::doBatchChange(const BatchChange& change, mat::MaterialPipeline* oldPipeline) {
-    const ecs::Entity entity = objects.getObjectEntity(change.changed->sceneKey);
+    const ecs::Entity entity = change.changed->entity;
     const bool isStatic      = change.changed->sceneKey.updateFreq == UpdateSpeed::Static;
     auto& cache              = isStatic ? staticCache : dynamicCache;
     const bool wasTrans      = cache.transparency[change.changed->sceneKey.sceneId];
@@ -208,6 +206,13 @@ void BatchedScene::doRegisterObserver(RenderTarget* target, std::uint32_t observ
     }
 }
 
+void BatchedScene::doUnregisterObserver(RenderTarget* target, std::uint32_t index) {
+    objects.unlinkAll(*target->getDescriptorSetCache(this));
+    for (ObjectBatch* ob : {&opaqueObjects, &transparentObjects}) {
+        for (PipelineBatch& pb : ob->batches) { pb.unregisterObserver(index, *target); }
+    }
+}
+
 BatchedScene::PipelineBatch::PipelineBatch(const PipelineBatch& src)
 : needsObserverInit(src.needsObserverInit)
 , pipeline(src.pipeline)
@@ -266,10 +271,31 @@ void BatchedScene::PipelineBatch::registerObserver(unsigned int index, RenderTar
     }
 }
 
+void BatchedScene::PipelineBatch::unregisterObserver(unsigned int index, RenderTarget& observer) {
+    const auto removeFromAll = [this, index](ds::DescriptorSetInstance* instance) {
+        for (unsigned int i = 0; i < allDescriptors.size(); ++i) {
+            if (allDescriptors[i] == instance) {
+                allDescriptors.erase(i);
+                return;
+            }
+        }
+    };
+
+    for (RenderPhase i = 0; i < cfg::Limits::MaxRenderPhaseId; ++i) {
+        vk::Pipeline* phasePipeline = pipeline.getPipeline(i);
+        if (phasePipeline) {
+            const auto& layoutSet = perPhaseDescriptors[i].get(index);
+            for (auto* set : layoutSet) { removeFromAll(set); }
+            perPhaseDescriptors[i].removeObserver(index);
+        }
+    }
+}
+
 void BatchedScene::PipelineBatch::initObserversMaybe(TargetTable& targets) {
     if (needsObserverInit) {
         for (unsigned int i = 0; i < targets.nextId(); ++i) {
-            registerObserver(i, *targets.getTarget(i));
+            RenderTarget* t = targets.getTarget(i);
+            if (t) { registerObserver(i, *t); }
         }
         needsObserverInit = false;
     }

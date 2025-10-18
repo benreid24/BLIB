@@ -48,6 +48,14 @@ public:
     RenderTarget* getTarget(unsigned int index) const;
 
     /**
+     * @brief Removes the given target from the table
+     *
+     * @param index The index of the target to remove
+     * @return The removed target pointer
+     */
+    RenderTarget* removeTarget(unsigned int index);
+
+    /**
      * @brief Returns the next index id which is also the size of the table
      */
     unsigned int nextId() const;

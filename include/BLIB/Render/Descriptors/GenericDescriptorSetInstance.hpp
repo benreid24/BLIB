@@ -123,6 +123,14 @@ void GenericDescriptorSetInstance<TBindings>::init(
     sr::ShaderResourceStore& observerShaderResources) {
     bindings.init(
         vulkanState, globalShaderResources, sceneShaderResources, observerShaderResources);
+
+    staticSetsInited = true;
+    updateStaticDescriptors();
+
+    dynamicSetsInited = 0;
+    for (std::uint32_t i = 0; i < cfg::Limits::MaxConcurrentFrames; ++i) {
+        updateDynamicDescriptors(i);
+    }
 }
 
 template<typename TBindings>

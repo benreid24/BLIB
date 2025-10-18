@@ -7,6 +7,7 @@
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
 #include <BLIB/Render/ShaderResources/EntityComponentShaderResource.hpp>
+#include <BLIB/Util/IdAllocatorUnbounded.hpp>
 #include <queue>
 #include <type_traits>
 #include <vector>
@@ -54,14 +55,6 @@ public:
     AllocateResult allocate(UpdateSpeed updateFreq, ecs::Entity entity);
 
     /**
-     * @brief Returns the ECS id for the given object key
-     *
-     * @param key The key to lookup
-     * @return The ECS id for the given key
-     */
-    ecs::Entity getObjectEntity(Key key) const;
-
-    /**
      * @brief Fetches the object with the given key
      *
      * @param key The key of the object to fetch
@@ -102,21 +95,12 @@ public:
      */
     T* rebase(UpdateSpeed speed, T* original, T* oldBase);
 
-    /**
-     * @brief Returns a usable callback to map scene key to ECS id
-     */
-    MapKeyToEntityCb makeEntityCallback() const;
-
 private:
     struct Bucket {
         std::vector<T> objects;
-        std::queue<std::uint32_t> freeIds;
-        std::vector<ecs::Entity> entityMap;
+        util::IdAllocatorUnbounded<std::uint32_t> idAllocator;
 
-        Bucket() {
-            objects.reserve(cfg::Constants::DefaultSceneObjectCapacity);
-            entityMap.resize(cfg::Constants::DefaultSceneObjectCapacity, ecs::InvalidEntity);
-        }
+        Bucket() { objects.reserve(cfg::Constants::DefaultSceneObjectCapacity); }
     };
 
     Bucket staticBucket;
@@ -132,34 +116,18 @@ typename SceneObjectStorage<T>::AllocateResult SceneObjectStorage<T>::allocate(
 
     Bucket& bucket             = updateFreq == UpdateSpeed::Static ? staticBucket : dynamicBucket;
     result.originalBaseAddress = bucket.objects.data();
-    if (!bucket.freeIds.empty()) {
-        const std::uint32_t id = bucket.freeIds.front();
-        bucket.freeIds.pop();
 
-        result.newObject                   = &bucket.objects[id];
-        result.newObject->sceneKey.sceneId = id;
-        bucket.entityMap[id]               = entity;
-    }
-    else {
-        const std::uint32_t id  = bucket.objects.size();
-        result.addressesChanged = bucket.objects.size() == bucket.objects.capacity();
-        result.newObject        = &bucket.objects.emplace_back();
-        bucket.entityMap.resize(bucket.objects.capacity(), ecs::InvalidEntity);
-        bucket.entityMap[id]               = entity;
-        result.newObject->sceneKey.sceneId = id;
-    }
+    const std::uint32_t id = bucket.idAllocator.allocate();
+    if (id >= bucket.objects.size()) { bucket.objects.resize(id + 1); }
 
+    result.addressesChanged               = bucket.objects.data() != result.originalBaseAddress;
+    result.newObject                      = &bucket.objects[id];
+    result.newObject->sceneKey.sceneId    = id;
+    result.newObject->entity              = entity;
     result.newObject->sceneKey.updateFreq = updateFreq;
     result.newCapacity                    = bucket.objects.capacity();
 
     return result;
-}
-
-template<typename T>
-ecs::Entity SceneObjectStorage<T>::getObjectEntity(Key key) const {
-    const Bucket& bucket = key.updateFreq == UpdateSpeed::Static ? staticBucket : dynamicBucket;
-    return key.sceneId < bucket.entityMap.size() ? bucket.entityMap[key.sceneId] :
-                                                   ecs::InvalidEntity;
 }
 
 template<typename T>
@@ -171,8 +139,7 @@ inline T& SceneObjectStorage<T>::getObject(Key key) {
 template<typename T>
 void SceneObjectStorage<T>::release(Key key) {
     Bucket& bucket = key.updateFreq == UpdateSpeed::Static ? staticBucket : dynamicBucket;
-    bucket.freeIds.emplace(key.sceneId);
-    bucket.entityMap[key.sceneId] = ecs::InvalidEntity;
+    bucket.idAllocator.release(key.sceneId);
 }
 
 template<typename T>
@@ -180,8 +147,8 @@ void SceneObjectStorage<T>::unlinkAll(ds::DescriptorSetInstanceCache& descriptor
     UpdateSpeed speed = UpdateSpeed::Static;
     for (Bucket* bucket : {&staticBucket, &dynamicBucket}) {
         for (unsigned int i = 0; i < bucket->objects.size(); ++i) {
-            if (bucket->entityMap[i] != ecs::InvalidEntity) {
-                descriptors.unlinkSceneObject(bucket->entityMap[i], {speed, i});
+            if (bucket->idAllocator.isAllocated(i)) {
+                descriptors.unlinkSceneObject(bucket->objects[i].entity, {speed, i});
             }
         }
         speed = UpdateSpeed::Dynamic;
@@ -195,17 +162,12 @@ T* SceneObjectStorage<T>::rebase(UpdateSpeed speed, T* og, T* ob) {
 }
 
 template<typename T>
-MapKeyToEntityCb SceneObjectStorage<T>::makeEntityCallback() const {
-    return [this](scene::Key key) { return getObjectEntity(key); };
-}
-
-template<typename T>
 template<typename TCallback>
 void SceneObjectStorage<T>::forEach(TCallback&& callback) {
     UpdateSpeed speed = UpdateSpeed::Static;
     for (Bucket* bucket : {&staticBucket, &dynamicBucket}) {
         for (unsigned int i = 0; i < bucket->objects.size(); ++i) {
-            if (bucket->entityMap[i] != ecs::InvalidEntity) { callback(bucket->objects[i]); }
+            if (bucket->idAllocator.isAllocated(i)) { callback(bucket->objects[i]); }
         }
         speed = UpdateSpeed::Dynamic;
     }

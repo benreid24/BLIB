@@ -81,6 +81,13 @@ public:
     void addObservers(const scene::TargetTable& observers);
 
     /**
+     * @brief Sets all descriptor sets to nullptr for the given observer index
+     *
+     * @param index The index of the observer to clear out
+     */
+    void removeObserver(unsigned int index);
+
+    /**
      * @brief Returns the descriptor set instance for the given observer index
      *
      * @param index The observer scene index

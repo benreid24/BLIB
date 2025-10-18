@@ -20,6 +20,7 @@ class Engine;
 
 namespace rc
 {
+class Renderer;
 class RenderTarget;
 
 namespace sr
@@ -94,6 +95,11 @@ private:
     std::unordered_map<std::string, std::unique_ptr<ShaderResource>> cache;
 
     void initInput(ShaderResource& input);
+
+    void cleanup();
+
+    friend class Renderer;
+    friend class RenderTarget;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

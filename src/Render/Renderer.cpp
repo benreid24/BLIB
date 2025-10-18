@@ -171,12 +171,13 @@ void Renderer::cleanup() {
 
     sceneSync.unsubscribe();
     imageExporter.cleanup();
-    resource::ResourceManager<sf::VulkanFont>::freeAndDestroyAll();
     renderTextures.clear();
     observers.clear();
     virtualObservers.clear();
     commonObserver.cleanup();
     scenes.cleanup();
+    globalShaderResources.cleanup();
+    resource::ResourceManager<sf::VulkanFont>::freeAndDestroyAll();
     computePipelines.cleanup();
     pipelines.cleanup();
     pipelineLayouts.cleanup();
