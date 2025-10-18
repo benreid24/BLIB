@@ -12,7 +12,8 @@ namespace vk
 {
 RenderPassParameters::RenderPassParameters()
 : msaaBehavior(MSAABehavior::Disabled)
-, isCleared(false) {}
+, isCleared(false)
+, debugName(nullptr) {}
 
 RenderPassParameters& RenderPassParameters::addSubpass(SubPass&& subpass) {
     subpasses.emplace_back(std::forward<SubPass>(subpass));
@@ -159,6 +160,11 @@ RenderPassParameters::SubPass& RenderPassParameters::SubPass::withDepthAttachmen
 RenderPassParameters::SubPass& RenderPassParameters::SubPass::withPreserveAttachment(
     std::uint32_t index) {
     preserveAttachments.emplace_back(index);
+    return *this;
+}
+
+RenderPassParameters& RenderPassParameters::withDebugName(const char* name) {
+    debugName = name;
     return *this;
 }
 

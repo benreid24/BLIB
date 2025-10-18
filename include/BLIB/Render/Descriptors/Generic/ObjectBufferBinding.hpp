@@ -5,6 +5,7 @@
 #include <BLIB/Render/Buffers/StaticSSBO.hpp>
 #include <BLIB/Render/Descriptors/Generic/Binding.hpp>
 #include <BLIB/Render/ShaderResources/EntityComponentShaderResource.hpp>
+#include <BLIB/Render/ShaderResources/Key.hpp>
 
 namespace bl
 {
@@ -12,6 +13,7 @@ namespace rc
 {
 namespace ds
 {
+
 /**
  * @brief Generic descriptor set binding providing ECS entity components to shaders
  *
@@ -22,26 +24,21 @@ namespace ds
  * @tparam TStaticStorage The type of buffer to use for static entities
  * @ingroup Renderer
  */
-template<typename T, typename TComponent = T, bool Optional = false,
-         typename TDynamicStorage = buf::DynamicSSBO<T>,
-         typename TStaticStorage  = buf::StaticSSBO<T>>
-class ObjectStorageBuffer : public Binding {
+template<typename TShaderResource, sr::Key<TShaderResource> ResourceKey,
+         VkDescriptorType DescriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, bool Optional = false>
+class ObjectBufferBinding : public Binding {
 public:
-    using TPayload = T;
-    using TShaderInput =
-        sr::EntityComponentShaderResource<TComponent, T, TDynamicStorage, TStaticStorage>;
-
     /**
      * @brief Creates the binding
      */
-    ObjectStorageBuffer()
+    ObjectBufferBinding()
     : Binding(VK_DESCRIPTOR_TYPE_STORAGE_BUFFER)
     , components(nullptr) {}
 
     /**
      * @brief Creates the binding
      */
-    virtual ~ObjectStorageBuffer() = default;
+    virtual ~ObjectBufferBinding() = default;
 
     DescriptorSetInstance::EntityBindMode getBindMode() const override;
     DescriptorSetInstance::SpeedBucketSetting getSpeedMode() const override;
@@ -53,43 +50,40 @@ public:
     bool allocateObject(ecs::Entity entity, scene::Key key) override;
     void releaseObject(ecs::Entity entity, scene::Key key) override;
     void onFrameStart() override;
-    void* getPayload() override;
     bool staticDescriptorUpdateRequired() const override;
     bool dynamicDescriptorUpdateRequired() const override;
 
 private:
-    TShaderInput* components;
+    TShaderResource* components;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-template<typename T, typename TComponent, bool Optional, typename TDynamicStorage,
-         typename TStaticStorage>
+template<typename TShaderResource, sr::Key<TShaderResource> ResourceKey,
+         VkDescriptorType DescriptorType, bool Optional>
 DescriptorSetInstance::EntityBindMode
-ObjectStorageBuffer<T, TComponent, Optional, TDynamicStorage, TStaticStorage>::getBindMode() const {
+ObjectBufferBinding<TShaderResource, ResourceKey, DescriptorType, Optional>::getBindMode() const {
     return DescriptorSetInstance::EntityBindMode::Bindless;
 }
 
-template<typename T, typename TComponent, bool Optional, typename TDynamicStorage,
-         typename TStaticStorage>
-DescriptorSetInstance::SpeedBucketSetting ObjectStorageBuffer<
-    T, TComponent, Optional, TDynamicStorage, TStaticStorage>::getSpeedMode() const {
+template<typename TShaderResource, sr::Key<TShaderResource> ResourceKey,
+         VkDescriptorType DescriptorType, bool Optional>
+DescriptorSetInstance::SpeedBucketSetting
+ObjectBufferBinding<TShaderResource, ResourceKey, DescriptorType, Optional>::getSpeedMode() const {
     return DescriptorSetInstance::SpeedBucketSetting::RebindForNewSpeed;
 }
 
-template<typename T, typename TComponent, bool Optional, typename TDynamicStorage,
-         typename TStaticStorage>
-void ObjectStorageBuffer<T, TComponent, Optional, TDynamicStorage, TStaticStorage>::init(
+template<typename TShaderResource, sr::Key<TShaderResource> ResourceKey,
+         VkDescriptorType DescriptorType, bool Optional>
+void ObjectBufferBinding<TShaderResource, ResourceKey, DescriptorType, Optional>::init(
     vk::VulkanState&, sr::ShaderResourceStore&, sr::ShaderResourceStore& sceneShaderResources,
     sr::ShaderResourceStore&) {
-    // TODO - parameterize which store to use
-    // TODO - parameterize id
-    components = sceneShaderResources.getShaderResource<TShaderInput>();
+    components = sceneShaderResources.getShaderResourceWithKey(ResourceKey);
 }
 
-template<typename T, typename TComponent, bool Optional, typename TDynamicStorage,
-         typename TStaticStorage>
-void ObjectStorageBuffer<T, TComponent, Optional, TDynamicStorage, TStaticStorage>::writeSet(
+template<typename TShaderResource, sr::Key<TShaderResource> ResourceKey,
+         VkDescriptorType DescriptorType, bool Optional>
+void ObjectBufferBinding<TShaderResource, ResourceKey, DescriptorType, Optional>::writeSet(
     SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed speed, std::uint32_t frameIndex) {
     VkDescriptorBufferInfo& bufferInfo = writer.getNewBufferInfo();
     bufferInfo.buffer                  = speed == UpdateSpeed::Dynamic ?
@@ -106,44 +100,37 @@ void ObjectStorageBuffer<T, TComponent, Optional, TDynamicStorage, TStaticStorag
     setWrite.descriptorType        = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
 }
 
-template<typename T, typename TComponent, bool Optional, typename TDynamicStorage,
-         typename TStaticStorage>
-bool ObjectStorageBuffer<T, TComponent, Optional, TDynamicStorage, TStaticStorage>::allocateObject(
+template<typename TShaderResource, sr::Key<TShaderResource> ResourceKey,
+         VkDescriptorType DescriptorType, bool Optional>
+bool ObjectBufferBinding<TShaderResource, ResourceKey, DescriptorType, Optional>::allocateObject(
     ecs::Entity entity, scene::Key key) {
     return components->allocateObject(entity, key) || Optional;
 }
 
-template<typename T, typename TComponent, bool Optional, typename TDynamicStorage,
-         typename TStaticStorage>
-void ObjectStorageBuffer<T, TComponent, Optional, TDynamicStorage, TStaticStorage>::releaseObject(
+template<typename TShaderResource, sr::Key<TShaderResource> ResourceKey,
+         VkDescriptorType DescriptorType, bool Optional>
+void ObjectBufferBinding<TShaderResource, ResourceKey, DescriptorType, Optional>::releaseObject(
     ecs::Entity entity, scene::Key key) {
     components->releaseObject(entity, key);
 }
 
-template<typename T, typename TComponent, bool Optional, typename TDynamicStorage,
-         typename TStaticStorage>
-void ObjectStorageBuffer<T, TComponent, Optional, TDynamicStorage, TStaticStorage>::onFrameStart() {
+template<typename TShaderResource, sr::Key<TShaderResource> ResourceKey,
+         VkDescriptorType DescriptorType, bool Optional>
+void ObjectBufferBinding<TShaderResource, ResourceKey, DescriptorType, Optional>::onFrameStart() {
     // noop
 }
 
-template<typename T, typename TComponent, bool Optional, typename TDynamicStorage,
-         typename TStaticStorage>
-void* ObjectStorageBuffer<T, TComponent, Optional, TDynamicStorage, TStaticStorage>::getPayload() {
-    // no payload
-    return nullptr;
-}
-
-template<typename T, typename TComponent, bool Optional, typename TDynamicStorage,
-         typename TStaticStorage>
-bool ObjectStorageBuffer<T, TComponent, Optional, TDynamicStorage,
-                         TStaticStorage>::staticDescriptorUpdateRequired() const {
+template<typename TShaderResource, sr::Key<TShaderResource> ResourceKey,
+         VkDescriptorType DescriptorType, bool Optional>
+bool ObjectBufferBinding<TShaderResource, ResourceKey, DescriptorType,
+                         Optional>::staticDescriptorUpdateRequired() const {
     return components->staticDescriptorUpdateRequired();
 }
 
-template<typename T, typename TComponent, bool Optional, typename TDynamicStorage,
-         typename TStaticStorage>
-bool ObjectStorageBuffer<T, TComponent, Optional, TDynamicStorage,
-                         TStaticStorage>::dynamicDescriptorUpdateRequired() const {
+template<typename TShaderResource, sr::Key<TShaderResource> ResourceKey,
+         VkDescriptorType DescriptorType, bool Optional>
+bool ObjectBufferBinding<TShaderResource, ResourceKey, DescriptorType,
+                         Optional>::dynamicDescriptorUpdateRequired() const {
     return components->dynamicDescriptorUpdateRequired();
 }
 

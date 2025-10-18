@@ -16,7 +16,7 @@ Scene::Scene(engine::Engine& engine)
 , shaderInputStore(engine)
 , staticPipelines(cfg::Constants::DefaultSceneObjectCapacity, nullptr)
 , dynamicPipelines(cfg::Constants::DefaultSceneObjectCapacity, nullptr)
-, syncedResourcesThisFrame(false)
+, syncedResourcesOnFrame(cfg::Limits::MaxConcurrentFrames + 1)
 , isClearingQueues(false) {
     queuedBatchChanges.reserve(32);
     queuedAdds.reserve(32);
@@ -41,8 +41,8 @@ void Scene::unregisterObserver(std::uint32_t index) {
 }
 
 void Scene::syncShaderResources() {
-    if (!syncedResourcesThisFrame) {
-        syncedResourcesThisFrame = true;
+    if (syncedResourcesOnFrame != renderer.vulkanState().currentFrameIndex()) {
+        syncedResourcesOnFrame = renderer.vulkanState().currentFrameIndex();
 
         std::unique_lock lock(objectMutex);
         onShaderResourceSync();
@@ -78,9 +78,6 @@ void Scene::syncObjects() {
     queuedAdds.clear();
 
     isClearingQueues = false;
-
-    // copy ECS components into descriptor buffers
-    shaderInputStore.updateFromSources();
 }
 
 void Scene::createAndAddObject(ecs::Entity entity, rcom::DrawableBase& object,

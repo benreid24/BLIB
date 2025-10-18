@@ -26,7 +26,7 @@ namespace sr
  *
  * @ingroup Renderer
  */
-class EntityComponentShaderResourceBase : public ShaderResource {
+class EntityComponentShaderResourceBase : public sr::ShaderResource {
 public:
     /**
      * @brief Represents a range of dirty elements
@@ -155,8 +155,6 @@ private:
     ecs::Registry* registry;
     TDynamicStorage dynamicBuffer;
     TStaticStorage staticBuffer;
-    std::vector<std::uint8_t> dynCounts;
-    std::vector<std::uint8_t> statCounts;
     std::uint8_t dynamicRefresh;
     std::uint8_t staticRefresh;
 };
@@ -200,8 +198,6 @@ void EntityComponentShaderResource<TCom, TPayload, TDynamicStorage, TStaticStora
                          cfg::Constants::DefaultSceneObjectCapacity);
     staticBuffer.create(engine::HeaderHelpers::getVulkanState(engine),
                         cfg::Constants::DefaultSceneObjectCapacity);
-    dynCounts.resize(cfg::Constants::DefaultSceneObjectCapacity, 0);
-    statCounts.resize(cfg::Constants::DefaultSceneObjectCapacity, 0);
     dirtyComponents.reserve(cfg::Constants::DefaultSceneObjectCapacity);
 }
 
@@ -221,19 +217,12 @@ bool EntityComponentShaderResource<TCom, TPayload, TDynamicStorage, TStaticStora
             dynamicRefresh = 0x1 << cfg::Limits::MaxConcurrentFrames;
         }
         component->link(this, key);
-
-        if (key.sceneId >= dynCounts.size()) { dynCounts.resize(key.sceneId + 1, 0); }
-        dynCounts[key.sceneId] += 1;
     }
     else {
         if (staticBuffer.ensureSize(key.sceneId + 1)) {
-            statCounts.resize(key.sceneId + 1, 0);
             staticRefresh = 0x1 << cfg::Limits::MaxConcurrentFrames;
         }
         component->link(this, key);
-
-        if (key.sceneId >= statCounts.size()) { statCounts.resize(key.sceneId + 1, 0); }
-        statCounts[key.sceneId] += 1;
     }
     markObjectDirty(key, component);
     return true;
@@ -242,19 +231,12 @@ bool EntityComponentShaderResource<TCom, TPayload, TDynamicStorage, TStaticStora
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
 void EntityComponentShaderResource<TCom, TPayload, TDynamicStorage, TStaticStorage>::releaseObject(
     ecs::Entity entity, scene::Key key) {
-    auto& refCounts = key.updateFreq == UpdateSpeed::Dynamic ? dynCounts : statCounts;
-    if (key.sceneId >= refCounts.size()) { return; }
-
-    auto& refCount = refCounts[key.sceneId];
-    if (refCount == 1) {
-        TCom* component = registry->getComponent<TCom>(entity);
-        if (component) {
-            component->unlink();
-            std::erase_if(dirtyComponents,
-                          [component](void* c) { return static_cast<TCom*>(c) == component; });
-        }
+    TCom* component = registry->getComponent<TCom>(entity);
+    if (component) {
+        component->unlink();
+        std::erase_if(dirtyComponents,
+                      [component](void* c) { return static_cast<TCom*>(c) == component; });
     }
-    refCount = refCount > 0 ? refCount - 1 : 0;
 }
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>

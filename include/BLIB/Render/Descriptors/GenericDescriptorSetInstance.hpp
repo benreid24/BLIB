@@ -53,24 +53,6 @@ public:
      */
     virtual ~GenericDescriptorSetInstance() = default;
 
-    /**
-     * @brief Returns the binding object directly for the given binding type
-     *
-     * @tparam T The type of binding to fetch
-     * @return A reference to the binding object itself
-     */
-    template<typename T>
-    T& getBinding();
-
-    /**
-     * @brief Access the given binding payload
-     *
-     * @tparam T The payload type to access from TBindings
-     * @return A reference to the payload value used for rendering
-     */
-    template<typename T>
-    T& getBindingPayload();
-
 private:
     const VkDescriptorSetLayout descriptorSetLayout;
     vk::VulkanState& vulkanState;
@@ -204,18 +186,6 @@ void GenericDescriptorSetInstance<TBindings>::updateDynamicDescriptors(std::uint
     dynamicDescriptorSets.getRaw(i).allocate(descriptorSetLayout);
     bindings.writeSet(setWriter, dynamicDescriptorSets.getRaw(i).getSet(), UpdateSpeed::Dynamic, i);
     setWriter.performWrite(vulkanState.device);
-}
-
-template<typename TBindings>
-template<typename T>
-T& GenericDescriptorSetInstance<TBindings>::getBinding() {
-    return bindings.template getBinding<T>();
-}
-
-template<typename TBindings>
-template<typename T>
-T& GenericDescriptorSetInstance<TBindings>::getBindingPayload() {
-    return bindings.template get<T>();
 }
 
 } // namespace ds

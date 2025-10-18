@@ -205,7 +205,7 @@ private:
 
     std::vector<mat::MaterialPipeline*> staticPipelines;
     std::vector<mat::MaterialPipeline*> dynamicPipelines;
-    bool syncedResourcesThisFrame;
+    std::uint32_t syncedResourcesOnFrame;
 
     std::recursive_mutex queueMutex;
     bool isClearingQueues;

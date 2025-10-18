@@ -123,6 +123,11 @@ void RenderPass::doCreate() {
         VK_SUCCESS) {
         throw std::runtime_error("Failed to create render pass");
     }
+
+    if (createParams.debugName) {
+        renderer.vulkanState().setVulkanObjectDebugName(
+            renderPass, VK_OBJECT_TYPE_RENDER_PASS, createParams.debugName);
+    }
 }
 
 } // namespace vk

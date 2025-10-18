@@ -167,6 +167,14 @@ public:
     RenderPassParameters& withMSAABehavior(MSAABehavior behavior);
 
     /**
+     * @brief Sets a debug name on the render pass
+     *
+     * @param name The debug name to set
+     * @return A reference to this object
+     */
+    RenderPassParameters& withDebugName(const char* name);
+
+    /**
      * @brief Performs validation and returns a usable rvalue reference to this object
      *
      * @return RenderPassParameters&& An rvalue reference to this object
@@ -190,6 +198,7 @@ private:
     ctr::StaticVector<VkSubpassDependency, MaxDependencyCount> dependencies;
     MSAABehavior msaaBehavior;
     bool isCleared;
+    const char* debugName;
 
     friend class RenderPass;
 };

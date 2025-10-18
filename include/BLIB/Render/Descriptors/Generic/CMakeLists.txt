@@ -4,5 +4,5 @@ target_sources(BLIB PUBLIC
 	Bindings.hpp
 	GlobalStorageBuffer.hpp
 	GlobalUniformBuffer.hpp
-	ObjectStorageBuffer.hpp
+	ObjectBufferBinding.hpp
 )

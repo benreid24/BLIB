@@ -89,99 +89,100 @@ public:
         sprite.addToScene(scene2d, bl::rc::UpdateSpeed::Static);
 
         // create 3d scene for observer 2
-        bl::rc::Observer& p2 = engine.addPlayer().getRenderObserver();
-        auto p2World =
-            engine.getPlayer(1).enterWorld<bl::engine::BasicWorld<bl::rc::scene::Scene3D>>();
-        bl::rc::SceneRef scene          = p2World->scene();
-        bl::rc::scene::Scene3D* scene3d = static_cast<bl::rc::scene::Scene3D*>(scene.get());
-        scene3d->getLighting().setAmbientLightColor({1.f, 1.f, 1.f});
+        // bl::rc::Observer& p2 = engine.addPlayer().getRenderObserver();
+        // auto p2World =
+        //    engine.getPlayer(1).enterWorld<bl::engine::BasicWorld<bl::rc::scene::Scene3D>>();
+        // bl::rc::SceneRef scene          = p2World->scene();
+        // bl::rc::scene::Scene3D* scene3d = static_cast<bl::rc::scene::Scene3D*>(scene.get());
+        // scene3d->getLighting().setAmbientLightColor({1.f, 1.f, 1.f});
 
-        // create camera for observer 2
-        p2.setClearColor({0.f, 1.f, 0.f, 1.f});
-        bl::cam::Camera3D* player2Cam = p2.setCamera<bl::cam::Camera3D>(
-            glm::vec3{0.f, 0.5f, 2.f}, glm::vec3{0.f, 0.f, 0.f}, 75.f);
-        player2Cam->setController<bl::cam::c3d::OrbiterController>(
-            glm::vec3{0.f, 0.f, 0.f}, 4.f, glm::vec3{0.3f, 1.f, 0.1f}, 2.f, 4.f);
-        player2Cam->addAffector<bl::cam::c3d::CameraShake>(0.1f, 7.f);
+        //// create camera for observer 2
+        // p2.setClearColor({0.f, 1.f, 0.f, 1.f});
+        // bl::cam::Camera3D* player2Cam = p2.setCamera<bl::cam::Camera3D>(
+        //     glm::vec3{0.f, 0.5f, 2.f}, glm::vec3{0.f, 0.f, 0.f}, 75.f);
+        // player2Cam->setController<bl::cam::c3d::OrbiterController>(
+        //     glm::vec3{0.f, 0.f, 0.f}, 4.f, glm::vec3{0.3f, 1.f, 0.1f}, 2.f, 4.f);
+        // player2Cam->addAffector<bl::cam::c3d::CameraShake>(0.1f, 7.f);
 
-        // create object in scene
-        meshEntity = p2World->createEntity();
-        engine.ecs().emplaceComponent<bl::com::Transform3D>(meshEntity);
-        bl::com::BasicMesh* mesh = engine.ecs().emplaceComponent<bl::com::BasicMesh>(meshEntity);
-        bl::com::MaterialInstance* meshMaterial =
-            engine.ecs().emplaceComponent<bl::com::MaterialInstance>(
-                meshEntity, engine.renderer(), *mesh);
-        meshMaterial->setMaterial(engine.renderer().materialPool().getOrCreateFromTexture(texture));
-        mesh->init(meshMaterial);
-        mesh->create(engine.renderer().vulkanState(), Vertices.size(), Indices.size());
-        mesh->gpuBuffer.vertices() = Vertices;
-        for (auto& v : mesh->gpuBuffer.vertices()) {
-            v.texCoord = texture->convertCoord(v.texCoord);
-        }
-        mesh->gpuBuffer.indices() = Indices;
-        bl::rc::prim::Vertex3D::computeTBN(mesh->gpuBuffer.vertices().data(),
-                                           mesh->gpuBuffer.indices().data(),
-                                           mesh->gpuBuffer.indices().size());
-        mesh->gpuBuffer.queueTransfer(bl::rc::tfr::Transferable::SyncRequirement::Immediate);
-        mesh->addToScene(engine.ecs(), meshEntity, scene, bl::rc::UpdateSpeed::Static);
+        //// create object in scene
+        // meshEntity = p2World->createEntity();
+        // engine.ecs().emplaceComponent<bl::com::Transform3D>(meshEntity);
+        // bl::com::BasicMesh* mesh = engine.ecs().emplaceComponent<bl::com::BasicMesh>(meshEntity);
+        // bl::com::MaterialInstance* meshMaterial =
+        //     engine.ecs().emplaceComponent<bl::com::MaterialInstance>(
+        //         meshEntity, engine.renderer(), *mesh);
+        // meshMaterial->setMaterial(engine.renderer().materialPool().getOrCreateFromTexture(texture));
+        // mesh->init(meshMaterial);
+        // mesh->create(engine.renderer().vulkanState(), Vertices.size(), Indices.size());
+        // mesh->gpuBuffer.vertices() = Vertices;
+        // for (auto& v : mesh->gpuBuffer.vertices()) {
+        //     v.texCoord = texture->convertCoord(v.texCoord);
+        // }
+        // mesh->gpuBuffer.indices() = Indices;
+        // bl::rc::prim::Vertex3D::computeTBN(mesh->gpuBuffer.vertices().data(),
+        //                                    mesh->gpuBuffer.indices().data(),
+        //                                    mesh->gpuBuffer.indices().size());
+        // mesh->gpuBuffer.queueTransfer(bl::rc::tfr::Transferable::SyncRequirement::Immediate);
+        // mesh->addToScene(engine.ecs(), meshEntity, scene, bl::rc::UpdateSpeed::Static);
 
-        // create overlay and add sprite for observer 2
-        bl::rc::Overlay* overlay = p2.getOrCreateSceneOverlay();
-        messageBox.create(*p2World, messageBoxTxtr);
-        messageBox.getTransform().setOrigin(messageBox.getTexture()->size() * 0.5f);
-        messageBox.getOverlayScaler().scaleToHeightPercent(0.3f);
-        messageBox.getOverlayScaler().positionInParentSpace({0.5f, 0.85f});
-        messageBox.setScissorToSelf();
-        messageBox.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+        //// create overlay and add sprite for observer 2
+        // bl::rc::Overlay* overlay = p2.getOrCreateSceneOverlay();
+        // messageBox.create(*p2World, messageBoxTxtr);
+        // messageBox.getTransform().setOrigin(messageBox.getTexture()->size() * 0.5f);
+        // messageBox.getOverlayScaler().scaleToHeightPercent(0.3f);
+        // messageBox.getOverlayScaler().positionInParentSpace({0.5f, 0.85f});
+        // messageBox.setScissorToSelf();
+        // messageBox.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
-        // add text to overlay
-        text.create(*p2World, *font, "Text can now be", 64);
-        text.addSection("rendered.", 64, {0.f, 0.8f, 0.6f, 1.f}, sf::Text::Italic);
-        text.addSection("What a great time to be alive. I wonder if this will wrap properly.", 64);
-        text.getOverlayScaler().positionInParentSpace({-0.47f, -0.45f});
-        text.getOverlayScaler().scaleToHeightRatio(64.f, 0.19f);
-        text.wordWrapToParent(0.9f);
-        text.setParent(messageBox);
-        text.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+        //// add text to overlay
+        // text.create(*p2World, *font, "Text can now be", 64);
+        // text.addSection("rendered.", 64, {0.f, 0.8f, 0.6f, 1.f}, sf::Text::Italic);
+        // text.addSection("What a great time to be alive. I wonder if this will wrap properly.",
+        // 64); text.getOverlayScaler().positionInParentSpace({-0.47f, -0.45f});
+        // text.getOverlayScaler().scaleToHeightRatio(64.f, 0.19f);
+        // text.wordWrapToParent(0.9f);
+        // text.setParent(messageBox);
+        // text.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
-        // sanity check children
-        sprite2.create(*p2World, texture);
-        sprite2.getOverlayScaler().positionInParentSpace({0.4f, 0.4f});
-        sprite2.getOverlayScaler().scaleToHeightPercent(0.1f);
-        sprite2.getTransform().setOrigin(texture->size() * 0.5f);
-        sprite2.setParent(messageBox);
-        sprite2.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+        //// sanity check children
+        // sprite2.create(*p2World, texture);
+        // sprite2.getOverlayScaler().positionInParentSpace({0.4f, 0.4f});
+        // sprite2.getOverlayScaler().scaleToHeightPercent(0.1f);
+        // sprite2.getTransform().setOrigin(texture->size() * 0.5f);
+        // sprite2.setParent(messageBox);
+        // sprite2.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
-        // setup render texture
-        renderTexture = engine.renderer().createRenderTexture({128, 128});
-        bl::rc::SceneRef rto =
-            engine.renderer().scenePool().allocateScene<bl::rc::scene::Scene2D>();
-        renderTexture->pushScene(rto);
-        renderTexture->setCamera<bl::cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1.f, 1.f});
-        renderTexture->setClearColor({0.f, 0.0f, 0.7f, 0.4f});
+        //// setup render texture
+        // renderTexture = engine.renderer().createRenderTexture({128, 128});
+        // bl::rc::SceneRef rto =
+        //     engine.renderer().scenePool().allocateScene<bl::rc::scene::Scene2D>();
+        // renderTexture->pushScene(rto);
+        // renderTexture->setCamera<bl::cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1.f, 1.f});
+        // renderTexture->setClearColor({0.f, 0.0f, 0.7f, 0.4f});
 
-        renderTextureInnerSprite.create(*p2World, texture);
-        renderTextureInnerSprite.getTransform().setScale(
-            {1.f / renderTextureInnerSprite.getLocalSize().x,
-             1.f / renderTextureInnerSprite.getLocalSize().y});
-        renderTextureInnerSprite.getTransform().setPosition({0.f, 0.f});
-        renderTextureInnerSprite.addToScene(rto, bl::rc::UpdateSpeed::Static);
+        // renderTextureInnerSprite.create(*p2World, texture);
+        // renderTextureInnerSprite.getTransform().setScale(
+        //     {1.f / renderTextureInnerSprite.getLocalSize().x,
+        //      1.f / renderTextureInnerSprite.getLocalSize().y});
+        // renderTextureInnerSprite.getTransform().setPosition({0.f, 0.f});
+        // renderTextureInnerSprite.addToScene(rto, bl::rc::UpdateSpeed::Static);
 
-        renderTextureOuterSprite.create(*p2World, renderTexture->getTexture());
-        renderTextureOuterSprite.getOverlayScaler().scaleToHeightPercent(0.15f);
-        renderTextureOuterSprite.getOverlayScaler().positionInParentSpace({0.05f, 0.1f});
-        renderTextureOuterSprite.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+        // renderTextureOuterSprite.create(*p2World, renderTexture->getTexture());
+        // renderTextureOuterSprite.getOverlayScaler().scaleToHeightPercent(0.15f);
+        // renderTextureOuterSprite.getOverlayScaler().positionInParentSpace({0.05f, 0.1f});
+        // renderTextureOuterSprite.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
-        // setup another render texture that renders our 2d scene
-        renderTextureNested = engine.renderer().createRenderTexture({200, 200});
-        renderTextureNested->pushScene(scene2d);
-        renderTextureNested->setClearColor({0.f, 0.f, 1.f, 1.f});
-        renderTextureNested->setCamera<bl::cam::Camera2D>(glm::vec2(1920.f * 0.5f, 1080.f * 0.25f),
-                                                          glm::vec2(1200.f, 1200.f));
-        renderTextureNestedSprite.create(*p2World, renderTextureNested->getTexture());
-        renderTextureNestedSprite.getOverlayScaler().scaleToHeightPercent(0.4f);
-        renderTextureNestedSprite.getOverlayScaler().positionInParentSpace({0.8f, 0.2f});
-        renderTextureNestedSprite.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+        //// setup another render texture that renders our 2d scene
+        // renderTextureNested = engine.renderer().createRenderTexture({200, 200});
+        // renderTextureNested->pushScene(scene2d);
+        // renderTextureNested->setClearColor({0.f, 0.f, 1.f, 1.f});
+        // renderTextureNested->setCamera<bl::cam::Camera2D>(glm::vec2(1920.f * 0.5f, 1080.f *
+        // 0.25f),
+        //                                                   glm::vec2(1200.f, 1200.f));
+        // renderTextureNestedSprite.create(*p2World, renderTextureNested->getTexture());
+        // renderTextureNestedSprite.getOverlayScaler().scaleToHeightPercent(0.4f);
+        // renderTextureNestedSprite.getOverlayScaler().positionInParentSpace({0.8f, 0.2f});
+        // renderTextureNestedSprite.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
         // subscribe to window events
         subscribe(engine.getSignalChannel());

@@ -10,6 +10,7 @@
 #include <BLIB/Signals/Listener.hpp>
 #include <BLIB/Systems/OverlayScalerSystem.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
+#include <BLIB/Util/ReadWriteLock.hpp>
 #include <limits>
 #include <unordered_map>
 #include <vector>
@@ -146,6 +147,11 @@ private:
     std::vector<ovy::OverlayObject*> renderStack;
     VkViewport cachedParentViewport;
     glm::u32vec2 cachedTargetSize;
+
+    util::ReadWriteLock allListLock;
+    std::vector<ovy::OverlayObject*> all;
+
+    void removeFromAll(ovy::OverlayObject* obj);
 
     void refreshAll();
     void sortRoots();

@@ -21,8 +21,6 @@ namespace ds
 template<typename T, typename TStorage = buf::StaticSSBO<T>>
 class GlobalStorageBuffer : public Binding {
 public:
-    using TPayload = T;
-
     /**
      * @brief Creates the binding
      */
@@ -44,7 +42,6 @@ public:
     bool allocateObject(ecs::Entity entity, scene::Key key) override;
     void releaseObject(ecs::Entity entity, scene::Key key) override;
     void onFrameStart() override;
-    void* getPayload() override;
     bool staticDescriptorUpdateRequired() const override;
     bool dynamicDescriptorUpdateRequired() const override;
 
@@ -109,11 +106,6 @@ void GlobalStorageBuffer<T, TStorage>::releaseObject(ecs::Entity entity, scene::
 
 template<typename T, typename TStorage>
 void GlobalStorageBuffer<T, TStorage>::onFrameStart() {}
-
-template<typename T, typename TStorage>
-void* GlobalStorageBuffer<T, TStorage>::getPayload() {
-    return &storage[0];
-}
 
 template<typename T, typename TStorage>
 bool GlobalStorageBuffer<T, TStorage>::staticDescriptorUpdateRequired() const {

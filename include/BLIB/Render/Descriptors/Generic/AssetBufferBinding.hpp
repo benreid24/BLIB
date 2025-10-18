@@ -21,9 +21,6 @@ namespace ds
 template<typename TAsset, VkDescriptorType DescriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER>
 class AssetBufferBinding : public Binding {
 public:
-    /// No externally accessible payload for this binding
-    using TPayload = void;
-
     /**
      * @brief Creates the binding
      */
@@ -68,8 +65,6 @@ private:
     virtual void releaseObject(ecs::Entity, scene::Key) override {}
 
     virtual void onFrameStart() override {}
-
-    virtual void* getPayload() override { return nullptr; }
 
     virtual bool staticDescriptorUpdateRequired() const override {
         return input->staticDescriptorUpdateRequired();

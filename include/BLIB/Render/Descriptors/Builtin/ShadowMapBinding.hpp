@@ -23,9 +23,6 @@ class Scene3DInstance;
  */
 class ShadowMapBinding : public ds::Binding {
 public:
-    /// No externally accessible payload for this binding
-    using TPayload = void;
-
     /**
      * @brief Creates the binding
      */
@@ -49,7 +46,6 @@ private:
     virtual bool allocateObject(ecs::Entity, scene::Key) override { return true; }
     virtual void releaseObject(ecs::Entity, scene::Key) override {}
     virtual void onFrameStart() override;
-    virtual void* getPayload() override { return nullptr; }
     virtual bool staticDescriptorUpdateRequired() const override { return false; }
     virtual bool dynamicDescriptorUpdateRequired() const override { return false; }
     virtual std::uint32_t getDynamicOffsetForPipeline(scene::SceneRenderContext& ctx,

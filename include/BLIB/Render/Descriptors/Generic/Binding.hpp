@@ -30,9 +30,6 @@ class Bindings;
  */
 class Binding {
 public:
-    /// Derived classes should set this to the payload they provide
-    using TPayload = void;
-
     /**
      * @brief Destroys the binding
      */
@@ -110,11 +107,6 @@ public:
      * @brief Called once at the beginning of every frame
      */
     virtual void onFrameStart() = 0;
-
-    /**
-     * @brief Should return a pointer to the provided payload
-     */
-    virtual void* getPayload() = 0;
 
     /**
      * @brief Should return whether or not the static descriptor set needs to be updated

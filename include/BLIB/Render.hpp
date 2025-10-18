@@ -43,7 +43,7 @@
 #include <BLIB/Render/Descriptors/Generic/Binding.hpp>
 #include <BLIB/Render/Descriptors/Generic/GlobalStorageBuffer.hpp>
 #include <BLIB/Render/Descriptors/Generic/GlobalUniformBuffer.hpp>
-#include <BLIB/Render/Descriptors/Generic/ObjectStorageBuffer.hpp>
+#include <BLIB/Render/Descriptors/Generic/ObjectBufferBinding.hpp>
 #include <BLIB/Render/Descriptors/GenericDescriptorSetFactory.hpp>
 #include <BLIB/Render/Descriptors/GenericDescriptorSetInstance.hpp>
 #include <BLIB/Render/Descriptors/SetWriteHelper.hpp>

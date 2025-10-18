@@ -35,6 +35,8 @@ std::uint32_t getSampleCount(Settings::SSAO ssao) {
     }
 }
 
+dsi::SSAOShaderPayload removeMe{};
+
 float lerp(float a, float b, float f) { return a + f * (b - a); }
 } // namespace
 
@@ -67,8 +69,7 @@ void SSAOTask::create(const rg::InitContext& ctx) {
                                  prim::Vertex3D({-1.f, 1.f, 1.0f}, {0.f, 1.f})};
     fullscreenRect.queueTransfer(tfr::Transferable::SyncRequirement::Immediate);
 
-    shaderParams = &genPipeline.getDescriptorSet<dsi::SSAOInstance>(2)
-                        ->getBindingPayload<dsi::SSAOShaderPayload>();
+    shaderParams = &removeMe; // TODO - convert to shader resource
     genParams();
 
     subscribe(ctx.renderer.getSignalChannel());

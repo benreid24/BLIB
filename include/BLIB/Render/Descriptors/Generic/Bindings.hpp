@@ -46,24 +46,6 @@ public:
               sr::ShaderResourceStore& observerShaderResources);
 
     /**
-     * @brief Fetches the payload of the given type from one of the contained bindings
-     *
-     * @tparam T The binding payload to get
-     * @return The contained binding payload
-     */
-    template<typename T>
-    T& get();
-
-    /**
-     * @brief Returns the binding object itself for a particular binding
-     *
-     * @tparam T The type of binding to get
-     * @return A reference to the binding object
-     */
-    template<typename T>
-    T& getBinding();
-
-    /**
      * @brief Returns the descriptor type for the given index
      *
      * @param index The index to get the type for
@@ -144,41 +126,11 @@ private:
 
     void addDynamicBindingHelper(Binding& binding);
 
-    template<typename T, std::size_t I>
-    T& getHelper();
-
     template<std::uint32_t I>
     VkDescriptorType getTypeHelper(std::uint32_t index) const;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
-
-template<typename... TBindings>
-template<typename T>
-T& Bindings<TBindings...>::get() {
-    return getHelper<T, 0>();
-}
-
-template<typename... TBindings>
-template<typename T>
-T& Bindings<TBindings...>::getBinding() {
-    return std::get<T>(bindings);
-}
-
-template<typename... TBindings>
-template<typename T, std::size_t I>
-T& Bindings<TBindings...>::getHelper() {
-    if constexpr (I < sizeof...(TBindings)) {
-        auto& binding  = std::get<I>(bindings);
-        using TBinding = std::decay_t<decltype(binding)>;
-        using TPayload = typename TBinding::TPayload;
-        if constexpr (std::is_same<TPayload, T>::value) {
-            return *static_cast<T*>(binding.getPayload());
-        }
-        else { return getHelper<T, I + 1>(); }
-    }
-    else { static_assert(sizeof(T) == 0, "Descriptor payload not found"); }
-}
 
 template<typename... TBindings>
 template<std::uint32_t I>

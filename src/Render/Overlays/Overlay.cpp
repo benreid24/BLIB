@@ -32,17 +32,7 @@ Overlay::Overlay(engine::Engine& e)
 
 Overlay::~Overlay() {
     // reset viewports to prevent read into invalid memory
-    std::copy(roots.begin(), roots.end(), std::inserter(renderStack, renderStack.begin()));
-    while (!renderStack.empty()) {
-        ovy::OverlayObject& obj = *renderStack.back();
-        renderStack.pop_back();
-
-        obj.overlayViewport = nullptr;
-
-        std::copy(obj.getChildren().rbegin(),
-                  obj.getChildren().rend(),
-                  std::inserter(renderStack, renderStack.end()));
-    }
+    for (ovy::OverlayObject* obj : all) { obj->overlayViewport = nullptr; }
 }
 
 void Overlay::renderOpaqueObjects(scene::SceneRenderContext& ctx) {
@@ -130,12 +120,17 @@ scene::SceneObject* Overlay::doAdd(ecs::Entity entity, rcom::DrawableBase& objec
     com::OverlayScaler* scaler = engine.ecs().getComponent<com::OverlayScaler>(entity);
     if (scaler) { scaler->dirty = true; }
 
+    util::ReadWriteLock::WriteScopeGuard writeLock(allListLock);
+    all.emplace_back(&obj);
+
     return &obj;
 }
 
 void Overlay::doObjectRemoval(scene::SceneObject* object, mat::MaterialPipeline*) {
     ovy::OverlayObject* obj = static_cast<ovy::OverlayObject*>(object);
     obj->overlayViewport    = nullptr;
+
+    removeFromAll(obj);
 
     auto childCopy = obj->getChildren();
     for (ovy::OverlayObject* child : childCopy) {
@@ -204,6 +199,7 @@ void Overlay::process(const ecs::event::ComponentRemoved<ovy::OverlayObject>& ev
         ovy::OverlayObject* obj = const_cast<ovy::OverlayObject*>(&event.component);
         const auto it           = std::find(roots.begin(), roots.end(), obj);
         if (it != roots.end()) { roots.erase(it); }
+        removeFromAll(obj);
     }
 }
 
@@ -226,32 +222,23 @@ void Overlay::useRenderStrategy(rg::Strategy* ns) { strategy = ns; }
 rg::Strategy* Overlay::getRenderStrategy() { return strategy; }
 
 void Overlay::doRegisterObserver(RenderTarget* target, std::uint32_t observerIndex) {
-    std::copy(roots.begin(), roots.end(), std::inserter(renderStack, renderStack.begin()));
-    while (!renderStack.empty()) {
-        ovy::OverlayObject& obj = *renderStack.back();
-        renderStack.pop_back();
+    util::ReadWriteLock::ReadScopeGuard guard(allListLock);
 
-        obj.descriptors.addObserver(observerIndex, *target);
-        obj.descriptors.allocateObject(observerIndex, obj.entity, obj.sceneKey);
-
-        std::copy(obj.getChildren().rbegin(),
-                  obj.getChildren().rend(),
-                  std::inserter(renderStack, renderStack.end()));
+    for (ovy::OverlayObject* obj : all) {
+        obj->descriptors.addObserver(observerIndex, *target);
+        obj->descriptors.allocateObject(observerIndex, obj->entity, obj->sceneKey);
     }
 }
 
-void Overlay::doUnregisterObserver(RenderTarget* target, std::uint32_t observerIndex) {
-    std::copy(roots.begin(), roots.end(), std::inserter(renderStack, renderStack.begin()));
-    while (!renderStack.empty()) {
-        ovy::OverlayObject& obj = *renderStack.back();
-        renderStack.pop_back();
+void Overlay::doUnregisterObserver(RenderTarget*, std::uint32_t observerIndex) {
+    util::ReadWriteLock::ReadScopeGuard guard(allListLock);
 
-        obj.descriptors.removeObserver(observerIndex);
+    for (ovy::OverlayObject* obj : all) { obj->descriptors.removeObserver(observerIndex); }
+}
 
-        std::copy(obj.getChildren().rbegin(),
-                  obj.getChildren().rend(),
-                  std::inserter(renderStack, renderStack.end()));
-    }
+void Overlay::removeFromAll(ovy::OverlayObject* obj) {
+    util::ReadWriteLock::WriteScopeGuard guard(allListLock);
+    std::erase_if(all, [obj](ovy::OverlayObject* cmp) { return obj == cmp; });
 }
 
 } // namespace rc

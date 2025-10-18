@@ -19,8 +19,6 @@ namespace ds
 template<typename T>
 class GlobalUniformBuffer : public Binding {
 public:
-    using TPayload = T;
-
     /**
      * @brief Creates the binding
      */
@@ -42,7 +40,6 @@ public:
     bool allocateObject(ecs::Entity entity, scene::Key key) override;
     void releaseObject(ecs::Entity entity, scene::Key key) override;
     void onFrameStart() override;
-    void* getPayload() override;
     bool staticDescriptorUpdateRequired() const override;
     bool dynamicDescriptorUpdateRequired() const override;
 
@@ -102,11 +99,6 @@ void GlobalUniformBuffer<T>::releaseObject(ecs::Entity, scene::Key) {
 template<typename T>
 void GlobalUniformBuffer<T>::onFrameStart() {
     buffer[0] = value;
-}
-
-template<typename T>
-void* GlobalUniformBuffer<T>::getPayload() {
-    return &value;
 }
 
 template<typename T>

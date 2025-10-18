@@ -31,7 +31,8 @@ constexpr std::array<const char*, 3> RequiredDeviceExtensions{
     VK_KHR_SWAPCHAIN_EXTENSION_NAME,
     VK_EXT_DEPTH_CLIP_ENABLE_EXTENSION_NAME,
     VK_EXT_SHADER_ATOMIC_FLOAT_EXTENSION_NAME};
-constexpr std::array<const char*, 1> OptionalDeviceExtensions{VK_KHR_MAINTENANCE_4_EXTENSION_NAME};
+constexpr std::array<const char*, 2> OptionalDeviceExtensions{VK_KHR_MAINTENANCE_4_EXTENSION_NAME,
+                                                              VK_EXT_DEBUG_UTILS_EXTENSION_NAME};
 
 #ifdef BLIB_DEBUG
 VKAPI_ATTR VkBool32 VKAPI_CALL
@@ -781,6 +782,16 @@ VkImageAspectFlags VulkanState::guessImageAspect(SemanticTextureFormat format) {
     default:
         return VK_IMAGE_ASPECT_COLOR_BIT;
     }
+}
+
+void VulkanState::setVulkanObjectDebugName(void* handle, VkObjectType type, const char* name) {
+    VkDebugUtilsObjectNameInfoEXT nameInfo = {};
+    nameInfo.sType                         = VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT;
+    nameInfo.objectHandle                  = reinterpret_cast<std::uint64_t>(handle);
+    nameInfo.objectType                    = type;
+    nameInfo.pObjectName                   = name;
+
+    vkSetDebugUtilsObjectNameEXT(device, &nameInfo);
 }
 
 } // namespace vk

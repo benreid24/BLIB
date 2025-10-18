@@ -270,6 +270,15 @@ struct VulkanState {
     bool extensionIsAvailable(const char* extName) const;
 
     /**
+     * @brief Helper function to set a debug name for any Vulkan object
+     *
+     * @param handle The handle to the Vulkan object to name
+     * @param objectType The type of Vulkan object being named
+     * @param name The name to set on the object
+     */
+    void setVulkanObjectDebugName(void* handle, VkObjectType objectType, const char* name);
+
+    /**
      * @brief Returns the physical device properties of the current device
      */
     static const VkPhysicalDeviceProperties& getPhysicalDeviceProperties();

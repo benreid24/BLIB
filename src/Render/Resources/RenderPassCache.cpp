@@ -151,6 +151,7 @@ void RenderPassCache::addDefaults() {
     standardParams.withMSAABehavior(MSAA::UseSettings | MSAA::ResolveAttachments);
     standardParams.withSemanticAttachmentFormat(0, vk::SemanticTextureFormat::Color);
     standardParams.withSemanticAttachmentFormat(1, vk::SemanticTextureFormat::DepthStencil);
+    standardParams.withDebugName("StandardAttachmentPass");
     createRenderPass(cfg::RenderPassIds::StandardAttachmentPass, standardParams.build());
 
     // primary render pass for final swapchain compositing
@@ -175,6 +176,7 @@ void RenderPassCache::addDefaults() {
     swapchainParams.addSubpassDependency(prePassRenderDoneDep);
     swapchainParams.addSubpassDependency(depthDependency);
     swapchainParams.withMSAABehavior(MSAA::UseSettings | MSAA::ResolveAttachments);
+    swapchainParams.withDebugName("SwapchainPass");
     createRenderPass(cfg::RenderPassIds::SwapchainPass, swapchainParams.build());
 
     vk::RenderPassParameters bloomParams;
@@ -186,6 +188,7 @@ void RenderPassCache::addDefaults() {
     bloomParams.addSubpassDependency(prePassRenderDoneDep);
     bloomParams.withSemanticAttachmentFormat(
         0, vk::SemanticTextureFormat::SFloatR16G16B16A16); // always HDR
+    bloomParams.withDebugName("BloomPass");
     createRenderPass(cfg::RenderPassIds::BloomPass, bloomParams.build());
 
     VkAttachmentDescription ssaoAttachment = standardColorAttachment;
@@ -197,6 +200,7 @@ void RenderPassCache::addDefaults() {
                               .build());
     ssaoParams.addSubpassDependency(postPassRenderCompleteDep);
     ssaoParams.addSubpassDependency(prePassRenderDoneDep);
+    ssaoParams.withDebugName("SSAOPass");
     createRenderPass(cfg::RenderPassIds::SSAOPass, ssaoParams.build());
 
     VkAttachmentDescription shadowMapAttachment = depthAttachment;
@@ -217,6 +221,7 @@ void RenderPassCache::addDefaults() {
             .build());
     shadowMapParams.addSubpassDependency(shadowMapInputDependency);
     shadowMapParams.addSubpassDependency(shadowMapOutputDependency);
+    shadowMapParams.withDebugName("ShadowMapPass");
     createRenderPass(cfg::RenderPassIds::ShadowMapPass, shadowMapParams.build());
 
     vk::RenderPassParameters deferredObjectParams;
@@ -244,6 +249,7 @@ void RenderPassCache::addDefaults() {
         2, vk::SemanticTextureFormat::HighPrecisionColor);
     deferredObjectParams.withSemanticAttachmentFormat(
         3, vk::SemanticTextureFormat::HighPrecisionColor);
+    deferredObjectParams.withDebugName("DeferredGBufferPass");
     createRenderPass(cfg::RenderPassIds::DeferredObjectPass, deferredObjectParams.build());
 }
 
