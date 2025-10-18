@@ -135,54 +135,53 @@ public:
         messageBox.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
         //// add text to overlay
-        // text.create(*p2World, *font, "Text can now be", 64);
-        // text.addSection("rendered.", 64, {0.f, 0.8f, 0.6f, 1.f}, sf::Text::Italic);
-        // text.addSection("What a great time to be alive. I wonder if this will wrap properly.",
-        // 64); text.getOverlayScaler().positionInParentSpace({-0.47f, -0.45f});
-        // text.getOverlayScaler().scaleToHeightRatio(64.f, 0.19f);
-        // text.wordWrapToParent(0.9f);
-        // text.setParent(messageBox);
-        // text.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+        text.create(*p2World, *font, "Text can now be", 64);
+        text.addSection("rendered.", 64, {0.f, 0.8f, 0.6f, 1.f}, sf::Text::Italic);
+        text.addSection("What a great time to be alive. I wonder if this will wrap properly.", 64);
+        text.getOverlayScaler().positionInParentSpace({0.02f, 0.05f});
+        text.getOverlayScaler().scaleToHeightRatio(64.f, 0.19f);
+        text.wordWrapToParent(0.9f);
+        text.setParent(messageBox);
+        text.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
         //// sanity check children
-        // sprite2.create(*p2World, texture);
-        // sprite2.getOverlayScaler().positionInParentSpace({0.4f, 0.4f});
-        // sprite2.getOverlayScaler().scaleToHeightPercent(0.1f);
-        // sprite2.getTransform().setOrigin(texture->size() * 0.5f);
-        // sprite2.setParent(messageBox);
-        // sprite2.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+        sprite2.create(*p2World, texture);
+        sprite2.getOverlayScaler().positionInParentSpace({0.95f, 0.9f});
+        sprite2.getOverlayScaler().scaleToHeightPercent(0.1f);
+        sprite2.getTransform().setOrigin(texture->size() * 0.5f);
+        sprite2.setParent(messageBox);
+        sprite2.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
         //// setup render texture
-        // renderTexture = engine.renderer().createRenderTexture({128, 128});
-        // bl::rc::SceneRef rto =
-        //     engine.renderer().scenePool().allocateScene<bl::rc::scene::Scene2D>();
-        // renderTexture->pushScene(rto);
-        // renderTexture->setCamera<bl::cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1.f, 1.f});
-        // renderTexture->setClearColor({0.f, 0.0f, 0.7f, 0.4f});
+        renderTexture = engine.renderer().createRenderTexture({128, 128});
+        bl::rc::SceneRef rto =
+            engine.renderer().scenePool().allocateScene<bl::rc::scene::Scene2D>();
+        renderTexture->pushScene(rto);
+        renderTexture->setCamera<bl::cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1.f, 1.f});
+        renderTexture->setClearColor({0.f, 0.0f, 0.7f, 0.4f});
 
-        // renderTextureInnerSprite.create(*p2World, texture);
-        // renderTextureInnerSprite.getTransform().setScale(
-        //     {1.f / renderTextureInnerSprite.getLocalSize().x,
-        //      1.f / renderTextureInnerSprite.getLocalSize().y});
-        // renderTextureInnerSprite.getTransform().setPosition({0.f, 0.f});
-        // renderTextureInnerSprite.addToScene(rto, bl::rc::UpdateSpeed::Static);
+        renderTextureInnerSprite.create(*p2World, texture);
+        renderTextureInnerSprite.getTransform().setScale(
+            {1.f / renderTextureInnerSprite.getLocalSize().x,
+             1.f / renderTextureInnerSprite.getLocalSize().y});
+        renderTextureInnerSprite.getTransform().setPosition({0.f, 0.f});
+        renderTextureInnerSprite.addToScene(rto, bl::rc::UpdateSpeed::Static);
 
-        // renderTextureOuterSprite.create(*p2World, renderTexture->getTexture());
-        // renderTextureOuterSprite.getOverlayScaler().scaleToHeightPercent(0.15f);
-        // renderTextureOuterSprite.getOverlayScaler().positionInParentSpace({0.05f, 0.1f});
-        // renderTextureOuterSprite.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+        renderTextureOuterSprite.create(*p2World, renderTexture->getTexture());
+        renderTextureOuterSprite.getOverlayScaler().scaleToHeightPercent(0.15f);
+        renderTextureOuterSprite.getOverlayScaler().positionInParentSpace({0.05f, 0.1f});
+        renderTextureOuterSprite.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
         //// setup another render texture that renders our 2d scene
-        // renderTextureNested = engine.renderer().createRenderTexture({200, 200});
-        // renderTextureNested->pushScene(scene2d);
-        // renderTextureNested->setClearColor({0.f, 0.f, 1.f, 1.f});
-        // renderTextureNested->setCamera<bl::cam::Camera2D>(glm::vec2(1920.f * 0.5f, 1080.f *
-        // 0.25f),
-        //                                                   glm::vec2(1200.f, 1200.f));
-        // renderTextureNestedSprite.create(*p2World, renderTextureNested->getTexture());
-        // renderTextureNestedSprite.getOverlayScaler().scaleToHeightPercent(0.4f);
-        // renderTextureNestedSprite.getOverlayScaler().positionInParentSpace({0.8f, 0.2f});
-        // renderTextureNestedSprite.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+        renderTextureNested = engine.renderer().createRenderTexture({200, 200});
+        renderTextureNested->pushScene(scene2d);
+        renderTextureNested->setClearColor({0.f, 0.f, 1.f, 1.f});
+        renderTextureNested->setCamera<bl::cam::Camera2D>(glm::vec2(1920.f * 0.5f, 1080.f * 0.25f),
+                                                          glm::vec2(1200.f, 1200.f));
+        renderTextureNestedSprite.create(*p2World, renderTextureNested->getTexture());
+        renderTextureNestedSprite.getOverlayScaler().scaleToHeightPercent(0.4f);
+        renderTextureNestedSprite.getOverlayScaler().positionInParentSpace({0.8f, 0.2f});
+        renderTextureNestedSprite.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
         // subscribe to window events
         subscribe(engine.getSignalChannel());
