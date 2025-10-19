@@ -2,7 +2,7 @@ target_sources(BLIB PUBLIC
 	AssetBufferBinding.hpp
 	Binding.hpp
 	Bindings.hpp
+	BufferBinding.hpp
 	GlobalStorageBuffer.hpp
-	GlobalUniformBuffer.hpp
 	ObjectBufferBinding.hpp
 )

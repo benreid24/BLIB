@@ -97,6 +97,14 @@ public:
      */
     std::uint32_t totalAlignedSize() const;
 
+    /**
+     * @brief Helper method to return the raw buffer handle for the given frame index
+     *
+     * @param frameIndex The frame index to get the buffer handle for
+     * @return The raw buffer handle
+     */
+    VkBuffer getRawBuffer(std::uint32_t frameIndex) const;
+
 private:
     std::uint32_t count;
     std::uint32_t alignment;
@@ -178,6 +186,11 @@ std::uint32_t UniformBuffer<T>::alignedUniformSize() const {
 template<typename T>
 std::uint32_t UniformBuffer<T>::totalAlignedSize() const {
     return alignment * count;
+}
+
+template<typename T>
+VkBuffer UniformBuffer<T>::getRawBuffer(std::uint32_t i) const {
+    return gpuBuffers.getRaw(i).getBuffer();
 }
 
 template<typename T>

@@ -40,7 +40,7 @@ public:
      *
      * @param engine The gam engine instance
      */
-    void init(engine::Engine& engine) override {
+    virtual void init(engine::Engine& engine) override {
         vulkanState = &engine::HeaderHelpers::getVulkanState(engine);
         if constexpr (DefaultCapacity > 0) {
             buffer.create(*vulkanState, DefaultCapacity, DefaultAlignment);
@@ -50,28 +50,28 @@ public:
     /**
      * @brief Does nothing, the destructor handles releasing the buffer
      */
-    void cleanup() override {}
+    virtual void cleanup() override {}
 
     /**
      * @brief Does nothing, derived classes or owners are responsible for transferring updated
      *        contents of the buffer
      */
-    void performTransfer() override {}
+    virtual void performTransfer() override {}
 
     /**
      * @brief Does nothing. Derived classes may copy source data into the buffer here
      */
-    void copyFromSource() override {}
+    virtual void copyFromSource() override {}
 
     /**
      * @brief Always returns false
      */
-    bool dynamicDescriptorUpdateRequired() const override { return false; }
+    virtual bool dynamicDescriptorUpdateRequired() const override { return false; }
 
     /**
      * @brief Always returns false
      */
-    bool staticDescriptorUpdateRequired() const override { return false; }
+    virtual bool staticDescriptorUpdateRequired() const override { return false; }
 
     /**
      * @brief Returns the underlying buffer

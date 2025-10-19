@@ -17,29 +17,6 @@ namespace rc
 {
 namespace rgi
 {
-namespace
-{
-std::uint32_t getSampleCount(Settings::SSAO ssao) {
-    switch (ssao) {
-    case Settings::SSAO::Ultra:
-        return 64;
-    case Settings::SSAO::High:
-        return 32;
-    case Settings::SSAO::Medium:
-        return 16;
-    case Settings::SSAO::Low:
-        return 8;
-    case Settings::SSAO::None:
-    default:
-        return 0;
-    }
-}
-
-dsi::SSAOShaderPayload removeMe{};
-
-float lerp(float a, float b, float f) { return a + f * (b - a); }
-} // namespace
-
 SSAOTask::SSAOTask()
 : Task(rg::TaskIds::SSAOTask)
 , renderer(nullptr) {
@@ -68,11 +45,6 @@ void SSAOTask::create(const rg::InitContext& ctx) {
                                  prim::Vertex3D({1.f, 1.f, 1.0f}, {1.f, 1.f}),
                                  prim::Vertex3D({-1.f, 1.f, 1.0f}, {0.f, 1.f})};
     fullscreenRect.queueTransfer(tfr::Transferable::SyncRequirement::Immediate);
-
-    shaderParams = &removeMe; // TODO - convert to shader resource
-    genParams();
-
-    subscribe(ctx.renderer.getSignalChannel());
 }
 
 void SSAOTask::onGraphInit() {
@@ -121,50 +93,6 @@ void SSAOTask::execute(const rg::ExecutionContext& ctx, rg::Asset*) {
     blurPipeline.bind(genCtx);
     fullscreenRect.bindAndDraw(ctx.commandBuffer);
     blurSurface->finishRender(ctx.commandBuffer);
-}
-
-void SSAOTask::process(const event::SettingsChanged& e) {
-    if (e.setting == event::SettingsChanged::SSAO) { genParams(); }
-    else if (e.setting == event::SettingsChanged::SSAOParams) {
-        shaderParams->bias     = renderer->getSettings().getSSAOBias();
-        shaderParams->radius   = renderer->getSettings().getSSAORadius();
-        shaderParams->exponent = renderer->getSettings().getSSAOExponent();
-    }
-}
-
-void SSAOTask::genParams() {
-    // copy parameters
-    shaderParams->bias     = renderer->getSettings().getSSAOBias();
-    shaderParams->radius   = renderer->getSettings().getSSAORadius();
-    shaderParams->exponent = renderer->getSettings().getSSAOExponent();
-
-    // create sample direction vectors
-    shaderParams->sampleCount = getSampleCount(renderer->getSettings().getSSAO());
-    for (std::uint32_t i = 0; i < shaderParams->sampleCount; ++i) {
-        // make random unit vector with positive z (facing outside of surface)
-        glm::vec3 s(util::Random::get<float>(-1.f, 1.f),
-                    util::Random::get<float>(-1.f, 1.f),
-                    util::Random::get<float>(0.f, 1.f));
-        s = glm::normalize(s);
-
-        // scale by random factor
-        s *= util::Random::get<float>(0.f, 1.f);
-
-        // scale by lerp of i to gen more samples near to the surface
-        float scale = static_cast<float>(i) / static_cast<float>(shaderParams->sampleCount);
-        scale       = lerp(0.1f, 1.0f, scale * scale);
-        s *= scale;
-
-        shaderParams->samples[i] = glm::vec4(s, 0.f);
-    }
-
-    // create random noise rotation vectors
-    for (std::uint32_t x = 0; x < 4; ++x) {
-        for (std::uint32_t y = 0; y < 4; ++y) {
-            shaderParams->randomRotations[x][y] = glm::vec4(
-                util::Random::get<float>(-1.f, 1.f), util::Random::get<float>(-1.f, 1.f), 0.f, 0.f);
-        }
-    }
 }
 
 } // namespace rgi

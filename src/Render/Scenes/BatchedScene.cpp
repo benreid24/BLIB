@@ -271,7 +271,7 @@ void BatchedScene::PipelineBatch::registerObserver(unsigned int index, RenderTar
     }
 }
 
-void BatchedScene::PipelineBatch::unregisterObserver(unsigned int index, RenderTarget& observer) {
+void BatchedScene::PipelineBatch::unregisterObserver(unsigned int index, RenderTarget&) {
     const auto removeFromAll = [this, index](ds::DescriptorSetInstance* instance) {
         for (unsigned int i = 0; i < allDescriptors.size(); ++i) {
             if (allDescriptors[i] == instance) {

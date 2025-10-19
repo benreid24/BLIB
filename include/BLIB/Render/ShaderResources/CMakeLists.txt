@@ -5,4 +5,6 @@ target_sources(BLIB PUBLIC
     Key.hpp
     ShaderResource.hpp
     ShaderResourceStore.hpp
+    SSAOBufferShaderResource.hpp
+    StoreKey.hpp
 )

@@ -1,6 +1,8 @@
 #ifndef BLIB_RENDER_DESCRIPTORS_INITCONTEXT_HPP
 #define BLIB_RENDER_DESCRIPTORS_INITCONTEXT_HPP
 
+#include <BLIB/Render/ShaderResources/StoreKey.hpp>
+
 namespace bl
 {
 namespace engine
@@ -56,6 +58,24 @@ struct InitContext {
     , globalShaderResources(globalShaderResources)
     , observerShaderResources(observerShaderResources)
     , sceneShaderResources(sceneShaderResources) {}
+
+    /**
+     * @brief Helper function to select the corresponding shader resource store for the given key
+     *
+     * @param key The key to get the store for
+     * @return The shader resource store for the given key
+     */
+    sr::ShaderResourceStore& getShaderResourceStore(sr::StoreKey key) {
+        switch (key) {
+        case sr::StoreKey::Observer:
+            return observerShaderResources;
+        case sr::StoreKey::Global:
+            return globalShaderResources;
+        case sr::StoreKey::Scene:
+        default:
+            return sceneShaderResources;
+        }
+    }
 };
 
 } // namespace ds

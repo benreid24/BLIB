@@ -89,7 +89,7 @@ public:
     /**
      * @brief Returns the number of elements in the buffer
      */
-    constexpr std::uint32_t size() const;
+    std::uint32_t size() const;
 
     /**
      * @brief Frees the GPU buffers
@@ -99,7 +99,7 @@ public:
     /**
      * @brief Returns the Buffer objects of the GPU buffers
      */
-    constexpr vk::PerFrame<vk::Buffer>& gpuBufferHandles();
+    vk::PerFrame<vk::Buffer>& gpuBufferHandles();
 
     /**
      * @brief Copies the given dirty range into the GPU buffer, as well as the prior dirty range
@@ -117,7 +117,7 @@ public:
     /**
      * @brief Returns the size of the SSBO on the device
      */
-    constexpr VkDeviceSize getTotalRange() const;
+    VkDeviceSize getTotalRange() const;
 
     /**
      * @brief Helper method to return the raw buffer handle for the given frame index
@@ -194,7 +194,7 @@ void DynamicSSBO<T>::assignRef(util::VectorRef<T, buf::AlignedBuffer<T>>& ref, s
 }
 
 template<typename T>
-constexpr std::uint32_t DynamicSSBO<T>::size() const {
+std::uint32_t DynamicSSBO<T>::size() const {
     return cpuBuffer.size();
 }
 
@@ -205,7 +205,7 @@ inline void DynamicSSBO<T>::destroy() {
 }
 
 template<typename T>
-inline constexpr vk::PerFrame<vk::Buffer>& DynamicSSBO<T>::gpuBufferHandles() {
+inline vk::PerFrame<vk::Buffer>& DynamicSSBO<T>::gpuBufferHandles() {
     return gpuBuffers;
 }
 
@@ -262,7 +262,7 @@ void DynamicSSBO<T>::transferAll() {
 }
 
 template<typename T>
-constexpr VkDeviceSize DynamicSSBO<T>::getTotalRange() const {
+VkDeviceSize DynamicSSBO<T>::getTotalRange() const {
     return cpuBuffer.alignedSize();
 }
 

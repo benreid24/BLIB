@@ -1,10 +1,9 @@
 #ifndef BLIB_RENDER_DESCRIPTORS_BUILTIN_SSAOINSTANCE_HPP
 #define BLIB_RENDER_DESCRIPTORS_BUILTIN_SSAOINSTANCE_HPP
 
-#include <BLIB/Render/Buffers/StaticUniformBuffer.hpp>
-#include <BLIB/Render/Descriptors/Generic/GlobalUniformBuffer.hpp>
+#include <BLIB/Render/Descriptors/Generic/BufferBinding.hpp>
 #include <BLIB/Render/Descriptors/GenericDescriptorSetInstance.hpp>
-#include <glm/glm.hpp>
+#include <BLIB/Render/ShaderResources/SSAOBufferShaderResource.hpp>
 
 namespace bl
 {
@@ -13,25 +12,13 @@ namespace rc
 namespace dsi
 {
 /**
- * @brief Uniform payload for the SSAO algorithm
- *
- * @ingroup Renderer
- */
-struct SSAOShaderPayload {
-    glm::vec4 randomRotations[4][4];
-    glm::vec4 samples[128];
-    std::uint32_t sampleCount;
-    float radius;
-    float bias;
-    float exponent;
-};
-
-/**
  * @brief The bindings for the SSAO descriptor set
  *
  * @ingroup Renderer
  */
-using SSAOBindings = ds::Bindings<ds::GlobalUniformBuffer<SSAOShaderPayload>>;
+using SSAOBindings =
+    ds::Bindings<ds::BufferBinding<sri::SSAOBufferShaderResource, sri::SSAOBufferShaderResourceKey,
+                                   sr::StoreKey::Global, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER>>;
 
 /**
  * @brief The descriptor set containing the SSAO parameters
