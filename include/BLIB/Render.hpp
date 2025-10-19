@@ -42,7 +42,6 @@
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
 #include <BLIB/Render/Descriptors/Generic/Binding.hpp>
 #include <BLIB/Render/Descriptors/Generic/BufferBinding.hpp>
-#include <BLIB/Render/Descriptors/Generic/GlobalStorageBuffer.hpp>
 #include <BLIB/Render/Descriptors/Generic/ObjectBufferBinding.hpp>
 #include <BLIB/Render/Descriptors/GenericDescriptorSetFactory.hpp>
 #include <BLIB/Render/Descriptors/GenericDescriptorSetInstance.hpp>
