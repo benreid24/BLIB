@@ -1,8 +1,6 @@
 #ifndef BLIB_RENDER_DESCRIPTORS_OBJECTSTORAGEBUFFER_HPP
 #define BLIB_RENDER_DESCRIPTORS_OBJECTSTORAGEBUFFER_HPP
 
-#include <BLIB/Render/Buffers/DynamicSSBO.hpp>
-#include <BLIB/Render/Buffers/StaticSSBO.hpp>
 #include <BLIB/Render/Descriptors/Generic/Binding.hpp>
 #include <BLIB/Render/ShaderResources/EntityComponentShaderResource.hpp>
 #include <BLIB/Render/ShaderResources/Key.hpp>

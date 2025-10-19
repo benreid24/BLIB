@@ -10,3 +10,5 @@ target_sources(BLIB PUBLIC
 	UniformBuffer.hpp
 	VertexBuffer.hpp
 )
+
+add_subdirectory(Interfaces)

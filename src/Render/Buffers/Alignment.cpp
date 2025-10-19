@@ -11,10 +11,15 @@ namespace buf
 {
 VkDeviceSize computeAlignment(VkDeviceSize dataSize, Alignment align) {
     switch (align) {
+    case Alignment::Packed:
+        return dataSize;
+
     case Alignment::Std140:
         return vk::VulkanState::computeAlignedSize(dataSize, sizeof(glm::vec4));
+
     case Alignment::Std430:
         return dataSize;
+
     case Alignment::UboBindOffset:
         return vk::VulkanState::computeAlignedSize(
             dataSize,

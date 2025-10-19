@@ -1,8 +1,9 @@
 #ifndef BLIB_RENDER_GRAPH_ASSETS_AUTOEXPOSUREWORKBUFFER_HPP
 #define BLIB_RENDER_GRAPH_ASSETS_AUTOEXPOSUREWORKBUFFER_HPP
 
+#include <BLIB/Render/Graph/Asset.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
-#include <BLIB/Render/Graph/Assets/GenericBufferAsset.hpp>
+#include <BLIB/Render/ShaderResources/AutoExposureBufferShaderResource.hpp>
 
 namespace bl
 {
@@ -15,13 +16,12 @@ namespace rgi
  *
  * @ingroup Renderer
  */
-class AutoExposureWorkBuffer : public rgi::GenericBufferAsset {
+class AutoExposureWorkBuffer : public rg::Asset {
 public:
     /**
      * @brief Creates the work buffer asset
      */
-    AutoExposureWorkBuffer()
-    : GenericBufferAsset(rg::AssetTags::AutoExposureWorkBuffer, false) {}
+    AutoExposureWorkBuffer();
 
     /**
      * @brief Destroys the asset
@@ -29,6 +29,8 @@ public:
     virtual ~AutoExposureWorkBuffer() = default;
 
 private:
+    sri::AutoExposureBufferShaderResource* buffer;
+
     virtual void doCreate(const rg::InitContext& ctx) override;
     virtual void doPrepareForInput(const rg::ExecutionContext&) override;
     virtual void doStartOutput(const rg::ExecutionContext&) override;

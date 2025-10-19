@@ -1,10 +1,10 @@
 #ifndef BLIB_RENDER_DESCRIPTORS_BUILTIN_AUTOEXPOSUREWORKBUFFER_HPP
 #define BLIB_RENDER_DESCRIPTORS_BUILTIN_AUTOEXPOSUREWORKBUFFER_HPP
 
-#include <BLIB/Render/Descriptors/Generic/AssetBufferBinding.hpp>
+#include <BLIB/Render/Descriptors/Generic/BufferBinding.hpp>
 #include <BLIB/Render/Descriptors/GenericDescriptorSetFactory.hpp>
 #include <BLIB/Render/Descriptors/GenericDescriptorSetInstance.hpp>
-#include <BLIB/Render/Graph/Assets/AutoExposureWorkBuffer.hpp>
+#include <BLIB/Render/ShaderResources/AutoExposureBufferShaderResource.hpp>
 
 namespace bl
 {
@@ -17,7 +17,9 @@ namespace dsi
  *
  * @ingroup Renderer
  */
-using AutoExposureBufferBinding = ds::AssetBufferBinding<rgi::AutoExposureWorkBuffer>;
+using AutoExposureBufferBinding =
+    ds::BufferBinding<sri::AutoExposureBufferShaderResource,
+                      sri::AutoExposureBufferShaderResourceKey, sr::StoreKey::Observer>;
 
 /**
  * @brief Bindings set for the auto exposure compute pipeline layout
@@ -39,8 +41,7 @@ using AutoExposureBufferInstance = ds::GenericDescriptorSetInstance<AutoExposure
  * @ingroup Renderer
  */
 using AutoExposureBufferFactory =
-    ds::GenericDescriptorSetFactory<AutoExposureBufferBindings,
-                                    VK_SHADER_STAGE_COMPUTE_BIT>;
+    ds::GenericDescriptorSetFactory<AutoExposureBufferBindings, VK_SHADER_STAGE_COMPUTE_BIT>;
 
 } // namespace dsi
 } // namespace rc

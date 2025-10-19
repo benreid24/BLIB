@@ -15,6 +15,9 @@ namespace buf
  * @ingroup Renderer
  */
 enum struct Alignment {
+    /// Data is packed in with no extra padding
+    Packed,
+
     /// The data is treated as an array in std140 layout and aligned as such
     Std140,
 
