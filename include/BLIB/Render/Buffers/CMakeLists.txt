@@ -3,7 +3,7 @@ target_sources(BLIB PUBLIC
     Alignment.hpp
 	BatchIndexBuffer.hpp
 	BufferDoubleHostVisibleSourced.hpp
-	FullyDynamicSSBO.hpp
+	BufferDoubleHostVisible.hpp
 	IndexBuffer.hpp
 	StaticSSBO.hpp
 	StaticUniformBuffer.hpp

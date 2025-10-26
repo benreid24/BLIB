@@ -4,7 +4,7 @@
 #include <BLIB/Particles/GlobalParticleSystemInfo.hpp>
 #include <BLIB/Particles/Link.hpp>
 #include <BLIB/Particles/RenderConfigMap.hpp>
-#include <BLIB/Render/Buffers/FullyDynamicSSBO.hpp>
+#include <BLIB/Render/Buffers/BufferDoubleHostVisible.hpp>
 #include <BLIB/Render/Buffers/UniformBuffer.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Vulkan/DescriptorPool.hpp>
@@ -47,7 +47,7 @@ private:
 
         const VkDevice device;
         const VkDescriptorSetLayout layout;
-        rc::buf::FullyDynamicSSBO<GpuT> storage;
+        rc::buf::BufferDoubleHostVisible<GpuT> storage;
         rc::buf::UniformBuffer<TGlobalPayload> globals;
         rc::buf::UniformBuffer<priv::GlobalParticleSystemInfo> globalSystemInfo;
         rc::vk::PerFrame<rc::vk::DescriptorSet> descriptorSets;
