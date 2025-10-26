@@ -129,7 +129,7 @@ void Scene3DInstance::init(ds::InitContext& ctx) {
         VkDescriptorBufferInfo& lightInfoBufferInfo = setWriter.getNewBufferInfo();
         lightInfoBufferInfo.buffer = lightBuffer->getBuffer().gpuBufferHandle().getBuffer();
         lightInfoBufferInfo.offset = 0;
-        lightInfoBufferInfo.range  = lightBuffer->getBuffer().totalAlignedSize();
+        lightInfoBufferInfo.range  = lightBuffer->getBuffer().getTotalAlignedSize();
 
         VkWriteDescriptorSet& lightInfoWrite = setWriter.getNewSetWrite(set);
         lightInfoWrite.descriptorCount       = 1;

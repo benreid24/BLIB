@@ -29,10 +29,12 @@ template<typename T, Alignment Align, VkBufferUsageFlags Usage, VkMemoryProperty
          VkMemoryPropertyFlags FallbackMemoryPool = MemoryPool>
 class BindableBufferDouble : public BindableBuffer<T, Align> {
 public:
+    /// Represents whether the buffers are persistently mapped or not
+    static constexpr bool IsMapped = (AllocFlags & VMA_ALLOCATION_CREATE_MAPPED_BIT) != 0;
+
     /// Represents whether the buffer may be directly written to or requires a staging buffer
     static constexpr bool IsDirectWritable =
-        (MemoryPool & VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT) != 0 &&
-        (AllocFlags & VMA_ALLOCATION_CREATE_MAPPED_BIT) != 0;
+        (MemoryPool & FallbackMemoryPool & VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT) != 0 && IsMapped;
 
     /**
      * @brief Creates the buffer
@@ -49,10 +51,11 @@ public:
      *
      * @param size The new number of data elements to size for
      */
-    virtual void resize(std::uint32_t size) {
+    virtual void resize(std::uint32_t size) override {
         numElements = size;
-        buffers.visit(
-            [this, size](vk::Buffer& buffer) { buffer.ensureSize(getTotalAlignedSize(), false); });
+        buffers.visit([this, size](vk::Buffer& buffer) {
+            buffer.ensureSize(this->getTotalAlignedSize(), false);
+        });
     }
 
     /**
@@ -74,7 +77,9 @@ public:
      *
      * @param frameIndex The frame index to get the buffer for
      */
-    virtual vk::Buffer& getBuffer(std::uint32_t frameIndex) override { return buffers.getRaw(i); }
+    virtual vk::Buffer& getBuffer(std::uint32_t frameIndex) override {
+        return buffers.getRaw(frameIndex);
+    }
 
     /**
      * @brief Returns the number of elements currently in the buffer
@@ -90,14 +95,16 @@ public:
      */
     template<typename U>
     void fillDirect(const U& value) {
-        static_assert(IsDirectWritable, "Buffer must be host visible and mapped for direct write");
+        if (!isDirectWritable()) {
+            BL_LOG_ERROR << "Cannot directly write to non-mapped non-visible buffer";
+        }
 
         char* dst = static_cast<char*>(buffers.current().getMappedMemory());
         char* end = dst + buffers.current().getSize();
         while (dst != end) {
             T* slot = static_cast<T*>(static_cast<void*>(dst));
             *slot   = value;
-            dst += getAlignedElementSize();
+            dst += this->getAlignedElementSize();
         }
     }
 
@@ -109,21 +116,30 @@ public:
      * @param base The first element to copy from
      * @param len The number of elements to copy
      * @param start The index to start writing at
-     * @return True if the buffer grew, false otherwise
      */
     template<typename U>
-    bool writeDirect(U* base, std::size_t len, std::uint32_t start = 0) {
-        static_assert(IsDirectWritable, "Buffer must be host visible and mapped for direct write");
+    void writeDirect(U* base, std::size_t len, std::uint32_t start = 0) {
+        if (!isDirectWritable()) {
+            BL_LOG_ERROR << "Cannot directly write to non-mapped non-visible buffer";
+        }
 
         U* end    = base + len;
         char* dst = static_cast<char*>(buffers.current().getMappedMemory()) +
-                    start * getAlignedElementSize();
+                    start * this->getAlignedElementSize();
         while (base != end) {
             T* slot = static_cast<T*>(static_cast<void*>(dst));
             *slot   = *base;
             ++base;
-            dst += getAlignedElementSize();
+            dst += this->getAlignedElementSize();
         }
+    }
+
+    /**
+     * @brief Returns whether the selected memory pool allows the buffers to be directly written to
+     */
+    bool isDirectWritable() const {
+        return IsMapped &&
+               (buffers.current().getMemoryPool() & VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT) != 0;
     }
 
 protected:
@@ -139,7 +155,7 @@ protected:
         numElements = n;
         buffers.init(vulkanState, [this, &vulkanState](vk::Buffer& buffer) {
             buffer.createWithFallback(vulkanState,
-                                      getTotalAlignedSize(),
+                                      this->getTotalAlignedSize(),
                                       MemoryPool,
                                       FallbackMemoryPool,
                                       Usage,

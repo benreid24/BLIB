@@ -93,6 +93,11 @@ public:
     VmaAllocation getAlloc() const;
 
     /**
+     * @brief Returns the properties of the memory pool that the buffer is in
+     */
+    VkMemoryPropertyFlags getMemoryPool() const { return memPool; }
+
+    /**
      * @brief Maps the buffer. Does not check if buffer is map-able or if it is already mapped
      * @return A pointer to the mapped memory
      */

@@ -96,7 +96,7 @@ public:
      * @param start The first element to copy
      * @param numElements The number of elements to copy
      */
-    void transferRange(std::uint32_t start, std::uint32_t numElements);
+    void markDirty(std::uint32_t start, std::uint32_t numElements);
 
     /**
      * @brief Expands the current transfer range to include the new given range. Queues a single
@@ -115,7 +115,7 @@ public:
     /**
      * @brief Returns the size of the SSBO on the device
      */
-    VkDeviceSize getTotalRange() const;
+    VkDeviceSize getTotalAlignedSize() const;
 
     /**
      * @brief Helper method to return the raw buffer handle for the given frame index
@@ -231,7 +231,7 @@ bool StaticSSBO<T>::ensureSize(std::uint32_t desiredSize) {
 }
 
 template<typename T>
-void StaticSSBO<T>::transferRange(std::uint32_t start, std::uint32_t numElements) {
+void StaticSSBO<T>::markDirty(std::uint32_t start, std::uint32_t numElements) {
     if (numElements > 0) {
         copyStart = start;
         copyCount = numElements;
@@ -259,11 +259,11 @@ void StaticSSBO<T>::expandTransferRange(std::uint32_t start, std::uint32_t numEl
 
 template<typename T>
 void StaticSSBO<T>::transferAll() {
-    transferRange(0, cpuBuffer.size());
+    markDirty(0, cpuBuffer.size());
 }
 
 template<typename T>
-VkDeviceSize StaticSSBO<T>::getTotalRange() const {
+VkDeviceSize StaticSSBO<T>::getTotalAlignedSize() const {
     return gpuBuffer.getSize();
 }
 

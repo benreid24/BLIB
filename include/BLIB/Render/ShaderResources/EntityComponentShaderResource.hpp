@@ -230,7 +230,7 @@ bool EntityComponentShaderResource<TCom, TPayload, TDynamicStorage, TStaticStora
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
 void EntityComponentShaderResource<TCom, TPayload, TDynamicStorage, TStaticStorage>::releaseObject(
-    ecs::Entity entity, scene::Key key) {
+    ecs::Entity entity, scene::Key) {
     TCom* component = registry->getComponent<TCom>(entity);
     if (component) {
         component->unlink();
@@ -243,14 +243,13 @@ template<typename TCom, typename TPayload, typename TDynamicStorage, typename TS
 void EntityComponentShaderResource<TCom, TPayload, TDynamicStorage,
                                    TStaticStorage>::performTransfer() {
     if (dirtyStatic.end >= dirtyStatic.start) {
-        staticBuffer.transferRange(dirtyStatic.start, dirtyStatic.end - dirtyStatic.start + 1);
+        staticBuffer.markDirty(dirtyStatic.start, dirtyStatic.end - dirtyStatic.start + 1);
         dirtyStatic = DirtyRange();
     }
     if (dirtyDynamic.end >= dirtyDynamic.start) {
-        dynamicBuffer.transferRange(dirtyDynamic.start, dirtyDynamic.end - dirtyDynamic.start + 1);
+        dynamicBuffer.markDirty(dirtyDynamic.start, dirtyDynamic.end - dirtyDynamic.start + 1);
         dirtyDynamic = DirtyRange();
     }
-    else { dynamicBuffer.transferRange(0, 0); }
     dynamicRefresh = dynamicRefresh >> 1;
     staticRefresh  = staticRefresh >> 1;
 }

@@ -31,6 +31,8 @@ template<typename T, Alignment Align, VkBufferUsageFlags Usage, VkMemoryProperty
          VkMemoryPropertyFlags FallbackMemoryPool = MemoryPool>
 class BindableBufferDoubleSourced
 : public BindableBufferDouble<T, Align, Usage, MemoryPool, AllocFlags, FallbackMemoryPool> {
+    using Base = BindableBufferDouble<T, Align, Usage, MemoryPool, AllocFlags, FallbackMemoryPool>;
+
 public:
     /**
      * @brief Creates the buffer
@@ -49,7 +51,7 @@ public:
      */
     virtual void resize(std::uint32_t size) {
         sourceBuffer.resize(size);
-        BindableBufferDouble::resize(size);
+        Base::resize(size);
     }
 
     /**
@@ -96,7 +98,7 @@ protected:
      */
     virtual void doCreate(vk::VulkanState& vulkanState, std::uint32_t n) {
         sourceBuffer.create(Align, n);
-        BindableBufferDouble::doCreate(vulkanState, n);
+        Base::doCreate(vulkanState, n);
     }
 
     /**
@@ -108,38 +110,39 @@ protected:
      */
     virtual void executeTransfer(VkCommandBuffer commandBuffer,
                                  tfr::TransferContext& context) override {
-        if constexpr (IsDirectWritable) {
-            const DirtyRange range = getAccumulatedDirtyRange();
+        if (this->isDirectWritable()) {
+            const DirtyRange range = this->getAccumulatedDirtyRange();
             if (range.size > 0) {
-                writeDirect(&sourceBuffer[range.start], range.size, range.start);
+                this->writeDirect(&sourceBuffer[range.start], range.size, range.start);
             }
-            markClean();
+            this->markClean();
         }
         else {
-            const DirtyRange range = getAccumulatedDirtyRange();
+            const DirtyRange range = this->getAccumulatedDirtyRange();
             if (range.size > 0) {
-                const VkDeviceSize copySize = range.size * getAlignedElementSize();
+                const VkDeviceSize copySize = range.size * this->getAlignedElementSize();
                 VkBuffer stagingBuffer;
                 void* stagingMem;
                 context.createTemporaryStagingBuffer(copySize, stagingBuffer, &stagingMem);
                 std::memcpy(stagingMem, &sourceBuffer[range.start], copySize);
 
                 VkBufferCopy copyCmd{};
-                copyCmd.dstOffset = range.start * getAlignedElementSize();
+                copyCmd.dstOffset = range.start * this->getAlignedElementSize();
                 copyCmd.size      = copySize;
                 copyCmd.srcOffset = 0;
                 vkCmdCopyBuffer(
-                    commandBuffer, stagingBuffer, getCurrentFrameRawBuffer(), 1, &copyCmd);
+                    commandBuffer, stagingBuffer, this->getCurrentFrameRawBuffer(), 1, &copyCmd);
 
                 VkBufferMemoryBarrier bufBarrier{};
                 bufBarrier.sType         = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
                 bufBarrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
                 bufBarrier.dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;
-                bufBarrier.buffer        = getCurrentFrameRawBuffer();
+                bufBarrier.buffer        = this->getCurrentFrameRawBuffer();
                 bufBarrier.offset        = copyCmd.dstOffset;
                 bufBarrier.size          = copyCmd.size;
                 context.registerBufferBarrier(bufBarrier);
             }
+            this->markClean();
         }
     }
 };

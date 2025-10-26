@@ -156,7 +156,7 @@ void GlobalDescriptors::init() {
         auto& dynamicSettingsBufferInfo  = writer.getNewBufferInfo();
         dynamicSettingsBufferInfo.buffer = dynamicSettingsBuffer.gpuBufferHandle().getBuffer();
         dynamicSettingsBufferInfo.offset = 0;
-        dynamicSettingsBufferInfo.range  = dynamicSettingsBuffer.getTotalRange();
+        dynamicSettingsBufferInfo.range  = dynamicSettingsBuffer.getTotalAlignedSize();
 
         auto& dynamicSettingsWrite           = writer.getNewSetWrite(set);
         dynamicSettingsWrite.descriptorCount = 1;

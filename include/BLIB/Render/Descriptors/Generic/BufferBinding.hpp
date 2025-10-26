@@ -72,7 +72,7 @@ BufferBinding<TShaderResource, ResourceKey, ResourceStore, DescriptorType>::getS
 template<typename TShaderResource, sr::Key<TShaderResource> ResourceKey, sr::StoreKey ResourceStore,
          VkDescriptorType DescriptorType>
 void BufferBinding<TShaderResource, ResourceKey, ResourceStore, DescriptorType>::init(
-    vk::VulkanState& vs, InitContext& ctx) {
+    vk::VulkanState&, InitContext& ctx) {
     buffer = ctx.getShaderResourceStore(ResourceStore).getShaderResourceWithKey(ResourceKey);
 }
 
@@ -83,7 +83,7 @@ void BufferBinding<TShaderResource, ResourceKey, ResourceStore, DescriptorType>:
     VkDescriptorBufferInfo& bufferInfo = writer.getNewBufferInfo();
     bufferInfo.buffer                  = buffer->getBuffer().getRawBuffer(frameIndex);
     bufferInfo.offset                  = 0;
-    bufferInfo.range                   = buffer->getBuffer().alignedUniformSize();
+    bufferInfo.range                   = buffer->getBuffer().getTotalAlignedSize();
 
     VkWriteDescriptorSet& setWrite = writer.getNewSetWrite(set);
     setWrite.dstBinding            = getBindingIndex();

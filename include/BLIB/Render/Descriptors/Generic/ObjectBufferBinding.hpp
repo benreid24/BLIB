@@ -86,8 +86,8 @@ void ObjectBufferBinding<TShaderResource, ResourceKey, DescriptorType, Optional>
                                              components->getStaticBuffer().getRawBuffer(frameIndex);
     bufferInfo.offset                  = 0;
     bufferInfo.range                   = speed == UpdateSpeed::Dynamic ?
-                                             components->getDynamicBuffer().getTotalRange() :
-                                             components->getStaticBuffer().getTotalRange();
+                                             components->getDynamicBuffer().getTotalAlignedSize() :
+                                             components->getStaticBuffer().getTotalAlignedSize();
 
     VkWriteDescriptorSet& setWrite = writer.getNewSetWrite(set);
     setWrite.dstBinding            = getBindingIndex();

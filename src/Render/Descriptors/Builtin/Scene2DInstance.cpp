@@ -83,7 +83,7 @@ void Scene2DInstance::init(ds::InitContext& ctx) {
         VkDescriptorBufferInfo& lightingBufferWrite = setWriter.getNewBufferInfo();
         lightingBufferWrite.buffer = lightingBuffer->getBuffer().gpuBufferHandle().getBuffer();
         lightingBufferWrite.offset = 0;
-        lightingBufferWrite.range  = lightingBuffer->getBuffer().totalAlignedSize();
+        lightingBufferWrite.range  = lightingBuffer->getBuffer().getTotalAlignedSize();
 
         VkWriteDescriptorSet& setWrite = setWriter.getNewSetWrite(set);
         setWrite.sType                 = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;

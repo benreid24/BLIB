@@ -99,7 +99,7 @@ public:
     /**
      * @brief Returns the aligned size of all contained uniforms
      */
-    std::uint32_t totalAlignedSize() const;
+    std::uint32_t getTotalAlignedSize() const;
 
     /**
      * @brief Helper method to return the raw buffer handle for the given frame index
@@ -179,7 +179,7 @@ std::uint32_t StaticUniformBuffer<T>::alignedUniformSize() const {
 }
 
 template<typename T>
-std::uint32_t StaticUniformBuffer<T>::totalAlignedSize() const {
+std::uint32_t StaticUniformBuffer<T>::getTotalAlignedSize() const {
     return cpuBuffer.alignedSize();
 }
 

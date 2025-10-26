@@ -107,6 +107,7 @@ void Animation2DSystem::init(engine::Engine& engine) {
     slideshowFrameOffsetSSBO.create(renderer.vulkanState(), 32);
     slideshowTextureSSBO.create(renderer.vulkanState(), 32);
     slideshowPlayerCurrentFrameSSBO.create(renderer.vulkanState(), 32);
+    slideshowPlayerCurrentFrameSSBO.transferEveryFrame();
 
     subscribe(engine.ecs().getSignalChannel());
 }
@@ -116,7 +117,7 @@ void Animation2DSystem::update(std::mutex&, float dt, float, float, float) {
     players->forEach([dt](ecs::Entity, com::Animation2DPlayer& player) { player.update(dt); });
 
     // perform slideshow uploads
-    slideshowPlayerCurrentFrameSSBO.transferAll(); // always upload all play indices
+    slideshowPlayerCurrentFrameSSBO.markFullDirty(); // always upload all play indices
 
     // sync vertex animation draw parameters
     vertexPool->forEach([](ecs::Entity, com::Animation2D& anim) {
@@ -252,7 +253,7 @@ void Animation2DSystem::updateSlideshowDescriptorSets() {
     VkDescriptorBufferInfo frameOffsetWrite{};
     frameOffsetWrite.buffer = slideshowFrameOffsetSSBO.gpuBufferHandle().getBuffer();
     frameOffsetWrite.offset = 0;
-    frameOffsetWrite.range  = slideshowFrameOffsetSSBO.getTotalRange();
+    frameOffsetWrite.range  = slideshowFrameOffsetSSBO.getTotalAlignedSize();
 
     setWrites[0].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
     setWrites[0].descriptorCount = 1;
@@ -266,7 +267,7 @@ void Animation2DSystem::updateSlideshowDescriptorSets() {
     VkDescriptorBufferInfo textureIdWrite{};
     textureIdWrite.buffer = slideshowTextureSSBO.gpuBufferHandle().getBuffer();
     textureIdWrite.offset = 0;
-    textureIdWrite.range  = slideshowTextureSSBO.getTotalRange();
+    textureIdWrite.range  = slideshowTextureSSBO.getTotalAlignedSize();
 
     setWrites[1].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
     setWrites[1].descriptorCount = 1;
@@ -278,10 +279,9 @@ void Animation2DSystem::updateSlideshowDescriptorSets() {
 
     // current frames (binding 2)
     VkDescriptorBufferInfo currentFrameWrite{};
-    currentFrameWrite.buffer =
-        slideshowPlayerCurrentFrameSSBO.gpuBufferHandles().current().getBuffer();
+    currentFrameWrite.buffer = slideshowPlayerCurrentFrameSSBO.getCurrentFrameRawBuffer();
     currentFrameWrite.offset = 0;
-    currentFrameWrite.range  = slideshowPlayerCurrentFrameSSBO.getTotalRange();
+    currentFrameWrite.range  = slideshowPlayerCurrentFrameSSBO.getTotalAlignedSize();
 
     setWrites[2].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
     setWrites[2].descriptorCount = 1;
@@ -295,7 +295,7 @@ void Animation2DSystem::updateSlideshowDescriptorSets() {
     VkDescriptorBufferInfo frameDataWrite{};
     frameDataWrite.buffer = slideshowFramesSSBO.gpuBufferHandle().getBuffer();
     frameDataWrite.offset = 0;
-    frameDataWrite.range  = slideshowFramesSSBO.getTotalRange();
+    frameDataWrite.range  = slideshowFramesSSBO.getTotalAlignedSize();
 
     setWrites[3].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
     setWrites[3].descriptorCount = 1;

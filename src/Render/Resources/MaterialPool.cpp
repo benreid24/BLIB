@@ -80,7 +80,7 @@ void MaterialPool::init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
     VkDescriptorBufferInfo bufferInfo;
     bufferInfo.buffer = gpuPool.gpuBufferHandle().getBuffer();
     bufferInfo.offset = 0;
-    bufferInfo.range  = gpuPool.totalAlignedSize();
+    bufferInfo.range  = gpuPool.getTotalAlignedSize();
 
     std::array<VkWriteDescriptorSet, cfg::Limits::MaxConcurrentFrames * 2> setWrites{};
     unsigned int si    = 0;

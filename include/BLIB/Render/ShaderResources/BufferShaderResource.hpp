@@ -5,6 +5,7 @@
 #include <BLIB/Render/Buffers/Alignment.hpp>
 #include <BLIB/Render/ShaderResources/ShaderResource.hpp>
 #include <cstdint>
+#include <type_traits>
 
 namespace bl
 {
@@ -43,7 +44,14 @@ public:
     virtual void init(engine::Engine& engine) override {
         vulkanState = &engine::HeaderHelpers::getVulkanState(engine);
         if constexpr (DefaultCapacity > 0) {
-            buffer.create(*vulkanState, DefaultCapacity, DefaultAlignment);
+            if constexpr (std::is_invocable_v<decltype(&TBuffer::create),
+                                              TBuffer&,
+                                              vk::VulkanState&,
+                                              std::uint32_t,
+                                              buf::Alignment>) {
+                buffer.create(*vulkanState, DefaultCapacity, DefaultAlignment);
+            }
+            else { buffer.create(*vulkanState, DefaultCapacity); }
         }
     }
 

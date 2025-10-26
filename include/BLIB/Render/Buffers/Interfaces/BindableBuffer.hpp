@@ -41,8 +41,7 @@ public:
      * @brief Creates the buffer wrapper
      */
     BindableBuffer()
-    : vs(nullptr)
-    , alignment(computeAlignment(sizeof(T), Align))
+    : alignment(computeAlignment(sizeof(T), Align))
     , dirtyRanges{}
     , currentDirtyRange(0) {}
 
@@ -54,12 +53,12 @@ public:
     /**
      * @brief Creates the buffer
      *
-     * @param vulkanState The renderer Vulkan state
+     * @param vs The renderer Vulkan state
      * @param numElements The number of data elements to size the buffer for
      */
-    void create(vk::VulkanState& vulkanState, std::uint32_t numElements) {
-        vs = &vulkanState;
-        doCreate(vulkanState, numElements);
+    void create(vk::VulkanState& vs, std::uint32_t numElements) {
+        vulkanState = &vs;
+        doCreate(vs, numElements);
     }
 
     /**
@@ -87,7 +86,7 @@ public:
      */
     bool ensureSize(std::uint32_t size) {
         if (size > getSize()) {
-            std::uint32_t newSize = std::max(getSize(), 1) * 2;
+            std::uint32_t newSize = std::max(getSize(), static_cast<std::uint32_t>(1)) * 2;
             while (newSize < size) { newSize *= 2; }
             resize(newSize);
             return true;
@@ -120,7 +119,7 @@ public:
     /**
      * @brief Returns the underlying buffer for the current frame
      */
-    vk::Buffer& getCurrentFrameBuffer() { return getBuffer(vs->currentFrameIndex()); }
+    vk::Buffer& getCurrentFrameBuffer() { return getBuffer(vulkanState->currentFrameIndex()); }
 
     /**
      * @brief Returns the direct Vulkan handle of the underlying buffer for the given frame
@@ -154,7 +153,7 @@ protected:
     /**
      * @brief Returns the renderer Vulkan state
      */
-    vk::VulkanState& getVulkanState() { return *vs; }
+    vk::VulkanState& getVulkanState() { return *vulkanState; }
 
     /**
      * @brief Called when the buffer should be created
@@ -188,7 +187,7 @@ protected:
     DirtyRange getAccumulatedDirtyRange() const {
         DirtyRange accum;
         for (const auto& r : dirtyRanges) { accum.combine(r); }
-        return r;
+        return accum;
     }
 
     /**
@@ -200,7 +199,6 @@ protected:
     }
 
 private:
-    vk::VulkanState* vs;
     std::uint32_t alignment;
     std::array<DirtyRange, cfg::Limits::MaxConcurrentFrames> dirtyRanges;
     std::uint32_t currentDirtyRange;
