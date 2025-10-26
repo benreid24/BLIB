@@ -3,7 +3,7 @@
 
 #include <BLIB/Components/Animation2DPlayer.hpp>
 #include <BLIB/ECS/ComponentPool.hpp>
-#include <BLIB/Render/Buffers/DynamicSSBO.hpp>
+#include <BLIB/Render/Buffers/BufferDoubleHostVisibleSourced.hpp>
 #include <BLIB/Render/Buffers/StaticSSBO.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Vulkan/DescriptorSet.hpp>

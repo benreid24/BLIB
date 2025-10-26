@@ -6,7 +6,7 @@
 #include <BLIB/ECS/ComponentPool.hpp>
 #include <BLIB/ECS/Events.hpp>
 #include <BLIB/Engine/System.hpp>
-#include <BLIB/Render/Buffers/DynamicSSBO.hpp>
+#include <BLIB/Render/Buffers/BufferDoubleHostVisibleSourced.hpp>
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
 #include <BLIB/Render/Buffers/StaticSSBO.hpp>
 #include <BLIB/Render/Vulkan/DescriptorSet.hpp>
@@ -91,7 +91,7 @@ private:
     rc::buf::StaticSSBO<SlideshowFrame> slideshowFramesSSBO;     // all anim frames
     rc::buf::StaticSSBO<std::uint32_t> slideshowFrameOffsetSSBO; // playerIndex -> frame index
     rc::buf::StaticSSBO<std::uint32_t> slideshowTextureSSBO;     // playerIndex -> texture id
-    rc::buf::DynamicSSBO<std::uint32_t> slideshowPlayerCurrentFrameSSBO; //     -> current frame
+    rc::buf::BufferDoubleHostVisibleSourced<std::uint32_t> slideshowPlayerCurrentFrameSSBO; //     -> current frame
     rc::vk::PerFrame<rc::vk::DescriptorSet> slideshowDescriptorSets;
     std::uint8_t slideshowRefreshRequired;
     std::uint8_t slideshowLastFrameUpdated; // renderer frame index to prevent multiple updates

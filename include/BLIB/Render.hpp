@@ -9,7 +9,7 @@
 #include <BLIB/Engine/Engine.hpp>
 
 #include <BLIB/Render/Buffers/AlignedBuffer.hpp>
-#include <BLIB/Render/Buffers/DynamicSSBO.hpp>
+#include <BLIB/Render/Buffers/BufferDoubleHostVisibleSourced.hpp>
 #include <BLIB/Render/Buffers/FullyDynamicSSBO.hpp>
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
 #include <BLIB/Render/Buffers/StaticSSBO.hpp>

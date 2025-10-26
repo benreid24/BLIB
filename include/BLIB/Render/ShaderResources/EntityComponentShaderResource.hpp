@@ -3,7 +3,7 @@
 
 #include <BLIB/ECS.hpp>
 #include <BLIB/Engine/HeaderHelpers.hpp>
-#include <BLIB/Render/Buffers/DynamicSSBO.hpp>
+#include <BLIB/Render/Buffers/BufferDoubleHostVisibleSourced.hpp>
 #include <BLIB/Render/Buffers/StaticSSBO.hpp>
 #include <BLIB/Render/Config/Constants.hpp>
 #include <BLIB/Render/Config/Limits.hpp>
@@ -78,8 +78,9 @@ protected:
  * @tparam TStaticStorage The buffer to use for static objects
  * @ingroup Renderer
  */
-template<typename TCom, typename TPayload, typename TDynamicStorage = buf::DynamicSSBO<TPayload>,
-         typename TStaticStorage = buf::StaticSSBO<TPayload>>
+template<typename TCom, typename TPayload,
+         typename TDynamicStorage = buf::BufferDoubleHostVisibleSourced<TPayload>,
+         typename TStaticStorage  = buf::StaticSSBO<TPayload>>
 class EntityComponentShaderResource : public EntityComponentShaderResourceBase {
 public:
     /**
@@ -244,10 +245,12 @@ void EntityComponentShaderResource<TCom, TPayload, TDynamicStorage,
                                    TStaticStorage>::performTransfer() {
     if (dirtyStatic.end >= dirtyStatic.start) {
         staticBuffer.markDirty(dirtyStatic.start, dirtyStatic.end - dirtyStatic.start + 1);
+        staticBuffer.queueTransfer();
         dirtyStatic = DirtyRange();
     }
     if (dirtyDynamic.end >= dirtyDynamic.start) {
         dynamicBuffer.markDirty(dirtyDynamic.start, dirtyDynamic.end - dirtyDynamic.start + 1);
+        dynamicBuffer.queueTransfer();
         dirtyDynamic = DirtyRange();
     }
     dynamicRefresh = dynamicRefresh >> 1;

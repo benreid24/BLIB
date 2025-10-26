@@ -1,8 +1,8 @@
 #ifndef BLIB_RENDER_BUFFERS_FULLYDYNAMICSSBO_HPP
 #define BLIB_RENDER_BUFFERS_FULLYDYNAMICSSBO_HPP
 
-#include <BLIB/Render/Transfers/Transferable.hpp>
 #include <BLIB/Render/Buffers/AlignedBuffer.hpp>
+#include <BLIB/Render/Transfers/Transferable.hpp>
 #include <BLIB/Render/Vulkan/Buffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Util/VectorRef.hpp>
@@ -17,8 +17,9 @@ namespace buf
 {
 /**
  * @brief Device-local SSBO intended for use with per-object data for dynamic objects. This version
- *        of DynamicSSBO does not provide a CPU-side buffer and assumes that the user will fully
- *        rewrite the entire buffer every frame. If that is not the case then use DynamicSSBO
+ *        of BufferDoubleHostVisibleSourced does not provide a CPU-side buffer and assumes that the
+ * user will fully rewrite the entire buffer every frame. If that is not the case then use
+ * BufferDoubleHostVisibleSourced
  *
  * @tparam T The type of data to pack into the SSBO
  * @ingroup Renderer
