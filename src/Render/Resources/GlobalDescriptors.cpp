@@ -128,9 +128,9 @@ void GlobalDescriptors::init() {
     const auto writeGlobalsSet = [this, &writer](VkDescriptorSet set, std::uint32_t i, bool forRt) {
         // frame data
         auto& frameDataBufferInfo  = writer.getNewBufferInfo();
-        frameDataBufferInfo.buffer = frameDataBuffer.gpuBufferHandles().getRaw(i).getBuffer();
+        frameDataBufferInfo.buffer = frameDataBuffer.getRawBuffer(i);
         frameDataBufferInfo.offset = 0;
-        frameDataBufferInfo.range  = frameDataBuffer.alignedUniformSize();
+        frameDataBufferInfo.range  = frameDataBuffer.getAlignedElementSize();
 
         auto& frameDataWrite           = writer.getNewSetWrite(set);
         frameDataWrite.descriptorCount = 1;
@@ -196,7 +196,7 @@ void GlobalDescriptors::onFrameStart() {
     accumulatedTimings.realFrameDt = frameTimer.restart().asSeconds();
     accumulatedTimings.frameDt     = accumulatedTimings.realFrameDt * engine.getTimeScale();
     frameTimer.restart();
-    frameDataBuffer[0] = accumulatedTimings;
+    frameDataBuffer.writeDirect(&accumulatedTimings, 1, 0);
     accumulatedTimings = {};
 }
 

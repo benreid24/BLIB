@@ -1,7 +1,6 @@
 #ifndef BLIB_RENDER_DESCRIPTORS_SHADOWMAPBINDING_HPP
 #define BLIB_RENDER_DESCRIPTORS_SHADOWMAPBINDING_HPP
 
-#include <BLIB/Render/Buffers/UniformBuffer.hpp>
 #include <BLIB/Render/Descriptors/Generic/Binding.hpp>
 #include <BLIB/Render/Lighting/Scene3DLighting.hpp>
 #include <BLIB/Render/ShaderResources/ShadowMapCameraShaderResource.hpp>

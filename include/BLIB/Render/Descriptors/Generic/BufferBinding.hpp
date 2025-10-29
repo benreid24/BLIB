@@ -1,11 +1,11 @@
 #ifndef BLIB_RENDER_DESCRIPTORS_GENERIC_BUFFERBINDING_HPP
 #define BLIB_RENDER_DESCRIPTORS_GENERIC_BUFFERBINDING_HPP
 
-#include <BLIB/Render/Buffers/UniformBuffer.hpp>
 #include <BLIB/Render/Descriptors/Generic/Binding.hpp>
 #include <BLIB/Render/ShaderResources/Key.hpp>
 #include <BLIB/Render/ShaderResources/ShaderResourceStore.hpp>
 #include <BLIB/Render/ShaderResources/StoreKey.hpp>
+#include <BLIB/Render/Vulkan/PerFrame.hpp>
 
 namespace bl
 {
@@ -51,6 +51,8 @@ public:
 
 private:
     TShaderResource* buffer;
+    vk::PerFrame<VkBuffer> boundDynamic;
+    vk::PerFrame<VkBuffer> boundStatic;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -72,14 +74,16 @@ BufferBinding<TShaderResource, ResourceKey, ResourceStore, DescriptorType>::getS
 template<typename TShaderResource, sr::Key<TShaderResource> ResourceKey, sr::StoreKey ResourceStore,
          VkDescriptorType DescriptorType>
 void BufferBinding<TShaderResource, ResourceKey, ResourceStore, DescriptorType>::init(
-    vk::VulkanState&, InitContext& ctx) {
+    vk::VulkanState& vs, InitContext& ctx) {
     buffer = ctx.getShaderResourceStore(ResourceStore).getShaderResourceWithKey(ResourceKey);
+    boundDynamic.init(vs, [](VkBuffer& b) { b = nullptr; });
+    boundStatic.init(vs, [](VkBuffer& b) { b = nullptr; });
 }
 
 template<typename TShaderResource, sr::Key<TShaderResource> ResourceKey, sr::StoreKey ResourceStore,
          VkDescriptorType DescriptorType>
 void BufferBinding<TShaderResource, ResourceKey, ResourceStore, DescriptorType>::writeSet(
-    SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed, std::uint32_t frameIndex) {
+    SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed spd, std::uint32_t frameIndex) {
     VkDescriptorBufferInfo& bufferInfo = writer.getNewBufferInfo();
     bufferInfo.buffer                  = buffer->getBuffer().getRawBuffer(frameIndex);
     bufferInfo.offset                  = 0;
@@ -89,6 +93,9 @@ void BufferBinding<TShaderResource, ResourceKey, ResourceStore, DescriptorType>:
     setWrite.dstBinding            = getBindingIndex();
     setWrite.pBufferInfo           = &bufferInfo;
     setWrite.descriptorType        = DescriptorType;
+
+    auto& bound              = spd == UpdateSpeed::Dynamic ? boundDynamic : boundStatic;
+    bound.getRaw(frameIndex) = bufferInfo.buffer;
 }
 
 template<typename TShaderResource, sr::Key<TShaderResource> ResourceKey, sr::StoreKey ResourceStore,
@@ -117,6 +124,8 @@ template<typename TShaderResource, sr::Key<TShaderResource> ResourceKey, sr::Sto
 bool BufferBinding<TShaderResource, ResourceKey, ResourceStore,
                    DescriptorType>::staticDescriptorUpdateRequired() const {
     return false;
+    // TODO - uncomment when all buffers on new interface
+    // return buffer->getBuffer().getCurrentFrameRawBuffer() != boundStatic.current();
 }
 
 template<typename TShaderResource, sr::Key<TShaderResource> ResourceKey, sr::StoreKey ResourceStore,
@@ -124,6 +133,8 @@ template<typename TShaderResource, sr::Key<TShaderResource> ResourceKey, sr::Sto
 bool BufferBinding<TShaderResource, ResourceKey, ResourceStore,
                    DescriptorType>::dynamicDescriptorUpdateRequired() const {
     return false;
+    // TODO - uncomment when all buffers on new interface
+    // return buffer->getBuffer().getCurrentFrameRawBuffer() != boundDynamic.current();
 }
 
 } // namespace ds

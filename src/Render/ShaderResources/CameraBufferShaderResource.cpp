@@ -31,7 +31,7 @@ void CameraBufferShaderResource::init(engine::Engine& engine) {
 void CameraBufferShaderResource::copyFromSource() {
     cam::Camera* camera = isOverlay ? &overlayCamera : owner.getCurrentCamera();
     if (camera) {
-        auto& dst          = getBuffer()[0];
+        auto& dst          = *getBuffer().getWriteAddress();
         dst.view           = camera->getViewMatrix();
         dst.projection     = camera->getProjectionMatrix(owner.getViewport());
         dst.cameraPosition = camera->getObserverPosition();

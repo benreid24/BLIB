@@ -2,7 +2,7 @@
 #define BLIB_RENDER_SHADERRESOURCES_CAMERABUFFERSHADERRESOURCE_HPP
 
 #include <BLIB/Cameras/Camera.hpp>
-#include <BLIB/Render/Buffers/UniformBuffer.hpp>
+#include <BLIB/Render/Buffers/BufferDoubleStaged.hpp>
 #include <BLIB/Render/ShaderResources/BufferShaderResource.hpp>
 #include <BLIB/Render/ShaderResources/Key.hpp>
 #include <glm/glm.hpp>
@@ -34,7 +34,7 @@ struct CameraBufferUniform {
  * @ingroup Renderer
  */
 class CameraBufferShaderResource
-: public sr::BufferShaderResource<buf::UniformBuffer<CameraBufferUniform>, 1> {
+: public sr::BufferShaderResource<buf::BufferDoubleStagedUBO<CameraBufferUniform>, 1> {
 public:
     /**
      * @brief Creates the shader resource

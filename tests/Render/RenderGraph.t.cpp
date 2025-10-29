@@ -29,12 +29,12 @@ struct TestAsset : public Asset {
     bool preparedForOutput;
 
     TestAsset(std::string_view tag)
-    : Asset(tag)
+    : Asset(tag, false)
     , created(false)
     , preparedForInput(false)
     , preparedForOutput(false) {}
 
-    virtual void doCreate(engine::Engine&, Renderer&, RenderTarget*) override { created = true; }
+    virtual void doCreate(const InitContext&) override { created = true; }
 
     virtual void doPrepareForInput(const ExecutionContext&) override {
         EXPECT_TRUE(created);
@@ -127,7 +127,7 @@ struct TestTask : public Task {
     , created(false)
     , graphInit(false) {}
 
-    virtual void create(engine::Engine&, Renderer&, Scene*) override { created = true; }
+    virtual void create(const InitContext&) override { created = true; }
 
     virtual void execute(const ExecutionContext&, Asset* output) override {
         ASSERT_TRUE(assets.outputs[0]->asset.valid());

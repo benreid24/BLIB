@@ -5,7 +5,7 @@
 #include <BLIB/Particles/Link.hpp>
 #include <BLIB/Particles/RenderConfigMap.hpp>
 #include <BLIB/Render/Buffers/BufferDoubleHostVisible.hpp>
-#include <BLIB/Render/Buffers/UniformBuffer.hpp>
+#include <BLIB/Render/Buffers/BufferDoubleStaged.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <BLIB/Render/Vulkan/DescriptorSet.hpp>
@@ -48,8 +48,8 @@ private:
         const VkDevice device;
         const VkDescriptorSetLayout layout;
         rc::buf::BufferDoubleHostVisibleSSBO<GpuT> storage;
-        rc::buf::UniformBuffer<TGlobalPayload> globals;
-        rc::buf::UniformBuffer<priv::GlobalParticleSystemInfo> globalSystemInfo;
+        rc::buf::BufferDoubleStagedUBO<TGlobalPayload> globals;
+        rc::buf::BufferDoubleStagedUBO<priv::GlobalParticleSystemInfo> globalSystemInfo;
         rc::vk::PerFrame<rc::vk::DescriptorSet> descriptorSets;
         Link<T>* link;
 

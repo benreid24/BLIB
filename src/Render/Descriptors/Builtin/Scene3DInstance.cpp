@@ -114,10 +114,9 @@ void Scene3DInstance::init(ds::InitContext& ctx) {
         const auto set = descriptorSets.getRaw(j);
 
         VkDescriptorBufferInfo& cameraBufferInfo = setWriter.getNewBufferInfo();
-        cameraBufferInfo.buffer =
-            cameraBuffer->getBuffer().gpuBufferHandles().getRaw(j).getBuffer();
-        cameraBufferInfo.offset = 0;
-        cameraBufferInfo.range  = cameraBuffer->getBuffer().totalAlignedSize();
+        cameraBufferInfo.buffer                  = cameraBuffer->getBuffer().getRawBuffer(j);
+        cameraBufferInfo.offset                  = 0;
+        cameraBufferInfo.range                   = cameraBuffer->getBuffer().getTotalAlignedSize();
 
         VkWriteDescriptorSet& cameraWrite = setWriter.getNewSetWrite(set);
         cameraWrite.descriptorCount       = 1;

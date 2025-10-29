@@ -1,9 +1,9 @@
 #ifndef BLIB_RENDER_RESOURCES_GLOBALDESCRIPTORS_HPP
 #define BLIB_RENDER_RESOURCES_GLOBALDESCRIPTORS_HPP
 
+#include <BLIB/Render/Buffers/BufferDoubleStaged.hpp>
 #include <BLIB/Render/Buffers/StaticSSBO.hpp>
 #include <BLIB/Render/Buffers/StaticUniformBuffer.hpp>
-#include <BLIB/Render/Buffers/UniformBuffer.hpp>
 #include <BLIB/Render/Descriptors/SetWriteHelper.hpp>
 #include <BLIB/Render/Settings.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
@@ -125,7 +125,7 @@ private:
     TexturePool& texturePool;
     MaterialPool& materialPool;
     buf::StaticUniformBuffer<SettingsUniform> settingsBuffer;
-    buf::UniformBuffer<FrameDataUniform> frameDataBuffer;
+    buf::BufferDoubleStagedUBO<FrameDataUniform> frameDataBuffer;
     buf::StaticSSBO<DynamicSettingsUniform> dynamicSettingsBuffer;
     FrameDataUniform accumulatedTimings;
     sf::Clock frameTimer;

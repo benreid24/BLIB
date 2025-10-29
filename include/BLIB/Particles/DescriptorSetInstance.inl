@@ -101,7 +101,7 @@ void DescriptorSetInstance<T, GpuT>::Instance::writeDescriptorSet(unsigned int i
     setWrites[0].descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
 
     VkDescriptorBufferInfo systemInfo{};
-    bl::rc::vk::Buffer& ibuf = descriptorSets.getOther(set, globalSystemInfo.gpuBufferHandles());
+    bl::rc::vk::Buffer& ibuf = globalSystemInfo.getBuffer(i);
     systemInfo.buffer        = ibuf.getBuffer();
     systemInfo.offset        = 0;
     systemInfo.range         = ibuf.getSize();
@@ -116,7 +116,7 @@ void DescriptorSetInstance<T, GpuT>::Instance::writeDescriptorSet(unsigned int i
 
     VkDescriptorBufferInfo globalsInfo{};
     if constexpr (HasGlobals) {
-        bl::rc::vk::Buffer& gbuf = descriptorSets.getOther(set, globals.gpuBufferHandles());
+        bl::rc::vk::Buffer& gbuf = globals.getBuffer(i);
         globalsInfo.buffer       = gbuf.getBuffer();
         globalsInfo.offset       = 0;
         globalsInfo.range        = gbuf.getSize();
@@ -135,7 +135,7 @@ void DescriptorSetInstance<T, GpuT>::Instance::writeDescriptorSet(unsigned int i
 
 template<typename T, typename GpuT>
 void DescriptorSetInstance<T, GpuT>::Instance::copyData() {
-    globalSystemInfo[0] = *link->systemInfo;
+    globalSystemInfo.writeDirect(link->systemInfo, 1, 0);
 
     const bool grew = storage.ensureSize(link->len);
     storage.writeDirect(link->base, link->len);
@@ -145,7 +145,7 @@ void DescriptorSetInstance<T, GpuT>::Instance::copyData() {
             [this, &i](bl::rc::vk::DescriptorSet& ds) { writeDescriptorSet(i++, ds); });
     }
 
-    if constexpr (HasGlobals) { globals[0] = *link->globals; }
+    if constexpr (HasGlobals) { globals.writeDirect(link->globals, 1, 0); }
 }
 
 } // namespace pcl

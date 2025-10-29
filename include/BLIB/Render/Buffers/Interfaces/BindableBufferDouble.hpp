@@ -135,6 +135,23 @@ public:
     }
 
     /**
+     * @brief Returns the address to write to the given element. Must only be called on writable
+     *        buffers that are mapped on creation
+     *
+     * @param i The index to write to
+     * @return The address of the data at the given index
+     */
+    T* getWriteAddress(std::uint32_t i) {
+        if (!isDirectWritable()) {
+            BL_LOG_ERROR << "Cannot directly write to non-mapped non-visible buffer";
+        }
+
+        char* raw = static_cast<char*>(buffers.current().getMappedMemory()) +
+                    i * this->getAlignedElementSize();
+        return static_cast<T*>(static_cast<void*>(raw));
+    }
+
+    /**
      * @brief Returns whether the selected memory pool allows the buffers to be directly written to
      */
     bool isDirectWritable() const {

@@ -4,10 +4,10 @@ target_sources(BLIB PUBLIC
 	BatchIndexBuffer.hpp
 	BufferDoubleHostVisibleSourced.hpp
 	BufferDoubleHostVisible.hpp
+	BufferDoubleStaged.hpp
 	IndexBuffer.hpp
 	StaticSSBO.hpp
 	StaticUniformBuffer.hpp
-	UniformBuffer.hpp
 	VertexBuffer.hpp
 )
 
