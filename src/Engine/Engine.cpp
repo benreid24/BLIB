@@ -337,7 +337,7 @@ bool Engine::loop() {
         if (!stateChanged) {
             // signal render next frame
             if (renderWindow.isOpen()) {
-                // sync descriptors
+                // run once per frame systems
                 ecsSystems.update(FrameStage::MARKER_OncePerFrame,
                                   FrameStage::COUNT,
                                   states.top()->systemsMask(),
@@ -348,6 +348,9 @@ bool Engine::loop() {
 
                 // flush scene object changes
                 renderingSystem.syncSceneObjects();
+
+                // Copy shared data to renderer while in locked section
+                renderingSystem.copyDataFromSources();
 
                 // Flush ECS deletion queues
                 entityRegistry.flushDeletions();

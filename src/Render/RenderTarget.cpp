@@ -184,14 +184,20 @@ void RenderTarget::updateDescriptorsAndQueueTransfers() {
             }
         }
 
-        shaderResources.updateFromSources();
         shaderResources.performTransfers();
         currentScene.descriptorCache.updateDescriptors();
-        currentScene.scene->syncShaderResources();
         if (currentScene.overlay) {
-            currentScene.overlay->syncShaderResources();
             currentScene.overlayDescriptorCache.value().updateDescriptors();
         }
+    }
+}
+
+void RenderTarget::copyDataFromSources() {
+    shaderResources.updateFromSources();
+    if (hasScene()) {
+        auto& currentScene = scenes.back();
+        currentScene.scene->syncShaderResources();
+        if (currentScene.overlay) { currentScene.overlay->syncShaderResources(); }
     }
 }
 

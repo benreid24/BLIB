@@ -296,6 +296,7 @@ private:
     // render stages
     void update(float dt, float realDt, float residual, float realResidual);
     void syncSceneObjects();
+    void copyDataFromSources();
     void renderFrame();
 
     Observer& addObserver();

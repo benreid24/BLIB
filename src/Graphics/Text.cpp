@@ -294,7 +294,7 @@ Text::CharSearchResult Text::findCharacterAtLocalPosition(const glm::vec2& posit
 void Text::queueCommit() {
     boundsComputedWhileDirty = false;
     if (!commitTask.isQueued()) {
-        commitTask = systems->addFrameTask(engine::FrameStage::RenderEarlyRefresh,
+        commitTask = systems->addFrameTask(engine::FrameStage::RendererDataSync,
                                            std::bind(&Text::commit, this));
     }
 }

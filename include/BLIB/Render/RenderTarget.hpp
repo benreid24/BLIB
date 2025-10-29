@@ -233,6 +233,7 @@ protected:
 
     RenderTarget(engine::Engine& engine, Renderer& renderer, rg::AssetFactory& factory,
                  bool isRenderTexture);
+    void copyDataFromSources();
     void updateDescriptorsAndQueueTransfers();
     void syncSceneObjects();
     void update(float dt);

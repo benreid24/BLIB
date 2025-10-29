@@ -66,8 +66,8 @@ void Renderer::initialize() {
 
     // core renderer systems
     engine.systems().registerSystem<sys::RendererUpdateSystem>(
-        FrameStage::RenderEarlyRefresh, AllMask, *this);
-    engine.systems().registerSystem<sys::OverlayScalerSystem>(FrameStage::RenderEarlyRefresh,
+        FrameStage::RendererDataSync, AllMask, *this);
+    engine.systems().registerSystem<sys::OverlayScalerSystem>(FrameStage::RendererDataSync,
                                                               AllMask);
     engine.systems().registerSystem<sys::Animation2DSystem>(
         FrameStage::Animate,
@@ -209,6 +209,15 @@ void Renderer::syncSceneObjects() {
     for (auto& o : observers) { o->syncSceneObjects(); }
 }
 
+void Renderer::copyDataFromSources() {
+    globalShaderResources.updateFromSources();
+    for (auto& rt : renderTextures) { rt->copyDataFromSources(); }
+    if (commonObserver.hasScene()) { commonObserver.copyDataFromSources(); }
+    else {
+        for (auto& o : observers) { o->copyDataFromSources(); }
+    }
+}
+
 void Renderer::renderFrame() {
     std::unique_lock lock(renderMutex);
 
@@ -223,7 +232,6 @@ void Renderer::renderFrame() {
         settings.dirty = false;
     }
     globalDescriptors.onFrameStart();
-    globalShaderResources.updateFromSources();
     globalShaderResources.performTransfers();
     for (auto& rt : renderTextures) { rt->updateDescriptorsAndQueueTransfers(); }
     if (commonObserver.hasScene()) { commonObserver.updateDescriptorsAndQueueTransfers(); }

@@ -47,14 +47,14 @@ private:
 
         const VkDevice device;
         const VkDescriptorSetLayout layout;
-        rc::buf::BufferDoubleHostVisible<GpuT> storage;
+        rc::buf::BufferDoubleHostVisibleSSBO<GpuT> storage;
         rc::buf::UniformBuffer<TGlobalPayload> globals;
         rc::buf::UniformBuffer<priv::GlobalParticleSystemInfo> globalSystemInfo;
         rc::vk::PerFrame<rc::vk::DescriptorSet> descriptorSets;
         Link<T>* link;
 
         Instance(engine::Engine& engine, VkDescriptorSetLayout layout, ecs::Entity entity);
-        void writeDescriptorSet(rc::vk::DescriptorSet& set);
+        void writeDescriptorSet(unsigned int i, rc::vk::DescriptorSet& set);
         void copyData();
     };
 
@@ -62,7 +62,7 @@ private:
     const VkDescriptorSetLayout layout;
     mutable std::unordered_map<std::uint32_t, Instance> instances;
 
-    virtual void init(rc::sr::ShaderResourceStore&) override {}
+    virtual void init(rc::ds::InitContext&) override {}
     virtual void bindForPipeline(rc::scene::SceneRenderContext&, VkPipelineLayout, std::uint32_t,
                                  rc::UpdateSpeed) const override {}
 

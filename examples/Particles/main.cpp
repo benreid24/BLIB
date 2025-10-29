@@ -97,7 +97,7 @@ private:
 
 class DemoState : public bl::engine::State {
 public:
-    DemoState(bl::engine::Engine& engine)
+    DemoState(bl::engine::Engine&)
     : State(bl::engine::StateMask::All) {}
 
     virtual const char* name() const override { return "DemoState"; }
