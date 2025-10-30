@@ -32,6 +32,7 @@ float lerp(float a, float b, float f) { return a + f * (b - a); }
 
 void SSAOBufferShaderResource::init(engine::Engine& engine) {
     BufferShaderResource::init(engine);
+    BufferShaderResource::getBuffer().setCopyFullRange(true);
     settings = &engine.renderer().getSettings();
     subscribe(engine.renderer().getSignalChannel());
     populateAndTransfer();
