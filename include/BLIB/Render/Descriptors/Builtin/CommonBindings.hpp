@@ -23,8 +23,8 @@ using Transform2DBuffer = sr::EntityComponentShaderResource<com::Transform2D, gl
 constexpr sr::Key<Transform2DBuffer> Transform2DBufferKey{"__builtin__Transform2DBuffer"};
 
 using TextureIdBuffer = sr::EntityComponentShaderResource<com::MaterialInstance, std::uint32_t,
-                                                          buf::StaticSSBO<std::uint32_t>,
-                                                          buf::StaticSSBO<std::uint32_t>>;
+                                                          buf::BufferSingleDeviceLocalSourcedSSBO<std::uint32_t>,
+                                                          buf::BufferSingleDeviceLocalSourcedSSBO<std::uint32_t>>;
 constexpr sr::Key<TextureIdBuffer> TextureIdBufferKey{"__builtin_TextureIdBuffer"};
 
 using Transform3DBuffer =
@@ -32,8 +32,8 @@ using Transform3DBuffer =
 constexpr sr::Key<Transform3DBuffer> Transform3DBufferKey{"__builtin__Transform3DBuffer"};
 
 using MaterialIdBuffer = sr::EntityComponentShaderResource<com::MaterialInstance, mat::MaterialId,
-                                                           buf::StaticSSBO<mat::MaterialId>,
-                                                           buf::StaticSSBO<mat::MaterialId>>;
+                                                           buf::BufferSingleDeviceLocalSourcedSSBO<mat::MaterialId>,
+                                                           buf::BufferSingleDeviceLocalSourcedSSBO<mat::MaterialId>>;
 constexpr sr::Key<MaterialIdBuffer> MaterialIdBufferKey{"__builtin_MaterialIdBuffer"};
 
 } // namespace sri

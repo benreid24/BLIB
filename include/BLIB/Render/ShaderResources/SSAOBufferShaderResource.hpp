@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_SHADERRESOURCES_SSAOBUFFERSHADERRESOURCE_HPP
 #define BLIB_RENDER_SHADERRESOURCES_SSAOBUFFERSHADERRESOURCE_HPP
 
-#include <BLIB/Render/Buffers/StaticUniformBuffer.hpp>
+#include <BLIB/Render/Buffers/BufferSingleDeviceLocalSourced.hpp>
 #include <BLIB/Render/Events/SettingsChanged.hpp>
 #include <BLIB/Render/ShaderResources/BufferShaderResource.hpp>
 #include <BLIB/Render/ShaderResources/Key.hpp>
@@ -36,7 +36,7 @@ struct SSAOBufferPayload {
  * @ingroup Renderer
  */
 class SSAOBufferShaderResource
-: public sr::BufferShaderResource<buf::StaticUniformBuffer<SSAOBufferPayload>, 1>
+: public sr::BufferShaderResource<buf::BufferSingleDeviceLocalSourcedUBO<SSAOBufferPayload>, 1>
 , public sig::Listener<event::SettingsChanged> {
 public:
     /**

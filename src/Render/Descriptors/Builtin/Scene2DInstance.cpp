@@ -80,7 +80,7 @@ void Scene2DInstance::init(ds::InitContext& ctx) {
         cameraWrite.descriptorType        = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
 
         VkDescriptorBufferInfo& lightingBufferWrite = setWriter.getNewBufferInfo();
-        lightingBufferWrite.buffer = lightingBuffer->getBuffer().gpuBufferHandle().getBuffer();
+        lightingBufferWrite.buffer = lightingBuffer->getBuffer().getCurrentFrameRawBuffer();
         lightingBufferWrite.offset = 0;
         lightingBufferWrite.range  = lightingBuffer->getBuffer().getTotalAlignedSize();
 
@@ -99,7 +99,11 @@ void Scene2DInstance::init(ds::InitContext& ctx) {
     auto& l      = lightingBuffer->getBuffer()[0];
     l.lightCount = 0;
     l.ambient    = glm::vec3{1.f};
+
+    cameraBuffer->getBuffer().transferEveryFrame();
+    cameraBuffer->getBuffer().setCopyFullRange(true);
     lightingBuffer->getBuffer().transferEveryFrame();
+    lightingBuffer->getBuffer().setCopyFullRange(true);
 }
 
 bool Scene2DInstance::allocateObject(ecs::Entity, scene::Key) {

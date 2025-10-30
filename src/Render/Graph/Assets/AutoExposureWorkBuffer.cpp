@@ -18,35 +18,35 @@ void AutoExposureWorkBuffer::doCreate(const rg::InitContext& ctx) {
 
 void AutoExposureWorkBuffer::doPrepareForInput(const rg::ExecutionContext& ctx) {
     // ensure accumulate is done writing
-    buffer->getBuffer().gpuBufferHandle().recordBarrier(ctx.commandBuffer,
-                                                        VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT,
-                                                        VK_ACCESS_MEMORY_WRITE_BIT,
-                                                        VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT,
-                                                        VK_ACCESS_MEMORY_READ_BIT);
+    buffer->getBuffer().getCurrentFrameBuffer().recordBarrier(ctx.commandBuffer,
+                                                              VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT,
+                                                              VK_ACCESS_MEMORY_WRITE_BIT,
+                                                              VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT,
+                                                              VK_ACCESS_MEMORY_READ_BIT);
 }
 
 void AutoExposureWorkBuffer::doStartOutput(const rg::ExecutionContext& ctx) {
     // ensure prior frame adjust is done reading
-    buffer->getBuffer().gpuBufferHandle().recordBarrier(ctx.commandBuffer,
-                                                        VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT,
-                                                        VK_ACCESS_MEMORY_READ_BIT,
-                                                        VK_PIPELINE_STAGE_TRANSFER_BIT,
-                                                        VK_ACCESS_MEMORY_WRITE_BIT);
+    buffer->getBuffer().getCurrentFrameBuffer().recordBarrier(ctx.commandBuffer,
+                                                              VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT,
+                                                              VK_ACCESS_MEMORY_READ_BIT,
+                                                              VK_PIPELINE_STAGE_TRANSFER_BIT,
+                                                              VK_ACCESS_MEMORY_WRITE_BIT);
 
     // reset
     float zero = 0.f;
     vkCmdUpdateBuffer(ctx.commandBuffer,
-                      buffer->getBuffer().gpuBufferHandle().getBuffer(),
+                      buffer->getBuffer().getCurrentFrameBuffer().getBuffer(),
                       0,
                       sizeof(float),
                       &zero);
 
     // ensure transfer is done before compute write
-    buffer->getBuffer().gpuBufferHandle().recordBarrier(ctx.commandBuffer,
-                                                        VK_PIPELINE_STAGE_TRANSFER_BIT,
-                                                        VK_ACCESS_MEMORY_WRITE_BIT,
-                                                        VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT,
-                                                        VK_ACCESS_SHADER_WRITE_BIT);
+    buffer->getBuffer().getCurrentFrameBuffer().recordBarrier(ctx.commandBuffer,
+                                                              VK_PIPELINE_STAGE_TRANSFER_BIT,
+                                                              VK_ACCESS_MEMORY_WRITE_BIT,
+                                                              VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT,
+                                                              VK_ACCESS_SHADER_WRITE_BIT);
 }
 
 } // namespace rgi

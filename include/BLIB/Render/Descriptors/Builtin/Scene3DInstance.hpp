@@ -1,7 +1,6 @@
 #ifndef BLIB_RENDER_DESCRIPTORS_SCENE3DINSTANCE_HPP
 #define BLIB_RENDER_DESCRIPTORS_SCENE3DINSTANCE_HPP
 
-#include <BLIB/Render/Buffers/StaticUniformBuffer.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Events/GraphEvents.hpp>
 #include <BLIB/Render/Events/ShadowMapsInvalidated.hpp>

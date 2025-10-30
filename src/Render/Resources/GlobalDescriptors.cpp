@@ -122,8 +122,8 @@ void GlobalDescriptors::init() {
 
     // write descriptor set with settings uniform
     frameDataBuffer.create(vulkanState, 1);
-    settingsBuffer.create(vulkanState, 2, buf::Alignment::UboBindOffset);
-    dynamicSettingsBuffer.create(vulkanState, 1, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT);
+    settingsBuffer.create(vulkanState, 2);
+    dynamicSettingsBuffer.create(vulkanState, 1);
     ds::SetWriteHelper writer;
     const auto writeGlobalsSet = [this, &writer](VkDescriptorSet set, std::uint32_t i, bool forRt) {
         // frame data
@@ -141,9 +141,9 @@ void GlobalDescriptors::init() {
 
         // settings
         auto& settingsBufferInfo  = writer.getNewBufferInfo();
-        settingsBufferInfo.buffer = settingsBuffer.gpuBufferHandle().getBuffer();
-        settingsBufferInfo.offset = forRt ? settingsBuffer.alignedUniformSize() : 0;
-        settingsBufferInfo.range  = settingsBuffer.alignedUniformSize();
+        settingsBufferInfo.buffer = settingsBuffer.getCurrentFrameRawBuffer();
+        settingsBufferInfo.offset = forRt ? settingsBuffer.getAlignedElementSize() : 0;
+        settingsBufferInfo.range  = settingsBuffer.getAlignedElementSize();
 
         auto& settingsWrite           = writer.getNewSetWrite(set);
         settingsWrite.descriptorCount = 1;
@@ -153,8 +153,9 @@ void GlobalDescriptors::init() {
         settingsWrite.descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
 
         // dynamic settings
-        auto& dynamicSettingsBufferInfo  = writer.getNewBufferInfo();
-        dynamicSettingsBufferInfo.buffer = dynamicSettingsBuffer.gpuBufferHandle().getBuffer();
+        auto& dynamicSettingsBufferInfo = writer.getNewBufferInfo();
+        dynamicSettingsBufferInfo.buffer =
+            dynamicSettingsBuffer.getCurrentFrameBuffer().getBuffer();
         dynamicSettingsBufferInfo.offset = 0;
         dynamicSettingsBufferInfo.range  = dynamicSettingsBuffer.getTotalAlignedSize();
 
@@ -165,6 +166,13 @@ void GlobalDescriptors::init() {
         dynamicSettingsWrite.pBufferInfo     = &dynamicSettingsBufferInfo;
         dynamicSettingsWrite.descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
     };
+
+    settingsBuffer.setCopyFullRange(true);
+    dynamicSettingsBuffer.setCopyFullRange(true);
+
+    frameDataBuffer.transferEveryFrame();
+    frameDataBuffer.setCopyFullRange(true);
+
     i = 0;
     descriptorSets.visit(
         [&writeGlobalsSet, &i](VkDescriptorSet set) { writeGlobalsSet(set, i++, false); });
@@ -173,8 +181,6 @@ void GlobalDescriptors::init() {
         [&writeGlobalsSet, &i](VkDescriptorSet set) { writeGlobalsSet(set, i++, true); });
     writer.performWrite(vulkanState.device);
     updateSettings(renderer.getSettings());
-
-    frameDataBuffer.transferEveryFrame();
 }
 
 void GlobalDescriptors::cleanup() {

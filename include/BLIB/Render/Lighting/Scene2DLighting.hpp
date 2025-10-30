@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_LIGHTING_SCENE2DLIGHTING_HPP
 #define BLIB_RENDER_LIGHTING_SCENE2DLIGHTING_HPP
 
-#include <BLIB/Render/Buffers/StaticUniformBuffer.hpp>
+#include <BLIB/Render/Buffers/BufferSingleDeviceLocalSourced.hpp>
 #include <BLIB/Render/Lighting/Light2D.hpp>
 #include <BLIB/Render/ShaderResources/BufferShaderResource.hpp>
 #include <BLIB/Render/ShaderResources/Key.hpp>
@@ -117,7 +117,8 @@ namespace sri
  * @ingroup Renderer
  */
 using LightingBuffer2D =
-    sr::BufferShaderResource<buf::StaticUniformBuffer<lgt::Scene2DLighting::Lighting>, 1>;
+    sr::BufferShaderResource<buf::BufferSingleDeviceLocalSourcedUBO<lgt::Scene2DLighting::Lighting>,
+                             1>;
 
 constexpr sr::Key<LightingBuffer2D> Scene2DLightingKey("__builtin_Scene2DLighting");
 } // namespace sri

@@ -4,7 +4,7 @@
 #include <BLIB/ECS.hpp>
 #include <BLIB/Engine/HeaderHelpers.hpp>
 #include <BLIB/Render/Buffers/BufferDoubleHostVisibleSourced.hpp>
-#include <BLIB/Render/Buffers/StaticSSBO.hpp>
+#include <BLIB/Render/Buffers/BufferSingleDeviceLocalSourced.hpp>
 #include <BLIB/Render/Config/Constants.hpp>
 #include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
@@ -80,7 +80,7 @@ protected:
  */
 template<typename TCom, typename TPayload,
          typename TDynamicStorage = buf::BufferDoubleHostVisibleSourced<TPayload>,
-         typename TStaticStorage  = buf::StaticSSBO<TPayload>>
+         typename TStaticStorage  = buf::BufferSingleDeviceLocalSourcedSSBO<TPayload>>
 class EntityComponentShaderResource : public EntityComponentShaderResourceBase {
 public:
     /**

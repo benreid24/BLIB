@@ -7,6 +7,7 @@
 #include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Transfers/Transferable.hpp>
 #include <BLIB/Render/Vulkan/Buffer.hpp>
+#include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <algorithm>
 #include <array>
@@ -41,9 +42,10 @@ public:
      * @brief Creates the buffer wrapper
      */
     BindableBuffer()
-    : alignment(computeAlignment(sizeof(T), Align))
+    : alignment(sizeof(T))
     , dirtyRanges{}
-    , currentDirtyRange(0) {}
+    , currentDirtyRange(0)
+    , copyFullRange(false) {}
 
     /**
      * @brief Destroys the buffer wrapper
@@ -58,6 +60,7 @@ public:
      */
     void create(vk::VulkanState& vs, std::uint32_t numElements) {
         vulkanState = &vs;
+        alignment   = computeAlignment(sizeof(T), Align);
         doCreate(vs, numElements);
     }
 
@@ -142,12 +145,21 @@ public:
      */
     void markDirty(std::uint32_t i, std::uint32_t n = 1) {
         dirtyRanges[currentDirtyRange].markDirty(i, n);
+        queueTransfer();
     }
 
     /**
      * @brief Marks the entire buffer as dirty
      */
     void markFullDirty() { dirtyRanges.fill(DirtyRange(0, getSize())); }
+
+    /**
+     * @brief Sets whether to always copy the entire buffer on transfer. Default is false. When
+     *        false a dirty range is used instead
+     *
+     * @param copyFull True to copy the entire buffer, false to only copy the changed sections
+     */
+    void setCopyFullRange(bool copyFull) { copyFullRange = copyFull; }
 
 protected:
     /**
@@ -179,12 +191,16 @@ protected:
     /**
      * @brief Returns the range of elements marked dirty in the current frame
      */
-    const DirtyRange& getCurrentDirtyRange() const { return dirtyRanges[currentDirtyRange]; }
+    DirtyRange getCurrentDirtyRange() const {
+        return copyFullRange ? DirtyRange{0, getSize()} : dirtyRanges[currentDirtyRange];
+    }
 
     /**
      * @brief Returns the total range of elements marked dirty for all frames in flight
      */
     DirtyRange getAccumulatedDirtyRange() const {
+        if (copyFullRange) { return {0, getSize()}; }
+
         DirtyRange accum;
         for (const auto& r : dirtyRanges) { accum.combine(r); }
         return accum;
@@ -202,6 +218,7 @@ private:
     std::uint32_t alignment;
     std::array<DirtyRange, cfg::Limits::MaxConcurrentFrames> dirtyRanges;
     std::uint32_t currentDirtyRange;
+    bool copyFullRange;
 };
 
 } // namespace base

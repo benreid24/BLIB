@@ -19,6 +19,9 @@ enum struct Role {
     /// Buffer will be used as a uniform buffer
     UBO,
 
+    /// Buffer will be used as a UBO with each element being bindable
+    UBOBindSlots,
+
     /// Buffer will be used as a storage buffer
     SSBO
 };
@@ -38,6 +41,8 @@ struct RoleInfo {
         switch (BufferRole) {
         case Role::UBO:
             return Alignment::Std140;
+        case Role::UBOBindSlots:
+            return Alignment::UboBindOffset;
         case Role::SSBO:
             return Alignment::Std430;
         default:
@@ -51,6 +56,7 @@ struct RoleInfo {
     static constexpr VkBufferUsageFlagBits getUsage() {
         switch (BufferRole) {
         case Role::UBO:
+        case Role::UBOBindSlots:
             return VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT;
         case Role::SSBO:
             return VK_BUFFER_USAGE_STORAGE_BUFFER_BIT;

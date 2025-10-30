@@ -186,7 +186,7 @@ void Animation2DSystem::doSlideshowAdd(com::Animation2DPlayer& player) {
     else { slideshowPlayerCurrentFrameSSBO.assignRef(player.framePayload, player.playerIndex); }
     slideshowFrameOffsetSSBO[index]        = offset;
     slideshowPlayerCurrentFrameSSBO[index] = player.currentFrame;
-    slideshowFrameOffsetSSBO.expandTransferRange(index, 1);
+    slideshowFrameOffsetSSBO.markDirty(index, 1);
 
     // fetch texture to convert texCoords and set texture id
     rc::res::TextureRef texture = renderer.texturePool().getOrLoadTexture(
@@ -196,7 +196,7 @@ void Animation2DSystem::doSlideshowAdd(com::Animation2DPlayer& player) {
     player.texture = texture;
     slideshowTextureSSBO.ensureSize(index + 1);
     slideshowTextureSSBO[index] = texture.id();
-    slideshowTextureSSBO.expandTransferRange(index, 1);
+    slideshowTextureSSBO.markDirty(index, 1);
 
     // add frames to SSBO if required
     if (uploadFrames) {
@@ -213,7 +213,7 @@ void Animation2DSystem::doSlideshowAdd(com::Animation2DPlayer& player) {
                 texture->convertCoord({tex.left + tex.width, tex.top + tex.height});
             frame.texCoords[3] = texture->convertCoord({tex.left, tex.top + tex.height});
         }
-        slideshowFramesSSBO.expandTransferRange(offset, player.animation->frameCount());
+        slideshowFramesSSBO.markDirty(offset, player.animation->frameCount());
     }
     slideshowDataRefCounts[player.animation.get()] += 1;
 
@@ -251,7 +251,7 @@ void Animation2DSystem::updateSlideshowDescriptorSets() {
 
     // frame offset (binding 0)
     VkDescriptorBufferInfo frameOffsetWrite{};
-    frameOffsetWrite.buffer = slideshowFrameOffsetSSBO.gpuBufferHandle().getBuffer();
+    frameOffsetWrite.buffer = slideshowFrameOffsetSSBO.getCurrentFrameBuffer().getBuffer();
     frameOffsetWrite.offset = 0;
     frameOffsetWrite.range  = slideshowFrameOffsetSSBO.getTotalAlignedSize();
 
@@ -265,7 +265,7 @@ void Animation2DSystem::updateSlideshowDescriptorSets() {
 
     // texture id (binding 1)
     VkDescriptorBufferInfo textureIdWrite{};
-    textureIdWrite.buffer = slideshowTextureSSBO.gpuBufferHandle().getBuffer();
+    textureIdWrite.buffer = slideshowTextureSSBO.getCurrentFrameBuffer().getBuffer();
     textureIdWrite.offset = 0;
     textureIdWrite.range  = slideshowTextureSSBO.getTotalAlignedSize();
 
@@ -293,7 +293,7 @@ void Animation2DSystem::updateSlideshowDescriptorSets() {
 
     // frame data (binding 3)
     VkDescriptorBufferInfo frameDataWrite{};
-    frameDataWrite.buffer = slideshowFramesSSBO.gpuBufferHandle().getBuffer();
+    frameDataWrite.buffer = slideshowFramesSSBO.getCurrentFrameBuffer().getBuffer();
     frameDataWrite.offset = 0;
     frameDataWrite.range  = slideshowFramesSSBO.getTotalAlignedSize();
 

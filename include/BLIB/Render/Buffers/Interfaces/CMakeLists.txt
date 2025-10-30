@@ -3,4 +3,6 @@ target_sources(BLIB PUBLIC
 	BindableBufferDouble.hpp
 	BindableBufferDoubleSourced.hpp
 	BindableBufferDoubleStaged.hpp
+	BindableBufferSingle.hpp
+	BindableBufferSingleSourced.hpp
 )

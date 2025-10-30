@@ -117,7 +117,6 @@ void TransferEngine::Bucket::executeTransfers() {
                             imageBarriers);
     for (Transferable* item : everyFrameItems) {
         item->executeTransfer(commandBuffer.current(), context);
-        item->queued = false;
     }
     for (Transferable* item : oneTimeItems) {
         item->executeTransfer(commandBuffer.current(), context);

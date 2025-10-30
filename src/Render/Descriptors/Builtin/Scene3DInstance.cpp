@@ -126,7 +126,7 @@ void Scene3DInstance::init(ds::InitContext& ctx) {
         cameraWrite.descriptorType        = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
 
         VkDescriptorBufferInfo& lightInfoBufferInfo = setWriter.getNewBufferInfo();
-        lightInfoBufferInfo.buffer = lightBuffer->getBuffer().gpuBufferHandle().getBuffer();
+        lightInfoBufferInfo.buffer = lightBuffer->getBuffer().getCurrentFrameRawBuffer();
         lightInfoBufferInfo.offset = 0;
         lightInfoBufferInfo.range  = lightBuffer->getBuffer().getTotalAlignedSize();
 
@@ -139,7 +139,11 @@ void Scene3DInstance::init(ds::InitContext& ctx) {
     }
 
     setWriter.performWrite(renderer.vulkanState().device);
+
+    cameraBuffer->getBuffer().transferEveryFrame();
+    cameraBuffer->getBuffer().setCopyFullRange(true);
     lightBuffer->getBuffer().transferEveryFrame();
+    lightBuffer->getBuffer().setCopyFullRange(true);
 
     updateImageDescriptors();
 

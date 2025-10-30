@@ -78,7 +78,7 @@ void MaterialPool::init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
     refCounts.resize(MaxMaterialCount, 0);
 
     VkDescriptorBufferInfo bufferInfo;
-    bufferInfo.buffer = gpuPool.gpuBufferHandle().getBuffer();
+    bufferInfo.buffer = gpuPool.getCurrentFrameRawBuffer();
     bufferInfo.offset = 0;
     bufferInfo.range  = gpuPool.getTotalAlignedSize();
 
@@ -216,9 +216,10 @@ void MaterialPool::onFrameStart() {
             d.parallaxTextureId = m.getParallaxMap().id();
             d.heightScale       = m.getHeightScale();
             d.shininess         = m.getShininess();
+
+            gpuPool.markDirty(i);
         }
         toSync.clear();
-        gpuPool.queueTransfer(tfr::Transferable::SyncRequirement::Immediate);
     }
 }
 

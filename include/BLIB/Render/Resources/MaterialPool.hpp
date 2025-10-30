@@ -3,7 +3,7 @@
 
 #include <BLIB/Containers/RefPoolDirect.hpp>
 #include <BLIB/Models/Material.hpp>
-#include <BLIB/Render/Buffers/StaticUniformBuffer.hpp>
+#include <BLIB/Render/Buffers/BufferSingleDeviceLocalSourced.hpp>
 #include <BLIB/Render/Materials/Material.hpp>
 #include <BLIB/Render/Materials/MaterialDescriptor.hpp>
 #include <BLIB/Render/Resources/MaterialRef.hpp>
@@ -113,7 +113,7 @@ private:
 
     // material data
     std::vector<mat::Material> materials;
-    buf::StaticUniformBuffer<mat::MaterialDescriptor> gpuPool;
+    buf::BufferSingleDeviceLocalSourcedUBO<mat::MaterialDescriptor> gpuPool;
 
     // management data
     std::vector<std::uint32_t> refCounts;

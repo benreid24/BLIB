@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_SHADERRESOURCES_SHADOWMAPCAMERASHADERRESOURCE_HPP
 #define BLIB_RENDER_SHADERRESOURCES_SHADOWMAPCAMERASHADERRESOURCE_HPP
 
-#include <BLIB/Render/Buffers/StaticUniformBuffer.hpp>
+#include <BLIB/Render/Buffers/BufferSingleDeviceLocalSourced.hpp>
 #include <BLIB/Render/ShaderResources/BufferShaderResource.hpp>
 #include <BLIB/Render/ShaderResources/Key.hpp>
 #include <array>
@@ -28,10 +28,9 @@ struct ShadowMapCameraPayload {
  *
  * @ingroup Renderer
  */
-using ShadowMapCameraShaderResource =
-    sr::BufferShaderResource<buf::StaticUniformBuffer<ShadowMapCameraPayload>,
-                             cfg::Limits::MaxSpotShadows + cfg::Limits::MaxPointShadows,
-                             buf::Alignment::UboBindOffset>;
+using ShadowMapCameraShaderResource = sr::BufferShaderResource<
+    buf::BufferSingleDeviceLocalSourced<ShadowMapCameraPayload, buf::Role::UBOBindSlots>,
+    cfg::Limits::MaxSpotShadows + cfg::Limits::MaxPointShadows>;
 
 /**
  * @brief The name of the shadow map camera shader resource

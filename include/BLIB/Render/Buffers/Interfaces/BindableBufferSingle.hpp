@@ -1,8 +1,7 @@
-#ifndef BLIB_RENDER_BUFFERS_INTERFACES_BINDABLEBUFFERDOUBLE_HPP
-#define BLIB_RENDER_BUFFERS_INTERFACES_BINDABLEBUFFERDOUBLE_HPP
+#ifndef BLIB_RENDER_BUFFERS_INTERFACES_BINDABLEBUFFERSINGLE_HPP
+#define BLIB_RENDER_BUFFERS_INTERFACES_BINDABLEBUFFERSINGLE_HPP
 
 #include <BLIB/Render/Buffers/Interfaces/BindableBuffer.hpp>
-#include <BLIB/Render/Vulkan/PerFrame.hpp>
 
 namespace bl
 {
@@ -13,7 +12,7 @@ namespace buf
 namespace base
 {
 /**
- * @brief Double buffered buffer class that provides buffer management and direct access for mapped
+ * @brief Single buffered buffer class that provides buffer management and direct access for mapped
  *        buffers that are CPU visible
  *
  * @tparam T The payload type that the buffer will hold
@@ -27,9 +26,9 @@ namespace base
 template<typename T, Alignment Align, VkBufferUsageFlags Usage, VkMemoryPropertyFlags MemoryPool,
          VmaAllocationCreateFlags AllocFlags      = 0,
          VkMemoryPropertyFlags FallbackMemoryPool = MemoryPool>
-class BindableBufferDouble : public BindableBuffer<T, Align> {
+class BindableBufferSingle : public BindableBuffer<T, Align> {
 public:
-    /// Represents whether the buffers are persistently mapped or not
+    /// Represents whether the buffer is persistently mapped or not
     static constexpr bool IsMapped = (AllocFlags & VMA_ALLOCATION_CREATE_MAPPED_BIT) != 0;
 
     /// Represents whether the buffer may be directly written to or requires a staging buffer
@@ -39,48 +38,40 @@ public:
     /**
      * @brief Creates the buffer
      */
-    BindableBufferDouble()
+    BindableBufferSingle()
     : numElements(0) {}
 
     /**
-     * @brief Destroys the buffers
+     * @brief Destroys the buffer
      */
-    virtual ~BindableBufferDouble() = default;
+    virtual ~BindableBufferSingle() = default;
 
     /**
-     * @brief Resizes the buffers
+     * @brief Resizes the buffer
      *
      * @param size The new number of data elements to size for
      */
     virtual void resize(std::uint32_t size) override {
         numElements = size;
-        buffers.visit([this, size](vk::Buffer& buffer) {
-            buffer.ensureSize(this->getTotalAlignedSize(), false);
-        });
+        buffer.ensureSize(this->getTotalAlignedSize(), false);
     }
 
     /**
      * @brief Immediately destroys the buffers
      */
-    virtual void destroy() override {
-        buffers.cleanup([](vk::Buffer& buffer) { buffer.destroy(); });
-    }
+    virtual void destroy() override { buffer.destroy(); }
 
     /**
      * @brief Queues the buffers to be destroyed after MaxConcurrentFrames
      */
-    virtual void deferDestroy() override {
-        buffers.cleanup([](vk::Buffer& buffer) { buffer.deferDestruction(); });
-    }
+    virtual void deferDestroy() override { buffer.deferDestruction(); }
 
     /**
      * @brief Returns the underlying buffer for the given frame index
      *
-     * @param frameIndex The frame index to get the buffer for
+     * @param Unused
      */
-    virtual vk::Buffer& getBuffer(std::uint32_t frameIndex) override {
-        return buffers.getRaw(frameIndex);
-    }
+    virtual vk::Buffer& getBuffer(std::uint32_t) override { return buffer; }
 
     /**
      * @brief Returns the number of elements currently in the buffer
@@ -88,7 +79,7 @@ public:
     virtual std::uint32_t getSize() const override { return numElements; }
 
     /**
-     * @brief Fills the current frame buffer with the given value. Only call if the buffers are CPU
+     * @brief Fills the buffer with the given value. Only call if the buffers are CPU
      *        visible and mapped
      *
      * @tparam U Some type that can be assigned to T. Overload operator= if required
@@ -100,8 +91,8 @@ public:
             BL_LOG_ERROR << "Cannot directly write to non-mapped non-visible buffer";
         }
 
-        char* dst = static_cast<char*>(buffers.current().getMappedMemory());
-        char* end = dst + buffers.current().getSize();
+        char* dst = static_cast<char*>(buffer.getMappedMemory());
+        char* end = dst + buffer.getSize();
         while (dst != end) {
             T* slot = static_cast<T*>(static_cast<void*>(dst));
             *slot   = value;
@@ -110,8 +101,8 @@ public:
     }
 
     /**
-     * @brief Writes directly to the current frame buffer from the given source. Only call if the
-     *        buffers are CPU visible and mapped
+     * @brief Writes directly to the buffer from the given source. Only call if the
+     *        buffer is CPU visible and mapped
      *
      * @tparam U Some type that can be assigned to T. Overload operator= if required
      * @param base The first element to copy from
@@ -124,9 +115,9 @@ public:
             BL_LOG_ERROR << "Cannot directly write to non-mapped non-visible buffer";
         }
 
-        U* end    = base + len;
-        char* dst = static_cast<char*>(buffers.current().getMappedMemory()) +
-                    start * this->getAlignedElementSize();
+        U* end = base + len;
+        char* dst =
+            static_cast<char*>(buffer.getMappedMemory()) + start * this->getAlignedElementSize();
         while (base != end) {
             T* slot = static_cast<T*>(static_cast<void*>(dst));
             *slot   = *base;
@@ -147,8 +138,8 @@ public:
             BL_LOG_ERROR << "Cannot directly write to non-mapped non-visible buffer";
         }
 
-        char* raw = static_cast<char*>(buffers.current().getMappedMemory()) +
-                    i * this->getAlignedElementSize();
+        char* raw =
+            static_cast<char*>(buffer.getMappedMemory()) + i * this->getAlignedElementSize();
         return static_cast<T*>(static_cast<void*>(raw));
     }
 
@@ -156,12 +147,11 @@ public:
      * @brief Returns whether the selected memory pool allows the buffers to be directly written to
      */
     bool isDirectWritable() const {
-        return IsMapped &&
-               (buffers.current().getMemoryPool() & VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT) != 0;
+        return IsMapped && (buffer.getMemoryPool() & VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT) != 0;
     }
 
 protected:
-    vk::PerFrame<vk::Buffer> buffers;
+    vk::Buffer buffer;
 
     /**
      * @brief Creates the buffers. Should be called by derived classes if they override it
@@ -171,14 +161,12 @@ protected:
      */
     virtual void doCreate(vk::VulkanState& vulkanState, std::uint32_t n) {
         numElements = n;
-        buffers.init(vulkanState, [this, &vulkanState](vk::Buffer& buffer) {
-            buffer.createWithFallback(vulkanState,
-                                      this->getTotalAlignedSize(),
-                                      MemoryPool,
-                                      FallbackMemoryPool,
-                                      Usage,
-                                      AllocFlags);
-        });
+        buffer.createWithFallback(vulkanState,
+                                  this->getTotalAlignedSize(),
+                                  MemoryPool,
+                                  FallbackMemoryPool,
+                                  Usage,
+                                  AllocFlags);
     }
 
 private:

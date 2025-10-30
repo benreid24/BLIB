@@ -2,8 +2,7 @@
 #define BLIB_RENDER_RESOURCES_GLOBALDESCRIPTORS_HPP
 
 #include <BLIB/Render/Buffers/BufferDoubleStaged.hpp>
-#include <BLIB/Render/Buffers/StaticSSBO.hpp>
-#include <BLIB/Render/Buffers/StaticUniformBuffer.hpp>
+#include <BLIB/Render/Buffers/BufferSingleDeviceLocalSourced.hpp>
 #include <BLIB/Render/Descriptors/SetWriteHelper.hpp>
 #include <BLIB/Render/Settings.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
@@ -101,7 +100,7 @@ public:
     /**
      * @brief Returns the ssbo for the dynamic settings
      */
-    buf::StaticSSBO<DynamicSettingsUniform>& getDynamicSettingsBuffer() {
+    buf::BufferSingleDeviceLocalSourcedSSBO<DynamicSettingsUniform>& getDynamicSettingsBuffer() {
         return dynamicSettingsBuffer;
     }
 
@@ -124,9 +123,9 @@ private:
     Renderer& renderer;
     TexturePool& texturePool;
     MaterialPool& materialPool;
-    buf::StaticUniformBuffer<SettingsUniform> settingsBuffer;
+    buf::BufferSingleDeviceLocalSourced<SettingsUniform, buf::Role::UBOBindSlots> settingsBuffer;
     buf::BufferDoubleStagedUBO<FrameDataUniform> frameDataBuffer;
-    buf::StaticSSBO<DynamicSettingsUniform> dynamicSettingsBuffer;
+    buf::BufferSingleDeviceLocalSourcedSSBO<DynamicSettingsUniform> dynamicSettingsBuffer;
     FrameDataUniform accumulatedTimings;
     sf::Clock frameTimer;
 

@@ -16,12 +16,13 @@ void ShadowMapBinding::init(vk::VulkanState&, ds::InitContext& ctx) {
     storage =
         ctx.sceneShaderResources.getShaderResourceWithKey(sri::ShadowMapCameraShaderResourceKey);
     storage->getBuffer().transferEveryFrame();
+    storage->getBuffer().setCopyFullRange(true);
 }
 
 void ShadowMapBinding::writeSet(ds::SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed,
-                                std::uint32_t) {
+                                std::uint32_t fi) {
     VkDescriptorBufferInfo& bufferInfo = writer.getNewBufferInfo();
-    bufferInfo.buffer                  = storage->getBuffer().gpuBufferHandle().getBuffer();
+    bufferInfo.buffer                  = storage->getBuffer().getRawBuffer(fi);
     bufferInfo.offset                  = 0;
     bufferInfo.range                   = sizeof(sri::ShadowMapCameraPayload);
 
@@ -54,9 +55,9 @@ std::uint32_t ShadowMapBinding::getDynamicOffsetForPipeline(scene::SceneRenderCo
     case scene::ctx::ShadowMapContext::SunLight:
         return 0;
     case scene::ctx::ShadowMapContext::SpotLight:
-        return storage->getBuffer().alignedUniformSize() * (shadowCtx->lightIndex + 1);
+        return storage->getBuffer().getAlignedElementSize() * (shadowCtx->lightIndex + 1);
     case scene::ctx::ShadowMapContext::PointLight:
-        return storage->getBuffer().alignedUniformSize() *
+        return storage->getBuffer().getAlignedElementSize() *
                (shadowCtx->lightIndex + cfg::Limits::MaxSpotShadows);
     default:
         return 0;

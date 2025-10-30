@@ -48,12 +48,14 @@ void AutoExposureAdjustTask::execute(const rg::ExecutionContext& ctx, rg::Asset*
     // asset inserts barrier for read -> write next frame
 
     // block postfx read until done write
-    renderer->getGlobalDescriptorData().getDynamicSettingsBuffer().gpuBufferHandle().recordBarrier(
-        ctx.commandBuffer,
-        VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT,
-        VK_ACCESS_SHADER_WRITE_BIT,
-        VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT,
-        VK_ACCESS_SHADER_READ_BIT);
+    renderer->getGlobalDescriptorData()
+        .getDynamicSettingsBuffer()
+        .getCurrentFrameBuffer()
+        .recordBarrier(ctx.commandBuffer,
+                       VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT,
+                       VK_ACCESS_SHADER_WRITE_BIT,
+                       VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT,
+                       VK_ACCESS_SHADER_READ_BIT);
 }
 
 void AutoExposureAdjustTask::update(float) {}

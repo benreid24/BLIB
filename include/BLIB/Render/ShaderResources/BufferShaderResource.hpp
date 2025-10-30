@@ -18,11 +18,9 @@ namespace sr
  *
  * @tparam TBuffer The type of buffer to create
  * @tparam DefaultCapacity Optional size to create the buffer with on init
- * @tparam DefaultAlignment The alignment to create the buffer with by default
  * @ingroup Renderer
  */
-template<typename TBuffer, std::uint32_t DefaultCapacity,
-         buf::Alignment DefaultAlignment = buf::Alignment::Std140>
+template<typename TBuffer, std::uint32_t DefaultCapacity>
 class BufferShaderResource : public ShaderResource {
 public:
     /**
@@ -43,16 +41,7 @@ public:
      */
     virtual void init(engine::Engine& engine) override {
         vulkanState = &engine::HeaderHelpers::getVulkanState(engine);
-        if constexpr (DefaultCapacity > 0) {
-            if constexpr (std::is_invocable_v<decltype(&TBuffer::create),
-                                              TBuffer&,
-                                              vk::VulkanState&,
-                                              std::uint32_t,
-                                              buf::Alignment>) {
-                buffer.create(*vulkanState, DefaultCapacity, DefaultAlignment);
-            }
-            else { buffer.create(*vulkanState, DefaultCapacity); }
-        }
+        if constexpr (DefaultCapacity > 0) { buffer.create(*vulkanState, DefaultCapacity); }
     }
 
     /**

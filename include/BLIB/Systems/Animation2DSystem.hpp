@@ -7,8 +7,8 @@
 #include <BLIB/ECS/Events.hpp>
 #include <BLIB/Engine/System.hpp>
 #include <BLIB/Render/Buffers/BufferDoubleHostVisibleSourced.hpp>
+#include <BLIB/Render/Buffers/BufferSingleDeviceLocalSourced.hpp>
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
-#include <BLIB/Render/Buffers/StaticSSBO.hpp>
 #include <BLIB/Render/Vulkan/DescriptorSet.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Signals/Listener.hpp>
@@ -88,10 +88,14 @@ private:
     std::unordered_map<const gfx::a2d::AnimationData*, std::uint32_t> slideshowDataRefCounts;
     util::IdAllocatorUnbounded<std::uint32_t> slideshowPlayerIds;
     util::RangeAllocatorUnbounded<std::uint32_t> slideshowFrameRangeAllocator;
-    rc::buf::StaticSSBO<SlideshowFrame> slideshowFramesSSBO;     // all anim frames
-    rc::buf::StaticSSBO<std::uint32_t> slideshowFrameOffsetSSBO; // playerIndex -> frame index
-    rc::buf::StaticSSBO<std::uint32_t> slideshowTextureSSBO;     // playerIndex -> texture id
-    rc::buf::BufferDoubleHostVisibleSourced<std::uint32_t> slideshowPlayerCurrentFrameSSBO; //     -> current frame
+    rc::buf::BufferSingleDeviceLocalSourcedSSBO<SlideshowFrame>
+        slideshowFramesSSBO; // all anim frames
+    rc::buf::BufferSingleDeviceLocalSourcedSSBO<std::uint32_t>
+        slideshowFrameOffsetSSBO; // playerIndex -> frame index
+    rc::buf::BufferSingleDeviceLocalSourcedSSBO<std::uint32_t>
+        slideshowTextureSSBO; // playerIndex -> texture id
+    rc::buf::BufferDoubleHostVisibleSourced<std::uint32_t>
+        slideshowPlayerCurrentFrameSSBO; //     -> current frame
     rc::vk::PerFrame<rc::vk::DescriptorSet> slideshowDescriptorSets;
     std::uint8_t slideshowRefreshRequired;
     std::uint8_t slideshowLastFrameUpdated; // renderer frame index to prevent multiple updates

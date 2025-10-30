@@ -5,9 +5,8 @@ target_sources(BLIB PUBLIC
 	BufferDoubleHostVisibleSourced.hpp
 	BufferDoubleHostVisible.hpp
 	BufferDoubleStaged.hpp
+	BufferSingleDeviceLocalSourced.hpp
 	IndexBuffer.hpp
-	StaticSSBO.hpp
-	StaticUniformBuffer.hpp
 	VertexBuffer.hpp
 )
 

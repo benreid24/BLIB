@@ -49,6 +49,7 @@ void Transferable::transferEveryFrame(SyncRequirement syncReq) {
     }
 #endif
 
+    queued   = true;
     perFrame = syncReq;
     vulkanState->transferEngine.registerPerFrameTransfer(this, syncReq);
 }
@@ -62,6 +63,7 @@ void Transferable::stopTransferringEveryFrame() {
 
     vulkanState->transferEngine.unregisterPerFrameTransfer(this, perFrame);
     perFrame = NotPerFrame;
+    queued   = false;
 }
 
 } // namespace tfr

@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_LIGHTING_LIGHTINGDESCRIPTOR3D_HPP
 #define BLIB_RENDER_LIGHTING_LIGHTINGDESCRIPTOR3D_HPP
 
-#include <BLIB/Render/Buffers/StaticUniformBuffer.hpp>
+#include <BLIB/Render/Buffers/BufferSingleDeviceLocalSourced.hpp>
 #include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Lighting/PointLight3D.hpp>
 #include <BLIB/Render/Lighting/PointLight3DShadow.hpp>
@@ -57,7 +57,7 @@ namespace sri
  * @ingroup Renderer
  */
 using LightingBuffer3D =
-    sr::BufferShaderResource<buf::StaticUniformBuffer<lgt::LightingDescriptor3D>, 1>;
+    sr::BufferShaderResource<buf::BufferSingleDeviceLocalSourcedUBO<lgt::LightingDescriptor3D>, 1>;
 
 constexpr sr::Key<LightingBuffer3D> Scene3DLightingKey("__builtin_Scene3DLighting");
 } // namespace sri

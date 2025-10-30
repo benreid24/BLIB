@@ -123,18 +123,14 @@ template<typename TShaderResource, sr::Key<TShaderResource> ResourceKey, sr::Sto
          VkDescriptorType DescriptorType>
 bool BufferBinding<TShaderResource, ResourceKey, ResourceStore,
                    DescriptorType>::staticDescriptorUpdateRequired() const {
-    return false;
-    // TODO - uncomment when all buffers on new interface
-    // return buffer->getBuffer().getCurrentFrameRawBuffer() != boundStatic.current();
+    return buffer->getBuffer().getCurrentFrameRawBuffer() != boundStatic.current();
 }
 
 template<typename TShaderResource, sr::Key<TShaderResource> ResourceKey, sr::StoreKey ResourceStore,
          VkDescriptorType DescriptorType>
 bool BufferBinding<TShaderResource, ResourceKey, ResourceStore,
                    DescriptorType>::dynamicDescriptorUpdateRequired() const {
-    return false;
-    // TODO - uncomment when all buffers on new interface
-    // return buffer->getBuffer().getCurrentFrameRawBuffer() != boundDynamic.current();
+    return buffer->getBuffer().getCurrentFrameRawBuffer() != boundDynamic.current();
 }
 
 } // namespace ds

@@ -1,7 +1,6 @@
 #ifndef BLIB_RENDER_DESCRIPTORS_SCENE2DINSTANCE_HPP
 #define BLIB_RENDER_DESCRIPTORS_SCENE2DINSTANCE_HPP
 
-#include <BLIB/Render/Buffers/StaticUniformBuffer.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Lighting/Scene2DLighting.hpp>
 #include <BLIB/Render/ShaderResources/CameraBufferShaderResource.hpp>

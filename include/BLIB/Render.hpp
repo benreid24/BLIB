@@ -13,7 +13,7 @@
 #include <BLIB/Render/Buffers/BufferDoubleHostVisibleSourced.hpp>
 #include <BLIB/Render/Buffers/BufferDoubleStaged.hpp>
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
-#include <BLIB/Render/Buffers/StaticSSBO.hpp>
+#include <BLIB/Render/Buffers/BufferSingleDeviceLocalSourced.hpp>
 #include <BLIB/Render/Color.hpp>
 #include <BLIB/Render/Components/DescriptorComponentBase.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
