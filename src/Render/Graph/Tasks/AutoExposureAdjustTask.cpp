@@ -50,6 +50,7 @@ void AutoExposureAdjustTask::execute(const rg::ExecutionContext& ctx, rg::Asset*
     // block postfx read until done write
     renderer->getGlobalDescriptorData()
         .getDynamicSettingsBuffer()
+        .getBuffer()
         .getCurrentFrameBuffer()
         .recordBarrier(ctx.commandBuffer,
                        VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT,

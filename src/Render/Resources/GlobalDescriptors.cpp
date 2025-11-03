@@ -121,16 +121,17 @@ void GlobalDescriptors::init() {
     materialPool.init(descriptorSets, rtDescriptorSets);
 
     // write descriptor set with settings uniform
-    frameDataBuffer.create(vulkanState, 1);
-    settingsBuffer.create(vulkanState, 2);
-    dynamicSettingsBuffer.create(vulkanState, 1);
+    auto& pool              = renderer.getGlobalShaderResources();
+    settingsResource        = pool.getShaderResourceWithKey(sri::SettingsUniformResourceKey);
+    frameTimeResource       = pool.getShaderResourceWithKey(sri::FrameDataUniformResourceKey);
+    dynamicSettingsResource = pool.getShaderResourceWithKey(sri::DynamicSettingsUniformResourceKey);
     ds::SetWriteHelper writer;
     const auto writeGlobalsSet = [this, &writer](VkDescriptorSet set, std::uint32_t i, bool forRt) {
         // frame data
         auto& frameDataBufferInfo  = writer.getNewBufferInfo();
-        frameDataBufferInfo.buffer = frameDataBuffer.getRawBuffer(i);
+        frameDataBufferInfo.buffer = frameTimeResource->getBuffer().getRawBuffer(i);
         frameDataBufferInfo.offset = 0;
-        frameDataBufferInfo.range  = frameDataBuffer.getAlignedElementSize();
+        frameDataBufferInfo.range  = frameTimeResource->getBuffer().getAlignedElementSize();
 
         auto& frameDataWrite           = writer.getNewSetWrite(set);
         frameDataWrite.descriptorCount = 1;
@@ -141,9 +142,10 @@ void GlobalDescriptors::init() {
 
         // settings
         auto& settingsBufferInfo  = writer.getNewBufferInfo();
-        settingsBufferInfo.buffer = settingsBuffer.getCurrentFrameRawBuffer();
-        settingsBufferInfo.offset = forRt ? settingsBuffer.getAlignedElementSize() : 0;
-        settingsBufferInfo.range  = settingsBuffer.getAlignedElementSize();
+        settingsBufferInfo.buffer = settingsResource->getBuffer().getCurrentFrameRawBuffer();
+        settingsBufferInfo.offset =
+            forRt ? settingsResource->getBuffer().getAlignedElementSize() : 0;
+        settingsBufferInfo.range  = settingsResource->getBuffer().getAlignedElementSize();
 
         auto& settingsWrite           = writer.getNewSetWrite(set);
         settingsWrite.descriptorCount = 1;
@@ -155,9 +157,9 @@ void GlobalDescriptors::init() {
         // dynamic settings
         auto& dynamicSettingsBufferInfo = writer.getNewBufferInfo();
         dynamicSettingsBufferInfo.buffer =
-            dynamicSettingsBuffer.getCurrentFrameBuffer().getBuffer();
+            dynamicSettingsResource->getBuffer().getCurrentFrameBuffer().getBuffer();
         dynamicSettingsBufferInfo.offset = 0;
-        dynamicSettingsBufferInfo.range  = dynamicSettingsBuffer.getTotalAlignedSize();
+        dynamicSettingsBufferInfo.range  = dynamicSettingsResource->getBuffer().getTotalAlignedSize();
 
         auto& dynamicSettingsWrite           = writer.getNewSetWrite(set);
         dynamicSettingsWrite.descriptorCount = 1;
@@ -167,11 +169,11 @@ void GlobalDescriptors::init() {
         dynamicSettingsWrite.descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
     };
 
-    settingsBuffer.setCopyFullRange(true);
-    dynamicSettingsBuffer.setCopyFullRange(true);
+    settingsResource->getBuffer().setCopyFullRange(true);
+    dynamicSettingsResource->getBuffer().setCopyFullRange(true);
 
-    frameDataBuffer.transferEveryFrame();
-    frameDataBuffer.setCopyFullRange(true);
+    frameTimeResource->getBuffer().transferEveryFrame();
+    frameTimeResource->getBuffer().setCopyFullRange(true);
 
     i = 0;
     descriptorSets.visit(
@@ -186,9 +188,6 @@ void GlobalDescriptors::init() {
 void GlobalDescriptors::cleanup() {
     texturePool.cleanup();
     materialPool.cleanup();
-    frameDataBuffer.destroy();
-    settingsBuffer.destroy();
-    dynamicSettingsBuffer.destroy();
 
     vkDestroyDescriptorPool(renderer.vulkanState().device, descriptorPool, nullptr);
     vkDestroyDescriptorSetLayout(renderer.vulkanState().device, descriptorSetLayout, nullptr);
@@ -202,7 +201,7 @@ void GlobalDescriptors::onFrameStart() {
     accumulatedTimings.realFrameDt = frameTimer.restart().asSeconds();
     accumulatedTimings.frameDt     = accumulatedTimings.realFrameDt * engine.getTimeScale();
     frameTimer.restart();
-    frameDataBuffer.writeDirect(&accumulatedTimings, 1, 0);
+    frameTimeResource->getBuffer().writeDirect(&accumulatedTimings, 1, 0);
     accumulatedTimings = {};
 }
 
@@ -216,17 +215,17 @@ void GlobalDescriptors::notifyUpdateTick(float dt, float realDt, float residual,
 
 void GlobalDescriptors::updateSettings(const Settings& settings) {
     // reset current hdr exposure level
-    dynamicSettingsBuffer[0].currentHdrExposure = settings.getExposureFactor();
-    dynamicSettingsBuffer.queueTransfer();
+    dynamicSettingsResource->getBuffer()[0].currentHdrExposure = settings.getExposureFactor();
+    dynamicSettingsResource->getBuffer().queueTransfer();
 
     // populate global settings
-    settingsBuffer[0].gamma       = settings.getGamma();
-    settingsBuffer[0].hdrSettings = settings.getAutoHDRSettings();
+    settingsResource->getBuffer()[0].gamma       = settings.getGamma();
+    settingsResource->getBuffer()[0].hdrSettings = settings.getAutoHDRSettings();
 
     // handle render texture specific settings
-    settingsBuffer[1]       = settingsBuffer[0];
-    settingsBuffer[1].gamma = 1.f; // cancel out gamma correction
-    settingsBuffer.queueTransfer();
+    settingsResource->getBuffer()[1]       = settingsResource->getBuffer()[0];
+    settingsResource->getBuffer()[1].gamma = 1.f; // cancel out gamma correction
+    settingsResource->getBuffer().queueTransfer();
 }
 
 } // namespace res

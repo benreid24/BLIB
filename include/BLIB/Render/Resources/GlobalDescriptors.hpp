@@ -1,10 +1,8 @@
 #ifndef BLIB_RENDER_RESOURCES_GLOBALDESCRIPTORS_HPP
 #define BLIB_RENDER_RESOURCES_GLOBALDESCRIPTORS_HPP
 
-#include <BLIB/Render/Buffers/BufferDoubleStaged.hpp>
-#include <BLIB/Render/Buffers/BufferSingleDeviceLocalSourced.hpp>
 #include <BLIB/Render/Descriptors/SetWriteHelper.hpp>
-#include <BLIB/Render/Settings.hpp>
+#include <BLIB/Render/ShaderResources/GlobalDataResource.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <SFML/System/Clock.hpp>
@@ -32,10 +30,6 @@ class MaterialPool;
  */
 class GlobalDescriptors {
 public:
-    struct DynamicSettingsUniform {
-        float currentHdrExposure;
-    };
-
     /**
      * @brief Creates the renderer global descriptors
      *
@@ -100,33 +94,19 @@ public:
     /**
      * @brief Returns the ssbo for the dynamic settings
      */
-    buf::BufferSingleDeviceLocalSourcedSSBO<DynamicSettingsUniform>& getDynamicSettingsBuffer() {
-        return dynamicSettingsBuffer;
+    sri::DynamicSettingsUniformResource& getDynamicSettingsBuffer() {
+        return *dynamicSettingsResource;
     }
 
 private:
-    struct SettingsUniform {
-        Settings::AutoHdrSettings hdrSettings;
-        float gamma;
-    };
-
-    struct FrameDataUniform {
-        float dt;
-        float realDt;
-        float residual;
-        float realResidual;
-        float frameDt;
-        float realFrameDt;
-    };
-
     engine::Engine& engine;
     Renderer& renderer;
     TexturePool& texturePool;
     MaterialPool& materialPool;
-    buf::BufferSingleDeviceLocalSourced<SettingsUniform, buf::Role::UBOBindSlots> settingsBuffer;
-    buf::BufferDoubleStagedUBO<FrameDataUniform> frameDataBuffer;
-    buf::BufferSingleDeviceLocalSourcedSSBO<DynamicSettingsUniform> dynamicSettingsBuffer;
-    FrameDataUniform accumulatedTimings;
+    sri::SettingsUniformResource* settingsResource;
+    sri::FrameDataUniformResource* frameTimeResource;
+    sri::DynamicSettingsUniformResource* dynamicSettingsResource;
+    sri::FrameDataUniformPayload accumulatedTimings;
     sf::Clock frameTimer;
 
     VkDescriptorPool descriptorPool;
