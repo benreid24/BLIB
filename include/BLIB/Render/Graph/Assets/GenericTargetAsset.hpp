@@ -8,9 +8,9 @@
 #include <BLIB/Render/Graph/Assets/DepthBuffer.hpp>
 #include <BLIB/Render/Graph/Assets/FramebufferAsset.hpp>
 #include <BLIB/Render/Graph/Assets/RenderPassBehavior.hpp>
-#include <BLIB/Render/Graph/Assets/TargetSize.hpp>
 #include <BLIB/Render/Settings.hpp>
 #include <BLIB/Render/ShaderResources/MSAABehavior.hpp>
+#include <BLIB/Render/ShaderResources/TargetSize.hpp>
 #include <BLIB/Render/Vulkan/AttachmentImageSet.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
@@ -72,7 +72,7 @@ public:
                        const std::array<vk::SemanticTextureFormat, AttachmentCount>& imageFormats,
                        const std::array<VkImageUsageFlags, AttachmentCount>& imageUsages,
                        const std::array<VkClearValue, RenderedAttachmentCount>& clearColors,
-                       const TargetSize& size)
+                       const sri::TargetSize& size)
     : FramebufferAsset(tag, terminal, RenderPassId, cachedViewport, cachedScissor,
                        clearColors.data(), RenderedAttachmentCount)
     , size(size)
@@ -127,7 +127,7 @@ public:
     virtual vk::Framebuffer& getFramebuffer(std::uint32_t) override { return framebuffer; }
 
 private:
-    const TargetSize size;
+    const sri::TargetSize size;
     Renderer* renderer;
     const std::array<vk::SemanticTextureFormat, AttachmentCount> attachmentFormats;
     const std::array<VkImageUsageFlags, AttachmentCount> attachmentUsages;
@@ -176,7 +176,7 @@ private:
 
     virtual void onResize(glm::u32vec2 newSize) override {
         switch (size.type) {
-        case TargetSize::FixedSize:
+        case sri::TargetSize::FixedSize:
             // bail if our size already matches
             if (cachedScissor.extent.width == size.size.x &&
                 cachedScissor.extent.height == size.size.y) {
@@ -188,14 +188,14 @@ private:
             cachedViewport.height       = static_cast<float>(size.size.y);
             break;
 
-        case TargetSize::ObserverSize:
+        case sri::TargetSize::ObserverSize:
             cachedScissor.extent.width  = newSize.x;
             cachedScissor.extent.height = newSize.y;
             cachedViewport.width        = static_cast<float>(newSize.x);
             cachedViewport.height       = static_cast<float>(newSize.y);
             break;
 
-        case TargetSize::ObserverSizeRatio:
+        case sri::TargetSize::ObserverSizeRatio:
             cachedViewport.width        = static_cast<float>(newSize.x) * size.ratio.x;
             cachedViewport.height       = static_cast<float>(newSize.y) * size.ratio.y;
             cachedScissor.extent.width  = static_cast<std::uint32_t>(cachedViewport.width);

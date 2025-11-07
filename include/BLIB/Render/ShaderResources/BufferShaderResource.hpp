@@ -38,8 +38,9 @@ public:
      * @brief Creates the buffer if DefaultCapacity is non-zero
      *
      * @param engine The gam engine instance
+     * @param Unused
      */
-    virtual void init(engine::Engine& engine) override {
+    virtual void init(engine::Engine& engine, RenderTarget&) override {
         vulkanState = &engine::HeaderHelpers::getVulkanState(engine);
         if constexpr (DefaultCapacity > 0) { buffer.create(*vulkanState, DefaultCapacity); }
     }

@@ -52,7 +52,7 @@ public:
 private:
     Settings* settings;
 
-    virtual void init(engine::Engine& engine) override;
+    virtual void init(engine::Engine& engine, RenderTarget& owner) override;
     virtual void process(const event::SettingsChanged& event) override;
 
     void populateAndTransfer();

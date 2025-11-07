@@ -1,11 +1,13 @@
-#ifndef BLIB_RENDER_GRAPH_ASSETS_TARGETSIZE_HPP
-#define BLIB_RENDER_GRAPH_ASSETS_TARGETSIZE_HPP
+#ifndef BLIB_RENDER_SHADERRESOURCES_TARGETSIZE_HPP
+#define BLIB_RENDER_SHADERRESOURCES_TARGETSIZE_HPP
+
+#include <glm/glm.hpp>
 
 namespace bl
 {
 namespace rc
 {
-namespace rgi
+namespace sri
 {
 /**
  * @brief Basic struct defining the size of an offscreen target
@@ -30,7 +32,7 @@ struct TargetSize {
      *
      * @param type The type of control
      */
-    TargetSize(Type type = ObserverSize)
+    constexpr TargetSize(Type type = ObserverSize)
     : type(type)
     , ratio{} {}
 
@@ -40,7 +42,7 @@ struct TargetSize {
      * @param type The type of control
      * @param size The size to use
      */
-    TargetSize(Type type, glm::u32vec2 size)
+    constexpr TargetSize(Type type, glm::u32vec2 size)
     : type(type)
     , size(size) {}
 
@@ -50,7 +52,7 @@ struct TargetSize {
      * @param type The type of control
      * @param ratio The ratio to use
      */
-    TargetSize(Type type, glm::vec2 ratio)
+    constexpr TargetSize(Type type, glm::vec2 ratio)
     : type(type)
     , ratio(ratio) {}
 
@@ -62,16 +64,36 @@ struct TargetSize {
     TargetSize(const TargetSize& copy)
     : type(copy.type) {
         switch (Type::FixedSize) {
-        case bl::rc::rgi::TargetSize::ObserverSizeRatio:
+        case Type::ObserverSizeRatio:
             ratio = copy.ratio;
             break;
-        case bl::rc::rgi::TargetSize::FixedSize:
+        case Type::FixedSize:
             size = copy.size;
             break;
-        case bl::rc::rgi::TargetSize::ObserverSize:
+        case Type::ObserverSize:
         default:
             size = {};
             break;
+        }
+    }
+
+    /**
+     * @brief Helper method to get the size of an attachment from the size config
+     *
+     * @param observerSize The resolution of the observer space
+     * @return The size to make the attachment
+     */
+    glm::u32vec2 getSize(glm::u32vec2 observerSize) const {
+        switch (type) {
+        case Type::FixedSize:
+            return size;
+
+        case Type::ObserverSizeRatio:
+            return glm::u32vec2(glm::vec2(observerSize) * ratio);
+
+        case Type::ObserverSize:
+        default:
+            return observerSize;
         }
     }
 
@@ -81,7 +103,7 @@ struct TargetSize {
         glm::vec2 ratio;
     };
 };
-} // namespace rgi
+} // namespace sri
 } // namespace rc
 } // namespace bl
 

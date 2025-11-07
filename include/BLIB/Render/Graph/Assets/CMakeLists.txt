@@ -14,5 +14,4 @@ target_sources(BLIB PUBLIC
 	SSAOAsset.hpp
 	StandardTargetAsset.hpp
 	TaggedEmptyAsset.hpp
-	TargetSize.hpp
 )

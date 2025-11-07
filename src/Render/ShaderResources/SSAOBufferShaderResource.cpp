@@ -30,8 +30,8 @@ std::uint32_t getSampleCount(Settings::SSAO ssao) {
 float lerp(float a, float b, float f) { return a + f * (b - a); }
 } // namespace
 
-void SSAOBufferShaderResource::init(engine::Engine& engine) {
-    BufferShaderResource::init(engine);
+void SSAOBufferShaderResource::init(engine::Engine& engine, RenderTarget& owner) {
+    BufferShaderResource::init(engine, owner);
     BufferShaderResource::getBuffer().setCopyFullRange(true);
     settings = &engine.renderer().getSettings();
     subscribe(engine.renderer().getSignalChannel());

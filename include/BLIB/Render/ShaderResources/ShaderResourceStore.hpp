@@ -37,8 +37,9 @@ public:
      * @brief Creates a new shader input store
      *
      * @param engine The game engine instance
+     * @param owner The render target that is the owner of this resource store
      */
-    ShaderResourceStore(engine::Engine& engine);
+    ShaderResourceStore(engine::Engine& engine, RenderTarget& owner);
 
     /**
      * @brief Release resources
@@ -92,6 +93,7 @@ public:
 
 private:
     engine::Engine& engine;
+    RenderTarget& owner;
     std::unordered_map<std::string, std::unique_ptr<ShaderResource>> cache;
 
     void initInput(ShaderResource& input);

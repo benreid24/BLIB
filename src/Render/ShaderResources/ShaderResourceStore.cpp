@@ -8,8 +8,9 @@ namespace rc
 {
 namespace sr
 {
-ShaderResourceStore::ShaderResourceStore(engine::Engine& engine)
-: engine(engine) {}
+ShaderResourceStore::ShaderResourceStore(engine::Engine& engine, RenderTarget& owner)
+: engine(engine)
+, owner(owner) {}
 
 ShaderResourceStore::~ShaderResourceStore() { cleanup(); }
 
@@ -26,7 +27,7 @@ void ShaderResourceStore::updateFromSources() {
     for (auto& pair : cache) { pair.second->copyFromSource(); }
 }
 
-void ShaderResourceStore::initInput(ShaderResource& input) { input.init(engine); }
+void ShaderResourceStore::initInput(ShaderResource& input) { input.init(engine, owner); }
 
 } // namespace sr
 } // namespace rc

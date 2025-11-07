@@ -13,6 +13,7 @@ class Engine;
 namespace rc
 {
 class Scene;
+class RenderTarget;
 
 namespace vk
 {
@@ -39,8 +40,9 @@ public:
      * @brief Derived classes should allocate resources here
      *
      * @param engine The game engine instance
+     * @param owner The render target that owns the resource
      */
-    virtual void init(engine::Engine& engine) = 0;
+    virtual void init(engine::Engine& engine, RenderTarget& owner) = 0;
 
     /**
      * @brief Derived classes should release resources here

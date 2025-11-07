@@ -42,7 +42,7 @@ RenderTarget::RenderTarget(engine::Engine& e, Renderer& r, rg::AssetFactory& f, 
 , renderer(r)
 , graphAssets(f, this)
 , descriptorFactories(renderer.descriptorFactoryCache())
-, shaderResources(e)
+, shaderResources(e, *this)
 , resourcesFreed(false)
 , renderingTo(nullptr) {
     viewport.minDepth = 0.f;

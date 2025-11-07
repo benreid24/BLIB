@@ -13,7 +13,7 @@ namespace rc
 Scene::Scene(engine::Engine& engine)
 : engine(engine)
 , renderer(engine.renderer())
-, shaderInputStore(engine)
+, shaderInputStore(engine, engine.renderer().getCommonObserver())
 , staticPipelines(cfg::Constants::DefaultSceneObjectCapacity, nullptr)
 , dynamicPipelines(cfg::Constants::DefaultSceneObjectCapacity, nullptr)
 , syncedResourcesOnFrame(cfg::Limits::MaxConcurrentFrames + 1)

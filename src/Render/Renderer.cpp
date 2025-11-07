@@ -42,7 +42,7 @@ Renderer::Renderer(engine::Engine& engine, engine::EngineWindow& window)
 , imageExporter(*this)
 , splitscreenDirection(SplitscreenDirection::TopAndBottom)
 , commonObserver(engine, *this, assetFactory, true, false)
-, globalShaderResources(engine)
+, globalShaderResources(engine, commonObserver)
 , sceneSync(engine.ecs()) {
     renderTextures.reserve(16);
     clearColors[0].color        = {{0.f, 0.f, 0.f, 1.f}};
@@ -93,7 +93,7 @@ void Renderer::initialize() {
     assetFactory.addProvider<rgi::StandardTargetProvider>(
         {rg::AssetTags::RenderedSceneOutput, rg::AssetTags::PostFXOutput},
         false,
-        rgi::TargetSize(rgi::TargetSize::ObserverSize),
+        sri::TargetSize(sri::TargetSize::ObserverSize),
         std::array<vk::SemanticTextureFormat, 1>{vk::SemanticTextureFormat::Color},
         std::array<VkImageUsageFlags, 1>{VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT |
                                          VK_IMAGE_USAGE_SAMPLED_BIT},
@@ -103,7 +103,7 @@ void Renderer::initialize() {
         rg::AssetTags::BloomColorAttachmentPair,
         false,
         false,
-        rgi::TargetSize(rgi::TargetSize::ObserverSize),
+        sri::TargetSize(sri::TargetSize::ObserverSize),
         std::array<vk::SemanticTextureFormat, 1>{vk::SemanticTextureFormat::SFloatR16G16B16A16},
         std::array<VkImageUsageFlags, 1>{VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT |
                                          VK_IMAGE_USAGE_SAMPLED_BIT},
@@ -130,7 +130,7 @@ void Renderer::initialize() {
     assetFactory.addProvider<rgi::GBufferProvider>(
         rg::AssetTags::GBuffer,
         false,
-        rgi::TargetSize(rgi::TargetSize::ObserverSize),
+        sri::TargetSize(sri::TargetSize::ObserverSize),
         std::array<vk::SemanticTextureFormat, 4>{vk::SemanticTextureFormat::Color,
                                                  vk::SemanticTextureFormat::Color,
                                                  vk::SemanticTextureFormat::HighPrecisionColor,
@@ -141,7 +141,7 @@ void Renderer::initialize() {
     assetFactory.addProvider<rgi::SSAOProvider>(
         rg::AssetTags::SSAOBuffer,
         false,
-        rgi::TargetSize(rgi::TargetSize::ObserverSize),
+        sri::TargetSize(sri::TargetSize::ObserverSize),
         std::array<vk::SemanticTextureFormat, 1>{vk::SemanticTextureFormat::SingleChannelUnorm8},
         std::array<VkImageUsageFlags, 1>{VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT |
                                          VK_IMAGE_USAGE_SAMPLED_BIT},

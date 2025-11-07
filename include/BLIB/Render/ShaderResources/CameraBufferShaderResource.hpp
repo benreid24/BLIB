@@ -55,8 +55,9 @@ public:
      * @brief Creates the GPU buffer
      *
      * @param engine The game engine instance
+     * @param Unused
      */
-    virtual void init(engine::Engine& engine) override;
+    virtual void init(engine::Engine& engine, RenderTarget&) override;
 
     /**
      * @brief Copies the camera data into the local buffer

@@ -35,7 +35,7 @@ public:
      * @param imageUsages How the attachments will be used
      */
     GenericTargetProvider(
-        bool terminal, const TargetSize& size,
+        bool terminal, const sri::TargetSize& size,
         const std::array<vk::SemanticTextureFormat, AttachmentCount>& imageFormats,
         const std::array<VkImageUsageFlags, AttachmentCount>& imageUsages,
         const std::array<VkClearValue, RenderedAttachmentCount>& clearColors)
@@ -57,7 +57,7 @@ public:
 
 private:
     bool terminal;
-    const TargetSize size;
+    const sri::TargetSize size;
     std::array<vk::SemanticTextureFormat, AttachmentCount> imageFormats;
     std::array<VkImageUsageFlags, AttachmentCount> imageUsages;
     std::array<VkClearValue, RenderedAttachmentCount> clearColors;

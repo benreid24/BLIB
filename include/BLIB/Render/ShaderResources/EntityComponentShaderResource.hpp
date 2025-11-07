@@ -97,8 +97,9 @@ public:
      * @brief Creates storage buffers
      *
      * @param engine The game engine instance
+     * @param owner The owner of the resource
      */
-    virtual void init(engine::Engine& engine) override;
+    virtual void init(engine::Engine& engine, RenderTarget& owner) override;
 
     /**
      * @brief Releases resources
@@ -193,7 +194,7 @@ EntityComponentShaderResource<TCom, TPayload, TDynamicStorage,
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
 void EntityComponentShaderResource<TCom, TPayload, TDynamicStorage, TStaticStorage>::init(
-    engine::Engine& engine) {
+    engine::Engine& engine, RenderTarget&) {
     registry = &engine::HeaderHelpers::getRegistry(engine);
     dynamicBuffer.create(engine::HeaderHelpers::getVulkanState(engine),
                          cfg::Constants::DefaultSceneObjectCapacity);

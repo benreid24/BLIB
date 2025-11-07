@@ -23,8 +23,8 @@ CameraBufferShaderResource::CameraBufferShaderResource(RenderTarget& owner, Over
 : owner(owner)
 , isOverlay(true) {}
 
-void CameraBufferShaderResource::init(engine::Engine& engine) {
-    BufferShaderResource::init(engine);
+void CameraBufferShaderResource::init(engine::Engine& engine, RenderTarget& owner) {
+    BufferShaderResource::init(engine, owner);
     buffer.transferEveryFrame(tfr::Transferable::SyncRequirement::Immediate);
 }
 

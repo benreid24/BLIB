@@ -9,4 +9,5 @@ target_sources(BLIB PUBLIC
     ShaderResourceStore.hpp
     SSAOBufferShaderResource.hpp
     StoreKey.hpp
+    TargetSize.hpp
 )
