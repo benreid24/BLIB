@@ -2,7 +2,7 @@
 #define BLIB_RENDER_VULKAN_RENDERPASSPARAMETERS_HPP
 
 #include <BLIB/Containers/StaticVector.hpp>
-#include <BLIB/Render/Graph/Assets/MSAABehavior.hpp>
+#include <BLIB/Render/ShaderResources/MSAABehavior.hpp>
 #include <BLIB/Render/Vulkan/SemanticTextureFormat.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <cstdint>
@@ -29,7 +29,7 @@ public:
     static constexpr std::uint32_t MaxDependencyCount = 16;
 
     /// Controls the MSAA behavior of the render pass
-    using MSAABehavior = bl::rc::rgi::MSAABehavior;
+    using MSAABehavior = bl::rc::sri::MSAABehavior;
 
     /**
      * @brief Helper parameter class that represents a subpass within a render pass

@@ -7,7 +7,7 @@ namespace bl
 {
 namespace rc
 {
-namespace rgi
+namespace sri
 {
 /**
  * @brief Controls the MSAA behavior of an asset
@@ -25,7 +25,7 @@ enum struct MSAABehavior {
     ResolveAttachments = 0x1 << 2
 };
 
-} // namespace rgi
+} // namespace sri
 } // namespace rc
 } // namespace bl
 
@@ -36,10 +36,10 @@ enum struct MSAABehavior {
  * @param b The second MSAABehavior flag
  * @return The combined MSAABehavior flag
  */
-inline constexpr bl::rc::rgi::MSAABehavior operator|(bl::rc::rgi::MSAABehavior a,
-                                                     bl::rc::rgi::MSAABehavior b) {
-    using T = std::underlying_type<bl::rc::rgi::MSAABehavior>::type;
-    return static_cast<bl::rc::rgi::MSAABehavior>(static_cast<T>(a) | static_cast<T>(b));
+inline constexpr bl::rc::sri::MSAABehavior operator|(bl::rc::sri::MSAABehavior a,
+                                                     bl::rc::sri::MSAABehavior b) {
+    using T = std::underlying_type<bl::rc::sri::MSAABehavior>::type;
+    return static_cast<bl::rc::sri::MSAABehavior>(static_cast<T>(a) | static_cast<T>(b));
 }
 
 /**
@@ -49,8 +49,8 @@ inline constexpr bl::rc::rgi::MSAABehavior operator|(bl::rc::rgi::MSAABehavior a
  * @param b The MSAABehavior flag to check against
  * @return True if the flag is set, false otherwise
  */
-inline constexpr bool operator&(bl::rc::rgi::MSAABehavior a, bl::rc::rgi::MSAABehavior b) {
-    using T = std::underlying_type<bl::rc::rgi::MSAABehavior>::type;
+inline constexpr bool operator&(bl::rc::sri::MSAABehavior a, bl::rc::sri::MSAABehavior b) {
+    using T = std::underlying_type<bl::rc::sri::MSAABehavior>::type;
     return (static_cast<T>(a) & static_cast<T>(b)) != 0;
 }
 

@@ -21,7 +21,7 @@ namespace rgi
  */
 template<std::uint32_t RenderPassId, std::uint32_t AttachmentCount,
          RenderPassBehavior RenderPassMode, DepthAttachmentType DepthAttachment,
-         MSAABehavior MSAA = MSAABehavior::Disabled>
+         sri::MSAABehavior MSAA = sri::MSAABehavior::Disabled>
 class GenericTargetProvider : public rg::AssetProvider {
 public:
     using TAsset =

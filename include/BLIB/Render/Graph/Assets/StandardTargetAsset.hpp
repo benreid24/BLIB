@@ -17,7 +17,7 @@ namespace rgi
 using StandardTargetAsset =
     GenericTargetAsset<cfg::RenderPassIds::StandardAttachmentPass, 1,
                        RenderPassBehavior::StartedByAsset, DepthAttachmentType::SharedDepthBuffer,
-                       MSAABehavior::UseSettings | MSAABehavior::ResolveAttachments>;
+                       sri::MSAABehavior::UseSettings | sri::MSAABehavior::ResolveAttachments>;
 
 } // namespace rgi
 } // namespace rc

@@ -18,7 +18,7 @@ namespace rgi
 using GBufferProvider =
     GenericTargetProvider<cfg::RenderPassIds::DeferredObjectPass, 4,
                           RenderPassBehavior::StartedByAsset,
-                          DepthAttachmentType::SharedDepthBuffer, MSAABehavior::UseSettings>;
+                          DepthAttachmentType::SharedDepthBuffer, sri::MSAABehavior::UseSettings>;
 
 } // namespace rgi
 } // namespace rc

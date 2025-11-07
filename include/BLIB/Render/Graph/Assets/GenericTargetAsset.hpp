@@ -7,10 +7,10 @@
 #include <BLIB/Render/Graph/Assets/DepthAttachmentType.hpp>
 #include <BLIB/Render/Graph/Assets/DepthBuffer.hpp>
 #include <BLIB/Render/Graph/Assets/FramebufferAsset.hpp>
-#include <BLIB/Render/Graph/Assets/MSAABehavior.hpp>
 #include <BLIB/Render/Graph/Assets/RenderPassBehavior.hpp>
 #include <BLIB/Render/Graph/Assets/TargetSize.hpp>
 #include <BLIB/Render/Settings.hpp>
+#include <BLIB/Render/ShaderResources/MSAABehavior.hpp>
 #include <BLIB/Render/Vulkan/AttachmentImageSet.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
@@ -26,6 +26,9 @@ namespace rc
 {
 namespace rgi
 {
+// TODO - move all of this into shader resource. make the asset a simple wrapper around the shader
+//        resource. Refactor existing descriptor -> asset locations to just get from store
+
 /**
  * @brief Generic asset for a templated set of attachments
  *
@@ -36,18 +39,18 @@ namespace rgi
  */
 template<std::uint32_t RenderPassId, std::uint32_t AttachmentCount,
          RenderPassBehavior RenderPassMode, DepthAttachmentType DepthAttachment,
-         MSAABehavior MSAA = MSAABehavior::Disabled>
+         sri::MSAABehavior MSAA = sri::MSAABehavior::Disabled>
 class GenericTargetAsset
 : public FramebufferAsset
 , public sig::Listener<event::SettingsChanged, event::TextureFormatChanged> {
 public:
-    static constexpr bool UsesMSAA = MSAA & MSAABehavior::UseSettings;
+    static constexpr bool UsesMSAA = MSAA & sri::MSAABehavior::UseSettings;
 
     static constexpr std::uint32_t DepthAttachmentCount =
         DepthAttachment != DepthAttachmentType::None ? 1 : 0;
 
     static constexpr std::uint32_t ResolveAttachmentCount =
-        (MSAA & MSAABehavior::ResolveAttachments) ? AttachmentCount : 0;
+        (MSAA & sri::MSAABehavior::ResolveAttachments) ? AttachmentCount : 0;
 
     static constexpr std::uint32_t RenderedAttachmentCount = AttachmentCount + DepthAttachmentCount;
 
@@ -126,7 +129,6 @@ public:
 private:
     const TargetSize size;
     Renderer* renderer;
-    RenderTarget* observer;
     const std::array<vk::SemanticTextureFormat, AttachmentCount> attachmentFormats;
     const std::array<VkImageUsageFlags, AttachmentCount> attachmentUsages;
     vk::AttachmentImageSet images;
@@ -140,7 +142,6 @@ private:
 
     virtual void doCreate(const rg::InitContext& ctx) override {
         renderer   = &ctx.renderer;
-        observer   = &ctx.target;
         renderPass = &renderer->renderPassCache().getRenderPass(renderPassId);
         if constexpr (DepthAttachment == DepthAttachmentType::SharedDepthBuffer) {
             depthBufferAsset = dynamic_cast<DepthBuffer*>(getDependency(0));
