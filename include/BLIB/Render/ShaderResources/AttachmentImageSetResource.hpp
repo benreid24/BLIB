@@ -45,6 +45,11 @@ public:
      */
     virtual ~AttachmentImageSetResource() = default;
 
+    /**
+     * @brief Provides access to the underlying images
+     */
+    vk::AttachmentImageSet& getImages() { return images; }
+
 private:
     Renderer* renderer;
     RenderTarget* owner;
@@ -99,6 +104,27 @@ private:
                       Usages.data(),
                       sampleCount);
     }
+};
+
+/**
+ * @brief Template parameter deduction helper for attachment image sets
+ *
+ * @tparam T An instance of AttachmentImageSetResource
+ * @ingroup Renderer
+ */
+template<typename T>
+struct AttachmentImageSetResourceTraits {
+    static_assert(false, "AttachmentImageSetResourceTraits not specialized for this type");
+};
+
+template<unsigned int AC, std::array<vk::SemanticTextureFormat, AC> Fmts,
+         std::array<VkImageUsageFlags, AC> Usgs, TargetSize Sz, MSAABehavior AA>
+struct AttachmentImageSetResourceTraits<AttachmentImageSetResource<AC, Fmts, Usgs, Sz, AA>> {
+    static constexpr unsigned int AttachmentCount                      = AC;
+    static constexpr std::array<vk::SemanticTextureFormat, AC> Formats = Fmts;
+    static constexpr std::array<VkImageUsageFlags, AC> Usages          = Usgs;
+    static constexpr TargetSize Size                                   = Sz;
+    static constexpr MSAABehavior MSAA                                 = AA;
 };
 
 } // namespace sri
