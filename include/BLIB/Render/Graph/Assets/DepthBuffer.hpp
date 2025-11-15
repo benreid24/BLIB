@@ -1,11 +1,8 @@
 #ifndef BLIB_RENDER_GRAPH_ASSETS_DEPTHBUFFER_HPP
 #define BLIB_RENDER_GRAPH_ASSETS_DEPTHBUFFER_HPP
 
-#include <BLIB/Render/Events/SettingsChanged.hpp>
 #include <BLIB/Render/Graph/Asset.hpp>
-#include <BLIB/Render/Graph/AssetTags.hpp>
-#include <BLIB/Render/Vulkan/Image.hpp>
-#include <BLIB/Signals/Listener.hpp>
+#include <BLIB/Render/ShaderResources/DepthBufferShaderResource.hpp>
 
 namespace bl
 {
@@ -23,19 +20,8 @@ namespace rgi
  *
  * @ingroup Renderer
  */
-class DepthBuffer
-: public rg::Asset
-, public sig::Listener<event::SettingsChanged> {
+class DepthBuffer : public rg::Asset {
 public:
-    /// How the depth buffer is sized
-    enum SizeMode {
-        /// The depth buffer is sized to the full window resolution
-        FullScreen,
-
-        /// The depth buffer is sized to the observer's render region
-        Target
-    };
-
     /**
      * @brief Creates the depth buffer asset
      */
@@ -44,7 +30,7 @@ public:
     /**
      * @brief Returns the depth buffer image
      */
-    vk::Image& getBuffer() { return buffer; }
+    vk::Image& getBuffer() { return buffer->getBuffer(); }
 
     /**
      * @brief Clears the depth buffer
@@ -58,7 +44,7 @@ public:
      *
      * @param mode The size mode to use
      */
-    void setSizeMode(SizeMode mode);
+    void setSizeMode(sri::DepthBufferShaderResource::SizeMode mode);
 
     /**
      * @brief Recreates the depth buffer with the given size and sample count if it does not match
@@ -69,10 +55,8 @@ public:
     void ensureValid(const glm::u32vec2& size, VkSampleCountFlagBits sampleCount);
 
 private:
-    engine::Engine* engine;
-    SizeMode mode;
+    sri::DepthBufferShaderResource* buffer;
     bool cleared;
-    vk::Image buffer;
 
     virtual void doCreate(const rg::InitContext& ctx) override;
     virtual void doPrepareForInput(const rg::ExecutionContext&) override {}
@@ -80,10 +64,6 @@ private:
     virtual void doEndOutput(const rg::ExecutionContext&) override {}
     virtual void onResize(glm::u32vec2 newSize) override;
     virtual void onReset() override;
-    glm::u32vec2 getSize(const glm::u32vec2& targetSize) const;
-
-    virtual void process(const event::SettingsChanged& event) override;
-    void createAttachment(const glm::u32vec2& size);
 };
 
 } // namespace rgi

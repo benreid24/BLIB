@@ -134,23 +134,6 @@ public:
      */
     void startFrame();
 
-    /**
-     * @brief Temporary helper for a temporary hack in AssetBufferShaderResource
-     *
-     * @tparam T The type of asset to get
-     * @return A pointer to a matching asset or nullptr if none exist
-     */
-    template<typename T>
-    T* getAsset() {
-        for (auto& vec : assets) {
-            for (auto& asset : vec.second) {
-                T* cast = dynamic_cast<T*>(asset.get());
-                if (cast) { return cast; }
-            }
-        }
-        return nullptr;
-    }
-
 private:
     AssetFactory& factory;
     RenderTarget* observer;

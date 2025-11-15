@@ -32,7 +32,7 @@ void FinalRenderTextureAsset::doCreate(const rg::InitContext& ctx) {
     if (!depthBuffer) {
         throw std::runtime_error("FinalSwapframeAsset requires a DepthBuffer dependency");
     }
-    depthBuffer->setSizeMode(DepthBuffer::Target);
+    depthBuffer->setSizeMode(sri::DepthBufferShaderResource::Target);
 
     attachmentSet.setRenderExtent(scissor.extent);
     attachmentSet.setAttachmentCount(2);
