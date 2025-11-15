@@ -5,9 +5,9 @@ namespace bl
 {
 namespace rc
 {
-namespace rgi
+namespace sri
 {
-class ShadowMapAsset;
+class ShadowMapShaderResource;
 }
 namespace event
 {
@@ -17,7 +17,7 @@ namespace event
  * @ingroup Renderer
  */
 struct ShadowMapsInvalidated {
-    rgi::ShadowMapAsset* asset;
+    sri::ShadowMapShaderResource* maps;
 };
 
 } // namespace event

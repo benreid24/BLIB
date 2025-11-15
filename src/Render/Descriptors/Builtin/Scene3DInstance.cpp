@@ -65,6 +65,10 @@ void Scene3DInstance::init(ds::InitContext& ctx) {
     lightBuffer  = ctx.sceneShaderResources.getShaderResourceWithKey(sri::Scene3DLightingKey);
     shadowMapCameras =
         ctx.sceneShaderResources.getShaderResourceWithKey(sri::ShadowMapCameraShaderResourceKey);
+    shadowMaps = ctx.sceneShaderResources.getShaderResourceWithKey(sri::ShadowMapResourceKey);
+    ssaoBuffer = ctx.observerShaderResources.getShaderResourceWithKey(
+        rgi::makeShaderResourceKey<rgi::SSAOShaderResource>(
+            rg::AssetTags::SSAOBuffer, rgi::Purpose::SSAOBuffer, 0));
 
     emptySpotShadowMap.create(
         renderer.vulkanState(),
@@ -195,7 +199,7 @@ void Scene3DInstance::updateImageDescriptors() {
         // ssao buffer
         VkDescriptorImageInfo& ssaoInfo = setWriter.getNewImageInfo();
         ssaoInfo.imageLayout            = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-        ssaoInfo.imageView = ssaoBuffer ? ssaoBuffer->getAttachmentSets()[0]->getImageView(0) :
+        ssaoInfo.imageView = ssaoBuffer ? ssaoBuffer->getImages().attachmentSet().getImageView(0) :
                                           emptySSAOImage.getView();
         ssaoInfo.sampler   = renderer.samplerCache().noFilterEdgeClamped();
 
@@ -209,26 +213,8 @@ void Scene3DInstance::updateImageDescriptors() {
     setWriter.performWrite(renderer.vulkanState().device);
 }
 
-void Scene3DInstance::process(const event::SceneGraphAssetInitialized& event) {
-    // TODO - replace this with fetch of shader resource in init from scene + observer stores
-    rgi::ShadowMapAsset* sm = dynamic_cast<rgi::ShadowMapAsset*>(&event.asset->asset.get());
-    if (sm) {
-        shadowMaps = sm;
-        updateImageDescriptors();
-    }
-    else {
-        if (event.asset->asset->getPurpose() == rgi::Purpose::SSAOBuffer) {
-            rgi::SSAOAsset* ssao = dynamic_cast<rgi::SSAOAsset*>(&event.asset->asset.get());
-            if (ssao) {
-                ssaoBuffer = ssao;
-                updateImageDescriptors();
-            }
-        }
-    }
-}
-
 void Scene3DInstance::process(const event::ShadowMapsInvalidated& e) {
-    if (shadowMaps == e.asset) { updateImageDescriptors(); }
+    if (shadowMaps == e.maps) { updateImageDescriptors(); }
 }
 
 bool Scene3DInstance::allocateObject(ecs::Entity, scene::Key) {

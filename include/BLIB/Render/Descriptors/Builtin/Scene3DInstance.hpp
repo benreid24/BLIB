@@ -2,7 +2,6 @@
 #define BLIB_RENDER_DESCRIPTORS_SCENE3DINSTANCE_HPP
 
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
-#include <BLIB/Render/Events/GraphEvents.hpp>
 #include <BLIB/Render/Events/ShadowMapsInvalidated.hpp>
 #include <BLIB/Render/Graph/Assets/SSAOAsset.hpp>
 #include <BLIB/Render/Lighting/LightingDescriptor3D.hpp>
@@ -10,6 +9,7 @@
 #include <BLIB/Render/Lighting/SpotLight3D.hpp>
 #include <BLIB/Render/ShaderResources/CameraBufferShaderResource.hpp>
 #include <BLIB/Render/ShaderResources/ShadowMapCameraShaderResource.hpp>
+#include <BLIB/Render/ShaderResources/ShadowMapShaderResource.hpp>
 #include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Signals/Listener.hpp>
@@ -39,7 +39,7 @@ namespace dsi
  */
 class Scene3DInstance
 : public ds::DescriptorSetInstance
-, public sig::Listener<event::SceneGraphAssetInitialized, event::ShadowMapsInvalidated> {
+, public sig::Listener<event::ShadowMapsInvalidated> {
 public:
     /**
      * @brief Creates a new instance of the descriptor set
@@ -76,8 +76,8 @@ private:
     vk::Image emptyPointShadowMap;
     vk::Image emptySSAOImage;
     sri::ShadowMapCameraShaderResource* shadowMapCameras;
-    rgi::ShadowMapAsset* shadowMaps;
-    rgi::SSAOAsset* ssaoBuffer;
+    sri::ShadowMapShaderResource* shadowMaps;
+    rgi::SSAOShaderResource* ssaoBuffer;
 
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                  std::uint32_t setIndex, UpdateSpeed updateFreq) const override;
@@ -88,7 +88,6 @@ private:
     virtual bool allocateObject(ecs::Entity entity, scene::Key key) override;
     virtual void updateDescriptors() override;
 
-    virtual void process(const event::SceneGraphAssetInitialized& event) override;
     virtual void process(const event::ShadowMapsInvalidated& event) override;
     void updateImageDescriptors();
 };

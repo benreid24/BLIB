@@ -7,6 +7,7 @@ target_sources(BLIB PUBLIC
     MSAABehavior.hpp
     ShaderResource.hpp
     ShaderResourceStore.hpp
+    ShadowMapShaderResource.hpp
     SSAOBufferShaderResource.hpp
     StoreKey.hpp
     TargetSize.hpp

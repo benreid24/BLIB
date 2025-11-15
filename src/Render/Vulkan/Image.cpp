@@ -48,10 +48,7 @@ Image::Image()
 Image::~Image() { deferDestroy(); }
 
 void Image::create(VulkanState& vs, const ImageOptions& options) {
-    if (vulkanState && compareOptions(createOptions, options)) {
-        //
-        return;
-    }
+    if (vulkanState && compareOptions(createOptions, options)) { return; }
 
     deferDestroy();
     vulkanState   = &vs;
@@ -228,6 +225,7 @@ void Image::clearAndTransition(VkCommandBuffer commandBuffer, VkImageLayout fina
                                        createOptions.aspect,
                                        0,
                                        createOptions.mipLevels);
+    currentLayout = finalLayout;
 }
 
 VkImageViewType Image::getViewType() const {
