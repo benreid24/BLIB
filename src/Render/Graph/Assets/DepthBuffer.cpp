@@ -31,9 +31,7 @@ void DepthBuffer::setSizeMode(sri::DepthBufferShaderResource::SizeMode m) {
 
 void DepthBuffer::clear(VkCommandBuffer commandBuffer) { buffer->clear(commandBuffer); }
 
-void DepthBuffer::onReset() {
-    // noop
-}
+void DepthBuffer::onReset() { cleared = false; }
 
 void DepthBuffer::doStartOutput(const rg::ExecutionContext& ctx) {
     if (!cleared) {

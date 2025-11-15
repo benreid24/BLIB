@@ -17,6 +17,7 @@ void AttachmentImageSet::create(VulkanState& vulkanState, unsigned int count,
     owner = &vulkanState;
     attachments.setRenderExtent(size);
 
+    auto commandBuffer = vulkanState.sharedCommandPool.createBuffer();
     std::array<VkImageAspectFlags, MaxBufferCount> aspects;
     for (std::uint32_t i = 0; i < count; ++i) {
         formats[i] = bufferFormats[i];
@@ -31,7 +32,11 @@ void AttachmentImageSet::create(VulkanState& vulkanState, unsigned int count,
                            .samples    = samples});
         images[i] = buffers[i].getImage();
         views[i]  = buffers[i].getView();
+        buffers[i].clearAndTransition(commandBuffer,
+                                      VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL,
+                                      {.color = {{0.f, 0.f, 0.f, 1.f}}});
     }
+    commandBuffer.submit();
 
     attachments.init(
         count, images.data(), views.data(), aspects.data(), size, buffers[0].getLayerCount());

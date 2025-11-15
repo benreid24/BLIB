@@ -44,10 +44,11 @@ void FinalRenderTextureAsset::doCreate(const rg::InitContext& ctx) {
 }
 
 void FinalRenderTextureAsset::doPrepareForInput(const rg::ExecutionContext&) {
-    // noop, handled by render pass
+    // handled by render pass
 }
 
 void FinalRenderTextureAsset::doStartOutput(const rg::ExecutionContext& ctx) {
+    if (attachmentSet.getImageView(1) != depthBuffer->getBuffer().getView()) { onResize({}); }
     beginRender(ctx.commandBuffer, true);
 }
 
