@@ -92,6 +92,11 @@ public:
     std::string_view getTag() const { return tag; }
 
     /**
+     * @brief Returns the purpose of this asset
+     */
+    std::string_view getPurpose() const { return purpose; }
+
+    /**
      * @brief Returns true if the asset was manually created, false if created by the factory
      */
     bool isExternal() const { return external; }
@@ -151,6 +156,7 @@ private:
     enum struct InputMode { Unset, Input, OutputStart, OutputEnd };
 
     std::string_view tag;
+    std::string_view purpose;
     std::vector<std::string_view> depTags;
     std::vector<AssetRef> dependencies;
     bool created;
@@ -172,6 +178,7 @@ private:
 
     friend class AssetRef;
     friend class AssetPool;
+    friend class GraphAssetPool;
     friend class RenderGraph;
     friend class Timeline;
     friend class Task;

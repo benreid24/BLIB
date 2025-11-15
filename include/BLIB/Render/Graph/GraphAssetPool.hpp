@@ -103,6 +103,8 @@ private:
     AssetPool& pool;
     std::unordered_map<std::string_view, std::list<GraphAsset>> assets;
     sig::Emitter<event::SceneGraphAssetCreated> emitter;
+
+    static void setPurpose(GraphAsset& asset, std::string_view purpose);
 };
 
 } // namespace rg

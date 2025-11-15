@@ -217,7 +217,7 @@ void Scene3DInstance::process(const event::SceneGraphAssetInitialized& event) {
         updateImageDescriptors();
     }
     else {
-        if (event.asset->purpose == rgi::Purpose::SSAOBuffer) {
+        if (event.asset->asset->getPurpose() == rgi::Purpose::SSAOBuffer) {
             rgi::SSAOAsset* ssao = dynamic_cast<rgi::SSAOAsset*>(&event.asset->asset.get());
             if (ssao) {
                 ssaoBuffer = ssao;

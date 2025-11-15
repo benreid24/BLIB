@@ -41,13 +41,16 @@ constexpr sr::Key<TShaderResource> makeShaderResourceKey(std::string_view assetT
  *
  * @tparam TShaderResource The type of shader resource
  * @param assetTag The tag of the asset using or owning the resource
+ * @param purpose The purpose of the asset
  * @param i The index of the asset in a multi-asset
  * @return A key to use to get the shader resource
  * @ingroup Renderer
  */
 template<typename TShaderResource>
-sr::Key<TShaderResource> makeShaderResourceKey(std::string_view assetTag, unsigned int i) {
+sr::Key<TShaderResource> makeShaderResourceKey(std::string_view assetTag, std::string_view purpose,
+                                               unsigned int i) {
     std::string key = std::string(assetTag);
+    if (!purpose.empty()) { key += "_" + std::string(purpose); }
     if (i > 0) { key += "_" + std::to_string(i); }
     return sr::Key<TShaderResource>({key.data(), key.size()});
 }
@@ -159,7 +162,7 @@ private:
         renderer   = &ctx.renderer;
         renderPass = &renderer->renderPassCache().getRenderPass(renderPassId);
         images     = ctx.getShaderResourceStore(StoreKey).getShaderResourceWithKey(
-            makeShaderResourceKey<TShaderResource>(getTag(), ctx.index));
+            makeShaderResourceKey<TShaderResource>(getTag(), getPurpose(), ctx.index));
         if constexpr (DepthAttachment == DepthAttachmentType::SharedDepthBuffer) {
             depthBufferAsset = dynamic_cast<DepthBuffer*>(getDependency(0));
             if (!depthBufferAsset) {

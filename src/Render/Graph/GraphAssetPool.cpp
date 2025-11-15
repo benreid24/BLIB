@@ -11,17 +11,6 @@ namespace rc
 {
 namespace rg
 {
-namespace
-{
-void setPurpose(GraphAsset& asset, std::string_view purpose) {
-    if (!asset.purpose.empty() && !purpose.empty() && asset.purpose != purpose) {
-        BL_LOG_WARN << "Same asset (" << asset.asset->getTag()
-                    << ") used for multiple purposes: " << asset.purpose << " and " << purpose
-                    << ". This may cause issues with descriptor sets";
-    }
-    asset.purpose = purpose;
-}
-} // namespace
 
 GraphAssetPool::GraphAssetPool(Renderer& renderer, AssetPool& pool, RenderTarget* owner,
                                Scene* scene)
@@ -116,6 +105,15 @@ GraphAsset* GraphAssetPool::createAsset(std::string_view tag, std::string_view p
 void GraphAssetPool::reset() {
     pool.reset(this);
     assets.clear();
+}
+
+void GraphAssetPool::setPurpose(GraphAsset& asset, std::string_view purpose) {
+    if (!asset.asset->purpose.empty() && !purpose.empty() && asset.asset->purpose != purpose) {
+        BL_LOG_WARN << "Same asset (" << asset.asset->getTag()
+                    << ") used for multiple purposes: " << asset.asset->purpose << " and "
+                    << purpose << ". This may cause issues with descriptor sets";
+    }
+    asset.asset->purpose = purpose;
 }
 
 } // namespace rg

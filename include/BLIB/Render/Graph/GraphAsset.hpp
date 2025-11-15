@@ -22,7 +22,6 @@ struct GraphAsset {
     AssetRef asset;
     std::vector<Task*> outputtedBy;
     unsigned int firstAvailableStep;
-    std::string_view purpose;
 
     /**
      * @brief Creates a new graph asset
