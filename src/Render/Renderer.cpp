@@ -93,34 +93,17 @@ void Renderer::initialize() {
     assetFactory.addProvider<rgi::StandardTargetProvider>(
         {rg::AssetTags::RenderedSceneOutput, rg::AssetTags::PostFXOutput},
         false,
-        sri::TargetSize(sri::TargetSize::ObserverSize),
-        std::array<vk::SemanticTextureFormat, 1>{vk::SemanticTextureFormat::Color},
-        std::array<VkImageUsageFlags, 1>{VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT |
-                                         VK_IMAGE_USAGE_SAMPLED_BIT},
         std::array<VkClearValue, 2>{VkClearValue{.color = Black},
                                     VkClearValue{.depthStencil = ClearDepth}});
     assetFactory.addProvider<rgi::BloomColorAttachmentPairProvider>(
         rg::AssetTags::BloomColorAttachmentPair,
         false,
         false,
-        sri::TargetSize(sri::TargetSize::ObserverSize),
-        std::array<vk::SemanticTextureFormat, 1>{vk::SemanticTextureFormat::SFloatR16G16B16A16},
-        std::array<VkImageUsageFlags, 1>{VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT |
-                                         VK_IMAGE_USAGE_SAMPLED_BIT},
         std::array<VkClearValue, 1>{VkClearValue{.color = Black}});
     assetFactory.addProvider<rgi::SimpleAssetProvider<rgi::ShadowMapAsset>>(
         rg::AssetTags::ShadowMaps, false);
     assetFactory.addProvider<rgi::SimpleAssetProvider<rgi::AutoExposureWorkBuffer>>(
         rg::AssetTags::AutoExposureWorkBuffer, false);
-    constexpr std::array<VkImageUsageFlags, 4> GBufferUsages{
-        // albedo
-        VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
-        // specular + shininess
-        VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
-        // positions + lighting on/off
-        VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
-        // normals
-        VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT};
     constexpr std::array<VkClearValue, 5> GBufferClearValues{
         VkClearValue{.color = Transparent},
         VkClearValue{.color = Black},
@@ -128,23 +111,11 @@ void Renderer::initialize() {
         VkClearValue{.color = Zero},
         VkClearValue{.depthStencil = ClearDepth}};
     assetFactory.addProvider<rgi::GBufferProvider>(
-        rg::AssetTags::GBuffer,
-        false,
-        sri::TargetSize(sri::TargetSize::ObserverSize),
-        std::array<vk::SemanticTextureFormat, 4>{vk::SemanticTextureFormat::Color,
-                                                 vk::SemanticTextureFormat::Color,
-                                                 vk::SemanticTextureFormat::HighPrecisionColor,
-                                                 vk::SemanticTextureFormat::HighPrecisionColor},
-        GBufferUsages,
-        GBufferClearValues);
+        rg::AssetTags::GBuffer, false, GBufferClearValues);
 
     assetFactory.addProvider<rgi::SSAOProvider>(
         rg::AssetTags::SSAOBuffer,
         false,
-        sri::TargetSize(sri::TargetSize::ObserverSize),
-        std::array<vk::SemanticTextureFormat, 1>{vk::SemanticTextureFormat::SingleChannelUnorm8},
-        std::array<VkImageUsageFlags, 1>{VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT |
-                                         VK_IMAGE_USAGE_SAMPLED_BIT},
         std::array<VkClearValue, 1>{VkClearValue{.color = {1.f, 1.f, 1.f, 1.f}}});
     assetFactory.addProvider<rgi::SimpleAssetProvider<rgi::TaggedEmptyAsset>>(
         rg::AssetTags::ConsumedNextFrame, true);

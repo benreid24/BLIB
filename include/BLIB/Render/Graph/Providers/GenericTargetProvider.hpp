@@ -14,35 +14,23 @@ namespace rgi
 /**
  * @brief Provider for GenericTargetAsset assets
  *
- * @tparam RenderPassId The id of the render pass to use
- * @tparam AttachmentCount The number of attachments to create
- * @tparam RenderPassMode Whether this asset is responsible for render pass start/stop
+ * @tparam TAsset The GenericTargetAsset type to create
  * @ingroup Renderer
  */
-template<std::uint32_t RenderPassId, std::uint32_t AttachmentCount,
-         RenderPassBehavior RenderPassMode, DepthAttachmentType DepthAttachment,
-         sri::MSAABehavior MSAA = sri::MSAABehavior::Disabled>
+template<typename TAsset>
 class GenericTargetProvider : public rg::AssetProvider {
 public:
-    using TAsset =
-        GenericTargetAsset<RenderPassId, AttachmentCount, RenderPassMode, DepthAttachment, MSAA>;
-    static constexpr std::uint32_t RenderedAttachmentCount = TAsset::RenderedAttachmentCount;
+    using Traits                                           = GenericTargetAssetTraits<TAsset>;
+    static constexpr std::uint32_t RenderedAttachmentCount = Traits::RenderedAttachmentCount;
 
     /**
      * @brief Creates the provider
      *
-     * @param imageFormats The formats of the attachments
      * @param imageUsages How the attachments will be used
      */
-    GenericTargetProvider(
-        bool terminal, const sri::TargetSize& size,
-        const std::array<vk::SemanticTextureFormat, AttachmentCount>& imageFormats,
-        const std::array<VkImageUsageFlags, AttachmentCount>& imageUsages,
-        const std::array<VkClearValue, RenderedAttachmentCount>& clearColors)
+    GenericTargetProvider(bool terminal,
+                          const std::array<VkClearValue, RenderedAttachmentCount>& clearColors)
     : terminal(terminal)
-    , size(size)
-    , imageFormats(imageFormats)
-    , imageUsages(imageUsages)
     , clearColors(clearColors) {}
 
     /**
@@ -52,14 +40,11 @@ public:
      * @return The newly created asset
      */
     virtual rg::Asset* create(std::string_view tag) override {
-        return new TAsset(tag, terminal, imageFormats, imageUsages, clearColors, size);
+        return new TAsset(tag, terminal, clearColors);
     }
 
 private:
     bool terminal;
-    const sri::TargetSize size;
-    std::array<vk::SemanticTextureFormat, AttachmentCount> imageFormats;
-    std::array<VkImageUsageFlags, AttachmentCount> imageUsages;
     std::array<VkClearValue, RenderedAttachmentCount> clearColors;
 };
 

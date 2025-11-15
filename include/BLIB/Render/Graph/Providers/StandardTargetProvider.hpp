@@ -14,11 +14,8 @@ namespace rgi
  *
  * @ingroup Renderer
  */
-using StandardTargetProvider =
-    GenericTargetProvider<cfg::RenderPassIds::StandardAttachmentPass, 1,
-                          RenderPassBehavior::StartedByAsset,
-                          DepthAttachmentType::SharedDepthBuffer,
-                          sri::MSAABehavior::UseSettings | sri::MSAABehavior::ResolveAttachments>;
+using StandardTargetProvider = GenericTargetProvider<StandardTargetAsset>;
+
 } // namespace rgi
 } // namespace rc
 } // namespace bl

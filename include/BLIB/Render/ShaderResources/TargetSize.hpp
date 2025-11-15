@@ -34,48 +34,42 @@ struct TargetSize {
      */
     constexpr TargetSize(Type type = ObserverSize)
     : type(type)
+    , size{}
     , ratio{} {}
 
     /**
      * @brief Creates the size control with the given type and size
      *
      * @param type The type of control
-     * @param size The size to use
+     * @param x The width to use
+     * @param y The height to use
      */
-    constexpr TargetSize(Type type, glm::u32vec2 size)
+    constexpr TargetSize(Type type, unsigned int x, unsigned int y)
     : type(type)
-    , size(size) {}
+    , size{x, y}
+    , ratio{} {}
 
     /**
      * @brief Creates the size control with the given type and ratio
      *
      * @param type The type of control
-     * @param ratio The ratio to use
+     * @param x The width ratio to use
+     * @param y The height ratio to use
      */
-    constexpr TargetSize(Type type, glm::vec2 ratio)
+    constexpr TargetSize(Type type, float x, float y)
     : type(type)
-    , ratio(ratio) {}
+    , size{}
+    , ratio{x, y} {}
 
     /**
      * @brief Copy constructor
      *
      * @param copy The value to copy
      */
-    TargetSize(const TargetSize& copy)
-    : type(copy.type) {
-        switch (Type::FixedSize) {
-        case Type::ObserverSizeRatio:
-            ratio = copy.ratio;
-            break;
-        case Type::FixedSize:
-            size = copy.size;
-            break;
-        case Type::ObserverSize:
-        default:
-            size = {};
-            break;
-        }
-    }
+    constexpr TargetSize(const TargetSize& copy)
+    : type(copy.type)
+    , size(copy.size)
+    , ratio(copy.ratio) {}
 
     /**
      * @brief Helper method to get the size of an attachment from the size config
@@ -83,13 +77,13 @@ struct TargetSize {
      * @param observerSize The resolution of the observer space
      * @return The size to make the attachment
      */
-    glm::u32vec2 getSize(glm::u32vec2 observerSize) const {
-        switch (type) {
+    static glm::u32vec2 getSize(TargetSize ts, glm::u32vec2 observerSize) {
+        switch (ts.type) {
         case Type::FixedSize:
-            return size;
+            return {ts.size.x, ts.size.y};
 
         case Type::ObserverSizeRatio:
-            return glm::u32vec2(glm::vec2(observerSize) * ratio);
+            return glm::u32vec2(glm::vec2(observerSize) * glm::vec2(ts.ratio.x, ts.ratio.y));
 
         case Type::ObserverSize:
         default:
@@ -98,10 +92,15 @@ struct TargetSize {
     }
 
     Type type;
-    union {
-        glm::u32vec2 size;
-        glm::vec2 ratio;
-    };
+    struct Size {
+        unsigned int x;
+        unsigned int y;
+    } size;
+
+    struct Ratio {
+        float x;
+        float y;
+    } ratio;
 };
 } // namespace sri
 } // namespace rc

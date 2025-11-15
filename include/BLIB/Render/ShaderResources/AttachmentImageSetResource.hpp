@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_SHADERRESOURCES_ATTACHMENTIMAGESETRESOURCE_HPP
 #define BLIB_RENDER_SHADERRESOURCES_ATTACHMENTIMAGESETRESOURCE_HPP
 
+#include <BLIB/Engine/HeaderHelpers.hpp>
 #include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Events/SettingsChanged.hpp>
 #include <BLIB/Render/Events/TextureFormatChanged.hpp>
@@ -8,6 +9,7 @@
 #include <BLIB/Render/ShaderResources/ShaderResource.hpp>
 #include <BLIB/Render/ShaderResources/TargetSize.hpp>
 #include <BLIB/Render/Vulkan/AttachmentImageSet.hpp>
+#include <BLIB/Render/Vulkan/SemanticTextureFormat.hpp>
 #include <BLIB/Signals/Listener.hpp>
 #include <array>
 
@@ -57,7 +59,7 @@ private:
     unsigned int dirtyFrameCount;
 
     virtual void init(engine::Engine& engine, RenderTarget& o) override {
-        renderer = &engine.renderer();
+        renderer = &engine::HeaderHelpers::getRenderer(engine);
         owner    = &o;
         create();
         if constexpr (FollowSettings) { subscribe(renderer->getSignalChannel()); }
@@ -96,7 +98,7 @@ private:
         dirtyFrameCount = 0x1 << cfg::Limits::MaxConcurrentFrames;
         const VkSampleCountFlagBits sampleCount =
             FollowSettings ? renderer->getSettings().getMSAASampleCount() : VK_SAMPLE_COUNT_1_BIT;
-        const glm::u32vec2 size = Size.getSize(owner->getRegionSize());
+        const glm::u32vec2 size = TargetSize::getSize(Size, owner->getRegionSize());
         images.create(renderer->vulkanState(),
                       AttachmentCount,
                       {size.x, size.y},
@@ -120,6 +122,7 @@ struct AttachmentImageSetResourceTraits {
 template<unsigned int AC, std::array<vk::SemanticTextureFormat, AC> Fmts,
          std::array<VkImageUsageFlags, AC> Usgs, TargetSize Sz, MSAABehavior AA>
 struct AttachmentImageSetResourceTraits<AttachmentImageSetResource<AC, Fmts, Usgs, Sz, AA>> {
+    using TResourceType = AttachmentImageSetResource<AC, Fmts, Usgs, Sz, AA>;
     static constexpr unsigned int AttachmentCount                      = AC;
     static constexpr std::array<vk::SemanticTextureFormat, AC> Formats = Fmts;
     static constexpr std::array<VkImageUsageFlags, AC> Usages          = Usgs;

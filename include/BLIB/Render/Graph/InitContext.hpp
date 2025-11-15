@@ -1,6 +1,8 @@
 #ifndef BLIB_RENDER_GRAPH_INITCONTEXT_HPP
 #define BLIB_RENDER_GRAPH_INITCONTEXT_HPP
 
+#include <BLIB/Render/ShaderResources/StoreKey.hpp>
+
 namespace bl
 {
 namespace engine
@@ -16,6 +18,10 @@ namespace vk
 {
 struct VulkanState;
 }
+namespace sr
+{
+class ShaderResourceStore;
+}
 namespace rg
 {
 /**
@@ -30,6 +36,9 @@ struct InitContext {
     RenderTarget& target;
     Scene* scene;
 
+    /// Always 0 unless initializing an asset as part of MultiAsset
+    unsigned int index;
+
     /**
      * @brief Creates the context
      *
@@ -39,12 +48,23 @@ struct InitContext {
      * @param rt The render target instance
      * @param s The scene the graph is for
      */
-    InitContext(engine::Engine& e, Renderer& r, vk::VulkanState& vs, RenderTarget& rt, Scene* s)
-    : engine(e)
-    , renderer(r)
-    , vulkanState(vs)
-    , target(rt)
-    , scene(s) {}
+    InitContext(engine::Engine& e, Renderer& r, vk::VulkanState& vs, RenderTarget& rt, Scene* s);
+
+    /**
+     * @brief Creates an init context for a specific index (for MultiAsset)
+     *
+     * @param ctx The base context
+     * @param index The index of the asset being initialized
+     */
+    InitContext(const InitContext& ctx, unsigned int index);
+
+    /**
+     * @brief Helper function to select the corresponding shader resource store for the given key
+     *
+     * @param key The key to get the store for
+     * @return The shader resource store for the given key
+     */
+    sr::ShaderResourceStore& getShaderResourceStore(sr::StoreKey key) const;
 };
 } // namespace rg
 } // namespace rc

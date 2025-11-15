@@ -17,9 +17,7 @@ namespace rgi
  *
  * @ingroup Renderer
  */
-using BloomColorAttachmentProvider =
-    GenericTargetProvider<cfg::RenderPassIds::BloomPass, 1, RenderPassBehavior::StartedByTask,
-                          DepthAttachmentType::None>;
+using BloomColorAttachmentProvider = GenericTargetProvider<BloomColorAttachmentAsset>;
 
 /**
  * @brief Provider for a pair of bloom color attachment assets

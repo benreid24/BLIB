@@ -9,16 +9,13 @@
 #include <BLIB/Render/Graph/Assets/FramebufferAsset.hpp>
 #include <BLIB/Render/Graph/Assets/RenderPassBehavior.hpp>
 #include <BLIB/Render/Settings.hpp>
-#include <BLIB/Render/ShaderResources/MSAABehavior.hpp>
-#include <BLIB/Render/ShaderResources/TargetSize.hpp>
-#include <BLIB/Render/Vulkan/AttachmentImageSet.hpp>
+#include <BLIB/Render/ShaderResources/AttachmentImageSetResource.hpp>
+#include <BLIB/Render/ShaderResources/Key.hpp>
+#include <BLIB/Render/ShaderResources/StoreKey.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
-#include <BLIB/Signals/Listener.hpp>
+#include <string>
 #include <utility>
-
-// if getting circular include errors start here
-#include <BLIB/Render/Renderer.hpp>
 
 namespace bl
 {
@@ -26,36 +23,66 @@ namespace rc
 {
 namespace rgi
 {
-// TODO - move all of this into shader resource. make the asset a simple wrapper around the shader
-//        resource. Refactor existing descriptor -> asset locations to just get from store
+/**
+ * @brief Helper method to generate a shader resource key from an asset tag
+ *
+ * @tparam TShaderResource The type of shader resource
+ * @param assetTag The tag of the asset using or owning the resource
+ * @return A key to use to get the shader resource
+ * @ingroup Renderer
+ */
+template<typename TShaderResource>
+constexpr sr::Key<TShaderResource> makeShaderResourceKey(std::string_view assetTag) {
+    return sr::Key<TShaderResource>(assetTag);
+}
+
+/**
+ * @brief Helper method to generate a shader resource key from an asset tag
+ *
+ * @tparam TShaderResource The type of shader resource
+ * @param assetTag The tag of the asset using or owning the resource
+ * @param i The index of the asset in a multi-asset
+ * @return A key to use to get the shader resource
+ * @ingroup Renderer
+ */
+template<typename TShaderResource>
+sr::Key<TShaderResource> makeShaderResourceKey(std::string_view assetTag, unsigned int i) {
+    std::string key = std::string(assetTag);
+    if (i > 0) { key += "_" + std::to_string(i); }
+    return sr::Key<TShaderResource>({key.data(), key.size()});
+}
 
 /**
  * @brief Generic asset for a templated set of attachments
  *
+ * @param TShaderResource The type of shader resource that provides the attachments
+ * @param StoreKey The shader resource store to get the shader resource from
  * @tparam RenderPassId The id of the render pass to use
  * @tparam AttachmentCount The number of attachments to create, excluding depth & resolve
  * @tparam RenderPassMode Whether this asset is responsible for render pass start/stop
  * @ingroup Renderer
  */
-template<std::uint32_t RenderPassId, std::uint32_t AttachmentCount,
-         RenderPassBehavior RenderPassMode, DepthAttachmentType DepthAttachment,
-         sri::MSAABehavior MSAA = sri::MSAABehavior::Disabled>
+template<typename TShaderResource, sr::StoreKey StoreKey, std::uint32_t RenderPassId,
+         RenderPassBehavior RenderPassMode, DepthAttachmentType DepthAttachment>
 class GenericTargetAsset
 : public FramebufferAsset
 , public sig::Listener<event::SettingsChanged, event::TextureFormatChanged> {
 public:
-    static constexpr bool UsesMSAA = MSAA & sri::MSAABehavior::UseSettings;
+    using Traits = sri::AttachmentImageSetResourceTraits<TShaderResource>;
+
+    static constexpr bool UsesMSAA = Traits::MSAA & sri::MSAABehavior::UseSettings;
 
     static constexpr std::uint32_t DepthAttachmentCount =
         DepthAttachment != DepthAttachmentType::None ? 1 : 0;
 
     static constexpr std::uint32_t ResolveAttachmentCount =
-        (MSAA & sri::MSAABehavior::ResolveAttachments) ? AttachmentCount : 0;
+        (Traits::MSAA & sri::MSAABehavior::ResolveAttachments) ? Traits::AttachmentCount : 0;
 
-    static constexpr std::uint32_t RenderedAttachmentCount = AttachmentCount + DepthAttachmentCount;
+    static constexpr std::uint32_t RenderedAttachmentCount =
+        Traits::AttachmentCount + DepthAttachmentCount;
 
     static constexpr std::uint32_t TotalAttachmentCount =
-        AttachmentCount + DepthAttachmentCount + ResolveAttachmentCount;
+        Traits::AttachmentCount + DepthAttachmentCount + ResolveAttachmentCount;
 
 public:
     /**
@@ -63,22 +90,13 @@ public:
      *
      * @param tag The tag the asset is being created for
      * @param terminal Whether the asset is terminal
-     * @param imageFormats The formats of the attachments
-     * @param imageUsages How the attachments will be used
      * @param clearColors Pointer to array of clear colors for attachments
-     * @param size The sizing behavior of the target
      */
     GenericTargetAsset(std::string_view tag, bool terminal,
-                       const std::array<vk::SemanticTextureFormat, AttachmentCount>& imageFormats,
-                       const std::array<VkImageUsageFlags, AttachmentCount>& imageUsages,
-                       const std::array<VkClearValue, RenderedAttachmentCount>& clearColors,
-                       const sri::TargetSize& size)
+                       const std::array<VkClearValue, RenderedAttachmentCount>& clearColors)
     : FramebufferAsset(tag, terminal, RenderPassId, cachedViewport, cachedScissor,
                        clearColors.data(), RenderedAttachmentCount)
-    , size(size)
     , renderer(nullptr)
-    , attachmentFormats(imageFormats)
-    , attachmentUsages(imageUsages)
     , depthBufferAsset(nullptr)
     , depthBufferView(VK_NULL_HANDLE)
     , cachedViewport{}
@@ -90,20 +108,20 @@ public:
         cachedViewport.x        = 0.f;
         cachedViewport.y        = 0.f;
 
-        for (std::uint32_t i = 0; i < AttachmentCount; ++i) {
-            attachmentSet.setAttachmentAspect(i,
-                                              vk::VulkanState::guessImageAspect(imageFormats[i]));
+        for (std::uint32_t i = 0; i < Traits::AttachmentCount; ++i) {
+            attachmentSet.setAttachmentAspect(
+                i, vk::VulkanState::guessImageAspect(Traits::Formats[i]));
         }
         if constexpr (DepthAttachment == DepthAttachmentType::SharedDepthBuffer) {
             addDependency(rg::AssetTags::DepthBuffer);
             attachmentSet.setAttachmentAspect(
-                AttachmentCount, VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT);
+                Traits::AttachmentCount, VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT);
         }
         if constexpr (ResolveAttachmentCount > 0) {
-            for (std::uint32_t i = 0; i < AttachmentCount; ++i) {
+            for (std::uint32_t i = 0; i < Traits::AttachmentCount; ++i) {
                 attachmentSet.setAttachmentAspect(
-                    i + AttachmentCount + DepthAttachmentCount,
-                    vk::VulkanState::guessImageAspect(imageFormats[i]));
+                    i + Traits::AttachmentCount + DepthAttachmentCount,
+                    vk::VulkanState::guessImageAspect(Traits::Formats[i]));
             }
         }
     }
@@ -127,11 +145,8 @@ public:
     virtual vk::Framebuffer& getFramebuffer(std::uint32_t) override { return framebuffer; }
 
 private:
-    const sri::TargetSize size;
     Renderer* renderer;
-    const std::array<vk::SemanticTextureFormat, AttachmentCount> attachmentFormats;
-    const std::array<VkImageUsageFlags, AttachmentCount> attachmentUsages;
-    vk::AttachmentImageSet images;
+    Traits::TResourceType* images;
     vk::AttachmentImageSet resolveImages;
     DepthBuffer* depthBufferAsset;
     VkImageView depthBufferView;
@@ -143,6 +158,8 @@ private:
     virtual void doCreate(const rg::InitContext& ctx) override {
         renderer   = &ctx.renderer;
         renderPass = &renderer->renderPassCache().getRenderPass(renderPassId);
+        images     = ctx.getShaderResourceStore(StoreKey).getShaderResourceWithKey(
+            makeShaderResourceKey<TShaderResource>(getTag(), ctx.index));
         if constexpr (DepthAttachment == DepthAttachmentType::SharedDepthBuffer) {
             depthBufferAsset = dynamic_cast<DepthBuffer*>(getDependency(0));
             if (!depthBufferAsset) {
@@ -160,7 +177,7 @@ private:
         if constexpr (RenderPassMode == RenderPassBehavior::StartedByAsset) {
             if (depthBufferAsset && depthBufferAsset->getBuffer().getView() != depthBufferView) {
                 depthBufferView = depthBufferAsset->getBuffer().getView();
-                attachmentSet.setAttachment(AttachmentCount,
+                attachmentSet.setAttachment(Traits::AttachmentCount,
                                             depthBufferAsset->getBuffer().getImage(),
                                             depthBufferAsset->getBuffer().getView());
             }
@@ -175,17 +192,17 @@ private:
     }
 
     virtual void onResize(glm::u32vec2 newSize) override {
-        switch (size.type) {
+        switch (Traits::Size.type) {
         case sri::TargetSize::FixedSize:
             // bail if our size already matches
-            if (cachedScissor.extent.width == size.size.x &&
-                cachedScissor.extent.height == size.size.y) {
+            if (cachedScissor.extent.width == Traits::Size.size.x &&
+                cachedScissor.extent.height == Traits::Size.size.y) {
                 return;
             }
-            cachedScissor.extent.width  = size.size.x;
-            cachedScissor.extent.height = size.size.y;
-            cachedViewport.width        = static_cast<float>(size.size.x);
-            cachedViewport.height       = static_cast<float>(size.size.y);
+            cachedScissor.extent.width  = Traits::Size.size.x;
+            cachedScissor.extent.height = Traits::Size.size.y;
+            cachedViewport.width        = static_cast<float>(Traits::Size.size.x);
+            cachedViewport.height       = static_cast<float>(Traits::Size.size.y);
             break;
 
         case sri::TargetSize::ObserverSize:
@@ -196,8 +213,8 @@ private:
             break;
 
         case sri::TargetSize::ObserverSizeRatio:
-            cachedViewport.width        = static_cast<float>(newSize.x) * size.ratio.x;
-            cachedViewport.height       = static_cast<float>(newSize.y) * size.ratio.y;
+            cachedViewport.width        = static_cast<float>(newSize.x) * Traits::Size.ratio.x;
+            cachedViewport.height       = static_cast<float>(newSize.y) * Traits::Size.ratio.y;
             cachedScissor.extent.width  = static_cast<std::uint32_t>(cachedViewport.width);
             cachedScissor.extent.height = static_cast<std::uint32_t>(cachedViewport.height);
             break;
@@ -214,20 +231,14 @@ private:
             const VkSampleCountFlagBits sampleCount =
                 UsesMSAA ? renderer->getSettings().getMSAASampleCount() : VK_SAMPLE_COUNT_1_BIT;
 
-            images.create(renderer->vulkanState(),
-                          AttachmentCount,
-                          {cachedScissor.extent.width, cachedScissor.extent.height},
-                          attachmentFormats.data(),
-                          attachmentUsages.data(),
-                          sampleCount);
             attachmentSet.setRenderExtent(cachedScissor.extent);
 
             if (createResolve) {
                 resolveImages.create(renderer->vulkanState(),
                                      ResolveAttachmentCount,
                                      {cachedScissor.extent.width, cachedScissor.extent.height},
-                                     attachmentFormats.data(),
-                                     attachmentUsages.data(),
+                                     Traits::Formats.data(),
+                                     Traits::Usages.data(),
                                      VK_SAMPLE_COUNT_1_BIT);
                 attachmentSet.setOutputIndex(ResolveAttachmentCount);
             }
@@ -236,8 +247,8 @@ private:
                 attachmentSet.setOutputIndex(0);
             }
 
-            std::uint32_t ac = AttachmentCount;
-            attachmentSet.copy(images.attachmentSet(), AttachmentCount);
+            std::uint32_t ac = Traits::AttachmentCount;
+            attachmentSet.copy(images->getImages().attachmentSet(), Traits::AttachmentCount);
             if (createResolve) {
                 attachmentSet.setAttachments(ac, resolveImages);
                 ac += ResolveAttachmentCount;
@@ -262,8 +273,8 @@ private:
 
     virtual void process(const event::TextureFormatChanged& event) override {
         bool needsUpdate = false;
-        for (std::uint32_t i = 0; i < AttachmentCount; ++i) {
-            if (attachmentFormats[i] == event.semanticFormat) {
+        for (std::uint32_t i = 0; i < Traits::AttachmentCount; ++i) {
+            if (Traits::Formats[i] == event.semanticFormat) {
                 needsUpdate = true;
                 break;
             }
@@ -274,6 +285,26 @@ private:
         }
         if (needsUpdate) { createAttachments(); }
     }
+};
+
+/**
+ * @brief Trait deduction helper for GenericTargetAsset
+ *
+ * @tparam TGenericTargetAsset The generic target asset instance
+ * @ingroup Renderer
+ */
+template<typename TGenericTargetAsset>
+struct GenericTargetAssetTraits {
+    static_assert(false, "GenericTargetAssetTraits not specialized for this type");
+};
+
+template<typename TShaderResource, sr::StoreKey StoreKey, std::uint32_t RenderPassId,
+         RenderPassBehavior RenderPassMode, DepthAttachmentType DepthAttachment>
+struct GenericTargetAssetTraits<
+    GenericTargetAsset<TShaderResource, StoreKey, RenderPassId, RenderPassMode, DepthAttachment>> {
+    using TAsset = GenericTargetAsset<TShaderResource, StoreKey, RenderPassId, RenderPassMode,
+                                      DepthAttachment>;
+    static constexpr std::uint32_t RenderedAttachmentCount = TAsset::RenderedAttachmentCount;
 };
 
 } // namespace rgi

@@ -15,9 +15,7 @@ namespace rgi
  *
  * @ingroup Renderer
  */
-using SSAOProvider =
-    GenericTargetProvider<cfg::RenderPassIds::SSAOPass, 1, RenderPassBehavior::StartedByTask,
-                          DepthAttachmentType::None, sri::MSAABehavior::Disabled>;
+using SSAOProvider = GenericTargetProvider<SSAOAsset>;
 
 } // namespace rgi
 } // namespace rc

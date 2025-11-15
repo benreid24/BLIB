@@ -2,6 +2,7 @@
 #define BLIB_RENDER_SHADERRESOURCES_KEY_HPP
 
 #include <cstddef>
+#include <string_view>
 
 namespace bl
 {
@@ -29,6 +30,16 @@ struct Key {
         static_assert(N < MaxKeyLen, "Key id is too long");
         for (std::size_t i = 0; i < MaxKeyLen; ++i) { this->id[i] = '\0'; }
         for (std::size_t i = 0; i < N; ++i) { this->id[i] = id[i]; }
+    }
+
+    /**
+     * @brief Creates a key
+     *
+     * @param id The id of the resource
+     */
+    constexpr Key(std::string_view id) {
+        for (std::size_t i = 0; i < MaxKeyLen; ++i) { this->id[i] = '\0'; }
+        for (std::size_t i = 0; i < id.size(); ++i) { this->id[i] = id[i]; }
     }
 
     static constexpr std::size_t MaxKeyLen = 64;
