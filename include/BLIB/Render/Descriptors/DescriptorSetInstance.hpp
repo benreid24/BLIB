@@ -98,7 +98,6 @@ public:
 
     /**
      * @brief Called once each frame. Use to update modifed descriptors
-     *
      */
     virtual void updateDescriptors() = 0;
 

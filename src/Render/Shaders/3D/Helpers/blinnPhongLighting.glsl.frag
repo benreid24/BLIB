@@ -103,7 +103,10 @@ float computePointLightShadow(uint lightIndex, vec3 fragPos) {
 }
 
 vec3 synthesizeLightColor(mat3 lightMatrix, vec3 diffuse, vec3 specular, float ssao) {
-    return lightMatrix[0] * diffuse * ssao + lightMatrix[1] * diffuse + lightMatrix[2] * specular;
+    vec3 ambientComponent = lightMatrix[0] * diffuse * ssao;
+    vec3 diffuseComponent = lightMatrix[1] * diffuse;
+    vec3 specularComponent = lightMatrix[2] * specular;
+    return ambientComponent + diffuseComponent + specularComponent;
 }
 
 vec3 computeLighting(vec3 fragPos, vec3 normal, vec3 diffuse, vec3 specular, float shininess, float ssao) {

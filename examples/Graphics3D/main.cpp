@@ -74,7 +74,9 @@ private:
     glm::vec2 prevDrag;
 };
 
-class DemoState : public bl::engine::State {
+class DemoState
+: public bl::engine::State
+, public bl::sig::Listener<sf::Event> {
 public:
     DemoState()
     : State(bl::engine::StateMask::All)
@@ -82,7 +84,28 @@ public:
 
     virtual ~DemoState() = default;
 
+    virtual void process(const sf::Event& event) override {
+        switch (event.type) {
+        case sf::Event::KeyPressed:
+            switch (event.key.code) {
+            case sf::Keyboard::Q:
+                renderer->getSettings().setSSAO(bl::rc::Settings::SSAO::None);
+                break;
+            case sf::Keyboard::W:
+                renderer->getSettings().setSSAO(bl::rc::Settings::SSAO::Ultra);
+                break;
+
+            default:
+                break;
+            }
+            break;
+        default:
+            break;
+        }
+    }
+
 private:
+    bl::rc::Renderer* renderer;
     CameraController* controller;
     bl::rc::scene::Scene3D* scene;
     bl::gfx::Skybox skybox;
@@ -106,6 +129,7 @@ private:
     virtual const char* name() const override { return "DemoState"; }
 
     virtual void activate(bl::engine::Engine& engine) override {
+        renderer = &engine.renderer();
         engine.renderer().getSettings().setAutoHDREnabled(true);
 
         // create scene and camera
@@ -243,7 +267,7 @@ private:
         light1.setColor(light1Color);
         light1.addToScene(scene, bl::rc::UpdateSpeed::Static);
         auto light1Handle = scene->getLighting().createPointLight();
-        light1Handle.get().color.setLighting(light1Color);
+        light1Handle.get().color.setLighting(light1Color, 0.6f);
         light1Handle.get().pos = light1.getTransform().getPosition();
 
         const bl::rc::Color light2Color(sf::Color::White);
@@ -252,7 +276,7 @@ private:
         light2.setColor(light2Color);
         light2.addToScene(scene, bl::rc::UpdateSpeed::Static);
         auto light2Handle = scene->getLighting().createPointLightWithShadow();
-        light2Handle.get().color.setLighting(light2Color);
+        light2Handle.get().color.setLighting(light2Color, 0.6f);
         light2Handle.get().pos              = light2.getTransform().getPosition();
         light2Handle.get().planes.nearPlane = 0.25f; // clip the sphere around the light
 
@@ -267,7 +291,7 @@ private:
         light3.addToScene(scene, bl::rc::UpdateSpeed::Static);
         auto light3Handle = scene->getLighting().createSpotlightWithShadow();
         light3Handle.get().getColor().setLighting(light3Color.toVec3());
-        light3Handle.get().getAttenuation().constant  = 0.5f;
+        light3Handle.get().getAttenuation().constant  = 1.f;
         light3Handle.get().getAttenuation().linear    = 0.1f;
         light3Handle.get().getAttenuation().quadratic = 0.05f;
         light3Handle.get().getAttenuation().updateRadius();
@@ -279,13 +303,15 @@ private:
         //  light2Handle.removeFromScene();
         // light3Handle.removeFromScene();
 
-        scene->getLighting().modifySun().color.setLighting(glm::vec3(1.f), 1.f);
+        scene->getLighting().modifySun().color.setLighting(glm::vec3(1.f), 1.f, 0.45f, 1.f, 0.2f);
 
+        subscribe(engine.getSignalChannel());
         controller->subscribe(engine.getSignalChannel());
     }
 
     virtual void deactivate(bl::engine::Engine& engine) override {
         controller->unsubscribe();
+        unsubscribe();
         engine.getPlayer().leaveWorld();
     }
 

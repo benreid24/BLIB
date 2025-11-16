@@ -2,6 +2,7 @@
 #define BLIB_RENDER_DESCRIPTORS_SCENE3DINSTANCE_HPP
 
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
+#include <BLIB/Render/Events/SettingsChanged.hpp>
 #include <BLIB/Render/Events/ShadowMapsInvalidated.hpp>
 #include <BLIB/Render/Graph/Assets/SSAOAsset.hpp>
 #include <BLIB/Render/Lighting/LightingDescriptor3D.hpp>
@@ -39,7 +40,7 @@ namespace dsi
  */
 class Scene3DInstance
 : public ds::DescriptorSetInstance
-, public sig::Listener<event::ShadowMapsInvalidated> {
+, public sig::Listener<event::ShadowMapsInvalidated, event::SettingsChanged> {
 public:
     /**
      * @brief Creates a new instance of the descriptor set
@@ -78,6 +79,7 @@ private:
     sri::ShadowMapCameraShaderResource* shadowMapCameras;
     sri::ShadowMapShaderResource* shadowMaps;
     rgi::SSAOShaderResource* ssaoBuffer;
+    unsigned int deferredImageUpdates;
 
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                  std::uint32_t setIndex, UpdateSpeed updateFreq) const override;
@@ -88,8 +90,11 @@ private:
     virtual bool allocateObject(ecs::Entity entity, scene::Key key) override;
     virtual void updateDescriptors() override;
 
+    virtual void process(const event::SettingsChanged& event) override;
     virtual void process(const event::ShadowMapsInvalidated& event) override;
+
     void updateImageDescriptors();
+    void updateImageDescriptors(unsigned int i);
 };
 
 } // namespace dsi

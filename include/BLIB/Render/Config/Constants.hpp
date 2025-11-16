@@ -43,8 +43,8 @@ struct Constants {
         -UpDirection,
     };
 
-    static constexpr float DefaultSpecularLightFactor = 1.f;
-    static constexpr float DefaultDiffuseLightFactor  = 0.3f;
+    static constexpr float DefaultSpecularLightFactor = 0.25f;
+    static constexpr float DefaultDiffuseLightFactor  = 1.f;
     static constexpr float DefaultAmbientLightFactor  = 0.1f;
 };
 
