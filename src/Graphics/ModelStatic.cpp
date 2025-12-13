@@ -1,4 +1,4 @@
-#include <BLIB/Graphics/BasicModel.hpp>
+#include <BLIB/Graphics/ModelStatic.hpp>
 
 #include <BLIB/Resources.hpp>
 
@@ -6,15 +6,16 @@ namespace bl
 {
 namespace gfx
 {
-BasicModel::BasicModel() {}
+ModelStatic::ModelStatic() {}
 
-bool BasicModel::create(engine::World& world, const std::string& file, std::uint32_t mpid) {
+bool ModelStatic::create(engine::World& world, const std::string& file, std::uint32_t mpid) {
     auto model = resource::ResourceManager<mdl::Model>::load(file);
     if (!model) { return false; }
     return create(world, model, mpid);
 }
 
-bool BasicModel::create(engine::World& world, resource::Ref<mdl::Model> model, std::uint32_t mpid) {
+bool ModelStatic::create(engine::World& world, resource::Ref<mdl::Model> model,
+                         std::uint32_t mpid) {
     ecs = &world.engine().ecs();
     model->mergeChildren();
     if (model->getRoot().getMeshes().empty()) { return false; }
@@ -37,10 +38,10 @@ bool BasicModel::create(engine::World& world, resource::Ref<mdl::Model> model, s
     return true;
 }
 
-com::BasicMesh* BasicModel::createComponents(engine::World& world, Tx& tx, ecs::Entity entity,
-                                             std::uint32_t mpid,
-                                             const resource::Ref<mdl::Model>& model,
-                                             const mdl::Mesh& src) {
+com::BasicMesh* ModelStatic::createComponents(engine::World& world, Tx& tx, ecs::Entity entity,
+                                              std::uint32_t mpid,
+                                              const resource::Ref<mdl::Model>& model,
+                                              const mdl::Mesh& src) {
     world.engine().ecs().emplaceComponentWithTx<com::Transform3D>(entity, tx);
     auto* mesh = world.engine().ecs().emplaceComponentWithTx<com::BasicMesh>(entity, tx);
     mesh->create(world.engine().renderer().vulkanState(), src);
@@ -52,19 +53,19 @@ com::BasicMesh* BasicModel::createComponents(engine::World& world, Tx& tx, ecs::
     return mesh;
 }
 
-void BasicModel::createChild(engine::World& world, Tx& tx, std::uint32_t mpid,
-                             const resource::Ref<mdl::Model>& model, const mdl::Mesh& src) {
+void ModelStatic::createChild(engine::World& world, Tx& tx, std::uint32_t mpid,
+                              const resource::Ref<mdl::Model>& model, const mdl::Mesh& src) {
     auto child = world.createEntity();
     world.engine().ecs().setEntityParent(child, entity());
     auto* mesh = createComponents(world, tx, child, mpid, model, src);
     children.emplace_back(Child{child, mesh});
 }
 
-void BasicModel::onAdd(rc::Scene* scene, rc::UpdateSpeed updateFreq) {
+void ModelStatic::onAdd(rc::Scene* scene, rc::UpdateSpeed updateFreq) {
     for (auto& child : children) { child.mesh->addToScene(*ecs, child.entity, scene, updateFreq); }
 }
 
-void BasicModel::onRemove() {
+void ModelStatic::onRemove() {
     for (auto& child : children) { child.mesh->removeFromScene(*ecs, child.entity); }
 }
 

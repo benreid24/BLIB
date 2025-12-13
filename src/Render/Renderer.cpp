@@ -73,6 +73,9 @@ void Renderer::initialize() {
         FrameStage::Animate,
         engine::StateMask::Running | engine::StateMask::Menu | engine::StateMask::Editor,
         *this);
+    engine.systems().registerSystem<sys::SkeletalAnimationSystem>(
+        FrameStage::Animate,
+        engine::StateMask::Running | engine::StateMask::Menu | engine::StateMask::Editor);
 
     // create renderer instance data
     state.init();

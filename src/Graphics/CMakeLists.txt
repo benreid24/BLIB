@@ -1,6 +1,5 @@
 target_sources(BLIB PRIVATE
 	Animation2D.cpp
-	BasicModel.cpp
 	BatchCircle.cpp
 	BatchedShapes2D.cpp
 	BatchedSlideshows.cpp
@@ -17,6 +16,7 @@ target_sources(BLIB PRIVATE
 	Cube.cpp
 	Dummy2D.cpp
 	Icon.cpp
+	ModelStatic.cpp
 	Rectangle.cpp
 	Skybox.cpp
 	Slideshow.cpp

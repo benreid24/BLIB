@@ -1,5 +1,6 @@
 #include <BLIB/Models/Node.hpp>
 
+#include <BLIB/Models/BoneSet.hpp>
 #include <BLIB/Models/ConversionHelpers.hpp>
 
 namespace bl
@@ -10,6 +11,7 @@ Node::Node()
 : parent(nullptr) {}
 
 void Node::populate(const aiScene* scene, const aiNode* src, BoneSet& bones) {
+    name      = std::string(src->mName.C_Str());
     transform = Convert::toMat4(src->mTransformation);
 
     meshes.reserve(src->mNumMeshes);
@@ -25,6 +27,8 @@ void Node::populate(const aiScene* scene, const aiNode* src, BoneSet& bones) {
         children.back().populate(scene, src->mChildren[i], bones);
         children.back().parent = this;
     }
+
+    boneIndex = bones.getBoneIndexByName(name);
 }
 
 void Node::mergeChildren() {

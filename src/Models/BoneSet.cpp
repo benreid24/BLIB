@@ -5,15 +5,12 @@ namespace bl
 namespace mdl
 {
 void BoneSet::populate(const aiScene* scene) {
-    // TODO - we may want to use skeletons instead for more complex animations + blending
-
     unsigned int boneCount = 0;
     for (unsigned int i = 0; i < scene->mNumMeshes; ++i) {
         boneCount += scene->mMeshes[i]->mNumBones;
     }
 
     bones.reserve(boneCount);
-    boneSources.reserve(boneCount);
 
     for (unsigned int i = 0; i < scene->mNumMeshes; ++i) {
         for (unsigned int j = 0; j < scene->mMeshes[i]->mNumBones; ++j) {
@@ -23,14 +20,20 @@ void BoneSet::populate(const aiScene* scene) {
 }
 
 unsigned int BoneSet::getOrAddBone(const aiBone* bone) {
-    for (unsigned int i = 0; i < boneSources.size(); ++i) {
-        if (boneSources[i] == bone) { return i; }
-    }
+    const auto existingIndex =
+        getBoneIndexByName(std::string_view(bone->mName.data, bone->mName.length));
+    if (existingIndex.has_value()) { return existingIndex.value(); }
 
     const unsigned int i = bones.size();
     bones.emplace_back(bone);
-    boneSources.emplace_back(bone);
     return i;
+}
+
+std::optional<unsigned int> BoneSet::getBoneIndexByName(const std::string_view& name) {
+    for (unsigned int i = 0; i < bones.size(); ++i) {
+        if (bones[i].name == name) { return i; }
+    }
+    return std::nullopt;
 }
 
 } // namespace mdl

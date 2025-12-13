@@ -10,7 +10,7 @@
 
 #include <BLIB/Graphics/Animation2D.hpp>
 #include <BLIB/Graphics/Animation2D/DiscreteAnimation2DPlayer.hpp>
-#include <BLIB/Graphics/BasicModel.hpp>
+#include <BLIB/Graphics/ModelStatic.hpp>
 #include <BLIB/Graphics/BatchCircle.hpp>
 #include <BLIB/Graphics/BatchRectangle.hpp>
 #include <BLIB/Graphics/BatchSlideshow.hpp>

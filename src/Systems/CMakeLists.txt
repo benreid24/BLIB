@@ -4,6 +4,7 @@ target_sources(BLIB PRIVATE
 	OverlayScalerSystem.cpp
 	Physics2D.cpp
 	RendererUpdateSystem.cpp
+	SkeletalAnimationSystem.cpp
 	TogglerSystem.cpp
 	VelocitySystem.cpp
 )

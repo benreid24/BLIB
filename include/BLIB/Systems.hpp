@@ -11,6 +11,7 @@
 #include <BLIB/Systems/OverlayScalerSystem.hpp>
 #include <BLIB/Systems/Physics2D.hpp>
 #include <BLIB/Systems/RendererUpdateSystem.hpp>
+#include <BLIB/Systems/SkeletalAnimationSystem.hpp>
 #include <BLIB/Systems/TogglerSystem.hpp>
 #include <BLIB/Systems/VelocitySystem.hpp>
 

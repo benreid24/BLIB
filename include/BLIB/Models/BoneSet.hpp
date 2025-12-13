@@ -3,6 +3,7 @@
 
 #include <BLIB/Models/Bone.hpp>
 #include <assimp/scene.h>
+#include <optional>
 #include <vector>
 
 namespace bl
@@ -37,6 +38,14 @@ public:
     unsigned int getOrAddBone(const aiBone* bone);
 
     /**
+     * @brief Finds the bone with the given name and returns its index if found
+     *
+     * @param name The name of the bone to find
+     * @return The index of the bone
+     */
+    std::optional<unsigned int> getBoneIndexByName(const std::string_view& name);
+
+    /**
      * @brief Returns the bone at the given index
      *
      * @param index The index of the bone to fetch
@@ -51,7 +60,6 @@ public:
 
 private:
     std::vector<Bone> bones;
-    std::vector<const aiBone*> boneSources;
 };
 
 } // namespace mdl

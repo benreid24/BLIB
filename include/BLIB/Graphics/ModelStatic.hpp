@@ -1,5 +1,5 @@
-#ifndef BLIB_GRAPHICS_BASICMODEL_HPP
-#define BLIB_GRAPHICS_BASICMODEL_HPP
+#ifndef BLIB_GRAPHICS_MODELSTATIC_HPP
+#define BLIB_GRAPHICS_MODELSTATIC_HPP
 
 #include <BLIB/Components/Mesh.hpp>
 #include <BLIB/Graphics/Components/Outline3D.hpp>
@@ -18,7 +18,7 @@ namespace gfx
  *
  * @ingroup Graphics
  */
-class BasicModel
+class ModelStatic
 : public Drawable<com::BasicMesh>
 , public bcom::Transform3D
 , public bcom::Outline3D {
@@ -26,7 +26,7 @@ public:
     /**
      * @brief Does nothing
      */
-    BasicModel();
+    ModelStatic();
 
     /**
      * @brief Creates the basic model from the given file

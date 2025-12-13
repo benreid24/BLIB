@@ -2,7 +2,7 @@
 #include <BLIB/Components.hpp>
 #include <BLIB/Engine.hpp>
 #include <BLIB/Graphics.hpp>
-#include <BLIB/Graphics/BasicModel.hpp>
+#include <BLIB/Graphics/ModelStatic.hpp>
 #include <BLIB/Models.hpp>
 #include <BLIB/Render.hpp>
 #include <BLIB/Resources.hpp>
@@ -119,8 +119,8 @@ private:
     bl::gfx::Cube cube6;
     bl::gfx::Cube cube7;
 
-    bl::gfx::BasicModel model1;
-    bl::gfx::BasicModel model2;
+    bl::gfx::ModelStatic model1;
+    bl::gfx::ModelStatic model2;
 
     bl::gfx::Sphere light1;
     bl::gfx::Sphere light2;

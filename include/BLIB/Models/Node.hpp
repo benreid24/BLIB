@@ -3,6 +3,7 @@
 
 #include <BLIB/Models/Mesh.hpp>
 #include <assimp/scene.h>
+#include <optional>
 
 namespace bl
 {
@@ -55,11 +56,18 @@ public:
      */
     const Node* getParent() const { return parent; }
 
+    /**
+     * @brief Returns the index of the bone for this node, if it has one
+     */
+    const std::optional<unsigned int>& getBoneIndex() const { return boneIndex; }
+
 private:
     Node* parent;
+    std::string name;
     std::vector<Node> children;
     std::vector<Mesh> meshes;
     glm::mat4 transform;
+    std::optional<unsigned int> boneIndex;
 };
 
 } // namespace mdl
