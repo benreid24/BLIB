@@ -27,6 +27,25 @@ Vertex3DSkinned::Vertex3DSkinned(const glm::vec3& pos, const glm::vec4& color)
 , tangent()
 , normal() {}
 
+Vertex3DSkinned& Vertex3DSkinned::operator=(const mdl::Vertex& copy) {
+    pos      = copy.pos;
+    color    = copy.color;
+    texCoord = copy.texCoord;
+    tangent  = copy.tangent;
+    normal   = copy.normal;
+    for (unsigned int i = 0; i < 4; ++i) {
+        if (copy.boneIds[i] < 0) {
+            boneIndices[i] = 0;
+            boneWeights[i] = 0.f;
+        }
+        else {
+            boneIndices[i] = copy.boneIds[i];
+            boneWeights[i] = copy.boneWeights[i];
+        }
+    }
+    return *this;
+}
+
 VkVertexInputBindingDescription Vertex3DSkinned::bindingDescription() {
     VkVertexInputBindingDescription bindingDescription{};
     bindingDescription.binding   = 0;

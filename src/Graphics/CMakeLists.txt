@@ -17,6 +17,7 @@ target_sources(BLIB PRIVATE
 	Dummy2D.cpp
 	Icon.cpp
 	ModelStatic.cpp
+	ModelSkeletal.cpp
 	Rectangle.cpp
 	Skybox.cpp
 	Slideshow.cpp

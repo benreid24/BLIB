@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_PRIMITIVES_VERTEX3DSKINNED_HPP
 #define BLIB_RENDER_PRIMITIVES_VERTEX3DSKINNED_HPP
 
+#include <BLIB/Models/Vertex.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <array>
 #include <glm/glm.hpp>
@@ -45,6 +46,14 @@ struct Vertex3DSkinned {
      * @param color The color of the vertex
      */
     Vertex3DSkinned(const glm::vec3& pos, const glm::vec4& color);
+
+    /**
+     * @brief Copies this vertex from a model vertex
+     *
+     * @param vertex The model vertex to update from
+     * @return A reference to this vertex
+     */
+    Vertex3DSkinned& operator=(const mdl::Vertex& vertex);
 
     /**
      * @brief Returns the vertex binding description for the renderer

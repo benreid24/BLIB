@@ -17,6 +17,8 @@ target_sources(BLIB PUBLIC
 	Drawable.hpp
 	Dummy2D.hpp
 	Icon.hpp
+	ModelStatic.hpp
+	ModelSkeletal.hpp
 	Rectangle.hpp
 	Skybox.hpp
 	Slideshow.hpp
