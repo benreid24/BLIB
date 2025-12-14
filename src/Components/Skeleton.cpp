@@ -9,20 +9,17 @@ namespace com
 Skeleton::Bone::Bone()
 : parent(nullptr)
 , boneOffset(1.f)
-, nodeBindPoseTransform(1.f)
-, activeTransform(1.f) {}
+, nodeBindPoseTransform(1.f) {}
 
 void Skeleton::Bone::init(const mdl::Model& model, const mdl::Node& node) {
-    localIndex            = node.getBoneIndex();
+    auto sourceIndex      = node.getBoneIndex();
     nodeBindPoseTransform = node.getTransform();
 
-    if (localIndex.has_value()) {
-        const auto& bone = model.getBones().getBone(localIndex.value());
+    if (sourceIndex.has_value()) {
+        const auto& bone = model.getBones().getBone(sourceIndex.value());
         boneOffset       = bone.transform;
     }
     else { boneOffset = glm::mat4(1.f); }
-
-    activeTransform = nodeBindPoseTransform * boneOffset;
 }
 
 void Skeleton::init(const mdl::Model& model) {
@@ -33,16 +30,17 @@ void Skeleton::init(const mdl::Model& model) {
         return;
     }
 
-    const auto initBone = [this](const mdl::Node& node, Bone* parent, auto& self) -> Bone* {
-        const auto i = node.getBoneIndex();
+    const auto initBone = [this, &model](const mdl::Node& node, Bone* parent, auto& self) -> Bone* {
+        auto i = node.getBoneIndex();
         if (!i.has_value()) {
             i = bones.size();
             bones.emplace_back();
         }
-        Bone* bone = bones[i.value()];
+        Bone* bone = &bones[i.value()];
         bone->init(model, node);
         bone->parent = parent;
         bone->children.reserve(node.getChildren().size());
+        bone->localIndex = i.value();
         for (const auto& childNode : node.getChildren()) {
             bone->children.emplace_back(self(childNode, bone, self));
         }
@@ -54,9 +52,7 @@ void Skeleton::init(const mdl::Model& model) {
     initBone(model.getRoot(), nullptr, initBone);
 }
 
-void Skeleton::refreshDescriptor(glm::mat4* dst) {
-    // TODO - is this even how we want to implement this?
-}
+void Skeleton::refreshDescriptor(std::uint32_t& offset) { offset = resourceLink.getOffset(); }
 
 } // namespace com
 } // namespace bl

@@ -8,6 +8,7 @@ target_sources(BLIB PUBLIC
     ShaderResource.hpp
     ShaderResourceStore.hpp
     ShadowMapShaderResource.hpp
+    SkeletalBonesResource.hpp
     SSAOBufferShaderResource.hpp
     StoreKey.hpp
     TargetSize.hpp

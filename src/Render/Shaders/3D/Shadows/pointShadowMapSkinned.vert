@@ -9,23 +9,12 @@ layout(location = 4) in vec3 inNormal;
 layout(location = 5) in ivec4 boneIndices;
 layout(location = 6) in vec4 boneWeights;
 
-#define SCENE_SET_NUMBER 0
 #define OBJECTS_SKINNED_SET_NUMBER 1
 #include "3D/Helpers/uniforms.glsl"
 #include "3D/Helpers/skinning.glsl"
 
-layout(push_constant) uniform PushConstants {
-    float thickness;
-} outline;
-
 void main() {
     mat4 boneTransform = computeBoneMatrix(boneIndices, boneWeights);
     ModelTransform model = object.model[gl_InstanceIndex];
-    vec4 inPos = vec4(inPosition, 1.0);
-    vec3 normal = normalize(model.normal * inNormal);
-
-	vec4 worldPos = model.transform * boneTransform * inPos;
-    worldPos += vec4(normal * outline.thickness, 0.0);
-
-	gl_Position = camera.projection * camera.view * worldPos;
+	gl_Position = model.transform * boneTransform * vec4(inPosition, 1.0);
 }

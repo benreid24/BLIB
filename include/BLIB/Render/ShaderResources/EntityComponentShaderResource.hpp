@@ -113,7 +113,7 @@ public:
      * @param key The scene id of the new entity
      * @return True if the component was able to be linked, false otherwise
      */
-    bool allocateObject(ecs::Entity entity, scene::Key key);
+    virtual bool allocateObject(ecs::Entity entity, scene::Key key) override;
 
     /**
      * @brief Unlinks the component from this buffer
@@ -121,7 +121,7 @@ public:
      * @param entity The entity to unlink
      * @param key The scene key
      */
-    void releaseObject(ecs::Entity entity, scene::Key key);
+    virtual void releaseObject(ecs::Entity entity, scene::Key key) override;
 
     /**
      * @brief Flushes underlying buffers for changed components

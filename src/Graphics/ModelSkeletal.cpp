@@ -26,16 +26,10 @@ bool ModelSkeletal::create(engine::World& world, resource::Ref<mdl::Model> model
 
     Tx tx(world.engine().ecs());
 
-    // TODO - create skeleton component
+    auto* skeleton = world.engine().ecs().emplaceComponentWithTx<com::Skeleton>(entity(), tx);
+    skeleton->init(*model);
 
-    // put the first mesh directly on this entity
-    createComponents(world, tx, entity(), mpid, model, model->getRoot().getMeshes().front());
-
-    // put the rest of the meshes on children
-    children.reserve(model->getRoot().getMeshes().size() - 1);
-    for (std::size_t i = 1; i < model->getRoot().getMeshes().size(); ++i) {
-        createChild(world, tx, mpid, model, model->getRoot().getMeshes()[i]);
-    }
+    processNode(world, tx, mpid, model, model->getRoot());
 
     return true;
 }

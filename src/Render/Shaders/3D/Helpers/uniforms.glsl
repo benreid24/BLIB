@@ -8,6 +8,11 @@
 
 #include <uniforms.glsl>
 
+// skinned descriptor set extends the regular object set
+#ifdef OBJECTS_SKINNED_SET_NUMBER
+#define OBJECTS_SET_NUMBER OBJECTS_SKINNED_SET_NUMBER
+#endif
+
 #ifdef OBJECTS_SET_NUMBER
 struct ModelTransform {
     mat4 transform;
@@ -21,6 +26,15 @@ layout(std430, set = OBJECTS_SET_NUMBER, binding = 1) readonly buffer tex {
     uint index[];
 } material;
 #endif // OBJECTS_SET_NUMBER
+
+#ifdef OBJECTS_SKINNED_SET_NUMBER
+layout(std430, set = OBJECTS_SKINNED_SET_NUMBER, binding = 2) readonly buffer bone_pool {
+    mat4 bones[];
+} bonePool;
+layout(std430, set = OBJECTS_SKINNED_SET_NUMBER, binding = 3) readonly buffer bone_info {
+    uint boneOffsets[];
+} boneOffsets;
+#endif // OBJECTS_SKINNED_SET_NUMBER
 
 #ifdef SCENE_SET_NUMBER
 

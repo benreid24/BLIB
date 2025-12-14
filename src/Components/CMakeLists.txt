@@ -11,6 +11,7 @@ target_sources(BLIB PRIVATE
 	Physics2D.cpp
 	Shape2D.cpp
 	Slideshow.cpp
+	Skeleton.cpp
 	Sprite.cpp
 	Text.cpp
 	Transform2D.cpp

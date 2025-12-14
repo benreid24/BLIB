@@ -3,5 +3,6 @@ target_sources(BLIB PRIVATE
     DepthBufferShaderResource.cpp
     ShaderResourceStore.cpp
     ShadowMapShaderResource.cpp
+    SkeletalBonesResource.cpp
     SSAOBufferShaderResource.cpp
 )

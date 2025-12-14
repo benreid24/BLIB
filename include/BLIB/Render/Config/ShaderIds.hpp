@@ -59,10 +59,12 @@ struct ShaderIds {
     static constexpr char TextFragment[]  = {30, 0};
     static constexpr char SlideshowVert[] = {31, 0};
 
-    static constexpr char ShadowVertex[]        = {32, 0};
-    static constexpr char PointShadowVertex[]   = {33, 0};
-    static constexpr char PointShadowGeometry[] = {34, 0};
-    static constexpr char PointShadowFragment[] = {35, 0};
+    static constexpr char ShadowVertex[]             = {32, 0};
+    static constexpr char ShadowVertexSkinned[]      = {33, 0};
+    static constexpr char PointShadowVertex[]        = {34, 0};
+    static constexpr char PointShadowVertexSkinned[] = {35, 0};
+    static constexpr char PointShadowGeometry[]      = {36, 0};
+    static constexpr char PointShadowFragment[]      = {37, 0};
 
     static constexpr char AutoExposureAccumulate[] = {100, 0};
     static constexpr char AutoExposureAdjust[]     = {101, 0};

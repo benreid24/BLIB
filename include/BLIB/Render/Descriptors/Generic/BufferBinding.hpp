@@ -101,16 +101,15 @@ void BufferBinding<TShaderResource, ResourceKey, ResourceStore, DescriptorType>:
 template<typename TShaderResource, sr::Key<TShaderResource> ResourceKey, sr::StoreKey ResourceStore,
          VkDescriptorType DescriptorType>
 bool BufferBinding<TShaderResource, ResourceKey, ResourceStore, DescriptorType>::allocateObject(
-    ecs::Entity, scene::Key) {
-    // noop, we are global
-    return true;
+    ecs::Entity entity, scene::Key key) {
+    return buffer->allocateObject(entity, key);
 }
 
 template<typename TShaderResource, sr::Key<TShaderResource> ResourceKey, sr::StoreKey ResourceStore,
          VkDescriptorType DescriptorType>
 void BufferBinding<TShaderResource, ResourceKey, ResourceStore, DescriptorType>::releaseObject(
-    ecs::Entity, scene::Key) {
-    // noop, we are global
+    ecs::Entity entity, scene::Key key) {
+    return buffer->releaseObject(entity, key);
 }
 
 template<typename TShaderResource, sr::Key<TShaderResource> ResourceKey, sr::StoreKey ResourceStore,

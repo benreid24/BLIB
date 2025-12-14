@@ -29,7 +29,9 @@ compile_shaders(
     3D/outline.frag
 
     3D/Shadows/shadowMap.vert
+    3D/Shadows/shadowMapSkinned.vert
     3D/Shadows/pointShadowMap.vert
+    3D/Shadows/pointShadowMapSkinned.vert
     3D/Shadows/pointShadowMap.geom
     3D/Shadows/pointShadowMap.frag
 

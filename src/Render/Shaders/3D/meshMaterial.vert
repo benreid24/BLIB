@@ -31,7 +31,7 @@ void main() {
 	vs_out.texCoords = inTexCoords;
     vs_out.objectIndex = gl_InstanceIndex;
     
-    vec3 T = normalize(model.normal * inTangent);
+    vec3 T = normalize(mat3(model.transform) * inTangent);
     vec3 N = normalize(model.normal * inNormal);
     T = normalize(T - dot(T, N) * N);
     vec3 B = cross(T, N);

@@ -3,6 +3,7 @@
 
 #include <BLIB/Models/Model.hpp>
 #include <BLIB/Render/Components/DescriptorComponentBase.hpp>
+#include <BLIB/Render/ShaderResources/SkeletalBonesResource.hpp>
 
 namespace bl
 {
@@ -13,7 +14,7 @@ namespace com
  *
  * @ingroup Components
  */
-class Skeleton : public rc::rcom::DescriptorComponentBase<Skeleton, glm::mat4*> {
+class Skeleton : public rc::rcom::DescriptorComponentBase<Skeleton, std::uint32_t> {
 public:
     /**
      * @brief A single bone in a skeleton
@@ -24,9 +25,9 @@ public:
         std::vector<Bone*> children;
         Bone* parent;
 
+        std::uint32_t localIndex;
         glm::mat4 boneOffset;
         glm::mat4 nodeBindPoseTransform;
-        glm::mat4 activeTransform;
 
         /**
          * @brief Initializes with sane defaults
@@ -44,6 +45,8 @@ public:
 
     Bone* root;
     std::vector<Bone> bones;
+    rc::sri::SkeletalBonesResource::ComponentLink resourceLink;
+    bool needsRefresh;
 
     /**
      * @brief Initializes with sane defaults
@@ -62,7 +65,12 @@ public:
      *
      * @param dst The output transform array
      */
-    virtual void refreshDescriptor(glm::mat4*& dst) override;
+    virtual void refreshDescriptor(std::uint32_t& offset) override;
+
+    /**
+     * @brief Marks the bone offset index dirty for copy into the uniform buffer
+     */
+    void markForOffsetCopy() { markDirty(); }
 };
 
 } // namespace com

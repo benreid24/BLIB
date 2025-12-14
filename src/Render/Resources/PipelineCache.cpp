@@ -9,6 +9,7 @@
 #include <BLIB/Render/Descriptors/Builtin/InputAttachmentFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Object2DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Object3DFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/Object3DSkinnedFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/SSAOFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene2DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene3DFactory.hpp>
@@ -205,13 +206,13 @@ void PipelineCache::createBuiltins() {
         vk::PipelineParameters()
             .withShaders(cfg::ShaderIds::MeshVertexSkinned, cfg::ShaderIds::MeshFragmentSkinned)
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
-            .withVertexFormat(prim::Vertex3D::bindingDescription(),
-                              prim::Vertex3D::attributeDescriptions())
+            .withVertexFormat(prim::Vertex3DSkinned::bindingDescription(),
+                              prim::Vertex3DSkinned::attributeDescriptions())
             .withRasterizer(rasterizer3d)
             .withDepthStencilState(&depthStencilDepthEnabled)
             .addDescriptorSet<dsi::GlobalDataFactory>()
             .addDescriptorSet<dsi::Scene3DFactory>()
-            .addDescriptorSet<dsi::Object3DFactory>()
+            .addDescriptorSet<dsi::Object3DSkinnedFactory>()
             .withDeclareSpecializations(2)
             .withSpecialization(cfg::Specializations3D::LightingDisabled,
                                 lightingDisabledSpecialization)
@@ -224,15 +225,15 @@ void PipelineCache::createBuiltins() {
             .withShaders(cfg::ShaderIds::MeshVertexSkinned,
                          cfg::ShaderIds::MeshFragmentSkinnedDeferred)
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
-            .withVertexFormat(prim::Vertex3D::bindingDescription(),
-                              prim::Vertex3D::attributeDescriptions())
+            .withVertexFormat(prim::Vertex3DSkinned::bindingDescription(),
+                              prim::Vertex3DSkinned::attributeDescriptions())
             .withRasterizer(rasterizer3d)
             .withDepthStencilState(&depthStencilDepthEnabled)
             .withBlendConfig(vk::BlendParameters().withSimpleColorBlendState(
                 vk::BlendParameters::ColorBlendBehavior::Overwrite, 4))
             .addDescriptorSet<dsi::GlobalDataFactory>()
             .addDescriptorSet<dsi::Scene3DFactory>()
-            .addDescriptorSet<dsi::Object3DFactory>()
+            .addDescriptorSet<dsi::Object3DSkinnedFactory>()
             .withDeclareSpecializations(2)
             .withSpecialization(cfg::Specializations3D::LightingDisabled,
                                 lightingDisabledSpecialization)
@@ -422,7 +423,7 @@ void PipelineCache::createBuiltins() {
     createPipeline(
         cfg::PipelineIds::Outline3DSkinned,
         vk::PipelineParameters()
-            .withShaders(cfg::ShaderIds::Outline3DVertex, cfg::ShaderIds::Outline3DFragment)
+            .withShaders(cfg::ShaderIds::Outline3DVertexSkinned, cfg::ShaderIds::Outline3DFragment)
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withVertexFormat(prim::Vertex3DSkinned::bindingDescription(),
                               prim::Vertex3DSkinned::attributeDescriptions())
@@ -433,7 +434,7 @@ void PipelineCache::createBuiltins() {
             .addPushConstantRange(16, sizeof(glm::vec4), VK_SHADER_STAGE_FRAGMENT_BIT)
             .withSimpleDepthStencil(true, true, true, false)
             .addDescriptorSet<dsi::Scene3DFactory>()
-            .addDescriptorSet<dsi::Object3DFactory>()
+            .addDescriptorSet<dsi::Object3DSkinnedFactory>()
             .build());
 
     createPipeline(cfg::PipelineIds::ShadowMapRegular,
@@ -451,10 +452,9 @@ void PipelineCache::createBuiltins() {
                        .addDescriptorSet<dsi::Object3DFactory>()
                        .build());
 
-    // TODO - new vertex shader for skinned shadow mapping
     createPipeline(cfg::PipelineIds::ShadowMapSkinned,
                    vk::PipelineParameters()
-                       .withShader(cfg::ShaderIds::ShadowVertex, VK_SHADER_STAGE_VERTEX_BIT)
+                       .withShader(cfg::ShaderIds::ShadowVertexSkinned, VK_SHADER_STAGE_VERTEX_BIT)
                        .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                        .withVertexFormat(prim::Vertex3DSkinned::bindingDescription(),
                                          prim::Vertex3DSkinned::attributeDescriptions())
@@ -464,7 +464,7 @@ void PipelineCache::createBuiltins() {
                            vk::BlendParameters::ColorBlendBehavior::None))
                        .withDepthStencilState(&depthStencilDepthEnabled)
                        .addDescriptorSet<dsi::ShadowMapFactory>()
-                       .addDescriptorSet<dsi::Object3DFactory>()
+                       .addDescriptorSet<dsi::Object3DSkinnedFactory>()
                        .build());
 
     createPipeline(
@@ -486,11 +486,10 @@ void PipelineCache::createBuiltins() {
             .addDescriptorSet<dsi::Object3DFactory>()
             .build());
 
-    // TODO - new vertex shader for skinned shadow mapping
     createPipeline(
         cfg::PipelineIds::PointShadowMapSkinned,
         vk::PipelineParameters()
-            .withShader(cfg::ShaderIds::PointShadowVertex, VK_SHADER_STAGE_VERTEX_BIT)
+            .withShader(cfg::ShaderIds::PointShadowVertexSkinned, VK_SHADER_STAGE_VERTEX_BIT)
             .withShader(cfg::ShaderIds::PointShadowGeometry, VK_SHADER_STAGE_GEOMETRY_BIT)
             .withShader(cfg::ShaderIds::PointShadowFragment, VK_SHADER_STAGE_FRAGMENT_BIT)
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
@@ -503,7 +502,7 @@ void PipelineCache::createBuiltins() {
                 vk::BlendParameters::ColorBlendBehavior::None))
             .withDepthStencilState(&depthStencilDepthEnabled)
             .addDescriptorSet<dsi::ShadowMapFactory>()
-            .addDescriptorSet<dsi::Object3DFactory>()
+            .addDescriptorSet<dsi::Object3DSkinnedFactory>()
             .build());
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////

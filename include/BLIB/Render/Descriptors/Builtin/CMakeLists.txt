@@ -8,6 +8,8 @@ target_sources(BLIB PUBLIC
 	Object2DInstance.hpp
 	Object3DFactory.hpp
 	Object3DInstance.hpp
+	Object3DSkinnedFactory.hpp
+	Object3DSkinnedInstance.hpp
 	Scene2DFactory.hpp
 	Scene2DInstance.hpp
 	Scene3DFactory.hpp
