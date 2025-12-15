@@ -5,12 +5,16 @@ namespace bl
 namespace mdl
 {
 void Model::populate(const aiScene* scene, const std::string& path) {
-    root.populate(scene, scene->mRootNode, bones);
+    nodes.reserveSpace(scene);
+    nodes.addNode(0).populate(nodes, scene, scene->mRootNode, bones);
     materials.populate(scene, path);
     bones.populate(scene);
 }
 
-void Model::mergeChildren() { root.mergeChildren(); }
+void Model::mergeChildren() {
+    nodes.getNode(0).mergeChildren(nodes);
+    nodes.clearAllButRoot();
+}
 
 } // namespace mdl
 } // namespace bl

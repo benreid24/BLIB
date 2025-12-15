@@ -3,7 +3,7 @@
 
 #include <BLIB/Models/BoneSet.hpp>
 #include <BLIB/Models/MaterialSet.hpp>
-#include <BLIB/Models/Node.hpp>
+#include <BLIB/Models/NodeSet.hpp>
 
 namespace bl
 {
@@ -36,9 +36,14 @@ public:
     void mergeChildren();
 
     /**
-     * @brief Returns the root node of the model
+     * @brief Returns the root node of the model. Only call after loading
      */
-    const Node& getRoot() const { return root; }
+    const Node& getRoot() const { return nodes.getNode(0); }
+
+    /**
+     * @brief Returns the set of nodes in the model
+     */
+    const NodeSet& getNodes() const { return nodes; }
 
     /**
      * @brief Returns the materials in the model
@@ -51,7 +56,7 @@ public:
     const BoneSet& getBones() const { return bones; }
 
 private:
-    Node root;
+    NodeSet nodes;
     MaterialSet materials;
     BoneSet bones;
 };

@@ -155,7 +155,8 @@ bool Importer::import(const char* buffer, std::size_t len, Model& result,
                       const std::string& pathHint) {
     const std::string dir = util::FileUtil::getPath(pathHint);
     if (!pathHint.empty()) { importer.GetIOHandler()->PushDirectory(dir.c_str()); }
-    const aiScene* scene = importer.ReadFileFromMemory(buffer, len, PostProcessing);
+    const aiScene* scene = importer.ReadFileFromMemory(
+        buffer, len, PostProcessing, util::FileUtil::getFilename(pathHint).c_str());
     if (!scene) {
         BL_LOG_ERROR << "Failed to load model: " << importer.GetErrorString();
         importer.GetIOHandler()->PopDirectory();

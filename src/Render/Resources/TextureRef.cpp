@@ -30,7 +30,7 @@ TextureRef::TextureRef(const TextureRef& copy)
 : owner(copy.owner)
 , texture(copy.texture)
 , arrayId(copy.arrayId) {
-    addRef();
+    if (texture) { addRef(); }
 }
 
 TextureRef::TextureRef(TextureRef&& m)

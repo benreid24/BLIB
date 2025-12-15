@@ -14,6 +14,8 @@ target_sources(BLIB PUBLIC
 	Physics2D.hpp
 	Shape2D.hpp
 	Slideshow.hpp
+	Skeleton.hpp
+	SkeletonIndexLink.hpp
 	Sprite.hpp
 	Text.hpp
 	TilemapPosition.hpp

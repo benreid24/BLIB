@@ -37,7 +37,9 @@ void Mesh::transformVertices(const std::vector<Vertex>& src, const glm::mat4& tr
 }
 
 void Mesh::populate(const aiMesh* src, BoneSet& bones) {
-    if (src->mPrimitiveTypes != aiPrimitiveType::aiPrimitiveType_TRIANGLE) {
+    constexpr auto AcceptedTypes = aiPrimitiveType::aiPrimitiveType_TRIANGLE |
+                                   aiPrimitiveType::aiPrimitiveType_NGONEncodingFlag;
+    if ((src->mPrimitiveTypes & (~AcceptedTypes)) != 0) {
         throw std::runtime_error("Meshes must be triangles");
     }
 
@@ -75,12 +77,33 @@ void Mesh::populate(const aiMesh* src, BoneSet& bones) {
             for (unsigned int k = 0; k < bone->mNumWeights; ++k) {
                 const aiVertexWeight* weight = &bone->mWeights[k];
                 Vertex& v                    = vertices[weight->mVertexId];
+                int leastWeightIndex         = -1;
+                float leastWeightValue       = 1.f;
                 for (unsigned int i = 0; i < 4; ++i) {
                     if (v.boneIds[i] == -1) {
                         v.boneIds[i]     = bones.getOrAddBone(bone);
                         v.boneWeights[i] = weight->mWeight;
+                        leastWeightIndex = -1; // prevent duplicate
+                        break;
+                    }
+                    else if (v.boneWeights[i] < leastWeightValue) {
+                        leastWeightValue = v.boneWeights[i];
+                        leastWeightIndex = i;
                     }
                 }
+                if (leastWeightIndex != -1) {
+                    v.boneIds[leastWeightIndex]     = bones.getOrAddBone(bone);
+                    v.boneWeights[leastWeightIndex] = weight->mWeight;
+                }
+            }
+        }
+
+        // Normalize bone weights
+        for (auto& v : vertices) {
+            float totalWeight = 0.f;
+            for (unsigned int i = 0; i < 4; ++i) { totalWeight += v.boneWeights[i]; }
+            if (totalWeight > 0.f) {
+                for (unsigned int i = 0; i < 4; ++i) { v.boneWeights[i] /= totalWeight; }
             }
         }
     }

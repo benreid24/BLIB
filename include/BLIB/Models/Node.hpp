@@ -9,6 +9,8 @@ namespace bl
 {
 namespace mdl
 {
+class NodeSet;
+
 /**
  * @brief Represents a node in a model hierarchy
  *
@@ -22,24 +24,35 @@ public:
     Node();
 
     /**
+     * @brief Creates the node from its parent and own indices
+     *
+     * @param parentIndex The index of the parent node
+     * @param ownIndex The index of this node
+     */
+    Node(std::uint32_t parentIndex, std::uint32_t ownIndex);
+
+    /**
      * @brief Populates the node from the given assimp node
      *
+     * @param nodeSet The storage for new nodes
      * @param scene The top level scene
      * @param src The node to populate from
      * @param bones The set of bones in the model
      */
-    void populate(const aiScene* scene, const aiNode* src, BoneSet& bones);
+    void populate(NodeSet& nodeSet, const aiScene* scene, const aiNode* src, BoneSet& bones);
 
     /**
      * @brief Merges all child node meshes into this mesh and combines meshes that use the same
      *        material. Removes the child nodes
+     *
+     * @param nodeSet The set of nodes in the model
      */
-    void mergeChildren();
+    void mergeChildren(NodeSet& nodeSet);
 
     /**
      * @brief Returns the children of this node
      */
-    const std::vector<Node>& getChildren() const { return children; }
+    const std::vector<std::uint32_t>& getChildren() const { return children; }
 
     /**
      * @brief Returns the meshes of this node
@@ -54,7 +67,12 @@ public:
     /**
      * @brief Returns the parent of this node
      */
-    const Node* getParent() const { return parent; }
+    std::uint32_t getParentIndex() const { return parent; }
+
+    /**
+     * @brief Returns the index of this node
+     */
+    std::uint32_t getOwnIndex() const { return ownIndex; }
 
     /**
      * @brief Returns the index of the bone for this node, if it has one
@@ -62,9 +80,10 @@ public:
     const std::optional<unsigned int>& getBoneIndex() const { return boneIndex; }
 
 private:
-    Node* parent;
+    std::uint32_t parent;
+    std::uint32_t ownIndex;
     std::string name;
-    std::vector<Node> children;
+    std::vector<std::uint32_t> children;
     std::vector<Mesh> meshes;
     glm::mat4 transform;
     std::optional<unsigned int> boneIndex;

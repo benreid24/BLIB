@@ -3,6 +3,7 @@
 
 #include <BLIB/Components/MaterialInstance.hpp>
 #include <BLIB/Components/Skeleton.hpp>
+#include <BLIB/Components/SkeletonIndexLink.hpp>
 #include <BLIB/Components/Transform2D.hpp>
 #include <BLIB/Components/Transform3D.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Transform3DPayload.hpp>
@@ -45,7 +46,7 @@ constexpr sr::Key<sri::SkeletalBonesResource> SkeletalBonesBufferKey{
     "__builtin_SkeletalBonesBuffer"};
 
 using SkeletalBonesOffsetBufferResource =
-    sr::EntityComponentShaderResource<com::Skeleton, std::uint32_t,
+    sr::EntityComponentShaderResource<com::SkeletonIndexLink, std::uint32_t,
                                       buf::BufferSingleDeviceLocalSourcedSSBO<std::uint32_t>,
                                       buf::BufferSingleDeviceLocalSourcedSSBO<std::uint32_t>>;
 constexpr sr::Key<SkeletalBonesOffsetBufferResource> SkeletalBonesOffsetBufferKey{

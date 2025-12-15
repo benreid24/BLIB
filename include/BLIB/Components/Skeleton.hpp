@@ -14,25 +14,25 @@ namespace com
  *
  * @ingroup Components
  */
-class Skeleton : public rc::rcom::DescriptorComponentBase<Skeleton, std::uint32_t> {
+class Skeleton {
 public:
     /**
-     * @brief A single bone in a skeleton
+     * @brief A single node in a skeleton. May or may not correspond to a bone
      *
      * @ingroup Components
      */
-    struct Bone {
-        std::vector<Bone*> children;
-        Bone* parent;
+    struct Node {
+        std::vector<Node*> children;
+        Node* parent;
 
-        std::uint32_t localIndex;
+        std::optional<std::uint32_t> boneIndex;
         glm::mat4 boneOffset;
-        glm::mat4 nodeBindPoseTransform;
+        glm::mat4 nodeLocalTransform;
 
         /**
          * @brief Initializes with sane defaults
          */
-        Bone();
+        Node();
 
         /**
          * @brief Initializes from the given model data
@@ -43,8 +43,9 @@ public:
         void init(const mdl::Model& model, const mdl::Node& node);
     };
 
-    Bone* root;
-    std::vector<Bone> bones;
+    Node* root;
+    std::uint32_t numBones;
+    std::vector<Node> nodes;
     rc::sri::SkeletalBonesResource::ComponentLink resourceLink;
     bool needsRefresh;
 
@@ -59,18 +60,6 @@ public:
      * @param model The model data to initialize from
      */
     void init(const mdl::Model& model);
-
-    /**
-     * @brief Updates the active transforms of all bones in the skeleton
-     *
-     * @param dst The output transform array
-     */
-    virtual void refreshDescriptor(std::uint32_t& offset) override;
-
-    /**
-     * @brief Marks the bone offset index dirty for copy into the uniform buffer
-     */
-    void markForOffsetCopy() { markDirty(); }
 };
 
 } // namespace com

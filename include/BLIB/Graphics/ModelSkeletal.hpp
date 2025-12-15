@@ -3,6 +3,7 @@
 
 #include <BLIB/Components/Mesh.hpp>
 #include <BLIB/Components/Skeleton.hpp>
+#include <BLIB/Components/SkeletonIndexLink.hpp>
 #include <BLIB/Graphics/Components/Outline3D.hpp>
 #include <BLIB/Graphics/Components/Transform3D.hpp>
 #include <BLIB/Graphics/Drawable.hpp>
@@ -52,9 +53,10 @@ public:
                 std::uint32_t materialPipelineId = rc::cfg::MaterialPipelineIds::Mesh3DSkinned);
 
 private:
-    using Tx = ecs::Transaction<ecs::tx::EntityWrite, ecs::tx::ComponentRead<>,
-                                ecs::tx::ComponentWrite<com::Transform3D, com::SkinnedMesh,
-                                                        com::MaterialInstance, com::Skeleton>>;
+    using Tx = ecs::Transaction<
+        ecs::tx::EntityWrite, ecs::tx::ComponentRead<>,
+        ecs::tx::ComponentWrite<com::Transform3D, com::SkinnedMesh, com::MaterialInstance,
+                                com::Skeleton, com::SkeletonIndexLink>>;
 
     struct Child {
         ecs::Entity entity;
@@ -63,6 +65,7 @@ private:
 
     ecs::Registry* ecs;
     std::vector<Child> children;
+    bool createdMeshOnSelf;
 
     com::SkinnedMesh* createComponents(engine::World& world, Tx& tx, ecs::Entity entity,
                                        std::uint32_t materialPipelineId,

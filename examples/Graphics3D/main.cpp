@@ -121,6 +121,7 @@ private:
 
     bl::gfx::ModelStatic model1;
     bl::gfx::ModelStatic model2;
+    bl::gfx::ModelSkeletal shark;
 
     bl::gfx::Sphere light1;
     bl::gfx::Sphere light2;
@@ -261,13 +262,17 @@ private:
         model2.getTransform().setScale({0.015f, 0.015f, 0.015f});
         model2.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
+        shark.create(*world, "Resources/Models/bruce/bruce.glb");
+        shark.getTransform().setPosition({0.f, 0.05f, -2.f});
+        shark.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
         const bl::rc::Color light1Color(sf::Color(80, 180, 255));
         light1.create(*world, 0.2f, 4, {}, bl::rc::cfg::MaterialPipelineIds::Mesh3D);
         light1.getTransform().setPosition({1.f, 0.7f, 1.f});
         light1.setColor(light1Color);
         light1.addToScene(scene, bl::rc::UpdateSpeed::Static);
         auto light1Handle = scene->getLighting().createPointLight();
-        light1Handle.get().color.setLighting(light1Color, 0.6f);
+        light1Handle.get().color.setLighting(light1Color);
         light1Handle.get().pos = light1.getTransform().getPosition();
 
         const bl::rc::Color light2Color(sf::Color::White);
@@ -303,7 +308,7 @@ private:
         //  light2Handle.removeFromScene();
         // light3Handle.removeFromScene();
 
-        scene->getLighting().modifySun().color.setLighting(glm::vec3(1.f), 1.f, 0.45f, 1.f, 0.2f);
+        scene->getLighting().modifySun().color.setLighting(glm::vec3(1.f), 0.f, 0.45f, 1.f, 0.2f);
 
         subscribe(engine.getSignalChannel());
         controller->subscribe(engine.getSignalChannel());

@@ -3,7 +3,7 @@
 
 #include "3D/Helpers/uniforms.glsl"
 
-mat4 computeBoneMatrix(ivec4 indices, vec4 weights) {
+mat4 computeBoneMatrix(uvec4 indices, vec4 weights) {
     uint base = boneOffsets.boneOffsets[gl_InstanceIndex];
     mat4 transform = bonePool.bones[base + indices[0]] * weights[0];
     transform += bonePool.bones[base + indices[1]] * weights[1];

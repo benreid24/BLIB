@@ -6,7 +6,7 @@ layout(location = 1) in vec4 inColor;
 layout(location = 2) in vec2 inTexCoords;
 layout(location = 3) in vec3 inTangent;
 layout(location = 4) in vec3 inNormal;
-layout(location = 5) in ivec4 boneIndices;
+layout(location = 5) in uvec4 boneIndices;
 layout(location = 6) in vec4 boneWeights;
 
 #define LIGHT_CAM_SET_NUMBER 0

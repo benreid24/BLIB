@@ -10,7 +10,6 @@
 
 #include <BLIB/Graphics/Animation2D.hpp>
 #include <BLIB/Graphics/Animation2D/DiscreteAnimation2DPlayer.hpp>
-#include <BLIB/Graphics/ModelStatic.hpp>
 #include <BLIB/Graphics/BatchCircle.hpp>
 #include <BLIB/Graphics/BatchRectangle.hpp>
 #include <BLIB/Graphics/BatchSlideshow.hpp>
@@ -29,6 +28,8 @@
 #include <BLIB/Graphics/Cube.hpp>
 #include <BLIB/Graphics/Drawable.hpp>
 #include <BLIB/Graphics/Dummy2D.hpp>
+#include <BLIB/Graphics/ModelSkeletal.hpp>
+#include <BLIB/Graphics/ModelStatic.hpp>
 #include <BLIB/Graphics/Rectangle.hpp>
 #include <BLIB/Graphics/Skybox.hpp>
 #include <BLIB/Graphics/Slideshow.hpp>

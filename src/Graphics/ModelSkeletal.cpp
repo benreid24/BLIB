@@ -6,7 +6,9 @@ namespace bl
 {
 namespace gfx
 {
-ModelSkeletal::ModelSkeletal() {}
+ModelSkeletal::ModelSkeletal()
+: ecs(nullptr)
+, createdMeshOnSelf(nullptr) {}
 
 bool ModelSkeletal::create(engine::World& world, const std::string& file, std::uint32_t mpid) {
     auto model = resource::ResourceManager<mdl::Model>::load(file);
@@ -17,8 +19,6 @@ bool ModelSkeletal::create(engine::World& world, const std::string& file, std::u
 bool ModelSkeletal::create(engine::World& world, resource::Ref<mdl::Model> model,
                            std::uint32_t mpid) {
     ecs = &world.engine().ecs();
-    model->mergeChildren();
-    if (model->getRoot().getMeshes().empty()) { return false; }
 
     Drawable::createWithMaterial(world, mpid);
     Transform3D::create(world.engine().ecs(), entity());
@@ -31,6 +31,11 @@ bool ModelSkeletal::create(engine::World& world, resource::Ref<mdl::Model> model
 
     processNode(world, tx, mpid, model, model->getRoot());
 
+    if (!createdMeshOnSelf) {
+        destroy();
+        return false;
+    }
+
     return true;
 }
 
@@ -40,6 +45,8 @@ com::SkinnedMesh* ModelSkeletal::createComponents(engine::World& world, Tx& tx, 
                                                   const mdl::Mesh& src) {
     // meshes have identity transform. bones contain the actual transforms
     world.engine().ecs().emplaceComponentWithTx<com::Transform3D>(entity, tx);
+
+    world.engine().ecs().emplaceComponentWithTx<com::SkeletonIndexLink>(entity, tx);
 
     auto* mesh = world.engine().ecs().emplaceComponentWithTx<com::SkinnedMesh>(entity, tx);
     mesh->create(world.engine().renderer().vulkanState(), src);
@@ -55,21 +62,21 @@ com::SkinnedMesh* ModelSkeletal::createComponents(engine::World& world, Tx& tx, 
 
 void ModelSkeletal::processNode(engine::World& world, Tx& tx, std::uint32_t materialPipelineId,
                                 const resource::Ref<mdl::Model>& model, const mdl::Node& node) {
-    const bool isRoot = (&node == &model->getRoot());
+    unsigned int startMesh = 0;
 
-    // TODO - should handle when root has no meshes
-
-    // first mesh of root node goes on root entity
-    if (isRoot) {
+    if (!createdMeshOnSelf && !node.getMeshes().empty()) {
+        createdMeshOnSelf = true;
+        startMesh         = 1;
         createComponents(world, tx, entity(), materialPipelineId, model, node.getMeshes().front());
     }
 
-    for (unsigned int i = isRoot ? 1 : 0; i < node.getMeshes().size(); ++i) {
+    for (unsigned int i = startMesh; i < node.getMeshes().size(); ++i) {
         createChild(world, tx, materialPipelineId, model, node.getMeshes()[i]);
     }
 
     // all meshes of all child nodes are direct children of the root entity
-    for (const auto& childNode : node.getChildren()) {
+    for (const auto& ci : node.getChildren()) {
+        const mdl::Node& childNode = model->getNodes().getNode(ci);
         processNode(world, tx, materialPipelineId, model, childNode);
     }
 }

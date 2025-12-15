@@ -319,7 +319,7 @@ TextureRef TexturePool::getOrCreateTexture(const mdl::Texture& texture, TextureR
     if (texture.isEmbedded()) { return getOrLoadTexture(texture.getEmbedded(), options); }
     if (texture.getFilePath().empty() ||
         !resource::ResourceManager<sf::Image>::load(texture.getFilePath())) {
-        return fallback;
+        if (fallback) { return fallback; }
     }
     return getOrLoadTexture(texture.getFilePath(), options);
 }

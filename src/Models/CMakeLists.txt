@@ -5,5 +5,6 @@ target_sources(BLIB PRIVATE
 	Mesh.cpp
 	Model.cpp
 	Node.cpp
+	NodeSet.cpp
     Texture.cpp
 )
