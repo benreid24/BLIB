@@ -10,6 +10,7 @@ void Model::populate(const aiScene* scene, const std::string& path) {
     materials.populate(scene, path);
     bones.populate(scene);
     meshes.populate(scene, bones);
+    animations.populate(scene);
     flipUVs();
 }
 

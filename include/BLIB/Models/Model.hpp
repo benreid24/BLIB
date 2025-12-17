@@ -1,6 +1,7 @@
 #ifndef BLIB_MODELS_MODEL_HPP
 #define BLIB_MODELS_MODEL_HPP
 
+#include <BLIB/Models/AnimationSet.hpp>
 #include <BLIB/Models/BoneSet.hpp>
 #include <BLIB/Models/MaterialSet.hpp>
 #include <BLIB/Models/MeshSet.hpp>
@@ -56,6 +57,11 @@ public:
     const MeshSet& getMeshes() const { return meshes; }
 
     /**
+     * @brief Returns the animations in the model
+     */
+    const AnimationSet& getAnimations() const { return animations; }
+
+    /**
      * @brief Flips the V texture coordinates of all meshes in the model
      */
     void flipUVs();
@@ -65,6 +71,7 @@ private:
     MaterialSet materials;
     BoneSet bones;
     MeshSet meshes;
+    AnimationSet animations;
 };
 
 } // namespace mdl
