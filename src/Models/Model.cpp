@@ -9,12 +9,11 @@ void Model::populate(const aiScene* scene, const std::string& path) {
     nodes.addNode(0).populate(nodes, scene, scene->mRootNode, bones);
     materials.populate(scene, path);
     bones.populate(scene);
+    meshes.populate(scene, bones);
+    flipUVs();
 }
 
-void Model::mergeChildren() {
-    nodes.getNode(0).mergeChildren(nodes);
-    nodes.clearAllButRoot();
-}
+void Model::flipUVs() { meshes.flipUVs(); }
 
 } // namespace mdl
 } // namespace bl

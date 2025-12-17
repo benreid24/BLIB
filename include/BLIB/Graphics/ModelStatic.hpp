@@ -55,19 +55,24 @@ private:
         ecs::tx::EntityWrite, ecs::tx::ComponentRead<>,
         ecs::tx::ComponentWrite<com::Transform3D, com::BasicMesh, com::MaterialInstance>>;
 
-    struct Child {
+    struct EntityNode {
         ecs::Entity entity;
         com::BasicMesh* mesh;
     };
 
     ecs::Registry* ecs;
-    std::vector<Child> children;
+    std::vector<EntityNode> drawableEntities;
 
     com::BasicMesh* createComponents(engine::World& world, Tx& tx, ecs::Entity entity,
                                      std::uint32_t materialPipelineId,
-                                     const resource::Ref<mdl::Model>& model, const mdl::Mesh& src);
-    void createChild(engine::World& world, Tx& tx, std::uint32_t materialPipelineId,
-                     const resource::Ref<mdl::Model>& model, const mdl::Mesh& src);
+                                     const resource::Ref<mdl::Model>& model, const mdl::Mesh& src,
+                                     const glm::mat4& transform);
+    void createChild(engine::World& world, Tx& tx, ecs::Entity parent,
+                     std::uint32_t materialPipelineId, const resource::Ref<mdl::Model>& model,
+                     const mdl::Mesh& src);
+    void processNode(engine::World& world, Tx& tx, ecs::Entity parent,
+                     std::uint32_t materialPipelineId, const resource::Ref<mdl::Model>& model,
+                     const mdl::Node& node);
 
     virtual void onAdd(rc::Scene* scene, rc::UpdateSpeed updateFreq) override;
     virtual void onRemove() override;

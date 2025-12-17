@@ -251,6 +251,7 @@ private:
 
         auto model = bl::resource::ResourceManager<bl::mdl::Model>::load(
             "Resources/Models/backpack/backpack.obj");
+        model->flipUVs(); // this model has inverted V coords
         model1.create(*world, model);
         model1.getTransform().setPosition({-1.f, 3.1f, 0.5f});
         model1.getTransform().setScale({0.25f, 0.25f, 0.25f});
@@ -263,7 +264,7 @@ private:
         model2.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
         shark.create(*world, "Resources/Models/bruce/bruce.glb");
-        shark.getTransform().setPosition({0.f, 0.05f, -2.f});
+        shark.getTransform().setPosition({0.f, 0.11f, -2.f});
         shark.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
         const bl::rc::Color light1Color(sf::Color(80, 180, 255));

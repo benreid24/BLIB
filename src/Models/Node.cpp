@@ -2,6 +2,7 @@
 
 #include <BLIB/Models/BoneSet.hpp>
 #include <BLIB/Models/ConversionHelpers.hpp>
+#include <BLIB/Models/MeshSet.hpp>
 #include <BLIB/Models/NodeSet.hpp>
 
 namespace bl
@@ -21,11 +22,7 @@ void Node::populate(NodeSet& nodeSet, const aiScene* scene, const aiNode* src, B
     transform = Convert::toMat4(src->mTransformation);
 
     meshes.reserve(src->mNumMeshes);
-    for (unsigned int i = 0; i < src->mNumMeshes; ++i) {
-        // TODO - with a buffer refactor we can share mesh buffers across entities
-        meshes.emplace_back();
-        meshes.back().populate(scene->mMeshes[src->mMeshes[i]], bones);
-    }
+    for (unsigned int i = 0; i < src->mNumMeshes; ++i) { meshes.emplace_back(src->mMeshes[i]); }
 
     children.reserve(src->mNumChildren);
     for (unsigned int i = 0; i < src->mNumChildren; ++i) {
@@ -35,25 +32,6 @@ void Node::populate(NodeSet& nodeSet, const aiScene* scene, const aiNode* src, B
     }
 
     boneIndex = bones.getBoneIndexByName(name);
-}
-
-void Node::mergeChildren(NodeSet& nodes) {
-    for (std::uint32_t ci : children) {
-        Node& child = nodes.getNode(ci);
-        child.mergeChildren(nodes);
-        for (const Mesh& mesh : child.getMeshes()) {
-            bool merged = false;
-            for (auto& m : meshes) {
-                if (m.getMaterialIndex() == mesh.getMaterialIndex()) {
-                    m.combine(mesh, child.getTransform());
-                    merged = true;
-                    break;
-                }
-            }
-            if (!merged) { meshes.emplace_back(mesh, child.getTransform()); }
-        }
-    }
-    children.clear();
 }
 
 } // namespace mdl

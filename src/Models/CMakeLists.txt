@@ -3,6 +3,7 @@ target_sources(BLIB PRIVATE
 	Importer.cpp
 	MaterialSet.cpp
 	Mesh.cpp
+	MeshSet.cpp
 	Model.cpp
 	Node.cpp
 	NodeSet.cpp

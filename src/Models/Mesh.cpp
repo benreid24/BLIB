@@ -109,5 +109,9 @@ void Mesh::populate(const aiMesh* src, BoneSet& bones) {
     }
 }
 
+void Mesh::flipUVs() {
+    for (auto& v : vertices) { v.texCoord.y = 1.f - v.texCoord.y; }
+}
+
 } // namespace mdl
 } // namespace bl

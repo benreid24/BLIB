@@ -65,13 +65,16 @@ void ModelSkeletal::processNode(engine::World& world, Tx& tx, std::uint32_t mate
     unsigned int startMesh = 0;
 
     if (!createdMeshOnSelf && !node.getMeshes().empty()) {
-        createdMeshOnSelf = true;
-        startMesh         = 1;
-        createComponents(world, tx, entity(), materialPipelineId, model, node.getMeshes().front());
+        createdMeshOnSelf             = true;
+        startMesh                     = 1;
+        const std::uint32_t meshIndex = node.getMeshes().front();
+        createComponents(
+            world, tx, entity(), materialPipelineId, model, model->getMeshes().getMesh(meshIndex));
     }
 
     for (unsigned int i = startMesh; i < node.getMeshes().size(); ++i) {
-        createChild(world, tx, materialPipelineId, model, node.getMeshes()[i]);
+        const std::uint32_t meshIndex = node.getMeshes()[i];
+        createChild(world, tx, materialPipelineId, model, model->getMeshes().getMesh(meshIndex));
     }
 
     // all meshes of all child nodes are direct children of the root entity

@@ -10,6 +10,7 @@ namespace bl
 namespace mdl
 {
 class NodeSet;
+class MeshSet;
 
 /**
  * @brief Represents a node in a model hierarchy
@@ -42,14 +43,6 @@ public:
     void populate(NodeSet& nodeSet, const aiScene* scene, const aiNode* src, BoneSet& bones);
 
     /**
-     * @brief Merges all child node meshes into this mesh and combines meshes that use the same
-     *        material. Removes the child nodes
-     *
-     * @param nodeSet The set of nodes in the model
-     */
-    void mergeChildren(NodeSet& nodeSet);
-
-    /**
      * @brief Returns the children of this node
      */
     const std::vector<std::uint32_t>& getChildren() const { return children; }
@@ -57,7 +50,7 @@ public:
     /**
      * @brief Returns the meshes of this node
      */
-    const std::vector<Mesh>& getMeshes() const { return meshes; }
+    const std::vector<unsigned int>& getMeshes() const { return meshes; }
 
     /**
      * @brief Returns the transform of this node
@@ -84,9 +77,9 @@ private:
     std::uint32_t ownIndex;
     std::string name;
     std::vector<std::uint32_t> children;
-    std::vector<Mesh> meshes;
+    std::vector<std::uint32_t> meshes;
     glm::mat4 transform;
-    std::optional<unsigned int> boneIndex;
+    std::optional<std::uint32_t> boneIndex;
 };
 
 } // namespace mdl

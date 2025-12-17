@@ -3,6 +3,7 @@
 
 #include <BLIB/Models/BoneSet.hpp>
 #include <BLIB/Models/MaterialSet.hpp>
+#include <BLIB/Models/MeshSet.hpp>
 #include <BLIB/Models/NodeSet.hpp>
 
 namespace bl
@@ -30,12 +31,6 @@ public:
     void populate(const aiScene* scene, const std::string& path = "");
 
     /**
-     * @brief Merges all child nodes up into the parent node and combines meshes that use the same
-     *        material. Applies node transform to vertices when merging up
-     */
-    void mergeChildren();
-
-    /**
      * @brief Returns the root node of the model. Only call after loading
      */
     const Node& getRoot() const { return nodes.getNode(0); }
@@ -55,10 +50,21 @@ public:
      */
     const BoneSet& getBones() const { return bones; }
 
+    /**
+     * @brief Returns the set of meshes in the model
+     */
+    const MeshSet& getMeshes() const { return meshes; }
+
+    /**
+     * @brief Flips the V texture coordinates of all meshes in the model
+     */
+    void flipUVs();
+
 private:
     NodeSet nodes;
     MaterialSet materials;
     BoneSet bones;
+    MeshSet meshes;
 };
 
 } // namespace mdl

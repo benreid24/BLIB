@@ -68,6 +68,11 @@ public:
      */
     unsigned int getMaterialIndex() const { return materialIndex; }
 
+    /**
+     * @brief Flips the V texture coordinates of all vertices in the mesh
+     */
+    void flipUVs();
+
 private:
     std::vector<Vertex> vertices;
     std::vector<std::uint32_t> indices;
