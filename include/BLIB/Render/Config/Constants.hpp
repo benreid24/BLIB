@@ -37,8 +37,8 @@ struct Constants {
     static constexpr std::array<glm::vec3, 6> CubeUpVectors = {
         -UpDirection,
         -UpDirection,
-        {-1.f, 0.f, 0.f},
-        {1.f, 0.f, 0.f},
+        {0.f, 0.f, 1.f},
+        {0.f, 0.f, -1.f},
         -UpDirection,
         -UpDirection,
     };
