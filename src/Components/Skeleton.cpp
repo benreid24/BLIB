@@ -22,14 +22,26 @@ void Skeleton::Node::init(const mdl::Model& model, const mdl::Node& node) {
     else { boneOffset = glm::mat4(1.f); }
 }
 
-void Skeleton::init(const mdl::Model& model) {
+void Skeleton::init(const mdl::Model& model, const SkinlessMeshCallback& skinlessCallback) {
     numBones = model.getBones().numBones();
     nodes.resize(model.getNodes().size());
 
-    const auto initNode = [this, &model](const mdl::Node& src, Node* parent, auto& self) -> Node* {
+    const auto initNode =
+        [this, &model, &skinlessCallback](const mdl::Node& src, Node* parent, auto& self) -> Node* {
         auto i     = src.getOwnIndex();
         Node* node = &nodes[i];
         node->init(model, src);
+
+        if (!node->boneIndex.has_value()) {
+            for (const auto& mi : src.getMeshes()) {
+                if (!model.getMeshes().getMesh(mi).getIsSkinned()) {
+                    if (!node->boneIndex.has_value()) { node->boneIndex = numBones++; }
+                    skinlessCallback(model.getMeshes().getMesh(mi), node->boneIndex.value());
+                    break;
+                }
+            }
+        }
+
         node->parent = parent;
         node->children.reserve(src.getChildren().size());
         for (const auto& ci : src.getChildren()) {

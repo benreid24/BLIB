@@ -61,10 +61,12 @@ private:
     struct Child {
         ecs::Entity entity;
         com::SkinnedMesh* mesh;
+        const void* src;
     };
 
     ecs::Registry* ecs;
     std::vector<Child> children;
+    const void* selfMesh;
     bool createdMeshOnSelf;
 
     com::SkinnedMesh* createComponents(engine::World& world, Tx& tx, ecs::Entity entity,

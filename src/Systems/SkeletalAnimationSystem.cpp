@@ -9,7 +9,7 @@ namespace sys
 namespace
 {
 void processNode(rc::sri::SkeletalBonesResource::ComponentLink& link, com::Skeleton::Node& node,
-                 const glm::mat4& parentTransform, const glm::mat4& globalRootInverse, float dt) {
+                 const glm::mat4& parentTransform, float dt) {
     glm::mat4 nodeTransform = node.nodeLocalTransform;
 
     // TODO - apply animation and replace nodeTransform if animation present
@@ -17,12 +17,11 @@ void processNode(rc::sri::SkeletalBonesResource::ComponentLink& link, com::Skele
     glm::mat4 globalTransform = parentTransform * nodeTransform;
 
     if (link.linked() && node.boneIndex.has_value()) {
-        link.getBaseWritePtr()[node.boneIndex.value()] =
-            globalRootInverse * globalTransform * node.boneOffset;
+        link.getBaseWritePtr()[node.boneIndex.value()] = globalTransform * node.boneOffset;
     }
 
     for (com::Skeleton::Node* child : node.children) {
-        processNode(link, *child, globalTransform, globalRootInverse, dt);
+        processNode(link, *child, globalTransform, dt);
     }
 }
 } // namespace
@@ -35,8 +34,7 @@ void SkeletalAnimationSystem::update(std::mutex&, float dt, float, float, float)
     skeletons->forEach([dt](ecs::Entity, com::Skeleton& skeleton) {
         if (skeleton.needsRefresh) {
             glm::mat4 identity(1.f);
-            glm::mat4 globalRootInverse = glm::inverse(skeleton.root->nodeLocalTransform);
-            processNode(skeleton.resourceLink, *skeleton.root, identity, globalRootInverse, dt);
+            processNode(skeleton.resourceLink, *skeleton.root, identity, dt);
             skeleton.needsRefresh = false;
             skeleton.resourceLink.markForTransfer();
         }

@@ -26,10 +26,21 @@ bool ModelSkeletal::create(engine::World& world, resource::Ref<mdl::Model> model
 
     Tx tx(world.engine().ecs());
 
-    auto* skeleton = world.engine().ecs().emplaceComponentWithTx<com::Skeleton>(entity(), tx);
-    skeleton->init(*model);
-
     processNode(world, tx, mpid, model, model->getRoot());
+    tx.unlock();
+
+    auto* skeleton = world.engine().ecs().emplaceComponentWithTx<com::Skeleton>(entity(), tx);
+    skeleton->init(*model, [this](const mdl::Mesh& mesh, unsigned int boneIndex) {
+        for (auto& child : children) {
+            if (child.src == &mesh) {
+                for (auto& v : child.mesh->gpuBuffer.vertices()) {
+                    v.boneIndices[0] = boneIndex;
+                    v.boneWeights[0] = 1.f;
+                }
+                return;
+            }
+        }
+    });
 
     if (!createdMeshOnSelf) {
         destroy();
@@ -68,8 +79,9 @@ void ModelSkeletal::processNode(engine::World& world, Tx& tx, std::uint32_t mate
         createdMeshOnSelf             = true;
         startMesh                     = 1;
         const std::uint32_t meshIndex = node.getMeshes().front();
-        createComponents(
-            world, tx, entity(), materialPipelineId, model, model->getMeshes().getMesh(meshIndex));
+        const auto& mesh              = model->getMeshes().getMesh(meshIndex);
+        selfMesh                      = &mesh;
+        createComponents(world, tx, entity(), materialPipelineId, model, mesh);
     }
 
     for (unsigned int i = startMesh; i < node.getMeshes().size(); ++i) {
@@ -89,11 +101,10 @@ void ModelSkeletal::createChild(engine::World& world, Tx& tx, std::uint32_t mpid
     auto child = world.createEntity();
     world.engine().ecs().setEntityParent(child, entity());
     auto* mesh = createComponents(world, tx, child, mpid, model, src);
-    children.emplace_back(Child{child, mesh});
+    children.emplace_back(Child{child, mesh, &src});
 }
 
 void ModelSkeletal::onAdd(rc::Scene* scene, rc::UpdateSpeed updateFreq) {
-    // TODO - when to update bone indices on vertices?
     for (auto& child : children) { child.mesh->addToScene(*ecs, child.entity, scene, updateFreq); }
 }
 

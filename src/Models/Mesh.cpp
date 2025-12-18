@@ -10,11 +10,13 @@ namespace bl
 namespace mdl
 {
 Mesh::Mesh()
-: materialIndex(0) {}
+: materialIndex(0)
+, isSkinned(false) {}
 
 Mesh::Mesh(const Mesh& src, const glm::mat4& transform)
 : materialIndex(src.materialIndex)
-, indices(src.indices) {
+, indices(src.indices)
+, isSkinned(src.isSkinned) {
     transformVertices(src.vertices, transform);
 }
 
@@ -72,6 +74,8 @@ void Mesh::populate(const aiMesh* src, BoneSet& bones) {
     }
 
     if (src->mNumBones > 0) {
+        isSkinned = true;
+
         for (unsigned int j = 0; j < src->mNumBones; ++j) {
             const aiBone* bone = src->mBones[j];
             for (unsigned int k = 0; k < bone->mNumWeights; ++k) {

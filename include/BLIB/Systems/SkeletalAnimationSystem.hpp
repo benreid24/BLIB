@@ -9,10 +9,21 @@ namespace bl
 {
 namespace sys
 {
+/**
+ * @brief System that performs skeletal animation updates
+ *
+ * @ingroup Systems
+ */
 class SkeletalAnimationSystem : public engine::System {
 public:
+    /**
+     * @brief Creates the system
+     */
     SkeletalAnimationSystem() = default;
 
+    /**
+     * @brief Destroys the system
+     */
     virtual ~SkeletalAnimationSystem() = default;
 
     /**

@@ -4,6 +4,7 @@
 #include <BLIB/Models/Model.hpp>
 #include <BLIB/Render/Components/DescriptorComponentBase.hpp>
 #include <BLIB/Render/ShaderResources/SkeletalBonesResource.hpp>
+#include <functional>
 
 namespace bl
 {
@@ -16,6 +17,9 @@ namespace com
  */
 class Skeleton {
 public:
+    /// Callback that is called by init when a skinless mesh is encountered and needs a fake bone
+    using SkinlessMeshCallback = std::function<void(const mdl::Mesh& mesh, unsigned int boneIndex)>;
+
     /**
      * @brief A single node in a skeleton. May or may not correspond to a bone
      *
@@ -58,8 +62,9 @@ public:
      * @brief Initializes from the given model
      *
      * @param model The model data to initialize from
+     * @param skinlessCallback Callback invoked when a skinless mesh is encountered
      */
-    void init(const mdl::Model& model);
+    void init(const mdl::Model& model, const SkinlessMeshCallback& skinlessCallback);
 };
 
 } // namespace com

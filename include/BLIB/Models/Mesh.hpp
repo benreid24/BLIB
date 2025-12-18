@@ -73,10 +73,16 @@ public:
      */
     void flipUVs();
 
+    /**
+     * @brief Returns whether the mesh is skinned
+     */
+    bool getIsSkinned() const { return isSkinned; }
+
 private:
     std::vector<Vertex> vertices;
     std::vector<std::uint32_t> indices;
     unsigned int materialIndex;
+    bool isSkinned;
 
     void transformVertices(const std::vector<Vertex>& src, const glm::mat4& transform);
 };
