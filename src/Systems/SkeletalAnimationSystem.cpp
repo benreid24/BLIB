@@ -1,31 +1,13 @@
 #include <BLIB/Systems/SkeletalAnimationSystem.hpp>
 
+#include <BLIB/Components/Bone.hpp>
+#include <BLIB/Components/Transform3D.hpp>
 #include <BLIB/Engine/Engine.hpp>
 
 namespace bl
 {
 namespace sys
 {
-namespace
-{
-void processNode(rc::sri::SkeletalBonesResource::ComponentLink& link, com::Skeleton::Node& node,
-                 const glm::mat4& parentTransform, float dt) {
-    glm::mat4 nodeTransform = node.nodeLocalTransform;
-
-    // TODO - apply animation and replace nodeTransform if animation present
-
-    glm::mat4 globalTransform = parentTransform * nodeTransform;
-
-    if (link.linked() && node.boneIndex.has_value()) {
-        link.getBaseWritePtr()[node.boneIndex.value()] = globalTransform * node.boneOffset;
-    }
-
-    for (com::Skeleton::Node* child : node.children) {
-        processNode(link, *child, globalTransform, dt);
-    }
-}
-} // namespace
-
 void SkeletalAnimationSystem::init(engine::Engine& engine) {
     skeletons = &engine.ecs().getAllComponents<com::Skeleton>();
 }
@@ -33,10 +15,15 @@ void SkeletalAnimationSystem::init(engine::Engine& engine) {
 void SkeletalAnimationSystem::update(std::mutex&, float dt, float, float, float) {
     skeletons->forEach([dt](ecs::Entity, com::Skeleton& skeleton) {
         if (skeleton.needsRefresh) {
-            glm::mat4 identity(1.f);
-            processNode(skeleton.resourceLink, *skeleton.root, identity, dt);
+            for (auto& bone : skeleton.bones) {
+                glm::mat4 nodeTransform = bone.bone->nodeBindPoseLocal;
+
+                // TODO - apply animation and replace nodeTransform if animation present
+
+                bone.transform->setTransform(nodeTransform);
+            }
             skeleton.needsRefresh = false;
-            skeleton.resourceLink.markForTransfer();
+            skeleton.resourceLink.markForTransfer(&skeleton);
         }
     });
 }

@@ -4,6 +4,7 @@ target_sources(BLIB PUBLIC
 	BatchedShapes2D.hpp
 	BatchedSlideshows.hpp
 	BatchedSprites.hpp
+	Bone.hpp
 	Hitbox2D.hpp
 	MarkedForDeath.hpp
 	MaterialInstance.hpp

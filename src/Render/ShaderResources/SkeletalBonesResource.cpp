@@ -1,7 +1,9 @@
 #include <BLIB/Render/ShaderResources/SkeletalBonesResource.hpp>
 
+#include <BLIB/Components/Bone.hpp>
 #include <BLIB/Components/Skeleton.hpp>
 #include <BLIB/Components/SkeletonIndexLink.hpp>
+#include <BLIB/Components/Transform3D.hpp>
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Render/Config/Limits.hpp>
 
@@ -41,19 +43,19 @@ bool SkeletalBonesResource::allocateObject(ecs::Entity entity, scene::Key) {
     if (!link) { return false; }
     tx.unlock();
 
-    const auto alloc = allocator.alloc(skeleton->numBones);
+    const auto alloc = allocator.alloc(skeleton->bones.size());
     if (alloc.poolExpanded) {
         buffer.resize(alloc.newPoolSize);
         dirtyFrames = 0x1 << cfg::Limits::MaxConcurrentFrames;
     }
 
-    for (unsigned int i = 0; i < skeleton->numBones; ++i) {
+    for (unsigned int i = 0; i < skeleton->bones.size(); ++i) {
         buffer[alloc.range.start + i] = glm::mat4(1.f);
     }
 
     skeleton->resourceLink.resource = this;
     skeleton->resourceLink.offset   = alloc.range.start;
-    skeleton->resourceLink.len      = skeleton->numBones;
+    skeleton->resourceLink.len      = skeleton->bones.size();
     skeleton->needsRefresh          = true;
     link->baseBoneIndex             = alloc.range.start;
     link->markForUpdate();
@@ -68,14 +70,26 @@ void SkeletalBonesResource::releaseObject(ecs::Entity entity, scene::Key) {
     allocator.release({skeleton->resourceLink.offset, skeleton->resourceLink.len});
 }
 
-void SkeletalBonesResource::performTransfer() { dirtyFrames = dirtyFrames >> 1; }
+void SkeletalBonesResource::performTransfer() {
+    for (com::Skeleton* skeleton : toTransfer) {
+        for (unsigned int i = 0; i < skeleton->bones.size(); ++i) {
+            buffer[skeleton->resourceLink.offset + i] =
+                skeleton->bones[i].transform->getGlobalTransform() *
+                skeleton->bones[i].bone->boneOffset;
+        }
+        buffer.markDirty(skeleton->resourceLink.offset, skeleton->bones.size());
+    }
+    toTransfer.clear();
+
+    dirtyFrames = dirtyFrames >> 1;
+}
 
 bool SkeletalBonesResource::dynamicDescriptorUpdateRequired() const { return dirtyFrames > 0; }
 
 bool SkeletalBonesResource::staticDescriptorUpdateRequired() const { return dirtyFrames > 0; }
 
-void SkeletalBonesResource::ComponentLink::markForTransfer() {
-    if (resource) { resource->buffer.markDirty(offset, len); }
+void SkeletalBonesResource::ComponentLink::markForTransfer(com::Skeleton* skeleton) {
+    if (resource) { resource->toTransfer.emplace_back(skeleton); }
 }
 
 } // namespace sri

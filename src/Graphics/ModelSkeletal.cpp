@@ -1,5 +1,6 @@
 #include <BLIB/Graphics/ModelSkeletal.hpp>
 
+#include <BLIB/Components/Bone.hpp>
 #include <BLIB/Resources.hpp>
 
 namespace bl
@@ -10,106 +11,184 @@ ModelSkeletal::ModelSkeletal()
 : ecs(nullptr)
 , createdMeshOnSelf(nullptr) {}
 
-bool ModelSkeletal::create(engine::World& world, const std::string& file, std::uint32_t mpid) {
+bool ModelSkeletal::create(engine::World& world, const std::string& file,
+                           std::uint32_t skinnedMaterial, std::uint32_t unskinnedMaterial) {
     auto model = resource::ResourceManager<mdl::Model>::load(file);
     if (!model) { return false; }
-    return create(world, model, mpid);
+    return create(world, model, skinnedMaterial, unskinnedMaterial);
 }
 
 bool ModelSkeletal::create(engine::World& world, resource::Ref<mdl::Model> model,
-                           std::uint32_t mpid) {
+                           std::uint32_t skinnedMaterial, std::uint32_t unskinnedMaterial) {
     ecs = &world.engine().ecs();
 
-    Drawable::createWithMaterial(world, mpid);
+    Drawable::createWithMaterial(world, skinnedMaterial);
     Transform3D::create(world.engine().ecs(), entity());
     Outline3D::init(world.engine().ecs(), entity(), &component());
 
     Tx tx(world.engine().ecs());
 
-    processNode(world, tx, mpid, model, model->getRoot());
+    com::Skeleton* skeleton =
+        world.engine().ecs().emplaceComponentWithTx<com::Skeleton>(entity(), tx);
+    skeleton->bones.resize(model->getBones().numBones(), {});
+
+    processNode(world,
+                tx,
+                skinnedMaterial,
+                unskinnedMaterial,
+                *skeleton,
+                model,
+                model->getRoot(),
+                entity());
     tx.unlock();
 
-    auto* skeleton = world.engine().ecs().emplaceComponentWithTx<com::Skeleton>(entity(), tx);
-    skeleton->init(*model, [this](const mdl::Mesh& mesh, unsigned int boneIndex) {
-        for (auto& child : children) {
-            if (child.src == &mesh) {
-                for (auto& v : child.mesh->gpuBuffer.vertices()) {
-                    v.boneIndices[0] = boneIndex;
-                    v.boneWeights[0] = 1.f;
-                }
-                return;
-            }
+    // validate that all bones populated
+    for (auto& bone : skeleton->bones) {
+        if (!bone.bone) {
+            BL_LOG_ERROR << "Skeletal model did not populate all declared bones!";
+            destroy();
+            return false;
         }
-    });
+    }
 
     if (!createdMeshOnSelf) {
-        destroy();
-        return false;
+        if (!children.empty()) {
+            // TODO - HACK - this is a workaround for lack of first-class support for multiple
+            // draws/meshes
+            // for a single entity in the renderer. Should rethink the renderer object <-> ECS
+            // entity model
+            component().create(world.engine().renderer().vulkanState(), 1, 3);
+            component().gpuBuffer.indices()  = {0, 0, 0};
+            component().gpuBuffer.vertices() = {
+                rc::prim::Vertex3DSkinned(glm::vec3(0.f, 0.f, 0.f))};
+            component().gpuBuffer.queueTransfer();
+        }
+        else {
+            destroy();
+            return false;
+        }
     }
 
     return true;
 }
 
-com::SkinnedMesh* ModelSkeletal::createComponents(engine::World& world, Tx& tx, ecs::Entity entity,
-                                                  std::uint32_t mpid,
-                                                  const resource::Ref<mdl::Model>& model,
-                                                  const mdl::Mesh& src) {
-    // meshes have identity transform. bones contain the actual transforms
-    world.engine().ecs().emplaceComponentWithTx<com::Transform3D>(entity, tx);
+void ModelSkeletal::processNode(engine::World& world, Tx& tx,
+                                std::uint32_t skinnedMaterialPipelineId,
+                                std::uint32_t nonSkinnedMaterialPipelineId, com::Skeleton& skeleton,
+                                const resource::Ref<mdl::Model>& model, const mdl::Node& node,
+                                ecs::Entity parentEntity) {
+    ecs::Entity nodeEntity = world.createEntity(tx);
+    world.engine().ecs().setEntityParent(nodeEntity, parentEntity, tx);
 
-    world.engine().ecs().emplaceComponentWithTx<com::SkeletonIndexLink>(entity, tx);
+    // Create transform on node entity and initialize to bind pose
+    com::Transform3D* transform =
+        world.engine().ecs().emplaceComponentWithTx<com::Transform3D>(nodeEntity, tx);
+    transform->setTransform(node.getTransform());
 
-    auto* mesh = world.engine().ecs().emplaceComponentWithTx<com::SkinnedMesh>(entity, tx);
-    mesh->create(world.engine().renderer().vulkanState(), src);
-
-    auto mat = world.engine().renderer().materialPool().getOrCreateFromModelMaterial(
-        model->getMaterials().getMaterial(src.getMaterialIndex()));
-    auto* matInstance = world.engine().ecs().emplaceComponentWithTx<com::MaterialInstance>(
-        entity, tx, world.engine().renderer(), *mesh, mpid, mat);
-    mesh->init(matInstance);
-
-    return mesh;
-}
-
-void ModelSkeletal::processNode(engine::World& world, Tx& tx, std::uint32_t materialPipelineId,
-                                const resource::Ref<mdl::Model>& model, const mdl::Node& node) {
-    unsigned int startMesh = 0;
-
-    if (!createdMeshOnSelf && !node.getMeshes().empty()) {
-        createdMeshOnSelf             = true;
-        startMesh                     = 1;
-        const std::uint32_t meshIndex = node.getMeshes().front();
-        const auto& mesh              = model->getMeshes().getMesh(meshIndex);
-        selfMesh                      = &mesh;
-        createComponents(world, tx, entity(), materialPipelineId, model, mesh);
+    // create the bone component and setup links if this node is a bone
+    if (node.getBoneIndex().has_value()) {
+        com::Bone* bone = world.engine().ecs().emplaceComponentWithTx<com::Bone>(nodeEntity, tx);
+        bone->nodeBindPoseLocal = node.getTransform();
+        bone->transform         = transform;
+        bone->boneIndex         = node.getBoneIndex().value();
+        bone->boneOffset        = model->getBones().getBone(bone->boneIndex).transform;
+        skeleton.bones[bone->boneIndex].transform = transform;
+        skeleton.bones[bone->boneIndex].bone      = bone;
     }
 
-    for (unsigned int i = startMesh; i < node.getMeshes().size(); ++i) {
-        const std::uint32_t meshIndex = node.getMeshes()[i];
-        createChild(world, tx, materialPipelineId, model, model->getMeshes().getMesh(meshIndex));
+    // create entities per mesh
+    for (const std::uint32_t meshIndex : node.getMeshes()) {
+        const mdl::Mesh& mesh  = model->getMeshes().getMesh(meshIndex);
+        ecs::Entity meshEntity = ecs::InvalidEntity;
+
+        // try to put one mesh on root entity
+        if (!createdMeshOnSelf && mesh.getIsSkinned()) {
+            meshEntity        = entity();
+            createdMeshOnSelf = true;
+        }
+        else {
+            meshEntity = world.createEntity(tx);
+
+            // mesh transforms are always identity
+            world.engine().ecs().emplaceComponentWithTx<com::Transform3D>(meshEntity, tx);
+        }
+
+        // mesh material
+        const std::uint32_t materialId =
+            mesh.getIsSkinned() ? skinnedMaterialPipelineId : nonSkinnedMaterialPipelineId;
+        auto mat = world.engine().renderer().materialPool().getOrCreateFromModelMaterial(
+            model->getMaterials().getMaterial(mesh.getMaterialIndex()));
+
+        // skinned meshes are direct children of the root node. bone transforms provide the
+        // accumulated node transforms
+        if (mesh.getIsSkinned()) {
+            if (meshEntity != entity()) {
+                world.engine().ecs().setEntityParent(meshEntity, entity(), tx);
+
+                auto* meshComponent =
+                    world.engine().ecs().emplaceComponentWithTx<com::SkinnedMesh>(meshEntity, tx);
+                meshComponent->create(world.engine().renderer().vulkanState(), mesh);
+
+                children.emplace_back(meshEntity, meshComponent);
+            }
+            else { component().create(world.engine().renderer().vulkanState(), mesh); }
+            world.engine().ecs().emplaceComponentWithTx<com::SkeletonIndexLink>(meshEntity, tx);
+        }
+        else {
+            world.engine().ecs().setEntityParent(meshEntity, nodeEntity, tx);
+
+            auto* meshComponent =
+                world.engine().ecs().emplaceComponentWithTx<com::BasicMesh>(meshEntity, tx);
+            meshComponent->create(world.engine().renderer().vulkanState(), mesh);
+
+            children.emplace_back(meshEntity, meshComponent);
+        }
+
+        // create material instance on the mesh (root gets it from Drawable::createWithMaterial
+        if (meshEntity != entity()) {
+            std::visit(
+                [this, &world, &tx, &mat, meshEntity, &mesh, materialId](auto& meshComponent) {
+                    auto* matInstance =
+                        world.engine().ecs().emplaceComponentWithTx<com::MaterialInstance>(
+                            meshEntity,
+                            tx,
+                            world.engine().renderer(),
+                            *meshComponent,
+                            materialId,
+                            mat);
+                    meshComponent->init(matInstance);
+                },
+                children.back().mesh);
+        }
     }
 
-    // all meshes of all child nodes are direct children of the root entity
-    for (const auto& ci : node.getChildren()) {
+    // create entities recursively for child nodes
+    for (std::uint32_t ci : node.getChildren()) {
         const mdl::Node& childNode = model->getNodes().getNode(ci);
-        processNode(world, tx, materialPipelineId, model, childNode);
+        processNode(world,
+                    tx,
+                    skinnedMaterialPipelineId,
+                    nonSkinnedMaterialPipelineId,
+                    skeleton,
+                    model,
+                    childNode,
+                    nodeEntity);
     }
-}
-
-void ModelSkeletal::createChild(engine::World& world, Tx& tx, std::uint32_t mpid,
-                                const resource::Ref<mdl::Model>& model, const mdl::Mesh& src) {
-    auto child = world.createEntity();
-    world.engine().ecs().setEntityParent(child, entity());
-    auto* mesh = createComponents(world, tx, child, mpid, model, src);
-    children.emplace_back(Child{child, mesh, &src});
 }
 
 void ModelSkeletal::onAdd(rc::Scene* scene, rc::UpdateSpeed updateFreq) {
-    for (auto& child : children) { child.mesh->addToScene(*ecs, child.entity, scene, updateFreq); }
+    for (auto& child : children) {
+        std::visit([this, &child, scene, updateFreq](
+                       auto& mesh) { mesh->addToScene(*ecs, child.entity, scene, updateFreq); },
+                   child.mesh);
+    }
 }
 
 void ModelSkeletal::onRemove() {
-    for (auto& child : children) { child.mesh->removeFromScene(*ecs, child.entity); }
+    for (auto& child : children) {
+        std::visit([this, &child](auto& mesh) { mesh->removeFromScene(*ecs, child.entity); },
+                   child.mesh);
+    }
 }
 
 } // namespace gfx

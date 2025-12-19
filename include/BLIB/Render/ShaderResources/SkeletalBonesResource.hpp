@@ -7,6 +7,10 @@
 
 namespace bl
 {
+namespace com
+{
+class Skeleton;
+}
 namespace ecs
 {
 class Registry;
@@ -52,12 +56,14 @@ public:
         /**
          * @brief Returns the base pointer to write bone data to
          */
-        glm::mat4* getBaseWritePtr() { return linked() ? &resource->buffer[offset] : nullptr; }
+        // glm::mat4* getBaseWritePtr() { return linked() ? &resource->buffer[offset] : nullptr; }
 
         /**
          * @brief Marks the bones for transfer to the GPU
+         *
+         * @param skeleton The skeleton to transfer
          */
-        void markForTransfer();
+        void markForTransfer(com::Skeleton* skeleton);
 
         /**
          * @brief Returns whether or not the link is valid
@@ -98,6 +104,7 @@ private:
     ecs::Registry* registry;
     util::RangeAllocatorUnbounded<std::uint32_t> allocator;
     std::uint32_t dirtyFrames;
+    std::vector<com::Skeleton*> toTransfer;
 
     virtual void init(engine::Engine& engine, RenderTarget&) override;
     virtual bool dynamicDescriptorUpdateRequired() const override;

@@ -5,10 +5,10 @@ namespace bl
 namespace mdl
 {
 void Model::populate(const aiScene* scene, const std::string& path) {
+    bones.populate(scene);
     nodes.reserveSpace(scene);
     nodes.addNode(0).populate(nodes, scene, scene->mRootNode, bones);
     materials.populate(scene, path);
-    bones.populate(scene);
     meshes.populate(scene, bones);
     animations.populate(scene);
     flipUVs();
