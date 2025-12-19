@@ -131,7 +131,13 @@ void ModelSkeletal::processNode(engine::World& world, Tx& tx,
 
                 children.emplace_back(meshEntity, meshComponent);
             }
-            else { component().create(world.engine().renderer().vulkanState(), mesh); }
+            else { // add mesh to root
+                component().create(world.engine().renderer().vulkanState(), mesh);
+                auto* matInstance =
+                    world.engine().ecs().emplaceComponentWithTx<com::MaterialInstance>(
+                        meshEntity, tx, world.engine().renderer(), component(), materialId, mat);
+                component().init(matInstance);
+            }
             world.engine().ecs().emplaceComponentWithTx<com::SkeletonIndexLink>(meshEntity, tx);
         }
         else {

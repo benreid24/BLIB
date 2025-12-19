@@ -74,7 +74,7 @@ void SkeletalBonesResource::performTransfer() {
     for (com::Skeleton* skeleton : toTransfer) {
         for (unsigned int i = 0; i < skeleton->bones.size(); ++i) {
             buffer[skeleton->resourceLink.offset + i] =
-                skeleton->bones[i].transform->getGlobalTransform() *
+                skeleton->bones[i].transform->getGlobalTransformExcludingRoot() *
                 skeleton->bones[i].bone->boneOffset;
         }
         buffer.markDirty(skeleton->resourceLink.offset, skeleton->bones.size());

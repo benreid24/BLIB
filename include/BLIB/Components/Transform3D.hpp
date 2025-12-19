@@ -131,6 +131,11 @@ public:
     glm::mat4 getGlobalTransform() const;
 
     /**
+     * @brief Returns the global transform matrix of this transform, excluding the topmost parent
+     */
+    glm::mat4 getGlobalTransformExcludingRoot() const;
+
+    /**
      * @brief Transforms the given point by this transform
      *
      * @param src The point to transform

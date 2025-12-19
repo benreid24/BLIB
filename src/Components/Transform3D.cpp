@@ -88,6 +88,13 @@ glm::mat4 Transform3D::getGlobalTransform() const {
     return getLocalTransform();
 }
 
+glm::mat4 Transform3D::getGlobalTransformExcludingRoot() const {
+    if (hasParent() && getParent().hasParent()) {
+        return getParent().getGlobalTransformExcludingRoot() * getLocalTransform();
+    }
+    return getLocalTransform();
+}
+
 glm::vec3 Transform3D::transformPoint(const glm::vec3& point) const {
     return glm::vec3(getGlobalTransform() * glm::vec4(point, 1.f));
 }
