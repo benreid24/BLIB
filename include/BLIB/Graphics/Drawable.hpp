@@ -195,9 +195,17 @@ protected:
      */
     virtual void onRemove();
 
+    /**
+     * @brief Sets whether the component must be created on the root entity for scene add
+     *
+     * @param require True to require, false to not
+     */
+    void setRequiresComponentOnSelf(bool require);
+
 private:
     TCom* handle;
     com::MaterialInstance* materialInstance;
+    bool isNoHandleError;
 
     template<typename U>
     friend class Drawable;
@@ -211,7 +219,8 @@ private:
 
 template<typename TCom>
 Drawable<TCom>::Drawable()
-: handle(nullptr) {}
+: handle(nullptr)
+, isNoHandleError(true) {}
 
 template<typename TCom>
 Drawable<TCom>::~Drawable() {
@@ -223,13 +232,15 @@ Drawable<TCom>::~Drawable() {
 
 template<typename TCom>
 void Drawable<TCom>::addToScene(rc::Scene* scene, rc::UpdateSpeed updateFreq) {
-#ifdef BLIB_DEBUG
-    if (entity() == ecs::InvalidEntity || !handle) {
+    const bool hasHandle = handle != nullptr;
+
+    if (entity() == ecs::InvalidEntity || (!hasHandle && isNoHandleError)) {
         throw std::runtime_error("Drawable must be created before adding to scene");
     }
-#endif
 
-    component().addToScene(engine().ecs(), entity(), scene, updateFreq);
+    if (hasHandle && component().getDrawParameters().indexCount > 0) {
+        component().addToScene(engine().ecs(), entity(), scene, updateFreq);
+    }
     onAdd(scene, updateFreq);
 }
 
@@ -245,13 +256,13 @@ void Drawable<TCom>::setHidden(bool hide) {
 template<typename TCom>
 void Drawable<TCom>::removeFromScene() {
 #ifdef BLIB_DEBUG
-    if (entity() == ecs::InvalidEntity || !handle) {
+    if (entity() == ecs::InvalidEntity) {
         throw std::runtime_error("Drawable must be created before removing from scene");
     }
 #endif
 
     stopFlashing();
-    component().removeFromScene(engine().ecs(), entity());
+    if (handle) { component().removeFromScene(engine().ecs(), entity()); }
     onRemove();
 }
 
@@ -328,6 +339,11 @@ void Drawable<TCom>::onAdd(rc::Scene*, rc::UpdateSpeed) {}
 
 template<typename TCom>
 void Drawable<TCom>::onRemove() {}
+
+template<typename TCom>
+void Drawable<TCom>::setRequiresComponentOnSelf(bool require) {
+    isNoHandleError = require;
+}
 
 template<typename TCom>
 template<typename... TArgs>

@@ -24,6 +24,7 @@ bool ModelStatic::create(engine::World& world, resource::Ref<mdl::Model> model,
     ecs = &world.engine().ecs();
 
     Drawable::createWithMaterial(world, mpid);
+    Drawable::setRequiresComponentOnSelf(false);
     Transform3D::create(world.engine().ecs(), entity());
     Outline3D::init(world.engine().ecs(), entity(), &component());
 
@@ -31,15 +32,6 @@ bool ModelStatic::create(engine::World& world, resource::Ref<mdl::Model> model,
 
     Tx tx(world.engine().ecs());
     processNode(world, tx, entity(), mpid, model, model->getRoot());
-
-    // TODO - HACK - this is a workaround for lack of first-class support for multiple draws/meshes
-    // for a single entity in the renderer. Should rethink the renderer object <-> ECS entity model
-    if (component().getDrawParameters().indexCount == 0) {
-        component().create(world.engine().renderer().vulkanState(), 1, 3);
-        component().gpuBuffer.indices()  = {0, 0, 0};
-        component().gpuBuffer.vertices() = {rc::prim::Vertex3D(glm::vec3(0.f, 0.f, 0.f))};
-        component().gpuBuffer.queueTransfer();
-    }
 
     return true;
 }
