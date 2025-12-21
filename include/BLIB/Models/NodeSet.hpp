@@ -47,6 +47,14 @@ public:
     const Node& getNode(std::size_t index) const { return nodes[index]; }
 
     /**
+     * @brief Returns the node with the given name
+     *
+     * @param name The name of the node to find
+     * @return The node with the given name, or nullptr if not found
+     */
+    const Node* getNode(std::string_view name) const;
+
+    /**
      * @brief Adds a node to the set
      *
      * @param node The node to add

@@ -1,6 +1,7 @@
 #ifndef BLIB_COMPONENTS_SKELETON_HPP
 #define BLIB_COMPONENTS_SKELETON_HPP
 
+#include <BLIB/Containers/StaticVector.hpp>
 #include <BLIB/Models/Model.hpp>
 #include <BLIB/Render/Components/DescriptorComponentBase.hpp>
 #include <BLIB/Render/ShaderResources/SkeletalBonesResource.hpp>
@@ -28,8 +29,21 @@ public:
         , bone(nullptr) {}
     };
 
+    struct AnimationState {
+        float time;
+        float weight;
+        std::uint32_t animationIndex;
+
+        AnimationState()
+        : time(0.f)
+        , weight(1.f)
+        , animationIndex(0) {}
+    };
+
     std::vector<BoneLink> bones;
     rc::sri::SkeletalBonesResource::ComponentLink resourceLink;
+    mdl::AnimationSet animations; // TODO - better interface. Separate component? external storage?
+    ctr::StaticVector<AnimationState, 4> activeAnimations;
     bool needsRefresh;
 
     /**

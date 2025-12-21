@@ -11,6 +11,8 @@ namespace bl
 {
 namespace mdl
 {
+class NodeSet;
+
 /**
  * @brief Describes the animation of a single bone in a skeletal animation
  *
@@ -44,8 +46,36 @@ public:
      * @brief Populates from Assimp data
      *
      * @param src The source data
+     * @param nodes The set of nodes in the model
      */
-    void populate(const aiNodeAnim& src);
+    void populate(const aiNodeAnim& src, const NodeSet& nodes);
+
+    /**
+     * @brief Returns the interpolated rotation at the given time
+     *
+     * @param time The time to sample at
+     * @param nodeLocal The local transform of the node at bind pose
+     * @return The interpolated rotation
+     */
+    glm::quat interpolateRotation(double time, const glm::mat4& nodeLocal) const;
+
+    /**
+     * @brief Returns the interpolated position at the given time
+     *
+     * @param time The time to sample at
+     * @param nodeLocal The local transform of the node at bind pose
+     * @return The interpolated position
+     */
+    glm::vec3 interpolatePosition(double time, const glm::mat4& nodeLocal) const;
+
+    /**
+     * @brief Returns the interpolated scale at the given time
+     *
+     * @param time The time to sample at
+     * @param nodeLocal The local transform of the node at bind pose
+     * @return The interpolated scale
+     */
+    glm::vec3 interpolateScale(double time, const glm::mat4& nodeLocal) const;
 
     /**
      * @brief Returns the name of the animated bone
@@ -84,6 +114,9 @@ private:
     std::vector<KeyframeVector> scaleKeys;
     Behavior preBehavior;
     Behavior postBehavior;
+    glm::vec3 bindPosePosition;
+    glm::vec3 bindPoseScale;
+    glm::quat bindPoseRotation;
 };
 
 } // namespace mdl

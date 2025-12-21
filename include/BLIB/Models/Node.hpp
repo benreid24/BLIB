@@ -72,6 +72,11 @@ public:
      */
     const std::optional<unsigned int>& getBoneIndex() const { return boneIndex; }
 
+    /**
+     * @brief Returns the name of this node
+     */
+    const std::string& getName() const { return name; }
+
 private:
     std::uint32_t parent;
     std::uint32_t ownIndex;

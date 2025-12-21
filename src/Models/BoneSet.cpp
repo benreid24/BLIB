@@ -29,7 +29,7 @@ unsigned int BoneSet::getOrAddBone(const aiBone* bone) {
     return i;
 }
 
-std::optional<unsigned int> BoneSet::getBoneIndexByName(const std::string_view& name) {
+std::optional<unsigned int> BoneSet::getBoneIndexByName(const std::string_view& name) const {
     for (unsigned int i = 0; i < bones.size(); ++i) {
         if (bones[i].name == name) { return i; }
     }

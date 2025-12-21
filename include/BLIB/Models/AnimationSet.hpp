@@ -8,6 +8,9 @@ namespace bl
 {
 namespace mdl
 {
+class BoneSet;
+class NodeSet;
+
 /**
  * @brief The set of animations on a model
  *
@@ -24,8 +27,10 @@ public:
      * @brief Populates the animation set from the given scene
      *
      * @param scene The scene to populate from
+     * @param nodes The nodes in the model
+     * @param bones The bones in the model
      */
-    void populate(const aiScene* scene);
+    void populate(const aiScene* scene, const NodeSet& nodes, const BoneSet& bones);
 
     /**
      * @brief Returns the animations in the set

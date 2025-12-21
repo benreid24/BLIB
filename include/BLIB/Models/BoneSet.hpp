@@ -43,7 +43,7 @@ public:
      * @param name The name of the bone to find
      * @return The index of the bone
      */
-    std::optional<unsigned int> getBoneIndexByName(const std::string_view& name);
+    std::optional<unsigned int> getBoneIndexByName(const std::string_view& name) const;
 
     /**
      * @brief Returns the bone at the given index

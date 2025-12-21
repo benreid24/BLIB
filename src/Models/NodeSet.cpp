@@ -25,5 +25,12 @@ void NodeSet::clearAllButRoot() {
     if (nodes.size() > 1) { nodes.erase(nodes.begin() + 1, nodes.end()); }
 }
 
+const Node* NodeSet::getNode(std::string_view name) const {
+    for (const Node& node : nodes) {
+        if (node.getName() == name) { return &node; }
+    }
+    return nullptr;
+}
+
 } // namespace mdl
 } // namespace bl

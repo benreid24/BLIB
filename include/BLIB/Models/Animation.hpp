@@ -10,6 +10,9 @@ namespace bl
 {
 namespace mdl
 {
+class BoneSet;
+class NodeSet;
+
 /**
  * @brief Representa an animation of a model
  *
@@ -26,8 +29,10 @@ public:
      * @brief Populates the animation from Assimp data
      *
      * @param src The source data
+     * @param nodes The set of nodes in the model
+     * @param bones The bones in the model
      */
-    void populate(const aiAnimation* src);
+    void populate(const aiAnimation* src, const NodeSet& nodes, const BoneSet& bones);
 
     /**
      * @brief Returns the name of the animation
@@ -45,7 +50,8 @@ public:
     double getTicksPerSecond() const { return ticksPerSecond; }
 
     /**
-     * @brief Returns the bone animations in this animation
+     * @brief Returns the bone animations in this animation. The indices of the channels here are
+     *        the same as the bone indices of the model
      */
     const std::vector<BoneAnimation>& getBoneAnimations() const { return boneAnimations; }
 

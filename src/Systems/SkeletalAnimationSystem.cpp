@@ -14,7 +14,7 @@ void SkeletalAnimationSystem::init(engine::Engine& engine) {
 
 void SkeletalAnimationSystem::update(std::mutex&, float dt, float, float, float) {
     skeletons->forEach([dt](ecs::Entity, com::Skeleton& skeleton) {
-        if (skeleton.needsRefresh) {
+        if (skeleton.needsRefresh || !skeleton.activeAnimations.empty()) {
             for (auto& bone : skeleton.bones) {
                 glm::mat4 nodeTransform = bone.bone->nodeBindPoseLocal;
 

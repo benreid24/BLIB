@@ -1,6 +1,8 @@
 #ifndef BLIB_COMPONENTS_BONE_HPP
 #define BLIB_COMPONENTS_BONE_HPP
 
+#include <BLIB/Containers/StaticVector.hpp>
+#include <BLIB/Models/BoneAnimation.hpp>
 #include <glm/glm.hpp>
 
 namespace bl
@@ -19,6 +21,7 @@ struct Bone {
     glm::mat4 boneOffset;
     com::Transform3D* transform;
     std::uint32_t boneIndex;
+    ctr::StaticVector<mdl::BoneAnimation*, 4> animations;
 
     /**
      * @brief Creates a default bone
