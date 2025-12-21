@@ -123,7 +123,7 @@ void BoneAnimation::populate(const aiNodeAnim& src, const NodeSet& nodes) {
     }
 }
 
-glm::quat BoneAnimation::interpolateRotation(double time, const glm::mat4& nodeLocal) const {
+glm::quat BoneAnimation::interpolateRotation(double time) const {
     if (rotationKeys.empty()) { return glm::quat(1.f, 0.f, 0.f, 0.f); }
     if (rotationKeys.size() == 1) { return rotationKeys.front().value; }
 
@@ -199,12 +199,12 @@ glm::quat BoneAnimation::interpolateRotation(double time, const glm::mat4& nodeL
     }
 }
 
-glm::vec3 BoneAnimation::interpolatePosition(double time, const glm::mat4& nodeLocal) const {
+glm::vec3 BoneAnimation::interpolatePosition(double time) const {
     return interpolate(
         preBehavior, postBehavior, glm::vec3(0.f), bindPosePosition, positionKeys, time);
 }
 
-glm::vec3 BoneAnimation::interpolateScale(double time, const glm::mat4& nodeLocal) const {
+glm::vec3 BoneAnimation::interpolateScale(double time) const {
     return interpolate(preBehavior, postBehavior, glm::vec3(1.f), bindPoseScale, scaleKeys, time);
 }
 

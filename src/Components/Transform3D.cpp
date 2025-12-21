@@ -70,6 +70,7 @@ glm::vec3 Transform3D::getUpDir() const { return rotation * glm::vec3(0.f, 1.f, 
 
 void Transform3D::refreshDescriptor(rc::dsi::Transform3DPayload& dest) {
     dest = getGlobalTransform();
+    markRefreshed();
 }
 
 void Transform3D::makeDirty() {
@@ -104,6 +105,11 @@ void Transform3D::setTransform(const glm::mat4& mat) {
     glm::vec4 perspective;
     glm::decompose(mat, scaleFactors, rotation, position, skew, perspective);
     makeDirty();
+}
+
+bool Transform3D::isDirty() const {
+    if (ParentAwareVersioned::refreshRequired()) { return true; }
+    return DescriptorComponentBase::isDirty();
 }
 
 } // namespace com

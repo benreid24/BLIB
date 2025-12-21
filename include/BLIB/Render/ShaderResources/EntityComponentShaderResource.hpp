@@ -49,9 +49,8 @@ public:
      * @brief Marks the given object's descriptors dirty for this frame
      *
      * @param key The scene key of the object that refreshed descriptors
-     * @param component Pointer to the component being marked dirty
      */
-    void markObjectDirty(scene::Key key, void* component);
+    void markObjectDirty(scene::Key key);
 
     /**
      * @brief Returns the ranges of dirty dynamic elements
@@ -66,7 +65,6 @@ public:
 protected:
     DirtyRange dirtyDynamic;
     DirtyRange dirtyStatic;
-    std::vector<void*> dirtyComponents;
 };
 
 /**
@@ -155,6 +153,8 @@ public:
 
 private:
     ecs::Registry* registry;
+    std::vector<TCom*> srcStaticComponents;
+    std::vector<TCom*> srcDynamicComponents;
     TDynamicStorage dynamicBuffer;
     TStaticStorage staticBuffer;
     std::uint8_t dynamicRefresh;
@@ -163,7 +163,7 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline void EntityComponentShaderResourceBase::markObjectDirty(scene::Key key, void* component) {
+inline void EntityComponentShaderResourceBase::markObjectDirty(scene::Key key) {
     auto& range = key.updateFreq == UpdateSpeed::Dynamic ? dirtyDynamic : dirtyStatic;
     if (range.start > range.end) {
         range.start = key.sceneId;
@@ -173,7 +173,6 @@ inline void EntityComponentShaderResourceBase::markObjectDirty(scene::Key key, v
         range.start = key.sceneId < range.start ? key.sceneId : range.start;
         range.end   = key.sceneId > range.end ? key.sceneId : range.end;
     }
-    dirtyComponents.emplace_back(component);
 }
 
 inline const EntityComponentShaderResourceBase::DirtyRange&
@@ -200,7 +199,8 @@ void EntityComponentShaderResource<TCom, TPayload, TDynamicStorage, TStaticStora
                          cfg::Constants::DefaultSceneObjectCapacity);
     staticBuffer.create(engine::HeaderHelpers::getVulkanState(engine),
                         cfg::Constants::DefaultSceneObjectCapacity);
-    dirtyComponents.reserve(cfg::Constants::DefaultSceneObjectCapacity);
+    srcDynamicComponents.reserve(cfg::Constants::DefaultSceneObjectCapacity);
+    srcStaticComponents.reserve(cfg::Constants::DefaultSceneObjectCapacity);
 }
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
@@ -219,25 +219,34 @@ bool EntityComponentShaderResource<TCom, TPayload, TDynamicStorage, TStaticStora
             dynamicRefresh = 0x1 << cfg::Limits::MaxConcurrentFrames;
         }
         component->link(this, key);
+        if (srcDynamicComponents.size() <= key.sceneId) {
+            srcDynamicComponents.resize(key.sceneId + 1, nullptr);
+        }
+        srcDynamicComponents[key.sceneId] = component;
     }
     else {
         if (staticBuffer.ensureSize(key.sceneId + 1)) {
             staticRefresh = 0x1 << cfg::Limits::MaxConcurrentFrames;
         }
         component->link(this, key);
+        if (srcStaticComponents.size() <= key.sceneId) {
+            srcStaticComponents.resize(key.sceneId + 1, nullptr);
+        }
+        srcStaticComponents[key.sceneId] = component;
     }
-    markObjectDirty(key, component);
+    markObjectDirty(key);
     return true;
 }
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
 void EntityComponentShaderResource<TCom, TPayload, TDynamicStorage, TStaticStorage>::releaseObject(
-    ecs::Entity entity, scene::Key) {
+    ecs::Entity entity, scene::Key key) {
     TCom* component = registry->getComponent<TCom>(entity);
     if (component) {
         component->unlink();
-        std::erase_if(dirtyComponents,
-                      [component](void* c) { return static_cast<TCom*>(c) == component; });
+        auto& src =
+            key.updateFreq == UpdateSpeed::Dynamic ? srcDynamicComponents : srcStaticComponents;
+        src[key.sceneId] = nullptr;
     }
 }
 
@@ -261,15 +270,20 @@ void EntityComponentShaderResource<TCom, TPayload, TDynamicStorage,
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
 void EntityComponentShaderResource<TCom, TPayload, TDynamicStorage,
                                    TStaticStorage>::copyFromSource() {
-    for (void* c : dirtyComponents) {
-        TCom* com         = static_cast<TCom*>(c);
-        auto& payload     = (com->getSceneKey().updateFreq == UpdateSpeed::Dynamic) ?
-                                dynamicBuffer[com->getSceneKey().sceneId] :
-                                staticBuffer[com->getSceneKey().sceneId];
-        using PayloadType = std::remove_reference_t<decltype(payload)>;
-        static_cast<TCom*>(c)->template refresh<PayloadType>(payload);
+    for (TCom* com : srcDynamicComponents) {
+        if (com && com->isDirty()) {
+            auto& payload     = dynamicBuffer[com->getSceneKey().sceneId];
+            using PayloadType = std::remove_reference_t<decltype(payload)>;
+            com->template refresh<PayloadType>(payload);
+        }
     }
-    dirtyComponents.clear();
+    for (TCom* com : srcStaticComponents) {
+        if (com && com->isDirty()) {
+            auto& payload     = staticBuffer[com->getSceneKey().sceneId];
+            using PayloadType = std::remove_reference_t<decltype(payload)>;
+            com->template refresh<PayloadType>(payload);
+        }
+    }
 }
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>

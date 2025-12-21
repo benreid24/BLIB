@@ -21,7 +21,7 @@ struct Bone {
     glm::mat4 boneOffset;
     com::Transform3D* transform;
     std::uint32_t boneIndex;
-    ctr::StaticVector<mdl::BoneAnimation*, 4> animations;
+    ctr::StaticVector<const mdl::BoneAnimation*, 4> animations;
 
     /**
      * @brief Creates a default bone

@@ -10,6 +10,7 @@ target_sources(BLIB PRIVATE
 	OverlayScaler.cpp
 	Physics2D.cpp
 	Shape2D.cpp
+	Skeleton.cpp
 	Slideshow.cpp
 	Sprite.cpp
 	Text.cpp

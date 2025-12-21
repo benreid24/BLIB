@@ -267,6 +267,9 @@ private:
         shark.getTransform().setPosition({0.f, 0.11f, -2.f});
         shark.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
+        // TODO - better interface
+        shark.getSkeleton().playAnimation(0);
+
         const bl::rc::Color light1Color(sf::Color(80, 180, 255));
         light1.create(*world, 0.2f, 4, {}, bl::rc::cfg::MaterialPipelineIds::Mesh3D);
         light1.getTransform().setPosition({1.f, 0.7f, 1.f});

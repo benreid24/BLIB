@@ -9,7 +9,8 @@ namespace gfx
 {
 ModelSkeletal::ModelSkeletal()
 : ecs(nullptr)
-, createdMeshOnSelf(nullptr) {}
+, skeleton(nullptr)
+, createdMeshOnSelf(false) {}
 
 bool ModelSkeletal::create(engine::World& world, const std::string& file,
                            std::uint32_t skinnedMaterial, std::uint32_t unskinnedMaterial) {
@@ -29,9 +30,9 @@ bool ModelSkeletal::create(engine::World& world, resource::Ref<mdl::Model> model
 
     Tx tx(world.engine().ecs());
 
-    com::Skeleton* skeleton =
-        world.engine().ecs().emplaceComponentWithTx<com::Skeleton>(entity(), tx);
+    skeleton = world.engine().ecs().emplaceComponentWithTx<com::Skeleton>(entity(), tx);
     skeleton->bones.resize(model->getBones().numBones(), {});
+    skeleton->animations = model->getAnimations(); // TODO - better storage solution
 
     processNode(world,
                 tx,

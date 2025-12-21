@@ -47,6 +47,14 @@ public:
     bool needsRefresh;
 
     /**
+     * @brief Plays an animation on this skeleton
+     *
+     * @param index The index of the animation to play
+     * @param weight The weight of the animation, used for blending multiple animations
+     */
+    void playAnimation(unsigned int index, float weight = 1.f);
+
+    /**
      * @brief Initializes with sane defaults
      */
     Skeleton() = default;

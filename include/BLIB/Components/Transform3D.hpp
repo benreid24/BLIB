@@ -1,6 +1,7 @@
 #ifndef BLIB_COMPONENTS_TRANSFORM3D_HPP
 #define BLIB_COMPONENTS_TRANSFORM3D_HPP
 
+#include <BLIB/ECS/Traits/ParentAwareVersioned.hpp>
 #include <BLIB/Render/Components/DescriptorComponentBase.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Transform3DPayload.hpp>
 #include <glm/glm.hpp>
@@ -142,6 +143,11 @@ public:
      * @return The transformed point
      */
     glm::vec3 transformPoint(const glm::vec3& src) const;
+
+    /**
+     * @brief Returns whether the transform has been marked dirty and has not been refreshed yet
+     */
+    bool isDirty() const;
 
 private:
     glm::vec3 position;

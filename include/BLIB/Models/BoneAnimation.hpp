@@ -54,28 +54,25 @@ public:
      * @brief Returns the interpolated rotation at the given time
      *
      * @param time The time to sample at
-     * @param nodeLocal The local transform of the node at bind pose
      * @return The interpolated rotation
      */
-    glm::quat interpolateRotation(double time, const glm::mat4& nodeLocal) const;
+    glm::quat interpolateRotation(double time) const;
 
     /**
      * @brief Returns the interpolated position at the given time
      *
      * @param time The time to sample at
-     * @param nodeLocal The local transform of the node at bind pose
      * @return The interpolated position
      */
-    glm::vec3 interpolatePosition(double time, const glm::mat4& nodeLocal) const;
+    glm::vec3 interpolatePosition(double time) const;
 
     /**
      * @brief Returns the interpolated scale at the given time
      *
      * @param time The time to sample at
-     * @param nodeLocal The local transform of the node at bind pose
      * @return The interpolated scale
      */
-    glm::vec3 interpolateScale(double time, const glm::mat4& nodeLocal) const;
+    glm::vec3 interpolateScale(double time) const;
 
     /**
      * @brief Returns the name of the animated bone

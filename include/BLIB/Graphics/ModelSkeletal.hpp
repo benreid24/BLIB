@@ -32,6 +32,11 @@ public:
     ModelSkeletal();
 
     /**
+     * @brief Returns the skeleton of the model in the ECS. Only call after create()
+     */
+    com::Skeleton& getSkeleton() { return *skeleton; }
+
+    /**
      * @brief Creates the skeletal model from the given file
      *
      * @param world The world to create the model in
@@ -81,6 +86,7 @@ private:
     };
 
     ecs::Registry* ecs;
+    com::Skeleton* skeleton;
     std::vector<Child> children;
     bool createdMeshOnSelf;
 

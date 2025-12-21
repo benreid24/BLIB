@@ -83,6 +83,11 @@ public:
      */
     scene::Key getSceneKey() const { return sceneKey; }
 
+    /**
+     * @brief Returns whether the object has been marked dirty and has not been refreshed yet
+     */
+    bool isDirty() const;
+
 protected:
     /**
      * @brief Call this when the component is modified
@@ -90,11 +95,6 @@ protected:
      * @return True if the object was marked dirty, false if already dirty
      */
     bool markDirty();
-
-    /**
-     * @brief Returns whether the object has been marked dirty and has not been refreshed yet
-     */
-    bool isDirty() const;
 
 private:
     sr::EntityComponentShaderResourceBase* descriptorSet;
@@ -147,7 +147,6 @@ template<typename TCom, typename TFirstPayload, typename... TPayloads>
 bool DescriptorComponentBase<TCom, TFirstPayload, TPayloads...>::markDirty() {
     if (!dirty && descriptorSet != nullptr) {
         dirty = true;
-        descriptorSet->markObjectDirty(sceneKey, this);
         return true;
     }
     return false;
