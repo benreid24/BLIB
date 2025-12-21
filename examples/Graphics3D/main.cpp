@@ -265,7 +265,7 @@ private:
 
         shark.create(*world, "Resources/Models/bruce/bruce.glb");
         shark.getTransform().setPosition({0.f, 0.11f, -2.f});
-        shark.addToScene(scene, bl::rc::UpdateSpeed::Static);
+        shark.addToScene(scene, bl::rc::UpdateSpeed::Dynamic);
 
         // TODO - better interface
         shark.getSkeleton().playAnimation(0);

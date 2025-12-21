@@ -199,6 +199,7 @@ void EntityComponentShaderResource<TCom, TPayload, TDynamicStorage, TStaticStora
                          cfg::Constants::DefaultSceneObjectCapacity);
     staticBuffer.create(engine::HeaderHelpers::getVulkanState(engine),
                         cfg::Constants::DefaultSceneObjectCapacity);
+    dynamicBuffer.transferEveryFrame();
     srcDynamicComponents.reserve(cfg::Constants::DefaultSceneObjectCapacity);
     srcStaticComponents.reserve(cfg::Constants::DefaultSceneObjectCapacity);
 }
@@ -260,7 +261,6 @@ void EntityComponentShaderResource<TCom, TPayload, TDynamicStorage,
     }
     if (dirtyDynamic.end >= dirtyDynamic.start) {
         dynamicBuffer.markDirty(dirtyDynamic.start, dirtyDynamic.end - dirtyDynamic.start + 1);
-        dynamicBuffer.queueTransfer();
         dirtyDynamic = DirtyRange();
     }
     dynamicRefresh = dynamicRefresh >> 1;
@@ -275,6 +275,7 @@ void EntityComponentShaderResource<TCom, TPayload, TDynamicStorage,
             auto& payload     = dynamicBuffer[com->getSceneKey().sceneId];
             using PayloadType = std::remove_reference_t<decltype(payload)>;
             com->template refresh<PayloadType>(payload);
+            markObjectDirty(com->getSceneKey());
         }
     }
     for (TCom* com : srcStaticComponents) {
@@ -282,6 +283,7 @@ void EntityComponentShaderResource<TCom, TPayload, TDynamicStorage,
             auto& payload     = staticBuffer[com->getSceneKey().sceneId];
             using PayloadType = std::remove_reference_t<decltype(payload)>;
             com->template refresh<PayloadType>(payload);
+            markObjectDirty(com->getSceneKey());
         }
     }
 }

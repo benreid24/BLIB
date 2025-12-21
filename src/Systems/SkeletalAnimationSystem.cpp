@@ -3,7 +3,7 @@
 #include <BLIB/Components/Bone.hpp>
 #include <BLIB/Components/Transform3D.hpp>
 #include <BLIB/Engine/Engine.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/transform.hpp>
 
 namespace bl
 {
@@ -26,8 +26,6 @@ void SkeletalAnimationSystem::update(std::mutex&, float dt, float, float, float)
             }
 
             for (auto& bone : skeleton.bones) {
-                glm::mat4 nodeTransform = bone.bone->nodeBindPoseLocal;
-
                 if (!bone.bone->animations.empty()) {
                     glm::vec3 animatedPosition(0.f);
                     glm::quat animatedRotation(1.f, 0.f, 0.f, 0.f);
@@ -39,24 +37,32 @@ void SkeletalAnimationSystem::update(std::mutex&, float dt, float, float, float)
                         const auto& animState = skeleton.activeAnimations[i];
                         const auto& anim      = *bone.bone->animations[i];
                         const glm::vec3 pos   = anim.interpolatePosition(animState.time);
-                        const glm::quat rot   = anim.interpolateRotation(animState.time);
+                        glm::quat rot         = anim.interpolateRotation(animState.time);
                         const glm::vec3 scale = anim.interpolateScale(animState.time);
 
-                        animatedPosition = animatedPosition * totalWeight + pos * animState.weight;
-                        animatedRotation =
-                            glm::slerp(animatedRotation,
-                                       rot,
-                                       animState.weight / (totalWeight + animState.weight));
-                        animatedScale = animatedScale * totalWeight + scale * animState.weight;
-                        totalWeight   = animState.weight;
+                        if (i == 0) {
+                            animatedRotation = rot;
+                            animatedScale    = scale * animState.weight;
+                            animatedPosition = pos * animState.weight;
+                        }
+                        else {
+                            if (glm::dot(animatedRotation, rot) < 0.f) { rot = -rot; }
+                            animatedRotation =
+                                glm::slerp(animatedRotation,
+                                           rot,
+                                           animState.weight / (totalWeight + animState.weight));
+                            animatedScale += scale * animState.weight;
+                            animatedPosition += pos * animState.weight;
+                        }
+
+                        totalWeight += animState.weight;
                     }
 
-                    nodeTransform = glm::translate(glm::mat4(1.f), animatedPosition) *
-                                    glm::toMat4(animatedRotation) *
-                                    glm::scale(glm::mat4(1.f), animatedScale);
+                    bone.transform->setPosition(animatedPosition);
+                    bone.transform->setRotation(animatedRotation);
+                    bone.transform->setScale(animatedScale);
                 }
-
-                bone.transform->setTransform(nodeTransform);
+                else { bone.transform->setTransform(bone.bone->nodeBindPoseLocal); }
             }
             skeleton.needsRefresh = false;
             skeleton.resourceLink.markForTransfer(&skeleton);

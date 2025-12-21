@@ -58,6 +58,13 @@ public:
     void setRotationEulerAngles(const glm::vec3& eulerAngles);
 
     /**
+     * @brief Directly set the rotation quaternion of the transform
+     *
+     * @param quat The quaternion to set the rotation to
+     */
+    void setRotation(const glm::quat& quat);
+
+    /**
      * @brief Rotates the transform about a given axis
      *
      * @param axis The axis to rotate about

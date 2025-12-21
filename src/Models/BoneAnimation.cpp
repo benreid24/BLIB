@@ -11,9 +11,9 @@ namespace mdl
 namespace
 {
 glm::vec3 interpolate(BoneAnimation::Behavior preBehavior, BoneAnimation::Behavior postBehavior,
-                      const glm::vec3& identity, const glm::vec3& bindPose,
-                      const std::vector<KeyframeVector>& keys, double time) {
-    if (keys.empty()) { return identity; }
+                      const glm::vec3& bindPose, const std::vector<KeyframeVector>& keys,
+                      double time) {
+    if (keys.empty()) { return bindPose; }
     if (keys.size() == 1) { return keys.front().value; }
 
     if (time < keys.front().time) {
@@ -67,7 +67,7 @@ glm::vec3 interpolate(BoneAnimation::Behavior preBehavior, BoneAnimation::Behavi
 
     const auto comp = [](const KeyframeVector& kf, double t) { return kf.time < t; };
     const auto next = std::lower_bound(keys.begin(), keys.end(), time, comp);
-    if (next == keys.end()) { return keys.begin()->value; }
+    if (next == keys.end()) { return keys.back().value; }
     if (next == keys.begin()) { return next->value; }
 
     const auto current = next - 1;
@@ -83,9 +83,16 @@ glm::vec3 interpolate(BoneAnimation::Behavior preBehavior, BoneAnimation::Behavi
     case KeyframeVector::Linear:
         return glm::mix(current->value, next->value, t);
     default:
-        return identity;
+        return bindPose;
     }
 }
+
+glm::quat slerp(const glm::quat& a, const glm::quat& b, float t) {
+    glm::quat q1 = b;
+    if (glm::dot(a, b) < 0.f) { q1 = -b; }
+    return glm::slerp(a, q1, t);
+}
+
 } // namespace
 
 BoneAnimation::BoneAnimation()
@@ -124,7 +131,7 @@ void BoneAnimation::populate(const aiNodeAnim& src, const NodeSet& nodes) {
 }
 
 glm::quat BoneAnimation::interpolateRotation(double time) const {
-    if (rotationKeys.empty()) { return glm::quat(1.f, 0.f, 0.f, 0.f); }
+    if (rotationKeys.empty()) { return bindPoseRotation; }
     if (rotationKeys.size() == 1) { return rotationKeys.front().value; }
 
     if (time < rotationKeys.front().time) {
@@ -138,7 +145,7 @@ glm::quat BoneAnimation::interpolateRotation(double time) const {
             const double dt    = second.time - first.time;
             if (std::abs(dt) < 1e-8) { return first.value; }
             const float t = static_cast<float>((time - first.time) / dt);
-            return glm::slerp(first.value, second.value, t);
+            return slerp(first.value, second.value, t);
         }
         case BoneAnimation::Repeat: {
             const double duration = rotationKeys.back().time - rotationKeys.front().time;
@@ -162,7 +169,7 @@ glm::quat BoneAnimation::interpolateRotation(double time) const {
             const double dt        = last.time - secondLast.time;
             if (std::abs(dt) < 1e-8) { return last.value; }
             const float t = static_cast<float>((time - secondLast.time) / dt);
-            return glm::slerp(secondLast.value, last.value, t);
+            return slerp(secondLast.value, last.value, t);
         }
         case BoneAnimation::Repeat: {
             const double duration = rotationKeys.back().time - rotationKeys.front().time;
@@ -178,7 +185,7 @@ glm::quat BoneAnimation::interpolateRotation(double time) const {
 
     const auto comp = [](const KeyframeQuaternion& kf, double t) { return kf.time < t; };
     const auto next = std::lower_bound(rotationKeys.begin(), rotationKeys.end(), time, comp);
-    if (next == rotationKeys.end()) { return rotationKeys.begin()->value; }
+    if (next == rotationKeys.end()) { return rotationKeys.back().value; }
     if (next == rotationKeys.begin()) { return next->value; }
 
     const auto current = next - 1;
@@ -190,22 +197,21 @@ glm::quat BoneAnimation::interpolateRotation(double time) const {
     case KeyframeQuaternion::Step:
         return current->value;
     case KeyframeQuaternion::Linear:
-        return glm::lerp(current->value, next->value, t);
     case KeyframeQuaternion::SphericalLinear:
     case KeyframeQuaternion::CubicSpline: // nah, they get spherical lerp
-        return glm::slerp(current->value, next->value, t);
+        return slerp(current->value, next->value, t);
+
     default:
-        return glm::quat(1.f, 0.f, 0.f, 0.f);
+        return bindPoseRotation;
     }
 }
 
 glm::vec3 BoneAnimation::interpolatePosition(double time) const {
-    return interpolate(
-        preBehavior, postBehavior, glm::vec3(0.f), bindPosePosition, positionKeys, time);
+    return interpolate(preBehavior, postBehavior, bindPosePosition, positionKeys, time);
 }
 
 glm::vec3 BoneAnimation::interpolateScale(double time) const {
-    return interpolate(preBehavior, postBehavior, glm::vec3(1.f), bindPoseScale, scaleKeys, time);
+    return interpolate(preBehavior, postBehavior, bindPoseScale, scaleKeys, time);
 }
 
 } // namespace mdl

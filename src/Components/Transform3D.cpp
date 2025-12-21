@@ -37,6 +37,7 @@ void Transform3D::scale(const glm::vec3& f) {
 
 void Transform3D::setRotationEulerAngles(const glm::vec3& euler) {
     rotation = glm::quat(glm::radians(euler));
+    makeDirty();
 }
 
 void Transform3D::rotate(const glm::vec3& axis, float angle) {
@@ -78,10 +79,7 @@ void Transform3D::makeDirty() {
 }
 
 glm::mat4 Transform3D::getLocalTransform() const {
-    glm::mat4 transform = glm::translate(position);
-    transform *= glm::scale(scaleFactors);
-    transform *= glm::toMat4(rotation);
-    return transform;
+    return glm::translate(position) * glm::toMat4(rotation) * glm::scale(scaleFactors);
 }
 
 glm::mat4 Transform3D::getGlobalTransform() const {
@@ -104,12 +102,18 @@ void Transform3D::setTransform(const glm::mat4& mat) {
     glm::vec3 skew;
     glm::vec4 perspective;
     glm::decompose(mat, scaleFactors, rotation, position, skew, perspective);
+    // rotation = glm::conjugate(rotation);
     makeDirty();
 }
 
 bool Transform3D::isDirty() const {
     if (ParentAwareVersioned::refreshRequired()) { return true; }
     return DescriptorComponentBase::isDirty();
+}
+
+void Transform3D::setRotation(const glm::quat& quat) {
+    rotation = quat;
+    makeDirty();
 }
 
 } // namespace com
