@@ -72,9 +72,10 @@ void SkeletalBonesResource::releaseObject(ecs::Entity entity, scene::Key) {
 
 void SkeletalBonesResource::performTransfer() {
     for (com::Skeleton* skeleton : toTransfer) {
+        glm::mat4 globalInverse = glm::inverse(skeleton->worldTransform->getGlobalTransform());
         for (unsigned int i = 0; i < skeleton->bones.size(); ++i) {
             buffer[skeleton->resourceLink.offset + i] =
-                skeleton->bones[i].transform->getGlobalTransformExcludingRoot() *
+                globalInverse * skeleton->bones[i].transform->getGlobalTransform() *
                 skeleton->bones[i].bone->boneOffset;
         }
         buffer.markDirty(skeleton->resourceLink.offset, skeleton->bones.size());

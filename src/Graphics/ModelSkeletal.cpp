@@ -34,7 +34,8 @@ bool ModelSkeletal::create(engine::World& world, resource::Ref<mdl::Model> model
 
     skeleton = world.engine().ecs().emplaceComponentWithTx<com::Skeleton>(entity(), tx);
     skeleton->bones.resize(model->getBones().numBones(), {});
-    skeleton->animations = model->getAnimations(); // TODO - better storage solution
+    skeleton->animations     = model->getAnimations(); // TODO - better storage solution
+    skeleton->worldTransform = &getTransform();
 
     processNode(world,
                 tx,

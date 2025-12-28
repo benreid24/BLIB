@@ -41,6 +41,7 @@ public:
     };
 
     std::vector<BoneLink> bones;
+    com::Transform3D* worldTransform;
     rc::sri::SkeletalBonesResource::ComponentLink resourceLink;
     mdl::AnimationSet animations; // TODO - better interface. Separate component? external storage?
     ctr::StaticVector<AnimationState, 4> activeAnimations;

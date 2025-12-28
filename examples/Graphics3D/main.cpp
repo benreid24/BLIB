@@ -263,8 +263,8 @@ private:
         model2.getTransform().setScale({0.015f, 0.015f, 0.015f});
         model2.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
-        shark.create(*world, "Resources/Models/bruce/bruce.glb");
-        shark.getTransform().setPosition({0.f, 0.11f, -2.f});
+        shark.create(*world, "Resources/Models/bruce/shark.glb");
+        shark.getTransform().setPosition({0.f, 1.f, -2.f});
         shark.addToScene(scene, bl::rc::UpdateSpeed::Dynamic);
 
         // TODO - better interface
