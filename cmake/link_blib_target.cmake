@@ -10,6 +10,7 @@ function(link_blib_target target_name)
 	endif()
 
 	target_link_libraries(${target_name}
+		zlibstatic
 		assimp
 		box2d
 		volk

@@ -66,10 +66,21 @@ target_include_directories(volk SYSTEM PUBLIC ${BLIB_PATH}/lib/Vulkan-Headers/in
 
 add_subdirectory(lib/box2d)
 
+set(ZLIB_BUILD_TESTING Off)
+set(ZLIB_BUILD_SHARED Off)
+set(ZLIB_INSTALL Off)
+add_subdirectory(lib/zlib)
+
+# Make zlib findable by find_package for assimp and others
+set(ZLIB_FOUND TRUE)
+set(ZLIB_LIBRARIES zlibstatic)
+set(ZLIB_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/zlib ${CMAKE_CURRENT_BINARY_DIR}/lib/zlib)
+
 set(BUILD_SHARED_LIBS Off)
 set(ASSIMP_BUILD_TESTS Off)
 set(ASSIMP_INSTALL Off)
 set(USE_STATIC_CRT On)
+set(ASSIMP_BUILD_ZLIB Off)
 add_subdirectory(lib/assimp)
 
 if(APPLE)

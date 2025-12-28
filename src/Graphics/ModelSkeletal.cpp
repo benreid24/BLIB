@@ -21,6 +21,8 @@ bool ModelSkeletal::create(engine::World& world, const std::string& file,
 
 bool ModelSkeletal::create(engine::World& world, resource::Ref<mdl::Model> model,
                            std::uint32_t skinnedMaterial, std::uint32_t unskinnedMaterial) {
+    if (model->getNodes().size() == 0) { return false; }
+
     ecs = &world.engine().ecs();
 
     Drawable::createWithMaterial(world, skinnedMaterial);
