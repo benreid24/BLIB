@@ -60,9 +60,9 @@ void InputSystem::update() {
 
 void InputSystem::process(const sf::Event& event) {
     if (event.type == sf::Event::MouseMoved) {
-        mouseVector =
-            math::normalized(sf::Vector2f(event.mouseMove.x, event.mouseMove.y) -
-                             sf::Vector2f(engine.window().getSfWindow().getSize()) * 0.5f);
+        mouseVector = math::normalized(
+            sf::Vector2f(event.mouseMove.x, event.mouseMove.y) -
+            sf::Vector2f(engine.renderer().getWindow().getSfWindow().getSize()) * 0.5f);
     }
 
     for (auto& ap : actors) { ap->process(event); }

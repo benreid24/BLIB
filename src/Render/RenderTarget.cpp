@@ -227,7 +227,7 @@ glm::vec2 RenderTarget::transformToWorldSpace(const glm::vec2& sp) const {
 }
 
 glm::vec2 RenderTarget::getMousePosInWorldSpace() const {
-    const auto mpos = sf::Mouse::getPosition(engine.window().getSfWindow());
+    const auto mpos = sf::Mouse::getPosition(renderer.getWindow().getSfWindow());
     return transformToWorldSpace({mpos.x, mpos.y});
 }
 
@@ -242,7 +242,7 @@ glm::vec2 RenderTarget::transformToOverlaySpace(const glm::vec2& sp) const {
 }
 
 glm::vec2 RenderTarget::getMousePosInOverlaySpace() const {
-    const auto mpos = sf::Mouse::getPosition(engine.window().getSfWindow());
+    const auto mpos = sf::Mouse::getPosition(renderer.getWindow().getSfWindow());
     return transformToOverlaySpace({mpos.x, mpos.y});
 }
 

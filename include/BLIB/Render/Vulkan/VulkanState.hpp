@@ -1,7 +1,6 @@
 #ifndef BLIB_RENDER_VULKAN_VULKANSTATE_HPP
 #define BLIB_RENDER_VULKAN_VULKANSTATE_HPP
 
-#include <BLIB/Engine/Window.hpp>
 #include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Resources/ShaderModuleCache.hpp>
 #include <BLIB/Render/Transfers/TransferEngine.hpp>
@@ -15,6 +14,7 @@
 #include <BLIB/Render/Vulkan/Swapchain.hpp>
 #include <BLIB/Render/Vulkan/TextureFormatManager.hpp>
 #include <BLIB/Render/Vulkan/VkCheck.hpp>
+#include <BLIB/Render/Window.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <array>
 #include <cstdint>
@@ -283,7 +283,7 @@ struct VulkanState {
      */
     static const VkPhysicalDeviceProperties& getPhysicalDeviceProperties();
 
-    engine::EngineWindow& window;
+    RenderWindow& window;
     VkInstance instance;
 #ifdef BLIB_DEBUG
     VkDebugUtilsMessengerEXT debugMessenger;
@@ -312,7 +312,7 @@ private:
     std::uint32_t currentFrame;
     std::vector<VkExtensionProperties> availableExtensions;
 
-    VulkanState(engine::EngineWindow& window);
+    VulkanState(RenderWindow& window, WindowSettings& windowSettings);
     void init();
     void cleanup();
 

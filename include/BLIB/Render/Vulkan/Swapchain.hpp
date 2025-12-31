@@ -15,6 +15,8 @@ namespace bl
 {
 namespace rc
 {
+class WindowSettings;
+
 namespace vk
 {
 struct VulkanState;
@@ -31,8 +33,9 @@ public:
      *
      * @param vulkanState The renderer vulkan state
      * @param window The window to attach to
+     * @param windowSettings The window settings used to create the window
      */
-    Swapchain(VulkanState& vulkanState, sf::WindowBase& window);
+    Swapchain(VulkanState& vulkanState, sf::WindowBase& window, WindowSettings& windowSettings);
 
     /**
      * @brief Destroys the swap chain and other held resources
@@ -116,6 +119,7 @@ private:
 
     VulkanState& vulkanState;
     sf::WindowBase& window;
+    WindowSettings& windowSettings;
 
     VkSwapchainKHR swapchain;
     VkSwapchainKHR oldSwapchain;

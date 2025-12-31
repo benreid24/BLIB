@@ -72,7 +72,7 @@ void DepthBufferShaderResource::createAttachment(const glm::u32vec2& size) {
 }
 
 glm::u32vec2 DepthBufferShaderResource::getSize(const glm::u32vec2& targetSize) const {
-    const auto windowSize = engine ? engine->window().getSfWindow().getSize() :
+    const auto windowSize = engine ? engine->renderer().getWindow().getSfWindow().getSize() :
                                      sf::Vector2u(targetSize.x, targetSize.y);
     switch (mode) {
     case Target:

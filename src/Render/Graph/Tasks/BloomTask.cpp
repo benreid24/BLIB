@@ -20,7 +20,7 @@ struct UniformPayload {
     std::uint32_t horizontal;
     float lightThreshold;
     std::uint32_t filterSize;
-    float filters[Settings::MaxBloomFilterSize];
+    float filters[cfg::Limits::MaxBloomFilterSize];
 
     UniformPayload(Renderer& r)
     : horizontal(0)

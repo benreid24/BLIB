@@ -23,11 +23,11 @@ namespace bl
 {
 namespace rc
 {
-Renderer::Renderer(engine::Engine& engine, engine::EngineWindow& window)
+Renderer::Renderer(engine::Engine& engine, const CreationSettings& createSettings)
 : engine(engine)
-, window(window)
-, settings(*this)
-, state(window)
+, windowScale(1.f)
+, settings(*this, createSettings)
+, state(window, settings.windowSettings)
 , globalDescriptors(engine, *this, textures, materials)
 , textures(*this, state)
 , materials(*this)
@@ -55,7 +55,9 @@ Renderer::~Renderer() {
     if (state.device != nullptr) { cleanup(); }
 }
 
-void Renderer::initialize() {
+bool Renderer::initialize() {
+    if (!createWindow()) { return false; }
+
     renderRegion.width  = window.getSfWindow().getSize().x;
     renderRegion.height = window.getSfWindow().getSize().y;
 
@@ -138,7 +140,62 @@ void Renderer::initialize() {
     Overlay::useRenderStrategy(&overlayStrategy);
     scene::Scene2D::useRenderStrategy(&scene2DStrategy);
     scene::Scene3D::useRenderStrategy(&scene3DDeferredStrategy);
+
+    return true;
 }
+
+bool Renderer::createWindow() {
+    const auto& params = settings.windowSettings;
+    settings.windowSettings.changesRequireNewWindow(); // resets internal state
+
+    window.create(params.videoMode(), params.title(), params.style());
+    if (!window.isOpen()) {
+        BL_LOG_ERROR << "Failed to create window";
+        return false;
+    }
+
+    if (!params.icon().empty()) {
+        sf::Image icon;
+        if (resource::ResourceManager<sf::Image>::initializeExisting(params.icon(), icon)) {
+            window.getSfWindow().setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+        }
+        else { BL_LOG_WARN << "Failed to load icon: " << params.icon(); }
+    }
+
+    if (state.device) { processWindowRecreate(); }
+
+    applySettingsToWindow();
+
+    return true;
+}
+
+void Renderer::applySettingsToWindow() {
+    const auto& params = settings.windowSettings;
+
+    window.getSfWindow().setTitle(params.title());
+
+    if (state.device) {
+        state.swapchain.invalidate();
+
+        sf::Event::SizeEvent e{};
+        e.width  = window.getSfWindow().getSize().x;
+        e.height = window.getSfWindow().getSize().y;
+        processResize(e);
+    }
+
+    if (!params.letterBox() && params.syncOverlaySize()) {
+        cam::OverlayCamera::setOverlayCoordinateSpace(window.getSfWindow().getSize().x,
+                                                      window.getSfWindow().getSize().y);
+    }
+}
+
+void Renderer::updateWindowFromSettings() {
+    auto& params = settings.windowSettings;
+    if (params.changesRequireNewWindow()) { createWindow(); }
+    applySettingsToWindow();
+}
+
+void Renderer::earlyCleanup() { window.close(); }
 
 void Renderer::cleanup() {
     vkCheck(vkDeviceWaitIdle(state.device));
@@ -163,8 +220,41 @@ void Renderer::cleanup() {
     state.device = nullptr;
 }
 
-void Renderer::processResize(const sf::Rect<std::uint32_t>& region) {
-    renderRegion = region;
+void Renderer::processResize(const sf::Event::SizeEvent& event) {
+    auto windowSettings = settings.getWindowSettings();
+    const sf::Vector2f modeSize(
+        sf::Vector2u(windowSettings.videoMode().width, windowSettings.videoMode().height));
+    const sf::Vector2f& ogSize =
+        windowSettings.initialViewSize().x > 0.f ? windowSettings.initialViewSize() : modeSize;
+
+    const float newWidth  = static_cast<float>(event.width);
+    const float newHeight = static_cast<float>(event.height);
+
+    sf::FloatRect viewport(0.f, 0.f, 1.f, 1.f);
+    if (windowSettings.letterBox()) {
+        const float xScale = newWidth / ogSize.x;
+        const float yScale = newHeight / ogSize.y;
+
+        if (xScale >= yScale) { // constrained by height, bars on sides
+            windowScale    = yScale;
+            viewport.width = ogSize.x * yScale / newWidth;
+            viewport.left  = (1.f - viewport.width) * 0.5f;
+        }
+        else { // constrained by width, bars on top and bottom
+            windowScale     = xScale;
+            viewport.height = ogSize.y * xScale / newHeight;
+            viewport.top    = (1.f - viewport.height) * 0.5f;
+        }
+    }
+
+    if (windowSettings.syncOverlaySize() && !windowSettings.letterBox()) {
+        cam::OverlayCamera::setOverlayCoordinateSpace(newWidth, newHeight);
+    }
+
+    renderRegion = sf::Rect<std::uint32_t>(newWidth * viewport.left,
+                                           newHeight * viewport.top,
+                                           newWidth * viewport.width,
+                                           newHeight * viewport.height);
     state.swapchain.invalidate();
     assignObserverRegions();
     commonObserver.assignRegion(window.getSfWindow().getSize(), renderRegion, 1, 0, true);
@@ -356,6 +446,13 @@ void Renderer::destroyRenderTexture(vk::RenderTexture* rt) {
 void Renderer::processWindowRecreate() {
     state.createSurface();
     state.swapchain.invalidate();
+}
+
+CreationSettings Renderer::getCreationSettings() const {
+    CreationSettings s;
+    s.withGraphicsSettings(settings.graphicsSettings);
+    s.withWindowSettings(settings.windowSettings);
+    return s;
 }
 
 } // namespace rc

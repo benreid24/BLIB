@@ -62,6 +62,7 @@ public:
 
 private:
     engine::Engine* engine;
+    RenderWindow* window;
     vk::Swapchain* swapchain;
     DepthBuffer* depthBufferAsset;
     vk::PerSwapFrame<vk::AttachmentSet> attachmentSets;

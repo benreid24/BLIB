@@ -72,9 +72,10 @@ VkSemaphore Swapchain::Swapframes::getNext() {
 
 VkSemaphore Swapchain::Swapframes::current() { return imageAvailableSemaphore[currentIndex]; }
 
-Swapchain::Swapchain(VulkanState& state, sf::WindowBase& w)
+Swapchain::Swapchain(VulkanState& state, sf::WindowBase& w, WindowSettings& ws)
 : vulkanState(state)
 , window(w)
+, windowSettings(ws)
 , swapchain(VK_NULL_HANDLE)
 , oldSwapchain(VK_NULL_HANDLE)
 , oldSurface(VK_NULL_HANDLE)
@@ -264,11 +265,9 @@ void Swapchain::createSwapchain() {
     // more create params
     createInfo.preTransform   = swapChainSupport.capabilities.currentTransform;
     createInfo.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR; // for other windows/applications
-    createInfo.presentMode =
-        swapChainSupport.presentationMode(!engine::Configuration::getOrDefault<bool>(
-            engine::Settings::WindowParameters::VSyncKey, true));
-    createInfo.clipped      = VK_TRUE;
-    createInfo.oldSwapchain = oldSwapchain;
+    createInfo.presentMode    = swapChainSupport.presentationMode(!windowSettings.vsyncEnabled());
+    createInfo.clipped        = VK_TRUE;
+    createInfo.oldSwapchain   = oldSwapchain;
 
     const VkResult result =
         vkCreateSwapchainKHR(vulkanState.device, &createInfo, nullptr, &swapchain);

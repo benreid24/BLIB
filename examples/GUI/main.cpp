@@ -230,12 +230,13 @@ private:
 int main() {
     bl::cam::OverlayCamera::setOverlayCoordinateSpace(800.f, 600.f);
 
-    const bl::engine::Settings engineSettings = bl::engine::Settings().withWindowParameters(
-        bl::engine::Settings::WindowParameters()
-            .withVideoMode(sf::VideoMode(800, 600, 32))
-            .withStyle(sf::Style::Close | sf::Style::Titlebar)
-            .withTitle("GUI Demo")
-            .withLetterBoxOnResize(true));
+    const bl::engine::Settings engineSettings =
+        bl::engine::Settings().withRenderer(bl::rc::CreationSettings().withWindowSettings(
+            bl::rc::WindowSettings()
+                .withVideoMode(sf::VideoMode(800, 600, 32))
+                .withStyle(sf::Style::Close | sf::Style::Titlebar)
+                .withTitle("GUI Demo")
+                .withLetterBoxOnResize(true)));
     bl::engine::Engine engine(engineSettings);
 
     engine.run(std::make_shared<DemoState>());

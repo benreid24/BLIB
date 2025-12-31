@@ -19,10 +19,8 @@ namespace engine
 Engine::Engine(const Settings& settings)
 : engineSettings(settings)
 , timeScale(1.f)
-, windowScale(1.f)
 , ecsSystems(*this)
 , entityRegistry()
-, renderingSystem(*this, renderWindow)
 , renderThreadShouldRun(true)
 , input(*this) {
     settings.syncToConfig();
@@ -54,8 +52,8 @@ Engine::~Engine() {
     backgroundWorkers.shutdown();
     workers.shutdown();
     signalChannel.shutdown();
-    if (renderingSystem.vulkanState().device) {
-        vkCheck(vkDeviceWaitIdle(renderingSystem.vulkanState().device));
+    if (rendererInstance.has_value()) {
+        vkCheck(vkDeviceWaitIdle(rendererInstance.value().vulkanState().device));
     }
 
     while (!states.empty()) {
@@ -80,7 +78,7 @@ Engine::~Engine() {
     }
     worldPool.clear();
 
-    if (renderWindow.isOpen()) { renderWindow.close(); }
+    if (rendererInstance.has_value()) { rendererInstance->earlyCleanup(); }
 
     systems().earlyCleanup();
     entityRegistry.destroyAllEntities();
@@ -89,10 +87,7 @@ Engine::~Engine() {
     resource::GarbageCollector::get().clear();
     systems().cleanup();
 
-    if (renderWindow.isOpen()) {
-        renderingSystem.cleanup();
-        renderWindow.close();
-    }
+    if (rendererInstance.has_value()) { rendererInstance->cleanup(); }
 
     // reset resource manager state for other instances
     resource::State::appExiting = false;
@@ -131,13 +126,16 @@ bool Engine::run(StateFactory&& factory) {
 }
 
 bool Engine::setup() {
-    if (engineSettings.createWindow()) {
-        if (!reCreateWindow(engineSettings.windowParameters())) { return false; }
-        renderingSystem.initialize();
-        if (engineSettings.windowParameters().letterBox()) {
+    if (engineSettings.createRenderer()) {
+        rendererInstance.emplace(*this, engineSettings.getRendererCreationSettings().value());
+        if (!rendererInstance->initialize()) {
+            BL_LOG_ERROR << "Failed to initialize renderer";
+            return false;
+        }
+        if (rendererInstance->getSettings().getWindowSettings().letterBox()) {
             sf::Event::SizeEvent e{};
-            e.width  = renderWindow.getSfWindow().getSize().x;
-            e.height = renderWindow.getSfWindow().getSize().y;
+            e.width  = rendererInstance->getWindow().getSfWindow().getSize().x;
+            e.height = rendererInstance->getWindow().getSfWindow().getSize().y;
             handleResize(e, false);
         }
 
@@ -188,9 +186,9 @@ bool Engine::loop() {
         // Clear flags from last loop
         engineFlags.clear();
 
-        if (renderWindow.isOpen()) {
+        if (rendererInstance.has_value()) {
             sf::Event event;
-            while (renderWindow.pollEvent(event)) {
+            while (rendererInstance->getWindow().pollEvent(event)) {
                 eventEmitter.emit<sf::Event>(event);
 
                 switch (event.type) {
@@ -336,7 +334,7 @@ bool Engine::loop() {
 
         if (!stateChanged) {
             // signal render next frame
-            if (renderWindow.isOpen()) {
+            if (rendererInstance.has_value()) {
                 // run once per frame systems
                 ecsSystems.update(FrameStage::MARKER_OncePerFrame,
                                   FrameStage::COUNT,
@@ -347,10 +345,10 @@ bool Engine::loop() {
                                   lag / timeScale);
 
                 // flush scene object changes
-                renderingSystem.syncSceneObjects();
+                rendererInstance->syncSceneObjects();
 
                 // Copy shared data to renderer while in locked section
-                renderingSystem.copyDataFromSources();
+                rendererInstance->copyDataFromSources();
 
                 // Flush ECS deletion queues
                 entityRegistry.flushDeletions();
@@ -368,12 +366,12 @@ bool Engine::loop() {
             }
 
             frameCount += 1.f;
-            if (renderWindow.isOpen() && fpsTimer.getElapsedTime().asSeconds() >= 1.f &&
+            if (rendererInstance && fpsTimer.getElapsedTime().asSeconds() >= 1.f &&
                 engineSettings.logFps()) {
                 const float fps = frameCount / fpsTimer.getElapsedTime().asSeconds();
-                renderWindow.getSfWindow().setTitle(engineSettings.windowParameters().title() +
-                                                    " (" + std::to_string(int(std::roundf(fps))) +
-                                                    " fps)");
+                rendererInstance->getWindow().getSfWindow().setTitle(
+                    rendererInstance->getSettings().getWindowSettings().title() + " (" +
+                    std::to_string(int(std::roundf(fps))) + " fps)");
                 frameCount = 0.f;
                 fpsTimer.restart();
             }
@@ -389,104 +387,28 @@ bool Engine::loop() {
 
 bool Engine::awaitFocus() {
     sf::Event event;
-    while (renderWindow.waitEvent(event)) {
+    while (rendererInstance->getWindow().waitEvent(event)) {
         if (event.type == sf::Event::Closed) return false;
         if (event.type == sf::Event::GainedFocus) return true;
     }
     return false;
 }
 
-bool Engine::reCreateWindow(const Settings::WindowParameters& params) {
-    renderWindow.create(params.videoMode(), params.title(), params.style());
-    if (!renderWindow.isOpen()) {
-        BL_LOG_ERROR << "Failed to create window";
-        return false;
-    }
-    if (!params.icon().empty()) {
-        sf::Image icon;
-        if (resource::ResourceManager<sf::Image>::initializeExisting(params.icon(), icon)) {
-            renderWindow.getSfWindow().setIcon(
-                icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
-        }
-        else { BL_LOG_WARN << "Failed to load icon: " << params.icon(); }
-    }
-
-    if (renderingSystem.vulkanState().device) { renderingSystem.processWindowRecreate(); }
-
-    // also saves to config
-    updateExistingWindow(params);
-
-    return true;
-}
-
-void Engine::updateExistingWindow(const Settings::WindowParameters& params) {
-    renderWindow.getSfWindow().setTitle(params.title());
-    if (params.vsyncEnabled() != engineSettings.windowParameters().vsyncEnabled()) {
-        renderingSystem.vulkanState().swapchain.invalidate();
-    }
-
-    engineSettings.withWindowParameters(params);
-    params.syncToConfig();
-
-    if (params.letterBox()) {
-        sf::Event::SizeEvent e{};
-        e.width  = renderWindow.getSfWindow().getSize().x;
-        e.height = renderWindow.getSfWindow().getSize().y;
-        handleResize(e, false);
-    }
-    else if (params.syncOverlaySize()) {
-        cam::OverlayCamera::setOverlayCoordinateSpace(renderWindow.getSfWindow().getSize().x,
-                                                      renderWindow.getSfWindow().getSize().y);
-    }
-}
-
 void Engine::handleResize(const sf::Event::SizeEvent& resize, bool ss) {
-    const sf::Vector2f modeSize(sf::Vector2u(engineSettings.windowParameters().videoMode().width,
-                                             engineSettings.windowParameters().videoMode().height));
-    const sf::Vector2f& ogSize = engineSettings.windowParameters().initialViewSize().x > 0.f ?
-                                     engineSettings.windowParameters().initialViewSize() :
-                                     modeSize;
-
-    const float newWidth  = static_cast<float>(resize.width);
-    const float newHeight = static_cast<float>(resize.height);
-
-    sf::FloatRect viewport(0.f, 0.f, 1.f, 1.f);
-    if (engineSettings.windowParameters().letterBox()) {
-        const float xScale = newWidth / ogSize.x;
-        const float yScale = newHeight / ogSize.y;
-
-        if (xScale >= yScale) { // constrained by height, bars on sides
-            windowScale    = yScale;
-            viewport.width = ogSize.x * yScale / newWidth;
-            viewport.left  = (1.f - viewport.width) * 0.5f;
-        }
-        else { // constrained by width, bars on top and bottom
-            windowScale     = xScale;
-            viewport.height = ogSize.y * xScale / newHeight;
-            viewport.top    = (1.f - viewport.height) * 0.5f;
-        }
-    }
-
-    if (renderingSystem.vulkanState().device) {
-        renderingSystem.processResize(sf::Rect<std::uint32_t>(newWidth * viewport.left,
-                                                              newHeight * viewport.top,
-                                                              newWidth * viewport.width,
-                                                              newHeight * viewport.height));
-        if (engineSettings.windowParameters().syncOverlaySize() &&
-            !engineSettings.windowParameters().letterBox()) {
-            cam::OverlayCamera::setOverlayCoordinateSpace(newWidth, newHeight);
-        }
-    }
+    if (!rendererInstance.has_value()) return;
 
     if (ss) {
-        Settings::WindowParameters params = engineSettings.windowParameters();
-        params.withVideoMode(
-            sf::VideoMode(resize.width, resize.height, params.videoMode().bitsPerPixel));
-        engineSettings.withWindowParameters(params);
-        params.syncToConfig();
+        auto& windowSettings = rendererInstance->getSettings().getWindowSettings();
+        windowSettings.withVideoMode(
+            sf::VideoMode(resize.width, resize.height, windowSettings.videoMode().bitsPerPixel));
+
+        // will contain updated windowSettings
+        rc::CreationSettings params = rendererInstance->getCreationSettings();
+        engineSettings.withRenderer(params);
+        engineSettings.syncToConfig();
     }
 
-    eventEmitter.emit<event::WindowResized>({renderWindow});
+    eventEmitter.emit<rc::event::WindowResized>({rendererInstance->getWindow()});
 }
 
 void Engine::setTimeScale(float s) { timeScale = s; }
@@ -500,7 +422,7 @@ void Engine::postStateChange(State::Ptr& prev) {
     newState.reset();
     states.top()->activate(*this);
     eventEmitter.emit<event::StateChange>({states.top(), prev});
-    if (renderingSystem.vulkanState().device) { renderingSystem.texturePool().releaseUnused(); }
+    if (rendererInstance) { rendererInstance->texturePool().releaseUnused(); }
 }
 
 pcl::ParticleSystem& Engine::particleSystem() {
@@ -508,7 +430,7 @@ pcl::ParticleSystem& Engine::particleSystem() {
 }
 
 Player& Engine::addPlayer() {
-    auto& observer = renderingSystem.addObserver();
+    auto& observer = rendererInstance->addObserver();
     auto& actor    = input.addActor();
     auto& player   = players.emplace_back(new Player(*this, &observer, &actor));
     eventEmitter.emit<event::PlayerAdded>({*player});
@@ -519,7 +441,7 @@ void Engine::removePlayer(int i) {
     const unsigned int j = i >= 0 ? i : players.size() - 1;
     auto it              = players.begin() + j;
     eventEmitter.emit<event::PlayerRemoved>({**it});
-    renderingSystem.removeObserver(j);
+    rendererInstance->removeObserver(j);
     input.removeActor(j);
     players.erase(it);
 }
@@ -530,7 +452,7 @@ void Engine::renderThreadBody() {
         renderingCv.wait(lock);
         if (!renderThreadShouldRun) { break; }
 
-        renderingSystem.renderFrame();
+        rendererInstance->renderFrame();
     }
 }
 

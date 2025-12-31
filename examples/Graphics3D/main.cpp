@@ -329,12 +329,13 @@ private:
 
 int main() {
     bl::logging::Config::configureOutput(std::cout, bl::logging::Config::Debug);
-    const bl::engine::Settings engineSettings = bl::engine::Settings().withWindowParameters(
-        bl::engine::Settings::WindowParameters()
-            .withVideoMode(sf::VideoMode(1920, 1080, 32))
-            .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
-            .withTitle("3D Graphics Demo")
-            .withLetterBoxOnResize(false));
+    const bl::engine::Settings engineSettings =
+        bl::engine::Settings().withRenderer(bl::rc::CreationSettings().withWindowSettings(
+            bl::rc::WindowSettings()
+                .withVideoMode(sf::VideoMode(1920, 1080, 32))
+                .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
+                .withTitle("3D Graphics Demo")
+                .withLetterBoxOnResize(false)));
     bl::engine::Engine engine(engineSettings);
 
     engine.run(std::make_shared<DemoState>());

@@ -41,6 +41,8 @@ struct Limits {
     static constexpr std::uint32_t MaxSpotLights   = 128;
     static constexpr std::uint32_t MaxPointShadows = 16;
     static constexpr std::uint32_t MaxSpotShadows  = 16;
+
+    static constexpr std::uint32_t MaxBloomFilterSize = 20;
 };
 
 } // namespace cfg

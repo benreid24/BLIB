@@ -24,6 +24,7 @@ FinalSwapframeAsset::FinalSwapframeAsset(const VkViewport& viewport, const VkRec
 
 void FinalSwapframeAsset::doCreate(const rg::InitContext& ctx) {
     engine     = &ctx.engine;
+    window     = &ctx.renderer.getWindow();
     renderPass = &ctx.renderer.renderPassCache().getRenderPass(renderPassId);
     swapchain  = &ctx.vulkanState.swapchain;
 
@@ -32,7 +33,7 @@ void FinalSwapframeAsset::doCreate(const rg::InitContext& ctx) {
         throw std::runtime_error("FinalSwapframeAsset requires a DepthBuffer dependency");
     }
 
-    const auto size = engine->window().getSfWindow().getSize();
+    const auto size = window->getSfWindow().getSize();
     unsigned int i  = 0;
     attachmentSets.init(*swapchain, [this, &i, &size](vk::AttachmentSet& set) {
         set.setRenderExtent({size.x, size.y});
@@ -75,7 +76,7 @@ vk::Framebuffer& FinalSwapframeAsset::getFramebuffer(std::uint32_t i) {
 
 void FinalSwapframeAsset::onResize(glm::u32vec2) {
     if (engine) {
-        const auto size = engine->window().getSfWindow().getSize();
+        const auto size = window->getSfWindow().getSize();
         attachmentSets.visit(
             [this, &size](vk::AttachmentSet& set) { set.setRenderExtent({size.x, size.y}); });
         ensureSampledImage();
@@ -130,7 +131,7 @@ void FinalSwapframeAsset::ensureSampledImage() {
         engine->renderer().getSettings().getAntiAliasing() != Settings::AntiAliasing::None;
 
     if (useMsaa) {
-        const auto size = engine->window().getSfWindow().getSize();
+        const auto size = window->getSfWindow().getSize();
         bool transition = false;
         if (!sampledImage.isCreated() ||
             sampledImage.getSampleCount() !=

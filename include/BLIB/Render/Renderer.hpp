@@ -25,6 +25,7 @@
 #include <BLIB/Render/Transfers/TextureExporter.hpp>
 #include <BLIB/Render/Vulkan/RenderTexture.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Window.hpp>
 #include <BLIB/Signals/Channel.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <future>
@@ -52,6 +53,19 @@ namespace rc
 class Renderer : private util::NonCopyable {
 public:
     enum struct SplitscreenDirection { TopAndBottom, LeftAndRight };
+
+    /**
+     * @brief Creates a renderer. Should only be called by Engine
+     *
+     * @param engine The engine instance
+     * @param settings The settings to create the renderer with
+     */
+    Renderer(engine::Engine& engine, const CreationSettings& settings);
+
+    /**
+     * @brief Destroys the renderer
+     */
+    ~Renderer();
 
     /**
      * @brief Returns the observer at the given index
@@ -225,6 +239,21 @@ public:
     const Settings& getSettings() const;
 
     /**
+     * @brief Returns the render window
+     */
+    RenderWindow& getWindow();
+
+    /**
+     * @brief Returns the scale factor being applied to the window to letterbox
+     */
+    float getWindowScale() const;
+
+    /**
+     * @brief Updates or recreates the window based on the current settings
+     */
+    void updateWindowFromSettings();
+
+    /**
      * @brief Returns the channel for renderer events
      */
     sig::Channel& getSignalChannel();
@@ -249,10 +278,16 @@ public:
      */
     rgi::Scene3DDeferredRenderStrategy& getDefaultScene3DDeferredRenderStrategy();
 
+    /**
+     * @brief Returns a CreationSettings containing the current renderer settings
+     */
+    CreationSettings getCreationSettings() const;
+
 private:
     std::mutex renderMutex;
     engine::Engine& engine;
-    engine::EngineWindow& window;
+    RenderWindow window;
+    float windowScale;
     Settings settings;
     sf::Rect<std::uint32_t> renderRegion;
     vk::VulkanState state;
@@ -284,11 +319,13 @@ private:
     rgi::Scene3DForwardRenderStrategy scene3DForwardStrategy;
     rgi::Scene3DDeferredRenderStrategy scene3DDeferredStrategy;
 
-    Renderer(engine::Engine& engine, engine::EngineWindow& window);
-    ~Renderer();
-    void initialize();
+    bool initialize();
+    void earlyCleanup();
     void cleanup();
-    void processResize(const sf::Rect<std::uint32_t>& region);
+
+    bool createWindow();
+    void applySettingsToWindow();
+    void processResize(const sf::Event::SizeEvent& event);
     void processWindowRecreate();
 
     void destroyRenderTexture(vk::RenderTexture* rt);
@@ -389,6 +426,8 @@ inline rgi::Scene3DForwardRenderStrategy& Renderer::getDefaultScene3DForwardRend
 inline rgi::Scene3DDeferredRenderStrategy& Renderer::getDefaultScene3DDeferredRenderStrategy() {
     return scene3DDeferredStrategy;
 }
+
+inline RenderWindow& Renderer::getWindow() { return window; }
 
 } // namespace rc
 } // namespace bl

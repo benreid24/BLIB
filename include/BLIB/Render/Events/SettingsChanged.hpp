@@ -9,6 +9,11 @@ class Renderer;
 class Settings;
 namespace event
 {
+/**
+ * @brief Fired when renderer settings are changed
+ *
+ * @ingroup Renderer
+ */
 struct SettingsChanged {
     enum Setting {
         Gamma,

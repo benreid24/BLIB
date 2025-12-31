@@ -128,12 +128,12 @@ private:
     }
 
     bl::engine::Settings createStartupParameters() override {
-        return bl::engine::Settings().withWindowParameters(
-            bl::engine::Settings::WindowParameters()
+        return bl::engine::Settings().withRenderer(bl::rc::CreationSettings().withWindowSettings(
+            bl::rc::WindowSettings()
                 .withVideoMode(sf::VideoMode(800, 600, 32))
                 .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
                 .withTitle("Physics2D Demo")
-                .withLetterBoxOnResize(true));
+                .withLetterBoxOnResize(true)));
     }
 
     bool completeStartup(bl::engine::Engine&) override {

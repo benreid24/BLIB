@@ -6,6 +6,7 @@ target_sources(BLIB PUBLIC
     RenderTarget.hpp
     Settings.hpp
     UpdateSpeed.hpp
+    Window.hpp
 )
 
 add_subdirectory(Buffers)

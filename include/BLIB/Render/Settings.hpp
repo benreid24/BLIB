@@ -1,7 +1,10 @@
 #ifndef BLIB_RENDER_SETTINGS_HPP
 #define BLIB_RENDER_SETTINGS_HPP
 
+#include <BLIB/Render/Config/Limits.hpp>
+#include <BLIB/Render/CreationSettings.hpp>
 #include <BLIB/Render/Events/SettingsChanged.hpp>
+#include <BLIB/Render/GraphicsSettings.hpp>
 #include <BLIB/Signals/Emitter.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <array>
@@ -20,43 +23,17 @@ class Renderer;
  */
 class Settings {
 public:
-    static constexpr std::uint32_t MaxBloomFilterSize = 20;
-
-    /// The anti-aliasing modes supported by the renderer
-    enum struct AntiAliasing {
-        None    = VK_SAMPLE_COUNT_1_BIT,
-        MSAA2x  = VK_SAMPLE_COUNT_2_BIT,
-        MSAA4x  = VK_SAMPLE_COUNT_4_BIT,
-        MSAA8x  = VK_SAMPLE_COUNT_8_BIT,
-        MSAA16x = VK_SAMPLE_COUNT_16_BIT,
-        MSAA32x = VK_SAMPLE_COUNT_32_BIT,
-        MSAA64x = VK_SAMPLE_COUNT_64_BIT
-    };
-
-    /// Presets for SSAO
-    enum struct SSAO { None, Low, Medium, High, Ultra };
-
-    /// Settings that control HDR tone mapping auto exposure
-    struct AutoHdrSettings {
-        /// The starting exposure value
-        float targetBrightness;
-
-        /// The minimum exposure value
-        float minExposure;
-
-        /// The maximum exposure value
-        float maxExposure;
-
-        /// The normalized rate at which exposure converges to the target
-        float convergeRate;
-    };
+    using AntiAliasing    = GraphicsSettings::AntiAliasing;
+    using SSAO            = GraphicsSettings::SSAO;
+    using AutoHdrSettings = GraphicsSettings::AutoHdrSettings;
 
     /**
      * @brief Initializes the settings to sane defaults
      *
      * @param owner The renderer that owns these settings
+     * @param settings The settings to initialize from
      */
-    Settings(Renderer& owner);
+    Settings(Renderer& owner, const CreationSettings& settings);
 
     /**
      * @brief Returns the gamma value to use for rendering
@@ -99,7 +76,7 @@ public:
 
     /**
      * @brief Sets the Auto HDR settings. Only used if both HDR and auto-hdr are enabled
-     * 
+     *
      * @param settings The AutoHdrSettings object containing the desired HDR configuration
      * @return A reference to this object
      */
@@ -112,7 +89,7 @@ public:
 
     /**
      * @brief Sets whether auto-hdr exposure is enabled
-     * 
+     *
      * @param enable True to enable automatic exposure adjustment, false to disable
      * @return A reference to this object
      */
@@ -170,7 +147,7 @@ public:
     /**
      * @brief Returns the bloom filter weights
      */
-    const std::array<float, MaxBloomFilterSize>& getBloomFilters() const;
+    const std::array<float, cfg::Limits::MaxBloomFilterSize>& getBloomFilters() const;
 
     /**
      * @brief Sets the bloom filter weights
@@ -278,27 +255,20 @@ public:
      */
     float getSSAOExponent() const;
 
+    /**
+     * @brief Returns the window settings used by the renderer
+     */
+    const WindowSettings& getWindowSettings() const;
+
+    /**
+     * @brief Returns the window settings used by the renderer
+     */
+    WindowSettings& getWindowSettings();
+
 private:
     Renderer& owner;
-    float gamma;
-    bool hdrEnabled;
-    float exposure;
-    bool autoHdrEnabled;
-    AutoHdrSettings autoHdrSettings;
-    bool bloomEnabled;
-    float bloomThreshold;
-    std::array<float, MaxBloomFilterSize> bloomFilters;
-    std::uint32_t bloomFilterSize;
-    std::uint32_t bloomPasses;
-    VkExtent2D shadowMapResolution;
-    float shadowMapDepthBiasConstantFactor;
-    float shadowMapDepthBiasSlopeFactor;
-    float shadowMapDepthBiasClamp;
-    AntiAliasing antiAliasing;
-    SSAO ssao;
-    float ssaoRadius;
-    float ssaoBias;
-    float ssaoExponent;
+    WindowSettings windowSettings;
+    GraphicsSettings graphicsSettings;
 
     sig::Emitter<event::SettingsChanged> emitter;
     bool dirty;
@@ -308,51 +278,65 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline float Settings::getGamma() const { return gamma; }
+inline float Settings::getGamma() const { return graphicsSettings.gamma; }
 
-inline float Settings::getExposureFactor() const { return exposure; }
+inline float Settings::getExposureFactor() const { return graphicsSettings.exposure; }
 
-inline bool Settings::getHDREnabled() const { return hdrEnabled; }
+inline bool Settings::getHDREnabled() const { return graphicsSettings.hdrEnabled; }
 
 inline const Settings::AutoHdrSettings& Settings::getAutoHDRSettings() const {
-    return autoHdrSettings;
+    return graphicsSettings.autoHdrSettings;
 }
 
-inline bool Settings::getAutoHDREnabled() const { return autoHdrEnabled; }
+inline bool Settings::getAutoHDREnabled() const { return graphicsSettings.autoHdrEnabled; }
 
-inline bool Settings::getBloomEnabled() const { return bloomEnabled; }
+inline bool Settings::getBloomEnabled() const { return graphicsSettings.bloomEnabled; }
 
-inline float Settings::getBloomHighlightThreshold() const { return bloomThreshold; }
-
-inline std::uint32_t Settings::getBloomPassCount() const { return bloomPasses; }
-
-inline std::uint32_t Settings::getBloomFilterSize() const { return bloomFilterSize; }
-
-inline const std::array<float, Settings::MaxBloomFilterSize>& Settings::getBloomFilters() const {
-    return bloomFilters;
+inline float Settings::getBloomHighlightThreshold() const {
+    return graphicsSettings.bloomThreshold;
 }
 
-inline const VkExtent2D& Settings::getShadowMapResolution() const { return shadowMapResolution; }
+inline std::uint32_t Settings::getBloomPassCount() const { return graphicsSettings.bloomPasses; }
+
+inline std::uint32_t Settings::getBloomFilterSize() const {
+    return graphicsSettings.bloomFilterSize;
+}
+
+inline const std::array<float, cfg::Limits::MaxBloomFilterSize>& Settings::getBloomFilters() const {
+    return graphicsSettings.bloomFilters;
+}
+
+inline const VkExtent2D& Settings::getShadowMapResolution() const {
+    return graphicsSettings.shadowMapResolution;
+}
 
 inline float Settings::getShadowMapDepthBiasConstantFactor() const {
-    return shadowMapDepthBiasConstantFactor;
+    return graphicsSettings.shadowMapDepthBiasConstantFactor;
 }
 
 inline float Settings::getShadowMapDepthBiasSlopeFactor() const {
-    return shadowMapDepthBiasSlopeFactor;
+    return graphicsSettings.shadowMapDepthBiasSlopeFactor;
 }
 
-inline float Settings::getShadowMapDepthBiasClamp() const { return shadowMapDepthBiasClamp; }
+inline float Settings::getShadowMapDepthBiasClamp() const {
+    return graphicsSettings.shadowMapDepthBiasClamp;
+}
 
-inline Settings::AntiAliasing Settings::getAntiAliasing() const { return antiAliasing; }
+inline Settings::AntiAliasing Settings::getAntiAliasing() const {
+    return graphicsSettings.antiAliasing;
+}
 
-inline Settings::SSAO Settings::getSSAO() const { return ssao; }
+inline Settings::SSAO Settings::getSSAO() const { return graphicsSettings.ssao; }
 
-inline float Settings::getSSAORadius() const { return ssaoRadius; }
+inline float Settings::getSSAORadius() const { return graphicsSettings.ssaoRadius; }
 
-inline float Settings::getSSAOBias() const { return ssaoBias; }
+inline float Settings::getSSAOBias() const { return graphicsSettings.ssaoBias; }
 
-inline float Settings::getSSAOExponent() const { return ssaoExponent; }
+inline float Settings::getSSAOExponent() const { return graphicsSettings.ssaoExponent; }
+
+inline const WindowSettings& Settings::getWindowSettings() const { return windowSettings; }
+
+inline WindowSettings& Settings::getWindowSettings() { return windowSettings; }
 
 } // namespace rc
 } // namespace bl

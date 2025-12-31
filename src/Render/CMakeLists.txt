@@ -1,8 +1,10 @@
 target_sources(BLIB PRIVATE
+    GraphicsSettings.cpp
     Observer.cpp
     Renderer.cpp
     RenderTarget.cpp
     Settings.cpp
+    WindowSettings.cpp
 )
 
 add_subdirectory(Buffers)

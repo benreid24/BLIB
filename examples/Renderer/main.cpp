@@ -305,13 +305,13 @@ int main() {
 
     const bl::engine::Settings engineSettings =
         bl::engine::Settings()
-            .withWindowParameters(
-                bl::engine::Settings::WindowParameters()
+            .withRenderer(bl::rc::CreationSettings().withWindowSettings(
+                bl::rc::WindowSettings()
                     .withVideoMode(sf::VideoMode(1920, 1080, 32))
                     .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
                     .withTitle("Renderer Demo")
                     .withIcon("vulkan.png")
-                    .withLetterBoxOnResize(true))
+                    .withLetterBoxOnResize(true)))
             .withLogFps(true);
     bl::engine::Engine engine(engineSettings);
 

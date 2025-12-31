@@ -1,5 +1,5 @@
-#ifndef BLIB_ENGINE_WINDOW_HPP
-#define BLIB_ENGINE_WINDOW_HPP
+#ifndef BLIB_RENDER_WINDOW_HPP
+#define BLIB_RENDER_WINDOW_HPP
 
 #include <BLIB/Render/Vulkan/VkCheck.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
@@ -17,7 +17,7 @@
 
 namespace bl
 {
-namespace engine
+namespace rc
 {
 /// Internal implementation details
 namespace priv
@@ -55,7 +55,7 @@ private:
  *        surface creation
  *
  * @tparam SfWindow The type of SFML window to use
- * @ingroup Engine
+ * @ingroup Renderer
  */
 template<typename SfWindow>
 class Window : private util::NonCopyable {
@@ -140,11 +140,11 @@ private:
 };
 
 /**
- * @brief Default window type used by the engine
+ * @brief Default window type used by the renderer
  *
- * @ingroup Engine
+ * @ingroup Renderer
  */
-using EngineWindow = Window<sf::WindowBase>;
+using RenderWindow = Window<sf::WindowBase>;
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
@@ -265,7 +265,7 @@ std::vector<const char*> Window<T>::getRequiredInstanceExtensions() {
 #endif
 }
 
-} // namespace engine
+} // namespace rc
 } // namespace bl
 
 #endif

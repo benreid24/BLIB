@@ -5,6 +5,5 @@ target_sources(BLIB PUBLIC
     Shutdown.hpp
     Startup.hpp
     StateChange.hpp
-    WindowResize.hpp
     Worlds.hpp
 )

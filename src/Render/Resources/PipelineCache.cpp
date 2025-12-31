@@ -671,7 +671,7 @@ void PipelineCache::createBuiltins() {
             .build());
 
     constexpr std::uint32_t BloomPcSize =
-        sizeof(float) * (Settings::MaxBloomFilterSize + 1) + sizeof(std::uint32_t) * 2;
+        sizeof(float) * (cfg::Limits::MaxBloomFilterSize + 1) + sizeof(std::uint32_t) * 2;
     createPipeline(
         cfg::PipelineIds::BloomHighlightFilter,
         vk::PipelineParameters()

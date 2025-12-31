@@ -10,11 +10,11 @@
 #include <BLIB/Engine/Settings.hpp>
 #include <BLIB/Engine/State.hpp>
 #include <BLIB/Engine/Systems.hpp>
-#include <BLIB/Engine/Window.hpp>
 #include <BLIB/Engine/Worker.hpp>
 #include <BLIB/Engine/World.hpp>
 #include <BLIB/Input.hpp>
 #include <BLIB/Particles/ParticleSystem.hpp>
+#include <BLIB/Render/Events/WindowResize.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Resources.hpp>
 #include <BLIB/Scripts/Manager.hpp>
@@ -103,31 +103,9 @@ public:
     const Settings& settings() const;
 
     /**
-     * @brief Re-creates the game window from the new settings
-     *
-     * @param parameters The new settings to create the window with
-     * @return bool True on success, false on error
-     */
-    bool reCreateWindow(const Settings::WindowParameters& parameters);
-
-    /**
-     * @brief Updates settings on the window without recreating it. Settings that require a new
-     *        window are not applied, but do get saved to the configuration store
-     *
-     * @param parameters The settings to apply
-     */
-    void updateExistingWindow(const Settings::WindowParameters& parameters);
-
-    /**
      * @brief Returns the flags that can be set to control Engine behavior
      */
     Flags& flags();
-
-    /**
-     * @brief Returns a reference to the window the engine has created and is managing. The window
-     *        is created when run() is called
-     */
-    EngineWindow& window();
 
     /**
      * @brief Runs the main game loop starting in the given initial state. This is the main
@@ -191,11 +169,6 @@ public:
      * @brief Resets the time scale to 1 so that simulation time matches real time
      */
     void resetTimeScale();
-
-    /**
-     * @brief Returns the scale factor being applied to the window to letterbox
-     */
-    float getWindowScale() const;
 
     /**
      * @brief Returns the mask for the currently running state
@@ -277,20 +250,18 @@ private:
     std::array<ctr::Ref<World>, World::MaxWorlds> worlds;
     State::Ptr newState;
     float timeScale;
-    float windowScale;
 
-    EngineWindow renderWindow;
     Systems ecsSystems;
     script::Manager engineScriptManager;
     ecs::Registry entityRegistry;
-    rc::Renderer renderingSystem;
+    std::optional<rc::Renderer> rendererInstance;
     input::InputSystem input;
     util::ThreadPool workers;
     util::ThreadPool backgroundWorkers;
 
     sig::Channel signalChannel;
     sig::Emitter<event::Paused, event::PlayerAdded, event::PlayerRemoved, event::Resumed,
-                 event::Shutdown, event::Startup, event::StateChange, event::WindowResized,
+                 event::Shutdown, event::Startup, event::StateChange, rc::event::WindowResized,
                  event::WorldCreated, event::WorldDestroyed, sf::Event>
         eventEmitter;
 
@@ -316,7 +287,7 @@ inline Systems& Engine::systems() { return ecsSystems; }
 
 inline script::Manager& Engine::scriptManager() { return engineScriptManager; }
 
-inline rc::Renderer& Engine::renderer() { return renderingSystem; }
+inline rc::Renderer& Engine::renderer() { return rendererInstance.value(); }
 
 inline input::InputSystem& Engine::inputSystem() { return input; }
 
@@ -324,13 +295,9 @@ inline const Settings& Engine::settings() const { return engineSettings; }
 
 inline Flags& Engine::flags() { return engineFlags; }
 
-inline EngineWindow& Engine::window() { return renderWindow; }
-
 inline util::ThreadPool& Engine::threadPool() { return workers; }
 
 inline util::ThreadPool& Engine::longRunningThreadpool() { return backgroundWorkers; }
-
-inline float Engine::getWindowScale() const { return windowScale; }
 
 inline StateMask::V Engine::getCurrentStateMask() const {
     return !states.empty() ? states.top()->systemsMask() : StateMask::None;
@@ -364,7 +331,7 @@ T& Engine::addPlayer(TArgs&&... args) {
         std::is_constructible_v<T, Engine&, rc::Observer*, input::Actor*, TArgs...>,
         "T must be constructible with T(Engine&, rc::Observer*, input::Actor*, TArgs...)");
 
-    auto& observer = renderingSystem.addObserver();
+    auto& observer = rendererInstance->addObserver();
     auto& actor    = input.addActor();
     T* np          = new T(*this, &observer, &actor, args...);
     auto& player   = players.emplace_back(np);
