@@ -266,8 +266,6 @@ private:
         shark.create(*world, "Resources/Models/bruce/shark.glb");
         shark.getTransform().setPosition({0.f, 1.f, -2.f});
         shark.addToScene(scene, bl::rc::UpdateSpeed::Dynamic);
-
-        // TODO - better interface
         shark.getSkeleton().playAnimation(0);
 
         const bl::rc::Color light1Color(sf::Color(80, 180, 255));
@@ -309,7 +307,7 @@ private:
         light3Handle.get().pointAt(light3PointAt);
 
         // light1Handle.removeFromScene();
-        //  light2Handle.removeFromScene();
+        // light2Handle.removeFromScene();
         // light3Handle.removeFromScene();
 
         scene->getLighting().modifySun().color.setLighting(glm::vec3(1.f), 0.f, 0.45f, 1.f, 0.2f);

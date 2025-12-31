@@ -56,6 +56,33 @@ public:
     void playAnimation(unsigned int index, float weight = 1.f);
 
     /**
+     * @brief Plays the animation with the given name
+     *
+     * @param name The name of the animation to play
+     * @param weight The blend weight of the animation
+     */
+    void playAnimation(const std::string& name, float weight = 1.f);
+
+    /**
+     * @brief Stops the animation at the given index
+     *
+     * @param index The index of the animation to stop
+     */
+    void stopAnimation(unsigned int index);
+
+    /**
+     * @brief Stops the animation with the given name
+     *
+     * @param name The name of the animation to stop
+     */
+    void stopAnimation(const std::string& name);
+
+    /**
+     * @brief Stops all animations
+     */
+    void stopAllAnimations();
+
+    /**
      * @brief Initializes with sane defaults
      */
     Skeleton() = default;
