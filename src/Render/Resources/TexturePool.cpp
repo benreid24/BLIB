@@ -25,7 +25,7 @@ void generateErrorPattern(sf::Image& img, unsigned int left, unsigned int top, u
 }
 } // namespace
 
-TexturePool::TexturePool(Renderer& r, vk::VulkanState& vs)
+TexturePool::TexturePool(Renderer& r, vk::VulkanLayer& vs)
 : renderer(r)
 , vulkanState(vs)
 , textures(cfg::Limits::MaxTextureCount)
@@ -75,7 +75,7 @@ void TexturePool::init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
         vk::Texture::Type::Cubemap,
         {.format  = vk::CommonTextureFormats::SRGBA32Bit,
          .sampler = vk::SamplerOptions::Type::FilteredRepeated});
-    vulkanState.transferEngine.executeTransfers();
+    vulkanState.getTransferEngine().executeTransfers();
 
     // init all textures to error pattern
     for (vk::Texture& txtr : textures) { txtr.currentView = errorTexture.currentView; }
@@ -118,7 +118,7 @@ void TexturePool::init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
     rtDescriptorSets.visit([&visitor, &imageCubeInfos](auto& set) {
         visitor(set, CubemapArrayBindIndex, imageCubeInfos);
     });
-    vkUpdateDescriptorSets(vulkanState.device, setWrites.size(), setWrites.data(), 0, nullptr);
+    vkUpdateDescriptorSets(vulkanState.getDevice(), setWrites.size(), setWrites.data(), 0, nullptr);
 }
 
 void TexturePool::cleanup() {
@@ -135,7 +135,7 @@ void TexturePool::cleanup() {
 
 void TexturePool::releaseUnused() {
     std::unique_lock lock(mutex);
-    vkDeviceWaitIdle(vulkanState.device);
+    vkDeviceWaitIdle(vulkanState.getDevice());
     releaseUnusedLocked();
 }
 

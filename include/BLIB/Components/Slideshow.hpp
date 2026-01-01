@@ -13,7 +13,7 @@ namespace rc
 {
 namespace vk
 {
-struct VulkanState;
+struct VulkanLayer;
 }
 } // namespace rc
 
@@ -35,7 +35,7 @@ struct Slideshow : public rc::rcom::DrawableBase {
      * @param anim The animation to use when creating the vertices
      * @return True on success, false if animation is invalid slideshow
      */
-    bool create(rc::vk::VulkanState& vulkanState, const Animation2DPlayer& anim);
+    bool create(rc::vk::VulkanLayer& vulkanState, const Animation2DPlayer& anim);
 
     /**
      * @brief Changes the animation to a new player

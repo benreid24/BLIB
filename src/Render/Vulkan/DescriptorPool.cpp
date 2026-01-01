@@ -1,6 +1,6 @@
 #include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 #include <stdexcept>
 
 namespace bl
@@ -13,7 +13,7 @@ namespace
 {
 constexpr std::array<unsigned int, DescriptorPool::BindingTypeCount> PoolSizes = {
     20,  // VK_DESCRIPTOR_TYPE_SAMPLER
-    200,  // VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER
+    200, // VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER
     20,  // VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE
     20,  // VK_DESCRIPTOR_TYPE_STORAGE_IMAGE
     20,  // VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER
@@ -50,7 +50,7 @@ DescriptorPool::SetBindingInfo::SetBindingInfo()
     }
 }
 
-DescriptorPool::DescriptorPool(VulkanState& vs)
+DescriptorPool::DescriptorPool(VulkanLayer& vs)
 : vulkanState(vs) {}
 
 void DescriptorPool::init() { pools.emplace_back(vulkanState); }
@@ -58,7 +58,7 @@ void DescriptorPool::init() { pools.emplace_back(vulkanState); }
 void DescriptorPool::cleanup() {
     pools.clear();
     for (auto& pair : layoutMap) {
-        vkDestroyDescriptorSetLayout(vulkanState.device, pair.first, nullptr);
+        vkDestroyDescriptorSetLayout(vulkanState.getDevice(), pair.first, nullptr);
     }
 }
 
@@ -70,8 +70,8 @@ VkDescriptorSetLayout DescriptorPool::createLayout(const SetBindingInfo& allocIn
     descriptorCreateInfo.sType        = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
     descriptorCreateInfo.bindingCount = allocInfo.bindingCount;
     descriptorCreateInfo.pBindings    = allocInfo.bindings.data();
-    if (VK_SUCCESS !=
-        vkCreateDescriptorSetLayout(vulkanState.device, &descriptorCreateInfo, nullptr, &layout)) {
+    if (VK_SUCCESS != vkCreateDescriptorSetLayout(
+                          vulkanState.getDevice(), &descriptorCreateInfo, nullptr, &layout)) {
         throw std::runtime_error("Failed to create descriptor set layout");
     }
     layoutMap.try_emplace(layout, allocInfo);
@@ -146,7 +146,7 @@ void DescriptorPool::release(AllocationHandle handle, const VkDescriptorSet* set
     allocations.erase(handle);
 }
 
-DescriptorPool::Subpool::Subpool(VulkanState& vs)
+DescriptorPool::Subpool::Subpool(VulkanLayer& vs)
 : vulkanState(vs)
 , freeSets(MaxSets)
 , available(PoolSizes) {
@@ -164,12 +164,12 @@ DescriptorPool::Subpool::Subpool(VulkanState& vs)
     poolInfo.pPoolSizes    = sizes.data();
     poolInfo.maxSets       = MaxSets;
     poolInfo.flags         = VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT;
-    if (vkCreateDescriptorPool(vs.device, &poolInfo, nullptr, &pool) != VK_SUCCESS) {
+    if (vkCreateDescriptorPool(vs.getDevice(), &poolInfo, nullptr, &pool) != VK_SUCCESS) {
         throw std::runtime_error("Failed to create descriptor pool");
     }
 }
 
-DescriptorPool::Subpool::Subpool(VulkanState& vs, const SetBindingInfo& allocInfo,
+DescriptorPool::Subpool::Subpool(VulkanLayer& vs, const SetBindingInfo& allocInfo,
                                  std::size_t setCount)
 : vulkanState(vs)
 , freeSets(0) {
@@ -189,14 +189,14 @@ DescriptorPool::Subpool::Subpool(VulkanState& vs, const SetBindingInfo& allocInf
     poolInfo.poolSizeCount = allocInfo.bindingCount;
     poolInfo.pPoolSizes    = poolSizes.data();
     poolInfo.maxSets       = setCount;
-    if (vkCreateDescriptorPool(vs.device, &poolInfo, nullptr, &pool) != VK_SUCCESS) {
+    if (vkCreateDescriptorPool(vs.getDevice(), &poolInfo, nullptr, &pool) != VK_SUCCESS) {
         throw std::runtime_error("Failed to create descriptor pool");
     }
 }
 
 DescriptorPool::Subpool::~Subpool() {
     BL_LOG_INFO << "Released pool: " << this;
-    vkDestroyDescriptorPool(vulkanState.device, pool, nullptr);
+    vkDestroyDescriptorPool(vulkanState.getDevice(), pool, nullptr);
 }
 
 bool DescriptorPool::Subpool::canAllocate(const SetBindingInfo& allocInfo,
@@ -244,7 +244,7 @@ void DescriptorPool::Subpool::allocate(const SetBindingInfo& allocInfo,
     setAllocInfo.descriptorPool     = pool;
     setAllocInfo.descriptorSetCount = setCount;
     setAllocInfo.pSetLayouts        = pLayouts;
-    if (vkAllocateDescriptorSets(vulkanState.device, &setAllocInfo, sets) != VK_SUCCESS) {
+    if (vkAllocateDescriptorSets(vulkanState.getDevice(), &setAllocInfo, sets) != VK_SUCCESS) {
         throw std::runtime_error("Failed to allocate descriptor sets");
     }
 }
@@ -259,7 +259,7 @@ void DescriptorPool::Subpool::release(const SetBindingInfo& allocInfo, const VkD
     }
 
     // free sets
-    vkCheck(vkFreeDescriptorSets(vulkanState.device, pool, setCount, sets));
+    vkCheck(vkFreeDescriptorSets(vulkanState.getDevice(), pool, setCount, sets));
 }
 
 } // namespace vk

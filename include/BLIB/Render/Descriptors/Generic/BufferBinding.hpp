@@ -40,7 +40,7 @@ public:
 
     virtual DescriptorSetInstance::EntityBindMode getBindMode() const override;
     virtual DescriptorSetInstance::SpeedBucketSetting getSpeedMode() const override;
-    virtual void init(vk::VulkanState& vulkanState, InitContext& ctx) override;
+    virtual void init(vk::VulkanLayer& vulkanState, InitContext& ctx) override;
     virtual void writeSet(SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed speed,
                           std::uint32_t frameIndex) override;
     virtual bool allocateObject(ecs::Entity entity, scene::Key key) override;
@@ -74,7 +74,7 @@ BufferBinding<TShaderResource, ResourceKey, ResourceStore, DescriptorType>::getS
 template<typename TShaderResource, sr::Key<TShaderResource> ResourceKey, sr::StoreKey ResourceStore,
          VkDescriptorType DescriptorType>
 void BufferBinding<TShaderResource, ResourceKey, ResourceStore, DescriptorType>::init(
-    vk::VulkanState& vs, InitContext& ctx) {
+    vk::VulkanLayer& vs, InitContext& ctx) {
     buffer = ctx.getShaderResourceStore(ResourceStore).getShaderResourceWithKey(ResourceKey);
     boundDynamic.init(vs, [](VkBuffer& b) { b = nullptr; });
     boundStatic.init(vs, [](VkBuffer& b) { b = nullptr; });

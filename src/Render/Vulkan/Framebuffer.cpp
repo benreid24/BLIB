@@ -1,7 +1,7 @@
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 
 #include <BLIB/Render/Vulkan/RenderPass.hpp>
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 
 namespace bl
 {
@@ -20,7 +20,7 @@ Framebuffer::~Framebuffer() {
     if (renderPass) { deferCleanup(); }
 }
 
-void Framebuffer::create(VulkanState& vs, const RenderPass* rp, const AttachmentSet& frame) {
+void Framebuffer::create(VulkanLayer& vs, const RenderPass* rp, const AttachmentSet& frame) {
     vulkanState = &vs;
 
     // cleanup and block if recreating
@@ -40,7 +40,7 @@ void Framebuffer::create(VulkanState& vs, const RenderPass* rp, const Attachment
     framebufferInfo.width           = frame.getRenderExtent().width;
     framebufferInfo.height          = frame.getRenderExtent().height;
     framebufferInfo.layers          = frame.getLayerCount();
-    if (vkCreateFramebuffer(vulkanState->device, &framebufferInfo, nullptr, &framebuffer) !=
+    if (vkCreateFramebuffer(vulkanState->getDevice(), &framebufferInfo, nullptr, &framebuffer) !=
         VK_SUCCESS) {
         throw std::runtime_error("Failed to create framebuffer");
     }
@@ -134,15 +134,16 @@ void Framebuffer::finishRender(VkCommandBuffer commandBuffer) {
 }
 
 void Framebuffer::cleanup() {
-    vkDestroyFramebuffer(vulkanState->device, framebuffer, nullptr);
+    vkDestroyFramebuffer(vulkanState->getDevice(), framebuffer, nullptr);
     renderPass = nullptr;
 }
 
 void Framebuffer::deferCleanup() {
     if (renderPass) {
-        vulkanState->cleanupManager.add([device = vulkanState->device, fb = framebuffer]() {
-            vkDestroyFramebuffer(device, fb, nullptr);
-        });
+        vulkanState->getCleanupManager().add(
+            [device = vulkanState->getDevice(), fb = framebuffer]() {
+                vkDestroyFramebuffer(device, fb, nullptr);
+            });
         renderPass = nullptr;
     }
 }

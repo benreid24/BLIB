@@ -1,6 +1,6 @@
 #include <BLIB/Render/Vulkan/Sampler.hpp>
 
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 
 namespace bl
 {
@@ -13,7 +13,7 @@ Sampler::Sampler()
 , sampler(nullptr)
 , owner(false) {}
 
-Sampler::Sampler(VulkanState& vs, VkSampler sampler, bool owner)
+Sampler::Sampler(VulkanLayer& vs, VkSampler sampler, bool owner)
 : vulkanState(&vs)
 , sampler(sampler)
 , owner(owner) {}
@@ -49,7 +49,7 @@ Sampler& Sampler::operator=(Sampler&& ms) {
 
 void Sampler::release() {
     if (sampler && owner) {
-        vkDestroySampler(vulkanState->device, sampler, nullptr);
+        vkDestroySampler(vulkanState->getDevice(), sampler, nullptr);
         vulkanState = nullptr;
         sampler     = nullptr;
         owner       = false;
@@ -58,8 +58,8 @@ void Sampler::release() {
 
 void Sampler::deferRelease() {
     if (sampler && owner) {
-        vulkanState->cleanupManager.add(
-            [s = sampler, d = vulkanState->device]() { vkDestroySampler(d, s, nullptr); });
+        vulkanState->getCleanupManager().add(
+            [s = sampler, d = vulkanState->getDevice()]() { vkDestroySampler(d, s, nullptr); });
         vulkanState = nullptr;
         sampler     = nullptr;
         owner       = false;

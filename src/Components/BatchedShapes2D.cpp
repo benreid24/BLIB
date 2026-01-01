@@ -4,7 +4,7 @@ namespace bl
 {
 namespace com
 {
-BatchedShapes2D::BatchedShapes2D(rc::vk::VulkanState& vulkanState, std::uint32_t vertexCapacity,
+BatchedShapes2D::BatchedShapes2D(rc::vk::VulkanLayer& vulkanState, std::uint32_t vertexCapacity,
                                  std::uint32_t indexCapacity) {
     indexBuffer.create(vulkanState, vertexCapacity, indexCapacity);
 }

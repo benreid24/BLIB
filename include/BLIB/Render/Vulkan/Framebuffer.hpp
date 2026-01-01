@@ -11,7 +11,7 @@ namespace rc
 {
 namespace vk
 {
-struct VulkanState;
+struct VulkanLayer;
 class Swapchain;
 class RenderPass;
 
@@ -41,7 +41,7 @@ public:
      * @param renderPass The render pass that will be used with the frame buffer
      * @param target The frame to render to
      */
-    void create(VulkanState& vulkanState, const RenderPass* renderPass,
+    void create(VulkanLayer& vulkanState, const RenderPass* renderPass,
                 const vk::AttachmentSet& target);
 
     /**
@@ -91,7 +91,7 @@ public:
     const vk::AttachmentSet& getAttachmentSet() const { return *target; }
 
 private:
-    VulkanState* vulkanState;
+    VulkanLayer* vulkanState;
     const RenderPass* renderPass;
     const vk::AttachmentSet* target;
     VkFramebuffer framebuffer;

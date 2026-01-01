@@ -159,7 +159,7 @@ protected:
      * @param vulkanState The renderer Vulkan state
      * @param n The number of elements to size the buffer for
      */
-    virtual void doCreate(vk::VulkanState& vulkanState, std::uint32_t n) {
+    virtual void doCreate(vk::VulkanLayer& vulkanState, std::uint32_t n) {
         numElements = n;
         buffer.createWithFallback(vulkanState,
                                   this->getTotalAlignedSize(),

@@ -43,7 +43,7 @@ public:
     }
 
 private:
-    vk::VulkanState* vs;
+    vk::VulkanLayer* vs;
 
     virtual void init(engine::Engine&, Renderer& renderer) override {
         vs = &renderer.vulkanState();
@@ -59,7 +59,7 @@ private:
         }
 
         bindingInfo.bindingCount = AttachmentCount;
-        descriptorSetLayout      = renderer.vulkanState().descriptorPool.createLayout(bindingInfo);
+        descriptorSetLayout = renderer.vulkanState().getDescriptorPool().createLayout(bindingInfo);
     }
 
     virtual std::type_index creates() const override { return typeid(InputAttachmentInstance); }

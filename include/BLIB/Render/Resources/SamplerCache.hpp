@@ -13,7 +13,7 @@ class Renderer;
 
 namespace vk
 {
-struct VulkanState;
+struct VulkanLayer;
 }
 namespace res
 {
@@ -74,11 +74,11 @@ public:
     vk::Sampler getSampler(const vk::SamplerOptions& options);
 
 private:
-    vk::VulkanState& vulkanState;
+    vk::VulkanLayer& vulkanState;
     VkSamplerCreateInfo createTable[vk::SamplerOptions::TypeCount];
     VkSampler samplerTable[vk::SamplerOptions::TypeCount];
 
-    SamplerCache(vk::VulkanState& vs);
+    SamplerCache(vk::VulkanLayer& vs);
     void init();
     void cleanup();
 

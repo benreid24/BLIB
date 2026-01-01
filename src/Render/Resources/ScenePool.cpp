@@ -17,7 +17,7 @@ void ScenePool::cleanup() {
 }
 
 void ScenePool::release(Entry* entry) {
-    vkDeviceWaitIdle(engine.renderer().vulkanState().device);
+    vkDeviceWaitIdle(engine.renderer().vulkanState().getDevice());
     std::unique_lock lock(mutex);
 
     emitter.emit<rc::event::SceneDestroyed>({entry->scene.get()});

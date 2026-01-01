@@ -57,7 +57,7 @@ template<typename T, typename GpuT>
 DescriptorSetInstance<T, GpuT>::Instance::Instance(engine::Engine& engine,
                                                    VkDescriptorSetLayout layout,
                                                    bl::ecs::Entity entity)
-: device(engine.renderer().vulkanState().device)
+: device(engine.renderer().vulkanState().getDevice())
 , layout(layout) {
     if constexpr (HasGlobals) {
         globals.create(engine.renderer().vulkanState(), 1);

@@ -6,7 +6,7 @@
 #include <BLIB/Render/Descriptors/SetWriteHelper.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <BLIB/Render/ShaderResources/ShaderResourceStore.hpp>
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 #include <BLIB/Vulkan.hpp>
 
 namespace bl
@@ -69,7 +69,7 @@ public:
      * @param vulkanState Renderer Vulkan state
      * @param ctx The init context
      */
-    virtual void init(vk::VulkanState& vulkanState, InitContext& ctx) = 0;
+    virtual void init(vk::VulkanLayer& vulkanState, InitContext& ctx) = 0;
 
     /**
      * @brief Called to write this binding to the given descriptor set

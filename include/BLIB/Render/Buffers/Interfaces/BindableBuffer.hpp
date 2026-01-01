@@ -7,7 +7,7 @@
 #include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Transfers/Transferable.hpp>
 #include <BLIB/Render/Vulkan/Buffer.hpp>
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <algorithm>
 #include <array>
@@ -20,7 +20,7 @@ namespace rc
 {
 namespace vk
 {
-struct VulkanState;
+struct VulkanLayer;
 class Buffer;
 } // namespace vk
 
@@ -58,7 +58,7 @@ public:
      * @param vs The renderer Vulkan state
      * @param numElements The number of data elements to size the buffer for
      */
-    void create(vk::VulkanState& vs, std::uint32_t numElements) {
+    void create(vk::VulkanLayer& vs, std::uint32_t numElements) {
         vulkanState = &vs;
         alignment   = computeAlignment(sizeof(T), Align);
         doCreate(vs, numElements);
@@ -165,7 +165,7 @@ protected:
     /**
      * @brief Returns the renderer Vulkan state
      */
-    vk::VulkanState& getVulkanState() { return *vulkanState; }
+    vk::VulkanLayer& getVulkanState() { return *vulkanState; }
 
     /**
      * @brief Called when the buffer should be created
@@ -173,7 +173,7 @@ protected:
      * @param vulkanState The renderer Vulkan state
      * @param numElements The number of data elements to size the buffer for
      */
-    virtual void doCreate(vk::VulkanState& vulkanState, std::uint32_t numElements) = 0;
+    virtual void doCreate(vk::VulkanLayer& vulkanState, std::uint32_t numElements) = 0;
 
     /**
      * @brief Logs a warning. Derived classes should override this if used

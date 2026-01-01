@@ -20,7 +20,7 @@ void ShadowMapShaderResource::createImages() {
             VK_IMAGE_ASPECT_DEPTH_BIT :
             (VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT);
 
-    auto commandBuffer = renderer->vulkanState().sharedCommandPool.createBuffer();
+    auto commandBuffer = renderer->vulkanState().getSharedCommandPool().createBuffer();
     for (auto& map : spotShadowMaps) {
         map.image.create(
             renderer->vulkanState(),

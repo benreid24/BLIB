@@ -16,7 +16,7 @@ namespace rc
 {
 namespace vk
 {
-struct VulkanState;
+struct VulkanLayer;
 
 /**
  * @brief Utility class to manage descriptor set allocation. Maintains a list of descriptor pools
@@ -75,8 +75,8 @@ public:
 
 private:
     struct Subpool {
-        Subpool(VulkanState& vulkanState);
-        Subpool(VulkanState& vulkanState, const SetBindingInfo& allocInfo, std::size_t setCount);
+        Subpool(VulkanLayer& vulkanState);
+        Subpool(VulkanLayer& vulkanState, const SetBindingInfo& allocInfo, std::size_t setCount);
         ~Subpool();
 
         bool canAllocate(const SetBindingInfo& allocInfo, std::size_t setCount) const;
@@ -85,7 +85,7 @@ private:
         void release(const SetBindingInfo& allocInfo, const VkDescriptorSet* sets,
                      std::size_t setCount);
 
-        VulkanState& vulkanState;
+        VulkanLayer& vulkanState;
         VkDescriptorPool pool;
         unsigned int freeSets;
         std::array<unsigned int, BindingTypeCount> available;
@@ -105,17 +105,17 @@ private:
         , sets(sets) {}
     };
 
-    VulkanState& vulkanState;
+    VulkanLayer& vulkanState;
     std::mutex mutex;
     std::unordered_map<VkDescriptorSetLayout, SetBindingInfo> layoutMap;
     std::list<Subpool> pools;
     std::list<Allocation> allocations;
 
-    DescriptorPool(VulkanState& vulkanState);
+    DescriptorPool(VulkanLayer& vulkanState);
     void init();
     void cleanup();
 
-    friend struct VulkanState;
+    friend struct VulkanLayer;
 };
 
 } // namespace vk

@@ -96,7 +96,7 @@ protected:
      * @param vulkanState The renderer Vulkan state
      * @param n The number of elements to size the buffer for
      */
-    virtual void doCreate(vk::VulkanState& vulkanState, std::uint32_t n) {
+    virtual void doCreate(vk::VulkanLayer& vulkanState, std::uint32_t n) {
         sourceBuffer.create(Align, n);
         Base::doCreate(vulkanState, n);
     }

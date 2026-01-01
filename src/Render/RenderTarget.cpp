@@ -58,7 +58,7 @@ void RenderTarget::init() {
 }
 
 RenderTarget::~RenderTarget() {
-    if (renderer.vulkanState().device != nullptr) { cleanup(); }
+    if (renderer.vulkanState().isInitialized()) { cleanup(); }
 }
 
 void RenderTarget::cleanup() {

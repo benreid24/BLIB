@@ -39,7 +39,7 @@ public:
      * @param engine Renderer Vulkan state
      * @param ctx The init context
      */
-    void init(vk::VulkanState& vulkanState, InitContext& ctx);
+    void init(vk::VulkanLayer& vulkanState, InitContext& ctx);
 
     /**
      * @brief Returns the descriptor type for the given index
@@ -140,7 +140,7 @@ VkDescriptorType Bindings<TBindings...>::getTypeHelper(std::uint32_t index) cons
 }
 
 template<typename... TBindings>
-void Bindings<TBindings...>::init(vk::VulkanState& vulkanState, InitContext& ctx) {
+void Bindings<TBindings...>::init(vk::VulkanLayer& vulkanState, InitContext& ctx) {
     std::size_t index = 0;
     ((std::get<TBindings>(bindings).index = index++), ...);
     ((std::get<TBindings>(bindings).init(vulkanState, ctx)), ...);

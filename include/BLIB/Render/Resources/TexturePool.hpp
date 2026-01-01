@@ -8,7 +8,7 @@
 #include <BLIB/Render/Vulkan/Sampler.hpp>
 #include <BLIB/Render/Vulkan/Texture.hpp>
 #include <BLIB/Render/Vulkan/TextureOptions.hpp>
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <SFML/Graphics/Image.hpp>
@@ -216,7 +216,7 @@ private:
     // functional data
     std::mutex mutex;
     Renderer& renderer;
-    vk::VulkanState& vulkanState;
+    vk::VulkanLayer& vulkanState;
 
     // core data
     std::vector<vk::Texture> textures;
@@ -246,7 +246,7 @@ private:
     std::vector<vk::Texture*> toRelease;
     vk::PerFrame<std::vector<vk::Texture*>> queuedUpdates;
 
-    TexturePool(Renderer& renderer, vk::VulkanState& vulkanState);
+    TexturePool(Renderer& renderer, vk::VulkanLayer& vulkanState);
     void init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
               vk::PerFrame<VkDescriptorSet>& rtDescriptorSets);
     void cleanup();

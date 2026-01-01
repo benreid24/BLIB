@@ -43,7 +43,7 @@ public:
      * @param bindMode The binding requirement for this set
      * @param speedMode The speed requirement for this set
      */
-    GenericDescriptorSetInstance(vk::VulkanState& vulkanState,
+    GenericDescriptorSetInstance(vk::VulkanLayer& vulkanState,
                                  VkDescriptorSetLayout descriptorSetLayout,
                                  DescriptorSetInstance::EntityBindMode bindMode,
                                  DescriptorSetInstance::SpeedBucketSetting speedMode);
@@ -55,7 +55,7 @@ public:
 
 private:
     const VkDescriptorSetLayout descriptorSetLayout;
-    vk::VulkanState& vulkanState;
+    vk::VulkanLayer& vulkanState;
     TBindings bindings;
     vk::DescriptorSet staticDescriptorSet;
     vk::PerFrame<vk::DescriptorSet> dynamicDescriptorSets;
@@ -80,7 +80,7 @@ private:
 
 template<typename TBindings>
 GenericDescriptorSetInstance<TBindings>::GenericDescriptorSetInstance(
-    vk::VulkanState& vulkanState, VkDescriptorSetLayout descriptorSetLayout,
+    vk::VulkanLayer& vulkanState, VkDescriptorSetLayout descriptorSetLayout,
     DescriptorSetInstance::EntityBindMode bindMode,
     DescriptorSetInstance::SpeedBucketSetting speedMode)
 : DescriptorSetInstance(bindMode, speedMode)
@@ -173,14 +173,14 @@ template<typename TBindings>
 void GenericDescriptorSetInstance<TBindings>::updateStaticDescriptors() {
     staticDescriptorSet.allocate(descriptorSetLayout);
     bindings.writeSet(setWriter, staticDescriptorSet.getSet(), UpdateSpeed::Static, 0);
-    setWriter.performWrite(vulkanState.device);
+    setWriter.performWrite(vulkanState.getDevice());
 }
 
 template<typename TBindings>
 void GenericDescriptorSetInstance<TBindings>::updateDynamicDescriptors(std::uint32_t i) {
     dynamicDescriptorSets.getRaw(i).allocate(descriptorSetLayout);
     bindings.writeSet(setWriter, dynamicDescriptorSets.getRaw(i).getSet(), UpdateSpeed::Dynamic, i);
-    setWriter.performWrite(vulkanState.device);
+    setWriter.performWrite(vulkanState.getDevice());
 }
 
 } // namespace ds

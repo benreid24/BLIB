@@ -11,7 +11,7 @@ namespace rc
 {
 namespace vk
 {
-struct VulkanState;
+struct VulkanLayer;
 }
 
 namespace res
@@ -39,7 +39,7 @@ private:
     void init(VkDevice device);
     void cleanup();
 
-    friend struct vk::VulkanState;
+    friend struct vk::VulkanLayer;
 };
 
 } // namespace res

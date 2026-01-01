@@ -22,7 +22,7 @@ class Light2D;
 
 namespace vk
 {
-struct VulkanState;
+struct VulkanLayer;
 }
 
 namespace dsi
@@ -40,7 +40,7 @@ public:
      * @param vulkanState Renderer Vulkan state
      * @param layout The layout of the descriptor set
      */
-    Scene2DInstance(vk::VulkanState& vulkanState, VkDescriptorSetLayout layout);
+    Scene2DInstance(vk::VulkanLayer& vulkanState, VkDescriptorSetLayout layout);
 
     /**
      * @brief Destroys the descriptor set
@@ -48,7 +48,7 @@ public:
     virtual ~Scene2DInstance();
 
 private:
-    vk::VulkanState& vulkanState;
+    vk::VulkanLayer& vulkanState;
     const VkDescriptorSetLayout setLayout;
     vk::DescriptorPool::AllocationHandle allocHandle;
     vk::PerFrame<VkDescriptorSet> descriptorSets;

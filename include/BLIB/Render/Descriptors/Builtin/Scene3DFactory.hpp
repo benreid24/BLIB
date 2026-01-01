@@ -9,7 +9,7 @@ namespace rc
 {
 namespace vk
 {
-struct VulkanState;
+struct VulkanLayer;
 }
 
 namespace dsi
@@ -29,7 +29,7 @@ public:
 
 private:
     Renderer* renderer;
-    vk::VulkanState* vulkanState;
+    vk::VulkanLayer* vulkanState;
 
     virtual void init(engine::Engine&, Renderer& renderer) override;
     virtual std::unique_ptr<ds::DescriptorSetInstance> createDescriptorSet() const override;

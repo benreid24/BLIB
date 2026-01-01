@@ -19,7 +19,7 @@ class WindowSettings;
 
 namespace vk
 {
-struct VulkanState;
+struct VulkanLayer;
 
 /**
  * @brief Utility class for managing the Vulkan swap chain
@@ -35,7 +35,7 @@ public:
      * @param window The window to attach to
      * @param windowSettings The window settings used to create the window
      */
-    Swapchain(VulkanState& vulkanState, sf::WindowBase& window, WindowSettings& windowSettings);
+    Swapchain(VulkanLayer& vulkanState, sf::WindowBase& window, WindowSettings& windowSettings);
 
     /**
      * @brief Destroys the swap chain and other held resources
@@ -103,21 +103,21 @@ private:
         VkCommandPool commandPool;
         VkCommandBuffer commandBuffer;
 
-        void init(VulkanState& vulkanState);
-        void cleanup(VulkanState& vulkanState);
+        void init(VulkanLayer& vulkanState);
+        void cleanup(VulkanLayer& vulkanState);
     };
 
     struct Swapframes {
         std::array<VkSemaphore, 8> imageAvailableSemaphore;
         std::uint32_t currentIndex;
 
-        void init(VulkanState& vulkanState);
-        void cleanup(VulkanState& vulkanState);
+        void init(VulkanLayer& vulkanState);
+        void cleanup(VulkanLayer& vulkanState);
         VkSemaphore getNext();
         VkSemaphore current();
     };
 
-    VulkanState& vulkanState;
+    VulkanLayer& vulkanState;
     sf::WindowBase& window;
     WindowSettings& windowSettings;
 

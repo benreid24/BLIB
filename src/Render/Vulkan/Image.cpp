@@ -1,6 +1,6 @@
 #include <BLIB/Render/Vulkan/Image.hpp>
 
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 #include <cmath>
 
 namespace bl
@@ -47,7 +47,7 @@ Image::Image()
 
 Image::~Image() { deferDestroy(); }
 
-void Image::create(VulkanState& vs, const ImageOptions& options) {
+void Image::create(VulkanLayer& vs, const ImageOptions& options) {
     if (vulkanState && compareOptions(createOptions, options)) { return; }
 
     deferDestroy();
@@ -77,7 +77,8 @@ void Image::create(VulkanState& vs, const ImageOptions& options) {
     createInfo.sharingMode   = VK_SHARING_MODE_EXCLUSIVE;
     createInfo.samples       = createOptions.samples;
     createInfo.flags         = getCreateFlags(createOptions.type) | createOptions.extraCreateFlags;
-    if (vmaCreateImage(vs.vmaAllocator, &createInfo, &allocInfo, &imageHandle, &alloc, nullptr) !=
+    if (vmaCreateImage(
+            vs.getVmaAllocator(), &createInfo, &allocInfo, &imageHandle, &alloc, nullptr) !=
         VK_SUCCESS) {
         throw std::runtime_error("failed to create image");
     }
@@ -121,7 +122,7 @@ void Image::resize(const glm::u32vec2& newSize, bool copyContents) {
 
     // copy from old to new
     if (copyContents && oldImage != imageHandle) {
-        auto cb = vulkanState->sharedCommandPool.createBuffer();
+        auto cb = vulkanState->getSharedCommandPool().createBuffer();
 
         vulkanState->transitionImageLayout(cb,
                                            imageHandle,
@@ -160,25 +161,25 @@ void Image::resize(const glm::u32vec2& newSize, bool copyContents) {
 
 void Image::destroy() {
     if (vulkanState) {
-        vkDestroyImageView(vulkanState->device, viewHandle, nullptr);
-        vmaDestroyImage(vulkanState->vmaAllocator, imageHandle, alloc);
+        vkDestroyImageView(vulkanState->getDevice(), viewHandle, nullptr);
+        vmaDestroyImage(vulkanState->getVmaAllocator(), imageHandle, alloc);
         vulkanState = nullptr;
     }
 }
 
 void Image::deferDestroy() {
     if (vulkanState) {
-        vulkanState->cleanupManager.add(
+        vulkanState->getCleanupManager().add(
             [vs = vulkanState, vh = viewHandle, img = imageHandle, alloc = alloc]() {
-                vkDestroyImageView(vs->device, vh, nullptr);
-                vmaDestroyImage(vs->vmaAllocator, img, alloc);
+                vkDestroyImageView(vs->getDevice(), vh, nullptr);
+                vmaDestroyImage(vs->getVmaAllocator(), img, alloc);
             });
         vulkanState = nullptr;
     }
 }
 
 void Image::clearAndTransition(VkImageLayout finalLayout, VkClearValue color) {
-    auto commandBuffer = vulkanState->sharedCommandPool.createBuffer();
+    auto commandBuffer = vulkanState->getSharedCommandPool().createBuffer();
     clearAndTransition(commandBuffer, finalLayout, color);
     commandBuffer.submit();
 }
@@ -302,7 +303,7 @@ bool Image::canGenMipMapsOnGpu() const {
 }
 
 void Image::genMipMapsOnGpu(VkImageLayout finalLayout) {
-    auto commandBuffer = vulkanState->sharedCommandPool.createBuffer();
+    auto commandBuffer = vulkanState->getSharedCommandPool().createBuffer();
     genMipMapsOnGpu(commandBuffer, finalLayout);
     commandBuffer.submit();
 }

@@ -40,7 +40,7 @@ public:
      * @param vertexCount The number of vertices
      * @param indexCount The number of indices
      */
-    void create(vk::VulkanState& vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount);
+    void create(vk::VulkanLayer& vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount);
 
     /**
      * @brief Creates the index buffer by moving from existing CPU buffers
@@ -49,7 +49,7 @@ public:
      * @param vertices The vertex buffer to move from
      * @param indices The index buffer to move from
      */
-    void create(vk::VulkanState& vulkanState, std::vector<T>&& vertices,
+    void create(vk::VulkanLayer& vulkanState, std::vector<T>&& vertices,
                 std::vector<std::uint32_t>&& indices);
 
     /**
@@ -166,7 +166,7 @@ private:
     std::uint32_t indexWriteStart;
     std::uint32_t indexWriteCount;
 
-    void createCommon(vk::VulkanState& vs, std::uint32_t vc, std::uint32_t ic);
+    void createCommon(vk::VulkanLayer& vs, std::uint32_t vc, std::uint32_t ic);
     virtual void executeTransfer(VkCommandBuffer commandBuffer,
                                  tfr::TransferContext& context) override;
 };
@@ -179,14 +179,14 @@ IndexBufferT<T>::~IndexBufferT() {
 }
 
 template<typename T>
-void IndexBufferT<T>::create(vk::VulkanState& vs, std::uint32_t vc, std::uint32_t ic) {
+void IndexBufferT<T>::create(vk::VulkanLayer& vs, std::uint32_t vc, std::uint32_t ic) {
     createCommon(vs, vc, ic);
     cpuVertexBuffer.resize(vc);
     cpuIndexBuffer.resize(ic, 0);
 }
 
 template<typename T>
-void IndexBufferT<T>::create(vk::VulkanState& vulkanState, std::vector<T>&& vertices,
+void IndexBufferT<T>::create(vk::VulkanLayer& vulkanState, std::vector<T>&& vertices,
                              std::vector<std::uint32_t>&& indices) {
     createCommon(vulkanState, vertices.size(), indices.size());
     cpuVertexBuffer = std::move(vertices);
@@ -314,7 +314,7 @@ void IndexBufferT<T>::bindAndDraw(VkCommandBuffer commandBuffer) {
 }
 
 template<typename T>
-void IndexBufferT<T>::createCommon(vk::VulkanState& vs, std::uint32_t vc, std::uint32_t ic) {
+void IndexBufferT<T>::createCommon(vk::VulkanLayer& vs, std::uint32_t vc, std::uint32_t ic) {
     vulkanState = &vs;
     gpuVertexBuffer.create(vs,
                            vc * sizeof(T),

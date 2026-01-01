@@ -10,7 +10,7 @@ namespace rc
 {
 namespace vk
 {
-struct VulkanState;
+struct VulkanLayer;
 }
 
 /// Module wrapping the TransferEngine and related mechanisms for moving data to the GPU
@@ -69,7 +69,7 @@ public:
     void cancelQueuedTransfer();
 
 protected:
-    vk::VulkanState* vulkanState;
+    vk::VulkanLayer* vulkanState;
 
     /**
      * @brief Sets vulkanState to nullptr
@@ -77,11 +77,11 @@ protected:
     Transferable();
 
     /**
-     * @brief Initializes the reference to the VulkanState
+     * @brief Initializes the reference to the VulkanLayer
      *
-     * @param vs Renderer VulkanState
+     * @param vs Renderer VulkanLayer
      */
-    Transferable(vk::VulkanState& vs);
+    Transferable(vk::VulkanLayer& vs);
 
     /**
      * @brief Derived classes should perform their transfers here. Barriers should be registered

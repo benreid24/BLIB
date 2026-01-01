@@ -26,7 +26,7 @@ void FinalSwapframeAsset::doCreate(const rg::InitContext& ctx) {
     engine     = &ctx.engine;
     window     = &ctx.renderer.getWindow();
     renderPass = &ctx.renderer.renderPassCache().getRenderPass(renderPassId);
-    swapchain  = &ctx.vulkanState.swapchain;
+    swapchain  = &ctx.vulkanState.getSwapchain();
 
     depthBufferAsset = dynamic_cast<DepthBuffer*>(getDependency(0));
     if (!depthBufferAsset) {
@@ -58,7 +58,7 @@ void FinalSwapframeAsset::doPrepareForInput(const rg::ExecutionContext&) {
 
 void FinalSwapframeAsset::doStartOutput(const rg::ExecutionContext& ctx) {
     // TODO - consider events for swapchain invalidation
-    updateAttachments(engine->renderer().vulkanState().swapchain.currentIndex());
+    updateAttachments(engine->renderer().vulkanState().getSwapchain().currentIndex());
     framebuffers.current().recreateIfChanged(attachmentSets.current());
     beginRender(ctx.commandBuffer, true);
     setShouldClearOnRestart(false);
@@ -92,7 +92,7 @@ void FinalSwapframeAsset::updateAttachments(std::uint32_t i) {
     const bool useMsaa =
         engine->renderer().getSettings().getAntiAliasing() != Settings::AntiAliasing::None;
     auto& set                          = attachmentSets.getRaw(i);
-    auto& chain                        = engine->renderer().vulkanState().swapchain;
+    auto& chain                        = engine->renderer().vulkanState().getSwapchain();
     const unsigned int swapIndex       = useMsaa ? 1 : 0;
     const unsigned int depthIndex      = useMsaa ? 2 : 1;
     const unsigned int attachmentCount = useMsaa ? 3 : 2;
@@ -139,7 +139,7 @@ void FinalSwapframeAsset::ensureSampledImage() {
             sampledImage.create(
                 engine->renderer().vulkanState(),
                 {.type       = vk::ImageOptions::Type::Image2D,
-                 .format     = engine->renderer().vulkanState().swapchain.swapImageFormat(),
+                 .format     = engine->renderer().vulkanState().getSwapchain().swapImageFormat(),
                  .usage      = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
                  .extent     = {size.x, size.y},
                  .aspect     = VK_IMAGE_ASPECT_COLOR_BIT,

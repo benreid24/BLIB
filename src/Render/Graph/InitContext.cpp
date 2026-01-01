@@ -8,7 +8,7 @@ namespace rc
 {
 namespace rg
 {
-InitContext::InitContext(engine::Engine& e, Renderer& r, vk::VulkanState& vs, RenderTarget& rt,
+InitContext::InitContext(engine::Engine& e, Renderer& r, vk::VulkanLayer& vs, RenderTarget& rt,
                          Scene* s)
 : engine(e)
 , renderer(r)

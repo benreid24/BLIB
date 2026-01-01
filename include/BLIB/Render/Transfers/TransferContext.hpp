@@ -11,7 +11,7 @@ namespace rc
 {
 namespace vk
 {
-struct VulkanState;
+struct VulkanLayer;
 }
 
 namespace tfr
@@ -59,7 +59,7 @@ public:
     /**
      * @brief Internal constructor, do not use
      */
-    TransferContext(std::mutex& bucketMutex, vk::VulkanState& vulkanState,
+    TransferContext(std::mutex& bucketMutex, vk::VulkanLayer& vulkanState,
                     std::vector<VkBuffer>& stagingBuffers,
                     std::vector<VmaAllocation>& stagingAllocs,
                     std::vector<VkMemoryBarrier>& memoryBarriers,
@@ -68,7 +68,7 @@ public:
 
 private:
     std::mutex& bucketMutex;
-    vk::VulkanState& vulkanState;
+    vk::VulkanLayer& vulkanState;
     std::vector<VkBuffer>& stagingBuffers;
     std::vector<VmaAllocation>& stagingAllocs;
     std::vector<VkMemoryBarrier>& memoryBarriers;

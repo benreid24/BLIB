@@ -9,7 +9,7 @@ namespace rc
 {
 namespace vk
 {
-struct VulkanState;
+struct VulkanLayer;
 
 /**
  * @brief Thin wrapper for managed VkSampler objects
@@ -30,7 +30,7 @@ public:
      * @param sampler The sampler handle
      * @param owner Whether this object owns the sampler. Pass false if it is shared
      */
-    Sampler(VulkanState& vulkanState, VkSampler sampler, bool owner = true);
+    Sampler(VulkanLayer& vulkanState, VkSampler sampler, bool owner = true);
 
     /**
      * @brief Assumes ownership of the underlying sampler from the other object
@@ -73,7 +73,7 @@ public:
     void deferRelease();
 
 private:
-    VulkanState* vulkanState;
+    VulkanLayer* vulkanState;
     VkSampler sampler;
     bool owner;
 

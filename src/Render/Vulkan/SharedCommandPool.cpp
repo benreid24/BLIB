@@ -1,6 +1,6 @@
 #include <BLIB/Render/Vulkan/SharedCommandPool.hpp>
 
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 
 namespace bl
 {
@@ -13,27 +13,27 @@ SharedCommandPool::SharedCommandPool()
     allocations.reserve(4);
 }
 
-void SharedCommandPool::create(VulkanState& vulkanState) {
+void SharedCommandPool::create(VulkanLayer& vulkanState) {
     vs = &vulkanState;
     pool.init(vulkanState, [&vulkanState](VkCommandPool& pool) {
         pool = vulkanState.createCommandPool(VK_COMMAND_POOL_CREATE_TRANSIENT_BIT);
     });
 }
 
-void SharedCommandPool::onFrameStart() { vkResetCommandPool(vs->device, pool.current(), 0); }
+void SharedCommandPool::onFrameStart() { vkResetCommandPool(vs->getDevice(), pool.current(), 0); }
 
 void SharedCommandPool::cleanup() {
-    for (auto& alloc : allocations) { vkDestroyFence(vs->device, alloc.fence, nullptr); }
-    pool.cleanup([this](VkCommandPool p) { vkDestroyCommandPool(vs->device, p, nullptr); });
+    for (auto& alloc : allocations) { vkDestroyFence(vs->getDevice(), alloc.fence, nullptr); }
+    pool.cleanup([this](VkCommandPool p) { vkDestroyCommandPool(vs->getDevice(), p, nullptr); });
 }
 
 SharedCommandBuffer SharedCommandPool::createBuffer(VkCommandBufferUsageFlags flags) {
     std::unique_lock lock(mutex);
 
     for (auto it = allocations.begin(); it != allocations.end();) {
-        if (VK_SUCCESS == vkGetFenceStatus(vs->device, it->fence)) {
-            vkFreeCommandBuffers(vs->device, it->pool, 1, &it->buffer);
-            vkDestroyFence(vs->device, it->fence, nullptr);
+        if (VK_SUCCESS == vkGetFenceStatus(vs->getDevice(), it->fence)) {
+            vkFreeCommandBuffers(vs->getDevice(), it->pool, 1, &it->buffer);
+            vkDestroyFence(vs->getDevice(), it->fence, nullptr);
             it = allocations.erase(it);
         }
         else { ++it; }
@@ -52,8 +52,8 @@ SharedCommandBuffer SharedCommandPool::createBuffer(VkCommandBufferUsageFlags fl
 
     VkFenceCreateInfo fenceInfo{};
     fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
-    vkCheck(vkCreateFence(vs->device, &fenceInfo, nullptr, &fence));
-    vkCheck(vkAllocateCommandBuffers(vs->device, &allocInfo, &commandBuffer));
+    vkCheck(vkCreateFence(vs->getDevice(), &fenceInfo, nullptr, &fence));
+    vkCheck(vkAllocateCommandBuffers(vs->getDevice(), &allocInfo, &commandBuffer));
 
     VkCommandBufferBeginInfo beginInfo{};
     beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;

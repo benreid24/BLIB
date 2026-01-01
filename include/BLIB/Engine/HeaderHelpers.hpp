@@ -16,7 +16,7 @@ class Renderer;
 
 namespace vk
 {
-struct VulkanState;
+struct VulkanLayer;
 }
 } // namespace rc
 
@@ -45,7 +45,7 @@ struct HeaderHelpers {
      * @param engine The main engine instance
      * @return The Vulkan state of the engine renderer
      */
-    static rc::vk::VulkanState& getVulkanState(engine::Engine& engine);
+    static rc::vk::VulkanLayer& getVulkanState(engine::Engine& engine);
 
     /**
      * @brief Returns the engine ECS registry

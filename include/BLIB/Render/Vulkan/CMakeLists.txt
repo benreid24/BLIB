@@ -32,5 +32,5 @@ target_sources(BLIB PUBLIC
     Texture.hpp
     TextureFormatManager.hpp
     TextureOptions.hpp
-    VulkanState.hpp
+    VulkanLayer.hpp
 )

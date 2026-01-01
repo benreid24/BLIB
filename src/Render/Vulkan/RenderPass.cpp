@@ -18,7 +18,7 @@ RenderPass::RenderPass(std::uint32_t id, Renderer& r, RenderPassParameters&& par
 }
 
 RenderPass::~RenderPass() {
-    vkDestroyRenderPass(renderer.vulkanState().device, renderPass, nullptr);
+    vkDestroyRenderPass(renderer.vulkanState().getDevice(), renderPass, nullptr);
 }
 
 void RenderPass::process(const event::SettingsChanged& e) {
@@ -38,8 +38,8 @@ void RenderPass::process(const event::TextureFormatChanged& e) {
 }
 
 void RenderPass::recreate() {
-    renderer.vulkanState().cleanupManager.add(
-        [device = renderer.vulkanState().device, rp = renderPass]() {
+    renderer.vulkanState().getCleanupManager().add(
+        [device = renderer.vulkanState().getDevice(), rp = renderPass]() {
             vkDestroyRenderPass(device, rp, nullptr);
         });
     doCreate();
@@ -106,7 +106,7 @@ void RenderPass::doCreate() {
     for (unsigned int i = 0; i < attachments.size(); ++i) {
         if (createParams.semanticFormats[i] != SemanticTextureFormat::NonSematic) {
             attachments[i].format =
-                renderer.vulkanState().textureFormatManager.getFormat(semanticFormats[i]);
+                renderer.vulkanState().getTextureFormatManager().getFormat(semanticFormats[i]);
         }
     }
 
@@ -119,7 +119,8 @@ void RenderPass::doCreate() {
     renderPassInfo.dependencyCount = createParams.dependencies.size();
     renderPassInfo.pDependencies   = createParams.dependencies.data();
 
-    if (vkCreateRenderPass(renderer.vulkanState().device, &renderPassInfo, nullptr, &renderPass) !=
+    if (vkCreateRenderPass(
+            renderer.vulkanState().getDevice(), &renderPassInfo, nullptr, &renderPass) !=
         VK_SUCCESS) {
         throw std::runtime_error("Failed to create render pass");
     }

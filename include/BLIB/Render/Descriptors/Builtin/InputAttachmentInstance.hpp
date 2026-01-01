@@ -28,7 +28,7 @@ public:
      * @param attachmentCount The number of attachments that will be bound
      * @param startIndex The index of the first attachment to bind
      */
-    InputAttachmentInstance(vk::VulkanState& vulkanState, VkDescriptorSetLayout layout,
+    InputAttachmentInstance(vk::VulkanLayer& vulkanState, VkDescriptorSetLayout layout,
                             std::uint32_t attachmentCount, std::uint32_t startIndex);
 
     /**
@@ -103,7 +103,7 @@ private:
 
     const std::uint32_t startIndex;
     const std::uint32_t attachmentCount;
-    vk::VulkanState& vulkanState;
+    vk::VulkanLayer& vulkanState;
     VkDescriptorSetLayout layout;
     vk::DescriptorPool::AllocationHandle dsAlloc;
     vk::PerFrame<VkDescriptorSet> descriptorSets;

@@ -7,7 +7,7 @@
 #include <BLIB/Render/Events/SettingsChanged.hpp>
 #include <BLIB/Render/Vulkan/PipelineLayout.hpp>
 #include <BLIB/Render/Vulkan/PipelineParameters.hpp>
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 #include <BLIB/Signals/Listener.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <array>

@@ -21,7 +21,7 @@ Pipeline::~Pipeline() {
     for (auto& set : pipelines) {
         for (const VkPipeline pipeline : set) {
             if (pipeline != nullptr) {
-                vkDestroyPipeline(renderer.vulkanState().device, pipeline, nullptr);
+                vkDestroyPipeline(renderer.vulkanState().getDevice(), pipeline, nullptr);
             }
         }
     }
@@ -60,7 +60,7 @@ void Pipeline::createForRenderPass(std::uint32_t rpid, std::uint32_t spec) {
     // sample shading
     const VkBool32 sampleShadingSetting = createParams.msaa.sampleShadingEnable;
     const bool sampledShadingAvailable =
-        renderer.vulkanState().physicalDeviceFeatures.sampleRateShading == VK_TRUE;
+        renderer.vulkanState().getPhysicalDeviceFeatures().sampleRateShading == VK_TRUE;
     const bool wantsSampledShading = createParams.msaa.sampleShadingEnable == VK_TRUE &&
                                      renderer.getSettings().getMSAASampleCountAsInt() > 1;
     const bool useSampleShading           = wantsSampledShading && sampledShadingAvailable;
@@ -109,7 +109,7 @@ void Pipeline::createForRenderPass(std::uint32_t rpid, std::uint32_t spec) {
         auto& info         = shaderStages.emplace_back(VkPipelineShaderStageCreateInfo{});
         info.sType         = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
         info.stage         = static_cast<VkShaderStageFlagBits>(shader.stage);
-        info.module        = renderer.vulkanState().shaderCache.loadShader(shader.path);
+        info.module        = renderer.vulkanState().getShaderCache().loadShader(shader.path);
         info.pName         = shader.entrypoint.c_str();
 
         for (auto& spec : specialization.shaderSpecializations) {
@@ -171,7 +171,7 @@ void Pipeline::createForRenderPass(std::uint32_t rpid, std::uint32_t spec) {
     pipelineInfo.basePipelineIndex   = -1;             // Optional
     pipelineInfo.renderPass          = renderPass.rawPass();
 
-    if (vkCreateGraphicsPipelines(renderer.vulkanState().device,
+    if (vkCreateGraphicsPipelines(renderer.vulkanState().getDevice(),
                                   VK_NULL_HANDLE,
                                   1,
                                   &pipelineInfo,
@@ -206,8 +206,8 @@ void Pipeline::process(const event::RenderPassInvalidated& event) {
 void Pipeline::recreateForRenderPass(std::uint32_t rpid) {
     for (std::uint32_t spec = 0; spec < pipelines[rpid].size(); ++spec) {
         if (pipelines[spec][rpid]) {
-            renderer.vulkanState().cleanupManager.add(
-                [device = renderer.vulkanState().device, pipeline = pipelines[spec][rpid]]() {
+            renderer.vulkanState().getCleanupManager().add(
+                [device = renderer.vulkanState().getDevice(), pipeline = pipelines[spec][rpid]]() {
                     vkDestroyPipeline(device, pipeline, nullptr);
                 });
             createForRenderPass(rpid, spec);

@@ -113,7 +113,7 @@ public:
 
         for (std::uint32_t i = 0; i < Traits::AttachmentCount; ++i) {
             attachmentSet.setAttachmentAspect(
-                i, vk::VulkanState::guessImageAspect(Traits::Formats[i]));
+                i, vk::VulkanLayer::guessImageAspect(Traits::Formats[i]));
         }
         if constexpr (DepthAttachment == DepthAttachmentType::SharedDepthBuffer) {
             addDependency(rg::AssetTags::DepthBuffer);
@@ -124,7 +124,7 @@ public:
             for (std::uint32_t i = 0; i < Traits::AttachmentCount; ++i) {
                 attachmentSet.setAttachmentAspect(
                     i + Traits::AttachmentCount + DepthAttachmentCount,
-                    vk::VulkanState::guessImageAspect(Traits::Formats[i]));
+                    vk::VulkanLayer::guessImageAspect(Traits::Formats[i]));
             }
         }
     }

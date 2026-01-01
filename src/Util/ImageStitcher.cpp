@@ -8,7 +8,7 @@ namespace bl
 namespace util
 {
 ImageStitcher::ImageStitcher(const rc::Renderer& renderer, unsigned int padding)
-: ImageStitcher(renderer.vulkanState().physicalDeviceProperties.limits.maxImageDimension2D,
+: ImageStitcher(renderer.vulkanState().getPhysicalDeviceProperties().limits.maxImageDimension2D,
                 padding) {}
 
 ImageStitcher::ImageStitcher(unsigned int mw, unsigned int padding)

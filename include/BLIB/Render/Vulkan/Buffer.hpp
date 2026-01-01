@@ -9,7 +9,7 @@ namespace rc
 {
 namespace vk
 {
-struct VulkanState;
+struct VulkanLayer;
 
 /**
  * @brief Wrapper over Vulkan buffers. Provides simpler interfaces and resize ability
@@ -38,7 +38,7 @@ public:
      * @param allocFlags VMA allocation flags to use for the VMA allocation
      * @return True if the buffer was able to be created, false otherwise
      */
-    bool create(VulkanState& vulkanState, VkDeviceSize size, VkMemoryPropertyFlags memPool,
+    bool create(VulkanLayer& vulkanState, VkDeviceSize size, VkMemoryPropertyFlags memPool,
                 VkBufferUsageFlags usage, VmaAllocationCreateFlags allocFlags);
 
     /**
@@ -52,7 +52,7 @@ public:
      * @param allocFlags VMA allocation flags to use for the VMA allocation
      * @return True if the buffer was able to be created, false otherwise
      */
-    bool createWithFallback(VulkanState& vulkanState, VkDeviceSize size,
+    bool createWithFallback(VulkanLayer& vulkanState, VkDeviceSize size,
                             VkMemoryPropertyFlags memPool, VkMemoryPropertyFlags fallbackPool,
                             VkBufferUsageFlags usage, VmaAllocationCreateFlags allocFlags);
 
@@ -138,7 +138,7 @@ public:
     void insertPipelineBarrierBeforeChange();
 
 private:
-    VulkanState* vulkanState;
+    VulkanLayer* vulkanState;
     VkBuffer buffer;
     VmaAllocation alloc;
     void* mapped;

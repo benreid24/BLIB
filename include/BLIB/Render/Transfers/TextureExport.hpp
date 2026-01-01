@@ -14,7 +14,7 @@ namespace rc
 {
 namespace vk
 {
-struct VulkanState;
+struct VulkanLayer;
 }
 
 namespace tfr
@@ -39,7 +39,7 @@ public:
      * @param srcAspect The aspect of the image to copy
      * @param srcFormat The format of the image to copy
      */
-    TextureExport(vk::VulkanState& vs, TextureExporter& owner, VkImage src, VkImageLayout srcLayout,
+    TextureExport(vk::VulkanLayer& vs, TextureExporter& owner, VkImage src, VkImageLayout srcLayout,
                   VkExtent3D srcExtent, VkImageAspectFlags srcAspect, VkFormat srcFormat);
 
     /**
@@ -72,7 +72,7 @@ public:
     void release();
 
 private:
-    vk::VulkanState& vulkanState;
+    vk::VulkanLayer& vulkanState;
     TextureExporter& owner;
     VkCommandPool commandPool;
     VkCommandBuffer commandBuffer;

@@ -15,7 +15,7 @@ namespace rc
 {
 namespace vk
 {
-struct VulkanState;
+struct VulkanLayer;
 
 /**
  * @brief Helper struct to manage a texture in Vulkan. Textures are managed and owned by the

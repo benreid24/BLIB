@@ -2,7 +2,7 @@
 
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Vulkan/SharedCommandPool.hpp>
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 
 namespace bl
 {

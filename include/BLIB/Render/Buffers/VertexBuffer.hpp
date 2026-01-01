@@ -37,7 +37,7 @@ public:
      * @param vertexCount The number of vertices
      * @param extraFlags Extra usage flags to create with. Default is tfr dst & vertex buf
      */
-    void create(vk::VulkanState& vulkanState, std::uint32_t vertexCount, VkFlags extraFlags = 0);
+    void create(vk::VulkanLayer& vulkanState, std::uint32_t vertexCount, VkFlags extraFlags = 0);
 
     /**
      * @brief Resizes to the given vertex count. Must not be called before create()
@@ -98,7 +98,7 @@ inline VertexBufferT<T>::~VertexBufferT() {
 }
 
 template<typename T>
-void VertexBufferT<T>::create(vk::VulkanState& vs, std::uint32_t vc, VkFlags flags) {
+void VertexBufferT<T>::create(vk::VulkanLayer& vs, std::uint32_t vc, VkFlags flags) {
     vulkanState = &vs;
     cpuVertexBuffer.resize(vc);
     gpuVertexBuffer.create(vs,

@@ -1,6 +1,6 @@
 #include <BLIB/Render/Buffers/Alignment.hpp>
 
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 #include <glm/glm.hpp>
 
 namespace bl
@@ -15,20 +15,20 @@ VkDeviceSize computeAlignment(VkDeviceSize dataSize, Alignment align) {
         return dataSize;
 
     case Alignment::Std140:
-        return vk::VulkanState::computeAlignedSize(dataSize, sizeof(glm::vec4));
+        return vk::VulkanLayer::computeAlignedSize(dataSize, sizeof(glm::vec4));
 
     case Alignment::Std430:
         return dataSize;
 
     case Alignment::UboBindOffset:
-        return vk::VulkanState::computeAlignedSize(
+        return vk::VulkanLayer::computeAlignedSize(
             dataSize,
-            vk::VulkanState::getPhysicalDeviceProperties().limits.minUniformBufferOffsetAlignment);
+            vk::VulkanLayer::getPhysicalDeviceProperties().limits.minUniformBufferOffsetAlignment);
 
     case Alignment::SsboBindOffset:
-        return vk::VulkanState::computeAlignedSize(
+        return vk::VulkanLayer::computeAlignedSize(
             dataSize,
-            vk::VulkanState::getPhysicalDeviceProperties().limits.minStorageBufferOffsetAlignment);
+            vk::VulkanLayer::getPhysicalDeviceProperties().limits.minStorageBufferOffsetAlignment);
     default:
         return dataSize;
     }

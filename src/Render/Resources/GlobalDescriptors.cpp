@@ -67,7 +67,7 @@ void GlobalDescriptors::init() {
     descriptorCreateInfo.pBindings    = setBindings;
     if (VK_SUCCESS !=
         vkCreateDescriptorSetLayout(
-            vulkanState.device, &descriptorCreateInfo, nullptr, &descriptorSetLayout)) {
+            vulkanState.getDevice(), &descriptorCreateInfo, nullptr, &descriptorSetLayout)) {
         throw std::runtime_error("Failed to create texture pool descriptor set layout");
     }
 
@@ -93,7 +93,7 @@ void GlobalDescriptors::init() {
     poolCreate.poolSizeCount = poolSizes.size();
     poolCreate.pPoolSizes    = poolSizes.data();
     if (VK_SUCCESS !=
-        vkCreateDescriptorPool(vulkanState.device, &poolCreate, nullptr, &descriptorPool)) {
+        vkCreateDescriptorPool(vulkanState.getDevice(), &poolCreate, nullptr, &descriptorPool)) {
         throw std::runtime_error("Failed to create texture descriptor pool");
     }
 
@@ -107,7 +107,7 @@ void GlobalDescriptors::init() {
     setAlloc.descriptorPool     = descriptorPool;
     setAlloc.descriptorSetCount = setLayouts.size();
     setAlloc.pSetLayouts        = setLayouts.data();
-    if (VK_SUCCESS != vkAllocateDescriptorSets(vulkanState.device, &setAlloc, allocatedSets)) {
+    if (VK_SUCCESS != vkAllocateDescriptorSets(vulkanState.getDevice(), &setAlloc, allocatedSets)) {
         throw std::runtime_error("Failed to allocate texture descriptor set");
     }
 
@@ -145,7 +145,7 @@ void GlobalDescriptors::init() {
         settingsBufferInfo.buffer = settingsResource->getBuffer().getCurrentFrameRawBuffer();
         settingsBufferInfo.offset =
             forRt ? settingsResource->getBuffer().getAlignedElementSize() : 0;
-        settingsBufferInfo.range  = settingsResource->getBuffer().getAlignedElementSize();
+        settingsBufferInfo.range = settingsResource->getBuffer().getAlignedElementSize();
 
         auto& settingsWrite           = writer.getNewSetWrite(set);
         settingsWrite.descriptorCount = 1;
@@ -159,7 +159,8 @@ void GlobalDescriptors::init() {
         dynamicSettingsBufferInfo.buffer =
             dynamicSettingsResource->getBuffer().getCurrentFrameBuffer().getBuffer();
         dynamicSettingsBufferInfo.offset = 0;
-        dynamicSettingsBufferInfo.range  = dynamicSettingsResource->getBuffer().getTotalAlignedSize();
+        dynamicSettingsBufferInfo.range =
+            dynamicSettingsResource->getBuffer().getTotalAlignedSize();
 
         auto& dynamicSettingsWrite           = writer.getNewSetWrite(set);
         dynamicSettingsWrite.descriptorCount = 1;
@@ -181,7 +182,7 @@ void GlobalDescriptors::init() {
     i = 0;
     rtDescriptorSets.visit(
         [&writeGlobalsSet, &i](VkDescriptorSet set) { writeGlobalsSet(set, i++, true); });
-    writer.performWrite(vulkanState.device);
+    writer.performWrite(vulkanState.getDevice());
     updateSettings(renderer.getSettings());
 }
 
@@ -189,15 +190,15 @@ void GlobalDescriptors::cleanup() {
     texturePool.cleanup();
     materialPool.cleanup();
 
-    vkDestroyDescriptorPool(renderer.vulkanState().device, descriptorPool, nullptr);
-    vkDestroyDescriptorSetLayout(renderer.vulkanState().device, descriptorSetLayout, nullptr);
+    vkDestroyDescriptorPool(renderer.vulkanState().getDevice(), descriptorPool, nullptr);
+    vkDestroyDescriptorSetLayout(renderer.vulkanState().getDevice(), descriptorSetLayout, nullptr);
 }
 
 void GlobalDescriptors::onFrameStart() {
     texturePool.onFrameStart(
         descriptorWriter, descriptorSets.current(), rtDescriptorSets.current());
     materialPool.onFrameStart();
-    descriptorWriter.performWrite(renderer.vulkanState().device);
+    descriptorWriter.performWrite(renderer.vulkanState().getDevice());
     accumulatedTimings.realFrameDt = frameTimer.restart().asSeconds();
     accumulatedTimings.frameDt     = accumulatedTimings.realFrameDt * engine.getTimeScale();
     frameTimer.restart();

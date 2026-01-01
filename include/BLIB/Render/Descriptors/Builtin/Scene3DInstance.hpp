@@ -24,7 +24,7 @@ namespace rc
 class Renderer;
 namespace vk
 {
-struct VulkanState;
+struct VulkanLayer;
 }
 namespace rgi
 {

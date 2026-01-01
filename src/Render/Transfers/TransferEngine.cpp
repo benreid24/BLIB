@@ -1,7 +1,7 @@
 #include <BLIB/Render/Transfers/TransferEngine.hpp>
 
 #include <BLIB/Render/Transfers/TransferContext.hpp>
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 
 namespace bl
 {
@@ -10,7 +10,7 @@ namespace rc
 namespace tfr
 {
 
-TransferEngine::Bucket::Bucket(vk::VulkanState& vs)
+TransferEngine::Bucket::Bucket(vk::VulkanLayer& vs)
 : vulkanState(vs) {
     oneTimeItems.reserve(32);
     everyFrameItems.reserve(32);
@@ -26,7 +26,7 @@ void TransferEngine::Bucket::init(VkCommandPool pool) {
         VkFenceCreateInfo create{};
         create.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
         create.flags = VK_FENCE_CREATE_SIGNALED_BIT;
-        vkCheck(vkCreateFence(vulkanState.device, &create, nullptr, &f));
+        vkCheck(vkCreateFence(vulkanState.getDevice(), &create, nullptr, &f));
     });
 
     commandBuffer.emptyInit(vulkanState);
@@ -35,22 +35,23 @@ void TransferEngine::Bucket::init(VkCommandPool pool) {
     alloc.commandPool        = pool;
     alloc.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
     alloc.commandBufferCount = cfg::Limits::MaxConcurrentFrames;
-    vkCheck(vkAllocateCommandBuffers(vulkanState.device, &alloc, commandBuffer.rawData()));
+    vkCheck(vkAllocateCommandBuffers(vulkanState.getDevice(), &alloc, commandBuffer.rawData()));
 }
 
 void TransferEngine::Bucket::cleanup(VkCommandPool pool) {
     for (unsigned int j = 0; j < cfg::Limits::MaxConcurrentFrames; ++j) {
         for (unsigned int i = 0; i < stagingBuffers.getRaw(j).size(); ++i) {
-            vmaDestroyBuffer(
-                vulkanState.vmaAllocator, stagingBuffers.getRaw(j)[i], stagingAllocs.getRaw(j)[i]);
+            vmaDestroyBuffer(vulkanState.getVmaAllocator(),
+                             stagingBuffers.getRaw(j)[i],
+                             stagingAllocs.getRaw(j)[i]);
         }
     }
-    fence.cleanup([this](VkFence f) { vkDestroyFence(vulkanState.device, f, nullptr); });
+    fence.cleanup([this](VkFence f) { vkDestroyFence(vulkanState.getDevice(), f, nullptr); });
     vkFreeCommandBuffers(
-        vulkanState.device, pool, cfg::Limits::MaxConcurrentFrames, commandBuffer.rawData());
+        vulkanState.getDevice(), pool, cfg::Limits::MaxConcurrentFrames, commandBuffer.rawData());
 }
 
-TransferEngine::TransferEngine(vk::VulkanState& vs)
+TransferEngine::TransferEngine(vk::VulkanLayer& vs)
 : vulkanState(vs)
 , immediateBucket(vs)
 , frameBucket(vs) {
@@ -67,7 +68,7 @@ void TransferEngine::init() {
 void TransferEngine::cleanup() {
     frameBucket.cleanup(commandPool);
     immediateBucket.cleanup(commandPool);
-    vkDestroyCommandPool(vulkanState.device, commandPool, nullptr);
+    vkDestroyCommandPool(vulkanState.getDevice(), commandPool, nullptr);
 }
 
 prim::Vertex* TransferEngine::createOneTimeVertexStorage(std::uint32_t count) {
@@ -89,7 +90,7 @@ void TransferEngine::executeTransfers() {
     else { immediateBucket.resetResourcesWithSync(); }
 
     if (frameBucket.hasTransfers()) {
-        vkCheck(vkDeviceWaitIdle(vulkanState.device));
+        vkCheck(vkDeviceWaitIdle(vulkanState.getDevice()));
         frameBucket.executeTransfers();
     }
     else { frameBucket.resetResourcesWithSync(); }
@@ -142,7 +143,7 @@ void TransferEngine::Bucket::executeTransfers() {
     submit.sType              = VK_STRUCTURE_TYPE_SUBMIT_INFO;
     submit.pCommandBuffers    = &commandBuffer.current();
     submit.commandBufferCount = 1;
-    vkCheck(vkResetFences(vulkanState.device, 1, &fence.current()));
+    vkCheck(vkResetFences(vulkanState.getDevice(), 1, &fence.current()));
     vulkanState.submitCommandBuffer(submit, fence.current());
 
     // cleanup
@@ -152,12 +153,12 @@ void TransferEngine::Bucket::executeTransfers() {
 }
 
 void TransferEngine::Bucket::resetResourcesWithSync() {
-    vkCheck(vkWaitForFences(vulkanState.device, 1, &fence.current(), VK_TRUE, UINT64_MAX));
+    vkCheck(vkWaitForFences(vulkanState.getDevice(), 1, &fence.current(), VK_TRUE, UINT64_MAX));
     vkCheck(vkResetCommandBuffer(commandBuffer.current(), 0));
 
     for (unsigned int i = 0; i < stagingBuffers.current().size(); ++i) {
         vmaDestroyBuffer(
-            vulkanState.vmaAllocator, stagingBuffers.current()[i], stagingAllocs.current()[i]);
+            vulkanState.getVmaAllocator(), stagingBuffers.current()[i], stagingAllocs.current()[i]);
     }
     stagingBuffers.current().clear();
     stagingAllocs.current().clear();

@@ -25,7 +25,7 @@ Scene3DInstance::Scene3DInstance(Renderer& renderer, VkDescriptorSetLayout layou
 , deferredImageUpdates(0) {}
 
 Scene3DInstance::~Scene3DInstance() {
-    renderer.vulkanState().descriptorPool.release(allocHandle, descriptorSets.rawData());
+    renderer.vulkanState().getDescriptorPool().release(allocHandle, descriptorSets.rawData());
 }
 
 void Scene3DInstance::bind(VkCommandBuffer commandBuffer, VkPipelineBindPoint bindPoint,
@@ -94,7 +94,7 @@ void Scene3DInstance::init(ds::InitContext& ctx) {
                            .extent = {4, 4},
                            .aspect = VK_IMAGE_ASPECT_COLOR_BIT});
 
-    auto commandBuffer = renderer.vulkanState().sharedCommandPool.createBuffer();
+    auto commandBuffer = renderer.vulkanState().getSharedCommandPool().createBuffer();
     emptySpotShadowMap.clearAndTransition(
         commandBuffer, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, {.depthStencil = {1.f, 0}});
     emptyPointShadowMap.clearAndTransition(
@@ -105,7 +105,7 @@ void Scene3DInstance::init(ds::InitContext& ctx) {
 
     // allocate descriptors
     descriptorSets.emptyInit(renderer.vulkanState());
-    allocHandle = renderer.vulkanState().descriptorPool.allocate(
+    allocHandle = renderer.vulkanState().getDescriptorPool().allocate(
         setLayout, descriptorSets.rawData(), descriptorSets.size());
 
     // create and configureWrite descriptors
@@ -143,7 +143,7 @@ void Scene3DInstance::init(ds::InitContext& ctx) {
         lightInfoWrite.descriptorType        = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
     }
 
-    setWriter.performWrite(renderer.vulkanState().device);
+    setWriter.performWrite(renderer.vulkanState().getDevice());
 
     cameraBuffer->getBuffer().transferEveryFrame();
     cameraBuffer->getBuffer().setCopyFullRange(true);
@@ -217,7 +217,7 @@ void Scene3DInstance::updateImageDescriptors(unsigned int frameIndex) {
     ssaoWrite.pImageInfo            = &ssaoInfo;
     ssaoWrite.descriptorType        = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
 
-    setWriter.performWrite(renderer.vulkanState().device);
+    setWriter.performWrite(renderer.vulkanState().getDevice());
 }
 
 void Scene3DInstance::process(const event::ShadowMapsInvalidated& e) {

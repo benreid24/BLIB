@@ -9,7 +9,7 @@ namespace rc
 {
 namespace dsi
 {
-InputAttachmentInstance::InputAttachmentInstance(vk::VulkanState& vulkanState,
+InputAttachmentInstance::InputAttachmentInstance(vk::VulkanLayer& vulkanState,
                                                  VkDescriptorSetLayout layout,
                                                  std::uint32_t attachmentCount,
                                                  std::uint32_t startIndex)
@@ -19,13 +19,13 @@ InputAttachmentInstance::InputAttachmentInstance(vk::VulkanState& vulkanState,
 , vulkanState(vulkanState)
 , layout(layout) {
     descriptorSets.emptyInit(vulkanState);
-    dsAlloc = vulkanState.descriptorPool.allocate(
+    dsAlloc = vulkanState.getDescriptorPool().allocate(
         layout, descriptorSets.rawData(), descriptorSets.size());
     cachedViews.emptyInit(vulkanState);
 }
 
 InputAttachmentInstance::~InputAttachmentInstance() {
-    vulkanState.descriptorPool.release(dsAlloc, descriptorSets.rawData());
+    vulkanState.getDescriptorPool().release(dsAlloc, descriptorSets.rawData());
 }
 
 void InputAttachmentInstance::bind(VkCommandBuffer commandBuffer, VkPipelineBindPoint bindPoint,
@@ -68,7 +68,7 @@ void InputAttachmentInstance::bind(VkCommandBuffer commandBuffer, VkPipelineBind
             write[i].pImageInfo      = &imageInfo[i];
         }
 
-        vkUpdateDescriptorSets(vulkanState.device, attachmentCount, write.data(), 0, nullptr);
+        vkUpdateDescriptorSets(vulkanState.getDevice(), attachmentCount, write.data(), 0, nullptr);
     }
 
     vkCmdBindDescriptorSets(
@@ -130,7 +130,7 @@ void InputAttachmentInstance::commonInit() {
         }
     }
 
-    vkUpdateDescriptorSets(vulkanState.device,
+    vkUpdateDescriptorSets(vulkanState.getDevice(),
                            cfg::Limits::MaxConcurrentFrames * attachmentCount,
                            descriptorWrites.data(),
                            0,

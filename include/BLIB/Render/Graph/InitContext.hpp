@@ -16,7 +16,7 @@ class RenderTarget;
 class Scene;
 namespace vk
 {
-struct VulkanState;
+struct VulkanLayer;
 }
 namespace sr
 {
@@ -32,7 +32,7 @@ namespace rg
 struct InitContext {
     engine::Engine& engine;
     Renderer& renderer;
-    vk::VulkanState& vulkanState;
+    vk::VulkanLayer& vulkanState;
     RenderTarget& target;
     Scene* scene;
 
@@ -48,7 +48,7 @@ struct InitContext {
      * @param rt The render target instance
      * @param s The scene the graph is for
      */
-    InitContext(engine::Engine& e, Renderer& r, vk::VulkanState& vs, RenderTarget& rt, Scene* s);
+    InitContext(engine::Engine& e, Renderer& r, vk::VulkanLayer& vs, RenderTarget& rt, Scene* s);
 
     /**
      * @brief Creates an init context for a specific index (for MultiAsset)

@@ -5,7 +5,7 @@
 #include <BLIB/Render/Events/SettingsChanged.hpp>
 #include <BLIB/Render/Events/TextureFormatChanged.hpp>
 #include <BLIB/Render/Vulkan/RenderPassParameters.hpp>
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 #include <BLIB/Signals/Emitter.hpp>
 #include <BLIB/Signals/Listener.hpp>
 

@@ -124,6 +124,6 @@
 #include <BLIB/Render/Vulkan/Swapchain.hpp>
 #include <BLIB/Render/Vulkan/Texture.hpp>
 #include <BLIB/Render/Vulkan/VkCheck.hpp>
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 
 #endif

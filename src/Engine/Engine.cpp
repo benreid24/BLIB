@@ -53,7 +53,7 @@ Engine::~Engine() {
     workers.shutdown();
     signalChannel.shutdown();
     if (rendererInstance.has_value()) {
-        vkCheck(vkDeviceWaitIdle(rendererInstance.value().vulkanState().device));
+        vkCheck(vkDeviceWaitIdle(rendererInstance.value().vulkanState().getDevice()));
     }
 
     while (!states.empty()) {

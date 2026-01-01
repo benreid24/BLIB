@@ -16,7 +16,7 @@ class Settings;
 
 namespace vk
 {
-struct VulkanState;
+struct VulkanLayer;
 
 /**
  * @brief Common texture formats
@@ -38,7 +38,7 @@ struct TextureFormatManager {
     VkFormat getFormat(SemanticTextureFormat format);
 
 private:
-    VulkanState* owner;
+    VulkanLayer* owner;
     sig::Emitter<event::TextureFormatChanged> emitter;
     VkFormat currentColorFormat;
     VkFormat currentDepthFormat;

@@ -1,6 +1,6 @@
 #include <BLIB/Render/Resources/SamplerCache.hpp>
 
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 #include <stdexcept>
 
 namespace bl
@@ -9,7 +9,7 @@ namespace rc
 {
 namespace res
 {
-SamplerCache::SamplerCache(vk::VulkanState& vs)
+SamplerCache::SamplerCache(vk::VulkanLayer& vs)
 : vulkanState(vs)
 , createTable{}
 , samplerTable{} {}
@@ -21,7 +21,7 @@ void SamplerCache::init() {
     VkSamplerCreateInfo common{};
     common.sType            = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;
     common.anisotropyEnable = VK_TRUE;
-    common.maxAnisotropy    = vulkanState.physicalDeviceProperties.limits.maxSamplerAnisotropy;
+    common.maxAnisotropy    = vulkanState.getPhysicalDeviceProperties().limits.maxSamplerAnisotropy;
     common.addressModeU     = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
     common.addressModeV     = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
     common.addressModeW     = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
@@ -103,7 +103,9 @@ void SamplerCache::init() {
 
 void SamplerCache::cleanup() {
     for (unsigned int t = 0; t < vk::SamplerOptions::TypeCount; ++t) {
-        if (samplerTable[t]) { vkDestroySampler(vulkanState.device, samplerTable[t], nullptr); }
+        if (samplerTable[t]) {
+            vkDestroySampler(vulkanState.getDevice(), samplerTable[t], nullptr);
+        }
     }
 }
 
@@ -112,7 +114,8 @@ vk::Sampler SamplerCache::getSampler(const vk::SamplerOptions& options) {
     VkSampler& sampler = samplerTable[options.type];
     if (!sampler) {
         if (VK_SUCCESS !=
-            vkCreateSampler(vulkanState.device, &createTable[options.type], nullptr, &sampler)) {
+            vkCreateSampler(
+                vulkanState.getDevice(), &createTable[options.type], nullptr, &sampler)) {
             throw std::runtime_error("Failed to create sampler");
         }
     }

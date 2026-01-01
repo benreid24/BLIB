@@ -1,7 +1,7 @@
 #include <BLIB/Render/Vulkan/Texture.hpp>
 
 #include <BLIB/Render/Resources/TexturePool.hpp>
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 
 namespace bl
 {

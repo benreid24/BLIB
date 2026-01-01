@@ -4,7 +4,7 @@ namespace bl
 {
 namespace com
 {
-bool Slideshow::create(rc::vk::VulkanState& vs, const Animation2DPlayer& anim) {
+bool Slideshow::create(rc::vk::VulkanLayer& vs, const Animation2DPlayer& anim) {
     if (!anim.getAnimation()->isSlideshow()) {
         BL_LOG_ERROR << "Animation is not a slideshow";
         return false;

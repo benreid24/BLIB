@@ -77,7 +77,7 @@ public:
     TBuffer& getBuffer() { return buffer; }
 
 protected:
-    vk::VulkanState* vulkanState;
+    vk::VulkanLayer* vulkanState;
     TBuffer buffer;
 };
 

@@ -38,7 +38,7 @@ Settings& Settings::setExposureFactor(float e) {
 Settings& Settings::setHDREnabled(bool e) {
     if (graphicsSettings.hdrEnabled != e) {
         graphicsSettings.hdrEnabled = e;
-        owner.vulkanState().textureFormatManager.setFormat(
+        owner.vulkanState().getTextureFormatManager().setFormat(
             vk::SemanticTextureFormat::Color,
             graphicsSettings.hdrEnabled ? vk::CommonTextureFormats::HDRColor :
                                           vk::CommonTextureFormats::SRGBA32Bit);

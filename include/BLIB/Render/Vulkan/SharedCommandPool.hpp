@@ -13,7 +13,7 @@ namespace rc
 {
 namespace vk
 {
-struct VulkanState;
+struct VulkanLayer;
 
 /**
  * @brief Wrapper around a Vulkan command pool that is intended to be shared for short-lived command
@@ -33,7 +33,7 @@ public:
      *
      * @param vulkanState The renderer Vulkan state
      */
-    void create(VulkanState& vulkanState);
+    void create(VulkanLayer& vulkanState);
 
     /**
      * @brief Called once at the beginning of each frame
@@ -61,7 +61,7 @@ private:
     };
 
     std::mutex mutex;
-    VulkanState* vs;
+    VulkanLayer* vs;
     PerFrame<VkCommandPool> pool;
     std::vector<AllocatedBuffer> allocations;
 

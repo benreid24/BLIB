@@ -146,7 +146,7 @@ public:
      * @param initialVertexCount The starting number of vertices to allocate
      * @param initialIndexCount The starting number of indices to allocate
      */
-    void create(vk::VulkanState& vulkanState, std::uint32_t initialVertexCount,
+    void create(vk::VulkanLayer& vulkanState, std::uint32_t initialVertexCount,
                 std::uint32_t initialIndexCount);
 
     /**
@@ -246,7 +246,7 @@ BatchIndexBufferT<T>::~BatchIndexBufferT() {
 }
 
 template<typename T>
-void BatchIndexBufferT<T>::create(vk::VulkanState& vulkanState, std::uint32_t initialVertexCount,
+void BatchIndexBufferT<T>::create(vk::VulkanLayer& vulkanState, std::uint32_t initialVertexCount,
                                   std::uint32_t initialIndexCount) {
     deferDestruction();
     storage.create(vulkanState, initialVertexCount, initialIndexCount);

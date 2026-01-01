@@ -97,7 +97,7 @@ void MaterialPool::init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
     descriptorSets.visit(visitor);
     rtDescriptorSets.visit(visitor);
     vkUpdateDescriptorSets(
-        renderer.vulkanState().device, setWrites.size(), setWrites.data(), 0, nullptr);
+        renderer.vulkanState().getDevice(), setWrites.size(), setWrites.data(), 0, nullptr);
 }
 
 void MaterialPool::checkLazyInit() {

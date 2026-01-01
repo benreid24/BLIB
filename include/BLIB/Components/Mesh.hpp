@@ -31,7 +31,7 @@ struct Mesh : public rc::rcom::DrawableBase {
      * @param vertexCount Number of vertices to create
      * @param indexCount Number of indices to create
      */
-    void create(rc::vk::VulkanState& vulkanState, std::uint32_t vertexCount,
+    void create(rc::vk::VulkanLayer& vulkanState, std::uint32_t vertexCount,
                 std::uint32_t indexCount) {
         gpuBuffer.create(vulkanState, vertexCount, indexCount);
         drawParams = gpuBuffer.getDrawParameters();
@@ -45,7 +45,7 @@ struct Mesh : public rc::rcom::DrawableBase {
      * @param vertices An existing vertex buffer to take over
      * @param indices An existing index buffer to take over
      */
-    void create(rc::vk::VulkanState& vulkanState, std::vector<TVertex>&& vertices,
+    void create(rc::vk::VulkanLayer& vulkanState, std::vector<TVertex>&& vertices,
                 std::vector<std::uint32_t>&& indices) {
         gpuBuffer.create(vulkanState, std::move(vertices), std::move(indices));
         drawParams = gpuBuffer.getDrawParameters();
@@ -58,7 +58,7 @@ struct Mesh : public rc::rcom::DrawableBase {
      * @param vulkanState Renderer Vulkan state
      * @param src The mesh source
      */
-    void create(rc::vk::VulkanState& vulkanState, const mdl::Mesh& src) {
+    void create(rc::vk::VulkanLayer& vulkanState, const mdl::Mesh& src) {
         create(vulkanState, src.getVertices().size(), src.getIndices().size());
         for (unsigned int i = 0; i < src.getVertices().size(); ++i) {
             gpuBuffer.vertices()[i] = src.getVertices()[i];

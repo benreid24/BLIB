@@ -108,7 +108,7 @@ void Observer::assignRegion(const sf::Vector2u& windowSize,
     scissor.offset.y += offsetY;
 
     if (scissor.extent.width != oldSize.width || scissor.extent.height != oldSize.height) {
-        vkCheck(vkDeviceWaitIdle(renderer.vulkanState().device));
+        vkCheck(vkDeviceWaitIdle(renderer.vulkanState().getDevice()));
         graphAssets.notifyResize({scissor.extent.width, scissor.extent.height});
     }
 }
@@ -126,7 +126,7 @@ void Observer::assignRegion(const VkRect2D& region) {
     viewport.minDepth = 0.f;
     viewport.maxDepth = 1.f;
 
-    vkCheck(vkDeviceWaitIdle(renderer.vulkanState().device));
+    vkCheck(vkDeviceWaitIdle(renderer.vulkanState().getDevice()));
     graphAssets.notifyResize({scissor.extent.width, scissor.extent.height});
 }
 

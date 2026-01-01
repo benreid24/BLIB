@@ -25,7 +25,7 @@ target_sources(BLIB PRIVATE
     Swapchain.cpp
     Texture.cpp
     TextureFormatManager.cpp
-    VulkanState.cpp
+    VulkanLayer.cpp
 )
 
 add_subdirectory(Utils)

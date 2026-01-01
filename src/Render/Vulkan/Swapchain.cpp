@@ -2,7 +2,7 @@
 
 #include <BLIB/Engine/Configuration.hpp>
 #include <BLIB/Engine/Settings.hpp>
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 #include <Render/Vulkan/Utils/QueueFamilyLocator.hpp>
 #include <Render/Vulkan/Utils/SwapChainSupportDetails.hpp>
 
@@ -12,10 +12,11 @@ namespace rc
 {
 namespace vk
 {
-void Swapchain::Frame::init(VulkanState& vulkanState) {
+void Swapchain::Frame::init(VulkanLayer& vulkanState) {
     VkSemaphoreCreateInfo semaphoreInfo{};
     semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
-    if (vkCreateSemaphore(vulkanState.device, &semaphoreInfo, nullptr, &renderFinishedSemaphore) !=
+    if (vkCreateSemaphore(
+            vulkanState.getDevice(), &semaphoreInfo, nullptr, &renderFinishedSemaphore) !=
         VK_SUCCESS) {
         throw std::runtime_error("Failed to create semaphore");
     }
@@ -23,7 +24,8 @@ void Swapchain::Frame::init(VulkanState& vulkanState) {
     VkFenceCreateInfo fenceInfo{};
     fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
     fenceInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
-    if (vkCreateFence(vulkanState.device, &fenceInfo, nullptr, &commandBufferFence) != VK_SUCCESS) {
+    if (vkCreateFence(vulkanState.getDevice(), &fenceInfo, nullptr, &commandBufferFence) !=
+        VK_SUCCESS) {
         throw std::runtime_error("Failed to create fence");
     }
 
@@ -36,32 +38,34 @@ void Swapchain::Frame::init(VulkanState& vulkanState) {
     allocInfo.commandPool        = commandPool;
     allocInfo.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
     allocInfo.commandBufferCount = 1;
-    if (vkAllocateCommandBuffers(vulkanState.device, &allocInfo, &commandBuffer) != VK_SUCCESS) {
+    if (vkAllocateCommandBuffers(vulkanState.getDevice(), &allocInfo, &commandBuffer) !=
+        VK_SUCCESS) {
         throw std::runtime_error("Failed to allocate command buffers");
     }
 }
 
-void Swapchain::Frame::cleanup(VulkanState& vulkanState) {
-    vkDestroySemaphore(vulkanState.device, renderFinishedSemaphore, nullptr);
-    vkDestroyFence(vulkanState.device, commandBufferFence, nullptr);
-    vkDestroyCommandPool(vulkanState.device, commandPool, nullptr);
+void Swapchain::Frame::cleanup(VulkanLayer& vulkanState) {
+    vkDestroySemaphore(vulkanState.getDevice(), renderFinishedSemaphore, nullptr);
+    vkDestroyFence(vulkanState.getDevice(), commandBufferFence, nullptr);
+    vkDestroyCommandPool(vulkanState.getDevice(), commandPool, nullptr);
 }
 
-void Swapchain::Swapframes::init(VulkanState& vulkanState) {
+void Swapchain::Swapframes::init(VulkanLayer& vulkanState) {
     currentIndex = 0;
 
     VkSemaphoreCreateInfo semaphoreInfo{};
     semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
     for (VkSemaphore& sem : imageAvailableSemaphore) {
-        if (vkCreateSemaphore(vulkanState.device, &semaphoreInfo, nullptr, &sem) != VK_SUCCESS) {
+        if (vkCreateSemaphore(vulkanState.getDevice(), &semaphoreInfo, nullptr, &sem) !=
+            VK_SUCCESS) {
             throw std::runtime_error("Failed to create semaphore");
         }
     }
 }
 
-void Swapchain::Swapframes::cleanup(VulkanState& vulkanState) {
+void Swapchain::Swapframes::cleanup(VulkanLayer& vulkanState) {
     for (VkSemaphore sem : imageAvailableSemaphore) {
-        vkDestroySemaphore(vulkanState.device, sem, nullptr);
+        vkDestroySemaphore(vulkanState.getDevice(), sem, nullptr);
     }
 }
 
@@ -72,7 +76,7 @@ VkSemaphore Swapchain::Swapframes::getNext() {
 
 VkSemaphore Swapchain::Swapframes::current() { return imageAvailableSemaphore[currentIndex]; }
 
-Swapchain::Swapchain(VulkanState& state, sf::WindowBase& w, WindowSettings& ws)
+Swapchain::Swapchain(VulkanLayer& state, sf::WindowBase& w, WindowSettings& ws)
 : vulkanState(state)
 , window(w)
 , windowSettings(ws)
@@ -91,8 +95,8 @@ void Swapchain::destroy() {
 void Swapchain::beginFrame(AttachmentSet*& renderFrame, VkCommandBuffer& cb) {
     // wait for prior frame
     vkCheck(vkWaitForFences(
-        vulkanState.device, 1, &frameData.current().commandBufferFence, VK_TRUE, UINT64_MAX));
-    vkCheck(vkResetFences(vulkanState.device, 1, &frameData.current().commandBufferFence));
+        vulkanState.getDevice(), 1, &frameData.current().commandBufferFence, VK_TRUE, UINT64_MAX));
+    vkCheck(vkResetFences(vulkanState.getDevice(), 1, &frameData.current().commandBufferFence));
 
     // recreate if out of date
     if (outOfDate) { recreate(); }
@@ -100,7 +104,7 @@ void Swapchain::beginFrame(AttachmentSet*& renderFrame, VkCommandBuffer& cb) {
     // acquire next image
     VkResult acquireResult;
     do {
-        acquireResult = vkAcquireNextImageKHR(vulkanState.device,
+        acquireResult = vkAcquireNextImageKHR(vulkanState.getDevice(),
                                               swapchain,
                                               UINT64_MAX,
                                               imageSemaphores.getNext(),
@@ -114,7 +118,7 @@ void Swapchain::beginFrame(AttachmentSet*& renderFrame, VkCommandBuffer& cb) {
 
     // reset prior command buffer & fence
     vkCheck(vkResetCommandBuffer(frameData.current().commandBuffer, 0));
-    vkCheck(vkResetFences(vulkanState.device, 1, &frameData.current().commandBufferFence));
+    vkCheck(vkResetFences(vulkanState.getDevice(), 1, &frameData.current().commandBufferFence));
 
     // begin command buffer
     VkCommandBufferBeginInfo beginInfo{};
@@ -147,9 +151,10 @@ void Swapchain::completeFrame() {
     submitInfo.pSignalSemaphores    = signalSemaphores;
     submitInfo.commandBufferCount   = 1;
     submitInfo.pCommandBuffers      = &frameData.current().commandBuffer;
-    if (vkQueueSubmit(
-            vulkanState.graphicsQueue, 1, &submitInfo, frameData.current().commandBufferFence) !=
-        VK_SUCCESS) {
+    if (vkQueueSubmit(vulkanState.getGraphicsQueue(),
+                      1,
+                      &submitInfo,
+                      frameData.current().commandBufferFence) != VK_SUCCESS) {
         throw std::runtime_error("Failed to submit draw command buffer");
     }
 
@@ -163,7 +168,7 @@ void Swapchain::completeFrame() {
     presentInfo.pImageIndices      = &currentImageIndex;
     presentInfo.pResults           = nullptr; // Optional
 
-    const VkResult presentResult = vkQueuePresentKHR(vulkanState.presentQueue, &presentInfo);
+    const VkResult presentResult = vkQueuePresentKHR(vulkanState.getPresentQueue(), &presentInfo);
     switch (presentResult) {
     case VK_ERROR_OUT_OF_DATE_KHR:
     case VK_SUBOPTIMAL_KHR:
@@ -178,19 +183,19 @@ void Swapchain::completeFrame() {
 
 void Swapchain::cleanup() {
     for (AttachmentSet& frame : renderFrames) {
-        vkDestroyImageView(vulkanState.device, frame.getImageView(0), nullptr);
+        vkDestroyImageView(vulkanState.getDevice(), frame.getImageView(0), nullptr);
     }
-    vkDestroySwapchainKHR(vulkanState.device, swapchain, nullptr);
+    vkDestroySwapchainKHR(vulkanState.getDevice(), swapchain, nullptr);
 }
 
 void Swapchain::deferCleanup() {
     for (AttachmentSet& frame : renderFrames) {
-        vulkanState.cleanupManager.add(
-            [device = vulkanState.device, view = frame.getImageView(0)]() {
+        vulkanState.getCleanupManager().add(
+            [device = vulkanState.getDevice(), view = frame.getImageView(0)]() {
                 vkDestroyImageView(device, view, nullptr);
             });
     }
-    vulkanState.cleanupManager.add([device = vulkanState.device, chain = swapchain]() {
+    vulkanState.getCleanupManager().add([device = vulkanState.getDevice(), chain = swapchain]() {
         vkDestroySwapchainKHR(device, chain, nullptr);
     });
 }
@@ -204,13 +209,13 @@ void Swapchain::create() {
 
 void Swapchain::recreate() {
     outOfDate = false;
-    if (vulkanState.surface == oldSurface) {
+    if (vulkanState.getSurface() == oldSurface) {
         oldSwapchain = swapchain;
         deferCleanup();
-        vkCheck(vkDeviceWaitIdle(vulkanState.device));
+        vkCheck(vkDeviceWaitIdle(vulkanState.getDevice()));
     }
     else {
-        vkCheck(vkDeviceWaitIdle(vulkanState.device));
+        vkCheck(vkDeviceWaitIdle(vulkanState.getDevice()));
         cleanup();
         oldSwapchain = VK_NULL_HANDLE;
     }
@@ -221,11 +226,11 @@ void Swapchain::invalidate() { outOfDate = true; }
 
 void Swapchain::createSwapchain() {
     // cache the surface that we created with
-    oldSurface = vulkanState.surface;
+    oldSurface = vulkanState.getSurface();
 
     // get supported swap chain details
     SwapChainSupportDetails swapChainSupport;
-    swapChainSupport.populate(vulkanState.physicalDevice, vulkanState.surface);
+    swapChainSupport.populate(vulkanState.getPhysicalDevice(), vulkanState.getSurface());
     const VkSurfaceFormatKHR& surfaceFormat = swapChainSupport.swapSurfaceFormat();
 
     // image count in swap chain
@@ -238,7 +243,7 @@ void Swapchain::createSwapchain() {
     // swap chain create params
     VkSwapchainCreateInfoKHR createInfo{};
     createInfo.sType            = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
-    createInfo.surface          = vulkanState.surface;
+    createInfo.surface          = vulkanState.getSurface();
     createInfo.minImageCount    = imageCount;
     createInfo.imageFormat      = surfaceFormat.format;
     createInfo.imageColorSpace  = surfaceFormat.colorSpace;
@@ -248,7 +253,7 @@ void Swapchain::createSwapchain() {
 
     // queue chain config
     QueueFamilyLocator indices;
-    indices.populate(vulkanState.physicalDevice, vulkanState.surface);
+    indices.populate(vulkanState.getPhysicalDevice(), vulkanState.getSurface());
     std::uint32_t queueFamilies[] = {indices.graphicsFamily.value(), indices.presentFamily.value()};
 
     if (indices.graphicsFamily != indices.presentFamily) {
@@ -270,7 +275,7 @@ void Swapchain::createSwapchain() {
     createInfo.oldSwapchain   = oldSwapchain;
 
     const VkResult result =
-        vkCreateSwapchainKHR(vulkanState.device, &createInfo, nullptr, &swapchain);
+        vkCreateSwapchainKHR(vulkanState.getDevice(), &createInfo, nullptr, &swapchain);
     if (result != VK_SUCCESS) {
         BL_LOG_ERROR << "Swap chain creation failed: " << result;
         throw std::runtime_error("Failed to create swap chain");
@@ -278,11 +283,11 @@ void Swapchain::createSwapchain() {
 
     // Fetch images
     VkImage images[8];
-    vkCheck(vkGetSwapchainImagesKHR(vulkanState.device, swapchain, &imageCount, images));
+    vkCheck(vkGetSwapchainImagesKHR(vulkanState.getDevice(), swapchain, &imageCount, images));
     imageFormat = surfaceFormat.format;
 
     // assign attachment sets & transition images
-    auto cb = vulkanState.sharedCommandPool.createBuffer();
+    auto cb = vulkanState.getSharedCommandPool().createBuffer();
     renderFrames.clear();
     renderFrames.reserve(imageCount);
     std::array<VkImageAspectFlags, 1> aspects{VK_IMAGE_ASPECT_COLOR_BIT};

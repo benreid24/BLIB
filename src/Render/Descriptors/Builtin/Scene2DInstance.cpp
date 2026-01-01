@@ -12,13 +12,13 @@ namespace rc
 {
 namespace dsi
 {
-Scene2DInstance::Scene2DInstance(vk::VulkanState& vulkanState, VkDescriptorSetLayout layout)
+Scene2DInstance::Scene2DInstance(vk::VulkanLayer& vulkanState, VkDescriptorSetLayout layout)
 : DescriptorSetInstance(Bindless, SpeedAgnostic)
 , vulkanState(vulkanState)
 , setLayout(layout) {}
 
 Scene2DInstance::~Scene2DInstance() {
-    vulkanState.descriptorPool.release(allocHandle, descriptorSets.rawData());
+    vulkanState.getDescriptorPool().release(allocHandle, descriptorSets.rawData());
 }
 
 void Scene2DInstance::bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
@@ -56,7 +56,7 @@ void Scene2DInstance::init(ds::InitContext& ctx) {
 
     // allocate descriptors
     descriptorSets.emptyInit(vulkanState);
-    allocHandle = vulkanState.descriptorPool.allocate(
+    allocHandle = vulkanState.getDescriptorPool().allocate(
         setLayout, descriptorSets.rawData(), descriptorSets.size());
 
     // create and configureWrite descriptors
@@ -94,7 +94,7 @@ void Scene2DInstance::init(ds::InitContext& ctx) {
         setWrite.descriptorType        = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
     }
 
-    setWriter.performWrite(vulkanState.device);
+    setWriter.performWrite(vulkanState.getDevice());
 
     auto& l      = lightingBuffer->getBuffer()[0];
     l.lightCount = 0;

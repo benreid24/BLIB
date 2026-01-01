@@ -1,5 +1,5 @@
 #include <BLIB/Render/Transfers/Transferable.hpp>
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 
 #include <unordered_set>
 
@@ -14,7 +14,7 @@ Transferable::Transferable()
 , perFrame(NotPerFrame)
 , queued(false) {}
 
-Transferable::Transferable(vk::VulkanState& vs)
+Transferable::Transferable(vk::VulkanLayer& vs)
 : vulkanState(&vs)
 , perFrame(NotPerFrame)
 , queued(false) {}
@@ -23,7 +23,7 @@ Transferable::~Transferable() { cancelQueuedTransfer(); }
 
 void Transferable::cancelQueuedTransfer() {
     if (perFrame != NotPerFrame) { stopTransferringEveryFrame(); }
-    else if (queued) { vulkanState->transferEngine.cancelTransfer(this); }
+    else if (queued) { vulkanState->getTransferEngine().cancelTransfer(this); }
 }
 
 bool Transferable::queueTransfer(SyncRequirement syncReq) {
@@ -36,7 +36,7 @@ bool Transferable::queueTransfer(SyncRequirement syncReq) {
 
     if (!queued) {
         queued = true;
-        vulkanState->transferEngine.queueOneTimeTransfer(this, syncReq);
+        vulkanState->getTransferEngine().queueOneTimeTransfer(this, syncReq);
         return true;
     }
     return false;
@@ -51,7 +51,7 @@ void Transferable::transferEveryFrame(SyncRequirement syncReq) {
 
     queued   = true;
     perFrame = syncReq;
-    vulkanState->transferEngine.registerPerFrameTransfer(this, syncReq);
+    vulkanState->getTransferEngine().registerPerFrameTransfer(this, syncReq);
 }
 
 void Transferable::stopTransferringEveryFrame() {
@@ -61,7 +61,7 @@ void Transferable::stopTransferringEveryFrame() {
     }
 #endif
 
-    vulkanState->transferEngine.unregisterPerFrameTransfer(this, perFrame);
+    vulkanState->getTransferEngine().unregisterPerFrameTransfer(this, perFrame);
     perFrame = NotPerFrame;
     queued   = false;
 }

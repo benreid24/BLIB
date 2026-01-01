@@ -52,7 +52,7 @@ public:
     virtual std::type_index creates() const override;
 
 private:
-    vk::VulkanState* vulkanState;
+    vk::VulkanLayer* vulkanState;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -76,7 +76,7 @@ void GenericDescriptorSetFactory<TBindings, BindingStages...>::init(engine::Engi
     std::uint32_t i = 0;
     (..., (setBinding(i++, BindingStages)));
 
-    descriptorSetLayout = r.vulkanState().descriptorPool.createLayout(bindings);
+    descriptorSetLayout = r.vulkanState().getDescriptorPool().createLayout(bindings);
 }
 
 template<typename TBindings, VkPipelineStageFlags... BindingStages>

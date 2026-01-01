@@ -27,17 +27,17 @@ ComputePipeline::ComputePipeline(Renderer& renderer, std::uint32_t id,
     createInfo.stage.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
     createInfo.stage.stage = VK_SHADER_STAGE_COMPUTE_BIT;
     createInfo.stage.module =
-        renderer.vulkanState().shaderCache.loadShader(createParams.shader.path);
+        renderer.vulkanState().getShaderCache().loadShader(createParams.shader.path);
     createInfo.stage.pName               = createParams.shader.entrypoint.c_str();
     createInfo.stage.pSpecializationInfo = &specInfo;
     createInfo.layout                    = layout->rawLayout();
 
     vkCheck(vkCreateComputePipelines(
-        renderer.vulkanState().device, VK_NULL_HANDLE, 1, &createInfo, nullptr, &pipeline));
+        renderer.vulkanState().getDevice(), VK_NULL_HANDLE, 1, &createInfo, nullptr, &pipeline));
 }
 
 ComputePipeline::~ComputePipeline() {
-    vkDestroyPipeline(renderer.vulkanState().device, pipeline, nullptr);
+    vkDestroyPipeline(renderer.vulkanState().getDevice(), pipeline, nullptr);
 }
 
 void ComputePipeline::bind(VkCommandBuffer commandBuffer) {

@@ -307,7 +307,7 @@ void Animation2DSystem::updateSlideshowDescriptorSets() {
 
     // perform write
     vkUpdateDescriptorSets(
-        renderer.vulkanState().device, std::size(setWrites), setWrites, 0, nullptr);
+        renderer.vulkanState().getDevice(), std::size(setWrites), setWrites, 0, nullptr);
 }
 
 void Animation2DSystem::createNonSlideshow(com::Animation2D& anim,

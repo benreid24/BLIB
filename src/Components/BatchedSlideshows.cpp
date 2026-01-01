@@ -4,11 +4,11 @@ namespace bl
 {
 namespace com
 {
-BatchedSlideshows::BatchedSlideshows(rc::vk::VulkanState& vulkanState, unsigned int ic) {
+BatchedSlideshows::BatchedSlideshows(rc::vk::VulkanLayer& vulkanState, unsigned int ic) {
     create(vulkanState, ic);
 }
 
-void BatchedSlideshows::create(rc::vk::VulkanState& vulkanState, unsigned int ic) {
+void BatchedSlideshows::create(rc::vk::VulkanLayer& vulkanState, unsigned int ic) {
     indexBuffer.create(vulkanState, ic * 4, ic * 6);
     drawParams = indexBuffer.getDrawParameters();
 }

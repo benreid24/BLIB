@@ -10,7 +10,7 @@ namespace rc
 {
 namespace vk
 {
-struct VulkanState;
+struct VulkanLayer;
 
 /**
  * @brief Wrapper around a single allocated descriptor set from the DescriptorPool
@@ -29,7 +29,7 @@ public:
      *
      * @param vulkanState Renderer Vulkan state
      */
-    DescriptorSet(VulkanState& vulkanState);
+    DescriptorSet(VulkanLayer& vulkanState);
 
     /**
      * @brief Creates and allocates the descriptor set
@@ -38,7 +38,7 @@ public:
      * @param layout The layout to allocate
      * @param dedicatedPool True to use a dedicated descriptor pool, false to use shared pools
      */
-    DescriptorSet(VulkanState& vulkanState, VkDescriptorSetLayout layout,
+    DescriptorSet(VulkanLayer& vulkanState, VkDescriptorSetLayout layout,
                   bool dedicatedPool = false);
 
     /**
@@ -77,7 +77,7 @@ public:
      *
      * @param vs The renderer Vulkan state
      */
-    void init(VulkanState& vs);
+    void init(VulkanLayer& vs);
 
     /**
      * @brief Creates and allocates the descriptor set. Defers release of the prior set if any
@@ -115,7 +115,7 @@ public:
               std::uint32_t index);
 
 private:
-    VulkanState* vulkanState;
+    VulkanLayer* vulkanState;
     vk::DescriptorPool::AllocationHandle alloc;
     VkDescriptorSet set;
 };

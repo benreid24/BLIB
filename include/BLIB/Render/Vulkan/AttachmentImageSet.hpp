@@ -4,7 +4,7 @@
 #include <BLIB/Render/Vulkan/AttachmentSet.hpp>
 #include <BLIB/Render/Vulkan/Image.hpp>
 #include <BLIB/Render/Vulkan/SemanticTextureFormat.hpp>
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 #include <BLIB/Vulkan.hpp>
 
 namespace bl
@@ -43,7 +43,7 @@ public:
      * @param sampleCount The sample count to use for the non-resolve attachments
      * @param firstResolveAttachment The index of the first resolve attachment in the set
      */
-    void create(VulkanState& vulkaState, unsigned int count, const VkExtent2D& size,
+    void create(VulkanLayer& vulkaState, unsigned int count, const VkExtent2D& size,
                 const vk::SemanticTextureFormat* bufferFormats, const VkImageUsageFlags* usages,
                 VkSampleCountFlagBits sampleCount    = VK_SAMPLE_COUNT_1_BIT,
                 std::uint32_t firstResolveAttachment = 0);
@@ -84,7 +84,7 @@ public:
     bool recreateForFormatChange();
 
 private:
-    VulkanState* owner;
+    VulkanLayer* owner;
     std::array<SemanticTextureFormat, MaxBufferCount> formats;
     std::array<VkImage, MaxBufferCount> images;
     std::array<VkImageView, MaxBufferCount> views;

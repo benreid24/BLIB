@@ -26,13 +26,14 @@ PipelineLayout::PipelineLayout(Renderer& renderer, LayoutParams&& params)
     pipelineLayoutInfo.pushConstantRangeCount = params.pushConstants.size();
     pipelineLayoutInfo.pPushConstantRanges    = params.pushConstants.data();
     if (vkCreatePipelineLayout(
-            renderer.vulkanState().device, &pipelineLayoutInfo, nullptr, &layout) != VK_SUCCESS) {
+            renderer.vulkanState().getDevice(), &pipelineLayoutInfo, nullptr, &layout) !=
+        VK_SUCCESS) {
         throw std::runtime_error("Failed to create pipeline layout");
     }
 }
 
 PipelineLayout::~PipelineLayout() {
-    vkDestroyPipelineLayout(renderer.vulkanState().device, layout, nullptr);
+    vkDestroyPipelineLayout(renderer.vulkanState().getDevice(), layout, nullptr);
 }
 
 void PipelineLayout::createDescriptorSets(

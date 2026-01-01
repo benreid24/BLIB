@@ -1,6 +1,6 @@
 #include <BLIB/Render/Vulkan/Buffer.hpp>
 
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 
 namespace bl
 {
@@ -20,7 +20,7 @@ Buffer::Buffer()
 
 Buffer::~Buffer() { deferDestruction(); }
 
-bool Buffer::create(VulkanState& vs, VkDeviceSize bsize, VkMemoryPropertyFlags memProps,
+bool Buffer::create(VulkanLayer& vs, VkDeviceSize bsize, VkMemoryPropertyFlags memProps,
                     VkBufferUsageFlags use, VmaAllocationCreateFlags flags) {
     doDefer();
     vulkanState = &vs;
@@ -44,10 +44,9 @@ bool Buffer::doCreate() {
     allocInfo.usage         = VMA_MEMORY_USAGE_AUTO;
     allocInfo.flags         = allocFlags;
 
-    std::unique_lock lock(vulkanState->bufferAllocMutex);
     VmaAllocationInfo resultInfo{};
-    const VkResult result = vmaCreateBuffer(
-        vulkanState->vmaAllocator, &bufferInfo, &allocInfo, &buffer, &alloc, &resultInfo);
+    const VkResult result =
+        vulkanState->createBuffer(bufferInfo, allocInfo, buffer, alloc, &resultInfo);
     if (result != VK_SUCCESS) {
         vulkanState = nullptr;
         size        = 0;
@@ -57,7 +56,7 @@ bool Buffer::doCreate() {
     return true;
 }
 
-bool Buffer::createWithFallback(VulkanState& vs, VkDeviceSize bsize, VkMemoryPropertyFlags memProps,
+bool Buffer::createWithFallback(VulkanLayer& vs, VkDeviceSize bsize, VkMemoryPropertyFlags memProps,
                                 VkMemoryPropertyFlags fallbackPool, VkBufferUsageFlags use,
                                 VmaAllocationCreateFlags flags) {
     if (!create(vs, bsize, memProps, use, flags)) {
@@ -68,7 +67,7 @@ bool Buffer::createWithFallback(VulkanState& vs, VkDeviceSize bsize, VkMemoryPro
 
 void Buffer::destroy() {
     if (created()) {
-        vmaDestroyBuffer(vulkanState->vmaAllocator, buffer, alloc);
+        vmaDestroyBuffer(vulkanState->getVmaAllocator(), buffer, alloc);
         vulkanState = nullptr;
         size        = 0;
     }
@@ -82,8 +81,8 @@ void Buffer::deferDestruction() {
 
 void Buffer::doDefer() {
     if (created()) {
-        vulkanState->cleanupManager.add([vs = vulkanState, buffer = buffer, alloc = alloc]() {
-            vmaDestroyBuffer(vs->vmaAllocator, buffer, alloc);
+        vulkanState->getCleanupManager().add([vs = vulkanState, buffer = buffer, alloc = alloc]() {
+            vmaDestroyBuffer(vs->getVmaAllocator(), buffer, alloc);
         });
     }
 }
@@ -98,7 +97,7 @@ bool Buffer::ensureSize(VkDeviceSize newSize, bool skipCopy) {
         if (!doCreate()) { throw std::runtime_error("Failed to resize buffer"); }
 
         if (!skipCopy) {
-            auto commandBuffer = vulkanState->sharedCommandPool.createBuffer();
+            auto commandBuffer = vulkanState->getSharedCommandPool().createBuffer();
 
             // barrier to ensure writes to old buffer are complete
             VkBufferMemoryBarrier barrier{};
@@ -154,14 +153,14 @@ bool Buffer::ensureSize(VkDeviceSize newSize, bool skipCopy) {
 }
 
 void* Buffer::mapMemory() {
-    vmaMapMemory(vulkanState->vmaAllocator, alloc, &mapped);
+    vmaMapMemory(vulkanState->getVmaAllocator(), alloc, &mapped);
     return mapped;
 }
 
-void Buffer::unMapMemory() { vmaUnmapMemory(vulkanState->vmaAllocator, alloc); }
+void Buffer::unMapMemory() { vmaUnmapMemory(vulkanState->getVmaAllocator(), alloc); }
 
 void Buffer::insertPipelineBarrierBeforeChange() {
-    auto cb = vulkanState->sharedCommandPool.createBuffer();
+    auto cb = vulkanState->getSharedCommandPool().createBuffer();
 
     VkBufferMemoryBarrier barrier{};
     barrier.sType         = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;

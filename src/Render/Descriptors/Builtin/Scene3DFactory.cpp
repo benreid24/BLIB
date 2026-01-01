@@ -44,7 +44,7 @@ void Scene3DFactory::init(engine::Engine&, Renderer& r) {
     bindingInfo.bindings[4].descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
     bindingInfo.bindings[4].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
 
-    descriptorSetLayout = vulkanState->descriptorPool.createLayout(bindingInfo);
+    descriptorSetLayout = vulkanState->getDescriptorPool().createLayout(bindingInfo);
 }
 
 std::unique_ptr<ds::DescriptorSetInstance> Scene3DFactory::createDescriptorSet() const {

@@ -12,7 +12,7 @@ namespace rc
 {
 namespace vk
 {
-struct VulkanState;
+struct VulkanLayer;
 class AttachmentSet;
 
 /**
@@ -84,7 +84,7 @@ public:
      * @param vulkanState Renderer Vulkan state
      * @param options The options to use for the image creation
      */
-    void create(VulkanState& vulkanState, const ImageOptions& options);
+    void create(VulkanLayer& vulkanState, const ImageOptions& options);
 
     /**
      * @brief Resizes the image to the new size, optionally copying over the old contents
@@ -259,7 +259,7 @@ public:
                        VkImageLayout newLayout = VK_IMAGE_LAYOUT_UNDEFINED);
 
 private:
-    VulkanState* vulkanState;
+    VulkanLayer* vulkanState;
     VmaAllocation alloc;
     VkImage imageHandle;
     VkImageView viewHandle;

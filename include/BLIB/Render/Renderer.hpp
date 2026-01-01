@@ -24,7 +24,7 @@
 #include <BLIB/Render/Settings.hpp>
 #include <BLIB/Render/Transfers/TextureExporter.hpp>
 #include <BLIB/Render/Vulkan/RenderTexture.hpp>
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 #include <BLIB/Render/Window.hpp>
 #include <BLIB/Signals/Channel.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
@@ -144,12 +144,12 @@ public:
     /**
      * @brief Returns the Vulkan state of the renderer
      */
-    vk::VulkanState& vulkanState();
+    vk::VulkanLayer& vulkanState();
 
     /**
      * @brief Returns the Vulkan state of the renderer
      */
-    const vk::VulkanState& vulkanState() const;
+    const vk::VulkanLayer& vulkanState() const;
 
     /**
      * @brief Returns the texture pool of this renderer
@@ -290,7 +290,7 @@ private:
     float windowScale;
     Settings settings;
     sf::Rect<std::uint32_t> renderRegion;
-    vk::VulkanState state;
+    vk::VulkanLayer state;
     res::GlobalDescriptors globalDescriptors;
     res::TexturePool textures;
     res::MaterialPool materials;
@@ -348,9 +348,9 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline vk::VulkanState& Renderer::vulkanState() { return state; }
+inline vk::VulkanLayer& Renderer::vulkanState() { return state; }
 
-inline const vk::VulkanState& Renderer::vulkanState() const { return state; }
+inline const vk::VulkanLayer& Renderer::vulkanState() const { return state; }
 
 inline res::TexturePool& Renderer::texturePool() { return textures; }
 

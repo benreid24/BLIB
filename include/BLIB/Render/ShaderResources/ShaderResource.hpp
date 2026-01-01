@@ -17,7 +17,7 @@ class RenderTarget;
 
 namespace vk
 {
-struct VulkanState;
+struct VulkanLayer;
 }
 
 /// Module containing shader resources like images and buffers

@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_VULKAN_VULKANSTATE_HPP
-#define BLIB_RENDER_VULKAN_VULKANSTATE_HPP
+#ifndef BLIB_RENDER_VULKAN_VULKANLAYER_HPP
+#define BLIB_RENDER_VULKAN_VULKANLAYER_HPP
 
 #include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Resources/ShaderModuleCache.hpp>
@@ -38,12 +38,12 @@ namespace vk
  *
  * @ingroup Renderer
  */
-struct VulkanState {
+struct VulkanLayer {
     /**
      * @brief Destroy the Vulkan State object
      *
      */
-    ~VulkanState();
+    ~VulkanLayer();
 
     /**
      * @brief Marks the swap chain as invalid. Called when the window is resized or recreated
@@ -107,6 +107,20 @@ struct VulkanState {
     void createBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
                       VmaAllocationCreateFlags allocFlags, VkMemoryPropertyFlags properties,
                       VkBuffer* buffer, VmaAllocation* vmaAlloc, VmaAllocationInfo* vmaAllocInfo);
+
+    /**
+     * @brief Creates a buffer with the given parameters
+     *
+     * @param bufferParams The parameters to create the buffer with
+     * @param allocInfo The parameters to allocate the memory with
+     * @param outputBuffer The buffer handle to put the result in
+     * @param outputAlloc The allocation handle to put the result in
+     * @param outputAllocInfo Optional allocation info to populate
+     * @return The result of the buffer creation
+     */
+    VkResult createBuffer(const VkBufferCreateInfo& bufferParams,
+                          const VmaAllocationCreateInfo& allocInfo, VkBuffer& outputBuffer,
+                          VmaAllocation& outputAlloc, VmaAllocationInfo* outputAllocInfo = nullptr);
 
     /**
      * @brief Helper function to find the best-suited image format given the requested format and
@@ -283,6 +297,89 @@ struct VulkanState {
      */
     static const VkPhysicalDeviceProperties& getPhysicalDeviceProperties();
 
+    /**
+     * @brief Returns whether or not the VulkanLayer has been initialized
+     */
+    bool isInitialized() const { return device != nullptr; }
+
+    /**
+     * @brief Returns the Vulkan driver instance associated with this VulkanLayer
+     */
+    VkInstance getInstance() const { return instance; }
+
+    /**
+     * @brief Returns the surface used for rendering
+     */
+    VkSurfaceKHR getSurface() const { return surface; }
+
+    /**
+     * @brief Returns the physical device used for rendering
+     */
+    VkPhysicalDevice getPhysicalDevice() const { return physicalDevice; }
+
+    /**
+     * @brief Returns the available physical device features
+     */
+    const VkPhysicalDeviceFeatures& getPhysicalDeviceFeatures() const {
+        return physicalDeviceFeatures;
+    }
+
+    /**
+     * @brief Returns the logical device used for rendering
+     */
+    VkDevice getDevice() const { return device; }
+
+    /**
+     * @brief Returns the VMA allocator used for memory management
+     */
+    VmaAllocator getVmaAllocator() const { return vmaAllocator; }
+
+    /**
+     * @brief Returns the graphics queue used for rendering
+     */
+    VkQueue getGraphicsQueue() const { return graphicsQueue; }
+
+    /**
+     * @brief Returns the present queue used for presenting images
+     */
+    VkQueue getPresentQueue() const { return presentQueue; }
+
+    /**
+     * @brief Returns the shared command pool for allocating transient command buffers
+     */
+    SharedCommandPool& getSharedCommandPool() { return sharedCommandPool; }
+
+    /**
+     * @brief Returns the swapchain manager
+     */
+    Swapchain& getSwapchain() { return swapchain; }
+
+    /**
+     * @brief Returns the shader module cache
+     */
+    res::ShaderModuleCache& getShaderCache() { return shaderCache; }
+
+    /**
+     * @brief Returns the transfer engine
+     */
+    tfr::TransferEngine& getTransferEngine() { return transferEngine; }
+
+    /**
+     * @brief Returns the descriptor pool manager
+     */
+    DescriptorPool& getDescriptorPool() { return descriptorPool; }
+
+    /**
+     * @brief Returns the cleanup manager
+     */
+    CleanupManager& getCleanupManager() { return cleanupManager; }
+
+    /**
+     * @brief Returns the texture format manager
+     */
+    TextureFormatManager& getTextureFormatManager() { return textureFormatManager; }
+
+private:
     RenderWindow& window;
     VkInstance instance;
 #ifdef BLIB_DEBUG
@@ -308,11 +405,10 @@ struct VulkanState {
     std::mutex bufferAllocMutex;
     std::mutex imageAllocMutex;
 
-private:
     std::uint32_t currentFrame;
     std::vector<VkExtensionProperties> availableExtensions;
 
-    VulkanState(RenderWindow& window, WindowSettings& windowSettings);
+    VulkanLayer(RenderWindow& window, WindowSettings& windowSettings);
     void init();
     void cleanup();
 
@@ -330,7 +426,7 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr std::uint32_t VulkanState::currentFrameIndex() const { return currentFrame; }
+inline constexpr std::uint32_t VulkanLayer::currentFrameIndex() const { return currentFrame; }
 
 template<typename T>
 PerFrame<T>::PerFrame()
@@ -343,13 +439,13 @@ PerFrame<T>::PerFrame(TArgs&&... args)
 , data{T(std::forward<TArgs>(args)...), T(std::forward<TArgs>(args)...)} {}
 
 template<typename T>
-void PerFrame<T>::emptyInit(VulkanState& v) {
+void PerFrame<T>::emptyInit(VulkanLayer& v) {
     vs = &v;
 }
 
 template<typename T>
 template<typename U>
-void PerFrame<T>::init(VulkanState& v, const U& visitor) {
+void PerFrame<T>::init(VulkanLayer& v, const U& visitor) {
     vs = &v;
     for (T& o : data) { visitor(o); }
 }
@@ -449,7 +545,7 @@ PerFrameVector<T>::PerFrameVector()
 : vs(nullptr) {}
 
 template<typename T>
-void PerFrameVector<T>::emptyInit(VulkanState& vulkanState, std::uint32_t capacity) {
+void PerFrameVector<T>::emptyInit(VulkanLayer& vulkanState, std::uint32_t capacity) {
     vs  = &vulkanState;
     cap = capacity;
     items.resize(capacity * cfg::Limits::MaxConcurrentFrames);
@@ -457,7 +553,7 @@ void PerFrameVector<T>::emptyInit(VulkanState& vulkanState, std::uint32_t capaci
 
 template<typename T>
 template<typename U>
-void PerFrameVector<T>::init(VulkanState& vulkanState, std::uint32_t capacity, const U& visitor) {
+void PerFrameVector<T>::init(VulkanLayer& vulkanState, std::uint32_t capacity, const U& visitor) {
     emptyInit(vulkanState, capacity);
     cleanup(visitor);
 }

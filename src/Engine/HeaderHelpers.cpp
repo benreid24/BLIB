@@ -7,7 +7,7 @@ namespace engine
 {
 rc::Renderer& HeaderHelpers::getRenderer(engine::Engine& engine) { return engine.renderer(); }
 
-rc::vk::VulkanState& HeaderHelpers::getVulkanState(engine::Engine& engine) {
+rc::vk::VulkanLayer& HeaderHelpers::getVulkanState(engine::Engine& engine) {
     return engine.renderer().vulkanState();
 }
 
