@@ -9,9 +9,10 @@ namespace bl
 {
 namespace rc
 {
+class Renderer;
+
 namespace vk
 {
-struct VulkanLayer;
 class Swapchain;
 class RenderPass;
 
@@ -37,12 +38,11 @@ public:
     /**
      * @brief Creates (or recreates) the framebuffer
      *
-     * @param vulkanState The renderer state
+     * @param renderer The renderer instance
      * @param renderPass The render pass that will be used with the frame buffer
      * @param target The frame to render to
      */
-    void create(VulkanLayer& vulkanState, const RenderPass* renderPass,
-                const vk::AttachmentSet& target);
+    void create(Renderer& renderer, const RenderPass* renderPass, const vk::AttachmentSet& target);
 
     /**
      * @brief Recreates the framebuffer if the underlying target has changed
@@ -91,7 +91,7 @@ public:
     const vk::AttachmentSet& getAttachmentSet() const { return *target; }
 
 private:
-    VulkanLayer* vulkanState;
+    Renderer* renderer;
     const RenderPass* renderPass;
     const vk::AttachmentSet* target;
     VkFramebuffer framebuffer;

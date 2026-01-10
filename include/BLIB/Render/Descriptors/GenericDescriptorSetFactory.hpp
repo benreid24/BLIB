@@ -52,14 +52,14 @@ public:
     virtual std::type_index creates() const override;
 
 private:
-    vk::VulkanLayer* vulkanState;
+    Renderer* renderer;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename TBindings, VkPipelineStageFlags... BindingStages>
 void GenericDescriptorSetFactory<TBindings, BindingStages...>::init(engine::Engine&, Renderer& r) {
-    vulkanState = &r.vulkanState();
+    renderer = &r;
 
     TBindings bindingInfo;
     bl::rc::vk::DescriptorPool::SetBindingInfo bindings;
@@ -76,7 +76,7 @@ void GenericDescriptorSetFactory<TBindings, BindingStages...>::init(engine::Engi
     std::uint32_t i = 0;
     (..., (setBinding(i++, BindingStages)));
 
-    descriptorSetLayout = r.vulkanState().getDescriptorPool().createLayout(bindings);
+    descriptorSetLayout = r.getDescriptorPool().createLayout(bindings);
 }
 
 template<typename TBindings, VkPipelineStageFlags... BindingStages>
@@ -84,7 +84,7 @@ std::unique_ptr<DescriptorSetInstance>
 GenericDescriptorSetFactory<TBindings, BindingStages...>::createDescriptorSet() const {
     TBindings bindingInfo;
     return std::make_unique<GenericDescriptorSetInstance<TBindings>>(
-        *vulkanState, descriptorSetLayout, bindingInfo.getBindMode(), bindingInfo.getSpeedMode());
+        *renderer, descriptorSetLayout, bindingInfo.getBindMode(), bindingInfo.getSpeedMode());
 }
 
 template<typename TBindings, VkPipelineStageFlags... BindingStages>

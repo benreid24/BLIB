@@ -1,5 +1,6 @@
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 
+#include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Render/Vulkan/RenderPass.hpp>
 #include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 
@@ -10,7 +11,7 @@ namespace rc
 namespace vk
 {
 Framebuffer::Framebuffer()
-: vulkanState(nullptr)
+: renderer(nullptr)
 , renderPass(nullptr)
 , target(nullptr)
 , framebuffer(nullptr)
@@ -20,8 +21,8 @@ Framebuffer::~Framebuffer() {
     if (renderPass) { deferCleanup(); }
 }
 
-void Framebuffer::create(VulkanLayer& vs, const RenderPass* rp, const AttachmentSet& frame) {
-    vulkanState = &vs;
+void Framebuffer::create(Renderer& renderer, const RenderPass* rp, const AttachmentSet& frame) {
+    this->renderer = &renderer;
 
     // cleanup and block if recreating
     if (renderPass) { deferCleanup(); }
@@ -40,7 +41,8 @@ void Framebuffer::create(VulkanLayer& vs, const RenderPass* rp, const Attachment
     framebufferInfo.width           = frame.getRenderExtent().width;
     framebufferInfo.height          = frame.getRenderExtent().height;
     framebufferInfo.layers          = frame.getLayerCount();
-    if (vkCreateFramebuffer(vulkanState->getDevice(), &framebufferInfo, nullptr, &framebuffer) !=
+    if (vkCreateFramebuffer(
+            renderer.vulkanState().getDevice(), &framebufferInfo, nullptr, &framebuffer) !=
         VK_SUCCESS) {
         throw std::runtime_error("Failed to create framebuffer");
     }
@@ -48,7 +50,7 @@ void Framebuffer::create(VulkanLayer& vs, const RenderPass* rp, const Attachment
 
 void Framebuffer::recreateIfChanged(const AttachmentSet& t) {
     // TODO - need to check all views?
-    if (t.getImageViews()[0] != cachedAttachment) { create(*vulkanState, renderPass, t); }
+    if (t.getImageViews()[0] != cachedAttachment) { create(*renderer, renderPass, t); }
 }
 
 void Framebuffer::beginRender(VkCommandBuffer commandBuffer, const VkRect2D& region,
@@ -134,14 +136,14 @@ void Framebuffer::finishRender(VkCommandBuffer commandBuffer) {
 }
 
 void Framebuffer::cleanup() {
-    vkDestroyFramebuffer(vulkanState->getDevice(), framebuffer, nullptr);
+    vkDestroyFramebuffer(renderer->vulkanState().getDevice(), framebuffer, nullptr);
     renderPass = nullptr;
 }
 
 void Framebuffer::deferCleanup() {
     if (renderPass) {
-        vulkanState->getCleanupManager().add(
-            [device = vulkanState->getDevice(), fb = framebuffer]() {
+        renderer->getCleanupManager().add(
+            [device = renderer->vulkanState().getDevice(), fb = framebuffer]() {
                 vkDestroyFramebuffer(device, fb, nullptr);
             });
         renderPass = nullptr;

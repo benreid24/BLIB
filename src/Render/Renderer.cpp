@@ -27,11 +27,14 @@ Renderer::Renderer(engine::Engine& engine, const CreationSettings& createSetting
 : engine(engine)
 , windowScale(1.f)
 , settings(*this, createSettings)
-, state(window, settings.windowSettings)
+, state(window)
+, swapchain(*this, window.getSfWindow(), settings.windowSettings)
+, transferEngine(state)
+, descriptorPool(state)
 , globalDescriptors(engine, *this, textures, materials)
 , textures(*this, state)
 , materials(*this)
-, samplers(state)
+, samplers(*this)
 , descriptorSetFactoryCache(engine, *this)
 , renderPasses(*this)
 , pipelineLayouts(*this)
@@ -64,7 +67,7 @@ bool Renderer::initialize() {
     constexpr engine::StateMask::V AllMask = engine::StateMask::All;
     using engine::FrameStage;
 
-    state.textureFormatManager.init(*this);
+    textureFormatManager.init(*this);
 
     // core renderer systems
     engine.systems().registerSystem<sys::RendererUpdateSystem>(
@@ -81,6 +84,11 @@ bool Renderer::initialize() {
 
     // create renderer instance data
     state.init();
+    sharedCommandPool.create(state);
+    swapchain.create();
+    transferEngine.init();
+    descriptorPool.init();
+    shaderCache.init(state.getDevice());
     samplers.init();
     renderPasses.addDefaults();
     globalDescriptors.init();
@@ -175,7 +183,7 @@ void Renderer::applySettingsToWindow() {
     window.getSfWindow().setTitle(params.title());
 
     if (state.device) {
-        state.swapchain.invalidate();
+        swapchain.invalidate();
 
         sf::Event::SizeEvent e{};
         e.width  = window.getSfWindow().getSize().x;
@@ -216,6 +224,12 @@ void Renderer::cleanup() {
     globalDescriptors.cleanup();
     renderPasses.cleanup();
     samplers.cleanup();
+    cleanupManager.flush();
+    descriptorPool.cleanup();
+    transferEngine.cleanup();
+    shaderCache.cleanup();
+    swapchain.destroy();
+    sharedCommandPool.cleanup();
     state.cleanup();
     state.device = nullptr;
 }
@@ -255,7 +269,7 @@ void Renderer::processResize(const sf::Event::SizeEvent& event) {
                                            newHeight * viewport.top,
                                            newWidth * viewport.width,
                                            newHeight * viewport.height);
-    state.swapchain.invalidate();
+    swapchain.invalidate();
     assignObserverRegions();
     commonObserver.assignRegion(window.getSfWindow().getSize(), renderRegion, 1, 0, true);
 }
@@ -288,7 +302,8 @@ void Renderer::renderFrame() {
     // begin frame
     vk::AttachmentSet* currentFrame = nullptr;
     VkCommandBuffer commandBuffer   = nullptr;
-    state.beginFrame(currentFrame, commandBuffer);
+    swapchain.beginFrame(currentFrame, commandBuffer);
+    cleanupManager.onFrameStart();
 
     // kick off transfers
     if (settings.dirty) {
@@ -302,7 +317,7 @@ void Renderer::renderFrame() {
     else {
         for (auto& o : observers) { o->updateDescriptorsAndQueueTransfers(); }
     }
-    state.transferEngine.executeTransfers();
+    transferEngine.executeTransfers();
 
     // reset graph asset states
     for (auto& rt : renderTextures) { rt->resetAssets(); }
@@ -338,7 +353,8 @@ void Renderer::renderFrame() {
     if (commonObserver.hasScene()) { commonObserver.renderScene(commandBuffer); }
 
     // complete frame
-    state.completeFrame();
+    swapchain.completeFrame();
+    state.incrementFrame();
 
     // submit texture exports
     imageExporter.onFrameEnd();
@@ -433,7 +449,7 @@ void Renderer::destroyRenderTexture(vk::RenderTexture* rt) {
 
     rt->destroy();
 
-    vulkanState().cleanupManager.add([this, rt]() {
+    cleanupManager.add([this, rt]() {
         for (auto it = renderTextures.begin(); it != renderTextures.end(); ++it) {
             if (it->get() == rt) {
                 renderTextures.erase(it);
@@ -444,8 +460,8 @@ void Renderer::destroyRenderTexture(vk::RenderTexture* rt) {
 }
 
 void Renderer::processWindowRecreate() {
-    state.createSurface();
-    state.swapchain.invalidate();
+    state.createSurface(cleanupManager);
+    swapchain.invalidate();
 }
 
 CreationSettings Renderer::getCreationSettings() const {

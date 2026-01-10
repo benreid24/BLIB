@@ -86,8 +86,7 @@ void Sphere::create(engine::World& world, float size, int detailLevel,
     Sphere::makeSphere(size, detailLevel, vertices, indices);
 
     // create mesh
-    component().create(
-        world.engine().renderer().vulkanState(), std::move(vertices), std::move(indices));
+    component().create(world.engine().renderer(), std::move(vertices), std::move(indices));
 
     // preprocessing
     // TODO - compute tangents only

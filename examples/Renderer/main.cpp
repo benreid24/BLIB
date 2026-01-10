@@ -113,7 +113,7 @@ public:
                 meshEntity, engine.renderer(), *mesh);
         meshMaterial->setMaterial(engine.renderer().materialPool().getOrCreateFromTexture(texture));
         mesh->init(meshMaterial);
-        mesh->create(engine.renderer().vulkanState(), Vertices.size(), Indices.size());
+        mesh->create(engine.renderer(), Vertices.size(), Indices.size());
         mesh->gpuBuffer.vertices() = Vertices;
         for (auto& v : mesh->gpuBuffer.vertices()) {
             v.texCoord = texture->convertCoord(v.texCoord);

@@ -2,6 +2,7 @@
 #define BLIB_RENDER_BUFFERS_INDEXBUFFER_HPP
 
 #include <BLIB/Logging.hpp>
+#include <BLIB/Render/HeaderHelpers.hpp>
 #include <BLIB/Render/Primitives/DrawParameters.hpp>
 #include <BLIB/Render/Primitives/Vertex.hpp>
 #include <BLIB/Render/Primitives/Vertex3D.hpp>
@@ -36,20 +37,20 @@ public:
     /**
      * @brief Creates the vertex and index buffers
      *
-     * @param vulkanState The renderer vulkan state
+     * @param renderer The renderer instance
      * @param vertexCount The number of vertices
      * @param indexCount The number of indices
      */
-    void create(vk::VulkanLayer& vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount);
+    void create(Renderer& renderer, std::uint32_t vertexCount, std::uint32_t indexCount);
 
     /**
      * @brief Creates the index buffer by moving from existing CPU buffers
      *
-     * @param vulkanState The renderer vulkan state
+     * @param renderer The renderer instance
      * @param vertices The vertex buffer to move from
      * @param indices The index buffer to move from
      */
-    void create(vk::VulkanLayer& vulkanState, std::vector<T>&& vertices,
+    void create(Renderer& renderer, std::vector<T>&& vertices,
                 std::vector<std::uint32_t>&& indices);
 
     /**
@@ -166,7 +167,7 @@ private:
     std::uint32_t indexWriteStart;
     std::uint32_t indexWriteCount;
 
-    void createCommon(vk::VulkanLayer& vs, std::uint32_t vc, std::uint32_t ic);
+    void createCommon(Renderer& renderer, std::uint32_t vc, std::uint32_t ic);
     virtual void executeTransfer(VkCommandBuffer commandBuffer,
                                  tfr::TransferContext& context) override;
 };
@@ -179,16 +180,16 @@ IndexBufferT<T>::~IndexBufferT() {
 }
 
 template<typename T>
-void IndexBufferT<T>::create(vk::VulkanLayer& vs, std::uint32_t vc, std::uint32_t ic) {
-    createCommon(vs, vc, ic);
+void IndexBufferT<T>::create(Renderer& renderer, std::uint32_t vc, std::uint32_t ic) {
+    createCommon(renderer, vc, ic);
     cpuVertexBuffer.resize(vc);
     cpuIndexBuffer.resize(ic, 0);
 }
 
 template<typename T>
-void IndexBufferT<T>::create(vk::VulkanLayer& vulkanState, std::vector<T>&& vertices,
+void IndexBufferT<T>::create(Renderer& renderer, std::vector<T>&& vertices,
                              std::vector<std::uint32_t>&& indices) {
-    createCommon(vulkanState, vertices.size(), indices.size());
+    createCommon(renderer, vertices.size(), indices.size());
     cpuVertexBuffer = std::move(vertices);
     cpuIndexBuffer  = std::move(indices);
 }
@@ -314,15 +315,15 @@ void IndexBufferT<T>::bindAndDraw(VkCommandBuffer commandBuffer) {
 }
 
 template<typename T>
-void IndexBufferT<T>::createCommon(vk::VulkanLayer& vs, std::uint32_t vc, std::uint32_t ic) {
-    vulkanState = &vs;
-    gpuVertexBuffer.create(vs,
+void IndexBufferT<T>::createCommon(Renderer& renderer, std::uint32_t vc, std::uint32_t ic) {
+    this->renderer = &renderer;
+    gpuVertexBuffer.create(renderer,
                            vc * sizeof(T),
                            VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
                            VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT |
                                VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
                            0);
-    gpuIndexBuffer.create(vs,
+    gpuIndexBuffer.create(renderer,
                           ic * sizeof(std::uint32_t),
                           VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
                           VK_BUFFER_USAGE_INDEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT |

@@ -27,7 +27,7 @@ public:
      * @brief Initializes the buffer shader input
      */
     BufferShaderResource()
-    : vulkanState(nullptr) {}
+    : renderer(nullptr) {}
 
     /**
      * @brief Destroys the buffer
@@ -41,8 +41,8 @@ public:
      * @param Unused
      */
     virtual void init(engine::Engine& engine, RenderTarget&) override {
-        vulkanState = &engine::HeaderHelpers::getVulkanState(engine);
-        if constexpr (DefaultCapacity > 0) { buffer.create(*vulkanState, DefaultCapacity); }
+        renderer = &engine::HeaderHelpers::getRenderer(engine);
+        if constexpr (DefaultCapacity > 0) { buffer.create(*renderer, DefaultCapacity); }
     }
 
     /**
@@ -77,7 +77,7 @@ public:
     TBuffer& getBuffer() { return buffer; }
 
 protected:
-    vk::VulkanLayer* vulkanState;
+    Renderer* renderer;
     TBuffer buffer;
 };
 

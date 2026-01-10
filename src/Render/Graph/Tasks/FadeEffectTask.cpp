@@ -48,7 +48,7 @@ void FadeEffectTask::create(const rg::InitContext& ctx) {
     ctx.target.initPipelineInstance(scene, cfg::PipelineIds::FadeEffect, pipeline);
 
     // create index buffer
-    indexBuffer.create(ctx.vulkanState, 4, 6);
+    indexBuffer.create(ctx.renderer, 4, 6);
     indexBuffer.indices()  = {0, 1, 3, 1, 2, 3};
     indexBuffer.vertices() = {prim::Vertex({-1.f, -1.f, 1.0f}, {0.f, 0.f}),
                               prim::Vertex({1.f, -1.f, 1.0f}, {1.f, 0.f}),

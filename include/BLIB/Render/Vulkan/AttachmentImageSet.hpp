@@ -4,13 +4,14 @@
 #include <BLIB/Render/Vulkan/AttachmentSet.hpp>
 #include <BLIB/Render/Vulkan/Image.hpp>
 #include <BLIB/Render/Vulkan/SemanticTextureFormat.hpp>
-#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 #include <BLIB/Vulkan.hpp>
 
 namespace bl
 {
 namespace rc
 {
+class Renderer;
+
 namespace vk
 {
 /**
@@ -35,7 +36,7 @@ public:
     /**
      * @brief Frees prior images, if any, and creates new attachment buffers
      *
-     * @param vulkaState Renderer vulkan state
+     * @param renderer The renderer instance
      * @param count The number of buffers to create
      * @param size The size of the color and depth attachments to create
      * @param bufferFormats The formats to create the attachments with
@@ -43,7 +44,7 @@ public:
      * @param sampleCount The sample count to use for the non-resolve attachments
      * @param firstResolveAttachment The index of the first resolve attachment in the set
      */
-    void create(VulkanLayer& vulkaState, unsigned int count, const VkExtent2D& size,
+    void create(Renderer& renderer, unsigned int count, const VkExtent2D& size,
                 const vk::SemanticTextureFormat* bufferFormats, const VkImageUsageFlags* usages,
                 VkSampleCountFlagBits sampleCount    = VK_SAMPLE_COUNT_1_BIT,
                 std::uint32_t firstResolveAttachment = 0);
@@ -84,7 +85,7 @@ public:
     bool recreateForFormatChange();
 
 private:
-    VulkanLayer* owner;
+    Renderer* owner;
     std::array<SemanticTextureFormat, MaxBufferCount> formats;
     std::array<VkImage, MaxBufferCount> images;
     std::array<VkImageView, MaxBufferCount> views;

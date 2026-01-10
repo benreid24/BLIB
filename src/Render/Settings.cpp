@@ -38,10 +38,10 @@ Settings& Settings::setExposureFactor(float e) {
 Settings& Settings::setHDREnabled(bool e) {
     if (graphicsSettings.hdrEnabled != e) {
         graphicsSettings.hdrEnabled = e;
-        owner.vulkanState().getTextureFormatManager().setFormat(
-            vk::SemanticTextureFormat::Color,
-            graphicsSettings.hdrEnabled ? vk::CommonTextureFormats::HDRColor :
-                                          vk::CommonTextureFormats::SRGBA32Bit);
+        owner.getTextureFormatManager().setFormat(vk::SemanticTextureFormat::Color,
+                                                  graphicsSettings.hdrEnabled ?
+                                                      vk::CommonTextureFormats::HDRColor :
+                                                      vk::CommonTextureFormats::SRGBA32Bit);
         dirty = true;
         emitter.emit<Changed>({owner, *this, Setting::HDR});
     }

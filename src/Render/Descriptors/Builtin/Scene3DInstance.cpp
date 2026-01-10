@@ -24,9 +24,7 @@ Scene3DInstance::Scene3DInstance(Renderer& renderer, VkDescriptorSetLayout layou
 , ssaoBuffer(nullptr)
 , deferredImageUpdates(0) {}
 
-Scene3DInstance::~Scene3DInstance() {
-    renderer.vulkanState().getDescriptorPool().release(allocHandle, descriptorSets.rawData());
-}
+Scene3DInstance::~Scene3DInstance() { allocHandle.release(descriptorSets.rawData()); }
 
 void Scene3DInstance::bind(VkCommandBuffer commandBuffer, VkPipelineBindPoint bindPoint,
                            VkPipelineLayout pipelineLayout, std::uint32_t bindIndex) {
@@ -72,7 +70,7 @@ void Scene3DInstance::init(ds::InitContext& ctx) {
             rg::AssetTags::SSAOBuffer, rgi::Purpose::SSAOBuffer, 0));
 
     emptySpotShadowMap.create(
-        renderer.vulkanState(),
+        renderer,
         {.type       = vk::ImageOptions::Type::Image2D,
          .format     = renderer.vulkanState().findDepthFormat(),
          .usage      = VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
@@ -80,21 +78,21 @@ void Scene3DInstance::init(ds::InitContext& ctx) {
          .aspect     = VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT,
          .viewAspect = VK_IMAGE_ASPECT_DEPTH_BIT});
     emptyPointShadowMap.create(
-        renderer.vulkanState(),
+        renderer,
         {.type       = vk::ImageOptions::Type::Cubemap,
          .format     = renderer.vulkanState().findDepthFormat(),
          .usage      = VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
          .extent     = renderer.getSettings().getShadowMapResolution(),
          .aspect     = VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT,
          .viewAspect = VK_IMAGE_ASPECT_DEPTH_BIT});
-    emptySSAOImage.create(renderer.vulkanState(),
+    emptySSAOImage.create(renderer,
                           {.type   = vk::ImageOptions::Type::Image2D,
                            .format = vk::CommonTextureFormats::SingleChannelUnorm8,
                            .usage  = VK_IMAGE_USAGE_SAMPLED_BIT,
                            .extent = {4, 4},
                            .aspect = VK_IMAGE_ASPECT_COLOR_BIT});
 
-    auto commandBuffer = renderer.vulkanState().getSharedCommandPool().createBuffer();
+    auto commandBuffer = renderer.getSharedCommandPool().createBuffer();
     emptySpotShadowMap.clearAndTransition(
         commandBuffer, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, {.depthStencil = {1.f, 0}});
     emptyPointShadowMap.clearAndTransition(
@@ -105,7 +103,7 @@ void Scene3DInstance::init(ds::InitContext& ctx) {
 
     // allocate descriptors
     descriptorSets.emptyInit(renderer.vulkanState());
-    allocHandle = renderer.vulkanState().getDescriptorPool().allocate(
+    allocHandle = renderer.getDescriptorPool().allocate(
         setLayout, descriptorSets.rawData(), descriptorSets.size());
 
     // create and configureWrite descriptors

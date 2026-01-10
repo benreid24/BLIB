@@ -109,7 +109,7 @@ void Pipeline::createForRenderPass(std::uint32_t rpid, std::uint32_t spec) {
         auto& info         = shaderStages.emplace_back(VkPipelineShaderStageCreateInfo{});
         info.sType         = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
         info.stage         = static_cast<VkShaderStageFlagBits>(shader.stage);
-        info.module        = renderer.vulkanState().getShaderCache().loadShader(shader.path);
+        info.module        = renderer.getShaderCache().loadShader(shader.path);
         info.pName         = shader.entrypoint.c_str();
 
         for (auto& spec : specialization.shaderSpecializations) {
@@ -206,7 +206,7 @@ void Pipeline::process(const event::RenderPassInvalidated& event) {
 void Pipeline::recreateForRenderPass(std::uint32_t rpid) {
     for (std::uint32_t spec = 0; spec < pipelines[rpid].size(); ++spec) {
         if (pipelines[spec][rpid]) {
-            renderer.vulkanState().getCleanupManager().add(
+            renderer.getCleanupManager().add(
                 [device = renderer.vulkanState().getDevice(), pipeline = pipelines[spec][rpid]]() {
                     vkDestroyPipeline(device, pipeline, nullptr);
                 });

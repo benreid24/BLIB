@@ -74,7 +74,7 @@ MaterialRef MaterialPool::getOrCreateFromDiffuseAndSpecular(const TextureRef& di
 void MaterialPool::init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
                         vk::PerFrame<VkDescriptorSet>& rtDescriptorSets) {
     materials.resize(MaxMaterialCount);
-    gpuPool.create(renderer.vulkanState(), MaxMaterialCount);
+    gpuPool.create(renderer, MaxMaterialCount);
     refCounts.resize(MaxMaterialCount, 0);
 
     VkDescriptorBufferInfo bufferInfo;

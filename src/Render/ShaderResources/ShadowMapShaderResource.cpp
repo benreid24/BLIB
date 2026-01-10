@@ -20,10 +20,10 @@ void ShadowMapShaderResource::createImages() {
             VK_IMAGE_ASPECT_DEPTH_BIT :
             (VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT);
 
-    auto commandBuffer = renderer->vulkanState().getSharedCommandPool().createBuffer();
+    auto commandBuffer = renderer->getSharedCommandPool().createBuffer();
     for (auto& map : spotShadowMaps) {
         map.image.create(
-            renderer->vulkanState(),
+            *renderer,
             {.type       = vk::ImageOptions::Type::Image2D,
              .format     = depthFormat,
              .usage      = VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
@@ -33,11 +33,11 @@ void ShadowMapShaderResource::createImages() {
         map.image.clearAndTransition(
             commandBuffer, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, {.depthStencil = {1.f, 0}});
         map.attachmentSet.emplace(map.image);
-        map.framebuffer.create(renderer->vulkanState(), &renderPass, map.attachmentSet.value());
+        map.framebuffer.create(*renderer, &renderPass, map.attachmentSet.value());
     }
     for (auto& map : pointShadowMaps) {
         map.image.create(
-            renderer->vulkanState(),
+            *renderer,
             {.type       = vk::ImageOptions::Type::Cubemap,
              .format     = depthFormat,
              .usage      = VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
@@ -47,7 +47,7 @@ void ShadowMapShaderResource::createImages() {
         map.image.clearAndTransition(
             commandBuffer, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, {.depthStencil = {1.f, 0}});
         map.attachmentSet.emplace(map.image);
-        map.framebuffer.create(renderer->vulkanState(), &renderPass, map.attachmentSet.value());
+        map.framebuffer.create(*renderer, &renderPass, map.attachmentSet.value());
     }
     commandBuffer.submit();
 }

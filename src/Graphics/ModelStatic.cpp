@@ -45,7 +45,7 @@ com::BasicMesh* ModelStatic::createComponents(engine::World& world, Tx& tx, ecs:
     transform->setTransform(tfrm);
 
     auto* mesh = world.engine().ecs().emplaceComponentWithTx<com::BasicMesh>(entity, tx);
-    mesh->create(world.engine().renderer().vulkanState(), src);
+    mesh->create(world.engine().renderer(), src);
 
     auto mat = world.engine().renderer().materialPool().getOrCreateFromModelMaterial(
         model->getMaterials().getMaterial(src.getMaterialIndex()));

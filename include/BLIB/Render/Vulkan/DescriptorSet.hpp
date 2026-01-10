@@ -8,9 +8,10 @@ namespace bl
 {
 namespace rc
 {
+class Renderer;
+
 namespace vk
 {
-struct VulkanLayer;
 
 /**
  * @brief Wrapper around a single allocated descriptor set from the DescriptorPool
@@ -27,19 +28,18 @@ public:
     /**
      * @brief Creates an un-allocated descriptor set
      *
-     * @param vulkanState Renderer Vulkan state
+     * @param renderer Renderer Vulkan state
      */
-    DescriptorSet(VulkanLayer& vulkanState);
+    DescriptorSet(Renderer& renderer);
 
     /**
      * @brief Creates and allocates the descriptor set
      *
-     * @param vulkanState Renderer Vulkan state
+     * @param renderer The renderer instance
      * @param layout The layout to allocate
      * @param dedicatedPool True to use a dedicated descriptor pool, false to use shared pools
      */
-    DescriptorSet(VulkanLayer& vulkanState, VkDescriptorSetLayout layout,
-                  bool dedicatedPool = false);
+    DescriptorSet(Renderer& renderer, VkDescriptorSetLayout layout, bool dedicatedPool = false);
 
     /**
      * @brief Deleted
@@ -75,9 +75,9 @@ public:
     /**
      * @brief Deferred init of Vulkan state pointer. For use with PerFrame
      *
-     * @param vs The renderer Vulkan state
+     * @param renderer The renderer instance
      */
-    void init(VulkanLayer& vs);
+    void init(Renderer& renderer);
 
     /**
      * @brief Creates and allocates the descriptor set. Defers release of the prior set if any
@@ -115,7 +115,7 @@ public:
               std::uint32_t index);
 
 private:
-    VulkanLayer* vulkanState;
+    Renderer* renderer;
     vk::DescriptorPool::AllocationHandle alloc;
     VkDescriptorSet set;
 };

@@ -60,17 +60,17 @@ DescriptorSetInstance<T, GpuT>::Instance::Instance(engine::Engine& engine,
 : device(engine.renderer().vulkanState().getDevice())
 , layout(layout) {
     if constexpr (HasGlobals) {
-        globals.create(engine.renderer().vulkanState(), 1);
+        globals.create(engine.renderer(), 1);
         globals.transferEveryFrame();
     }
 
-    storage.create(engine.renderer().vulkanState(), 128);
-    globalSystemInfo.create(engine.renderer().vulkanState(), 1);
+    storage.create(engine.renderer(), 128);
+    globalSystemInfo.create(engine.renderer(), 1);
     globalSystemInfo.transferEveryFrame();
     unsigned int i = 0;
     descriptorSets.init(engine.renderer().vulkanState(),
                         [this, &engine, layout, &i](rc::vk::DescriptorSet& set) {
-                            set.init(engine.renderer().vulkanState());
+                            set.init(engine.renderer());
                             writeDescriptorSet(i++, set);
                         });
     link = engine.ecs().getComponent<Link<T>>(entity);

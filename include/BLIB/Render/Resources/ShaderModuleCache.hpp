@@ -9,6 +9,8 @@ namespace bl
 {
 namespace rc
 {
+class Renderer;
+
 namespace vk
 {
 struct VulkanLayer;
@@ -40,6 +42,7 @@ private:
     void cleanup();
 
     friend struct vk::VulkanLayer;
+    friend class Renderer;
 };
 
 } // namespace res

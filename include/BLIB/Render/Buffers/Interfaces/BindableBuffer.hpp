@@ -5,6 +5,7 @@
 #include <BLIB/Render/Buffers/Alignment.hpp>
 #include <BLIB/Render/Buffers/DirtyRange.hpp>
 #include <BLIB/Render/Config/Limits.hpp>
+#include <BLIB/Render/HeaderHelpers.hpp>
 #include <BLIB/Render/Transfers/Transferable.hpp>
 #include <BLIB/Render/Vulkan/Buffer.hpp>
 #include <BLIB/Render/Vulkan/VulkanLayer.hpp>
@@ -18,9 +19,10 @@ namespace bl
 {
 namespace rc
 {
+class Renderer;
+
 namespace vk
 {
-struct VulkanLayer;
 class Buffer;
 } // namespace vk
 
@@ -55,13 +57,13 @@ public:
     /**
      * @brief Creates the buffer
      *
-     * @param vs The renderer Vulkan state
+     * @param renderer The renderer instance
      * @param numElements The number of data elements to size the buffer for
      */
-    void create(vk::VulkanLayer& vs, std::uint32_t numElements) {
-        vulkanState = &vs;
-        alignment   = computeAlignment(sizeof(T), Align);
-        doCreate(vs, numElements);
+    void create(Renderer& renderer, std::uint32_t numElements) {
+        this->renderer = &renderer;
+        alignment      = computeAlignment(sizeof(T), Align);
+        doCreate(renderer, numElements);
     }
 
     /**
@@ -122,7 +124,7 @@ public:
     /**
      * @brief Returns the underlying buffer for the current frame
      */
-    vk::Buffer& getCurrentFrameBuffer() { return getBuffer(vulkanState->currentFrameIndex()); }
+    vk::Buffer& getCurrentFrameBuffer() { return getBuffer(getVulkanState().currentFrameIndex()); }
 
     /**
      * @brief Returns the direct Vulkan handle of the underlying buffer for the given frame
@@ -163,17 +165,22 @@ public:
 
 protected:
     /**
+     * @brief Returns the renderer instance this buffer is owned by
+     */
+    Renderer& getRenderer() { return *renderer; }
+
+    /**
      * @brief Returns the renderer Vulkan state
      */
-    vk::VulkanLayer& getVulkanState() { return *vulkanState; }
+    vk::VulkanLayer& getVulkanState() { return HeaderHelpers::getVulkanLayer(*renderer); }
 
     /**
      * @brief Called when the buffer should be created
      *
-     * @param vulkanState The renderer Vulkan state
+     * @param renderer The renderer instance
      * @param numElements The number of data elements to size the buffer for
      */
-    virtual void doCreate(vk::VulkanLayer& vulkanState, std::uint32_t numElements) = 0;
+    virtual void doCreate(Renderer& renderer, std::uint32_t numElements) = 0;
 
     /**
      * @brief Logs a warning. Derived classes should override this if used

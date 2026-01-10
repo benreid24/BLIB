@@ -28,7 +28,7 @@ void Sprite::create(rc::Renderer* renderer, const rc::res::TextureRef& txtr, sf:
             throw std::runtime_error("Renderer must be supplied to first call to create()");
         }
 #endif
-        buffer.create(renderer->vulkanState(), 4, 6);
+        buffer.create(*renderer, 4, 6);
         buffer.indices() = {0, 1, 2, 0, 2, 3};
     }
 

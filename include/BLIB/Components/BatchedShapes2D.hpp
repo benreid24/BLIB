@@ -20,11 +20,11 @@ struct BatchedShapes2D : public rc::rcom::DrawableBase {
     /**
      * @brief Creates the index buffer with the given starting capacities
      *
-     * @param vulkanState The engine renderer Vulkan state
+     * @param renderer The renderer instance
      * @param vertexCapacity The number of vertices to allocate
      * @param indexCapacity The number of indices to allocate
      */
-    BatchedShapes2D(rc::vk::VulkanLayer& vulkanState, std::uint32_t vertexCapacity,
+    BatchedShapes2D(rc::Renderer& renderer, std::uint32_t vertexCapacity,
                     std::uint32_t indexCapacity);
 
     /**

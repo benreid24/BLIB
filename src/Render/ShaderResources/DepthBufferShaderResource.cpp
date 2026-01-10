@@ -60,7 +60,7 @@ void DepthBufferShaderResource::process(const event::SettingsChanged& event) {
 void DepthBufferShaderResource::createAttachment(const glm::u32vec2& size) {
     auto& r = engine->renderer();
 
-    buffer.create(r.vulkanState(),
+    buffer.create(r,
                   {.type       = vk::ImageOptions::Type::Image2D,
                    .format     = r.vulkanState().findDepthFormat(),
                    .usage      = VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,

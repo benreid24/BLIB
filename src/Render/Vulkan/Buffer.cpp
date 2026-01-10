@@ -1,5 +1,6 @@
 #include <BLIB/Render/Vulkan/Buffer.hpp>
 
+#include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 
 namespace bl
@@ -9,7 +10,7 @@ namespace rc
 namespace vk
 {
 Buffer::Buffer()
-: vulkanState(nullptr)
+: renderer(nullptr)
 , buffer(nullptr)
 , alloc{}
 , mapped(nullptr)
@@ -20,14 +21,14 @@ Buffer::Buffer()
 
 Buffer::~Buffer() { deferDestruction(); }
 
-bool Buffer::create(VulkanLayer& vs, VkDeviceSize bsize, VkMemoryPropertyFlags memProps,
+bool Buffer::create(Renderer& r, VkDeviceSize bsize, VkMemoryPropertyFlags memProps,
                     VkBufferUsageFlags use, VmaAllocationCreateFlags flags) {
     doDefer();
-    vulkanState = &vs;
-    memPool     = memProps;
-    size        = bsize;
-    usage       = use;
-    allocFlags  = flags;
+    renderer   = &r;
+    memPool    = memProps;
+    size       = bsize;
+    usage      = use;
+    allocFlags = flags;
 
     return doCreate();
 }
@@ -46,44 +47,45 @@ bool Buffer::doCreate() {
 
     VmaAllocationInfo resultInfo{};
     const VkResult result =
-        vulkanState->createBuffer(bufferInfo, allocInfo, buffer, alloc, &resultInfo);
+        renderer->vulkanState().createBuffer(bufferInfo, allocInfo, buffer, alloc, &resultInfo);
     if (result != VK_SUCCESS) {
-        vulkanState = nullptr;
-        size        = 0;
+        renderer = nullptr;
+        size     = 0;
         return false;
     }
     mapped = resultInfo.pMappedData;
     return true;
 }
 
-bool Buffer::createWithFallback(VulkanLayer& vs, VkDeviceSize bsize, VkMemoryPropertyFlags memProps,
+bool Buffer::createWithFallback(Renderer& r, VkDeviceSize bsize, VkMemoryPropertyFlags memProps,
                                 VkMemoryPropertyFlags fallbackPool, VkBufferUsageFlags use,
                                 VmaAllocationCreateFlags flags) {
-    if (!create(vs, bsize, memProps, use, flags)) {
-        return create(vs, bsize, fallbackPool, use, flags);
+    if (!create(r, bsize, memProps, use, flags)) {
+        return create(r, bsize, fallbackPool, use, flags);
     }
     return true;
 }
 
 void Buffer::destroy() {
     if (created()) {
-        vmaDestroyBuffer(vulkanState->getVmaAllocator(), buffer, alloc);
-        vulkanState = nullptr;
-        size        = 0;
+        vmaDestroyBuffer(renderer->vulkanState().getVmaAllocator(), buffer, alloc);
+        renderer = nullptr;
+        size     = 0;
     }
 }
 
 void Buffer::deferDestruction() {
     doDefer();
-    vulkanState = nullptr;
-    size        = 0;
+    renderer = nullptr;
+    size     = 0;
 }
 
 void Buffer::doDefer() {
     if (created()) {
-        vulkanState->getCleanupManager().add([vs = vulkanState, buffer = buffer, alloc = alloc]() {
-            vmaDestroyBuffer(vs->getVmaAllocator(), buffer, alloc);
-        });
+        renderer->getCleanupManager().add(
+            [vs = &renderer->vulkanState(), buffer = buffer, alloc = alloc]() {
+                vmaDestroyBuffer(vs->getVmaAllocator(), buffer, alloc);
+            });
     }
 }
 
@@ -97,7 +99,7 @@ bool Buffer::ensureSize(VkDeviceSize newSize, bool skipCopy) {
         if (!doCreate()) { throw std::runtime_error("Failed to resize buffer"); }
 
         if (!skipCopy) {
-            auto commandBuffer = vulkanState->getSharedCommandPool().createBuffer();
+            auto commandBuffer = renderer->getSharedCommandPool().createBuffer();
 
             // barrier to ensure writes to old buffer are complete
             VkBufferMemoryBarrier barrier{};
@@ -153,14 +155,14 @@ bool Buffer::ensureSize(VkDeviceSize newSize, bool skipCopy) {
 }
 
 void* Buffer::mapMemory() {
-    vmaMapMemory(vulkanState->getVmaAllocator(), alloc, &mapped);
+    vmaMapMemory(renderer->vulkanState().getVmaAllocator(), alloc, &mapped);
     return mapped;
 }
 
-void Buffer::unMapMemory() { vmaUnmapMemory(vulkanState->getVmaAllocator(), alloc); }
+void Buffer::unMapMemory() { vmaUnmapMemory(renderer->vulkanState().getVmaAllocator(), alloc); }
 
 void Buffer::insertPipelineBarrierBeforeChange() {
-    auto cb = vulkanState->getSharedCommandPool().createBuffer();
+    auto cb = renderer->getSharedCommandPool().createBuffer();
 
     VkBufferMemoryBarrier barrier{};
     barrier.sType         = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;

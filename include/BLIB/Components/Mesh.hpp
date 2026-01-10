@@ -27,13 +27,12 @@ struct Mesh : public rc::rcom::DrawableBase {
     /**
      * @brief Helper method to initialize all the mesh data
      *
-     * @param vulkanState Renderer Vulkan state
+     * @param renderer The renderer instance
      * @param vertexCount Number of vertices to create
      * @param indexCount Number of indices to create
      */
-    void create(rc::vk::VulkanLayer& vulkanState, std::uint32_t vertexCount,
-                std::uint32_t indexCount) {
-        gpuBuffer.create(vulkanState, vertexCount, indexCount);
+    void create(rc::Renderer& renderer, std::uint32_t vertexCount, std::uint32_t indexCount) {
+        gpuBuffer.create(renderer, vertexCount, indexCount);
         drawParams = gpuBuffer.getDrawParameters();
         gpuBuffer.queueTransfer();
     }
@@ -41,13 +40,13 @@ struct Mesh : public rc::rcom::DrawableBase {
     /**
      * @brief Helper method to initialize all the mesh data
      *
-     * @param vulkanState Renderer Vulkan state
+     * @param renderer The renderer instance
      * @param vertices An existing vertex buffer to take over
      * @param indices An existing index buffer to take over
      */
-    void create(rc::vk::VulkanLayer& vulkanState, std::vector<TVertex>&& vertices,
+    void create(rc::Renderer& renderer, std::vector<TVertex>&& vertices,
                 std::vector<std::uint32_t>&& indices) {
-        gpuBuffer.create(vulkanState, std::move(vertices), std::move(indices));
+        gpuBuffer.create(renderer, std::move(vertices), std::move(indices));
         drawParams = gpuBuffer.getDrawParameters();
         gpuBuffer.queueTransfer();
     }
@@ -55,11 +54,11 @@ struct Mesh : public rc::rcom::DrawableBase {
     /**
      * @brief Creates the mesh from the loaded mesh source
      *
-     * @param vulkanState Renderer Vulkan state
+     * @param renderer The renderer instance
      * @param src The mesh source
      */
-    void create(rc::vk::VulkanLayer& vulkanState, const mdl::Mesh& src) {
-        create(vulkanState, src.getVertices().size(), src.getIndices().size());
+    void create(rc::Renderer& renderer, const mdl::Mesh& src) {
+        create(renderer, src.getVertices().size(), src.getIndices().size());
         for (unsigned int i = 0; i < src.getVertices().size(); ++i) {
             gpuBuffer.vertices()[i] = src.getVertices()[i];
         }

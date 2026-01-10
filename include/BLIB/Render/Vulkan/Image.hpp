@@ -10,11 +10,10 @@ namespace bl
 {
 namespace rc
 {
+class Renderer;
+
 namespace vk
 {
-struct VulkanLayer;
-class AttachmentSet;
-
 /**
  * @brief Utility class to create and manage an image
  *
@@ -81,10 +80,10 @@ public:
     /**
      * @brief Creates or resizes the image. Noop if extent is unchanged
      *
-     * @param vulkanState Renderer Vulkan state
+     * @param vulkanState Renderer instance
      * @param options The options to use for the image creation
      */
-    void create(VulkanLayer& vulkanState, const ImageOptions& options);
+    void create(Renderer& vulkanState, const ImageOptions& options);
 
     /**
      * @brief Resizes the image to the new size, optionally copying over the old contents
@@ -259,7 +258,7 @@ public:
                        VkImageLayout newLayout = VK_IMAGE_LAYOUT_UNDEFINED);
 
 private:
-    VulkanLayer* vulkanState;
+    Renderer* renderer;
     VmaAllocation alloc;
     VkImage imageHandle;
     VkImageView viewHandle;
@@ -291,7 +290,7 @@ inline VkMemoryPropertyFlags Image::getMemoryLocation() const {
     return createOptions.memoryLocation;
 }
 
-inline bool Image::isCreated() const { return vulkanState != nullptr; }
+inline bool Image::isCreated() const { return renderer != nullptr; }
 
 inline VkSampleCountFlagBits Image::getSampleCount() const { return createOptions.samples; }
 

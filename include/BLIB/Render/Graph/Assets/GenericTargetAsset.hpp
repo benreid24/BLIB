@@ -237,7 +237,7 @@ private:
             attachmentSet.setRenderExtent(cachedScissor.extent);
 
             if (createResolve) {
-                resolveImages.create(renderer->vulkanState(),
+                resolveImages.create(*renderer,
                                      ResolveAttachmentCount,
                                      {cachedScissor.extent.width, cachedScissor.extent.height},
                                      Traits::Formats.data(),
@@ -264,7 +264,7 @@ private:
                 ++ac;
             }
             attachmentSet.setAttachmentCount(ac);
-            framebuffer.create(renderer->vulkanState(), renderPass, attachmentSet);
+            framebuffer.create(*renderer, renderPass, attachmentSet);
         }
     }
 

@@ -38,7 +38,7 @@ void RenderPass::process(const event::TextureFormatChanged& e) {
 }
 
 void RenderPass::recreate() {
-    renderer.vulkanState().getCleanupManager().add(
+    renderer.getCleanupManager().add(
         [device = renderer.vulkanState().getDevice(), rp = renderPass]() {
             vkDestroyRenderPass(device, rp, nullptr);
         });
@@ -106,7 +106,7 @@ void RenderPass::doCreate() {
     for (unsigned int i = 0; i < attachments.size(); ++i) {
         if (createParams.semanticFormats[i] != SemanticTextureFormat::NonSematic) {
             attachments[i].format =
-                renderer.vulkanState().getTextureFormatManager().getFormat(semanticFormats[i]);
+                renderer.getTextureFormatManager().getFormat(semanticFormats[i]);
         }
     }
 

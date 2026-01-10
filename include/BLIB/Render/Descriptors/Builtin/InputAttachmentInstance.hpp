@@ -11,6 +11,8 @@ namespace bl
 {
 namespace rc
 {
+class Renderer;
+
 namespace dsi
 {
 /**
@@ -28,7 +30,7 @@ public:
      * @param attachmentCount The number of attachments that will be bound
      * @param startIndex The index of the first attachment to bind
      */
-    InputAttachmentInstance(vk::VulkanLayer& vulkanState, VkDescriptorSetLayout layout,
+    InputAttachmentInstance(Renderer& renderer, VkDescriptorSetLayout layout,
                             std::uint32_t attachmentCount, std::uint32_t startIndex);
 
     /**
@@ -103,7 +105,7 @@ private:
 
     const std::uint32_t startIndex;
     const std::uint32_t attachmentCount;
-    vk::VulkanLayer& vulkanState;
+    Renderer& renderer;
     VkDescriptorSetLayout layout;
     vk::DescriptorPool::AllocationHandle dsAlloc;
     vk::PerFrame<VkDescriptorSet> descriptorSets;

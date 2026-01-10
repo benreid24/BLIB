@@ -37,17 +37,17 @@ TexturePool::TexturePool(Renderer& r, vk::VulkanLayer& vs)
 , cubemapFreeSlots(cfg::Limits::MaxCubemapCount)
 , reverseFileMap(cfg::Limits::MaxTextureCount - cfg::Limits::MaxRenderTextures)
 , reverseImageMap(cfg::Limits::MaxTextureCount - cfg::Limits::MaxRenderTextures) {
-    errorTexture.vulkanState = &vs;
-    errorTexture.parent      = this;
-    errorCubemap.vulkanState = &vs;
-    errorCubemap.parent      = this;
+    errorTexture.renderer = &r;
+    errorTexture.parent   = this;
+    errorCubemap.renderer = &r;
+    errorCubemap.parent   = this;
     for (auto& t : textures) {
-        t.parent      = this;
-        t.vulkanState = &vs;
+        t.parent   = this;
+        t.renderer = &r;
     }
     for (auto& t : cubemaps) {
-        t.parent      = this;
-        t.vulkanState = &vs;
+        t.parent   = this;
+        t.renderer = &r;
     }
     queuedUpdates.init(vs, [](auto& vec) { vec.reserve(8); });
     toRelease.reserve(64);
@@ -75,7 +75,7 @@ void TexturePool::init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
         vk::Texture::Type::Cubemap,
         {.format  = vk::CommonTextureFormats::SRGBA32Bit,
          .sampler = vk::SamplerOptions::Type::FilteredRepeated});
-    vulkanState.getTransferEngine().executeTransfers();
+    renderer.getTransferEngine().executeTransfers();
 
     // init all textures to error pattern
     for (vk::Texture& txtr : textures) { txtr.currentView = errorTexture.currentView; }

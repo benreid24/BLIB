@@ -1,5 +1,8 @@
 #include <BLIB/Render/Vulkan/AttachmentImageSet.hpp>
 
+#include <BLIB/Render/Renderer.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
+
 namespace bl
 {
 namespace rc
@@ -9,28 +12,26 @@ namespace vk
 AttachmentImageSet::AttachmentImageSet()
 : owner(nullptr) {}
 
-void AttachmentImageSet::create(VulkanLayer& vulkanState, unsigned int count,
-                                const VkExtent2D& size,
+void AttachmentImageSet::create(Renderer& renderer, unsigned int count, const VkExtent2D& size,
                                 const vk::SemanticTextureFormat* bufferFormats,
                                 const VkImageUsageFlags* usages, VkSampleCountFlagBits samples,
                                 std::uint32_t firstResolveAttachment) {
-    owner = &vulkanState;
+    owner = &renderer;
     attachments.setRenderExtent(size);
 
-    auto commandBuffer = vulkanState.getSharedCommandPool().createBuffer();
+    auto commandBuffer = owner->getSharedCommandPool().createBuffer();
     std::array<VkImageAspectFlags, MaxBufferCount> aspects;
     for (std::uint32_t i = 0; i < count; ++i) {
         formats[i] = bufferFormats[i];
         aspects[i] = VulkanLayer::guessImageAspect(bufferFormats[i]);
-        buffers[i].create(
-            vulkanState,
-            {.type       = ImageOptions::Type::Image2D,
-             .format     = vulkanState.getTextureFormatManager().getFormat(bufferFormats[i]),
-             .usage      = usages[i],
-             .extent     = size,
-             .aspect     = aspects[i],
-             .allocFlags = VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT,
-             .samples    = samples});
+        buffers[i].create(renderer,
+                          {.type   = ImageOptions::Type::Image2D,
+                           .format = renderer.getTextureFormatManager().getFormat(bufferFormats[i]),
+                           .usage  = usages[i],
+                           .extent = size,
+                           .aspect = aspects[i],
+                           .allocFlags = VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT,
+                           .samples    = samples});
         images[i] = buffers[i].getImage();
         views[i]  = buffers[i].getView();
         buffers[i].clearAndTransition(commandBuffer,

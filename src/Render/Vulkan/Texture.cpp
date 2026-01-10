@@ -79,7 +79,7 @@ void Texture::create(Type t, const glm::u32vec2& s, const TextureOptions& option
     type          = t;
     createOptions = options;
 
-    image.create(*vulkanState,
+    image.create(*renderer,
                  {.type   = mapType(type),
                   .format = createOptions.format,
                   .usage  = VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT |

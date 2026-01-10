@@ -38,7 +38,7 @@ void SSAOTask::create(const rg::InitContext& ctx) {
     genPipeline.init(&gen, sets);
     blurPipeline.init(&blur, sets);
 
-    fullscreenRect.create(ctx.vulkanState, 4, 6);
+    fullscreenRect.create(ctx.renderer, 4, 6);
     fullscreenRect.indices()  = {0, 1, 3, 1, 2, 3};
     fullscreenRect.vertices() = {prim::Vertex3D({-1.f, -1.f, 1.0f}, {0.f, 0.f}),
                                  prim::Vertex3D({1.f, -1.f, 1.0f}, {1.f, 0.f}),

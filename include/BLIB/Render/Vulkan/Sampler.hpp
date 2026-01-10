@@ -7,10 +7,10 @@ namespace bl
 {
 namespace rc
 {
+class Renderer;
+
 namespace vk
 {
-struct VulkanLayer;
-
 /**
  * @brief Thin wrapper for managed VkSampler objects
  *
@@ -26,11 +26,11 @@ public:
     /**
      * @brief Creates the sampler from the underlying Vulkan primitives
      *
-     * @param device The Vulkan logical device
+     * @param renderer The renderer instance
      * @param sampler The sampler handle
      * @param owner Whether this object owns the sampler. Pass false if it is shared
      */
-    Sampler(VulkanLayer& vulkanState, VkSampler sampler, bool owner = true);
+    Sampler(Renderer& renderer, VkSampler sampler, bool owner = true);
 
     /**
      * @brief Assumes ownership of the underlying sampler from the other object
@@ -73,7 +73,7 @@ public:
     void deferRelease();
 
 private:
-    VulkanLayer* vulkanState;
+    Renderer* renderer;
     VkSampler sampler;
     bool owner;
 

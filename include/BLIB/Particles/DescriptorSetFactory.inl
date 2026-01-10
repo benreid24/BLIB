@@ -38,7 +38,7 @@ void DescriptorSetFactory<T, GpuT>::init(bl::engine::Engine& e, bl::rc::Renderer
         bindings.bindings[2].stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
     }
 
-    descriptorSetLayout = renderer.vulkanState().getDescriptorPool().createLayout(bindings);
+    descriptorSetLayout = renderer.getDescriptorPool().createLayout(bindings);
 }
 
 template<typename T, typename GpuT>

@@ -15,6 +15,7 @@ namespace bl
 {
 namespace rc
 {
+class Renderer;
 class WindowSettings;
 
 namespace vk
@@ -31,11 +32,11 @@ public:
     /**
      * @brief Creates a new swap chain
      *
-     * @param vulkanState The renderer vulkan state
+     * @param renderer The renderer instance
      * @param window The window to attach to
      * @param windowSettings The window settings used to create the window
      */
-    Swapchain(VulkanLayer& vulkanState, sf::WindowBase& window, WindowSettings& windowSettings);
+    Swapchain(Renderer& renderer, sf::WindowBase& window, WindowSettings& windowSettings);
 
     /**
      * @brief Destroys the swap chain and other held resources
@@ -117,7 +118,7 @@ private:
         VkSemaphore current();
     };
 
-    VulkanLayer& vulkanState;
+    Renderer& renderer;
     sf::WindowBase& window;
     WindowSettings& windowSettings;
 

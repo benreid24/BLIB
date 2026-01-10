@@ -7,10 +7,10 @@ namespace bl
 {
 namespace rc
 {
+class Renderer;
+
 namespace vk
 {
-struct VulkanLayer;
-
 /**
  * @brief Wrapper over Vulkan buffers. Provides simpler interfaces and resize ability
  *
@@ -31,20 +31,20 @@ public:
     /**
      * @brief Creates the buffer with the given parameters
      *
-     * @param vulkanState The renderer Vulkan state
+     * @param renderer The renderer instance
      * @param size The size of the buffer in bytes
      * @param memPool Which memory type to use
      * @param usage How the buffer will be used
      * @param allocFlags VMA allocation flags to use for the VMA allocation
      * @return True if the buffer was able to be created, false otherwise
      */
-    bool create(VulkanLayer& vulkanState, VkDeviceSize size, VkMemoryPropertyFlags memPool,
+    bool create(Renderer& renderer, VkDeviceSize size, VkMemoryPropertyFlags memPool,
                 VkBufferUsageFlags usage, VmaAllocationCreateFlags allocFlags);
 
     /**
      * @brief Creates the buffer with the given parameters and a backup memory type
      *
-     * @param vulkanState The renderer Vulkan state
+     * @param renderer The renderer instance
      * @param size The size of the buffer in bytes
      * @param memPool Which memory type to use
      * @param fallbackPool Memory type to use if the desired memory type fails creation
@@ -52,9 +52,9 @@ public:
      * @param allocFlags VMA allocation flags to use for the VMA allocation
      * @return True if the buffer was able to be created, false otherwise
      */
-    bool createWithFallback(VulkanLayer& vulkanState, VkDeviceSize size,
-                            VkMemoryPropertyFlags memPool, VkMemoryPropertyFlags fallbackPool,
-                            VkBufferUsageFlags usage, VmaAllocationCreateFlags allocFlags);
+    bool createWithFallback(Renderer& renderer, VkDeviceSize size, VkMemoryPropertyFlags memPool,
+                            VkMemoryPropertyFlags fallbackPool, VkBufferUsageFlags usage,
+                            VmaAllocationCreateFlags allocFlags);
 
     /**
      * @brief If the buffer size is less than the required size, re-creates the buffer to be at
@@ -138,7 +138,7 @@ public:
     void insertPipelineBarrierBeforeChange();
 
 private:
-    VulkanLayer* vulkanState;
+    Renderer* renderer;
     VkBuffer buffer;
     VmaAllocation alloc;
     void* mapped;
@@ -153,7 +153,7 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline bool Buffer::created() const { return vulkanState != nullptr; }
+inline bool Buffer::created() const { return renderer != nullptr; }
 
 inline VkBuffer Buffer::getBuffer() const { return buffer; }
 

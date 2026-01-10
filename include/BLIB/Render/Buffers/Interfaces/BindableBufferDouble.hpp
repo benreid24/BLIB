@@ -166,13 +166,13 @@ protected:
     /**
      * @brief Creates the buffers. Should be called by derived classes if they override it
      *
-     * @param vulkanState The renderer Vulkan state
+     * @param renderer The renderer instance
      * @param n The number of elements to size the buffer for
      */
-    virtual void doCreate(vk::VulkanLayer& vulkanState, std::uint32_t n) {
+    virtual void doCreate(Renderer& renderer, std::uint32_t n) {
         numElements = n;
-        buffers.init(vulkanState, [this, &vulkanState](vk::Buffer& buffer) {
-            buffer.createWithFallback(vulkanState,
+        buffers.init(this->getVulkanState(), [this, &renderer](vk::Buffer& buffer) {
+            buffer.createWithFallback(renderer,
                                       this->getTotalAlignedSize(),
                                       MemoryPool,
                                       FallbackMemoryPool,

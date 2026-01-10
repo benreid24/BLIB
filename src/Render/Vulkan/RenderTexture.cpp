@@ -30,8 +30,7 @@ RenderTexture::RenderTexture(engine::Engine& engine, Renderer& renderer, rg::Ass
     // TODO - should recreate on settings change
     texture = renderer.texturePool().createRenderTexture(
         size,
-        renderer.vulkanState().getTextureFormatManager().getFormat(
-            vk::SemanticTextureFormat::Color),
+        renderer.getTextureFormatManager().getFormat(vk::SemanticTextureFormat::Color),
         sampler);
     resize(size);
 

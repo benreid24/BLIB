@@ -1,5 +1,6 @@
 #include <BLIB/Render/Resources/SamplerCache.hpp>
 
+#include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 #include <stdexcept>
 
@@ -9,8 +10,8 @@ namespace rc
 {
 namespace res
 {
-SamplerCache::SamplerCache(vk::VulkanLayer& vs)
-: vulkanState(vs)
+SamplerCache::SamplerCache(Renderer& renderer)
+: renderer(renderer)
 , createTable{}
 , samplerTable{} {}
 
@@ -21,10 +22,11 @@ void SamplerCache::init() {
     VkSamplerCreateInfo common{};
     common.sType            = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;
     common.anisotropyEnable = VK_TRUE;
-    common.maxAnisotropy    = vulkanState.getPhysicalDeviceProperties().limits.maxSamplerAnisotropy;
-    common.addressModeU     = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
-    common.addressModeV     = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
-    common.addressModeW     = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
+    common.maxAnisotropy =
+        renderer.vulkanState().getPhysicalDeviceProperties().limits.maxSamplerAnisotropy;
+    common.addressModeU            = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
+    common.addressModeV            = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
+    common.addressModeW            = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
     common.unnormalizedCoordinates = VK_FALSE;
     common.borderColor             = VK_BORDER_COLOR_FLOAT_TRANSPARENT_BLACK;
     common.compareEnable           = VK_FALSE;
@@ -104,7 +106,7 @@ void SamplerCache::init() {
 void SamplerCache::cleanup() {
     for (unsigned int t = 0; t < vk::SamplerOptions::TypeCount; ++t) {
         if (samplerTable[t]) {
-            vkDestroySampler(vulkanState.getDevice(), samplerTable[t], nullptr);
+            vkDestroySampler(renderer.vulkanState().getDevice(), samplerTable[t], nullptr);
         }
     }
 }
@@ -113,13 +115,14 @@ vk::Sampler SamplerCache::getSampler(const vk::SamplerOptions& options) {
     // TODO - add other params to options
     VkSampler& sampler = samplerTable[options.type];
     if (!sampler) {
-        if (VK_SUCCESS !=
-            vkCreateSampler(
-                vulkanState.getDevice(), &createTable[options.type], nullptr, &sampler)) {
+        if (VK_SUCCESS != vkCreateSampler(renderer.vulkanState().getDevice(),
+                                          &createTable[options.type],
+                                          nullptr,
+                                          &sampler)) {
             throw std::runtime_error("Failed to create sampler");
         }
     }
-    return vk::Sampler(vulkanState, sampler, false);
+    return vk::Sampler(renderer, sampler, false);
 }
 
 } // namespace res

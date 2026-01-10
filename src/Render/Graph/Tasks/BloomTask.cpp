@@ -48,7 +48,7 @@ void BloomTask::create(const rg::InitContext& ctx) {
         &renderer->pipelineCache().getPipeline(cfg::PipelineIds::BloomHighlightFilter);
     blurPipeline = &renderer->pipelineCache().getPipeline(cfg::PipelineIds::BloomBlur);
 
-    indexBuffer.create(renderer->vulkanState(), 4, 6);
+    indexBuffer.create(*renderer, 4, 6);
     indexBuffer.indices()  = {0, 1, 3, 1, 2, 3};
     indexBuffer.vertices() = {prim::Vertex({-1.f, -1.f, 1.0f}, {0.f, 0.f}),
                               prim::Vertex({1.f, -1.f, 1.0f}, {1.f, 0.f}),
@@ -68,13 +68,13 @@ void BloomTask::onGraphInit() {
                                .getFactory<dsi::InputAttachmentFactory<1>>()
                                ->getDescriptorLayout();
 
-    inputAttachmentDescriptor.emplace(renderer->vulkanState(), setLayout, 1, 0);
+    inputAttachmentDescriptor.emplace(*renderer, setLayout, 1, 0);
     inputAttachmentDescriptor.value().initAttachments(input->getAttachmentSets(), sampler);
 
-    output1Descriptor.emplace(renderer->vulkanState(), setLayout, 1, 0);
+    output1Descriptor.emplace(*renderer, setLayout, 1, 0);
     output1Descriptor.value().initAttachments(output->get(0).getAttachmentSets(), sampler);
 
-    output2Descriptor.emplace(renderer->vulkanState(), setLayout, 1, 0);
+    output2Descriptor.emplace(*renderer, setLayout, 1, 0);
     output2Descriptor.value().initAttachments(output->get(1).getAttachmentSets(), sampler);
 }
 

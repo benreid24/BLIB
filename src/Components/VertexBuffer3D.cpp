@@ -7,7 +7,7 @@ namespace bl
 namespace com
 {
 void VertexBuffer3D::create(engine::Engine& engine, unsigned int vc) {
-    buffer.create(engine.renderer().vulkanState(), vc, VK_BUFFER_USAGE_TRANSFER_SRC_BIT);
+    buffer.create(engine.renderer(), vc, VK_BUFFER_USAGE_TRANSFER_SRC_BIT);
     commit();
 }
 

@@ -4,12 +4,12 @@ namespace bl
 {
 namespace com
 {
-BatchedSlideshows::BatchedSlideshows(rc::vk::VulkanLayer& vulkanState, unsigned int ic) {
-    create(vulkanState, ic);
+BatchedSlideshows::BatchedSlideshows(rc::Renderer& renderer, unsigned int ic) {
+    create(renderer, ic);
 }
 
-void BatchedSlideshows::create(rc::vk::VulkanLayer& vulkanState, unsigned int ic) {
-    indexBuffer.create(vulkanState, ic * 4, ic * 6);
+void BatchedSlideshows::create(rc::Renderer& renderer, unsigned int ic) {
+    indexBuffer.create(renderer, ic * 4, ic * 6);
     drawParams = indexBuffer.getDrawParameters();
 }
 

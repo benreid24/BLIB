@@ -156,10 +156,10 @@ void RenderPassCache::addDefaults() {
 
     // primary render pass for final swapchain compositing
     VkAttachmentDescription swapDefaultColorAttachment{};
-    swapDefaultColorAttachment.format  = renderer.vulkanState().getSwapchain().swapImageFormat();
-    swapDefaultColorAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
-    swapDefaultColorAttachment.loadOp  = VK_ATTACHMENT_LOAD_OP_LOAD;
-    swapDefaultColorAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
+    swapDefaultColorAttachment.format         = renderer.getSwapchain().swapImageFormat();
+    swapDefaultColorAttachment.samples        = VK_SAMPLE_COUNT_1_BIT;
+    swapDefaultColorAttachment.loadOp         = VK_ATTACHMENT_LOAD_OP_LOAD;
+    swapDefaultColorAttachment.storeOp        = VK_ATTACHMENT_STORE_OP_STORE;
     swapDefaultColorAttachment.stencilLoadOp  = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
     swapDefaultColorAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
     swapDefaultColorAttachment.initialLayout  = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;

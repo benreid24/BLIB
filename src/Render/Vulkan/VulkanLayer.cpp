@@ -5,6 +5,7 @@
 
 #include <BLIB/Engine/Configuration.hpp>
 #include <BLIB/Logging.hpp>
+#include <BLIB/Render/Vulkan/CleanupManager.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Resources/FileSystem.hpp>
 #include <Render/Vulkan/Utils/QueueFamilyLocator.hpp>
@@ -156,13 +157,10 @@ int scorePhysicalDevice(VkPhysicalDevice device, const VkPhysicalDevicePropertie
 }
 } // namespace
 
-VulkanLayer::VulkanLayer(RenderWindow& window, WindowSettings& windowSettings)
+VulkanLayer::VulkanLayer(RenderWindow& window)
 : window(window)
 , device(nullptr)
 , surface(nullptr)
-, swapchain(*this, window.getSfWindow(), windowSettings)
-, transferEngine(*this)
-, descriptorPool(*this)
 , currentFrame(0) {}
 
 VulkanLayer::~VulkanLayer() {
@@ -177,26 +175,17 @@ void VulkanLayer::init() {
 #ifdef BLIB_DEBUG
     setupDebugMessenger();
 #endif
-    createSurface();
+    if (!window.createVulkanSurface(instance, surface)) {
+        throw std::runtime_error("Failed to create Vulkan surface");
+    }
     pickPhysicalDevice();
     createLogicalDevice();
     createVmaAllocator();
-    sharedCommandPool.create(*this);
-    swapchain.create();
-    transferEngine.init();
-    descriptorPool.init();
-    shaderCache.init(device);
 
     globalDeviceProperties = &physicalDeviceProperties;
 }
 
 void VulkanLayer::cleanup() {
-    cleanupManager.flush();
-    descriptorPool.cleanup();
-    transferEngine.cleanup();
-    shaderCache.cleanup();
-    swapchain.destroy();
-    sharedCommandPool.cleanup();
     vmaDestroyAllocator(vmaAllocator);
     vkDestroyDevice(device, nullptr);
 #ifdef BLIB_DEBUG
@@ -207,16 +196,7 @@ void VulkanLayer::cleanup() {
     device = nullptr;
 }
 
-void VulkanLayer::invalidateSwapChain() { swapchain.invalidate(); }
-
-void VulkanLayer::beginFrame(AttachmentSet*& renderFrame, VkCommandBuffer& commandBuffer) {
-    swapchain.beginFrame(renderFrame, commandBuffer);
-    cleanupManager.onFrameStart();
-}
-
-void VulkanLayer::completeFrame() {
-    std::unique_lock lock(cbSubmitMutex);
-    swapchain.completeFrame();
+void VulkanLayer::incrementFrame() {
     currentFrame = (currentFrame + 1) % cfg::Limits::MaxConcurrentFrames;
 }
 
@@ -325,7 +305,7 @@ void VulkanLayer::setupDebugMessenger() {
 }
 #endif
 
-void VulkanLayer::createSurface() {
+void VulkanLayer::createSurface(CleanupManager& cleanupManager) {
     if (surface) {
         cleanupManager.add([instance = instance, surface = surface]() {
             vkDestroySurfaceKHR(instance, surface, nullptr);
@@ -612,22 +592,6 @@ VkResult VulkanLayer::submitCommandBuffer(const VkSubmitInfo& submitInfo, VkFenc
     return r;
 }
 
-void VulkanLayer::transitionImageLayout(VkImage image, VkImageLayout oldLayout,
-                                        VkImageLayout newLayout, std::uint32_t layerCount,
-                                        VkImageAspectFlags aspect, std::uint32_t baseMipLevel,
-                                        std::uint32_t mipLevelCount) {
-    auto commandBuffer = sharedCommandPool.createBuffer();
-    transitionImageLayout(commandBuffer,
-                          image,
-                          oldLayout,
-                          newLayout,
-                          layerCount,
-                          aspect,
-                          baseMipLevel,
-                          mipLevelCount);
-    commandBuffer.submit();
-}
-
 void VulkanLayer::transitionImageLayout(VkCommandBuffer commandBuffer, VkImage image,
                                         VkImageLayout oldLayout, VkImageLayout newLayout,
                                         std::uint32_t layerCount, VkImageAspectFlags aspect,
@@ -700,29 +664,6 @@ void VulkanLayer::transitionImageLayout(VkCommandBuffer commandBuffer, VkImage i
 
     vkCmdPipelineBarrier(
         commandBuffer, sourceStage, destinationStage, 0, 0, nullptr, 0, nullptr, 1, &barrier);
-}
-
-void VulkanLayer::copyBufferToImage(VkBuffer buffer, VkImage image, std::uint32_t width,
-                                    std::uint32_t height) {
-    auto commandBuffer = sharedCommandPool.createBuffer();
-
-    VkBufferImageCopy region{};
-    region.bufferOffset      = 0;
-    region.bufferRowLength   = 0;
-    region.bufferImageHeight = 0;
-
-    region.imageSubresource.aspectMask     = VK_IMAGE_ASPECT_COLOR_BIT;
-    region.imageSubresource.mipLevel       = 0;
-    region.imageSubresource.baseArrayLayer = 0;
-    region.imageSubresource.layerCount     = 1;
-
-    region.imageOffset = {0, 0, 0};
-    region.imageExtent = {width, height, 1};
-
-    vkCmdCopyBufferToImage(
-        commandBuffer, buffer, image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &region);
-
-    commandBuffer.submit();
 }
 
 VkImageView VulkanLayer::createImageView(VkImage image, VkFormat format,

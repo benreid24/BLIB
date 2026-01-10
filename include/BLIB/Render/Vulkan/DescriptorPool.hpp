@@ -14,6 +14,8 @@ namespace bl
 {
 namespace rc
 {
+class Renderer;
+
 namespace vk
 {
 struct VulkanLayer;
@@ -41,7 +43,62 @@ public:
     };
 
     /// Handle to an allocation from the pool
-    using AllocationHandle = std::list<Allocation>::iterator;
+    struct AllocationHandle {
+        /**
+         * @brief Creates an empty allocation handle
+         */
+        AllocationHandle();
+
+        /**
+         * @brief Move constructor
+         *
+         * @param other The other handle to move from
+         */
+        AllocationHandle(AllocationHandle&& other);
+
+        /**
+         * @brief Copies an allocation handle
+         *
+         * @param other The other handle to copy from
+         */
+        AllocationHandle(const AllocationHandle& other);
+
+        /**
+         * @brief Move assignment operator
+         *
+         * @param other The other handle to move from
+         * @return A reference to this handle
+         */
+        AllocationHandle& operator=(AllocationHandle&& other);
+
+        /**
+         * @brief Copy assignment operator
+         *
+         * @param other The other handle to copy from
+         * @return A reference to this handle
+         */
+        AllocationHandle& operator=(const AllocationHandle& other);
+
+        /**
+         * @brief Destroys the handle
+         */
+        ~AllocationHandle();
+
+        /**
+         * @brief Releases the allocated descriptor set
+         *
+         * @param sets Pointer to the sets to free. Nullptr to use same pointer as allocation
+         */
+        void release(const VkDescriptorSet* sets = nullptr);
+
+    private:
+        DescriptorPool* pool;
+        std::list<Allocation>::iterator it;
+
+        AllocationHandle(DescriptorPool* p, std::list<Allocation>::iterator allocIt);
+
+        friend class DescriptorPool;
+    };
 
     /**
      * @brief Creates a descriptor set layout from the set allocation info
@@ -71,7 +128,7 @@ public:
      * @param handle Allocation handle of the sets to release
      * @params sets Pointer to the sets to free. Nullptr to use same pointer as allocation
      */
-    void release(AllocationHandle handle, const VkDescriptorSet* sets = nullptr);
+    void release(AllocationHandle& handle, const VkDescriptorSet* sets = nullptr);
 
 private:
     struct Subpool {
@@ -116,6 +173,7 @@ private:
     void cleanup();
 
     friend struct VulkanLayer;
+    friend class Renderer;
 };
 
 } // namespace vk

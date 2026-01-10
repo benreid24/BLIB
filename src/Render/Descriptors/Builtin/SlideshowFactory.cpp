@@ -25,7 +25,7 @@ void SlideshowFactory::init(engine::Engine& e, Renderer& renderer) {
         binding.pImmutableSamplers = nullptr;
     }
 
-    descriptorSetLayout = renderer.vulkanState().getDescriptorPool().createLayout(bindings);
+    descriptorSetLayout = renderer.getDescriptorPool().createLayout(bindings);
 }
 
 std::unique_ptr<ds::DescriptorSetInstance> SlideshowFactory::createDescriptorSet() const {

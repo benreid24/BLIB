@@ -7,7 +7,7 @@ namespace bl
 namespace pcl
 {
 EcsComponent::EcsComponent(engine::Engine& engine, bool transparency) {
-    vertexBuffer.create(engine.renderer().vulkanState(), 1);
+    vertexBuffer.create(engine.renderer(), 1);
 
     auto& vertices       = vertexBuffer.vertices();
     vertices[0].pos      = {0.f, 0.f, 0.f};

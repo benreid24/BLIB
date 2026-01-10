@@ -119,12 +119,12 @@ void ModelSkeletal::processNode(engine::World& world, Tx& tx,
 
                 auto* meshComponent =
                     world.engine().ecs().emplaceComponentWithTx<com::SkinnedMesh>(meshEntity, tx);
-                meshComponent->create(world.engine().renderer().vulkanState(), mesh);
+                meshComponent->create(world.engine().renderer(), mesh);
 
                 children.emplace_back(meshEntity, meshComponent);
             }
             else { // add mesh to root
-                component().create(world.engine().renderer().vulkanState(), mesh);
+                component().create(world.engine().renderer(), mesh);
                 auto* matInstance =
                     world.engine().ecs().emplaceComponentWithTx<com::MaterialInstance>(
                         meshEntity, tx, world.engine().renderer(), component(), materialId, mat);
@@ -137,7 +137,7 @@ void ModelSkeletal::processNode(engine::World& world, Tx& tx,
 
             auto* meshComponent =
                 world.engine().ecs().emplaceComponentWithTx<com::BasicMesh>(meshEntity, tx);
-            meshComponent->create(world.engine().renderer().vulkanState(), mesh);
+            meshComponent->create(world.engine().renderer(), mesh);
 
             children.emplace_back(meshEntity, meshComponent);
         }

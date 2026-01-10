@@ -74,11 +74,11 @@ public:
     vk::Sampler getSampler(const vk::SamplerOptions& options);
 
 private:
-    vk::VulkanLayer& vulkanState;
+    Renderer& renderer;
     VkSamplerCreateInfo createTable[vk::SamplerOptions::TypeCount];
     VkSampler samplerTable[vk::SamplerOptions::TypeCount];
 
-    SamplerCache(vk::VulkanLayer& vs);
+    SamplerCache(Renderer& r);
     void init();
     void cleanup();
 

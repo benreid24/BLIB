@@ -7,7 +7,7 @@ namespace bl
 namespace gfx
 {
 void BatchedShapes2D::create(engine::World& world, std::uint32_t vc) {
-    Drawable::create(world, world.engine().renderer().vulkanState(), vc, vc * 3);
+    Drawable::create(world, world.engine().renderer(), vc, vc * 3);
     OverlayScalable::create(world.engine(), entity());
     component().commit();
 }

@@ -1,7 +1,6 @@
 #include <BLIB/Render/Vulkan/DescriptorSet.hpp>
 
-#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
-
+#include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Util/Random.hpp>
 #include <unordered_map>
 
@@ -12,53 +11,52 @@ namespace rc
 namespace vk
 {
 DescriptorSet::DescriptorSet()
-: vulkanState(nullptr)
+: renderer(nullptr)
 , set(nullptr) {}
 
-DescriptorSet::DescriptorSet(VulkanLayer& vs)
-: vulkanState(&vs)
+DescriptorSet::DescriptorSet(Renderer& r)
+: renderer(&r)
 , set(nullptr) {}
 
-DescriptorSet::DescriptorSet(VulkanLayer& vs, VkDescriptorSetLayout layout, bool ded)
-: DescriptorSet(vs) {
+DescriptorSet::DescriptorSet(Renderer& r, VkDescriptorSetLayout layout, bool ded)
+: DescriptorSet(r) {
     allocate(layout, ded);
 }
 
 DescriptorSet::DescriptorSet(DescriptorSet&& ds)
-: vulkanState(ds.vulkanState)
-, alloc(ds.alloc)
+: renderer(ds.renderer)
+, alloc(std::move(ds.alloc))
 , set(ds.set) {
     ds.set = nullptr;
 }
 
-DescriptorSet::~DescriptorSet() { deferRelease(); }
+DescriptorSet::~DescriptorSet() { release(); }
 
 DescriptorSet& DescriptorSet::operator=(DescriptorSet&& ds) {
-    alloc  = ds.alloc;
+    alloc  = std::move(ds.alloc);
     set    = ds.set;
     ds.set = nullptr;
     return *this;
 }
 
-void DescriptorSet::init(VulkanLayer& vs) { vulkanState = &vs; }
+void DescriptorSet::init(Renderer& r) { renderer = &r; }
 
 void DescriptorSet::allocate(VkDescriptorSetLayout layout, bool dedicated) {
     deferRelease();
-    alloc = vulkanState->getDescriptorPool().allocate(layout, &set, 1, dedicated);
+    alloc = renderer->getDescriptorPool().allocate(layout, &set, 1, dedicated);
 }
 
 void DescriptorSet::release() {
     if (set) {
-        vulkanState->getDescriptorPool().release(alloc);
+        renderer->getDescriptorPool().release(alloc);
         set = nullptr;
     }
 }
 
 void DescriptorSet::deferRelease() {
     if (set) {
-        vulkanState->getCleanupManager().add([vs = vulkanState, alloc = alloc, set = set]() {
-            vs->getDescriptorPool().release(alloc, &set);
-        });
+        renderer->getCleanupManager().add(
+            [alloc = alloc, set = set]() mutable { alloc.release(&set); });
         set = nullptr;
     }
 }

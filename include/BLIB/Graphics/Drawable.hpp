@@ -290,7 +290,7 @@ template<typename TCom>
 void Drawable<TCom>::flash(float onPeriod, float offPeriod) {
     if (component().getSceneRef().object) { doFlash(onPeriod, offPeriod); }
     else {
-        engine().renderer().vulkanState().getCleanupManager().add(
+        engine().renderer().getCleanupManager().add(
             [this, onPeriod, offPeriod]() { retryFlash(onPeriod, offPeriod); });
     }
 }

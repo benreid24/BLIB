@@ -20,13 +20,13 @@ FinalRenderTextureAsset::FinalRenderTextureAsset(res::TextureRef texture,
 : FramebufferAsset(rg::AssetTags::FinalFrameOutput, true,
                    cfg::RenderPassIds::StandardAttachmentPass, viewport, scissor, clearColors,
                    clearColorCount)
-, vs(nullptr)
+, renderer(nullptr)
 , texture(texture) {
     addDependency(rg::AssetTags::DepthBuffer);
 }
 
 void FinalRenderTextureAsset::doCreate(const rg::InitContext& ctx) {
-    vs          = &ctx.vulkanState;
+    renderer    = &ctx.renderer;
     renderPass  = &ctx.renderer.renderPassCache().getRenderPass(renderPassId);
     depthBuffer = dynamic_cast<DepthBuffer*>(getDependency(0));
     if (!depthBuffer) {
@@ -40,7 +40,7 @@ void FinalRenderTextureAsset::doCreate(const rg::InitContext& ctx) {
     attachmentSet.setAttachment(1, depthBuffer->getBuffer());
     attachmentSet.setAttachmentAspect(0, VK_IMAGE_ASPECT_COLOR_BIT);
     attachmentSet.setAttachmentAspect(1, VK_IMAGE_ASPECT_DEPTH_BIT);
-    framebuffer.create(ctx.vulkanState, renderPass, attachmentSet);
+    framebuffer.create(ctx.renderer, renderPass, attachmentSet);
 }
 
 void FinalRenderTextureAsset::doPrepareForInput(const rg::ExecutionContext&) {
@@ -65,7 +65,7 @@ void FinalRenderTextureAsset::onResize(glm::u32vec2) {
     attachmentSet.setRenderExtent(scissor.extent);
     attachmentSet.setAttachment(0, texture->getImage(), texture->getView());
     attachmentSet.setAttachment(1, depthBuffer->getBuffer());
-    framebuffer.create(*vs, renderPass, attachmentSet);
+    framebuffer.create(*renderer, renderPass, attachmentSet);
 }
 
 } // namespace rgi

@@ -34,7 +34,7 @@ void PostProcess3DTask::create(const rg::InitContext& ctx) {
     pipeline = &renderer->pipelineCache().getPipeline(cfg::PipelineIds::PostProcess3D);
 
     // create index buffer
-    indexBuffer.create(ctx.vulkanState, 4, 6);
+    indexBuffer.create(ctx.renderer, 4, 6);
     indexBuffer.indices()  = {0, 1, 3, 1, 2, 3};
     indexBuffer.vertices() = {prim::Vertex({-1.f, -1.f, 1.0f}, {0.f, 0.f}),
                               prim::Vertex({1.f, -1.f, 1.0f}, {1.f, 0.f}),
@@ -54,11 +54,11 @@ void PostProcess3DTask::onGraphInit() {
                                .getFactory<dsi::InputAttachmentFactory<1>>()
                                ->getDescriptorLayout();
 
-    colorAttachmentSet.emplace(renderer->vulkanState(), setLayout, 1, 0);
+    colorAttachmentSet.emplace(*renderer, setLayout, 1, 0);
     colorAttachmentSet.value().initAttachments(input->getAttachmentSets(), sampler);
 
     // init bloom blur descriptor set
-    bloomAttachmentSet.emplace(renderer->vulkanState(), setLayout, 1, 0);
+    bloomAttachmentSet.emplace(*renderer, setLayout, 1, 0);
     if (assets.optionalInputs[0]) {
         auto& bloomBlur =
             dynamic_cast<BloomColorAttachmentPairAsset&>(assets.optionalInputs[0]->asset.get());
@@ -68,7 +68,7 @@ void PostProcess3DTask::onGraphInit() {
         vk::SemanticTextureFormat formats[] = {vk::SemanticTextureFormat::SFloatR16G16B16A16};
         VkImageUsageFlags usages[] = {VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT};
         dummyBloomBuffer.emplace();
-        dummyBloomBuffer.value().create(renderer->vulkanState(), 1, {32, 32}, formats, usages);
+        dummyBloomBuffer.value().create(*renderer, 1, {32, 32}, formats, usages);
         dummyBloomBuffer.value().getBuffer(0).clearAndTransition(
             VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, {});
         bloomAttachmentSet.value().initAttachments(&dummyBloomBuffer.value().attachmentSet(),

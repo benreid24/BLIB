@@ -3,6 +3,7 @@
 #include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Descriptors/SetWriteHelper.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
+#include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>
 #include <array>
 
@@ -17,9 +18,7 @@ Scene2DInstance::Scene2DInstance(vk::VulkanLayer& vulkanState, VkDescriptorSetLa
 , vulkanState(vulkanState)
 , setLayout(layout) {}
 
-Scene2DInstance::~Scene2DInstance() {
-    vulkanState.getDescriptorPool().release(allocHandle, descriptorSets.rawData());
-}
+Scene2DInstance::~Scene2DInstance() { allocHandle.release(descriptorSets.rawData()); }
 
 void Scene2DInstance::bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                       std::uint32_t setIndex, UpdateSpeed) const {
@@ -56,7 +55,7 @@ void Scene2DInstance::init(ds::InitContext& ctx) {
 
     // allocate descriptors
     descriptorSets.emptyInit(vulkanState);
-    allocHandle = vulkanState.getDescriptorPool().allocate(
+    allocHandle = ctx.renderer.getDescriptorPool().allocate(
         setLayout, descriptorSets.rawData(), descriptorSets.size());
 
     // create and configureWrite descriptors

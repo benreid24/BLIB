@@ -52,7 +52,7 @@ public:
     virtual vk::Framebuffer& getFramebuffer(std::uint32_t i) override;
 
 private:
-    vk::VulkanLayer* vs;
+    Renderer* renderer;
     res::TextureRef texture;
     DepthBuffer* depthBuffer;
     vk::AttachmentSet attachmentSet;

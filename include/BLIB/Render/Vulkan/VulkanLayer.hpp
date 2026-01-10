@@ -4,15 +4,10 @@
 #include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Resources/ShaderModuleCache.hpp>
 #include <BLIB/Render/Transfers/TransferEngine.hpp>
-#include <BLIB/Render/Vulkan/CleanupManager.hpp>
-#include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/PerFrameVector.hpp>
 #include <BLIB/Render/Vulkan/SemanticTextureFormat.hpp>
-#include <BLIB/Render/Vulkan/SharedCommandPool.hpp>
-#include <BLIB/Render/Vulkan/Swapchain.hpp>
-#include <BLIB/Render/Vulkan/TextureFormatManager.hpp>
 #include <BLIB/Render/Vulkan/VkCheck.hpp>
 #include <BLIB/Render/Window.hpp>
 #include <BLIB/Vulkan.hpp>
@@ -33,6 +28,8 @@ class Renderer;
 /// Collection of interfaces and utilities directly related to Vulkan
 namespace vk
 {
+class CleanupManager;
+
 /**
  * @brief Primary owner and manager of the Vulkan renderer's state
  *
@@ -46,26 +43,9 @@ struct VulkanLayer {
     ~VulkanLayer();
 
     /**
-     * @brief Marks the swap chain as invalid. Called when the window is resized or recreated
-     *
+     * @brief Increments the current frame index and wraps around if necessary
      */
-    void invalidateSwapChain();
-
-    /**
-     * @brief Begins a render pass on the current swap chain image. Returns the command buffer to
-     *        use for rendering
-     *
-     * @param renderFrame A reference to a pointer to populate with the active chain image
-     * @param commandBuffer A command buffer reference to populate with the primary CB to use
-     */
-    void beginFrame(AttachmentSet*& renderFrame, VkCommandBuffer& commandBuffer);
-
-    /**
-     * @brief Finalizes the render pass and command buffer for the current frame and submits it.
-     *        Also triggers the swap chain present operation
-     *
-     */
-    void completeFrame();
+    void incrementFrame();
 
     /**
      * @brief Helper function to find the optimal available memory type for the given constraints
@@ -189,22 +169,6 @@ struct VulkanLayer {
                      VmaAllocationCreateFlags flags = 0);
 
     /**
-     * @brief Converts an image from one layout to another
-     *
-     * @param image The image to convert
-     * @param oldLayout The current layout to convert from
-     * @param newLayout The layout to convert to
-     * @param layerCount The number of layers to transition
-     * @param aspect The image aspect
-     * @param baseMipLevel The base mip level to use for the transition
-     * @param mipLevelCount The number of mip levels to transition
-     */
-    void transitionImageLayout(VkImage image, VkImageLayout oldLayout, VkImageLayout newLayout,
-                               std::uint32_t layerCount   = 1,
-                               VkImageAspectFlags aspect  = VK_IMAGE_ASPECT_COLOR_BIT,
-                               std::uint32_t baseMipLevel = 0, std::uint32_t mipLevelCount = 1);
-
-    /**
      * @brief Converts an image from one layout to another and uses an existing command buffer
      *
      * @param commandBuffer The command buffer to record the pipeline barrier into
@@ -221,17 +185,6 @@ struct VulkanLayer {
                                std::uint32_t layerCount   = 1,
                                VkImageAspectFlags aspect  = VK_IMAGE_ASPECT_COLOR_BIT,
                                std::uint32_t baseMipLevel = 0, std::uint32_t mipLevelCount = 1);
-
-    /**
-     * @brief Helper function to copy a raw buffer's contents into an image
-     *
-     * @param buffer The buffer to copy into the image
-     * @param image The image to copy into
-     * @param width The width of the image
-     * @param height The height of the image
-     */
-    void copyBufferToImage(VkBuffer buffer, VkImage image, std::uint32_t width,
-                           std::uint32_t height);
 
     /**
      * @brief Helper function to create an image view
@@ -344,41 +297,6 @@ struct VulkanLayer {
      */
     VkQueue getPresentQueue() const { return presentQueue; }
 
-    /**
-     * @brief Returns the shared command pool for allocating transient command buffers
-     */
-    SharedCommandPool& getSharedCommandPool() { return sharedCommandPool; }
-
-    /**
-     * @brief Returns the swapchain manager
-     */
-    Swapchain& getSwapchain() { return swapchain; }
-
-    /**
-     * @brief Returns the shader module cache
-     */
-    res::ShaderModuleCache& getShaderCache() { return shaderCache; }
-
-    /**
-     * @brief Returns the transfer engine
-     */
-    tfr::TransferEngine& getTransferEngine() { return transferEngine; }
-
-    /**
-     * @brief Returns the descriptor pool manager
-     */
-    DescriptorPool& getDescriptorPool() { return descriptorPool; }
-
-    /**
-     * @brief Returns the cleanup manager
-     */
-    CleanupManager& getCleanupManager() { return cleanupManager; }
-
-    /**
-     * @brief Returns the texture format manager
-     */
-    TextureFormatManager& getTextureFormatManager() { return textureFormatManager; }
-
 private:
     RenderWindow& window;
     VkInstance instance;
@@ -393,13 +311,6 @@ private:
     VmaAllocator vmaAllocator;
     VkQueue graphicsQueue;
     VkQueue presentQueue;
-    SharedCommandPool sharedCommandPool;
-    Swapchain swapchain;
-    res::ShaderModuleCache shaderCache;
-    tfr::TransferEngine transferEngine;
-    DescriptorPool descriptorPool;
-    CleanupManager cleanupManager;
-    TextureFormatManager textureFormatManager;
 
     std::mutex cbSubmitMutex;
     std::mutex bufferAllocMutex;
@@ -408,13 +319,13 @@ private:
     std::uint32_t currentFrame;
     std::vector<VkExtensionProperties> availableExtensions;
 
-    VulkanLayer(RenderWindow& window, WindowSettings& windowSettings);
+    VulkanLayer(RenderWindow& window);
     void init();
     void cleanup();
 
     void createInstance();
     void setupDebugMessenger();
-    void createSurface();
+    void createSurface(CleanupManager& cleanupManager);
     void pickPhysicalDevice();
     void createLogicalDevice();
     void createVmaAllocator();

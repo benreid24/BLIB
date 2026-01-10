@@ -1,6 +1,7 @@
 #include <BLIB/Render/Descriptors/Builtin/InputAttachmentInstance.hpp>
 
 #include <BLIB/Render/Config/Limits.hpp>
+#include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>
 
 namespace bl
@@ -9,29 +10,26 @@ namespace rc
 {
 namespace dsi
 {
-InputAttachmentInstance::InputAttachmentInstance(vk::VulkanLayer& vulkanState,
-                                                 VkDescriptorSetLayout layout,
+InputAttachmentInstance::InputAttachmentInstance(Renderer& renderer, VkDescriptorSetLayout layout,
                                                  std::uint32_t attachmentCount,
                                                  std::uint32_t startIndex)
 : DescriptorSetInstance(DescriptorSetInstance::Bindless, DescriptorSetInstance::SpeedAgnostic)
 , startIndex(startIndex)
 , attachmentCount(attachmentCount)
-, vulkanState(vulkanState)
+, renderer(renderer)
 , layout(layout) {
-    descriptorSets.emptyInit(vulkanState);
-    dsAlloc = vulkanState.getDescriptorPool().allocate(
+    descriptorSets.emptyInit(renderer.vulkanState());
+    cachedViews.emptyInit(renderer.vulkanState());
+    dsAlloc = renderer.getDescriptorPool().allocate(
         layout, descriptorSets.rawData(), descriptorSets.size());
-    cachedViews.emptyInit(vulkanState);
 }
 
-InputAttachmentInstance::~InputAttachmentInstance() {
-    vulkanState.getDescriptorPool().release(dsAlloc, descriptorSets.rawData());
-}
+InputAttachmentInstance::~InputAttachmentInstance() { dsAlloc.release(descriptorSets.rawData()); }
 
 void InputAttachmentInstance::bind(VkCommandBuffer commandBuffer, VkPipelineBindPoint bindPoint,
                                    VkPipelineLayout layout, std::uint32_t setIndex) const {
-    const vk::AttachmentSet* attachments = source.get(vulkanState.currentFrameIndex());
-    auto& cached                         = cachedViews.getRaw(vulkanState.currentFrameIndex());
+    const vk::AttachmentSet* attachments = source.get(renderer.vulkanState().currentFrameIndex());
+    auto& cached = cachedViews.getRaw(renderer.vulkanState().currentFrameIndex());
 
     if (!attachments) {
         BL_LOG_WARN << "Binding input attachment with no attachments";
@@ -59,16 +57,17 @@ void InputAttachmentInstance::bind(VkCommandBuffer commandBuffer, VkPipelineBind
 
         std::array<VkWriteDescriptorSet, 8> write{};
         for (unsigned int i = 0; i < attachmentCount; ++i) {
-            write[i].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-            write[i].dstSet          = descriptorSets.getRaw(vulkanState.currentFrameIndex());
-            write[i].dstBinding      = i;
+            write[i].sType      = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+            write[i].dstSet     = descriptorSets.getRaw(renderer.vulkanState().currentFrameIndex());
+            write[i].dstBinding = i;
             write[i].dstArrayElement = 0;
             write[i].descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
             write[i].descriptorCount = 1;
             write[i].pImageInfo      = &imageInfo[i];
         }
 
-        vkUpdateDescriptorSets(vulkanState.getDevice(), attachmentCount, write.data(), 0, nullptr);
+        vkUpdateDescriptorSets(
+            renderer.vulkanState().getDevice(), attachmentCount, write.data(), 0, nullptr);
     }
 
     vkCmdBindDescriptorSets(
@@ -130,7 +129,7 @@ void InputAttachmentInstance::commonInit() {
         }
     }
 
-    vkUpdateDescriptorSets(vulkanState.getDevice(),
+    vkUpdateDescriptorSets(renderer.vulkanState().getDevice(),
                            cfg::Limits::MaxConcurrentFrames * attachmentCount,
                            descriptorWrites.data(),
                            0,

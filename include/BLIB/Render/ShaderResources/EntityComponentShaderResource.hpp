@@ -195,9 +195,9 @@ template<typename TCom, typename TPayload, typename TDynamicStorage, typename TS
 void EntityComponentShaderResource<TCom, TPayload, TDynamicStorage, TStaticStorage>::init(
     engine::Engine& engine, RenderTarget&) {
     registry = &engine::HeaderHelpers::getRegistry(engine);
-    dynamicBuffer.create(engine::HeaderHelpers::getVulkanState(engine),
+    dynamicBuffer.create(engine::HeaderHelpers::getRenderer(engine),
                          cfg::Constants::DefaultSceneObjectCapacity);
-    staticBuffer.create(engine::HeaderHelpers::getVulkanState(engine),
+    staticBuffer.create(engine::HeaderHelpers::getRenderer(engine),
                         cfg::Constants::DefaultSceneObjectCapacity);
     dynamicBuffer.transferEveryFrame();
     srcDynamicComponents.reserve(cfg::Constants::DefaultSceneObjectCapacity);

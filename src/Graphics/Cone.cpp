@@ -18,7 +18,7 @@ void Cone::create(engine::World& world, float height, float radius, unsigned int
     Drawable::createWithMaterial(world, materialPipelineId, material);
     Transform3D::create(world.engine().ecs(), entity());
     Outline3D::init(world.engine().ecs(), entity(), &component());
-    component().create(world.engine().renderer().vulkanState(), pointCount * 4 + 1, pointCount * 6);
+    component().create(world.engine().renderer(), pointCount * 4 + 1, pointCount * 6);
 
     const float h  = height * 0.5f;
     const float pc = static_cast<float>(pointCount);

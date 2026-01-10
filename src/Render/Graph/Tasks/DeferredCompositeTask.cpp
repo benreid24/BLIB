@@ -36,7 +36,7 @@ void DeferredCompositeTask::create(const rg::InitContext& ctx) {
     pipeline = &renderer->pipelineCache().getPipeline(cfg::PipelineIds::DeferredLightVolume);
 
     // create index buffer for the sun
-    sunRectBuffer.create(ctx.vulkanState, 4, 6);
+    sunRectBuffer.create(ctx.renderer, 4, 6);
     sunRectBuffer.indices()  = {0, 1, 3, 1, 2, 3};
     sunRectBuffer.vertices() = {prim::Vertex3D({-1.f, -1.f, 1.0f}, {0.f, 0.f}),
                                 prim::Vertex3D({1.f, -1.f, 1.0f}, {1.f, 0.f}),
@@ -48,7 +48,7 @@ void DeferredCompositeTask::create(const rg::InitContext& ctx) {
     std::vector<prim::Vertex3D> sphereVertices;
     std::vector<std::uint32_t> sphereIndices;
     gfx::Sphere::makeSphere(1.f, 3, sphereVertices, sphereIndices);
-    sphereBuffer.create(ctx.vulkanState, std::move(sphereVertices), std::move(sphereIndices));
+    sphereBuffer.create(ctx.renderer, std::move(sphereVertices), std::move(sphereIndices));
     sphereBuffer.queueTransfer(tfr::Transferable::SyncRequirement::Immediate);
 }
 
@@ -65,7 +65,7 @@ void DeferredCompositeTask::onGraphInit() {
     lightingBuffer  = scene->getShaderResources().getShaderResourceWithKey(sri::Scene3DLightingKey);
     sceneDescriptor = target->getDescriptorSet<dsi::Scene3DInstance>(scene);
 
-    gbufferDescriptor.emplace(renderer->vulkanState(), setLayout, 4, 0);
+    gbufferDescriptor.emplace(*renderer, setLayout, 4, 0);
     gbufferDescriptor.value().initAttachments(input->getAttachmentSets(), sampler);
 }
 

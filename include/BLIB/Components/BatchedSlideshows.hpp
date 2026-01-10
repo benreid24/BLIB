@@ -10,10 +10,7 @@ namespace bl
 {
 namespace rc
 {
-namespace vk
-{
-struct VulkanLayer;
-}
+class Renderer;
 } // namespace rc
 
 namespace com
@@ -29,18 +26,18 @@ struct BatchedSlideshows : public rc::rcom::DrawableBase {
     /**
      * @brief Creates the index buffer to render the slideshows
      *
-     * @param vulkanState Renderer Vulkan state
+     * @param renderer The renderer instance
      * @param initialCapacity The number of slideshows to create vertices for
      */
-    BatchedSlideshows(rc::vk::VulkanLayer& vulkanState, unsigned int initialCapacity);
+    BatchedSlideshows(rc::Renderer& renderer, unsigned int initialCapacity);
 
     /**
      * @brief Creates the index buffer to render the slideshows
      *
-     * @param vulkanState Renderer Vulkan state
+     * @param renderer The renderer instance
      * @param initialCapacity The number of slideshows to create vertices for
      */
-    void create(rc::vk::VulkanLayer& vulkanState, unsigned int initialCapacity);
+    void create(rc::Renderer& renderer, unsigned int initialCapacity);
 
     /**
      * @brief Updates and commits the draw parameters

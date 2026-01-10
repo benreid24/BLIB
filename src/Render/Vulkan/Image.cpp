@@ -1,6 +1,6 @@
 #include <BLIB/Render/Vulkan/Image.hpp>
 
-#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
+#include <BLIB/Render/Renderer.hpp>
 #include <cmath>
 
 namespace bl
@@ -39,7 +39,7 @@ std::uint32_t Image::determineMipLevelsFromExisting(std::uint32_t width, std::ui
 }
 
 Image::Image()
-: vulkanState(nullptr)
+: renderer(nullptr)
 , alloc(nullptr)
 , imageHandle(nullptr)
 , viewHandle(nullptr)
@@ -47,11 +47,11 @@ Image::Image()
 
 Image::~Image() { deferDestroy(); }
 
-void Image::create(VulkanLayer& vs, const ImageOptions& options) {
-    if (vulkanState && compareOptions(createOptions, options)) { return; }
+void Image::create(Renderer& r, const ImageOptions& options) {
+    if (renderer && compareOptions(createOptions, options)) { return; }
 
     deferDestroy();
-    vulkanState   = &vs;
+    renderer      = &r;
     createOptions = options;
     if (createOptions.viewAspect == VK_IMAGE_ASPECT_FLAG_BITS_MAX_ENUM) {
         createOptions.viewAspect = createOptions.aspect;
@@ -77,24 +77,27 @@ void Image::create(VulkanLayer& vs, const ImageOptions& options) {
     createInfo.sharingMode   = VK_SHARING_MODE_EXCLUSIVE;
     createInfo.samples       = createOptions.samples;
     createInfo.flags         = getCreateFlags(createOptions.type) | createOptions.extraCreateFlags;
-    if (vmaCreateImage(
-            vs.getVmaAllocator(), &createInfo, &allocInfo, &imageHandle, &alloc, nullptr) !=
-        VK_SUCCESS) {
+    if (vmaCreateImage(renderer->vulkanState().getVmaAllocator(),
+                       &createInfo,
+                       &allocInfo,
+                       &imageHandle,
+                       &alloc,
+                       nullptr) != VK_SUCCESS) {
         throw std::runtime_error("failed to create image");
     }
 
-    viewHandle    = vs.createImageView(imageHandle,
-                                    createOptions.format,
-                                    createOptions.viewAspect,
-                                    getLayerCount(),
-                                    getViewType(),
-                                    createOptions.mipLevels,
-                                    0);
+    viewHandle    = renderer->vulkanState().createImageView(imageHandle,
+                                                         createOptions.format,
+                                                         createOptions.viewAspect,
+                                                         getLayerCount(),
+                                                         getViewType(),
+                                                         createOptions.mipLevels,
+                                                         0);
     currentLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 }
 
 void Image::resize(const glm::u32vec2& newSize, bool copyContents) {
-    if (!vulkanState) {
+    if (!renderer) {
         BL_LOG_WARN << "Cannot resize image before calling create()";
         return;
     }
@@ -104,12 +107,15 @@ void Image::resize(const glm::u32vec2& newSize, bool copyContents) {
 
     // transition original image to transfer source layout
     if (copyContents) {
-        vulkanState->transitionImageLayout(imageHandle,
-                                           VK_IMAGE_LAYOUT_UNDEFINED,
-                                           VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
-                                           getLayerCount(),
-                                           createOptions.aspect);
+        auto cb = renderer->getSharedCommandPool().createBuffer();
+        renderer->vulkanState().transitionImageLayout(cb,
+                                                      imageHandle,
+                                                      VK_IMAGE_LAYOUT_UNDEFINED,
+                                                      VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
+                                                      getLayerCount(),
+                                                      createOptions.aspect);
         currentLayout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
+        cb.submit();
     }
 
     // create new image
@@ -117,19 +123,19 @@ void Image::resize(const glm::u32vec2& newSize, bool copyContents) {
     ImageOptions newOptions  = createOptions;
     newOptions.extent.width  = newSize.x;
     newOptions.extent.height = newSize.y;
-    create(*vulkanState, newOptions);
+    create(*renderer, newOptions);
     currentLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 
     // copy from old to new
     if (copyContents && oldImage != imageHandle) {
-        auto cb = vulkanState->getSharedCommandPool().createBuffer();
+        auto cb = renderer->getSharedCommandPool().createBuffer();
 
-        vulkanState->transitionImageLayout(cb,
-                                           imageHandle,
-                                           currentLayout,
-                                           VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
-                                           getLayerCount(),
-                                           createOptions.aspect);
+        renderer->vulkanState().transitionImageLayout(cb,
+                                                      imageHandle,
+                                                      currentLayout,
+                                                      VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+                                                      getLayerCount(),
+                                                      createOptions.aspect);
         currentLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
 
         if (createOptions.mipLevels > 1) {
@@ -160,40 +166,40 @@ void Image::resize(const glm::u32vec2& newSize, bool copyContents) {
 }
 
 void Image::destroy() {
-    if (vulkanState) {
-        vkDestroyImageView(vulkanState->getDevice(), viewHandle, nullptr);
-        vmaDestroyImage(vulkanState->getVmaAllocator(), imageHandle, alloc);
-        vulkanState = nullptr;
+    if (renderer) {
+        vkDestroyImageView(renderer->vulkanState().getDevice(), viewHandle, nullptr);
+        vmaDestroyImage(renderer->vulkanState().getVmaAllocator(), imageHandle, alloc);
+        renderer = nullptr;
     }
 }
 
 void Image::deferDestroy() {
-    if (vulkanState) {
-        vulkanState->getCleanupManager().add(
-            [vs = vulkanState, vh = viewHandle, img = imageHandle, alloc = alloc]() {
+    if (renderer) {
+        renderer->getCleanupManager().add(
+            [vs = &renderer->vulkanState(), vh = viewHandle, img = imageHandle, alloc = alloc]() {
                 vkDestroyImageView(vs->getDevice(), vh, nullptr);
                 vmaDestroyImage(vs->getVmaAllocator(), img, alloc);
             });
-        vulkanState = nullptr;
+        renderer = nullptr;
     }
 }
 
 void Image::clearAndTransition(VkImageLayout finalLayout, VkClearValue color) {
-    auto commandBuffer = vulkanState->getSharedCommandPool().createBuffer();
+    auto commandBuffer = renderer->getSharedCommandPool().createBuffer();
     clearAndTransition(commandBuffer, finalLayout, color);
     commandBuffer.submit();
 }
 
 void Image::clearAndTransition(VkCommandBuffer commandBuffer, VkImageLayout finalLayout,
                                VkClearValue color) {
-    vulkanState->transitionImageLayout(commandBuffer,
-                                       imageHandle,
-                                       VK_IMAGE_LAYOUT_UNDEFINED,
-                                       VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
-                                       getLayerCount(),
-                                       createOptions.aspect,
-                                       0,
-                                       createOptions.mipLevels);
+    renderer->vulkanState().transitionImageLayout(commandBuffer,
+                                                  imageHandle,
+                                                  VK_IMAGE_LAYOUT_UNDEFINED,
+                                                  VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+                                                  getLayerCount(),
+                                                  createOptions.aspect,
+                                                  0,
+                                                  createOptions.mipLevels);
 
     VkImageSubresourceRange range{};
     range.aspectMask     = createOptions.aspect;
@@ -218,14 +224,14 @@ void Image::clearAndTransition(VkCommandBuffer commandBuffer, VkImageLayout fina
                              1,
                              &range);
     }
-    vulkanState->transitionImageLayout(commandBuffer,
-                                       imageHandle,
-                                       VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
-                                       finalLayout,
-                                       getLayerCount(),
-                                       createOptions.aspect,
-                                       0,
-                                       createOptions.mipLevels);
+    renderer->vulkanState().transitionImageLayout(commandBuffer,
+                                                  imageHandle,
+                                                  VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+                                                  finalLayout,
+                                                  getLayerCount(),
+                                                  createOptions.aspect,
+                                                  0,
+                                                  createOptions.mipLevels);
     currentLayout = finalLayout;
 }
 
@@ -250,22 +256,27 @@ std::uint32_t Image::getLayerCount() const {
 }
 
 void Image::transitionLayout(VkImageLayout newLayout, bool undefinedLayout) {
-    vulkanState->transitionImageLayout(imageHandle,
-                                       !undefinedLayout ? currentLayout : VK_IMAGE_LAYOUT_UNDEFINED,
-                                       newLayout,
-                                       getLayerCount(),
-                                       createOptions.aspect);
+    auto cb = renderer->getSharedCommandPool().createBuffer();
+    renderer->vulkanState().transitionImageLayout(cb,
+                                                  imageHandle,
+                                                  !undefinedLayout ? currentLayout :
+                                                                     VK_IMAGE_LAYOUT_UNDEFINED,
+                                                  newLayout,
+                                                  getLayerCount(),
+                                                  createOptions.aspect);
+    cb.submit();
     currentLayout = newLayout;
 }
 
 void Image::transitionLayout(VkCommandBuffer commandBuffer, VkImageLayout newLayout,
                              bool undefinedLayout) {
-    vulkanState->transitionImageLayout(commandBuffer,
-                                       imageHandle,
-                                       !undefinedLayout ? currentLayout : VK_IMAGE_LAYOUT_UNDEFINED,
-                                       newLayout,
-                                       getLayerCount(),
-                                       createOptions.aspect);
+    renderer->vulkanState().transitionImageLayout(commandBuffer,
+                                                  imageHandle,
+                                                  !undefinedLayout ? currentLayout :
+                                                                     VK_IMAGE_LAYOUT_UNDEFINED,
+                                                  newLayout,
+                                                  getLayerCount(),
+                                                  createOptions.aspect);
     currentLayout = newLayout;
 }
 
@@ -296,14 +307,15 @@ void Image::recordBarrier(VkCommandBuffer commandBuffer, VkPipelineStageFlags sr
 void Image::notifyNewLayout(VkImageLayout nl) { currentLayout = nl; }
 
 bool Image::canGenMipMapsOnGpu() const {
-    const VkFormatProperties props = vulkanState->getFormatProperties(createOptions.format);
+    const VkFormatProperties props =
+        renderer->vulkanState().getFormatProperties(createOptions.format);
     return (props.optimalTilingFeatures & VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT) &&
            (props.optimalTilingFeatures & VK_FORMAT_FEATURE_BLIT_SRC_BIT) &&
            (props.optimalTilingFeatures & VK_FORMAT_FEATURE_BLIT_DST_BIT);
 }
 
 void Image::genMipMapsOnGpu(VkImageLayout finalLayout) {
-    auto commandBuffer = vulkanState->getSharedCommandPool().createBuffer();
+    auto commandBuffer = renderer->getSharedCommandPool().createBuffer();
     genMipMapsOnGpu(commandBuffer, finalLayout);
     commandBuffer.submit();
 }
@@ -320,24 +332,24 @@ void Image::genMipMapsOnGpu(VkCommandBuffer commandBuffer, VkImageLayout finalLa
     }
 
     // transition first level to transfer source
-    vulkanState->transitionImageLayout(commandBuffer,
-                                       imageHandle,
-                                       currentLayout,
-                                       VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
-                                       1,
-                                       createOptions.aspect,
-                                       0,
-                                       1);
+    renderer->vulkanState().transitionImageLayout(commandBuffer,
+                                                  imageHandle,
+                                                  currentLayout,
+                                                  VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
+                                                  1,
+                                                  createOptions.aspect,
+                                                  0,
+                                                  1);
 
     // transfer remaining levels to transfer dest
-    vulkanState->transitionImageLayout(commandBuffer,
-                                       imageHandle,
-                                       VK_IMAGE_LAYOUT_UNDEFINED,
-                                       VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
-                                       1,
-                                       createOptions.aspect,
-                                       1,
-                                       createOptions.mipLevels - 1);
+    renderer->vulkanState().transitionImageLayout(commandBuffer,
+                                                  imageHandle,
+                                                  VK_IMAGE_LAYOUT_UNDEFINED,
+                                                  VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+                                                  1,
+                                                  createOptions.aspect,
+                                                  1,
+                                                  createOptions.mipLevels - 1);
 
     VkImageMemoryBarrier barrier{};
     barrier.sType                           = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;

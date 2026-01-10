@@ -1,5 +1,6 @@
 target_sources(BLIB PRIVATE
     GraphicsSettings.cpp
+    HeaderHelpers.cpp
     Observer.cpp
     Renderer.cpp
     RenderTarget.cpp

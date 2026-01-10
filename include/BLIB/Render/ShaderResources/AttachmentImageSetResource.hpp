@@ -99,7 +99,7 @@ private:
         const VkSampleCountFlagBits sampleCount =
             FollowSettings ? renderer->getSettings().getMSAASampleCount() : VK_SAMPLE_COUNT_1_BIT;
         const glm::u32vec2 size = TargetSize::getSize(Size, owner->getRegionSize());
-        images.create(renderer->vulkanState(),
+        images.create(*renderer,
                       AttachmentCount,
                       {size.x, size.y},
                       Formats.data(),

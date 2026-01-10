@@ -12,6 +12,8 @@ namespace bl
 {
 namespace rc
 {
+class Renderer;
+
 namespace vk
 {
 /**
@@ -56,6 +58,7 @@ private:
     }
 
     friend struct VulkanLayer;
+    friend class Renderer;
 };
 
 } // namespace vk

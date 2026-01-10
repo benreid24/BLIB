@@ -54,7 +54,7 @@ void SingleShape2D::ensureUpdated() {
     // create the index buffer
     auto& ib = component().indexBuffer;
     if (ib.indexCount() < indexCount || ib.vertexCount() < vertexCount) {
-        ib.create(engine().renderer().vulkanState(), vertexCount, indexCount);
+        ib.create(engine().renderer(), vertexCount, indexCount);
     }
 
     // populate the index buffer

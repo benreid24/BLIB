@@ -69,7 +69,6 @@ Animation2DSystem::Animation2DSystem(rc::Renderer& renderer)
 : renderer(renderer)
 , players(nullptr)
 , slideshowFrameRangeAllocator(InitialSlideshowFrameCapacity)
-, slideshowDescriptorSets(renderer.vulkanState())
 , slideshowRefreshRequired(rc::cfg::Limits::MaxConcurrentFrames)
 , slideshowLastFrameUpdated(255) {
     slideshowDescriptorSets.emptyInit(renderer.vulkanState());
@@ -103,10 +102,10 @@ void Animation2DSystem::init(engine::Engine& engine) {
     players    = &engine.ecs().getAllComponents<com::Animation2DPlayer>();
     vertexPool = &engine.ecs().getAllComponents<com::Animation2D>();
 
-    slideshowFramesSSBO.create(renderer.vulkanState(), InitialSlideshowFrameCapacity);
-    slideshowFrameOffsetSSBO.create(renderer.vulkanState(), 32);
-    slideshowTextureSSBO.create(renderer.vulkanState(), 32);
-    slideshowPlayerCurrentFrameSSBO.create(renderer.vulkanState(), 32);
+    slideshowFramesSSBO.create(renderer, InitialSlideshowFrameCapacity);
+    slideshowFrameOffsetSSBO.create(renderer, 32);
+    slideshowTextureSSBO.create(renderer, 32);
+    slideshowPlayerCurrentFrameSSBO.create(renderer, 32);
     slideshowPlayerCurrentFrameSSBO.transferEveryFrame();
 
     subscribe(engine.ecs().getSignalChannel());
@@ -359,7 +358,7 @@ Animation2DSystem::VertexAnimation::VertexAnimation(rc::Renderer& renderer,
         frameToIndices.resize(anim.frameCount(), {});
 
         // allocate buffer
-        indexBuffer.create(renderer.vulkanState(), shardCount * 4, shardCount * 6);
+        indexBuffer.create(renderer, shardCount * 4, shardCount * 6);
 
         // fetch texture to convert texCoords
         rc::res::TextureRef texture =

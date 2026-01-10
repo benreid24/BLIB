@@ -39,14 +39,14 @@ public:
      */
     virtual std::unique_ptr<ds::DescriptorSetInstance> createDescriptorSet() const override {
         return std::make_unique<InputAttachmentInstance>(
-            *vs, descriptorSetLayout, AttachmentCount, StartIndex);
+            *renderer, descriptorSetLayout, AttachmentCount, StartIndex);
     }
 
 private:
-    vk::VulkanLayer* vs;
+    Renderer* renderer;
 
     virtual void init(engine::Engine&, Renderer& renderer) override {
-        vs = &renderer.vulkanState();
+        this->renderer = &renderer;
 
         vk::DescriptorPool::SetBindingInfo bindingInfo;
 
@@ -59,7 +59,7 @@ private:
         }
 
         bindingInfo.bindingCount = AttachmentCount;
-        descriptorSetLayout = renderer.vulkanState().getDescriptorPool().createLayout(bindingInfo);
+        descriptorSetLayout      = renderer.getDescriptorPool().createLayout(bindingInfo);
     }
 
     virtual std::type_index creates() const override { return typeid(InputAttachmentInstance); }

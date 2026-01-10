@@ -11,11 +11,8 @@ namespace bl
 {
 namespace rc
 {
-namespace vk
-{
-struct VulkanLayer;
+class Renderer;
 }
-} // namespace rc
 
 namespace com
 {
@@ -31,11 +28,11 @@ struct Slideshow : public rc::rcom::DrawableBase {
     /**
      * @brief Creates the index buffer to render the slideshow
      *
-     * @param vulkanState Renderer Vulkan state
+     * @param renderer The renderer instance
      * @param anim The animation to use when creating the vertices
      * @return True on success, false if animation is invalid slideshow
      */
-    bool create(rc::vk::VulkanLayer& vulkanState, const Animation2DPlayer& anim);
+    bool create(rc::Renderer& renderer, const Animation2DPlayer& anim);
 
     /**
      * @brief Changes the animation to a new player

@@ -23,7 +23,12 @@
 #include <BLIB/Render/Scenes/SceneSync.hpp>
 #include <BLIB/Render/Settings.hpp>
 #include <BLIB/Render/Transfers/TextureExporter.hpp>
+#include <BLIB/Render/Vulkan/CleanupManager.hpp>
+#include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <BLIB/Render/Vulkan/RenderTexture.hpp>
+#include <BLIB/Render/Vulkan/SharedCommandPool.hpp>
+#include <BLIB/Render/Vulkan/Swapchain.hpp>
+#include <BLIB/Render/Vulkan/TextureFormatManager.hpp>
 #include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 #include <BLIB/Render/Window.hpp>
 #include <BLIB/Signals/Channel.hpp>
@@ -283,6 +288,41 @@ public:
      */
     CreationSettings getCreationSettings() const;
 
+    /**
+     * @brief Returns the shared command pool for allocating transient command buffers
+     */
+    vk::SharedCommandPool& getSharedCommandPool() { return sharedCommandPool; }
+
+    /**
+     * @brief Returns the swapchain manager
+     */
+    vk::Swapchain& getSwapchain() { return swapchain; }
+
+    /**
+     * @brief Returns the shader module cache
+     */
+    res::ShaderModuleCache& getShaderCache() { return shaderCache; }
+
+    /**
+     * @brief Returns the transfer engine
+     */
+    tfr::TransferEngine& getTransferEngine() { return transferEngine; }
+
+    /**
+     * @brief Returns the descriptor pool manager
+     */
+    vk::DescriptorPool& getDescriptorPool() { return descriptorPool; }
+
+    /**
+     * @brief Returns the cleanup manager
+     */
+    vk::CleanupManager& getCleanupManager() { return cleanupManager; }
+
+    /**
+     * @brief Returns the texture format manager
+     */
+    vk::TextureFormatManager& getTextureFormatManager() { return textureFormatManager; }
+
 private:
     std::mutex renderMutex;
     engine::Engine& engine;
@@ -291,6 +331,13 @@ private:
     Settings settings;
     sf::Rect<std::uint32_t> renderRegion;
     vk::VulkanLayer state;
+    vk::SharedCommandPool sharedCommandPool;
+    vk::Swapchain swapchain;
+    res::ShaderModuleCache shaderCache;
+    tfr::TransferEngine transferEngine;
+    vk::DescriptorPool descriptorPool;
+    vk::CleanupManager cleanupManager;
+    vk::TextureFormatManager textureFormatManager;
     res::GlobalDescriptors globalDescriptors;
     res::TexturePool textures;
     res::MaterialPool materials;

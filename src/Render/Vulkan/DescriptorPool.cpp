@@ -101,37 +101,43 @@ DescriptorPool::AllocationHandle DescriptorPool::allocate(VkDescriptorSetLayout 
     }
 
     // create allocation record
-    AllocationHandle handle =
-        allocations.emplace(allocations.begin(), dedicated, layout, setCount, sets);
+    AllocationHandle handle = AllocationHandle(
+        this, allocations.emplace(allocations.begin(), dedicated, layout, setCount, sets));
 
     // create dedicated pool if required
     if (dedicated) {
-        handle->pool = pools.emplace(pools.end(), vulkanState, allocInfo, setCount);
-        handle->pool->allocate(allocInfo, layout, sets, setCount);
+        handle.it->pool = pools.emplace(pools.end(), vulkanState, allocInfo, setCount);
+        handle.it->pool->allocate(allocInfo, layout, sets, setCount);
         return handle;
     }
 
     // see if existing pool can allocate
     for (auto it = pools.begin(); it != pools.end(); ++it) {
         if (it->canAllocate(allocInfo, setCount)) {
-            handle->pool = it;
+            handle.it->pool = it;
             goto newPoolNotNeeded;
         }
     }
 
     // create new pool to allocate from
-    handle->pool = pools.emplace(pools.end(), vulkanState);
+    handle.it->pool = pools.emplace(pools.end(), vulkanState);
 
 newPoolNotNeeded:
-    handle->pool->allocate(allocInfo, layout, sets, setCount);
+    handle.it->pool->allocate(allocInfo, layout, sets, setCount);
     return handle;
 }
 
-void DescriptorPool::release(AllocationHandle handle, const VkDescriptorSet* sets) {
+void DescriptorPool::release(AllocationHandle& handle, const VkDescriptorSet* sets) {
+    if (!handle.pool) { return; }
+    if (handle.pool != this) {
+        BL_LOG_ERROR << "Attempted to release descriptor set from wrong pool";
+        return;
+    }
+
     std::unique_lock lock(mutex);
 
     // find layout info
-    const auto lit = layoutMap.find(handle->layout);
+    const auto lit = layoutMap.find(handle.it->layout);
     if (lit == layoutMap.end()) {
         throw std::runtime_error(
             "Failed to find descriptor set layout. Create the layout with the pool");
@@ -139,11 +145,14 @@ void DescriptorPool::release(AllocationHandle handle, const VkDescriptorSet* set
     const SetBindingInfo& allocInfo = lit->second;
 
     // free sets
-    if (handle->dedicated) { pools.erase(handle->pool); }
+    if (handle.it->dedicated) { pools.erase(handle.it->pool); }
     else {
-        handle->pool->release(allocInfo, sets != nullptr ? sets : handle->sets, handle->setCount);
+        handle.it->pool->release(
+            allocInfo, sets != nullptr ? sets : handle.it->sets, handle.it->setCount);
     }
-    allocations.erase(handle);
+    allocations.erase(handle.it);
+
+    handle.pool = nullptr;
 }
 
 DescriptorPool::Subpool::Subpool(VulkanLayer& vs)
@@ -260,6 +269,54 @@ void DescriptorPool::Subpool::release(const SetBindingInfo& allocInfo, const VkD
 
     // free sets
     vkCheck(vkFreeDescriptorSets(vulkanState.getDevice(), pool, setCount, sets));
+}
+
+DescriptorPool::AllocationHandle::AllocationHandle()
+: pool(nullptr) {}
+
+DescriptorPool::AllocationHandle::AllocationHandle(AllocationHandle&& other)
+: pool(other.pool)
+, it(other.it) {
+    other.pool = nullptr;
+}
+
+DescriptorPool::AllocationHandle::AllocationHandle(const AllocationHandle& other)
+: pool(other.pool)
+, it(other.it) {}
+
+DescriptorPool::AllocationHandle::AllocationHandle(DescriptorPool* p,
+                                                   std::list<Allocation>::iterator allocIt)
+: pool(p)
+, it(allocIt) {}
+
+DescriptorPool::AllocationHandle& DescriptorPool::AllocationHandle::operator=(
+    AllocationHandle&& other) {
+    if (this != &other) {
+        pool       = other.pool;
+        it         = other.it;
+        other.pool = nullptr;
+    }
+    return *this;
+}
+
+DescriptorPool::AllocationHandle& DescriptorPool::AllocationHandle::operator=(
+    const AllocationHandle& other) {
+    if (this != &other) {
+        pool = other.pool;
+        it   = other.it;
+    }
+    return *this;
+}
+
+DescriptorPool::AllocationHandle::~AllocationHandle() {
+    if (pool) { release(); }
+}
+
+void DescriptorPool::AllocationHandle::release(const VkDescriptorSet* sets) {
+    if (pool) {
+        pool->release(*this, sets);
+        pool = nullptr;
+    }
 }
 
 } // namespace vk
